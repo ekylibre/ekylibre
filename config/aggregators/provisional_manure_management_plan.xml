@@ -11,8 +11,14 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
+        <variable name="recommender" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.recommender"/>
+        <property name="manure_management_plan_name" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.name"/>
+        <property name="recommender_full_name" if="recommender" value="recommender.full_name"/>
+        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>    
+        <property name="manure_management_plan_default_computation_method" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.default_computation_method"/>
+        <property name="manure_management_plan_opened_at" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.opened_at" type="datetime"/>
         <!-- looking for all CultivableLandParcel in current campaign -->
-        <sections for="zone" in="CultivableZone.of_campaign(campaign).order(:name)" of-type="record">
+        <sections for="zone" in="CultivableZone.of_campaign(campaign).reorder(:work_number)" of-type="record">
           <title name="name" of="zone"/>
           <property name="work_number" of="zone"/>
           <property name="clusters_work_number" of="zone"/>

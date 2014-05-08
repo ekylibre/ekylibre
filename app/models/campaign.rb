@@ -38,6 +38,7 @@ class Campaign < Ekylibre::Record::Base
   has_many :productions
   has_many :production_supports, through: :productions, source: :supports
   has_many :interventions, through: :productions
+  has_one :selected_manure_management_plan, -> { selected }, class_name: "ManureManagementPlan", foreign_key: :campaign_id, inverse_of: :campaign
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
   validates_length_of :number, allow_nil: true, maximum: 60

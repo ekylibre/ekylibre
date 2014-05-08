@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.zoom" value="0.8467108950806659"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="54"/>
+	<property name="ireport.y" value="242"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -133,6 +133,21 @@
 	</field>
 	<field name="provisional_grains_yield" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@provisional-grains-yield]]></fieldDescription>
+	</field>
+	<field name="manure_management_plan_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-name]]></fieldDescription>
+	</field>
+	<field name="recommender_full_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@recommender-full-name]]></fieldDescription>
+	</field>
+	<field name="manure_management_plan_default_computation_method" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-default-computation-method]]></fieldDescription>
+	</field>
+	<field name="manure_management_plan_opened_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-opened-at]]></fieldDescription>
+	</field>
+	<field name="recommender_mail_coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@recommender-mail-coordinate]]></fieldDescription>
 	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
@@ -270,11 +285,6 @@
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{provisional_grains_yield}]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" isBlankWhenNull="true">
-					<reportElement style="base" x="522" y="116" width="71" height="29" uuid="1c84eae7-2baf-4a38-80c4-b91eb3f6b981"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA["01/02/"+$F{campaign}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement style="table-td" x="347" y="178" width="102" height="43" uuid="cddc379a-03ee-4920-93b0-60a307c6eae4"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
@@ -330,6 +340,10 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<text><![CDATA[quantité de phosphore]]></text>
 				</staticText>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement style="base" x="522" y="118" width="71" height="27" uuid="f9143336-4ef4-4b19-ab98-687edd7fc16b"/>
+					<textFieldExpression><![CDATA[$F{manure_management_plan_opened_at}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 	</group>
@@ -337,7 +351,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="327" splitType="Stretch">
+		<band height="464" splitType="Stretch">
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
@@ -353,17 +367,85 @@
 				<text><![CDATA[Plan prévisionnel de fumure (PPF)]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="2" y="161" width="786" height="40" uuid="d09492f4-a25a-4c31-b4ec-8b846e4b6968"/>
+				<reportElement x="0" y="176" width="786" height="40" uuid="d09492f4-a25a-4c31-b4ec-8b846e4b6968"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="24" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="address" x="2" y="241" width="786" height="20" uuid="0125d4d6-d61c-43cb-a5e3-d1b790b96ef8"/>
+				<reportElement style="address" x="0" y="215" width="786" height="20" uuid="0125d4d6-d61c-43cb-a5e3-d1b790b96ef8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement style="emphasis" positionType="FixRelativeToBottom" x="8" y="421" width="340" height="18" uuid="11f463a9-9d0a-4d6f-aae4-70731913251e">
+					<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Arrêté national du 23/10/2013 modifiant l'arrêté national du 19/12/2011]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="emphasis" positionType="FixRelativeToBottom" x="8" y="439" width="340" height="18" uuid="3c6e242e-a253-4ea6-a5bb-8fb4bfe1116d">
+					<printWhenExpression><![CDATA[$F{manure_management_plan_default_computation_method}.toString() == "poitou_charentes_2013"]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Arrêté préfectoral n°255 du 31/08/2012 (Poitou-Charentes)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label-strong" positionType="FixRelativeToBottom" x="0" y="388" width="348" height="20" uuid="a97c76cd-5464-4d5a-b264-fdf61c709e75">
+					<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Référence réglementaires]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label-strong" positionType="FixRelativeToBottom" x="435" y="388" width="85" height="20" uuid="959606b2-d048-4e12-bd2a-d3a2ace530a3">
+					<printWhenExpression><![CDATA[!$F{recommender_full_name}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Réalisateur]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="531" y="388" width="252" height="20" uuid="8db4482b-1c38-4234-b06e-eb29aedf6398">
+					<printWhenExpression><![CDATA[!$F{recommender_full_name}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{recommender_full_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="address" positionType="FixRelativeToBottom" x="435" y="418" width="348" height="39" uuid="24a74746-6699-4343-b49e-80842635c40b">
+					<printWhenExpression><![CDATA[!$F{recommender_mail_coordinate}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{recommender_mail_coordinate}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="strong" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="374" width="784" height="2" backcolor="#7C9DDD" uuid="1a874c4f-bf37-40e2-8a45-680a399286bb"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Open Sans"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="strong" positionType="FixRelativeToBottom" mode="Opaque" x="393" y="388" width="2" height="69" backcolor="#7C9DDD" uuid="eb891ef9-d14e-46d5-85ea-213806e7d919"/>
+				<textElement verticalAlignment="Middle" rotation="Right">
+					<font pdfFontName="Open Sans"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

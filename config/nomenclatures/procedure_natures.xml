@@ -15,7 +15,7 @@
       <item name="haymaking" roles="target, output, doer, tool"/>
       <item name="transformation" roles="input, output, doer, tool"/>
       <item name="tillage" roles="target"/>
-      <item name="plant_fertilisation" roles="input, target"/>
+      <item name="plant_nutrition" roles="input, target"/>
       <item name="plant_illness_treatment" roles="input, target, doer, tool"/>
       <item name="soil_enrichment" roles="input, target, tool, doer, input_origin"/>
       <item name="soil_cleaning" roles="target"/>
@@ -91,10 +91,10 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-plant_fertilisation">
+  <nomenclature name="procedure_natures-plant_nutrition">
     <items>
       <item name="plant_irrigation" roles="input, target"/>
-      <item name="plant_nutrition" roles="input, target, doer"/>
+      <item name="plant_fertilisation" roles="input, target, doer"/>
     </items>
   </nomenclature>
 

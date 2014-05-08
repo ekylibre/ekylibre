@@ -757,7 +757,7 @@
             category="equipment"
             variety="spreader"
             population_counting="unitary"
-            abilities="spread(mineral_matter)"
+            abilities="spread(preparation)"
             variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
@@ -967,7 +967,7 @@
             variety="water"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population"
+            variable_indicators="population, nitrogen_concentration, potential_hydrogen"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="irrigation_water"
@@ -975,7 +975,7 @@
             variety="water"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population"
+            variable_indicators="population, nitrogen_concentration, potential_hydrogen"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="natural_water"
@@ -983,7 +983,7 @@
             variety="water"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population"
+            variable_indicators="population, nitrogen_concentration, potential_hydrogen"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="electricity"

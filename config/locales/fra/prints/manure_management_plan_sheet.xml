@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mmp_sheet" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0000000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="336"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="table">
 		<box>
@@ -461,7 +461,7 @@
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
 				</textElement>
-				<text><![CDATA[Arrêté national 23/10/2013 modifiant l'arrêté national du 19/12/2011]]></text>
+				<text><![CDATA[Arrêté national du 23/10/2013 modifiant l'arrêté national du 19/12/2011]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="label-strong" x="0" y="45" width="498" height="22" uuid="7d1f8e6b-fffc-4664-912e-414cc6ec06b4"/>

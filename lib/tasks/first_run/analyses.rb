@@ -151,12 +151,11 @@ load_data :analyses do |loader|
 
         end
         # if an lan_parcel exist, link to analysis
-        if land_parcel = LandParcel.find_by_work_number(r.landparcel_work_number)
-          analysis.product = land_parcel
+        if water = Matter.find_by_variety('water')
+          analysis.product = water
           analysis.save!
-          land_parcel.read!(:soil_nature, r.analyse_soil_nature, at: r.sampled_at) if r.analyse_soil_nature
-          land_parcel.read!(:phosphorus_concentration, r.p_ppm_value, at: r.sampled_at) if r.p_ppm_value
-          land_parcel.read!(:potassium_concentration, r.k_ppm_value, at: r.sampled_at) if r.k_ppm_value
+          water.read!(:potential_hydrogen, r.potential_hydrogen, at: r.sampled_at) if r.potential_hydrogen
+          water.read!(:nitrogen_concentration, r.nitrogen_concentration, at: r.sampled_at) if r.nitrogen_concentration
         end
         
         w.check_point
