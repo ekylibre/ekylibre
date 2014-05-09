@@ -19,29 +19,42 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: manure_management_plans
+# == Table: product_nature_category_taxations
 #
-#  annotation                 :text
-#  campaign_id                :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
-#  default_computation_method :string(255)      not null
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
-#  locked                     :boolean          not null
-#  name                       :string(255)      not null
-#  opened_at                  :datetime         not null
-#  recommender_id             :integer          not null
-#  selected                   :boolean          not null
+#  product_nature_category_id :integer          not null
+#  tax_id                     :integer          not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  usage                      :string(255)      not null
 #
-require 'test_helper'
+#
+# == Fixture: product_nature_category_taxations
+#
+# product_nature_category_taxations_001:
+#   creator: users_001
+#   product_nature_category: product_nature_categories_001
+#   tax: taxes_001
+#   updater: users_001
+#   usage: "Lorem ipsum"
+#
 
-class ManureManagementPlanTest < ActiveSupport::TestCase
 
-  test "presence of fixtures" do
-    # assert_equal 2, ManureManagementPlan.count
-  end
+product_nature_category_taxations_001:
+  creator: users_001
+  product_nature_category: product_nature_categories_001
+  tax: taxes_001
+  updater: users_001
+  usage: "sale"
 
-end
+product_nature_category_taxations_001:
+  creator: users_001
+  product_nature_category: product_nature_categories_002
+  tax: taxes_002
+  updater: users_001
+  usage: "purchase"
+
+

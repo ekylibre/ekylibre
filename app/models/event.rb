@@ -79,8 +79,8 @@ class Event < Ekylibre::Record::Base
     end
   end
 
-  protect on: :update do
-    self.intervention.present?
+  def updateable?
+    !self.intervention.present?
   end
 
   # TODO Make it better if possible

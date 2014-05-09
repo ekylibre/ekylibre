@@ -1,3 +1,5 @@
+= f.object.errors.inspect
+
 = field_set do
   = f.input :name
   = f.input :pictogram
@@ -19,11 +21,15 @@
 
 = field_set(:sales) do
   = f.referenced_association :product_account
-  = f.association :sale_taxes, as: :radio_buttons
+  -# = f.association :sale_taxes, as: :radio_buttons
+  = f.nested_association :sale_taxations
 
 = field_set(:purchases) do
   = f.referenced_association :charge_account
-  = f.association :purchase_taxes, as: :radio_buttons
+  -# = f.association :purchase_taxes, as: :radio_buttons
+  = f.nested_association :purchase_taxations
+
+
 
 -# = field_set(:accountancy) do
 

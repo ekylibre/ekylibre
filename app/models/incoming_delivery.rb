@@ -64,7 +64,6 @@ class IncomingDelivery < Ekylibre::Record::Base
 
   before_validation do
     self.received_at ||= Time.now
-    return true
   end
 
   after_initialize do

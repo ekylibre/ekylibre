@@ -1263,7 +1263,7 @@
         <page to="backend/outgoing_payment_modes#update"/>
       </item>
     </group>
-    <group name="sale" icon="bar-chart">
+    <group name="trade" icon="bar-chart">
       <item name="sale_natures">
         <page to="backend/sale_natures#index"/>
         <page to="backend/sale_natures#create"/>
@@ -1275,8 +1275,6 @@
         <page to="backend/sale_natures#unroll"/>
         <page to="backend/sale_natures#update"/>
       </item>
-    </group>
-    <group name="purchase" icon="shopping-cart">
       <item name="purchase_natures">
         <page to="backend/purchase_natures#index"/>
         <page to="backend/purchase_natures#create"/>

@@ -24,8 +24,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   # Display a selector with "new" button
   def referenced_association(association, options = {}, &block)
-    reflection = find_association_reflection(association)
-    raise "Association #{association.inspect} not found" unless reflection
+    unless reflection = find_association_reflection(association)
+      raise "Association #{association.inspect} not found"
+    end
     if reflection.macro != :belongs_to
       raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
     end
@@ -88,12 +89,13 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead." if block_given?
     # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
     item = association.to_s.singularize
+    options[:locals] ||= {}
     html = self.simple_fields_for(association) do |nested|
-      @template.render("#{item}_fields", :f => nested)
+      @template.render("#{item}_fields", options[:locals].merge(f: nested))
     end
     unless options[:new].is_a?(FalseClass)
       if reflection.macro == :has_many
-        html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => "nested-add add-#{item}"), :class => "links")
+        html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: {locals: options[:locals]}, class: "nested-add add-#{item}"), :class => "links")
       end
     end
     return @template.content_tag(:div, html, :id => "#{association}-field")

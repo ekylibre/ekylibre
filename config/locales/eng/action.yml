@@ -451,7 +451,7 @@ eng:
       incorporate: "Incorporate product nature category: %{name}"
       index: "Product categories"
       new: "New product category"
-      pick: "Pick product nature category: %{name}"
+      pick: "Pick product nature category"
       show: "Product category: %{name}"
     backend/product_nature_variant_readings:
       # edit: "Edit product nature variant reading: %{name}"
@@ -461,14 +461,14 @@ eng:
       incorporate: "Incorporate product nature variant: %{name}"
       index: "Product variant"
       new: "New product variant"
-      pick: "Pick product nature variant: %{name}"
+      pick: "Pick product nature variant"
       show: "Product variant: %{name}"
     backend/product_natures:
       edit: "Edit product type: %{name}"
       incorporate: "Incorporate product nature: %{name}"
       index: "Product types"
       new: "New product type"
-      pick: "Pick product nature: %{name}"
+      pick: "Pick product nature"
       show: "Product type: %{name}"
     backend/production_support_markers:
       # edit: "Edit production support marker: %{name}"
@@ -662,8 +662,10 @@ eng:
     add_payment: "Add payment"
     add_phone: "Add phone number"
     add_production: "Add production"
+    add_purchase_taxation: "Add purchase taxation"
     add_quickly_a_line: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
+    add_sale_taxation: "Add sale taxation"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_website: "Add website"
     address: "Address" #?
@@ -769,7 +771,6 @@ eng:
     copy_of: "Copy of %{source}" #?
     cost_income_statement: "Cost Income Statement" #?
     cost_sum: "Total Cost" #?
-    # country: "Country"
     counts_by_nature: "Number of documents to account per type" #?
     create: "Create"
     create_journal: "— Create journal —" #?
@@ -786,7 +787,6 @@ eng:
     critic_stocks: "Stocks below critical threshold" #?
     csv_statistics: "CSV statistics" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
-    # currency: "Currency"
     currency_with_code: "%{name} (%{code})" #?
     current: "Current" #?
     current_letter: "Current letter: %{letter}" #?
@@ -945,7 +945,6 @@ eng:
     journals: "Journals" #?
     land_parcel_name: "Land parcel name" #?
     land_parcels: "Land parcels" #?
-    # language: "Language"
     last_analyses: "Last milk analysis" #?
     last_animals: "Last birth" #?
     last_computed_balance: "Last computed balance" #?

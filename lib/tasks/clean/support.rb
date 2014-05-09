@@ -200,7 +200,7 @@ module Clean
         return ObjectSpace
           .each_object(Class)
           .select { |klass| klass < ActiveRecord::Base }
-          .select { |x| not x.name.match(/\AActiveRecord\:\:/) and not x.abstract_class? }
+          .select { |x| not x.name.match(/\AActiveRecord\:\:/) and not x.abstract_class? and not x.name.match(/\AHABTM\_/) }
           .uniq
           .sort{|a,b| a.name <=> b.name}
       end

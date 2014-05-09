@@ -170,7 +170,6 @@ class Entity < Ekylibre::Record::Base
       self.currency = entity.currency if self.currency.blank?
       self.country  = entity.country  if self.country.blank?
     end
-    return true
   end
 
   # validate do

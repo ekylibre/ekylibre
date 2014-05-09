@@ -16,11 +16,11 @@
       <!--
       French VAT on 01-01-2014
       -->
-      <item name="fr_vat_null" active="true" started_on="2014-01-01" computation_method="percentage" amount="0.0" country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="9"/>
-      <item name="fr_vat_particular" active="true" started_on="2014-01-01" computation_method="percentage" amount="2.1" country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="1"/>
-      <item name="fr_vat_reduced" active="true" started_on="2014-01-01" computation_method="percentage" amount="5.5" country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="2"/>
+      <item name="fr_vat_null"         active="true" started_on="2014-01-01" computation_method="percentage" amount="0.0"  country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="9"/>
+      <item name="fr_vat_particular"   active="true" started_on="2014-01-01" computation_method="percentage" amount="2.1"  country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="1"/>
+      <item name="fr_vat_reduced"      active="true" started_on="2014-01-01" computation_method="percentage" amount="5.5"  country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="2"/>
       <item name="fr_vat_intermediate" active="true" started_on="2014-01-01" computation_method="percentage" amount="10.0" country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="3"/>
-      <item name="fr_vat_normal" active="true" started_on="2014-01-01" computation_method="percentage" amount="20.0" country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4"/>
+      <item name="fr_vat_normal"       active="true" started_on="2014-01-01" computation_method="percentage" amount="20.0" country="fr" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4"/>
     </items>
   </nomenclature>
 </nomenclatures>

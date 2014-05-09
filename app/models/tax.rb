@@ -45,10 +45,7 @@ class Tax < Ekylibre::Record::Base
   enumerize :computation_method, in: [:amount, :percentage], default: :percentage, predicates: true
   belongs_to :collect_account, class_name: "Account"
   belongs_to :deduction_account, class_name: "Account"
-  has_many :price_templates, class_name: "ProductPriceTemplate"
-  has_and_belongs_to_many :sale_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_nature_categories_sale_taxes
-  has_and_belongs_to_many :purchase_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_nature_categories_purchase_taxes
-  # has_many :prices, class_name: "CatalogPrice"
+  has_many :product_nature_category_taxations, dependent: :restrict_with_error
   has_many :purchase_items
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -74,7 +71,7 @@ class Tax < Ekylibre::Record::Base
   scope :percentages, -> { where(:computation_method => 'percentage') }
 
   protect(on: :destroy) do
-    self.purchase_product_nature_categories.any? or self.sale_product_nature_categories.any? or self.sale_items.any? or self.purchase_items.any?
+    self.product_nature_category_taxation.any? or self.sale_items.any? or self.purchase_items.any?
   end
 
   # Compute the tax amount

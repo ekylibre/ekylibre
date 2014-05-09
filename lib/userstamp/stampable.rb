@@ -32,7 +32,6 @@ module Userstamp
         # Defaults to :deleted_by when compatibility mode is on
         class_attribute  :deleter_attribute
 
-        self.stampable unless caller.last.match(/rake\:/)
       end
     end
 
@@ -62,20 +61,18 @@ module Userstamp
         self.creator_attribute  = defaults[:creator_attribute].to_sym
         self.updater_attribute  = defaults[:updater_attribute].to_sym
         self.deleter_attribute  = defaults[:deleter_attribute].to_sym
+
         class_eval do
+          klass = stamper_class_name.to_s.singularize.camelize
+          belongs_to(:creator, class_name: klass, foreign_key: creator_attribute)
+          belongs_to(:updater, class_name: klass, foreign_key: updater_attribute)
 
-          belongs_to(:creator, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                     :foreign_key => self.creator_attribute)
-          before_save     :set_updater_attribute
-
-          belongs_to(:updater, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                     :foreign_key => self.updater_attribute)
-          before_create   :set_creator_attribute
+          before_save   :set_updater_attribute
+          before_create :set_creator_attribute
 
           # if self.respond_to?(:columns_definition) && self.columns_definition[:deleter_id]
-          #   belongs_to(:deleter, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-          #              :foreign_key => self.deleter_attribute)
-          #   before_destroy  :set_deleter_attribute
+          #   belongs_to(:deleter, , class_name: klass, foreign_key: deleter_attribute)
+          #   before_destroy :set_deleter_attribute
           # end
         end
 

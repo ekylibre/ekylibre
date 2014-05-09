@@ -56,8 +56,9 @@ class ProductLocalization < Ekylibre::Record::Base
   end
 
   before_save do
-    self.container = nil unless self.interior?
-    return true
+    unless self.interior?
+      self.container = nil
+    end
   end
 
   after_save do
@@ -74,7 +75,6 @@ class ProductLocalization < Ekylibre::Record::Base
         end
       end
     end
-    return true
   end
 
   protect do

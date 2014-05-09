@@ -449,6 +449,7 @@ eng:
         cow_milk_analysis: "Cow milk analysis"
         soil_analysis: "Soil analysis"
         unitary_cow_milk_analysis: "Unitary cow milk analysis"
+        # water_analysis: "Water analysis"
     animal_life_states:
       name: "Animal life states"
       items:
@@ -1109,6 +1110,7 @@ eng:
           FOB: "FOB"
       items:
         delivered_at_place: "Delivered at place"
+        # delivered_at_terminal: "Delivered at terminal"
         delivered_duty_paid: "Delivered duty paid"
         ex_works: "Ex works"
         free_carrier: "Free carrier"
@@ -1858,10 +1860,10 @@ eng:
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_feeding
         piece_replacement: "Piece replacement"             #< maintenance
-        plant_fertilisation: "Plant fertilisation"
+        plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
         plant_illness_treatment: "Plant illness treatment"
-        plant_irrigation: "Plant irrigation"               #< plant_fertilisation
-        plant_nutrition: "Plant nutrition"                 #< plant_fertilisation
+        plant_irrigation: "Plant irrigation"               #< plant_nutrition
+        plant_nutrition: "Plant nutrition"
         plowing: "Plowing"                                 #< tillage
         pressing: "Pressing"                               #< transformation
         pruning: "Pruning"

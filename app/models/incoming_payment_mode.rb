@@ -84,8 +84,6 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       self.commission_base_amount ||= 0
       self.commission_percentage ||= 0
     end
-
-    return true
   end
 
   protect(on: :destroy) do

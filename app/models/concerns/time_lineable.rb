@@ -12,14 +12,19 @@ module TimeLineable
     scope :current, -> { at(Time.now) }
 
     before_validation do
-      if following = siblings.after(self.started_at).order(:started_at).first
+      if self.started_at and following = siblings.after(self.started_at).order(:started_at).first
         self.stopped_at = following.started_at
       else
-        unless siblings.any?
-          self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, "+00:00")
-        end
+        # puts "Yeah! #{siblings.any?.inspect} #{self.started_at.inspect}".yellow
+        # puts siblings.count.to_s.green
+        # unless siblings.any?
+        #   puts "Oh!".yellow
+        self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, "+00:00")
+        # end
         self.stopped_at = nil
       end
+      # puts siblings.count.to_s.green
+      # puts self.inspect.blue
     end
 
     validate do
