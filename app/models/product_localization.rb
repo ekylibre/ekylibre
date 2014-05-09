@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
@@ -56,8 +56,9 @@ class ProductLocalization < Ekylibre::Record::Base
   end
 
   before_save do
-    self.container = nil unless self.interior?
-    return true
+    unless self.interior?
+      self.container = nil
+    end
   end
 
   after_save do
@@ -74,7 +75,6 @@ class ProductLocalization < Ekylibre::Record::Base
         end
       end
     end
-    return true
   end
 
   protect do

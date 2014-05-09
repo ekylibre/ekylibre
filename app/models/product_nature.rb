@@ -3,7 +3,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
@@ -173,14 +173,15 @@ class ProductNature < Ekylibre::Record::Base
     if self.derivative_of
       self.variety ||= self.derivative_of
     end
-    self.derivative_of = nil if self.variety.to_s == self.derivative_of.to_s
+    if self.variety.to_s == self.derivative_of.to_s
+      self.derivative_of = nil
+    end
     # unless self.indicators_array.detect{|i| i.name.to_sym == :population}
     #   self.indicators ||= ""
     #   self.indicators << " population"
     # end
     # self.indicators = self.indicators_array.map(&:name).sort.join(", ")
     # self.abilities_list = self.abilities_list.sort.join(", ")
-    return true
   end
 
   def has_indicator?(indicator)

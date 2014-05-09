@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
@@ -56,10 +56,13 @@ class ProductNatureCategory < Ekylibre::Record::Base
   belongs_to :subscription_nature
   has_many :subscriptions, foreign_key: :product_nature_id
   has_many :natures, class_name: "ProductNature", foreign_key: :category_id, inverse_of: :category
-  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :category_id, inverse_of: :category
   has_many :products, foreign_key: :category_id
-  has_and_belongs_to_many :sale_taxes, class_name: "Tax", join_table: :product_nature_categories_sale_taxes
-  has_and_belongs_to_many :purchase_taxes, class_name: "Tax", join_table: :product_nature_categories_purchase_taxes
+  has_many :taxations, class_name: "ProductNatureCategoryTaxation"
+  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :category_id, inverse_of: :category
+  has_many :sale_taxations,     -> { where(usage: "sale") },     class_name: "ProductNatureCategoryTaxation", inverse_of: :product_nature_category
+  has_many :sale_taxes,     class_name: "Tax", through: :sale_taxations,     source: :tax
+  has_many :purchase_taxations, -> { where(usage: "purchase") }, class_name: "ProductNatureCategoryTaxation", inverse_of: :product_nature_category
+  has_many :purchase_taxes, class_name: "Tax", through: :purchase_taxations, source: :tax
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, allow_nil: true, maximum: 30
   validates_length_of :pictogram, allow_nil: true, maximum: 120
@@ -77,24 +80,27 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
-  accepts_nested_attributes_for :natures, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :natures,            reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :sale_taxations,     reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :purchase_taxations, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered :force => false
 
-  # default_scope -> { order(:name) }
-  scope :availables, -> { where(:active => true).order(:name) }
-  scope :stockables, -> { where(:storable => true).order(:name) }
-  scope :saleables,  -> { where(:saleable => true).order(:name) }
-  scope :purchaseables, -> { where(:purchasable => true).order(:name) }
-  # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
+  scope :availables,    -> { where(active: true).order(:name) }
+  scope :stockables,    -> { where(storable: true).order(:name) }
+  scope :saleables,     -> { where(saleable: true).order(:name) }
+  scope :purchaseables, -> { where(purchasable: true).order(:name) }
 
   protect(on: :destroy) do
     self.natures.any? and self.products.any?
   end
 
   before_validation do
-    self.storable = false unless self.deliverable?
-    self.subscription_nature_id = nil unless self.subscribing?
-    return true
+    unless self.deliverable?
+      self.storable = false
+    end
+    unless self.subscribing?
+      self.subscription_nature_id = nil
+    end
   end
 
   def to

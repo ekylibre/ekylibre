@@ -1,6 +1,6 @@
 # encoding: utf-8
 # == License
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,12 +29,6 @@ class ApplicationController < ActionController::Base
   hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
 
   attr_accessor :current_theme
-
-  # LANGUAGES = ::I18n.available_locales.collect{ |l| "i18n.iso2".t(locale: l) }.sort.freeze
-  LANGUAGES = ::I18n.available_locales.inject({}) do |h,l| 
-    h["i18n.iso2".t(locale: l)] = l
-    h
-  end.freeze
 
 
   # # Permits to redirect
@@ -97,8 +91,8 @@ class ApplicationController < ActionController::Base
   def set_locale()
     session[:locale] = params[:locale] if params[:locale]
     if session[:locale].blank?
-      if locale = http_accept_language.compatible_language_from(LANGUAGES.keys)
-        session[:locale] = LANGUAGES[locale]
+      if locale = http_accept_language.compatible_language_from(Ekylibre::HTTP_LANGUAGES.keys)
+        session[:locale] = Ekylibre::HTTP_LANGUAGES[locale]
       end
     else
       session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)

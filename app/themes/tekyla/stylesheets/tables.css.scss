@@ -279,49 +279,18 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
             }
             margin: 0 auto;
             border: none;
-
-            &.abort       i { @include use-icon(remove); }
-            &.action      i { @include use-icon(cog); }
-            &.backup      i { @include use-icon(backward); }
-            &.cancel      i { @include use-icon(undo); }
-            &.checked     i { @include use-icon(check); }
-            &.close       i { @include use-icon(lock); }
-            &.column      i { @include use-icon(columns); }
-            &.confirm     i { @include use-icon(ok); }
-            &.configure   i { @include use-icon(wrench); }
-            &.correct     i { @include use-icon(edit); }
-            &.edit i,    &.update i { @include use-icon(edit); }
-            &.new i,     &.create i { @include use-icon(plus); }
-            &.destroy i, &.delete i { @include use-icon(remove); }
-            &.divide      i { @include use-icon(resize-full); }
-            &.down        i { @include use-icon(arrow-down); }
-            &.duplicate   i { @include use-icon(copy); }
-            &.extract     i { @include use-icon(download-alt); }
-            &.filter      i { @include use-icon(filter); }
-            &.firefox     i { @include use-icon(chevron-down); }
-            &.help        i { @include use-icon(question-sign); }
-            &.import      i { @include use-icon(upload-alt); }
-            &.invoice     i { @include use-icon(file-text-alt); }
-            &.letter      i { @include use-icon(pencil); }
-            &.load        i { @include use-icon(refresh); }
-            &.logout      i { @include use-icon(off); }
-            &.mail        i { @include use-icon(envelope); }
-            &.merge       i { @include use-icon(resize-small); }
-            &.play        i { @include use-icon(play); }
-            &.point       i { @include use-icon(ok); }
-            &.print       i { @include use-icon(print); }
-            &.reflect     i { @include use-icon(cog); }
-            &.refuse      i { @include use-icon(remove); }
-            &.register    i { @include use-icon(plus); }
-            &.reset       i { @include use-icon(refresh); }
-            &.restore     i { @include use-icon(chevron-left); }
-            &.ship        i { @include use-icon(truck); }
-            &.show        i { @include use-icon(print); }
-            &.sort        i { @include use-icon(sort); }
-            &.table       i { @include use-icon(table); }
-            &.unchecked   i { @include use-icon(check-empty); }
-            &.unmark      i { @include use-icon(remove-sign); }
-            &.up          i { @include use-icon(arrow-up); }
+	    @each $symbolic-icon in $symbolic-icons {
+		$symbol-name: nth($symbolic-icon, 1);
+		$symbol-code: nth($symbolic-icon, 2);
+		&.#{$symbol-name} i {
+		    @include icon($symbol-code);
+		}
+	    }
+	    @each $renaming in $all-aliases {
+		&.#{nth($renaming, 1)} i {
+		    @include use-icon(nth($renaming, 2));
+		}
+	    }
 	 }
 
       }

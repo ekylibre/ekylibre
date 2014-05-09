@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
@@ -84,8 +84,6 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       self.commission_base_amount ||= 0
       self.commission_percentage ||= 0
     end
-
-    return true
   end
 
   protect(on: :destroy) do

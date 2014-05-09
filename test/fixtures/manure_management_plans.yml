@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
@@ -26,7 +26,6 @@
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  default_computation_method :string(255)      not null
-#  exploitation_typology      :string(255)
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
 #  locked                     :boolean          not null

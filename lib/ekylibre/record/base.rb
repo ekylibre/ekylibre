@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
@@ -21,12 +21,6 @@
 
 
 module Ekylibre::Record
-
-  class RecordNotUpdateable < ActiveRecord::RecordNotSaved
-  end
-
-  class RecordNotDestroyable < ActiveRecord::RecordNotSaved
-  end
 
   class Scope < Struct.new(:name, :arity)
   end
@@ -62,7 +56,10 @@ module Ekylibre::Record
     def updateable?
       true
     end
-    alias :editable? :updateable?
+
+    def editable?
+      updateable?
+    end
 
     # Returns a relation for all other records
     def others

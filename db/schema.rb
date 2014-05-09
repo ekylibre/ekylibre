@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507065135) do
+ActiveRecord::Schema.define(version: 20140509084901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1390,7 +1390,6 @@ ActiveRecord::Schema.define(version: 20140507065135) do
     t.string   "default_computation_method",                 null: false
     t.boolean  "locked",                     default: false, null: false
     t.boolean  "selected",                   default: false, null: false
-    t.string   "exploitation_typology"
     t.text     "annotation"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
@@ -1859,21 +1858,24 @@ ActiveRecord::Schema.define(version: 20140507065135) do
   add_index "product_nature_categories", ["updated_at"], :name => "index_product_nature_categories_on_updated_at"
   add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
 
-  create_table "product_nature_categories_purchase_taxes", id: false, force: true do |t|
-    t.integer "product_nature_category_id", null: false
-    t.integer "tax_id",                     null: false
+  create_table "product_nature_category_taxations", force: true do |t|
+    t.integer  "product_nature_category_id",             null: false
+    t.integer  "tax_id",                                 null: false
+    t.string   "usage",                                  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",               default: 0, null: false
   end
 
-  add_index "product_nature_categories_purchase_taxes", ["product_nature_category_id"], :name => "index_product_nature_categories_purchase_taxes_on_category_id"
-  add_index "product_nature_categories_purchase_taxes", ["tax_id"], :name => "index_product_nature_categories_purchase_taxes_on_tax_id"
-
-  create_table "product_nature_categories_sale_taxes", id: false, force: true do |t|
-    t.integer "product_nature_category_id", null: false
-    t.integer "tax_id",                     null: false
-  end
-
-  add_index "product_nature_categories_sale_taxes", ["product_nature_category_id"], :name => "index_product_nature_categories_sale_taxes_on_category_id"
-  add_index "product_nature_categories_sale_taxes", ["tax_id"], :name => "index_product_nature_categories_sale_taxes_on_tax_id"
+  add_index "product_nature_category_taxations", ["created_at"], :name => "index_product_nature_category_taxations_on_created_at"
+  add_index "product_nature_category_taxations", ["creator_id"], :name => "index_product_nature_category_taxations_on_creator_id"
+  add_index "product_nature_category_taxations", ["product_nature_category_id"], :name => "index_product_nature_category_taxations_on_category_id"
+  add_index "product_nature_category_taxations", ["tax_id"], :name => "index_product_nature_category_taxations_on_tax_id"
+  add_index "product_nature_category_taxations", ["updated_at"], :name => "index_product_nature_category_taxations_on_updated_at"
+  add_index "product_nature_category_taxations", ["updater_id"], :name => "index_product_nature_category_taxations_on_updater_id"
+  add_index "product_nature_category_taxations", ["usage"], :name => "index_product_nature_category_taxations_on_usage"
 
   create_table "product_nature_variant_readings", force: true do |t|
     t.integer  "variant_id",                                                                                                     null: false

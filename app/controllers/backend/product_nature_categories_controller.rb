@@ -1,6 +1,6 @@
 # encoding: utf-8
 # == License
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2013 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
@@ -30,6 +30,8 @@ class Backend::ProductNatureCategoriesController < BackendController
     t.column :purchasable
     t.column :storable
     t.column :depreciable
+    t.action :new,  on: :none
+    t.action :pick, on: :none
     t.action :edit
     t.action :destroy, if: :destroyable?
   end

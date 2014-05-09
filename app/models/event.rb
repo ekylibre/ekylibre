@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre - Simple ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
@@ -79,8 +79,8 @@ class Event < Ekylibre::Record::Base
     end
   end
 
-  protect on: :update do
-    self.intervention.present?
+  def updateable?
+    !self.intervention.present?
   end
 
   # TODO Make it better if possible

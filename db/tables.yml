@@ -963,7 +963,6 @@ manure_management_plans:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   default_computation_method: {type: string, required: true}
-  exploitation_typology: {type: string}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   locked: {type: boolean, required: true, default: false}
@@ -1261,13 +1260,16 @@ product_nature_categories:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
-product_nature_categories_purchase_taxes:
+product_nature_category_taxations:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
   product_nature_category_id: {type: integer, references: product_nature_category, required: true}
   tax_id: {type: integer, references: tax, required: true}
-
-product_nature_categories_sale_taxes:
-  product_nature_category_id: {type: integer, references: product_nature_category, required: true}
-  tax_id: {type: integer, references: tax, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  usage: {type: string, required: true}
 
 product_nature_variant_readings:
   absolute_measure_value_unit: {type: string}

@@ -15,6 +15,11 @@ module Ekylibre
 
   CSV = ::CSV.freeze
 
+  HTTP_LANGUAGES = ::I18n.available_locales.inject({}) do |h, l|
+    h["i18n.iso2".t(locale: l)] = l
+    h
+  end.freeze
+
   # Returns Ekylibre VERSION
   @@version = nil
   def self.version

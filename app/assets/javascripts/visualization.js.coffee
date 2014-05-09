@@ -157,22 +157,37 @@
       if this.options.controls? 
         $.each this.options.controls, ( index, value ) ->
           if value.name == "fullscreen" 
-            #options = {position: "bottomleft", metric: true, imperial: false, maxWidth: 200}
-            controls = new L.Control.FullScreen(position: "bottomleft", metric: true, imperial: false, maxWidth: 200)
+            fullscreen_options = {
+              position: 'bottomleft'
+            }
+            controls = new L.Control.FullScreen(fullscreen_options)
             that.map.addControl controls
           #alert( index + ": " + value )            
           if value.name == "zoom"
-            controls = new L.Control.Zoom()
-            #that.map.removeControl (controls)
-            that.map.addControl controls
+           zoom_options = {
+             position: 'topleft'
+           }
+           controls = new L.Control.Zoom(zoom_options)
+           #that.map.removeControl (controls)
+           that.map.addControl controls
             #alert( index + ": " + description )
           if value.name == "tilelegend"
-            controls = new L.Control.TileLegend()
+            tilelegend_options = {
+              position: 'bottomleft'
+            }
+            controls = new L.Control.TileLegend(tilelegend_options)
             #that.map.removeControl (controls)
             that.map.addControl controls
             #alert( index + ": " + description )
           if value.name == "scale"
-            controls = new L.Control.Scale()
+            scale_options = {
+              position: 'bottomleft',
+              maxWidth: 200,
+              metric: true,
+              imperial: false,
+              updateWhenIdle: false
+            }
+            controls = new L.Control.Scale(scale_options)
             #that.map.removeControl (controls)
             that.map.addControl controls
             #alert( index + ": " + description )
@@ -187,7 +202,7 @@
             $.each over, ( index, value ) -> 
               overLayer = L.tileLayer.provider(value.provider_name)
               overlays[value.name] = overLayer
-            controls = new L.Control.Layers(baseLayers, overlays)
+            controls = new L.Control.SelectLayers(baseLayers, overlays)
 
             #that.map.removeControl (controls)
             that.map.addControl controls
