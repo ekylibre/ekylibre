@@ -1726,6 +1726,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#exclude"/>
+        <page to="backend/animals#include"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

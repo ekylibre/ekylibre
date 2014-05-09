@@ -1,4 +1,3 @@
-# coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
@@ -28,18 +27,17 @@ class Backend::AnimalGroupsController < BackendController
     t.column :name, url: true
     t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
+    t.action :new,     on: :none
     t.action :edit
-    t.action :destroy, if: :destroyable?
+    t.action :destroy
   end
 
-  # Liste des animaux d'un groupe d'animaux considéré
   list(:animals, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
-  # Liste des lieux du groupe d'animaux considéré
   list(:places, model: :product_localizations, conditions: {product_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :container, url: true
     t.column :nature

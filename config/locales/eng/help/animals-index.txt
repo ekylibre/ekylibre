@@ -1,10 +1,8 @@
 ====== Animals ======
 
-===== Animals' list =====
-
-Here, you can [[>backend/animals#new|create]] , change and view your animals.
+Here, you can [[>backend/animals#new|create]], change and view your animals.
 
 >>> To record an event related to an animal (birth, weighing, treatment, buying, selling, death,...), you have to [[>backend/interventions#new|create]]
 >>> {{icon:plus}} a new intervention
 
-!!! While no animal intervene in any indicators, interventions, purchases, sales,...it could be deleted.
+!!! While no animal intervene in any indicators, interventions, purchases, sales... it could be deleted.

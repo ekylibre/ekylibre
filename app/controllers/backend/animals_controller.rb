@@ -23,16 +23,19 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at
-    t.column :sex_text, label: :sex
+    t.column :sex
     t.status
     t.column :net_mass, datatype: :measure
     t.column :container, url: true
     #t.column :groups, url: true
-    t.column :mother, url: true
-    t.column :father, url: true
+    t.column :mother, url: true, hidden: true
+    t.column :father, url: true, hidden: true
     # t.action :show, url: {format: :pdf}, image: :print
+    t.action :new,     on: :none
+    t.action :include, on: :both
+    t.action :exclude, on: :both
     t.action :edit
-    t.action :destroy, if: :destroyable?
+    t.action :destroy
   end
 
   # Show a list of animal groups
@@ -63,6 +66,16 @@ class Backend::AnimalsController < Backend::MattersController
                                                                   {:memberships => {:include => :group}},
                                                                   {:localizations => {:include => :container}}])
 
+  end
+
+  def include
+    if request.post?
+    end
+  end
+
+  def exclude
+    if request.post?
+    end    
   end
 
 end
