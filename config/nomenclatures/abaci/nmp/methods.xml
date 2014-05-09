@@ -3,6 +3,7 @@
   <nomenclature name="nmp_methods" hierarchical="false">
     <items>
       <item name="poitou_charentes"/>
+      <item name="france"/>
     </items>
   </nomenclature>
 </nomenclatures>

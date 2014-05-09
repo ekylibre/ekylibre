@@ -1784,6 +1784,7 @@ arb:
         # identifiers: "Identifiers"
         # nature: "Nature"
         # url: "Url"
+    nmp_france_abacus_nitrogen_animal_production: #?
     nmp_methods:
       items:
         # poitou_charentes: "Poitou charentes"

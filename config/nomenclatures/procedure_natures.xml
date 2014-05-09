@@ -87,7 +87,7 @@
   <nomenclature name="procedure_natures-animal_feeding">
     <items>
       <item name="food_supply" roles="input, target, doer, tool"/>
-      <item name="pasturing" roles="input, target"/>
+      <item name="pasturing" roles="input, target, doer"/>
     </items>
   </nomenclature>
 

@@ -69,7 +69,8 @@ class LandParcel < Easement
   has_many :zone_memberships, class_name: "CultivableZoneMembership"
   has_many :memberships, class_name: "CultivableZoneMembership", foreign_key: :member_id
   has_many :cultivable_zones, class_name: "CultivableZone", through: :memberships, source: :group
-  has_many :groups, class_name: "Product", through: :memberships
+  has_many :product_memberships, class_name: "ProductMembership", foreign_key: :member_id
+  has_many :groups, class_name: "Product", through: :product_memberships, source: :group
 
   scope :members_of_zone, lambda { |group|
     where("id IN (SELECT member_id FROM #{CultivableZoneMembership.table_name} WHERE group_id = ?)", group.id)

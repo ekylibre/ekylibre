@@ -16,20 +16,10 @@
                  backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
                  /> <!-- l /m² -->
      <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
-     if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->          
-  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population" 
-     if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->         
-  <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
-     if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg K/ha -->
+     if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(milligram_per_kilogram) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(milligram_per_kilogram) / 1000000)"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(milligram_per_kilogram) / 1000000)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg N/ha -->
       </variable> 
       <variable name="spreader" abilities="spread(water)" roles="soil_enrichment-tool"/>
       <variable name="driver"   abilities="drive(tractor)" roles="soil_enrichment-doer"/>

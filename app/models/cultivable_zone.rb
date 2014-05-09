@@ -119,7 +119,7 @@ class CultivableZone < Zone
     numbers = []
     if lp.count > 0
       for landparcel in lp
-        groups = landparcel.groups_at(viewed_at)
+        groups = landparcel.groups
         for group in groups
           if group.is_a?(LandParcelCluster)
             numbers << group.work_number

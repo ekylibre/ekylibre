@@ -85,4 +85,12 @@ class AnimalGroup < ProductGroup
     Animal.members_of(self, viewed_at || Time.now)
   end
 
+  def daily_nitrogen_production(viewed_at = nil)
+    quantity = []
+    for animal in self.members_at(viewed_at)
+      quantity << animal.daily_nitrogen_production.to_d
+    end
+    return quantity.compact.sum.in_kilogram_per_day
+  end
+
 end

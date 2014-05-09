@@ -83,7 +83,34 @@ class Animal < Bioproduct
       return :go
     end
   end
-
+  
+  def daily_nitrogen_production
+    # set variables with default values
+    quantity = 0.in_kilogram_per_day
+    animal_milk_production = 0
+    animal_age = 24
+    
+    # get data
+    # age (if born_at not present then animal has 24 month)
+    if self.age
+      animal_age = (self.age / (3600*24*30)).to_d
+    end
+    # production (if a cow, get annual milk production)
+    if Nomen::Varieties[self.variety].self_and_parents.include?(Nomen::Varieties[:bos])
+      if self.milk_daily_production
+        animal_milk_production = (self.milk_daily_production * 365).to_d
+      end
+    end
+    items = Nomen::NmpFranceAbacusNitrogenAnimalProduction.list.select do |item|
+      item.minimum_age <= animal_age.to_i and animal_age.to_i < item.maximum_age and item.minimum_milk_production <= animal_milk_production.to_i and animal_milk_production.to_i < item.maximum_milk_production and item.variant.to_s == self.variant.reference_name.to_s
+    end
+    if items.any?
+      quantity_per_year = items.first.quantity
+      quantity = (quantity_per_year / 365).in_kilogram_per_day
+    end
+    return quantity
+  end
+  
   # # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
   # # test with Fourniture de l’inventaire d’une exploitation
   # # need to active SAVON GEM when begin to work

@@ -9,6 +9,9 @@
       .info
         %span.title= CultivableZone.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in_hectare.round(2).l
+      .info
+        %span.title= LandParcelGroup.human_attribute_name(:identification_number)
+        %span.value= resource.clusters_work_number
 
     - b.cell :weather, params: {id: resource.id}
 

@@ -58,12 +58,12 @@ fra:
       land_parcel:
         born_at: "Créé le"
         children: "Sous-parcelle" #?
-        number: "Numéro PAC ou numéro de parcelle" #?
+        number: "Numéro de parcelle" #?
         real_quantity: "Surface" #?
       land_parcel_group:
         born_at: "Créé le"
         children: "Sous-îlots" #?
-        identification_number: "Numéro PAC ou numéro d’îlots" #?
+        identification_number: "Numéro d’îlots PAC" #?
         real_quantity: "Surface" #?
       mandate: #?
       matter:  #?
@@ -510,6 +510,7 @@ fra:
     closable_financial_year: "Exercice clôturable" #?
     closed: "Clôturé"
     closed_at: "Date de clôture"
+    clusters_work_number: "Ilôts PAC"
     code: "Code"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"

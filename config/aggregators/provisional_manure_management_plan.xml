@@ -44,8 +44,8 @@
             
             -->
             <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="provisional_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment').with_cast(:'soil_enrichment-target', zone).order(:started_at)" of-type="record">
-              <variable name="actor" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
+            <sections for="provisional_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment').with_cast(:'soil_enrichment-target', zone).reorder(:started_at)" of-type="record">
+              <variable name="actor" if="provisional_intervention.casts.of_role(:'soil_enrichment-target')" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
               <title name="name" of="provisional_intervention"/>
               <property name="id" of="provisional_intervention" level="api"/>
               <property name="started_at" of="provisional_intervention" type="datetime"/>
@@ -62,6 +62,18 @@
                 <cell name="name" of="input.actor" />
                 <cell name="nitrogen_concentration" of="input.actor" />
               </matrix>
+            </sections>
+            <sections for="provisional_pasturing" in="support.interventions.provisional.of_nature(:'pasturing').reorder(:started_at)" of-type="record">
+              <variable name="animal_group" if="provisional_pasturing.casts.of_role(:'pasturing-doer')" value="provisional_pasturing.casts.of_role(:'pasturing-doer').first.actor"/>
+              <variable name="period" value="((provisional_pasturing.stopped_at - provisional_pasturing.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
+              <variable name="daily_nitrogen_production" of="animal_group" level="api"/>
+              <variable name="working_area" value="provisional_pasturing.casts.of_role(:'pasturing-target').first.population"/>
+              <title name="name" of="provisional_pasturing"/>
+              <property name="id" of="provisional_pasturing" level="api"/>
+              <property name="started_at" of="provisional_pasturing" type="datetime"/>
+              <property name="stopped_at" of="provisional_pasturing" type="datetime"/>
+              <property name="nitrogen_input" value="period * daily_nitrogen_production.to_d" level="api"/>
+              <property name="nitrogen_input_per_hectare" value="(period * daily_nitrogen_production.to_d) / working_area" level="api"/>
             </sections>
           </sections>
         </sections>

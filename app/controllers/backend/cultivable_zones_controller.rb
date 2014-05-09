@@ -26,7 +26,7 @@ class Backend::CultivableZonesController < Backend::LandParcelGroupsController
   list do |t|
     t.column :name, url: true
     t.column :work_number
-    # t.column :identification_number
+    t.column :clusters_work_number
     t.column :net_surface_area, datatype: :measure
     # t.column :unit
   end

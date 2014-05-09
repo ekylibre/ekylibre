@@ -35,6 +35,78 @@
             unit_name="head"
             frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 1.0"
             />
+      <item name="female_young_cow"
+            nature="female_young_cow"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: false, livestock_unit: 0.7"
+            />
+      <item name="male_young_cow"
+            nature="male_young_cow"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: false, livestock_unit: 0.7"
+            />
+      <item name="calf"
+            nature="calf"
+            unit_name="head"
+            frozen_indicators_values="population: 1, livestock_unit: 0.4, reproductor: false"
+            />
+      <!-- SHEEP -->
+      <item name="sheep_herd"
+            nature="sheep_herd"
+            derivative_of="ovis"
+            unit_name="head"
+            frozen_indicators_values=""
+            />
+      <item name="female_adult_sheep_herd"
+            nature="female_adult_sheep_herd"
+            derivative_of="ovis"
+            unit_name="head"
+            frozen_indicators_values="sex: female, reproductor: true"
+            />
+      <item name="female_adult_sheep"
+            nature="female_adult_sheep"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.15"
+            />
+      <item name="male_adult_sheep"
+            nature="male_adult_sheep"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.15"
+            />
+      <item name="lamb"
+            nature="lamb"
+            unit_name="head"
+            frozen_indicators_values="population: 1, livestock_unit: 0.05, reproductor: false"
+            />
+      <!-- GOAT -->
+      <item name="goat_herd"
+            nature="goat_herd"
+            derivative_of="capra"
+            unit_name="head"
+            frozen_indicators_values=""
+            />
+      <item name="female_adult_goat_herd"
+            nature="female_adult_goat_herd"
+            derivative_of="capra"
+            unit_name="head"
+            frozen_indicators_values="sex: female, reproductor: true"
+            />
+      <item name="female_adult_goat"
+            nature="female_adult_goat"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.17"
+            />
+      <item name="male_adult_goat"
+            nature="male_adult_goat"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.17"
+            />
+      <item name="young_goat"
+            nature="young_goat"
+            unit_name="head"
+            frozen_indicators_values="population: 1, livestock_unit: 0.09, reproductor: false"
+            />
+      <!-- MILK -->
       <item name="cow_milk"
             nature="milk"
             derivative_of="bos"
@@ -52,21 +124,6 @@
             derivative_of="ovis"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.037kilogram"
-            />
-      <item name="female_young_cow"
-            nature="female_young_cow"
-            unit_name="head"
-            frozen_indicators_values="population: 1, sex: female, reproductor: false, livestock_unit: 0.7"
-            />
-      <item name="male_young_cow"
-            nature="male_young_cow"
-            unit_name="head"
-            frozen_indicators_values="population: 1, sex: male, reproductor: false, livestock_unit: 0.7"
-            />
-      <item name="calf"
-            nature="calf"
-            unit_name="head"
-            frozen_indicators_values="population: 1, livestock_unit: 0.4, reproductor: false"
             />
       <!-- HEN -->
       <item name="female_hen_band"
@@ -632,6 +689,13 @@
             />
       <item name="grass"
             nature="grass"
+            derivative_of="plant"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="grass"
+            nature="grass"
+            derivative_of="plant"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />

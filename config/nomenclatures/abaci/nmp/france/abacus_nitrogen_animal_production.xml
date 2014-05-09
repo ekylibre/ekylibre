@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- ANNEXE VI MODIFIANT LE TABLEAU A DE L’ANNEXE II DE L’ARRÊTÉ DU 19 DÉCEMBRE 2011 -->
+  <nomenclature name="nmp_france_abacus_nitrogen_animal_production" hierarchical="false" translateable="false">
+    <property-natures>
+      <property-nature name="variant"                    type="choice"  nomenclature="product_nature_variants" required="true"/>
+      <property-nature name="minimum_age"                type="integer" required="true" default="0"/><!-- mois -->
+      <property-nature name="maximum_age"                type="integer" required="true" default="720"/><!-- mois -->
+      <property-nature name="minimum_outside_presence"   type="integer" required="true" default="0"/><!-- mois -->
+      <property-nature name="maximum_outside_presence"   type="integer" required="true" default="12"/><!-- mois -->
+      <property-nature name="minimum_milk_production"    type="integer" required="true" default="0"/><!-- kg lait/vache/an -->
+      <property-nature name="maximum_milk_production"    type="integer" required="true" default="16000"/><!-- kg lait/vache/an -->
+      <property-nature name="quantity"                   type="decimal" required="true"/><!-- Kg d’azote/animal présent/an -->
+    </property-natures>
+    <items>
+      <!-- Tableau Herbivores -->
+      
+      <!-- BOVINS LAITIER < 4 mois -->
+      <item name="milking_cow_outside_min_prod_min" variant="female_adult_cow" maximum_outside_presence="4" maximum_milk_production="6000" quantity="75"/>     
+      <item name="milking_cow_outside_min_prod_med" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="6000" maximum_milk_production="8000" quantity="83"/>
+      <item name="milking_cow_outside_min_prod_max" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="8000" quantity="91"/>
+      <!-- BOVINS LAITIER > 4 et  7 mois -->
+      <item name="milking_cow_outside_med_prod_min" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" maximum_milk_production="6000" quantity="92"/>     
+      <item name="milking_cow_outside_med_prod_med" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="101"/>
+      <item name="milking_cow_outside_med_prod_max" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="8000" quantity="111"/>
+      <!-- BOVINS LAITIER > 7 mois -->
+      <item name="milking_cow_outside_max_prod_min" variant="female_adult_cow" minimum_outside_presence="7" maximum_milk_production="6000" quantity="104"/>     
+      <item name="milking_cow_outside_max_prod_med" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="115"/>
+      <item name="milking_cow_outside_max_prod_max" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="8000" quantity="126"/>
+      <!-- BOVINS NON LAITIER-->
+      <item name="female_adult_cow"       variant="female_adult_cow" minimum_age="36" quantity="67"/>
+      <item name="female_young_adult_cow" variant="female_adult_cow" minimum_age="24" quantity="53"/>
+      <item name="male_adult_cow"         variant="male_adult_cow"   minimum_age="24" quantity="72"/>
+      <item name="female_young_cow"       variant="female_young_cow" minimum_age="12" maximum_age="24" quantity="42"/>
+      <item name="male_young_cow"         variant="male_young_cow"   minimum_age="12" maximum_age="24" quantity="42"/>
+      <item name="calf"                   variant="calf"             maximum_age="12" quantity="25"/>
+      <!-- OVINS ET CAPRINS -->
+      <item name="female_adult_sheep"     variant="female_adult_sheep" quantity="10"/>
+      <item name="male_adult_sheep"       variant="male_adult_sheep" quantity="10"/>
+      <item name="lamb"                   variant="lamb" quantity="5"/>
+      <item name="female_adult_goat"      variant="female_adult_goat" quantity="10"/>
+      <item name="male_adult_goat"        variant="male_adult_goat" quantity="10"/>
+      <item name="young_goat"             variant="young_goat" quantity="5"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
