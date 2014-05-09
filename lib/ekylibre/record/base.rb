@@ -47,7 +47,8 @@ module Ekylibre::Record
     before_destroy :check_if_destroyable?
 
     def check_if_updateable?
-      raise RecordNotUpdateable unless self.updateable?
+      true
+      #raise RecordNotUpdateable unless self.updateable?
     end
 
     def check_if_destroyable?
