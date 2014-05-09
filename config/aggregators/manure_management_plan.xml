@@ -66,6 +66,19 @@
                 </within>
               </matrix>
             </sections>
+            <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:pasturing)" of-type="record">
+              <variable name="animal_group" value="intervention.casts.of_role(:'pasturing-doer').first.actor"/>
+              <variable name="cultivation" value="intervention.casts.of_role(:'pasturing-target').first.actor"/>
+              <variable name="working_area" value="intervention.casts.of_role(:'pasturing-target').first.population"/>
+              <title name="name" of="intervention"/>
+              <property name="id" of="intervention" level="api"/>
+              <property name="started_at" of="intervention" type="datetime"/>
+              <property name="stopped_at" of="intervention" type="datetime"/>
+              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
+              <property name="animal_name" value="animal_group.name"/>
+              <property name="animal_daily_nitrogen_production" value="animal_group.daily_nitrogen_production" level="api"/>
+              
+            </sections>
             <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
           </sections>
         </sections>

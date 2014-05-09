@@ -17,9 +17,9 @@ Solution ternaire liquide 15.30 densité 1.4,mixed_liquid_fertilizer,S04_D01,201
 Solution 10_25,liquid_10_25_d1.4,S04_D01,2013-01-01,preparation,,,Population : 5,,430
 Fumier de l'exploitation,cattle_manure,S05_D05,2013-01-01,manure,bos,,Population : 4.55,,61
 ,EAU (m³),,,,,,,,
-Eau de la rivière Bruant,irrigation_water,S09_D02,2013-01-01,,,,Population : 500,,
-Eau du réseau,running_water,S09_D02,2013-01-01,,,,Population : 500,,
-Eau du puit,natural_water,S09_D02,2013-01-01,,,,Population : 500,,
+Eau de la rivière Bruant,irrigation_water,S09_D02,2013-01-01,,,,Population : 500 ; nitrogen_concentration: 45mg/l,,
+Eau du réseau,running_water,S09_D02,2013-01-01,,,,Population : 500 ; nitrogen_concentration: 15mg/l,,
+Eau du puit,natural_water,S09_D02,2013-01-01,,,,Population : 500 ; nitrogen_concentration: 30mg/l,,
 ,DEFENSES DES VEGETAUX,,,,,,,,
 Axial Pratic,poaceae_herbicide,S05_D07,2013-01-01,preparation,,,Population : 50,,23.33
 Riflexine,riflexine,S05_D07,2013-01-01,preparation,,,Population : 40,,4

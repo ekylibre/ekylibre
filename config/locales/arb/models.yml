@@ -1078,6 +1078,7 @@ arb:
     clients: "العملاء"
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
+    # clusters_work_number: "Clusters work number"
     code: "الرمز"
     code2: "الرمز الثاني" #?
     coefficient: "الدرجة"

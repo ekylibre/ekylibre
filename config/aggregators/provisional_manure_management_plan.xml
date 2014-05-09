@@ -59,8 +59,11 @@
               <matrix name="origins" for="input" in="provisional_intervention.casts.of_role(:'soil_enrichment-input_origin')">
                 <cell name="id" of="input" level="api"/>
                 <cell name="variant_name" of="input.actor" />
+                <cell name="unit_name" of="input.actor" />
                 <cell name="name" of="input.actor" />
                 <cell name="nitrogen_concentration" of="input.actor" />
+                <cell name="phosphorus_concentration" of="input.actor" />
+                <cell name="potassium_concentration" of="input.actor" />
               </matrix>
             </sections>
             <sections for="provisional_pasturing" in="support.interventions.provisional.of_nature(:'pasturing').reorder(:started_at)" of-type="record">
@@ -72,8 +75,8 @@
               <property name="id" of="provisional_pasturing" level="api"/>
               <property name="started_at" of="provisional_pasturing" type="datetime"/>
               <property name="stopped_at" of="provisional_pasturing" type="datetime"/>
-              <property name="nitrogen_input" value="period * daily_nitrogen_production.to_d" level="api"/>
-              <property name="nitrogen_input_per_hectare" value="(period * daily_nitrogen_production.to_d) / working_area" level="api"/>
+              <property name="nitrogen_input" value="period.to_d * daily_nitrogen_production.to_d" level="api"/>
+              <property name="nitrogen_input_per_hectare" value="(period.to_d * daily_nitrogen_production.to_d) / working_area" level="api"/>
             </sections>
           </sections>
         </sections>

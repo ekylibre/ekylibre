@@ -437,6 +437,7 @@ jpn:
     # clients: "Clients"
     # closed: "Closed"
     # closed_at: "Closed on"
+    # clusters_work_number: "Clusters work number"
     code: "コード"
     # coefficient: "Coefficient"
     # collect_account: "Collect account"

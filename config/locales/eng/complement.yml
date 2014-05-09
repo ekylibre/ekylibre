@@ -42,6 +42,7 @@ eng:
         cow_milk_analysis: "Cow milk analysis"
         soil_analysis: "Soil analysis"
         unitary_cow_milk_analysis: "Unitary cow milk analysis"
+        water_analysis: "Water analysis"
     animal:
       variety:
         allium: "Allium"
@@ -3441,6 +3442,7 @@ eng:
     incoming_delivery:
       mode:
         delivered_at_place: "Delivered at place"
+        delivered_at_terminal: "Delivered at terminal"
         delivered_duty_paid: "Delivered duty paid"
         ex_works: "Ex works"
         free_carrier: "Free carrier"
@@ -5455,6 +5457,7 @@ eng:
     outgoing_delivery:
       mode:
         delivered_at_place: "Delivered at place"
+        delivered_at_terminal: "Delivered at terminal"
         delivered_duty_paid: "Delivered duty paid"
         ex_works: "Ex works"
         free_carrier: "Free carrier"
@@ -7501,6 +7504,10 @@ eng:
         equipment_building_division: "Equipment building division"
         female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Female adult cow"
+        female_adult_goat: "Female adult goat"
+        female_adult_goat_herd: "Female adult goat herd"
+        female_adult_sheep: "Female adult sheep"
+        female_adult_sheep_herd: "Female adult sheep herd"
         female_young_cow: "Female young cow"
         fermented_grape_juice: "Fermented grape juice"
         fertilizer_division: "Fertilizer division"
@@ -7517,6 +7524,7 @@ eng:
         fuel_tank: "Fuel tank"
         fungicide: "Fungicide"
         gas: "Gas"
+        goat_herd: "Goat herd"
         grain: "Grain"
         grain_crop: "Grain crop"
         grape: "Grape"
@@ -7533,9 +7541,12 @@ eng:
         implanter: "Implanter"
         insecticide: "Insecticide"
         irrigation_water: "Irrigation water"
+        lamb: "Lamb"
         land_parcel: "Land parcel"
         land_parcel_cluster: "Land parcel cluster"
         male_adult_cow: "Male adult cow"
+        male_adult_goat: "Male adult goat"
+        male_adult_sheep: "Male adult sheep"
         male_young_cow: "Male young cow"
         manager: "Manager"
         manure_division: "Manure division"
@@ -7565,6 +7576,7 @@ eng:
         seed: "Seed"
         seedling: "Seedling"
         settlement: "Settlement"
+        sheep_herd: "Sheep herd"
         shell_fruit_reaper: "Shell fruit reaper"
         silage: "Silage"
         silage_division: "Silage division"
@@ -7592,6 +7604,7 @@ eng:
         wine_press: "Wine press"
         wine_storage_division: "Wine storage division"
         wine_tank: "Wine tank"
+        young_goat: "Young goat"
       variety:
         allium: "Allium"
         amaranthaceae: "Amaranthaceae"

@@ -83,13 +83,13 @@ class Animal < Bioproduct
       return :go
     end
   end
-  
+
   def daily_nitrogen_production
     # set variables with default values
     quantity = 0.in_kilogram_per_day
     animal_milk_production = 0
     animal_age = 24
-    
+
     # get data
     # age (if born_at not present then animal has 24 month)
     if self.age
@@ -110,7 +110,7 @@ class Animal < Bioproduct
     end
     return quantity
   end
-  
+
   # # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
   # # test with Fourniture de l’inventaire d’une exploitation
   # # need to active SAVON GEM when begin to work
