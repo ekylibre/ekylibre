@@ -790,9 +790,11 @@ fra:
     add_posology: "Ajouter une posologie" #?
     add_product: "Ajouter un produit" #?
     add_production: "Ajouter une production"
+    # add_purchase_taxation: "Add purchase taxation"
     # add_quickly_a_line: "Add quickly a line of product"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit" #?
     add_reading: "Ajouter une mesure pour un indicateur"
+    # add_sale_taxation: "Add sale taxation"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production" #?
     add_treatment: "Ajouter un traitement" #?

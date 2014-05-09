@@ -19,29 +19,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: manure_management_plans
+# == Table: product_nature_category_taxations
 #
-#  annotation                 :text
-#  campaign_id                :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
-#  default_computation_method :string(255)      not null
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
-#  locked                     :boolean          not null
-#  name                       :string(255)      not null
-#  opened_at                  :datetime         not null
-#  recommender_id             :integer          not null
-#  selected                   :boolean          not null
+#  product_nature_category_id :integer          not null
+#  tax_id                     :integer          not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
+#  usage                      :string(255)      not null
 #
 require 'test_helper'
 
-class ManureManagementPlanTest < ActiveSupport::TestCase
+class ProductNatureCategoryTaxationTest < ActiveSupport::TestCase
 
-  test "presence of fixtures" do
-    # assert_equal 2, ManureManagementPlan.count
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
   end
 
 end

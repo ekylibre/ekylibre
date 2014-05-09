@@ -98,8 +98,6 @@ fra:
         duration: "Nombre de numéros OU période d’abonnement"
         price: "Prix de revient"
         subscribing: "Abonnement ?" #?
-      product_nature_category:
-        # children: "Sub-categories"
       product_nature_price: #?
       product_nature_variant:  #?
         contour: "Contour de la forme" #?
@@ -193,7 +191,6 @@ fra:
         odd: "%{attribute} doit être pair"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "La date %{attribute} doit être postérieure à %{to}"
-        # record_has_been_already_validated: "Record has been already validated"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -349,7 +346,6 @@ fra:
       product_group: "Groupe de produit"
       product_junction: "Jonction de vie de produits"
       product_junction_way: "Accès à une jonction de vie de produits"
-      # product_link: "Product link"
       product_linkage: "Lien entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
@@ -357,6 +353,7 @@ fra:
       product_mixing: "Mélange de produits"
       product_nature: "Type de produit"
       product_nature_category: "Catégorie de type de produit"
+      product_nature_category_taxation: "Taxation de catégorie de type de produit"
       product_nature_variant: "Variante de type de produit"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
@@ -403,8 +400,7 @@ fra:
     absolute_measure_value_unit: "Absolute measure value unit"
     absolute_measure_value_value: "Absolute measure value value"
     absorbed_nitrogen_at_opening: "Azote absorbé à l'ouverture du bilan (Pi)"
-    # absorber: "Absorber"
-    # absorber_way: "Absorber way"
+    absorber: "Absorbeur"
     acceptance_status: "Acceptance status"
     account: "Compte comptable"
     account_balances: "Balances de compte"
@@ -418,8 +414,8 @@ fra:
     activity_code: "Code APE/NAF"
     actor: "Acteur"
     actual_number: "Numéro en cours"
-    # actual_population: "Actual population"
-    # actual_shape: "Actual shape"
+    actual_population: "Population réelle"
+    actual_shape: "Forme réelle"
     address: "Adresse"
     addresses: "Adresses"
     administrative_area: "Zone administrative"
@@ -535,11 +531,9 @@ fra:
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
     conditions: "Conditions (SQL)"
-    # confirmation_sent_at: "Confirmation sent at"
-    # confirmation_token: "Confirmation token"
+    confirmation_sent_at: "Confirmation envoyée le"
     confirmed_at: "Confirmée le"
     consumer: "Consommateur"
-    # consumer_way: "Consumer way"
     container: "Contenant"
     content: "Contenu"
     content_indicator: "Content indicator" #?
@@ -551,7 +545,6 @@ fra:
     contents: "Contents"
     contour: "Silhouette" #?
     coordinate: "Coordonnée"
-    # coordinate_columns: "Coordinate columns"
     country: "Pays"
     created_at: "Date de création"
     creator: "Créateur"
@@ -578,8 +571,8 @@ fra:
     current_net_mass: "Dernière pesée" #?
     current_ownership: "Current ownership"
     current_phase: "Current phase"
-    # current_sign_in_at: "Current sign in at"
-    # current_sign_in_ip: "Current sign in ip"
+    current_sign_in_at: "Connecté actuellement le"
+    current_sign_in_ip: "Connecté actuellement depuis l'IP"
     custom_field: "Champ complémentaire"
     custom_fields: "Champs complémentaires"
     customized: "Enregistrement personnalisé" #?
@@ -627,7 +620,7 @@ fra:
     depth: "Profondeur"
     derivative: "Derivative"
     derivative_of: "Dérivé de"
-    # derivatives_list: "Derivatives list"
+    derivatives_list: "Liste des dérivés"
     description: "Description"
     detail_payments: "Détailler les paiements"
     diff_less: "Droits enlevés" #?
@@ -682,12 +675,11 @@ fra:
     # evolvable: "Evolvable"
     exclusive: "Exclusif"
     execution_number: "N° d’exécution"
-    # expected_population: "Expected population"
-    # expected_shape: "Expected shape"
+    expected_population: "Population attendue"
+    expected_shape: "Forme attendue"
     expected_yield: "Rendement évalué (y)"
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
-    # exploitation_typology: "Exploitation typology"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
     expression: "Expression" #?
@@ -967,7 +959,7 @@ fra:
     pretax_amount: "Montant HT"
     previous_cultivation_residue_mineralization: "Minéralisation des résidus de culture du précédent (Mr)"
     price: "Prix"
-    price_templates: "Modèles de prix"
+    price_templates: "Modèles de prix" #?
     prices: "Prix"
     printed_at: "Datée du"
     priority: "Priorité"
@@ -994,6 +986,8 @@ fra:
     product_moves: "Product moves" #?
     product_nature: "Product nature"
     # product_nature_categories: "Product nature categories"
+    # product_nature_category: "Product nature category"
+    # product_nature_category_taxations: "Product nature category taxations"
     product_ownerships: "Product ownerships"
     # product_quadruple_mixings: "Product quadruple mixings"
     # product_quintuple_mixings: "Product quintuple mixings"
@@ -1019,7 +1013,7 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
-    # purchase_product_nature_categories: "Purchase product nature categories"
+    # purchase_taxations: "Purchase taxations"
     purchase_taxes: "Taxes à l'achat"
     purchased_at: "Acheté le"
     purchases: "Achats"
@@ -1062,6 +1056,7 @@ fra:
     # reference_tax: "Reference tax"
     reflected: "Refléter les changements"
     reflected_at: "Reflété le"
+    # reflection_nodes: "Reflection nodes"
     reflections: "Reflections"
     remaining_duration: "Durée d’utilisation prévue (heures)" #?
     # remember_created_at: "Remember created at"
@@ -1090,7 +1085,7 @@ fra:
     sale: "Vente"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
-    # sale_product_nature_categories: "Sale product nature categories"
+    # sale_taxations: "Sale taxations"
     # sale_taxes: "Sale taxes"
     saleable: "Vendable"
     sales: "Ventes"
@@ -1102,12 +1097,13 @@ fra:
     second_producer: "Second producer"
     second_producer_way: "Second producer way"
     selected: "Sélectionné"
+    # selected_manure_management_plan: "Selected manure management plan"
     # selected_manure_management_plan_zone: "Selected manure management plan zone"
     sender: "Expéditeur"
     sent_at: "Expédié le"
     serial: "N°Lot"
     serial_number: "Serial number"
-    shape: "Shape"
+    shape: "Forme"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
     soil_nature: "Nature du sol"
@@ -1151,6 +1147,7 @@ fra:
     target_type: "Type de cible"
     tasks: "Tâches" #?
     tax: "Taxe"
+    # taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
     theoric_quantity: "Quantité théorique" #?

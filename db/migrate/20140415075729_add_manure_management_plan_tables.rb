@@ -8,7 +8,7 @@ class AddManureManagementPlanTables < ActiveRecord::Migration
       t.string     :default_computation_method, null: false
       t.boolean    :locked,         null: false, default: false
       t.boolean    :selected,       null: false, default: false
-      t.string     :exploitation_typology
+      # t.string     :exploitation_typology
       t.text       :annotation
       t.stamps
     end

@@ -4432,6 +4432,7 @@ fra:
         product_mixing: "Mélange de produits"
         product_nature: "Type de produit"
         product_nature_category: "Catégorie de type de produit"
+        product_nature_category_taxation: "Taxation de catégorie de type de produit"
         product_nature_variant: "Variante de type de produit"
         product_nature_variant_reading: "Valeur d’indicateur de variante"
         product_ownership: "Propriété de produit"

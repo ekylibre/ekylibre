@@ -50,7 +50,7 @@ module Ekylibre::Record
           code << "      errors.add(:#{affair_id}, :invalid_currency, got: self.#{currency}, expected: self.#{affair}.currency)\n"
           code << "    end\n"
           code << "  end\n"
-          code << "  return true\n"
+          # code << "  return true\n"
           code << "end\n"
 
           # Updates affair if already given
@@ -58,7 +58,7 @@ module Ekylibre::Record
           code << "  if self.#{affair}\n"
           code << "    self.#{affair}.refresh!\n"
           code << "  end\n"
-          code << "  return true\n"
+          # code << "  return true\n"
           code << "end\n"
 
           # Create "empty" affair if missing before every save
@@ -69,7 +69,7 @@ module Ekylibre::Record
           code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, originator: self)\n"
           code << "    self.deal_with!(#{affair})\n"
           code << "  end\n"
-          code << "  return true\n"
+          # code << "  return true\n"
           code << "end\n"
 
 
@@ -112,7 +112,6 @@ module Ekylibre::Record
           code << "def detachable?\n"
           code << "  return self.other_deals.any?\n"
           code << "end\n"
-
 
 
           # # Create "empty" affair if missing before every save

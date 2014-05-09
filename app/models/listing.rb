@@ -47,7 +47,7 @@ class Listing < Ekylibre::Record::Base
   has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any") }, class_name: "ListingNode"
   has_many :coordinate_columns, -> { where("name LIKE ? AND nature = ? ", '%.coordinate', "column") }, class_name: "ListingNode"
   has_many :nodes, class_name: "ListingNode", dependent: :delete_all, inverse_of: :listing
-  has_many :reflections, -> { where("nature IN (?)", ["belongs_to", "has_many", "root"]) }, class_name: "ListingNode"
+  has_many :reflection_nodes, -> { where(nature: ["belongs_to", "has_many", "root"]) }, class_name: "ListingNode"
   has_one :root_node, -> {where(parent_id: nil)}, class_name: "ListingNode"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -98,7 +98,7 @@ class Listing < Ekylibre::Record::Base
       end
     end
     #  No reflections => no columns => no conditions
-    return c unless self.reflections.any?
+    return c unless self.reflection_nodes.any?
     # Filter on columns
     if self.filtered_columns.any?
       c << " AND " unless c.blank?

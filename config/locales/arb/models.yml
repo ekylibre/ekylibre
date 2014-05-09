@@ -400,9 +400,9 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      product_nature_category:
+      product_nature_category:  #?
         catalog_description: "الوصف" #?
-        children: "دلائل فرعية"
+        children: "دلائل فرعية" #?
         creator_id: "المننتج" #?
         published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
@@ -665,7 +665,7 @@ arb:
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
-        record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل"
+        record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"
         taken: "%{attribute} قد تم اتخاذه مسبقا"
         too_long: "%{attribute} طويل جدا (%{count}الحد الاقصى للاحرف)"
@@ -880,7 +880,6 @@ arb:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
-      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
@@ -889,6 +888,7 @@ arb:
       product_move: "حركة السهم" #?
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
+      # product_nature_category_taxation: "Product nature category taxation"
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       # product_nature_variant: "Product nature variant"
@@ -952,7 +952,6 @@ arb:
     # absolute_measure_value_value: "Absolute measure value value"
     # absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     # absorber: "Absorber"
-    # absorber_way: "Absorber way"
     # acceptance_status: "Acceptance status"
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
@@ -1112,11 +1111,9 @@ arb:
     condition_value: "قيمة المقارنة"
     conditions: "(SQL) شروط"
     # confirmation_sent_at: "Confirmation sent at"
-    # confirmation_token: "Confirmation token"
     confirmed_at: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في" #?
     # consumer: "Consumer"
-    # consumer_way: "Consumer way"
     consumption: "الاستهلاك" #?
     contact: "العنوان" #?
     contact_id: "العنوان" #?
@@ -1126,7 +1123,6 @@ arb:
     # content_localizations: "Content localizations"
     # contents: "Contents"
     # coordinate: "Coordinate"
-    # coordinate_columns: "Coordinate columns"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -1309,7 +1305,6 @@ arb:
     # expiration_delay: "Expiration delay"
     expiration_id: "تأخير مهلة" #?
     expired_at: "انتهى يوم"
-    # exploitation_typology: "Exploitation typology"
     exportable: "قبل للتصدير"
     # exportable_columns: "Exportable columns"
     expression: "اسلوب للتعبير" #?
@@ -1673,7 +1668,6 @@ arb:
     price: "سعر الكلفة"
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
-    # price_templates: "Price templates"
     prices: "الاسعار"
     printed_at: "طبع يوم"
     # priority: "Priority"
@@ -1702,6 +1696,8 @@ arb:
     # product_mixings: "Product mixings"
     # product_nature: "Product nature"
     # product_nature_categories: "Product nature categories"
+    # product_nature_category: "Product nature category"
+    # product_nature_category_taxations: "Product nature category taxations"
     # product_ownerships: "Product ownerships"
     # product_quadruple_mixings: "Product quadruple mixings"
     # product_quintuple_mixings: "Product quintuple mixings"
@@ -1734,7 +1730,7 @@ arb:
     # purchase_invoices: "Purchase invoices"
     # purchase_item: "Purchase item"
     purchase_items: "طرق طلب الشراء"
-    # purchase_product_nature_categories: "Purchase product nature categories"
+    # purchase_taxations: "Purchase taxations"
     # purchase_taxes: "Purchase taxes"
     # purchased_at: "Purchased on"
     purchases: "المشتريات"
@@ -1788,6 +1784,7 @@ arb:
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
     reflected: "انعكاس التغييرات"
     # reflected_at: "Reflected at"
+    # reflection_nodes: "Reflection nodes"
     # reflections: "Reflections"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
     # remember_created_at: "Remember created at"
@@ -1821,7 +1818,7 @@ arb:
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
     sale_natures: "انواع البيع" #?
-    # sale_product_nature_categories: "Sale product nature categories"
+    # sale_taxations: "Sale taxations"
     # sale_taxes: "Sale taxes"
     # saleable: "Saleable"
     sales: "المبيعات"
@@ -1844,6 +1841,7 @@ arb:
     # second_producer: "Second producer"
     # second_producer_way: "Second producer way"
     # selected: "Selected"
+    # selected_manure_management_plan: "Selected manure management plan"
     # selected_manure_management_plan_zone: "Selected manure management plan zone"
     self_bank_accounts: "الحسابات المصرفية الخاصة" #?
     self_cashes: "الصناديق النقدية الخاصة" #?
@@ -1865,7 +1863,7 @@ arb:
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
-    # spaced_iban: "Spaced iban"
+    # spaced_iban: "Spaced IBAN"
     sql_type: "SQL نوع"
     start: "البداية"
     # start_junction: "Start junction"
@@ -1886,7 +1884,7 @@ arb:
     stocks: "اسهم الانتاج" #?
     # stocks_categories: "Stocks categories"
     stopped_at: "توقف يوم"
-    # storable: "Gérer les stocks"
+    # storable: "Storable"
     # storage: "Storage"
     # storages: "Storages"
     story: "واقع"
@@ -1924,6 +1922,7 @@ arb:
     tax: "الضريبة"
     tax_declarations: "الاعلان عن الضرائب" #?
     tax_id: "الضريبة" #?
+    # taxations: "Taxations"
     taxes: "الضرائب" #?
     # team: "Team"
     template: "نموذج"

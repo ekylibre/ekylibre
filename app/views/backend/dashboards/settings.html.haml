@@ -2,11 +2,11 @@
   - b.hbox do
     - b.cell :main_settings do
       %dl.big
-        %dt= :currency.tl
+        %dt= :currency.t(scope: 'preferences')
         %dd= Nomen::Currencies[Preference[:currency]].human_name
-        %dt= :country.tl
+        %dt= :country.t(scope: 'preferences')
         %dd= Nomen::Countries[Preference[:country]].human_name
-        %dt= :language.tl
+        %dt= :language.t(scope: 'preferences')
         %dd= Nomen::Languages[Preference[:language]].human_name
 
     - b.cell :statistics do

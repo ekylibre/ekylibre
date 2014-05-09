@@ -530,7 +530,7 @@ spa:
       # incorporate: "Incorporate product nature category: %{name}"
       # index: "Product categories"
       # new: "New product category"
-      # pick: "Pick product nature category: %{name}"
+      # pick: "Pick product nature category"
       # show: "Product category: %{name}"
     backend/product_nature_components: #?
     backend/product_nature_indicators: #?
@@ -541,14 +541,14 @@ spa:
       # incorporate: "Incorporate product nature variant: %{name}"
       # index: "Product variant"
       # new: "New product variant"
-      # pick: "Pick product nature variant: %{name}"
+      # pick: "Pick product nature variant"
       # show: "Product variant: %{name}"
     backend/product_natures:
       # edit: "Edit product type: %{name}"
       # incorporate: "Incorporate product nature: %{name}"
       # index: "Product types"
       # new: "New product type"
-      # pick: "Pick product nature: %{name}"
+      # pick: "Pick product nature"
       # show: "Product type: %{name}"
     backend/product_ownerships: #?
     backend/product_phases: #?
@@ -799,8 +799,10 @@ spa:
     # add_payment: "Add payment"
     # add_phone: "Add phone number"
     # add_production: "Add production"
+    # add_purchase_taxation: "Add purchase taxation"
     # add_quickly_a_line: "Add quickly a line of product"
     # add_reading: "Add a value for an indicator"
+    # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_website: "Add website"
     # address: "Address"

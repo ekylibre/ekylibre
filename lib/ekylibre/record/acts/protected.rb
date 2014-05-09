@@ -1,4 +1,11 @@
 module Ekylibre::Record
+
+  class RecordNotUpdateable < ActiveRecord::RecordNotSaved
+  end
+
+  class RecordNotDestroyable < ActiveRecord::RecordNotSaved
+  end
+
   module Acts #:nodoc:
     module Protected #:nodoc:
       def self.included(base)
@@ -8,31 +15,30 @@ module Ekylibre::Record
       module ClassMethods
 
         # Blocks update or destroy if necessary
-        def protect(options={}, &block)
+        def protect(options = {}, &block)
           options[:on] = [:update, :destroy] unless options[:on]
+          code = "".c
           for callback in [options[:on]].flatten
             method_name = "protected_on_#{callback}?".to_sym
-            # if self.respond_to?(method_name)
-            #   raise StandardError, "Cannot protect because a method #{method_name} is already defined."
-            # end
 
-            define_method(method_name, &block)
+            code << "before_#{callback} :raise_exception_unless_#{callback}able?\n"
 
-            code  = "def #{callback}able?\n"
+            code << "def raise_exception_unless_#{callback}able?\n"
+            code << "  unless self.#{callback}able?\n"
+            code << "    raise RecordNot#{callback.to_s.camelcase}able\n"
+            code << "  end\n"
+            code << "end\n"
+
+            code << "def #{callback}able?\n"
             code << "  !#{method_name}\n"
             code << "end\n"
-            
-            if callback == :update
-              code << "alias :editable? #{callback}able?\n"
+
+            if block_given?
+              define_method(method_name, &block)
             end
-
-            # class_eval "before_#{callback} {|record| record.#{method_name} }"
-            # class_eval "before_#{callback} :#{method_name}"
-
-            class_eval code
           end
+          class_eval code
         end
-
 
       end
     end
