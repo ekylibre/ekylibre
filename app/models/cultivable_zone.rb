@@ -137,7 +137,7 @@ class CultivableZone < Zone
     varieties = []
     if lp.count > 0
       for landparcel in lp
-        varieties << landparcel.variant_name if landparcel.variety
+        varieties << landparcel.soil_nature if landparcel.soil_nature
       end
       return varieties.to_sentence
     else
