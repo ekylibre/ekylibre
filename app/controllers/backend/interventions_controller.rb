@@ -50,7 +50,8 @@ class Backend::InterventionsController < BackendController
     t.status
     t.column :issue, url: true
     t.column :casting
-    t.action :run, if: :runnable?, method: :post, confirm: true
+    t.action :new,  on: :none
+    t.action :run,  if: :runnable?, method: :post, confirm: true
     t.action :edit, if: :updateable?
     t.action :destroy, if: :destroyable?
   end
