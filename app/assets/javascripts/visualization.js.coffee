@@ -158,26 +158,30 @@
         $.each this.options.controls, ( index, value ) ->
           if value.name == "fullscreen" 
             fullscreen_options = {
-              position: 'bottomleft'
+              position: 'topleft',
             }
             controls = new L.Control.FullScreen(fullscreen_options)
             that.map.addControl controls
           #alert( index + ": " + value )            
           if value.name == "zoom"
            zoom_options = {
-             position: 'topleft'
+             position: 'topleft',
+             zoomInText: '',
+             zoomInTitle: 'Zoom in',
+             zoomOutText: '',
+             zoomOutTitle: 'Zoom out'
            }
            controls = new L.Control.Zoom(zoom_options)
            #that.map.removeControl (controls)
            that.map.addControl controls
             #alert( index + ": " + description )
-          if value.name == "tilelegend"
-            tilelegend_options = {
-              position: 'bottomleft'
-            }
-            controls = new L.Control.TileLegend(tilelegend_options)
+          #if value.name == "tilelegend"
+            #tilelegend_options = {
+              #position: 'bottomleft'
+            #}
+            #controls = new L.Control.TileLegend(tilelegend_options)
             #that.map.removeControl (controls)
-            that.map.addControl controls
+            #that.map.addControl controls
             #alert( index + ": " + description )
           if value.name == "scale"
             scale_options = {
@@ -192,7 +196,6 @@
             that.map.addControl controls
             #alert( index + ": " + description )
           if value.name == "layer_selector"
-            console.log "Vive le Roi!"
             baseLayers = {}
             overlays = {}
             $.each back, ( index, value ) -> 
@@ -202,15 +205,28 @@
             $.each over, ( index, value ) -> 
               overLayer = L.tileLayer.provider(value.provider_name)
               overlays[value.name] = overLayer
-            controls = new L.Control.SelectLayers(baseLayers, overlays)
 
+            layer_options = {
+              collapsed: true,
+              position: 'topright',
+              autoZIndex: true
+            }
+            controls = new L.Control.Layers(baseLayers, overlays,layer_options)
             #that.map.removeControl (controls)
             that.map.addControl controls
             $.each baseLayers, ( index, value ) -> 
-              #if value.name == "default_base"
-                
-            #alert( index + ": " + description )    
-          
+
+          if value.name == "geocoder"  
+            console.log "Vive le Roi!"
+            geocoder_options = {
+              collapsed: true,
+              position: 'topright',
+              text: 'Locate',
+              bounds: null, 
+              email: null
+            }
+            controls = new L.Control.OSMGeocoder(geocoder_options)
+            that.map.addControl controls
 
       this
 
