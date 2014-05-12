@@ -92,27 +92,4 @@ class OutgoingPayment < Ekylibre::Record::Base
     tc(:label, :amount => self.amount.l(currency: self.currency), :date => self.to_bank_at.l, :mode => self.mode.name, :payee => self.payee.full_name, :number => self.number)
   end
 
-
-#   def attorney_amount
-#     total = 0
-#     for use in self.uses
-#       total += use.amount if use.expense.supplier_id != use.payment.payee_id
-#     end
-#     return total
-#   end
-
-  # # Use the maximum available amount to pay the expense
-  # def pay(expense, options={})
-  #   raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
-  #   # OutgoingPaymentUse.destroy_all(:expense_id => expense.id, :payment_id => self.id)
-  #   # self.reload
-  #   # use_amount = [expense.unpaid_amount, self.unused_amount].min
-  #   use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
-  #   if use.errors.size > 0
-  #     errors.add_from_record(use)
-  #     return false
-  #   end
-  #   return true
-  # end
-
 end

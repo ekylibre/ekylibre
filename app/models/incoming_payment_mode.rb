@@ -82,8 +82,9 @@ class IncomingPaymentMode < Ekylibre::Record::Base
     end
     unless self.with_commission
       self.commission_base_amount ||= 0
-      self.commission_percentage ||= 0
+      self.commission_percentage  ||= 0
     end
+    true
   end
 
   protect(on: :destroy) do
@@ -95,7 +96,9 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   end
 
   def reflect
-    self.unlocked_payments.update_attributes(commission_account_id: nil, commission_amount: nil)
+    self.unlocked_payments.find_each do |payment|
+      payment.update_attributes(commission_account_id: nil, commission_amount: nil)
+    end
   end
 
 end

@@ -42,6 +42,7 @@ fra:
         cow_milk_analysis: "Analyse de lait de vache"
         soil_analysis: "Analyse de sol"
         unitary_cow_milk_analysis: "Analyse d’un contrôle laitier"
+        water_analysis: "Analyse d'eau"
     animal:
       variety:
         allium: "Ail"
@@ -3441,6 +3442,7 @@ fra:
     incoming_delivery:
       mode:
         delivered_at_place: "Transporté chez le destinataire et déchargé par le destinataire"
+        delivered_at_terminal: "Transporté et déchargé sur quai"
         delivered_duty_paid: "Transporté et déchargé chez le destinataire"
         ex_works: "Chargé et transporté par le destinaire"
         free_carrier: "Chargé par l’expéditeur et transporté par le destinataire"
@@ -5462,6 +5464,7 @@ fra:
     outgoing_delivery:
       mode:
         delivered_at_place: "Transporté chez le destinataire et déchargé par le destinataire"
+        delivered_at_terminal: "Transporté et déchargé sur quai"
         delivered_duty_paid: "Transporté et déchargé chez le destinataire"
         ex_works: "Chargé et transporté par le destinaire"
         free_carrier: "Chargé par l’expéditeur et transporté par le destinataire"
@@ -7508,6 +7511,10 @@ fra:
         equipment_building_division: "Zone de stockage des équipements"
         female_adult_cattle_herd: "Troupeau de vaches"
         female_adult_cow: "Vache"
+        female_adult_goat: "Chèvre"
+        female_adult_goat_herd: "Troupeau de chèvre"
+        female_adult_sheep: "Brebis"
+        female_adult_sheep_herd: "Troupeau de brebis"
         female_young_cow: "Génisse"
         fermented_grape_juice: "Jus fermenté de raisin"
         fertilizer_division: "Zone de stockage des engrais"
@@ -7524,6 +7531,7 @@ fra:
         fuel_tank: "Cuve à fioul"
         fungicide: "Fongicide"
         gas: "Gaz"
+        goat_herd: "Troupeau caprin"
         grain: "Céréale"
         grain_crop: "Culture à graines"
         grape: "Raisin"
@@ -7540,9 +7548,12 @@ fra:
         implanter: "Planteuse"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
+        lamb: "Agneau"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
+        male_adult_goat: "Bouc"
+        male_adult_sheep: "Bélier"
         male_young_cow: "Taurillon"
         manager: "Responsable"
         manure_division: "Zone fumière"
@@ -7572,6 +7583,7 @@ fra:
         seed: "Semence"
         seedling: "Plant"
         settlement: "Aménagement"
+        sheep_herd: "Troupeau de mouton"
         shell_fruit_reaper: "Récolteuse de fruits à coques"
         silage: "Ensilage"
         silage_division: "Zone de stockage de l’ensilage"
@@ -7599,6 +7611,7 @@ fra:
         wine_press: "Pressoir (vin)"
         wine_storage_division: "Zone de stockage - vins conditionnés"
         wine_tank: "Cuve à vin"
+        young_goat: "Chevreau"
       variety:
         allium: "Ail"
         amaranthaceae: "Amaranthacée"

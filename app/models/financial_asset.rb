@@ -94,6 +94,7 @@ class FinancialAsset < Ekylibre::Record::Base
       self.stopped_at = (self.started_at >> (12 * years.floor + months.floor)) + days.floor - 1
     end
     # self.currency = self.journal.currency
+    true
   end
 
   validate do
@@ -112,6 +113,7 @@ class FinancialAsset < Ekylibre::Record::Base
         end
       end
     end
+    true
   end
 
   before_create do
@@ -124,7 +126,6 @@ class FinancialAsset < Ekylibre::Record::Base
     for attr in [:depreciable_amount, :started_at, :stopped_at, :depreciation_method, :depreciation_percentage, :currency]
       @auto_depreciate = true if self.send(attr) != old.send(attr)
     end
-    return true
   end
 
   after_save do

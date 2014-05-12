@@ -735,6 +735,15 @@ form.search {
 
 
 
+@media screen and (min-width: $mini-screen + 1px){
+    body.content-scrolling .header {
+	@include box-shadow(0 0 $default-gap rgba(0, 0, 0, 0.2));
+	position: relative;
+	z-index: 50;
+    }
+}
+
+
 
 
 #help {

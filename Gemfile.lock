@@ -267,7 +267,7 @@ GEM
       rdoc (~> 4.0, < 5.0)
     sexp_processor (4.4.3)
     shoulda-context (1.2.1)
-    simple_calendar (1.0.0)
+    simple_calendar (0.1.11)
       rails (>= 3.0)
     simple_form (3.0.2)
       actionpack (~> 4.0)
@@ -384,7 +384,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.1)
   sdoc
   shoulda-context
-  simple_calendar
+  simple_calendar (~> 0.1)
   simple_form (~> 3.0.0)
   state_machine
   therubyracer

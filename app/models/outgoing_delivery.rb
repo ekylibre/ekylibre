@@ -79,7 +79,6 @@ class OutgoingDelivery < Ekylibre::Record::Base
     if self.with_transport and self.transport
       self.sent_at = self.transport.departed_at
     end
-    return true
   end
 
   # protect do

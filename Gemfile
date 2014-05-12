@@ -66,7 +66,7 @@ gem 'exception_notification'
 # Views helpers
 gem 'haml'
 gem "calendar_helper", "~> 0.2.5"
-gem "simple_calendar"
+gem "simple_calendar", "~> 0.1"
 gem "active_list" # , path: "../active_list"
 
 # Models helpers
