@@ -765,6 +765,7 @@
     });
 
 
+
     /* Refresh behave items */
     // $(document).on("cocoon:after-insert", function (event) {
     //     $.Behave.refresh();
@@ -778,7 +779,17 @@
     $(document).ready(function () {
         $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide], input[type='radio'][data-show], input[type='radio'][data-hide]").each($.toggleCheckboxes);
         $("select[data-auto-timezone]").val(jstz.determine().name());
-    });
 
+        $("#content").scroll(function () {
+            var element = $(this), body;
+            body = element.closest("body");
+            if (element.scrollTop() == 0) {
+                body.removeClass("content-scrolling");
+            } else {
+                body.addClass("content-scrolling");
+            }
+        });
+
+    });
 
 })( jQuery );

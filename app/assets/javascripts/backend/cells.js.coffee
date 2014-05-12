@@ -2,7 +2,7 @@
 # 
 (($) ->
   $(document).ready ->
-    $("*[data-cell]").each((index) ->
+    $("*[data-cell]").each (index) ->
       element = $(this)
       element.addClass("loading")
       $.ajax(element.data("cell"), {
@@ -12,11 +12,10 @@
           element.html(data)
           element.trigger('cell:load')
         error: (request, status, error) ->
-          alert("Error " + status + " on cell " + error)
+          alert("#{status} on cell (#{element.data('cell')}): #{error}")
           console.log("Error while retrieving cell content")
           element.html(request.responseXML)
       })
-    )
 
   true
 ) jQuery

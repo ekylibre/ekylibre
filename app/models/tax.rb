@@ -71,7 +71,7 @@ class Tax < Ekylibre::Record::Base
   scope :percentages, -> { where(:computation_method => 'percentage') }
 
   protect(on: :destroy) do
-    self.product_nature_category_taxation.any? or self.sale_items.any? or self.purchase_items.any?
+    self.product_nature_category_taxations.any? or self.sale_items.any? or self.purchase_items.any?
   end
 
   # Compute the tax amount

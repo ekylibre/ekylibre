@@ -37,9 +37,17 @@
 //= require leaflet/draw
 //= require leaflet/wicket
 //= require leaflet/tilelegend
+<<<<<<< HEAD
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require leaflet/activelayers
 //= require leaflet/selectlayers
 //= require leaflet/OSMGeocoder.js
+=======
+//= require leaflet/activelayers
+//= require leaflet/selectlayers
+//= require leaflet/fullscreen
+//= require leaflet/providers
+//= require leaflet/staticlayerswitcher
+>>>>>>> dfd55da563d8f95422351ae2709491e8710c08ef
 //= require_tree .

@@ -112,7 +112,6 @@ class Purchase < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
     self.pretax_amount = self.items.sum(:pretax_amount)
     self.amount = self.items.sum(:amount)
-    return true
   end
 
   after_create do

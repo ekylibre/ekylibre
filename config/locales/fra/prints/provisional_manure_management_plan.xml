@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="0.8467108950806659"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="489"/>
+	<property name="ireport.y" value="682"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -18,10 +18,9 @@
 		</conditionalStyle>
 	</style>
 	<style name="Row" mode="Transparent"/>
-	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="enrichment" uuid="655036d4-b3dc-43cf-aca7-9ea6f0a004cd">
 		<parameter name="zone_id" class="java.lang.String"/>
-		<parameter name="zone_area" class="java.lang.String"/>
+		<parameter name="p_sum_n_interventions" class="java.util.Map" isForPrompting="false"/>
 		<queryString language="xPath">
 			<![CDATA[/campaigns/campaign/zone/support/provisional_intervention[ancestor::zone/@id=$P{zone_id}]/inputs/input]]>
 		</queryString>
@@ -64,7 +63,7 @@
 		<field name="nitrogen_input_per_hectare" class="java.lang.Double">
 			<fieldDescription><![CDATA[nitrogen-input-per-hectare]]></fieldDescription>
 		</field>
-		<variable name="sum_interventions_n_per_ha" class="java.lang.String" calculation="Sum">
+		<variable name="sum_interventions_n_per_ha" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{nitrogen_input_per_hectare}]]></variableExpression>
 		</variable>
 	</subDataset>
@@ -104,8 +103,36 @@
 		<field name="stopped-at" class="java.util.Date">
 			<fieldDescription><![CDATA[/campaigns/campaign/zone/support/provisional_pasturing/@stopped-at]]></fieldDescription>
 		</field>
-		<variable name="sum_pasturing_n_per_ha" class="java.lang.String" calculation="Sum">
+		<variable name="sum_pasturing_n_per_ha" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{nitrogen-input-per-hectare}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="bilan" uuid="a65a4b62-6773-4283-b786-d8e6a497d096">
+		<parameter name="zone_id" class="java.lang.String"/>
+		<parameter name="nitrogen_input_prev" class="java.lang.Double" isForPrompting="false"/>
+		<queryString language="xPath">
+			<![CDATA[//provisional_intervention[ancestor::zone/@id=$P{zone_id}]/inputs/input | //provisional_pasturing[ancestor::zone/@id=$P{zone_id}]]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="animal-group-name" class="java.lang.String">
+			<fieldDescription><![CDATA[@animal-group-name]]></fieldDescription>
+		</field>
+		<field name="animal_nitrogen_input_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[@nitrogen-input-per-hectare]]></fieldDescription>
+		</field>
+		<field name="intervention_nitrogen_input_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[nitrogen-input-per-hectare]]></fieldDescription>
+		</field>
+		<variable name="n_animal" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{animal_nitrogen_input_per_hectare}]]></variableExpression>
+		</variable>
+		<variable name="n_intervention" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{intervention_nitrogen_input_per_hectare}]]></variableExpression>
+		</variable>
+		<variable name="provisionnal_balance" class="java.lang.Double">
+			<variableExpression><![CDATA[$P{nitrogen_input_prev} - ($V{n_intervention} + $V{n_animal})]]></variableExpression>
 		</variable>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
@@ -188,8 +215,6 @@
 	<field name="nitrogen_input_prev" class="java.lang.Double">
 		<fieldDescription><![CDATA[support/@nitrogen-input-prev]]></fieldDescription>
 	</field>
-	<variable name="sum_n_interventions" class="java.lang.Double" resetType="Group" resetGroup="land_parcel_group" calculation="System"/>
-	<variable name="sum_n_pasturing" class="java.lang.Double" resetType="Group" resetGroup="land_parcel_group" calculation="System"/>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
@@ -207,7 +232,7 @@
 	<group name="land_parcel_group" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 		<groupHeader>
-			<band height="193">
+			<band height="197">
 				<rectangle radius="10">
 					<reportElement style="title" x="420" y="48" width="210" height="97" uuid="45bb91ae-ae28-48c5-8c9d-92125d516800"/>
 				</rectangle>
@@ -343,7 +368,7 @@
 					<textFieldExpression><![CDATA[$F{variant_variety}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label" x="456" y="164" width="238" height="29" uuid="83f1a520-ed86-49e4-afdc-838885a1db4c">
+					<reportElement style="label" x="456" y="156" width="238" height="29" uuid="83f1a520-ed86-49e4-afdc-838885a1db4c">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_name}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -353,11 +378,11 @@
 					<text><![CDATA[Quantité d'azote prévisionnelle à épandre calculé]]></text>
 				</staticText>
 				<textField pattern="###0.00" isBlankWhenNull="true">
-					<reportElement style="strong" x="694" y="164" width="46" height="29" uuid="ad165b0b-aae1-4fff-9923-9f62f242b810"/>
+					<reportElement style="strong" x="694" y="156" width="46" height="29" uuid="ad165b0b-aae1-4fff-9923-9f62f242b810"/>
 					<textFieldExpression><![CDATA[$F{nitrogen_input_prev}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label" x="740" y="164" width="45" height="29" uuid="d826b22c-0741-4fd3-a927-c17a9c16a506">
+					<reportElement style="label" x="740" y="156" width="45" height="29" uuid="d826b22c-0741-4fd3-a927-c17a9c16a506">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_name}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -368,6 +393,76 @@
 				</staticText>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="37">
+				<componentElement>
+					<reportElement key="table" x="420" y="0" width="366" height="35" uuid="a9cb1769-f1cb-4231-8f01-20c8cb57c014"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="bilan" uuid="b99ab5e5-3470-4091-8d51-cb7f06674ee9">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<datasetParameter name="zone_id">
+								<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="nitrogen_input_prev">
+								<datasetParameterExpression><![CDATA[$F{nitrogen_input_prev}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="202" uuid="62e891cd-0740-46d9-ad55-05ad3acec433">
+							<jr:columnFooter height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="label" x="0" y="0" width="202" height="30" uuid="ca4c379e-b9eb-4125-80a5-5960a00b6149"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Open Sans"/>
+										<paragraph rightIndent="4"/>
+									</textElement>
+									<text><![CDATA[Balance azotée prévisionnelle]]></text>
+								</staticText>
+							</jr:columnFooter>
+							<jr:detailCell height="3" rowSpan="1"/>
+						</jr:column>
+						<jr:column width="25" uuid="94268719-b52d-4dcd-ac66-14cbad0b905e">
+							<jr:columnFooter height="30" rowSpan="1">
+								<ellipse>
+									<reportElement x="5" y="8" width="15" height="15" backcolor="#65A907" uuid="95f971b2-2765-4ec9-98f7-61a000c5f988">
+										<printWhenExpression><![CDATA[$V{provisionnal_balance} >= 0.0]]></printWhenExpression>
+									</reportElement>
+								</ellipse>
+								<ellipse>
+									<reportElement x="5" y="8" width="15" height="15" backcolor="#F17900" uuid="d8c24a92-7bbb-4a93-b063-057ed2c69549">
+										<printWhenExpression><![CDATA[$V{provisionnal_balance} < 0.0]]></printWhenExpression>
+									</reportElement>
+								</ellipse>
+							</jr:columnFooter>
+							<jr:detailCell height="3" rowSpan="1"/>
+						</jr:column>
+						<jr:column width="53" uuid="8c763100-cd79-4f4b-8713-ce6f2d270c72">
+							<jr:columnFooter height="30" rowSpan="1">
+								<textField pattern="###0.00" isBlankWhenNull="true">
+									<reportElement style="strong" x="0" y="0" width="53" height="30" uuid="8a4e3aa5-a10c-4fb3-a939-37bb6be61b71"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
+								</textField>
+							</jr:columnFooter>
+							<jr:detailCell height="3" rowSpan="1"/>
+						</jr:column>
+						<jr:column width="55" uuid="14c29f1f-a7fd-4758-822f-dbfe2a72f484">
+							<jr:columnFooter height="30" rowSpan="1">
+								<staticText>
+									<reportElement style="label" x="0" y="0" width="54" height="30" uuid="01a053df-e322-407a-9441-a4a0ade293f4"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Open Sans"/>
+										<paragraph rightIndent="4"/>
+									</textElement>
+									<text><![CDATA[kg N / Ha]]></text>
+								</staticText>
+							</jr:columnFooter>
+							<jr:detailCell height="3" rowSpan="1"/>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -484,7 +579,7 @@
 			<componentElement>
 				<reportElement key="table" x="0" y="0" width="786" height="80" printWhenGroupChanges="land_parcel_group" uuid="d00391ae-a344-4f05-8359-30daa1e2d919"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="enrichment" uuid="02d8d50f-18a5-47df-97e2-68f600e944e4">
+					<datasetRun subDataset="enrichment" uuid="c2b238d9-7467-4f3a-9f21-eedeeda08f90">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<datasetParameter name="zone_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
@@ -492,9 +587,9 @@
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="173" uuid="e67e1aa7-5acc-436e-bf7c-793afff1bc7f">
-						<jr:columnHeader height="30" rowSpan="1">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="173" height="30" uuid="e4fd6e44-6f39-4992-a9ce-3c8327a484a2"/>
+								<reportElement style="table-th" x="0" y="0" width="173" height="39" uuid="e4fd6e44-6f39-4992-a9ce-3c8327a484a2"/>
 								<text><![CDATA[Intervention]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -507,9 +602,9 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="95" uuid="70ccdea8-d9bf-4217-bc6f-fa12ed028f59">
-						<jr:columnHeader height="30" rowSpan="1">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="95" height="30" uuid="25db63ac-afa1-4f64-84df-d0b3f4f2fae3"/>
+								<reportElement style="table-th" x="0" y="0" width="95" height="39" uuid="25db63ac-afa1-4f64-84df-d0b3f4f2fae3"/>
 								<text><![CDATA[Début]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -522,9 +617,9 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="90" uuid="18850042-823b-42d1-b1f4-e10e7e8c05f6">
-						<jr:columnHeader height="30" rowSpan="1">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="90" height="30" uuid="5a86b8d2-4721-4fae-a0be-7e07b90938d8"/>
+								<reportElement style="table-th" x="0" y="0" width="90" height="39" uuid="5a86b8d2-4721-4fae-a0be-7e07b90938d8"/>
 								<text><![CDATA[Fin]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -537,9 +632,9 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="122" uuid="cffbf22a-ce38-46ec-898b-3e363e6e91b0">
-						<jr:columnHeader height="30" rowSpan="1">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="122" height="30" uuid="ede2c61d-4ec0-483d-a8e1-f9cfcef38f88"/>
+								<reportElement style="table-th" x="0" y="0" width="122" height="39" uuid="ede2c61d-4ec0-483d-a8e1-f9cfcef38f88"/>
 								<text><![CDATA[Nom intrant]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -552,9 +647,9 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="134" uuid="8174950d-632c-442a-953f-5d86a8f184c7">
-						<jr:columnHeader height="30" rowSpan="1">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="134" height="30" uuid="16b7f5b9-8b85-44da-9958-f1c5d61c3300"/>
+								<reportElement style="table-th" x="0" y="0" width="134" height="39" uuid="16b7f5b9-8b85-44da-9958-f1c5d61c3300"/>
 								<text><![CDATA[Quantité]]></text>
 							</staticText>
 						</jr:columnHeader>
@@ -562,41 +657,43 @@
 						<jr:detailCell height="20" rowSpan="1">
 							<textField>
 								<reportElement style="table-td" x="0" y="0" width="134" height="20" uuid="f351aaff-c6c0-41d7-b311-519c6cd205e0"/>
-								<textFieldExpression><![CDATA[$F{population} + " " + $F{original-input-unit-name} ]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{population} + " " + $F{original-input-unit-name}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="41" uuid="2d5353ab-5820-4a53-aaed-888e42a9685a">
-						<jr:columnHeader height="30" rowSpan="1">
+					<jr:column width="75" uuid="2d5353ab-5820-4a53-aaed-888e42a9685a">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="39" height="30" uuid="4ef25b4a-9701-4182-a87e-e358de7e603e"/>
+								<reportElement style="table-th" x="0" y="0" width="75" height="39" uuid="4ef25b4a-9701-4182-a87e-e358de7e603e"/>
 								<text><![CDATA[Teneur en azote]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30" rowSpan="1"/>
 						<jr:detailCell height="20" rowSpan="1">
 							<textField>
-								<reportElement style="table-td" x="0" y="0" width="39" height="20" uuid="228d86ac-cbcb-444f-b9b0-826fbc025692"/>
+								<reportElement style="table-td" x="0" y="0" width="75" height="20" uuid="228d86ac-cbcb-444f-b9b0-826fbc025692"/>
 								<textFieldExpression><![CDATA[$F{nitrogen-concentration}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="76" uuid="643bb091-0ff9-4712-a5a9-632b5d04b29a">
-						<jr:columnHeader height="30" rowSpan="1">
+					<jr:column width="92" uuid="643bb091-0ff9-4712-a5a9-632b5d04b29a">
+						<jr:columnHeader height="39" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="76" height="30" uuid="1cb9a737-3d78-4f9e-800d-6af890d470c7"/>
+								<reportElement style="table-th" x="0" y="0" width="92" height="39" uuid="1cb9a737-3d78-4f9e-800d-6af890d470c7"/>
 								<text><![CDATA[Apport azoté (kg N / ha)]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter height="30" rowSpan="1">
-							<textField evaluationTime="Auto">
-								<reportElement x="0" y="0" width="76" height="30" uuid="f93f076e-4759-4109-bb4f-976d2d76d8cd"/>
+							<textField pattern="###0.00" isBlankWhenNull="true">
+								<reportElement style="strong" x="0" y="0" width="92" height="30" uuid="9942fa4a-edc5-4f0e-adec-ac83a0247620"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$V{sum_interventions_n_per_ha}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell height="20" rowSpan="1">
 							<textField>
-								<reportElement style="strong" x="0" y="0" width="76" height="20" uuid="358bfd36-23cc-4d6a-900a-8aa42483f752"/>
+								<reportElement style="table-td" x="0" y="0" width="92" height="20" uuid="358bfd36-23cc-4d6a-900a-8aa42483f752"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{nitrogen_input_per_hectare}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -604,19 +701,19 @@
 				</jr:table>
 			</componentElement>
 		</band>
-		<band height="102">
+		<band height="81">
 			<componentElement>
-				<reportElement key="table" x="2" y="0" width="782" height="80" uuid="d7766ff1-55a0-4177-a824-92ce417b3062"/>
+				<reportElement key="table" x="2" y="0" width="784" height="80" uuid="d7766ff1-55a0-4177-a824-92ce417b3062"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="pasturing" uuid="8442f248-d9d2-4207-80e7-b0aae27a3b5f">
+					<datasetRun subDataset="pasturing" uuid="f8ea7384-f6d3-4f1a-b319-b9ae52c6f574">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<datasetParameter name="zone_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:columnGroup width="745" uuid="b29d38f1-f9dd-470c-9d59-3720cc56900b">
-						<jr:columnGroup width="745" uuid="16bac2f7-9730-4b2c-95ac-a4a18c26d82a">
+					<jr:columnGroup width="779" uuid="b29d38f1-f9dd-470c-9d59-3720cc56900b">
+						<jr:columnGroup width="779" uuid="16bac2f7-9730-4b2c-95ac-a4a18c26d82a">
 							<jr:column width="90" uuid="abf264b8-6346-44a2-a4a1-d6a80c2ceb14">
 								<jr:columnHeader height="47" rowSpan="1">
 									<staticText>
@@ -722,22 +819,23 @@
 									</textField>
 								</jr:detailCell>
 							</jr:column>
-							<jr:column width="78" uuid="e507e2a1-344f-450c-92eb-f6fae78c2209">
+							<jr:column width="112" uuid="e507e2a1-344f-450c-92eb-f6fae78c2209">
 								<jr:columnHeader height="47" rowSpan="1">
 									<staticText>
-										<reportElement style="table-th" x="0" y="0" width="73" height="47" uuid="8e6ed69d-6a33-43c2-95f1-4c656f2f6a58"/>
+										<reportElement style="table-th" x="0" y="0" width="112" height="47" uuid="8e6ed69d-6a33-43c2-95f1-4c656f2f6a58"/>
 										<text><![CDATA[azote excrété (kg N / ha)]]></text>
 									</staticText>
 								</jr:columnHeader>
 								<jr:columnFooter height="34" rowSpan="1">
-									<textField>
-										<reportElement x="0" y="0" width="78" height="34" uuid="a00b96ee-86bf-446c-9fed-38f14174c275"/>
+									<textField pattern="###0.00" isBlankWhenNull="true">
+										<reportElement style="strong" x="0" y="0" width="112" height="34" uuid="a00b96ee-86bf-446c-9fed-38f14174c275"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
 										<textFieldExpression><![CDATA[$V{sum_pasturing_n_per_ha}]]></textFieldExpression>
 									</textField>
 								</jr:columnFooter>
 								<jr:detailCell height="34" rowSpan="1">
 									<textField pattern="###0.00" isBlankWhenNull="true">
-										<reportElement style="strong" x="0" y="0" width="73" height="34" uuid="881c4d5f-6453-4772-8262-a70e7fcc5748"/>
+										<reportElement style="table-td" x="0" y="0" width="112" height="34" uuid="881c4d5f-6453-4772-8262-a70e7fcc5748"/>
 										<textElement textAlignment="Center" verticalAlignment="Middle"/>
 										<textFieldExpression><![CDATA[$F{nitrogen-input-per-hectare}]]></textFieldExpression>
 									</textField>
