@@ -48,6 +48,7 @@
               <!-- <variable name="working_area" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.population"/>
               
                variable for original_input -->
+               <variable name="intervention_working_area" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.population"/>
               <variable name="original_input" value="provisional_intervention.casts.of_role(:'soil_enrichment-input_origin').first"/>
               <title name="name" of="provisional_intervention"/>
               <property name="id" of="provisional_intervention" level="api"/>
@@ -64,6 +65,7 @@
                 <cell name="nitrogen_concentration" if="original_input.actor" value="original_input.actor.nitrogen_concentration" />
                 <cell name="phosphorus_concentration" if="original_input.actor" value="original_input.actor.phosphorus_concentration" />
                 <cell name="potassium_concentration" if="original_input.actor" value="original_input.actor.potassium_concentration" />
+                <cell name="nitrogen_input_per_hectare" value="(original_input.actor.variant.net_mass.to_d(:kilogram) * input.population * ( original_input.actor.nitrogen_concentration.to_d(:percent) / 100 )) / intervention_working_area" level="api"/>
               </matrix>
             </sections>
             <sections for="provisional_pasturing" in="support.interventions.provisional.of_nature(:'pasturing').reorder(:started_at)" of-type="record">
