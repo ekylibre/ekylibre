@@ -55,6 +55,7 @@
       <item name="grleg_fallow_land_B3" previous_crop="grass_leguminous" previous_crop_minimum_age="12"                                previous_crop_destruction_period_start="0101" previous_crop_destruction_period_stop="0401" current_crop_implantation_period_start="0301"         quantity="30"/>
       <item name="legum_fallow_land"    previous_crop="leguminous"      previous_crop_minimum_age="0"  previous_crop_maximum_age="36" previous_crop_destruction_period_start="0101" previous_crop_destruction_period_stop="1231" current_crop_implantation_period_start="0101" quantity="0"/>
       <item name="grleg_fallow_land"    previous_crop="grass_leguminous" previous_crop_minimum_age="0"  previous_crop_maximum_age="36" previous_crop_destruction_period_start="0101" previous_crop_destruction_period_stop="1231" current_crop_implantation_period_start="0101" quantity="0"/>
+      
     </items>
   </nomenclature>
 </nomenclatures>

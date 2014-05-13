@@ -9,7 +9,7 @@
       <property-nature name="coefficient"         type="decimal" required="true"/>
       <property-nature name="nitrogen_stock_before_bolting" type="decimal" required="true"/>
       <property-nature name="irrigated"           type="boolean" required="false"/>
-      <property-nature name="usage"               type="choice"  required="true" choices="grain, fodder, seed" default="grain"/>
+      <property-nature name="usage"               type="choice" nomenclature="production_usages" required="true" default="grain"/>
       <property-nature name="minimum_yield_aim"   type="decimal" required="true" default="0"/>      <!-- qt/ha -->
       <property-nature name="maximum_yield_aim"   type="decimal" required="true" default="100000"/> <!-- qt/ha -->
     </property-natures>
@@ -84,10 +84,13 @@
       <item name="mid_seed_corn_crop"       cultivation_variety="zea" usage="seed"            coefficient="3.5"  minimum_yield_aim="35"  maximum_yield_aim="40"/>
       <item name="int_seed_corn_crop"       cultivation_variety="zea" usage="seed"            coefficient="3.0"  minimum_yield_aim="40"  maximum_yield_aim="50"/>
       <item name="max_seed_corn_crop"       cultivation_variety="zea" usage="seed"            coefficient="2.5"  minimum_yield_aim="50" />
-
+       <item name="sweet_seed_corn_crop"    cultivation_variety="zea_mays_saccharata" usage="grain"           coefficient="1.1"  />
+      
+      
       <!-- Sorgho -->
-      <item name="sorghum_crop"             cultivation_variety="sorghum"                     coefficient="2.4"/>
-
+      <item name="grain_sorghum_crop"   cultivation_variety="sorghum"  usage="grain"          coefficient="2.4"/>
+      <item name="fodder_sorghum_crop"  cultivation_variety="sorghum"  usage="fodder"         coefficient="1.3"/>
+      
       <!-- Colza -->
       <item name="rapeseed_crop"            cultivation_variety="brassica_napus"              coefficient="6.5"/>
       
@@ -101,10 +104,13 @@
       <item name="hemp_crop"                cultivation_variety="cannabis"                    coefficient="1.2"/>
       
       <!-- Tabac Virginie -->
-      <item name="virginie_tobacco_crop"    cultivation_variety="nicotiana_tabacum_virginie"          coefficient="3"/>
+      <item name="virginie_tobacco_crop"    cultivation_variety="nicotiana_tabacum_virginie"          coefficient="3.5"/>
       
       <!-- Tabac Burley -->
-      <item name="burley_tobacco_crop"      cultivation_variety="nicotiana_tabacum_burley"            coefficient="8.5"/>
+      <item name="burley_tobacco_crop"      cultivation_variety="nicotiana_tabacum_burley"            coefficient="9.5"/>
+      
+      <!-- Tabac Brun -->
+      <item name="brown_tobacco_crop"      cultivation_variety="nicotiana_tabacum_brown"            coefficient="8.5"/>
       
       <!-- Misc --> 
       <item name="oat_crop"                 cultivation_variety="avena"                       coefficient="2.2"/>

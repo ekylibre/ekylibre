@@ -13,6 +13,7 @@
       <property-nature name="irrigated" type="boolean" required="false"/>
       <property-nature name="minimum_precocity_index" type="decimal" required="false"/>
       <property-nature name="maximum_precocity_index" type="decimal" required="false"/>
+      <property-nature name="production_usage" type="choice" nomenclature="production_usages" required="true" default="grain"/>
     </property-natures>
     <items>
       <!-- BLE TENDRE EN SEC -->

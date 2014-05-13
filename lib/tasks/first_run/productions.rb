@@ -19,11 +19,13 @@ load_data :productions do |loader|
                            :started_at => (row[6].blank? ? Date.civil(2000, 2, 2) : row[6]).to_datetime,
                            :stopped_at => (row[7].blank? ? Date.civil(2000, 2, 2) : row[7]).to_datetime,
                            :irrigated => (row[8].blank? ? :false : :true),
-                           :mass_area_yield_markers => row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                           :cultivation_nature => (row[9].blank? ? :main : row[9].to_sym),
+                           :production_usage => (row[10].blank? ? :grain : row[10].to_sym),
+                           :mass_area_yield_markers => row[11].blank? ? {} : row[11].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                              h[i.first.strip.downcase.to_sym] = i.second
                              h
                            },
-                           :support_markers => row[10].blank? ? {} : row[10].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                           :support_markers => row[12].blank? ? {} : row[12].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                              h[i.first.strip.downcase.to_sym] = i.second
                              h
                            }                           
@@ -70,7 +72,7 @@ load_data :productions do |loader|
             production.static_support = true
             production.save!
             # and create a support for this production
-            support = production.supports.create!(storage_id: product_support.id, :started_at => r.started_at, :stopped_at => r.stopped_at)
+            support = production.supports.create!(storage_id: product_support.id, :started_at => r.started_at, :stopped_at => r.stopped_at, :nature => r.cultivation_nature, :production_usage => r.production_usage)
             # if the support is a CultivableZone
             if r.irrigated == true
               support.irrigated = true

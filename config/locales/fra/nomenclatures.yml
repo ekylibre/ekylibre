@@ -1714,6 +1714,7 @@ fra:
       name: "États de la reproduction mammifère"
     manure_management_plan_computation_methods:
       items:
+        aquitaine_2013: "Aquitaine 2013"
         external: "Externe"
         poitou_charentes_2013: "Poitou-Charentes 2013"
       name: "Méthodes de calcul du plan de fumure"
@@ -1766,6 +1767,8 @@ fra:
         identifiers: "Identifiants"
         nature: "Type"
         url: "URL"
+    nmp_france_abacus_cultivation_yield:
+      name: "Références de rendement par produit et par département"
     nmp_france_abacus_nitrogen_animal_production:
       name: "Normes d'excrétion d'azote par espèce animale"
     nmp_methods:
@@ -1783,8 +1786,8 @@ fra:
       name: "Abaque 4 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_nine:
       name: "Abaque 9 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_one:
-      name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_one:  #?
+      name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes" #?
     nmp_poitou_charentes_abacus_seven:
       name: "Abaque 7 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_six:
@@ -2624,6 +2627,14 @@ fra:
         production_code: "Code"
         telepac_crop_code: "Code de type de culture TELEPAC"
         variant_support: "Variant"
+    production_usages:
+      items:
+        fodder: "Fourrage"
+        grain: "Grain"
+        seed: "Semence"
+      name: "Usages"
+      property_natures:
+        crop_sets: "Typologies de culture"
     residue_elimination_methods:
       items:
         burning: "Combustion"
@@ -2669,7 +2680,9 @@ fra:
         silt_soil: "Sol limoneux"
         silty_clay_loam_soil: "Sol limono-argileux"
         silty_clay_soil: "Sol argilo-limoneux"
+        stony_alluvium_soil: "Sol d'alluvions caillouteux"
         swamp_peaty_soil: "Terre de marais tourbeux"
+        touyas_soil: "Sol de Touyas"
         valley_terrace_soil: "Sol de terrasse de vallée"
       name: "Types de sols"
     spatial_reference_systems:
@@ -2887,6 +2900,7 @@ fra:
         gallus: "Galinacée"
         gas: "Essence"
         glycine: "Glycine"
+        glycine_max: "Soja"
         grain: "Grain"
         grape: "Raisin"
         grass: "Herbe"
@@ -2943,6 +2957,7 @@ fra:
         lolium_hybridum_bahial: "Ray grass hybride Bahial"
         lolium_multiflorum: "Ray grass Italien"
         lolium_perenne: "Ray grass Anglais"
+        lupinus: "Lupin"
         malus: "Pommier"
         mammalia: "Mammifère"
         manure: "Fumier"
@@ -2957,6 +2972,7 @@ fra:
         mower: "Faucheuse"
         nicotiana: "Tabac"
         nicotiana_tabacum: "Tabac commun"
+        nicotiana_tabacum_brown: "Tabac commun Brun"
         nicotiana_tabacum_burley: "Tabac commun Burley"
         nicotiana_tabacum_virginie: "Tabac commun Virginie"
         numida: "Pintade de Numidie"
@@ -3195,6 +3211,7 @@ fra:
         zea_lg30533: "Maïs LG 30.533"
         zea_lg3490: "Maïs LG 34.90"
         zea_lg3530: "Maïs LG 35.30"
+        zea_mays_saccharata: "Maïs doux"
         zea_shannon: "Maïs Shannon"
         zone: "Zone physique"
         zone_property_title: "Titre de propriété terrienne"

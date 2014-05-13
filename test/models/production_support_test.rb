@@ -21,19 +21,20 @@
 #
 # == Table: production_supports
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  exclusive     :boolean          not null
-#  id            :integer          not null, primary key
-#  irrigated     :boolean          not null
-#  lock_version  :integer          default(0), not null
-#  nature        :string(255)
-#  production_id :integer          not null
-#  started_at    :datetime
-#  stopped_at    :datetime
-#  storage_id    :integer          not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  exclusive        :boolean          not null
+#  id               :integer          not null, primary key
+#  irrigated        :boolean          not null
+#  lock_version     :integer          default(0), not null
+#  nature           :string(255)      not null
+#  production_id    :integer          not null
+#  production_usage :string(255)      not null
+#  started_at       :datetime
+#  stopped_at       :datetime
+#  storage_id       :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 require 'test_helper'
 

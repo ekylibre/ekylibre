@@ -93,6 +93,9 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
       opened_at: self.opened_at,
       support: self.support
     }
+    if self.support.production_usage
+      hash[:production_usage] = Nomen::ProductionUsages[self.support.production_usage]
+    end
     if self.computation_method
       hash[:method] = Nomen::ManureManagementPlanComputationMethods[self.computation_method]
     end

@@ -8,7 +8,7 @@ module Calculus
         @variety        = options[:variety]
         @support        = options[:support]
         @opened_at      = options[:opened_at]
-        @usage          = (options[:usage] || :grain).to_sym
+        @usage          = options[:production_usage]
         @soil_nature    = options[:soil_nature]
         @cultivation    = options[:cultivation]
         @expected_yield = options[:expected_yield] || 0.0.in_kilogram_per_square_meter

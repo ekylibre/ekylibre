@@ -2,6 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="soil_natures">
     <items>
+      <!-- from Poitou-charentes -->
       <item name="clay_limestone_soil"/> <!-- Terre argilo_calcaire / Terre de Groies -->
       <item name="champagne_soil"/> <!-- Terre de Champagne -->
       <item name="aubues_soil"/> <!-- Terre d'Aubues -->
@@ -20,6 +21,9 @@
       <item name="sand_soil"/> <!--Terre de sable-->
       <item name="silt_soil"/> <!--Terre de limon-->
       <item name="flap_silt_soil"/> <!--Terre de limon battant-->
+       <!-- from Aquitaine -->
+      <item name="touyas_soil"/> <!-- Terre de Touyas -->
+      <item name="stony_alluvium_soil"/> <!-- Terre d'alluvions caillouteuses -->
     </items>
   </nomenclature>
 </nomenclatures>

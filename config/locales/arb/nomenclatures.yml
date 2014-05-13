@@ -1733,6 +1733,7 @@ arb:
       # name: "Mammalia reproduction states"
     manure_management_plan_computation_methods:
       items:
+        # aquitaine_2013: "Aquitaine 2013"
         # external: "External"
         # poitou_charentes_2013: "Poitou-Charentes 2013"
       # name: "Manure management plan computation methods"
@@ -1786,6 +1787,8 @@ arb:
         # identifiers: "Identifiers"
         # nature: "Nature"
         # url: "Url"
+    nmp_france_abacus_cultivation_yield:
+      # name: "Nmp france abacus cultivation yield"
     nmp_france_abacus_nitrogen_animal_production:
       # name: "Nmp france abacus nitrogen animal production"
     nmp_methods:
@@ -1803,8 +1806,7 @@ arb:
       # name: "Abacus 4 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_nine:
       # name: "Abacus 9 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_one:
-      # name: "Abacus 1 of the Poitou-Charentes manure management plan computation method"
+    nmp_poitou_charentes_abacus_one: #?
     nmp_poitou_charentes_abacus_seven:
       # name: "Abacus 7 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_six:
@@ -2644,6 +2646,14 @@ arb:
         # production_code: "Production code"
         # telepac_crop_code: "Telepac crop code"
         # variant_support: "Variant support"
+    production_usages:
+      items:
+        # fodder: "Fodder"
+        # grain: "Grain"
+        # seed: "Seed"
+      # name: "Production usages"
+      property_natures:
+        # crop_sets: "Crop sets"
     residue_elimination_methods:
       items:
         # burning: "Burning"
@@ -2690,7 +2700,9 @@ arb:
         # silt_soil: "Silt soil"
         # silty_clay_loam_soil: "Silty clay loam soil"
         # silty_clay_soil: "Silty clay soil"
+        # stony_alluvium_soil: "Stony alluvium soil"
         # swamp_peaty_soil: "Swamp peaty soil"
+        # touyas_soil: "Touyas soil"
         # valley_terrace_soil: "Valley terrace soil"
       # name: "Soil natures"
     spatial_reference_systems:
@@ -2910,6 +2922,7 @@ arb:
         # gallus: "Gallus"
         # gas: "Gas"
         # glycine: "Glycine"
+        # glycine_max: "Soy bean"
         # grain: "Grain"
         # grape: "Grape"
         # grass: "Grass"
@@ -2966,6 +2979,7 @@ arb:
         # lolium_hybridum_bahial: "Hybrid ryegrass bahial"
         # lolium_multiflorum: "Ryegrass multiflorum"
         # lolium_perenne: "Ryegrass perenne"
+        # lupinus: "Lupine"
         # malus: "Malus"
         # mammalia: "Mammalia"
         # manure: "Manure"
@@ -2980,6 +2994,7 @@ arb:
         # mower: "Mower"
         # nicotiana: "Nicotiana"
         # nicotiana_tabacum: "Cultivated tobacco"
+        # nicotiana_tabacum_brown: "Cultivated tobacco Brown"
         # nicotiana_tabacum_burley: "Cultivated tobacco Burley"
         # nicotiana_tabacum_virginie: "Cultivated tobacco Virginie"
         # numida: "Helmeted Guineafowl"
@@ -3218,6 +3233,7 @@ arb:
         # zea_lg30533: "Corn LG 30.533"
         # zea_lg3490: "Corn LG 34.90"
         # zea_lg3530: "Corn LG 35.30"
+        # zea_mays_saccharata: "Sweet corn"
         # zea_shannon: "Corn Shannon"
         # zone: "Zone"
         # zone_property_title: "Zone property title"

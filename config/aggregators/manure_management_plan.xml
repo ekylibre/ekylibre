@@ -11,8 +11,14 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
+        <variable name="recommender" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.recommender"/>
+        <property name="manure_management_plan_name" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.name"/>
+        <property name="recommender_full_name" if="recommender" value="recommender.full_name"/>
+        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>    
+        <property name="manure_management_plan_default_computation_method" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.default_computation_method"/>
+        <property name="manure_management_plan_opened_at" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.opened_at" type="datetime"/>
         <!-- looking for all CultivableLandParcel in current campaign -->
-        <sections for="zone" in="CultivableZone.of_campaign(campaign)" of-type="record">
+        <sections for="zone" in="CultivableZone.of_campaign(campaign).reorder(:work_number)" of-type="record">
           <title name="name" of="zone"/>
           <property name="work_number" of="zone"/>
           <property name="clusters_work_number" of="zone"/>
@@ -24,18 +30,24 @@
           <!-- looking for all Production in current zone and campaign -->
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
             <title name="storage.name" of="support"/>
-            <property name="variant_name" value="support.production.variant_name"/>
-            <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
-            
+            <property name="activity_family" value="support.activity.family"/>
+            <property name="variant_name" if="support.production" value="support.production.variant_name"/>
             <property name="variant_variety" if="support.production" value="support.production.variant_variety"/>
+            <property name="started_at" of="support" type="datetime"/>
+            <property name="stopped_at" of="support" type="datetime"/>
+            <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
+            <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
+            
+            <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
+            <property name="nitrogen_balance" value="support.nitrogen_balance.in(:kilogram_per_hectare).round(2)" type="measure"/>
+            
             <property name="sowed_at" value="support.implanted_at" type="datetime"/>
             <property name="harvested_at" value="support.harvested_at" type="datetime"/>
+            
             <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
-            <property name="provisional_grains_yield" value="support.mass_area_yield" type="measure"/>
-            <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
-            <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
+            
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone)" of-type="record">
+            <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone).reorder(:started_at)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
@@ -66,18 +78,21 @@
                 </within>
               </matrix>
             </sections>
-            <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:pasturing)" of-type="record">
-              <variable name="animal_group" value="intervention.casts.of_role(:'pasturing-doer').first.actor"/>
-              <variable name="cultivation" value="intervention.casts.of_role(:'pasturing-target').first.actor"/>
-              <variable name="working_area" value="intervention.casts.of_role(:'pasturing-target').first.population"/>
-              <title name="name" of="intervention"/>
-              <property name="id" of="intervention" level="api"/>
-              <property name="started_at" of="intervention" type="datetime"/>
-              <property name="stopped_at" of="intervention" type="datetime"/>
-              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
-              <property name="animal_name" value="animal_group.name"/>
-              <property name="animal_daily_nitrogen_production" value="animal_group.daily_nitrogen_production" level="api"/>
-              
+            <sections for="pasturing" in="support.interventions.real.of_nature(:'pasturing').reorder(:started_at)" of-type="record">
+              <variable name="animal_group" if="pasturing.casts.of_role(:'pasturing-doer')" value="pasturing.casts.of_role(:'pasturing-doer').first.actor"/>
+              <variable name="period" value="((pasturing.stopped_at - pasturing.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
+              <variable name="daily_nitrogen_production" value="animal_group.daily_nitrogen_production(pasturing.started_at)" level="api"/>
+              <variable name="pasturing_working_area" value="pasturing.casts.of_role(:'pasturing-target').first.population"/>
+              <title name="name" of="pasturing"/>
+              <property name="id" of="pasturing" level="api"/>
+              <property name="animal_group_name" value="animal_group.name"/>
+              <property name="animal_group_population" value="animal_group.members_at(pasturing.started_at).count"/>
+              <property name="started_at" of="pasturing" type="datetime"/>
+              <property name="stopped_at" of="pasturing" type="datetime"/>
+              <property name="pasturing_period" value="period.to_d"/>
+              <property name="pasturing_working_area" value="pasturing_working_area" />
+              <property name="nitrogen_input" value="period.to_d * daily_nitrogen_production.to_d" level="api"/>
+              <property name="nitrogen_input_per_hectare" value="(period.to_d * daily_nitrogen_production.to_d) / pasturing_working_area" level="api"/>
             </sections>
             <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
           </sections>

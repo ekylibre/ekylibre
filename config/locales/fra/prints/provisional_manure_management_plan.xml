@@ -127,12 +127,15 @@
 		</field>
 		<variable name="n_animal" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{animal_nitrogen_input_per_hectare}]]></variableExpression>
+			<initialValueExpression><![CDATA["0.0"]]></initialValueExpression>
 		</variable>
 		<variable name="n_intervention" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{intervention_nitrogen_input_per_hectare}]]></variableExpression>
+			<initialValueExpression><![CDATA["0.0"]]></initialValueExpression>
 		</variable>
 		<variable name="provisionnal_balance" class="java.lang.Double">
 			<variableExpression><![CDATA[$P{nitrogen_input_prev} - ($V{n_intervention} + $V{n_animal})]]></variableExpression>
+			<initialValueExpression><![CDATA["0.0"]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>

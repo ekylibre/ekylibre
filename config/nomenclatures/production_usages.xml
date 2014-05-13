@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="production_usages">
+    <property-natures>
+      <property-nature name="crop_sets" type="list" nomenclature="crop_sets" required="true"/>
+    </property-natures>
+    <items>
+      <item name="grain"     crop_sets="wheat,corn,sunflower,straw_cereal"/>
+      <item name="fodder"    crop_sets="corn_sorghum,grass_leguminous,secale_phacelia"/>
+      <item name="seed"      crop_sets="wheat,corn,straw_cereal"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

@@ -1715,6 +1715,7 @@ eng:
     manure_management_plan_computation_methods:
       name: "Manure management plan computation methods"
       items:
+        aquitaine_2013: "Aquitaine 2013"
         external: "External"
         poitou_charentes_2013: "Poitou-Charentes 2013"
     molecules:
@@ -1766,6 +1767,8 @@ eng:
         synel: "Synel"
         synest: "Synest"
         telepac: "Telepac"
+    nmp_france_abacus_cultivation_yield:
+      name: "Nmp france abacus cultivation yield"
     nmp_france_abacus_nitrogen_animal_production:
       name: "Nmp france abacus nitrogen animal production"
     nmp_methods:
@@ -1783,8 +1786,6 @@ eng:
       name: "Abacus 4 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_nine:
       name: "Abacus 9 of the Poitou-Charentes manure management plan computation method"
-    nmp_poitou_charentes_abacus_one:
-      name: "Abacus 1 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_seven:
       name: "Abacus 7 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_six:
@@ -2623,6 +2624,14 @@ eng:
         winter_rapeseed: "Winter rapeseed"
         winter_soft_wheat: "Winter soft wheat"
         without_crop: "Without crop"
+    production_usages:
+      name: "Production usages"
+      property_natures:
+        crop_sets: "Crop sets"
+      items:
+        fodder: "Fodder"
+        grain: "Grain"
+        seed: "Seed"
     residue_elimination_methods:
       name: "Residue elimination methods"
       items:
@@ -2669,7 +2678,9 @@ eng:
         silt_soil: "Silt soil"
         silty_clay_loam_soil: "Silty clay loam soil"
         silty_clay_soil: "Silty clay soil"
+        stony_alluvium_soil: "Stony alluvium soil"
         swamp_peaty_soil: "Swamp peaty soil"
+        touyas_soil: "Touyas soil"
         valley_terrace_soil: "Valley terrace soil"
     spatial_reference_systems:
       name: "Spatial reference systems"
@@ -2891,6 +2902,7 @@ eng:
         gallus: "Gallus"                                   #< aves
         gas: "Gas"                                         #< raw_matter
         glycine: "Glycine"                                 #< fabaceae
+        glycine_max: "Soy bean"                            #< glycine
         grain: "Grain"                                     #< fruit
         grape: "Grape"                                     #< fruit
         grass: "Grass"                                     #< raw_matter
@@ -2947,6 +2959,7 @@ eng:
         lolium_hybridum_bahial: "Hybrid ryegrass bahial"   #< lolium_hybridum
         lolium_multiflorum: "Ryegrass multiflorum"         #< lolium
         lolium_perenne: "Ryegrass perenne"                 #< lolium
+        lupinus: "Lupine"                                  #< fabaceae
         malus: "Malus"                                     #< rosaceae
         mammalia: "Mammalia"                               #< animal
         manure: "Manure"                                   #< excrement
@@ -2961,6 +2974,7 @@ eng:
         mower: "Mower"                                     #< equipment
         nicotiana: "Nicotiana"                             #< solanaceae
         nicotiana_tabacum: "Cultivated tobacco"            #< nicotiana
+        nicotiana_tabacum_brown: "Cultivated tobacco Brown" #< nicotiana_tabacum
         nicotiana_tabacum_burley: "Cultivated tobacco Burley" #< nicotiana_tabacum
         nicotiana_tabacum_virginie: "Cultivated tobacco Virginie" #< nicotiana_tabacum
         numida: "Helmeted Guineafowl"                      #< aves
@@ -3199,6 +3213,7 @@ eng:
         zea_lg30533: "Corn LG 30.533"                      #< zea
         zea_lg3490: "Corn LG 34.90"                        #< zea
         zea_lg3530: "Corn LG 35.30"                        #< zea
+        zea_mays_saccharata: "Sweet corn"                  #< zea
         zea_shannon: "Corn Shannon"                        #< zea
         zone: "Zone"                                       #< product
         zone_property_title: "Zone property title"         #< property_title

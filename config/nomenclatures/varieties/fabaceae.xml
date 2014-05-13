@@ -9,6 +9,13 @@
       <item name="glycine" itis_tsn="26715"/>
       <item name="lens" itis_tsn="26762"/>
       <item name="trifolium" itis_tsn="26204"/>
+      <item name="lupinus" itis_tsn="25916"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-glycine" hierarchical="true">
+    <items>
+      <item name="glycine_max" itis_tsn="26716"/>
     </items>
   </nomenclature>
   

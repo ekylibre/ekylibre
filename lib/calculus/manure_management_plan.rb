@@ -4,7 +4,8 @@ module Calculus
     autoload :Method,              'calculus/manure_management_plan/method'
     autoload :External,            'calculus/manure_management_plan/external'
     autoload :PoitouCharentes2013, 'calculus/manure_management_plan/poitou_charentes_2013'
-
+    autoload :Aquitaine2013, 'calculus/manure_management_plan/aquitaine_2013'
+    
     class << self
 
       def estimate_expected_yield(options = {})

@@ -952,6 +952,7 @@ arb:
     # absolute_measure_value_value: "Absolute measure value value"
     # absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     # absorber: "Absorber"
+    # absorber_way: "Absorber way"
     # acceptance_status: "Acceptance status"
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
@@ -1112,9 +1113,11 @@ arb:
     condition_value: "قيمة المقارنة"
     conditions: "(SQL) شروط"
     # confirmation_sent_at: "Confirmation sent at"
+    # confirmation_token: "Confirmation token"
     confirmed_at: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في" #?
     # consumer: "Consumer"
+    # consumer_way: "Consumer way"
     consumption: "الاستهلاك" #?
     contact: "العنوان" #?
     contact_id: "العنوان" #?
@@ -1124,6 +1127,7 @@ arb:
     # content_localizations: "Content localizations"
     # contents: "Contents"
     # coordinate: "Coordinate"
+    # coordinate_columns: "Coordinate columns"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -1711,6 +1715,7 @@ arb:
     # production: "Production"
     # production_support: "Production support"
     # production_supports: "Production supports"
+    # production_usage: "Production usage"
     # productions: "Productions"
     products: "المنتجات"
     products_accounts: "حسابات المنتجات" #?

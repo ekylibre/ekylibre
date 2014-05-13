@@ -21,22 +21,24 @@
 #
 # == Table: production_supports
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  exclusive     :boolean          not null
-#  id            :integer          not null, primary key
-#  irrigated     :boolean          not null
-#  lock_version  :integer          default(0), not null
-#  nature        :string(255)
-#  production_id :integer          not null
-#  started_at    :datetime
-#  stopped_at    :datetime
-#  storage_id    :integer          not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  exclusive        :boolean          not null
+#  id               :integer          not null, primary key
+#  irrigated        :boolean          not null
+#  lock_version     :integer          default(0), not null
+#  nature           :string(255)      not null
+#  production_id    :integer          not null
+#  production_usage :string(255)      not null
+#  started_at       :datetime
+#  stopped_at       :datetime
+#  storage_id       :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
   enumerize :nature, in: [:main, :secondary, :nitrate_trap], default: :main
+  enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
   belongs_to :storage, class_name: "Product", inverse_of: :supports
   belongs_to :production, inverse_of: :supports
   has_many :interventions
@@ -46,9 +48,9 @@ class ProductionSupport < Ekylibre::Record::Base
   has_one :activity, through: :production
   has_one :campaign, through: :production
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, allow_nil: true, maximum: 255
+  validates_length_of :nature, :production_usage, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
-  validates_presence_of :production, :storage
+  validates_presence_of :nature, :production, :production_usage, :storage
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
@@ -231,7 +233,7 @@ class ProductionSupport < Ekylibre::Record::Base
   # when a plant is born in a production context ?
   def implanted_at
     # case wine or tree
-    if implant_intervention = self.interventions.real.of_nature(:implant).first
+    if implant_intervention = self.interventions.real.of_nature(:implanting).first
       return implant_intervention.started_at
     # case annual crop like cereals
     elsif implant_intervention = self.interventions.real.of_nature(:sowing).first
