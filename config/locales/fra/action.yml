@@ -817,22 +817,22 @@ fra:
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
     analytics: "Analytiques"
-    animal: "Animal"
-    animal_bar: "Animaux par lot"
+    animal: "Animal" #?
+    animal_bar: "Animaux par lot" #?
     animal_group_tabbox:  #?
       animals: "Animaux du lot" #?
       cares: "Soins réalisés sur le lot" #?
-    animal_identification: "Identification animale"
+    animal_identification: "Identification animale" #?
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
-    animal_pie: "Animaux par lot"
-    animal_productions: "Productions animales"
+    animal_pie: "Animaux par lot" #?
+    animal_productions: "Productions animales" #?
     animal_tabbox:  #?
       cares: "Soins" #?
       childrens: "Enfants" #?
-    animals: "Animaux"
-    apply: "Appliquer"
+    animals: "Animaux" #?
+    apply: "Appliquer" #?
     archived_at: "Archivé à" #?
-    archives: "Archives"
+    archives: "Archives" #?
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
     are_you_sure_you_want_to:  #?
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?" #?
@@ -1007,7 +1007,7 @@ fra:
     display: "Afficher"
     display_help: "Afficher l’aide"
     district_x: "%{name} (%{code})"
-    divide: "Diviser"
+    divide: "Diviser" #?
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
@@ -1027,11 +1027,10 @@ fra:
     email: "Email:"
     employee_name: "Employé"
     end: "au"
-    entities_export: "Tout exporter au format CSV"
-    entities_import: "Importer un fichier CSV"
-    entities_merge: "Fusionner des fiches"
+    entities_export: "Tout exporter au format CSV" #?
+    entities_import: "Importer un fichier CSV" #?
+    entities_merge: "Fusionner des fiches" #?
     entity: "Personne"
-    # entity_print: "Print person"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
@@ -1042,11 +1041,11 @@ fra:
     error_sale_already_paid: "La vente a déjà été payée en totalité"
     errors_explanation: "Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation"
     establish_capital_goods: "Biens constituant des immobilisations" #?
-    establishment: "Établissement"
-    establishments: "Établissements"
-    estimate: "Devis"
-    estimate_to_order: "Passer le devis en commande"
-    europe_out_export: "Exportations hors CE"
+    establishment: "Établissement" #?
+    establishments: "Établissements" #?
+    estimate: "Devis" #?
+    estimate_to_order: "Passer le devis en commande" #?
+    europe_out_export: "Exportations hors CE" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
     evaluated_tool_cost: "Coût outils"
@@ -1111,12 +1110,13 @@ fra:
       # zero: "No Time used"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
-    illness: "Maladies" #?
+    illness: "Maladies"
     immunoglobulins_concentration: "Concentration en immunoglobulines Gamma" #?
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
+    # incident: "Incident"
     include_blank: "— Aucune organisation —"
     income_statement: "Comptes de résultats"
     incoming_payment_conditions: "Conditions d’encaissement"
@@ -1128,7 +1128,7 @@ fra:
       unreceived: "Non reçus"
       waiting: "À encaisser plus tard"
     indicator: "Indicateur"
-    indicator_value: "Valeur de l’indicateur" #?
+    indicator_value: "Valeur de l’indicateur"
     indicator_with_unit: "%{indicator} (%{unit})" #?
     indicators: "Indicateurs"
     indicators_evolutions: "Évolutions des indicateurs" #?
@@ -1252,7 +1252,7 @@ fra:
       stocks: "Stocks"
       trade: "Achats/Ventes"
     merge: "Fusionner"
-    method: "Méthode" #?
+    method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     minimal_temperature: "Température minimale"
     missing_help: "Page inexistante"
@@ -1278,7 +1278,7 @@ fra:
     nature: "Type"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
-    net_mass: "Masse nette" #?
+    net_mass: "Masse nette"
     net_surface_area: "Surface net" #?
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
@@ -1310,7 +1310,7 @@ fra:
     nitrogen_input_real: "Apport réalisé en azote" #?
     no_commercial: "— Sans commercial —"
     no_contacts: "Aucune adresse définie pour %{name}"
-    no_data: "Aucune donnée" #?
+    no_data: "Aucune donnée"
     no_deliveries: "Aucune livraison en attente"
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison"
     no_deposits: "Aucune remise en banque à valider"
@@ -1469,19 +1469,22 @@ fra:
     reflect: "Refléter"
     reflected: "Changements répercutés"
     refresh: "Rafraîchir"
-    related_people: "En lien avec" #?
+    related_people: "En lien avec"
     relationship: "Gestion des relations clients/fournisseurs"
-    remove_diagnostic: "Supprimer un diagnostic"
-    remove_reading: "Supprimer une mesure pour un indicateur"
-    remove_treatment: "Supprimer un traitement"
-    remove_watching: "Supprimer un produit de référence"
-    reopen: "Déclôturer"
-    reopen_journal: "Déclôturer le journal"
+    # remove: "Remove"
+    remove_diagnostic: "Supprimer un diagnostic" #?
+    # remove_item: "Remove item"
+    remove_reading: "Supprimer une mesure pour un indicateur" #?
+    # remove_subscription: "Remove subscription"
+    remove_treatment: "Supprimer un traitement" #?
+    remove_watching: "Supprimer un produit de référence" #?
+    reopen: "Déclôturer" #?
+    reopen_journal: "Déclôturer le journal" #?
     report: "Informations communes"
     reported_balance: "Crédit à reporter"
     reproductor: "Reproducteur" #?
-    reservoir: "Réservoir"
-    reservoir_informations: "Informations sur le réservoir"
+    reservoir: "Réservoir" #?
+    reservoir_informations: "Informations sur le réservoir" #?
     # reset: "Reset"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
@@ -1536,7 +1539,7 @@ fra:
       all: "Toutes"
       current: "En cours"
       unpaid: "Impayées"
-    same_variant_as_x: "Même variante de produit que %{x}" #?
+    same_variant_as_x: "Même variante de produit que %{x}"
     save: "Enregistrer"
     save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»" #?
     save_in_draft: "Sauvegarder dans le brouillard"
@@ -1549,7 +1552,7 @@ fra:
     search_sales: "Rechercher des ventes"
     second_building_name: "Entrée de"
     second_contact: "Adresse secondaire"
-    section_x: "%{section} %{x}" #?
+    section_x: "%{section} %{x}"
     select_account_client: "Compte à lettrer"
     select_account_supplier: "Compte à lettrer"
     select_area: "Zone postale"
@@ -1659,8 +1662,9 @@ fra:
     units_load: "Charger les unités de base manquantes" #?
     unknown_condition: "Type de condition inconnue"
     unknown_user: "Utilisateur inconnu"
-    unknown_variant: "Variante de produit inconnue" #?
+    unknown_variant: "Variante de produit inconnue"
     unlock: "Déverrouiller"
+    # unmark: "Unmark"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer"
     unpaid_days: "À payer depuis (jours)"
@@ -1685,7 +1689,7 @@ fra:
     # used_accounts: "Used accounts only"
     user_name: "Nom d’utilisateur"
     users: "Compte utilisateur" #?
-    uses: "Matériel"
+    uses: "Matériel" #?
     valid: "Valider"
     validate: "Valider"
     validate_selected_entries: "Valider les écritures sélectionnées"
@@ -1705,8 +1709,7 @@ fra:
     weather: "Météo"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
-    # with_assets_depreciations: "With assets depreciations"
-    with_financial_assets_depreciations: "Inclure les amortissements des immobilisations" #?
+    with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)"
     x_cashes:
       one: "1 compte bancaire"
@@ -1716,9 +1719,9 @@ fra:
       one: "%{count} contact"
       other: "%{count} contacts"
       zero: "0 contact" #?
-    x_days:  #?
-      one: "%{count} jour" #?
-      other: "%{count} jours" #?
+    x_days:
+      one: "%{count} jour"
+      other: "%{count} jours"
     x_depositable_payments:
       one: "%{count} encaissement à encaisser depuis au moins 15 j."
       other: "%{count} encaissement à encaisser depuis au moins 15 j."
@@ -1765,9 +1768,9 @@ fra:
       one: "%{count} responsabilité"
       other: "%{count} responsabilités "
       zero: "0 responsabilité"
-    x_months:  #?
-      one: "%{count} mois" #?
-      other: "%{count} mois" #?
+    x_months:
+      one: "%{count} mois"
+      other: "%{count} mois"
     x_observations:
       one: "%{count} observation"
       other: "%{count} observations"
@@ -1831,8 +1834,8 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
       # zero: "0 years"
-    y: "Oui"
-    yearly: "Annuelle"
+    y: "Oui" #?
+    yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique"
     yield: "Rendement" #?
   notifications:

@@ -6,8 +6,6 @@
 #     - "authentication/sessions#create"
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
-#     - "backend/animals#exclude"
-#     - "backend/animals#include"
 #     - "backend/calculators#index"
 #     - "backend/calculators/nitrogen_inputs#edit"
 #     - "backend/calculators/nitrogen_inputs#show"

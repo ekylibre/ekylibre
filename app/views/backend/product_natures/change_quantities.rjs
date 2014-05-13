@@ -1,3 +1,0 @@
-page['stock_quantity_min'].value=@stock.quantity_min
-page['stock_quantity_max'].value=@stock.quantity_max
-page['stock_critic_quantity_min'].value=@stock.critic_quantity_min

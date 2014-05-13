@@ -819,16 +819,8 @@ spa:
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_with_taxes: "Total de la entrega TTC"
     # analytics: "Analytics"
-    # animal: "Animal"
-    # animal_bar: "Animals by category"
     animal_group_tabbox: #?
-    # animal_identification: "Animal identification"
-    # animal_pie: "Animals by category"
-    # animal_productions: "Animal productions"
     animal_tabbox: #?
-    # animals: "Animals"
-    # apply: "Apply"
-    # archives: "Archives"
     # are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to: #?
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
@@ -983,7 +975,6 @@ spa:
     # display: "Display"
     # display_help: "Display help"
     # district_x: "%{name} (%{code})"
-    # divide: "Divide"
     # document: "Document"
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
@@ -1003,11 +994,7 @@ spa:
     # email: "Email:"
     # employee_name: "Employee"
     end: "al"
-    # entities_export: "Export person in CSV"
-    # entities_import: "Import person in CSV"
-    # entities_merge: "Merge persons"
     # entity: "Person"
-    # entity_print: "Print person"
     # entity_to_delete: "Person to delete"
     # entity_to_update: "Person to update"
     entries: "Escrituras"
@@ -1017,12 +1004,10 @@ spa:
     # error_sale_already_paid: "The sale is already paid"
     # errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     establish_capital_goods: "Bienes que  constituyen inmobilizaciones" #?
-    establishment: "Establecimiento"
+    establishment: "Establecimiento" #?
     establishment_create: "Añadir un nuevo establecimiento" #?
-    establishments: "Establecimiento"
-    # estimate: "Estimate"
-    # estimate_to_order: "Estimate to order"
-    europe_out_export: "Exportaciones fuera de CC.EE"
+    establishments: "Establecimiento" #?
+    europe_out_export: "Exportaciones fuera de CC.EE" #?
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
     # evaluated_tool_cost: "Evaluated tool cost"
@@ -1079,9 +1064,11 @@ spa:
       # zero: "No Time used"
     iban: "Numero de cuento bancario internacional (IBAN)"
     # identification: "Identification"
+    # illness: "Illness"
     import: "Importación de un  fichero de salvaguardia"
     # import_backup: "Import backup"
     # importation_explanation: "Importation explanation"
+    # incident: "Incident"
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
     # incoming_payment_conditions: "Conditions of payment"
@@ -1093,6 +1080,7 @@ spa:
       # unreceived: "Unreceived"
       # waiting: "To deposit later"
     # indicator: "Indicators"
+    # indicator_value: "Indicator value"
     # indicators: "Indicators"
     # info: "General parameters"
     infos: "Informar las caracteristicas de la entrega"
@@ -1193,6 +1181,7 @@ spa:
       submenus: #?
       # trade: "Trade"
     # merge: "Merge"
+    # method: "Method"
     # minimal_temperature: "Minimal temperature"
     missing_help: "La página no existe"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1221,6 +1210,7 @@ spa:
       one: "Una compra en espera de recepción" #?
       other: "%{count} Compras en espera de recepción" #?
       zero: "Ningunas compras en espera de recepción" #?
+    # net_mass: "Net mass"
     net_vat_amount: "TVA neta deuda" #?
     # new: "New"
     new_deposit:
@@ -1247,6 +1237,7 @@ spa:
     # next: "Next"
     # no_commercial: "No commercial"
     # no_contacts: "No address defined for %{name}"
+    # no_data: "No data"
     # no_deliveries: "No deliveries"
     # no_deliveries_for_this_sale: "No deliveries for this sale"
     # no_deposits: "No deposits"
@@ -1390,18 +1381,17 @@ spa:
     # reflected: "Reflected changes"
     # refresh: "Refresh"
     register: "Crear una nueva compañía" #?
+    # related_people: "Related people"
     relations: "Relaciones clientos/abastecedores" #?
     # relationship: "Relationship management"
-    # remove_diagnostic: "Remove diagnostic"
-    # remove_reading: "Remove indicator value"
-    # remove_treatment: "Remove treatment"
-    # remove_watching: "Remove product reference"
-    reopen: "Volver a abrir el periodico"
-    # reopen_journal: "Reopen the journal"
+    # remove: "Remove"
+    # remove_item: "Remove item"
+    # remove_subscription: "Remove subscription"
+    reopen: "Volver a abrir el periodico" #?
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir"
-    reservoir: "Deposito"
-    reservoir_informations: "Informaciones sobre el deposito"
+    reservoir: "Deposito" #?
+    reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     # reset: "Reset"
     resource: "Consultar la pieza de origen : %{resource} %{number}"
@@ -1451,6 +1441,7 @@ spa:
       # all: "All"
       # current: "Current"
       # unpaid: "Unpaid"
+    # same_variant_as_x: "Same variant as %{x}"
     # save: "Save"
     save_in_draft: "Salvar en la niebla"
     # scheduled: "Scheduled"
@@ -1462,6 +1453,7 @@ spa:
     # search_sales: "Search sales"
     # second_building_name: "Second building name"
     # second_contact: "Second address"
+    # section_x: "Section %{x}"
     select_account_client: "Cuentos a marcar con letras"
     select_account_supplier: "Cuento a marcar con letra"
     # select_area: "Select area"
@@ -1562,7 +1554,9 @@ spa:
     units_load: "Cargar las unidades de base que falten" #?
     # unknown_condition: "Unknown condition"
     # unknown_user: "Unknown user"
+    # unknown_variant: "Unknown variant"
     # unlock: "Unlock"
+    # unmark: "Unmark"
     # unpaid: "Unpaid"
     # unpaid_amount: "Unpaid amount"
     # unpaid_days: "Unpaid since (in days)"
@@ -1586,7 +1580,6 @@ spa:
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario"
     user_update: "Modificar las informaciones del utilizador" #?
-    # uses: "Tools"
     # valid: "Valid"
     validate: "Validar"
     validate_selected_entries: "Validar la escrituras seleccionadas"
@@ -1598,7 +1591,7 @@ spa:
     # virtual_quantity: "Virtual quantity"
     # weather: "Weather"
     # wind_speed: "Wind speed"
-    # with_assets_depreciations: "With assets depreciations"
+    # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
     x_cashes:
       # one: "%{count} cash"
@@ -1606,7 +1599,9 @@ spa:
     x_contacts:
       # one: "%{count} contact"
       # other: "%{count} contacts"
-    x_days: #?
+    x_days:
+      # one: "%{count} day"
+      # other: "%{count} days"
     x_depositable_payments:
       # one: "1 incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
@@ -1650,7 +1645,9 @@ spa:
       # other: "%{count} mandates"
       # zero: "no mandate"
     x_meetings: #?
-    x_months: #?
+    x_months:
+      # one: "%{count} month"
+      # other: "%{count} months"
     x_observations:
       # one: "%{count} observation"
       # other: "%{count} observations"
@@ -1711,8 +1708,7 @@ spa:
       # one: "1 year"
       # other: "%{count} years"
       # zero: "0 years"
-    # y: "Yes"
-    yearly: "Anual"
+    yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico"
   notifications:
     levels:

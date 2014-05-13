@@ -53,8 +53,6 @@ eng:
       index: "Animal products"
     backend/animals:
       edit: "Edit animal: %{name}"
-      # exclude: "Exclude animal: %{name}"
-      # include: "Include animal: %{name}"
       index: "Animals"
       new: "Create animal"
       show: "%{nature}: %{name}"
@@ -684,14 +682,6 @@ eng:
     amount_to_reduce: "Total to reduce" #?
     amount_with_taxes: "Amount with taxes" #?
     analytics: "Analytics" #?
-    animal: "Animal" #?
-    animal_bar: "Animals by category" #?
-    animal_identification: "Animal identification" #?
-    animal_pie: "Animals by category" #?
-    animal_productions: "Animal productions" #?
-    animals: "Animals" #?
-    apply: "Apply" #?
-    archives: "Archives" #?
     are_you_sure: "Are you sure you want to do this?"
     # are_you_sure_you_want_to: "Are you sure you want to"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
@@ -814,7 +804,6 @@ eng:
     display: "Display" #?
     display_help: "Display help" #?
     district_x: "%{name} (%{code})" #?
-    divide: "Divide" #?
     document: "Document" #?
     document_natures: "Document types" #?
     document_templates: "Document templates" #?
@@ -832,11 +821,7 @@ eng:
     email: "Email:" #?
     employee_name: "Employee" #?
     end: "to" #?
-    entities_export: "Export person in CSV" #?
-    entities_import: "Import person in CSV" #?
-    entities_merge: "Merge persons" #?
     entity: "Person" #?
-    entity_print: "Print person" #?
     entity_to_delete: "Person to delete" #?
     entity_to_update: "Person to update" #?
     entries: "Entries" #?
@@ -845,11 +830,6 @@ eng:
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     error_sale_already_paid: "The sale is already paid" #?
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import." #?
-    establishment: "Establishment" #?
-    establishments: "Establishments" #?
-    estimate: "Estimate" #?
-    estimate_to_order: "Estimate to order" #?
-    europe_out_export: "Export outside Country" #?
     evaluated_doer_cost: "Evaluated labor cost"
     evaluated_input_cost: "Evaluated input cost"
     evaluated_tool_cost: "Evaluated tool cost"
@@ -905,11 +885,11 @@ eng:
       zero: "No Time used" #?
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification" #?
-    # illness: "Illness"
+    illness: "Illness"
     import: "Import"
     import_backup: "Import backup" #?
     importation_explanation: "Importation explanation" #?
-    # incident: "Incident"
+    incident: "Incident"
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
     incoming_payment_conditions: "Conditions of payment" #?
@@ -921,7 +901,7 @@ eng:
       unreceived: "Unreceived" #?
       waiting: "To deposit later" #?
     indicator: "Indicators"
-    # indicator_value: "Indicator value"
+    indicator_value: "Indicator value"
     indicators: "Indicators" #?
     info: "General parameters" #?
     infos: "Product and quantity" #?
@@ -1002,7 +982,7 @@ eng:
       stocks: "Stocks"
       trade: "Trade"
     merge: "Merge" #?
-    # method: "Method"
+    method: "Method"
     minimal_temperature: "Minimal temperature"
     missing_help: "Missing page" #?
     mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity" #?
@@ -1021,7 +1001,7 @@ eng:
     n: "Non" #?
     name: "Name" #?
     nature: "Type" #?
-    # net_mass: "Net mass"
+    net_mass: "Net mass"
     new: "New"
     new_deposit:  #?
       one: "Make a deposit %{mode}: 1 available payment" #?
@@ -1047,7 +1027,7 @@ eng:
     next: "Next" #?
     no_commercial: "No commercial" #?
     no_contacts: "No address defined for %{name}" #?
-    # no_data: "No data"
+    no_data: "No data"
     no_deliveries: "No deliveries" #?
     no_deliveries_for_this_sale: "No deliveries for this sale" #?
     no_deposits: "No deposits" #?
@@ -1176,23 +1156,13 @@ eng:
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     refresh: "Refresh"
-    # related_people: "Related people"
+    related_people: "Related people"
     relationship: "Relationship management" #?
-    # remove: "Remove"
-    remove_diagnostic: "Remove diagnostic"
-    # remove_item: "Remove item"
-    remove_reading: "Remove indicator value"
-    # remove_stock: "Remove stock"
-    # remove_subscription: "Remove subscription"
-    remove_treatment: "Remove treatment"
-    # remove_use: "Remove use"
-    remove_watching: "Remove product reference"
-    reopen: "Reopen" #?
-    reopen_journal: "Reopen the journal" #?
+    remove: "Remove"
+    remove_item: "Remove item"
+    remove_subscription: "Remove subscription"
     report: "Report" #?
     reported_balance: "Reported Balance" #?
-    reservoir: "Reservoir" #?
-    reservoir_informations: "Reservoir informations" #?
     reset: "Reset" #?
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
@@ -1229,7 +1199,7 @@ eng:
       all: "All" #?
       current: "Current" #?
       unpaid: "Unpaid" #?
-    # same_variant_as_x: "Same variant as x"
+    same_variant_as_x: "Same variant as %{x}"
     save: "Save" #?
     save_in_draft: "Save as draft" #?
     scheduled: "Scheduled" #?
@@ -1241,7 +1211,7 @@ eng:
     search_sales: "Search sales" #?
     second_building_name: "Second building name" #?
     second_contact: "Second address" #?
-    # section_x: "Section x"
+    section_x: "Section %{x}"
     select_account_client: "Customer Account for lettering" #?
     select_account_supplier: "Supplier Account for lettering" #?
     select_area: "Select area" #?
@@ -1332,9 +1302,9 @@ eng:
     unit: "Unit" #?
     unknown_condition: "Unknown condition" #?
     unknown_user: "Unknown user"
-    # unknown_variant: "Unknown variant"
+    unknown_variant: "Unknown variant"
     unlock: "Unlock" #?
-    # unmark: "Unmark"
+    unmark: "Unmark"
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #?
     unpaid_days: "Unpaid since (in days)" #?
@@ -1356,7 +1326,6 @@ eng:
     use_renew: "Select the journal to carry over" #?
     used_accounts: "Used accounts only" #?
     user_name: "Username" #?
-    uses: "Tools" #?
     valid: "Valid" #?
     validate: "Validate"
     validate_selected_entries: "Validate selected entries" #?
@@ -1368,8 +1337,7 @@ eng:
     virtual_quantity: "Virtual quantity" #?
     weather: "Weather" #?
     wind_speed: "Wind speed"
-    with_assets_depreciations: "With assets depreciations" #?
-    # with_financial_assets_depreciations: "With financial assets depreciations"
+    with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases…)" #?
     x_cashes: 
       one: "%{count} cash"
@@ -1377,7 +1345,9 @@ eng:
     x_contacts: 
       one: "%{count} contact"
       other: "%{count} contacts"
-    # x_days: "X days"
+    x_days: 
+      one: "%{count} day"
+      other: "%{count} days"
     x_depositable_payments: 
       one: "1 incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
@@ -1417,7 +1387,9 @@ eng:
       one: "%{count} mandate"
       other: "%{count} mandates"
       zero: "no mandate"
-    # x_months: "X months"
+    x_months: 
+      one: "%{count} month"
+      other: "%{count} months"
     x_observations: 
       one: "%{count} observation"
       other: "%{count} observations"
@@ -1478,8 +1450,6 @@ eng:
       one: "1 year"
       other: "%{count} years"
       zero: "0 years"
-    y: "Yes" #?
-    yearly: "Yearly" #?
     years_count_in_historic: "Years count in historic"
   notifications:
     levels:
@@ -1591,14 +1561,14 @@ eng:
       # draft: "Draft"
       duplicate: "Duplicate"
       edit: "Edit"
-      exclude: "Exclude"
+      exclude: "Exclude" #?
       export: "Export"
       extract: "Extract"
       finish: "Finish"
       # general_ledger: "General ledger"
       generate_last_journal_entry: "Generate last journal entry"
       import: "Import"
-      include: "Include"
+      include: "Include" #?
       incorporate: "Incorporate"
       increment: "Increment"
       index: "Index"
