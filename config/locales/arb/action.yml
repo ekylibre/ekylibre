@@ -971,16 +971,9 @@ arb:
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
     # analytics: "Analytics"
-    # animal: "Animal"
-    # animal_bar: "Animals by category"
     animal_group_tabbox: #?
-    # animal_identification: "Animal identification"
-    # animal_pie: "Animals by category"
-    # animal_productions: "Animal productions"
     animal_tabbox: #?
-    # animals: "Animals"
-    apply: "تطبيق"
-    # archives: "Archives"
+    apply: "تطبيق" #?
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to: #?
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
@@ -1145,7 +1138,6 @@ arb:
     display_help: "عرض المساعدة"
     district_create: "اضافة منطقة ادارية" #?
     district_x: "%{name} (%{code})"
-    # divide: "Divide"
     # document: "Document"
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
@@ -1164,9 +1156,9 @@ arb:
     # email: "Email:"
     employee_name: "الموظف"
     end: "لغاية"
-    entities_export: "CSV جميع الصادرات ضمن"
-    entities_import: "CSV استيراد سجلات"
-    entities_merge: "دمج السجلات"
+    entities_export: "CSV جميع الصادرات ضمن" #?
+    entities_import: "CSV استيراد سجلات" #?
+    entities_merge: "دمج السجلات" #?
     # entity: "Person"
     entity_category_create: "اضافة نوع الملف" #?
     entity_category_update: "تعديل نوع الملف" #?
@@ -1174,7 +1166,7 @@ arb:
     entity_link_create: "اضافة رابط جديد" #?
     entity_link_nature_create: "اضافة نوع رابط جديد" #?
     entity_nature_create: "اضافة نوع ملف جديد" #?
-    entity_print: "طباعة الملف"
+    entity_print: "طباعة الملف" #?
     entity_to_delete: "( دمج التكرار (وجعله يختفي"
     entity_to_update: "وضع ملف اليوم مع العناصر المتكررة"
     entity_update: "تعديل الملف" #?
@@ -1185,12 +1177,11 @@ arb:
     # error_sale_already_paid: "The sale is already paid"
     errors_explanation: "هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد"
     establish_capital_goods: "تشكل الممتلكات رأس المال" #?
-    establishment: "المؤسسة"
+    establishment: "المؤسسة" #?
     establishment_create: "اضافة مرفق جديد" #?
-    establishments: "مرافق"
-    # estimate: "Estimate"
-    estimate_to_order: "المضي بطلب تحديد السعر"
-    europe_out_export: "الاتحاد الاوروبي خارج الصادرات"
+    establishments: "مرافق" #?
+    estimate_to_order: "المضي بطلب تحديد السعر" #?
+    europe_out_export: "الاتحاد الاوروبي خارج الصادرات" #?
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
     # evaluated_tool_cost: "Evaluated tool cost"
@@ -1253,10 +1244,12 @@ arb:
       zero: ""
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
     identification: "اسم ورمز المنتج"
+    # illness: "Illness"
     import: "استيراد"
     # import_backup: "Import backup"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
+    # incident: "Incident"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
     # incoming_payment_conditions: "Conditions of payment"
@@ -1272,6 +1265,7 @@ arb:
       # waiting: "To deposit later"
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
+    # indicator_value: "Indicator value"
     # indicators: "Indicators"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
@@ -1393,6 +1387,7 @@ arb:
       submenus: #?
       trade: "التجارة"
     merge: "دمج"
+    # method: "Method"
     # minimal_temperature: "Minimal temperature"
     missing_help: "صفحات مفقودة"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1425,6 +1420,7 @@ arb:
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
     nb_purchases: #?
+    # net_mass: "Net mass"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
     new_deposit:
@@ -1451,6 +1447,7 @@ arb:
     next: "التالي"
     no_commercial: "-- دون تداول --"
     # no_contacts: "No address defined for %{name}"
+    # no_data: "No data"
     no_deliveries: "ليس هناك من تسليم بالانتظار"
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع"
     no_deposits: "التأكد من عدم اقتطاعات البنك"
@@ -1621,18 +1618,17 @@ arb:
     # reflected: "Reflected changes"
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
+    # related_people: "Related people"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Relationship management"
-    # remove_diagnostic: "Remove diagnostic"
-    # remove_reading: "Remove indicator value"
-    # remove_treatment: "Remove treatment"
-    # remove_watching: "Remove product reference"
-    reopen: "فتح الدفتر اليومي"
-    # reopen_journal: "Reopen the journal"
+    # remove: "Remove"
+    # remove_item: "Remove item"
+    # remove_subscription: "Remove subscription"
+    reopen: "فتح الدفتر اليومي" #?
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد"
-    reservoir: "الاحتياطي"
-    reservoir_informations: "معلومات عن خزان الاحتياطي"
+    reservoir: "الاحتياطي" #?
+    reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
     # reset: "Reset"
     resource: "مراجعة السجلات الاصلية : %{resource} %{number}"
@@ -1694,6 +1690,7 @@ arb:
       # all: "All"
       # current: "Current"
       # unpaid: "Unpaid"
+    # same_variant_as_x: "Same variant as %{x}"
     save: "حفظ"
     save_in_draft: "حفظ في المسودات"
     # scheduled: "Scheduled"
@@ -1705,6 +1702,7 @@ arb:
     search_sales: "البحث عن طلبات البيع"
     second_building_name: "ادخال الاسم"
     # second_contact: "Second address"
+    # section_x: "Section %{x}"
     select_account_client: "كتابة حسابات"
     select_account_supplier: "كتابة حسابات"
     select_area: "عنوان بريدي"
@@ -1815,7 +1813,9 @@ arb:
     units_load: "تحميل الوحدات الاساسية المفقودة" #?
     unknown_condition: "غير معروف نوع الشرط"
     # unknown_user: "Unknown user"
+    # unknown_variant: "Unknown variant"
     unlock: "فتح القفل"
+    # unmark: "Unmark"
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"
     # unpaid_days: "Unpaid since (in days)"
@@ -1839,7 +1839,7 @@ arb:
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم"
     user_update: "تعديل معلومات المستخدم" #?
-    uses: "المادة"
+    uses: "المادة" #?
     valid: "الصلاحية"
     validate: "التعديل"
     validate_selected_entries: "التحقق من المدخلات المختارة"
@@ -1857,7 +1857,7 @@ arb:
     waiting: "أ€ التسدسد لاحقا" #?
     # weather: "Weather"
     # wind_speed: "Wind speed"
-    # with_assets_depreciations: "With assets depreciations"
+    # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
     x_cashes:
       one: "حساب بنكي واحد"
@@ -1867,7 +1867,9 @@ arb:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
       zero: "ولا مشترك" #?
-    x_days: #?
+    x_days:
+      # one: "%{count} day"
+      # other: "%{count} days"
     x_depositable_payments:
       # one: "1 incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
@@ -1913,7 +1915,9 @@ arb:
       other: "%{count} تفويض اخر"
       zero: "ولا اية تفويض"
     x_meetings: #?
-    x_months: #?
+    x_months:
+      # one: "%{count} month"
+      # other: "%{count} months"
     x_observations:
       one: "ملاحظة واحدة"
       other: "%{count} ملاحظات اخرى"
@@ -1976,8 +1980,8 @@ arb:
       # one: "1 year"
       # other: "%{count} years"
       # zero: "0 years"
-    y: "نعم"
-    yearly: "Annuelle"
+    y: "نعم" #?
+    yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة"
   notifications:
     levels:

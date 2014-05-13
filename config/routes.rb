@@ -183,8 +183,6 @@ Ekylibre::Application.routes.draw do
 
     resources :animals, concerns: :products do
       member do
-        get :exclude
-        get :include
         get :list_children
       end
     end

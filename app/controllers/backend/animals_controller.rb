@@ -32,8 +32,6 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :father, url: true, hidden: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :new,     on: :none
-    t.action :include, on: :both
-    t.action :exclude, on: :both
     t.action :edit
     t.action :destroy
   end
@@ -66,16 +64,6 @@ class Backend::AnimalsController < Backend::MattersController
                                                                   {:memberships => {:include => :group}},
                                                                   {:localizations => {:include => :container}}])
 
-  end
-
-  def include
-    if request.post?
-    end
-  end
-
-  def exclude
-    if request.post?
-    end    
   end
 
 end
