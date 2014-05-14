@@ -1,8 +1,11 @@
 :ruby
-  # data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
-  
+  #data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
+  lp = LandParcel.all
+  lp.each do
+    data_lp = Charta::Geometry.new(shape).transform(:WGS84).centroid
+  end 
 = visualization :my_cultivable_zone_of_hell do |v|
-  -# The followings layers are base layers. Only one base layer(the last one) will appear.
+  -# The followings layers are base layers. Only one base layer will appear.
   - v.background :default_base, "OpenStreetMap.HOT"
   - v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
   - v.background :de_base, "OpenStreetMap.DE"
@@ -23,11 +26,18 @@
   -# v.layer :zones, data, tooltip: true
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
-  -# v.control :background_selector
+  -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
+  - v.bubble lp
+  -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
+  -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
+  -# v.bubble :Lyon_population, [45.759723, 4.842223], 4912.68
+  -# v.bubble :Toulouse_population, [43.604482, 1.44396], 4473.40
+  -# v.bubble :Nice_population, [43.695949, 7.271413], 3440.64
+  
   - v.control :zoom
   - v.control :tilelegend
   - v.control :scale
   - v.control :fullscreen
   - v.control :geocoder
   - v.control :layer_selector
-  -# v.control :search
+

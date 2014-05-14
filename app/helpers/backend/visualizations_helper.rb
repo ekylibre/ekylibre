@@ -29,13 +29,16 @@ module Backend::VisualizationsHelper
       
     end
 
-    def layer(name, *args)
-      options = args.extract_options!
-      data = args.shift
-      
-      options[:type] ||= args.shift || :simple
-      @data[:layers] ||= {}.with_indifferent_access
-      @data[:layers][name] = options
+    def vis(name, source)
+      @data[:visses] ||= []
+      @data[:visses] << {name: name, source: source}
+
+    end
+    
+    def bubble(list)
+      @data[:bubbles] ||= []
+      @data[:bubbles] << {list: list}
+
     end
     
     def datasets(name, datas = {})
