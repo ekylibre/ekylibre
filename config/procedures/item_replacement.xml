@@ -4,7 +4,7 @@
   <procedure name="item_replacement" natures="piece_replacement" version="0" status="frozen">
     <variables>
       <variable name="equipment"       variety="equipment" roles="piece_replacement-target"/>
-      <variable name="item"            variety="matter" derivative_of="variety:equipment" />
+      <variable name="item"            variety="matter" derivative-of="variety:equipment" />
       <variable name="item_to_change"  new="parted-from: item" roles="piece_replacement-input" need="population"/>
       <variable name="mechanic"        abilities="repair(equipment)" roles="piece_replacement-doer"/>
     </variables>

@@ -65,7 +65,7 @@ arb:
     backend/animals:
       # edit: "Edit animal: %{name}"
       # index: "Animals"
-      # new: "Create animal"
+      # new: "New animal"
       # show: "%{nature}: %{name}"
     backend/areas:  #?
       edit: "تعديل العنوان البريدي : %{name}" #?
@@ -97,7 +97,7 @@ arb:
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
       # index: "Campagains"
-      # new: "Create campaign"
+      # new: "New campaign"
       # show: "Campaign %{name}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
@@ -121,6 +121,7 @@ arb:
       # show: "Catalog: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cash_balances_cells: #?
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
@@ -150,6 +151,7 @@ arb:
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
     backend/cells/meteo_cells: #?
+    backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
@@ -245,7 +247,7 @@ arb:
       show: "ملف: %{full_name}"
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
-      # new: "Add a coordinate"
+      # new: "New address"
     backend/entity_categories:  #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملف" #?
@@ -405,7 +407,7 @@ arb:
     backend/land_parcel_groups:
       # edit: "Edit land parcel group: %{name}"
       # index: "Land parcel groups"
-      # new: "New Land parcel group"
+      # new: "New land parcel group"
       # show: "Land parcel group %{name}"
     backend/land_parcels:
       edit: "تعديل النظام : %{name}"
@@ -452,7 +454,7 @@ arb:
     backend/matters:
       # edit: "Edit matter: %{name}"
       # index: "Matters"
-      # new: "Create matter"
+      # new: "New matter"
       # show: "Matter: %{name}"
     backend/medicines: #?
     backend/meeting_natures: #?
@@ -522,7 +524,7 @@ arb:
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
-      # new: "Create plant"
+      # new: "New plant"
       # show: "Plant: %{name}"
     backend/posologies: #?
     backend/postal_zones:
@@ -631,7 +633,7 @@ arb:
     backend/productions:
       # edit: "Edit production: %{name}"
       # index: "Productions"
-      # new: "Create production"
+      # new: "New production"
       # show: "Production: %{name}"
     backend/products:
       edit: "تعديل المنتج : %{name}"
@@ -926,7 +928,7 @@ arb:
     account_update: "تعديل الحسابات" #?
     account_value_current: "القيمة الحالية" #?
     account_value_previous: "القيمة السابقة" #?
-    accountancy: "المحاسبة" #?
+    accountancy: "المحاسبة"
     # accounting_balance: "Accounting balance"
     accounts: "حسابات المحاسب المستخدمة"
     # accounts_to_load: "Accounts to load"
@@ -970,10 +972,13 @@ arb:
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل"
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
+    # amounts_in_currency: "Amounts (%{currency})"
     # analytics: "Analytics"
     animal_group_tabbox: #?
+    # animal_productions: "Animal productions"
     animal_tabbox: #?
     apply: "تطبيق" #?
+    # archives: "Archives"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to: #?
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
@@ -1007,11 +1012,9 @@ arb:
         safari: "سفاري رحلة قنص" #?
     balance: "رصيد الحساب"
     bank_accounts: "" #?
-    # bank_chart: "Bank chart"
     bank_statement_point: "الاشارة للكشف المصرفي" #?
     bank_statement_update: "تعديل الكشف المصرفي" #?
     # bban: "Basic Bank Account Number (BBAN)"
-    # begins: "Starts with"
     body: "هيكل الرسالة"
     building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
@@ -1024,6 +1027,7 @@ arb:
     cancel: "الغاء"
     cancelled: "تم الالغاء"
     cash: "حسابات بنكية"
+    # cash_balances: "Bank chart"
     cash_create: "اضافة حساب بنكي جديد" #?
     cash_tabbox: #?
     cash_update: "تعديل الخزينة" #?
@@ -1192,6 +1196,7 @@ arb:
       other: "%{count} احداث اخرى" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
       zero: "ولا حدث" #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
     example: "مثال&nbsp;: %{value}"
+    # exchange: "Exchange"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     executed: "انجز"
     existing_part: "استخدام الدفعات الغير متضررة"
@@ -1404,7 +1409,7 @@ arb:
     moves: "حركات الاسهم"
     my_company: "عن شركتك"
     my_self: "عن نفسك"
-    n: "لا شيء"
+    n: "لا شيء" #?
     name: "الاسم"
     national_deliveries: "الامدادات المحلية" #?
     national_normal_vat_collected: "معدل ضريبة القيمة المضافة المحلية العادية %19.6" #?
@@ -1427,15 +1432,10 @@ arb:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
-    new_family: "اسرة جديدة"
-    # new_in_line: "New incoming product"
-    new_organization: "منظمة جديدة"
-    # new_out_line: "New outgoing product"
-    new_payment: "تسجيل دفعة جديدة"
-    # new_purchase_price: "Add a purchase price"
-    # new_reservoir: "New reservoir"
-    new_sale: "بيعة جديدة"
-    # new_sales_price: "Add a sales price"
+    new_family: "اسرة جديدة" #?
+    new_organization: "منظمة جديدة" #?
+    new_payment: "تسجيل دفعة جديدة" #?
+    new_sale: "بيعة جديدة" #?
     new_title: "عنوان جديد"
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
@@ -1463,10 +1463,6 @@ arb:
     no_transfers: "لم يتم اي عملية نقل"
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
-    # not_begins: "Do not start with"
-    # not_contains: "Do not contains"
-    # not_finishes: "Do not finish with"
-    # not_is: "Is not"
     notifications:
       error: "خطأ"
       information: "معلومة"
@@ -1540,6 +1536,7 @@ arb:
     # places: "Places"
     planned_at: "قرر يوم"
     # plant: "Plant"
+    # plant_productions: "Plant productions"
     # please_wait: "Please wait…"
     # point: "Point"
     # population: "Population"
@@ -1607,7 +1604,7 @@ arb:
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات"
-    quarterly: "Trimestrielle"
+    quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
@@ -1653,6 +1650,7 @@ arb:
     role_create: "اضافة مهام" #?
     role_name: "ادخل اسم المهام ومن ثم خصص له حقوقه"
     roles: "مهام / ادوار"
+    # run: "Run"
     running_cost: "تكاليف الاستثمار" #?
     running_finished: "منتجات الاستثمار" #?
     sale: "الطلبات"
@@ -1664,12 +1662,12 @@ arb:
     sale_nature_create: "انشاء نوع بيع جديد" #?
     sale_price_create: "اضافة سعر البيع" #?
     sale_print: "طباعة طلب البيع" #?
-    sale_steps:
-      deliveries: "جدولة عمليات التسليم"
-      estimate: "انشاء تقييم"
-      general: "الوصف"
-      products: "المنتجات"
-      summary: "فواتير وايصالات"
+    sale_steps:  #?
+      deliveries: "جدولة عمليات التسليم" #?
+      estimate: "انشاء تقييم" #?
+      general: "الوصف" #?
+      products: "المنتجات" #?
+      summary: "فواتير وايصالات" #?
     sale_update: "تعديل معلومات الطلب" #?
     sales: "تم تسديد دفعات طلب البيع"
     # sales_conditions: "Conditions of sales"
@@ -1700,13 +1698,12 @@ arb:
     search_go: "بدء البحث"
     # search_placeholder: "Search…"
     search_sales: "البحث عن طلبات البيع"
-    second_building_name: "ادخال الاسم"
-    # second_contact: "Second address"
+    second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
     select_account_client: "كتابة حسابات"
     select_account_supplier: "كتابة حسابات"
-    select_area: "عنوان بريدي"
-    select_building: "اختر مكان التخزين"
+    select_area: "عنوان بريدي" #?
+    select_building: "اختر مكان التخزين" #?
     select_closure_date: "اختيار تاريخ الاغلاق"
     select_columns: "ضع علامة على العمود الذي ترغب باظهاره في الجدول"
     select_date: "ادخل تاريخ"
@@ -1717,14 +1714,15 @@ arb:
     select_financial_year: "ممارسة"
     select_number: "ادخل رقم"
     select_number_or_date: "ادخل رقم او تاريخ"
-    select_organization: "منظمة"
+    select_organization: "منظمة" #?
     select_renew_journal: "استخدام الدفاتر اليومية لتقارير جديدة"
     send: "ارسل الرسالة"
     send_test: "ارسال رسالة تجريبية"
     sequence_create: "اضافة تسلسل" #?
     sequences: "التسلسل" #?
-    sequences_load: "تحميل التسلسلات المفقودة"
+    sequences_load: "تحميل التسلسلات المفقودة" #?
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
+    # settings: "Settings"
     ship: "بشريطة"
     # show: "Show"
     # sign_out: "Sign out"
@@ -1732,8 +1730,8 @@ arb:
     source: "مصدر البيانات"
     start: "ابتداء من"
     state: "الحالة"
-    stock_max: "الحد الاقصى للاسهم"
-    stock_min: "الحد الادنى للاسهم"
+    stock_max: "الحد الاقصى للاسهم" #?
+    stock_min: "الحد الادنى للاسهم" #?
     stock_move_create: "اضافة حركة جديدة للاسهم" #?
     # stock_of_x: "Stock of %{x}"
     stock_transfer_create: "اضافة عملية نقل ام خسارة الاسهم" #?
@@ -1749,8 +1747,8 @@ arb:
     subscription_create: "اضافة اشتراك" #?
     subscription_nature: "نوع الاشتراك"
     subscription_nature_create: "اضافة نوع اشتراك جديد" #?
-    subscription_natures_down: "(-1) انقاص العدد الحالي"
-    subscription_natures_up: "(+1) زيادة العدد الحالي"
+    subscription_natures_down: "(-1) انقاص العدد الحالي" #?
+    subscription_natures_up: "(+1) زيادة العدد الحالي" #?
     # subscriptions: "Subscriptions"
     subtitle: "معرفة المعلومات المتعلقة بالاستخلاص"
     subtotal: "المجموع الاجمالي %{name}"
@@ -1760,12 +1758,12 @@ arb:
     # supplier_informations: "Supplier informations "
     supply: "التسليم"
     # support: "Support"
-    synthesis: "تجميع الوثائق"
+    synthesis: "تجميع الوثائق" #?
     # target: "Target"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
     # taxes: "Taxes"
-    theoric_quantity: "الكمية النظرية"
+    theoric_quantity: "الكمية النظرية" #?
     # time_zone: "Time zone"
     to: "الى"
     # to_bank_at: "To bank on"
@@ -1786,6 +1784,7 @@ arb:
     # total_unpaid_amount: "Total unpaid amount"
     totals: "(المجموع (صلاحية العينات والمسودات"
     tracking: "المسار"
+    # trade: "Trade"
     transfer: "اجراء النقل"
     # transformations: "Transformations"
     # transport: "Transport"
@@ -1901,9 +1900,11 @@ arb:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
       zero: "ولااية دفعة" #?
-    x_intervention_casts: #?
+    x_intervention_casts:
+      # one: "%{count} intervention cast"
+      # other: "%{count} intervention casts"
     x_items_remain:
-      # one: "%{count} item remain"
+      # one: "%{count} item remains"
       # other: "%{count} items remain"
     x_items_remain_on_y: #?
     x_journal_entries:
@@ -1997,7 +1998,7 @@ arb:
       cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة" #?
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
-      # cannot_mark_entry_items: "Can not mark these entry lines"
+      # cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
       changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
@@ -2180,13 +2181,11 @@ arb:
       # down: "Down"
       # duplicate: "Duplicate"
       # edit: "Edit"
-      # exclude: "Exclude"
       # export: "Export"
       # extract: "Extract"
       # finish: "Finish"
       # generate_last_journal_entry: "Generate last journal entry"
       # import: "Import"
-      # include: "Include"
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"

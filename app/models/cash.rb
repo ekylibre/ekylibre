@@ -165,9 +165,5 @@ class Cash < Ekylibre::Record::Base
     end
   end
 
-  def lasts_of_periods(started_at, stopped_at, period = :month)
-    self.account.journal_entry_items.between(started_at, stopped_at).lasts_of_periods(period)
-  end
-
 end
 

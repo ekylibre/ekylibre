@@ -1,0 +1,30 @@
+- taxes = Tax.all
+- if taxes.any?
+  :ruby
+    stopped_at = Time.now
+    started_at = (stopped_at - 1.year).beginning_of_month
+
+    series = []
+    date = started_at
+    periods = {}
+    while date < stopped_at
+      periods[date.l(format: "%b %Y")] = date..(date.end_of_month)
+      date = date + 1.month
+    end
+    
+    for tax in taxes
+      collect_items   =   tax.collect_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_at)
+      deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_at)
+
+      data = []
+      for name, period in periods
+        collect = collect_items.where(printed_at: period).last
+        deduction = deduction_items.where(printed_at: period).last
+        data << - ((collect ? collect.cumulated_absolute_balance.to_f : 0.0) + (deduction ? deduction.cumulated_absolute_balance.to_f : 0.0))
+      end  
+      series << {name: tax.name, data: data }
+    end
+
+  = spline_chart(series, legend: { align: 'center', border_width: 0 }, x_axis: { title: {text: :months.tl}, categories: periods.keys}, y_axis: {title: {text: :amounts_in_currency.tl(currency: Preference[:currency])}})
+- else
+  = no_data

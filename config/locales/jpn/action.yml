@@ -56,7 +56,7 @@ jpn:
     backend/animals:
       # edit: "Edit animal: %{name}"
       # index: "Animals"
-      # new: "Create animal"
+      # new: "New animal"
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
@@ -82,7 +82,7 @@ jpn:
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
       # index: "Campagains"
-      # new: "Create campaign"
+      # new: "New campaign"
       # show: "Campaign %{name}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
@@ -106,6 +106,7 @@ jpn:
       # show: "Catalog: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cash_balances_cells: #?
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
@@ -125,6 +126,7 @@ jpn:
     backend/cells/last_purchases_cells: #?
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
+    backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
@@ -185,7 +187,7 @@ jpn:
       # show: "Person: %{full_name}"
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
-      # new: "Add a coordinate"
+      # new: "New address"
     backend/entity_links:
       # edit: "Edit link"
       # new: "New link"
@@ -297,7 +299,7 @@ jpn:
       # general_ledger: "General ledger"
       # import: "Import accounting data"
       # index: "Journals"
-      # new: "Create new journal"
+      # new: "New journal"
       # reopen: "Reopen journal : %{name}"
       # show: "Journal: %{name} (%{code})"
     backend/kujakus:
@@ -310,7 +312,7 @@ jpn:
     backend/land_parcel_groups:
       # edit: "Edit land parcel group: %{name}"
       # index: "Land parcel groups"
-      # new: "New Land parcel group"
+      # new: "New land parcel group"
       # show: "Land parcel group %{name}"
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
@@ -342,7 +344,7 @@ jpn:
     backend/matters:
       # edit: "Edit matter: %{name}"
       # index: "Matters"
-      # new: "Create matter"
+      # new: "New matter"
       # show: "Matter: %{name}"
     backend/myselves:
       # show: "My informations"
@@ -391,7 +393,7 @@ jpn:
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
-      # new: "Create plant"
+      # new: "New plant"
       # show: "Plant: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
@@ -438,7 +440,7 @@ jpn:
     backend/productions:
       # edit: "Edit production: %{name}"
       # index: "Productions"
-      # new: "Create production"
+      # new: "New production"
       # show: "Production: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
@@ -592,6 +594,7 @@ jpn:
   labels:
     # account_name: "Account name"
     # account_number: "Account number"
+    # accountancy: "Accountancy"
     # accounting_balance: "Accounting balance"
     # accounts: "Accounts"
     # accounts_to_load: "Accounts to load"
@@ -635,8 +638,11 @@ jpn:
     # amount_to_add: "Total to add"
     # amount_to_reduce: "Total to reduce"
     # amount_with_taxes: "Amount with taxes"
+    # amounts_in_currency: "Amounts (%{currency})"
     # analytics: "Analytics"
+    # animal_productions: "Animal productions"
     apply: "適用する" #?
+    # archives: "Archives"
     # are_you_sure: "Are you sure you want to do this?"
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     # are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
@@ -655,9 +661,7 @@ jpn:
     # backup: "Backup"
     # backups: "Backups"
     # balance: "Balance"
-    # bank_chart: "Bank chart"
     # bban: "Basic Bank Account Number (BBAN)"
-    # begins: "Starts with"
     # body: "Body of the message"
     # building: "Building"
     # building_name: "Building name"
@@ -667,6 +671,7 @@ jpn:
     cancel: "取り消す"
     # cancelled: "Cancelled"
     # cash: "Cash"
+    # cash_balances: "Bank chart"
     cash_tabbox: #?
     # catalog: "Catalog"
     # category: "Category"
@@ -791,6 +796,7 @@ jpn:
     # evaluated_tool_cost: "Evaluated tool cost"
     # events: "Events"
     # example: "Example: %{value}"
+    # exchange: "Exchange"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # executed: "Executed"
     # existing_part: "Existing part"
@@ -960,7 +966,6 @@ jpn:
     # moves: "Moves"
     # my_company: "About your company"
     # my_self: "About you"
-    # n: "Non"
     # name: "Name"
     # nature: "Type"
     nb_mandates: #?
@@ -972,15 +977,6 @@ jpn:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
-    # new_family: "New family"
-    # new_in_line: "New incoming product"
-    # new_organization: "New organization"
-    # new_out_line: "New outgoing product"
-    # new_payment: "New payment"
-    # new_purchase_price: "Add a purchase price"
-    # new_reservoir: "New reservoir"
-    # new_sale: "New sale"
-    # new_sales_price: "Add a sales price"
     # new_title: "New title"
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
@@ -1007,10 +1003,6 @@ jpn:
     # no_tracking: "No tracking"
     # no_transfers: "No transfers"
     # normal: "Normal"
-    # not_begins: "Do not start with"
-    # not_contains: "Do not contains"
-    # not_finishes: "Do not finish with"
-    # not_is: "Is not"
     notifications:
       # error: "Error"
       # information: "Information"
@@ -1062,6 +1054,7 @@ jpn:
     # places: "Places"
     # planned_at: "Planned on"
     # plant: "Plant"
+    # plant_productions: "Plant productions"
     # please_wait: "Please wait…"
     # point: "Point"
     # population: "Population"
@@ -1112,7 +1105,6 @@ jpn:
     # quantity: "Quantity"
     # quantity_rest: "Remaining quantity"
     # quantity_to_credit: "Quantity to credit"
-    # quarterly: "Quarterly"
     # query: "Query:"
     # received: "Received"
     # recent_events: "Recent events"
@@ -1144,13 +1136,9 @@ jpn:
     # role: "Role"
     # role_name: "Fill the name and check all the needed rights"
     # roles: "Roles"
+    # run: "Run"
     # sale: "Sale"
-    sale_steps:
-      # deliveries: "Deliveries"
-      # estimate: "Estimate"
-      # general: "General"
-      # products: "Products"
-      # summary: "Sales invoice"
+    sale_steps: #?
     # sales: "Sales"
     # sales_conditions: "Conditions of sales"
     # sales_invoice: "Invoicing"
@@ -1174,13 +1162,9 @@ jpn:
     # search_go: "Search!"
     # search_placeholder: "Search…"
     # search_sales: "Search sales"
-    # second_building_name: "Second building name"
-    # second_contact: "Second address"
     # section_x: "Section %{x}"
     # select_account_client: "Customer Account for lettering"
     # select_account_supplier: "Supplier Account for lettering"
-    # select_area: "Select area"
-    # select_building: "Select building"
     # select_closure_date: "Choose closing date"
     # select_columns: "Select columns"
     # select_date: "Select date"
@@ -1191,12 +1175,11 @@ jpn:
     # select_financial_year: "Financial year"
     # select_number: "Select number"
     # select_number_or_date: "Select number or date"
-    # select_organization: "Select organization"
     # select_renew_journal: "Selected Journal to renew"
     # send: "Send"
     # send_test: "Send test"
-    # sequences_load: "Load missing sequences"
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
+    # settings: "Settings"
     # ship: "Ship"
     # show: "Show"
     # sign_out: "Sign out"
@@ -1204,8 +1187,6 @@ jpn:
     # source: "Source"
     # start: "From"
     # state: "State"
-    # stock_max: "Stock max"
-    # stock_min: "Stock min"
     # stock_of_x: "Stock of %{x}"
     # stocks: "Stocks"
     # stocks_preferences: "Stock management"
@@ -1217,8 +1198,6 @@ jpn:
     # subscriber_period: "Subscribed on %{subscribed_at}"
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     # subscription_nature: "Subscription type"
-    # subscription_natures_down: "Decrement actual number (-1)"
-    # subscription_natures_up: "Increment actual number (+1)"
     # subscriptions: "Subscriptions"
     # subtitle: "General parameters"
     # subtotal: "Sub-total %{name}"
@@ -1228,10 +1207,8 @@ jpn:
     # supplier_informations: "Supplier informations "
     # supply: "Supply"
     # support: "Support"
-    # synthesis: "Synthesis Documents"
     # target: "Target"
     # taxes: "Taxes"
-    # theoric_quantity: "Theoric quantity"
     # time_zone: "Time zone"
     # to: "to"
     # to_bank_at: "To bank on"
@@ -1250,6 +1227,7 @@ jpn:
     # total_unpaid_amount: "Total unpaid amount"
     # totals: "Totals"
     # tracking: "Tracking"
+    # trade: "Trade"
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
@@ -1342,9 +1320,11 @@ jpn:
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
-    x_intervention_casts: #?
+    x_intervention_casts:
+      # one: "%{count} intervention cast"
+      # other: "%{count} intervention casts"
     x_items_remain:
-      # one: "%{count} item remain"
+      # one: "%{count} item remains"
       # other: "%{count} items remain"
     x_items_remain_on_y: #?
     x_journal_entries:
@@ -1353,7 +1333,7 @@ jpn:
     x_mandates:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
-      # zero: "no mandate"
+      # zero: "No mandate"
     x_meetings: #?
     x_months:
       # one: "%{count} month"
@@ -1431,7 +1411,7 @@ jpn:
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
-      # cannot_mark_entry_items: "Can not mark these entry lines"
+      # cannot_mark_entry_items: "Cannot mark these entry lines"
       # cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
       # cannot_merge_entities: "It's impossible to merge these people."
       # changes_have_been_reflected: "The changes have been reflected in the stocks state"
@@ -1520,13 +1500,11 @@ jpn:
       # down: "Down"
       # duplicate: "Duplicate"
       # edit: "Edit"
-      # exclude: "Exclude"
       # export: "Export"
       # extract: "Extract"
       # finish: "Finish"
       # generate_last_journal_entry: "Generate last journal entry"
       # import: "Import"
-      # include: "Include"
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"

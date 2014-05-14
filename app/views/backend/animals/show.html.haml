@@ -4,6 +4,9 @@
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, label: :incident.tl, icon: :bug)
   - t.edit resource
   -# t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
+-# main_dropdown_button do |b|
+  - for = resource.variables.inspect
+  - b.
 
 = beehive do |b|
   - b.hbox do

@@ -110,7 +110,7 @@ load_data :base do |loader|
   # Loads journals
   if loader.can_load_default?(:journals)
     loader.manifest[:journals] = Journal.nature.values.inject({}) do |hash, nature|
-      hash[nature] = {name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency}
+      hash[nature] = {name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_at: Time.new(1899, 12, 31).end_of_month}
       hash
     end
   end

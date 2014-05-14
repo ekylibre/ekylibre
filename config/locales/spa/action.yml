@@ -65,7 +65,7 @@ spa:
     backend/animals:
       # edit: "Edit animal: %{name}"
       # index: "Animals"
-      # new: "Create animal"
+      # new: "New animal"
       # show: "%{nature}: %{name}"
     backend/application: #?
     backend/areas: #?
@@ -96,7 +96,7 @@ spa:
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
       # index: "Campagains"
-      # new: "Create campaign"
+      # new: "New campaign"
       # show: "Campaign %{name}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
@@ -120,6 +120,7 @@ spa:
       # show: "Catalog: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cash_balances_cells: #?
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
@@ -149,6 +150,7 @@ spa:
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
     backend/cells/meteo_cells: #?
+    backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
@@ -245,7 +247,7 @@ spa:
       # show: "Person: %{full_name}"
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
-      # new: "Add a coordinate"
+      # new: "New address"
     backend/entity_categories: #?
     backend/entity_link_natures: #?
     backend/entity_links:
@@ -383,7 +385,7 @@ spa:
     backend/land_parcel_groups:
       # edit: "Edit land parcel group: %{name}"
       # index: "Land parcel groups"
-      # new: "New Land parcel group"
+      # new: "New land parcel group"
       # show: "Land parcel group %{name}"
     backend/land_parcel_kinships: #?
     backend/land_parcels:
@@ -423,7 +425,7 @@ spa:
     backend/matters:
       # edit: "Edit matter: %{name}"
       # index: "Matters"
-      # new: "Create matter"
+      # new: "New matter"
       # show: "Matter: %{name}"
     backend/medicines: #?
     backend/meeting_natures: #?
@@ -488,7 +490,7 @@ spa:
     backend/plants:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
-      # new: "Create plant"
+      # new: "New plant"
       # show: "Plant: %{name}"
     backend/posologies: #?
     backend/postal_zones:
@@ -572,7 +574,7 @@ spa:
     backend/productions:
       # edit: "Edit production: %{name}"
       # index: "Productions"
-      # new: "Create production"
+      # new: "New production"
       # show: "Production: %{name}"
     backend/products:
       # edit: "Edit product: %{name}"
@@ -774,7 +776,7 @@ spa:
     account_update: "Modificar el cuento" #?
     account_value_current: "BRUT" #?
     account_value_previous: "BRUT N-1" #?
-    accountancy: "contabilidad" #?
+    accountancy: "contabilidad"
     # accounting_balance: "Accounting balance"
     accounts: "Cuentos contables utilizados"
     # accounts_to_load: "Accounts to load"
@@ -818,9 +820,12 @@ spa:
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_with_taxes: "Total de la entrega TTC"
+    # amounts_in_currency: "Amounts (%{currency})"
     # analytics: "Analytics"
     animal_group_tabbox: #?
+    # animal_productions: "Animal productions"
     animal_tabbox: #?
+    # archives: "Archives"
     # are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to: #?
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
@@ -852,11 +857,9 @@ spa:
         opera: "Opéra" #?
         safari: "Safari" #?
     balance: "Saldo"
-    # bank_chart: "Bank chart"
     bank_statement_point: "Despuntar el levantar" #?
     bank_statement_update: "Modificar el leventar" #?
     # bban: "Basic Bank Account Number (BBAN)"
-    # begins: "Starts with"
     body: "Cuerpo del mensaje"
     # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
@@ -869,6 +872,7 @@ spa:
     # cancel: "Cancel"
     cancelled: "Pasar en activos"
     # cash: "Cash"
+    # cash_balances: "Bank chart"
     cash_tabbox:  #?
       bank_statements: "Leventar de cuento" #?
       deposits: "Entregas en banca" #?
@@ -1013,6 +1017,7 @@ spa:
     # evaluated_tool_cost: "Evaluated tool cost"
     # events: "Events"
     # example: "Example: %{value}"
+    # exchange: "Exchange"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # executed: "Executed"
     # existing_part: "Existing part"
@@ -1197,7 +1202,6 @@ spa:
     moves: "Movimientos de depositos"
     my_company: "Coja las informaciones sobre su sociedad"
     my_self: "Coja sus informaciones"
-    # n: "Non"
     # name: "Name"
     national_deliveries: "Entregas intracolectivas" #?
     national_normal_vat_collected: "Tasa normal a 19,6%" #?
@@ -1217,15 +1221,6 @@ spa:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
-    # new_family: "New family"
-    # new_in_line: "New incoming product"
-    # new_organization: "New organization"
-    # new_out_line: "New outgoing product"
-    # new_payment: "New payment"
-    # new_purchase_price: "Add a purchase price"
-    # new_reservoir: "New reservoir"
-    # new_sale: "New sale"
-    # new_sales_price: "Add a sales price"
     # new_title: "New title"
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
@@ -1253,10 +1248,6 @@ spa:
     # no_transfers: "No transfers"
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
-    # not_begins: "Do not start with"
-    # not_contains: "Do not contains"
-    # not_finishes: "Do not finish with"
-    # not_is: "Is not"
     notifications:
       # error: "Error"
       # information: "Information"
@@ -1318,6 +1309,7 @@ spa:
     # places: "Places"
     # planned_at: "Planned on"
     # plant: "Plant"
+    # plant_productions: "Plant productions"
     # please_wait: "Please wait…"
     # point: "Point"
     # population: "Population"
@@ -1370,7 +1362,7 @@ spa:
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo"
-    quarterly: "Trimestral"
+    quarterly: "Trimestral" #?
     query: "Demanda:"
     # received: "Received"
     # recent_events: "Recent events"
@@ -1416,16 +1408,17 @@ spa:
     role_create: "Añadir un papel" #?
     role_name: "Entrar el nombre del papel y atribuirle sus derechos"
     roles: "Papeles"
+    # run: "Run"
     running_cost: "Cargas de explotación" #?
     running_finished: "Productos de explotación" #?
     sale: "Encargos"
     sale_cancel: "Hacer un activo sobre une factura" #?
-    sale_steps:
-      deliveries: "Planificación de las entregas"
-      estimate: "Creación del presupuesto"
-      general: "Descripción"
-      products: "Productos"
-      summary: "Factura y encajonamientos"
+    sale_steps:  #?
+      deliveries: "Planificación de las entregas" #?
+      estimate: "Creación del presupuesto" #?
+      general: "Descripción" #?
+      products: "Productos" #?
+      summary: "Factura y encajonamientos" #?
     sales: "Exportar un cuadro de ventas al formato CSV"
     # sales_conditions: "Conditions of sales"
     sales_invoice: "Facturas"
@@ -1451,13 +1444,10 @@ spa:
     # search_go: "Search!"
     # search_placeholder: "Search…"
     # search_sales: "Search sales"
-    # second_building_name: "Second building name"
-    # second_contact: "Second address"
     # section_x: "Section %{x}"
     select_account_client: "Cuentos a marcar con letras"
     select_account_supplier: "Cuento a marcar con letra"
-    # select_area: "Select area"
-    select_building: "Escoger un lugar de deposito"
+    select_building: "Escoger un lugar de deposito" #?
     select_closure_date: "Escoger la fecha de cierre"
     # select_columns: "Select columns"
     # select_date: "Select date"
@@ -1468,14 +1458,14 @@ spa:
     select_financial_year: "Ejercicio"
     # select_number: "Select number"
     # select_number_or_date: "Select number or date"
-    # select_organization: "Select organization"
     select_renew_journal: "Periodico utilizado para los aplazamientos de nuevo"
     send: "Enviar un correro electronico"
     send_test: "Enviar un correo electronico de prueba"
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
-    sequences_load: "Cargar las secuencias faltantes"
+    sequences_load: "Cargar las secuencias faltantes" #?
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
+    # settings: "Settings"
     shelf: "Categoria" #?
     # ship: "Ship"
     # show: "Show"
@@ -1484,8 +1474,6 @@ spa:
     source: "Fuente de datos"
     start: "Del"
     # state: "State"
-    # stock_max: "Stock max"
-    # stock_min: "Stock min"
     stock_move_create: "Añadir un movimiento de deposito" #?
     # stock_of_x: "Stock of %{x}"
     # stocks: "Stocks"
@@ -1498,8 +1486,6 @@ spa:
     # subscriber_period: "Subscribed on %{subscribed_at}"
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     # subscription_nature: "Subscription type"
-    # subscription_natures_down: "Decrement actual number (-1)"
-    # subscription_natures_up: "Increment actual number (+1)"
     # subscriptions: "Subscriptions"
     subtitle: "Informar la diferentes caracteristicas del nuevo utilizador"
     subtotal: "Subtotal %{name}"
@@ -1509,12 +1495,12 @@ spa:
     # supplier_informations: "Supplier informations "
     # supply: "Supply"
     # support: "Support"
-    synthesis: "Documentos de sintesis"
+    synthesis: "Documentos de sintesis" #?
     # target: "Target"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
     # taxes: "Taxes"
-    theoric_quantity: "cantidad teorica"
+    theoric_quantity: "cantidad teorica" #?
     # time_zone: "Time zone"
     to: "Al"
     # to_bank_at: "To bank on"
@@ -1533,6 +1519,7 @@ spa:
     # total_unpaid_amount: "Total unpaid amount"
     totals: "Totales (piezas validas y niebla)"
     # tracking: "Tracking"
+    # trade: "Trade"
     # transfer: "Transfer"
     # transformations: "Transformations"
     # transport: "Transport"
@@ -1631,9 +1618,11 @@ spa:
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
-    x_intervention_casts: #?
+    x_intervention_casts:
+      # one: "%{count} intervention cast"
+      # other: "%{count} intervention casts"
     x_items_remain:
-      # one: "%{count} item remain"
+      # one: "%{count} item remains"
       # other: "%{count} items remain"
     x_items_remain_on_y: #?
     x_journal_entries:
@@ -1643,7 +1632,7 @@ spa:
     x_mandates:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
-      # zero: "no mandate"
+      # zero: "No mandate"
     x_meetings: #?
     x_months:
       # one: "%{count} month"
@@ -1724,7 +1713,7 @@ spa:
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
-      # cannot_mark_entry_items: "Can not mark these entry lines"
+      # cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "No es posible fusionar una papeleta con si misma"
       cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
       changes_have_been_reflected: "Los cambios han sido repercutidos correctamente sobre el estatuto de depósitos actua"
@@ -1860,13 +1849,11 @@ spa:
       # down: "Down"
       # duplicate: "Duplicate"
       # edit: "Edit"
-      # exclude: "Exclude"
       # export: "Export"
       # extract: "Extract"
       # finish: "Finish"
       # generate_last_journal_entry: "Generate last journal entry"
       # import: "Import"
-      # include: "Include"
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"

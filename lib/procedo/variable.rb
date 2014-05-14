@@ -55,7 +55,7 @@ module Procedo
       end
       if element.has_attribute?("derivative-of")
         @derivative_of = element.attr("derivative-of").to_s.strip 
-      elsif parted? and 
+      elsif parted?
         @derivative_of = ":#{@producer_name}"
       end
       @roles = element.attr("roles").to_s.strip.split(/\s*\,\s*/)
@@ -85,6 +85,10 @@ module Procedo
     # Translate the name of the variable
     def human_name
       "procedure_variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
+    end
+
+    def inspect
+      "<Variable::#{procedure_name}::#{name}>"
     end
 
     def others
@@ -146,7 +150,10 @@ module Procedo
           attr, other = @variety.split(/\:/)[0..1].map(&:strip)
           attr = "variety" if attr.blank?
           attr.gsub!(/\-/, "_")
-          return @procedure.variables[other].send("computed_#{attr}")
+          unless variable = @procedure.variables[other]
+            raise Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
+          end
+          return variable.send("computed_#{attr}")
         else
           return @variety
         end

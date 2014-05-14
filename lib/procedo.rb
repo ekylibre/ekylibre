@@ -74,6 +74,14 @@ module Procedo
       procedures_of_nature(*Nomen::ProcedureNatures.all(nature).map(&:to_sym), options = {})
     end
 
+    def each_variable(&block)
+      for procedure in list.values
+        for variable in procedure.variables.values
+          yield variable
+        end
+      end
+    end
+
     # Load all files
     def load
       # Inventory procedures
