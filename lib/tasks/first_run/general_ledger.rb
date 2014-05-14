@@ -12,12 +12,12 @@ load_data :general_ledger do |loader|
         journals = YAML.load_file(journals_file).stringify_keys.with_indifferent_access
       end
 
-      year = 2010
-      fy = FinancialYear.first
-      fy.started_at = Date.civil(year,  1,  1)
-      fy.stopped_at = Date.civil(year, 12, 31)
-      fy.code = "EX#{year}"
-      fy.save!
+      # year = 2010
+      # fy = FinancialYear.first
+      # fy.started_at = Date.civil(year,  1,  1)
+      # fy.stopped_at = Date.civil(year, 12, 31)
+      # fy.code = "EX#{year}"
+      # fy.save!
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
         jname = (journals[row[1]] || row[1]).capitalize

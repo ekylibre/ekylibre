@@ -192,7 +192,7 @@ class Product < Ekylibre::Record::Base
   delegate :name, to: :nature, prefix: true
   delegate :variety, :derivative_of, :name, :nature, :reference_name, to: :variant, prefix: true
   delegate :unit_name, to: :variant
-  delegate :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, :population_counting_unitary?, to: :nature
+  delegate :able_to?, :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, :population_counting_unitary?, to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name
@@ -505,6 +505,26 @@ class Product < Ekylibre::Record::Base
 
   def initializeable?
     self.new_record? or !(self.incoming_delivery_item.present? or self.outgoing_delivery_items.any? or self.intervention_casts.any? or self.financial_asset.present?)
+  end
+
+
+  def variables(options = {})
+    list = []
+    abilities = self.abilities
+    variety       = Nomen::Varieties[self.variety]
+    derivative_of = Nomen::Varieties[self.derivative_of]
+    Procedo.each_variable do |variable|
+      next if variable.new?
+      if v = variable.computed_variety
+        next unless variety <= v
+      end
+      if v = variable.computed_derivative_of
+        next unless derivative_of and derivative_of <= v
+      end
+      next if variable.abilities.detect{|a| !self.able_to?(a) }
+      list << variable
+    end
+    return list
   end
 
 end

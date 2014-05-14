@@ -10,7 +10,7 @@
       
       <variable name="adding_wine"       variety="wine" derivative-of="vitis" />
       <variable name="adding_wine_to_blend" new="parted-from: adding_wine" roles="blending-input" need="population"/>
-      <variable name="wine_blended" variety="wine" derivative-of="derivative_of: wine" new="produced-by: wine" roles="blending-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="population" default-variant="production"/>
+      <variable name="wine_blended" variety="wine" derivative-of="derivative-of: wine" new="produced-by: wine" roles="blending-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="population" default-variant="production"/>
       
       <variable name="wine_man" variety="worker" abilities="move" roles="blending-doer"/>
     </variables>

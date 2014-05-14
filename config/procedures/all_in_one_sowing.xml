@@ -75,7 +75,7 @@
 	
       </variable> 
 
-      <variable name="sower"        abilities="spread(mineral_matter), sow, spray" roles="soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>
+      <variable name="sower"        abilities="spread(preparation), sow, spray" roles="soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer,soil_enrichment-doer,soil_enrichment-doer,plant_illness_treatment-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target,soil_enrichment-target" default-actor="storage"/>

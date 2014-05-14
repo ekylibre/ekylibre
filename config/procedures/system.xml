@@ -15,7 +15,7 @@
   <procedure name="pruning_test" natures="pruning" version="0" status="frozen" system="true">
     <variables>
       <variable name="pruned" variety="plant" roles="pruning-target"/>
-      <variable name="branches" variety="organic_matter" derivative_of="variety: pruned" roles="pruning-output"/>
+      <variable name="branches" variety="organic_matter" derivative-of="variety: pruned" roles="pruning-output"/>
       <variable name="gardener" abilities="prune, move" roles="pruning-doer"/>
     </variables>
     <operations>

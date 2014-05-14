@@ -109,11 +109,6 @@ class Tax < Ekylibre::Record::Base
     return (1.0 + 0.01*self.amount.to_d)
   end
 
-  def lasts_of_periods(started_at, stopped_at, mode = :deduction, period = :month)
-    account = self.send("#{mode}_account")
-    account.journal_entry_items.between(started_at, stopped_at).lasts_of_periods(period)
-  end
-
   # Load a tax from tax nomenclature
   def self.import_from_nomenclature(reference_name)
     unless item = Nomen::Taxes.find(reference_name)

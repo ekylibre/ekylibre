@@ -43,3 +43,5 @@
 //= require leaflet/select_layers
 //= require leaflet/osm_geocoder.js
 //= require_tree .
+//= require cartodb
+//= require cartodb/vis

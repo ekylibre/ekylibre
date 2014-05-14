@@ -267,6 +267,41 @@ class ProductNature < Ekylibre::Record::Base
     end.compact
   end
 
+
+  def able_to?(ability)
+    exp = nil
+    if ability =~ /\(.*\)\z/
+      params = ability.split(/\s*[\(\,\)]\s*/)
+      ability = params.shift.to_sym
+      unless item = Nomen::Abilities[ability]
+        raise ArgumentError, "Unknown ability: #{ability.inspect}"
+      end
+      parameters = item.parameters.collect do |p|
+        v = params.shift
+        e = nil
+        if p == :variety
+          unless child = Nomen::Varieties[v]
+            raise ArgumentError, "Unknown variety: #{v.inspect}"
+          end
+          e = "(" + child.self_and_parents.map(&:name).join("|") + ")"
+        else
+          raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
+        end
+        e
+      end.join('\s*\,\s*')
+      exp = /\A#{ability}\(#{parameters}\)\z/
+    else
+      unless Nomen::Abilities[ability]
+        raise ArgumentError, "Unknown ability: #{ability.inspect}"
+      end
+      exp = /\A#{ability}\z/
+    end
+    return self.abilities.select do |a|
+      a.to_s =~ exp
+    end.any?
+  end
+
+
   # Returns list of abilities as an array of ability items from the nomenclature
   def linkage_points
     return self.linkage_points_list

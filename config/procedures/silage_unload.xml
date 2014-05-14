@@ -3,7 +3,7 @@
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
   <procedure name="silage_unload" natures="food_supply" version="0" status="frozen">
     <variables>
-      <variable name="herd"             variety="animal_group" derivative_of="bos" roles="food_supply-target" default-actor="variant-localized-in-storage"/>
+      <variable name="herd"             variety="animal_group" derivative-of="bos" roles="food_supply-target" default-actor="variant-localized-in-storage"/>
       <variable name="silage"           variety="preparation" abilities="feed(bos)"/>
       <variable name="silage_to_give"   new="parted-from: silage" roles="food_supply-input" need="population">
         <handler indicator="population" />

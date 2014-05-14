@@ -102,9 +102,9 @@ Ekylibre::Application.routes.draw do
     resources :calculators, only: :index
 
     namespace :cells do
-      resource :bank_chart_cell, only: :show, concerns: :list
+      resource :cash_balances_cell, only: :show, concerns: :list
       resource :calendar_cell, only: :show, concerns: :list
-      resource :collected_taxes_cell, only: :show
+      resource :payable_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show

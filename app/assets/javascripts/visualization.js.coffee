@@ -6,9 +6,10 @@
       box:
         height: 400
         width: null
-      backgrounds:{}
+      backgrounds: {}
       overlays: {}
-      controls:{}
+      controls: {}
+      layers: {}
       show: null
       edit: null
       change: null
@@ -106,6 +107,11 @@
       this._refreshView()
 
       this._refreshControls()
+      
+      this._refreshBubbles()
+      
+      this._refreshVisses()
+      
 
      
     _destroy: ->
@@ -230,24 +236,32 @@
 
       this
 
-        #for name, control of this.controls
-          #this.map.removeControl(control)
-      #this.controls = {}
-      #unless this.options.controls.zoom is false
-        #this.controls.zoom = new L.Control.Zoom(this.options.controls.zoom)
-        #this.map.addControl this.controls.zoom
-      #unless this.options.controls.fullscreen is false
-        #this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
-        #this.map.addControl this.controls.fullscreen
-        # if this.edition?
-        #   this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
-        #   this.map.addControl this.controls.draw
-      #unless this.options.controls.scale is false
-        #this.controls.scale = new L.Control.Scale(this.options.controls.scale)
-        #this.map.addControl this.controls.scale
-      #unless this.options.controls.tilegend is false
-        #this.controls.tilelegend = new L.Control.TileLegend(this.options.controls.tilelegend)
-        #this.map.addControl this.controls.tilelegend
+    _refreshBubbles: ->
+      that= this
+      
+      if this.options.bubbles?
+        console.log this.options.bubbles
+        $.each this.options.bubbles, ( index, value ) -> 
+          console.log value.options1
+          #L.circle(value.options1, value.options2).addTo(map)
+          
+          
+          #new_bubbles = new L.circle(value.options1, value.options2)
+          #that.map.addLayer new_bubbles
+      this
+      
+    _refreshVisses: ->
+      that= this
+      
+      if this.options.visses?
+        console.log this.options.visses
+        $.each this.options.visses, ( index, value ) -> 
+          console.log value.name
+          #L.circle(value.options1, value.options2).addTo(map)
+          new_visses = value.source
+          cartodb.createVis(this.map,new_visses)
+      this
+
  
  
     _refreshReferenceLayerGroup: ->
