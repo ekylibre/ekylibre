@@ -154,6 +154,9 @@ module Clean
             end
           end
         end
+        list += Ekylibre::Modules.hash.values.collect{|m| m.keys if m.is_a?(Hash)}.flatten.compact.map(&:to_s)
+        list += Ekylibre::Modules.hash.keys.flatten.compact.map(&:to_s)
+
         # list += actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
         return list.delete_if{|l| l == "*" or l.underscore != l }.uniq.sort
       end

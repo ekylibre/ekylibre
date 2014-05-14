@@ -3,7 +3,7 @@
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
   <procedure name="pasturing" natures="harvest,pasturing" version="0" status="frozen">
     <variables>
-      <variable name="herd"           variety="animal_group" derivative_of="animal" roles="harvest-tool,harvest-doer,pasturing-doer"/> 
+      <variable name="herd"           variety="animal_group" derivative-of="animal" roles="harvest-tool,harvest-doer,pasturing-doer"/> 
       <variable name="cultivation"    variety="poa" roles="harvest-target,pasturing-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation" >
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>

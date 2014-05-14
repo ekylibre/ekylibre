@@ -51,7 +51,7 @@ module Ekylibre
           end
           for identifier, attributes in data
             attributes = attributes.with_indifferent_access
-            attributes[main_column] = identifier.to_s
+            attributes[main_column] ||= identifier.to_s
             for reflection in model.reflections.values
               if attributes[reflection.name] and not attributes[reflection.name].class < ActiveRecord::Base
                 attributes[reflection.name] = get(reflection.class_name.tableize, attributes[reflection.name].to_s)

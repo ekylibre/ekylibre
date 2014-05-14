@@ -93,13 +93,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(printed_at: started_at..stopped_at)
   }
-  scope :lasts_of_periods, lambda { |period = :month|
-    period = :doy if period == :day
-    expr = "EXTRACT(YEAR FROM printed_at)*1000 + EXTRACT(#{period} FROM printed_at)"
-    order("#{expr}, id DESC")
-      .select("DISTINCT ON (#{expr}) *")
-  }
-
   state_machine :state, :initial => :draft do
     state :draft
     state :confirmed
@@ -205,6 +198,11 @@ class JournalEntryItem < Ekylibre::Record::Base
     else
       self.account.journal_entry_items.where("(printed_at = ? AND id > ?) OR printed_at > ?", self.printed_at, self.id, self.printed_at)
     end
+  end
+
+  # Returns the balance as cumulated_absolute_debit - cumulated_absolute_credit
+  def cumulated_absolute_balance
+    return (self.cumulated_absolute_debit - self.cumulated_absolute_credit)
   end
 
 

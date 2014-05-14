@@ -1627,14 +1627,14 @@
       <item name="public">
         <page to="public#index"/>
       </item>
-      <item name="bank_chart_cells">
-        <page to="backend/cells/bank_chart_cells#show"/>
+      <item name="cash_balances_cells">
+        <page to="backend/cells/cash_balances_cells#show"/>
       </item>
       <item name="calendar_cells">
         <page to="backend/cells/calendar_cells#show"/>
       </item>
-      <item name="collected_taxes_cells">
-        <page to="backend/cells/collected_taxes_cells#show"/>
+      <item name="payable_taxes_cells">
+        <page to="backend/cells/payable_taxes_cells#show"/>
       </item>
       <item name="cropping_plan_cells">
         <page to="backend/cells/cropping_plan_cells#show"/>

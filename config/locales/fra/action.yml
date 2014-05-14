@@ -108,6 +108,7 @@ fra:
       show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cash_balances_cells: #?
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
@@ -127,6 +128,7 @@ fra:
     backend/cells/last_purchases_cells: #?
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
+    backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
@@ -759,7 +761,7 @@ fra:
     account_untangible_fixed_assets: "Immobilisations incorporelles" #?
     account_value_current: "Brut" #?
     account_value_previous: "Brut N-1" #?
-    accountancy: "Comptabilité" #?
+    accountancy: "Comptabilité"
     accounting_balance: "Balance comptable"
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur" #?
@@ -816,6 +818,7 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
+    # amounts_in_currency: "Amounts (%{currency})"
     analytics: "Analytiques"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
@@ -825,14 +828,14 @@ fra:
     animal_identification: "Identification animale" #?
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_pie: "Animaux par lot" #?
-    animal_productions: "Productions animales" #?
+    animal_productions: "Productions animales"
     animal_tabbox:  #?
       cares: "Soins" #?
       childrens: "Enfants" #?
     animals: "Animaux" #?
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
-    archives: "Archives" #?
+    archives: "Archives"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
     are_you_sure_you_want_to:  #?
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?" #?
@@ -868,10 +871,9 @@ fra:
         opera: "Opéra" #?
         safari: "Safari" #?
     balance: "Solde"
-    bank_chart: "Évolution du solde des comptes de trésorerie"
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début" #?
-    begins: "Commence par"
+    begins: "Commence par" #?
     body: "Corps du message"
     building: "Lieu de stockage"
     building_name: "Sortie de"
@@ -886,6 +888,7 @@ fra:
     cancelled: "Passées en avoir"
     care: "soins" #?
     cash: "Compte bancaire"
+    cash_balances: "Évolution du solde des comptes de trésorerie"
     cash_tabbox:  #?
       bank_statements: "Relevés de compte" #?
       deposits: "Remises en banque" #?
@@ -919,7 +922,6 @@ fra:
     closed: "Verrouillées"
     clostridial_spores_concentration: "Concentration en spores butyriques" #?
     clusters_work_number: "Numéro d’ilot(s)" #?
-    collected_taxes: "TVA déductibles / collectées" #?
     column: "Donnée"
     column_family: "Famille"
     column_organization: "Organisation"
@@ -1051,6 +1053,7 @@ fra:
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
     example: "Exemple\_: %{value}"
+    # exchange: "Exchange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     executed: "Réalisé"
     existing_part: "Utiliser un encaissement non affecté"
@@ -1269,7 +1272,7 @@ fra:
     moves: "Mouvements de stocks"
     my_company: "Saisissez les informations sur votre société"
     my_self: "Saisissez les informations vous concernant"
-    n: "Non"
+    n: "Non" #?
     name: "Nom"
     national_deliveries: "Livraisons intracommunautaires" #?
     national_normal_vat_collected: "Taux normal à 19,6%" #?
@@ -1287,15 +1290,15 @@ fra:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
       zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
-    new_family: "Nouvelle famille"
-    new_in_line: "Ajouter un produit intrant"
-    new_organization: "Nouvelle organisation"
-    new_out_line: "Ajouter un produit sortant"
-    new_payment: "Enregistrer un nouvel encaissement"
-    new_purchase_price: "Créer un prix d’achat"
-    new_reservoir: "Ajouter un réservoir"
-    new_sale: "Nouvelle vente"
-    new_sales_price: "Ajouter un prix de vente"
+    new_family: "Nouvelle famille" #?
+    new_in_line: "Ajouter un produit intrant" #?
+    new_organization: "Nouvelle organisation" #?
+    new_out_line: "Ajouter un produit sortant" #?
+    new_payment: "Enregistrer un nouvel encaissement" #?
+    new_purchase_price: "Créer un prix d’achat" #?
+    new_reservoir: "Ajouter un réservoir" #?
+    new_sale: "Nouvelle vente" #?
+    new_sales_price: "Ajouter un prix de vente" #?
     new_title: "Nouveau titre"
     new_transport_of_x_deliveries:
       one: "Nouveau transport (%{count} livraison)"
@@ -1327,10 +1330,10 @@ fra:
     no_transfers: "Aucun transfert à réaliser"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?
-    not_begins: "Ne commence pas par"
-    not_contains: "Ne contient pas"
-    not_finishes: "Ne termine pas par"
-    not_is: "N’est pas"
+    not_begins: "Ne commence pas par" #?
+    not_contains: "Ne contient pas" #?
+    not_finishes: "Ne termine pas par" #?
+    not_is: "N’est pas" #?
     notifications:
       error: "Erreur"
       information: "Information"
@@ -1370,6 +1373,7 @@ fra:
     passive_stock_sum: "Total provisions" #?
     passive_sum: "Total passifs" #?
     password: "Mot de passe"
+    payable_taxes: "TVA déductibles / collectées" #?
     payback: "Remboursement demandée"
     payment_amount: "Montant de l’encaissement"
     payment_at: "Payé le"
@@ -1395,7 +1399,7 @@ fra:
     # plant: "Plant"
     plant_life_state: "Phase du bioprocessus de vie d’un végétal" #?
     plant_medicines: "Produits phytosanitaires" #?
-    plant_productions: "Productions végétales" #?
+    plant_productions: "Productions végétales"
     plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal" #?
     play: "Éxécuter" #?
     please_wait: "Merci de patienter…"
@@ -1459,7 +1463,7 @@ fra:
     quantity: "Quantité"
     quantity_rest: "Quantité restante"
     quantity_to_credit: "Qté. à passer en avoir"
-    quarterly: "Trimestrielle"
+    quarterly: "Trimestrielle" #?
     query: "Requête:"
     received: "Reçue"
     recent_events: "Derniers événements"
@@ -1509,19 +1513,19 @@ fra:
     role: "Rôle"
     role_name: "Entrez le nom du rôle puis attribuez lui ses droits"
     roles: "Rôles"
-    run: "Exécuter" #?
+    run: "Exécuter"
     running_cost: "Charges d’exploitation" #?
     running_finished: "Produits d’exploitation" #?
     sale: "Vente"
     sale_cancel: "Faire un avoir sur la facture" #?
     sale_deliveries: "Livraisons" #?
     sale_items: "Lignes de la vente" #?
-    sale_steps:
-      deliveries: "Planification des livraisons"
-      estimate: "Création du devis"
-      general: "Description"
-      products: "Produits"
-      summary: "Facture et encaissements"
+    sale_steps:  #?
+      deliveries: "Planification des livraisons" #?
+      estimate: "Création du devis" #?
+      general: "Description" #?
+      products: "Produits" #?
+      summary: "Facture et encaissements" #?
     sales: "Ventes"
     sales_conditions: "Conditions de vente"
     sales_invoice: "Facture"
@@ -1550,13 +1554,13 @@ fra:
     search_go: "Lancer la recherche"
     search_placeholder: "Rechercher…"
     search_sales: "Rechercher des ventes"
-    second_building_name: "Entrée de"
-    second_contact: "Adresse secondaire"
+    second_building_name: "Entrée de" #?
+    second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
     select_account_client: "Compte à lettrer"
     select_account_supplier: "Compte à lettrer"
-    select_area: "Zone postale"
-    select_building: "Sélectionnez un lieu de stockage"
+    select_area: "Zone postale" #?
+    select_building: "Sélectionnez un lieu de stockage" #?
     select_closure_date: "Choisissez la date de clôture"
     select_columns: "Cochez les colonnes que vous voulez voir apparaitre dans le tableau."
     select_date: "Entrez une date"
@@ -1567,12 +1571,13 @@ fra:
     select_financial_year: "Exercice"
     select_number: "Entrez un numéro"
     select_number_or_date: "Entrez un numéro ou une date"
-    select_organization: "Organisation"
+    select_organization: "Organisation" #?
     select_renew_journal: "Journal utilisé pour les reports à nouveaux"
     send: "Envoyer le mail"
     send_test: "Envoyer un mail de test"
-    sequences_load: "Charger les séquences manquantes"
+    sequences_load: "Charger les séquences manquantes" #?
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
+    # settings: "Settings"
     sex: "Sexe" #?
     shape: "Forme" #?
     ship: "Prévue le"
@@ -1587,8 +1592,8 @@ fra:
     state: "État"
     status: "État" #?
     stock: "Stock" #?
-    stock_max: "Stock maximum"
-    stock_min: "Stock minimum"
+    stock_max: "Stock maximum" #?
+    stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
     stocks_preferences: "Gestion des stocks"
@@ -1601,8 +1606,8 @@ fra:
     subscriber_period: "Abonné(e) le %{subscribed_at}"
     subscriber_quantity: "Abonné(e) au numéro %{subscribed_at}"
     subscription_nature: "Type d’abonnement"
-    subscription_natures_down: "Décrémenter le numéro actuel (-1)"
-    subscription_natures_up: "Incrémenter le numéro actuel (+1)"
+    subscription_natures_down: "Décrémenter le numéro actuel (-1)" #?
+    subscription_natures_up: "Incrémenter le numéro actuel (+1)" #?
     subscriptions: "Abonnements"
     subtitle: "Informations générales"
     subtotal: "Sous-total %{name}"
@@ -1613,12 +1618,12 @@ fra:
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production" #?
-    synthesis: "Documents de synthèse"
+    synthesis: "Documents de synthèse" #?
     target: "Cible"
     target_name: "Nom de la cible" #?
     taxes: "Taxes"
     temperature: "Température" #?
-    theoric_quantity: "Quantité théorique"
+    theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
     time_zone: "Fuseau horaire"
     to: "Au"
@@ -1640,6 +1645,7 @@ fra:
     totals: "Totaux (pièces validées et brouillard)"
     tp_index: "Index génétique Taux protéïque" #?
     tracking: "Lot"
+    # trade: "Trade"
     transfer: "Effectuer les transferts"
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?
@@ -1753,9 +1759,9 @@ fra:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
       zero: "0 encaissement" #?
-    x_intervention_casts:  #?
-      one: "%{count} intervention" #?
-      other: "%{count} interventions" #?
+    x_intervention_casts:
+      one: "%{count} intervention"
+      other: "%{count} interventions"
       zero: "Aucune intervention" #?
     x_items_remain:
       one: "%{count} élément restant."
@@ -1976,13 +1982,11 @@ fra:
       down: "Descendre"
       duplicate: "Dupliquer"
       edit: "Éditer"
-      # exclude: "Exclude"
       export: "Exporter"
       extract: "Extraire"
       finish: "Finir"
       generate_last_journal_entry: "Générer la dernière écriture"
       import: "Importer"
-      # include: "Include"
       incorporate: "Incorporer"
       increment: "Incrémenter"
       index: "Index"

@@ -22,7 +22,7 @@
       </variable>
       <variable name="wine_man" variety="worker" abilities="move" roles="fermentation-doer"/>
       
-      <variable name="fermented_juice" derivative-of="derivative_of: juice_to_ferment" new="produced-by: juice_to_ferment" roles="fermentation-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
+      <variable name="fermented_juice" derivative-of="derivative-of: juice_to_ferment" new="produced-by: juice_to_ferment" roles="fermentation-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
       <handler indicator="population" />
       </variable>
     </variables>
