@@ -33,22 +33,23 @@
             <property name="activity_family" value="support.activity.family"/>
             <property name="variant_name" if="support.production" value="support.production.variant_name"/>
             <property name="variant_variety" if="support.production" value="support.production.variant_variety"/>
-            <property name="started_at" of="support" type="datetime"/>
-            <property name="stopped_at" of="support" type="datetime"/>
+            <property name="started_at" if="support.started_at" of="support" type="datetime"/>
+            <property name="stopped_at" if="support.stopped_at" of="support" type="datetime"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
             
             <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
             <property name="nitrogen_balance" value="support.nitrogen_balance.in(:kilogram_per_hectare).round(2)" type="measure"/>
             
-            <property name="sowed_at" value="support.implanted_at" type="datetime"/>
-            <property name="harvested_at" value="support.harvested_at" type="datetime"/>
+            <property name="sowed_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
+            <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
             
             <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
             
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone).reorder(:started_at)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
+              <variable name="enrichment_working_area" value="intervention.casts.of_role(:'soil_enrichment-target').first.population"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
@@ -67,13 +68,17 @@
                   <cell name="name"/>
                   <cell name="quantity" value="net_mass(input)" type="measure"/>
                   <cell name="quantity_in_kilogram" value="net_mass(input).to_d(:kilogram)" level="api"/>
+                  <cell name="quantity_in_kilogram_per_hectare" value="(net_mass(input).to_d(:kilogram) / enrichment_working_area )" level="api"/>
                   <cell name="nature_name"/>
                   <cell name="nitrogen_concentration" value="nitrogen_concentration" type="measure"/>
                   <cell name="nitrogen_concentration_in_unity" value="nitrogen_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="nitrogen_input_quantity_per_hectare" value="(net_mass(input).to_d(:kilogram) / enrichment_working_area ) * nitrogen_concentration.to_d(:unity)" type="measure"/>
                   <cell name="phosphorus_concentration" value="phosphorus_concentration" type="measure"/>
                   <cell name="phosphorus_concentration_in_unity" value="phosphorus_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="phosphorus_input_quantity_per_hectare" value="(net_mass(input).to_d(:kilogram) / enrichment_working_area ) * phosphorus_concentration.to_d(:unity)" type="measure"/>
                   <cell name="potassium_concentration" value="potassium_concentration" type="measure"/>
                   <cell name="potassium_concentration_in_unity" value="potassium_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="potassium_input_quantity_per_hectare" value="(net_mass(input).to_d(:kilogram) / enrichment_working_area ) * potassium_concentration.to_d(:unity)" type="measure"/>
                   <cell name="variety" level="api"/>
                 </within>
               </matrix>

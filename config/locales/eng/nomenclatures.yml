@@ -2275,6 +2275,7 @@ eng:
         manual_implanter: "Manual implanter"
         manure_division: "Manure division"
         market_gardening_crop: "Market gardening crop"
+        meadow_grass: "Meadow grass"
         melon_crop: "Melon crop"
         merlot_noir_so4_vine_seedling: "Merlot noir so4 vine seedling"
         milk_tank: "Milk tank"
@@ -2876,7 +2877,7 @@ eng:
         cucumis: "Cucumis"                                 #< cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
-        dactylis: "Dactylis"                               #< poaceae
+        dactylis: "Dactylis"                               #< poa
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
         daucus: "Daucus"                                   #< apiaceae
         easement: "Easement"                               #< zone
@@ -2954,7 +2955,7 @@ eng:
         linaceae: "Linaceae"                               #< plant
         linum: "Linum"                                     #< linaceae
         liquid_slurry: "Liquid slurry"                     #< excrement
-        lolium: "Ryegrass"                                 #< poaceae
+        lolium: "Ryegrass"                                 #< poa
         lolium_hybridum: "Hybrid ryegrass"                 #< lolium
         lolium_hybridum_bahial: "Hybrid ryegrass bahial"   #< lolium_hybridum
         lolium_multiflorum: "Ryegrass multiflorum"         #< lolium
