@@ -49,16 +49,21 @@
 #   storage: storages_001
 #   updater: users_001
 #
----
+
 production_supports_001:
   creator: users_001
   exclusive: false
+  nature: main
   production: productions_001
+  production_usage: grain
   storage: cultivable_zones_001
   updater: users_001
+
 production_supports_002:
   creator: users_001
   exclusive: false
+  nature: main
   production: productions_001
+  production_usage: grain
   storage: cultivable_zones_003
   updater: users_001
