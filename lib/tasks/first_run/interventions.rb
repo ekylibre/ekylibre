@@ -59,7 +59,7 @@ load_data :interventions do |loader|
 
                   # Organic Fertilizing  01-03-M -> 31-03-M
                   Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-                    i.add_cast(reference_name: 'manure',      actor: i.find(Product, variety: :preparation, can: "fertilize"))
+                    i.add_cast(reference_name: 'manure',      actor: i.find(Product, variety: :excrement, can: "fertilize"))
                     i.add_cast(reference_name: 'manure_to_spread', population: 0.2 + 4 * coeff)
                     i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
                     i.add_cast(reference_name: 'driver',      actor: i.find(Worker))

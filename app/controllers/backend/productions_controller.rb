@@ -65,6 +65,8 @@ class Backend::ProductionsController < BackendController
   # List supports for one production
   list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :name, url: true
+    t.column :work_number, hidden: true
+    t.column :irrigated, hidden: true
     t.column :population, through: :storage, datatype: :decimal, hidden: true
     t.column :unit_name, through: :storage, hidden: true
     t.column :started_at

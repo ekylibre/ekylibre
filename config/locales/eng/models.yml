@@ -28,6 +28,8 @@ eng:
       product_nature:
         duration: "Quantity OR period"
         price: "Cost price"
+      production_support:
+        production_usage: "Production usage"
       purchase:
         amount: "Amount with taxes"
       purchase_item:

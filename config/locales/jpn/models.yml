@@ -79,7 +79,8 @@ jpn:
       product_transfer: #?
       product_variety: #?
       production: #?
-      production_support: #?
+      production_support:
+        # production_usage: "Production usage"
       products_nature: #?
       profession: #?
       purchase:

@@ -25,7 +25,10 @@ class Backend::ProductionSupportsController < BackendController
   list do |t|
     t.column :production, url: true
     t.column :storage, url: true
-    t.column :exclusive
+    t.column :work_number, hidden: true
+    t.column :irrigated
+    t.column :nature
+    t.column :production_usage
     t.column :started_at
     t.column :stopped_at
   end

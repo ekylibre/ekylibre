@@ -112,7 +112,8 @@ fra:
       production:  #?
         product_nature: "Produit de référence" #?
         static_support: "Support de production" #?
-      production_support:  #?
+      production_support:
+        production_usage: "Usage futur"
         storage: "Support" #?
       products_nature: #?
       profession: #?

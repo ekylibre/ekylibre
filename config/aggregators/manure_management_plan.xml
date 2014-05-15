@@ -68,12 +68,12 @@
                   <cell name="quantity" value="net_mass(input)" type="measure"/>
                   <cell name="quantity_in_kilogram" value="net_mass(input).to_d(:kilogram)" level="api"/>
                   <cell name="nature_name"/>
-                  <cell name="nitrogen_concentration" value="nitrogen_concentration(input)" type="measure"/>
-                  <cell name="nitrogen_concentration_in_unity" value="nitrogen_concentration(input).to_d(:unity)" type="measure" level="api"/>
-                  <cell name="phosphorus_concentration" value="phosphorus_concentration(input)" type="measure"/>
-                  <cell name="phosphorus_concentration_in_unity" value="phosphorus_concentration(input).to_d(:unity)" type="measure" level="api"/>
-                  <cell name="potassium_concentration" value="potassium_concentration(input)" type="measure"/>
-                  <cell name="potassium_concentration_in_unity" value="potassium_concentration(input).to_d(:unity)" type="measure" level="api"/>
+                  <cell name="nitrogen_concentration" value="nitrogen_concentration" type="measure"/>
+                  <cell name="nitrogen_concentration_in_unity" value="nitrogen_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="phosphorus_concentration" value="phosphorus_concentration" type="measure"/>
+                  <cell name="phosphorus_concentration_in_unity" value="phosphorus_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="potassium_concentration" value="potassium_concentration" type="measure"/>
+                  <cell name="potassium_concentration_in_unity" value="potassium_concentration.to_d(:unity)" type="measure" level="api"/>
                   <cell name="variety" level="api"/>
                 </within>
               </matrix>

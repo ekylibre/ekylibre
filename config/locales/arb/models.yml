@@ -455,7 +455,8 @@ arb:
         product: "المنتج" #?
       product_variety: #?
       production: #?
-      production_support: #?
+      production_support:
+        # production_usage: "Production usage"
       products_nature:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
