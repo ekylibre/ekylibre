@@ -36,9 +36,11 @@
       </operation>
       <operation id="200" duration="10 minutes">
         <task do="[cultivation] produces [grass]"/>
+      </operation>
+      <operation id="300" duration="10 minutes">
         <task do="[herd] consumes [grass]"/>
       </operation>
-      <operation id="300">
+      <operation id="400">
         <task do="[herd] moves in default storage"/>
       </operation>
     </operations>

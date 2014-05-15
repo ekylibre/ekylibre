@@ -4,9 +4,7 @@
     <items>
       <item name="avena" itis_tsn="41455"/>
       <item name="bambusa" itis_tsn="193439"/>
-      <item name="dactylis" itis_tsn="193445"/>
       <item name="hordeum" itis_tsn="40865"/>
-      <item name="lolium" itis_tsn="40891"/>
       <item name="oryza" itis_tsn="41975"/>
       <item name="poa" itis_tsn="41074"/>
       <item name="secale" itis_tsn="41455"/>
@@ -15,6 +13,13 @@
       <item name="triticosecale" itis_tsn="41455"/>
       <item name="triticum" itis_tsn="42236"/>
       <item name="zea" itis_tsn="42268"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-poa" hierarchical="true">
+    <items>
+      <item name="dactylis" itis_tsn="193445"/>
+      <item name="lolium" itis_tsn="40891"/>
     </items>
   </nomenclature>
   

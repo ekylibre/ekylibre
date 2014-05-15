@@ -687,9 +687,9 @@
             unit_name="small_rectangular_bale"
             frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.16cubic_meter"
             />
-      <item name="grass"
+      <item name="meadow_grass"
             nature="grass"
-            derivative_of="plant"
+            derivative_of="poa"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
@@ -701,6 +701,7 @@
             />
       <item name="grass_silage"
             nature="silage"
+            derivative_of="poa"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.351cubic_meter"
             />
