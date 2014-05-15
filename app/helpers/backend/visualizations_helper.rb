@@ -41,6 +41,12 @@ module Backend::VisualizationsHelper
 
     end
     
+    def simple(list)
+      @data[:simples] ||= []
+      @data[:simples] << {list: list}
+
+    end
+    
     def datasets(name, datas = {})
       @data[:datasets] ||= {}.with_indifferent_access
       @data[:datasets][name] = datas

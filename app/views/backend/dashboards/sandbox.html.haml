@@ -1,9 +1,18 @@
 :ruby
   #data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
   lp = LandParcel.all
-  lp.each do
-    data_lp = Charta::Geometry.new(shape).transform(:WGS84).centroid
-  end 
+  arr=[]
+  poly=[]
+  lp.each do |lp|
+    if lp.shape
+      radius = rand(150) + 50
+      centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
+      polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
+      arr << {name: lp.name, coord: centroid, radius: radius}
+      poly << {name: lp.name, coord: polyg}
+    end
+  end
+  
 = visualization :my_cultivable_zone_of_hell do |v|
   -# The followings layers are base layers. Only one base layer will appear.
   - v.background :default_base, "OpenStreetMap.HOT"
@@ -27,7 +36,8 @@
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
   -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
-  - v.bubble lp
+  - v.bubble arr
+  - v.simple poly
   -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
   -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
   -# v.bubble :Lyon_population, [45.759723, 4.842223], 4912.68

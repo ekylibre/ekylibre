@@ -13,7 +13,9 @@
       show: null
       edit: null
       change: null
-      view: 'auto'
+      view: 
+        center:[]
+        zoom : 12
       showStyle:
         weight: 1
         color: "#333"
@@ -108,7 +110,9 @@
 
       this._refreshControls()
       
-      this._refreshBubbles()
+      #this._refreshBubbles()
+      
+      this._refreshPolygons()
       
       this._refreshVisses()
       
@@ -145,7 +149,7 @@
       this._resize()
       console.log this.options.view.box.height
  
-    _resize: ->
+    _resize: -> 
       console.log "resize"
       if this.options.box?
         if this.options.box.height?
@@ -220,8 +224,9 @@
             controls = new L.Control.Layers(baseLayers, overlays,layer_options)
             #that.map.removeControl (controls)
             that.map.addControl controls
-            $.each baseLayers, ( index, value ) -> 
-
+            backgroundLayer = L.tileLayer.provider(back[0].provider_name)
+            that.map.addLayer(backgroundLayer)
+            
           if value.name == "geocoder"  
             console.log "Vive le Roi!"
             geocoder_options = {
@@ -238,16 +243,34 @@
 
     _refreshBubbles: ->
       that= this
-      
+      console.log this.options.bubbles[0].list[0].coord[0]
       if this.options.bubbles?
         console.log this.options.bubbles
         $.each this.options.bubbles, ( index, value ) -> 
-          console.log value.options1
-          #L.circle(value.options1, value.options2).addTo(map)
+          console.log value.list
+          $.each value.list , (index, value) ->
+                      
+            new_bubbles = new  L.circle(value.coord, value.radius)
+            that.map.addLayer new_bubbles
           
-          
-          #new_bubbles = new L.circle(value.options1, value.options2)
-          #that.map.addLayer new_bubbles
+      this
+      
+    _refreshPolygons: ->
+      that= this
+      console.log this.options.simples[0].list[0].coord
+      if this.options.simples?
+        console.log this.options.simples
+        $.each this.options.simples, ( index, value ) -> 
+          console.log value.list
+          new_polygons = new  L.multiPolygon(value.list)
+          that.map.addLayer new_polygons
+                    
+          $.each value.list, (index, value) ->
+            new_polygons = new  L.GeoJSON(value.coord)
+            that.map.addLayer new_polygons
+
+            
+                    
       this
       
     _refreshVisses: ->
@@ -274,6 +297,13 @@
  
  
     _refreshView: (view) ->
+      east = this.options.bubbles[0].list[0].coord[0]
+      west = this.options.bubbles[0].list[0].coord[0]
+      north = this.options.bubbles[0].list[0].coord[1]
+      south = this.options.bubbles[0].list[0].coord[1]
+      long = null
+      lat = null
+      coord = []
       view ?= this.options.view
       if view is 'auto'
         try
@@ -290,11 +320,31 @@
       else if view is 'default'
         this._setDefaultView()
       else if view.center?
-        center = L.latLng(view.center[0], view.center[1])
+        if this.options.bubbles?
+          $.each this.options.bubbles, ( index, value ) -> 
+            $.each value.list , (index, value) ->
+              if value.coord[0] < west
+                west = value.coord[0]
+              if value.coord[0] > east
+                east = value.coord[0]
+              if value.coord[1] < south
+                south = value.coord[1]
+              if value.coord[1] > north
+                north = value.coord[1]
+        console.log west
+        console.log east
+        console.log north
+        console.log south
+        long = (west + east)/2
+        console.log long
+        lat = (north + south)/2
+        console.log lat
+        coord = [long, lat] 
+        center = L.latLng(coord)
         if view.zoom?
           this.map.setView(center, view.zoom)
         else
-          this.map.setView(center, 12)
+          this.map.setView(center, zoom)
       else if view.bounds?
         this.map.fitBounds(view.bounds)
       this
