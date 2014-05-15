@@ -290,7 +290,7 @@ $map-button-size: round(2 * $fs-normal);
 }
 
 .leaflet-control-zoom-fullscreen {
-  @include use-icon(fullscreen);
+  @include use-icon(arrows-alt);
 }
 
 .leaflet-touch {
@@ -634,13 +634,13 @@ $map-button-size: round(2 * $fs-normal);
     @include use-icon(angle-down);
   }
   .leaflet-draw-draw-polygon {
-    @include use-icon(star-empty);
+    @include use-icon(star-o);
   }
   .leaflet-draw-draw-rectangle {
-    @include use-icon(check-empty);
+    @include use-icon(square-o);
   }
   .leaflet-draw-draw-circle {
-    @include use-icon(circle-blank);
+    @include use-icon(circle-thin);
   }
   .leaflet-draw-draw-marker {
     @include use-icon(map-marker);
@@ -649,7 +649,7 @@ $map-button-size: round(2 * $fs-normal);
     @include use-icon(edit);
   }
   .leaflet-draw-edit-remove {
-    @include use-icon(remove);
+    @include use-icon(times);
   }
 }
 

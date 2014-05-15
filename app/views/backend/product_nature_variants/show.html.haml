@@ -24,6 +24,8 @@
         - l.attribute :name
         - l.attribute :commercial_name
         - l.attribute :unit_name
+        - l.attribute :variety
+        - l.attribute :derivative_of
         - if resource.picture.exists?
           = image_tag(resource.picture.url(:thumb))
 

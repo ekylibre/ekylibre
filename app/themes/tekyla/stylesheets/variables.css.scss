@@ -2,6 +2,7 @@
 @import "agric/list";
 $symbolic-icons: $agric-icons;
 
+
 // Font sizes
 $fs-ratio:   1.2 !default;
 $fs-normal: 13px !default;
@@ -69,13 +70,14 @@ $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
 
 $buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack) (nav) (general-informations) (genealogy) (group) (care) (treatment) (drug) (entity) (delay) (stock) (financial-asset) (animal) (vegetable) (document) (movement);
-$buttons-aliases: (abort remove) (action cog) (backup backward) (cancel undo) (checked check) (close lock) (column columns) (confirm ok) (configure wrench) (correct edit) (destroy remove) (create plus) (delete remove) (divide resize-full) (down arrow-down) (duplicate copy) (edit edit) (exclude minus-sign) (extract download-alt) (filter filter) (firefox chevron-down) (help question-sign) (import upload-alt) (include plus-sign) (index reorder) (invoice file-text-alt) (letter pencil) (load refresh) (logout off) (mail envelope) (merge resize-small) (new plus) (pick plus) (play play) (point ok) (print print) (reflect cog) (refuse remove) (register plus) (reset refresh) (restore chevron-left) (ship truck) (show print) (sort sort) (table table) (unchecked check-empty) (unmark remove-sign) (up arrow-up) (update edit);
+
+$buttons-aliases: (abort times) (action cog) (backup backward) (bar-chart bar-chart-o) (cancel undo) (checked check) (close lock) (column columns) (confirm check) (configure wrench) (correct edit) (destroy times) (create plus) (delete times) (divide expand) (down arrow-down) (duplicate copy) (edit edit) (exclude minus-circle) (extract download) (filter filter) (firefox chevron-down) (help question-circle) (import upload) (include plus-circle) (index bars) (invoice file-text-o) (letter pencil) (load refresh) (logout power-off) (mail envelope) (merge compress) (new plus) (pick plus) (play play) (point check) (print print) (reflect cog) (refuse times) (register plus) (reset refresh) (restore chevron-left) (ship truck) (show print) (sort sort) (table table) (unchecked square-o) (unmark times-circle) (up arrow-up) (update edit)
+/* specific aliases */
+(people group) (veterinary_booklet medkit) (animal_husbandry_registry cow) (exchange_accountancy_file_fr file) (intervention_registry cogs) (manure_management_plan book) (provisional_manure_management_plan book) (land_parcel_registry tractor) (phytosanitary_registry flask) (vine_phytosanitary_registry flask) (general_ledger money) (profit_and_loss_statement money) (activity_cost money) (wine_bottling_registry bottles) (wine_detention_registry flask) (wine_manipulation_registry bottle);
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: $default-border-radius;
 
-$specific-aliases:   (people group) (veterinary_booklet medkit) (animal_husbandry_registry cow) (exchange_accountancy_file_fr file) (manure_management_plan book) (provisional_manure_management_plan book) (land_parcel_registry tractor) (phytosanitary_registry beaker) (vine_phytosanitary_registry beaker) (general_ledger money) (profit_and_loss_statement money) (activity_cost money);
-
-$all-aliases: append($buttons-aliases, $specific-aliases);
+$all-aliases: $buttons-aliases;
 
 $passive-bg: $menu-background;
 $active-bg: $base-color;

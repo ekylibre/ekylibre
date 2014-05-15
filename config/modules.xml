@@ -360,7 +360,7 @@
         <page to="backend/deposits#update"/>
       </item>
     </group>
-    <group name="affairs" icon="folder-close">
+    <group name="affairs" icon="folder">
       <item name="affairs">
         <page to="backend/affairs#index"/>
         <page to="backend/affairs#attach"/>
@@ -508,7 +508,7 @@
       </item>
 -->
     </group>
-    <group name="inventories" icon="check-sign">
+    <group name="inventories" icon="check-square">
       <item name="inventories">
         <page to="backend/inventories#index"/>
         <page to="backend/inventories#create"/>

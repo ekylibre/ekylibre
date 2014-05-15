@@ -124,7 +124,7 @@ load_data :animals do |loader|
                              :name => (row[3].blank? ? Faker::Name.first_name + " (MN)" : row[3].capitalize),
                              :born_on => born_on,
                              born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
-                             age: (born_on ? (Date.today - born_on) : 0),
+                             age: (born_on ? (Date.today - born_on) : 0).to_f,
                              :corabo => row[5],
                              :sex => (row[6] == "F" ? :female : :male),
                              # :arrival_cause => (arrival_causes[row[7]] || row[7]),
@@ -135,11 +135,11 @@ load_data :animals do |loader|
                              dead_at: (dead_on ? dead_on.to_datetime : nil)
                              )
           unless group = groups.detect do |g|
-              (g.sex.blank? or g.sex == r.sex) and (g.minimal_age.blank? or r.age >= g.minimal_age) and (g.maximal_age.blank? or r.age < g.maximal_age)
+              (g.sex.blank? or g.sex == r.sex) and (g.minimum_age.blank? or r.age >= g.minimum_age) and (g.maximum_age.blank? or r.age < g.maximum_age)
             end
             raise "Cannot find a valid group for the given"
-          end
-
+          end        
+          
           variant = ProductNatureVariant.import_from_nomenclature(group.member_nature)
           animal = Animal.create!(variant: variant,
                                   name: r.name,

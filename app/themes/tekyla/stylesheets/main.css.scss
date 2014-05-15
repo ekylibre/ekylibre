@@ -107,7 +107,7 @@
     #user-menu {
       // i { @include is-icon };
       .user    i { @include use-icon(user) };
-      .signout i { @include use-icon(signout) };
+      .signout i { @include use-icon(sign-out) };
     }
   }
 
@@ -480,7 +480,7 @@ div[data-deck] > div#default {
   margin: $default-gap $default-gap 0;
   dd i {
     @include is-icon;
-    @include use-icon(eye-open);
+    @include use-icon(eye);
   }
 }
 
@@ -502,7 +502,7 @@ div[data-deck] > div#default {
     }
     i.collapser {
       @include is-icon;
-      @include use-icon(collapse-alt);
+      @include use-icon(minus-square-o);
       @include float(right);
       margin-top: round(0.36 * $fs-normal);
       @include margin-right(round(0.3 * $fs-normal));
@@ -543,6 +543,13 @@ div[data-deck] > div#default {
       @include use-icon($icon);
     }
   }
+  // Adds synonyms
+  @each $renaming in $all-aliases {
+    &.snippet-#{nth($renaming, 1)} > .snippet-title > h3 > i {
+      @include use-icon(nth($renaming, 2));
+    }
+  }
+
 
   margin-top: $default-gap;
   &:first-child {
@@ -624,7 +631,7 @@ form.search {
       .remove {
         i {
           @include is-icon;
-          @include use-icon(remove);
+          @include use-icon(times);
         }
       }
     }
@@ -822,20 +829,13 @@ form.search {
         @include icon($symbol-code);
       }
     }
+    // Adds synonyms
+    @each $renaming in $all-aliases {
+      &.icon-#{nth($renaming, 1)} {
+        @include use-icon(nth($renaming, 2));
+      }
+    }
   }
-  .icon.icon-abort { @include use-icon(trash) }
-  .icon.icon-cancel { @include use-icon(undo) }
-  .icon.icon-destroy { @include use-icon(remove) }
-  .icon.icon-down    { @include use-icon(chevron-down) }
-  .icon.icon-new     { @include use-icon(plus) }
-  .icon.icon-merge   { @include use-icon(resize-small) }
-  .icon.icon-divide  { @include use-icon(resize-full) }
-  .icon.icon-duplicate  { @include use-icon(copy) }
-  .icon.icon-load       { @include use-icon(refresh) }
-  .icon.icon-statistics { @include use-icon(bar-chart) }
-  .icon.icon-index      { @include use-icon(print) }
-  .icon.icon-unvalidateds { @include use-icon(ok)}
-  .icon.icon-close { @include use-icon(lock)}
 }
 
 
@@ -881,7 +881,7 @@ form.search {
       li { list-style-type: square; }
     }
   }
-  @each $level in (error $invalid-color remove-circle), (warning $caution-color warning-sign), (success $success-color ok-circle), (information $active-color info-sign) {
+  @each $level in (error $invalid-color times-circle), (warning $caution-color exclamation-circle), (success $success-color check-circle), (information $active-color info-circle) {
     $level-name: nth($level, 1);
     $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
     &.#{$level-name} {
@@ -910,8 +910,8 @@ form.search {
     pointer-events: none;
   }
 }
-.checkbox-true { @include use-icon(check); }
-.checkbox-false { @include use-icon(check-empty); }
+.checkbox-true { @include use-icon(check-square-o); }
+.checkbox-false { @include use-icon(square-o); }
 
 
 
@@ -961,7 +961,7 @@ form.search {
         width: $tool-size;
         height: $tool-size;
         @include is-icon();
-        @include use-icon(remove);
+        @include use-icon(times);
         margin: round(($size - $tool-size)/2) 0 0;
       }
     }
@@ -970,7 +970,7 @@ form.search {
       @include transition(color 0.2s linear);
     }
   }
-  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (indicators dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options circle-blank), (choice_options list), (products wheat), (identification barcode), (animal_identification barcode), (productions cog), (nature wrench), (variant sitemap), (subscriptions stackexchange), (casting bullhorn){ //asset,
+  @each $field_set in (delay times), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (indicators dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options circle-o), (choice_options list), (products wheat), (identification barcode), (animal_identification barcode), (productions cog), (nature wrench), (variant sitemap), (subscriptions stack-exchange), (casting bullhorn){ //asset,
     &.#{ nth($field_set, 1) }.fieldset .fieldset-legend .title i {
       @include use-icon(nth($field_set, 2));
     }
@@ -1022,13 +1022,13 @@ form.search {
 
   &.collapsed {
       .buttons .toggle { 
-	  @include use-icon(expand-alt); 
+	  @include use-icon(plus-square-o); 
       }
       .fieldset-fields {
 	  display: none;
       }
   }
-  &.not-collapsed .buttons .toggle { @include use-icon(collapse-alt); }
+  &.not-collapsed .buttons .toggle { @include use-icon(minus-square-o); }
   &.error.collapsed .fieldset-legend {
     &, *, label, span {
       color: $invalid-color;
@@ -1261,7 +1261,7 @@ $form-actions-height: 48px;
     @include float(right);
     i {
       @include is-icon;
-      @include use-icon(collapse-alt);
+      @include use-icon(minus-square-o);
       color: $color;
       line-height: $line-height;
       vertical-align: middle;
@@ -1269,7 +1269,7 @@ $form-actions-height: 48px;
   }
   &.collapsed {
     a[data-toggle="kujaku"] i {
-      @include use-icon(expand-alt);
+      @include use-icon(plus-square-o);
     }
     .crit.crit-other {
       display: none;
@@ -1311,7 +1311,7 @@ $form-actions-height: 48px;
     .ui-dialog-titlebar-close {
       float: right;
       @include is-icon;
-      @include use-icon(remove);
+      @include use-icon(times);
       color: $text-color;
       @include opacity(0.3);
       margin-top: 3px;
@@ -1603,7 +1603,7 @@ $form-actions-height: 48px;
     font-size: 0;
     i {
       @include is-icon;
-      @include use-icon(remove);
+      @include use-icon(times);
     }
   }
 }
@@ -1611,7 +1611,7 @@ $form-actions-height: 48px;
   font-size: 0;
   i {
     @include is-icon;
-    @include use-icon(remove);
+    @include use-icon(times);
   }
 }
 
@@ -1658,7 +1658,7 @@ $form-actions-height: 48px;
           font-size: 0;
           i {
             @include is-icon;
-            @include use-icon(remove);
+            @include use-icon(times);
           }
         }
       }

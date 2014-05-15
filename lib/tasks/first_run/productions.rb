@@ -18,7 +18,7 @@ load_data :productions do |loader|
                            :work_number_storage => row[5].blank? ? nil : row[5].to_s,
                            :started_at => (row[6].blank? ? Date.civil(2000, 2, 2) : row[6]).to_datetime,
                            :stopped_at => (row[7].blank? ? Date.civil(2000, 2, 2) : row[7]).to_datetime,
-                           :irrigated => (row[8].blank? ? :false : :true),
+                           :irrigated => (row[8].to_s.to_i > 0),
                            :cultivation_nature => (row[9].blank? ? :main : row[9].to_sym),
                            :production_usage => (row[10].blank? ? :grain : row[10].to_sym),
                            :mass_area_yield_markers => row[11].blank? ? {} : row[11].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
@@ -74,7 +74,7 @@ load_data :productions do |loader|
             # and create a support for this production
             support = production.supports.create!(storage_id: product_support.id, :started_at => r.started_at, :stopped_at => r.stopped_at, :nature => r.cultivation_nature, :production_usage => r.production_usage)
             # if the support is a CultivableZone
-            if r.irrigated == true
+            if r.irrigated
               support.irrigated = true
               support.save!
             end

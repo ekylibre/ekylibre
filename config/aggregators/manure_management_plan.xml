@@ -68,17 +68,17 @@
                   <cell name="quantity" value="net_mass(input)" type="measure"/>
                   <cell name="quantity_in_kilogram" value="net_mass(input).to_d(:kilogram)" level="api"/>
                   <cell name="nature_name"/>
-                  <cell name="nitrogen_concentration" value="nitrogen_concentration(input)" type="measure"/>
-                  <cell name="nitrogen_concentration_in_unity" value="nitrogen_concentration(input).to_d(:unity)" type="measure" level="api"/>
-                  <cell name="phosphorus_concentration" value="phosphorus_concentration(input)" type="measure"/>
-                  <cell name="phosphorus_concentration_in_unity" value="phosphorus_concentration(input).to_d(:unity)" type="measure" level="api"/>
-                  <cell name="potassium_concentration" value="potassium_concentration(input)" type="measure"/>
-                  <cell name="potassium_concentration_in_unity" value="potassium_concentration(input).to_d(:unity)" type="measure" level="api"/>
+                  <cell name="nitrogen_concentration" value="nitrogen_concentration" type="measure"/>
+                  <cell name="nitrogen_concentration_in_unity" value="nitrogen_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="phosphorus_concentration" value="phosphorus_concentration" type="measure"/>
+                  <cell name="phosphorus_concentration_in_unity" value="phosphorus_concentration.to_d(:unity)" type="measure" level="api"/>
+                  <cell name="potassium_concentration" value="potassium_concentration" type="measure"/>
+                  <cell name="potassium_concentration_in_unity" value="potassium_concentration.to_d(:unity)" type="measure" level="api"/>
                   <cell name="variety" level="api"/>
                 </within>
               </matrix>
             </sections>
-            <sections for="pasturing" in="support.interventions.real.of_nature(:'pasturing').reorder(:started_at)" of-type="record">
+            <sections for="pasturing" in="support.interventions.real.of_nature(:pasturing).reorder(:started_at)" of-type="record">
               <variable name="animal_group" if="pasturing.casts.of_role(:'pasturing-doer')" value="pasturing.casts.of_role(:'pasturing-doer').first.actor"/>
               <variable name="period" value="((pasturing.stopped_at - pasturing.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
               <variable name="daily_nitrogen_production" value="animal_group.daily_nitrogen_production(pasturing.started_at)" level="api"/>
