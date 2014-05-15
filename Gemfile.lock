@@ -37,7 +37,7 @@ GEM
       tzinfo (~> 1.1)
     acts_as_list (0.4.0)
       activerecord (>= 3.0)
-    agric (2.0.1)
+    agric (2.2.0)
       railties (>= 3.2, < 5.0)
       sass-rails
     arel (5.0.1.20140414130214)

@@ -147,14 +147,14 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 
 	    & > a {
 	       i { @include is-icon }
-	       &.pages     i { @include use-icon(reorder); }
+	       &.pages     i { @include use-icon(bars); }
 	       &.columns   i { @include use-icon(columns); }
 	    }
 	    i { @include is-icon }
-	    &.export    i { @include use-icon(download-alt); }
-	    &.check     i { @include use-icon(ok); }
-	    &.checked   i { @include use-icon(check); }
-	    &.unchecked i { @include use-icon(check-empty); }
+	    &.export    i { @include use-icon(download); }
+	    &.check     i { @include use-icon(check); }
+	    &.checked   i { @include use-icon(square-o); }
+	    &.unchecked i { @include use-icon(check-square-o); }
 	    &:hover {
 	       text-decoration: none;
                   // background: background-hover($menu-background);
