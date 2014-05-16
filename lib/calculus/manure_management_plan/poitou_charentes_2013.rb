@@ -11,7 +11,7 @@ module Calculus
         puts @options.inspect.yellow
         puts cultivation_varieties.inspect.blue
         puts soil_natures.inspect.white
-        if items = Nomen::NmpFranceAbacusCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? and (@varieties <= :avena or @varieties <= :secale)
+        if items = Nomen::NmpFranceAbacusCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? and (@variety <= :avena or @variety <= :secale)
           puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
         elsif capacity = @options[:available_water_capacity].in_liter_per_square_meter and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: cultivation_varieties, soil_nature: soil_natures) and items = items.select{|i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < i.maximum_available_water_capacity.in_liter_per_square_meter} and items.any?

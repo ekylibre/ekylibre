@@ -121,6 +121,7 @@ fra:
     tractor: "Tracteur"
     trailer: "Remorque"
     wine: "Vin"
+    water_to_spread: "Eau à apporter"
     wine_blended: "Vin assemblé"
     wine_bottles: "Bouteilles de vin"
     wine_man: "Opérateur de chai"

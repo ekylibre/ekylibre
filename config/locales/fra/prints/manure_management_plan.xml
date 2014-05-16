@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.6830134553650705"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="365"/>
+	<property name="ireport.y" value="246"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="manure_management_plan"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -74,27 +74,30 @@
 		<field name="input_name" class="java.lang.String">
 			<fieldDescription><![CDATA[name]]></fieldDescription>
 		</field>
+		<field name="nitrogen_input_quantity_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[nitrogen-input-quantity-per-hectare]]></fieldDescription>
+		</field>
+		<field name="phosphorus_input_quantity_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[phosphorus-input-quantity-per-hectare]]></fieldDescription>
+		</field>
+		<field name="potassium_input_quantity_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[potassium-input-quantity-per-hectare]]></fieldDescription>
+		</field>
+		<field name="population" class="java.lang.Double">
+			<fieldDescription><![CDATA[population]]></fieldDescription>
+		</field>
 		<sortField name="started_at"/>
-		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration_in_unity}.doubleValue()]]></variableExpression>
-		</variable>
 		<variable name="total_prev_input_quantity" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()]]></variableExpression>
 		</variable>
-		<variable name="total_prev_phosphorus_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration_in_unity}.doubleValue()]]></variableExpression>
+		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{nitrogen_input_quantity_per_hectare}]]></variableExpression>
 		</variable>
-		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/$P{cultivable_zone_area}.doubleValue()]]></variableExpression>
+		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{phosphorus_input_quantity_per_hectare}]]></variableExpression>
 		</variable>
-		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/$P{cultivable_zone_area}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_potassium_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration_in_unity}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_potassium_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_potassium_quantity}/($P{cultivable_zone_area}.doubleValue())]]></variableExpression>
+		<variable name="total_prev_potassium_quantity_per_area" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{potassium_input_quantity_per_hectare}]]></variableExpression>
 		</variable>
 	</subDataset>
 	<subDataset name="pasturing" uuid="582ddc6a-88a3-496d-b1bb-0226d4969124">
@@ -135,6 +138,43 @@
 		</field>
 		<variable name="sum_pasturing_n_per_ha" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{nitrogen-input-per-hectare}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="bilan" uuid="b9450742-4a92-44ae-b742-9182b879ca1d">
+		<parameter name="zone_id" class="java.lang.String"/>
+		<parameter name="nitrogen_input_prev" class="java.lang.Double" isForPrompting="false">
+			<defaultValueExpression><![CDATA[new Double(0.0)]]></defaultValueExpression>
+		</parameter>
+		<queryString language="xPath">
+			<![CDATA[//intervention[ancestor::zone/@id=$P{zone_id}]/inputs/input | //pasturing[ancestor::zone/@id=$P{zone_id}]]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="animal-group-name" class="java.lang.String">
+			<fieldDescription><![CDATA[@animal-group-name]]></fieldDescription>
+		</field>
+		<field name="animal_nitrogen_input_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[@nitrogen-input-per-hectare]]></fieldDescription>
+		</field>
+		<field name="intervention_nitrogen_input_per_hectare" class="java.lang.Double">
+			<fieldDescription><![CDATA[nitrogen-input-quantity-per-hectare]]></fieldDescription>
+		</field>
+		<variable name="n_animal" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[( !$F{animal_nitrogen_input_per_hectare}.isNaN() ? $F{animal_nitrogen_input_per_hectare} : new Double(0.0))]]></variableExpression>
+			<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+		</variable>
+		<variable name="n_intervention" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{intervention_nitrogen_input_per_hectare}]]></variableExpression>
+			<initialValueExpression><![CDATA[]]></initialValueExpression>
+		</variable>
+		<variable name="provisionnal_balance" class="java.lang.Double">
+			<variableExpression><![CDATA[$P{nitrogen_input_prev}.doubleValue() - ($V{n_intervention}.doubleValue() + $V{n_animal}.doubleValue())]]></variableExpression>
+			<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+		</variable>
+		<variable name="sum_input_n" class="java.lang.Double">
+			<variableExpression><![CDATA[$V{n_intervention}.doubleValue() + $V{n_animal}.doubleValue()]]></variableExpression>
+			<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
@@ -196,10 +236,33 @@
 	<field name="provisional_grains_yield" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@provisional-grains-yield]]></fieldDescription>
 	</field>
-	<group name="campaign" isStartNewPage="true">
+	<field name="recommender_mail_coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@recommender-mail-coordinate]]></fieldDescription>
+	</field>
+	<field name="manure_management_plan_opened_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-opened-at]]></fieldDescription>
+	</field>
+	<field name="manure_management_plan_default_computation_method" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-default-computation-method]]></fieldDescription>
+	</field>
+	<field name="recommender_full_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@recommender-full-name]]></fieldDescription>
+	</field>
+	<field name="manure_management_plan_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-name]]></fieldDescription>
+	</field>
+	<field name="nitrogen_input_prev" class="java.lang.Double">
+		<fieldDescription><![CDATA[support/@nitrogen-input-prev]]></fieldDescription>
+	</field>
+	<group name="campaign" isStartNewPage="true" minHeightToStartNewPage="20" keepTogether="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
-			<band height="50">
+			<band height="269">
+				<rectangle radius="10">
+					<reportElement style="title" x="2" y="49" width="783" height="102" uuid="d37e2b87-78f5-4f48-9e2e-d02c0b23b0d6">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+				</rectangle>
 				<textField>
 					<reportElement isPrintRepeatedValues="false" x="306" y="10" width="114" height="29" printWhenGroupChanges="campaign" uuid="26989836-89a9-4862-8b1a-40c2b54e1ee3"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
@@ -207,13 +270,107 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="10" y="133" width="340" height="18" uuid="6161ed25-02c9-4de5-b766-cd62b0c74c37">
+						<printWhenExpression><![CDATA[$F{manure_management_plan_default_computation_method}.toString() == "poitou_charentes_2013"]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph firstLineIndent="4"/>
+					</textElement>
+					<text><![CDATA[Arrêté préfectoral n°255 du 31/08/2012 (Poitou-Charentes)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="10" y="115" width="340" height="18" uuid="df9c34a8-6702-4aa1-bfc3-9d84014b84c8">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph firstLineIndent="4"/>
+					</textElement>
+					<text><![CDATA[Arrêté national du 23/10/2013 modifiant l'arrêté national du 19/12/2011]]></text>
+				</staticText>
+				<textField>
+					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="532" y="92" width="194" height="20" uuid="27621b0d-5fa3-4f36-adfd-9638940bb01e">
+						<printWhenExpression><![CDATA[!$F{recommender_full_name}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{recommender_full_name}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="address" positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="532" y="112" width="194" height="39" uuid="561c22b0-e570-4a4a-acb1-995d26a001b4">
+						<printWhenExpression><![CDATA[!$F{recommender_mail_coordinate}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{recommender_mail_coordinate}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="420" y="92" width="102" height="20" uuid="70d642c6-0fe9-4b0b-8eab-d31149640202">
+						<printWhenExpression><![CDATA[!$F{recommender_full_name}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph firstLineIndent="4"/>
+					</textElement>
+					<text><![CDATA[Réalisateur]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="0" y="92" width="348" height="20" uuid="ea7da307-1dfe-4eb4-afb6-e246a2c66201">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph firstLineIndent="4"/>
+					</textElement>
+					<text><![CDATA[Référence réglementaires]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="33" y="64" width="221" height="15" uuid="072e2d80-f21f-4dbe-833e-85685ae2d02a">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph firstLineIndent="4"/>
+					</textElement>
+					<text><![CDATA[Plan Prévisionnel de Fumure (PPF) effectué]]></text>
+				</staticText>
+				<ellipse>
+					<reportElement x="10" y="64" width="15" height="15" backcolor="#65A907" uuid="7897a34a-c66a-4ff0-8157-4c9c77f99cef">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_name}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+				</ellipse>
+				<staticText>
+					<reportElement style="strong" positionType="FixRelativeToBottom" mode="Opaque" x="395" y="64" width="2" height="69" backcolor="#7C9DDD" uuid="dda37951-43d0-46b6-9fa9-10ca2fe6093d">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle" rotation="Right">
+						<font pdfFontName="Open Sans"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement style="emphasis" x="532" y="72" width="194" height="20" uuid="be8bdf4d-2776-4fcc-b2aa-499e3903fb45">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_opened_at}.toString().isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{manure_management_plan_opened_at}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="420" y="72" width="102" height="20" uuid="5721518c-c09c-4628-8cbc-c61568f25c60">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_opened_at}.toString().isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph firstLineIndent="4"/>
+					</textElement>
+					<text><![CDATA[Ouverture du bilan]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 	</group>
-	<group name="land_parcel_group" isStartNewPage="true" isReprintHeaderOnEachPage="true" keepTogether="true">
+	<group name="land_parcel_group" isStartNewPage="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="20" keepTogether="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 		<groupHeader>
-			<band height="161">
+			<band height="181">
 				<rectangle radius="10">
 					<reportElement style="title" x="420" y="49" width="191" height="97" uuid="b0177801-cfcd-4b7e-bcab-2d968acb1d7b"/>
 				</rectangle>
@@ -349,14 +506,142 @@
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{provisional_grains_yield}]]></textFieldExpression>
 				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement style="label-strong" x="670" y="161" width="56" height="20" uuid="0fcc0a9d-6da7-4f24-8a4c-1042c252b22d">
+						<printWhenExpression><![CDATA[!$F{nitrogen_input_prev}.toString().isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{nitrogen_input_prev}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="label" x="408" y="161" width="262" height="20" uuid="6c24327e-042f-4666-aa48-23d3bfd64829">
+						<printWhenExpression><![CDATA[!$F{recommender_full_name}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textFieldExpression><![CDATA["Apports azotés prévus à partir du "+ $F{manure_management_plan_opened_at}.toLocaleString()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="label" x="726" y="161" width="50" height="20" uuid="ef4add0f-5e17-4121-b3d9-b8b5679e81ca">
+						<printWhenExpression><![CDATA[!$F{manure_management_plan_name}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+						<paragraph rightIndent="4"/>
+					</textElement>
+					<text><![CDATA[kg N / Ha]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="35">
+				<componentElement>
+					<reportElement key="table" x="420" y="0" width="366" height="35" uuid="e143454c-f54e-433c-a859-dd24cd8b3ce1"/>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="bilan" uuid="81262a21-5de7-47b6-af4d-5dbbbbfe9c5a">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<datasetParameter name="zone_id">
+								<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="nitrogen_input_prev">
+								<datasetParameterExpression><![CDATA[$F{nitrogen_input_prev}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="202" uuid="65b83bfa-c68b-435e-a553-bf8617177f7a">
+							<jr:columnFooter height="57" rowSpan="1">
+								<staticText>
+									<reportElement style="label" x="0" y="0" width="202" height="27" uuid="a81a65eb-45a0-4590-90d8-d5ab4e92ef66"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Open Sans"/>
+										<paragraph rightIndent="4"/>
+									</textElement>
+									<text><![CDATA[Apport totaux]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="label" x="0" y="27" width="202" height="30" uuid="da606bb0-614d-46a8-998a-8b18b4cf98c0"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Open Sans"/>
+										<paragraph rightIndent="4"/>
+									</textElement>
+									<text><![CDATA[Balance azotée depuis le ]]></text>
+								</staticText>
+							</jr:columnFooter>
+							<jr:detailCell height="27" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="202" height="27" uuid="0c5e1bbd-b530-451c-8107-d620a6bb32d8"/>
+									<textFieldExpression><![CDATA[$V{n_animal}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="25" uuid="31060af1-5254-4ded-b3cc-0c4ce11dca3f">
+							<jr:columnFooter height="57" rowSpan="1">
+								<ellipse>
+									<reportElement x="5" y="35" width="15" height="15" backcolor="#65A907" uuid="51fd0ed7-d68f-4315-8633-fd668205c8d0">
+										<printWhenExpression><![CDATA[$V{provisionnal_balance} >= 0.0]]></printWhenExpression>
+									</reportElement>
+								</ellipse>
+								<ellipse>
+									<reportElement x="5" y="35" width="15" height="15" backcolor="#F17900" uuid="a75677b8-e671-44a5-8a71-16f034a5abeb">
+										<printWhenExpression><![CDATA[$V{provisionnal_balance} < 0.0]]></printWhenExpression>
+									</reportElement>
+								</ellipse>
+							</jr:columnFooter>
+							<jr:detailCell height="27" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="25" height="27" uuid="5178ae0c-4d7b-4abc-95ed-44f80e9f5ff5"/>
+									<textFieldExpression><![CDATA[$V{n_intervention}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="53" uuid="98c4b987-1ef1-4db8-9a12-3c6b346a7eef">
+							<jr:columnFooter height="57" rowSpan="1">
+								<textField pattern="###0.00" isBlankWhenNull="true">
+									<reportElement style="strong" x="0" y="27" width="53" height="30" uuid="23af3dc0-5a88-4390-b353-d0d531aee86f"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
+								</textField>
+								<textField>
+									<reportElement x="0" y="0" width="53" height="27" uuid="c937104f-e4ab-4cfc-b6ac-d2a6058079f1"/>
+									<textFieldExpression><![CDATA[$V{sum_input_n}]]></textFieldExpression>
+								</textField>
+							</jr:columnFooter>
+							<jr:detailCell height="27" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="53" height="27" uuid="11e24b13-c441-4e90-bc39-f577de09bd0a"/>
+									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="55" uuid="aa2ad479-579a-4368-9ae2-a2ecf183115a">
+							<jr:columnFooter height="57" rowSpan="1">
+								<staticText>
+									<reportElement style="label" x="0" y="0" width="55" height="27" uuid="ad69c268-7b0c-46ea-b669-c1d4d51be194"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Open Sans"/>
+										<paragraph rightIndent="4"/>
+									</textElement>
+									<text><![CDATA[kg N / Ha]]></text>
+								</staticText>
+								<staticText>
+									<reportElement style="label" x="0" y="27" width="55" height="30" uuid="37852179-f0fb-4051-9216-925e05ba333d"/>
+									<textElement textAlignment="Right" verticalAlignment="Middle">
+										<font fontName="Open Sans"/>
+										<paragraph rightIndent="4"/>
+									</textElement>
+									<text><![CDATA[kg N / Ha]]></text>
+								</staticText>
+							</jr:columnFooter>
+							<jr:detailCell height="27" rowSpan="1"/>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="327" splitType="Stretch">
+		<band height="227" splitType="Stretch">
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
@@ -379,7 +664,7 @@
 				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="address" x="2" y="241" width="786" height="20" uuid="0125d4d6-d61c-43cb-a5e3-d1b790b96ef8"/>
+				<reportElement style="address" x="2" y="201" width="786" height="20" uuid="0125d4d6-d61c-43cb-a5e3-d1b790b96ef8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
 			</textField>
@@ -395,7 +680,7 @@
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="37" splitType="Prevent">
+		<band height="37">
 			<componentElement>
 				<reportElement key="table" x="2" y="0" width="784" height="37" isRemoveLineWhenBlank="true" uuid="72577195-cf73-4bb8-921b-8c0bfdab39b3"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
@@ -409,7 +694,7 @@
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:columnGroup width="832" uuid="43e16d40-953d-411d-9e83-39727ae33206">
+					<jr:columnGroup width="884" uuid="43e16d40-953d-411d-9e83-39727ae33206">
 						<jr:tableHeader height="30" rowSpan="1">
 							<textField>
 								<reportElement style="label-strong" x="0" y="0" width="786" height="30" uuid="ca627e01-539d-4cb8-977a-3a8c56859441"/>
@@ -425,9 +710,9 @@
 									<textFieldExpression><![CDATA["Totaux"]]></textFieldExpression>
 								</textField>
 							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="126" height="43" uuid="3b140cf0-1978-4245-94f1-787ac3ab7dca"/>
+									<reportElement style="table-td" x="0" y="0" width="126" height="57" uuid="3b140cf0-1978-4245-94f1-787ac3ab7dca"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[Intrant]]></text>
 								</staticText>
@@ -441,16 +726,10 @@
 							</jr:detailCell>
 						</jr:column>
 						<jr:column width="116" uuid="b331346e-48ee-4f80-8a75-e48e1b625ae3">
-							<jr:tableFooter height="34" rowSpan="1">
-								<textField>
-									<reportElement style="emphasis" x="0" y="0" width="116" height="34" uuid="c79f710b-9947-41fe-acfe-60d12e44ea31"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA["Total par unité de surface"]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:tableFooter height="34" rowSpan="1"/>
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="116" height="43" uuid="b13f1d4b-c45f-43a0-a078-58320e1a4e02"/>
+									<reportElement style="table-td" x="0" y="0" width="116" height="57" uuid="b13f1d4b-c45f-43a0-a078-58320e1a4e02"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[Nature du produit]]></text>
 								</staticText>
@@ -463,65 +742,59 @@
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="40" uuid="e65ba874-7dc7-4a4a-864d-1b140e36653c">
-							<jr:columnHeader height="43" rowSpan="1">
+						<jr:column width="70" uuid="e65ba874-7dc7-4a4a-864d-1b140e36653c">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="40" height="43" uuid="c6d369df-133d-4cd5-ad79-60ce9af19384"/>
+									<reportElement style="table-td" x="0" y="0" width="70" height="57" uuid="c6d369df-133d-4cd5-ad79-60ce9af19384"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[Teneur en N]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="40" height="20" uuid="cc7a66a1-5727-4e48-b39f-b49173dbb21a"/>
+									<reportElement style="table-td" x="0" y="0" width="70" height="20" uuid="cc7a66a1-5727-4e48-b39f-b49173dbb21a"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_nitrogen_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="39" uuid="bc16377e-1be6-47b8-b2bb-70395b8c7110">
-							<jr:columnHeader height="43" rowSpan="1">
+						<jr:column width="70" uuid="bc16377e-1be6-47b8-b2bb-70395b8c7110">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="39" height="43" uuid="31533e78-07fe-4783-98a3-433be2449aa2"/>
+									<reportElement style="table-td" x="0" y="0" width="70" height="57" uuid="31533e78-07fe-4783-98a3-433be2449aa2"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[Teneur en P]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="39" height="20" uuid="782658be-d7dc-4787-9233-1f467fae329e"/>
+									<reportElement style="table-td" x="0" y="0" width="70" height="20" uuid="782658be-d7dc-4787-9233-1f467fae329e"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_phosphorus_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="40" uuid="c070e025-8393-4ffb-a342-ad01180f781f">
-							<jr:columnHeader height="43" rowSpan="1">
+						<jr:column width="70" uuid="c070e025-8393-4ffb-a342-ad01180f781f">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="40" height="43" uuid="e74dbf79-de94-4b40-8429-747b76f489c5"/>
+									<reportElement style="table-td" x="0" y="0" width="70" height="57" uuid="e74dbf79-de94-4b40-8429-747b76f489c5"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[Teneur en K]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="40" height="20" uuid="ccd1fe5e-cd41-420d-98cb-7cec417bc818"/>
+									<reportElement style="table-td" x="0" y="0" width="70" height="20" uuid="ccd1fe5e-cd41-420d-98cb-7cec417bc818"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_potassium_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
 						<jr:column width="82" uuid="2f48186d-35d6-4828-8977-1c87d632f266">
-							<jr:tableFooter height="34" rowSpan="1">
-								<textField evaluationTime="Auto" pattern="#,##0.00 kg" isBlankWhenNull="true">
-									<reportElement style="strong" x="0" y="0" width="82" height="34" uuid="4aecaccd-b68e-4214-bf9f-9437af7ef864"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_input_quantity}]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:tableFooter height="34" rowSpan="1"/>
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="82" height="43" uuid="3a5cf890-d49e-4d35-9735-da2b3178cb14"/>
+									<reportElement style="table-td" x="0" y="0" width="82" height="57" uuid="3a5cf890-d49e-4d35-9735-da2b3178cb14"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[Quantité épandue]]></text>
 								</staticText>
@@ -530,94 +803,94 @@
 								<textField isBlankWhenNull="true">
 									<reportElement style="table-td" x="0" y="0" width="82" height="20" uuid="03bbc176-12f3-4e68-a4df-ff7e3db549a8"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{population}.toString() + " " +$F{input_variant_unit}]]></textFieldExpression>
 									<patternExpression><![CDATA[$F{input_quantity}]]></patternExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="70" uuid="d3532eba-cb3e-430c-915c-9ded5a34b84d">
+						<jr:column width="57" uuid="d3532eba-cb3e-430c-915c-9ded5a34b84d">
 							<jr:tableFooter height="34" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="###0.00 kg/ha" isBlankWhenNull="true">
-									<reportElement style="base" x="0" y="0" width="70" height="34" uuid="fb541883-3007-4851-840e-75c87e149683"/>
+								<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+									<reportElement style="base" x="0" y="0" width="57" height="34" uuid="fb541883-3007-4851-840e-75c87e149683"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{total_prev_nitrogen_quantity_per_area}]]></textFieldExpression>
 								</textField>
 							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="70" height="43" uuid="f770833c-a961-450c-93a7-e5330f4933e0"/>
+									<reportElement style="table-td" x="0" y="0" width="57" height="57" uuid="f770833c-a961-450c-93a7-e5330f4933e0"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<paragraph leftIndent="4"/>
 									</textElement>
-									<text><![CDATA[Dose totale d'azote]]></text>
+									<text><![CDATA[Dose d'azote (kg N / ha)]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="70" height="20" uuid="af94c90c-bb43-4b8e-bdbb-cdada0569328"/>
+									<reportElement style="table-td" x="0" y="0" width="57" height="20" uuid="af94c90c-bb43-4b8e-bdbb-cdada0569328"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration_in_unity}.doubleValue()]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{nitrogen_input_quantity_per_hectare}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="70" uuid="ab3e0d13-b4f3-4204-b10f-f4d418504b66">
+						<jr:column width="57" uuid="ab3e0d13-b4f3-4204-b10f-f4d418504b66">
 							<jr:tableFooter height="34" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="###0.00 kg/ha" isBlankWhenNull="true">
-									<reportElement style="base" x="0" y="0" width="70" height="34" uuid="0e7f023e-7f25-4860-8e13-b44b9f305303"/>
+								<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+									<reportElement style="base" x="0" y="0" width="57" height="34" uuid="0e7f023e-7f25-4860-8e13-b44b9f305303"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity_per_area}]]></textFieldExpression>
 								</textField>
 							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="70" height="43" uuid="7a8f10ac-45ad-46bc-a6d9-0e7d972e2e94"/>
+									<reportElement style="table-td" x="0" y="0" width="57" height="57" uuid="7a8f10ac-45ad-46bc-a6d9-0e7d972e2e94"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<paragraph leftIndent="4"/>
 									</textElement>
-									<text><![CDATA[Dose totale de phosphore  ]]></text>
+									<text><![CDATA[Dose de phosphore  (kg P / ha)]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="70" height="20" uuid="83757847-62e7-4f4a-ba30-11b58658b2d2"/>
+									<reportElement style="table-td" x="0" y="0" width="57" height="20" uuid="83757847-62e7-4f4a-ba30-11b58658b2d2"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration_in_unity}.doubleValue()]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{phosphorus_input_quantity_per_hectare}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="70" uuid="94d1a000-11fa-4154-b4c7-6e062c23facb">
+						<jr:column width="57" uuid="94d1a000-11fa-4154-b4c7-6e062c23facb">
 							<jr:tableFooter height="34" rowSpan="1">
-								<textField isStretchWithOverflow="true" pattern="###0.00 kg/ha" isBlankWhenNull="true">
-									<reportElement style="base" x="0" y="0" width="70" height="34" uuid="2995a245-c519-48a5-8681-4db06781a097"/>
+								<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+									<reportElement style="base" x="0" y="0" width="57" height="34" uuid="2995a245-c519-48a5-8681-4db06781a097"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{total_prev_potassium_quantity_per_area}]]></textFieldExpression>
 								</textField>
 							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="70" height="43" uuid="60559d5f-2f53-43f5-a701-97737a64a91d"/>
+									<reportElement style="table-td" x="0" y="0" width="57" height="57" uuid="60559d5f-2f53-43f5-a701-97737a64a91d"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<paragraph leftIndent="4"/>
 									</textElement>
-									<text><![CDATA[Dose totale de potassium ]]></text>
+									<text><![CDATA[Dose de potassium (kg K / ha)]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="70" height="20" uuid="f33eb29d-9c8e-42ff-9d2e-90a1dc4af82d"/>
+									<reportElement style="table-td" x="0" y="0" width="57" height="20" uuid="f33eb29d-9c8e-42ff-9d2e-90a1dc4af82d"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration_in_unity}.doubleValue()]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{potassium_input_quantity_per_hectare}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
 						<jr:column width="71" uuid="d781060e-8cde-4bbc-8f3e-0f18bb0f2807">
-							<jr:columnHeader height="43" rowSpan="1">
+							<jr:columnHeader height="57" rowSpan="1">
 								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="71" height="43" uuid="08966e00-edbd-4a47-9564-1819ee3394ad"/>
+									<reportElement style="table-td" x="0" y="0" width="71" height="57" uuid="08966e00-edbd-4a47-9564-1819ee3394ad"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<paragraph leftIndent="4"/>
 									</textElement>
-									<text><![CDATA[Date de début d'apport]]></text>
+									<text><![CDATA[Date d'apport]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
@@ -629,28 +902,14 @@
 							</jr:detailCell>
 						</jr:column>
 						<jr:column width="108" uuid="8b451c6f-6920-49c7-9465-4e03b7d7a783">
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement style="table-td" x="0" y="0" width="62" height="43" uuid="0e7d3433-a394-48ff-aabc-1d6165803923"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<paragraph leftIndent="4"/>
-									</textElement>
-									<text><![CDATA[Date de fin d'apport]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement style="table-td" x="0" y="0" width="62" height="20" uuid="9ef4114e-978e-418e-a215-a55b8ef96df9"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
+							<jr:columnHeader height="57" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1"/>
 						</jr:column>
 					</jr:columnGroup>
 				</jr:table>
 			</componentElement>
 		</band>
-		<band height="20" splitType="Prevent">
+		<band height="20" splitType="Stretch">
 			<componentElement>
 				<reportElement key="table" x="4" y="0" width="784" height="20" uuid="81380238-9100-4dcf-94f3-25022a658976"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">

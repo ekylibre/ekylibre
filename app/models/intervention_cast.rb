@@ -44,6 +44,7 @@ class InterventionCast < Ekylibre::Record::Base
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :casts
   belongs_to :variant, class_name: "ProductNatureVariant"
+  has_one :nature, through: :variant
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
   has_one :event,    through: :intervention
@@ -55,6 +56,7 @@ class InterventionCast < Ekylibre::Record::Base
   #]VALIDATORS]
 
   delegate :name, to: :actor, prefix: true
+  delegate :name, to: :nature, prefix: true
   delegate :evaluated_price, to: :actor
   delegate :tracking, to: :actor
   delegate :started_at, :stopped_at, to: :intervention
