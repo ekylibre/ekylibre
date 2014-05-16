@@ -9,7 +9,7 @@
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
       arr << {name: lp.name, coord: centroid, radius: radius}
-      poly << {name: lp.name, coord: polyg}
+      poly << {name: lp.name, coord: polyg, color: 'null', fillColor: 'magenta', fillOpacity: 0.5, choroplethParam: lp.name}
     end
   end
   
@@ -50,4 +50,5 @@
   - v.control :fullscreen
   - v.control :geocoder
   - v.control :layer_selector
+
 

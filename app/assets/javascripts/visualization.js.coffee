@@ -70,7 +70,8 @@
       this.mapElement = $("<div>", class: "map")
         .insertAfter(this.element)
       this.map = L.map(this.mapElement[0],
-        maxZoom: 25
+        maxZoom: 18
+        minZoom:2
         zoomControl: false
         attributionControl: false 
       )
@@ -238,7 +239,7 @@
             }
             controls = new L.Control.OSMGeocoder(geocoder_options)
             that.map.addControl controls
-
+            
       this
 
     _refreshBubbles: ->
@@ -251,6 +252,7 @@
           $.each value.list , (index, value) ->
                       
             new_bubbles = new  L.circle(value.coord, value.radius)
+            new_bubbles.bindLabel(value.name)
             that.map.addLayer new_bubbles
           
       this
@@ -259,14 +261,30 @@
       that= this
       console.log this.options.simples[0].list[0].coord
       if this.options.simples?
-        console.log this.options.simples
         $.each this.options.simples, ( index, value ) -> 
-          console.log value.list
-          new_polygons = new  L.multiPolygon(value.list)
-          that.map.addLayer new_polygons
-                    
           $.each value.list, (index, value) ->
-            new_polygons = new  L.GeoJSON(value.coord)
+            if value.choroplethParam.length <= 9
+              #value.color = 'pink'
+              #value.fillColor = 'pink'
+              value.fillOpacity = 0.2
+            if value.choroplethParam.length > 9 and value.choroplethParam.length <= 12
+              #value.color = 'violet'
+              #value.fillColor = 'violet'
+              value.fillOpacity = 0.4
+            if value.choroplethParam.length > 12 and value.choroplethParam.length <= 15
+              #value.color = 'magenta'
+              #value.fillColor = 'magenta'
+              value.fillOpacity = 0.6
+            if value.choroplethParam.length > 15 and value.choroplethParam.length <= 18
+              #value.color = 'purple'
+              #value.fillColor = 'purple'
+              value.fillOpacity = 0.8
+            if value.choroplethParam.length > 18 
+              #value.color = 'purple'
+              #value.fillColor = 'purple'
+              value.fillOpacity = 1
+            new_polygons = new  L.GeoJSON(value.coord, {color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity } )
+            new_polygons.bindLabel(value.name)
             that.map.addLayer new_polygons
 
             
