@@ -1,5 +1,56 @@
+:ruby
+  # for test 
+  plants = Plant.availables
+  arr=[]
+  poly=[]
+  plants.each do |plant|
+    label = Nomen::Varieties[plant.variety].human_name
+    if plant.shape
+      radius = rand(150) + 50
+      centroid = Charta::Geometry.new(plant.shape).transform(:WGS84).centroid
+      polyg = Charta::Geometry.new(plant.shape).transform(:WGS84).to_geojson
+      arr << {name: label, coord: centroid, radius: radius}
+      poly << {name: label, coord: polyg, color: '#0033ff', fillColor: '#0033ff', fillOpacity: 0.2, choroplethParam: plant.name}
+    end
+  end
+
+
+
+
 = kujaku
 - main_toolbar do |t|
   - t.new
-
-= list
+  
+= beehive do |b|
+  - b.hbox do
+    - b.cell :map do
+      = visualization :my_cultivable_zone_of_hell do |v|
+        -# The followings layers are base layers. Only one base layer will appear.
+        - v.background :default_base, "OpenStreetMap.HOT"
+        - v.background :forest_base, "Thunderforest"
+        - v.background :water_base, "Thunderforest.Transport"
+        - v.background :landscape_base, "Thunderforest.Landscape"
+        - v.background :outdoors_base, "Thunderforest.Outdoors"
+        -# The followings layers are overlays . They can be combined.
+        - v.overlay :clouds, "OpenWeatherMap.Clouds"
+        - v.overlay :precipitations, "OpenWeatherMap.Precipitation"
+        - v.overlay :rains, "OpenWeatherMap.Rain"
+        - v.overlay :pressures, "OpenWeatherMap.Pressure"
+        - v.overlay :wind, "OpenWeatherMap.Wind"
+        - v.overlay :temperature, "OpenWeatherMap.Temperature"
+        -# v.dataset :zones, data
+        -# v.layer :zones, data, tooltip: true
+        -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
+        -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
+        -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
+        - v.bubble arr
+        - v.simple poly
+        - v.control :zoom
+        - v.control :tilelegend
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :geocoder
+        - v.control :layer_selector
+        
+    - b.cell :list do
+      = list
