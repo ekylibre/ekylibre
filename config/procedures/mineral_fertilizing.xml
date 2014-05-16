@@ -13,11 +13,11 @@
                  forward="(value * land_parcel.net_surface_area(square_meter)) / self..net_mass(gram)"
                  backward="(value * self..net_mass(gram)) / land_parcel.net_surface_area(square_meter)"
                  /> <!-- g/m² -->
-	<handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1"
+	<handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1 &amp; fertilizer.net_volume? &amp; fertilizer.net_volume(liter) >= 0.1"
                  forward="(value * land_parcel.net_surface_area(hectare)) / self..net_volume(liter)"
                  backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- l/ha -->
-	<handler indicator="volume_area_density"   unit="liter_per_square_meter"   to="population" if="land_parcel? &amp; 0.1 > land_parcel.net_surface_area(hectare)"
+	<handler indicator="volume_area_density"   unit="liter_per_square_meter"   to="population" if="land_parcel? &amp; 0.1 > land_parcel.net_surface_area(hectare) &amp; fertilizer.net_volume? &amp; fertilizer.net_volume(liter) >= 0.1"
                  forward="(value * land_parcel.net_surface_area(square_meter)) / self..net_volume(liter)"
                  backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(square_meter)"
                  /> <!-- l/m² -->

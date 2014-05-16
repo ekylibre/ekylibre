@@ -1,187 +1,10 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="all_in_one_sowing" natures="sowing,soil_enrichment,plant_illness_treatment" version="1" status="frozen">
-    <variables>
-      <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow"/>
-      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">
-	<handler indicator="population" />
-        <handler indicator="net_mass"            unit="kilogram"               to="population"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
-        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg/ha -->
-        <handler indicator="grains_area_density" unit="unity_per_square_meter" to="population"
-                 forward="(((value * self.thousand_grains_mass(gram)) / 1000) * cultivation.net_surface_area(square_meter)) / self..net_mass(gram)"
-                 backward="(((value * self..net_mass(gram)) / cultivation.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)"
-                 /> <!--  u/m² -->
-        <handler indicator="grains_area_density" unit="thousand_per_hectare"   to="population"
-                 forward="(value * self.thousand_grains_mass(gram) * cultivation.net_surface_area(hectare)) / self..net_mass(gram)"
-                 backward="(value * self..net_mass(gram)) / (cultivation.net_surface_area(hectare) * self.thousand_grains_mass(gram))"
-                 /> <!--  M/ha -->
-        <handler indicator="grains_count"        unit="thousand"               to="population"
-                 forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"
-                 backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
-                 /> <!--  M    -->
-      </variable>
-      <variable name="fertilizer"           variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
-      <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
-        <handler indicator="population" />
-	<handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->
-	<handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->          
-	<handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->         
-	<handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->            
-        
-      </variable>
-      <variable name="insecticide"          variety="preparation" abilities="kill(insecta)"/>
-      <variable name="insecticide_to_input" new="parted-from: insecticide" roles="plant_illness_treatment-input" default-population=":insecticide">
-	
-	<handler indicator="population" />
-        <handler indicator="net_mass"            unit="kilogram"               to="population"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
-        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg/ha -->
-	
-      </variable>
-      <variable name="molluscicide"          variety="preparation" abilities="kill(mollusca)"/>
-      <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
-	<handler indicator="population" />
-        <handler indicator="net_mass"            unit="kilogram"               to="population"
-                 forward="value / self..net_mass(kilogram)"
-                 backward="value * self..net_mass(kilogram)"
-                 /> <!-- kg    -->
-        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg/ha -->
-	
-      </variable> 
-
-      <variable name="sower"        abilities="spread(preparation), sow, spray" roles="soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>
-      <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer,soil_enrichment-doer,soil_enrichment-doer,plant_illness_treatment-doer"/>
-      <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
-      <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target,soil_enrichment-target" default-actor="storage"/>
-      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output,plant_illness_treatment-target" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
-  <handler indicator="shape">
-    <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
-    <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
-  </handler>
-      </variable>
-    </variables>
-    <operations>
-      <operation id="100" duration="4 minutes">
-        <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
-        <task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
-        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
-        <task do="[tractor] moves at [sower]"/>
-      </operation>
-      <operation id="300" duration="7 minutes">
-        <!-- le chauffeur attache la charrue au tracteur -->
-        <task do="[tractor] catches [sower]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
-        <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
-        <task do="[tractor] moves at [seeds]"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
-        <task do="[seeds] parts with [seeds_to_sow]"/>
-        <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
-        <task do="[seeds_to_sow] moves in [sower]"/>
-      </operation>
-      <operation id="600" duration="4 minutes">
-        <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
-        <task do="[tractor] moves at [fertilizer]"/>
-      </operation>
-      <operation id="700" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
-        <task do="[fertilizer] parts with [fertilizer_to_spread]"/>
-        <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
-        <task do="[fertilizer_to_spread] moves in [sower]"/>
-      </operation>
-      <operation id="800" duration="4 minutes">
-        <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
-        <task do="[tractor] moves at [insecticide]"/>
-        <task do="[tractor] moves at [molluscicide]"/>
-      </operation>
-      <operation id="900" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
-        <task do="[insecticide] parts with [insecticide_to_input]"/>
-        <task do="[molluscicide] parts with [molluscicide_to_input]"/>
-        <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
-        <task do="[insecticide_to_input] moves in [sower]"/>
-        <task do="[molluscicide_to_input] moves in [sower]"/>
-      </operation>
-
-      <operation id="1000" duration="18 minutes">
-        <task do="[tractor] moves in [land_parcel]"/>
-        <!-- le chauffeur + son tracteur et son semoir chargé de semences se déplace vers la parcelle et rentre dedant (?) -->
-      </operation>
-      <operation id="1100">
-        <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le semoir sème) les task tournent -->
-        <task do="[seeds_to_sow] moves in [land_parcel]"/>
-        <!-- les semences tombe par terre car le semoir tourne  -->
-        <task do="[fertilizer_to_spread] moves in [land_parcel]"/>
-        <task do="[insecticide_to_input] moves in [land_parcel]"/>
-        <task do="[molluscicide_to_input] moves in [land_parcel]"/>
-        <!-- l'engrais et les produits phyto tombent par terre car le semoir tourne  -->
-        <task do="[land_parcel] consumes [seeds_to_sow]"/>
-        <!-- la parcelle consomme les semences épandues -->
-        <task do="[land_parcel] consumes [fertilizer_to_spread]"/>
-        <task do="[land_parcel] consumes [insecticide_to_input]"/>
-        <task do="[land_parcel] consumes [molluscicide_to_input]"/>
-        <!-- la parcelle consomme l'engrais et les produits phyto épandus -->
-        <task do="[land_parcel] produces [cultivation]"/>
-        <!-- les semences tombées sur le sol produise une sole de blé -->
-        <task do="cultivation is in land_parcel"/>
-        <!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->
-        <!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
-        <!-- et je retourne charger des semences sur le tas global-->
-      </operation>
-      <operation id="1200">
-        <task do="cultivation|population|superficial_count:cultivation is measured"/>
-        <task do="land_parcel|soil_cultural_state|covered is measured"/>
-        <task do="cultivation|plants_count is measured"/>
-      </operation>
-      <operation id="1300" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [sower]"/>
-      </operation>
-      <operation id="1400" duration="4 minutes">
-        <task do="[tractor] releases [sower]"/>
-      </operation>
-      <operation id="1500" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1600" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
-      </operation>
-    </operations>
-  </procedure>
   <procedure name="all_in_one_sowing" natures="sowing,soil_enrichment,plant_illness_treatment" version="0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">
-  <handler indicator="population" />
+	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
                  backward="value * self..net_mass(kilogram)"
@@ -206,28 +29,43 @@
       <variable name="fertilizer"           variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
         <handler indicator="population" />
-  <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->
-  <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
+  <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- kg/ha -->
+  <handler indicator="mass_area_density"   unit="gram_per_square_meter"   to="population" if="land_parcel? &amp; 0.1 > land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(square_meter)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / land_parcel.net_surface_area(square_meter)"
+                 /> <!-- g/m² -->
+  <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1 &amp; fertilizer.net_volume? &amp; fertilizer.net_volume(liter) >= 0.1"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- l/ha -->
+  <handler indicator="volume_area_density"   unit="liter_per_square_meter"   to="population" if="land_parcel? &amp; 0.1 > land_parcel.net_surface_area(hectare) &amp; fertilizer.net_volume? &amp; fertilizer.net_volume(liter) >= 0.1"
+                 forward="(value * land_parcel.net_surface_area(square_meter)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(square_meter)"
+                 /> <!-- l/m² -->
+  <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
+     if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg N/ha -->          
-  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
+  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population" 
+     if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg P/ha -->         
-  <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->            
+  <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
+     if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- kg K/ha -->            
         
       </variable>
       <variable name="insecticide"          variety="preparation" abilities="kill(insecta)"/>
       <variable name="insecticide_to_input" new="parted-from: insecticide" roles="plant_illness_treatment-input" default-population=":insecticide">
-  
-  <handler indicator="population" />
+	
+	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
                  backward="value * self..net_mass(kilogram)"
@@ -236,11 +74,11 @@
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg/ha -->
-  
+	
       </variable>
       <variable name="molluscicide"          variety="preparation" abilities="kill(mollusca)"/>
       <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
-  <handler indicator="population" />
+	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
                  backward="value * self..net_mass(kilogram)"
@@ -249,7 +87,7 @@
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg/ha -->
-  
+	
       </variable> 
 
       <variable name="sower"        abilities="spread(preparation), sow, spray" roles="soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>

@@ -874,7 +874,7 @@
             category="equipment"
             variety="sower"
             population_counting="unitary"
-            abilities="spread(mineral_matter), sow, spray"
+            abilities="spread(preparation), sow, spray"
             variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
