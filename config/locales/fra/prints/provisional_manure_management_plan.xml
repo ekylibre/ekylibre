@@ -422,7 +422,7 @@
 									<text><![CDATA[Balance azotée prévisionnelle]]></text>
 								</staticText>
 							</jr:columnFooter>
-							<jr:detailCell height="3" rowSpan="1"/>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="25" uuid="94268719-b52d-4dcd-ac66-14cbad0b905e">
 							<jr:columnFooter height="30" rowSpan="1">
@@ -437,7 +437,7 @@
 									</reportElement>
 								</ellipse>
 							</jr:columnFooter>
-							<jr:detailCell height="3" rowSpan="1"/>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="53" uuid="8c763100-cd79-4f4b-8713-ce6f2d270c72">
 							<jr:columnFooter height="30" rowSpan="1">
@@ -447,7 +447,7 @@
 									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
 								</textField>
 							</jr:columnFooter>
-							<jr:detailCell height="3" rowSpan="1"/>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="55" uuid="14c29f1f-a7fd-4758-822f-dbfe2a72f484">
 							<jr:columnFooter height="30" rowSpan="1">
@@ -460,7 +460,7 @@
 									<text><![CDATA[kg N / Ha]]></text>
 								</staticText>
 							</jr:columnFooter>
-							<jr:detailCell height="3" rowSpan="1"/>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 					</jr:table>
 				</componentElement>

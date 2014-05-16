@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="0.6830134553650705"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="246"/>
+	<property name="ireport.y" value="375"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="manure_management_plan"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -161,20 +161,20 @@
 			<fieldDescription><![CDATA[nitrogen-input-quantity-per-hectare]]></fieldDescription>
 		</field>
 		<variable name="n_animal" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[( !$F{animal_nitrogen_input_per_hectare}.isNaN() ? $F{animal_nitrogen_input_per_hectare} : new Double(0.0))]]></variableExpression>
-			<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+			<variableExpression><![CDATA[$F{animal_nitrogen_input_per_hectare}]]></variableExpression>
+			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
 		<variable name="n_intervention" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{intervention_nitrogen_input_per_hectare}]]></variableExpression>
 			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
 		<variable name="provisionnal_balance" class="java.lang.Double">
-			<variableExpression><![CDATA[$P{nitrogen_input_prev}.doubleValue() - ($V{n_intervention}.doubleValue() + $V{n_animal}.doubleValue())]]></variableExpression>
-			<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+			<variableExpression><![CDATA[($P{nitrogen_input_prev} == null ? new Double(0.0) : $P{nitrogen_input_prev}.doubleValue())  - ( ($V{n_animal} == null ? new Double(0.0) : $V{n_animal}.doubleValue()) + ($V{n_intervention} == null ? new Double(0.0) : $V{n_intervention}.doubleValue()) )]]></variableExpression>
+			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
 		<variable name="sum_input_n" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{n_intervention}.doubleValue() + $V{n_animal}.doubleValue()]]></variableExpression>
-			<initialValueExpression><![CDATA[new Double(0.0)]]></initialValueExpression>
+			<variableExpression><![CDATA[($V{n_intervention} == null ? new Double(0.0) : $V{n_intervention}.doubleValue()) + ($V{n_animal} == null ? new Double(0.0) : $V{n_animal}.doubleValue())]]></variableExpression>
+			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
@@ -254,12 +254,12 @@
 	<field name="nitrogen_input_prev" class="java.lang.Double">
 		<fieldDescription><![CDATA[support/@nitrogen-input-prev]]></fieldDescription>
 	</field>
-	<group name="campaign" isStartNewPage="true" minHeightToStartNewPage="20" keepTogether="true">
+	<group name="campaign" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
-			<band height="269">
+			<band height="408">
 				<rectangle radius="10">
-					<reportElement style="title" x="2" y="49" width="783" height="102" uuid="d37e2b87-78f5-4f48-9e2e-d02c0b23b0d6">
+					<reportElement style="title" x="2" y="49" width="783" height="133" uuid="d37e2b87-78f5-4f48-9e2e-d02c0b23b0d6">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 				</rectangle>
@@ -271,7 +271,7 @@
 					<textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="10" y="133" width="340" height="18" uuid="6161ed25-02c9-4de5-b766-cd62b0c74c37">
+					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="91" y="122" width="272" height="29" uuid="6161ed25-02c9-4de5-b766-cd62b0c74c37">
 						<printWhenExpression><![CDATA[$F{manure_management_plan_default_computation_method}.toString() == "poitou_charentes_2013"]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -281,7 +281,7 @@
 					<text><![CDATA[Arrêté préfectoral n°255 du 31/08/2012 (Poitou-Charentes)]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="10" y="115" width="340" height="18" uuid="df9c34a8-6702-4aa1-bfc3-9d84014b84c8">
+					<reportElement style="emphasis" positionType="FixRelativeToBottom" x="91" y="92" width="291" height="30" uuid="df9c34a8-6702-4aa1-bfc3-9d84014b84c8">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -305,7 +305,7 @@
 					<textFieldExpression><![CDATA[$F{recommender_mail_coordinate}.toUpperCase()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="420" y="92" width="102" height="20" uuid="70d642c6-0fe9-4b0b-8eab-d31149640202">
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="420" y="92" width="102" height="59" uuid="70d642c6-0fe9-4b0b-8eab-d31149640202">
 						<printWhenExpression><![CDATA[!$F{recommender_full_name}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -315,7 +315,7 @@
 					<text><![CDATA[Réalisateur]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="0" y="92" width="348" height="20" uuid="ea7da307-1dfe-4eb4-afb6-e246a2c66201">
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="10" y="92" width="81" height="59" uuid="ea7da307-1dfe-4eb4-afb6-e246a2c66201">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -325,7 +325,7 @@
 					<text><![CDATA[Référence réglementaires]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="33" y="64" width="221" height="15" uuid="072e2d80-f21f-4dbe-833e-85685ae2d02a">
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="33" y="64" width="330" height="20" uuid="072e2d80-f21f-4dbe-833e-85685ae2d02a">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_default_computation_method}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -335,7 +335,7 @@
 					<text><![CDATA[Plan Prévisionnel de Fumure (PPF) effectué]]></text>
 				</staticText>
 				<ellipse>
-					<reportElement x="10" y="64" width="15" height="15" backcolor="#65A907" uuid="7897a34a-c66a-4ff0-8157-4c9c77f99cef">
+					<reportElement x="10" y="64" width="20" height="20" backcolor="#65A907" uuid="7897a34a-c66a-4ff0-8157-4c9c77f99cef">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_name}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 				</ellipse>
@@ -348,14 +348,14 @@
 					</textElement>
 					<text><![CDATA[]]></text>
 				</staticText>
-				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-					<reportElement style="emphasis" x="532" y="72" width="194" height="20" uuid="be8bdf4d-2776-4fcc-b2aa-499e3903fb45">
+				<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+					<reportElement style="emphasis" x="532" y="64" width="194" height="28" uuid="be8bdf4d-2776-4fcc-b2aa-499e3903fb45">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_opened_at}.toString().isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textFieldExpression><![CDATA[$F{manure_management_plan_opened_at}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="420" y="72" width="102" height="20" uuid="5721518c-c09c-4628-8cbc-c61568f25c60">
+					<reportElement style="label-strong" positionType="FixRelativeToBottom" x="420" y="64" width="102" height="28" uuid="5721518c-c09c-4628-8cbc-c61568f25c60">
 						<printWhenExpression><![CDATA[!$F{manure_management_plan_opened_at}.toString().isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -367,7 +367,7 @@
 			</band>
 		</groupHeader>
 	</group>
-	<group name="land_parcel_group" isStartNewPage="true" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="20" keepTogether="true">
+	<group name="land_parcel_group" isStartNewPage="true" minHeightToStartNewPage="20" keepTogether="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 		<groupHeader>
 			<band height="181">
@@ -562,15 +562,10 @@
 										<font fontName="Open Sans"/>
 										<paragraph rightIndent="4"/>
 									</textElement>
-									<text><![CDATA[Balance azotée depuis le ]]></text>
+									<text><![CDATA[Balance azotée]]></text>
 								</staticText>
 							</jr:columnFooter>
-							<jr:detailCell height="27" rowSpan="1">
-								<textField>
-									<reportElement x="0" y="0" width="202" height="27" uuid="0c5e1bbd-b530-451c-8107-d620a6bb32d8"/>
-									<textFieldExpression><![CDATA[$V{n_animal}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="25" uuid="31060af1-5254-4ded-b3cc-0c4ce11dca3f">
 							<jr:columnFooter height="57" rowSpan="1">
@@ -585,12 +580,7 @@
 									</reportElement>
 								</ellipse>
 							</jr:columnFooter>
-							<jr:detailCell height="27" rowSpan="1">
-								<textField>
-									<reportElement x="0" y="0" width="25" height="27" uuid="5178ae0c-4d7b-4abc-95ed-44f80e9f5ff5"/>
-									<textFieldExpression><![CDATA[$V{n_intervention}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="53" uuid="98c4b987-1ef1-4db8-9a12-3c6b346a7eef">
 							<jr:columnFooter height="57" rowSpan="1">
@@ -599,17 +589,13 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
 								</textField>
-								<textField>
+								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="53" height="27" uuid="c937104f-e4ab-4cfc-b6ac-d2a6058079f1"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{sum_input_n}]]></textFieldExpression>
 								</textField>
 							</jr:columnFooter>
-							<jr:detailCell height="27" rowSpan="1">
-								<textField>
-									<reportElement x="0" y="0" width="53" height="27" uuid="11e24b13-c441-4e90-bc39-f577de09bd0a"/>
-									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="55" uuid="aa2ad479-579a-4368-9ae2-a2ecf183115a">
 							<jr:columnFooter height="57" rowSpan="1">
@@ -630,7 +616,7 @@
 									<text><![CDATA[kg N / Ha]]></text>
 								</staticText>
 							</jr:columnFooter>
-							<jr:detailCell height="27" rowSpan="1"/>
+							<jr:detailCell height="4" rowSpan="1"/>
 						</jr:column>
 					</jr:table>
 				</componentElement>
