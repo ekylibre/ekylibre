@@ -1,6 +1,6 @@
 nom de la culture,code culture,code variant culture,code support,date implantation,Espèce/Variété,Indicateurs
 ,PLANTATION,,,,,
-Vigne Jeune B,PLANT_ZC01,vine_grape_crop,ZC16,2011-07-30,vitis_vinifera_muscadelle_blanc,Population : 18500
-Vigne Vieille B,PLANT_ZC02,vine_grape_crop,ZC18,1982-10-25,vitis_vinifera_ugni_blanc,Population : 15962
-Vigne Poussé N,PLANT_ZC03,vine_grape_crop,ZC21,2010-07-30,vitis_vinifera_merlot_noir,Population : 15000
-Poirier plant Williams,PLANT_ZC011_1,pear_crop,ZC11,2012-10-15,pyrus_communis_william,Population : 150
+Vigne Jeune B,PLANT_ZC01,vine_grape_crop,ZC16,2011-07-30,vitis_vinifera_muscadelle_blanc,Population : 1.50 ; plants_count : 4500
+Vigne Vieille B,PLANT_ZC02,vine_grape_crop,ZC18,1982-10-25,vitis_vinifera_ugni_blanc,Population : 2.89 ; plants_count : 4875
+Vigne Poussé N,PLANT_ZC03,vine_grape_crop,ZC21,2010-07-30,vitis_vinifera_merlot_noir,Population : 2.89 ; plants_count : 4875
+Poirier plant Williams,PLANT_ZC011_1,pear_crop,ZC11,2012-10-15,pyrus_communis_william,Population : 5.65 ; plants_count : 400
