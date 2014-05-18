@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de rendement (qt / ha) par département et variété de culture  -->
+  <nomenclature name="nmp_france_abacus_maximum_nitrogen_input_per_cultivation" hierarchical="false" translateable="false">
+    <property-natures>
+      <property-nature name="cultivation_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
+      <property-nature name="maximum_nitrogen_input" type="decimal" required="true"/><!-- in kg N/ha/year -->
+      <property-nature name="administrative_area" type="choice" nomenclature="administrative_areas" required="true"/><!-- region level -->
+      <property-nature name="production_usage" type="choice" nomenclature="production_usages" required="true" default="grain"/>
+      <property-nature name="irrigated" type="boolean" required="false"/>
+    </property-natures>
+    <items>
+      
+      <!-- Ail -->
+      
+      <item name="onion_aquitaine" cultivation_variety="allium" administrative_area="france_region_aquitaine" maximum_nitrogen_input="150"/>
+      <item name="onion_poitou_charentes" cultivation_variety="allium" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="150"/>
+      
+      <!-- Artichaud -->
+      
+      <item name="artichoke_aquitaine" cultivation_variety="cynara" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180"/>
+      <item name="artichoke_poitou_charentes" cultivation_variety="cynara" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
+      
+      <!-- Asperge -->
+      
+      <item name="asparagus_aquitaine" cultivation_variety="asparagus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="170"/>
+      <item name="asparagus_poitou_charentes" cultivation_variety="asparagus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
+      
+      <!-- Aubergine -->
+      
+      <item name="eggplant_aquitaine" cultivation_variety="solanum_melongena" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250"/>
+      <item name="eggplant_poitou_charentes" cultivation_variety="solanum_melongena" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="250"/>
+      
+      <!-- Betterave -->
+      
+      <item name="beet_aquitaine" cultivation_variety="beta_vulgaris" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250"/>
+      <item name="beet_poitou_charentes" cultivation_variety="beta_vulgaris" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
+      
+      <!-- Carotte -->
+      
+      <item name="carrot_aquitaine" cultivation_variety="daucus_carota" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180"/>
+      <item name="carrot_poitou_charentes" cultivation_variety="daucus_carota" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
+      
+      <!-- Celeri rave -->
+      
+      <item name="wild_celery_aquitaine" cultivation_variety="apium_graveolens" administrative_area="france_region_aquitaine" maximum_nitrogen_input="260"/>
+      <item name="wild_celery_poitou_charentes" cultivation_variety="apium_graveolens" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
+      
+      
+    </items>
+  </nomenclature>
+</nomenclatures>

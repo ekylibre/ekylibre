@@ -33,6 +33,7 @@
 #  intermediate_cultivation_residue_mineralization :decimal(19, 4)
 #  irrigation_water_nitrogen                       :decimal(19, 4)
 #  lock_version                                    :integer          default(0), not null
+#  maximum_nitrogen_input                          :decimal(19, 4)
 #  meadow_humus_mineralization                     :decimal(19, 4)
 #  mineral_nitrogen_at_opening                     :decimal(19, 4)
 #  nitrogen_at_closing                             :decimal(19, 4)

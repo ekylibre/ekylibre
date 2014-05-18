@@ -3,6 +3,7 @@
   <nomenclature name="varieties-solanum" hierarchical="true">
     <items>
       <item name="solanum_tuberosum" itis_tsn="505272"/>
+      <item name="solanum_melongena" itis_tsn="30446"/>
     </items>  
   </nomenclature>
   

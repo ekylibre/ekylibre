@@ -33,6 +33,7 @@
 #  intermediate_cultivation_residue_mineralization :decimal(19, 4)
 #  irrigation_water_nitrogen                       :decimal(19, 4)
 #  lock_version                                    :integer          default(0), not null
+#  maximum_nitrogen_input                          :decimal(19, 4)
 #  meadow_humus_mineralization                     :decimal(19, 4)
 #  mineral_nitrogen_at_opening                     :decimal(19, 4)
 #  nitrogen_at_closing                             :decimal(19, 4)
@@ -59,7 +60,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   enumerize :cultivation_variety, in: Nomen::Varieties.all(:plant)
   enumerize :administrative_area, in: Nomen::AdministrativeAreas.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :absorbed_nitrogen_at_opening, :expected_yield, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
+  validates_numericality_of :absorbed_nitrogen_at_opening, :expected_yield, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :maximum_nitrogen_input, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
   validates_length_of :administrative_area, :computation_method, :cultivation_variety, :soil_nature, allow_nil: true, maximum: 255
   validates_presence_of :computation_method, :plan, :support
   #]VALIDATORS]

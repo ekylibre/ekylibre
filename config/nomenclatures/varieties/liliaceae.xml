@@ -3,6 +3,7 @@
   <nomenclature name="varieties-liliaceae" hierarchical="true">
     <items>
       <item name="asparagus" itis_tsn="42782"/>
+      <item name="allium" itis_tsn="42634"/>
     </items>
   </nomenclature>
 </nomenclatures>

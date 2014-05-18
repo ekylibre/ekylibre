@@ -1769,6 +1769,8 @@ eng:
         telepac: "Telepac"
     nmp_france_abacus_cultivation_yield:
       name: "Nmp france abacus cultivation yield"
+    nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
+      # name: "Nmp france abacus maximum nitrogen input per cultivation"
     nmp_france_abacus_nitrogen_animal_production:
       name: "Nmp france abacus nitrogen animal production"
     nmp_methods:
@@ -2818,7 +2820,7 @@ eng:
         europa_tsn: "Europa number id"
         itis_tsn: "Itis number id"
       items:
-        allium: "Allium"                                   #< amaryllidaceae
+        allium: "Allium"                                   #< liliaceae
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anas: "Anas"                                       #< aves
@@ -2826,6 +2828,8 @@ eng:
         animal_group: "Animal group"                       #< product_group
         apiaceae: "Apiaceae"                               #< plant
         apis: "Apis"                                       #< insecta
+        apium: "Celery"                                    #< apiaceae
+        apium_graveolens: "Wild celery"                    #< apium
         asparagus: "Asparagus"                             #< liliaceae
         asteraceae: "Asteraceae"                           #< plant
         avena: "Oat"                                       #< poaceae
@@ -2835,6 +2839,7 @@ eng:
         baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
         beta: "Beta"                                       #< amaranthaceae
+        beta_vulgaris: "Beet"                              #< beta
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Bioproduct"                           #< matter
         boraginaceae: "Boraginaceae"                       #< plant
@@ -2877,9 +2882,11 @@ eng:
         cucumis: "Cucumis"                                 #< cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
+        cynara: "Artichoke"                                #< asteraceae
         dactylis: "Dactylis"                               #< poa
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
         daucus: "Daucus"                                   #< apiaceae
+        daucus_carota: "Carrot"                            #< daucus
         easement: "Easement"                               #< zone
         egg: "Egg"                                         #< raw_matter
         electricity: "Electricity"                         #< matter
@@ -3074,6 +3081,7 @@ eng:
         slurry: "Slurry"                                   #< excrement
         solanaceae: "Solanaceae"                           #< plant
         solanum: "Solanum"                                 #< solanaceae
+        solanum_melongena: "Eggplant"                      #< solanum
         solanum_tuberosum: "Potato"                        #< solanum
         solanum_tuberosum_agata: "Potato Agata"            #< solanum_tuberosum
         sorghum: "Sorghum"                                 #< poaceae

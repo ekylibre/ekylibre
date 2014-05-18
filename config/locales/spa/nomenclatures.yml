@@ -1782,6 +1782,7 @@ spa:
         # url: "Url"
     nmp_france_abacus_cultivation_yield:
       # name: "Nmp france abacus cultivation yield"
+    nmp_france_abacus_maximum_nitrogen_input_per_cultivation: #?
     nmp_france_abacus_nitrogen_animal_production:
       # name: "Nmp france abacus nitrogen animal production"
     nmp_methods:
@@ -2837,6 +2838,8 @@ spa:
         # animal_group: "Animal group"
         # apiaceae: "Apiaceae"
         # apis: "Apis"
+        # apium: "Celery"
+        # apium_graveolens: "Wild celery"
         # asparagus: "Asparagus"
         # asteraceae: "Asteraceae"
         # avena: "Oat"
@@ -2846,6 +2849,7 @@ spa:
         # baler: "Baler"
         # bambusa: "Bamboo"
         # beta: "Beta"
+        # beta_vulgaris: "Beet"
         # betulaceae: "Betulaceae"
         # bioproduct: "Bioproduct"
         # boraginaceae: "Boraginaceae"
@@ -2888,9 +2892,11 @@ spa:
         # cucumis: "Cucumis"
         # cucurbitaceae: "Cucurbitaceae"
         # cultivable_zone: "Cultivable zone"
+        # cynara: "Artichoke"
         # dactylis: "Dactylis"
         # dactylis_lazuly: "Dactylis Lazuly"
         # daucus: "Daucus"
+        # daucus_carota: "Carrot"
         # easement: "Easement"
         # egg: "Egg"
         # electricity: "Electricity"
@@ -3085,6 +3091,7 @@ spa:
         # slurry: "Slurry"
         # solanaceae: "Solanaceae"
         # solanum: "Solanum"
+        # solanum_melongena: "Eggplant"
         # solanum_tuberosum: "Potato"
         # solanum_tuberosum_agata: "Potato Agata"
         # sorghum: "Sorghum"

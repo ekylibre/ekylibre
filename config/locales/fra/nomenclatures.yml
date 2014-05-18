@@ -1769,6 +1769,7 @@ fra:
         url: "URL"
     nmp_france_abacus_cultivation_yield:
       name: "Références de rendement par produit et par département"
+    nmp_france_abacus_maximum_nitrogen_input_per_cultivation: #?
     nmp_france_abacus_nitrogen_animal_production:
       name: "Normes d'excrétion d'azote par espèce animale"
     nmp_methods:
@@ -2824,6 +2825,8 @@ fra:
         animal_group: "Troupeau"
         apiaceae: "Apiacée"
         apis: "Apidés"
+        apium: "Céleri"
+        apium_graveolens: "Céleri rave"
         asparagus: "Asperge"
         asteraceae: "Astéracée"
         avena: "Avoine"
@@ -2833,6 +2836,7 @@ fra:
         baler: "Botteleuse"
         bambusa: "Bambou"
         beta: "Betterave"
+        beta_vulgaris: "Betterave comune"
         betulaceae: "Betulacée"
         bioproduct: "Produit vivant"
         boraginaceae: "Boraginacée"
@@ -2875,9 +2879,11 @@ fra:
         cucumis: "Melon"
         cucurbitaceae: "Cucurbitacée"
         cultivable_zone: "Zone cultivable"
+        cynara: "Artichaud"
         dactylis: "Dactyle"
         dactylis_lazuly: "Dactyle Lazuly"
         daucus: "Carotte"
+        daucus_carota: "Carotte comune"
         easement: "Aménagement foncier"
         egg: "Œuf"
         electricity: "Électricité"
@@ -3072,6 +3078,7 @@ fra:
         slurry: "Lisier"
         solanaceae: "Solanacée"
         solanum: "Morelle"
+        solanum_melongena: "Aubergine"
         solanum_tuberosum: "Pomme de terre"
         solanum_tuberosum_agata: "Pomme de terre Agata"
         sorghum: "Sorgho"

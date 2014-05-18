@@ -663,6 +663,7 @@ eng:
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
     maximal_value: "Maximal value"
+    # maximum_nitrogen_input: "Maximum nitrogen input"
     meadow_humus_mineralization: "Meadow humus mineralization"
     measure_value: "Measure value"
     measure_value_unit: "Measure value unit"

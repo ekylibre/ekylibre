@@ -943,6 +943,7 @@ manure_management_plan_zones:
   intermediate_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
   irrigation_water_nitrogen: {type: decimal, precision: 19, scale: 4}
   lock_version: {type: integer, required: true, default: 0}
+  maximum_nitrogen_input: {type: decimal, precision: 19, scale: 4}
   meadow_humus_mineralization: {type: decimal, precision: 19, scale: 4}
   mineral_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
   nitrogen_at_closing: {type: decimal, precision: 19, scale: 4}

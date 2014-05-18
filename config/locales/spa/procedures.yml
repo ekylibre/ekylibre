@@ -120,6 +120,7 @@ spa:
     # tank: "Cuve"
     # tractor: "Tracteur"
     # trailer: "Remorque"
+    # water_to_spread: "Eau à apporter"
     # wine: "Vin"
     # wine_blended: "Vin assemblé"
     # wine_bottles: "Bouteilles de vin"

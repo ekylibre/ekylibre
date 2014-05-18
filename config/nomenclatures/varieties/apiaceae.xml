@@ -3,6 +3,20 @@
   <nomenclature name="varieties-apiaceae" hierarchical="true">
     <items>
       <item name="daucus" itis_tsn="29476"/>
+      <item name="apium" itis_tsn="29591"/>
     </items>
   </nomenclature>
+  
+  <nomenclature name="varieties-daucus" hierarchical="true">
+    <items>
+      <item name="daucus_carota" itis_tsn="29476"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-apium" hierarchical="true">
+    <items>
+      <item name="apium_graveolens" itis_tsn="29592"/>
+    </items>
+  </nomenclature>
+
 </nomenclatures>
