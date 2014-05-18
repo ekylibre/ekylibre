@@ -26,7 +26,7 @@ GEM
       activemodel (= 4.1.1)
       activesupport (= 4.1.1)
       arel (~> 5.0.0)
-    activerecord-postgis-adapter (2.0.0)
+    activerecord-postgis-adapter (2.0.1)
       activerecord (~> 4.0)
       rgeo-activerecord (~> 1.0.0)
     activesupport (4.1.1)
