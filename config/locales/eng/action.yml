@@ -154,6 +154,8 @@ eng:
       # show: "Rss cell: %{name}"
     backend/cells/weather_cells:
       # show: "Weather cell: %{name}"
+    backend/cells/working_sets_stocks_cells:
+      # show: "Working sets stocks cell: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"

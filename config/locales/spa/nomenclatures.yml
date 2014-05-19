@@ -3243,7 +3243,11 @@ spa:
         # itis_tsn: "Itis number id"
     working_sets:
       items:
-        # oenological_regulateds: "Oenological regulateds"
+        # animal_foods: "Animal foods"
+        # animal_medicines: "Animal medicines"
+        # matters: "Matters"
+        # oenological_regulateds: "Oenological regulateds products"
+        # phytosanitaries: "Phytosanitary products"
       # name: "Working sets"
       property_natures:
         # expression: "Expression"

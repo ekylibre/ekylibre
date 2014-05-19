@@ -161,6 +161,7 @@ spa:
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/weather_cells: #?
+    backend/cells/working_sets_stocks_cells: #?
     backend/companies:  #?
       register: "Registrar la sociedad" #?
     backend/company:  #?

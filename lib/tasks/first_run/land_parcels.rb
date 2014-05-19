@@ -316,7 +316,6 @@ load_data :land_parcels do |loader|
         end
         if geometry = shapes[r.cultivable_zone_code]
           product.read!(:shape, geometry, at: born_at, force: true)
-          product.read!(:net_surface_area, (product.shape_area / r.indicators[:population].to_i), at: born_at, force: true)
         end
         
         w.check_point

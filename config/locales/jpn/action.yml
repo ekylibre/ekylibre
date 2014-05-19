@@ -132,6 +132,7 @@ jpn:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/weather_cells: #?
+    backend/cells/working_sets_stocks_cells: #?
     backend/cultivable_zones:
       # edit: "Edit cultivable zone: %{name}"
       # index: "Cultivable zones"

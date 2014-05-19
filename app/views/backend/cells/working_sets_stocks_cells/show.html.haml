@@ -1,0 +1,31 @@
+- if @working_set
+  :ruby
+    #
+    series = []
+    categories = {}
+    unit = Nomen::Units[@unit]
+    product_natures = ProductNature.stockables.of_working_set(@working_set).reorder(:id)
+    method = @indicator.name.to_sym
+
+    if product_natures.any?
+      product_natures_serie = product_natures.collect do |product_nature|
+        count = product_nature.products.map(&method).compact.sum
+        count = count.in(unit) if unit
+        { name: product_nature.name, y: count.to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*Backend::ChartsHelper::COLORS) }
+      end
+      product_nature_variants_serie = ProductNatureVariant.of_natures(product_natures).order("nature_id, id").collect do |product_nature_variant|
+        count =  product_nature_variant.products.map(&method).compact.sum
+        count = count.in(unit) if unit
+        { name: product_nature_variant.name, y: count.to_f, url: backend_product_nature_variant_path(product_nature_variant), color: ligthen(product_natures_serie.detect{|a| a[:id] == product_nature_variant.nature_id}[:color], 0.3) }
+      end
+
+      series << {name: ProductNature.model_name.human, data: product_natures_serie.delete_if{|v| v[:y].zero? }, size: "60%", data_labels: {color: 'white', distance: -30}}
+      series << {name: ProductNatureVariant.model_name.human, data: product_nature_variants_serie.delete_if{|v| v[:y].zero? }, size: "80%", inner_size: "60%"}
+    end
+  - if series.empty? or product_natures_serie.collect{|h| h[:y]}.sum <= 0 or product_nature_variants_serie.collect{|h| h[:y]}.sum <= 0
+    = no_data
+  - else
+    = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f}#{' ' + unit.symbol.to_s if unit}"}, title: :stock_of_x.tl(x: Nomen::WorkingSets[@working_set].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: false}}, legend: {})
+
+- else
+  = no_data

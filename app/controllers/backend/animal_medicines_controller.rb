@@ -19,7 +19,7 @@
 
 class Backend::AnimalMedicinesController < BackendController
 
-  list model: :products, scope: "can('care(animal)')".c do |t|
+  list model: :products, scope: "of_working_set(:animal_medicines)".c do |t|
     t.column :name, url: true
     t.column :population, datatype: :decimal
     t.column :net_volume, datatype: :measure, hidden: true

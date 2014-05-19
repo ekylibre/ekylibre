@@ -158,10 +158,22 @@ class ProductNature < Ekylibre::Record::Base
   }
 
   scope :of_working_set, lambda { |working_set|
-    if working_set == :oenological_regulateds
-      where("id IN (?) OR id IN (?)", of_variety(:saccharose, :concentrated_rectified_must, :potassium_ferrocyanide).pluck(:id), can('acidify(fermented_juice)', 'alkalinize(fermented_juice)').pluck(:id))
+    if item = Nomen::WorkingSets.find(working_set)
+      if working_set == :oenological_regulateds
+        where("id IN (?) OR id IN (?)", of_variety(:saccharose, :concentrated_rectified_must, :potassium_ferrocyanide).pluck(:id), can('acidify(fermented_juice)', 'alkalinize(fermented_juice)').pluck(:id))
+      elsif working_set == :phytosanitary_products
+        where(id: can('kill(plant)', 'kill(fungus)', 'kill(insecta)', 'kill(mollusca)').pluck(:id))
+      elsif working_set == :animal_foods
+        where(id: can('feed(animal)').pluck(:id))
+      elsif working_set == :animal_medicines
+        where(id: can('care(animal)').pluck(:id))
+      elsif working_set == :matters
+        where(id: stockables.pluck(:id))
+      else
+        raise StandardError, "Invalid working set: #{working_set.inspect}"
+      end
     else
-      raise StandardError, "Invalid working set: #{working_set.inspect}"
+      raise StandardError, "working set : #{working_set.inspect} is not in WorkingSets nomenclature"
     end
   }
 
