@@ -65,6 +65,20 @@ Ekylibre::Application.routes.draw do
     end
   end
 
+  namespace :api do
+
+    concern :v1 do
+      resources :crumbs
+    end
+
+    namespace :v1 do
+      concerns :v1
+    end
+
+    concerns :v1
+  end
+
+
   # Backend
   namespace :backend do
 
