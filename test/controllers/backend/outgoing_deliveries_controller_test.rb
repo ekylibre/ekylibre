@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::OutgoingDeliveriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions invoice: :multi_touch, ship: :multi_touch
 end

@@ -57,6 +57,7 @@ class ActionController::TestCase
       model_name = table_name.classify
       model = model_name.constantize rescue nil
       record = model_name.underscore
+      other_record = "other_#{record}"
       attributes = nil
       file_columns = {}
       if model and model < ActiveRecord::Base
@@ -155,7 +156,7 @@ class ActionController::TestCase
         test_code = ""
         params.deep_symbolize_keys!
         sanitized_params = Proc.new { |p = {}|
-          p.deep_symbolize_keys.deep_merge(params).inspect.gsub('RECORD', record)
+          p.deep_symbolize_keys.deep_merge(params).inspect.gsub('OTHER_RECORD', other_record).gsub('RECORD', record)
         }
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
@@ -229,6 +230,17 @@ class ActionController::TestCase
         elsif mode == :soft_touch
           test_code << "post :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{show_notification}\n"
+        elsif mode == :multi_touch
+          test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
+          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{show_notification}\n"
+          # Multi IDS
+          test_code << "#{other_record} = #{fixture_table}(:#{fixture_name}_003)\n"
+          test_code << "assert #{other_record}.valid?, '#{fixture_name}_003 must be valid:' + #{other_record}.errors.inspect\n"
+          test_code << "post :#{action}, " + sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c] + "\n"
+          test_code << "assert_response :redirect, #{show_notification}\n"
         elsif mode == :redirected_get # with ID
           test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
