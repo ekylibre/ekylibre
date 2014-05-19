@@ -104,16 +104,21 @@ class ActionController::TestCase
       # code << "\n"
 
       code << "def setup\n"
-      code << "  I18n.locale = I18n.default_locale\n"
+      # Check locale
+      code << "  I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
       code << "  assert_not_nil I18n.locale\n"
       code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
-      code << "  @user = users(:users_001)\n"
-      code << "  sign_in(@user)\n"
+      # Check document templates
       code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
+      # Check custom fields
       code << "  for cf in [:custom_fields_001, :custom_fields_002]\n"
       code << "    record = custom_fields(cf)\n"
       code << "    assert record.save, record.errors.inspect\n"
       code << "  end\n"
+      # Connect user
+      code << "  @user = users(:users_001)\n"
+      code << "  sign_in(@user)\n"
+      # Setup finished!
       code << "end\n"
       code << "\n"
 
