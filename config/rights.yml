@@ -1,4 +1,6 @@
 # THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION
+#     - "api/v1/crumbs#create"
+#     - "api/v1/crumbs#index"
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"

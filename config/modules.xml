@@ -1726,6 +1726,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="crumbs">
+        <page to="api/v1/crumbs#index"/>
+        <page to="api/v1/crumbs#create"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

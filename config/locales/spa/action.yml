@@ -1,5 +1,6 @@
 spa:
   actions:
+    api/v1/crumbs: #?
     authentication/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
