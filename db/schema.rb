@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509084901) do
+ActiveRecord::Schema.define(version: 20140516084901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1373,6 +1373,7 @@ ActiveRecord::Schema.define(version: 20140509084901) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                             default: 0, null: false
+    t.decimal  "maximum_nitrogen_input",                          precision: 19, scale: 4
   end
 
   add_index "manure_management_plan_zones", ["created_at"], :name => "index_manure_management_plan_zones_on_created_at"
