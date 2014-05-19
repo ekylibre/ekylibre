@@ -34,7 +34,7 @@ module Exchanges
               end
             elsif line[0] == "E"
               unless journal = Journal.find_by_code(line[3])
-                journal = Journal.create!(code: line[3], name: line[3], nature: Journal.natures[-1][1].to_s, closed_at: (started_at - 1.day).end_of_day)
+                journal = Journal.create!(code: line[3], name: line[3], nature: :various, closed_at: (started_at - 1.day).end_of_day)
               end
               number = line[4].blank? ? "000000" : line[4]
               line[2] = Date.civil(line[2][4..7].to_i, line[2][2..3].to_i, line[2][0..1].to_i).to_datetime
