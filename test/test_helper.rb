@@ -23,6 +23,23 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+class HashCollector
+
+  def initialize
+    @hash = {}
+  end
+
+  def to_hash
+    return @hash
+  end
+
+  def method_missing(method_name, *args, &block)
+    @hash[method_name.to_sym] = args.first
+  end
+
+end
+
+
 class ActionController::TestCase
   include Devise::TestHelpers
 
@@ -33,7 +50,7 @@ class ActionController::TestCase
       ActiveRecord::FixtureSet.identify(label)
     end
 
-    def test_restfully_all_actions(options={})
+    def test_restfully_all_actions(options = {}, &block)
       controller_name = self.controller_class.controller_name
       controller_path = self.controller_class.controller_path
       table_name = controller_name
@@ -63,6 +80,12 @@ class ActionController::TestCase
 
       fixture_name = record.pluralize
       fixture_table = table_name
+
+      if block_given?
+        collector = HashCollector.new
+        yield collector
+        options.update(collector.to_hash)
+      end
 
       code  = ""
       # code << "context 'A #{controller_name} controller' do\n"
