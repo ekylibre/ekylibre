@@ -57,7 +57,7 @@
 #   read_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
----
+
 product_readings_001:
   boolean_value: false
   creator: users_001
@@ -68,62 +68,115 @@ product_readings_001:
   read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: animals_001
   updater: users_001
+
 product_readings_002:
   boolean_value: false
   creator: users_001
-  geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((407256.989 6529291.381,407228.445 6529342.561,407273.051 6529421.056,407248.169 6529430.302,407280.649 6529497.007,407244.786 6529506.224,407216.324 6529455.522,407137.385 6529447.238,407113.997 6529525.383,407113.168 6529536.38,407135.155 6529537.118,407139.973 6529525.169,407154.09 6529529.979,407161.172 6529541.94,407169.222 6529559.849,407178.164 6529575.571,407244.306 6529545.154,407252.237 6529563.173,407260.364 6529577.065,407307.085 6529551.733,407293.928 6529523.905,407359.676 6529501.394,407256.989 6529291.381)))"
+  geometry_value: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   indicator_datatype: geometry
   indicator_name: shape
   read_at: 1995-01-19 18:13:59.000000000 +01:00
-  product: land_parcel_clusters_001
+  product: cultivable_zones_001
   updater: users_001
+
 product_readings_003:
   boolean_value: false
   creator: users_001
-  geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
+  geometry_value: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   indicator_datatype: geometry
   indicator_name: shape
   read_at: 1995-01-19 18:13:59.000000000 +01:00
-  product: land_parcel_clusters_002
+  product: cultivable_zones_002
   updater: users_001
+
 product_readings_004:
   boolean_value: false
   creator: users_001
-  geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
+  geometry_value: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   indicator_datatype: geometry
   indicator_name: shape
   read_at: 1995-01-19 18:13:59.000000000 +01:00
-  product: land_parcel_clusters_003
+  product: cultivable_zones_003
   updater: users_001
+
 product_readings_005:
   boolean_value: false
   creator: users_001
-  geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
+  geometry_value: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   indicator_datatype: geometry
   indicator_name: shape
   read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_groups_001
   updater: users_001
+
 product_readings_006:
   boolean_value: false
   creator: users_001
-  geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
+  geometry_value: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   indicator_datatype: geometry
   indicator_name: shape
   read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_groups_002
   updater: users_001
+
 product_readings_007:
   boolean_value: false
   creator: users_001
-  geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957
-    6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109
-    6531691.271)))"
+  geometry_value: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   indicator_datatype: geometry
   indicator_name: shape
   read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_groups_003
   updater: users_001
+
 product_readings_008:
   choice_value: female
   creator: users_001
@@ -132,6 +185,7 @@ product_readings_008:
   read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_004
   updater: users_001
+
 product_readings_009:
   creator: users_001
   decimal_value: 1
@@ -140,6 +194,7 @@ product_readings_009:
   read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_004
   updater: users_001
+
 product_readings_010:
   choice_value: female
   creator: users_001
@@ -148,6 +203,7 @@ product_readings_010:
   read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_002
   updater: users_001
+
 product_readings_011:
   creator: users_001
   decimal_value: 1

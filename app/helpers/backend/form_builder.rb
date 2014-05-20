@@ -361,7 +361,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         html << @template.content_tag(:div, :class => "variant-list proposal-list") do
           buttons = "".html_safe
           for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
-            buttons << @template.link_to(variant.name, {variant_id: variant.id}, :class => "btn")
+            buttons << @template.link_to(variant.name, {action: :new, variant_id: variant.id}, :class => "btn")
           end
           buttons
         end

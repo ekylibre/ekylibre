@@ -163,7 +163,7 @@ group :development, :test do
 
   gem 'capybara'
   gem 'capybara-webkit'
-  # gem 'selenium-webdriver'
+  gem 'selenium-webdriver'
 
   gem 'awesome_print'
   gem 'pry'

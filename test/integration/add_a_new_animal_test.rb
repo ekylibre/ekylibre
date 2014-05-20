@@ -5,22 +5,26 @@ class AddANewAnimalTest < CapybaraIntegrationTest
 
   setup do
     visit('/authentication/sign_in')
+    resize_window(1366, 768)
     shoot_screen "authentication/sign_in"
     login_as(users(:users_001), scope: :user)
-    visit('/backend')
+    # visit('/backend')
     shoot_screen "backend"
   end
 
   # Add a cow
   test "add an animal" do
-    visit('/backend/animals/new?variant_id=7')
+    visit('/backend/animals/new')
+    shoot_screen "animals/new_without_variant"
+    id = ProductNatureVariant.of_variety("bos").first.id
+    visit("/backend/animals/new?variant_id=#{id}")
     shoot_screen "animals/new"
-    select('Bovin', from: 'animal[variety]')
+    select(Nomen::Varieties[:bos].human_name, from: 'animal[variety]')
     fill_in('animal[name]', with: 'Linette')
     fill_in("animal[work_number]", with: '9253')
     fill_in("animal[identification_number]", with: 'FR17129253')
-    fill_unroll("animal-mother-input", with: "isa", select: "Isabelle", name: :animals)
-    attach_file('animal[picture]', Rails.root.join("test", "fixtures", "files", "cow-photo.jpg"))
+    fill_unroll("animal-initial_mother-input", with: "isa", select: "Isabelle", name: :animals)
+    attach_file('animal[picture]', Rails.root.join("test", "fixtures", "files", "cow_picture.jpg"))
     shoot_screen "animals/new-before_create"
     click_on(:create.tl)
     shoot_screen "animals/new-after_create"
@@ -44,7 +48,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     shoot_screen "issues/new"
     fill_in('issue[name]', with: "3ème mammite de l'année")
     select('Mammite', from: 'issue[nature]')
-    fill_in("issue_observed_at", with: '01/06/2013')
+    fill_in("issue_observed_at", with: '2013-06-01 14:50')
     choose("issue_priority_1")
     choose("issue_gravity_3")
     click_on(:create.tl)

@@ -56,12 +56,13 @@
 #   updater: users_001
 #   variety: "Lorem ipsum"
 #
----
+
 product_nature_variants_001:
   active: true
   category: product_nature_categories_001
   commercial_name: Generic Product Variant
   creator: users_001
+  name: Generic Product Variant
   nature: product_natures_001
   number: PNV001
   unit_name: unit
@@ -73,6 +74,7 @@ product_nature_variants_002:
   category: product_nature_categories_001
   commercial_name: Lorem ipsum 2
   creator: users_001
+  name: Lorem ipsum 2
   nature: product_natures_001
   number: PNV002
   unit_name: unit
@@ -84,6 +86,7 @@ product_nature_variants_004:
   category: product_nature_categories_001
   commercial_name: Building
   creator: users_001
+  name: Building
   nature: product_natures_004
   number: PNV004
   unit_name: unit
@@ -95,6 +98,7 @@ product_nature_variants_005:
   category: product_nature_categories_001
   commercial_name: Dry matter
   creator: users_001
+  name: Dry matter
   nature: product_natures_001
   number: PNV005
   unit_name: tas
@@ -106,6 +110,7 @@ product_nature_variants_007:
   category: product_nature_categories_001
   commercial_name: Cow
   creator: users_001
+  name: Cow
   nature: product_natures_005
   number: PNV007
   unit_name: head
@@ -117,6 +122,7 @@ product_nature_variants_029:
   category: product_nature_categories_001
   commercial_name: Herd
   creator: users_001
+  name: Herd
   nature: product_natures_029
   number: PNV029
   unit_name: herd

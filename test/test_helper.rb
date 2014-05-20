@@ -161,7 +161,11 @@ class ActionController::TestCase
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{show_notification}\n"
-          test_code << "assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
+          if params[:format] == :json
+            # TODO: JSON parsing test
+          else
+            test_code << "assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
+          end
         elsif mode == :new_product
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
@@ -281,6 +285,7 @@ class ActionController::TestCase
 
         # code << "  should '#{action} (#{mode})' do\n"
         code << "test \"should #{action} (#{mode})\" do\n"
+        # code << "  print '#{controller_name}##{action}'.green\n"
         code << test_code.dig
         code << "end\n\n"
       end
@@ -331,11 +336,11 @@ end
 # Cheat Sheet
 # https://gist.github.com/zhengjia/428105
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true) # ENV["CI"].blank?
-end
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true)
+# end
 
-Capybara.default_driver    = (ENV["CI"] == "false" ? :selenium : :webkit)
+Capybara.default_driver    = (ENV["DRIVER"] == "webkit" ? :webkit : :selenium)
 Capybara.current_driver    = Capybara.default_driver
 Capybara.javascript_driver = Capybara.default_driver
 # Capybara.default_wait_time = 5
@@ -350,10 +355,21 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   def shoot_screen(name = nil)
     name ||= current_url.split(/\:\d+\//).last
     sleep(1)
-    file = Rails.root.join("tmp", "screenshots", name + ".png")
+    file = Rails.root.join("tmp", "screenshots", "#{name}.png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     save_page file.to_s.gsub(/\.png\z/, '.html')
     save_screenshot file # , full: true
+  end
+
+  def resize_window(width, height)
+    driver = Capybara.current_driver
+    if driver == :webkit
+      page.driver.resize_window(width, height)
+    elsif driver == :selenium
+      page.driver.browser.manage.window.resize_to(width, height)
+    else
+      raise NotImplemented, "Not implemented for #{driver.inspect}"
+    end
   end
 
   # Add a method to test unroll in form
@@ -362,11 +378,21 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
     fill_in(field, with: options[:with])
-    sleep(3)
+    # sleep(1)
+    # page.execute_script "$('input##{field}').focus();"
+    # page.execute_script "$('input##{field}').keydown();"
     shoot_screen "#{options[:name]}/unroll-before"
-    selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
-    # assert has_xpath?(selector)
-    page.execute_script "$('#{selector}').trigger('mouseenter').click();"
+
+    # length = page.evaluate_script "$('#{selector}').length;"
+    # assert_equal length >= 1, "No unrolled elements"
+
+    script  = "$('input##{field}').next().next().find('.items-list .item"
+    script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ":first-child")
+    script << "').mouseenter().click();"
+
+    # puts script.red
+    page.execute_script script
+    # sleep(1)
     shoot_screen "#{options[:name]}/unroll-after"
   end
 

@@ -126,7 +126,7 @@ animals_002:
   category: product_nature_categories_001
   creator: users_001
   identification_number: A7002
-  name: Isabelle
+  name: "Isabelle"
   nature: product_natures_005
   number: '7002'
   type: Animal
