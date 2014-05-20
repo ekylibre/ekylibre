@@ -1483,6 +1483,7 @@ spa:
         # height: "Height"
         # horizontal_rotation: "Horizontal rotation"
         # immunoglobulins_concentration: "Immunoglobulins concentration"
+        # impurity_concentration: "Impurity concentration"
         # inhibitors_presence: "Inhibitors presence"
         # iron_concentration: "Iron concentration"
         # irrigation_water_input_area_density: "Irrigation water input area density"
@@ -1531,6 +1532,7 @@ spa:
         # potassium_concentration: "Potassium concentration"
         # potential_hydrogen: "Potential hydrogen"
         # precocity_index: "Precocity index"
+        # protein_concentration: "Protein concentration"
         # protein_concentration_index: "Protein concentration index"
         # protein_matters_concentration: "Protein matters concentration"
         # reference_year: "Reference year"
@@ -1892,6 +1894,7 @@ spa:
         # tillage: "Tillage"
         # transfer: "Transfer"
         # transformation: "Transformation"
+        # transport: "Transport"
         # viviparous_birth: "Viviparous birth"
       # name: "Name"
       property_natures:
