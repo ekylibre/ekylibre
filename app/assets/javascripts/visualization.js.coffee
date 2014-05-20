@@ -15,7 +15,7 @@
       change: null
       view: 
         center:[]
-        zoom : 12
+        zoom : 13
       showStyle:
         weight: 1
         color: "#333"
@@ -104,18 +104,23 @@
       #this._saveUpdates()
       
       #this._setDefaultView()
+      
 
       this._resize()
 
       this._refreshView()
-
-      this._refreshControls()
       
       #this._refreshBubbles()
       
-      this._refreshPolygons()
+      #this._refreshPolygons()
+
+      this._refreshControls()
       
-      this._refreshVisses()
+      
+      
+      #this._refreshPolygons()
+      
+
       
 
      
@@ -159,9 +164,12 @@
           this.mapElement.width this.options.box.width
         this._trigger "resize"
            
+         
+    
     _refreshControls: ->
       that= this
-      
+      simples = this.options.simples
+      bubbles =this.options.bubbles
       back = this.options.backgrounds
       over = this.options.overlays
 
@@ -185,15 +193,6 @@
            controls = new L.Control.Zoom(zoom_options)
            #that.map.removeControl (controls)
            that.map.addControl controls
-            #alert( index + ": " + description )
-          #if value.name == "tilelegend"
-            #tilelegend_options = {
-              #position: 'bottomleft'
-            #}
-            #controls = new L.Control.TileLegend(tilelegend_options)
-            #that.map.removeControl (controls)
-            #that.map.addControl controls
-            #alert( index + ": " + description )
           if value.name == "scale"
             scale_options = {
               position: 'bottomleft',
@@ -206,16 +205,73 @@
             #that.map.removeControl (controls)
             that.map.addControl controls
             #alert( index + ": " + description )
+          if value.name == "legends"
+            category_legends = {
+              type: "custom",
+              data: [
+               #$.each simples, (index, value) ->
+                  #{ name: value.name, value: value.color }
+                { name: "Category 1", value: "#FFC926" },
+                { name: "Category 2", value: "#76EC00" },
+                { name: "Category 3", value: "#00BAF8" },
+                { name: "Category 4", value: "#D04CFD" }
+              ]
+            }
+            controls = new cdb.geo.ui.Legend(category_legends)
+            that.map.addControl controls
+            bubble_legends = {
+              type: "bubble",
+              data: [
+                #$.each bubbles, (index, value) ->
+                  #{ name: value.name, value: value.color }
+                { value: "10" },
+                { value: "20" },
+                { name: "graph_color", value: "#F00" }
+              ]
+            }
+            controls = new cdb.geo.ui.Legend(bubble_legends)
+            that.map.addControl controls
+            choropleth_legends = {
+              type: "choropleth",
+              data: [
+                #$.each choropleths, (index, value) ->
+                  #{ name: value.name, value: value.color }
+                { value: "10" },
+                { value: "20" },
+                { name: "color1", value: "#F00" },
+                { name: "color2", value: "#0F0" },
+                { name: "color3", value: "#00F" }
+              ]             
+            }
+            controls = new cdb.geo.ui.Legend(choropleth_legends)
+            that.map.addControl controls
           if value.name == "layer_selector"
             baseLayers = {}
             overlays = {}
             $.each back, ( index, value ) -> 
               backgroundLayer = L.tileLayer.provider(value.provider_name)
               baseLayers[value.name] = backgroundLayer
-
+              if value.name == "default_base"
+                that.map.addLayer(backgroundLayer)
+            
             $.each over, ( index, value ) -> 
               overLayer = L.tileLayer.provider(value.provider_name)
               overlays[value.name] = overLayer
+              
+            $.each simples, ( index, value ) -> 
+              $.each value.list, (index, value) ->
+                overLayer = new  L.GeoJSON(value.coord, {color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity } )
+                overLayer.bindLabel(value.name)
+                overlays[value.name] = overLayer
+                that.map.addLayer(overLayer)
+                
+                
+            $.each bubbles, ( index, value ) -> 
+              $.each value.list, (index, value) ->
+                overLayer = new  L.circle(value.coord, value.radius,{color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity })
+                overLayer.bindLabel(value.name)
+                overlays[value.name + " bubble"] = overLayer
+                that.map.addLayer(overLayer)
 
             layer_options = {
               collapsed: true,
@@ -227,6 +283,8 @@
             that.map.addControl controls
             backgroundLayer = L.tileLayer.provider(back[0].provider_name)
             that.map.addLayer(backgroundLayer)
+            
+
             
           if value.name == "geocoder"  
             console.log "Vive le Roi!"
@@ -283,9 +341,7 @@
               #value.color = 'purple'
               #value.fillColor = 'purple'
               value.fillOpacity = 1
-            new_polygons = new  L.GeoJSON(value.coord, {color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity } )
-            new_polygons.bindLabel(value.name)
-            that.map.addLayer new_polygons
+            
 
             
                     

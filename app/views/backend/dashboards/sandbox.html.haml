@@ -5,11 +5,11 @@
   poly=[]
   lp.each do |lp|
     if lp.shape
-      radius = rand(150) + 50
+      radius = rand(50) + 50
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
-      arr << {name: lp.name, coord: centroid, radius: radius}
-      poly << {name: lp.name, coord: polyg, color: 'null', fillColor: 'magenta', fillOpacity: 0.5, choroplethParam: lp.name}
+      arr << {name: lp.name, coord: centroid, radius: radius,  color: '', fillColor: 'yellow', fillOpacity: 1}
+      poly << {name: lp.name, coord: polyg, color: 'null', fillColor: 'red', fillOpacity: 0.5}
     end
   end
   
@@ -24,13 +24,13 @@
   - v.background :landscape_base, "Thunderforest.Landscape"
   - v.background :outdoors_base, "Thunderforest.Outdoors"
   -# The followings layers are overlays . They can be combined.
-  - v.overlay :clouds, "OpenWeatherMap.Clouds"
-  - v.overlay :precipitations, "OpenWeatherMap.Precipitation"
-  - v.overlay :rains, "OpenWeatherMap.Rain"
-  - v.overlay :pressures, "OpenWeatherMap.Pressure"
-  - v.overlay :wind, "OpenWeatherMap.Wind"
-  - v.overlay :temperature, "OpenWeatherMap.Temperature"
-  - v.overlay :snow, "OpenWeatherMap.Snow"
+  -# v.overlay :clouds, "OpenWeatherMap.Clouds"
+  -# v.overlay :precipitations, "OpenWeatherMap.Precipitation"
+  -# v.overlay :rains, "OpenWeatherMap.Rain"
+  -# v.overlay :pressures, "OpenWeatherMap.Pressure"
+  -# v.overlay :wind, "OpenWeatherMap.Wind"
+  -# v.overlay :temperature, "OpenWeatherMap.Temperature"
+  -# v.overlay :snow, "OpenWeatherMap.Snow"
   -# v.dataset :zones, data
   -# v.layer :zones, data, tooltip: true
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
@@ -50,5 +50,6 @@
   - v.control :fullscreen
   - v.control :geocoder
   - v.control :layer_selector
+  - v.control :legends
 
 
