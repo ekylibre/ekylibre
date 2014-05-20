@@ -1737,7 +1737,6 @@
       </item>
       <item name="roles">
         <page to="backend/roles#incorporate"/>
-        <page to="backend/roles#pick"/>
         <page to="backend/roles#show"/>
       </item>
     </group>

@@ -298,7 +298,7 @@
             derivative_of="plant"
             population_counting="decimal"
             abilities="feed(animal)"
-            variable_indicators="population"
+            variable_indicators="population, water_content_rate, protein_concentration, impurity_concentration"
             frozen_indicators="net_mass"
             />
       <item name="straw"

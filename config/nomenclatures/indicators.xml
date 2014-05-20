@@ -121,7 +121,7 @@
       <item name="magnesium_concentration"          datatype="measure" unit="mass_percent"/>
       <item name="sulfur_concentration"             datatype="measure" unit="mass_percent"/>
       <item name="sulfur_dioxide_concentration"     datatype="measure" unit="mass_percent"/>
-
+      
       <!-- oligo-element -->
       <item name="boron_concentration"      datatype="measure" unit="parts_per_million"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
@@ -153,6 +153,10 @@
       <item name="plant_growth_level"          datatype="choice"  choices="plants_growth_levels"/>
       <item name="mass_volume_density"         datatype="measure" unit="kilogram_per_liter"/>
       <item name="volume_density"              datatype="measure" unit="centiliter_per_hectoliter"/>
+      
+      <!-- for grain analysis -->
+      <item name="protein_concentration"      datatype="measure" unit="mass_percent"/>
+      <item name="impurity_concentration"     datatype="measure" unit="mass_percent"/>
       
       <!-- TODO waiting for remove these 2 lines -->
       <!--
