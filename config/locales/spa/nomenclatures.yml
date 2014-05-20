@@ -1782,7 +1782,8 @@ spa:
         # url: "Url"
     nmp_france_abacus_cultivation_yield:
       # name: "Nmp france abacus cultivation yield"
-    nmp_france_abacus_maximum_nitrogen_input_per_cultivation: #?
+    nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
+      # name: "Nmp france abacus maximum nitrogen input per cultivation"
     nmp_france_abacus_nitrogen_animal_production:
       # name: "Nmp france abacus nitrogen animal production"
     nmp_methods:
@@ -2659,7 +2660,11 @@ spa:
       item_lists: #?
       items:
         # accountant: "Accountant"
+        # agricultural_advisor: "Agricultural advisor"
+        # cooperative_advisor: "Cooperative advisor"
+        # farm_manager: "Farm manager"
         # farm_worker: "Farm worker"
+        # veterinary: "Veterinary"
       # name: "Roles"
       property_natures:
         # accesses: "Accesses"
