@@ -67,7 +67,6 @@ class PurchaseItem < Ekylibre::Record::Base
   alias_attribute :name, :label
 
   acts_as_list :scope => :purchase
-  acts_as_stockable :mode => :virtual, :direction => :in, if: :purchased?
   sums :purchase, :items, :pretax_amount, :amount
 
   before_validation do

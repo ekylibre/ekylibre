@@ -53,7 +53,6 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   validates_presence_of :product, :container
 
   accepts_nested_attributes_for :product
-  acts_as_stockable :origin => :delivery
   delegate :variant, :name, to: :product, prefix: true
 
   before_validation(on: :create) do

@@ -52,7 +52,6 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
 
   delegate :net_mass, to: :product
 
-  # acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
   sums :delivery, :items, :net_mass, from: :measure
 
   before_validation do

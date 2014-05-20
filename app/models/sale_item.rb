@@ -77,7 +77,6 @@ class SaleItem < Ekylibre::Record::Base
   alias :product_nature :variant_nature
 
   acts_as_list :scope => :sale
-  acts_as_stockable :mode => :virtual, if: :sold?
   after_save :set_reduction
 
   sums :sale, :items, :pretax_amount, :amount

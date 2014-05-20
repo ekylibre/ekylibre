@@ -54,8 +54,6 @@ class InventoryItem < Ekylibre::Record::Base
     end
   end
 
-  # acts_as_stockable :quantity => "self.quantity - self.theoric_quantity", :origin => :inventory
-
   # def stock_id=(id)
   #   if s = ProductStock.find_by_id(id)
   #     self.product_id  = s.product_id
