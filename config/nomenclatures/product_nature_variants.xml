@@ -1570,6 +1570,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="grain_tank"
+            nature="grain_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="fuel_tank"
             nature="fuel_tank"
             unit_name="equipment"

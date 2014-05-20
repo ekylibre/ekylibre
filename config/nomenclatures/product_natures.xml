@@ -790,6 +790,14 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
+      <item name="grain_tank"
+            category="equipment"
+            variety="tank"
+            population_counting="unitary"
+            abilities="store(grain)"
+            variable_indicators="nominal_storable_net_volume"
+            frozen_indicators="population"
+            />
       <item name="fuel_tank"
             category="equipment"
             variety="tank"

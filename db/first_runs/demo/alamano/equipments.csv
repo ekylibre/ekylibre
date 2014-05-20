@@ -14,6 +14,9 @@ Caisson Farine,food_tank,TANK_1_S05_D07,S05_D07,1995-01-01,,,,Population : 1 ;
 Armoire produits phytosanitaires,plant_medicine_tank,RESERVE_1_S05_D07,S05_D07,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.8,usage_duration
 Pharmacie,animal_medicine_tank,RESERVE_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.8,usage_duration
 Cuve Fioul,fuel_tank,TANK_FUEL_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 1500liter,,0.8,usage_duration
+Silo SAINT-PORCHAIRE COOP,grain_tank,,,,,,COOP,Population : 1,,,
+Silo PLASSAY COOP,grain_tank,,,,,,COOP,Population : 1,,,
+Cellule à grains,grain_tank,TANK_1E_S05,S05,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 40cubic_meter,,,
 ,TRACTEUR,,,,,,,,,,
 Tracteur CASE-IH 533,tractor,TRAC_533,S06_D02,1983-01-01,CASE-IH,533,,Population : 1 ; Motor_power : 45ch,,8,usage_duration
 Tracteur CASE-IH 745,tractor,TRAC_745,S06_D02,1987-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,10,usage_duration

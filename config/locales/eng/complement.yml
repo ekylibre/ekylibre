@@ -7693,6 +7693,7 @@ eng:
         goat_herd: "Goat herd"
         grain: "Grain"
         grain_crop: "Grain crop"
+        grain_tank: "Grain tank"
         grape: "Grape"
         grape_juice: "Grape juice"
         grape_reaper: "Grape reaper"

@@ -7698,6 +7698,7 @@ fra:
         goat_herd: "Troupeau caprin"
         grain: "Céréale"
         grain_crop: "Culture à graines"
+        grain_tank: "Silo à grain"
         grape: "Raisin"
         grape_juice: "Jus de raisin"
         grape_reaper: "Machine à vendanger"
