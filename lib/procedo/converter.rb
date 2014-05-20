@@ -107,7 +107,7 @@ module Procedo
         begin
           @forward_tree = HandlerMethod.parse(element[:forward].to_s)
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on forward formula: #{e.message}"
+          raise SyntaxError, "A procedure handler (#{element.inspect}) #{handler.procedure.name} has a syntax error on forward formula: #{e.message}"
         end
       end
 
@@ -115,7 +115,7 @@ module Procedo
         begin
           @backward_tree = HandlerMethod.parse(element[:backward].to_s)
         rescue SyntaxError => e
-          raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on backward formula: #{e.message}"
+          raise SyntaxError, "A procedure handler (#{element.inspect}) #{handler.procedure.name} has a syntax error on backward formula: #{e.message}"
         end
       end
     end

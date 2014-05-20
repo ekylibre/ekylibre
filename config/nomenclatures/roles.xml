@@ -5,8 +5,12 @@
       <property-nature name="accesses" type="list"/>
     </property-natures>
     <items>
-      <item name="accountant" accesses="accounts, own-accountancy_dashboard, calculators-read, calculators-execute"/>
-      <item name="farm_worker" accesses="own-interventions, other-interventions-read"/>
+      <item name="accountant" accesses="accounts-all, accountancy_dashboard-all, calculators-read, calculators-execute"/>
+      <item name="farm_worker" accesses="interventions-all"/>
+      <item name="farm_manager" accesses="interventions-all, incoming_deliveries-all, outgoing_deliveries-all"/>
+      <item name="agricultural_advisor" accesses="interventions-read, animal_medicines-read, animals-read, plants-read, cultivable_zones-read"/>
+      <item name="cooperative_advisor" accesses="interventions-read, animal_medicines-read, animals-read, plants-read, cultivable_zones-read, incoming_deliveries-read, outgoing_deliveries-read"/>
+      <item name="veterinary" accesses="interventions-read, animal_medicines-read, animals-read"/>
     </items>
   </nomenclature>
 

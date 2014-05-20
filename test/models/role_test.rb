@@ -21,14 +21,15 @@
 #
 # == Table: roles
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  rights       :text
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  name           :string(255)      not null
+#  reference_name :string(255)
+#  rights         :text
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 
 

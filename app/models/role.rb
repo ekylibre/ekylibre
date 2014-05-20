@@ -21,21 +21,22 @@
 #
 # == Table: roles
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  rights       :text
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  name           :string(255)      not null
+#  reference_name :string(255)
+#  rights         :text
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 
 
 class Role < Ekylibre::Record::Base
   has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, allow_nil: true, maximum: 255
+  validates_length_of :name, :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
@@ -100,5 +101,36 @@ class Role < Ekylibre::Record::Base
   # def diff_less
   #   ''
   # end
+
+  # Load a role from nomenclature
+    def self.import_from_nomenclature(reference_name, force = false)
+      unless item = Nomen::Roles[reference_name]
+        raise ArgumentError, "The role #{reference_name.inspect} is not known"
+      end
+
+        # parse rights
+        rights = item.accesses.inject({}) do |hash, right|
+          array = right.to_s.split("-")
+          array.insert(0, "all") if array.size < 3
+          array << "all" if array.size < 3
+          resource, action = array.second, array.third
+          action = Nomen::EnterpriseResources[resource].accesses if action == "all"
+          hash[resource] ||= []
+          hash[resource] += [action].flatten.map(&:to_s)
+          hash
+        end
+
+        # build attributes
+        attributes = {
+          :name => item.human_name,
+          :reference_name => item.name,
+          :rights => rights
+        }
+
+        # create role
+        role = self.create!(attributes)
+
+      return role
+    end
 
 end

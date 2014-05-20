@@ -1471,6 +1471,7 @@ fra:
         height: "Hauteur"
         horizontal_rotation: "Rotation horizontale"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
+        # impurity_concentration: "Impurity concentration"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
         iron_concentration: "Teneur en Fer"
         irrigation_water_input_area_density: "Densité surfacique d’apport en eau d’irrigation"
@@ -1519,6 +1520,7 @@ fra:
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
         precocity_index: "Index de précocité"
+        # protein_concentration: "Protein concentration"
         protein_concentration_index: "Taux protéique (TP)"
         protein_matters_concentration: "Teneur en matières protéiques"
         reference_year: "Millésime"
@@ -1769,7 +1771,8 @@ fra:
         url: "URL"
     nmp_france_abacus_cultivation_yield:
       name: "Références de rendement par produit et par département"
-    nmp_france_abacus_maximum_nitrogen_input_per_cultivation: #?
+    nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
+      # name: "Nmp france abacus maximum nitrogen input per cultivation"
     nmp_france_abacus_nitrogen_animal_production:
       name: "Normes d'excrétion d'azote par espèce animale"
     nmp_methods:
@@ -1879,6 +1882,7 @@ fra:
         tillage: "Travail du sol"
         transfer: "Transfert"
         transformation: "Transformation"
+        # transport: "Transport"
         viviparous_birth: "Reproduction (vivipare)"
       name: "Types de procédures"
       property_natures:
@@ -2646,7 +2650,11 @@ fra:
     roles:
       items:
         accountant: "Comptable"
-        farm_worker: "Ouvrier agricole"
+        agricultural_advisor: "Conseiller agricole"
+        cooperative_advisor: "Agent technico-commercial"
+        farm_manager: "Responsable de l'exploitation"
+        farm_worker: "Salarié de l'exploitation"
+        veterinary: "Vétérinaire"
       name: "Rôles"
       property_natures:
         accesses: "Accès"

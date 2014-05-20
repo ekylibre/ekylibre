@@ -518,8 +518,11 @@ eng:
       show: "Purchase: %{number} - %{state}"
     backend/roles:
       edit: "Edit role: %{name}"
+      # incorporate: "Incorporate role: %{name}"
       index: "Roles"
       new: "New role"
+      # pick: "Pick role: %{name}"
+      # show: "Role: %{name}"
     backend/sale_items:
       detail: "Details sale's item"
       edit: "Edit sale's item"

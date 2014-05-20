@@ -16,6 +16,12 @@ module Procedo
       rescue
         raise FailedFunctionCall
       end
+      
+      def members_count(group)
+        return group.members_at.count.to_i if group.members_at
+      rescue
+        raise FailedFunctionCall
+      end
 
     end
   end

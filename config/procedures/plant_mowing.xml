@@ -5,7 +5,12 @@
       <variable name="tractor"      variety="equipment" abilities="tow(mower)"/>
       <variable name="mower_driver" abilities="drive(tractor)" roles="harvest-doer"/>
       <variable name="mower"        abilities="mow" roles="harvest-tool"/>
-      <variable name="cultivation"  variety="plant" roles="harvest-target"/>
+      <variable name="cultivation"  variety="plant" roles="harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation" >
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
       <variable name="straw"        variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" need="population" roles="harvest-output" default-name="{{variant}} {{birth_year}} ({{container}})"/>
     </variables>
     <operations>

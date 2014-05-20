@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="grains_transport" natures="transport" version="0" status="frozen">
+    <variables>
+         <variable name="grain" variety="grain" roles="transport-input_origin"/>
+      <variable name="grain_to_deliver" new="parted-from: grain" roles="transport-input" default-population=":manure">
+     <handler indicator="population" />
+     <handler indicator="net_mass"   unit="ton"   to="population"
+                 forward="(value / self..net_mass(ton))"
+                 backward="(value * self..net_mass(ton))"
+                 /> <!-- t -->
+      </variable> 
+      <variable name="trailer" variety="equipment" abilities="store(grain)" roles="transport-tool"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="transport-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="transport-tool"/>
+      <variable name="silo" abilities="store(grain)" roles="transport-target"/>
+    </variables>
+    <operations>
+     
+     
+     <operation id="100" duration="4 minutes">
+        <task do="[driver] moves in [tractor]"/>
+      </operation>
+      <operation id="200" duration="7 minutes">
+        <task do="[tractor] moves at [trailer]"/>
+      </operation>
+      <operation id="300" duration="4 minutes">
+        <task do="[tractor] catches [trailer]"/>
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[tractor] moves at [grain]"/>
+      </operation>
+      <operation id="500" duration="1 minutes">
+        <task do="[grain] parts with [grain_to_deliver]"/>
+      </operation>
+      <operation id="600" duration="4 minutes">
+        <task do="[grain_to_deliver] moves in [trailer]"/>
+      </operation>
+      <operation id="700" duration="18 minutes">
+        <task do="[tractor] moves at [silo]"/>
+      </operation>
+      <operation id="800" repeatable="true">
+        <task do="[grain_to_deliver] moves in [silo]"/> 
+        <task do="grain_to_deliver|water_content_rate is measured"/>
+        <task do="grain_to_deliver|protein_concentration is measured"/>
+        <task do="grain_to_deliver|impurity_concentration is measured"/>
+      </operation>
+      <operation id="900" duration="18 minutes">
+        <task do="[tractor] moves in default storage of [trailer]"/>
+      </operation>
+      <operation id="1000" duration="4 minutes">
+        <task do="[tractor] releases [trailer]"/>
+      </operation>
+      <operation id="1100" duration="7 minutes">
+        <task do="[tractor] moves in default storage"/>
+      </operation>
+      <operation id="1200" duration="4 minutes">
+        <task do="[driver] moves in default storage"/>
+      </operation>
+     
+     
+    </operations>
+  </procedure>
+</procedures>

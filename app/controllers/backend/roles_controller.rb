@@ -18,8 +18,10 @@
 #
 
 class Backend::RolesController < BackendController
-  manage_restfully except: [:show]
-
+  manage_restfully
+  
+  manage_restfully_incorporation
+  
   unroll
 
   list(order: :name) do |t|

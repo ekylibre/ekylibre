@@ -14,6 +14,7 @@
       <item name="harvest" roles="target, output, doer, tool"/>
       <item name="haymaking" roles="target, output, doer, tool"/>
       <item name="transformation" roles="input, output, doer, tool"/>
+      <item name="transport" roles="input, doer, input_origin, tool, target"/>
       <item name="tillage" roles="target"/>
       <item name="plant_nutrition" roles="input, target"/>
       <item name="plant_illness_treatment" roles="input, target, doer, tool"/>

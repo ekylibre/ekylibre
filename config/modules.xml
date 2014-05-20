@@ -1046,6 +1046,7 @@
         <page to="backend/roles#destroy"/>
         <page to="backend/roles#edit"/>
         <page to="backend/roles#list"/>
+        <page to="backend/roles#pick"/>
         <page to="backend/roles#new"/>
         <page to="backend/roles#unroll"/>
         <page to="backend/roles#update"/>
@@ -1733,6 +1734,10 @@
       </item>
       <item name="working_sets_stocks_cells">
         <page to="backend/cells/working_sets_stocks_cells#show"/>
+      </item>
+      <item name="roles">
+        <page to="backend/roles#incorporate"/>
+        <page to="backend/roles#show"/>
       </item>
     </group>
   </untreated-actions>

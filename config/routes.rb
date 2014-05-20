@@ -617,7 +617,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :roles, concerns: [:list, :unroll]
+    resources :roles, concerns: [:incorporate, :list, :unroll]
 
     resources :sale_items, concerns: [:list, :unroll] do
       collection do
