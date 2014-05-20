@@ -52,4 +52,3 @@
 //= require leaflet/styleeditor
 //= require leaflet/styleform
 //= require_tree .
-//= require cartodb

@@ -259,7 +259,7 @@
               overlays[value.name] = overLayer
               
             $.each simples, ( index, value ) -> 
-              $.each value.list, (index, value) ->
+              overlays[value.list] =  $.each value.list, (index, value) ->
                 overLayer = new  L.GeoJSON(value.coord, {color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity } )
                 overLayer.bindLabel(value.name)
                 overlays[value.name] = overLayer

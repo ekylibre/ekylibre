@@ -9,7 +9,7 @@
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
       arr << {name: lp.name, coord: centroid, radius: radius,  color: '', fillColor: 'yellow', fillOpacity: 1}
-      poly << {name: lp.name, coord: polyg, color: 'null', fillColor: 'red', fillOpacity: 0.5}
+      poly << {name: lp.name, coord: polyg, color: 'null', fillColor: 'red', fillOpacity: 0.5, level: 10, type: "decimal choropleth"}
     end
   end
   
