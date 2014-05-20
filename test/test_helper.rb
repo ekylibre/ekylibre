@@ -104,7 +104,7 @@ class ActionController::TestCase
       # code << "  end\n"
       # code << "\n"
 
-      code << "def setup\n"
+      code << "setup do\n"
       # Check locale
       code << "  I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
       code << "  assert_not_nil I18n.locale\n"

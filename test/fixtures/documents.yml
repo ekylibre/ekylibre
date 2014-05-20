@@ -45,17 +45,18 @@
 #   number: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 documents_001:
-  archives_count: 0
+  archives_count: 1
   creator: users_001
-  key: Lorem ipsum
-  name: Lorem ipsum
+  key: LK2
+  name: Document LK2
   nature: veterinary_booklet
   number: DOC001
   updater: users_001
+
 documents_002:
-  archives_count: 0
+  archives_count: 1
   creator: users_001
   key: Lorem ipsum 2
   name: Lorem ipsum

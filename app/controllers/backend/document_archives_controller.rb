@@ -20,7 +20,7 @@
 class Backend::DocumentArchivesController < BackendController
 
   def show
-    return unless find_and_check
+    return unless @document_archive = find_and_check
     send_file(@document_archive.file.path(:default))
   end
 
