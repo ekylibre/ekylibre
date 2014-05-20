@@ -164,13 +164,19 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
       replace_items_in_array(item[:table], item[:column], item)
     end
     
+    ################ END FOR NOMENCLATURES UPDATE ######################
+    
+    
     # add column for maximum_nitrogen_input in mmp
     add_column :manure_management_plan_zones, :maximum_nitrogen_input, :decimal, precision: 19, scale: 4    
+    # add column for picking roles into nomenclatures
+    add_column :roles, :reference_name, :string
   end
   
   def down
     # remove column for maximum_nitrogen_input in mmp
     remove_column :manure_management_plan_zones, :maximum_nitrogen_input
+    remove_column :roles, :reference_name
     
     for item in INDICATOR_ITEMS
       replace_items_in_array(item[:table], item[:column], new: item[:old], old: item[:new])

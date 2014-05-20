@@ -1597,6 +1597,7 @@ roles:
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
+  reference_name: {type: string}
   rights: {type: text}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
