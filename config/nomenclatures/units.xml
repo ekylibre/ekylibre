@@ -115,11 +115,12 @@
       <item name="gram_per_kilogram"      dimension="none" symbol="g/kg"  d="10000"/>
       
       <!-- mass_concentration -->
-      <item name="microgram_per_liter"    dimension="mass_concentration" symbol="µg/l" a="0.000001" d="0.001"/>
-      <item name="milligram_per_liter"    dimension="mass_concentration" symbol="mg/l" a="0.001"    d="0.001"/>
-      <item name="gram_per_liter"         dimension="mass_concentration" symbol="g/l"  a="0.01"     d="0.001"/>
-      <item name="kilogram_per_liter"     dimension="mass_concentration" symbol="kg/l"              d="0.001"/>
-      <item name="gram_per_hectoliter"    dimension="mass_concentration" symbol="g/hl"              d="0.1"/>
+      <item name="microgram_per_liter"     dimension="mass_concentration" symbol="µg/l" a="0.000001" d="0.001"/>
+      <item name="milligram_per_liter"     dimension="mass_concentration" symbol="mg/l" a="0.001"    d="0.001"/>
+      <item name="gram_per_liter"          dimension="mass_concentration" symbol="g/l"  a="0.01"     d="0.001"/>
+      <item name="kilogram_per_liter"      dimension="mass_concentration" symbol="kg/l"              d="0.001"/>
+      <item name="gram_per_hectoliter"     dimension="mass_concentration" symbol="g/hl" a="0.01"     d="0.1"/>
+      <item name="kilogram_per_hectoliter" dimension="mass_concentration" symbol="kg/hl"             d="0.1"/>
        
        <!-- mass_area_density -->
       <item name="kilogram_per_square_meter" dimension="mass_area_density" symbol="kg/m²"/>

@@ -157,6 +157,8 @@
       <!-- for grain analysis -->
       <item name="protein_concentration"      datatype="measure" unit="mass_percent"/>
       <item name="impurity_concentration"     datatype="measure" unit="mass_percent"/>
+      <item name="specific_weight"            datatype="measure" unit="kilogram_per_hectoliter"/>
+      <item name="hagberg_falling_number"     datatype="measure" unit="second"/>
       
       <!-- TODO waiting for remove these 2 lines -->
       <!--

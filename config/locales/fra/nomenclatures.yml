@@ -1467,11 +1467,12 @@ fra:
         geolocation: "Géolocalisation"
         grains_area_density: "Grains par surface"
         grains_count: "Grains"
+        hagberg_falling_number: "Temps de chute de Hagberg"
         healthy: "Bonne santé"
         height: "Hauteur"
         horizontal_rotation: "Rotation horizontale"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
-        # impurity_concentration: "Impurity concentration"
+        impurity_concentration: "Taux d'impuretés"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
         iron_concentration: "Teneur en Fer"
         irrigation_water_input_area_density: "Densité surfacique d’apport en eau d’irrigation"
@@ -1520,7 +1521,7 @@ fra:
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
         precocity_index: "Index de précocité"
-        # protein_concentration: "Protein concentration"
+        protein_concentration: "Taux de protéines"
         protein_concentration_index: "Taux protéique (TP)"
         protein_matters_concentration: "Teneur en matières protéiques"
         reference_year: "Millésime"
@@ -1534,6 +1535,7 @@ fra:
         soil_depth: "Profondeur du sol"
         soil_nature: "Type de sol"
         somatic_cell_concentration: "Dénombrement des cellules somatiques"
+        specific_weight: "Poids spécifique"
         subsoil_nature: "Type de sous-sol"
         sulfur_concentration: "Teneur en soufre"
         sulfur_dioxide_concentration: "Teneur en dioxyde de soufre (SO2)"
@@ -1772,7 +1774,7 @@ fra:
     nmp_france_abacus_cultivation_yield:
       name: "Références de rendement par produit et par département"
     nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
-      # name: "Nmp france abacus maximum nitrogen input per cultivation"
+      name: "Référence des doses afond d'apport en azote par produit et département"
     nmp_france_abacus_nitrogen_animal_production:
       name: "Normes d'excrétion d'azote par espèce animale"
     nmp_methods:
@@ -1882,7 +1884,7 @@ fra:
         tillage: "Travail du sol"
         transfer: "Transfert"
         transformation: "Transformation"
-        # transport: "Transport"
+        transport: "Transport"
         viviparous_birth: "Reproduction (vivipare)"
       name: "Types de procédures"
       property_natures:
@@ -2761,6 +2763,7 @@ fra:
         kilogram: "Kilogramme"
         kilogram_per_day: "Kilogramme par jour"
         kilogram_per_hectare: "Kilogramme par hectare"
+        kilogram_per_hectoliter: "Kilogramme par hectolitre"
         kilogram_per_liter: "Kilogramme par litre"
         kilogram_per_second: "Kilogramme par seconde"
         kilogram_per_square_meter: "Kilogramme par mètre carré"
