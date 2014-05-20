@@ -1,16 +1,18 @@
 :ruby
-  # for test 
-  plants = Plant.availables
+  # for test  
+  items = Plant.availables
   arr=[]
   poly=[]
-  plants.each do |plant|
-    label = Nomen::Varieties[plant.variety].human_name
-    if plant.shape
-      radius = rand(150) + 50
-      centroid = Charta::Geometry.new(plant.shape).transform(:WGS84).centroid
-      polyg = Charta::Geometry.new(plant.shape).transform(:WGS84).to_geojson
-      arr << {name: label, coord: centroid, radius: radius}
-      poly << {name: label, coord: polyg, color: '#0033ff', fillColor: '#0033ff', fillOpacity: 0.2, choroplethParam: plant.name}
+  if items
+    items.each do |item|
+      if item.shape
+        radius1 = rand(50) + 50
+        centroid = Charta::Geometry.new(item.shape).transform(:WGS84).centroid
+        area1 = Charta::Geometry.new(item.shape).transform(:WGS84).area
+        polyg = Charta::Geometry.new(item.shape).transform(:WGS84).to_geojson
+        arr << {type: 'bubble', name: item.name, coord: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 1}
+        poly << {type: 'simple', name: item.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 2, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
+      end
     end
   end
 
@@ -23,34 +25,46 @@
   
 = beehive do |b|
   - b.hbox do
-    - b.cell :map do
-      = visualization :my_cultivable_zone_of_hell do |v|
-        -# The followings layers are base layers. Only one base layer will appear.
-        - v.background :default_base, "OpenStreetMap.HOT"
-        - v.background :forest_base, "Thunderforest"
-        - v.background :water_base, "Thunderforest.Transport"
-        - v.background :landscape_base, "Thunderforest.Landscape"
-        - v.background :outdoors_base, "Thunderforest.Outdoors"
-        -# The followings layers are overlays . They can be combined.
-        - v.overlay :clouds, "OpenWeatherMap.Clouds"
-        - v.overlay :precipitations, "OpenWeatherMap.Precipitation"
-        - v.overlay :rains, "OpenWeatherMap.Rain"
-        - v.overlay :pressures, "OpenWeatherMap.Pressure"
-        - v.overlay :wind, "OpenWeatherMap.Wind"
-        - v.overlay :temperature, "OpenWeatherMap.Temperature"
-        -# v.dataset :zones, data
-        -# v.layer :zones, data, tooltip: true
-        -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
-        -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
-        -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
-        - v.bubble arr
-        - v.simple poly
-        - v.control :zoom
-        - v.control :tilelegend
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :geocoder
-        - v.control :layer_selector
+    -if items
+      - b.cell :map do
+        = visualization :cultivable_map do |v|
+          - v.background :default_base, "OpenStreetMap.HOT"
+          - v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
+          - v.background :de_base, "OpenStreetMap.DE"
+          - v.background :cycle_base, "OpenCycleMap"
+          - v.background :forest_base, "Thunderforest"
+          - v.background :water_base, "Thunderforest.Transport"
+          - v.background :landscape_base, "Thunderforest.Landscape"
+          - v.background :outdoors_base, "Thunderforest.Outdoors"
+          -# The followings layers are overlays . They can be combined.
+          -# v.overlay :clouds, "OpenWeatherMap.Clouds"
+          -# v.overlay :precipitations, "OpenWeatherMap.Precipitation"
+          -# v.overlay :rains, "OpenWeatherMap.Rain"
+          -# v.overlay :pressures, "OpenWeatherMap.Pressure"
+          -# v.overlay :wind, "OpenWeatherMap.Wind"
+          -# v.overlay :temperature, "OpenWeatherMap.Temperature"
+          -# v.overlay :snow, "OpenWeatherMap.Snow"
+          -# v.dataset :zones, data
+          -# v.layer :zones, data, tooltip: true
+          -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
+          -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
+          -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
+        
+          - v.layer :base, poly
+          - v.layer :phosphorus_concentration, arr
+          
+          -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
+          -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
+          -# v.bubble :Lyon_population, [45.759723, 4.842223], 4912.68
+          -# v.bubble :Toulouse_population, [43.604482, 1.44396], 4473.40
+          -# v.bubble :Nice_population, [43.695949, 7.271413], 3440.64
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :geocoder
+          - v.control :layer_selector
+          - v.control :legends
+          - v.control :layer_legend
         
     - b.cell :list do
       = list
