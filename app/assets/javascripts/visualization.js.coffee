@@ -143,6 +143,7 @@
       return this.options.view unless view?
       this.options.view = view
       this._refreshView()
+      
  
     zoom: (zoom) ->
       return this.map.getZoom() unless zoom?
@@ -168,8 +169,7 @@
     
     _refreshControls: ->
       that= this
-      simples = this.options.simples
-      bubbles =this.options.bubbles
+      layers = this.options.layers
       back = this.options.backgrounds
       over = this.options.overlays
 
@@ -193,6 +193,7 @@
            controls = new L.Control.Zoom(zoom_options)
            #that.map.removeControl (controls)
            that.map.addControl controls
+           
           if value.name == "scale"
             scale_options = {
               position: 'bottomleft',
@@ -202,49 +203,8 @@
               updateWhenIdle: false
             }
             controls = new L.Control.Scale(scale_options)
-            #that.map.removeControl (controls)
             that.map.addControl controls
-            #alert( index + ": " + description )
-          if value.name == "legends"
-            category_legends = {
-              type: "custom",
-              data: [
-               #$.each simples, (index, value) ->
-                  #{ name: value.name, value: value.color }
-                { name: "Category 1", value: "#FFC926" },
-                { name: "Category 2", value: "#76EC00" },
-                { name: "Category 3", value: "#00BAF8" },
-                { name: "Category 4", value: "#D04CFD" }
-              ]
-            }
-            controls = new cdb.geo.ui.Legend(category_legends)
-            that.map.addControl controls
-            bubble_legends = {
-              type: "bubble",
-              data: [
-                #$.each bubbles, (index, value) ->
-                  #{ name: value.name, value: value.color }
-                { value: "10" },
-                { value: "20" },
-                { name: "graph_color", value: "#F00" }
-              ]
-            }
-            controls = new cdb.geo.ui.Legend(bubble_legends)
-            that.map.addControl controls
-            choropleth_legends = {
-              type: "choropleth",
-              data: [
-                #$.each choropleths, (index, value) ->
-                  #{ name: value.name, value: value.color }
-                { value: "10" },
-                { value: "20" },
-                { name: "color1", value: "#F00" },
-                { name: "color2", value: "#0F0" },
-                { name: "color3", value: "#00F" }
-              ]             
-            }
-            controls = new cdb.geo.ui.Legend(choropleth_legends)
-            that.map.addControl controls
+                       
           if value.name == "layer_selector"
             baseLayers = {}
             overlays = {}
@@ -258,32 +218,55 @@
               overLayer = L.tileLayer.provider(value.provider_name)
               overlays[value.name] = overLayer
               
-            $.each simples, ( index, value ) -> 
-              overlays[value.list] =  $.each value.list, (index, value) ->
-                overLayer = new  L.GeoJSON(value.coord, {color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity } )
-                overLayer.bindLabel(value.name)
-                overlays[value.name] = overLayer
-                that.map.addLayer(overLayer)
-                
-                
-            $.each bubbles, ( index, value ) -> 
+            $.each layers, ( index, value ) ->  
+              layer_group = []           
               $.each value.list, (index, value) ->
-                overLayer = new  L.circle(value.coord, value.radius,{color: value.color, fillColor: value.fillColor, fillOpacity: value.fillOpacity })
-                overLayer.bindLabel(value.name)
-                overlays[value.name + " bubble"] = overLayer
-                that.map.addLayer(overLayer)
+                if value.type == 'simple'
+                  simple_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
+                  popup = 'This place is "' + value.name + '", it is a parcel with a an area of ' + value.area.value + ' ' + value.area.unit + "."
+                  simple_layer.bindPopup(popup)
+                  console.log value.area
+                  layer_group.push(simple_layer)
+                if value.type == 'bubble'
+                  bubble_layer = new L.circle(value.coord, value.radius, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
+                  popup = 'The amount of potassium in the ground of this parcel is of ' + value.radius + " g  by square meter."
+                  bubble_layer.bindPopup(popup)
+                  layer_group.push(bubble_layer)
+              overLayer = L.layerGroup(layer_group)
+              overlays[value.name] = overLayer
+              that.map.addLayer(overLayer)
 
             layer_options = {
-              collapsed: true,
+              collapsed: false,
               position: 'topright',
               autoZIndex: true
             }
             controls = new L.Control.Layers(baseLayers, overlays,layer_options)
             #that.map.removeControl (controls)
             that.map.addControl controls
-            backgroundLayer = L.tileLayer.provider(back[0].provider_name)
-            that.map.addLayer(backgroundLayer)
             
+          #if value.name == 'layer_legend'
+            #legend = new L.Control({position: 'bottomright'})
+            #legend.onAdd (map) ->
+              #div = new L.DomUtil.create("div", "info legend")
+              #grades = [
+                #0
+                #10
+                #20
+                #50
+                #100
+                #200
+                #500
+                #1000
+              #]
+              #labels = []
+              #i = 0
+              #while i < grades.length
+               #div.innerHTML += "<i style=\"background:" + getColor(grades[i] + 1) + "\"></i> " + grades[i] + ((if grades[i + 1] then "&ndash;" + grades[i + 1] + "<br>" else "+"))
+                #i++
+              #div
+
+           #legend.addTo map
 
             
           if value.name == "geocoder"  
@@ -300,66 +283,6 @@
             
       this
 
-    _refreshBubbles: ->
-      that= this
-      console.log this.options.bubbles[0].list[0].coord[0]
-      if this.options.bubbles?
-        console.log this.options.bubbles
-        $.each this.options.bubbles, ( index, value ) -> 
-          console.log value.list
-          $.each value.list , (index, value) ->
-                      
-            new_bubbles = new  L.circle(value.coord, value.radius)
-            new_bubbles.bindLabel(value.name)
-            that.map.addLayer new_bubbles
-          
-      this
-      
-    _refreshPolygons: ->
-      that= this
-      console.log this.options.simples[0].list[0].coord
-      if this.options.simples?
-        $.each this.options.simples, ( index, value ) -> 
-          $.each value.list, (index, value) ->
-            if value.choroplethParam.length <= 9
-              #value.color = 'pink'
-              #value.fillColor = 'pink'
-              value.fillOpacity = 0.2
-            if value.choroplethParam.length > 9 and value.choroplethParam.length <= 12
-              #value.color = 'violet'
-              #value.fillColor = 'violet'
-              value.fillOpacity = 0.4
-            if value.choroplethParam.length > 12 and value.choroplethParam.length <= 15
-              #value.color = 'magenta'
-              #value.fillColor = 'magenta'
-              value.fillOpacity = 0.6
-            if value.choroplethParam.length > 15 and value.choroplethParam.length <= 18
-              #value.color = 'purple'
-              #value.fillColor = 'purple'
-              value.fillOpacity = 0.8
-            if value.choroplethParam.length > 18 
-              #value.color = 'purple'
-              #value.fillColor = 'purple'
-              value.fillOpacity = 1
-            
-
-            
-                    
-      this
-      
-    _refreshVisses: ->
-      that= this
-      
-      if this.options.visses?
-        console.log this.options.visses
-        $.each this.options.visses, ( index, value ) -> 
-          console.log value.name
-          #L.circle(value.options1, value.options2).addTo(map)
-          new_visses = value.source
-          cartodb.createVis(this.map,new_visses)
-      this
-
- 
  
     _refreshReferenceLayerGroup: ->
       if this.reference?
@@ -371,10 +294,10 @@
  
  
     _refreshView: (view) ->
-      east = this.options.bubbles[0].list[0].coord[0]
-      west = this.options.bubbles[0].list[0].coord[0]
-      north = this.options.bubbles[0].list[0].coord[1]
-      south = this.options.bubbles[0].list[0].coord[1]
+      east = this.options.layers[1].list[0].coord[0]
+      west = this.options.layers[1].list[0].coord[0]
+      north = this.options.layers[1].list[0].coord[1]
+      south = this.options.layers[1].list[0].coord[1]
       long = null
       lat = null
       coord = []
@@ -394,8 +317,8 @@
       else if view is 'default'
         this._setDefaultView()
       else if view.center?
-        if this.options.bubbles?
-          $.each this.options.bubbles, ( index, value ) -> 
+        if this.options.layers?
+          $.each this.options.layers, ( index, value ) -> 
             $.each value.list , (index, value) ->
               if value.coord[0] < west
                 west = value.coord[0]
@@ -405,14 +328,8 @@
                 south = value.coord[1]
               if value.coord[1] > north
                 north = value.coord[1]
-        console.log west
-        console.log east
-        console.log north
-        console.log south
         long = (west + east)/2
-        console.log long
         lat = (north + south)/2
-        console.log lat
         coord = [long, lat] 
         center = L.latLng(coord)
         if view.zoom?

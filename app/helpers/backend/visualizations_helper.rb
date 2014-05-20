@@ -28,22 +28,10 @@ module Backend::VisualizationsHelper
       @data[:overlays] << {name: name, provider_name: provider_name}
       
     end
-
-    def vis(name, source)
-      @data[:visses] ||= []
-      @data[:visses] << {name: name, source: source}
-
-    end
-    
-    def bubble(list)
-      @data[:bubbles] ||= []
-      @data[:bubbles] << {list: list}
-
-    end
-    
-    def simple(list)
-      @data[:simples] ||= []
-      @data[:simples] << {list: list}
+  
+    def layer(name, list = {})
+      @data[:layers] ||= []
+      @data[:layers] << {name: name, list: list}
 
     end
     

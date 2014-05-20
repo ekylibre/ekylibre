@@ -5,11 +5,12 @@
   poly=[]
   lp.each do |lp|
     if lp.shape
-      radius = rand(50) + 50
+      radius1 = rand(50) + 50
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
+      area1 = Charta::Geometry.new(lp.shape).transform(:WGS84).area
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
-      arr << {name: lp.name, coord: centroid, radius: radius,  color: '', fillColor: 'yellow', fillOpacity: 1}
-      poly << {name: lp.name, coord: polyg, color: 'null', fillColor: 'red', fillOpacity: 0.5, level: 10, type: "decimal choropleth"}
+      arr << {type: 'bubble', name: lp.name, coord: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 1}
+      poly << {type: 'simple', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 2, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
     end
   end
   
@@ -36,20 +37,21 @@
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
   -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
-  - v.bubble arr
-  - v.simple poly
+
+  - v.layer :Simple_example, poly
+  - v.layer :Bubble_example, arr
+  
   -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
   -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
   -# v.bubble :Lyon_population, [45.759723, 4.842223], 4912.68
   -# v.bubble :Toulouse_population, [43.604482, 1.44396], 4473.40
   -# v.bubble :Nice_population, [43.695949, 7.271413], 3440.64
-  
   - v.control :zoom
-  - v.control :tilelegend
   - v.control :scale
   - v.control :fullscreen
   - v.control :geocoder
   - v.control :layer_selector
   - v.control :legends
+  - v.control :layer_legend
 
 
