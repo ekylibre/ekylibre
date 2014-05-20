@@ -32,8 +32,8 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :father, url: true, hidden: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :new,     on: :none
-    t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
-    t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
+    # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
+    # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
     t.action :edit
     t.action :destroy
   end

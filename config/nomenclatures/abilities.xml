@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="abilities">
     <property-natures>
-      <property-nature name="parameters" type="list" choices="variety" required="false"/>
+      <property-nature name="parameters" type="list" choices="variety, issue_nature" required="false"/>
     </property-natures>
     <items>
       <!--

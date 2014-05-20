@@ -3231,4 +3231,8 @@ eng:
       property_natures:
         expression: "Expression"
       items:
-        oenological_regulateds: "Oenological regulateds"
+        animal_foods: "Animal foods"
+        animal_medicines: "Animal medicines"
+        matters: "Matters"
+        oenological_regulateds: "Oenological regulateds products"
+        phytosanitary_products: "Phytosanitary products"

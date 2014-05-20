@@ -23,6 +23,23 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
+class HashCollector
+
+  def initialize
+    @hash = {}
+  end
+
+  def to_hash
+    return @hash
+  end
+
+  def method_missing(method_name, *args, &block)
+    @hash[method_name.to_sym] = args.first
+  end
+
+end
+
+
 class ActionController::TestCase
   include Devise::TestHelpers
 
@@ -33,13 +50,14 @@ class ActionController::TestCase
       ActiveRecord::FixtureSet.identify(label)
     end
 
-    def test_restfully_all_actions(options={})
+    def test_restfully_all_actions(options = {}, &block)
       controller_name = self.controller_class.controller_name
       controller_path = self.controller_class.controller_path
       table_name = controller_name
       model_name = table_name.classify
       model = model_name.constantize rescue nil
       record = model_name.underscore
+      other_record = "other_#{record}"
       attributes = nil
       file_columns = {}
       if model and model < ActiveRecord::Base
@@ -64,6 +82,12 @@ class ActionController::TestCase
       fixture_name = record.pluralize
       fixture_table = table_name
 
+      if block_given?
+        collector = HashCollector.new
+        yield collector
+        options.update(collector.to_hash)
+      end
+
       code  = ""
       # code << "context 'A #{controller_name} controller' do\n"
       # code << "\n"
@@ -81,16 +105,21 @@ class ActionController::TestCase
       # code << "\n"
 
       code << "def setup\n"
-      code << "  I18n.locale = I18n.default_locale\n"
+      # Check locale
+      code << "  I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
       code << "  assert_not_nil I18n.locale\n"
       code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
-      code << "  @user = users(:users_001)\n"
-      code << "  sign_in(@user)\n"
+      # Check document templates
       code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
+      # Check custom fields
       code << "  for cf in [:custom_fields_001, :custom_fields_002]\n"
       code << "    record = custom_fields(cf)\n"
       code << "    assert record.save, record.errors.inspect\n"
       code << "  end\n"
+      # Connect user
+      code << "  @user = users(:users_001)\n"
+      code << "  sign_in(@user)\n"
+      # Setup finished!
       code << "end\n"
       code << "\n"
 
@@ -127,7 +156,7 @@ class ActionController::TestCase
         test_code = ""
         params.deep_symbolize_keys!
         sanitized_params = Proc.new { |p = {}|
-          p.deep_symbolize_keys.deep_merge(params).inspect.gsub('RECORD', record)
+          p.deep_symbolize_keys.deep_merge(params).inspect.gsub('OTHER_RECORD', other_record).gsub('RECORD', record)
         }
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
@@ -201,6 +230,17 @@ class ActionController::TestCase
         elsif mode == :soft_touch
           test_code << "post :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{show_notification}\n"
+        elsif mode == :multi_touch
+          test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
+          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{show_notification}\n"
+          # Multi IDS
+          test_code << "#{other_record} = #{fixture_table}(:#{fixture_name}_003)\n"
+          test_code << "assert #{other_record}.valid?, '#{fixture_name}_003 must be valid:' + #{other_record}.errors.inspect\n"
+          test_code << "post :#{action}, " + sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c] + "\n"
+          test_code << "assert_response :redirect, #{show_notification}\n"
         elsif mode == :redirected_get # with ID
           test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"

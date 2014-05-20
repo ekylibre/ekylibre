@@ -65,6 +65,20 @@ Ekylibre::Application.routes.draw do
     end
   end
 
+  namespace :api do
+
+    concern :v1 do
+      resources :crumbs
+    end
+
+    namespace :v1 do
+      concerns :v1
+    end
+
+    concerns :v1
+  end
+
+
   # Backend
   namespace :backend do
 
@@ -131,6 +145,7 @@ Ekylibre::Application.routes.draw do
       resource :purchases_expense_bar_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
+      resource :working_sets_stocks_cell, only: :show
     end
 
     # resources :account_balances

@@ -1,7 +1,7 @@
-# coding: utf-8
+# encoding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2013 David Joulin, Brice Texier
+# Copyright (C) 2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,19 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnimalMedicinesController < BackendController
-
-  list model: :products, scope: "of_working_set(:animal_medicines)".c do |t|
-    t.column :name, url: true
-    t.column :population, datatype: :decimal
-    t.column :net_volume, datatype: :measure, hidden: true
-    t.column :net_mass, datatype: :measure
-    t.column :container, url: true
-    t.column :milk_withdrawal_period, datatype: :measure, hidden: true
-    t.column :meat_withdrawal_period, datatype: :measure, hidden: true
-  end
+class Api::V1::CrumbsController < ApiController
 
   def index
+    respond_to do |format|
+      format.json { render json: {}.to_json }
+    end
+  end
+
+  def create
   end
 
 end

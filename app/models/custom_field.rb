@@ -69,7 +69,7 @@ class CustomField < Ekylibre::Record::Base
 
   before_validation do
     self.column_name = ("_" + self.name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, ''))[0..62]
-    while self.class.where(:column_name => self.column_name, :customized_type => self.customized_type).where("id != ?", self.id || 0).count > 0
+    while self.class.where(:column_name => self.column_name, :customized_type => self.customized_type).where("id != ?", self.id || 0).any?
       self.column_name.succ!
     end
   end
@@ -81,6 +81,7 @@ class CustomField < Ekylibre::Record::Base
       if self.choice? and !self.index_exists?
         self.class.connection.add_index(self.customized_table_name, self.column_name)
       end
+      self.customized_model.reset_column_information
     end
   end
 
@@ -89,6 +90,7 @@ class CustomField < Ekylibre::Record::Base
     old = self.old_record
     if self.column_name != old.column_name and old.column_exists?
       self.class.connection.rename_column(self.customized_table_name, old.column_name, self.column_name)
+      self.customized_model.reset_column_information
     end
   end
 
@@ -99,6 +101,7 @@ class CustomField < Ekylibre::Record::Base
         self.class.connection.remove_index(self.customized_table_name, self.column_name)
       end
       self.class.connection.remove_column(self.customized_table_name, self.column_name)
+      self.customized_model.reset_column_information
     end
   end
 

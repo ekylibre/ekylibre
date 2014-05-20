@@ -4,7 +4,7 @@ class Backend::DocumentArchivesControllerTest < ActionController::TestCase
 
   def setup
     super
-    for id in%w(001 002)
+    for id in %w(001 002)
       archive = document_archives("document_archives_#{id}".to_sym)
       if archive.valid?
         assert archive.file.file?

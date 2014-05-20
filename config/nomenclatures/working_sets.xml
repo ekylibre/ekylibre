@@ -5,7 +5,16 @@
       <property-nature name="expression" type="string" required="true"/>
     </property-natures>
     <items>
+      <!-- all oenological regulated products -->
       <item name="oenological_regulateds" expression="can('catalyze(wine), chaptelise(wine), fermentize(wine), sulfurize(wine)') or of_variety(concentrated_rectified_must) or can(acidify) or can(alkalinize) or of_variety(potassium_ferrocyanide) " />
+      <!-- all phytosanitaries products -->
+      <item name="phytosanitary_products" expression="can('kill(plant), kill(fungus), kill(insecta), kill(mollusca)')" />
+      <!-- all storables products -->
+      <item name="matters" expression="stockables" />
+      <!-- all veterinary products -->
+      <item name="animal_medicines" expression="can('care(animal)')" />
+      <!-- all animal's food product -->
+      <item name="animal_foods" expression="can('feed(animal)')" />
     </items>
   </nomenclature>
 </nomenclatures>

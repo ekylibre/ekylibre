@@ -20,20 +20,25 @@
 require 'test_helper'
 
 class Backend::AffairsControllerTest < ActionController::TestCase
-  test_restfully_all_actions  select: {mode: :show, params: {third_id: identify(:legal_entities_001), deal_type: "sale"}}, attach: {mode: :touch, params: {deal_id: identify(:sales_001), deal_type: "sale"}}, detach: {mode: :destroy, params: {deal_id: identify(:sales_001), deal_type: "sale"}}
+
+  test_restfully_all_actions do |o|
+    o.select mode: :show,    params: {third_id: identify(:legal_entities_001), deal_type: "sale"}
+    o.attach mode: :touch,   params: {deal_id:  identify(:sales_001), deal_type: "sale"}
+    o.detach mode: :destroy, params: {deal_id:  identify(:gaps_002), deal_type: "gap"}
+  end
 
   test "should not attach invalid deal" do
     affair = affairs(:affairs_001)
     assert affair.valid?, "Affair 001 must be valid"
     post :attach, {id: affair.id}
-    assert_response :error, "Error expected with no given deal"
+    assert_response :not_found, "Error expected with no given deal"
   end
 
   test "should not detach invalid deal" do
     affair = affairs(:affairs_001)
     assert affair.valid?, "Affair 001 must be valid"
     post :detach, {id: affair.id}
-    assert_response :error, "Error expected with no given deal"
+    assert_response :not_found, "Error expected with no given deal"
   end
 
 end

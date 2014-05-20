@@ -1726,6 +1726,14 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="crumbs">
+        <page to="api/v1/crumbs#index"/>
+        <page to="api/v1/crumbs#create"/>
+      </item>
+      <item name="working_sets_stocks_cells">
+        <page to="backend/cells/working_sets_stocks_cells#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

@@ -50,12 +50,18 @@ class Backend::OutgoingDeliveriesController < BackendController
   end
  
   def invoice
-    sale = OutgoingDelivery.invoice(params[:id].split(','))
+    for id in ids = params[:id].split(',')
+      return unless find_and_check(id)
+    end
+    sale = OutgoingDelivery.invoice(ids)
     redirect_to backend_sale_url(sale)
   end
  
   def ship
-    transport = OutgoingDelivery.ship(params[:id].split(','))
+    for id in ids = params[:id].split(',')
+      return unless find_and_check(id)
+    end
+    transport = OutgoingDelivery.ship(ids)
     redirect_to backend_transport_url(transport)
   end
 

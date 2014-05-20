@@ -1,4 +1,6 @@
 # THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION
+#     - "api/v1/crumbs#create"
+#     - "api/v1/crumbs#index"
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"
@@ -45,6 +47,7 @@
 #     - "backend/cells/revenues_by_product_nature_cells#show"
 #     - "backend/cells/rss_cells#show"
 #     - "backend/cells/weather_cells#show"
+#     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/dashboards#index"
 #     - "backend/dashboards#relationship"
 #     - "backend/dashboards#sandbox"

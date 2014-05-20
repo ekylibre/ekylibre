@@ -104,7 +104,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   # Adds custom fields
   def custom_fields(*args, &block)
     custom_fields = @object.custom_fields
-    if custom_fields.count > 0
+    if custom_fields.any?
       return @template.content_tag(:div, :id => "custom-fields-field") do
         html = "".html_safe
         for custom_field in custom_fields
