@@ -64,8 +64,6 @@
                 
     _create: ->     
       $.extend(true, this.options, this.element.data("visualization"))
-      console.log "create"
-      console.log this.options
        
       this.mapElement = $("<div>", class: "map")
         .insertAfter(this.element)
@@ -113,11 +111,11 @@
       #this._refreshBubbles()
       
       #this._refreshPolygons()
+      
+      this._calculChoropleth()
 
       this._refreshControls()
-      
-      
-      
+           
       #this._refreshPolygons()
       
 
@@ -144,7 +142,6 @@
       this.options.view = view
       this._refreshView()
       
- 
     zoom: (zoom) ->
       return this.map.getZoom() unless zoom?
       this.options.view.zoom = zoom
@@ -154,19 +151,61 @@
       return this.options.box.height unless height?
       this.options.view.box.height = height
       this._resize()
-      console.log this.options.view.box.height
  
     _resize: -> 
-      console.log "resize"
       if this.options.box?
         if this.options.box.height?
           this.mapElement.height this.options.box.height
         if this.options.box.width?
           this.mapElement.width this.options.box.width
         this._trigger "resize"
-           
-         
-    
+        
+    _calculChoropleth: ->
+      if this.options.layers
+        $.each this.options.layers, ( index, value ) ->
+          max_value = 0
+          choro = false  
+          $.each value.list, (index, value) ->
+            if value.style == 'choropleth'
+              choro = true
+              if value.choropleth_value == 'area'
+                tmp = value.area.value.split("/")
+                value.choropleth_value = Math.round(tmp[0]/tmp[1])
+              if value.choropleth_value > max_value
+                max_value = value.choropleth_value
+          if choro == true
+            $.each value.list, (index, value) ->
+              if value.style == 'choropleth'
+                choro_color = Math.round(value.choropleth_value/(max_value/10))
+                if choro_color == 0
+                  choro_color = 1
+                choro_color = Math.round(choro_color*25.5)
+                choro_color1 = choro_color
+                choro_color = 280 - choro_color
+                choro_color = choro_color.toString(16)
+                choro_color1 = choro_color1.toString(16)
+                console.log choro_color       
+                if value.choropleth_color == 'red'
+                  value.fillColor = '#FF'+ choro_color + choro_color
+                  console.log value.fillColor
+                if value.choropleth_color == 'yellow'
+                  value.fillColor = '#FFFF' + choro_color
+                if value.choropleth_color == 'orange'
+                  value.fillColor = '#FF80' + choro_color1 + choro_color
+                  console.log value.fillColor
+                if value.choropleth_color == 'green'
+                  value.fillColor = '#' + choro_color + 'FF'+ choro_color
+                  console.log value.fillColor
+                if value.choropleth_color == 'cian'
+                  value.fillColor = '#' + choro_color + 'FFFF'
+                  console.log value.fillColor
+                if value.choropleth_color == 'blue'
+                  value.fillColor = '#' + choro_color + choro_color + 'FF'
+                  console.log value.fillColor
+                if value.choropleth_color == 'pink'
+                  value.fillColor = '#FF' + choro_color + 'FF'
+                  console.log value.fillColor
+                
     _refreshControls: ->
       that= this
       layers = this.options.layers
@@ -221,23 +260,29 @@
             $.each layers, ( index, value ) ->  
               layer_group = []           
               $.each value.list, (index, value) ->
-                if value.type == 'simple'
+                if value.style == 'simple'
                   simple_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
-                  popup = 'This place is "' + value.name + '", it is a parcel with a an area of ' + value.area.value + ' ' + value.area.unit + "."
+                  tmp = value.area.value.split("/")
+                  popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category}"
                   simple_layer.bindPopup(popup)
-                  console.log value.area
                   layer_group.push(simple_layer)
-                if value.type == 'bubble'
+                if value.style == 'bubble'
                   bubble_layer = new L.circle(value.coord, value.radius, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
-                  popup = 'The amount of potassium in the ground of this parcel is of ' + value.radius + " g  by square meter."
+                  popup = "#{value.name} <br> Amount of potassium :  #{Math.round(value.radius)} grames by square meter"
                   bubble_layer.bindPopup(popup)
                   layer_group.push(bubble_layer)
+                if value.style == 'choropleth'   
+                  choropleth_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
+                  tmp = value.area.value.split("/")
+                  popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category}"
+                  choropleth_layer.bindPopup(popup)
+                  layer_group.push(choropleth_layer)
               overLayer = L.layerGroup(layer_group)
               overlays[value.name] = overLayer
               that.map.addLayer(overLayer)
 
             layer_options = {
-              collapsed: false,
+              collapsed: true,
               position: 'topright',
               autoZIndex: true
             }
@@ -259,18 +304,11 @@
                 #500
                 #1000
               #]
-              #labels = []
-              #i = 0
-              #while i < grades.length
-               #div.innerHTML += "<i style=\"background:" + getColor(grades[i] + 1) + "\"></i> " + grades[i] + ((if grades[i + 1] then "&ndash;" + grades[i + 1] + "<br>" else "+"))
-                #i++
-              #div
 
-           #legend.addTo map
+            
 
             
           if value.name == "geocoder"  
-            console.log "Vive le Roi!"
             geocoder_options = {
               collapsed: true,
               position: 'topright',
