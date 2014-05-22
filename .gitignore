@@ -34,6 +34,9 @@ config/locales/*/prints/*.pdf
 # Ignore private files
 /private/**/*
 
+# Ignore compiled assets
+/public/assets
+
 # Ignore local database config
 /config/database.yml
 /config/api.yml
