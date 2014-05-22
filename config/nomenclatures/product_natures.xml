@@ -774,6 +774,14 @@
             variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass"
             frozen_indicators="population"
             />
+       <item name="grape_trailer"
+            category="equipment"
+            variety="trailer"
+            population_counting="unitary"
+            abilities="store(grape), store(grape_juice), store_liquid"
+            variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass"
+            frozen_indicators="population"
+            />
       <item name="wine_tank"
             category="equipment"
             variety="tank"

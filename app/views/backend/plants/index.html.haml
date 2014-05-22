@@ -1,17 +1,33 @@
 :ruby
   # for test  
   items = Plant.availables
+  campaign = Campaign.currents.last
   arr=[]
   poly=[]
+  choro=[]
+  
   if items
     items.each do |item|
       if item.shape
-        radius1 = rand(50) + 50
+        radius = rand(50) + 50
         centroid = Charta::Geometry.new(item.shape).transform(:WGS84).centroid
-        area1 = Charta::Geometry.new(item.shape).transform(:WGS84).area
+        area = Charta::Geometry.new(item.shape).transform(:WGS84).area
         polyg = Charta::Geometry.new(item.shape).transform(:WGS84).to_geojson
-        arr << {type: 'bubble', name: item.name, coord: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 1}
-        poly << {type: 'simple', name: item.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 2, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
+        # build category (activity) for plant
+        support =  ProductionSupport.of_campaign(campaign).where(storage: item.container, nature: :main).first if item.container
+        category = 'undefined'
+        if support
+          category = support.activity.name
+        end
+        
+        arr << {style: 'bubble', name: item.name, center: centroid, radius: radius, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 1}
+        
+                
+        poly << {style: 'simple', category: category, name: item.name, area: area, center: centroid, coord: polyg, stroke: true , color: 'black', weight: 2, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
+        
+        
+      choro << {style: 'choropleth', category: category, center: centroid, choropleth_value: 'area', choropleth_type: 'linear', choropleth_color: 'red', name: item.name, area: area, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'null', opacity: 1, fill: true, fillOpacity: 1}
+
       end
     end
   end
@@ -52,6 +68,7 @@
         
           - v.layer :base, poly
           - v.layer :phosphorus_concentration, arr
+          - v.layer :nitrogen_concentration, choro
           
           -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
           -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
@@ -61,7 +78,7 @@
           - v.control :zoom
           - v.control :scale
           - v.control :fullscreen
-          - v.control :geocoder
+          -# v.control :geocoder
           - v.control :layer_selector
           - v.control :legends
           - v.control :layer_legend

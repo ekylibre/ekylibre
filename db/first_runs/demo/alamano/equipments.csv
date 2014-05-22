@@ -59,6 +59,8 @@ Presse balle carré,baler,,,,,,ETA,Population : 1,,93,usage_duration
 Remorque 11T,trailer,,S06_D02,,,,,Population : 1 ; nominal_storable_net_mass : 11000 kg,,0.68,usage_duration
 Remorque épandeur ,spreader_trailer,,S06_D02,,,,,Population : 1 ; nominal_storable_net_mass : 8000 kg,,8,usage_duration
 Remorque monocoque,trailer,,S06_D02,,,,,Population : 1 ; nominal_storable_net_mass : 8000 kg,,0.5,usage_duration
+Benne vendange 60,grape_trailer,,S06_D02,,,,,Population : 1 ; nominal_storable_net_mass : 6000 kg,,0.5,usage_duration
+Gimbre pro 60,grape_trailer,,S06_D02,,,,,Population : 1 ; nominal_storable_net_mass : 6000 kg,,0.5,usage_duration
 ,ENTRETIEN,,,,,,,,,,
 Girobroyeur,mower,,S06_D02,,,,,"Population : 1 ; application_width : 1,8m",,9,usage_duration
 ,ELEVAGE,,,,,,,,,,

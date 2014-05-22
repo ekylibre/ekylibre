@@ -1458,6 +1458,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="grape_trailer"
+            nature="grape_trailer"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <!-- EQUIPMENT FOR VINE -->
       <item name="manual_implanter"
             nature="implanter"

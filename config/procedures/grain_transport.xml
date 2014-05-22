@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grains_transport" natures="transport" version="0" status="frozen">
+  <procedure name="grain_transport" natures="transport" version="0" status="frozen">
     <variables>
       <variable name="grain" variety="grain" roles="transport-input_origin"/>
       <variable name="grain_to_deliver" new="parted-from: grain" roles="transport-input" default-population=":grain" default-name="{{variant}} {{birth_year}} ({{container}})">
