@@ -36,24 +36,12 @@ config/locales/*/prints/*.pdf
 
 # Ignore compiled assets
 /public/assets
+public/system/*
 
 # Ignore local database config
 /config/database.yml
 /config/api.yml
 /config/tools.xml
-
-# Ignore installer useless files
-installer/debian/debian/ekylibre.debhelper.log
-installer/debian/debian/ekylibre.substvars
-installer/debian/debian/ekylibre
-installer/debian/debian/files
-installer/debian/*.changes
-installer/resources
-installer/releases
-installer/*.log
-pkg
-
-public/system/*
 
 # Ignore compass sprites
 app/themes/tekyla/images/common-s*.png

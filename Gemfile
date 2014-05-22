@@ -140,8 +140,6 @@ gem 'oily_png'
 gem 'agric'
 
 group :development do
-  gem 'packagit'
-
   gem 'quiet_assets'
   # gem 'rack-mini-profiler'
   # gem 'better_errors'

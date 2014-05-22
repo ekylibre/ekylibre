@@ -1,3 +1,0 @@
-../copy/* /usr/share/ekylibre
-../apache.conf /etc/ekylibre
-../ekylibre-init-db /usr/sbin

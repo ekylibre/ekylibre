@@ -1,5 +1,0 @@
-Packagit::Specification.new do |spec|
-  spec.name =      "ekylibre"
-  spec.version =   File.read("VERSION").strip
-  spec.files =     `git ls-files app bin config config.ru db Gemfile Gemfile.lock lib LICENSE public Rakefile README.rdoc test vendor VERSION`.split(/\s+/)
-end
