@@ -10,9 +10,9 @@
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
       area1 = Charta::Geometry.new(lp.shape).transform(:WGS84).area
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
-      bub << {style: 'bubble', name: lp.name, coord: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 0.9}
-      choro << {style: 'choropleth', category: 'corn', choropleth_value: 'area', choropleth_type: 'decimal', choropleth_color: 'cian',name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'null', opacity: 1, fill: true, fillOpacity: 1}
-      sim << {style: 'simple', category: 'corn', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
+      bub << {style: 'bubble', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 0.9}
+      choro << {style: 'choropleth', category: 'corn', center: centroid, choropleth_value: 'area', choropleth_type: 'linear', choropleth_color: 'red',name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'null', opacity: 1, fill: true, fillOpacity: 1}
+      sim << {style: 'simple', category: 'corn', center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
     end
   end
   
@@ -40,7 +40,7 @@
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
   -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
 
-  -# v.layer :Simple_example, sim
+  - v.layer :Simple_example, sim
   - v.layer :Choropleth_example, choro
   - v.layer :Bubble_example, bub
   

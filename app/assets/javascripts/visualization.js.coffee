@@ -9,6 +9,10 @@
       backgrounds: {}
       overlays: {}
       controls: {}
+      blue_choropleth_palette: ['#ffffff', '#9999ff', '#6666ff', '#3232ff', '#0000ff', '#0000cc', '#000099', '#000066']
+      red_choropleth_palette: ['#ffffff', '#ff9999', '#ff6666', '#ff3232', '#ff0000', '#cc0000', '#990000', '#660000']
+      green_choropleth_palette: ['#ffffff', '#99ff99', '#66ff66', '#32ff32', '#00ff00', '#00cc00', '#009900', '#006600']
+      purple_choropleth_palette: ['#ffffff', '#cc99cc', '#b266b2', '#993299', '#800080', '#660066', '#4c004c', '#330033']
       layers: {}
       show: null
       edit: null
@@ -111,6 +115,7 @@
       #this._refreshBubbles()
       
       #this._refreshPolygons()
+      this._calculArea()
       
       this._calculChoropleth()
 
@@ -160,7 +165,19 @@
           this.mapElement.width this.options.box.width
         this._trigger "resize"
         
+    _calculArea: ->
+      if this.options.layers
+        $.each this.options.layers, ( index, value ) ->
+          $.each value.list, (index, value) ->
+            if value.choropleth_value == 'area'
+              tmp = value.area.value.split("/")
+              value.choropleth_value = Math.round(tmp[0]/tmp[1])
+        
     _calculChoropleth: ->
+      red = this.options.red_choropleth_palette
+      blue = this.options.blue_choropleth_palette
+      green = this.options.green_choropleth_palette
+      purple = this.options.purple_choropleth_palette      
       if this.options.layers
         $.each this.options.layers, ( index, value ) ->
           max_value = 0
@@ -168,43 +185,20 @@
           $.each value.list, (index, value) ->
             if value.style == 'choropleth'
               choro = true
-              if value.choropleth_value == 'area'
-                tmp = value.area.value.split("/")
-                value.choropleth_value = Math.round(tmp[0]/tmp[1])
               if value.choropleth_value > max_value
                 max_value = value.choropleth_value
           if choro == true
             $.each value.list, (index, value) ->
               if value.style == 'choropleth'
-                choro_color = Math.round(value.choropleth_value/(max_value/10))
-                if choro_color == 0
-                  choro_color = 1
-                choro_color = Math.round(choro_color*25.5)
-                choro_color1 = choro_color
-                choro_color = 280 - choro_color
-                choro_color = choro_color.toString(16)
-                choro_color1 = choro_color1.toString(16)
-                console.log choro_color       
-                if value.choropleth_color == 'red'
-                  value.fillColor = '#FF'+ choro_color + choro_color
-                  console.log value.fillColor
-                if value.choropleth_color == 'yellow'
-                  value.fillColor = '#FFFF' + choro_color
-                if value.choropleth_color == 'orange'
-                  value.fillColor = '#FF80' + choro_color1 + choro_color
-                  console.log value.fillColor
-                if value.choropleth_color == 'green'
-                  value.fillColor = '#' + choro_color + 'FF'+ choro_color
-                  console.log value.fillColor
-                if value.choropleth_color == 'cian'
-                  value.fillColor = '#' + choro_color + 'FFFF'
-                  console.log value.fillColor
-                if value.choropleth_color == 'blue'
-                  value.fillColor = '#' + choro_color + choro_color + 'FF'
-                  console.log value.fillColor
-                if value.choropleth_color == 'pink'
-                  value.fillColor = '#FF' + choro_color + 'FF'
-                  console.log value.fillColor
+                choro_color = Math.ceil(((value.choropleth_value/(max_value/7))*10)/10)
+                switch value.choropleth_color
+                  when "red" then value.fillColor = red[choro_color]
+                  when "blue" then value.fillColor = blue[choro_color]
+                  when "green" then value.fillColor = green[choro_color]
+                  when "purple" then value.fillColor = purple[choro_color]
+                  else alert "This color isn't available"
+      this
+
                 
     _refreshControls: ->
       that= this
@@ -267,7 +261,7 @@
                   simple_layer.bindPopup(popup)
                   layer_group.push(simple_layer)
                 if value.style == 'bubble'
-                  bubble_layer = new L.circle(value.coord, value.radius, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
+                  bubble_layer = new L.circle(value.center, value.radius, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
                   popup = "#{value.name} <br> Amount of potassium :  #{Math.round(value.radius)} grames by square meter"
                   bubble_layer.bindPopup(popup)
                   layer_group.push(bubble_layer)
@@ -279,7 +273,9 @@
                   layer_group.push(choropleth_layer)
               overLayer = L.layerGroup(layer_group)
               overlays[value.name] = overLayer
+              group = new L.featureGroup(layer_group)
               that.map.addLayer(overLayer)
+              that.map.fitBounds(group.getBounds())
 
             layer_options = {
               collapsed: true,
@@ -332,51 +328,15 @@
  
  
     _refreshView: (view) ->
-      east = this.options.layers[1].list[0].coord[0]
-      west = this.options.layers[1].list[0].coord[0]
-      north = this.options.layers[1].list[0].coord[1]
-      south = this.options.layers[1].list[0].coord[1]
-      long = null
-      lat = null
-      coord = []
-      view ?= this.options.view
-      if view is 'auto'
-        try
-          this._refreshView('show')
-        catch
-          try
-            this._refreshView('edit')
-          catch
-            this._setDefaultView()
-      else if view is 'show'
-        this.map.fitBounds this.reference.getLayers()[0].getBounds()
-      else if view is 'edit'
-        this.map.fitBounds this.edition.getLayers()[0].getBounds()
-      else if view is 'default'
-        this._setDefaultView()
-      else if view.center?
-        if this.options.layers?
-          $.each this.options.layers, ( index, value ) -> 
-            $.each value.list , (index, value) ->
-              if value.coord[0] < west
-                west = value.coord[0]
-              if value.coord[0] > east
-                east = value.coord[0]
-              if value.coord[1] < south
-                south = value.coord[1]
-              if value.coord[1] > north
-                north = value.coord[1]
-        long = (west + east)/2
-        lat = (north + south)/2
-        coord = [long, lat] 
-        center = L.latLng(coord)
-        if view.zoom?
-          this.map.setView(center, view.zoom)
-        else
-          this.map.setView(center, zoom)
-      else if view.bounds?
-        this.map.fitBounds(view.bounds)
-      this
+      this._setDefaultView()
+      #else if view.center?
+        #if this.options.layers?
+
+        #if view.zoom?
+          #this.map.setView(center, view.zoom)
+        #else
+          #this.map.setView(center, zoom)
+      #this
  
     _setDefaultView: ->
       this.map.fitWorld()
