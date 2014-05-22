@@ -1,6 +1,5 @@
-@import "active_list/minimal";
+// @import "active_list/minimal";
 @import "active_list/background";
-@import "active_list/theme";
 
 $sort-mask: rgba(0, 18, 132, 0.05);
 
@@ -13,208 +12,258 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 // $zz-menu-width: 250px;
 
 .active-list[data-list-source], .active-list {
-   table.list {
-      border-collapse: collapse;
-      width: 100%;
-      thead {
-	 th {
-            padding: round($fs-normal*0.2) round($fs-normal*0.4);
-            @include ellipsis;
-            @include text-align(left);
-            &[data-list-column-sort] {
-               i {
-		  @include is-icon(round(0.85 * $fs-normal));
-		  @include use-icon(sort);
-		  @include inline-block;
-		  @include margin-left(round($fs-normal*0.2));
-               }
-	       &.sor {
-		  background: $sort-mask;
-		  &[data-list-column-sort="desc"] i {
-		     @include use-icon(sort-down);
-		  }
-		  &[data-list-column-sort="asc"] i {
-		     @include use-icon(sort-up);
-		  }
-               }
-            }
-	 }
-      }
-      tbody {
-	 tr {
-            td {
-               @include transition(background 0.2s);
-               padding: round($fs-normal*0.2) round($fs-normal*0.4);
-               border-top: $menu-border-width solid mix($base-color, #FFF, 10%);
-               border-bottom: none;
-               border-left: none;
-               border-right: none;
-               line-height: 16px;
-               @include ellipsis;
-               &.chk,&.act, &.dld, &.bln, &.dat, &.web  {
-		  @include text-align(center);
-		  .checkbox-true, .checkbox-false { margin: 3px auto 0; }
-               }
-               &.dec, &.flt, &.int { @include text-align(right) }
-               &.country { white-space: nowrap; }
-               &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; @include text-align(center) }
-               &.status {
-		  text-align: center;
-               }
-	       &.list-selector {
-		  text-align: center;
-		  width: 3ex;
-	       }
-            }
-            &.squeezed, &.aborted, &.refused {
-	       td {
-		  &, * {
-		     text-decoration: line-through;
-		  }
-               }
-            }
-            &.child {
-               td {
-		  &:first-child {
-		     @include padding-left(2*$fs-normal);
-		  }
-		  @include opacity(0.6);
-               }
-            }
-            &:first-child td {
-               border-top: none;
-            }
-	 }
-	 @include list-colors($desktop-background);
-      }
+    table.list {
+	border-collapse: collapse;
+	width: 100%;
+	thead {
+	    th {
+		padding: round($fs-normal*0.2) round($fs-normal*0.4);
+		@include ellipsis;
+		@include text-align(left);
+		&[data-list-column-sort] {
+		    i {
+			@include is-icon(round(0.85 * $fs-normal));
+			@include use-icon(sort);
+			@include inline-block;
+			@include margin-left(round($fs-normal*0.2));
+		    }
+		    &.sor {
+			background: $sort-mask;
+			&[data-list-column-sort="desc"] i {
+			    @include use-icon(sort-down);
+			}
+			&[data-list-column-sort="asc"] i {
+			    @include use-icon(sort-up);
+			}
+		    }
+		}
+		&.hidden {
+		    display: none;
+		}
+		&.act {
+		    i {
+			@include is-icon(18px);
+			@include use-icon(cog);
+		    }
+		    @each $symbolic-icon in $symbolic-icons {
+			$symbol-name: nth($symbolic-icon, 1);
+			$symbol-code: nth($symbolic-icon, 2);
+			&[data-list-column="#{$symbol-name}"] i {
+			    @include icon($symbol-code);
+			}
+		    }
+		    @each $renaming in $all-aliases {
+			&[data-list-column="#{nth($renaming, 1)}"] i {
+			    @include use-icon(nth($renaming, 2));
+			}
+		    }
+		}
+	    }
+	}
+	tbody {
+	    tr {
+		td {
+		    @include transition(background 0.2s);
+		    padding: round($fs-normal*0.2) round($fs-normal*0.4);
+		    border-top: $menu-border-width solid mix($base-color, #FFF, 10%);
+		    border-bottom: none;
+		    border-left: none;
+		    border-right: none;
+		    line-height: 16px;
+		    @include ellipsis;
+		    &.hidden {
+			display: none;
+		    }
+		    &.chk,&.act, &.dld, &.bln, &.dat, &.web  {
+			@include text-align(center);
+			.checkbox-true, .checkbox-false { margin: 3px auto 0; }
+		    }
+		    &.dec, &.flt, &.int { @include text-align(right) }
+		    &.country { white-space: nowrap; }
+		    &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; @include text-align(center) }
+		    &.status {
+			text-align: center;
+		    }
+		    &.list-selector {
+			text-align: center;
+			width: 3ex;
+		    }
+		}
+		&.squeezed, &.aborted, &.refused {
+		    td {
+			&, * {
+			    text-decoration: line-through;
+			}
+		    }
+		}
+		&.child {
+		    td {
+			&:first-child {
+			    @include padding-left(2*$fs-normal);
+			}
+			@include opacity(0.6);
+		    }
+		}
+		&:first-child td {
+		    border-top: none;
+		}
+	    }
+	    @include list-colors($desktop-background);
+	}
 
-   }
+    }
 
 
-   .list-control {
-      padding: $default-gap $default-gap 0;
-      & > * {
-	 margin-bottom: $default-gap;
-      }
-      @include clearfix;
-   }
+    .list-control {
+	padding: $default-gap $default-gap 0;
+	& > * {
+	    margin-bottom: $default-gap;
+	}
+	@include clearfix;
+    }
 
-   .actioner {
-      & > * {
-	 @include margin-right($fs-normal);
-	 &:last-child {
-	    @include margin-right(0);
-	 }
-      }
-   }
+    .list-data {
+	overflow: auto;
+    }
+
+    .actioner {
+	& > * {
+	    @include margin-right($fs-normal);
+	    &:last-child {
+		@include margin-right(0);
+	    }
+	}
+    }
 
 
-   .settings {
-      @include float(right);
-      position: relative;
-      background: none;
-      .settings-start {
-	 @include button;
-	 @include margin-left($fs-normal);
-	 text-align: center;
-	 padding-left: $fs-normal;
-	 padding-right: $fs-normal;
-	 font-size: 0;
-	 i {
-	    @include is-icon;
-	    @include use-icon(wrench);
-	    @include inline-block;
-	 }
-      }
-      &:hover {
-	 .settings-start {
-	    background-color: $menu-background;
-	 }
-      }
-      ul {
-	 i {
+    .settings {
+	@include float(right);
+	position: relative;
+	background: none;
+	.settings-start {
+	    @include button;
+	    @include margin-left($fs-normal);
+	    text-align: center;
+	    padding-left: $fs-normal;
+	    padding-right: $fs-normal;
+	    font-size: 0;
+	    i {
+		@include is-icon;
+		@include use-icon(wrench);
+		@include inline-block;
+	    }
+	}
+	&:hover {
+	    .settings-start {
+		background-color: $menu-background;
+	    }
+	    & > ul {
+		display: block;
+	    }
+	}
+	ul {
+	    display: none;
+            position: absolute;    
+	    top: 20px;
+	    margin: 0;
+            @include right(0);
+	    i {
+		@include margin-right($default-gap);
+	    }
+	    @include menu;
+	    z-index: 1000;
+	    li {
+		@include menu-item;
+		ul {
+		    position: relative;
+		    top: -1 * ($menu-height + $menu-border-width);
+		    @include right($menu-width);
+		    &:hover {
+			display: block;
+		    }
+		}
+		&:hover ul {
+		    display: block;
+		}
+
+		& > a {
+		    @include user-select(none);
+		    cursor: pointer;
+		    i { @include is-icon }
+		    &.pages     i { @include use-icon(bars); }
+		    &.columns   i { @include use-icon(columns); }
+		}
+		&.parent > a {
+		    cursor: default;
+		}
+		i { @include is-icon }
+		&.export    i { @include use-icon(download); }
+		&.check     i { @include use-icon(check); }
+		&.checked   i { @include use-icon(check-square-o); }
+		&.unchecked i { @include use-icon(square-o); }
+		&:hover {
+		    text-decoration: none;
+                    // background: background-hover($menu-background);
+		}
+		&.separator {
+		    @include menu-separator;
+		}
+
+	    }
+	}
+	& > ul {
+	    top: 26px;
+	}
+
+    }
+
+    .pagination {
+	@include float(right);
+	@include margin-left($fs-normal);
+	.status {
 	    @include margin-right($default-gap);
-	 }
-	 @include menu;
-	 z-index: 1000;
-	 li {
-	    @include menu-item;
-	    
-	    ul {
-	       & { right: $menu-width; }
-	       html[dir="rtl"] & { left: $menu-width; }
+	}
+	.paginator {
+            @include button-group;
+	    .btn {
+		min-width: $fs-normal;
+		@include text-align(center);
 	    }
-
-	    & > a {
-	       i { @include is-icon }
-	       &.pages     i { @include use-icon(bars); }
-	       &.columns   i { @include use-icon(columns); }
+	    input[type="number"] {
+		width: 5ex;
+		margin: 0;
+		display: inline;
 	    }
+	}
+	.first-page, .previous-page, .next-page, .last-page {
+	    @include inline-block;
+	    // @include squish-text;
+	    font-size: 0;
 	    i { @include is-icon }
-	    &.export    i { @include use-icon(download); }
-	    &.check     i { @include use-icon(check); }
-	    &.checked   i { @include use-icon(square-o); }
-	    &.unchecked i { @include use-icon(check-square-o); }
-	    &:hover {
-	       text-decoration: none;
-                  // background: background-hover($menu-background);
-	    }
-	    &.separator {
-	       @include menu-separator;
-	    }
-
-	 }
-      }
-      & > ul {
-	 top: 23px;
-      }
-
-   }
-
-   .pagination {
-      @include float(right);
-      @include margin-left($fs-normal);
-      .status {
-	 @include margin-right($default-gap);
-      }
-      .paginator {
-         @include button-group;
-	 .btn {
-	    min-width: $fs-normal;
-	    @include text-align(center);
-	 }
-	 input[type="number"] {
-            width: 5ex;
-            margin: 0;
-            display: inline;
-	 }
-      }
-      .first-page, .previous-page, .next-page, .last-page {
-	 @include inline-block;
-	 @include squish-text;
-	 i { @include is-icon }
-      }
-      html[dir="rtl"] & .last-page i,  & .first-page i {
-	 @include use-icon(fast-backward);
-      }
-      html[dir="rtl"] & .first-page i,  & .last-page i {
-	 @include use-icon(fast-forward);
-      }
-      html[dir="rtl"] & .next-page i,  & .previous-page i {
-	 @include use-icon(step-backward);
-      }
-      html[dir="rtl"] & .previous-page i, & .next-page i {
-	 @include use-icon(step-forward);
-      }
-      .separator {
-	 @include inline-block;
-	 width: $menu-border-width;
-	 $margin:$menu-border-width * 3 ;
-	 margin: 0 $margin;
-	 height: 1.2em;
-	 background: $menu-border-color;
-      }
-   }
+	}
+	html[dir="rtl"] & .last-page i,  & .first-page i {
+	    @include use-icon(fast-backward);
+	}
+	html[dir="rtl"] & .first-page i,  & .last-page i {
+	    @include use-icon(fast-forward);
+	}
+	html[dir="rtl"] & .next-page i,  & .previous-page i {
+	    // @include use-icon(step-backward);
+	    @include use-icon(chevron-left);
+	}
+	html[dir="rtl"] & .previous-page i, & .next-page i {
+	    // @include use-icon(step-forward);
+	    @include use-icon(chevron-right);
+	}
+	.separator {
+	    @include inline-block;
+	    width: $menu-border-width;
+	    $margin:$menu-border-width * 3 ;
+	    margin: 0 $margin;
+	    height: 1.2em;
+	    background: $menu-border-color;
+	}
+    }
 
 }
 
@@ -225,76 +274,76 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 
 
 .active-list[data-list-source] table.list, .active-list table.list, table.list {
-   width: 100%;
-   tr.total {
-      td, th {
-	 border: $menu-border;
-	 font-size: $fs-large;
-	 font-weight: bold;
-	 padding: 2px;
-	 html[dir="ltr"] & { text-align:right; }
-	 html[dir="rtl"] & { text-align:left; }
-      }
-      th {
-	 padding: 4px 6px;
-	 @include background-image(linear-gradient(lighten($menu-background, 4%), darken($menu-background, 4%)));
-      }
-      td {
-	 padding: 4px;
-	 color: $text-color;
-	 @include background-image(linear-gradient(lighten($desktop-background, 4%), darken($desktop-background, 4%)));
-      }
-      &.invalid td { color: #D20; }
-   }
-   tbody {
-      tr.empty {
-	 td {
-            text-align: center;
-            color: rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-        /*padding: 1ex !important;*/
-	 }
-      }
-      tr.odd, tr.even, tr.empty {
-	 td {
-            padding-top: $fs-normal*0.25;
-            padding-bottom: $fs-normal*0.25;
-	 }
-      }
-      td.act {
-	 width: 16px;
-	 padding-bottom: 0 !important;
-	 a {
-            font-size: 0;
-            i {
-               @include is-icon(18px);
-               @include use-icon(cog);
-               color: $base-color;
-            }
-            &:focus {
-               outline: none;
-               i {
-		  color: darken($base-color, 10%);
-               }
-            }
-            margin: 0 auto;
-            border: none;
-	    @each $symbolic-icon in $symbolic-icons {
-		$symbol-name: nth($symbolic-icon, 1);
-		$symbol-code: nth($symbolic-icon, 2);
-		&.#{$symbol-name} i {
-		    @include icon($symbol-code);
+    width: 100%;
+    tr.total {
+	td, th {
+	    border: $menu-border;
+	    font-size: $fs-large;
+	    font-weight: bold;
+	    padding: 2px;
+	    html[dir="ltr"] & { text-align:right; }
+	    html[dir="rtl"] & { text-align:left; }
+	}
+	th {
+	    padding: 4px 6px;
+	    @include background-image(linear-gradient(lighten($menu-background, 4%), darken($menu-background, 4%)));
+	}
+	td {
+	    padding: 4px;
+	    color: $text-color;
+	    @include background-image(linear-gradient(lighten($desktop-background, 4%), darken($desktop-background, 4%)));
+	}
+	&.invalid td { color: #D20; }
+    }
+    tbody {
+	tr.empty {
+	    td {
+		text-align: center;
+		color: rgba(0, 0, 0, 0.3);
+		font-weight: bold;
+            /*padding: 1ex !important;*/
+	    }
+	}
+	tr.odd, tr.even, tr.empty {
+	    td {
+		padding-top: $fs-normal*0.25;
+		padding-bottom: $fs-normal*0.25;
+	    }
+	}
+	td.act {
+	    width: 16px;
+	    padding-bottom: 0 !important;
+	    a {
+		font-size: 0;
+		i {
+		    @include is-icon(18px);
+		    @include use-icon(cog);
+		    color: $base-color;
+		}
+		&:focus {
+		    outline: none;
+		    i {
+			color: darken($base-color, 10%);
+		    }
+		}
+		margin: 0 auto;
+		border: none;
+		@each $symbolic-icon in $symbolic-icons {
+		    $symbol-name: nth($symbolic-icon, 1);
+		    $symbol-code: nth($symbolic-icon, 2);
+		    &.#{$symbol-name} i {
+			@include icon($symbol-code);
+		    }
+		}
+		@each $renaming in $all-aliases {
+		    &.#{nth($renaming, 1)} i {
+			@include use-icon(nth($renaming, 2));
+		    }
 		}
 	    }
-	    @each $renaming in $all-aliases {
-		&.#{nth($renaming, 1)} i {
-		    @include use-icon(nth($renaming, 2));
-		}
-	    }
-	 }
 
-      }
-   }
+	}
+    }
 
 }
 
@@ -307,20 +356,20 @@ table.active-list tr.last-line     td { border-bottom: 2px solid #F77; }
 table.active-list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
 
 .active-list {
-  // margin: 0 -15px;
+    // margin: 0 -15px;
    table {
-      padding: 0;
-      width: 100%;
-      border: none;
-      border-collapse: collapse;
-      tbody {
-	 border-top: 1px solid #CCC;
-	 border-bottom: 1px solid #CCC;
-	 tr.empty {
-	    td {
-	       @include text-align(center);
-	    }
-	 }
-      }
+       padding: 0;
+       width: 100%;
+       border: none;
+       border-collapse: collapse;
+       tbody {
+	   border-top: 1px solid #CCC;
+	   border-bottom: 1px solid #CCC;
+	   tr.empty {
+	       td {
+		   @include text-align(center);
+	       }
+	   }
+       }
    }
 }

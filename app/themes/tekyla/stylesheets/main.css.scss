@@ -1,4 +1,4 @@
-@import "bootstrap/dropdowns";
+@import "compass/css3/columns";
 
 #top {
   margin-bottom: 0;
@@ -23,7 +23,7 @@
       @include transition(background 0.4s, box-shadow 0.4s);
     }
   }
-
+/*
   li.dropdown {
     position: relative;
   }
@@ -31,7 +31,7 @@
   ul.dropdown-menu {
     @include dropdown-menu;
   }
-
+*/
   .collapse {
     > ul {
       @include float(left);
@@ -105,7 +105,9 @@
       line-height: $topbar-height;
     }
     #user-menu {
-      // i { @include is-icon };
+      @include dropdown-menu(bottom, end);
+      z-index: 7;
+      margin-top: 0;
       .user    i { @include use-icon(user) };
       .signout i { @include use-icon(sign-out) };
     }
@@ -677,14 +679,12 @@ form.search {
 }
 
 .attributes-list {
-  @include column-count(3);
-  @include column-gap(2em);
+  @include columns(2em 3);
   @include respond-to(small) {
     @include column-count(1);
   }
   @include respond-to(medium) {
-    @include column-count(2);
-    @include column-gap(1.5em);
+    @include columns(1.5em 2);
   }
 //  @include respond-to(large) {
 //    @include column-count(4);
@@ -749,7 +749,7 @@ form.search {
     body.content-scrolling #main .header {
 	@include box-shadow(0 0 $default-gap rgba(0, 0, 0, 0.25));
 	position: relative;
-	z-index: 50;
+	z-index: 6;
     }
 }
 

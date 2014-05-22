@@ -34,7 +34,7 @@ $success-color:      #65A907 !default;
 $important-color: $success-color !default;
 $mapbar-background-color: #FFFFFF !default;
 
-$hover-transparency: 0.85 !default;
+$hover-transparency: 0.75 !default;
 $hover-mask: transparentize($base-color, $hover-transparency);
 
 $active-color: $base-color !default;
@@ -50,7 +50,7 @@ $light-color: mix($base-color, $desktop-background, 50%);
 
 // Menu colors
 $menu-background: #F0F0F0 !default;
-$menu-border-color: mix($menu-background, #000000, 87%);
+$menu-border-color: mix($menu-background, #000000, 77%);
 $menu-border-width: floor($fs-normal / 10);
 $menu-border: $menu-border-width solid $menu-border-color;
 $menu-width: $fs-normal * 15;
