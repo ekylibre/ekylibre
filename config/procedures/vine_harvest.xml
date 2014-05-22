@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="mecanical_vine_harvest" natures="harvest" version="0" status="frozen">
+  <procedure name="vine_harvest" natures="harvest" version="0" status="frozen">
     <variables>
       <variable name="grape_reaper_driver" abilities="drive(reaper)" roles="harvest-doer"/>
       <variable name="grape_reaper"        variety="reaper" abilities="harvest(vitis)" roles="harvest-tool"/>
-      <variable name="tank" variety="tank" abilities="store_liquid" roles="harvest-tool"/>
-      <variable name="cultivation"         variety="vitis_vinifera" abilities="produce(fruit)" roles="harvest-target" default-actor="variant-localized-in-storage"/>
+      <variable name="cultivation"         variety="vitis_vinifera" abilities="produce(fruit)" roles="harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
       <variable name="fruits"              variety="grape" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"               to="population"
@@ -35,16 +39,12 @@
       </operation>
       <operation id="300">
         <task do="[cultivation] produces [fruits]"/>
-        <task do="[fruits] moves in [grape_reaper]"/>
+        <task do="[fruits] is at [cultivation]"/>
       </operation>
-      <operation id="400" duration="4 minutes">
-        <task do="[grape_reaper] moves at [tank]"/>
-        <task do="[fruits] moves in [tank]"/>
-      </operation>
-      <operation id="500" duration="18 minutes">
+      <operation id="400" duration="18 minutes">
         <task do="[grape_reaper] moves in default storage"/>
       </operation>
-      <operation id="600" duration="4 minutes">
+      <operation id="500" duration="4 minutes">
         <task do="[grape_reaper_driver] moves in default storage"/>
       </operation>
     </operations>
