@@ -2,7 +2,7 @@
 
 Vous avez accès au récapitulatif de toutes vos cultures.
 
-Les conduites de cultures s'effectuent via des [[>backend/interventions|interventions]] et dans le cadre d'une [[>backend/productions|production]]
+Les conduites de cultures s'effectuent via des [[>backend/interventions|interventions]] et dans le cadre d'une [[>backend/productions|production]].
 
 !!! Une culture s'implante sur une [[>backend/cultivable_zones|zone culturale]].
 

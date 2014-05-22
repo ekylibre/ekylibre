@@ -1,3 +1,0 @@
-====== Impression du document  ======
-Remplisser le formulaire en sélectionnant les dates de début et de fin de période pour n'importe quel document à imprimer. Dans le cas des journaux auxiliaires, il vous est demandé de préciser le type de journal à imprimer (**zone de sélection**). Valider l'impression en cliquant sur le bouton approprié ou annuler avec le lien **précèdent**. Le fichier RPDF concerné s'exécute et il suffit de lancer l'impression en cliquant sur l'icône approprié.
-

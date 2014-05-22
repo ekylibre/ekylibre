@@ -1,8 +1,0 @@
-====== Professions ======
-
-===== Qu'est ce qu'une profession ? =====
-Une profession est une activité manuelle ou intellectuelle procurant un salaire, une rémunération, des revenus à celui qui l'exerce. C'est un métier appartenant à un ensemble dans un secteur d'activité particulier.
-
-===== Gestion d'un journal comptable =====
-Pour référencer une profession précise (lors de l'ajout d'un nouveau salarié), commencer par la [[>backend/professions#new|créer]]. La profession crée apparaîtra dans le listing des professions. Par la suite, il vous sera possible de la modifier {{icon:edit|modifier}}, de la supprimer {{icon:destroy|supprimer}}, sous condition qu'il n'existe aucun employé ayant cette profession.
- 

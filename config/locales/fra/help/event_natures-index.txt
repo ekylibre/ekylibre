@@ -1,6 +1,0 @@
-====== Comment gérer les types d'évènement ? ======
-
-Les types d'évènements vous permettent d'attribuer un type à votre évènement lors de sa création ou de sa modification.
-
-Le champ **Utilisation** vous permet de préciser la raison qui fournit ce type d'évènement. Par exemple, si vous sélectionnez **Création d'un devis**, un événement sera créé automatiquement pour votre client à chaque fois que vous créerez un devis. Utilisation **manuelle** signifie que vous créez vous-même l'événement.
-

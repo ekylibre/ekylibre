@@ -1,4 +1,0 @@
-====== Les transferts et pertes de stocks ======
-
-Vous pouvez enregistrer des **transferts** (passage d'un lieu de stockage à un autre) et des **pertes** (destruction,...) de stocks afin que l'état de vos stocks corresponde toujours à la réalité.
-

@@ -1,8 +1,8 @@
 ====== Types de produits ======
 
-===== Qu'est-ce qu'un type de produit ? =====
+===== Qu'est-ce qu'un type de produit~? =====
 
-Un type de produit possede un ou plusieurs produits via une ou plusieurs variantes.
+Un type de produit possède un ou plusieurs produits via une ou plusieurs variantes~:
 
 produit {{icon:resize-horizontal}} variante {{icon:resize-horizontal}} type de produit
 

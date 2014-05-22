@@ -1,6 +1,0 @@
-====== Catégories de produit ======
-
-Ces catégories permettent de "ranger" les produits pour les retrouver plus facilement.
-
-Les catégories peuvent être hierarchisées, c'est à dire que vous pouvez créer des sous-catégories et des sur-catégories.
-

@@ -1,7 +1,7 @@
 ====== Journaux comptables ======
 
 ===== Qu'est ce qu'un journal comptable ? =====
-Un journal comptable est une liste des opérations d'échanges spécialisées enregistrées par l'entreprise avec son environnement. Un journal est défini par un nom, un code, une monnaie (euro ...) et un type (achat, vente ...).
+Un journal comptable est une liste des opérations d'échanges spécialisées enregistrées par l'entreprise avec son environnement. Un journal est défini par un nom, un code, une monnaie (euro...) et un type (achat, vente...).
 Il contient toutes les pièces et écritures comptables qui sont la base de la comptabilité.
 
 

@@ -1,6 +1,0 @@
-====== Comment ajouter un nouveau prix ? ======
-
-  * Dans le cas d'un **prix d'achat**, vous devez renseigner le **fournisseur** du produit en le sélectionnant dans la liste déroulante "Fournisseur". Dans le cas d'un **prix de vente**, vous serez considéré comme le fournisseur du produit.
-  * **L'intervalle de quantité** permet de définir différents prix pour un même produit et une même liste de prix. Il suffit de définir une quantité minimale à partir de laquelle le prix est appliquable et une quantité maximale au delà de laquelle le prix n'est plus valable. Par exemple, de 0 à 100 unités, un produit x vaudra 10 euros et de 101 à 200 unités, ce produit vaudra 9 euros.
-  * Le montant TTC du produit est calculé grâce au montant HT et à la TVA.
-

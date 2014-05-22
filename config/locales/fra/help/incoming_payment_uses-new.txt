@@ -1,6 +1,0 @@
-====== Ajouter un règlement  ======
-
-Si vous **décochez** "Enregistrer un nouveau règlement", vous aurez accès à la **liste des règlements partiellement utilisés** et qui peuvent l'être pour solder votre opération. Dans ce cas, sélectionnez votre règlement et validez.
-
-Les informations relatives aux chèques ne sont pas obligatoires mais peuvent vous permettre de suivre vos règlements.
-

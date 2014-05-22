@@ -1,8 +1,6 @@
 ====== Produits ======
 
-===== Liste des produits =====
-
-==== Qu'est ce qu'un produit ? ====
+===== Qu'est ce qu'un produit~? =====
 
 Un produit est un objet réel (produit) ou virtuel (service) de l'entreprise.
 

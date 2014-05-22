@@ -1,10 +1,8 @@
 ====== Matières ======
 
-===== Liste des matières =====
-
 ==== Qu'est ce qu'une matière ? ====
 
-Une matière représente un produits au sens large.
+Une matière représente un produit matériel au sens large.
 
 >>> Ex 1 : Engrais, produits phytosanitaires
 

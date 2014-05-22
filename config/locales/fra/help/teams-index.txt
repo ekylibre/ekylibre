@@ -1,7 +1,7 @@
 ====== Services ======
 
-===== Qu'est-ce qu'un service ? =====
+===== Qu'est-ce qu'une équipe ? =====
 
-Un service représente une partie, un atelier ou une équipe de l'entreprise.
+Une équipe représente un ensemble de personne ou un atelier fonctionnel de l'entreprise.
 
 

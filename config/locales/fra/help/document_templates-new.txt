@@ -1,8 +1,4 @@
 ====== Édition des modèles de document ======
 
 **Formats** (format des documents générés)~:
-Par défaut, tous les formats possibles sont proposés à l'impression. Vous pouvez ici spécifierutiliser les formats suivants~: PDF, ODT, ODS, DOCX, XLSX et CSV
-
-**Source** (fichier source de définition du modèle)~:
-Fichier de type XML créé par un outil externe.
-
+Par défaut, tous les formats possibles sont proposés à l'impression. Vous pouvez ici spécifierutiliser les formats suivants~: PDF, ODT, ODS, DOCX, XLSX et CSV.

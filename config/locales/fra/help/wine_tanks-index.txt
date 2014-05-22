@@ -1,8 +1,5 @@
 ====== Cuverie ======
 
-===== Liste des cuves =====
-
 Ici, vous pouvez modifier et visualiser vos cuves.
 
->>> Pour créer une nouvelle cuve, il faut [[>backend/equipments#new|ajouter]]
->>> {{icon:plus}} un équipement.
+>>> Pour créer une nouvelle cuve, il faut [[>backend/equipments#new|ajouter]] {{icon:plus}} un équipement.

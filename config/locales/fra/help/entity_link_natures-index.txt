@@ -1,9 +1,0 @@
-====== Les types de liens  ======
-
-Les types de liens permettent de définir les caractéristiques d'un lien entre deux entités. Vous pouvez ajouter un lien entre deux entités depuis les fiches clients/fournisseurs.
-
-===== Gestion des liens =====
-Le nom du lien sert à titre informatif, ce sont les champs **Fiche1 ⇒ Fiche 2** et **Fiche2 ⇒ Fiche1** qui apparaitront dans la description du lien.
-Le champ **symétrique** permet de savoir si le nom du lien unissant les deux fiches est le même dans les deux sens. 
-Le champ **propager les contacts** permet de faire apparaitre les contacts de la première fiche au niveau du détail de la seconde fiche et inversement.
-

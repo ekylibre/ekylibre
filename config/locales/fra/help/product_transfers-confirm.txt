@@ -1,7 +1,0 @@
-====== Transferts à réaliser ======
-
-Vous avez accès à la **liste des transferts de stocks ayant été prévus**  et n'ayant pas été validés. 
-Si le transfert à bien été réalisé, validez le afin de **mettre à jour l'état des stocks**.
-Pour valider un transfert, **cochez la case "Réalisé"** et validez.
-
-

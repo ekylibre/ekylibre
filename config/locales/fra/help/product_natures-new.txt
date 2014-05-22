@@ -1,7 +1,5 @@
 ====== Type de produit ======
 
-===== Fiche =====
-
 **Variété** = Variété "Mère" qui va conditionner le choix des variétés "Filles" lors de la création d'un produit.
 
 **Indicateurs**  = Indicateurs du type de produit qui seront demandés lors de la création d'un produit.

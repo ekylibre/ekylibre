@@ -1,6 +1,0 @@
-====== Composition d'un produit ======
-
-Sélectionnez le produit et la quantité qui compose votre produit, (une bouteille de vin contient 0.75 litre de vin, le composant est le vin d'une quantité de 0.75 litre), ainsi que le lieu de stockage correspondant au composant.
-
-{{ help/product_components.png |Produit composé}}
-

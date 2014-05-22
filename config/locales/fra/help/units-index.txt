@@ -1,5 +1,0 @@
-====== Unités de mesure ======
-
-Elles sont dans les différents modules de l'application. Elles se basent sur le **Système International**. 
-
-Les unités fondamentales sont : le mètre (m), le kilogramme (kg), la seconde (s), l'ampère (A), le kelvin (K), la mole (mol) et la candela (cd), censées quantifier des grandeurs physiques indépendantes.

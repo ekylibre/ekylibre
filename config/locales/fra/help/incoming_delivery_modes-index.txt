@@ -1,6 +1,0 @@
-====== Types de livraison  ======
-
-Les types de livraison permettent de connaître le moyen et les conditions d'acheminement de la marchandise.
-
-Vous pouvez [[>backend/incoming_delivery_modes#new|ajouter]] {{icon:new|ajouter}}, modifier {{icon:edit|modifier}} ou supprimer {{icon:destroy|supprimer}} un type de livraison.
-

@@ -11,7 +11,7 @@ Juste en dessous, se trouve le titre de page qui vous permet de savoir en perman
 Lorsque que vous irez un peu plus loin, vous pourrez voir apparaître sur la gauche le menu récapitulant les différentes actions relatives au module utilisé.
 
 ===== Les différents modules =====
-Depuis l'accueil, vous pouvez accéder aux différents modules disponibles dans l'application
+Depuis l'accueil, vous pouvez accéder aux différents modules disponibles dans l'application~:
   * Gestion des relations Clients/Fournisseurs
   * Comptabilité générale
   * Gestion commerciale

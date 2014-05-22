@@ -1,7 +1,6 @@
 ====== Evènements  ======
 
 ===== Qu'est ce qu'un évènement ? =====
-Ils permettent de situer dans le temps et l'espace les contacts établis avec les clients/fournisseurs.
 
 Certains évènements peuvent s'enregistrer automatiquement en fonction du [[>backend/event_natures|type d'évènement]]. Cela permet de faire un suivi complet dans la liste des évènements de chaque client.
 

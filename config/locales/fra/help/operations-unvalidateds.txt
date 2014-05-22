@@ -1,4 +1,0 @@
-====== Travaux à réaliser ======
-
-Vous avez un récapitulatif des travaux que vous avez à réaliser. Si un travail a effectivement été réalisé, cochez la case "Effectué" et validez. 
-

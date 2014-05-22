@@ -1,10 +1,8 @@
 ====== Groupes d'animaux ======
 
-===== Liste des animaux =====
+Ici, vous pouvez [[>backend/animal_groups#new|créer]], modifier et visualiser vos groupes d'animaux.
 
-Ici, vous pouvez [[>backend/animal_groups#new|créer]] , modifier et visualiser vos groupes d'animaux.
+>>> Pour enregistrer un évènement lié à un groupe d'animaux (alimentation, pesée, traitement, achat, vente...), il faut [[>backend/interventions#new|créer]]
+>>> {{icon:plus}} une nouvelle intervention.
 
->>> Pour enregistrer un évènement lié à un groupe d'animaux (alimentation, pesée, traitement, achat, vente,...), il faut [[>backend/interventions#new|créer]]
->>> {{icon:plus}} une nouvelle intervention
-
-!!! Tant qu'un groupe d'animaux n'intervient dans aucuns indicateurs , interventions, achats, ventes,...il peut être supprimé.
+!!! Tant qu'un groupe d'animaux n'intervient dans aucun indicateurs, interventions, achats, ventes... il peut être supprimé.

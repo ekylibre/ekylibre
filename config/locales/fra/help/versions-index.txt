@@ -1,3 +1,0 @@
-====== Logs ======
-
-Les logs retracent le journal de bord de l'élément concerné. Ils sont gérés automatiquement.

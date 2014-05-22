@@ -1,8 +1,0 @@
-====== Comment ajouter des livraisons à votre transport ? ======
-
-Vous pouvez ajouter **n'importe quelle livraison** à votre transport à condition que celle-ci **ne soit pas déjà rattachée à un autre transport**.
-
-Vous pouvez **rechercher une livraison par sa date ainsi que par l'addresse de livraison**.
-
-Une fois la première livraison ajoutée à votre transport, vous serez redirigé vers le récapitulatif des informations du transport et de ces livraisons. 
-

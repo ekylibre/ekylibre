@@ -2,9 +2,9 @@
 
 ===== Qu'est ce qu'une campagne ? =====
 
-La campagne est une période au cours de laquelle une entreprise enregistre tous les faits techniques qui concourent à l'achevement de ses procédures et procéssus métiers.
+La campagne est une période au cours de laquelle une entreprise enregistre tous les faits techniques qui concourrent à l'achèvement de ses procédures et processus métiers.
 Cela correspond le plus souvent à l'année où sont récoltés les produits.
-Une campagne se caractérise par un nom et une année de récolte (indiquant en général l'année d'éxécution/récolte ).
+Une campagne se caractérise par un nom et une année de récolte (indiquant en général l'année d'éxécution/récolte).
 
 Une [[>backend/sequences|numérotation automatique]] est disponible si besoin.
 
@@ -12,17 +12,17 @@ Elle peut être active ou inactive (clôturée).
 
 !!! Je peux avoir un chevauchement entre une campagne de production et un exercice comptable.
 
->>> Ex : Campagne 2014 / BLE = Recolte en été 2014 - Semis en automne 2013
+>>> Ex : Campagne 2014 / BLE = Récolte en été 2014 - Semis en automne 2013
 
-!!! et donc utiliser des intrants (semences...) pour la campagne 2014 alors que je suis sur un exercice fiscal 2013 (01/01/2013 au 31/12/2013).
+!!! Et donc utiliser des intrants (semences...) pour la campagne 2014 alors que je suis sur un exercice fiscal 2013 (01/01/2013 au 31/12/2013).
 !!! cf. Avances aux cultures
 
-!!! Une intervention peut créer un objet vivant qui vie sur plusieurs campagnes (cultures perennes, productions animales)
+!!! Une intervention peut créer un objet vivant qui vie sur plusieurs campagnes (cultures pérennes, productions animales)
 !!! cf. Immobilisations
 
 ===== Quand est ce que les campagnes interviennent ? =====
 
 Elles interviennent :
 
-  * lors de la [[>backend/productions#new| création d'une production]]
-  * dans les tableaux de bord
+  * Lors de la [[>backend/productions#new|création d'une production]]
+  * Dans les tableaux de bord

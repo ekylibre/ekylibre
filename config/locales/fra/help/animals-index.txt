@@ -2,9 +2,9 @@
 
 ===== Liste des animaux =====
 
-Ici, vous pouvez [[>backend/animals#new|créer]] , modifier et visualiser vos animaux.
+Ici, vous pouvez [[>backend/animals#new|créer]], modifier et visualiser vos animaux.
 
->>> Pour enregistrer un évènement lié à un animal (naissance, pesée, traitement, achat, vente, décès,...), il faut [[>backend/interventions#new|créer]]
->>> {{icon:plus}} une nouvelle intervention
+>>> Pour enregistrer un évènement lié à un animal (naissance, pesée, traitement, achat, vente, décès...), il faut [[>backend/interventions#new|créer]]
+>>> {{icon:plus}} une nouvelle intervention.
 
-!!! Tant qu'un animal n'intervient dans aucuns indicateurs , interventions, achats, ventes,...il peut être supprimé.
+!!! Tant qu'un animal n'intervient dans aucuns indicateurs , interventions, achats, ventes... il peut être supprimé.

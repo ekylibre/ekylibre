@@ -1,9 +1,8 @@
 ====== Livraisons ======
 
-
 ===== Comment créer une livraison ? =====
 
-Pour chaque produit, définissez la quantité de produit à livrer pour la livraison dans le champ Quantité.
+Pour chaque produit, définissez la quantité de produit à livrer pour la livraison dans le champ //Quantité//.
 
 Une livraison permet de **définir quand, où** (sélection de l'adresse de livraison parmi les contacts de toutes vos fiches) et **en quelles proportions** seront livrés vos produits. Une livraison peut donc être essociée à un destinatiare différent du client de la vente.
 

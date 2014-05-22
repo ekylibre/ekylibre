@@ -27,9 +27,9 @@ Elles interviennent :
 
 ===== Comment lier des produits aux activités et répartir les charges ? =====
 
-Chaque activité peut être liée à une ou plusieurs [[>backend/productions#index|productions]]
+Chaque activité peut être liée à une ou plusieurs [[>backend/productions#index|productions]].
 
 >>> Ex: L'activité BLE TENDRE est lié à la production Grain de BLE TENDRE Campagne 2013 sur la parcelle "Les Palets"
 >>> Un côut de production et un prix de revient pourra être calculé pour chaque unité de Grain de BLE TENDRE produite sur une période donnée.
 
-Chaque ligne comptable peut être liée à une ou plusieurs productions
+Chaque ligne comptable peut être liée à une ou plusieurs productions.

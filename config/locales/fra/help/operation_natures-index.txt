@@ -1,4 +1,0 @@
-====== Les types de travaux ======
-
-Les types de travaux permettent de **rassembler les travaux en catégories**.
-

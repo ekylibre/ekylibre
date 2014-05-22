@@ -1,7 +1,0 @@
-====== Configuration des responsabilités  ======
-
-Le tableau est constitué de 2 colonnes : l'une correspondant aux filtres de recherche et l'autre aux nouvelles valeurs.
-Dans la première colonne, vous pouvez choisir le champ sur lequel vous souhaitez effectuer votre recherche, le filtre à utiliser et le motif recherché.
-Dans la deuxième colonne, vous pouvez insérer la nouvelle valeur du ou des champs pour les enregistrements issus de la recherche. 
-
->>> Pour que l'opération soit effective, n'oubliez pas de **cocher la case en rapport avec le champ** dans lequel il faut insérer la nouvelle valeur.
