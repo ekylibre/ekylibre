@@ -4,6 +4,7 @@
       <item name="raw_matter"/>
       <item name="packaged_matter"/>
       <item name="mix"/>
+      <item name="yeast"/>
       <!-- <item name="medicine"/> -->
       <item name="silage" derivative_of="plant"/>
       <item name="concentrated_rectified_must" derivative_of="fruit"/>

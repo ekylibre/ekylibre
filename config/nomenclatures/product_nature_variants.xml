@@ -736,7 +736,8 @@
         <!-- YEAST -->
       <item name="oenological_yeast_sc_500g"
             nature="oenological_yeast"
-            variety="saccharomyces_cerevisiae"
+            variety="yeast"
+            derivative_of="saccharomyces_cerevisiae"
             unit_name="bag"
             frozen_indicators_values="net_mass: 500.00gram, cells_mass_concentration: 10billion_per_gram"
             />

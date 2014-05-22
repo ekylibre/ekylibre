@@ -503,7 +503,8 @@
             />
        <item name="oenological_yeast"
             category="oenological_product"
-            variety="fungus"
+            variety="yeast"
+            derivative_of="fungi"
             population_counting="decimal"
             abilities="fermentize(wine)"
             variable_indicators="population"

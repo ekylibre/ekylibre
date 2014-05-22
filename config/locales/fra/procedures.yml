@@ -155,8 +155,8 @@ fra:
     base-item_replacement: "Remplacement de pièce"
     base-mammal_herd_milking: "Traite d’un troupeau"
     base-mammal_milking: "Traite d’un animal"
-    base-manual_vine_harvest: "Vendange manuelle"
-    base-mecanical_vine_harvest: "Vendange mécanique"
+    base-manual_vine_harvest: "Vendange manuelle" #?
+    base-mecanical_vine_harvest: "Vendange mécanique" #?
     base-mineral_fertilizing: "Fertilisation minérale"
     base-oil_replacement: "Vidange d’huile"
     base-organic_fertilizing: "Fertilisation organique"
@@ -173,6 +173,7 @@ fra:
     base-sulfur_addition: "Sulfitage"
     base-superficial_plowing: "Déchaumage / Préparation du sol"
     base-uncompacting: "Décompactage"
+    base-vine_harvest: "Vendange"
     base-watering: "Irrigation"
     base-wheat_crop: "Culture de blé (standard)" #?
     base-wine_blending: "Assemblage de vin"

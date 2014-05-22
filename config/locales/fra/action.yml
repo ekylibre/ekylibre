@@ -234,10 +234,10 @@ fra:
       new: "Nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/fungi:
-      # edit: "Edit fungus: %{name}"
-      # index: "Fungi"
-      # new: "New fungus"
-      # show: "Fungus: %{name}"
+      edit: "Modifier une culture de champignons\_: %{name}"
+      index: "Champignons"
+      new: "Nouvelle culture de champignons"
+      show: "Culture de champignons\_: %{name}"
     backend/gaps:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
@@ -247,7 +247,7 @@ fra:
       edit: "Modifier le référentiel\_: %{name}"
       index: "Référentiels"
       new: "Nouveau référentiel"
-      # run: "Run guide: %{name}"
+      run: "Tester un référentiel: %{name}"
       show: "Référentiel\_: %{name}"
     backend/helps:
       index: "Aide"
@@ -1088,7 +1088,7 @@ fra:
     freezing_point_temperature: "Point de solidification" #?
     from: "À partir du"
     full_name: "Client"
-    # fungi: "Fungi"
+    fungi: "Champignons"
     future_events: "Futurs événements"
     genealogy: "Généalogie"
     general: "Informations générales"

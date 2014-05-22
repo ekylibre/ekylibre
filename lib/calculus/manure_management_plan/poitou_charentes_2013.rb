@@ -125,7 +125,8 @@ module Calculus
         rank, found = 1, nil
         for campaign in self.campaign.previous.reorder(harvest_year: :desc)
           for support in campaign.production_supports.where(storage_id: @support.storage.id)
-            if support.production.variant_variety <= :poa
+            variety_support = Nomen::Varieties.find(support.production.variant_variety)
+            if variety_support <= :poa
               found = support
               break
             end
@@ -164,7 +165,7 @@ module Calculus
               break if previous_variety
             # elsif get the production_variant
             elsif support.production_variant
-              previous_variety = support.production_variant.variety
+              previous_variety = Nomen::Varieties.find(support.production_variant.variety)
               break
             end
             break if previous_variety
@@ -203,7 +204,7 @@ module Calculus
         # find items in abacus 7
         if previous_sets and previous_crop_age and previous_crop_destruction_period and current_crop_implantation_period
           items = Nomen::NmpPoitouCharentesAbacusSeven.list.select do |item|
-            previous_sets.include?(item.previous_crop.to_s) and (item.previous_crop_minimum_age <= previous_crop_age and previous_crop_age < item.previous_crop_maximum_age) and (item.previous_crop_destruction_period_start.to_i <= previous_crop_destruction_period and previous_crop_destruction_period < item.previous_crop_destruction_period_stop.to_i) and current_crop_implantation_period.to_i >= item.current_crop_implantation_period_start.to_i
+            previous_sets.include?(item.previous_crop.to_s) and (item.previous_crop_minimum_age.to_i <= previous_crop_age.to_i and previous_crop_age.to_i < item.previous_crop_maximum_age.to_i) and (item.previous_crop_destruction_period_start.to_i <= previous_crop_destruction_period.to_i and previous_crop_destruction_period.to_i < item.previous_crop_destruction_period_stop.to_i) and current_crop_implantation_period.to_i >= item.current_crop_implantation_period_start.to_i
           end
           if items.any?
             quantity = items.first.quantity.in_kilogram_per_hectare
@@ -232,7 +233,7 @@ module Calculus
                   break if previous_variety
                 # elsif get the production_variant
                 elsif support.production_variant
-                  previous_variety = support.production_variant.variety
+                  previous_variety = Nomen::Varieties.find(support.production_variant.variety)
                   break
                 end
                 break if previous_variety

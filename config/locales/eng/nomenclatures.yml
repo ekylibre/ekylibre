@@ -3261,6 +3261,7 @@ eng:
         water: "Water"                                     #< matter
         wine: "Wine"                                       #< fermented_juice
         worker: "Worker"                                   #< product
+        yeast: "Yeast"                                     #< preparation
         zea: "Corn"                                        #< poaceae
         zea_aallexia: "Corn Aallexia"                      #< zea
         zea_bergxxon: "Corn Bergxxon"                      #< zea
