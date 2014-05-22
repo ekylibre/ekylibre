@@ -54,7 +54,7 @@
       - else
         = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
 
-  - if f.object.errors.count > 0
+  -# if f.object.errors.any?
     = f.object.errors.messages.inspect
 
 

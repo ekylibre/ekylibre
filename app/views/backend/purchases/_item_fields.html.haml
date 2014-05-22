@@ -3,7 +3,7 @@
   %td
     .selector
       = f.input_field(:variant_id, as: :string, 'data-selector' => url_for(controller: :product_nature_variants, action: :unroll), 'data-selector-new-item' => url_for(action: :new, controller: :product_nature_variants))
-    - if item.errors.any?
+    -# if item.errors.any?
       = item.errors.messages.inspect
   %td.decimal
     = f.input_field(:quantity, :size => 7, class: "item-pta item-wta")

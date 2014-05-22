@@ -1,7 +1,8 @@
 - variant = (f.object.product ? f.object.product_variant : ProductNatureVariant.find(f.object.product_nature_variant_id))
 = field_set(variant.name, class: variant.category.pictogram, buttons: link_to(content_tag(:i), "#", "data-remove-closest" => ".fieldset", class: :remove, title: :remove.tl)) do
 
-  = f.object.errors.inspect if f.object.errors.any?
+  -# if f.object.errors.any?
+    = f.object.errors.inspect
 
   = f.referenced_association(:container, source: {scope: {can: "store(#{variant.variety})"}})
 

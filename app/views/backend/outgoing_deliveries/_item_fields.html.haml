@@ -4,7 +4,7 @@
     .selector
       = f.input_field(:product_id, as: :string, 'data-selector' => url_for(controller: :products, action: :unroll, scope: :deliverables))
     -# = f.referenced_association :source_product, :source => :deliverables
-    - if f.object.errors.any?
+    -# if f.object.errors.any?
       .errors= f.object.errors.inspect
   %td.action
     = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'remove-item')
