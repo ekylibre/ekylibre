@@ -488,6 +488,9 @@ eng:
         bordeaux_rouge: "Bordeaux rouge"
         bordeaux_superieur_blanc: "Bordeaux superieur blanc"
         bordeaux_superieur_rouge: "Bordeaux superieur rouge"
+        cognac: "Cognac"
+        eau_de_vie_de_cognac: "Eau de vie de cognac"
+        eau_de_vie_des_charentes: "Eau de vie des charentes"
     charts_of_accounts:
       name: "Charts of accounts"
       items:
@@ -1547,6 +1550,7 @@ eng:
         somatic_cell_concentration: "Somatic cell concentration"
         specific_weight: "Specific weight"
         subsoil_nature: "Subsoil nature"
+        sucrose_concentration: "Sucrose concentration"
         sulfur_concentration: "Sulfur concentration"
         sulfur_dioxide_concentration: "Sulfur dioxide concentration"
         temperature: "Temperature"
@@ -1595,6 +1599,7 @@ eng:
         bordeaux: "Bordeaux"
         bordeaux_haut_benauge: "Bordeaux haut benauge"
         bordeaux_superieur: "Bordeaux superieur"
+        cognac: "Cognac"
     languages:
       name: "Languages"
       items:
@@ -3201,6 +3206,34 @@ eng:
         vicia_villosa_savane: "Vicia villosa savane"       #< vicia_villosa
         vicia_villosa_topaze: "Vicia villosa topaze"       #< vicia_villosa
         vitis: "Vitis"                                     #< plant
+        vitis_cinerea: "Vitis cinerea"                     #< vitis
+        vitis_cinerea_x_vitis_riparia: "Vitis cinerea x vitis riparia" #< vitis
+        vitis_cinerea_x_vitis_riparia_125AA: "125aa"       #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_161_49C: "161-49c"   #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_34EM: "34em"         #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_420A: "420a"         #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_5BB: "5bb"           #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_5C: "5c"             #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_8B: "8b"             #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_RSB1: "rsb1"         #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_riparia_SO4: "so4"           #< vitis_cinerea_x_vitis_riparia
+        vitis_cinerea_x_vitis_rupestris: "Vitis cinerea x vitis rupestris" #< vitis
+        vitis_cinerea_x_vitis_rupestris_1103P: "1103p"     #< vitis_cinerea_x_vitis_rupestris
+        vitis_cinerea_x_vitis_rupestris_110R: "110r"       #< vitis_cinerea_x_vitis_rupestris
+        vitis_cinerea_x_vitis_rupestris_140RU: "140ru"     #< vitis_cinerea_x_vitis_rupestris
+        vitis_cinerea_x_vitis_rupestris_1447P: "1447p"     #< vitis_cinerea_x_vitis_rupestris
+        vitis_cinerea_x_vitis_rupestris_99R: "99r"         #< vitis_cinerea_x_vitis_rupestris
+        vitis_cinerea_x_vitis_vinifera: "Vitis cinerea x vitis vinifera" #< vitis
+        vitis_cinerea_x_vitis_vinifera_333EM: "333em"      #< vitis_cinerea_x_vitis_vinifera
+        vitis_cinerea_x_vitis_vinifera_41B: "41b"          #< vitis_cinerea_x_vitis_vinifera
+        vitis_cinerea_x_vitis_vinifera_BC2: "bc2"          #< vitis_cinerea_x_vitis_vinifera
+        vitis_cinerea_x_vitis_vinifera_FERCAL: "fercal"    #< vitis_cinerea_x_vitis_vinifera
+        vitis_labrusca: "Vitis labrusca"                   #< vitis
+        vitis_riparia: "Vitis riparia"                     #< vitis
+        vitis_riparia_x_vitis_rupestris: "Vitis riparia x vitis rupestris" #< vitis
+        vitis_riparia_x_vitis_rupestris_101_14MG: "101-14mg" #< vitis_riparia_x_vitis_rupestris
+        vitis_riparia_x_vitis_rupestris_3309C: "3309c"     #< vitis_riparia_x_vitis_rupestris
+        vitis_rupestris: "Vitis rupestris"                 #< vitis
         vitis_vinifera: "Common grape vine"                #< vitis
         vitis_vinifera_cabernet_franc_noir: "Common grape vine Cabernet franc noir" #< vitis_vinifera
         vitis_vinifera_cabernet_sauvignon_noir: "Common grape vine Cabernet sauvignon noir" #< vitis_vinifera

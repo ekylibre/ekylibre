@@ -343,7 +343,7 @@
             derivative_of="vitis"
             population_counting="decimal"
             abilities="produce(juice)"
-            variable_indicators="population"
+            variable_indicators="population, sucrose_concentration"
             frozen_indicators="net_mass, net_volume"
             />
       <item name="grape_juice"
@@ -352,7 +352,7 @@
             derivative_of="grape"
             population_counting="decimal"
             abilities="produce(fermented_juice)"
-            variable_indicators="population"
+            variable_indicators="population, sucrose_concentration"
             frozen_indicators="net_mass, net_volume"
             />
       <item name="fermented_grape_juice"

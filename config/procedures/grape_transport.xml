@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="grape_transport" natures="transport" version="0" status="frozen">
+    <variables>
+      <variable name="grape" variety="grape" roles="transport-input_origin"/>
+      <variable name="grape_to_deliver" new="parted-from: grape" roles="transport-input" default-population=":grape" default-name="{{variant}} {{birth_year}} ({{container}})">
+     <handler indicator="population" />
+     <handler indicator="net_mass"   unit="kilogram"   to="population"
+                 forward="(value / self..net_mass(kilogram))"
+                 backward="(value * self..net_mass(kilogram))"
+                 /> <!-- kg -->
+     <handler indicator="net_mass"   unit="ton"   to="population"
+                 forward="(value / self..net_mass(ton))"
+                 backward="(value * self..net_mass(ton))"
+                 /> <!-- t -->
+      </variable> 
+      <variable name="trailer" variety="trailer" abilities="store(grape)" roles="transport-tool"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="transport-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="transport-tool"/>
+      <variable name="silo"    abilities="store(grain)" roles="transport-target"/>
+    </variables>
+    <operations>
+     
+     
+     <operation id="100" duration="4 minutes">
+        <task do="[driver] moves in [tractor]"/>
+      </operation>
+      <operation id="200" duration="7 minutes">
+        <task do="[tractor] moves at [trailer]"/>
+      </operation>
+      <operation id="300" duration="4 minutes">
+        <task do="[tractor] catches [trailer]"/>
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[tractor] moves at [grape]"/>
+      </operation>
+      <operation id="500" duration="1 minutes">
+        <task do="[grape] parts with [grape_to_deliver]"/>
+      </operation>
+      <operation id="600" duration="4 minutes">
+        <task do="[grape_to_deliver] moves in [trailer]"/>
+      </operation>
+      <operation id="700" duration="18 minutes">
+        <task do="[tractor] moves at [silo]"/>
+      </operation>
+      <operation id="800" repeatable="true">
+        <task do="[grape_to_deliver] moves in [silo]"/> 
+        <task do="grape_to_deliver|sucrose_concentration is measured"/>    
+      </operation>
+      <operation id="900" duration="18 minutes">
+        <task do="[tractor] moves in default storage of [trailer]"/>
+      </operation>
+      <operation id="1000" duration="4 minutes">
+        <task do="[tractor] releases [trailer]"/>
+      </operation>
+      <operation id="1100" duration="7 minutes">
+        <task do="[tractor] moves in default storage"/>
+      </operation>
+      <operation id="1200" duration="4 minutes">
+        <task do="[driver] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

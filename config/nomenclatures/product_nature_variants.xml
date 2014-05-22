@@ -1063,12 +1063,12 @@
             nature="usual_vine_seedling"
             derivative_of="vitis_vinifera_merlot_noir"
             unit_name="unit"
-            frozen_indicators_values="woodstock_variety: so4"
+            frozen_indicators_values="woodstock_variety: vitis_cinerea_x_vitis_riparia_SO4"
             />
       <item name="so4_vine_seedling"
             nature="usual_vine_seedling"
             unit_name="unit"
-            frozen_indicators_values="woodstock_variety: so4"
+            frozen_indicators_values="woodstock_variety: vitis_cinerea_x_vitis_riparia_SO4"
             />
       <!-- TREE INPLANT -->
       <item name="plum_seedling"

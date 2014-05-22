@@ -3,6 +3,61 @@
   <nomenclature name="varieties-vitis" hierarchical="true">
     <items>
       <item name="vitis_vinifera" itis_tsn="28629"/>
+      <item name="vitis_riparia" itis_tsn="28629"/>
+      <item name="vitis_riparia_x_vitis_rupestris" itis_tsn="00000" aliases="vitis_rupestris_x_vitis_riparia"/>
+      <item name="vitis_cinerea_x_vitis_riparia" itis_tsn="00000" aliases="vitis_riparia_x_vitis_cinerea"/>
+      <item name="vitis_cinerea_x_vitis_rupestris" itis_tsn="00000" aliases="vitis_rupestris_x_vitis_cinerea"/>
+      <item name="vitis_cinerea_x_vitis_vinifera" itis_tsn="00000" aliases="vitis_vinifera_x_vitis_cinerea"/>
+      <item name="vitis_labrusca" itis_tsn="28629"/>
+      <item name="vitis_rupestris" itis_tsn="28629"/>
+      <item name="vitis_cinerea" itis_tsn="28629" aliases="vitis_berlandieri,vitis_helleri"/>
     </items>
   </nomenclature>
+  
+  <nomenclature name="varieties-vitis_riparia_x_vitis_rupestris" hierarchical="true">
+    <items>
+      <item name="vitis_riparia_x_vitis_rupestris_101_14MG" itis_tsn="00000"/>
+      <item name="vitis_riparia_x_vitis_rupestris_3309C" itis_tsn="00000"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-vitis_cinerea_x_vitis_riparia" hierarchical="true">
+    <items>
+      <item name="vitis_cinerea_x_vitis_riparia_8B" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_161_49C" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_SO4" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_5BB" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_420A" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_5C" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_RSB1" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_125AA" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_34EM" itis_tsn="00000"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-vitis_cinerea_x_vitis_rupestris" hierarchical="true">
+    <items>
+      <item name="vitis_cinerea_x_vitis_rupestris_1447P" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_99R" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_110R" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_140RU" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_1103P" itis_tsn="00000"/>, :aliases
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-vitis_cinerea_x_vitis_vinifera" hierarchical="true">
+    <items>
+      <item name="vitis_cinerea_x_vitis_vinifera_BC2" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_41B" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_333EM" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_FERCAL" itis_tsn="00000"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-vitis_cinerea_x_vitis_riparia_161_49C_x_vitis_riparia_x_vitis_rupestris_3309C" hierarchical="true">
+    <items>
+      <item name="vitis_cinerea_x_vitis_riparia_161_49C_x_vitis_riparia_x_vitis_rupestris_3309C_GRAVESAC" itis_tsn="00000"/>
+    </items>
+  </nomenclature>
+  
 </nomenclatures>

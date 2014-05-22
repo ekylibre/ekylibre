@@ -16,6 +16,9 @@
       <item name="bordeaux_haut_benauge_avec_sucres" labels="aop,aoc" land="bordeaux_haut_benauge"/>
       <item name="bordeaux_superieur_blanc" labels="aop,aoc" land="bordeaux_superieur"/>
       <item name="bordeaux_superieur_rouge" labels="aop,aoc" land="bordeaux_superieur"/>
+      <item name="cognac" labels="aoc" land="cognac"/>
+      <item name="eau_de_vie_de_cognac" labels="aoc" land="cognac"/>
+      <item name="eau_de_vie_des_charentes" labels="aoc" land="cognac"/>
     </items>
   </nomenclature>
 </nomenclatures>

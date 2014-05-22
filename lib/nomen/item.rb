@@ -109,6 +109,7 @@ module Nomen
           break if value
         end
       end
+      
       if property_nature.default
         value ||= cast_property(name, property_nature.default)
       end
@@ -166,7 +167,7 @@ module Nomen
           end
           value = value.to_sym
         end
-      elsif name.to_s != "name" # the only system name
+      elsif !["name", "aliases"].include?(name.to_s)
         raise ArgumentError, "Undefined property '#{name}' in #{@nomenclature.name}"
       end
       return value
