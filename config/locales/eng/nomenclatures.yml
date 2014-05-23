@@ -1849,15 +1849,16 @@ eng:
         roles: "Roles"
       items:
         addition: "Addition"                               #< transformation
-        animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_health
+        animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_feeding: "Animal feeding"
         animal_health: "Animal health"
-        animal_housing_maintenance: "Animal housing maintenance" #< animal_health
-        animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_health
+        animal_housing_cleaning: "Animal housing cleaning" #< animal_health
+        animal_housing_treatment: "Animal housing treatment" #< animal_health
+        animal_illness_treatment: "Animal illness treatment" #< animal_health
+        animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
         blending: "Blending"                               #< transformation
         bottling: "Bottling"                               #< transformation
-        cleaning: "Cleaning"                               #< animal_health
         consummables_addition: "Consummables addition"     #< maintenance
         cultipacking: "Cultipacking"                       #< tillage
         fermentation: "Fermentation"                       #< transformation

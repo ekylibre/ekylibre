@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
-  <procedure name="animal_housing_mulching" natures="animal_housing_maintenance" version="0" status="frozen">
+  <procedure name="animal_housing_mulching" natures="animal_housing_treatment" version="0" status="frozen">
     <variables>
-      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_housing_maintenance-target" default-actor="storage" need="shape" default-shape=":animal_housing">
+      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_housing_treatment-target" default-actor="storage" need="shape" default-shape=":animal_housing">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
@@ -11,11 +11,11 @@
       </variable>
       
       <variable name="straw"           variety="straw" />
-      <variable name="straw_to_mulch"  new="parted-from: straw" need="population" roles="animal_housing_maintenance-input" />
+      <variable name="straw_to_mulch"  new="parted-from: straw" need="population" roles="animal_housing_treatment-input" />
       
-      <variable name="cleaner"            abilities="clean" roles="animal_housing_maintenance-tool"/>
-      <variable name="driver"             abilities="drive(equipment), move" roles="animal_housing_maintenance-doer"/>
-      <variable name="tractor"            abilities="tow(equipment), move" roles="animal_housing_maintenance-tool"/>
+      <variable name="cleaner"            abilities="clean" roles="animal_housing_treatment-tool"/>
+      <variable name="driver"             abilities="drive(equipment), move" roles="animal_housing_treatment-doer"/>
+      <variable name="tractor"            abilities="tow(equipment), move" roles="animal_housing_treatment-tool"/>
       
     </variables>
     <operations>

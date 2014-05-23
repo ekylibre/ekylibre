@@ -51,6 +51,7 @@ jpn:
     # cropper: "Moissonneuse batteuse"
     # cropper_driver: "Conducteur de moissonneuse batteuse"
     # cultivation: "Culture"
+    # cultivator: "Cultivator"
     # destination_tank: "Cuve de destination"
     # driver: "Conducteur"
     # excrement_zone: "Fumière"

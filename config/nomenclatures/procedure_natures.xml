@@ -72,13 +72,19 @@
 
   <nomenclature name="procedure_natures-animal_health">
     <items>
-      <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
-      <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
-      <item name="animal_housing_maintenance" roles="input, target, doer, tool"/>
-      <item name="cleaning" roles="output, target, doer, tool"/>
+      <item name="animal_illness_treatment" roles="input, target, doer"/>
+      <item name="animal_housing_treatment" roles="input, target, doer, tool"/>
+      <item name="animal_housing_cleaning" roles="output, target, doer, tool"/>
     </items>
   </nomenclature>
-
+  
+  <nomenclature name="procedure_natures-animal_illness_treatment">
+    <items>
+      <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
+      <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
+    </items>
+  </nomenclature>
+  
   <nomenclature name="procedure_natures-animal_production">
     <items>
       <item name="milk_production" roles="output, target, doer"/>

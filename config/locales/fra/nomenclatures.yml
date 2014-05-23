@@ -1851,12 +1851,15 @@ fra:
         animal_curative_medicine_admission: "Traitement curatif des maladies animales"
         animal_feeding: "Alimentation des animaux"
         animal_health: "Hygiène des animaux"
-        animal_housing_maintenance: "Entretien des bâtiments d’élevage"
+        animal_housing_cleaning: "Nettoyage des bâtiments d’élevage"
+        animal_housing_maintenance: "Maintenance des bâtiments d’élevage" #?
+        animal_housing_treatment: "Hygiène des bâtiments d’élevage"
+        animal_illness_treatment: "Soins médicaux des animaux"
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales"
         animal_production: "Productions animales"
         blending: "Mélange"
         bottling: "Embouteillage"
-        cleaning: "Nettoyage"
+        cleaning: "Nettoyage" #?
         consummables_addition: "Mise à niveau"
         cultipacking: "Cultipacking"
         fermentation: "Fermentation"
