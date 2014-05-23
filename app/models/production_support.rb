@@ -143,6 +143,7 @@ class ProductionSupport < Ekylibre::Record::Base
       for intervention in self.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now)
         for input in intervention.casts.of_role('soil_enrichment-input')
           m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+          # TODO for method phosphorus_concentration(input)
           n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
           nitrogen_mass <<  m * n
         end
@@ -166,7 +167,8 @@ class ProductionSupport < Ekylibre::Record::Base
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
       for input in intervention.casts.of_role('soil_enrichment-input')
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-        n = (input.actor ? input.actor.potassium_concentration(input).to_d(:unity) : 0.0)
+        # TODO for method phosphorus_concentration(input)
+        n = (input.actor ? input.actor.potassium_concentration.to_d(:unity) : 0.0)
         balance <<  m * n
       end
     end
@@ -185,7 +187,8 @@ class ProductionSupport < Ekylibre::Record::Base
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
       for input in intervention.casts.of_role('soil_enrichment-input')
         m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-        n = (input.actor ? input.actor.phosphorus_concentration(input).to_d(:unity) : 0.0)
+        # TODO for method phosphorus_concentration(input)
+        n = (input.actor ? input.actor.phosphorus_concentration.to_d(:unity) : 0.0)
         balance <<  m * n
       end
     end
