@@ -48,10 +48,19 @@
 #   currency: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 transfers_001:
+  affair: affairs_006
   amount: 120
   client: legal_entities_001
+  creator: users_001
+  currency: EUR
+  updater: users_001
+
+transfers_002:
+  affair: affairs_007
+  amount: 101
+  client: legal_entities_002
   creator: users_001
   currency: EUR
   updater: users_001

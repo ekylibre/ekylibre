@@ -51,6 +51,7 @@ incoming_deliveries_001:
   creator: users_001
   mode: ex_works
   number: INDEL000001
+  received_at: <%= Time.now-7.days %>
   sender: legal_entities_001
   updater: users_001
 
@@ -68,5 +69,6 @@ incoming_deliveries_003:
   mode: ex_works
   number: INDEL000003
   purchase: purchases_001
+  received_at: <%= Time.now-17.days %>
   sender: legal_entities_001
   updater: users_001

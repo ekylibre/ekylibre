@@ -53,16 +53,19 @@
 #
 
 outgoing_deliveries_001:
-  address: entity_addresses_001
+  address: entity_addresses_003
   creator: users_001
   mode: ex_works
+  net_mass: 1200
   number: OUTDEL000001
   recipient: legal_entities_001
-  sent_at: <%=Time.now-7.days %>
+  sent_at: <%= Time.now-7.days %>
+  transporter: legal_entities_003
   updater: users_001
+  with_transport: true
 
 outgoing_deliveries_002:
-  address: entity_addresses_001
+  address: entity_addresses_003
   creator: users_001
   mode: ex_works
   number: OUTDEL000002
@@ -71,11 +74,14 @@ outgoing_deliveries_002:
   updater: users_001
 
 outgoing_deliveries_003:
-  address: entity_addresses_001
+  address: entity_addresses_003
   creator: users_001
   mode: ex_works
   number: OUTDEL000003
+  net_mass: 1100
   recipient: legal_entities_001
   sale: sales_003
   sent_at: <%=Time.now+7.days %>
+  transporter: legal_entities_003
   updater: users_001
+  with_transport: true

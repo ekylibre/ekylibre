@@ -57,7 +57,7 @@
 #   mail_auto_update: true
 #   updater: users_001
 #
----
+
 entity_addresses_001:
   by_default: true
   canal: phone
@@ -66,6 +66,7 @@ entity_addresses_001:
   entity: legal_entities_001
   thread: AAAA
   updater: users_001
+
 entity_addresses_002:
   by_default: false
   canal: phone
@@ -74,6 +75,7 @@ entity_addresses_002:
   entity: legal_entities_001
   thread: AAAB
   updater: users_001
+
 entity_addresses_003:
   by_default: true
   canal: mail
@@ -86,6 +88,7 @@ entity_addresses_003:
   mail_postal_zone: postal_zones_002
   thread: AAAC
   updater: users_001
+
 entity_addresses_004:
   by_default: true
   canal: mail

@@ -63,6 +63,7 @@ eng:
         invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
         less_than: "%{attribute} must be less than %{count}"
         less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
+        must_be_a_mail_address: "%{attribute} must be a mail address"
         not_a_number: "%{attribute} is not a number"
         not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."

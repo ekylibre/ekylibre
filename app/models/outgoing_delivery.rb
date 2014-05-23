@@ -73,11 +73,19 @@ class OutgoingDelivery < Ekylibre::Record::Base
   scope :without_transporter, -> { where(with_transport: true, transporter_id: nil) }
 
   before_validation do
-    if self.transport
-      self.transporter_id ||= self.transport.transporter_id
-    end
+    # if self.transport
+    #   self.transporter ||= self.transport.transporter
+    # end
     if self.with_transport and self.transport
       self.sent_at = self.transport.departed_at
+    end
+  end
+
+  validate do
+    if self.transport and self.transporter
+      if self.transport.transporter != self.transporter
+        errors.add :transporter_id, :invalid
+      end
     end
   end
 
@@ -151,10 +159,10 @@ class OutgoingDelivery < Ekylibre::Record::Base
         raise "With transport only..."
       end
 
-      transporters = deliveries.map(&:transporter_id).uniq
-      raise "Need unique transporter (#{transporters.inspect})" if transporters.count > 1
+      transporter_ids = deliveries.map(&:transporter_id).uniq.compact
+      raise "Need unique transporter (#{transporter_ids.inspect})" if transporter_ids.count > 1
 
-      transport = Transport.create!(departed_at: Time.now, transporter_id: transporters.first, responsible: responsible)
+      transport = Transport.create!(departed_at: Time.now, transporter_id: transporter_ids.first, responsible: responsible)
       for delivery in deliveries
         delivery.transport = transport
         delivery.save!

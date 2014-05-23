@@ -215,6 +215,7 @@ class Affair < Ekylibre::Record::Base
 
   generate_deals_method
 
+
   # Returns deals of the given third
   def deals_of(third)
     return deals.select do |deal|

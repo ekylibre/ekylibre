@@ -110,3 +110,25 @@ affairs_005:
   originator: incoming_payments_003 (IncomingPayment)
   third: legal_entities_001
   updater: users_001
+
+affairs_006:
+  closed: false
+  creator: users_001
+  credit: 120
+  currency: EUR
+  debit: 0
+  number: A000006
+  originator: transfers_001 (Transfer)
+  third: legal_entities_001
+  updater: users_001
+
+affairs_007:
+  closed: false
+  creator: users_001
+  credit: 101
+  currency: EUR
+  debit: 0
+  number: A000007
+  originator: transfers_002 (Transfer)
+  third: legal_entities_001
+  updater: users_001
