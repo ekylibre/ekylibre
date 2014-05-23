@@ -124,6 +124,10 @@ module Procedo
       new? and @needs.include?(:shape)
     end
 
+    def worked?
+      new? or @needs.any?
+    end
+
     def new?
       @new_variable
     end
