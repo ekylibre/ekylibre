@@ -5,6 +5,13 @@
       <item name="helianthus" itis_tsn="36611"/>
       <item name="cichorium" itis_tsn="36762"/>
       <item name="cynara" itis_tsn="37220"/>
+      <item name="lactuca" itis_tsn="36594"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-cichorium" hierarchical="true">
+    <items>
+      <item name="cichorium_endivia" itis_tsn="501522"/>
     </items>
   </nomenclature>
 </nomenclatures>

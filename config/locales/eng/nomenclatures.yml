@@ -2841,6 +2841,7 @@ eng:
         itis_tsn: "Itis number id"
       items:
         allium: "Allium"                                   #< liliaceae
+        allium_cepa: "Shallot"                             #< allium
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anas: "Anas"                                       #< aves
@@ -2869,6 +2870,10 @@ eng:
         brassica: "Brassica"                               #< brassicaceae
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_nigra: "Black mustard"                    #< brassica
+        brassica_oleracea: "Cabbage"                       #< brassica
+        brassica_oleracea_botrytis: "Cauliflower"          #< brassica_oleracea
+        brassica_oleracea_capitata: "Apple cabbage"        #< brassica_oleracea
+        brassica_oleracea_gemmifera: "Brussels sprout"     #< brassica_oleracea
         brassica_rapa: "Brassica rapa"                     #< brassica
         brassicaceae: "Brassicaceae"                       #< plant
         building: "Building"                               #< product_group
@@ -2879,6 +2884,7 @@ eng:
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< mammalia
         cichorium: "Cichorium"                             #< asteraceae
+        cichorium_endivia: "Curly chicory"                 #< cichorium
         cleaner: "Cleaner"                                 #< equipment
         compost: "Compost"                                 #< excrement
         concentrated_rectified_must: "Concentrated rectified must" #< preparation
@@ -2900,6 +2906,9 @@ eng:
         crocus: "Crocus"                                   #< iridaceae
         crocus_sativus: "Saffron crocus"                   #< crocus
         cucumis: "Cucumis"                                 #< cucurbitaceae
+        cucumis_melo: "Muskmelon"                          #< cucumis
+        cucurbita: "Cucurbita"                             #< cucurbitaceae
+        cucurbita_pepo: "Zucchini"                         #< cucurbita
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
         cynara: "Artichoke"                                #< asteraceae
@@ -2971,6 +2980,7 @@ eng:
         juglans: "Juglans"                                 #< juglandaceae
         juice: "Juice"                                     #< preparation
         label: "Label"                                     #< packaged_matter
+        lactuca: "Lettuce"                                 #< asteraceae
         lamiaceae: "Lamiaceae"                             #< plant
         land_parcel: "Land parcel"                         #< easement
         land_parcel_cluster: "Land parcel cluster"         #< land_parcel_group
@@ -3106,6 +3116,8 @@ eng:
         solanum_tuberosum_agata: "Potato Agata"            #< solanum_tuberosum
         sorghum: "Sorghum"                                 #< poaceae
         sower: "Sower"                                     #< equipment
+        spinacia: "Spinacia"                               #< amaranthaceae
+        spinacia_oleracea: "Spinach"                       #< spinacia
         sprayer: "Sprayer"                                 #< equipment
         spreader: "Spreader"                               #< equipment
         straw: "Straw"                                     #< grass
@@ -3201,6 +3213,9 @@ eng:
         triticum_durum_sy_cysco: "Durum wheat Sy Cysco"    #< triticum_durum
         triticum_durum_tablur: "Durum wheat Tablur"        #< triticum_durum
         triticum_spelta: "Spelt"                           #< triticum
+        valerianaceae: "Valerianaceae"                     #< plant
+        valerianella: "Valerianella"                       #< valerianaceae
+        valerianella_locusta: "Corn salad"                 #< valerianella
         vicia: "Vicia"                                     #< fabaceae
         vicia_sativa: "Vicia sativa"                       #< vicia
         vicia_villosa: "Vicia villosa"                     #< vicia

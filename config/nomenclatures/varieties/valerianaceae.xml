@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-valerianaceae" hierarchical="true">
+    <items>
+      <item name="valerianella" itis_tsn="35386"/>
+    </items>
+  </nomenclature>
+  
+  
+  <nomenclature name="varieties-valerianella" hierarchical="true">
+    <items>
+      <item name="valerianella_locusta" itis_tsn="35392"/>
+    </items>
+  </nomenclature>
+
+
+</nomenclatures>

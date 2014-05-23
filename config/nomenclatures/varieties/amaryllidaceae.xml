@@ -5,4 +5,11 @@
       <item name="allium" itis_tsn="42634"/>
     </items>
   </nomenclature>
+  
+  <nomenclature name="varieties-allium" hierarchical="true">
+    <items>
+      <item name="allium_cepa" itis_tsn="42720"/>
+    </items>
+  </nomenclature>
+  
 </nomenclatures>

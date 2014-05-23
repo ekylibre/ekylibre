@@ -5,6 +5,16 @@
       <item name="brassica_napus" itis_tsn="12345"/>
       <item name="brassica_rapa" itis_tsn="12345"/>
       <item name="brassica_nigra" itis_tsn="12345"/>
+      <item name="brassica_oleracea" itis_tsn="23062"/>
     </items>
   </nomenclature>
+  
+  <nomenclature name="varieties-brassica_oleracea" hierarchical="true">
+    <items>
+      <item name="brassica_oleracea_gemmifera" itis_tsn="12345"/>
+      <item name="brassica_oleracea_botrytis" itis_tsn="12345"/>
+      <item name="brassica_oleracea_capitata" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+  
 </nomenclatures>

@@ -3,6 +3,24 @@
   <nomenclature name="varieties-cucurbitaceae" hierarchical="true">
     <items>
       <item name="cucumis" itis_tsn="22359"/>
+      <item name="cucurbita" itis_tsn="22365"/>
     </items>
   </nomenclature>
+  
+  <nomenclature name="varieties-cucurbita" hierarchical="true">
+    <items>
+      <item name="cucurbita_pepo" itis_tsn="22373"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-cucumis" hierarchical="true">
+    <items>
+      <item name="cucumis_melo" itis_tsn="22362"/>
+    </items>
+  </nomenclature>
+  
+  
+  
+
+
 </nomenclatures>
