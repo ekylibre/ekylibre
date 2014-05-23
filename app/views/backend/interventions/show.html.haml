@@ -5,10 +5,14 @@
 
 = beehive do |b|
   - b.hbox do
-    - if @intervention.casts.of_role(:target).first
-      - if @intervention.casts.of_role(:target).first.actor.shape 
-        - b.cell :map do
-          = mini_map(@intervention.casts.of_role(:target).first.actor)
+    - if target = @intervention.casts.of_role(:target).first
+      - if target.actor.shape
+        - b.cell :target_zone do
+          = mini_map(target.actor)
+    - if target
+      - if target.shape 
+        - b.cell :working_zone do
+          = mini_map(target)
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name

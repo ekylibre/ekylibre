@@ -136,10 +136,10 @@ class ProductionSupport < Ekylibre::Record::Base
     nitrogen_mass = []
     nitrogen_unity_per_hectare = nil
     if self.selected_manure_management_plan_zone
-    # get the output O aka nitrogen_input from opened_at (in kg N / Ha )
-    o = self.selected_manure_management_plan_zone.nitrogen_input.to_d
-    opened_at = self.selected_manure_management_plan_zone.opened_at
-    # get the nitrogen input I from opened_at to now (in kg N / Ha )
+      # get the output O aka nitrogen_input from opened_at (in kg N / Ha )
+      o = self.selected_manure_management_plan_zone.nitrogen_input.to_d
+      opened_at = self.selected_manure_management_plan_zone.opened_at
+      # get the nitrogen input I from opened_at to now (in kg N / Ha )
       for intervention in self.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now)
         for input in intervention.casts.of_role('soil_enrichment-input')
           m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
