@@ -29,7 +29,7 @@
     &:hover[disabled],
     &.disabled[disabled],
     &.disabled:hover[disabled] {
-	@content;
+				@content;
     }
 }
 
@@ -42,15 +42,17 @@
     &:hover.active,
     &.disabled.active,
     &.disabled:hover.active {
-	@content;
+				@content;
     }
 }
 
 .datetimepicker {
-    padding: $default-border-radius;
+		@include menu;
+    // padding: $default-border-radius;
     margin-top: 1px;
-    @include border-radius($default-border-radius);
+    // @include border-radius($default-border-radius);
     direction: ltr;
+		position: absolute;
 }
 
 .datetimepicker-inline {
@@ -85,7 +87,7 @@
     display: inline-block;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid #ffffff;
+    border-bottom: 6px solid $menu-background;
     position: absolute;
 }
 
@@ -104,7 +106,7 @@
     display: inline-block;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid #ffffff;
+    border-top: 6px solid $menu-background;
     border-bottom: 0;
 }
 
@@ -174,26 +176,26 @@
 
 .datetimepicker {
     table {
-	margin: 0;
+				margin: 0;
     }
     td, th {
-	@include text-align(center);
-	width: 20px;
-	height: 20px;
-	@include border-radius($default-border-radius);
-	border: none;
+				@include text-align(center);
+				width: 20px;
+				height: 20px;
+				// @include border-radius($default-border-radius);
+				border: none;
     }
     th.prev {
-	i {
+				i {
             @include is-icon;
             @include use-icon(chevron-left);
-	}
+				}
     }
     th.next {
-	i {
+				i {
             @include is-icon;
             @include use-icon(chevron-right);
-	}
+				}
     }
 }
 
@@ -214,8 +216,8 @@
 
 .datetimepicker table tr td.day {
     &:hover {
-	background: #eeeeee;
-	cursor: pointer;
+				background: #eeeeee;
+				cursor: pointer;
     }
 }
 
@@ -226,35 +228,35 @@
 
 .datetimepicker table tr td.disabled {
     &, &:hover {
-	background: none;
-	color: #999999;
-	cursor: default;
+				background: none;
+				color: #999999;
+				cursor: default;
     }
 }
 
 .datetimepicker table tr td.today {
     &, &:hover, &.disabled, &.disabled:hover {
-	background-color: #fde19a;
+				background-color: #fde19a;
     }
     @include if-hover-or-active {
-	background-color: #fdf59a;
+				background-color: #fdf59a;
     }
     @include if-active {
-	background-color: #fbf069;
+				background-color: #fbf069;
     }
 }
 
 .datetimepicker table tr td.active {
     &, &:hover, &.disabled, &.disabled:hover {
-	@include background-active-gradient;
-	color: #ffffff;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+				@include background-active-gradient;
+				color: #ffffff;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     }
     @include if-hover-or-active {
-	background-color: #0044cc;
+				background-color: #0044cc;
     }
     @include if-active {
-	background-color: #003399;
+				background-color: #003399;
     }
 }
 
@@ -267,7 +269,7 @@
     margin: 1%;
     cursor: pointer;
     @include text-align(center);
-    @include border-radius($default-border-radius);
+    // @include border-radius($default-border-radius);
 }
 
 .datetimepicker .datetimepicker-hours span {
@@ -297,23 +299,23 @@
 
 .datetimepicker table tr td span.disabled {
     &, &:hover {
-	background: none;
-	color: #999999;
-	cursor: default;
+				background: none;
+				color: #999999;
+				cursor: default;
     }
 }
 
 .datetimepicker table tr td span.active  {
     &, &:hover, &.disabled, &.disabled:hover {
-	@include background-active-gradient;
-	color: #ffffff;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+				@include background-active-gradient;
+				color: #ffffff;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     }
     @include if-hover-or-active {
-	background-color: #0044cc;
+				background-color: #0044cc;
     }
     @include if-active {
-	background-color: #003399;
+				background-color: #003399;
     }
 }
 
