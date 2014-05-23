@@ -414,7 +414,7 @@
             category="plant_medicine"
             variety="preparation"
             population_counting="decimal"
-            abilities="kill(plant)"
+            abilities="kill(plant), care(plant)"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
@@ -422,7 +422,7 @@
             category="plant_medicine"
             variety="preparation"
             population_counting="decimal"
-            abilities="kill(fungus)"
+            abilities="kill(fungus), care(plant)"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
@@ -438,7 +438,7 @@
             category="plant_medicine"
             variety="preparation"
             population_counting="decimal"
-            abilities="kill(insecta)"
+            abilities="kill(insecta), care(plant)"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
@@ -446,7 +446,7 @@
             category="plant_medicine"
             variety="preparation"
             population_counting="decimal"
-            abilities="kill(mollusca)"
+            abilities="kill(mollusca), care(plant)"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
@@ -1052,7 +1052,7 @@
             category="worker"
             variety="worker"
             population_counting="unitary"
-            abilities="drive(equipment), move, milk(mammalia), repair(equipment)"
+            abilities="drive(equipment), move, milk(mammalia), repair(equipment), administer_care(animal)"
             variable_indicators=""
             frozen_indicators="population"
             />
@@ -1068,7 +1068,7 @@
             category="worker"
             variety="worker"
             population_counting="unitary"
-            abilities="drive(equipment), manage(worker), move"
+            abilities="drive(equipment), manage(worker), move, administer_care(animal)"
             variable_indicators=""
             frozen_indicators="population"
             />
