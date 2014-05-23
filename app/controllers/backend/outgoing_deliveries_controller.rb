@@ -51,7 +51,7 @@ class Backend::OutgoingDeliveriesController < BackendController
  
   def invoice
     for id in ids = params[:id].split(',')
-      return unless find_and_check(id)
+      return unless find_and_check(id: id)
     end
     sale = OutgoingDelivery.invoice(ids)
     redirect_to backend_sale_url(sale)
@@ -59,7 +59,7 @@ class Backend::OutgoingDeliveriesController < BackendController
  
   def ship
     for id in ids = params[:id].split(',')
-      return unless find_and_check(id)
+      return unless find_and_check(id: id)
     end
     transport = OutgoingDelivery.ship(ids)
     redirect_to backend_transport_url(transport)

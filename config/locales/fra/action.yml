@@ -573,7 +573,7 @@ fra:
       new: "Nouveau type d’abonnement"
       show: "Type d’abonnement\_: %{name}"
     backend/subscriptions:
-      coordinates: "Rafraîchir les coordonnées et la période"
+      coordinates: "Rafraîchir les coordonnées et la période" #?
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Nouvel abonnement"
@@ -945,11 +945,8 @@ fra:
     contains: "Contient"
     content_products: "Produits contenus"
     contextual_help: "Aide contextuelle"
-    convert_balance_into:  #?
-      loss: "Passer le solde en perte" #?
-      profit: "Passer le solde en profit" #?
-    # convert_balance_into_loss: "Convert balance into loss"
-    # convert_balance_into_profit: "Convert balance into profit"
+    convert_balance_into_loss: "Passer le solde en perte"
+    convert_balance_into_profit: "Passer le solde en profit"
     coordinates: "Coordonnées"
     copy_of: "Copie de %{source}"
     cost: "Coût" #?

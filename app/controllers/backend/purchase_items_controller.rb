@@ -49,7 +49,7 @@ class Backend::PurchaseItemsController < BackendController
       redirect_to action: :show, controller: :purchases, step: :products, id: @purchase.id
       return
     end
-    return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
+    return unless product = find_and_check(:product_nature, params[:purchase_item][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id => product.id, :entity_id => @purchase.supplier_id)
       price = ProductPriceTemplate.find(:first, :conditions => price_attrs)

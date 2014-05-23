@@ -20,7 +20,7 @@
 class Backend::ListingNodesController < BackendController
 
   def new
-    return unless @listing_node = find_and_check(:listing_nodes, params[:parent_id])
+    return unless @listing_node = find_and_check(id: params[:parent_id])
     if params[:nature]
       desc = params[:nature].split("-")
       # raise Exception.new desc.inspect
@@ -45,7 +45,7 @@ class Backend::ListingNodesController < BackendController
   end
 
   def create
-    return unless @listing_node = find_and_check(:listing_nodes, params[:parent_id])
+    return unless @listing_node = find_and_check(id: params[:parent_id])
     render :text => "[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
     # raise Exception.new desc.inspect

@@ -122,7 +122,7 @@ class Backend::ListingsController < BackendController
     end
     if session[:listing_coordinate_column] or @listing.coordinate_columns.count == 1
       full_results = ActiveRecord::Base.connection.select_all(query)
-      listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_nodes, session[:listing_coordinate_column])
+      listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_node, session[:listing_coordinate_column])
       #raise Exception.new listing_coordinate_column.inspect
       results = full_results.select{|c| !c[listing_coordinate_column.label].blank? }
       @mails = results.collect{|c| c[listing_coordinate_column.label] }

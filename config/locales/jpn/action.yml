@@ -521,7 +521,6 @@ jpn:
       # new: "New subscription type"
       # show: "subscription type: %{name}"
     backend/subscriptions:
-      # coordinates: "Refresh coordinates and period"
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       # index: "Subscriptions"
       # new: "New subscription"

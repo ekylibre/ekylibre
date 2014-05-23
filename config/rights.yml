@@ -48,25 +48,20 @@
 #     - "backend/cells/rss_cells#show"
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
+#     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#index"
+#     - "backend/dashboards#production"
 #     - "backend/dashboards#relationship"
 #     - "backend/dashboards#sandbox"
 #     - "backend/dashboards#search"
 #     - "backend/dashboards#settings"
 #     - "backend/dashboards#stocks"
+#     - "backend/dashboards#tools"
+#     - "backend/dashboards#trade"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
-#     - "backend/plant_fertilizers#index"
-#     - "backend/plant_fertilizers#list"
-#     - "backend/plant_products#index"
-#     - "backend/plant_products#list"
-#     - "backend/plant_seedlings#index"
-#     - "backend/plant_seedlings#list"
-#     - "backend/roles#incorporate"
-#     - "backend/roles#pick"
-#     - "backend/roles#show"
 #     - "backend/snippets#toggle"
 #     - "backend/transformed_products#index"
 #     - "backend/transformed_products#list"
@@ -105,7 +100,6 @@ accounts:
     - "backend/accounts#list_reconciliation"
     - "backend/accounts#show"
     - "backend/accounts#unroll"
-    - "backend/dashboards#accountancy"
   write:
     depend-on:
     - read-accounts
@@ -128,7 +122,6 @@ activities:
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
-    - "backend/dashboards#accountancy"
   write:
     depend-on:
     - read-activities
@@ -145,7 +138,6 @@ affairs:
     - "backend/affairs#index"
     - "backend/affairs#list"
     - "backend/affairs#show"
-    - "backend/dashboards#trade"
   write:
     depend-on:
     - read-affairs
@@ -160,7 +152,6 @@ aggregators:
     actions:
     - "backend/aggregators#index"
     - "backend/aggregators#show"
-    - "backend/dashboards#tools"
 
 analyses:
   read:
@@ -170,7 +161,6 @@ analyses:
     - "backend/analyses#list_items"
     - "backend/analyses#show"
     - "backend/analyses#unroll"
-    - "backend/dashboards#production"
   write:
     depend-on:
     - read-analyses
@@ -188,7 +178,6 @@ analytic_distributions:
     - "backend/analytic_distributions#list"
     - "backend/analytic_distributions#show"
     - "backend/analytic_distributions#unroll"
-    - "backend/dashboards#accountancy"
   write:
     depend-on:
     - read-analytic_distributions
@@ -204,7 +193,6 @@ animal_foods:
     actions:
     - "backend/animal_foods#index"
     - "backend/animal_foods#list"
-    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_foods
@@ -218,7 +206,6 @@ animal_groups:
     - "backend/animal_groups#list_places"
     - "backend/animal_groups#show"
     - "backend/animal_groups#unroll"
-    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_groups
@@ -240,7 +227,6 @@ animal_products:
     actions:
     - "backend/animal_products#index"
     - "backend/animal_products#list"
-    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_products
@@ -265,7 +251,6 @@ animals:
     - "backend/animals#picture"
     - "backend/animals#show"
     - "backend/animals#unroll"
-    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animals
@@ -1395,6 +1380,12 @@ plant_medicines:
 plants:
   read:
     actions:
+    - "backend/plant_fertilizers#index"
+    - "backend/plant_fertilizers#list"
+    - "backend/plant_products#index"
+    - "backend/plant_products#list"
+    - "backend/plant_seedlings#index"
+    - "backend/plant_seedlings#list"
     - "backend/plants#index"
     - "backend/plants#list"
     - "backend/plants#list_carried_linkages"
@@ -1678,6 +1669,7 @@ roles:
     actions:
     - "backend/roles#index"
     - "backend/roles#list"
+    - "backend/roles#show"
     - "backend/roles#unroll"
   write:
     depend-on:
@@ -1686,7 +1678,9 @@ roles:
     - "backend/roles#create"
     - "backend/roles#destroy"
     - "backend/roles#edit"
+    - "backend/roles#incorporate"
     - "backend/roles#new"
+    - "backend/roles#pick"
     - "backend/roles#update"
 
 sale_natures:
@@ -1835,7 +1829,6 @@ subscriptions:
     depend-on:
     - read-subscriptions
     actions:
-    - "backend/subscriptions#coordinates"
     - "backend/subscriptions#create"
     - "backend/subscriptions#destroy"
     - "backend/subscriptions#edit"

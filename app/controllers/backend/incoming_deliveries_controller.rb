@@ -59,7 +59,7 @@ class Backend::IncomingDeliveriesController < BackendController
 
   def invoice
     for id in ids = params[:id].split(',')
-      return unless find_and_check(id)
+      return unless find_and_check(id: id)
     end
     purchase = IncomingDelivery.invoice(ids)
     redirect_to backend_purchase_url(purchase)

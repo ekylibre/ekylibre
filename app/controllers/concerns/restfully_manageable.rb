@@ -66,7 +66,7 @@ module RestfullyManageable
 
       if actions.include?(:show)
         code << "def show\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
         if options[:subclass_inheritance]
           code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
           code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
@@ -134,7 +134,7 @@ module RestfullyManageable
 
       if actions.include?(:edit)
         code << "def edit\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
         code << "  #{t3e_code}\n"
         code << "  #{render_form}\n"
         code << "end\n"
@@ -142,7 +142,7 @@ module RestfullyManageable
 
       if actions.include?(:update)
         code << "def update\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
         code << "  #{t3e_code}\n"
         code << "  @#{record_name}.attributes = permitted_params\n"
         code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
@@ -153,7 +153,7 @@ module RestfullyManageable
       if actions.include?(:destroy)
         # this action deletes or hides an existing record.
         code << "def destroy\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
         if model.instance_methods.include?(:destroyable?)
           code << "  if @#{record_name}.destroyable?\n"
           # code << "    resource_model.destroy(@#{record_name}.id)\n"
@@ -205,14 +205,14 @@ module RestfullyManageable
       sort << "end\n"
 
       code << "def up\n"
-      code << "  return unless #{record_name} = find_and_check(:#{name})\n"
+      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_higher\n"
       code << sort.gsub(/^/, "  ")
       code << "  redirect_to_current\n"
       code << "end\n"
 
       code << "def down\n"
-      code << "  return unless #{record_name} = find_and_check(:#{name})\n"
+      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_lower\n"
       code << sort.gsub(/^/, "  ")
       code << "  redirect_to_current\n"
@@ -267,7 +267,7 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       code = ''
       code << "def picture\n"
-      code << "  return unless #{record_name} = find_and_check(:#{name})\n"
+      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  if #{record_name}.picture.file?\n"
       code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
       code << "  else\n"

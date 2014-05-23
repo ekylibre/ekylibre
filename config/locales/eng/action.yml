@@ -570,7 +570,6 @@ eng:
       new: "New subscription type"
       show: "subscription type: %{name}"
     backend/subscriptions:
-      coordinates: "Refresh coordinates and period"
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Subscriptions"
       new: "New subscription"
@@ -1534,7 +1533,6 @@ eng:
       compute_balances: "Compute balances"
       confirm: "Confirm"
       # contacts: "Contacts"
-      # coordinates: "Coordinates"
       correct: "Correct"
       create: "Create"
       decrement: "Decrement"

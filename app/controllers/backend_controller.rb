@@ -60,13 +60,14 @@ class BackendController < BaseController
 
 
   # Find a record with the current environment or given parameters and check availability of it
-  def find_and_check(model = nil, id = nil)
-    model ||= self.controller_name
-    id    ||= params[:id]
+  def find_and_check(*args)
+    options = args.extract_options!
+    model = args.shift || options[:model] || self.controller_name.singularize
+    id    = args.shift || options[:id] || params[:id]
     begin
-      return model.to_s.classify.constantize.find(id)
+      return model.to_s.camelize.constantize.find(id)
     rescue
-      notify_error(:unavailable_model, :model => model.inspect, :id => id)
+      notify_error(:unavailable_model, model: model.inspect, id: id)
       redirect_to_current
       return false
     end

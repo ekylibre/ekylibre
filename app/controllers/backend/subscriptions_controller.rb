@@ -79,24 +79,24 @@ class Backend::SubscriptionsController < BackendController
   end
 
 
-  def coordinates
-    nature, attributes = nil, {}
-    if params[:nature_id]
-      return unless nature = find_and_check(:subscription_nature, params[:nature_id])
-    elsif params[:price_id]
-      return unless price = find_and_check(:product_price_template, params[:price_id])
-      if price.product_nature.subscribing?
-        nature = price.product_nature.subscription_nature
-        attributes[:product_nature_id] = price.product_nature_id
-      end
-    end
-    if nature
-      attributes[:address_id] = (EntityAddress.find_by_entity_id(params[:subscriber_id]).id rescue 0)
-      @subscription = nature.subscriptions.new(attributes)
-      @subscription.compute_period
-    end
-    mode = params[:mode]||:coordinates
-    render :partial => "#{mode}_form"
-  end
+  # def coordinates
+  #   nature, attributes = nil, {}
+  #   if params[:nature_id]
+  #     return unless nature = find_and_check(:subscription_nature, params[:nature_id])
+  #   elsif params[:price_id]
+  #     return unless price = find_and_check(:product_price_template, params[:price_id])
+  #     if price.product_nature.subscribing?
+  #       nature = price.product_nature.subscription_nature
+  #       attributes[:product_nature_id] = price.product_nature_id
+  #     end
+  #   end
+  #   if nature
+  #     attributes[:address_id] = (EntityAddress.find_by_entity_id(params[:subscriber_id]).id rescue 0)
+  #     @subscription = nature.subscriptions.new(attributes)
+  #     @subscription.compute_period
+  #   end
+  #   mode = params[:mode]||:coordinates
+  #   render :partial => "#{mode}_form"
+  # end
 
 end

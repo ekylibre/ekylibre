@@ -120,7 +120,6 @@
     <group name="subscriptions" icon="tags">
       <item name="subscriptions">
         <page to="backend/subscriptions#index"/>
-        <page to="backend/subscriptions#coordinates"/>
         <page to="backend/subscriptions#create"/>
         <page to="backend/subscriptions#destroy"/>
         <page to="backend/subscriptions#edit"/>
@@ -1045,9 +1044,11 @@
         <page to="backend/roles#create"/>
         <page to="backend/roles#destroy"/>
         <page to="backend/roles#edit"/>
+        <page to="backend/roles#incorporate"/>
         <page to="backend/roles#list"/>
         <page to="backend/roles#pick"/>
         <page to="backend/roles#new"/>
+        <page to="backend/roles#show"/>
         <page to="backend/roles#unroll"/>
         <page to="backend/roles#update"/>
       </item>
@@ -1714,6 +1715,9 @@
       <item name="revenues_by_product_nature_cells">
         <page to="backend/cells/revenues_by_product_nature_cells#show"/>
       </item>
+      <item name="working_sets_stocks_cells">
+        <page to="backend/cells/working_sets_stocks_cells#show"/>
+      </item>
     </group>
     <group>
       <item name="calculators">
@@ -1725,20 +1729,14 @@
         <page to="backend/calculators/nitrogen_inputs#update"/>
       </item>
     </group>
-  </inaccessible-actions>
-  <untreated-actions>
-    <group>
+    <group name="api">
       <item name="crumbs">
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
       </item>
-      <item name="working_sets_stocks_cells">
-        <page to="backend/cells/working_sets_stocks_cells#show"/>
-      </item>
-      <item name="roles">
-        <page to="backend/roles#incorporate"/>
-        <page to="backend/roles#show"/>
-      </item>
     </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group/>
   </untreated-actions>
 </modules>

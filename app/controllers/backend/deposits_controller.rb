@@ -123,7 +123,7 @@ class Backend::DepositsController < BackendController
     @deposits = Deposit.unvalidateds
     if request.post?
       for id, values in params[:unvalidateds] || {}
-        return unless deposit = find_and_check(:deposits, id)
+        return unless deposit = find_and_check(id: id)
         deposit.update_attributes!(:locked => true) if deposit and values[:validated].to_i == 1
       end
       redirect_to action: :unvalidateds
