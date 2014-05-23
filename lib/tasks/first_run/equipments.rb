@@ -32,7 +32,7 @@ load_data :equipments do |loader|
                            )
 
         # find or import from variant reference_nameclature the correct ProductNatureVariant
-        variant = ProductNatureVariant.find_by(:reference_name => r.variant_reference_name) || ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
+        variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
         pmodel = variant.matching_model
 
         # create a price

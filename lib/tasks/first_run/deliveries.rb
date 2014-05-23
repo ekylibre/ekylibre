@@ -55,11 +55,11 @@ load_data :deliveries do |loader|
           order   = IncomingDelivery.find_by_reference_number(r.order_number)
           order ||= IncomingDelivery.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: :ex_works)
           # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-          product_nature_variant = ProductNatureVariant.find_by_reference_name(r.coop_variant_reference_name)
-          product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name) if item = Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)
-          if product_nature_variant.nil?
+          unless product_nature_variant = ProductNatureVariant.find_by_reference_name(r.coop_variant_reference_name)
+            if Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)
+              product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name) 
+            end
             # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
-            product_nature_variant = ProductNatureVariant.find_by_reference_name(r.product_nature_name)
             product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
           end
           # find a price from current supplier for a consider variant

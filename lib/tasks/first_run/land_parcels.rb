@@ -89,7 +89,7 @@ load_data :land_parcels do |loader|
           # create activities if option true
           if loader.manifest[:create_activities_from_telepac]
             # create a cultivable zone for each entries
-            cultivable_zone_variant = ProductNatureVariant.find_by(:reference_name => :cultivable_zone) || ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
+            cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
             cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
                                                :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + land_parcel.name,
                                                :work_number => land_parcel.work_number.tr("LP","ZC"),
@@ -132,7 +132,7 @@ load_data :land_parcels do |loader|
             
             
             # create a production if not exist
-            product_nature_variant = ProductNatureVariant.find_by(:reference_name => item.variant_support.to_s) || ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
+            product_nature_variant = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
             
              if product_nature_variant
                
@@ -198,7 +198,7 @@ load_data :land_parcels do |loader|
           zone.update_attributes(name: r.name)
           zone.save!
         else
-          zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
+          zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
           pmodel = zone_variant.nature.matching_model
           zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
                                 :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
