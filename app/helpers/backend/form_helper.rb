@@ -25,7 +25,7 @@ module Backend::FormHelper
     value = args.shift
     datatype = indicator.datatype
     if datatype == :boolean
-      checkbox_tag(name, value)
+      check_box_tag(name, value)
     elsif datatype == :measure
       content_tag(:div, class: "input-append") do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
