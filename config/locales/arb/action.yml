@@ -1761,6 +1761,7 @@ arb:
     # support: "Support"
     synthesis: "تجميع الوثائق" #?
     # target: "Target"
+    # target_zone: "Target zone"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
     # taxes: "Taxes"
@@ -1859,6 +1860,7 @@ arb:
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
+    # working_zone: "Working zone"
     x_cashes:
       one: "حساب بنكي واحد"
       other: "%{count} حسابات بنكية اخرى"

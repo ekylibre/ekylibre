@@ -16,6 +16,15 @@ users:
     first_name: Christian                        # Prénom
     last_name: DUPONT                            # Nom de famille
     password: 12345678                           # Mot de passe
+    employed: true
+  veto@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Christian                        # Prénom
+    last_name: MARTIN                            # Nom de famille
+    password: 12345678                           # Mot de passe
+  comptable@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Christian                        # Prénom
+    last_name: DURAND                            # Nom de famille
+    password: 12345678                           # Mot de passe
 chart_of_account: fr_pcga                        # Code plan comptable
 financial_years:
   EX1998:                                        # Code d'un exercice comptable

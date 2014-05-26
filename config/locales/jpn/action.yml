@@ -1209,6 +1209,7 @@ jpn:
     # supply: "Supply"
     # support: "Support"
     # target: "Target"
+    # target_zone: "Target zone"
     # taxes: "Taxes"
     # time_zone: "Time zone"
     # to: "to"
@@ -1283,6 +1284,7 @@ jpn:
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
     # with_prints: "Include printing archives (sales invoices, purchases…)"
+    # working_zone: "Working zone"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

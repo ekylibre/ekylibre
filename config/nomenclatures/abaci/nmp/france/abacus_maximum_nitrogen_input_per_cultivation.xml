@@ -70,8 +70,8 @@
       
        <!-- Concombre -->
       
-      <item name="cucumber_aquitaine" cultivation_variety="cucumis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300"/>
-      <item name="cucumber_poitou_charentes" cultivation_variety="cucumis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
+      <item name="cucumber_aquitaine" cultivation_variety="cucurbita" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300"/>
+      <item name="cucumber_poitou_charentes" cultivation_variety="cucurbita" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
       
       
       <!-- Courgette -->

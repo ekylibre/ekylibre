@@ -394,7 +394,7 @@
             />
       <item name="mixture_vetch_oat_pea_crop"
             nature="crop"
-            variety="plant"
+            variety="vicia"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -439,25 +439,25 @@
       <item name="plum_crop"
             nature="fruit_crop"
             variety="prunus"
-            unit_name="plant"
+            unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="apple_crop"
             nature="fruit_crop"
             variety="malus"
-            unit_name="plant"
+            unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="walnut_crop"
             nature="walnut_crop"
             variety="juglans"
-            unit_name="plant"
+            unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="hazel_crop"
             nature="walnut_crop"
             variety="corylus"
-            unit_name="plant"
+            unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       

@@ -1498,6 +1498,7 @@ spa:
     # support: "Support"
     synthesis: "Documentos de sintesis" #?
     # target: "Target"
+    # target_zone: "Target zone"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
     # taxes: "Taxes"
@@ -1581,6 +1582,7 @@ spa:
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
+    # working_zone: "Working zone"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"

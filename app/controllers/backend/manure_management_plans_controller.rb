@@ -49,6 +49,7 @@ class Backend::ManureManagementPlansController < BackendController
     t.column :organic_fertilizer_mineral_fraction, hidden: true
     t.column :nitrogen_at_closing, hidden: true
     t.column :soil_production, hidden: true
+    t.column :maximum_nitrogen_input
     t.column :nitrogen_input
   end
   

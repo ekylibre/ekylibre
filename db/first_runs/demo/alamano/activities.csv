@@ -42,7 +42,7 @@ winter_barley,Orge hiver,winter_barley_crop,,2014,ZC01,2013-10-15,2014-08-01,,,,
 spring_barley,Orge printemps,spring_barley_crop,,2014,ZC02,2014-02-01,2014-08-01,1,,,Grain : 64qt/ha ; Straw : 2.5t/ha,nitrogen_area_density : 150kg/ha ; residue_elimination_method : evacuation ; irrigation_water_input_area_density : 220l/m²
 winter_hard_wheat,Blé dur,tablur_hard_wheat_crop,,2014,ZC03,2013-10-15,2014-08-01,,,,Grain : 78qt/ha ; Straw : 2.5t/ha,nitrogen_area_density : 175kg/ha ; residue_elimination_method : burying
 winter_soft_wheat,Blé tendre,ascott_wheat_crop,,2014,ZC04,2013-10-15,2014-08-01,,,,Grain : 72qt/ha ; Straw : 2.5t/ha,nitrogen_area_density : 150kg/ha ; residue_elimination_method : evacuation
-temporary_meadow,Prairie temporaire et artificielle,mixture_vetch_oat_pea_crop,,2014,ZC05,2012-10-01,2014-08-01,,,fodder,,
+temporary_meadow,Prairie temporaire et artificielle,mixture_vetch_oat_pea_crop,,2014,ZC05,2012-10-01,2014-08-01,,,fodder,silage : 10t/ha,
 grain_corn,Maïs sec,corn_crop,,2014,ZC06,2014-05-01,2014-10-15,,,,Grain : 90qt/ha,
 temporary_meadow,Prairie temporaire et artificielle,mixture_vetch_oat_pea_crop,,2014,ZC07,2012-10-01,2014-08-01,,,fodder,silage : 40t/ha,
 temporary_meadow,Prairie temporaire et artificielle,temporary_meadow_crop,,2014,ZC08,2012-10-01,2014-08-01,,,fodder,silage : 10t/ha ; hay : 8t/ha ; grass : 10t/ha,

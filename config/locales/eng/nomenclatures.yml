@@ -904,6 +904,8 @@ eng:
         meadow: "Meadow"
         nightshade: "Nightshade"
         peas: "Peas"
+        # plants_with_ppf_method: "Plants with ppf method"
+        # plants_without_ppf_method: "Plants without ppf method"
         rape: "Rape"
         rapeseed: "Rapeseed"
         secale_phacelia: "Secale phacelia"

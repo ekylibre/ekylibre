@@ -689,7 +689,7 @@
             category="building_division"
             variety="building_division"
             population_counting="unitary"
-            abilities="store(chemical_fertilizer)"
+            abilities="store(preparation)"
             variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
@@ -771,7 +771,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store_fluid, store(grain), store(grass), store(mineral_matter), move"
+            abilities="store_fluid, store(grain), store(grass), store(raw_matter), move"
             variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass"
             frozen_indicators="population"
             />
@@ -827,7 +827,7 @@
             category="equipment"
             variety="tank"
             population_counting="unitary"
-            abilities="store(organic_matter),freeze"
+            abilities="store(preparation),freeze"
             variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass"
             frozen_indicators="population"
             />
@@ -843,7 +843,7 @@
             category="equipment"
             variety="tank"
             population_counting="unitary"
-            abilities="store(plant_medicine)"
+            abilities="store(preparation)"
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
@@ -851,7 +851,7 @@
             category="equipment"
             variety="tank"
             population_counting="unitary"
-            abilities="store(animal_medicine)"
+            abilities="store(preparation)"
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />     

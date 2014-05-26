@@ -1118,7 +1118,7 @@ fra:
     import_backup: "Import de fichier de sauvegarde"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
-    # incident: "Incident"
+    incident: "Incident"
     include_blank: "— Aucune organisation —"
     income_statement: "Comptes de résultats"
     incoming_payment_conditions: "Conditions d’encaissement"
@@ -1395,19 +1395,19 @@ fra:
     placeholder: "Espace réservé"
     places: "Lieux"
     planned_at: "Date prévisionnelle"
-    # plant: "Plant"
+    plant: "Culture"
     plant_life_state: "Phase du bioprocessus de vie d’un végétal" #?
     plant_medicines: "Produits phytosanitaires" #?
     plant_productions: "Productions végétales"
     plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal" #?
     play: "Éxécuter" #?
     please_wait: "Merci de patienter…"
-    # point: "Point"
+    point: "Point"
     population: "Population"
     postal_zone_x: "%{name} (%{postal_code})" #?
     precipitation: "Précipitations"
     preferences: "Préférences"
-    # prescription: "Prescription"
+    prescription: "Prescription"
     pretax_amount: "Montant HT"
     previous: "Précédent"
     previous_bank_statement: "Solde du relevé précédent N°%{number}"
@@ -1576,7 +1576,7 @@ fra:
     send_test: "Envoyer un mail de test"
     sequences_load: "Charger les séquences manquantes" #?
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
-    # settings: "Settings"
+    settings: "Configurations"
     sex: "Sexe" #?
     shape: "Forme" #?
     ship: "Prévue le"
@@ -1620,6 +1620,7 @@ fra:
     synthesis: "Documents de synthèse" #?
     target: "Cible"
     target_name: "Nom de la cible" #?
+    target_zone: "Zone cible"
     taxes: "Taxes"
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
@@ -1716,6 +1717,7 @@ fra:
     wine_tanks: "Cuverie" #?
     with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)"
+    working_zone: "Zone travaillée"
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
