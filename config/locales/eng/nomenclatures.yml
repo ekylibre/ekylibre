@@ -309,7 +309,7 @@ eng:
       property_natures:
         code: "Code"
         nature: "Nature"
-        parent: "Parent"
+        parent_area: "Parent area"
       items:
         france_department_ain: "France department ain"
         france_department_aisne: "France department aisne"
@@ -896,6 +896,7 @@ eng:
         corn_sorghum: "Corn sorghum"
         crucifers: "Crucifers"
         flax: "Flax"
+        gardening_vegetables: "Gardening vegetables"
         grass: "Grass"
         grass_leguminous: "Grass leguminous"
         hemp: "Hemp"
@@ -904,8 +905,6 @@ eng:
         meadow: "Meadow"
         nightshade: "Nightshade"
         peas: "Peas"
-        # plants_with_ppf_method: "Plants with ppf method"
-        # plants_without_ppf_method: "Plants without ppf method"
         rape: "Rape"
         rapeseed: "Rapeseed"
         secale_phacelia: "Secale phacelia"

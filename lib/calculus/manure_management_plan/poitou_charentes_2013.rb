@@ -17,8 +17,9 @@ module Calculus
         elsif capacity = @options[:available_water_capacity].in_liter_per_square_meter and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: cultivation_varieties, soil_nature: soil_natures) and items = items.select{|i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < i.maximum_available_water_capacity.in_liter_per_square_meter} and items.any?
           puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
-          # else
-          #   expected_yield = 30.in_quintal_per_hectare
+        #else
+          # TODO remove this when all factor could return a value
+          #expected_yield = 30.in_quintal_per_hectare
         end
         puts "======================================================".red
         return expected_yield
@@ -398,6 +399,20 @@ module Calculus
       end
 
 
+      def estimate_maximum_nitrogen_input
+        quantity = 170.in_kilogram_per_hectare
+        if department_item = @options[:administrative_area] and @variety
+          cultivation_varieties = @variety.self_and_parents
+          items = Nomen::NmpFranceAbacusMaximumNitrogenInputPerCultivation.list.select do |i|
+              @variety <= i.cultivation_variety  and i.administrative_area.to_s == department_item.parent_area.to_s
+          end
+          if items.any?
+            quantity = items.first.maximum_nitrogen_input.in_kilogram_per_hectare
+          end
+        end
+        return quantity
+      end
+      
       def compute
         values = {}
 
@@ -433,39 +448,52 @@ module Calculus
 
         # Po
         values[:soil_production]       = estimate_soil_production
-
+        
+        # Xmax
+        values[:maximum_nitrogen_input] = estimate_maximum_nitrogen_input
+        
         # X
-        values[:nitrogen_input] = nil
-        if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil]) or soil_natures.include?(Nomen::SoilNatures[:chesnut_red_soil]) and @variety and @variety > :nicotiana
-          # CAU = 0.8
-          # X = [(Pf - Po - Mr - MrCi - Nirr) / CAU] - Xa
-          fertilizer_apparent_use_coeffient = 0.8.to_d
-          values[:nitrogen_input] = (((values[:nitrogen_need] -
-                                       values[:soil_production] -
+        values[:nitrogen_input] = 0.in_kilogram_per_hectare
+        
+        sets = crop_sets.map(&:name).map(&:to_s)
+        
+        if @variety and ( @variety <= :poaceae or @variety <= :brassicaceae or @variety <= :medicago or @variety <= :helianthus or @variety <= :nicotiana or @variety <= :linum )
+          if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil]) or soil_natures.include?(Nomen::SoilNatures[:chesnut_red_soil]) and @variety and @variety > :nicotiana
+            # CAU = 0.8
+            # X = [(Pf - Po - Mr - MrCi - Nirr) / CAU] - Xa
+            fertilizer_apparent_use_coeffient = 0.8.to_d
+            values[:nitrogen_input] = (((values[:nitrogen_need] -
+                                         values[:soil_production] -
+                                         values[:previous_cultivation_residue_mineralization] -
+                                         values[:intermediate_cultivation_residue_mineralization] -
+                                         values[:irrigation_water_nitrogen]) / fertilizer_apparent_use_coeffient) -
+                                       values[:organic_fertilizer_mineral_fraction])
+          else
+            # X = Pf - Pi - Ri - Mh - Mhp - Mr - MrCi - Nirr - Xa + Rf
+            values[:nitrogen_input] = (values[:nitrogen_need] -
+                                       values[:absorbed_nitrogen_at_opening] -
+                                       values[:mineral_nitrogen_at_opening] -
+                                       values[:humus_mineralization] -
+                                       values[:meadow_humus_mineralization] -
                                        values[:previous_cultivation_residue_mineralization] -
                                        values[:intermediate_cultivation_residue_mineralization] -
-                                       values[:irrigation_water_nitrogen]) / fertilizer_apparent_use_coeffient) -
-                                     values[:organic_fertilizer_mineral_fraction])
-        else
-          # X = Pf - Pi - Ri - Mh - Mhp - Mr - MrCi - Nirr - Xa + Rf
-          values[:nitrogen_input] = (values[:nitrogen_need] -
-                                     values[:absorbed_nitrogen_at_opening] -
-                                     values[:mineral_nitrogen_at_opening] -
-                                     values[:humus_mineralization] -
-                                     values[:meadow_humus_mineralization] -
-                                     values[:previous_cultivation_residue_mineralization] -
-                                     values[:intermediate_cultivation_residue_mineralization] -
-                                     values[:irrigation_water_nitrogen] -
-                                     values[:organic_fertilizer_mineral_fraction] +
-                                     values[:nitrogen_at_closing])
+                                       values[:irrigation_water_nitrogen] -
+                                       values[:organic_fertilizer_mineral_fraction] +
+                                       values[:nitrogen_at_closing])
+          end
+  
+          if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil])
+            values[:nitrogen_input] *= 1.15.to_d
+          else
+            values[:nitrogen_input] *= 1.10.to_d
+          end
         end
-
-        if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil])
-          values[:nitrogen_input] *= 1.15.to_d
-        else
-          values[:nitrogen_input] *= 1.10.to_d
+        
+        # LEGUMES / ARBO / VIGNES : Dose plafond à partir d'abaques    
+        # X ≤ nitrogen_input_max – Nirr – Xa
+        if @variety and (@variety <= :vitis or @variety <= :solanum_tuberosum or @variety <= :cucumis or sets.include?("gardening_vegetables"))
+          values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
         end
-
         # @zone.mark(:nitrogen_area_density, nitrogen_input.round(3), subject: :support)
         # puts "-" * 80
         # puts "crop_yield:     " + crop_yield.inspect

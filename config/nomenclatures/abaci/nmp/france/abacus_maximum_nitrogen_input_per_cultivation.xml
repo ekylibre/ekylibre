@@ -112,6 +112,17 @@
       
       <item name="muskmelon_salad_aquitaine" cultivation_variety="cucumis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="160"/>
       <item name="muskmelon_salad_poitou_charentes" cultivation_variety="cucumis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="140"/>
+      
+      
+      <!-- Vigne de cuve-->
+      
+      <item name="vine_aquitaine" cultivation_variety="vitis_vinifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100"/>
+      <item name="vine_poitou_charentes" cultivation_variety="vitis_vinifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80"/>
+      
+      <!-- Vigne de table-->
+      
+      <item name="table_vine_aquitaine" cultivation_variety="vitis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210"/>
+      <item name="table_vine_poitou_charentes" cultivation_variety="vitis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80"/>
         
       
     </items>

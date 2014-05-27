@@ -73,6 +73,8 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
       # Estimate Xa see PoitouCharentes2013
 
       # Estimate "Mrci" see PoitouCharentes2013
+      
+      # Estimate "Xmax" see PoitouCharentes2013
 
       # Estimate Nirr
       def estimate_irrigation_water_nitrogen
@@ -94,7 +96,7 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
 
         # Pf
         values[:nitrogen_need]                  = estimate_nitrogen_need
-
+        
         # Pi
         values[:absorbed_nitrogen_at_opening] = estimate_absorbed_nitrogen_at_opening
 
@@ -124,13 +126,16 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
 
         # Po
         values[:soil_production]       = estimate_soil_production
-
+        
+        # Xmax
+        values[:maximum_nitrogen_input] = estimate_maximum_nitrogen_input
+        
         # X
-        values[:nitrogen_input] = nil
+        values[:nitrogen_input] = 0.in_kilogram_per_hectare
         # get sets corresponding to @variety
         sets = crop_sets.map(&:name).map(&:to_s)
         # CEREALES A PAILLES : (((Pf + Rf) – (Ri + Mh + Mhp + Mr)) / CAU) - Xa = X
-        if sets.include?("straw_cereal")
+        if @variety and ( @variety <= :poaceae or @variety <= :brassicaceae or @variety <= :medicago or @variety <= :helianthus or @variety <= :nicotiana or @variety <= :linum )
           fertilizer_apparent_use_coeffient = 0.8.to_d
           values[:nitrogen_input] = (((values[:nitrogen_need] + values[:nitrogen_at_closing]) -
                                        (values[:mineral_nitrogen_at_opening] + values[:humus_mineralization] +
@@ -162,8 +167,13 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
         
         # SOJA : pas d'apport sauf échec de nodulation
         
-        # LEGUMINEUSE / ARBO / VIGNES : Dose plafond à partir d'abaques    
-
+        # LEGUMES / ARBO / VIGNES : Dose plafond à partir d'abaques    
+        # X ≤ nitrogen_input_max – Nirr – Xa
+        if @variety and (@variety <= :vitis or @variety <= :solanum_tuberosum or @variety <= :cucumis or sets.include?("gardening_vegetables"))
+          values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
+        end
+        
+        
         return values
       end
 

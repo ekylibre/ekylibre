@@ -438,7 +438,7 @@ fra:
       property_natures:
         code: "Code ISO"
         nature: "Type"
-        parent: "Parent"
+        parent_area: "Zone parente"
     analysis_natures:
       items:
         cow_milk_analysis: "Analyse de lait de vache"
@@ -893,6 +893,7 @@ fra:
         corn_sorghum: "Maïs et sorgho"
         crucifers: "Crucifères"
         flax: "Lin"
+        gardening_vegetables: "Légumes en maraîchage"
         grass: "Graminée"
         grass_leguminous: "Graminée et Legumineuse"
         hemp: "Chanvre"

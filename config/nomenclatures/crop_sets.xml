@@ -37,8 +37,7 @@
       <item name="grass_leguminous" varieties="poaceae,fabaceae" />
       <item name="secale_phacelia" varieties="secale,phacelia" />
       <item name="hemp" varieties="cannabis" />
-      <item name="plants_with_ppf_method" varieties="poaceae,brassicaceae,medicago,helianthus,nicotiana,linum" />
-      <item name="plants_without_ppf_method" varieties="allium,cynara,asparagus,solanum_melongena,beta_vulgaris,daucus_carota,apium_graveolens,cichorium_endivia,brassica_oleracea,cucumis,cucurbita,spinacia,fragaria,phaseolus,lactuca,valerianella_locusta" />
+      <item name="gardening_vegetables" varieties="allium,cynara,asparagus,solanum_melongena,beta_vulgaris,daucus_carota,apium_graveolens,cichorium_endivia,brassica_oleracea,cucumis,cucurbita,spinacia,fragaria,phaseolus,lactuca,valerianella_locusta" />
     </items>
   </nomenclature>
 </nomenclatures>

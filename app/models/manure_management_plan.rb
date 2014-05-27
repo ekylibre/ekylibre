@@ -39,7 +39,7 @@
 class ManureManagementPlan < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :recommender, class_name: "Entity"
-  has_many :zones, class_name: "ManureManagementPlanZone", inverse_of: :plan, foreign_key: :plan_id
+  has_many :zones, class_name: "ManureManagementPlanZone", dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id
   enumerize :default_computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :default_computation_method, :name, allow_nil: true, maximum: 255

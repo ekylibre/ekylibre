@@ -439,7 +439,7 @@ jpn:
       property_natures:
         # code: "Code"
         # nature: "Nature"
-        # parent: "Parent"
+        # parent_area: "Parent area"
     analysis_natures:
       choices: #?
       items:
@@ -896,6 +896,7 @@ jpn:
         # corn_sorghum: "Corn sorghum"
         # crucifers: "Crucifers"
         # flax: "Flax"
+        # gardening_vegetables: "Gardening vegetables"
         # grass: "Grass"
         # grass_leguminous: "Grass leguminous"
         # hemp: "Hemp"
