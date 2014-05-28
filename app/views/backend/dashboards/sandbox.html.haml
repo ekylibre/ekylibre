@@ -10,9 +10,22 @@
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
       area1 = Charta::Geometry.new(lp.shape).transform(:WGS84).area
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
-      bub << {style: 'bubble', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 0.9}
-      choro << {style: 'choropleth', category: 'corn', center: centroid, choropleth_value: 'area', choropleth_type: 'linear', choropleth_color: 'red',name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'null', opacity: 1, fill: true, fillOpacity: 1}
-      sim << {style: 'simple', category: 'corn', center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
+      # build category (soil_nature) for lp
+      category = 'undefined'
+      if soil_nature = lp.soil_nature
+        category = soil_nature
+        category_color = cycle(*Backend::VisualizationsHelper::COLORS)
+        category_name = Nomen::SoilNatures.find(soil_nature).human_name
+      end
+      # build chloropleth value
+      soil_depth = 'undefined'
+      if soil_depth = lp.soil_depth
+        soil_depth = soil_depth.to_f
+      end
+      
+      bub << {style: 'bubble', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'blue', fillOpacity: 0.75}
+      choro << {style: 'choropleth', choropleth_level_number: 10, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_value: 'area', choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
+      sim << {style: 'simple', category: category, category_name: category_name, center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: category_color, fillOpacity: 0.5}
     end
   end
   
@@ -54,7 +67,7 @@
   - v.control :fullscreen
   -# v.control :geocoder
   - v.control :layer_selector
-  - v.control :legends
+  -# v.control :legends
   - v.control :layer_legend
 
 

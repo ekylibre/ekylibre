@@ -9,10 +9,6 @@
       backgrounds: {}
       overlays: {}
       controls: {}
-      blue_choropleth_palette: ['#ffffff', '#9999ff', '#6666ff', '#3232ff', '#0000ff', '#0000cc', '#000099', '#000066']
-      red_choropleth_palette: ['#ffffff', '#ff9999', '#ff6666', '#ff3232', '#ff0000', '#cc0000', '#990000', '#660000']
-      green_choropleth_palette: ['#ffffff', '#99ff99', '#66ff66', '#32ff32', '#00ff00', '#00cc00', '#009900', '#006600']
-      purple_choropleth_palette: ['#ffffff', '#cc99cc', '#b266b2', '#993299', '#800080', '#660066', '#4c004c', '#330033']
       layers: {}
       show: null
       edit: null
@@ -91,17 +87,6 @@
       # this.map.on "draw:deleted", (e) ->
       #   widget._saveUpdates()
       #   widget.element.trigger "mapchange"
-        
-      
-      #this.show()
-      
-      #this.edit()
-      
-      #this.view()
-      
-      #this.height()
-      
-      #this.zoom()
       
       #this._saveUpdates()
       
@@ -115,22 +100,19 @@
       #this._refreshBubbles()
       
       #this._refreshPolygons()
+     
       this._calculArea()
       
       this._calculChoropleth()
-
+      
       this._refreshControls()
            
       #this._refreshPolygons()
-      
-
-      
-
-     
+ 
     _destroy: ->
       this.element.attr this.oldElementType
       this.mapElement.remove()
-       
+      
        
     show: (geojson) ->
       return this.options.show unless geojson?
@@ -141,7 +123,7 @@
       return this.options.edit unless geojson?
       this.options.edit = geojson
       this._refreshEditionLayerGroup()
- 
+     
     view: (view) ->
       return this.options.view unless view?
       this.options.view = view
@@ -172,32 +154,105 @@
             if value.choropleth_value == 'area'
               tmp = value.area.value.split("/")
               value.choropleth_value = Math.round(tmp[0]/tmp[1])
-        
-    _calculChoropleth: ->
-      red = this.options.red_choropleth_palette
-      blue = this.options.blue_choropleth_palette
-      green = this.options.green_choropleth_palette
-      purple = this.options.purple_choropleth_palette      
+
+    _calculChoropleth: ->  
       if this.options.layers
         $.each this.options.layers, ( index, value ) ->
           max_value = 0
-          choro = false  
+          choro = false 
+          level_number = 0 
+          start = ""
+          end = ""
           $.each value.list, (index, value) ->
-            if value.style == 'choropleth'
+            if value.style == 'choropleth'              
+              level_number = value.choropleth_level_number
               choro = true
+              start = value.choropleth_start_color
+              end = value.choropleth_end_color
               if value.choropleth_value > max_value
                 max_value = value.choropleth_value
-          if choro == true
+          if choro == true       
+            start_red = parseInt(start.slice(1,3),16)
+            start_green = parseInt(start.slice(3,5),16)
+            start_blue = parseInt(start.slice(5,7),16)
+            end_red = parseInt(end.slice(1,3),16)
+            end_green = parseInt(end.slice(3,5),16)
+            end_blue = parseInt(end.slice(5,7),16)
+            red_gap = Math.ceil((start_red - end_red)/level_number)
+            green_gap = Math.ceil((start_green - end_green)/level_number)
+            blue_gap = Math.ceil((start_blue - end_blue)/level_number)
+            
             $.each value.list, (index, value) ->
-              if value.style == 'choropleth'
-                choro_color = Math.ceil(((value.choropleth_value/(max_value/7))*10)/10)
-                switch value.choropleth_color
-                  when "red" then value.fillColor = red[choro_color]
-                  when "blue" then value.fillColor = blue[choro_color]
-                  when "green" then value.fillColor = green[choro_color]
-                  when "purple" then value.fillColor = purple[choro_color]
-                  else alert "This color isn't available"
+              color_level = Math.ceil(value.choropleth_value/(max_value/level_number))
+              value.level = color_level               
+              red_int = start_red - (red_gap*color_level)       
+              red_string = (red_int).toString(16)
+              if red_int <= 0
+                fillColor_red = "00"
+              else if red_int < 16
+                fillColor_red ="0" + red_string
+              else if red_int > 255
+                fillColor_red ="FF"
+              else
+                fillColor_red = red_string
+                
+              green_int = start_green - (green_gap*color_level)       
+              green_string = (green_int).toString(16)
+              if green_int <= 0
+                fillColor_green = "00"
+              else if green_int < 16
+                fillColor_green = "0" + green_string
+              else if green_int > 255
+                fillColor_green = "FF"
+              else
+                fillColor_green = green_string
+                
+              blue_int = start_blue - (blue_gap*color_level)       
+              blue_string = (blue_int).toString(16)
+              if blue_int <= 0
+                fillColor_blue = "00"
+              else if blue_int < 16
+                fillColor_blue ="0" + blue_string
+              else if blue_int > 255
+                fillColor_blue ="FF"
+              else
+                fillColor_blue = blue_string        
+              value.fillColor = "#" + fillColor_red + fillColor_green + fillColor_blue
       this
+      #sky_blue = this.options.COLORS[0]
+      #midnight_blue = this.options.COLORS[1]
+      #swamp_green = this.options.COLORS[2]
+      #bordeaux_red = this.options.COLORS[3]
+      #turquoise_blue = this.options.COLORS[4]
+      #dark_purple = this.options.COLORS[5]
+      #ochre_orange = this.options.COLORS[6]
+      #pastel_blue = this.options.COLORS[7]
+      #brick_red = this.options.COLORS[8]
+      #pale_green = this.options.COLORS[9]
+      #if this.options.layers
+        #$.each this.options.layers, ( index, value ) ->
+          #max_value = 0
+          #choro = false
+          #$.each value.list, (index, value) ->
+            #if value.style == 'choropleth'
+              #choro = true
+              #if value.choropleth_value > max_value
+                #max_value = value.choropleth_value
+          #if choro == true
+            #$.each value.list, (index, value) ->
+              #if value.style == 'choropleth'
+                #level_size = 255/value.choropleth_level_number
+                #choro_level = (Math.ceil(((value.choropleth_value/(max_value/value.choropleth_level_number))*10)/10))*level_size
+
+                #switch value.choropleth_color
+                  #when "red" then value.fillColor = red[choro_level] 
+                  #when "sky_blue" then value.fillColor = lighten(sky_blue, choro_level)
+                  #when "green" then value.fillColor = green[choro_level]
+                  #when "purple" then value.fillColor = purple[choro_level]
+                  #when "cian" then value.fillColor = cian[choro_level]
+                  #when "yellow" then value.fillColor = yellow[choro_level]
+                  #else alert "This color isn't available"
+
 
                 
     _refreshControls: ->
@@ -252,12 +307,12 @@
               overlays[value.name] = overLayer
               
             $.each layers, ( index, value ) ->  
-              layer_group = []           
+              layer_group = []
               $.each value.list, (index, value) ->
                 if value.style == 'simple'
                   simple_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
                   tmp = value.area.value.split("/")
-                  popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category}"
+                  popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category_name}"
                   simple_layer.bindPopup(popup)
                   layer_group.push(simple_layer)
                 if value.style == 'bubble'
@@ -265,7 +320,7 @@
                   popup = "#{value.name} <br> Amount of potassium :  #{Math.round(value.radius)} grames by square meter"
                   bubble_layer.bindPopup(popup)
                   layer_group.push(bubble_layer)
-                if value.style == 'choropleth'   
+                if value.style == 'choropleth'  
                   choropleth_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
                   tmp = value.area.value.split("/")
                   popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category}"
@@ -285,24 +340,36 @@
             controls = new L.Control.Layers(baseLayers, overlays,layer_options)
             #that.map.removeControl (controls)
             that.map.addControl controls
-            
-          #if value.name == 'layer_legend'
-            #legend = new L.Control({position: 'bottomright'})
-            #legend.onAdd (map) ->
-              #div = new L.DomUtil.create("div", "info legend")
-              #grades = [
-                #0
-                #10
-                #20
-                #50
-                #100
-                #200
-                #500
-                #1000
-              #]
+                
+          if value.name == 'layer_legend' 
+            legend = new L.control(position: "bottomright")
+            legend.onAdd = (map) ->
+              div = new L.DomUtil.create("div", "leaflet-legend-control")
+              color ='#000000'
+              bubble_grades = 5
+              max_bubble_value = 0
+              simple_grades = {}
+              $.each layers, ( index, value ) ->  
+                $.each value.list, (index, value) ->
+                  if value.style == 'bubble'
+                    if value.radius > max_bubble_value
+                      max_bubble_value = value.radius 
+                      color = value.fillColor
+              $.each layers, ( index, value ) ->  
+                $.each value.list, (index, value) ->
+                    if value.style == 'simple'
+                      simple_grades[value.category] = value.fillColor
 
-            
-
+              labels = []
+              i = bubble_grades
+              while i > 0
+                div.innerHTML += '<i class="leaflet-legend-circle" style="background:' + color +  '"></i>'  + Math.round(max_bubble_value*(i/bubble_grades)) +  " "
+                i--
+              div.innerHTML += "<br>"
+              $.each simple_grades, ( index, value ) ->
+                div.innerHTML +=  '<strong style="background:' + value +  '>sdfghjk</strong>'  + value +  "<br>"         
+              div
+            legend.addTo that.map                    
             
           if value.name == "geocoder"  
             geocoder_options = {
@@ -316,6 +383,7 @@
             that.map.addControl controls
             
       this
+    
 
  
     _refreshReferenceLayerGroup: ->
