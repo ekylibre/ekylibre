@@ -6,8 +6,6 @@ gem 'rails', '4.1.1'
 # Database adapters
 gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter'
-# gem 'activerecord-spatialite-adapter'
-# gem 'squeel'
 
 # Code manipulation
 gem 'code_string'
@@ -78,9 +76,12 @@ gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0.rc3'
 gem 'enumerize'
 
-# Authentication
+# Authentication & Authorization
 gem 'devise'
 gem 'devise-i18n-views'
+gem 'simple_token_authentication'
+# gem 'doorkeeper'
+# gem 'rack-cors', require: 'rack/cors'
 
 # Attachments
 gem 'paperclip'

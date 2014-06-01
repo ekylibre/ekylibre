@@ -17,15 +17,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Api::V1::CrumbsController < ApiController
+class Api::V1::CrumbsController < Api::V1::BaseController
 
   def index
     respond_to do |format|
-      format.json { render json: {}.to_json }
+      format.json { render status: :success, json: {} }
     end
   end
 
   def create
+    respond_to do |format|
+      format.json { render status: :success, json: {} }
+    end
   end
 
 end

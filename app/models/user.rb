@@ -64,7 +64,6 @@
 #
 
 class User < Ekylibre::Record::Base
-  # attr_readonly :person_id
   belongs_to :team
   belongs_to :establishment
   belongs_to :person
@@ -93,6 +92,7 @@ class User < Ekylibre::Record::Base
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
+  acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable

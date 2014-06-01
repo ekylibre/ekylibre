@@ -17,11 +17,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ApiController < BaseController
-  before_filter :authenticate_user!
+class Api::V1::BaseController < ActionController::Base
+  before_action :check_format!
+  acts_as_token_authentication_handler_for User
 
   after_action do
     response.headers["X-Ekylibre-Media-Type"] = "ekylibre.v1"
+  end
+
+  hide_action :check_format!
+  def check_format!
+    if request.format != :json
+      render status: :not_acceptable, json: {message: "The request must be JSON"}
+      return false
+    end
   end
 
 end
