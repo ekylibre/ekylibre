@@ -851,7 +851,7 @@
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33percent"
             />
       <item name="bulk_urea_46"
             nature="chemical_fertilizer"
@@ -861,12 +861,12 @@
       <item name="liquid_10_34_d1.4"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, potassium_concentration: 34percent"
+            frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, phosphorus_concentration: 34percent"
             />
       <item name="liquid_10_25_d1.4"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, potassium_concentration: 25percent"
+            frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, phosphorus_concentration: 25percent"
             />
       <item name="liquid_nitrogen_30_d1.3"
             nature="chemical_fertilizer"
@@ -1238,7 +1238,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="alfalfa_seed"
+      <item name="lucerne_seed"
             nature="seed"
             derivative_of="medicago"
             unit_name="25kg_bag"
@@ -1921,18 +1921,24 @@
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <!-- WHEAT -->
-      <item name="coop:bth_s_arezzo_r1_gau__red_lat_s25kg"
+      <item name="coop:bth_s_arezzo_r1_gau_red_lat_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_arezzo"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_ascott_r1_gau__red_25kg"
+      <item name="coop:bth_s_ascott_r1_gau__red_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_ascott"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
-            />    
+            />
+      <item name="coop:bth_s_ascott_r1_gau_red_s25kg"
+            nature="seed"
+            derivative_of="triticum_aestivum_ascott"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />   
       <item name="coop:bth_s_caphorn_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
@@ -1945,7 +1951,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_caphorn_r1_gau__red_lat_s25kg"
+      <item name="coop:bth_s_caphorn_r1_gau_red_lat_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
             unit_name="25kg_bag"
@@ -1969,7 +1975,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_rubisko_r1_gau_red_25kg"
+      <item name="coop:bth_s_rubisko_r1_gau___red_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_rubisko"
             unit_name="25kg_bag"
@@ -1983,7 +1989,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bd_s_miradoux_r1_gau_red_net_25kg"
+      <item name="coop:bd_s_miradoux_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
             unit_name="25kg_bag"
@@ -2003,20 +2009,20 @@
             />
       
       <!-- FERTILIZER -->
-      <item name="coop:ammonitre_27__vr"
+      <item name="coop:ammonitre_27_____vr"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 27percent, potassium_concentration: 27percent, phosphorus_concentration: 27percent"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 27percent"
             />
-      <item name="coop:ammonitre_33_5__vr"
+      <item name="coop:ammonitre_33_5_____vr"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent"
             />
-      <item name="coop:ammonitre_33_5__bb"
+      <item name="coop:ammonitre_33_5_____bb"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent"
             />
       <item name="coop:uree_gr_vrac"
             nature="chemical_fertilizer"
@@ -2026,9 +2032,9 @@
       <item name="coop:super_46__gr__vr"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent, potassium_concentration: 46percent, phosphorus_concentration: 46percent"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, phosphorus_concentration: 46percent"
             />
-      <item name="coop:chlorure_60__gr_vr"
+      <item name="coop:chlorure_60__gr____vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent"
@@ -2073,7 +2079,7 @@
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
         <!-- FUNGICIDE -->
-      <item name="coop:adexar_5_l"
+      <item name="coop:adexar_5l"
             nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
@@ -2089,6 +2095,11 @@
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
       <item name="coop:bell_star_5_l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:ceando_5_l"
             nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
@@ -2139,6 +2150,11 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
+      <item name="coop:buggy_plus_100_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
       <item name="coop:bromotril_225_5_l"
             nature="herbicide"
             unit_name="liter"
@@ -2159,7 +2175,7 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="coop:kalao_d__5dl"
+      <item name="coop:kalao_d__5_l"
             nature="herbicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
