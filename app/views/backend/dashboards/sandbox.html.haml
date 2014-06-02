@@ -6,7 +6,7 @@
   choro = []
   lp.each do |lp|
     if lp.shape
-      radius1 = rand(50) + 50
+      radius1 = rand(100)
       centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
       area1 = Charta::Geometry.new(lp.shape).transform(:WGS84).area
       polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
@@ -23,22 +23,22 @@
         soil_depth = soil_depth.to_f
       end
       
-      bub << {style: 'bubble', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'blue', fillOpacity: 0.75}
-      choro << {style: 'choropleth', choropleth_level_number: 10, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_value: 'area', choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
-      sim << {style: 'simple', category: category, category_name: category_name, center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: category_color, fillOpacity: 0.5}
+      bub << {style: 'bubble', layer_name: 'Bubble test', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'green', fillOpacity: 0.75}
+      choro << {style: 'choropleth', layer_name: 'Choropleth test', choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_value: 'area', choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
+      sim << {style: 'simple', layer_name: 'Simple test', category: category, category_name: category_name, center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: category_color, fillOpacity: 0.5}
     end
   end
   
 = visualization :my_cultivable_zone_of_hell do |v|
   -# The followings layers are base layers. Only one base layer will appear.
   - v.background :default_base, "OpenStreetMap.HOT"
-  - v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
+  -# v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
   - v.background :de_base, "OpenStreetMap.DE"
   - v.background :cycle_base, "OpenCycleMap"
   - v.background :forest_base, "Thunderforest"
   - v.background :water_base, "Thunderforest.Transport"
-  - v.background :landscape_base, "Thunderforest.Landscape"
-  - v.background :outdoors_base, "Thunderforest.Outdoors"
+  -# v.background :landscape_base, "Thunderforest.Landscape"
+  -# v.background :outdoors_base, "Thunderforest.Outdoors"
   -# The followings layers are overlays . They can be combined.
   -# v.overlay :clouds, "OpenWeatherMap.Clouds"
   -# v.overlay :precipitations, "OpenWeatherMap.Precipitation"
@@ -68,6 +68,6 @@
   -# v.control :geocoder
   - v.control :layer_selector
   -# v.control :legends
-  - v.control :layer_legend
+  -# v.control :layer_legend
 
 

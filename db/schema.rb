@@ -2138,19 +2138,18 @@ ActiveRecord::Schema.define(version: 20140528161301) do
   add_index "production_support_markers", ["updater_id"], :name => "index_production_support_markers_on_updater_id"
 
   create_table "production_supports", force: true do |t|
-    t.integer  "production_id",                    null: false
-    t.integer  "storage_id",                       null: false
+    t.integer  "production_id",                 null: false
+    t.integer  "storage_id",                    null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "exclusive",        default: false, null: false
-    t.boolean  "irrigated",        default: false, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.boolean  "exclusive",     default: false, null: false
+    t.boolean  "irrigated",     default: false, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0,     null: false
-    t.string   "nature",                           null: false
-    t.string   "production_usage",                 null: false
+    t.integer  "lock_version",  default: 0,     null: false
+    t.string   "nature"
   end
 
   add_index "production_supports", ["created_at"], :name => "index_production_supports_on_created_at"
@@ -2344,14 +2343,13 @@ ActiveRecord::Schema.define(version: 20140528161301) do
   add_index "purchases", ["updater_id"], :name => "index_purchases_on_updater_id"
 
   create_table "roles", force: true do |t|
-    t.string   "name",                       null: false
+    t.string   "name",                     null: false
     t.text     "rights"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",   default: 0, null: false
-    t.string   "reference_name"
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "roles", ["created_at"], :name => "index_roles_on_created_at"

@@ -785,12 +785,15 @@ $map-button-size: round(2 * $fs-normal);
 /* ================================================================== */
 
 .leaflet-legend-control {
-    padding: 6px 8px;
+    padding: 4px 12px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
+    border-radius: 0px;
+    width: 220px;
+
+    border: 1px solid #000000;
   
     
     .legend {
@@ -802,7 +805,7 @@ $map-button-size: round(2 * $fs-normal);
       height: 18px;
       float: left;
       margin-right: 8px;
-      opacity: 0.7;
+      opacity: 1;
     }
 
     
@@ -811,10 +814,11 @@ $map-button-size: round(2 * $fs-normal);
     color: #777;
   }
   .leaflet-legend-circle {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000000;
     @include inline-block;
     border-radius: 50%;
-    width: 10px;
-    height: 10px;
     margin-top: 8px;
 }
 

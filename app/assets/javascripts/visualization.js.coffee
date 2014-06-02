@@ -182,7 +182,9 @@
             green_gap = Math.ceil((start_green - end_green)/level_number)
             blue_gap = Math.ceil((start_blue - end_blue)/level_number)
             
-            $.each value.list, (index, value) ->
+          $.each value.list, (index, value) ->
+            if value.style == 'choropleth'
+              value.max_value = max_value 
               color_level = Math.ceil(value.choropleth_value/(max_value/level_number))
               value.level = color_level               
               red_int = start_red - (red_gap*color_level)       
@@ -307,30 +309,108 @@
               overlays[value.name] = overLayer
               
             $.each layers, ( index, value ) ->  
+            
               layer_group = []
+              
+              legend = new L.control(position: "bottomright")
+              bubble_legend = false
+              choropleth_legend = false
+              simple_legend = false
+              legend_name = ""
+              div = new L.DomUtil.create("div", "leaflet-legend-control")
+              color ='#000000'
+              bubble_grades = 4
+              max_bubble_value = 0
+              max_bubble_value_digits = 0
+              choropleth_grades = {}
+              choropleth_max_value = 0
+              choropleth_level_value = {}
+              simple_grades = {}
+              
               $.each value.list, (index, value) ->
+                                
                 if value.style == 'simple'
+                  
+                  simple_legend = true
+                  legend_name = value.layer_name
+                  simple_grades[value.category] = value.fillColor
+                  
                   simple_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
                   tmp = value.area.value.split("/")
                   popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category_name}"
                   simple_layer.bindPopup(popup)
                   layer_group.push(simple_layer)
-                if value.style == 'bubble'
-                  bubble_layer = new L.circle(value.center, value.radius, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
+                  
+                else if value.style == 'bubble'
+                  
+                  bubble_legend = true
+                  legend_name = value.layer_name
+                  if value.radius > max_bubble_value
+                    color = value.fillColor
+                    max_bubble_value = value.radius
+                    max_bubble_value_digits = (max_bubble_value.toString().length)-1
+                    
+                  bubble_layer = new L.Circle(value.center, value.radius, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
                   popup = "#{value.name} <br> Amount of potassium :  #{Math.round(value.radius)} grames by square meter"
                   bubble_layer.bindPopup(popup)
-                  layer_group.push(bubble_layer)
-                if value.style == 'choropleth'  
+                  layer_group.push(bubble_layer)   
+                                     
+                               
+                else if value.style == 'choropleth'  
+                  
+                  choropleth_legend = true
+                  choropleth_max_value = value.max_value
+                  legend_name = value.layer_name
+                  choropleth_grades[value.level] = value.fillColor
+                  choropleth_level_value[value.level] = Math.round((value.max_value/value.choropleth_level_number)*value.level)
+                  
                   choropleth_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
                   tmp = value.area.value.split("/")
                   popup = "#{value.name} <br> Area :  #{Math.round(tmp[0]/tmp[1])} #{value.area.unit} <br> Category : #{value.category}"
                   choropleth_layer.bindPopup(popup)
                   layer_group.push(choropleth_layer)
+                  
               overLayer = L.layerGroup(layer_group)
               overlays[value.name] = overLayer
               group = new L.featureGroup(layer_group)
               that.map.addLayer(overLayer)
               that.map.fitBounds(group.getBounds())
+              
+              legend.onAdd = (map) ->
+                                
+                if bubble_legend == true
+                  
+                  div.innerHTML += legend_name
+                  div.innerHTML += "<br>"
+                  i = 0
+                  while i <= bubble_grades
+                    rounded_max_value = Math.ceil(max_bubble_value/Math.pow(10,max_bubble_value_digits))*Math.pow(10,max_bubble_value_digits) 
+                    rounded_max_value *= (i/bubble_grades)
+                    width = rounded_max_value /3
+                    height = rounded_max_value /3
+                    div.innerHTML += '<i class="leaflet-legend-circle" style="background-color:' + color + "; width: #{width}px; height: #{height}px" + '"></i>'  + " " + rounded_max_value +  " "
+                    i++
+                if choropleth_legend == true
+                  
+                  choropleth_max_value 
+                  div.innerHTML += legend_name
+                  div.innerHTML += "<br>" + "<br>"
+                  div.innerHTML += index
+                  $.each choropleth_grades, ( index, value ) ->               
+                    div.innerHTML += '<i class="leaflet-legend-control" style="background:' + value + '"></i>'      
+                  div.innerHTML += choropleth_max_value
+                  div.innerHTML += "<br>" + "<br>"
+               
+                if simple_legend == true
+                  
+                  div.innerHTML += legend_name
+                  div.innerHTML += "<br>"   
+                  $.each simple_grades, ( index, value ) ->
+                    div.innerHTML += '<i class="leaflet-legend-circle" style="background:' + value + '"></i>' + " " + index +  " "
+                    div.innerHTML += "<br>"
+                                 
+                div
+              legend.addTo that.map
 
             layer_options = {
               collapsed: true,
@@ -341,35 +421,49 @@
             #that.map.removeControl (controls)
             that.map.addControl controls
                 
-          if value.name == 'layer_legend' 
-            legend = new L.control(position: "bottomright")
-            legend.onAdd = (map) ->
-              div = new L.DomUtil.create("div", "leaflet-legend-control")
-              color ='#000000'
-              bubble_grades = 5
-              max_bubble_value = 0
-              simple_grades = {}
-              $.each layers, ( index, value ) ->  
-                $.each value.list, (index, value) ->
-                  if value.style == 'bubble'
-                    if value.radius > max_bubble_value
-                      max_bubble_value = value.radius 
-                      color = value.fillColor
-              $.each layers, ( index, value ) ->  
-                $.each value.list, (index, value) ->
-                    if value.style == 'simple'
-                      simple_grades[value.category] = value.fillColor
-
-              labels = []
-              i = bubble_grades
-              while i > 0
-                div.innerHTML += '<i class="leaflet-legend-circle" style="background:' + color +  '"></i>'  + Math.round(max_bubble_value*(i/bubble_grades)) +  " "
-                i--
-              div.innerHTML += "<br>"
-              $.each simple_grades, ( index, value ) ->
-                div.innerHTML +=  '<strong style="background:' + value +  '>sdfghjk</strong>'  + value +  "<br>"         
-              div
-            legend.addTo that.map                    
+          # if value.name == 'layer_legend' 
+            # legend = new L.control(position: "bottomright")
+            # legend.onAdd = (map) ->
+              # div = new L.DomUtil.create("div", "leaflet-legend-control")
+              # color ='#000000'
+              # bubble_grades = 4
+              # max_bubble_value = 0
+              # max_bubble_value_digits = 0
+              # choropleth_grades = {}
+              # simple_grades = {}
+              # $.each layers, ( index, value ) ->  
+                # $.each value.list, (index, value) ->
+                  # if value.style == 'bubble'
+                    # if value.radius > max_bubble_value
+                      # color = value.fillColor
+                      # max_bubble_value = value.radius
+                      # max_bubble_value_digits = (max_bubble_value.toString().length)-1                   
+# 
+                  # if value.style == 'simple'
+                    # simple_grades[value.category] = value.fillColor
+# 
+                  # if value.style == 'choropleth'
+                    # choropleth_grades[value.level] = value.fillColor
+# 
+              # i = 0
+              # while i <= bubble_grades
+                # rounded_max_value = Math.ceil(max_bubble_value/Math.pow(10,max_bubble_value_digits))*Math.pow(10,max_bubble_value_digits)
+                # width = rounded_max_value 
+                # height = rounded_max_value 
+                # div.innerHTML += '<i class="leaflet-legend-circle" style="background:' + color +  '"></i>'  + " " + rounded_max_value*(i/bubble_grades) +  " "
+                # i++
+              # div.innerHTML += "<br>" + "<br>" 
+#               
+              # $.each choropleth_grades, ( index, value ) ->
+                # div.innerHTML += '<i class="leaflet-legend-control" style="background:' + value +  '"></i>'  
+              # div.innerHTML += "<br>" + "<br>"     
+#               
+              # $.each simple_grades, ( index, value ) ->
+                # div.innerHTML += '<i class="leaflet-legend-circle" style="background:' + value +  '"></i>' + " " + index +  " "
+                # div.innerHTML +=  "<br>"
+#                                  
+              # div
+            # legend.addTo that.map                    
             
           if value.name == "geocoder"  
             geocoder_options = {
