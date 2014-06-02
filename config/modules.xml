@@ -1731,8 +1731,8 @@
     </group>
     <group name="api">
       <item name="crumbs">
-        <page to="api/v1/crumbs#index"/>
-        <page to="api/v1/crumbs#create"/>
+        <page to="api/v1/crumbs#index" nonexistent="true"/>
+        <page to="api/v1/crumbs#create" nonexistent="true"/>
       </item>
     </group>
   </inaccessible-actions>

@@ -13,7 +13,7 @@ Semence de sorgho,sorghum_seed_25,S05_D07,2013-01-01,seed,sorghum,,Population :
 Semence d'épeautre,spelt_seed_25,S05_D07,2013-01-01,seed,triticum_spelta,,Population : 6,,5.36
 ,FERTILISANT,,,,,,,,
 Ammonitrate 33 vrac,bulk_ammonitrate_33,S04_D01,2013-01-01,preparation,,,Population : 2.47,,387
-Solution ternaire liquide 15.30 densité 1.4,mixed_liquid_fertilizer,S04_D01,2013-01-01,preparation,,,Population : 8 ; net_volume: 0.714cubic_meter ;  nitrogen_concentration: 15percent ; potassium_concentration: 30percent,,420
+Solution ternaire liquide 15.30 densité 1.4,mixed_liquid_fertilizer,S04_D01,2013-01-01,preparation,,,Population : 8 ; net_volume: 0.714cubic_meter ;  nitrogen_concentration: 15percent ; phosphorus_concentration: 30percent,,420
 Solution 10_25,liquid_10_25_d1.4,S04_D01,2013-01-01,preparation,,,Population : 5,,430
 Fumier de l'exploitation,cattle_manure,S05_D05,2013-01-01,manure,bos,,Population : 4.55,,61
 ,EAU (m³),,,,,,,,

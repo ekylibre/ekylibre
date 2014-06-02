@@ -674,9 +674,7 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
-        application:  #?
-          attributes: #?
- #?
+        application: #?
         asset: #?
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
