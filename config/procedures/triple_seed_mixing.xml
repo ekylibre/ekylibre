@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="triple_seed_mixing" natures="mixing" version="0" status="frozen">
+    <variables> 
+      <variable name="first_seed_input"        variety="seed" abilities="grow"/>
+      <variable name="first_seed_input_to_use" new="parted-from: first_seed_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass" unit="kilogram"   to="population" if="first_seed_input.net_mass(kilogram) > 0"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+      </variable>
+      <variable name="second_seed_input"        variety="seed" abilities="grow"/>
+      <variable name="second_seed_input_to_use" new="parted-from: second_seed_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass" unit="kilogram"   to="population" if="second_seed_input.net_mass(kilogram) > 0"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+      </variable>
+      <variable name="third_seed_input"        variety="seed" abilities="grow"/>
+      <variable name="third_seed_input_to_use" new="parted-from: third_seed_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass" unit="kilogram"   to="population" if="third_seed_input.net_mass(kilogram) > 0"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+      </variable>
+      <variable name="worker"       variety="worker" roles="mixing-doer"/>
+      <variable name="seed_mix"  variety="seed" new="produced-by: first_seed_input" roles="mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
+	<handler indicator="population" />
+      </variable>
+    <variable name="seed_storage" abilities="store(seed)" /> 
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[worker] moves at [first_seed_input]"/>
+      </operation>
+      <operation id="200" duration="4 minutes">
+        <task do="[first_seed_input] parts with [first_seed_input_to_use]"/>
+        <task do="[second_seed_input] parts with [second_seed_input_to_use]"/>
+        <task do="[third_seed_input] parts with [third_seed_input_to_use]"/>
+      </operation>
+      <operation id="300">
+        <task do="[first_seed_input_to_use], [second_seed_input_to_use] and [third_seed_input_to_use] are mixed into [seed_mix]"/>
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[seed_mix] moves in [seed_storage]"/>
+      </operation>
+      <operation id="500" duration="4 minutes">
+        <task do="[worker] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
