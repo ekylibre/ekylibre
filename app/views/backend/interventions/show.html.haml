@@ -9,10 +9,15 @@
       - if target.actor.shape
         - b.cell :target_zone do
           = mini_map(target.actor)
-    - if target
+    - if output = @intervention.casts.of_role(:output).first
+      - if output.shape
+        - b.cell :output_zone do
+          = mini_map(output)
+    - elsif target
       - if target.shape 
         - b.cell :working_zone do
           = mini_map(target)
+
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name
