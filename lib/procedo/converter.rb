@@ -46,7 +46,7 @@ module Procedo
       def parse(text, options = {})
         @@parser ||= ::Procedo::HandlerMethodParser.new
         unless tree = @@parser.parse(text.to_s, options)
-          raise SyntaxError, "Parse error at offset #{@@parser.index} in #{text.to_s.inspect}"
+          raise SyntaxError, @@parser.failure_reason
         end
         return tree
       end

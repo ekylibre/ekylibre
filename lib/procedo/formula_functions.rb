@@ -23,6 +23,12 @@ module Procedo
         raise FailedFunctionCall
       end
 
+      def contents_count(container)
+        return container.containeds.select(&:available?).size
+      rescue
+        raise FailedFunctionCall
+      end
+
     end
   end
 end

@@ -12,8 +12,8 @@
                  backward="value * self..net_mass(ton)"
                  /> <!-- t -->
         <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population" if="herd.population > 0"
-                 forward="value * (herd.population / self..net_mass(kilogram))"
-                 backward="value * (self..net_mass(kilogram) / herd.population)"
+                 forward="value * (members_count(herd) / self..net_mass(kilogram))"
+                 backward="value * (self..net_mass(kilogram) / members_count(herd))"
                  /> <!-- kg / animal # TODO use members_count(herd) instead of herd.population -->
         <handler indicator="net_volume"            unit="cubic_meter"   to="population"
                  forward="value / self..net_volume(cubic_meter)"
