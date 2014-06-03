@@ -1892,6 +1892,7 @@ arb:
         # implanting: "Implanting"
         # maintenance: "Maintenance"
         # milk_production: "Milk production"
+        # mixing: "Mixing"
         # oviparous_birth: "Oviparous birth"
         # pasturing: "Pasturing"
         # piece_replacement: "Piece replacement"

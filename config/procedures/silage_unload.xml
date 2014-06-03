@@ -7,19 +7,19 @@
       <variable name="silage"           variety="preparation" abilities="feed(bos)"/>
       <variable name="silage_to_give"   new="parted-from: silage" roles="food_supply-input" need="population">
         <handler indicator="population" />
-        <handler indicator="net_mass"            unit="ton"               to="population"
+        <handler indicator="net_mass"            unit="ton"               to="population" if="silage.net_mass?"
                  forward="value / self..net_mass(ton)"
                  backward="value * self..net_mass(ton)"
                  /> <!-- t -->
-        <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population" if="herd.population > 0"
+        <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population" if="members_count(herd) > 0 &amp; silage.net_mass?"
                  forward="value * (members_count(herd) / self..net_mass(kilogram))"
                  backward="value * (self..net_mass(kilogram) / members_count(herd))"
                  /> <!-- kg / animal # TODO use members_count(herd) instead of herd.population -->
-        <handler indicator="net_volume"            unit="cubic_meter"   to="population"
+        <handler indicator="net_volume"            unit="cubic_meter"   to="population" if="silage.net_volume?"
                  forward="value / self..net_volume(cubic_meter)"
                  backward="value * self..net_volume(cubic_meter)"
                  /> <!-- t -->
-        <handler indicator="dry_matter_rate"       unit="ton" name="dry_matter_mass" to="population"
+        <handler indicator="dry_matter_rate"       unit="ton" name="dry_matter_mass" to="population" if="silage.net_volume? &amp; silage.dry_matter_rate?"
                  forward="value / ( self..net_volume(cubic_meter) * self.dry_matter_rate(mass_percent) / 100)"
                  backward="value * ( self..net_volume(cubic_meter) * self.dry_matter_rate(mass_percent) / 100)"
                  /> <!-- t de MS-->        

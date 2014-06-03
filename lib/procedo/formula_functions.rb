@@ -18,9 +18,12 @@ module Procedo
       end
       
       def members_count(group)
-        return group.members_at.count.to_i if group.members_at
-      rescue
-        raise FailedFunctionCall
+        if group.is_a?(ProductGroup)
+          return group.members_at.count.to_i 
+        else
+          return 1
+          #raise FailedFunctionCall
+        end
       end
 
       def contents_count(container)

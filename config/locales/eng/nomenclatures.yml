@@ -1874,6 +1874,7 @@ eng:
         implanting: "Implanting"                           #< implantation
         maintenance: "Maintenance"
         milk_production: "Milk production"                 #< animal_production
+        mixing: "Mixing"                                   #< transformation
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_feeding
         piece_replacement: "Piece replacement"             #< maintenance

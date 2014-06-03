@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="double_food_mixing" natures="mixing" version="0" status="frozen">
+  <procedure name="triple_food_mixing" natures="mixing" version="0" status="frozen">
     <variables> 
       <variable name="first_food_input"        variety="mix" abilities="feed(animal)"/>
       <variable name="first_food_input_to_use" new="parted-from: first_food_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
@@ -16,12 +16,24 @@
       </variable>
       <variable name="second_food_input"        variety="mix" abilities="feed(animal)"/>
       <variable name="second_food_input_to_use" new="parted-from: second_food_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
-        <handler indicator="population" />
-        <handler indicator="net_mass" unit="kilogram"   to="population" if="second_food_input.net_mass(kilogram) > 0"
+      	<handler indicator="population" />
+      	<handler indicator="net_mass" unit="kilogram"   to="population" if="second_food_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
                  backward="value * self..net_mass(kilogram)"
                  /> <!-- kg    -->
         <handler indicator="net_mass" unit="ton" to="population" if="second_food_input.net_mass(ton) > 0"
+                 forward="value / self..net_mass(ton)"
+                 backward="value * self..net_mass(ton)"
+                 /> <!-- t    -->
+      </variable>
+      <variable name="third_food_input"        variety="mix" abilities="feed(animal)"/>
+      <variable name="third_food_input_to_use" new="parted-from: third_food_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass" unit="kilogram"   to="population" if="third_food_input.net_mass(kilogram) > 0"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+        <handler indicator="net_mass" unit="ton" to="population" if="third_food_input.net_mass(ton) > 0"
                  forward="value / self..net_mass(ton)"
                  backward="value * self..net_mass(ton)"
                  /> <!-- t    -->
@@ -39,9 +51,10 @@
       <operation id="200" duration="4 minutes">
         <task do="[first_food_input] parts with [first_food_input_to_use]"/>
         <task do="[second_food_input] parts with [second_food_input_to_use]"/>
+        <task do="[third_food_input] parts with [third_food_input_to_use]"/>
       </operation>
       <operation id="300">
-        <task do="[first_food_input_to_use] and [second_food_input_to_use] are mixed into [food_mix]"/>
+        <task do="[first_food_input_to_use], [second_food_input_to_use] and [third_food_input_to_use] are mixed into [food_mix]"/>
       </operation>
       <operation id="400" duration="4 minutes">
         <task do="[food_mix] moves in [food_storage]"/>
