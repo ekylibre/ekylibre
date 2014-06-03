@@ -4,7 +4,7 @@
     <variables>
       <variable name="forager"        abilities="harvest(plant)" roles="harvest-tool"/>
       <variable name="forager_driver" abilities="move,drive(forager)" roles="harvest-doer"/>
-      <variable name="cultivation"    variety="poaceae" roles="harvest-target" need="shape" default-actor="variant-localized-in-storage" >
+      <variable name="cultivation"    variety="plant" roles="harvest-target" need="shape" default-actor="variant-localized-in-storage" >
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
