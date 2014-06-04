@@ -617,7 +617,24 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
-      
+      <item name="sunflower_grain"
+            nature="grain"
+            derivative_of="helianthus"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="pea_grain"
+            nature="grain"
+            derivative_of="pisum"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="oilrape_grain"
+            nature="grain"
+            derivative_of="brassica_napus"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            /> 
       <!-- STRAW -->
       <item name="bulk_wheat_straw"
             nature="straw"
@@ -642,6 +659,11 @@
             derivative_of="triticum"
             unit_name="small_rectangular_bale"
             frozen_indicators_values="net_mass: 12.50kilogram, net_volume: 0.16cubic_meter"
+            />     
+      <item name="crop_residue"
+            nature="crop_residue"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 20.00cubic_meter"
             />   
       <!-- INDUSTRIAL CATTLE FEED -->
       <item name="bulk_animal_food"

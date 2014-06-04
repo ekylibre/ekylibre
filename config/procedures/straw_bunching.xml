@@ -6,7 +6,7 @@
       <variable name="baler_driver"                       abilities="move, drive(tractor), drive(baler)" roles="transformation-doer"/>
       <variable name="baler"          variety="equipment" abilities="bunch" roles="transformation-tool"/>
       <variable name="straw_to_bunch" variety="straw" roles="transformation-input" />
-      <variable name="straw_bales"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" need="population" roles="transformation-output" default-name="{{variant}} {{birth_year}} ({{container}})" />
+      <variable name="straw_bales"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" need="population" roles="transformation-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" />
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

@@ -8383,6 +8383,7 @@ fra:
         cork: "Bouchon"
         corker: "Boucheuse"
         crop: "Culture"
+        crop_residue: "Residu de culture"
         cultivable_zone: "Zone cultivable"
         duck_band: "Bande de canards"
         duck_herd: "Groupe de canards"

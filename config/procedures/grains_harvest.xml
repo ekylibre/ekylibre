@@ -13,8 +13,12 @@
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population" />
+        <handler indicator="net_mass"            unit="quintal"               to="population"
+                 forward="value / self..net_mass(quintal)"
+                 backward="value * self..net_mass(quintal)"
+                 /> <!-- qt    -->
         <handler indicator="net_mass"            unit="ton"               to="population"
                  forward="value / self..net_mass(ton)"
                  backward="value * self..net_mass(ton)"
@@ -24,7 +28,7 @@
                  backward="(value * self..net_mass(quintal)) / cultivation.net_surface_area(hectare)"
                  /> <!-- qt/ha --> 
       </variable>
-      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"               to="population"
                  forward="value / self..net_mass(ton)"
