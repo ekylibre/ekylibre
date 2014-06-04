@@ -11,12 +11,11 @@
           = mini_map(target.actor)
     - if output = @intervention.casts.of_role(:output).first
       - if output.shape
-        - b.cell :output_zone do
-          = mini_map(output)
-    - elsif target
-      - if target.shape 
         - b.cell :working_zone do
-          = mini_map(target)
+          = mini_map(output)
+    - if target.shape
+      - b.cell :working_zone do
+        = mini_map(target)
 
     - b.cell do
       = attributes_list do |l|
