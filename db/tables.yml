@@ -1,1 +1,1881 @@
 ---
+
+account_balances:
+  account_id: {type: integer, references: account, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, required: true}
+  financial_year_id: {type: integer, references: financial_year, required: true}
+  global_balance: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  global_count: {type: integer, required: true, default: 0}
+  global_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  global_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  id: {type: integer, required: true}
+  local_balance: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  local_count: {type: integer, required: true, default: 0}
+  local_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  local_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  lock_version: {type: integer, required: true, default: 0}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+accounts:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  debtor: {type: boolean, required: true, default: false}
+  description: {type: text}
+  id: {type: integer, required: true}
+  label: {type: string, required: true}
+  last_letter: {type: string, limit: 10}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, limit: 200, required: true}
+  number: {type: string, limit: 20, required: true}
+  reconcilable: {type: boolean, required: true, default: false}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  usages: {type: text}
+
+activities:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  depth: {type: integer}
+  description: {type: string}
+  family: {type: string}
+  id: {type: integer, required: true}
+  lft: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  parent_id: {type: integer, references: activity}
+  rgt: {type: integer}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+affairs:
+  accounted_at: {type: datetime}
+  closed: {type: boolean, required: true, default: false}
+  closed_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  currency: {type: string, limit: 3, required: true}
+  deals_count: {type: integer, required: true, default: 0}
+  debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  number: {type: string, required: true}
+  originator_id: {type: integer, references: ~originator_type, required: true}
+  originator_type: {type: string, required: true}
+  third_id: {type: integer, references: entity, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+analyses:
+  analysed_at: {type: datetime}
+  analyser_id: {type: integer, references: entity}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  geolocation: {type: spatial}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  number: {type: string, required: true}
+  product_id: {type: integer, references: product}
+  reference_number: {type: string}
+  sampled_at: {type: datetime, required: true}
+  sampler_id: {type: integer, references: entity}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+analysis_items:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
+  analysis_id: {type: integer, references: analysis, required: true}
+  annotation: {type: text}
+  boolean_value: {type: boolean, required: true, default: false}
+  choice_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  geometry_value: {type: spatial}
+  id: {type: integer, required: true}
+  indicator_datatype: {type: string, required: true}
+  indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  measure_value_unit: {type: string}
+  measure_value_value: {type: decimal, precision: 19, scale: 4}
+  point_value: {type: spatial}
+  product_reading_id: {type: integer, references: product_reading}
+  string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+analytic_distributions:
+  affectation_percentage: {type: decimal, precision: 19, scale: 4, required: true}
+  affected_at: {type: datetime, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  journal_entry_item_id: {type: integer, references: journal_entry_item, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  production_id: {type: integer, references: production, required: true}
+  state: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+bank_statements:
+  cash_id: {type: integer, references: cash, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  currency: {type: string, limit: 3, required: true}
+  debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  number: {type: string, required: true}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+campaigns:
+  closed: {type: boolean, required: true, default: false}
+  closed_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  harvest_year: {type: integer}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  number: {type: string, limit: 60, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+cash_transfers:
+  accounted_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency_rate: {type: decimal, precision: 19, scale: 10, required: true}
+  description: {type: text}
+  emission_amount: {type: decimal, precision: 19, scale: 4, required: true}
+  emission_cash_id: {type: integer, references: cash, required: true}
+  emission_currency: {type: string, limit: 3, required: true}
+  emission_journal_entry_id: {type: integer, references: journal_entry}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  number: {type: string, required: true}
+  reception_amount: {type: decimal, precision: 19, scale: 4, required: true}
+  reception_cash_id: {type: integer, references: cash, required: true}
+  reception_currency: {type: string, limit: 3, required: true}
+  reception_journal_entry_id: {type: integer, references: journal_entry}
+  transfered_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+cashes:
+  account_id: {type: integer, references: account, required: true}
+  bank_account_key: {type: string}
+  bank_account_number: {type: string}
+  bank_agency_address: {type: text}
+  bank_agency_code: {type: string}
+  bank_code: {type: string}
+  bank_identifier_code: {type: string, limit: 11}
+  bank_name: {type: string, limit: 50}
+  country: {type: string, limit: 2}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  iban: {type: string, limit: 34}
+  id: {type: integer, required: true}
+  journal_id: {type: integer, references: journal, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  mode: {type: string, required: true, default: "iban"}
+  name: {type: string, required: true}
+  nature: {type: string, limit: 20, required: true, default: "bank_account"}
+  spaced_iban: {type: string, limit: 42}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+catalog_prices:
+  all_taxes_included: {type: boolean, required: true, default: false}
+  amount: {type: decimal, precision: 19, scale: 4, required: true}
+  catalog_id: {type: integer, references: catalog, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  id: {type: integer, required: true}
+  indicator_name: {type: string, limit: 120, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  reference_tax_id: {type: integer, references: tax}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  thread: {type: string, limit: 20}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+
+catalogs:
+  all_taxes_included: {type: boolean, required: true, default: false}
+  by_default: {type: boolean, required: true, default: false}
+  code: {type: string, limit: 20, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  usage: {type: string, limit: 20, required: true}
+
+cultivable_zone_memberships:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  group_id: {type: integer, references: cultivable_zone, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  member_id: {type: integer, references: land_parcel, required: true}
+  population: {type: decimal, precision: 19, scale: 4}
+  shape: {type: spatial}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+custom_field_choices:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  custom_field_id: {type: integer, references: custom_field, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  position: {type: integer}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  value: {type: string}
+
+custom_fields:
+  active: {type: boolean, required: true, default: true}
+  column_name: {type: string, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  customized_type: {type: string, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  maximal_length: {type: integer}
+  maximal_value: {type: decimal, precision: 19, scale: 4}
+  minimal_length: {type: integer}
+  minimal_value: {type: decimal, precision: 19, scale: 4}
+  name: {type: string, required: true}
+  nature: {type: string, limit: 20, required: true}
+  position: {type: integer}
+  required: {type: boolean, required: true, default: false}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+deposits:
+  accounted_at: {type: datetime}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  cash_id: {type: integer, references: cash, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  locked: {type: boolean, required: true, default: false}
+  mode_id: {type: integer, references: incoming_payment_mode, required: true}
+  number: {type: string, required: true}
+  payments_count: {type: integer, required: true, default: 0}
+  responsible_id: {type: integer, references: person}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+districts:
+  code: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+document_archives:
+  archived_at: {type: datetime, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  document_id: {type: integer, references: document, required: true}
+  file_content_text: {type: text}
+  file_content_type: {type: string}
+  file_file_name: {type: string}
+  file_file_size: {type: integer}
+  file_fingerprint: {type: string}
+  file_pages_count: {type: integer}
+  file_updated_at: {type: datetime}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  template_id: {type: integer, references: document_template}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+document_templates:
+  active: {type: boolean, required: true, default: false}
+  archiving: {type: string, limit: 60, required: true}
+  by_default: {type: boolean, required: true, default: false}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  formats: {type: string}
+  id: {type: integer, required: true}
+  language: {type: string, limit: 3, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  managed: {type: boolean, required: true, default: false}
+  name: {type: string, required: true}
+  nature: {type: string, limit: 60, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+documents:
+  archives_count: {type: integer, required: true, default: 0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  key: {type: string, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, limit: 120, required: true}
+  number: {type: string, limit: 60, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+entities:
+  active: {type: boolean, required: true, default: true}
+  activity_code: {type: string, limit: 30}
+  authorized_payments_count: {type: integer}
+  born_at: {type: datetime}
+  client: {type: boolean, required: true, default: false}
+  client_account_id: {type: integer, references: account}
+  country: {type: string, limit: 2}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, required: true}
+  dead_at: {type: datetime}
+  deliveries_conditions: {type: string, limit: 60}
+  description: {type: text}
+  first_met_at: {type: datetime}
+  first_name: {type: string}
+  full_name: {type: string, required: true}
+  id: {type: integer, required: true}
+  language: {type: string, limit: 3, required: true}
+  last_name: {type: string, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  locked: {type: boolean, required: true, default: false}
+  meeting_origin: {type: string}
+  nature: {type: string, required: true}
+  number: {type: string, limit: 60}
+  of_company: {type: boolean, required: true, default: false}
+  picture_content_type: {type: string}
+  picture_file_name: {type: string}
+  picture_file_size: {type: integer}
+  picture_updated_at: {type: datetime}
+  proposer_id: {type: integer, references: entity}
+  prospect: {type: boolean, required: true, default: false}
+  reminder_submissive: {type: boolean, required: true, default: false}
+  responsible_id: {type: integer, references: user}
+  siren: {type: string, limit: 9}
+  supplier: {type: boolean, required: true, default: false}
+  supplier_account_id: {type: integer, references: account}
+  transporter: {type: boolean, required: true, default: false}
+  type: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  vat_number: {type: string, limit: 20}
+  vat_subjected: {type: boolean, required: true, default: true}
+
+entity_addresses:
+  by_default: {type: boolean, required: true, default: false}
+  canal: {type: string, limit: 20, required: true}
+  coordinate: {type: string, limit: 500, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  deleted_at: {type: datetime}
+  entity_id: {type: integer, references: entity, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  mail_auto_update: {type: boolean, required: true, default: false}
+  mail_country: {type: string, limit: 2}
+  mail_geolocation: {type: spatial}
+  mail_line_1: {type: string}
+  mail_line_2: {type: string}
+  mail_line_3: {type: string}
+  mail_line_4: {type: string}
+  mail_line_5: {type: string}
+  mail_line_6: {type: string}
+  mail_postal_zone_id: {type: integer, references: postal_zone}
+  name: {type: string}
+  thread: {type: string, limit: 10}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+entity_links:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  entity_1_id: {type: integer, references: entity, required: true}
+  entity_1_role: {type: string, required: true}
+  entity_2_id: {type: integer, references: entity, required: true}
+  entity_2_role: {type: string, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+establishments:
+  code: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+event_participations:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  event_id: {type: integer, references: event, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  participant_id: {type: integer, references: entity, required: true}
+  state: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+events:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  duration: {type: integer}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  place: {type: string}
+  restricted: {type: boolean, required: true, default: false}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+financial_asset_depreciations:
+  accountable: {type: boolean, required: true, default: false}
+  accounted_at: {type: datetime}
+  amount: {type: decimal, precision: 19, scale: 4, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  depreciable_amount: {type: decimal, precision: 19, scale: 4}
+  depreciated_amount: {type: decimal, precision: 19, scale: 4}
+  financial_asset_id: {type: integer, references: financial_asset, required: true}
+  financial_year_id: {type: integer, references: financial_year}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  locked: {type: boolean, required: true, default: false}
+  position: {type: integer}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+financial_assets:
+  allocation_account_id: {type: integer, references: account, required: true}
+  ceded: {type: boolean}
+  ceded_at: {type: datetime}
+  charges_account_id: {type: integer, references: account}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  current_amount: {type: decimal, precision: 19, scale: 4}
+  depreciable_amount: {type: decimal, precision: 19, scale: 4, required: true}
+  depreciated_amount: {type: decimal, precision: 19, scale: 4, required: true}
+  depreciation_method: {type: string, required: true}
+  depreciation_percentage: {type: decimal, precision: 19, scale: 4}
+  description: {type: text}
+  id: {type: integer, required: true}
+  journal_id: {type: integer, references: journal, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  number: {type: string, required: true}
+  purchase_amount: {type: decimal, precision: 19, scale: 4}
+  purchase_id: {type: integer, references: purchase}
+  purchase_item_id: {type: integer, references: purchase_item}
+  purchased_at: {type: datetime}
+  sale_id: {type: integer, references: sale}
+  sale_item_id: {type: integer, references: sale_item}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+financial_years:
+  closed: {type: boolean, required: true, default: false}
+  code: {type: string, limit: 20, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  currency_precision: {type: integer}
+  id: {type: integer, required: true}
+  last_journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+gap_items:
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  gap_id: {type: integer, references: gap, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  tax_id: {type: integer, references: tax}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+gaps:
+  accounted_at: {type: datetime}
+  affair_id: {type: integer, references: affair, required: true}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  direction: {type: string, required: true}
+  entity_id: {type: integer, references: entity, required: true}
+  entity_role: {type: string, required: true}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  number: {type: string, required: true}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  printed_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+guide_analyses:
+  acceptance_status: {type: string, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  execution_number: {type: integer, required: true}
+  guide_id: {type: integer, references: guide, required: true}
+  id: {type: integer, required: true}
+  latest: {type: boolean, required: true, default: false}
+  lock_version: {type: integer, required: true, default: 0}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+guide_analysis_points:
+  acceptance_status: {type: string, required: true}
+  advice_reference_name: {type: string}
+  analysis_id: {type: integer, references: analysis, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  reference_name: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+guides:
+  active: {type: boolean, required: true, default: false}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  external: {type: boolean, required: true, default: false}
+  frequency: {type: string, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  reference_name: {type: string}
+  reference_source_content_type: {type: string}
+  reference_source_file_name: {type: string}
+  reference_source_file_size: {type: integer}
+  reference_source_updated_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+identifiers:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  net_service_id: {type: integer, references: net_service}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  value: {type: string, required: true}
+
+incoming_deliveries:
+  address_id: {type: integer, references: entity_address}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  mode: {type: string}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  number: {type: string, required: true}
+  purchase_id: {type: integer, references: purchase}
+  received_at: {type: datetime}
+  reference_number: {type: string}
+  sender_id: {type: integer, references: entity, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+incoming_delivery_items:
+  container_id: {type: integer, references: product}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  delivery_id: {type: integer, references: incoming_delivery, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  population: {type: decimal, precision: 19, scale: 4}
+  product_id: {type: integer, references: product, required: true}
+  purchase_item_id: {type: integer, references: purchase_item}
+  shape: {type: spatial}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+incoming_payment_modes:
+  active: {type: boolean, default: false}
+  cash_id: {type: integer, references: cash}
+  commission_account_id: {type: integer, references: account}
+  commission_base_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  commission_percentage: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  depositables_account_id: {type: integer, references: account}
+  depositables_journal_id: {type: integer, references: journal}
+  detail_payments: {type: boolean, required: true, default: false}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, limit: 50, required: true}
+  position: {type: integer}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  with_accounting: {type: boolean, required: true, default: false}
+  with_commission: {type: boolean, required: true, default: false}
+  with_deposit: {type: boolean, required: true, default: false}
+
+incoming_payments:
+  accounted_at: {type: datetime}
+  affair_id: {type: integer, references: affair}
+  amount: {type: decimal, precision: 19, scale: 4, required: true}
+  bank_account_number: {type: string}
+  bank_check_number: {type: string}
+  bank_name: {type: string}
+  commission_account_id: {type: integer, references: account}
+  commission_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  deposit_id: {type: integer, references: deposit}
+  downpayment: {type: boolean, required: true, default: true}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  mode_id: {type: integer, references: incoming_payment_mode, required: true}
+  number: {type: string}
+  paid_at: {type: datetime}
+  payer_id: {type: integer, references: entity}
+  receipt: {type: text}
+  received: {type: boolean, required: true, default: true}
+  responsible_id: {type: integer, references: user}
+  scheduled: {type: boolean, required: true, default: false}
+  to_bank_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+intervention_casts:
+  actor_id: {type: integer, references: product}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  event_participation_id: {type: integer, references: event_participation}
+  id: {type: integer, required: true}
+  intervention_id: {type: integer, references: intervention, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  population: {type: decimal, precision: 19, scale: 4}
+  position: {type: integer, required: true}
+  reference_name: {type: string, required: true}
+  roles: {type: string, limit: 320}
+  shape: {type: spatial}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant}
+
+interventions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  event_id: {type: integer, references: event}
+  id: {type: integer, required: true}
+  issue_id: {type: integer, references: issue}
+  lock_version: {type: integer, required: true, default: 0}
+  natures: {type: string, required: true}
+  number: {type: string}
+  parameters: {type: text}
+  prescription_id: {type: integer, references: prescription}
+  production_id: {type: integer, references: production, required: true}
+  production_support_id: {type: integer, references: production_support}
+  provisional: {type: boolean, required: true, default: false}
+  provisional_intervention_id: {type: integer, references: intervention}
+  recommended: {type: boolean, required: true, default: false}
+  recommender_id: {type: integer, references: entity}
+  reference_name: {type: string, required: true}
+  ressource_id: {type: integer, references: ~ressource_type}
+  ressource_type: {type: string}
+  started_at: {type: datetime}
+  state: {type: string, required: true}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+inventories:
+  accounted_at: {type: datetime}
+  achieved_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  number: {type: string, limit: 20}
+  reflected: {type: boolean, required: true, default: false}
+  reflected_at: {type: datetime}
+  responsible_id: {type: integer, references: person}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+inventory_items:
+  actual_population: {type: decimal, precision: 19, scale: 4, required: true}
+  actual_shape: {type: spatial}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  expected_population: {type: decimal, precision: 19, scale: 4, required: true}
+  expected_shape: {type: spatial}
+  id: {type: integer, required: true}
+  inventory_id: {type: integer, references: inventory, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  product_id: {type: integer, references: product, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+issues:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  gravity: {type: integer}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  observed_at: {type: datetime, required: true}
+  picture_content_type: {type: string}
+  picture_file_name: {type: string}
+  picture_file_size: {type: integer}
+  picture_updated_at: {type: datetime}
+  priority: {type: integer}
+  state: {type: string}
+  target_id: {type: integer, references: ~target_type, required: true}
+  target_type: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+journal_entries:
+  absolute_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  absolute_currency: {type: string, limit: 3, required: true}
+  absolute_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  balance: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  currency: {type: string, limit: 3, required: true}
+  debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  financial_year_id: {type: integer, references: financial_year}
+  id: {type: integer, required: true}
+  journal_id: {type: integer, references: journal, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  number: {type: string, required: true}
+  printed_at: {type: datetime, required: true}
+  real_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  real_currency: {type: string, limit: 3, required: true}
+  real_currency_rate: {type: decimal, precision: 19, scale: 10, required: true, default: 0.0}
+  real_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  resource_id: {type: integer, references: ~resource_type}
+  resource_type: {type: string}
+  state: {type: string, limit: 30, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+journal_entry_items:
+  absolute_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  absolute_currency: {type: string, limit: 3, required: true}
+  absolute_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  account_id: {type: integer, references: account, required: true}
+  balance: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  bank_statement_id: {type: integer, references: bank_statement}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  cumulated_absolute_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  cumulated_absolute_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  currency: {type: string, limit: 3, required: true}
+  debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  description: {type: text}
+  entry_id: {type: integer, references: journal_entry, required: true}
+  entry_number: {type: string, required: true}
+  financial_year_id: {type: integer, references: financial_year, required: true}
+  id: {type: integer, required: true}
+  journal_id: {type: integer, references: journal, required: true}
+  letter: {type: string, limit: 10}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  position: {type: integer}
+  printed_at: {type: datetime, required: true}
+  real_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  real_currency: {type: string, limit: 3, required: true}
+  real_currency_rate: {type: decimal, precision: 19, scale: 10, required: true, default: 0.0}
+  real_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  state: {type: string, limit: 30, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+journals:
+  closed_at: {type: datetime, required: true}
+  code: {type: string, limit: 4, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, limit: 30, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  used_for_affairs: {type: boolean, required: true, default: false}
+  used_for_gaps: {type: boolean, required: true, default: false}
+
+listing_node_items:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, limit: 10, required: true}
+  node_id: {type: integer, references: listing_node, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  value: {type: text}
+
+listing_nodes:
+  attribute_name: {type: string}
+  condition_operator: {type: string}
+  condition_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  depth: {type: integer, required: true, default: 0}
+  exportable: {type: boolean, required: true, default: true}
+  id: {type: integer, required: true}
+  item_listing_id: {type: integer, references: listing}
+  item_listing_node_id: {type: integer, references: listing_node}
+  item_nature: {type: string, limit: 10}
+  item_value: {type: text}
+  key: {type: string}
+  label: {type: string, required: true}
+  lft: {type: integer}
+  listing_id: {type: integer, references: listing, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  parent_id: {type: integer, references: listing_node}
+  position: {type: integer}
+  rgt: {type: integer}
+  sql_type: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+listings:
+  conditions: {type: text}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  mail: {type: text}
+  name: {type: string, required: true}
+  query: {type: text}
+  root_model: {type: string, required: true}
+  source: {type: text}
+  story: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+manure_management_plan_zones:
+  absorbed_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
+  administrative_area: {type: string}
+  computation_method: {type: string, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  cultivation_variety: {type: string}
+  expected_yield: {type: decimal, precision: 19, scale: 4}
+  humus_mineralization: {type: decimal, precision: 19, scale: 4}
+  id: {type: integer, required: true}
+  intermediate_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
+  irrigation_water_nitrogen: {type: decimal, precision: 19, scale: 4}
+  lock_version: {type: integer, required: true, default: 0}
+  maximum_nitrogen_input: {type: decimal, precision: 19, scale: 4}
+  meadow_humus_mineralization: {type: decimal, precision: 19, scale: 4}
+  mineral_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
+  nitrogen_at_closing: {type: decimal, precision: 19, scale: 4}
+  nitrogen_input: {type: decimal, precision: 19, scale: 4}
+  nitrogen_need: {type: decimal, precision: 19, scale: 4}
+  organic_fertilizer_mineral_fraction: {type: decimal, precision: 19, scale: 4}
+  plan_id: {type: integer, references: manure_management_plan, required: true}
+  previous_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
+  soil_nature: {type: string}
+  soil_production: {type: decimal, precision: 19, scale: 4}
+  support_id: {type: integer, references: production_support, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+manure_management_plans:
+  annotation: {type: text}
+  campaign_id: {type: integer, references: campaign, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  default_computation_method: {type: string, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  locked: {type: boolean, required: true, default: false}
+  name: {type: string, required: true}
+  opened_at: {type: datetime, required: true}
+  recommender_id: {type: integer, references: entity, required: true}
+  selected: {type: boolean, required: true, default: false}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+net_services:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  reference_name: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+observations:
+  author_id: {type: integer, references: user, required: true}
+  content: {type: text, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  importance: {type: string, limit: 10, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  observed_at: {type: datetime, required: true}
+  subject_id: {type: integer, references: ~subject_type, required: true}
+  subject_type: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+operations:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  duration: {type: integer}
+  id: {type: integer, required: true}
+  intervention_id: {type: integer, references: intervention, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  reference_name: {type: string, required: true}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+outgoing_deliveries:
+  address_id: {type: integer, references: entity_address, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  mode: {type: string, required: true}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  number: {type: string, required: true}
+  recipient_id: {type: integer, references: entity, required: true}
+  reference_number: {type: string}
+  sale_id: {type: integer, references: sale}
+  sent_at: {type: datetime}
+  transport_id: {type: integer, references: transport}
+  transporter_id: {type: integer, references: entity}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  with_transport: {type: boolean, required: true, default: false}
+
+outgoing_delivery_items:
+  container_id: {type: integer, references: product}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  delivery_id: {type: integer, references: outgoing_delivery, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  population: {type: decimal, precision: 19, scale: 4}
+  product_id: {type: integer, references: product, required: true}
+  sale_item_id: {type: integer, references: sale_item}
+  shape: {type: spatial}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+outgoing_payment_modes:
+  active: {type: boolean, required: true, default: false}
+  cash_id: {type: integer, references: cash}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, limit: 50, required: true}
+  position: {type: integer}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  with_accounting: {type: boolean, required: true, default: false}
+
+outgoing_payments:
+  accounted_at: {type: datetime}
+  affair_id: {type: integer, references: affair}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  bank_check_number: {type: string}
+  cash_id: {type: integer, references: cash, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  delivered: {type: boolean, required: true, default: true}
+  downpayment: {type: boolean, required: true, default: true}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  mode_id: {type: integer, references: outgoing_payment_mode, required: true}
+  number: {type: string}
+  paid_at: {type: datetime}
+  payee_id: {type: integer, references: entity, required: true}
+  responsible_id: {type: integer, references: user, required: true}
+  to_bank_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+postal_zones:
+  city: {type: string}
+  city_name: {type: string}
+  code: {type: string}
+  country: {type: string, limit: 2, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  district_id: {type: integer, references: district}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  postal_code: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+preferences:
+  boolean_value: {type: boolean}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  id: {type: integer, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, limit: 10, required: true}
+  record_value_id: {type: integer, references: ~record_value_type}
+  record_value_type: {type: string}
+  string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  user_id: {type: integer, references: user}
+
+prescriptions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  delivered_at: {type: datetime}
+  description: {type: text}
+  document_id: {type: integer, references: document}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  prescriptor_id: {type: integer, references: entity, required: true}
+  reference_number: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_enjoyments:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  enjoyer_id: {type: integer, references: entity}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  product_id: {type: integer, references: product, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_junction_ways:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  junction_id: {type: integer, references: product_junction, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  population: {type: decimal, precision: 19, scale: 4}
+  road_id: {type: integer, references: product, required: true}
+  role: {type: string, required: true}
+  shape: {type: spatial}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_junctions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  tool_id: {type: integer, references: product}
+  type: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_linkages:
+  carried_id: {type: integer, references: product}
+  carrier_id: {type: integer, references: product, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  point: {type: string, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_links:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  linked_id: {type: integer, references: product}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  product_id: {type: integer, references: product, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_localizations:
+  container_id: {type: integer, references: product}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  product_id: {type: integer, references: product, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_memberships:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  group_id: {type: integer, references: product_group, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  member_id: {type: integer, references: product, required: true}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_nature_categories:
+  active: {type: boolean, required: true, default: false}
+  charge_account_id: {type: integer, references: account}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  depreciable: {type: boolean, required: true, default: false}
+  description: {type: text}
+  financial_asset_account_id: {type: integer, references: account}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  number: {type: string, limit: 30, required: true}
+  pictogram: {type: string, limit: 120}
+  product_account_id: {type: integer, references: account}
+  purchasable: {type: boolean, required: true, default: false}
+  reductible: {type: boolean, required: true, default: false}
+  reference_name: {type: string}
+  saleable: {type: boolean, required: true, default: false}
+  stock_account_id: {type: integer, references: account}
+  storable: {type: boolean, required: true, default: false}
+  subscribing: {type: boolean, required: true, default: false}
+  subscription_duration: {type: string}
+  subscription_nature_id: {type: integer, references: subscription_nature}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_nature_category_taxations:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  product_nature_category_id: {type: integer, references: product_nature_category, required: true}
+  tax_id: {type: integer, references: tax, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  usage: {type: string, required: true}
+
+product_nature_variant_readings:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
+  boolean_value: {type: boolean, required: true, default: false}
+  choice_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  geometry_value: {type: spatial}
+  id: {type: integer, required: true}
+  indicator_datatype: {type: string, required: true}
+  indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  measure_value_unit: {type: string}
+  measure_value_value: {type: decimal, precision: 19, scale: 4}
+  point_value: {type: spatial}
+  string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+
+product_nature_variants:
+  active: {type: boolean, required: true, default: false}
+  category_id: {type: integer, references: product_nature_category, required: true}
+  commercial_description: {type: text}
+  commercial_name: {type: string, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  derivative_of: {type: string, limit: 120}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string}
+  nature_id: {type: integer, references: product_nature, required: true}
+  number: {type: string}
+  picture_content_type: {type: string}
+  picture_file_name: {type: string}
+  picture_file_size: {type: integer}
+  picture_updated_at: {type: datetime}
+  reference_name: {type: string}
+  unit_name: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variety: {type: string, limit: 120, required: true}
+
+product_natures:
+  abilities_list: {type: text}
+  active: {type: boolean, required: true, default: false}
+  category_id: {type: integer, references: product_nature_category, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  derivative_of: {type: string, limit: 120}
+  derivatives_list: {type: text}
+  description: {type: text}
+  evolvable: {type: boolean, required: true, default: false}
+  frozen_indicators_list: {type: text}
+  id: {type: integer, required: true}
+  linkage_points_list: {type: text}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  number: {type: string, limit: 30, required: true}
+  picture_content_type: {type: string}
+  picture_file_name: {type: string}
+  picture_file_size: {type: integer}
+  picture_updated_at: {type: datetime}
+  population_counting: {type: string, required: true}
+  reference_name: {type: string, limit: 120}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variable_indicators_list: {type: text}
+  variety: {type: string, limit: 120, required: true}
+
+product_ownerships:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  owner_id: {type: integer, references: entity}
+  product_id: {type: integer, references: product, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_phases:
+  category_id: {type: integer, references: product_nature_category, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature_id: {type: integer, references: product_nature, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  product_id: {type: integer, references: product, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+
+product_reading_tasks:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
+  boolean_value: {type: boolean, required: true, default: false}
+  choice_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  geometry_value: {type: spatial}
+  id: {type: integer, required: true}
+  indicator_datatype: {type: string, required: true}
+  indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  measure_value_unit: {type: string}
+  measure_value_value: {type: decimal, precision: 19, scale: 4}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  point_value: {type: spatial}
+  product_id: {type: integer, references: product, required: true}
+  reporter_id: {type: integer, references: worker}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime}
+  string_value: {type: text}
+  tool_id: {type: integer, references: product}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_readings:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
+  boolean_value: {type: boolean, required: true, default: false}
+  choice_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  geometry_value: {type: spatial}
+  id: {type: integer, required: true}
+  indicator_datatype: {type: string, required: true}
+  indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  measure_value_unit: {type: string}
+  measure_value_value: {type: decimal, precision: 19, scale: 4}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  point_value: {type: spatial}
+  product_id: {type: integer, references: product, required: true}
+  read_at: {type: datetime, required: true}
+  string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+production_support_markers:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
+  aim: {type: string, required: true}
+  boolean_value: {type: boolean, required: true, default: false}
+  choice_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  derivative: {type: string}
+  geometry_value: {type: spatial}
+  id: {type: integer, required: true}
+  indicator_datatype: {type: string, required: true}
+  indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  measure_value_unit: {type: string}
+  measure_value_value: {type: decimal, precision: 19, scale: 4}
+  point_value: {type: spatial}
+  string_value: {type: text}
+  subject: {type: string}
+  support_id: {type: integer, references: production_support, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+production_supports:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  exclusive: {type: boolean, required: true, default: false}
+  id: {type: integer, required: true}
+  irrigated: {type: boolean, required: true, default: false}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  production_id: {type: integer, references: production, required: true}
+  production_usage: {type: string, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  storage_id: {type: integer, references: product, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+productions:
+  activity_id: {type: integer, references: activity, required: true}
+  campaign_id: {type: integer, references: campaign, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  position: {type: integer}
+  started_at: {type: datetime}
+  state: {type: string, required: true}
+  static_support: {type: boolean, required: true, default: false}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant}
+
+products:
+  address_id: {type: integer, references: entity_address}
+  born_at: {type: datetime}
+  category_id: {type: integer, references: product_nature_category, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  dead_at: {type: datetime}
+  default_storage_id: {type: integer, references: product}
+  derivative_of: {type: string, limit: 120}
+  description: {type: text}
+  extjuncted: {type: boolean, required: true, default: false}
+  financial_asset_id: {type: integer, references: financial_asset}
+  id: {type: integer, required: true}
+  identification_number: {type: string}
+  initial_born_at: {type: datetime}
+  initial_container_id: {type: integer, references: product}
+  initial_dead_at: {type: datetime}
+  initial_enjoyer_id: {type: integer, references: entity}
+  initial_father_id: {type: integer, references: product}
+  initial_mother_id: {type: integer, references: product}
+  initial_owner_id: {type: integer, references: entity}
+  initial_population: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  initial_shape: {type: spatial}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature_id: {type: integer, references: product_nature, required: true}
+  number: {type: string, required: true}
+  parent_id: {type: integer, references: product}
+  person_id: {type: integer, references: person}
+  picture_content_type: {type: string}
+  picture_file_name: {type: string}
+  picture_file_size: {type: integer}
+  picture_updated_at: {type: datetime}
+  tracking_id: {type: integer, references: tracking}
+  type: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+  variety: {type: string, limit: 120, required: true}
+  work_number: {type: string}
+
+purchase_items:
+  account_id: {type: integer, references: account, required: true}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  annotation: {type: text}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  id: {type: integer, required: true}
+  indicator_name: {type: string, limit: 120, required: true}
+  label: {type: text}
+  lock_version: {type: integer, required: true, default: 0}
+  position: {type: integer}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  purchase_id: {type: integer, references: purchase, required: true}
+  quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
+  tax_id: {type: integer, references: tax, required: true}
+  unit_price_amount: {type: decimal, precision: 19, scale: 4, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+
+purchase_natures:
+  active: {type: boolean, required: true, default: true}
+  by_default: {type: boolean, required: true, default: false}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  description: {type: text}
+  id: {type: integer, required: true}
+  journal_id: {type: integer, references: journal}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  with_accounting: {type: boolean, required: true, default: false}
+
+purchases:
+  accounted_at: {type: datetime}
+  affair_id: {type: integer, references: affair}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  confirmed_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  delivery_address_id: {type: integer, references: entity_address}
+  description: {type: text}
+  id: {type: integer, required: true}
+  invoiced_at: {type: datetime}
+  journal_entry_id: {type: integer, references: journal_entry}
+  lock_version: {type: integer, required: true, default: 0}
+  nature_id: {type: integer, references: purchase_nature}
+  number: {type: string, limit: 60, required: true}
+  planned_at: {type: datetime}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  reference_number: {type: string}
+  responsible_id: {type: integer, references: user}
+  state: {type: string, limit: 60}
+  supplier_id: {type: integer, references: entity, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+roles:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  reference_name: {type: string}
+  rights: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+sale_items:
+  account_id: {type: integer, references: account}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  annotation: {type: text}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  credited_item_id: {type: integer, references: sale_item}
+  currency: {type: string, limit: 3, required: true}
+  id: {type: integer, required: true}
+  indicator_name: {type: string, limit: 120, required: true}
+  label: {type: text}
+  lock_version: {type: integer, required: true, default: 0}
+  position: {type: integer}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  price_id: {type: integer, references: catalog_price, required: true}
+  quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
+  reduced_item_id: {type: integer, references: sale_item}
+  reduction_percentage: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  sale_id: {type: integer, references: sale, required: true}
+  tax_id: {type: integer, references: tax}
+  unit_price_amount: {type: decimal, precision: 19, scale: 4}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+
+sale_natures:
+  active: {type: boolean, required: true, default: true}
+  by_default: {type: boolean, required: true, default: false}
+  catalog_id: {type: integer, references: catalog, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  description: {type: text}
+  downpayment: {type: boolean, required: true, default: false}
+  downpayment_minimum: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  downpayment_percentage: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  expiration_delay: {type: string, required: true}
+  id: {type: integer, required: true}
+  journal_id: {type: integer, references: journal}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  payment_delay: {type: string, required: true}
+  payment_mode_complement: {type: text}
+  payment_mode_id: {type: integer, references: incoming_payment_mode}
+  sales_conditions: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  with_accounting: {type: boolean, required: true, default: false}
+
+sales:
+  accounted_at: {type: datetime}
+  address_id: {type: integer, references: entity_address}
+  affair_id: {type: integer, references: affair}
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  annotation: {type: text}
+  client_id: {type: integer, references: entity, required: true}
+  conclusion: {type: text}
+  confirmed_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  credit: {type: boolean, required: true, default: false}
+  currency: {type: string, limit: 3, required: true}
+  delivery_address_id: {type: integer, references: entity_address}
+  description: {type: text}
+  downpayment_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  expiration_delay: {type: string}
+  expired_at: {type: datetime}
+  function_title: {type: string}
+  has_downpayment: {type: boolean, required: true, default: false}
+  id: {type: integer, required: true}
+  initial_number: {type: string, limit: 60}
+  introduction: {type: text}
+  invoice_address_id: {type: integer, references: entity_address}
+  invoiced_at: {type: datetime}
+  journal_entry_id: {type: integer, references: journal_entry}
+  letter_format: {type: boolean, required: true, default: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature_id: {type: integer, references: sale_nature}
+  number: {type: string, limit: 60, required: true}
+  origin_id: {type: integer, references: sale}
+  payment_at: {type: datetime}
+  payment_delay: {type: string, required: true}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  reference_number: {type: string}
+  responsible_id: {type: integer, references: person}
+  state: {type: string, limit: 60, required: true}
+  subject: {type: string}
+  transporter_id: {type: integer, references: entity}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+sequences:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  last_cweek: {type: integer}
+  last_month: {type: integer}
+  last_number: {type: integer}
+  last_year: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  number_format: {type: string, required: true}
+  number_increment: {type: integer, required: true, default: 1}
+  number_start: {type: integer, required: true, default: 1}
+  period: {type: string, required: true, default: "number"}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  usage: {type: string}
+
+subscription_natures:
+  actual_number: {type: integer}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  entity_link_direction: {type: string, limit: 30}
+  entity_link_nature: {type: string, limit: 120}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  reduction_percentage: {type: decimal, precision: 19, scale: 4}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+subscriptions:
+  address_id: {type: integer, references: entity_address}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  first_number: {type: integer}
+  id: {type: integer, required: true}
+  last_number: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  nature_id: {type: integer, references: subscription_nature}
+  number: {type: string}
+  product_nature_id: {type: integer, references: product_nature}
+  quantity: {type: decimal, precision: 19, scale: 4}
+  sale_id: {type: integer, references: sale}
+  sale_item_id: {type: integer, references: sale_item}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  subscriber_id: {type: integer, references: entity}
+  suspended: {type: boolean, required: true, default: false}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+taxes:
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  collect_account_id: {type: integer, references: account}
+  computation_method: {type: string, limit: 20, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  deduction_account_id: {type: integer, references: account}
+  description: {type: text}
+  id: {type: integer, required: true}
+  included: {type: boolean, required: true, default: false}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  reductible: {type: boolean, required: true, default: true}
+  reference_name: {type: string, limit: 120}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+teams:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  depth: {type: integer, required: true, default: 0}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lft: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  parent_id: {type: integer, references: team}
+  rgt: {type: integer}
+  sales_conditions: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+trackings:
+  active: {type: boolean, required: true, default: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  producer_id: {type: integer, references: entity}
+  product_id: {type: integer, references: product}
+  serial: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+transfers:
+  accounted_at: {type: datetime}
+  affair_id: {type: integer, references: affair}
+  amount: {type: decimal, precision: 19, scale: 4, required: true}
+  client_id: {type: integer, references: entity, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  description: {type: string}
+  id: {type: integer, required: true}
+  journal_entry_id: {type: integer, references: journal_entry}
+  label: {type: string}
+  lock_version: {type: integer, required: true, default: 0}
+  number: {type: string}
+  printed_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+transports:
+  annotation: {type: text}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  departed_at: {type: datetime}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  number: {type: string}
+  reference_number: {type: string}
+  responsible_id: {type: integer, references: person}
+  transporter_id: {type: integer, references: entity, required: true}
+  transporter_purchase_id: {type: integer, references: purchase}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+users:
+  administrator: {type: boolean, required: true, default: true}
+  authentication_token: {type: string}
+  commercial: {type: boolean, required: true, default: false}
+  confirmation_sent_at: {type: datetime}
+  confirmation_token: {type: string}
+  confirmed_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  current_sign_in_at: {type: datetime}
+  current_sign_in_ip: {type: string}
+  description: {type: text}
+  email: {type: string, required: true}
+  employed: {type: boolean, required: true, default: false}
+  employment: {type: string}
+  encrypted_password: {type: string, required: true, default: ""}
+  establishment_id: {type: integer, references: establishment}
+  failed_attempts: {type: integer, default: 0}
+  first_name: {type: string, required: true}
+  id: {type: integer, required: true}
+  language: {type: string, limit: 3, required: true}
+  last_name: {type: string, required: true}
+  last_sign_in_at: {type: datetime}
+  last_sign_in_ip: {type: string}
+  lock_version: {type: integer, required: true, default: 0}
+  locked: {type: boolean, required: true, default: false}
+  locked_at: {type: datetime}
+  maximal_grantable_reduction_percentage: {type: decimal, precision: 19, scale: 4, required: true, default: 5.0}
+  person_id: {type: integer, references: person}
+  remember_created_at: {type: datetime}
+  reset_password_sent_at: {type: datetime}
+  reset_password_token: {type: string}
+  rights: {type: text}
+  role_id: {type: integer, references: role, required: true}
+  sign_in_count: {type: integer, default: 0}
+  team_id: {type: integer, references: team}
+  unconfirmed_email: {type: string}
+  unlock_token: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+versions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  creator_name: {type: string}
+  event: {type: string, required: true}
+  id: {type: integer, required: true}
+  item_changes: {type: text}
+  item_id: {type: integer, references: ~item_type}
+  item_object: {type: text}
+  item_type: {type: string}
