@@ -137,11 +137,12 @@ load_data :land_parcels do |loader|
              if product_nature_variant
                
                unless production = Production.find_by(campaign_id: campaign.id, activity_id: activity.id, variant_id: product_nature_variant.id)
-                production = activity.productions.create!(variant_id: product_nature_variant.id, campaign_id: campaign.id)
+                production = activity.productions.create!(variant_id: product_nature_variant.id, campaign_id: campaign.id, state: :validated)
                 end
                if product_support = cultivable_zone || nil
                 # if exist, this production has static_support
                 production.static_support = true
+                production.state = :validated
                 production.save!
                 # and create a support for this production
                 support = production.supports.create!(storage_id: product_support.id, :started_at => Date.new((record.attributes['CAMPAGNE'].to_i)-1, 10, 01), :stopped_at => Date.new(record.attributes['CAMPAGNE'].to_i, 8, 01))

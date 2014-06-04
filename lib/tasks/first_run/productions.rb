@@ -64,12 +64,13 @@ load_data :productions do |loader|
         if product_nature_variant
           # Find or create a production
           unless production = Production.find_by(campaign_id: campaign.id, activity_id: activity.id, variant_id: product_nature_variant.id)
-            production = activity.productions.create!(variant_id: product_nature_variant.id, campaign_id: campaign.id)
+            production = activity.productions.create!(variant_id: product_nature_variant.id, campaign_id: campaign.id, state: :validated)
           end
           # Find a product
           if product_support = Product.find_by(work_number: r.work_number_storage) || nil
             # if exist, this production has static_support
             production.static_support = true
+            production.state = :validated
             production.save!
             # and create a support for this production
             support = production.supports.create!(storage_id: product_support.id, :started_at => r.started_at, :stopped_at => r.stopped_at, :nature => r.cultivation_nature, :production_usage => r.production_usage)
