@@ -3,7 +3,7 @@
   <procedure name="wine_blending" natures="blending" version="0" status="frozen">
      <variables>
       <variable name="tank" variety="tank" abilities="store_liquid" roles="blending-target" default-actor="storage">
-        <checker if="tank:contents-count > 1" level="error" indication="too_many_products_in_the_tank"/> 
+        <checker if="contents_count(tank) > 1" level="error" indication="too_many_products_in_the_tank"/> 
       </variable>
       <variable name="wine"       variety="wine" derivative-of="vitis" default-actor="first-localized-in: tank" read-only="true"/>
       <variable name="wine_to_blend" new="parted-from: wine" roles="blending-input" need="population"/>

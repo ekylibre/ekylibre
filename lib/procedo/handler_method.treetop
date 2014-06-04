@@ -25,11 +25,11 @@ module Procedo
     end
 
     rule primary
-      value / numeric / reading / access / function_call / "(" space? expression space? ")" <Expression>
+      value / numeric / function_call / reading / "(" space? expression space? ")" <Expression>
     end
 
     rule argument
-      value / numeric / reading / access / function_call / expression
+      value / numeric / function_call / reading / expression
     end
 
     rule access
@@ -53,32 +53,36 @@ module Procedo
     end
 
     rule accessor
-      # [a-z] [a-z0-9]* ('-' [a-z0-9]+)* <Accessor>
+      # [a-z] [a-z0-9]* ("-" [a-z0-9]+)* <Accessor>
       "contents-count" <Accessor>
     end
 
     rule variable
-      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Variable>
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <Variable>
     end
 
     rule indicator
-      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Indicator>
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <Indicator>
     end
 
     rule unit
-      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Unit>
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <Unit>
     end
 
     rule numeric
-      ([1-9] [0-9]* / '0') ('.' [0-9]+)? <Numeric>
+      ([1-9] [0-9]* / "0") ("." [0-9]+)? <Numeric>
+    end
+
+    rule function_argument
+      value / numeric / function_call / reading / actor / expression
     end
 
     rule function_call
-      function_name "(" args:(space? first_arg:argument other_args:(space? "," space? argument)* space? )? ")" <FunctionCall>
+      function_name "(" space? args:(first_arg:function_argument other_args:(space? "," space? argument:function_argument)* )?  space? ")" <FunctionCall>
     end
 
     rule function_name
-      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <FunctionName>
+      [a-z] [a-z0-9]* ("_" [a-z0-9]+)* <FunctionName>
     end
 
     rule space

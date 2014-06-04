@@ -51,6 +51,7 @@
       <item name="addition"     roles="input, target, doer"/>
       <item name="filtration"   roles="input, target, output, doer, tool"/>
       <item name="bottling"     roles="target, input, output, doer, tool"/>
+      <item name="mixing"       roles="input, output, doer"/>
       <item name="remontage"    roles="target, doer"/>
     </items>
   </nomenclature>

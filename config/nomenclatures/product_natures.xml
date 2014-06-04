@@ -310,6 +310,15 @@
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume"
             />
+      <item name="crop_residue"
+            category="straw"
+            variety="straw"
+            derivative_of="plant"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_mass, net_volume"
+            />  
       <item name="grass"
             category="grass"
             variety="grass"
