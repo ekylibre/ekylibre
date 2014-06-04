@@ -5,7 +5,7 @@
     <variables>
       <variable name="herd"             variety="animal_group" derivative-of="bos" roles="food_supply-target" default-actor="variant-localized-in-storage"/>
       <variable name="silage"           variety="preparation" abilities="feed(bos)"/>
-      <variable name="silage_to_give"   new="parted-from: silage" roles="food_supply-input" need="population">
+      <variable name="silage_to_give"   new="parted-from: silage" roles="food_supply-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"               to="population" if="silage.net_mass?"
                  forward="value / self..net_mass(ton)"
@@ -18,10 +18,10 @@
         <handler indicator="net_volume"            unit="cubic_meter"   to="population" if="silage.net_volume?"
                  forward="value / self..net_volume(cubic_meter)"
                  backward="value * self..net_volume(cubic_meter)"
-                 /> <!-- t -->
-        <handler indicator="dry_matter_rate"       unit="ton" name="dry_matter_mass" to="population" if="silage.net_volume? &amp; silage.dry_matter_rate?"
-                 forward="value / ( self..net_volume(cubic_meter) * self.dry_matter_rate(mass_percent) / 100)"
-                 backward="value * ( self..net_volume(cubic_meter) * self.dry_matter_rate(mass_percent) / 100)"
+                 /> <!-- m3 -->
+        <handler indicator="dry_matter_rate"       unit="ton" name="dry_matter_mass" to="population" if="silage.net_mass? &amp; silage.dry_matter_rate?"
+                 forward="value / ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"
+                 backward="value * ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"
                  /> <!-- t de MS-->        
       </variable>
       <variable name="driver"           abilities="drive(tractor), move" roles="food_supply-doer"/>

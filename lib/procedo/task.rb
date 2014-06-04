@@ -38,6 +38,9 @@ module Procedo
       "{member} goes into {group}" => :group_inclusion,
       "{group} excludes {member}" => :group_exclusion,
       "{member} goes out {group}" => :group_exclusion,
+      # Product evolution
+      "{product} nature cast into {nature}" => :nature_cast,
+      "{product} variant cast into {variant}" => :variant_cast,
       # Ownership
       "{product} loses its owner" => :ownership_loss,
       # "we lose {product}" => :ownership_loss,

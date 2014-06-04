@@ -1,5 +1,7 @@
 - main_toolbar do |t|
   - t.edit @intervention
+  - if @intervention.destroyable?
+    - t.destroy @intervention, method: :post, "data-confirm" => :are_you_sure.tl
   - if @intervention.runnable?
     - t.run @intervention, method: :post, "data-confirm" => :are_you_sure.tl
 

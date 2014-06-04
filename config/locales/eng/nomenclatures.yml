@@ -1852,10 +1852,12 @@ eng:
         addition: "Addition"                               #< transformation
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_feeding: "Animal feeding"
+        # animal_group_changing: "Animal group changing"
         animal_health: "Animal health"
         animal_housing_cleaning: "Animal housing cleaning" #< animal_health
         animal_housing_treatment: "Animal housing treatment" #< animal_health
         animal_illness_treatment: "Animal illness treatment" #< animal_health
+        # animal_moving: "Animal moving"
         animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
         blending: "Blending"                               #< transformation

@@ -4,21 +4,21 @@
   <procedure name="pasturing" natures="harvest,pasturing" version="0" status="frozen">
     <variables>
       <variable name="herd"           variety="animal_group" derivative-of="animal" roles="harvest-tool,harvest-doer,pasturing-doer"/> 
-      <variable name="cultivation"    variety="poa" roles="harvest-target,pasturing-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation" >
+      <variable name="cultivation"   variety="plant" roles="harvest-target,pasturing-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation" >
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="grass"         variety="grass" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output,pasturing-input" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="grass"         variety="grass" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output,pasturing-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"             to="population"
                  forward="value / self..net_mass(ton)"
                  backward="value * self..net_mass(ton)"
                  /> <!-- t -->
-        <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population"
-                 forward="value * (herd.population / self..net_mass(kilogram))"
-                 backward="value * (self..net_mass(kilogram) / herd.population)"
+        <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population" if="members_count(herd) > 0"
+                 forward="value * (members_count(herd) / self..net_mass(kilogram))"
+                 backward="value * (self..net_mass(kilogram) / members_count(herd))"
                  /> <!-- kg / animal -->
         <handler indicator="net_volume"          unit="cubic_meter"     to="population"
                  forward="value / self..net_volume(cubic_meter)"

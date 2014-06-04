@@ -18,8 +18,9 @@ module Procedo
       end
       
       def members_count(group)
-        if group.is_a?(ProductGroup)
-          return group.members_at.count.to_i 
+        if group.present?
+          value = group.actor.members_at(group.now).count.to_i
+          return value if value > 0 
         else
           return 1
           #raise FailedFunctionCall
