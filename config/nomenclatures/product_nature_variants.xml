@@ -11,13 +11,13 @@
       <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
     </property-natures>
     <items>
-      <!-- ANIMAL VIAL 
+      <!-- ANIMAL VIAL -->
       <item name="bos_vial"
             nature="vial"
             derivative_of="bos"
             unit_name="dose"
             frozen_indicators_values=""
-            /> -->
+            /> 
       <!-- ANIMAL -->
       <!-- CATTLE -->
       <item name="cattle_herd"
