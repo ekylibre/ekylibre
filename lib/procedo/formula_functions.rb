@@ -7,30 +7,31 @@ module Procedo
       def area(shape)
         return shape.area.to_f(:square_meter)
       rescue
-        raise FailedFunctionCall
+        raise Procedo::FailedFunctionCall
       end
 
 
       def intersection(shape, other_shape)
         return shape.intersection(other_shape)
       rescue
-        raise FailedFunctionCall
+        raise Procedo::FailedFunctionCall
       end
       
       def members_count(group)
         if group.present?
           value = group.actor.members_at(group.now).count.to_i
-          return value if value > 0 
+          return (value > 0 ? value : 0)
         else
-          return 1
-          #raise FailedFunctionCall
+          return 0
         end
+      rescue
+        raise Procedo::FailedFunctionCall
       end
 
       def contents_count(container)
-        return container.containeds.select(&:available?).size
+        return container.actor.containeds.select(&:available?).size
       rescue
-        raise FailedFunctionCall
+        raise Procedo::FailedFunctionCall
       end
 
     end
