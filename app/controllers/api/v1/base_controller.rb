@@ -23,6 +23,7 @@ class Api::V1::BaseController < ActionController::Base
 
   after_action do
     response.headers["X-Ekylibre-Media-Type"] = "ekylibre.v1"
+    response.headers["Access-Control-Allow-Origin"] = "*"
   end
 
   hide_action :check_format!
