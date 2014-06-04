@@ -22,6 +22,7 @@
       <!-- VEGETALS INTRANTS -->
       <item name="seed" derivative_of="plant"/>
       <item name="seedling" derivative_of="plant"/>
+      <item name="vial" derivative_of="animal"/>
       <!-- GAS AND CO -->
       <item name="gas"/>
       <item name="fuel"/>

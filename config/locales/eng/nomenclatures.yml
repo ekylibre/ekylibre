@@ -7,6 +7,7 @@ eng:
       items:
         acidify: "Acidify"
         administer_care: "Administer care"
+        administer_inseminate: "Administer inseminate"
         alkalinize: "Alkalinize"
         blow: "Blow"
         bunch: "Bunch"
@@ -31,6 +32,7 @@ eng:
         harvest: "Harvest"
         hoe: "Hoe"
         implant: "Implant"
+        inseminate: "Inseminate"
         kill: "Kill"
         lubricate: "Lubricate"
         manage: "Manage"
@@ -1851,13 +1853,14 @@ eng:
       items:
         addition: "Addition"                               #< transformation
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
+        animal_fecondation: "Animal fecondation"
         animal_feeding: "Animal feeding"
-        # animal_group_changing: "Animal group changing"
+        animal_group_changing: "Animal group changing"
         animal_health: "Animal health"
         animal_housing_cleaning: "Animal housing cleaning" #< animal_health
         animal_housing_treatment: "Animal housing treatment" #< animal_health
         animal_illness_treatment: "Animal illness treatment" #< animal_health
-        # animal_moving: "Animal moving"
+        animal_moving: "Animal moving"
         animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
         blending: "Blending"                               #< transformation
@@ -1955,6 +1958,7 @@ eng:
       items:
         animal_food: "Animal food"
         animal_medicine: "Animal medicine"
+        animal_reproduction: "Animal reproduction"
         aves_band: "Aves band"
         aves_herd: "Aves herd"
         building: "Building"
@@ -2077,6 +2081,7 @@ eng:
         bolt: "Bolt"
         bordelaise_100cl_bottle: "Bordelaise 100cl bottle"
         bordelaise_75cl_bottle: "Bordelaise 75cl bottle"
+        bos_vial: "Bos vial"
         bottle_75cl_wine: "Bottle 75cl wine"
         brassicaceae_fungicide: "Brassicaceae fungicide"
         building: "Building"
@@ -2275,6 +2280,7 @@ eng:
         hydraulic_oil: "Hydraulic oil"
         implanter: "Implanter"
         insecticide: "Insecticide"
+        inseminator: "Inseminator"
         irrigation_water: "Irrigation water"
         lactic_acid_25kg: "Lactic acid 25kg"
         lamb: "Lamb"
@@ -2517,6 +2523,7 @@ eng:
         hydraulic_oil: "Hydraulic oil"
         implanter: "Implanter"
         insecticide: "Insecticide"
+        inseminator: "Inseminator"
         irrigation_water: "Irrigation water"
         lamb: "Lamb"
         land_parcel: "Land parcel"
@@ -2572,6 +2579,7 @@ eng:
         tractor: "Tractor"
         trailer: "Trailer"
         usual_vine_seedling: "Usual vine seedling"
+        vial: "Vial"
         walnut_crop: "Walnut crop"
         water_spreader: "Water spreader"
         wine: "Wine"
@@ -2877,6 +2885,30 @@ eng:
         bioproduct: "Bioproduct"                           #< matter
         boraginaceae: "Boraginaceae"                       #< plant
         bos: "Bos"                                         #< mammalia
+        bos_taurus: "Cow"                                  #< bos
+        bos_taurus_abondance: "Cow abondance"              #< bos_taurus
+        bos_taurus_armoricaine: "Cow armoricaine"          #< bos_taurus
+        bos_taurus_aubrac: "Cow aubrac"                    #< bos_taurus
+        bos_taurus_bazadaise: "Cow bazadaise"              #< bos_taurus
+        bos_taurus_bearnaise: "Cow bearnaise"              #< bos_taurus
+        bos_taurus_blonde_aquitaine: "Cow blonde aquitaine" #< bos_taurus
+        bos_taurus_bordelaise: "Cow bordelaise"            #< bos_taurus
+        bos_taurus_brune: "Cow brune"                      #< bos_taurus
+        bos_taurus_charolaise: "Cow charolaise"            #< bos_taurus
+        bos_taurus_corse: "Cow corse"                      #< bos_taurus
+        bos_taurus_ferrandaise: "Cow ferrandaise"          #< bos_taurus
+        bos_taurus_french_holstein: "Cow french holstein"  #< bos_taurus
+        bos_taurus_gasconne: "Cow gasconne"                #< bos_taurus
+        bos_taurus_jersiaise: "Cow jersiaise"              #< bos_taurus
+        bos_taurus_limousine: "Cow limousine"              #< bos_taurus
+        bos_taurus_mirandaise: "Cow mirandaise"            #< bos_taurus
+        bos_taurus_montbeliarde: "Cow montbeliarde"        #< bos_taurus
+        bos_taurus_nantaise: "Cow nantaise"                #< bos_taurus
+        bos_taurus_normande: "Cow normande"                #< bos_taurus
+        bos_taurus_parthenaise: "Cow parthenaise"          #< bos_taurus
+        bos_taurus_salers: "Cow salers"                    #< bos_taurus
+        bos_taurus_tarentaise: "Cow tarentaise"            #< bos_taurus
+        bos_taurus_vosgienne: "Cow vosgienne"              #< bos_taurus
         bottle: "Bottle"                                   #< packaged_matter
         bottler: "Bottler"                                 #< equipment
         brassica: "Brassica"                               #< brassicaceae
@@ -3228,6 +3260,7 @@ eng:
         valerianaceae: "Valerianaceae"                     #< plant
         valerianella: "Valerianella"                       #< valerianaceae
         valerianella_locusta: "Corn salad"                 #< valerianella
+        vial: "Vial"                                       #< raw_matter
         vicia: "Vicia"                                     #< fabaceae
         vicia_sativa: "Vicia sativa"                       #< vicia
         vicia_villosa: "Vicia villosa"                     #< vicia

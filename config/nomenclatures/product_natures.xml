@@ -18,6 +18,17 @@
       <property-nature name="linkage_points" type="list" choices="rear, front" required="false"/>
     </property-natures>
     <items>
+      <!-- ANIMAL VIAL -->
+      <item name="vial"
+            category="animal_reproduction"
+            variety="vial"
+            derivative_of="animal"
+            population_counting="integer"
+            abilities="inseminate(animal)"
+            variable_indicators="population, unique_synthesis_index, economical_milk_index, sex"
+            frozen_indicators=""
+            /> 
+       <!-- ANIMAL -->     
       <item name="cattle_herd"
             category="cattle_herd"
             variety="animal_group"
@@ -40,7 +51,7 @@
             category="female_adult_cow"
             variety="bos"
             population_counting="unitary"
-            abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(bos)"
+            abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)"
             variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
@@ -113,7 +124,7 @@
             category="female_adult_cow"
             variety="ovis"
             population_counting="unitary"
-            abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(bos)"
+            abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)"
             variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
@@ -159,7 +170,7 @@
             category="female_adult_cow"
             variety="capra"
             population_counting="unitary"
-            abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(bos)"
+            abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(animal)"
             variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
@@ -605,6 +616,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass, thousand_grains_mass"
             />
+       
       <item name="animal_food"
             category="animal_food"
             variety="mix"
@@ -1077,10 +1089,19 @@
             category="worker"
             variety="worker"
             population_counting="unitary"
-            abilities="drive(equipment), manage(worker), move, administer_care(animal)"
+            abilities="drive(equipment), manage(worker), milk(mammalia), move, administer_care(animal)"
             variable_indicators=""
             frozen_indicators="population"
             />
+       <item name="inseminator"
+            category="worker"
+            variety="worker"
+            population_counting="unitary"
+            abilities="move, administer_inseminate(animal)"
+            variable_indicators=""
+            frozen_indicators="population"
+            />     
+      <!-- WATER AND FLUID-->
       <item name="running_water"
             category="running_water"
             variety="water"

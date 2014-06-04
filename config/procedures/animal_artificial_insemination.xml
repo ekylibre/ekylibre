@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
+  <procedure name="animal_artificial_insemination" natures="animal_fecondation" version="0" status="frozen">
+    <variables>
+      <variable name="animal"           variety="animal" abilities="produce(animal)" roles="animal_fecondation-target"/>
+      <variable name="vial"             variety="vial" dericative_of="variety: animal" abilities="inseminate(animal)" roles="animal_fecondation-input_origin"/>
+      <variable name="vial_to_give" new="parted-from: vial" roles="animal_fecondation-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+     <handler indicator="population" />
+      </variable>
+      <variable name="inseminator" variety="worker" abilities="administer_inseminate(animal)" roles="animal_fecondation-doer"/>
+    </variables>
+    <operations>
+      <operation id="100">
+        <task do="[vial] parts with [vial_to_give]"/>
+        <task do="[vial_to_give] moves in [inseminator]"/>
+      </operation>
+      <operation id="200" duration="10 minutes">
+       <task do="[inseminator] moves at [animal]"/>
+      </operation>
+      <operation id="300">
+        <task do="[animal] consumes [vial_to_give]"/>
+      </operation>
+      <operation id="400">
+        <task do="animal|mammalia_reproduction_state is measured"/>
+        <task do="animal|healthy is measured"/>
+        <task do="animal|mammalia_reproduction_method_embryo_transplant is measured"/>
+      </operation>
+    </operations>
+  </procedure>
+
+</procedures>

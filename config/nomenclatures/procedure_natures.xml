@@ -8,6 +8,7 @@
     <items>
       <item name="animal_feeding" roles="input, target, doer, tool"/>
       <item name="animal_health" roles="input, target, doer"/>
+      <item name="animal_fecondation" roles="input_origin, input, target, doer"/>
       <item name="animal_moving" roles="input, target, doer"/>
       <item name="animal_group_changing" roles="input, target"/>
       <item name="animal_production" roles="target, output, doer"/>

@@ -64,6 +64,9 @@
       <!-- Wine bottling  -->
       <item name="close"      parameters="variety"/>
       <item name="fill"       parameters="variety"/>
+      <!-- Animal reproduction  -->
+      <item name="administer_inseminate" parameters="variety"/>
+      <item name="inseminate" parameters="variety"/>
     </items>
   </nomenclature>
 </nomenclatures>

@@ -240,6 +240,16 @@
             storable="true"
             pictogram="matter"
             />
+      <item name="animal_reproduction"
+            charge_account="animal_reproduction_matter_expenses"
+            product_account="animal_derivatives_revenues"
+            stock_account="animal_reproduction_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="matter"
+            />
       <item name="animal_medicine"
             charge_account="animal_medicine_matter_expenses"
             product_account="revenues"

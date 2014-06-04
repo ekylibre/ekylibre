@@ -13,6 +13,7 @@ Silo Aliment Droite,food_tank,TANK_1D_S05,S05,1995-01-01,,,,Population : 1 ; n
 Caisson Farine,food_tank,TANK_1_S05_D07,S05_D07,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 8.22cubic_meter ; nominal_storable_net_mass : 5.5ton,,0.8,usage_duration
 Armoire produits phytosanitaires,plant_medicine_tank,RESERVE_1_S05_D07,S05_D07,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.8,usage_duration
 Pharmacie,animal_medicine_tank,RESERVE_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.8,usage_duration
+Réfrigérateur,freezer_tank,COLD_TANK_01,S05_D09,2002-01-05,,,,Population : 1 ; nominal_storable_net_volume : 300liter,,0.8,usage_duration
 Cuve Fioul,fuel_tank,TANK_FUEL_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 1500liter,,0.8,usage_duration
 Silo SAINT-PORCHAIRE COOP,grain_tank,,,,,,COOP,Population : 1,,,
 Silo PLASSAY COOP,grain_tank,,,,,,COOP,Population : 1,,,

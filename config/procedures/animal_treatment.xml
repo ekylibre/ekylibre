@@ -5,7 +5,7 @@
     <variables>
       <variable name="animal"           variety="animal" roles="animal_curative_medicine_admission-target"/>
       <variable name="medicine"         abilities="care(animal)"/>
-      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_curative_medicine_admission-input" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_curative_medicine_admission-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
      <handler indicator="population" />
      <handler indicator="net_mass"   unit="gram"   to="population" if="medicine.net_mass(gram) > 0"
                  forward="(value / self..net_mass(gram))"

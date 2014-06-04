@@ -28,7 +28,9 @@
       </operation>
       <operation id="300" duration="7 minutes">
         <task do="[animal] goes into [herd]"/>
-        <task do="[animal] variant cast into [new_animal_variant]"/>
+        <!--  TODO Waiting for variant selection 
+        <task do="[animal] variant cast into [new_animal_variant]"/> 
+        -->
       </operation>
       <operation id="400" duration="4 minutes">
         <task do="[caregiver] moves in default storage"/>

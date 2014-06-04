@@ -3,7 +3,7 @@
   <procedure name="sowing" natures="sowing" version="0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow"/>
-      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds" default-name="{{variant}} - [{{derivative_of}}]">
+      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}] ">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"

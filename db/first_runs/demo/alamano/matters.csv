@@ -65,6 +65,8 @@ ALCALIN,dairy_equipment_cleaner,S05_D09,2014-01-01,,,,Population : 2.00,,20.52
 ARCACID,dairy_equipment_cleaner,S05_D09,2014-01-01,,,,Population : 2.00,,23.56
 FERT HYGIENOR,livestock_cleanliness_product,S05_D09,2014-01-01,,,,Population : 16.00,,33.12
 PHYTEOS,livestock_cleanliness_product,S05_D09,2014-01-01,,,,Population : 2.00,,120.47
+,PRODUIT REPRODUCTION ANIMALE,,,,,,,,
+Paillette sexée GIROPHARE,bos_vial,COLD_TANK_01,2014-01-01,vial,bos_taurus_normande,,"Population : 4, sex : female",,45.25
 ,ALIMENT,,,,,,,,
 ECA PACK TONUS - Silo gauche,bulk_animal_food,TANK_1G_S05,2014-01-01,,,,Population : 0.50,,339.90
 ECA PACK TONUS - Silo droite,bulk_animal_food,TANK_1D_S05,2014-01-01,,,,Population : 0.40,,339.90
