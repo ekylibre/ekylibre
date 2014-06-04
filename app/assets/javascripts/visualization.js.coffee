@@ -159,6 +159,10 @@
       if this.options.layers
         $.each this.options.layers, ( index, value ) ->
           max_value = 0
+          min_value = 0
+          if value.list[1]['style'] = 'choropleth'
+            max_value = value.list[1]['choropleth_value']
+            min_value = value.list[1]['choropleth_value']
           choro = false 
           level_number = 0 
           start = ""
@@ -171,6 +175,8 @@
               end = value.choropleth_end_color
               if value.choropleth_value > max_value
                 max_value = value.choropleth_value
+              if value.choropleth_value < min_value
+                min_value = value.choropleth_value
           if choro == true       
             start_red = parseInt(start.slice(1,3),16)
             start_green = parseInt(start.slice(3,5),16)
@@ -184,8 +190,9 @@
             
           $.each value.list, (index, value) ->
             if value.style == 'choropleth'
-              value.max_value = max_value 
-              color_level = Math.ceil(value.choropleth_value/(max_value/level_number))
+              value.max_value = max_value
+              value.min_value = min_value  
+              color_level = Math.ceil(value.choropleth_value/((max_value-min_value)/level_number))
               value.level = color_level               
               red_int = start_red - (red_gap*color_level)       
               red_string = (red_int).toString(16)
@@ -316,23 +323,23 @@
               bubble_legend = false
               choropleth_legend = false
               simple_legend = false
-              legend_name = ""
+              legend_name = value.name
               div = new L.DomUtil.create("div", "leaflet-legend-control")
               color ='#000000'
               bubble_grades = 4
-              max_bubble_value = 0
-              max_bubble_value_digits = 0
+              max_bubble_value = null
+              max_bubble_value_digits = null
               choropleth_grades = {}
-              choropleth_max_value = 0
+              choropleth_max_value = null
+              choropleth_min_value = null
               choropleth_level_value = {}
               simple_grades = {}
               
               $.each value.list, (index, value) ->
-                                
+                                                
                 if value.style == 'simple'
                   
                   simple_legend = true
-                  legend_name = value.layer_name
                   simple_grades[value.category] = value.fillColor
                   
                   simple_layer = new L.GeoJSON(value.coord, {stroke: value.stroke, color: value.color, weight: value.weight, opacity: value.opacity, fill: value.fill, fillColor: value.fillColor, fillOpacity: value.fillOpacity} )
@@ -344,7 +351,6 @@
                 else if value.style == 'bubble'
                   
                   bubble_legend = true
-                  legend_name = value.layer_name
                   if value.radius > max_bubble_value
                     color = value.fillColor
                     max_bubble_value = value.radius
@@ -360,7 +366,7 @@
                   
                   choropleth_legend = true
                   choropleth_max_value = value.max_value
-                  legend_name = value.layer_name
+                  choropleth_min_value = value.min_value
                   choropleth_grades[value.level] = value.fillColor
                   choropleth_level_value[value.level] = Math.round((value.max_value/value.choropleth_level_number)*value.level)
                   
@@ -391,11 +397,10 @@
                     div.innerHTML += '<i class="leaflet-legend-circle" style="background-color:' + color + "; width: #{width}px; height: #{height}px" + '"></i>'  + " " + rounded_max_value +  " "
                     i++
                 if choropleth_legend == true
-                  
-                  choropleth_max_value 
+                   
                   div.innerHTML += legend_name
                   div.innerHTML += "<br>" + "<br>"
-                  div.innerHTML += index
+                  div.innerHTML += choropleth_min_value
                   $.each choropleth_grades, ( index, value ) ->               
                     div.innerHTML += '<i class="leaflet-legend-control" style="background:' + value + '"></i>'      
                   div.innerHTML += choropleth_max_value

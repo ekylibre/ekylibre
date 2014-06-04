@@ -23,9 +23,9 @@
         soil_depth = soil_depth.to_f
       end
       
-      bub << {style: 'bubble', layer_name: 'Bubble test', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'green', fillOpacity: 0.75}
-      choro << {style: 'choropleth', layer_name: 'Choropleth test', choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_value: 'area', choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
-      sim << {style: 'simple', layer_name: 'Simple test', category: category, category_name: category_name, center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: category_color, fillOpacity: 0.5}
+      bub << {style: 'bubble', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'green', fillOpacity: 0.75}
+      choro << {style: 'choropleth', choropleth_value: 'area', choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
+      sim << {style: 'simple', category: category, category_name: category_name, center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: category_color, fillOpacity: 0.5}
     end
   end
   
@@ -53,9 +53,9 @@
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
   -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
 
-  - v.layer :Simple_example, sim
+  -# v.layer :Simple_example, sim
   - v.layer :Choropleth_example, choro
-  - v.layer :Bubble_example, bub
+  -# v.layer :Bubble_example, bub
   
   -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
   -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
