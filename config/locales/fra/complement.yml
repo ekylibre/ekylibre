@@ -4007,7 +4007,7 @@ fra:
     intervention:
       reference_name:
         base-all_in_one_sowing: "Semis «\_tout-en-un\_»"
-        base-animal_artifical_insemination: "Insémination articielle animale"
+        base-animal_artificial_insemination: "Insémination articielle animale"
         base-animal_birth: "Naissance d’un animal"
         base-animal_group_changing: "Déplacement d'un animal"
         base-animal_housing_cleaning: "Nettoyage de stabulation"
