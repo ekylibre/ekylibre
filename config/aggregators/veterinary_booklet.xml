@@ -48,14 +48,14 @@
             <title name="reference_number"/>
             <property name="name"/>
           </section>
-          <matrix name="casts" for="cast" in="intervention.casts.of_role(:input)">
-            <variable name="meat_withdrawal_period" value="cast.actor.meat_withdrawal_period"/>
-            <variable name="milk_withdrawal_period" value="cast.actor.milk_withdrawal_period"/>
+          <matrix name="inputs" for="input" in="intervention.casts.of_role(:input)">
+            <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
+            <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
             
-            <cell name="id" of="cast" level="api"/>
-            <cell name="variant_name" value="cast.actor.variant_name"/>
-            <cell name="population" of="cast"/>
-            <cell name="variety" value="cast.actor.variety" level="api"/>
+            <cell name="id" of="input" level="api"/>
+            <cell name="variant_name" value="input.actor.variant_name"/>
+            <cell name="population" of="input"/>
+            <cell name="variety" value="input.actor.variety" level="api"/>
             <matrix name="withdrawal_periods">
               <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
               <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>
