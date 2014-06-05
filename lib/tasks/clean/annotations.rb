@@ -39,6 +39,7 @@ module AnnotateModels
 
     max_size = klass.column_names.collect{|name| name.size}.max + 1
     klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
+      next if col.name.to_s =~ /\A\_/ # Custom fields
       attrs = []
       if col.default
         if col.default.is_a? Date
@@ -74,6 +75,7 @@ module AnnotateModels
     info += "# #{klass.table_name}_001:\n"
     klass.columns.sort{|a,b| a.name <=> b.name}.each do |col|
       next if [:created_at, :updated_at, :id, :lock_version].include? col.name.to_sym
+      next if col.name =~ /\A\_/ # Custom fields
       next if col.name =~ /\_type$/ and klass.columns_hash[col.name.gsub(/\_type$/, "_id")]
       if !col.null or [:creator_id, :updater_id].include?(col.name.to_sym)
         if col.name.match(/_id$/)
