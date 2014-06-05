@@ -1,9 +1,12 @@
 module Aggeratio
   class Base
 
+    LEVELS = [:api, :human]
+
     attr_reader :name, :parameters, :root, :aggregator
 
     def initialize(aggregator)
+      @minimum_level = LEVELS.last
       @aggregator = aggregator
       @name = @aggregator.attr("name")
       @parameters = @aggregator.children[0].children.collect do |element|
@@ -33,7 +36,14 @@ module Aggeratio
       return code
     end
 
-    def conditionate(code, element)
+    def conditionate(code, element, minimum_level = nil)
+      minimum_level ||= @minimum_level || :api
+      level = (element.has_attribute?('level') ? element.attr('level').strip.to_sym : @minimum_level)
+      if LEVELS.index(minimum_level) > LEVELS.index(level)
+        return "puts 'Nothing to do: #{minimum_level} level required'.red\n"
+      else
+        code = "puts 'Minimum required level: #{minimum_level} (got #{level})'.red\n" + code
+      end
       if element.has_attribute?('if')
         test = element.attr('if').strip.gsub(/[\r\n\t]+/, ' ')
         code = "if (#{test})\n" + code.dig + "end\n"

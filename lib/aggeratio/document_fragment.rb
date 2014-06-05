@@ -2,7 +2,13 @@
 module Aggeratio
   class DocumentFragment < Base
 
+    def initialize(aggregator)
+      super(aggregator)
+      @minimum_level = :human
+    end
+
     def build
+      puts @name.yellow
       # Build code
       document_variable = "__doc__"
       code  = parameter_initialization
@@ -18,6 +24,7 @@ module Aggeratio
     def build_element(element)
       method_name = "build_#{element.name}".to_sym
       code = ""
+      code << "puts ('<XML #{element.name} ' + #{element.attributes.values.inspect.inspect} + '>').blue\n"
       if respond_to?(method_name)
         # code << "#{element.name}\n"
         code << conditionate(send(method_name, element), element)
@@ -80,7 +87,7 @@ module Aggeratio
     end
 
     def build_property(element)
-      return "" if element.attr("level") == "api"
+      # return "" if element.attr("level") == "api"
       code  = "xml.dl do\n"
       code << "  xml.dd(#{human_name_of(element)})\n"
       # code << "  xml.dt(#{human_value_of(element)})\n"
