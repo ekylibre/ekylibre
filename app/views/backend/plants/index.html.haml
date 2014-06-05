@@ -59,25 +59,7 @@
         end
       
       end
-
-
+      
 = kujaku
   - main_toolbar do |t|
     - t.new
-  
-= beehive do |b|
-  - b.cell :map do
-    = visualization :cultivable_map do |v|
-      - v.background :base, "OpenStreetMap.HOT"
-        - v.background :forest_base, "Thunderforest"
-        - v.background :water_base, "Thunderforest.Transport"
-        - v.background :landscape_base, "Thunderforest.Landscape"
-        - v.background :outdoors_base, "Thunderforest.Outdoors"
-        - v.layer :Choropleth, choro
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
-          
-  - b.cell :list do
-    = list
