@@ -232,6 +232,17 @@ class InterventionCast < Ekylibre::Record::Base
     end
   end
 
+
+  # FIXME: Seems that Rails does not define population method when aggregators are used...
+  def population
+    self["population"]
+  end
+
+  # FIXME: Seems that Rails does not define population method when aggregators are used...
+  def shape
+    self["shape"]
+  end
+
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
     if Nomen::Indicators.all.include?(method_name.to_s) and self.actor and self.actor.respond_to?(:get)
