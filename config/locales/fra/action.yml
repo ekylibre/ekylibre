@@ -460,7 +460,6 @@ fra:
       show: "Groupe\_: %{name}"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
-      # incorporate: "Incorporate product nature category: %{name}"
       index: "Catégories de produits"
       new: "Nouvelle catégorie"
       pick: "Importer une catégorie de produits"
@@ -468,14 +467,12 @@ fra:
     backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
-      # incorporate: "Incorporate product nature variant: %{name}"
       index: "Variantes de produits"
       new: "Nouvelle variante de produit"
       pick: "Importer une variante de produits"
       show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
-      # incorporate: "Incorporate product nature: %{name}"
       index: "Types de produits"
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
@@ -522,6 +519,8 @@ fra:
       edit: "Modifier le rôle\_: %{name}"
       index: "Rôles"
       new: "Nouveau rôle"
+      # pick: "Pick role: %{name}"
+      # show: "Role: %{name}"
     backend/sale_items:
       detail: "Détailler une ligne de la vente"
       edit: "Modifier une ligne de la vente"

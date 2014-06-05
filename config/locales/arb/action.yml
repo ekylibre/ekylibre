@@ -577,7 +577,6 @@ arb:
     backend/product_nature_abilities: #?
     backend/product_nature_categories:
       edit: "تعديل فئة المنتج : %{name}"
-      # incorporate: "Incorporate product nature category: %{name}"
       index: "فئات المنتج"
       new: "اضافة فئة جديدة للمنتج"
       # pick: "Pick product nature category"
@@ -590,14 +589,12 @@ arb:
     backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
-      # incorporate: "Incorporate product nature variant: %{name}"
       # index: "Product variant"
       # new: "New product variant"
       # pick: "Pick product nature variant"
       # show: "Product variant: %{name}"
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
-      # incorporate: "Incorporate product nature: %{name}"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       # pick: "Pick product nature"
@@ -679,6 +676,8 @@ arb:
       edit: "تعديل المهام : %{name}"
       index: "مهام"
       new: "اضافة مهام"
+      # pick: "Pick role: %{name}"
+      # show: "Role: %{name}"
     backend/sale_items:
       # detail: "Details sale's item"
       edit: "تعديل مسار طلب المنتج"

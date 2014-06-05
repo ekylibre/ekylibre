@@ -785,41 +785,69 @@ $map-button-size: round(2 * $fs-normal);
 /* ================================================================== */
 
 .leaflet-legend-control {
-    padding: 4px 12px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 0px;
-    width: 220px;
-
-    border: 1px solid #000000;
-  
+    padding: $default-gap;
+    background: $menu-background;
+		@include menu-shadow;
+    @include border-radius($default-border-radius);
+    min-width: 220px;
+    
+    border: $menu-border;
     
     .legend {
-      line-height: 18px;
-      color: #555;
+        line-height: 18px;
+        color: #555;
     }
     .legend-i {
-      width: 18px;
-      height: 18px;
-      float: left;
-      margin-right: 8px;
-      opacity: 1;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 1;
     }
-
     
-  .info h4 {
-    margin: 0 0 5px;
-    color: #777;
-  }
-  .leaflet-legend-circle {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #000000;
-    @include inline-block;
-    border-radius: 50%;
-    margin-top: 8px;
-}
+    
+    .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
+		h3 {
+				text-transform: uppercase;
+				color: $neutral-color;
+				font-size: $fs-normal;
+				line-height: $lh-normal;
+				margin-bottom: $default-gap;
+		}
+		.leaflet-legend-body {
+				padding: $default-gap;
+		}
+		.leaflet-choropleth-scale {
+				.min-value, max-value {
+						margin: $default-gap;
+				}
+				.leaflet-choropleth-grades {
+						@include inline-block;
+						$border: 1px solid #777;
+						margin: $default-gap;
+						.leaflet-choropleth-grade {
+								@include inline-block;
+								border-top: $border;
+								border-bottom: $border;
+								border-right: $border;
+								width: $lh-normal;
+								height: $lh-normal;
+								&:first-child {
+										border-left: $border;
+								}
+						}
+				}
+		}
+    .leaflet-legend-circle {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #000000;
+        @include inline-block;
+        border-radius: 50%;
+        margin-top: 8px;
+    }
 
 }  

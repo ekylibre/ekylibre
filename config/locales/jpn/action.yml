@@ -413,7 +413,6 @@ jpn:
       # show: "Group: %{name}"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
-      # incorporate: "Incorporate product nature category: %{name}"
       # index: "Product categories"
       # new: "New product category"
       # pick: "Pick product nature category"
@@ -421,14 +420,12 @@ jpn:
     backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
-      # incorporate: "Incorporate product nature variant: %{name}"
       # index: "Product variant"
       # new: "New product variant"
       # pick: "Pick product nature variant"
       # show: "Product variant: %{name}"
     backend/product_natures:
       # edit: "Edit product type: %{name}"
-      # incorporate: "Incorporate product nature: %{name}"
       # index: "Product types"
       # new: "New product type"
       # pick: "Pick product nature"
@@ -474,6 +471,8 @@ jpn:
       # edit: "Edit role: %{name}"
       # index: "Roles"
       # new: "New role"
+      # pick: "Pick role: %{name}"
+      # show: "Role: %{name}"
     backend/sale_items:
       # detail: "Details sale's item"
       # edit: "Edit sale's item"
