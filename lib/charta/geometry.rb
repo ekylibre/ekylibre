@@ -125,6 +125,11 @@ module Charta
       return self.class.new(select_value("SELECT ST_AsEWKT(ST_Transform(#{self.geom}, #{find_srid(srid)}))"))
     end
 
+    def multi_polygon
+      return self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(#{self.geom})), 3)))"))
+    end
+
+
     # def merge!(other_geometry)
     #   @ewkt = self.merge(other_geometry).ewkt
     # end

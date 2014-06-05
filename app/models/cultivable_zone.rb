@@ -96,10 +96,13 @@ class CultivableZone < Zone
   after_create do
     # Compute population
     if self.initial_shape
+      puts "Multi".red
+      self.initial_shape = Charta::Geometry.new(self.initial_shape).multi_polygon
       if self.variable_indicators_list.include?(:net_surface_area)
         self.read!(:net_surface_area, ::Charta::Geometry.new(self.initial_shape).area, at: self.initial_born_at)
-      elsif self.variable_indicators_list.include?(:population)
-        self.read!(:population, ::Charta::Geometry.new(self.initial_shape).area / self.variant.net_surface_area, at: self.initial_born_at)
+      end
+      if self.variable_indicators_list.include?(:population)
+        self.initial_population = ::Charta::Geometry.new(self.initial_shape).area / self.variant.net_surface_area
       end
     end
   end
