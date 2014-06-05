@@ -160,10 +160,10 @@
         $.each this.options.layers, ( index, value ) ->
           max_value = 0
           min_value = 0
-          if value.list[1]['style'] = 'choropleth'
+          choro = false
+          if value.list[1]['style'] == 'choropleth'
             max_value = value.list[1]['choropleth_value']
-            min_value = value.list[1]['choropleth_value']
-          choro = false 
+            min_value = value.list[1]['choropleth_value'] 
           level_number = 0 
           start = ""
           end = ""
@@ -177,6 +177,7 @@
                 max_value = value.choropleth_value
               if value.choropleth_value < min_value
                 min_value = value.choropleth_value
+            
           if choro == true       
             start_red = parseInt(start.slice(1,3),16)
             start_green = parseInt(start.slice(3,5),16)
@@ -325,7 +326,7 @@
               simple_legend = false
               legend_name = value.name
               div = new L.DomUtil.create("div", "leaflet-legend-control")
-              color ='#000000'
+              bubble_legend_color ='#000000'
               bubble_grades = 4
               max_bubble_value = null
               max_bubble_value_digits = null
@@ -352,7 +353,7 @@
                   
                   bubble_legend = true
                   if value.radius > max_bubble_value
-                    color = value.fillColor
+                    bubble_legend_color = value.fillColor
                     max_bubble_value = value.radius
                     max_bubble_value_digits = (max_bubble_value.toString().length)-1
                     
@@ -376,12 +377,7 @@
                   choropleth_layer.bindPopup(popup)
                   layer_group.push(choropleth_layer)
                   
-              overLayer = L.layerGroup(layer_group)
-              overlays[value.name] = overLayer
-              group = new L.featureGroup(layer_group)
-              that.map.addLayer(overLayer)
-              that.map.fitBounds(group.getBounds())
-              
+                            
               legend.onAdd = (map) ->
                                 
                 if bubble_legend == true
@@ -394,7 +390,7 @@
                     rounded_max_value *= (i/bubble_grades)
                     width = rounded_max_value /3
                     height = rounded_max_value /3
-                    div.innerHTML += '<i class="leaflet-legend-circle" style="background-color:' + color + "; width: #{width}px; height: #{height}px" + '"></i>'  + " " + rounded_max_value +  " "
+                    div.innerHTML += '<i class="leaflet-legend-circle" style="background-color:' + bubble_legend_color + "; width: #{width}px; height: #{height}px" + '"></i>'  + " " + rounded_max_value +  " "
                     i++
                 if choropleth_legend == true
                    
@@ -412,11 +408,32 @@
                   div.innerHTML += "<br>"   
                   $.each simple_grades, ( index, value ) ->
                     div.innerHTML += '<i class="leaflet-legend-circle" style="background:' + value + '"></i>' + " " + index +  " "
-                    div.innerHTML += "<br>"
+                    div.innerHTML += "<br>"                               
                                  
                 div
-              legend.addTo that.map
-
+                
+              legend.onRemove = (map) ->
+                                
+                div.innerHTML = null   
+                console.log "I don't need a helmet"             
+                div
+                             
+              #legend.addTo (that.map)  
+              overLayer = L.layerGroup(layer_group)
+              overlays[value.name] = overLayer
+              group = new L.featureGroup(layer_group)
+              that.map.addLayer(overLayer)
+              that.map.fitBounds(group.getBounds())
+              
+              that.map.on "overlayadd", (a) ->
+                legend.addTo (that.map) 
+              return       
+              
+              that.map.on "overlayremove", (b) ->
+                legend.removeFrom (that.map) 
+              return                                                 
+      
+                                          
             layer_options = {
               collapsed: true,
               position: 'topright',
