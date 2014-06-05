@@ -1,87 +1,83 @@
 :ruby
-  # for test  
-  items = Plant.availables
-  campaign = Campaign.currents.last
-  arr=[]
-  poly=[]
-  choro=[]
   
-  if items
-    items.each do |item|
-      if item.shape
-        radius = rand(50) + 50
-        centroid = Charta::Geometry.new(item.shape).transform(:WGS84).centroid
-        area = Charta::Geometry.new(item.shape).transform(:WGS84).area
-        polyg = Charta::Geometry.new(item.shape).transform(:WGS84).to_geojson
-        # build category (activity) for plant
-        support =  ProductionSupport.of_campaign(campaign).where(storage: item.container, nature: :main).first if item.container
-        category = 'undefined'
-        if support
-          category = support.activity.name
-        end
+  # for cartodb map #1 (Simple with category for )
+  # 1 simple layer with activity as category
+  
+  campaign = Campaign.currents.last
+  
+  dataset_one = []
+  
+      ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
         
-        arr << {style: 'bubble', name: item.name, center: centroid, radius: radius, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'yellow', fillOpacity: 1}
+        item = {
+          name:    support.name,
+          shape:   (support.shape ? Charta::Geometry.new(support.shape).transform(:WGS84) : nil),
+          campaign:   support.production.campaign.name,
+          activity:   support.production.activity.name,
+          production: support.production.name,
+          variant:    support.production.variant.name,
+          tool_cost:  support.tool_cost.to_s.to_f.round(2),
+          input_cost: support.input_cost.to_s.to_f.round(2),
+          time_cost:  support.time_cost.to_s.to_f.round(2)
+        }
         
-                
-        poly << {style: 'simple', category: category, name: item.name, area: area, center: centroid, coord: polyg, stroke: true , color: 'black', weight: 2, opacity: 1, fill: true, fillColor: 'red', fillOpacity: 0.5}
-        
-        
-      choro << {style: 'choropleth', category: category, center: centroid, choropleth_value: 'area', choropleth_type: 'linear', choropleth_color: 'red', name: item.name, area: area, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'null', opacity: 1, fill: true, fillOpacity: 1}
-
+        dataset_one << item
       end
-    end
-  end
+      
+    # for cartodb map #2
+    # 3 choropleth layer with nitrogen_balance, phosphorus_balance, potassium_balance as indicator
+    
+    dataset_two = []
+    
+      ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+        
+        item = {
+          name:    support.name,
+          shape:   (support.shape ? Charta::Geometry.new(support.shape).transform(:WGS84) : nil),
+          campaign:   support.production.campaign.name,
+          activity:   support.production.activity.name,
+          nitrogen_balance: support.nitrogen_balance.to_s.to_f.round(2),
+          phosphorus_balance: support.phosphorus_balance.to_s.to_f.round(2),
+          potassium_balance: support.potassium_balance.to_s.to_f.round(2),
+          provisional_nitrogen_input: support.provisional_nitrogen_input.to_s.to_f.round(2)
+        }
+        
+        dataset_two << item
+        
+      end
 
+  
 
+      choro = []
+  
+      dataset_one.each do |item|
+        
+        if item[:shape]
+        
+          choro << {style: 'choropleth', choropleth_value: 'area', choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: item[:activity], center: item[:shape].centroid, choropleth_type: 'linear', name: item[:name], area: item[:shape].area, coord: item[:shape].to_geojson, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
+        
+        end
+      
+      end
 
 
 = kujaku
-- main_toolbar do |t|
-  - t.new
+  - main_toolbar do |t|
+    - t.new
   
 = beehive do |b|
-  - b.hbox do
-    -if items
-      - b.cell :map do
-        = visualization :cultivable_map do |v|
-          - v.background :default_base, "OpenStreetMap.HOT"
-          - v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
-          - v.background :de_base, "OpenStreetMap.DE"
-          - v.background :cycle_base, "OpenCycleMap"
-          - v.background :forest_base, "Thunderforest"
-          - v.background :water_base, "Thunderforest.Transport"
-          - v.background :landscape_base, "Thunderforest.Landscape"
-          - v.background :outdoors_base, "Thunderforest.Outdoors"
-          -# The followings layers are overlays . They can be combined.
-          -# v.overlay :clouds, "OpenWeatherMap.Clouds"
-          -# v.overlay :precipitations, "OpenWeatherMap.Precipitation"
-          -# v.overlay :rains, "OpenWeatherMap.Rain"
-          -# v.overlay :pressures, "OpenWeatherMap.Pressure"
-          -# v.overlay :wind, "OpenWeatherMap.Wind"
-          -# v.overlay :temperature, "OpenWeatherMap.Temperature"
-          -# v.overlay :snow, "OpenWeatherMap.Snow"
-          -# v.dataset :zones, data
-          -# v.layer :zones, data, tooltip: true
-          -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
-          -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
-          -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
-        
-          - v.layer :base, poly
-          - v.layer :phosphorus_concentration, arr
-          - v.layer :nitrogen_concentration, choro
+  - b.cell :map do
+    = visualization :cultivable_map do |v|
+      - v.background :base, "OpenStreetMap.HOT"
+        - v.background :forest_base, "Thunderforest"
+        - v.background :water_base, "Thunderforest.Transport"
+        - v.background :landscape_base, "Thunderforest.Landscape"
+        - v.background :outdoors_base, "Thunderforest.Outdoors"
+        - v.layer :Choropleth, choro
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
           
-          -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
-          -# v.bubble :Marseille_population, [43.296346, 5.369889], 8506.36
-          -# v.bubble :Lyon_population, [45.759723, 4.842223], 4912.68
-          -# v.bubble :Toulouse_population, [43.604482, 1.44396], 4473.40
-          -# v.bubble :Nice_population, [43.695949, 7.271413], 3440.64
-          - v.control :zoom
-          - v.control :scale
-          - v.control :fullscreen
-          -# v.control :geocoder
-          - v.control :layer_selector
-          - v.control :legends
-          - v.control :layer_legend
-        
-    - b.cell :list do
-      = list
+  - b.cell :list do
+    = list
