@@ -1241,6 +1241,7 @@ arb:
     # group: "Group"
     # groups: "Groups"
     help: "المساعدة"
+    # help_center: "Help center"
     hint: "تلميح&nbsp;: %{value}"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
     hour_duration:
@@ -1507,7 +1508,6 @@ arb:
     paid_amount: "القيمة المسدودة"
     paid_at: "تم التسديد في"
     parameters: "عامل متغير"
-    # parts_amount: "Paid amount"
     passive_balance_sheet: "رصيد ثابت" #?
     passive_capital_sum: "مجموع رأس المال" #?
     passive_debt_sum: "مجموع الديون" #?
@@ -1519,7 +1519,7 @@ arb:
     payment_at: "سدد في"
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}"
     payment_mode: "طريقة تسديد الدفعة"
-    payment_uses: "الدفعات"
+    payment_uses: "الدفعات" #?
     payments: "الدفعات"
     payments_amount: "تم تسديد القيمة"
     payments_count: "عدد %{mode}"

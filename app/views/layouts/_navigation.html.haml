@@ -17,10 +17,10 @@
 
   .collapse
 
-    - if current_module
+    - if true # current_module
       %ul#modules
         - for mod in Ekylibre::Modules.hash.keys
-          - next unless authorized?(controller: "/backend/dashboards", action: mod)
+          - next unless module_authorized?(mod)
           %li.separator
           :ruby
             attrs = {:id => "#{mod}-module"}

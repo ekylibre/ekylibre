@@ -61,12 +61,6 @@
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/snippets#toggle"
-#     - "backend/transformed_products#index"
-#     - "backend/transformed_products#list"
-#     - "backend/wine_tanks#index"
-#     - "backend/wine_tanks#list"
-#     - "backend/wine_transformers#index"
-#     - "backend/wine_transformers#list"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
@@ -707,12 +701,9 @@ financial_years:
     depend-on:
     - read-financial_years
     actions:
-    - "backend/financial_years#close"
-    - "backend/financial_years#compute_balances"
     - "backend/financial_years#create"
     - "backend/financial_years#destroy"
     - "backend/financial_years#edit"
-    - "backend/financial_years#generate_last_journal_entry"
     - "backend/financial_years#new"
     - "backend/financial_years#update"
   close:
@@ -721,17 +712,11 @@ financial_years:
     actions:
     - "backend/financial_years#close"
     - "backend/financial_years#compute_balances"
-    - "backend/financial_years#create"
-    - "backend/financial_years#destroy"
-    - "backend/financial_years#edit"
     - "backend/financial_years#generate_last_journal_entry"
-    - "backend/financial_years#new"
-    - "backend/financial_years#update"
   reopen:
     depend-on:
     - read-financial_years
     actions:
-    - "backend/financial_years#close"
     - "backend/financial_years#compute_balances"
     - "backend/financial_years#create"
     - "backend/financial_years#destroy"
@@ -1888,6 +1873,12 @@ transfers:
     depend-on:
     - read-transfers
 
+transformed_products:
+  read:
+    actions:
+    - "backend/transformed_products#index"
+    - "backend/transformed_products#list"
+
 transports:
   read:
     actions:
@@ -1937,6 +1928,18 @@ users:
     - "backend/users#new"
     - "backend/users#unlock"
     - "backend/users#update"
+
+wine_tanks:
+  read:
+    actions:
+    - "backend/wine_tanks#index"
+    - "backend/wine_tanks#list"
+
+wine_transformers:
+  read:
+    actions:
+    - "backend/wine_transformers#index"
+    - "backend/wine_transformers#list"
 
 workers:
   read:

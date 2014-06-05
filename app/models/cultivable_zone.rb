@@ -96,7 +96,6 @@ class CultivableZone < Zone
   after_create do
     # Compute population
     if self.initial_shape
-      puts "Multi".red
       self.initial_shape = Charta::Geometry.new(self.initial_shape).multi_polygon
       if self.variable_indicators_list.include?(:net_surface_area)
         self.read!(:net_surface_area, ::Charta::Geometry.new(self.initial_shape).area, at: self.initial_born_at)

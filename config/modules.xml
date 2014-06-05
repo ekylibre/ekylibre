@@ -1014,6 +1014,7 @@
         <page to="backend/settings#import"/>
       </item>
     </group>
+    <!--
     <group name="support" icon="question">
       <item name="help">
         <page to="backend/helps#index"/>
@@ -1021,6 +1022,7 @@
         <page to="backend/helps#toggle"/>
       </item>
     </group>
+-->
   </module>
   <module name="settings" icon="wrench">
     <group name="parameters" icon="wrench">
@@ -1729,10 +1731,11 @@
         <page to="backend/calculators/nitrogen_inputs#update"/>
       </item>
     </group>
-    <group name="api">
-      <item name="crumbs">
-        <page to="api/v1/crumbs#index" nonexistent="true"/>
-        <page to="api/v1/crumbs#create" nonexistent="true"/>
+    <group>
+      <item name="helps">
+        <page to="backend/helps#index"/>
+        <page to="backend/helps#show"/>
+        <page to="backend/helps#toggle"/>
       </item>
     </group>
   </inaccessible-actions>

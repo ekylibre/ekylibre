@@ -885,6 +885,7 @@ eng:
     group: "Group" #?
     groups: "Groups" #?
     help: "Help"
+    help_center: "Help center"
     hint: "Hint: %{value}" #?
     home: "Home"
     hour_duration:  #?
@@ -1067,14 +1068,12 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid on" #?
     parameters: "Parameters"
-    parts_amount: "Paid amount" #?
     password: "Password" #?
     payback: "Payback" #?
     payment_amount: "Amount of payment" #?
     payment_at: "Payment on" #?
     payment_label: "Payment label" #?
     payment_mode: "Payment mode" #?
-    payment_uses: "Payment parts" #?
     payments: "Payments"
     payments_amount: "Payments amount" #?
     payments_count: "Payments count" #?
@@ -1241,7 +1240,7 @@ eng:
     supplier_code: "Supplier code" #?
     supplier_informations: "Supplier informations " #?
     supply: "Supply" #?
-    support: "Support"
+    support: "Support" #?
     target: "Target" #?
     target_zone: "Target zone" #?
     taxes: "Taxes" #?

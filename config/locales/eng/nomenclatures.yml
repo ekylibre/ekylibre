@@ -1311,8 +1311,11 @@ eng:
         teams: "Teams"
         trackings: "Trackings"
         transfers: "Transfers"
+        # transformed_products: "Transformed products"
         transports: "Transports"
         users: "Users"
+        # wine_tanks: "Wine tanks"
+        # wine_transformers: "Wine transformers"
         workers: "Workers"
     entity_link_natures:
       name: "Entity link natures"

@@ -1950,6 +1950,10 @@ svg.map {
   display: none;
 }
 
+#help-center {
+   @include text-align(center);   
+}
+
 /* Calendar */
 /* @FIXME : need to be update ! */
 

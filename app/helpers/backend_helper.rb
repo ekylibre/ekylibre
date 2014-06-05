@@ -46,6 +46,16 @@ module BackendHelper
     render(partial: 'layouts/side', locals: {path: path})
   end
 
+  def module_authorized?(mod)
+    for group, items in Ekylibre::Modules.groups_in(mod)
+      for item, paths in items
+        return true if authorized?(paths.first)
+      end
+    end
+    return false
+  end
+
+
   def side_menu(*args, &block)
     return "" unless block_given?
     main_options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})

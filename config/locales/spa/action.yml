@@ -1061,6 +1061,7 @@ spa:
     # group: "Group"
     # groups: "Groups"
     help: "Ayuda"
+    # help_center: "Help center"
     # hint: "Hint: %{value}"
     home: "Vuelta a la cogida de la ayuda"
     hour_duration:
@@ -1280,7 +1281,6 @@ spa:
     # paid_amount: "Paid amount"
     # paid_at: "Paid on"
     parameters: "Parametros"
-    # parts_amount: "Paid amount"
     passive_balance_sheet: "Balance pasivo" #?
     passive_capital_sum: "Total capitales" #?
     passive_debt_sum: "Total deudas" #?
@@ -1292,7 +1292,6 @@ spa:
     # payment_at: "Payment on"
     # payment_label: "Payment label"
     # payment_mode: "Payment mode"
-    # payment_uses: "Payment parts"
     payments: "Encajonamientos"
     # payments_amount: "Payments amount"
     payments_count: "Nombre de %{mode}"
