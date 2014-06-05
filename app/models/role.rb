@@ -103,34 +103,37 @@ class Role < Ekylibre::Record::Base
   # end
 
   # Load a role from nomenclature
-    def self.import_from_nomenclature(reference_name, force = false)
-      unless item = Nomen::Roles[reference_name]
-        raise ArgumentError, "The role #{reference_name.inspect} is not known"
-      end
-
-        # parse rights
-        rights = item.accesses.inject({}) do |hash, right|
-          array = right.to_s.split("-")
-          array.insert(0, "all") if array.size < 3
-          array << "all" if array.size < 3
-          resource, action = array.second, array.third
-          action = Nomen::EnterpriseResources[resource].accesses if action == "all"
-          hash[resource] ||= []
-          hash[resource] += [action].flatten.map(&:to_s)
-          hash
-        end
-
-        # build attributes
-        attributes = {
-          :name => item.human_name,
-          :reference_name => item.name,
-          :rights => rights
-        }
-
-        # create role
-        role = self.create!(attributes)
-
-      return role
+  def self.import_from_nomenclature(reference_name, force = false)
+    unless item = Nomen::Roles[reference_name]
+      raise ArgumentError, "The role #{reference_name.inspect} is not known"
     end
+
+    # parse rights
+    rights = item.accesses.inject({}) do |hash, right|
+      array = right.to_s.split("-")
+      array.insert(0, "all") if array.size < 3
+      array << "all" if array.size < 3
+      resource, action = array.second, array.third
+      unless Nomen::EnterpriseResources[resource]
+        raise resource.inspect
+      end
+      action = Nomen::EnterpriseResources[resource].accesses if action == "all"
+      hash[resource] ||= []
+      hash[resource] += [action].flatten.map(&:to_s)
+      hash
+    end
+
+    # build attributes
+    attributes = {
+      :name => item.human_name,
+      :reference_name => item.name,
+      :rights => rights
+    }
+
+    # create role
+    role = self.create!(attributes)
+
+    return role
+  end
 
 end

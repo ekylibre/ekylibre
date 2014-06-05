@@ -875,9 +875,12 @@ module ApplicationHelper
   def field(label, input, options = {}, &block)
     return content_tag(:div,
                        content_tag(:label, label, :class => "control-label") +
-                       content_tag(:div, (block_given? ? capture(&block) : input), :class => "controls"),
+                       content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), :class => "controls"),
                        :class => "control-group")
   end
+
+  
+
 
 
   def field_set(*args, &block)

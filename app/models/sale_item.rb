@@ -67,6 +67,7 @@ class SaleItem < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, to: :sale
+  delegate :currency, to: :sale, prefix: true
   delegate :all_taxes_included?, to: :price
   delegate :name, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true

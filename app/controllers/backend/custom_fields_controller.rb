@@ -18,7 +18,7 @@
 #
 
 class Backend::CustomFieldsController < BackendController
-  manage_restfully :redirect_to => '(RECORD.choice? ? {action: :show, id: "id"} : :back)'.c
+  manage_restfully
   manage_restfully_list
   unroll
 
@@ -32,7 +32,6 @@ class Backend::CustomFieldsController < BackendController
     t.action :up, method: :post, :unless => :first?
     t.action :down, method: :post, :unless => :last?
     t.action :edit
-    t.action :show, image: :menulist, if: :choice?
     t.action :destroy, if: :destroyable?
   end
 

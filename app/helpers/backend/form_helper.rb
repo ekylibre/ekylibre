@@ -17,6 +17,32 @@
 #
 
 module Backend::FormHelper
+
+  def field_tag(*args)
+    options = args.extract_options!
+    name = args.shift || options[:name]
+    datatype = args.shift || options[:datatype]
+    value = args.shift || options[:value]
+    if datatype == :boolean
+      hidden_field_tag(name, "0") + check_box_tag(name, "1", value)
+    elsif datatype == :measure
+      unless unit = options[:unit] || (value ? value.unit : nil)
+        raise StandardError, "Need unit"
+      end
+      content_tag(:div, class: "input-append") do
+        text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +
+          select_tag("#{name}[unit]", options_for_select(Measure.siblings(unit).collect{|u| [Nomen::Units[u].human_name, u]}, (value ? value.unit : unit)))
+      end
+    elsif [:string, :integer, :decimal].include? datatype
+      text_field_tag(name, value)
+    elsif datatype == :choice
+      choices = options[:choices] || []
+      select_tag(name, options_for_select(choices, value))
+    else
+      return indicator.name.upcase      
+    end
+  end
+
   
   def indicator_field_tag(*args)
     options = args.extract_options!
