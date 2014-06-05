@@ -19,11 +19,11 @@
 
 class Api::V1::BaseController < ActionController::Base
   before_action :check_format!
-  acts_as_token_authentication_handler_for User
+  # acts_as_token_authentication_handler_for User
 
   after_action do
     response.headers["X-Ekylibre-Media-Type"] = "ekylibre.v1"
-    response.headers["Access-Control-Allow-Origin"] = "*"
+    # response.headers["Access-Control-Allow-Origin"] = "*"
   end
 
   hide_action :check_format!
