@@ -14,7 +14,7 @@
         <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population" if="members_count(herd) > 0 &amp; silage.net_mass?"
                  forward="value * (members_count(herd) / self..net_mass(kilogram))"
                  backward="value * (self..net_mass(kilogram) / members_count(herd))"
-                 /> <!-- kg / animal # TODO use members_count(herd) instead of herd.population -->
+                 />
         <handler indicator="net_volume"            unit="cubic_meter"   to="population" if="silage.net_volume?"
                  forward="value / self..net_volume(cubic_meter)"
                  backward="value * self..net_volume(cubic_meter)"
