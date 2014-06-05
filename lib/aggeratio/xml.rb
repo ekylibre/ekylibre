@@ -1,6 +1,11 @@
 module Aggeratio
   class XML < Base
 
+    def initialize(aggregator)
+      super(aggregator)
+      @minimum_level = :api
+    end
+
     def build
       # Build code
       code  = parameter_initialization
@@ -15,6 +20,7 @@ module Aggeratio
     def build_element(element)
       method_name = "build_#{element.name}".to_sym
       code = ""
+      # code << "puts '  #{self.class.name} #{element.name.capitalize} (#{rand(1000000).to_s(36)})'.red\n"
       if respond_to?(method_name)
         # code << "#{element.name}\n"
         code << conditionate(send(method_name, element), element)

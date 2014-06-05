@@ -4,7 +4,17 @@
   <procedure name="mammal_herd_milking" natures="milk_production" version="0" status="frozen">
     <variables>
       <variable name="mammal_herd_to_milk" variety="animal_group" derivative-of="mammalia" abilities="produce(milk)"  roles="milk_production-target"/>
-      <variable name="milk"                variety="milk" derivative-of="variety: mammal_herd_to_milk" roles="milk_production-output" new="produced-by: mammal_herd_to_milk" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}"/>
+      <variable name="milk" variety="milk" derivative-of="variety: mammal_herd_to_milk" roles="milk_production-output" new="produced-by: mammal_herd_to_milk" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <handler indicator="population" />
+      <handler indicator="net_mass"    unit="kilogram"               to="population"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+      <handler indicator="net_mass"    unit="kilogram"  name="milk_mass_per_animal" to="population" if="members_count(mammal_herd_to_milk) > 0 &amp; milk.population?"
+                 forward="value * (members_count(mammal_herd_to_milk) / self..net_mass(kilogram))"
+                 backward="value * (self..net_mass(kilogram) / members_count(mammal_herd_to_milk))"
+                 /> <!-- kg / vl  -->
+      </variable>
       <variable name="caregiver" abilities="milk(mammalia)"   roles="milk_production-doer"/>
       <variable name="container" abilities="store(milk)"/>
     </variables>

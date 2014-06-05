@@ -81,7 +81,7 @@ gem 'devise'
 gem 'devise-i18n-views'
 gem 'simple_token_authentication'
 # gem 'doorkeeper'
-gem 'rack-cors', require: 'rack/cors'
+# gem 'rack-cors', require: 'rack/cors'
 
 # Attachments
 gem 'paperclip'

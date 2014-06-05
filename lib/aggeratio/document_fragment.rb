@@ -2,6 +2,11 @@
 module Aggeratio
   class DocumentFragment < Base
 
+    def initialize(aggregator)
+      super(aggregator)
+      @minimum_level = :human
+    end
+
     def build
       # Build code
       document_variable = "__doc__"
@@ -18,6 +23,7 @@ module Aggeratio
     def build_element(element)
       method_name = "build_#{element.name}".to_sym
       code = ""
+      # code << "puts '  #{self.class.name} #{element.name.capitalize} (#{rand(1000000).to_s(36)})'.red\n"
       if respond_to?(method_name)
         # code << "#{element.name}\n"
         code << conditionate(send(method_name, element), element)
@@ -80,7 +86,7 @@ module Aggeratio
     end
 
     def build_property(element)
-      return "" if element.attr("level") == "api"
+      # return "" if element.attr("level") == "api"
       code  = "xml.dl do\n"
       code << "  xml.dd(#{human_name_of(element)})\n"
       # code << "  xml.dt(#{human_value_of(element)})\n"
@@ -97,14 +103,14 @@ module Aggeratio
 
       if mode == :table or mode == :head
         code << "  xml.thead do\n"
-        code << build_table_serie(columns, vertical) do |col, ccode|
+        code << build_table_serie(columns, vertical) do |col, cell_code|
           if col.name == "cell"
-            ccode << "xml.th(#{human_name_of(col)}, :class => '#{normalize_name(col)}')\n"
+            cell_code << "xml.th(#{human_name_of(col)}, :class => '#{normalize_name(col)}')\n"
           elsif col.name == "matrix"
-            ccode << "xml.th(:class => 'matrix #{normalize_name(col)}') do\n"
-            # ccode << "  xml.em(#{human_name_of(col)})\n"
-            ccode << build_matrix(col, :head, !vertical).dig
-            ccode << "end\n"
+            cell_code << "xml.th(:class => 'matrix #{normalize_name(col)}') do\n"
+            # cell_code << "  xml.em(#{human_name_of(col)})\n"
+            cell_code << build_matrix(col, :head, !vertical).dig
+            cell_code << "end\n"
           end
         end.dig(2)
         code << "  end\n"
@@ -114,25 +120,26 @@ module Aggeratio
         code << "  xml.tbody do\n"
 
         body_code  = build_elements(element.xpath('xmlns:variable'))
-        body_code << build_table_serie(columns, vertical) do |col, ccode|
+        body_code << build_table_serie(columns, vertical) do |col, cell_code|
           if col.name == "cell"
             if col.has_attribute?('if')
-              ccode << "xml.td(:class => '#{normalize_name(col)}') do\n"
-              ccode << conditionate(human_value_of(col), col).dig
-              ccode << "end\n"
+              cell_code << "xml.td(:class => '#{normalize_name(col)}') do\n"
+              cell_code << conditionate(human_value_of(col), col).dig
+              cell_code << "end\n"
             else
-              # ccode << "xml.td(#{human_value_of(col)}, :class => '#{normalize_name(col)}')\n"
-              ccode << human_value_of(col, :td, :class => normalize_name(col))
+              # cell_code << "xml.td(#{human_value_of(col)}, :class => '#{normalize_name(col)}')\n"
+              cell_code << human_value_of(col, :td, :class => normalize_name(col))
             end
           elsif col.name == "matrix"
-            ccode << "xml.td(:class => 'matrix #{normalize_name(col)}') do\n"
-            ccode << conditionate(build_matrix(col, :body, !vertical), col).dig
-            ccode << "end\n"
+            cell_code << "xml.td(:class => 'matrix #{normalize_name(col)}') do\n"
+            cell_code << conditionate(build_matrix(col, :body, !vertical), col).dig
+            cell_code << "end\n"
           end
         end
 
         if element.has_attribute?("in")
           code << "    for #{item} in #{element.attr("in")}\n"
+          # code << "      puts #{item}.inspect.green\n"
           code << body_code.dig(3)
           code << "    end\n"
         else

@@ -30,12 +30,12 @@ module Ekylibre
       g.template_engine :haml
     end
 
-    config.middleware.use Rack::Cors do
-      allow do
-        origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post]
-      end
-    end
+    # config.middleware.use Rack::Cors do
+    #   allow do
+    #     origins '*'
+    #     resource '*', :headers => :any, :methods => [:get, :post]
+    #   end
+    # end
 
     # Configure layouts for devise
     config.to_prepare do
