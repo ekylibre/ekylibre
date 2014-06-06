@@ -39,7 +39,7 @@ module Backend::FormHelper
       choices = options[:choices] || []
       select_tag(name, options_for_select(choices, value))
     else
-      return indicator.name.upcase      
+      return name.upcase      
     end
   end
 
