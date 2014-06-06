@@ -35,35 +35,46 @@ module Backend::VisualizationsHelper
     def background(name, provider_name)
       @data[:backgrounds] ||= []
       @data[:backgrounds] << {name: name, provider_name: provider_name}
-      
     end
     
     def overlay(name, provider_name)
       @data[:overlays] ||= []
       @data[:overlays] << {name: name, provider_name: provider_name}
-      
     end
   
-    def layer(name, list = {})
+    # def layer(name, list = {})
+    #   @data[:layers] ||= []
+    #   @data[:layers] << {name: name, list: list}
+    # end
+    
+    def layer(name, data, options = {})
+      data = data.collect do |item|
+        item.merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson)
+      end
       @data[:layers] ||= []
-      @data[:layers] << {name: name, list: list}
-
+      @data[:layers] << {reference: name}.merge(options.merge(name: name, data: data))
     end
     
-    def datasets(name, datas = {})
+    def choropleth(name, data, options = {})
+      layer(name, data, options.merge(type: :choropleth))
+    end
+    
+    def bubbles(name, data, options = {})
+      layer(name, data, options.merge(type: :bubbles))
+    end
+    
+    def categories(name, data, options = {})
+      layer(name, data, options.merge(type: :categories))
+    end
+    
+    def dataset(name, data)
       @data[:datasets] ||= {}.with_indifferent_access
-      @data[:datasets][name] = datas
+      @data[:datasets][name] = data
     end
 
-    #def control(name, options = {})
-     #@data[:controls] ||= {}.with_indifferent_access
-      #@data[:controls][name] = options
-    #end
-    
-    def control(name )
-      @data[:controls] ||= []
-      @data[:controls] << {name: name}
-      
+    def control(name, options = true)
+      @data[:controls] ||= {}.with_indifferent_access
+      @data[:controls][name.to_s.camelize(:lower)] = options
     end
 
     def to_json

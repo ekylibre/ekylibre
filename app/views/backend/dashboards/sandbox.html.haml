@@ -4,12 +4,14 @@
   bub = []
   sim = []
   choro = []
+  data = []
   lp.each do |lp|
     if lp.shape
       radius1 = rand(100)
-      centroid = Charta::Geometry.new(lp.shape).transform(:WGS84).centroid
-      area1 = Charta::Geometry.new(lp.shape).transform(:WGS84).area
-      polyg = Charta::Geometry.new(lp.shape).transform(:WGS84).to_geojson
+      geom = Charta::Geometry.new(lp.shape).transform(:WGS84)
+      centroid = geom.centroid
+      area1 = geom.area
+      polyg = geom.to_geojson
       # build category (soil_nature) for lp
       category = 'undefined'
       if soil_nature = lp.soil_nature
@@ -24,8 +26,9 @@
       end
       
       bub << {style: 'bubble', name: lp.name, center: centroid, radius: radius1, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: 'green', fillOpacity: 0.75}
-      choro << {style: 'choropleth', choropleth_value: 'area', choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
+      choro << {type: :choropleth, reference: :area, choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: category, center: centroid, choropleth_type: 'linear', name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
       sim << {style: 'simple', category: category, category_name: category_name, center: centroid,name: lp.name, area: area1, coord: polyg, stroke: true , color: 'black', weight: 1, opacity: 1, fill: true, fillColor: category_color, fillOpacity: 0.5}
+      data << {name: lp.name, shape: lp.shape, area: geom.area.to_f(:square_meter), nitrogen: 10 + rand(100), potash: rand(90) + 20}
     end
   end
   
@@ -54,7 +57,9 @@
   -# v.vis :example, 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json'
 
   -# v.layer :Simple_example, sim
-  - v.layer :Choropleth_example, choro
+  -# v.layer :Choropleth_example, choro
+  - v.choropleth :area, data
+  - v.choropleth :nitrogen, data
   -# v.layer :Bubble_example, bub
   
   -# v.bubble :Paris_population, [48.856578, 2.351828], 22499.75
