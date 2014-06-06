@@ -1,4 +1,4 @@
-:ruby
+-#:ruby
   
   # for cartodb map #1 (Simple with category for )
   # 1 simple layer with activity as category
@@ -59,6 +59,13 @@
         end
       
       end
+
+
+:ruby
+  data = Plant.all.collect do |p|
+    next unless p.shape
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30) }
+  end
       
 = kujaku
 
@@ -66,14 +73,14 @@
   - t.new
 
 = beehive do |b|
-  - b.cell :map do
-    = visualization :cultivable_map do |v|
+  - b.cell :plants do
+    = visualization :plants do |v|
       - v.background :base, "OpenStreetMap.HOT"
       - v.background :forest_base, "Thunderforest"
       - v.background :water_base, "Thunderforest.Transport"
       - v.background :landscape_base, "Thunderforest.Landscape"
       - v.background :outdoors_base, "Thunderforest.Outdoors"
-      - v.layer :Choropleth, choro
+      - v.choropleth :age, data
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen

@@ -58,8 +58,8 @@ String.prototype.camelize = () ->
           opacity: 1
           fill: true
           fillColor: "blue"
-          fillOpacity: 0.6
-          startColor: '#FFFFAA'
+          fillOpacity: 0.8
+          startColor: '#EEEEE0'
           stopColor: '#910000'
           levelNumber: 7   
         simple:
@@ -160,6 +160,7 @@ String.prototype.camelize = () ->
 
     # Round a value with magnitude
     _round: (value) ->
+      return 0 if value == 0
       i = 11
       while (i)
         s = Math.pow(10, (i - 3) * 3)
@@ -432,10 +433,14 @@ String.prototype.camelize = () ->
       if this.options.view.zoom?
         @map.setZoom(this.options.view.zoom)
 
-  $(document).ready ->
+  $.loadVisualizations = ->
     $("*[data-visualization]").each ->
       $(this).visualization()
-       
+    return
+
+  $(document).ready $.loadVisualizations
+  $(document).on "page:load cocoon:after-insert cell:load", $.loadVisualizations
+
 ) jQuery
 
 

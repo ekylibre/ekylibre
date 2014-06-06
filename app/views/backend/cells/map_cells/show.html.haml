@@ -1,8 +1,47 @@
-- if @visualization
+:ruby
+  data = []
+  ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+    item = {
+      name:       support.name,
+      shape:      support.shape,
+      campaign:   support.production.campaign.name,
+      activity:   support.production.activity.name,
+      production: support.production.name,
+      variant:    support.production.variant.name,
+      tool_cost:  support.tool_cost.to_s.to_f.round(2),
+      input_cost: support.input_cost.to_s.to_f.round(2),
+      time_cost:  support.time_cost.to_s.to_f.round(2),
+      nitrogen:   support.nitrogen_balance.to_s.to_f.round(2),
+      phosphorus: support.phosphorus_balance.to_s.to_f.round(2),
+      potassium:  support.potassium_balance.to_s.to_f.round(2)
+    }
+    data << item
+  end
+  
+
+= visualization :supports do |v|
+  - v.background :base, "OpenStreetMap.HOT"
+  - v.background :water_base, "Thunderforest.Transport"
+  - v.background :outdoors_base, "Thunderforest.Outdoors"
+  - if params[:visualization] == "nitrogen_footprint"
+    - v.choropleth :nitrogen, data, choropleth: {stopColor: "#777777"}
+    - v.choropleth :phosphorus, data, choropleth: {stopColor: "#11BB99"}
+    - v.choropleth :potassium, data
+  - else
+    - v.choropleth :tool_cost, data, choropleth: {stopColor: "#00AA00"}
+    - v.choropleth :input_cost, data, choropleth: {stopColor: "#1122DD"}
+    - v.choropleth :time_cost, data
+  - v.control :zoom
+  - v.control :scale
+  - v.control :fullscreen
+  - v.control :layer_selector
+
+
+-# if @visualization
   - id = "map-#{@visualization}"
   %div{id: id}
     -# &sql=&zoom=3&center_lat=45.27488643704891&center_lon=9.84375
     %iframe{width: '100%', height: 520, frameborder: 0, src: "//#{@account}.cartodb.com/viz/#{@visualization}/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=false&layer_selector=true&legends=true&scrollwheel=false&sublayer_options=1"}
     = link_to(:refresh.tl, {action: :update, visualization: params[:visualization]}, method: :patch, remote: true, 'data-update' => "##{id}", 'data-update-at' => 'replace', class: "btn")
-- else
+-# else
   = no_data

@@ -48,9 +48,10 @@ module Backend::VisualizationsHelper
     # end
     
     def layer(name, data, options = {})
-      data = data.collect do |item|
+      data = data.compact.collect do |item|
+        next unless item[:shape]
         item.merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson)
-      end
+      end.compact
       @data[:layers] ||= []
       @data[:layers] << {reference: name}.merge(options.merge(name: name, data: data))
     end
@@ -78,7 +79,7 @@ module Backend::VisualizationsHelper
     end
 
     def to_json
-      @data.to_json
+      @data.jsonize_keys.to_json
     end
 
   end
