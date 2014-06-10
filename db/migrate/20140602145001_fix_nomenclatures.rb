@@ -69,17 +69,17 @@ class FixNomenclatures < ActiveRecord::Migration
      {table: 'product_readings', column: 'indicator_name', old_value: 'phosphorus_concentration', reference_name: 'coop:ammonitre_33_5_____bb'},
      
      {table: 'product_readings', column: 'indicator_name', old_value: 'potassium_concentration', reference_name: 'coop:super_46__gr__vr'},
-     {table: 'product_readings', column: 'indicator_name', old_value: 'nitrogen_concentration', reference_name: 'coop:super_46__gr__vr'},
-     
-     
-     
-     
+     {table: 'product_readings', column: 'indicator_name', old_value: 'nitrogen_concentration', reference_name: 'coop:super_46__gr__vr'}, 
       {table: 'product_readings', column: 'indicator_name', new_value: 'phosphorus_concentration', old_value: 'potassium_concentration' ,reference_name: 'liquid_10_25_d1.4'},
       {table: 'product_readings', column: 'indicator_name', new_value: 'phosphorus_concentration', old_value: 'potassium_concentration', reference_name: 'liquid_10_34_d1.4'}
       
    ]                                    
-                                        
-  
+         
+         
+    INTERVENTIONS = [
+  {table: 'interventions', column: 'reference_name', old: 'base-implant-0', new: 'base-implanting-0'},
+  {table: 'interventions', column: 'natures', old: 'implant', new: 'implanting'}
+  ]     
 
   def up
 
@@ -114,10 +114,18 @@ class FixNomenclatures < ActiveRecord::Migration
       end
     end
     
+    for item in INTERVENTIONS
+      replace_items_in_array(item[:table], item[:column], item)
+    end
+    
   
   end
   
   def down
+    
+    for item in INTERVENTIONS
+      replace_items_in_array(item[:table], item[:column], new: item[:old], old: item[:new])
+    end
     
     for item in PRODUCT_READING_ITEMS
       if variant_id = connection.select_value("SELECT min(id) FROM product_nature_variants WHERE reference_name = '#{item[:reference_name]}'").to_i
