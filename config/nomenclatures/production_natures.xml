@@ -323,8 +323,16 @@
       <item name="vine"
             production_code="6000"
             activity="vine_wine"
+            telepac_crop_code="VY"
             variant_support="vine_grape_crop"
             />
+      <item name="vine_restructuration"
+            production_code="6100"
+            activity="vine_wine"
+            telepac_crop_code="RE"
+            variant_support="vine_grape_crop"
+            />      
+            
       <item name="winery"
             activity="vine_wine"
             variant_support="vine_grape_must"

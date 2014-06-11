@@ -324,6 +324,96 @@ load_data :land_parcels do |loader|
     end
   
   end
-
+  
+  
+  # For Viniteca sofware
+  
+  # load transcoding files
+  
+  varieties_transcode = {}.with_indifferent_access
+  
+  path = loader.path("viniteca", "varieties_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      varieties_transcode[row[0]] = row[1].to_sym
+    end
+  end
+  
+  certifications_transcode = {}.with_indifferent_access
+  
+  path = loader.path("viniteca", "certifications_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      certifications_transcode[row[0]] = row[1].to_sym
+    end
+  end
+  
+  # load data files from Viniteca software
+  
+  path = loader.path("viniteca", "plant.shp")
+  if path.exist?
+    loader.count :plant_shapes do |w|
+      #############################################################################
+      # File structuration
+      # INFO Take care of 10 characters truncature because of Rgeo
+      # -- field_name
+      # N_PARCELLE (work_number of plant)
+      # CEPAGE (variety of plant) to transcode with nomenclature
+      # COULEUR_PAR (color of the vine variety) to transcode
+      # SURFACE_REE (population of plant)
+      # DATE_CREATI (born_at of plant)
+      # CODE_AOC (certification of plant)
+      born_at = Time.new(1980, 1, 1, 10, 0, 0, "+00:00")
+      
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |shape_file|
+        # puts "File contains #{file.num_records} records."
+        shape_file.each do |record|
+          
+          # puts "  Attributes: #{record.attributes.inspect}"
+          # build variable for transcode
+          record_variety = record.attributes['CEPAGE'].to_s.downcase + ' ' + record.attributes['COULEUR_PA'].to_s.downcase
+          # find or import variant
+          # puts record_variety
+          # puts varieties_transcode[record_variety]
+          if variety = varieties_transcode[record_variety]
+            #vine_crop_variant = ProductNatureVariant.find_or_import!(variety)
+          #else
+            vine_crop_variant = ProductNatureVariant.find_or_import!(:vitis_vinifera)
+          end
+          
+          initial_born_at = (record.attributes['DATE_CREAT'].blank? ? born_at : record.attributes['DATE_CREAT'].to_datetime)
+          # create plant
+          plant = Plant.create!(:variant_id => vine_crop_variant.first.id,
+                  :name =>  record.attributes['CEPAGE'].to_s + " ( " + record.attributes['PORTE_GREF'].to_s + " ) - [ " + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s + " ] ",
+                  :work_number => "PLANT_" + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s,
+                  :variety => variety, 
+                  :initial_born_at => initial_born_at,                       
+                  :initial_owner => Entity.of_company,
+                  :identification_number => record.attributes['UIDPARCELL'].to_s )
+          
+          # shape and population         
+          plant.read!(:shape, record.geometry, at: initial_born_at)
+          plant.read!(:population, record.attributes['SURFACE_RE'].to_d, at: initial_born_at) if record.attributes['SURFACE_RE']
+         
+          # vine indicators
+          # plant_life_state, woodstock_variety, certification, plants_count, rows_interval, plants_interval
+          #puts varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!]
+          plant.read!(:certification, certifications_transcode[record.attributes['CODE_AOC'].to_s.downcase!], at: initial_born_at) if record.attributes['CODE_AOC']
+          
+          #puts varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!]
+          plant.read!(:woodstock_variety, varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!], at: initial_born_at) if record.attributes['PORTE_GREF']
+          
+          #puts record.attributes['ECARTEMENT'].inspect
+          plant.read!(:rows_interval, record.attributes['ECARTEMENT'].to_d.in_meter, at: initial_born_at) if record.attributes['ECARTEMENT']
+          
+          #puts record.attributes['ECARTEMEN0'].inspect
+          plant.read!(:plants_interval, record.attributes['ECARTEMEN0'].to_d.in_meter, at: initial_born_at) if record.attributes['ECARTEMEN0']
+          
+          w.check_point
+        end
+      end
+    end
+  end
+  
 
 end
