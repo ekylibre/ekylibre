@@ -4,14 +4,14 @@
   <procedure name="animal_treatment" natures="animal_curative_medicine_admission" version="0" status="frozen">
     <variables>
       <variable name="animal"           variety="animal" roles="animal_curative_medicine_admission-target"/>
-      <variable name="medicine"         abilities="care(animal)"/>
-      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_curative_medicine_admission-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <variable name="animal_medicine"         abilities="care(animal)" roles="animal_curative_medicine_admission-input_origin"/>
+      <variable name="animal_medicine_to_give" new="parted-from: animal_medicine" roles="animal_curative_medicine_admission-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
      <handler indicator="population" />
-     <handler indicator="net_mass"   unit="gram"   to="population" if="medicine.net_mass(gram) > 0"
+     <handler indicator="net_mass"   unit="gram"   to="population" if="animal_medicine.net_mass(gram) > 0"
                  forward="(value / self..net_mass(gram))"
                  backward="(value * self..net_mass(gram))"
                  /> <!-- g -->
-     <handler indicator="net_volume"   unit="milliliter"   to="population" if="medicine.net_volume(milliliter) > 0"
+     <handler indicator="net_volume"   unit="milliliter"   to="population" if="animal_medicine.net_volume(milliliter) > 0"
                  forward="(value / self..net_volume(milliliter))"
                  backward="(value * self..net_volume(milliliter))"
                  /> <!-- ml -->
@@ -24,13 +24,13 @@
         <task do="[caregiver] measures [animal|healthy]"/>
       </operation>
       <operation id="200" duration="10 minutes">
-        <task do="[caregiver] moves at [medicine]"/>
-        <task do="[medicine] parts with [medicine_to_give]"/>
-        <task do="[medicine_to_give] moves in [caregiver]"/>
+        <task do="[caregiver] moves at [animal_medicine]"/>
+        <task do="[animal_medicine] parts with [animal_medicine_to_give]"/>
+        <task do="[animal_medicine_to_give] moves in [caregiver]"/>
       </operation>
       <operation id="300">
         <task do="[caregiver] moves at [animal]"/>
-        <task do="[animal] consumes [medicine_to_give]"/>
+        <task do="[animal] consumes [animal_medicine_to_give]"/>
       </operation>
     </operations>
   </procedure>

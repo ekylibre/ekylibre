@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="implanting" natures="implanting" version="0" status="frozen">
     <variables>
-      <variable name="plants"       variety="seedling" derivative-of="plant" abilities="grow"/>
+      <variable name="plants"       variety="seedling" derivative-of="plant" abilities="grow" roles="implanting-input_origin"/>
       <variable name="plants_to_fix" new="parted-from: plants" roles="implanting-input" default-population=":plants" default-name="{{variant}} - [{{derivative_of}}]">
         <handler indicator="population" />
         <handler indicator="plants_count" unit="unity_per_hectare"   to="population"

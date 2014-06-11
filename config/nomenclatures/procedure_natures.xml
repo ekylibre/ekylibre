@@ -20,10 +20,10 @@
       <item name="transport" roles="input, doer, input_origin, tool, target"/>
       <item name="tillage" roles="target"/>
       <item name="plant_nutrition" roles="input, target"/>
-      <item name="plant_illness_treatment" roles="input, target, doer, tool"/>
+      <item name="plant_illness_treatment" roles="input, target, doer, tool, input_origin"/>
       <item name="soil_enrichment" roles="input, target, tool, doer, input_origin"/>
       <item name="soil_cleaning" roles="target"/>
-      <item name="implantation" roles="input, target, output, doer, tool"/>
+      <item name="implantation" roles="input, target, output, doer, tool, input_origin"/>
       <item name="pruning" roles="doer, target"/>
       <item name="grinding" roles="input, output, doer, tool"/>
       <item name="growth_control" roles="target"/>
@@ -33,8 +33,8 @@
 
   <nomenclature name="procedure_natures-implantation">
     <items>
-      <item name="sowing" roles="input, target, output, doer, tool"/>
-      <item name="implanting" roles="input, target, output, doer, tool"/>
+      <item name="sowing" roles="input, target, output, doer, tool, input_origin"/>
+      <item name="implanting" roles="input, target, output, doer, tool, input_origin"/>
     </items>
   </nomenclature>
 
@@ -76,7 +76,7 @@
 
   <nomenclature name="procedure_natures-animal_health">
     <items>
-      <item name="animal_illness_treatment" roles="input, target, doer"/>
+      <item name="animal_illness_treatment" roles="input, target, doer, input_origin"/>
       <item name="animal_housing_treatment" roles="input, target, doer, tool"/>
       <item name="animal_housing_cleaning" roles="output, target, doer, tool"/>
     </items>
@@ -84,8 +84,8 @@
   
   <nomenclature name="procedure_natures-animal_illness_treatment">
     <items>
-      <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
-      <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
+      <item name="animal_curative_medicine_admission" roles="input, target, doer, input_origin"/>
+      <item name="animal_preventive_medicine_admission" roles="input, target, doer, input_origin"/>
     </items>
   </nomenclature>
   

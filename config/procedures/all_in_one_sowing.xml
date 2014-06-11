@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="all_in_one_sowing" natures="sowing,soil_enrichment,plant_illness_treatment" version="0" status="frozen">
     <variables>
-      <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow"/>
+      <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
@@ -62,7 +62,7 @@
                  /> <!-- kg K/ha -->            
         
       </variable>
-      <variable name="insecticide"          variety="preparation" abilities="kill(insecta)"/>
+      <variable name="insecticide"          variety="preparation" abilities="kill(insecta)" roles="plant_illness_treatment-input_origin"/>
       <variable name="insecticide_to_input" new="parted-from: insecticide" roles="plant_illness_treatment-input" default-population=":insecticide">
 	
 	<handler indicator="population" />
@@ -76,7 +76,7 @@
                  /> <!-- kg/ha -->
 	
       </variable>
-      <variable name="molluscicide"          variety="preparation" abilities="kill(mollusca)"/>
+      <variable name="molluscicide"          variety="preparation" abilities="kill(mollusca)" roles="plant_illness_treatment-input_origin"/>
       <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"

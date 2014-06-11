@@ -67,7 +67,12 @@ class UpdateProductNaturesNomen < ActiveRecord::Migration
                           {table: 'product_natures', column: 'abilities_list', old: 'kill(bacteria virus fungus)', new: 'kill(bacteria)', reference_name: 'animal_medicine'},
                           {table: 'product_natures', column: 'abilities_list',  new: 'kill(virus)', reference_name: 'animal_medicine'},
                           {table: 'product_natures', column: 'abilities_list',  new: 'kill(fungus)', reference_name: 'animal_medicine'},
-                          {table: 'product_natures', column: 'abilities_list',  new: 'kill(fungus)', reference_name: 'animal_medicine'},
+                          
+                          {table: 'product_natures', column: 'abilities_list',  old: 'kill(plant)', new: 'kill(plant), care(plant)', reference_name: 'herbicide'},
+                          {table: 'product_natures', column: 'abilities_list',  old: 'kill(fungus)', new: 'kill(fungus), care(plant)', reference_name: 'fungicide'},
+                          {table: 'product_natures', column: 'abilities_list',  old: 'kill(insecta)', new: 'kill(insecta), care(plant)', reference_name: 'insecticide'},
+                          {table: 'product_natures', column: 'abilities_list',  old: 'kill(mollusca)', new: 'kill(mollusca), care(plant)', reference_name: 'molluscicide'},                      
+                          
                           
                           {table: 'product_natures', column: 'variable_indicators_list',  new: 'nitrogen_concentration', reference_name: 'running_water'},
                           {table: 'product_natures', column: 'variable_indicators_list',  new: 'potential_hydrogen', reference_name: 'running_water'},

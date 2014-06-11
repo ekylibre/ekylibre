@@ -2,15 +2,15 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
     <variables>
-      <variable name="medicine"          variety="preparation" abilities="care(plant)"/>
-      <variable name="medicine_to_spray" new="parted-from: medicine" roles="plant_illness_treatment-input" default-population=":medicine">
+      <variable name="plant_medicine"          variety="preparation" abilities="care(plant)" roles="plant_illness_treatment-input_origin"/>
+      <variable name="plant_medicine_to_spray" new="parted-from: plant_medicine" roles="plant_illness_treatment-input" default-population=":plant_medicine" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
       <handler indicator="population" />
-      <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="medicine_to_spray? &amp; medicine_to_spray..net_mass(kilogram) > 0"
+      <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="plant_medicine_to_spray? &amp; plant_medicine_to_spray..net_mass(kilogram) > 0"
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg / ha -->
       <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
-        if="medicine_to_spray? &amp; medicine_to_spray..net_volume(liter) > 0"
+        if="plant_medicine_to_spray? &amp; plant_medicine_to_spray..net_volume(liter) > 0"
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(liter)"
                  backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
                  /> <!-- l / ha -->
@@ -36,13 +36,13 @@
         <task do="[tractor] catches [sprayer]"/>
       </operation>
       <operation id="400" duration="4 minutes">
-        <task do="[tractor] moves at [medicine]"/>
+        <task do="[tractor] moves at [plant_medicine]"/>
       </operation>
       <operation id="500" duration="1 minutes">
-        <task do="[medicine] parts with [medicine_to_spray]"/>
+        <task do="[plant_medicine] parts with [plant_medicine_to_spray]"/>
       </operation>
       <operation id="600" duration="4 minutes">
-        <task do="[medicine_to_spray] moves in [sprayer]"/>
+        <task do="[plant_medicine_to_spray] moves in [sprayer]"/>
       </operation>
       <operation id="700" duration="18 minutes">
         <task do="[tractor] moves at [cultivation]"/>
@@ -50,8 +50,8 @@
       </operation>
       <operation id="800">
         <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
-        <task do="[medicine_to_spray] moves in [cultivation]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-        <task do="[cultivation] consumes [medicine_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+        <task do="[plant_medicine_to_spray] moves in [cultivation]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+        <task do="[cultivation] consumes [plant_medicine_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
         <!-- Le bioprocess lié doit faire l'action suivante : [cultivation] consumes [fertilizer] in [land_parcel] -->
         <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
         <!-- et je retourne charger de l'engrais sur le tas global-->
