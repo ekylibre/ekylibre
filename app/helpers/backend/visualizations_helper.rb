@@ -111,6 +111,23 @@ module Backend::VisualizationsHelper
         if content = object[:content]
           if content.is_a? String
             blocks << {type: :content, content: content}
+          elsif content.is_a? Array
+            for value in content
+              block = {}
+              if value.is_a? String
+                block.update(content: value)
+              elsif value.is_a? Hash
+                block.update(value)
+              else
+                raise "Not implemented array block for #{object.class}"
+              end        
+              if block[:label].is_a?(TrueClass)
+                block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
+              elsif !block[:label]
+                block.delete(:label)
+              end
+              blocks << block.merge(type: :content)
+            end
           elsif content.is_a? Hash
             for attribute, value in content
               block = {}
@@ -121,7 +138,7 @@ module Backend::VisualizationsHelper
               elsif value.is_a? TrueClass
                 block.update(value: item[attribute].to_s, label: true)
               else
-                raise "Not implemented block for #{object.class}"
+                raise "Not implemented hash block for #{object.class}"
               end        
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
@@ -131,7 +148,7 @@ module Backend::VisualizationsHelper
               blocks << block.merge(type: :content)
             end
           else
-            raise "Not implemented content for #{object.class}"
+            raise "Not implemented content for #{content.class}"
           end
         end
         if footer = object[:footer]

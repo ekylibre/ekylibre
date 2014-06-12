@@ -64,8 +64,25 @@
 :ruby
   data = Plant.all.collect do |p|
     next unless p.shape
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), random: rand(10000), popup: {header: true, content: {age: true, area: {label: false, value: p.area.l}}} }
-    # render('popup', plant: p)
+    
+    popup_content = []
+    
+    # for all plant
+    popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l}
+    popup_content << {label: Nomen::Varieties.find(p.nature.variety).human_name, value: Nomen::Varieties.find(p.variety).human_name}
+    
+    # for vine plant
+    #if p.woodstock_variety
+     # popup_content << {label: Nomen::Indicators.find(:woodstock_variety).human_name, value: Nomen::Varieties.find(p.woodstock_variety).human_name}
+    #end
+    
+    # for indicators in list
+    
+    
+    popup_content << render('popup', plant: p)
+    
+    
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), plants_interval: p.plants_interval.to_d(:centimeter), popup: {header: true, content: popup_content} }
   end
       
 = kujaku
@@ -83,7 +100,7 @@
       -# v.background :outdoors_base, "Thunderforest.Outdoors"
       -# v.background :map_quest_open_aerial, "MapQuestOpen.Aerial"
       - v.choropleth :age, data
-      - v.choropleth :random, data
+      - v.choropleth :plants_interval, data
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen

@@ -980,7 +980,7 @@ arb:
     apply: "تطبيق" #?
     # archives: "Archives"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
-    are_you_sure_you_want_to: #?
+    # are_you_sure_you_want_to: "Are you sure you want to"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟"
@@ -1098,6 +1098,7 @@ arb:
     critic_stock_min: "الحد الادنى لانتقاد الاسهم"
     critic_stocks: "الاسهم على حافة الخطر"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
+    # cultivable_zone: "Cultivable zone"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     # currency_with_code: "%{name} (%{code})"
     current: "الحالية"
@@ -1281,6 +1282,8 @@ arb:
     international_reduce_vat_collected: "معدل ضريبة القيمة المضافة الدولية المخفضة %2.1" #?
     international_vat_collected: "مجموع ضريبة القيمة المضافة الدولية" #?
     interval: "المدة الزمنية المخصصة"
+    # intervention: "Intervention"
+    # interventions_count: "Interventions count"
     # inventories: "Inventories"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
@@ -1288,6 +1291,7 @@ arb:
     invoiced_amount: "قيمة الفاتورة"
     # invoices_only: "Use only invoices"
     # is: "Is"
+    # issue: "Issue"
     # issues: "Issues"
     journal: "دفتراليومية"
     journal_detail: "اغلق في %{closed_at}"
@@ -1313,6 +1317,8 @@ arb:
     # last_animals: "Last birth"
     # last_computed_balance: "Last computed balance"
     # last_events: "Last events"
+    # last_intervention: "Last intervention"
+    # last_interventions: "Last interventions"
     # last_payment_amount: "Amount of the last payment"
     # last_payment_date: "Date of the last payment"
     # last_procedures: "Last procedures"

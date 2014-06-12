@@ -1,0 +1,21 @@
+- if plant.plants_interval
+  .info
+    %span.title= Nomen::Indicators.find(:plants_interval).human_name
+    %span.value= plant.plants_interval.in_centimeter.round(2).l
+
+- if container = plant.container
+  .info
+    %span.title= :cultivable_zone.tl
+    %span.value= link_to(container.name, backend_product_path(container))
+  - if interventions = Intervention.with_cast(:target, plant).reorder(:started_at)
+    .info
+      %span.title= :interventions_count.tl
+      %span.value= interventions.count
+    - if interventions.count > 0 and last_intervention = interventions.last
+      .info
+        %span.title= :last_intervention.tl
+        %span.value= link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention))
+
+= toolbar do
+  = tool_to( :intervention.tl, {action: :new, controller: :interventions}, tool: 'new-intervention')
+  = tool_to( :issue.tl, {action: :new, controller: :issues, :target_id => plant.id, :target_type => plant.class.name}, tool: 'new-issue') 

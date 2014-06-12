@@ -838,10 +838,10 @@ fra:
     archived_at: "Archivé à" #?
     archives: "Archives"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
-    are_you_sure_you_want_to:  #?
-      abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?" #?
-      close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?" #?
-      reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?" #?
+    are_you_sure_you_want_to:  #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
+      abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?" #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
+      close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?" #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
+      reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?" #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
@@ -970,6 +970,7 @@ fra:
     cropping_plan_chart: "Assolement" #?
     cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)" #?
     csv_statistics: "Statistiques à exporter au format CSV"
+    cultivable_zone: "Zone cultivable"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
     currency_with_code: "%{code} - %{name}"
@@ -1144,13 +1145,16 @@ fra:
     international_reduce_vat_collected: "Taux réduit à 2,1%" #?
     international_vat_collected: "Opérations réalisées dans les DOM" #?
     interval: "Intervalle personnalisé"
+    intervention: "Intervention"
     intervention_casts: "Actions dans les interventions" #?
+    interventions_count: "Nombre d'interventions"
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire"
     invoiced_amount: "Montant facturé"
     invoices_only: "Utiliser seulement les factures"
     is: "Est"
+    issue: "Incident"
     issues: "Incidents"
     isu_index: "Index génétique ISU" #?
     items: "Éléments" #?
@@ -1175,7 +1179,8 @@ fra:
     last_entities: "Derniers tiers" #?
     last_events: "Derniers évènements"
     last_incoming_deliveries: "Derniers approvisionnements" #?
-    last_interventions: "Dernières interventions" #?
+    last_intervention: "Dernière intervention"
+    last_interventions: "Dernières interventions"
     last_issues: "Derniers incidents" #?
     last_outgoing_deliveries: "Dernières livraisons" #?
     last_payment_amount: "Montant du dernier encaissement"

@@ -16,47 +16,47 @@
   
   <nomenclature name="varieties-vitis_riparia_x_vitis_rupestris" hierarchical="true">
     <items>
-      <item name="vitis_riparia_x_vitis_rupestris_101_14MG" itis_tsn="00000"/>
-      <item name="vitis_riparia_x_vitis_rupestris_3309C" itis_tsn="00000"/>
+      <item name="vitis_riparia_x_vitis_rupestris_101_14mg" itis_tsn="00000"/>
+      <item name="vitis_riparia_x_vitis_rupestris_3309c" itis_tsn="00000"/>
     </items>
   </nomenclature>
   
   <nomenclature name="varieties-vitis_cinerea_x_vitis_riparia" hierarchical="true">
     <items>
-      <item name="vitis_cinerea_x_vitis_riparia_8B" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_161_49C" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_SO4" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_5BB" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_420A" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_5C" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_RSB1" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_125AA" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_riparia_34EM" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_8b" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_161_49c" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_so4" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_5bb" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_420a" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_5c" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_rsb1" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_125aa" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_34em" itis_tsn="00000"/>
     </items>
   </nomenclature>
   
   <nomenclature name="varieties-vitis_cinerea_x_vitis_rupestris" hierarchical="true">
     <items>
-      <item name="vitis_cinerea_x_vitis_rupestris_1447P" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_rupestris_99R" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_rupestris_110R" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_rupestris_140RU" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_rupestris_1103P" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_1447p" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_99r" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_110r" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_140ru" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_rupestris_1103p" itis_tsn="00000"/>
     </items>
   </nomenclature>
   
   <nomenclature name="varieties-vitis_cinerea_x_vitis_vinifera" hierarchical="true">
     <items>
-      <item name="vitis_cinerea_x_vitis_vinifera_BC2" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_vinifera_41B" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_vinifera_333EM" itis_tsn="00000"/>
-      <item name="vitis_cinerea_x_vitis_vinifera_FERCAL" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_bc2" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_41b" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_333em" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_vinifera_fercal" itis_tsn="00000"/>
     </items>
   </nomenclature>
   
-  <nomenclature name="varieties-vitis_cinerea_x_vitis_riparia_161_49C_x_vitis_riparia_x_vitis_rupestris_3309C" hierarchical="true">
+  <nomenclature name="varieties-vitis_cinerea_x_vitis_riparia_161_49c_x_vitis_riparia_x_vitis_rupestris_3309c" hierarchical="true">
     <items>
-      <item name="vitis_cinerea_x_vitis_riparia_161_49C_x_vitis_riparia_x_vitis_rupestris_3309C_GRAVESAC" itis_tsn="00000"/>
+      <item name="vitis_cinerea_x_vitis_riparia_161_49c_x_vitis_riparia_x_vitis_rupestris_3309c_gravesac" itis_tsn="00000"/>
     </items>
   </nomenclature>
   
