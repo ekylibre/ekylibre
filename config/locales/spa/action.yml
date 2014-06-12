@@ -867,7 +867,9 @@ spa:
     building_tabbox: #?
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
+    # calculate: "Calculate"
     # calendar: "Calendar"
+    # campaign: "Campaign"
     # canals: "Canals"
     # cancel: "Cancel"
     cancelled: "Pasar en activos"
@@ -1091,6 +1093,7 @@ spa:
     # indicators: "Indicators"
     # info: "General parameters"
     infos: "Informar las caracteristicas de la entrega"
+    # input_cost_per_hectare: "Input cost per hectare"
     insert_actual_password: "Coja su contraseña actual"
     insert_password: "Coja su nueva contraseña"
     international_normal_vat_collected: "Tasa normal a 8,5%" #?

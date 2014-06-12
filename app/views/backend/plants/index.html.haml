@@ -77,12 +77,29 @@
     #end
     
     # for indicators in list
+    indicators = [:tiller_count, :plants_count, :rows_interval, :plants_interval, :rows_orientation]
+    for indicator in indicators
+      if !p.send(indicator).blank? and (p.send(indicator).to_d > 0.0)
+        popup_content << {label: Nomen::Indicators.find(indicator.to_sym).human_name, value: p.send(indicator).l }
+      end
+    end
     
+    if container = p.container
+      popup_content << {label: :cultivable_zone.tl, value: link_to(container.name, backend_product_path(container)) }
+    end
+
+    if interventions = Intervention.with_cast(:target, p).reorder(:started_at)
+      popup_content << {label: :interventions_count.tl, value: interventions.count }
+    end
+
+    if interventions.count > 0 and last_intervention = interventions.last
+      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+    end
     
     popup_content << render('popup', plant: p)
     
     
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), plants_interval: p.plants_interval.to_d(:centimeter), popup: {header: true, content: popup_content} }
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, popup: {header: true, content: popup_content} }
   end
       
 = kujaku
@@ -100,7 +117,7 @@
       -# v.background :outdoors_base, "Thunderforest.Outdoors"
       -# v.background :map_quest_open_aerial, "MapQuestOpen.Aerial"
       - v.choropleth :age, data
-      - v.choropleth :plants_interval, data
+      - v.choropleth :interventions_count, data
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen

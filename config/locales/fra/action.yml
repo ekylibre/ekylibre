@@ -819,7 +819,7 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
-    # amounts_in_currency: "Amounts (%{currency})"
+    amounts_in_currency: "Montants (%{currency})"
     analytics: "Analytiques"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
@@ -882,8 +882,9 @@ fra:
       stock_moves: "Mouvements de stock" #?
       stocks: "Stocks" #?
     buildings: "Voir la liste des lieux de stockage"
-    calculate: "Calculer" #?
+    calculate: "Calculer"
     calendar: "Calendrier"
+    campaign: "Campagne"
     canals: "Coordonnées"
     cancel: "Annuler"
     cancelled: "Passées en avoir"
@@ -1139,6 +1140,7 @@ fra:
     info: "Information\_: %{value}"
     infos: "Information générales"
     inhibitors_presence: "Présence de résidus d’inhibiteurs" #?
+    input_cost_per_hectare: "Coût des intrants par hectare"
     insert_actual_password: "Saisissez votre mot de passe actuel"
     insert_password: "Saisissez votre nouveau mot de passe"
     international_normal_vat_collected: "Taux normal à 8,5%" #?

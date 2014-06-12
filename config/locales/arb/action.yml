@@ -1022,7 +1022,9 @@ arb:
     building_tabbox: #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
+    # calculate: "Calculate"
     # calendar: "Calendar"
+    # campaign: "Campaign"
     canals: "التنسيق"
     cancel: "الغاء"
     cancelled: "تم الالغاء"
@@ -1276,6 +1278,7 @@ arb:
     # indicators: "Indicators"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
+    # input_cost_per_hectare: "Input cost per hectare"
     insert_actual_password: "أدخل كلمة المرور الحالية"
     insert_password: "أدخل كلمة المرور الجديدة"
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?

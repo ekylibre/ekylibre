@@ -714,8 +714,9 @@ eng:
     building: "Building" #?
     building_name: "Building name" #?
     buildings: "Buildings" #?
-    # calculate: "Calculate"
+    calculate: "Calculate"
     calendar: "Calendar" #?
+    campaign: "Campaign"
     canals: "Canals" #?
     cancel: "Cancel"
     cancelled: "Cancelled" #?
@@ -915,6 +916,7 @@ eng:
     indicators: "Indicators" #?
     info: "General parameters" #?
     infos: "Product and quantity" #?
+    input_cost_per_hectare: "Input cost per hectare"
     insert_actual_password: "Enter your actual password" #?
     insert_password: "Enter your new password" #?
     interval: "Personalized Interval" #?
@@ -1231,6 +1233,7 @@ eng:
     stocks: "Stocks"
     stocks_preferences: "Stock management" #?
     stop: "Stop" #?
+    # storage: "Storage"
     string_case: "String case" #?
     string_options: "Text options" #?
     subject: "Subject" #?

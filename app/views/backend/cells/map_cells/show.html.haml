@@ -1,6 +1,36 @@
 :ruby
   data = []
   ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+    
+    popup_content = []
+    
+    # for support
+    
+    popup_content << {label: :campaign.tl, value: support.production.campaign.name}
+    popup_content << {label: :activity.tl, value: support.production.activity.name}
+    
+    if support.input_cost and support.input_cost.to_d > 0.0
+      popup_content << {label: :input_cost_per_hectare.tl, value: support.input_cost.to_s.to_f.round(2)}
+    end
+    
+    if support.storage
+      popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
+    end
+    
+    if storage = support.storage
+      popup_content << {label: :storage.tl, value: link_to(storage.name, backend_product_path(storage)) }
+    end
+
+    if interventions = Intervention.where(production_support: support).reorder(:started_at)
+      popup_content << {label: :interventions_count.tl, value: interventions.count }
+    end
+
+    if interventions.count > 0 and last_intervention = interventions.last
+      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+    end
+    
+    popup_content << render('popup', support: support)
+    
     item = {
       name:       support.name,
       shape:      support.shape,
@@ -13,7 +43,9 @@
       time_cost:  support.time_cost.to_s.to_f.round(2),
       nitrogen:   support.nitrogen_balance.to_s.to_f.round(2),
       phosphorus: support.phosphorus_balance.to_s.to_f.round(2),
-      potassium:  support.potassium_balance.to_s.to_f.round(2)
+      potassium:  support.potassium_balance.to_s.to_f.round(2),
+      interventions_count: interventions.count,
+      popup: {header: true, content: popup_content}
     }
     data << item
   end
@@ -24,10 +56,12 @@
   - v.background :water_base, "Thunderforest.Transport"
   - v.background :outdoors_base, "Thunderforest.Outdoors"
   - if params[:visualization] == "nitrogen_footprint"
+    - v.choropleth :interventions_count, data
     - v.choropleth :nitrogen, data, choropleth: {stopColor: "#777777"}
-    - v.choropleth :phosphorus, data, choropleth: {stopColor: "#11BB99"}
+    -# v.choropleth :phosphorus, data, choropleth: {stopColor: "#11BB99"}
     - v.choropleth :potassium, data
   - else
+    - v.choropleth :interventions_count, data
     - v.choropleth :tool_cost, data, choropleth: {stopColor: "#00AA00"}
     - v.choropleth :input_cost, data, choropleth: {stopColor: "#1122DD"}
     - v.choropleth :time_cost, data
