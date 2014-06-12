@@ -348,6 +348,15 @@ load_data :land_parcels do |loader|
     end
   end
   
+  cultivable_zones_transcode = {}.with_indifferent_access
+  
+  path = loader.path("viniteca", "cultivable_zones_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      cultivable_zones_transcode[row[0]] = row[1].to_s
+    end
+  end
+  
   # load data files from Viniteca software
   
   path = loader.path("viniteca", "plant.shp")
@@ -355,7 +364,7 @@ load_data :land_parcels do |loader|
     loader.count :plant_shapes do |w|
       #############################################################################
       # File structuration
-      # INFO Take care of 10 characters truncature because of Rgeo
+      # INFO Take care of 10 characters truncature because of RGEO
       # -- field_name
       # N_PARCELLE (work_number of plant)
       # CEPAGE (variety of plant) to transcode with nomenclature
@@ -382,13 +391,16 @@ load_data :land_parcels do |loader|
           end
           
           initial_born_at = (record.attributes['DATE_CREAT'].blank? ? born_at : record.attributes['DATE_CREAT'].to_datetime)
+          
+          zc_work_number = cultivable_zones_transcode[record.attributes['NOM_PIECE']]
           # create plant
           plant = Plant.create!(:variant_id => vine_crop_variant.first.id,
-                  :name =>  record.attributes['CEPAGE'].to_s + " ( " + record.attributes['PORTE_GREF'].to_s + " ) - [ " + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s + " ] ",
+                  :name =>  record.attributes['CEPAGE'].to_s + " (" + record.attributes['PORTE_GREF'].to_s + ") - [" + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s + "]",
                   :work_number => "PLANT_" + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s,
                   :variety => variety, 
                   :initial_born_at => initial_born_at,                       
                   :initial_owner => Entity.of_company,
+                  :default_storage => CultivableZone.find_by_work_number(zc_work_number) || CultivableZone.first,
                   :identification_number => record.attributes['UIDPARCELL'].to_s )
           
           # shape and population         
@@ -398,16 +410,23 @@ load_data :land_parcels do |loader|
           # vine indicators
           # plant_life_state, woodstock_variety, certification, plants_count, rows_interval, plants_interval
           #puts varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!]
-          plant.read!(:certification, certifications_transcode[record.attributes['CODE_AOC'].to_s.downcase!], at: initial_born_at) if record.attributes['CODE_AOC']
-          
+          if !record.attributes['CODE_AOC'].blank?          
+            code_aoc = record.attributes['CODE_AOC'].to_s.downcase
+            plant.read!(:certification, certifications_transcode[code_aoc], at: initial_born_at) if code_aoc 
+          end
           #puts varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!]
-          plant.read!(:woodstock_variety, varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!], at: initial_born_at) if record.attributes['PORTE_GREF']
-          
+          if !record.attributes['PORTE_GREF'].blank?
+            porte_greffe = record.attributes['PORTE_GREF'].to_s.downcase
+            plant.read!(:woodstock_variety, varieties_transcode[porte_greffe], at: initial_born_at) if porte_greffe
+          end
           #puts record.attributes['ECARTEMENT'].inspect
-          plant.read!(:rows_interval, record.attributes['ECARTEMENT'].to_d.in_meter, at: initial_born_at) if record.attributes['ECARTEMENT']
-          
+          if record.attributes['ECARTEMENT']
+            plant.read!(:rows_interval, record.attributes['ECARTEMENT'].to_d.in_meter, at: initial_born_at) 
+          end
           #puts record.attributes['ECARTEMEN0'].inspect
-          plant.read!(:plants_interval, record.attributes['ECARTEMEN0'].to_d.in_meter, at: initial_born_at) if record.attributes['ECARTEMEN0']
+          if record.attributes['ECARTEMEN0']
+            plant.read!(:plants_interval, record.attributes['ECARTEMEN0'].to_d.in_meter, at: initial_born_at) 
+          end
           
           w.check_point
         end
