@@ -147,6 +147,7 @@
 }
 
 @mixin background-active-gradient {
+  background: $active-color;
   @include background(linear-gradient(top, lighten($active-color, $default-lightness-variation), $active-color, darken($active-color, $default-lightness-variation)));
 }
 
@@ -167,14 +168,18 @@
   text-align: center;
 }
 
+@mixin menu-box {
+  @include background($menu-background);
+  @include menu-shadow;
+  border: $menu-border;
+}
+
 @mixin menu-shadow {
   @include box-shadow(0 0 ($fs-normal/4) rgba(0, 0, 0, 0.3));
 }
 
 @mixin menu {
-  @include background($menu-background);
-  @include menu-shadow;
-  border: $menu-border;
+  @include menu-box;
   &, li a {
     font-weight: normal;
     color: $text-color;
@@ -187,10 +192,10 @@
   height: $menu-height;
   min-width: $menu-width;
   list-style-type: none;
+  @include transition(background 0.2s, box-shadow 0.2s);
   &:hover > a {
     outline: none;
     background: background-hover($menu-background);
-    @include transition(background 0.2s, box-shadow 0.2s);
   }
   &.disabled, &[disabled] {
     background: transparent;

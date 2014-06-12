@@ -353,23 +353,23 @@ String.prototype.camelize = () ->
       @map.addControl control
 
     _addSimpleLayer: (layer, legendControl)->
+      widget = this
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.simple, layer)
       $.each layer.data, (index, zone) ->
         zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: options.fillColor, fillOpacity: options.fillOpacity} )
-        popup = "#{zone.name}<br/>Area: #{zone.area}"
-        zoneLayer.bindPopup(popup)
+        widget._bindPopup(zoneLayer, zone)
         layerGroup.push(zoneLayer)
       return layerGroup
 
     _addChoroplethLayer: (layer, legendControl)->
+      widget = this
       this._computeChoropleth(layer)
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
       $.each layer.data, (index, zone) ->            
         zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: zone.fillColor, fillOpacity: options.fillOpacity} )
-        popup = "#{zone.name}<br/>Area: #{zone.area}"
-        zoneLayer.bindPopup(popup)
+        widget._bindPopup(zoneLayer, zone)
         layerGroup.push(zoneLayer)
       console.log("Choropleth layer added")
 
@@ -392,6 +392,7 @@ String.prototype.camelize = () ->
       return layerGroup
 
     _addBubblesLayer: (layer, legendControl)->
+      widget = this
       layerGroup = []
       alert "Not implemented"
       return layerGroup
@@ -403,15 +404,32 @@ String.prototype.camelize = () ->
           max_bubble_value_digits = (max_bubble_value.toString().length)-1
               
         zoneLayer = new L.Circle(zone.center, zone.radius, {stroke: layer.stroke, color: layer.color, weight: layer.weight, opacity: layer.opacity, fill: layer.fill, fillColor: layer.fillColor, fillOpacity: layer.fillOpacity} )
-        popup = "#{zone.name} <br> Amount of potassium :  #{Math.round(zone.radius)} grames by square meter"
-        zoneLayer.bindPopup(popup)
-        layerGroup.push(zoneLayer)   
+        widget._bindPopup(zoneLayer, zone)
+        layerGroup.push(zoneLayer)
       return layerGroup
 
     _addCategoriesLayer: (layer, legendControl)->
       layerGroup = []
       alert "Not implemented"
       return layerGroup
+
+    # Build a popup from given parameters. For now it only uses popup attribute of
+    # a zone. After it will use a global template for all zone by default which can be
+    # overriden with a local popup
+    _bindPopup: (layer, zone) ->
+      return unless zone.popup?
+      popup = ""
+      for block in zone.popup
+        popup += "<div class='popup-#{block.type}'>"
+        if block.label?
+          popup += "<span class='popup-block-label'>#{block.label}</span>"
+        if block.content?
+          popup += "<span class='popup-block-content'>#{block.content}</span>"         
+        else if block.value?
+          popup += "<span class='popup-block-value'>#{block.value}</span>"
+        popup += "</div>"
+      layer.bindPopup(popup)
+      return layer
                                 
  
     _refreshView: (view) ->

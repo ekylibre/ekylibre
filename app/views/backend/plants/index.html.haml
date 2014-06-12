@@ -64,7 +64,8 @@
 :ruby
   data = Plant.all.collect do |p|
     next unless p.shape
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30) }
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), random: rand(10000), popup: {header: true, content: {age: true, area: {label: false, value: p.area.l}}} }
+    # render('popup', plant: p)
   end
       
 = kujaku
@@ -77,10 +78,12 @@
     = visualization :plants do |v|
       - v.background :base, "OpenStreetMap.HOT"
       - v.background :forest_base, "Thunderforest"
-      - v.background :water_base, "Thunderforest.Transport"
+      -# v.background :water_base, "Thunderforest.Transport"
       - v.background :landscape_base, "Thunderforest.Landscape"
-      - v.background :outdoors_base, "Thunderforest.Outdoors"
+      -# v.background :outdoors_base, "Thunderforest.Outdoors"
+      -# v.background :map_quest_open_aerial, "MapQuestOpen.Aerial"
       - v.choropleth :age, data
+      - v.choropleth :random, data
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen
