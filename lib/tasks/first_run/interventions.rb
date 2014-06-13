@@ -36,8 +36,8 @@ load_data :interventions do |loader|
 
                   # Sowing 15-10-N -> 30-10-N
                   int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-sowing-0-750-2" => 2000000 + rand(250000)}}) do |i|
-                    i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety))
-                    i.add_cast(reference_name: 'seeds_to_sow', population: 20)
+                    i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety, can: "grow"))
+                    i.add_cast(reference_name: 'seeds_to_sow', population: rand(5) + 1)
                     i.add_cast(reference_name: 'sower',        actor: i.find(Product, can: "sow"))
                     i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
                     i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
@@ -70,10 +70,8 @@ load_data :interventions do |loader|
                   if w.count.modulo(3).zero? # AND NOT prairie
                     # Treatment herbicide 01-04 30-04
                     Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 4, 1, 1.07 * coeff, support: support) do |i|
-                      i.add_cast(reference_name: 'medicine', actor: i.find(Product, variety: :preparation, can: "kill(plant)"))
-                      i.add_cast(reference_name: 'medicine_to_spray', population: 0.18 + 0.9 * coeff)
-                      # i.add_cast(reference_name: 'water',    actor: i.find(Product, variety: :water))
-                      # i.add_cast(reference_name: 'mixture',  actor: i.find(Product, variety: :medicine))
+                      i.add_cast(reference_name: 'plant_medicine', actor: i.find(Product, variety: :preparation, can: "care(plant)"))
+                      i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + 0.9 * coeff)
                       i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
                       i.add_cast(reference_name: 'driver',   actor: i.find(Worker))
                       i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
@@ -215,8 +213,8 @@ load_data :interventions do |loader|
                 Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: {readings: {"base-animal_treatment-0-100-1" => "false"}}) do |i|
                   i.add_cast(reference_name: 'animal',           actor: animal)
                   i.add_cast(reference_name: 'caregiver',        actor: i.find(Worker))
-                  i.add_cast(reference_name: 'medicine',         actor: i.find(Product, variety: :preparation, can: "care(bos)"))
-                  i.add_cast(reference_name: 'medicine_to_give', population: 1 + rand(3))
+                  i.add_cast(reference_name: 'animal_medicine',         actor: i.find(Product, variety: :preparation, can: "care(bos)"))
+                  i.add_cast(reference_name: 'animal_medicine_to_give', population: 1 + rand(3))
                 end
               end
               w.check_point
