@@ -770,6 +770,7 @@ eng:
     coordinates: "Coordinates" #?
     copy_of: "Copy of %{source}" #?
     cost_income_statement: "Cost Income Statement" #?
+    cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total Cost" #?
     counts_by_nature: "Number of documents to account per type" #?
     create: "Create"
@@ -816,6 +817,7 @@ eng:
     document: "Document" #?
     document_natures: "Document types" #?
     document_templates: "Document templates" #?
+    doer_cost: "Doer cost"
     dont_use_journal: "— Do not use journal —" #?
     down: "Down" #?
     down_to_level: "Down to level" #?
@@ -916,6 +918,7 @@ eng:
     indicators: "Indicators" #?
     info: "General parameters" #?
     infos: "Product and quantity" #?
+    input_cost: "Input cost"
     input_cost_per_hectare: "Input cost per hectare"
     insert_actual_password: "Enter your actual password" #?
     insert_password: "Enter your new password" #?
@@ -1123,6 +1126,7 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     production: "Production management"
+    production_cost: "Production cost"
     productions: "Productions" #?
     productions_states:  #?
       aborted: "Aborted" #?
@@ -1233,7 +1237,7 @@ eng:
     stocks: "Stocks"
     stocks_preferences: "Stock management" #?
     stop: "Stop" #?
-    # storage: "Storage"
+    storage: "Storage"
     string_case: "String case" #?
     string_options: "Text options" #?
     subject: "Subject" #?
@@ -1260,6 +1264,7 @@ eng:
     to_deliver: "To deliver" #?
     to_deposit: "To deposit" #?
     today: "Today" #?
+    tool_cost: "Tool cost"
     tools: "Tools"
     tools_list: "Tools" #?
     total: "Total"

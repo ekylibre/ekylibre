@@ -929,6 +929,7 @@ spa:
     # coordinates: "Coordinates"
     # copy_of: "Copy of %{source}"
     cost_income_statement: "Cargas"
+    # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total cargas de explotación"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     # create: "Create"
@@ -986,6 +987,7 @@ spa:
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
+    # doer_cost: "Doer cost"
     dont_use_journal: "-- No utilizar el periodico --"
     # down: "Down"
     down_to_level: "Detallar hasta el nivel"
@@ -1093,6 +1095,7 @@ spa:
     # indicators: "Indicators"
     # info: "General parameters"
     infos: "Informar las caracteristicas de la entrega"
+    # input_cost: "Input cost"
     # input_cost_per_hectare: "Input cost per hectare"
     insert_actual_password: "Coja su contraseña actual"
     insert_password: "Coja su nueva contraseña"
@@ -1345,6 +1348,7 @@ spa:
     # product_name: "Product name"
     product_tabbox: #?
     production: "Administración de la producción"
+    # production_cost: "Production cost"
     # productions: "Productions"
     productions_states:
       # aborted: "Aborted"
@@ -1487,6 +1491,7 @@ spa:
     # stocks: "Stocks"
     # stocks_preferences: "Stock management"
     # stop: "Stop"
+    # storage: "Storage"
     # string_case: "String case"
     # string_options: "Text options"
     subject: "Tema"
@@ -1517,6 +1522,7 @@ spa:
     # to_deliver: "To deliver"
     # to_deposit: "To deposit"
     # today: "Today"
+    # tool_cost: "Tool cost"
     # tools: "Tools"
     # tools_list: "Tools"
     total: "Total"

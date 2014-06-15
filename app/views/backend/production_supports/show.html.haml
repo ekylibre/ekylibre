@@ -27,7 +27,7 @@
           end
           opened_at = resource.selected_manure_management_plan_zone.opened_at
 
-          data_series << { name: 'Fumure calculée (X) au' + opened_at.strftime("%d/%m/%Y"), y: o.to_s.to_f}
+          data_series << { name: 'Fumure calculée (X) au ' + opened_at.strftime("%d/%m/%Y"), y: o.to_s.to_f}
           
           # get the nitrogen input I from opened_at to now (in kg N / Ha )
           
@@ -52,6 +52,63 @@
         = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f} kg N / Ha'}, title: {text: 'Bilan azote'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N / Ha'}})
       - else
         = no_data
+
+  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
+    - b.cell :production_cost do
+      :ruby
+        # prepare an array of hash
+        
+        unit = :hectare
+        unit_item = Nomen::Units[unit]
+        
+        currency = :EUR
+        currency_item = Nomen::Currencies[currency]
+  
+        series = []
+        categories = [:input_cost.tl, :doer_cost.tl, :tool_cost.tl]
+        global_cost_per_hectare = []
+        
+        # data for bar chart costs by activities
+        resource.interventions.reorder(:started_at).find_each do |intervention|
+          data = []
+          for role in [:input, :doer, :tool]
+            if intervention.cost(role)
+              cost_per_hectare = intervention.cost(role) / (resource.storage_net_surface_area(intervention.started_at).to_d(unit))
+            else
+              cost_per_hectare = 0.0
+            end
+            data << cost_per_hectare.round(2).to_s.to_f
+          end
+          series << { name: intervention.name, data: data }
+        end
+        
+        # data for total cost pie by intervention
+        data = []
+        resource.interventions.reorder(:started_at).find_each do |intervention|
+          cost = []
+          for role in [:input, :doer, :tool]
+            if intervention.cost(role)
+              cost << intervention.cost(role) / (resource.storage_net_surface_area(intervention.started_at).to_d(unit))
+            end
+          end
+          data << {name: intervention.name, y: cost.compact.sum.round(2).to_s.to_f }
+          global_cost_per_hectare << cost.compact.sum.round(2).to_s.to_f
+        end
+        series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+        
+        # build chart title
+        label_measure = currency_item.human_name + '/' + unit_item.human_name
+        symbol_measure = currency_item.symbol + '/' + unit_item.symbol
+        chart_title = :production_cost.tl + ' : ' + global_cost_per_hectare.compact.sum.round(2).to_s + ' ' + label_measure +' (' + symbol_measure + ')'
+          
+          
+          
+      = column_chart(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: {}, plot_options: { column: {stacking: 'normal'}})
+  - else
+    = no_data
+        
+        
+        
   - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|

@@ -951,6 +951,7 @@ fra:
     copy_of: "Copie de %{source}"
     cost: "Coût" #?
     cost_income_statement: "Charges"
+    cost_per_net_surface_area: "Coût par surface"
     cost_sum: "Total charges d’exploitation"
     country: "Pays" #?
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
@@ -1013,6 +1014,7 @@ fra:
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
+    doer_cost: "Coût de main d'oeuvre"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau"
@@ -1140,6 +1142,7 @@ fra:
     info: "Information\_: %{value}"
     infos: "Information générales"
     inhibitors_presence: "Présence de résidus d’inhibiteurs" #?
+    input_cost: "Coût d'intrant"
     input_cost_per_hectare: "Coût des intrants par hectare"
     insert_actual_password: "Saisissez votre mot de passe actuel"
     insert_password: "Saisissez votre nouveau mot de passe"
@@ -1439,6 +1442,7 @@ fra:
     product_price_templates: "Types de prix" #?
     product_tabbox: #?
     production: "Production"
+    production_cost: "Coût de production"
     productions: "Productions"
     productions_states:
       aborted: "Annulées"
@@ -1479,9 +1483,9 @@ fra:
     refresh: "Rafraîchir"
     related_people: "En lien avec"
     relationship: "Gestion des relations clients/fournisseurs"
-    # remove: "Remove"
+    remove: "Supprimer"
     remove_diagnostic: "Supprimer un diagnostic" #?
-    # remove_item: "Remove item"
+    remove_item: "Supprimer un item"
     remove_reading: "Supprimer une mesure pour un indicateur" #?
     # remove_subscription: "Remove subscription"
     remove_treatment: "Supprimer un traitement" #?
@@ -1602,7 +1606,7 @@ fra:
     stocks: "Stocks"
     stocks_preferences: "Gestion des stocks"
     stop: "Jusqu’au"
-    storage: "Support" #?
+    storage: "Support"
     string_case: "Options pour le texte"
     string_options: "Indicateur de type Texte"
     subject: "Sujet"
@@ -1637,6 +1641,7 @@ fra:
     to_deliver: "Livrer"
     to_deposit: "À encaisser"
     today: "Aujourd’hui"
+    tool_cost: "Coût de matériel"
     tools: "Outils"
     tools_list: "Liste d’outils"
     total: "Total"
@@ -1845,7 +1850,7 @@ fra:
     x_years:
       one: "%{count} an"
       other: "%{count} ans"
-      # zero: "0 years"
+      zero: "0"
     y: "Oui" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique"
@@ -1936,7 +1941,7 @@ fra:
       purchase_already_invoiced: "Achat déjà facturé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
-      # record_has_been_imported: "Record has been imported"
+      record_has_been_imported: "L’enregistrement a été importé"
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"

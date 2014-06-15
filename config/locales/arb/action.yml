@@ -1084,6 +1084,7 @@ arb:
     coordinates: "تنسيق"
     copy_of: "نسخ من %{source}"
     cost_income_statement: "التكاليف"
+    # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "مجموع تكاليف الاستثمار"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
@@ -1149,6 +1150,7 @@ arb:
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
+    # doer_cost: "Doer cost"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى"
@@ -1278,6 +1280,7 @@ arb:
     # indicators: "Indicators"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
+    # input_cost: "Input cost"
     # input_cost_per_hectare: "Input cost per hectare"
     insert_actual_password: "أدخل كلمة المرور الحالية"
     insert_password: "أدخل كلمة المرور الجديدة"
@@ -1580,6 +1583,7 @@ arb:
     product_tabbox: #?
     product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
+    # production_cost: "Production cost"
     productions: "المنتجات"
     productions_states:
       # aborted: "Aborted"
@@ -1747,6 +1751,7 @@ arb:
     stocks: "ادارة الاسهم"
     # stocks_preferences: "Stock management"
     stop: "لغاية"
+    # storage: "Storage"
     string_case: "خيارات للنص"
     # string_options: "Text options"
     subject: "الموضوع"
@@ -1781,6 +1786,7 @@ arb:
     to_deliver: "للتسليم"
     # to_deposit: "To deposit"
     # today: "Today"
+    # tool_cost: "Tool cost"
     tool_create: "اضافة مادة" #?
     tool_update: "تعديل المادة" #?
     tools: "مادة مستخدمة"
