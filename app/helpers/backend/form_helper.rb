@@ -39,7 +39,7 @@ module Backend::FormHelper
       choices = options[:choices] || []
       select_tag(name, options_for_select(choices, value))
     else
-      return name.upcase      
+      return "[EmptyField #{name.inspect}]"
     end
   end
 
