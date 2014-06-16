@@ -1,30 +1,6 @@
 module Backend::VisualizationsHelper
-
-  # Example of how to use in HAML view:
-  #   = visualization :vizu1 do |v|
-  #     - v.background "openstreetmap.hot"
-  #     - v.background "openweather.precipitations"
-  #     - v.background "openweather.heat"
-  #     - v.layer :layer1, ProductReading.where(...), :simple
-  #     - v.control :fullscreen
-  #     - v.control :layer_selector
-  #     - v.control :background_selector
-  #     - v.control :search  
-  #
   COLORS = ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970',
             '#f28f43', '#77a1e5', '#c42525', '#a6c96a']
-  
-  def lighten(color, rate)
-    r, g, b = color[1..2].to_i(16), color[3..4].to_i(16), color[5..6].to_i(16)
-    r *= (1+rate)
-    g *= (1+rate)
-    b *= (1+rate)
-    r = 255 if r > 255
-    g = 255 if g > 255
-    b = 255 if b > 255
-    return '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
-  end
-  
   
   class VisualizationConfiguration  
     
@@ -50,7 +26,9 @@ module Backend::VisualizationsHelper
     def layer(name, data, options = {})
       data = data.compact.collect do |item|
         next unless item[:shape]
-        item.merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson).merge(item[:popup] ? {popup: compile_visualization_popup(item[:popup], item)} : {})
+        item
+          .merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson)
+          .merge(item[:popup] ? {popup: compile_visualization_popup(item[:popup], item)} : {})
       end.compact
       @data[:layers] ||= []
       @data[:layers] << {reference: name}.merge(options.merge(name: name, data: data))
@@ -84,6 +62,7 @@ module Backend::VisualizationsHelper
 
     protected
 
+    # Build a data structure for popup building
     def compile_visualization_popup(object, item)
       if object.is_a?(TrueClass)
         hash = {header: item[:name]}
@@ -98,15 +77,7 @@ module Backend::VisualizationsHelper
       elsif object.is_a?(Hash)
         blocks = []
         if header = object[:header]
-          if header.is_a? String
-            blocks << {type: :header, content: header}
-          elsif header.is_a? TrueClass
-            blocks << {type: :header, content: item[:name]}
-          elsif header.is_a? Hash
-            blocks << header.merge(type: :header)
-          else
-            raise "Not implemented header for #{object.class}"
-          end
+          blocks << compile_block(header, :header, content: item[:name])
         end
         if content = object[:content]
           if content.is_a? String
@@ -152,15 +123,7 @@ module Backend::VisualizationsHelper
           end
         end
         if footer = object[:footer]
-          if footer.is_a? String
-            blocks << {type: :footer, content: footer}
-          elsif footer.is_a? TrueClass
-            blocks << {type: :footer, content: item[:name]}
-          elsif footer.is_a? Hash
-            blocks << footer.merge(type: :footer)
-          else
-            raise "Not implemented footer for #{object.class}"
-          end
+          blocks << compile_block(footer, :footer, content: item[:name])
         end
         return blocks
       else
@@ -169,8 +132,42 @@ module Backend::VisualizationsHelper
     end
 
 
+    def compile_block(*args)
+      options = args.extract_options!
+      info = args.shift
+      type = args.shift || options[:type]
+      if info.is_a? String
+        block = {type: type, content: info}
+      elsif info.is_a? TrueClass
+        if options[:content]
+          block = {type: type, content: options[:content]}
+        else
+          raise StandardError, "Option :content must be given when info is a TrueClass"
+        end
+      elsif info.is_a? Hash
+        block = info.merge(type: type)
+      else
+        raise StandardError, "Not implemented #{type} for #{object.class}"
+      end
+      return block
+    end
+
+
   end
   
+
+  # Example of how to use in HAML view:
+  #
+  #   = visualization :vizu1 do |v|
+  #     - v.background "openstreetmap.hot"
+  #     - v.background "openweather.precipitations"
+  #     - v.background "openweather.heat"
+  #     - v.choropleth :<property>, <data>
+  #     - v.control :fullscreen
+  #     - v.control :layer_selector
+  #     - v.control :background_selector
+  #     - v.control :search  
+  #
   def visualization(name, options = {}, html_options = {})
     config = VisualizationConfiguration.new(options)
     yield config
