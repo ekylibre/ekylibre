@@ -24,6 +24,9 @@ gem 'formize', '~> 0.0.20'
 # gem 'spreet', '0.0.2'
 gem 'prawn', '~> 0.12.0'
 
+gem 'colored'
+gem 'timecop'
+
 group :development do
   # gem 'ruby-prof'
   # gem 'ruby-debug'
