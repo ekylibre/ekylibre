@@ -90,8 +90,8 @@ class FinancialYear < CompanyRecord
   def closable?(noticed_on=nil)
     noticed_on ||= Date.today
     return false if self.closed
-    if previous=self.previous
-      return false if self.previous.closable?
+    for previous in self.class.where("started_on < ?", self.started_on)
+      return false if previous.closable?
     end
     return false unless self.journal_entries("debit != credit").empty?
     return (self.stopped_on < noticed_on)
