@@ -24,7 +24,7 @@ class FinancialYearsController < ApplicationController
     t.column :closed
     t.column :started_on,:url=>true
     t.column :stopped_on,:url=>true
-    t.action :close, :if => '!RECORD.closed and RECORD.closable?'
+    t.action :close, :if => 'RECORD.closable?'
     t.action :edit, :if => '!RECORD.closed'  
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if => '!RECORD.closed'  
   end
