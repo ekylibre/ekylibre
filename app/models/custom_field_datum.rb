@@ -53,7 +53,7 @@ class CustomFieldDatum < CompanyRecord
   validate do
     if custom_field = self.custom_field
       self.company_id = self.custom_field.company_id
-      errors.add_to_base(:required, :field=>custom_field.name) if custom_field.required and self.value.blank?
+      errors.add_to_base(:required, :field=>custom_field.name) if custom_field.required and ((custom_field == 'boolean' and self.value.nil?) or self.value.blank?)
       unless self.value.blank?
         if custom_field.nature == 'string'
           unless custom_field.length_max.blank? or custom_field.length_max<=0
