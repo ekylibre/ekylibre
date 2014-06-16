@@ -6,7 +6,7 @@ module Ekylibre
     COUNTER_MAX = -1
     
 
-    LOADERS = [:base, :general_ledger, :entities, :land_parcels, :buildings, :equipments, :products, :animals, :productions, :analyses, :sales, :deliveries, :interventions, :guides]
+    LOADERS = [:base, :general_ledger, :entities, :land_parcels, :buildings, :equipments, :products, :animals, :productions, :analyses, :sales, :deliveries, :demo_interventions, :interventions, :guides]
     
     class CountExceeded < StandardError
     end

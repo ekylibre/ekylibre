@@ -888,6 +888,7 @@ eng:
     graph_statistics: "Graph statistics" #?
     group: "Group" #?
     groups: "Groups" #?
+    # harvested_at: "Harvested at"
     help: "Help"
     help_center: "Help center"
     hint: "Hint: %{value}" #?
@@ -899,6 +900,7 @@ eng:
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification" #?
     illness: "Illness"
+    # implanted_at: "Implanted at"
     import: "Import"
     import_backup: "Import backup" #?
     importation_explanation: "Importation explanation" #?
@@ -1127,6 +1129,7 @@ eng:
     product_name: "Product name" #?
     production: "Production management"
     production_cost: "Production cost"
+    # production_support: "Production support"
     productions: "Productions" #?
     productions_states:  #?
       aborted: "Aborted" #?
@@ -1237,7 +1240,7 @@ eng:
     stocks: "Stocks"
     stocks_preferences: "Stock management" #?
     stop: "Stop" #?
-    storage: "Storage"
+    storage: "Storage" #?
     string_case: "String case" #?
     string_options: "Text options" #?
     subject: "Subject" #?

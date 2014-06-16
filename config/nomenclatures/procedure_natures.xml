@@ -20,7 +20,7 @@
       <item name="transport" roles="input, doer, input_origin, tool, target"/>
       <item name="tillage" roles="target"/>
       <item name="plant_nutrition" roles="input, target"/>
-      <item name="plant_illness_treatment" roles="input, target, doer, tool, input_origin"/>
+      <item name="cultivation_protection" roles="tool, target, doer"/>
       <item name="soil_enrichment" roles="input, target, tool, doer, input_origin"/>
       <item name="soil_cleaning" roles="target"/>
       <item name="implantation" roles="input, target, output, doer, tool, input_origin"/>
@@ -67,10 +67,10 @@
   
   <nomenclature name="procedure_natures-tillage">
     <items>
-      <item name="plowing" roles="target, doer"/>
-      <item name="raking" roles="target, doer"/>
-      <item name="hoeing" roles="target"/>
-      <item name="cultipacking" roles="target"/>
+      <item name="plowing" roles="target, doer, tool"/>
+      <item name="raking" roles="target, doer, tool"/>
+      <item name="hoeing" roles="target, doer, tool"/>
+      <item name="cultipacking" roles="target, doer, tool"/>
     </items>
   </nomenclature>
 
@@ -102,6 +102,15 @@
     </items>
   </nomenclature>
 
+
+  <nomenclature name="procedure_natures-cultivation_protection">
+    <items>
+      <item name="plant_illness_treatment" roles="input, target, doer, tool, input_origin"/>
+      <item name="plant_physical_weed" roles="target, doer, tool"/>
+      <item name="plant_chemical_weed" roles="input, target, doer, tool, input_origin"/>
+      </items>
+  </nomenclature>
+  
   <nomenclature name="procedure_natures-plant_nutrition">
     <items>
       <item name="plant_irrigation" roles="input, target"/>

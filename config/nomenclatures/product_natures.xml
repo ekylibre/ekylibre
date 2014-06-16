@@ -435,7 +435,7 @@
             variety="preparation"
             population_counting="decimal"
             abilities="kill(plant), care(plant)"
-            variable_indicators="population"
+            variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="fungicide"
@@ -443,7 +443,7 @@
             variety="preparation"
             population_counting="decimal"
             abilities="kill(fungus), care(plant)"
-            variable_indicators="population"
+            variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="additive"
@@ -459,7 +459,7 @@
             variety="preparation"
             population_counting="decimal"
             abilities="kill(insecta), care(plant)"
-            variable_indicators="population"
+            variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="molluscicide"
@@ -467,7 +467,7 @@
             variety="preparation"
             population_counting="decimal"
             abilities="kill(mollusca), care(plant)"
-            variable_indicators="population"
+            variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="chemical_fertilizer"

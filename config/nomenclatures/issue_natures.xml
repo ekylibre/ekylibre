@@ -4,6 +4,7 @@
   <nomenclature name="issue_natures-root">
     <property-natures>
       <property-nature name="target" type="list" nomenclature="varieties" required="true" inherit="true"/>
+      <property-nature name="cause"  type="list" nomenclature="varieties" required="false" inherit="true"/>
       <property-nature name="treatments" type="list" nomenclature="procedure_natures" required="false" inherit="true"/>
     </property-natures>
     <items>
@@ -25,7 +26,6 @@
   <!-- level 2 - branch 1 -->
   <nomenclature name="issue_natures-disease">
     <items>
-      <item name="mammite" target="mammalia"/>
       <item name="edema" target="animal"/>
       <item name="limping" target="animal"/>
       <item name="fever" target="animal"/>
@@ -34,9 +34,10 @@
       <item name="diarrhea" target="animal"/>
       <item name="respiratory_problem" target="bioproduct"/>
       <item name="bacteria_disease" target="bioproduct"/>
-      <item name="fungus_disease" target="bioproduct"/>
+      <item name="fungus_disease"   target="bioproduct"/>
       <item name="protozoa_disease" target="bioproduct"/>
       <item name="nematoda_disease" target="bioproduct"/>
+      <item name="insecta_disease"  target="bioproduct"/>
     </items>
   </nomenclature>
 
@@ -46,5 +47,28 @@
       <item name="empty_fuel_tank"/>
     </items>
   </nomenclature>
-
+  
+  <!-- level 3 - branch 1 -->
+  <nomenclature name="issue_natures-fungus_disease">
+    <items>
+      <item name="vine_powdery_mildew" cause="uncinula_necator" target="vitis"/> <!-- http://fr.wikipedia.org/wiki/Erysiphe_necator http://en.wikipedia.org/wiki/Powdery_mildew -->
+      <item name="vine_mildew"         cause="plasmopara_viticola" target="vitis"/>
+      <item name="noble_rot"           cause="botrytis_cinerea" target="grape"/>
+    </items>
+  </nomenclature>
+  
+  <!-- level 3 - branch 2 -->
+  <nomenclature name="issue_natures-bacteria_disease">
+    <items>
+      <item name="grapevine_yellows"  target="vitis"/> <!-- cause="candidatus_phytoplasma_vitis" http://fr.wikipedia.org/wiki/Flavescence_dor%C3%A9e -->
+    </items>
+  </nomenclature>
+  
+  <!-- level 3 - branch 2 -->
+  <nomenclature name="issue_natures-insecta_disease">
+    <items>
+      <item name="scaphoideus_titanus_leafhopper" cause="scaphoideus_titanus" target="vitis"/><!--http://fr.wikipedia.org/wiki/Cicadelle_de_la_vigne -->
+      <item name="empoasca_vitis_leafhopper" cause="empoasca_vitis" target="vitis"/><!--http://fr.wikipedia.org/wiki/Cicadelle_des_grillures_de_la_vigne -->
+    </items>
+  </nomenclature>
 </nomenclatures>

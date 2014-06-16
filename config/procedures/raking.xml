@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="raking" natures="raking" version="0" status="frozen">
+    <!-- Hersage d'une zone cultivable -->
     <variables>
-      <variable name="driver"  abilities="drive(tractor)" roles="raking-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+      <variable name="driver"  abilities="drive(tractor)" roles="raking-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="raking-tool"/>
       <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="harrow" type="equipment" abilities="plow_superficially" /><!-- paramètre réprésentant des objets qui possede la compétence "Travailler le sol"  -->
+      <variable name="harrow" type="equipment" abilities="plow_superficially" roles="raking-tool"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

@@ -401,7 +401,7 @@ load_data :land_parcels do |loader|
                   :initial_born_at => initial_born_at,                       
                   :initial_owner => Entity.of_company,
                   :default_storage => CultivableZone.find_by_work_number(zc_work_number) || CultivableZone.first,
-                  :identification_number => record.attributes['UIDPARCELL'].to_s )
+                  :identification_number => record.attributes['N_PARCELLE'].to_s )
           
           # shape and population         
           plant.read!(:shape, record.geometry, at: initial_born_at)

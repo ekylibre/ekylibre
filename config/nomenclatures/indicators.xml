@@ -179,8 +179,14 @@
 
       <!-- for energy consumption -->
       <item name="energy"            datatype="measure" unit="kilowatt_hour"/>
-
-
+      
+      <!--  for plant treatment @TODO link with ephy database for 1.0 -->
+      <item name="wait_before_harvest_period" datatype="measure" unit="day"/>
+      <item name="approved_input_dose"        datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="untreated_zone_length"      datatype="measure" unit="meter"/>
+      
+      
+      
 
       <!-- @TODO waiting for choice througt nomenclature -->
       <item name="fresh_mass"        datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -192,6 +198,7 @@
       <!-- Activate that later
 	  <item name="rows_horizontal_shift" datatype="measure" unit="meter"/>
 	  <item name="rows_vertical_shift" datatype="measure" unit="meter"/>
+	  
       -->
     </items>
   </nomenclature>

@@ -877,6 +877,11 @@
             />
       <!-- PLANT INTRANT -->
       <!-- MINERAL FERTILIZER -->
+      <item name="bulk_15_15_15"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 15percent, phosphorus_concentration: 15percent, potassium_concentration: 15percent"
+            />
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -2043,6 +2048,11 @@
             />
       
       <!-- FERTILIZER -->
+      <item name="coop:humistart_bb"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4percent"
+            />
       <item name="coop:ammonitre_27_____vr"
             nature="chemical_fertilizer"
             unit_name="ton"

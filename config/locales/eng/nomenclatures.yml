@@ -1460,6 +1460,7 @@ eng:
         aluminium_concentration: "Aluminium concentration"
         animal_life_state: "Animal life state"
         application_width: "Application width"
+        approved_input_dose: "Approved input dose"
         available_water_capacity_per_area: "Available water capacity per area"
         best_before_period: "Best before period"
         boron_concentration: "Boron concentration"
@@ -1564,10 +1565,12 @@ eng:
         tiller_count: "Tiller count"
         total_bacteria_concentration: "Total bacteria concentration"
         unique_synthesis_index: "Unique synthesis index"
+        untreated_zone_length: "Untreated zone length"
         urea_concentration: "Urea concentration"
         usage_duration: "Usage duration"
         volume_area_density: "Volume area density"
         volume_density: "Volume density"
+        wait_before_harvest_period: "Wait before harvest period"
         water_content_rate: "Water content rate"
         width: "Width"
         woodstock_variety: "Woodstock variety"
@@ -1575,6 +1578,7 @@ eng:
     issue_natures:
       name: "Issue natures"
       property_natures:
+        cause: "Cause"
         target: "Target"
         treatments: "Treatments"
       items:
@@ -1585,19 +1589,25 @@ eng:
         diarrhea: "Diarrhea"                               #< disease
         disease: "Disease"                                 #< issue
         edema: "Edema"                                     #< disease
+        empoasca_vitis_leafhopper: "Empoasca vitis leafhopper" #< insecta_disease
         empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
         fungus_disease: "Fungus disease"                   #< disease
+        grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
+        insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
         limping: "Limping"                                 #< disease
-        mammite: "Mammite"                                 #< disease
         mechanical_issue: "Mechanical issue"               #< issue
         nematoda_disease: "Nematoda disease"               #< disease
+        noble_rot: "Noble rot"                             #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease
+        scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        vine_mildew: "Vine mildew"                         #< fungus_disease
+        vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
     lands:
       name: "Lands"
       items:
@@ -1870,6 +1880,7 @@ eng:
         bottling: "Bottling"                               #< transformation
         consummables_addition: "Consummables addition"     #< maintenance
         cultipacking: "Cultipacking"                       #< tillage
+        cultivation_protection: "Cultivation protection"
         fermentation: "Fermentation"                       #< transformation
         filtration: "Filtration"                           #< transformation
         food_supply: "Food supply"                         #< animal_feeding
@@ -1886,10 +1897,12 @@ eng:
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_feeding
         piece_replacement: "Piece replacement"             #< maintenance
+        plant_chemical_weed: "Plant chemical weed"         #< cultivation_protection
         plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
-        plant_illness_treatment: "Plant illness treatment"
+        plant_illness_treatment: "Plant illness treatment" #< cultivation_protection
         plant_irrigation: "Plant irrigation"               #< plant_nutrition
         plant_nutrition: "Plant nutrition"
+        plant_physical_weed: "Plant physical weed"         #< cultivation_protection
         plowing: "Plowing"                                 #< tillage
         pressing: "Pressing"                               #< transformation
         pruning: "Pruning"
@@ -2090,6 +2103,7 @@ eng:
         brassicaceae_fungicide: "Brassicaceae fungicide"
         building: "Building"
         building_division: "Building division"
+        # bulk_15_15_15: "Bulk 15 15 15"
         bulk_ammonitrate_33: "Bulk ammonitrate 33"
         bulk_animal_food: "Bulk animal food"
         bulk_hay: "Bulk hay"
@@ -2158,6 +2172,7 @@ eng:
         coop:film_ensil_ensigamm_14m: "Coop:film ensil ensigamm 14m"
         coop:film_ensil_ensigamm_8m: "Coop:film ensil ensigamm 8m"
         coop:fongistop_fl_5_l: "Coop:fongistop fl 5 l"
+        # coop:humistart_bb: "Coop:humistart bb"
         coop:kalao_d__5_l: "Coop:kalao d  5 l"
         coop:luzerne_comete_s10k: "Coop:luzerne comete s10k"
         coop:ma_aallexia_50mg: "Coop:ma Aallexia 50mg"
@@ -2914,6 +2929,8 @@ eng:
         bos_taurus_salers: "Cow salers"                    #< bos_taurus
         bos_taurus_tarentaise: "Cow tarentaise"            #< bos_taurus
         bos_taurus_vosgienne: "Cow vosgienne"              #< bos_taurus
+        botrytis: "Botrytis"                               #< sclerotiniaceae
+        botrytis_cinerea: "Botrytis cinerea"               #< botrytis
         bottle: "Bottle"                                   #< packaged_matter
         bottler: "Bottler"                                 #< equipment
         brassica: "Brassica"                               #< brassicaceae
@@ -2968,8 +2985,10 @@ eng:
         easement: "Easement"                               #< zone
         egg: "Egg"                                         #< raw_matter
         electricity: "Electricity"                         #< matter
+        empoasca_vitis: "Empoasca vitis"                   #< insecta
         equipment: "Equipment"                             #< matter
         equus: "Equine"                                    #< mammalia
+        erysiphaceae: "Erysiphaceae"                       #< fungus
         excrement: "Excrement"                             #< raw_matter
         fabaceae: "Fabaceae"                               #< plant
         fermented_juice: "Fermented juice"                 #< preparation
@@ -3073,6 +3092,7 @@ eng:
         packaged_matter: "Packaged matter"                 #< preparation
         peach: "Peach"                                     #< fruit
         pear: "Pear"                                       #< fruit
+        peronosporaceae: "Peronosporaceae"                 #< fungus
         phacelia: "Phacelia"                               #< boraginaceae
         phaseolus: "Phaseolus"                             #< fabaceae
         pisum: "Pea"                                       #< fabaceae
@@ -3087,6 +3107,8 @@ eng:
         pisum_vernum_onyx: "Spring pea onyx"               #< pisum_vernum
         pisum_vernum_rocket: "Spring pea rocket"           #< pisum_vernum
         plant: "Plant"                                     #< bioproduct
+        plasmopara: "Plasmopara"                           #< peronosporaceae
+        plasmopara_viticola: "Plasmopara viticola"         #< plasmopara
         plower: "Plower"                                   #< equipment
         plum: "Plum"                                       #< fruit
         poa: "Poa"                                         #< poaceae
@@ -3148,6 +3170,8 @@ eng:
         salmo: "Salmo"                                     #< osteichthyes
         salt: "Salt"                                       #< raw_matter
         sand: "Sand"                                       #< raw_matter
+        scaphoideus_titanus: "Scaphoideus titanus"         #< insecta
+        sclerotiniaceae: "Sclerotiniaceae"                 #< fungus
         screw_bottle: "Screw bottle"                       #< bottle
         screw_cap: "Screw cap"                             #< cap
         secale: "Secale"                                   #< poaceae
@@ -3262,6 +3286,8 @@ eng:
         triticum_durum_sy_cysco: "Durum wheat Sy Cysco"    #< triticum_durum
         triticum_durum_tablur: "Durum wheat Tablur"        #< triticum_durum
         triticum_spelta: "Spelt"                           #< triticum
+        uncinula: "Uncinula"                               #< erysiphaceae
+        uncinula_necator: "Uncinula necator"               #< uncinula
         valerianaceae: "Valerianaceae"                     #< plant
         valerianella: "Valerianella"                       #< valerianaceae
         valerianella_locusta: "Corn salad"                 #< valerianella
