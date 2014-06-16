@@ -8,6 +8,7 @@
     
     popup_content << {label: :campaign.tl, value: support.production.campaign.name}
     popup_content << {label: :activity.tl, value: support.production.activity.name}
+    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
     
     if support.input_cost and support.input_cost.to_d > 0.0
       popup_content << {label: :input_cost_per_hectare.tl, value: support.input_cost.to_s.to_f.round(2)}
@@ -15,10 +16,6 @@
     
     if support.storage
       popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
-    end
-    
-    if storage = support.storage
-      popup_content << {label: :storage.tl, value: link_to(storage.name, backend_product_path(storage)) }
     end
 
     if interventions = Intervention.where(production_support: support).reorder(:started_at)
