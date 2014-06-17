@@ -96,10 +96,18 @@
       popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
     end
     
+    if issues = Issue.where(target_id: p.id, target_type: p.class.name ).reorder(:observed_at)
+      popup_content << {label: :issues_count.tl, value: issues.count }
+    end
+    
+    if issues.count > 0 and last_issue = issues.last
+      popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
+    end
+
     popup_content << render('popup', plant: p)
     
     
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, popup: {header: true, content: popup_content} }
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, issues_count: issues.count, popup: {header: true, content: popup_content} }
   end
       
 = kujaku
@@ -117,6 +125,7 @@
       -# v.background :outdoors_base, "Thunderforest.Outdoors"
       -# v.background :map_quest_open_aerial, "MapQuestOpen.Aerial"
       - v.choropleth :age, data
+      - v.choropleth :issues_count, data
       - v.choropleth :interventions_count, data
       - v.control :zoom
       - v.control :scale
