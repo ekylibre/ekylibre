@@ -5,6 +5,37 @@ String.prototype.camelize = () ->
     word.charAt(0).toUpperCase() + word.slice(1)
   return array.join()
 
+Math.magnitude = (number, step = 1, radix = 10) ->
+  value = Math.abs(number)
+  power = 0
+  if value > 1
+    while Math.pow(radix, power) < value
+      power += step
+  else
+    while Math.pow(radix, power) > value
+      power -= step
+  result =
+    radix: radix
+    power: power
+    base: number / Math.pow(radix, power)
+  return result
+
+Math.round2 = (number, round = 1) ->
+  return round * Math.round(number / round)
+
+Math.humanize = (value, power = 0) ->
+  # return Math.round(value / Math.pow(10, power)) + "e#{power}"
+  size = Math.round(power / 3)
+  return Math.round(value / Math.pow(10, 3 * size)) + "pnµm KMGTPE"[size + 4]
+
+Math.ceil2 = (number, round = 1) ->
+  return round * Math.ceil(number / round)
+
+Math.floor2 = (number, round = 1) ->
+  return round * Math.floor(number / round)
+
+ 
+
 (($) ->
   "use strict"
  
@@ -59,6 +90,7 @@ String.prototype.camelize = () ->
           fill: true
           fillColor: "blue"
           fillOpacity: 0.8
+          round: 5
           startColor: '#EEEEE0'
           stopColor: '#910000'
           levelNumber: 7   
@@ -95,12 +127,6 @@ String.prototype.camelize = () ->
       console.log "5"
       this._refreshView()
       
-      console.log "6"
-      # this._calculArea()
-      
-      console.log "7"
-      # this._calculChoropleth()
-      
       console.log "8"
       this._refreshControls()
            
@@ -127,14 +153,6 @@ String.prototype.camelize = () ->
           @mapElement.width this.options.box.width
         this._trigger "resize"
         
-    _calculArea: ->
-      if this.options.layers
-        $.each this.options.layers, ( index, value ) ->
-          $.each value.list, (index, value) ->
-            if value.choropleth_value == 'area'
-              tmp = value.area.value.split("/")
-              value.choropleth_value = Math.round(tmp[0]/tmp[1])
-
     # Returns hexadecimal value of given integer on 2 digits.
     _toHex: (integer) ->
       hex = Math.round(integer).toString(16)
@@ -158,16 +176,6 @@ String.prototype.camelize = () ->
     _toColorString: (color) ->
       return "##{this._toHex(color.red)}#{this._toHex(color.green)}#{this._toHex(color.blue)}"
 
-    # Round a value with magnitude
-    _round: (value) ->
-      return 0 if value == 0
-      i = 11
-      while (i)
-        s = Math.pow(10, (i - 3) * 3)
-        break if s <= value
-        i--
-      return Math.round(value / s) + "nµm KMGTPE"[i]
-
     _computeChoropleth: (layer) ->
       widget = this
       property = layer.reference
@@ -183,8 +191,25 @@ String.prototype.camelize = () ->
           choropleth.maxValue = zone[property]
         if zone[property] < choropleth.minValue
           choropleth.minValue = zone[property]
+
+      # Simplify values
+      maxMagnitude = Math.magnitude(choropleth.maxValue)
+      minMagnitude = Math.magnitude(choropleth.minValue)
+      console.log maxMagnitude
+      console.log minMagnitude
+      ref = minMagnitude
+      if maxMagnitude.power > minMagnitude.power
+        ref = maxMagnitude
+      choropleth.magnitude = Math.pow(ref.radix, ref.power)
+      choropleth.power = ref.power
+      choropleth.maxValue = Math.ceil2(choropleth.maxValue,  choropleth.magnitude * choropleth.round)
+      choropleth.minValue = Math.floor2(choropleth.minValue, choropleth.magnitude * choropleth.round)
+      
       choropleth.length = choropleth.maxValue - choropleth.minValue
-      console.log "Min and max computed"
+
+      if choropleth.levelNumber > choropleth.length and choropleth.length > 2
+        choropleth.levelNumber = choropleth.length
+      console.log "Min (#{choropleth.minValue}) and max (#{choropleth.maxValue}) computed"
 
       start = this._parseColor(choropleth.startColor)
       stop  = this._parseColor(choropleth.stopColor)
@@ -196,14 +221,13 @@ String.prototype.camelize = () ->
       
       for g in [1..choropleth.levelNumber]
         level = (g - 1.0) / (choropleth.levelNumber - 1.0)
-        color = this._toColorString
-          red:   start.red   + (gap.red   * level)
-          green: start.green + (gap.green * level)       
-          blue:  start.blue  + (gap.blue  * level)
         choropleth.grades.push
-          color: color,
-          min: this._round(choropleth.minValue + (g-1) * choropleth.length / choropleth.levelNumber, 2)
-          max: this._round(choropleth.minValue +  g    * choropleth.length / choropleth.levelNumber, 2)
+          color: this._toColorString
+            red:   start.red   + (gap.red   * level)
+            green: start.green + (gap.green * level)       
+            blue:  start.blue  + (gap.blue  * level)
+          min: Math.humanize(choropleth.minValue + (g-1) * choropleth.length / choropleth.levelNumber, choropleth.power)
+          max: Math.humanize(choropleth.minValue +  g    * choropleth.length / choropleth.levelNumber, choropleth.power)
           
       $.each layer.data, (index, zone) ->
         level = 1.0 * (zone[property] - choropleth.minValue) / choropleth.length
@@ -214,53 +238,6 @@ String.prototype.camelize = () ->
         
       console.log "Choropleth computed"
       this
-
-    # _calculChoropleth: () ->
-    #   if this.options.layers
-    #     widget = this
-    #     $.each this.options.layers, ( index, value ) ->
-    #       max_value = 0
-    #       min_value = 0
-    #       choro = false
-    #       if value.list[1]['style'] == 'choropleth'
-    #         max_value = value.list[1]['choropleth_value']
-    #         min_value = value.list[1]['choropleth_value'] 
-    #       level_number = 0 
-    #       start = ""
-    #       end = ""
-    #       $.each value.list, (index, value) ->
-    #         if value.style == 'choropleth'              
-    #           level_number = value.choropleth_level_number
-    #           choro = true
-    #           start = value.choropleth_start_color
-    #           end = value.choropleth_end_color
-    #           if value.choropleth_value > max_value
-    #             max_value = value.choropleth_value
-    #           if value.choropleth_value < min_value
-    #             min_value = value.choropleth_value
-            
-    #       if true # choro
-    #         start_red   = parseInt(start.slice(1,3),16)
-    #         start_green = parseInt(start.slice(3,5),16)
-    #         start_blue  = parseInt(start.slice(5,7),16)
-    #         end_red   = parseInt(end.slice(1,3),16)
-    #         end_green = parseInt(end.slice(3,5),16)
-    #         end_blue  = parseInt(end.slice(5,7),16)
-    #         red_gap   = Math.ceil((start_red - end_red)/level_number)
-    #         green_gap = Math.ceil((start_green - end_green)/level_number)
-    #         blue_gap  = Math.ceil((start_blue - end_blue)/level_number)
-            
-    #       $.each value.list, (index, value) ->
-    #         if value.style == 'choropleth'
-    #           value.max_value = max_value
-    #           value.min_value = min_value  
-    #           colorLevel = Math.ceil(value.choropleth_value/((max_value-min_value)/level_number))
-    #           value.level = colorLevel               
-    #           red   = start_red - (red_gap*colorLevel)       
-    #           green = start_green - (green_gap*colorLevel)       
-    #           blue  = start_blue - (blue_gap*colorLevel)       
-    #           value.fillColor = "##{widget._toHex(red)}#{widget._toHex(green)}#{widget._toHex(blue)}"
-    #   this
 
     # Displays all given controls
     _refreshControls: ->
@@ -383,7 +360,7 @@ String.prototype.camelize = () ->
       html += "<span class='max-value'>#{layer.choropleth.grades[layer.choropleth.levelNumber - 1].max}</span>"
       html += "<span class='leaflet-choropleth-grades'>"
       $.each layer.choropleth.grades, (index, grade) ->               
-        html += "<i class='leaflet-choropleth-grade' style='background-color: #{grade.color}' title='#{grade.min} &ndash; #{grade.max}'></i>"
+        html += "<i class='leaflet-choropleth-grade' style='width: #{100 / layer.choropleth.levelNumber}%; background-color: #{grade.color}' title='#{grade.min} ~ #{grade.max}'></i>"
       html += "</span>"
       html += "</div>"
       html += "</div>"

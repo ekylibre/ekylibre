@@ -863,7 +863,6 @@ $map-button-size: round(2 * $fs-normal);
             color: $neutral-color;
 						font-size: $fs-small;
 						line-height: $lh-small;
-						text-transform: uppercase;
 						font-weight: bold;
         }
         .min-value {
@@ -877,20 +876,14 @@ $map-button-size: round(2 * $fs-normal);
             clear: both;
             $border: 1px solid #333;
             margin: $default-gap 0 0 0;
+            width: 15 * $lh-normal;
+            height: $lh-normal;
+            @include border-radius(3px);
+            border: $border;
             .leaflet-choropleth-grade {
                 @include inline-block;
-                border-top: $border;
-                border-bottom: $border;
-                width: 1.8 * $lh-normal;
+								vertical-align: top;
                 height: $lh-normal;
-                &:first-child {
-                    border-left: $border;
-                    @include border-left-radius(3px);
-                }
-                &:last-child {
-                    border-right: $border;
-                    @include border-right-radius(3px);
-                }
             }
         }
     }
