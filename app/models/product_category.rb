@@ -46,7 +46,7 @@ class ProductCategory < CompanyRecord
   acts_as_tree
   attr_readonly :company_id
   belongs_to :company
-  has_many :products
+  has_many :products, foreign_key: :category_id
   validates_uniqueness_of :name, :scope=>:company_id
 
   before_validation do

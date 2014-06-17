@@ -22,6 +22,10 @@ namespace :import do
   end
 
 
+
+  # YOUNG FARMERS IMPORT
+
+
   YOUNG_CAST = Proc.new do |value, nature|
     casted = value.to_s.strip
     if nature == :boolean
