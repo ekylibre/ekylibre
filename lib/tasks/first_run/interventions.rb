@@ -54,7 +54,7 @@ load_data :interventions do |loader|
                              product_input_population: row[8].gsub(",",".").to_d,
                              product_input_population_per_hectare: row[9].gsub(",",".").to_d,
                              product_input_dose_per_hectare: (row[10].blank? ? nil : row[10].gsub(",",".").to_d), # for legal quantity ?
-                             incident_name: (row[11].blank? ? nil : row[11].to_s), # to transcode
+                             incident_name: (row[11].blank? ? nil : row[11].to_s.downcase), # to transcode
                              dar: (row[12].blank? ? nil : row[12].to_i), # indicator on product for delay_before_harvest in day
                              product_input_approved_dose_per_hectare: (row[13].blank? ? nil : row[13].gsub(",",".").to_d) # legal quantity in liter per hectare
 
@@ -70,38 +70,43 @@ load_data :interventions do |loader|
       
       campaign = Campaign.find_by_harvest_year(intervention_started_at.year)
       campaign ||= Campaign.create!(name: intervention_started_at.year, harvest_year: intervention_started_at.year)
+      plant = Plant.find_by_identification_number(r.cultivable_zone_name)
       
-      if plant = Plant.find_by_identification_number(r.cultivable_zone_name) and campaign
+      puts "----------- #{w.count} -----------".blue
+      # puts r.product_name.inspect.green
+      puts " procedure : " + procedures_transcode[r.procedure_name].inspect.green
+      puts " variant : " + variants_transcode[r.product_name].inspect.red
+      puts " plant : " + plant.inspect.red
+      
+      
+      if plant and campaign
         cultivable_zone = plant.container
         if support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first
           Ekylibre::FirstRun::Booker.production = support.production
           coeff = (r.working_area / 10000.0) / 6.0
       
-      
+          
           #
           # create product
           #
-          if r.product_name and variants_transcode[r.product_name]
-            variant = ProductNatureVariant.find_by_reference_name(variants_transcode[r.product_name])
-            variant ||= ProductNatureVariant.import_from_nomenclature(variants_transcode[r.product_name])
-    
-            product_model = variant.nature.matching_model
+          
+          
+          
+          if r.product_name and ( procedures_transcode[r.procedure_name] == :mineral_fertilizing || procedures_transcode[r.procedure_name] == :organic_fertilizing )
             
-            intrant = product_model.create!(:variant => variant, :name => r.product_name + " " + r.intervention_started_at.to_s, :initial_owner => Entity.of_company, :initial_born_at => r.intervention_started_at, :created_at => r.intervention_started_at, :default_storage => plant.container)
+            variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[r.product_name])
+            
+            intrant = variant.generate(r.product_name, r.intervention_started_at, plant.container)
+
               unless intrant.frozen_indicators_list.include?(:population)
                 intrant.read!(:population, r.product_input_population, :at => r.intervention_started_at)
               end
-              intrant.read!(:wait_before_harvest_period, r.dar.in_day, :at => r.intervention_started_at) if r.dar 
-              intrant.read!(:approved_input_dose, r.product_input_approved_dose_per_hectare.in_kilogram_per_hectare, :at => r.intervention_started_at) if r.product_input_approved_dose_per_hectare 
              
           elsif r.product_name and procedures_transcode[r.procedure_name] == :chemical_weed
             
-            variant = ProductNatureVariant.find_by_reference_name(:herbicide)
-            variant ||= ProductNatureVariant.import_from_nomenclature(:herbicide)
+            variant = ProductNatureVariant.import_from_nomenclature(:herbicide)
             
-            product_model = variant.nature.matching_model
-            
-            intrant = product_model.create!(:variant => variant, :name => r.product_name + " " + r.intervention_started_at.to_s, :initial_owner => Entity.of_company, :initial_born_at => r.intervention_started_at, :created_at => r.intervention_started_at, :default_storage => plant.container)
+            intrant = variant.generate(r.product_name, r.intervention_started_at, plant.container)
               unless intrant.frozen_indicators_list.include?(:population)
                 intrant.read!(:population, r.product_input_population, :at => r.intervention_started_at)
               end
@@ -110,12 +115,10 @@ load_data :interventions do |loader|
            
            elsif r.product_name and procedures_transcode[r.procedure_name] == :spraying_on_cultivation
     
-            variant = ProductNatureVariant.find_by_reference_name(:fungicide)
-            variant ||= ProductNatureVariant.import_from_nomenclature(:fungicide)
+            variant = ProductNatureVariant.import_from_nomenclature(:fungicide)
             
-            product_model = variant.nature.matching_model
+            intrant = variant.generate(r.product_name, r.intervention_started_at, plant.container)
             
-            intrant = product_model.create!(:variant => variant, :name => r.product_name + " " + r.intervention_started_at.to_s, :initial_owner => Entity.of_company, :initial_born_at => r.intervention_started_at, :created_at => r.intervention_started_at, :default_storage => plant.container)
               unless intrant.frozen_indicators_list.include?(:population)
                 intrant.read!(:population, r.product_input_population, :at => r.intervention_started_at)
               end
@@ -124,12 +127,9 @@ load_data :interventions do |loader|
               
            else
              
-            variant = ProductNatureVariant.find_by_reference_name(:insecticide)
-            variant ||= ProductNatureVariant.import_from_nomenclature(:insecticide)
+            variant = ProductNatureVariant.import_from_nomenclature(:fungicide)
             
-            product_model = variant.nature.matching_model
-            
-            intrant = product_model.create!(:variant => variant, :name => r.product_name + " " + r.intervention_started_at.to_s, :initial_owner => Entity.of_company, :initial_born_at => r.intervention_started_at, :created_at => r.intervention_started_at, :default_storage => plant.container)
+            intrant = variant.generate(r.product_name, r.intervention_started_at, plant.container)
               unless intrant.frozen_indicators_list.include?(:population)
                 intrant.read!(:population, r.product_input_population, :at => intervention_started_at)
               end
@@ -210,8 +210,9 @@ load_data :interventions do |loader|
           end
         
         end
+        w.check_point
       end
-    w.check_point
+    
     end
     
   end
@@ -220,8 +221,154 @@ load_data :interventions do |loader|
   
   end
   
-  # load interventions from isamarge
+  # load interventions from isaculture
   
+  procedures_transcode = {}.with_indifferent_access
+  
+  path = loader.path("isaculture", "procedures_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      procedures_transcode[row[0]] = row[1].to_sym
+    end
+  end
+  
+  cultivable_zones_transcode = {}.with_indifferent_access
+  
+  path = loader.path("isaculture", "cultivable_zones_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      cultivable_zones_transcode[row[0]] = row[1]
+    end
+  end
+  
+  variants_transcode = {}.with_indifferent_access
+  
+  path = loader.path("isaculture", "variants_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      variants_transcode[row[0]] = row[1].to_sym
+    end
+  end
+  
+  units_transcode = {}.with_indifferent_access
+  
+  path = loader.path("isaculture", "units_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      units_transcode[row[0]] = row[1].to_sym
+      units_transcode[row[1]] = row[2].to_sym
+    end
+  end
+  
+  
+  path = loader.path("isaculture", "interventions.csv")
+  if path.exist?
+    loader.count :isaculture_intervention_import do |w|
+      
+      
+      # 0 "numero intervention"
+      # 1 "code parcelle culturale"
+      # 2 "parcelles cult et ateliers"
+      # 3 "surface parcelle"
+      # 4 "surface travaillee"
+      # 5 "unite surface"
+      # 6 "date debut intervention"
+      # 7 "date fin intervention" ; "stade vegetatif";"realisee"
+      # 10 "operation" ; "duree d operation";"volume total de bouillie";"volume de bouillie   unite surface";"code intrant";
+      # 15 "intrant"
+      # 16 "dose intrant"
+      # 17 "unite intrant";"concentration intrant dans la bouillie";"numero de lot";"pmg";"densite de semis";
+      # 22 "produit recolte";"criteres de recolte";
+      # 24 "rendement"
+      # 25 "unite produit";"materiel";"temps materiel";"nom et prenom main d oeuvre";"temps main d oeuvre";"motivation";"commentaire motivation";"commentaire 1";"commentaire 2"
+      #
+      CSV.foreach(path, headers: true, col_sep: ";") do |row|
+        
+        r = OpenStruct.new(    cultivable_zone_code: row[1].to_s.downcase,
+                               production_informations: row[2].to_s.downcase,
+                               working_area: row[4].gsub(",",".").to_d,
+                               unit_name: row[5].to_s.downcase,
+                               intervention_started_at: (row[6].blank? ? nil : Date.strptime(row[6].to_s, "%d/%m/%Y")),
+                               intervention_stopped_at: (row[7].blank? ? nil : Date.strptime(row[7].to_s, "%d/%m/%Y")),
+                               procedure_name: row[10].to_s.downcase, # to transcode
+                               product_name: (row[15].blank? ? nil : row[15].to_s.downcase), # to create
+                               product_input_population: (row[16].blank? ? nil : row[16].gsub(",",".").to_d),
+                               product_input_unit: (row[17].blank? ? nil : row[17].to_s.downcase),
+                               extrant_name: (row[22].blank? ? nil : row[22].to_s.downcase),
+                               extrant_population: (row[24].blank? ? nil : row[24].gsub(",",".").to_d),
+                               extrant_population_unit: (row[25].blank? ? nil : row[25].to_s.downcase),
+                               )
+                               
+        intervention_started_at = r.intervention_started_at.to_time + 9.hours
+        intervention_year = intervention_started_at.year
+        intervention_month = intervention_started_at.month
+        intervention_day = intervention_started_at.day
+        intervention_stopped_at = r.intervention_stopped_at.to_time + 11.hours
+        
+        production_array = r.production_informations.gsub("/",",").split(",").map(&:strip)
+        
+        campaign = Campaign.find_by_harvest_year(production_array[1])
+        campaign ||= Campaign.create!(name: production_array[1], harvest_year: production_array[1])
+        
+        cultivable_zone = CultivableZone.find_by_work_number(cultivable_zones_transcode[r.cultivable_zone_code])
+        
+        if cultivable_zone and campaign
+          support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first
+        end
+        
+        puts "----------- #{w.count} -----------".blue
+        # puts r.product_name.inspect.green
+        puts " procedure : " + procedures_transcode[r.procedure_name].inspect.green
+        puts " variant : " + variants_transcode[r.product_name].inspect.red
+        puts " cultivable_zone : " + cultivable_zone.inspect.red
+        puts " support : " + support.inspect.red
+        
+        # create intrant if variant exist
+        if variants_transcode[r.product_name]
+          variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[r.product_name])  
+          intrant = variant.generate(r.product_name, r.intervention_started_at, cultivable_zone)
+          
+          unless intrant.frozen_indicators_list.include?(:population)
+            unit = units_transcode[r.product_input_unit]
+            value = r.product_input_population
+            measure = nil
+            measure = Measure.new(value, unit)
+            if variant_unit = variant.send(units_transcode[unit.to_s]).unit
+              population_value = measure.to_f(variant_unit.to_sym)
+            end
+            puts " measure : " + measure.inspect.yellow
+            puts " population : " + population_value.inspect.yellow
+            intrant.read!(:population, population_value, :at => r.intervention_started_at.to_time) if population_value
+          end
+          puts " intrant : " + intrant.inspect.blue
+        end
+        
+        # create extrant if variant exist
+        if variants_transcode[r.extrant_name]
+          extrant_variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[r.extrant_name])  
+          
+            unit = units_transcode[r.extrant_population_unit]
+            value = r.extrant_population
+            extrant_measure = nil
+            extrant_measure = Measure.new(value, unit)
+            if extrant_variant_unit = variant.send(units_transcode[unit.to_s]).unit
+              extrant_population_value = extrant_measure.to_f(extrant_variant_unit.to_sym)
+            end
+            puts " extrant_measure : " + extrant_measure.inspect.yellow
+            puts " extrant_population : " + extrant_population_value.inspect.yellow
+            
+          puts " extrant_variant : " + extrant_variant.inspect.blue
+        end
+        
+        
+        
+        
+                             
+                               
+        w.check_point                    
+      end
+    end
+  end
   
   
   

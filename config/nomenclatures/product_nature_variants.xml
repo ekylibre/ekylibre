@@ -882,6 +882,11 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 15percent, phosphorus_concentration: 15percent, potassium_concentration: 15percent"
             />
+      <item name="bulk_ammonitrate_27"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 27percent"
+            />
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -891,6 +896,11 @@
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent"
+            />
+      <item name="bulk_fertilizer_0_24_05"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, phosphorus_concentration: 24percent, potassium_concentration: 5percent"
             />
       <item name="liquid_10_34_d1.4"
             nature="chemical_fertilizer"

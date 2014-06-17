@@ -888,7 +888,7 @@ eng:
     graph_statistics: "Graph statistics" #?
     group: "Group" #?
     groups: "Groups" #?
-    # harvested_at: "Harvested at"
+    harvested_at: "Harvested at"
     help: "Help"
     help_center: "Help center"
     hint: "Hint: %{value}" #?
@@ -900,7 +900,7 @@ eng:
     iban: "International Bank Account Number (IBAN)" #?
     identification: "Identification" #?
     illness: "Illness"
-    # implanted_at: "Implanted at"
+    implanted_at: "Implanted at"
     import: "Import"
     import_backup: "Import backup" #?
     importation_explanation: "Importation explanation" #?
@@ -935,6 +935,7 @@ eng:
     is: "Is" #?
     issue: "Issue"
     issues: "Issues"
+    issues_count: "Issues count"
     journal: "Journal" #?
     journal_detail: "Closing on %{closed_at}" #?
     journal_entries: "Journal's entries" #?
@@ -953,6 +954,7 @@ eng:
     last_events: "Last events" #?
     last_intervention: "Last intervention"
     last_interventions: "Last interventions" #?
+    last_issue: "Last issue"
     last_payment_amount: "Amount of the last payment" #?
     last_payment_date: "Date of the last payment" #?
     last_procedures: "Last procedures" #?

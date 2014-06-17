@@ -988,7 +988,7 @@ fra:
     # decision_making: "Decision-making"
     default_subject: "[%{company}]"
     delay: "Délai"
-    # delays: "Delays"
+    delays: "Délais"
     delete: "Supprimer" #?
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
@@ -1055,7 +1055,7 @@ fra:
     evaluated_tool_cost: "Coût outils"
     events: "Évènements"
     example: "Exemple\_: %{value}"
-    # exchange: "Exchange"
+    exchange: "Echange"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     executed: "Réalisé"
     existing_part: "Utiliser un encaissement non affecté"
@@ -1103,7 +1103,7 @@ fra:
     group: "Groupe"
     groups: "Groupes"
     guides: "Référentiels" #?
-    harvested_at: "Récolté le" #?
+    harvested_at: "Récolté le"
     healthy: "Phase du bioprocessus de maladie d’un animal" #?
     help: "Aide"
     help_center: "Centre d’aide"
@@ -1118,6 +1118,7 @@ fra:
     identification: "Identification"
     illness: "Maladies"
     immunoglobulins_concentration: "Concentration en immunoglobulines Gamma" #?
+    implanted_at: "Implantée le"
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
@@ -1161,6 +1162,7 @@ fra:
     is: "Est"
     issue: "Incident"
     issues: "Incidents"
+    issues_count: "Nombre d'incidents"
     isu_index: "Index génétique ISU" #?
     items: "Éléments" #?
     journal: "Journal"
@@ -1186,6 +1188,7 @@ fra:
     last_incoming_deliveries: "Derniers approvisionnements" #?
     last_intervention: "Dernière intervention"
     last_interventions: "Dernières interventions"
+    last_issue: "Dernier incident"
     last_issues: "Derniers incidents" #?
     last_outgoing_deliveries: "Dernières livraisons" #?
     last_payment_amount: "Montant du dernier encaissement"
@@ -1886,7 +1889,7 @@ fra:
       exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
-      # implemented_with_dummy_data: "Implemented with dummy data"
+      implemented_with_dummy_data: "Charger des données de test"
       import_succeeded: "Vos données ont été correctement importées" #?
       importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée" #?
       importation_finished: "L’importation est terminée."
