@@ -48,7 +48,12 @@ class ProductLocalization < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_presence_of :container, if: :interior?
-
+  
+  scope :of_product_varieties, lambda { |*varieties|
+    varieties.flatten!
+    joins(:product).merge(Product.of_variety(varieties))
+  }
+  
   before_validation do
     if self.nature.blank? and container = self.product.container_at(self.started_at)
       self.nature = (container.owner == Entity.of_company ? :interior : :exterior)

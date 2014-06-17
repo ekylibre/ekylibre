@@ -130,6 +130,7 @@ class Product < Ekylibre::Record::Base
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: "interior").at(viewed_at))
   }
   scope :of_variety, lambda { |*varieties|
+    varieties.flatten!
     where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, lambda { |*varieties|
@@ -429,14 +430,14 @@ class Product < Ekylibre::Record::Base
   end
 
   # Returns the current contents of the product at a given time (or now by default)
-  def contains(stored_class = Product, at = Time.now)
-    localizations = ProductLocalization.where(container: self).at(at)
+  def contains(varieties = :product, at = Time.now)
+    localizations = ProductLocalization.where(container: self).at(at).of_product_varieties(varieties)
     if localizations.any?
-      object = {}
-      for localization in localizations
-        object << localization.product if localization.product.is_a(stored_class)
-      end
-      return object
+      #object = []
+      #for localization in localizations
+        #object << localization.product if localization.product.is_a?(stored_class)
+      #end
+      return localizations
      else
        return nil
     end
