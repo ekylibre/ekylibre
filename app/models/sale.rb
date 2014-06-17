@@ -429,7 +429,7 @@ class Sale < CompanyRecord
 
   # Returns true if sale is cancelable as an invoice
   def cancelable?
-    not self.credit? and self.invoice? and self.amount + self.credits.sum(:amount) > 0
+    not self.credit? and self.invoice? and self.lines.sum(:quantity) + self.credits.collect{|c| c.lines.sum(:quantity)}.sum > 0
   end
 
   # Create a credit for the selected invoice? guarding the reference
