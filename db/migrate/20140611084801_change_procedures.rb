@@ -62,7 +62,14 @@ class ChangeProcedures < ActiveRecord::Migration
    {procedure_reference_name: 'base-superficial_plowing-0', column: 'roles', new: 'raking-tool', old: '', reference_name: 'tractor'},
    {procedure_reference_name: 'base-superficial_plowing-0', column: 'roles', new: 'raking-tool', old: '', reference_name: 'plow'},
    {procedure_reference_name: 'base-uncompacting-0', column: 'roles', new: 'plowing-tool', old: '', reference_name: 'tractor'},
-   {procedure_reference_name: 'base-uncompacting-0', column: 'roles', new: 'plowing-tool', old: '', reference_name: 'harrow'}
+   {procedure_reference_name: 'base-uncompacting-0', column: 'roles', new: 'plowing-tool', old: '', reference_name: 'harrow'},
+   {procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-tool', old: 'implant-tool', reference_name: 'implanter_tool'},
+   {procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-doer', old: 'implant-doer', reference_name: 'implanter_man'},
+   {procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-tool', old: 'implant-tool', reference_name: 'tractor'},
+   {procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-target', old: 'implant-target', reference_name: 'land_parcel'},
+   {procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-input', old: 'implant-input', reference_name: 'plants_to_fix'},
+   {procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-output', old: 'implant-output', reference_name: 'cultivation'}  
+
   ]
   
   
