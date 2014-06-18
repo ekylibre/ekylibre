@@ -50,8 +50,7 @@ class ProductLocalization < Ekylibre::Record::Base
   validates_presence_of :container, if: :interior?
   
   scope :of_product_varieties, lambda { |*varieties|
-    varieties.flatten!
-    joins(:product).merge(Product.of_variety(varieties))
+    joins(:product).merge(Product.of_variety(*varieties))
   }
   
   before_validation do

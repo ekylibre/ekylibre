@@ -130,11 +130,10 @@ class Product < Ekylibre::Record::Base
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: "interior").at(viewed_at))
   }
   scope :of_variety, lambda { |*varieties|
-    varieties.flatten!
-    where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(variety: varieties.flatten.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, lambda { |*varieties|
-    where(derivative_of: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(derivative_of: varieties.flatten.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, lambda { |*abilities|
     where(nature_id: ProductNature.can(*abilities))
