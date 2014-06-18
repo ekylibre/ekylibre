@@ -194,7 +194,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     return super unless Nomen::Indicators.items[method_name]
     return get(method_name)
   end
-  
+
   def generate(*args)
     options = args.extract_options!
     product_name = args.shift || options[:name]
@@ -202,11 +202,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
     default_storage = args.shift || options[:default_storage]
 
     product_model = self.nature.matching_model
-            
+
     return product_model.create!(:variant => self, :name => product_name + " " + born_at.l, :initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => default_storage)
   end
-  
-  
+
+
   class << self
 
     # # Returns indicators for a set of product

@@ -195,6 +195,7 @@ jpn:
     # base-silage_unload: "Silage unload"
     # base-sowing: "Sowing"
     # base-spraying_on_cultivation: "Spraying on cultivation"
+    # base-spraying_on_land_parcel: "Spraying on cultivation"
     # base-straw_bunching: "Straw bunching"
     # base-sulfur_addition: "Sulfur addition"
     # base-superficial_plowing: "Superficial plowing"

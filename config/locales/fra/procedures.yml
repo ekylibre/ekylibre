@@ -197,6 +197,7 @@ fra:
     base-silage_unload: "Alimentation d’un troupeau via désileuse"
     base-sowing: "Semis"
     base-spraying_on_cultivation: "Pulvérisation sur culture"
+    base-spraying_on_land_parcel: "Pulvérisation sur parcelle"
     base-straw_bunching: "Pressage de fourrages"
     base-sulfur_addition: "Sulfitage"
     base-superficial_plowing: "Déchaumage / Préparation du sol"

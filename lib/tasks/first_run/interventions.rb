@@ -282,7 +282,8 @@ load_data :interventions do |loader|
       # 24 "rendement"
       # 25 "unite produit";"materiel";"temps materiel";"nom et prenom main d oeuvre";"temps main d oeuvre";"motivation";"commentaire motivation";"commentaire 1";"commentaire 2"
       #
-      CSV.foreach(path, headers: true, col_sep: ";") do |row|
+      CSV.read(path, headers: true, col_sep: ";").sort{|a,b| a[6].split(/\D/).reverse.join <=> b[6].split(/\D/).reverse.join }.each do |row|
+      #CSV.foreach(path, headers: true, col_sep: ";") do |row|
         
         r = OpenStruct.new(    cultivable_zone_code: row[1].to_s.downcase,
                                production_informations: row[2].to_s.downcase,
@@ -312,6 +313,7 @@ load_data :interventions do |loader|
         
         cultivable_zone = CultivableZone.find_by_work_number(cultivable_zones_transcode[r.cultivable_zone_code])
         
+        plant = nil
         if cultivable_zone and campaign
           support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first
           plant_variant = support.production.variant if support
@@ -339,9 +341,9 @@ load_data :interventions do |loader|
              # ex: kg to kilogram
              unit = units_transcode[r.product_input_unit]
              value = r.product_input_population
-             if units_transcode[unit.to_s].to_sym == :population
+             if units_transcode[unit.to_s] == :population || unit == :population
                 population_value = value
-             else
+             elsif units_transcode[unit.to_s] == :net_volume || units_transcode[unit.to_s] == :net_mass
                # create a Measure from value and unit in file
                # ex: 182.25 kilogram
                measure = Measure.new(value, unit)
@@ -360,6 +362,8 @@ load_data :interventions do |loader|
               global_intrant_value = population_value.to_d * r.working_area.to_d
             end
             puts " measure : " + measure.inspect.yellow
+            puts " units_transcode[unit.to_s] : " + units_transcode[unit.to_s].inspect.yellow
+            
             puts " intrant_population_value : " + population_value.inspect.yellow
             puts " intrant_global_population_value : " + global_intrant_value.to_f.inspect.yellow
             intrant.read!(:population, global_intrant_value, :at => r.intervention_started_at.to_time + 3.hours) if global_intrant_value
@@ -439,9 +443,11 @@ load_data :interventions do |loader|
                       end
               
             
-            elsif procedures_transcode[r.procedure_name] == :spraying_on_land_parcel and intrant and plant
+            elsif (procedures_transcode[r.procedure_name] == :spraying_on_land_parcel || procedures_transcode[r.procedure_name] == :spraying_on_cultivation) and intrant and plant
                       
                       # Spraying on cultivation
+                      puts plant.container.inspect.red
+                      
                       intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support) do |i|
                           i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                           i.add_cast(reference_name: 'plant_medicine_to_spray', population: global_intrant_value)

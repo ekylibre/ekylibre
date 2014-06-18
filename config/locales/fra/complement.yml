@@ -4134,7 +4134,6 @@ fra:
         base-uncompacting: "Décompactage"
         base-vine_harvest: "Vendange"
         base-watering: "Irrigation"
-        base-wheat_crop: "Culture de blé (standard)"
         base-wine_blending: "Assemblage de vin"
         base-wine_bottling: "Embouteillage de vin"
     intervention_cast:

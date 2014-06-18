@@ -877,7 +877,7 @@
             />
       <!-- PLANT INTRANT -->
       <!-- MINERAL FERTILIZER -->
-      <item name="bulk_15_15_15"
+      <item name="bulk_fertilizer_15_15_15"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 15percent, phosphorus_concentration: 15percent, potassium_concentration: 15percent"
