@@ -177,14 +177,14 @@ class Operation < Ekylibre::Record::Base
         break unless localization = localization.previous
       end
     end
-    puts "######## params[:localizable]  ##########" + params[:localizable].inspect.yellow
-    puts "######## params[:localizable].actor  ##########" + params[:localizable].actor.inspect.magenta
-    puts "######## LOCALIZATION  ##########" + localization.inspect.yellow
+    #puts "######## params[:localizable]  ##########" + params[:localizable].inspect.yellow
+    #puts "######## params[:localizable].actor  ##########" + params[:localizable].actor.inspect.magenta
+    #puts "######## LOCALIZATION  ##########" + localization.inspect.yellow
     container = localization.container if localization
-    puts "########CONTAINER FIRST ##########" + container.inspect.green
+    #puts "########CONTAINER FIRST ##########" + container.inspect.green
     container ||= params[:localizable].actor.default_storage
     # @ todo remove
-    puts "########CONTAINER##########" + container.inspect.red
+    #puts "########CONTAINER##########" + container.inspect.red
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: container)
   end
 

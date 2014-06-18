@@ -45,7 +45,7 @@
         <task do="[plant_medicine_to_spray] moves in [sprayer]"/>
       </operation>
       <operation id="700" duration="18 minutes">
-        <task do="[tractor] moves at [cultivation]"/>
+        <task do="[tractor] moves in [cultivation]"/>
         <!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="800">

@@ -320,7 +320,7 @@ load_data :interventions do |loader|
           # try to find the current plant on cultivable zone
           if cultivable_zone.contains(plant_variant.variety)
             ids = cultivable_zone.contains(plant_variant.variety).pluck(:product_id)
-            plant = Plant.where(id: ids).availables.reorder(:born_at).last
+            plant = Plant.where(id: ids).availables.reorder(:born_at).first
           end
         end
         
@@ -443,10 +443,10 @@ load_data :interventions do |loader|
                       end
               
             
-            elsif (procedures_transcode[r.procedure_name] == :spraying_on_land_parcel || procedures_transcode[r.procedure_name] == :spraying_on_cultivation) and intrant and plant
+            elsif procedures_transcode[r.procedure_name] == :spraying_on_cultivation and intrant and plant
                       
                       # Spraying on cultivation
-                      puts plant.container.inspect.red
+                      #puts plant.container.inspect.red
                       
                       intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support) do |i|
                           i.add_cast(reference_name: 'plant_medicine', actor: intrant)
@@ -506,7 +506,7 @@ load_data :interventions do |loader|
                       i.add_cast(reference_name: 'cropper_driver', actor: i.find(Worker))
                       i.add_cast(reference_name: 'cultivation',    actor: plant)
                       i.add_cast(reference_name: 'grains',         population: global_extrant_value, variant: extrant_variant)
-                      i.add_cast(reference_name: 'straws',         population: global_extrant_value / 10, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: plant.variety).first)
+                      i.add_cast(reference_name: 'straws',         population: global_extrant_value / 10, variant: ProductNatureVariant.import_from_nomenclature(:bulk_wheat_straw))
                         end
             
             
