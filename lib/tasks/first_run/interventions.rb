@@ -339,7 +339,7 @@ load_data :interventions do |loader|
              # ex: kg to kilogram
              unit = units_transcode[r.product_input_unit]
              value = r.product_input_population
-             if unit.to_sym == :population
+             if units_transcode[unit.to_s].to_sym == :population
                 population_value = value
              else
                # create a Measure from value and unit in file

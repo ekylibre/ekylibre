@@ -430,7 +430,7 @@ class Product < Ekylibre::Record::Base
 
   # Returns the current contents of the product at a given time (or now by default)
   def contains(varieties = :product, at = Time.now)
-    localizations = ProductLocalization.where(container: self).at(at).of_product_varieties(varieties)
+    localizations = self.content_localizations.at(at).of_product_varieties(varieties)
     if localizations.any?
       #object = []
       #for localization in localizations
