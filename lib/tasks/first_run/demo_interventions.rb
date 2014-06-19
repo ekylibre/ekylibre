@@ -162,7 +162,6 @@ load_data :demo_interventions do |loader|
                     i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
                     i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(equipment)"))
                     i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-                    i.add_cast(reference_name: 'cultivation', actor: cultivation)
                   end
                   
                   
