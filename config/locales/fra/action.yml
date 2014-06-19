@@ -1320,7 +1320,7 @@ fra:
       other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_value: "Nouvelle valeur"
     next: "Suivant"
-    nitrogen_concentration: "Teneur en azote" #?
+    nitrogen_concentration: "Teneur en azote (N)"
     nitrogen_input_prev: "Apport prévisionnel en azote" #?
     nitrogen_input_real: "Apport réalisé en azote" #?
     no_commercial: "— Sans commercial —"
@@ -1401,6 +1401,7 @@ fra:
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
     phone: "Tél."
+    phosphorus_concentration: "Teneur en phosphore (P)"
     pick: "Importer" #?
     picture: "Photo"
     placeholder: "Espace réservé"
@@ -1416,6 +1417,7 @@ fra:
     point: "Point"
     population: "Population"
     postal_zone_x: "%{name} (%{postal_code})" #?
+    potassium_concentration: "Teneur en potassium (K)"
     precipitation: "Précipitations"
     preferences: "Préférences"
     prescription: "Prescription"
@@ -1446,6 +1448,7 @@ fra:
     product_tabbox: #?
     production: "Production"
     production_cost: "Coût de production"
+    production_support: "Support de production"
     productions: "Productions"
     productions_states:
       aborted: "Annulées"
@@ -1637,6 +1640,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
+    time_cost: "Coût de main d'oeuvre"
     time_zone: "Fuseau horaire"
     to: "Au"
     to_bank_at: "À encaisser le"
@@ -1725,6 +1729,7 @@ fra:
       printable: "Mode «\_Imprimable\_»"
       resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "Quantité virtuelle"
+    watering_concentration: "Eau consommée"
     weather: "Météo"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?

@@ -728,6 +728,7 @@ intervention_casts:
 interventions:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
+  description: {type: text}
   event_id: {type: integer, references: event}
   id: {type: integer, required: true}
   issue_id: {type: integer, references: issue}

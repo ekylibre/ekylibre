@@ -23,6 +23,7 @@
 #
 #  created_at                  :datetime         not null
 #  creator_id                  :integer
+#  description                 :text
 #  event_id                    :integer
 #  id                          :integer          not null, primary key
 #  issue_id                    :integer

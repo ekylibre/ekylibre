@@ -38,9 +38,9 @@
       tool_cost:  support.tool_cost.to_s.to_f.round(2),
       input_cost: support.input_cost.to_s.to_f.round(2),
       time_cost:  support.time_cost.to_s.to_f.round(2),
-      nitrogen:   support.nitrogen_balance.to_s.to_f.round(2),
-      phosphorus: support.phosphorus_balance.to_s.to_f.round(2),
-      potassium:  support.potassium_balance.to_s.to_f.round(2),
+      nitrogen_concentration:   support.nitrogen_balance.to_s.to_f.round(2),
+      phosphorus_concentration: support.phosphorus_balance.to_s.to_f.round(2),
+      potassium_concentration:  support.potassium_balance.to_s.to_f.round(2),
       interventions_count: interventions.count,
       popup: {header: true, content: popup_content}
     }
@@ -54,9 +54,9 @@
   - v.background "Thunderforest.Outdoors"
   - if params[:visualization] == "nitrogen_footprint"
     - v.choropleth :interventions_count, data
-    - v.choropleth :nitrogen, data, choropleth: {stopColor: "#777777"}
-    -# v.choropleth :phosphorus, data, choropleth: {stopColor: "#11BB99"}
-    - v.choropleth :potassium, data
+    - v.choropleth :nitrogen_concentration, data, choropleth: {stopColor: "#777777"}
+    - v.choropleth :phosphorus_concentration, data, choropleth: {stopColor: "#11BB99"}
+    - v.choropleth :potassium_concentration, data
   - else
     - v.choropleth :interventions_count, data
     - v.choropleth :tool_cost, data, choropleth: {stopColor: "#00AA00"}

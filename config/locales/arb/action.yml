@@ -1462,6 +1462,7 @@ arb:
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "قيمة جديدة"
     next: "التالي"
+    # nitrogen_concentration: "Nitrogen_concentration"
     no_commercial: "-- دون تداول --"
     # no_contacts: "No address defined for %{name}"
     # no_data: "No data"
@@ -1547,6 +1548,7 @@ arb:
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
     # phone: "Pho."
+    # phosphorus_concentration: "Phosphorus concentration"
     # picture: "Picture"
     # placeholder: "Placeholder"
     # places: "Places"
@@ -1556,6 +1558,7 @@ arb:
     # please_wait: "Please wait…"
     # point: "Point"
     # population: "Population"
+    # potassium_concentration: "Potassium concentration"
     # precipitation: "Precipitation"
     # preferences: "Preferences"
     # prescription: "Prescription"
@@ -1588,6 +1591,7 @@ arb:
     product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
     # production_cost: "Production cost"
+    # production_support: "Production support"
     productions: "المنتجات"
     productions_states:
       # aborted: "Aborted"
@@ -1783,6 +1787,7 @@ arb:
     tax_declaration_create: "اضافة تصريح جديد" #?
     # taxes: "Taxes"
     theoric_quantity: "الكمية النظرية" #?
+    # time_cost: "Time cost"
     # time_zone: "Time zone"
     to: "الى"
     # to_bank_at: "To bank on"
@@ -1874,6 +1879,7 @@ arb:
       # resized: "Resized mode"
     virtual_quantity: "الكمية العملية"
     waiting: "أ€ التسدسد لاحقا" #?
+    # watering_concentration: "Watering_concentration"
     # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"

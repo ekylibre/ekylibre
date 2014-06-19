@@ -1247,6 +1247,7 @@ spa:
       # other: "New transport for %{transporter} (%{count} deliveries)"
     # new_value: "New value"
     # next: "Next"
+    # nitrogen_concentration: "Nitrogen_concentration"
     # no_commercial: "No commercial"
     # no_contacts: "No address defined for %{name}"
     # no_data: "No data"
@@ -1319,6 +1320,7 @@ spa:
     personalized_mail: "Enviar un correo electronico personalizado"
     pertinence: "%{value}%"
     # phone: "Pho."
+    # phosphorus_concentration: "Phosphorus concentration"
     # picture: "Picture"
     # placeholder: "Placeholder"
     # places: "Places"
@@ -1328,6 +1330,7 @@ spa:
     # please_wait: "Please wait…"
     # point: "Point"
     # population: "Population"
+    # potassium_concentration: "Potassium concentration"
     # precipitation: "Precipitation"
     # preferences: "Preferences"
     # prescription: "Prescription"
@@ -1353,6 +1356,7 @@ spa:
     product_tabbox: #?
     production: "Administración de la producción"
     # production_cost: "Production cost"
+    # production_support: "Production support"
     # productions: "Productions"
     productions_states:
       # aborted: "Aborted"
@@ -1519,6 +1523,7 @@ spa:
     tax_declaration_create: "Añadir una nueva declaración" #?
     # taxes: "Taxes"
     theoric_quantity: "cantidad teorica" #?
+    # time_cost: "Time cost"
     # time_zone: "Time zone"
     to: "Al"
     # to_bank_at: "To bank on"
@@ -1595,6 +1600,7 @@ spa:
       # printable: "Printable mode"
       # resized: "Resized mode"
     # virtual_quantity: "Virtual quantity"
+    # watering_concentration: "Watering_concentration"
     # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"

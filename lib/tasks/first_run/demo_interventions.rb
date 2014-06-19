@@ -177,7 +177,8 @@ load_data :demo_interventions do |loader|
     
     
   loader.count :irrigation_interventions do |w|
-      for production in Production.all
+      a = Activity.of_families(:maize_crops)
+      for production in Production.of_activities(a)
         if production.active?
           variety = production.variant.variety
             year = production.campaign.name.to_i

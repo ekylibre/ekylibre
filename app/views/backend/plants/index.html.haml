@@ -106,8 +106,17 @@
 
     popup_content << render('popup', plant: p)
     
+    # for irrigation management
+    water_concentration = []
+    water_interventions = Intervention.of_nature(:plant_irrigation).with_cast(:target, p)
+    for intervention in water_interventions
+      for input in intervention.casts.of_role(:'plant_irrigation-input')
+        i = input.population / p.shape_area.to_f(:hectare)
+        water_concentration << i
+      end
+    end
     
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, issues_count: issues.count, popup: {header: true, content: popup_content} }
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, popup: {header: true, content: popup_content} }
   end
       
 = kujaku
@@ -127,6 +136,7 @@
       - v.choropleth :age, data
       - v.choropleth :issues_count, data
       - v.choropleth :interventions_count, data
+      - v.choropleth :watering_concentration, data, choropleth: {stopColor: "#1122DD"}
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen
