@@ -32,6 +32,8 @@
           - l.attribute :prescription, label_method: :name, url: true
         - if @intervention.issue
           - l.attribute :issue, url: true
+        - if @intervention.description
+          - l.attribute :description
 
   - b.hbox do
     - b.cell(:casts) do

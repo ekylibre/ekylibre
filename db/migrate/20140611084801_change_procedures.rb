@@ -88,6 +88,8 @@ class ChangeProcedures < ActiveRecord::Migration
                                  
  
   def up
+    
+   add_column :interventions, :description, :text
    
    for item in PRODUCT_NATURE_ITEMS       
      replace_items_in_array(item[:table], item[:column], item)
@@ -129,6 +131,8 @@ class ChangeProcedures < ActiveRecord::Migration
    for item in PRODUCT_NATURE_ITEMS       
      replace_items_in_array(item[:table], item[:column], new: item[:old], old: item[:new])
    end
+   
+   remove_column :interventions, :description
     
   end
 

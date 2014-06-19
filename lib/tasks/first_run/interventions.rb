@@ -41,6 +41,9 @@ load_data :interventions do |loader|
   path = loader.path("viniteca", "interventions.csv")
   if path.exist?
     loader.count :viniteca_intervention_import do |w|
+      
+    information_import_context = "Import from viniteca on #{Time.now.l}"
+      
     CSV.foreach(path, headers: true, col_sep: ";") do |row|
       
       r = OpenStruct.new(    cultivable_zone_name: row[1].gsub("-h","").downcase,
@@ -193,8 +196,14 @@ load_data :interventions do |loader|
             
             else
               
-              RaiseNotImplemented
+              puts "Intervention is in a black hole".red
               
+            end
+            
+            if intervention
+              intervention.description = information_import_context + " - " +  row[4].to_s + " - operation : " + row[6].to_s + " - support : " + row[1].to_s + " - intrant : " + row[7].to_s
+              intervention.save!
+              puts "Intervention n°#{intervention.id} - #{intervention.name} has been created".green 
             end
             
           
@@ -282,10 +291,13 @@ load_data :interventions do |loader|
       # 24 "rendement"
       # 25 "unite produit";"materiel";"temps materiel";"nom et prenom main d oeuvre";"temps main d oeuvre";"motivation";"commentaire motivation";"commentaire 1";"commentaire 2"
       #
+      information_import_context = "Import from isaculture on #{Time.now.l}"
+      
       CSV.read(path, headers: true, col_sep: ";").sort{|a,b| a[6].split(/\D/).reverse.join <=> b[6].split(/\D/).reverse.join }.each do |row|
       #CSV.foreach(path, headers: true, col_sep: ";") do |row|
         
-        r = OpenStruct.new(    cultivable_zone_code: row[1].to_s.downcase,
+        r = OpenStruct.new(    intervention_number: row[0].to_s.downcase,
+                               cultivable_zone_code: row[1].to_s.downcase,
                                production_informations: row[2].to_s.downcase,
                                working_area: row[4].gsub(",",".").to_d,
                                unit_name: row[5].to_s.downcase,
@@ -407,7 +419,7 @@ load_data :interventions do |loader|
           #
           # create intervention
           #
-            if procedures_transcode[r.procedure_name] == :mineral_fertilizing and intrant
+            if (procedures_transcode[r.procedure_name] == :mineral_fertilizing || procedures_transcode[r.procedure_name] == :sowing) and intrant and intrant.able_to?("fertilize")
                         # Mineral fertilizing 
                         intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
                           i.add_cast(reference_name: 'fertilizer',  actor: intrant)
@@ -469,7 +481,7 @@ load_data :interventions do |loader|
                           i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                         end
                         
-            elsif procedures_transcode[r.procedure_name] == :sowing and intrant and plant_variant
+            elsif procedures_transcode[r.procedure_name] == :sowing and intrant and plant_variant and intrant.able_to?("grow")
                       
                       # Spraying on cultivation
                       intervention = Ekylibre::FirstRun::Booker.intervene(:sowing, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: {readings: {"base-sowing-0-750-2" => global_intrant_value.to_i}}) do |i|
@@ -486,7 +498,7 @@ load_data :interventions do |loader|
                         
             
             
-            elsif procedures_transcode[r.procedure_name] == :grains_harvest and extrant_variant and ( variants_transcode[r.extrant_name].to_sym == :grass_silage || variants_transcode[r.extrant_name].to_sym == :corn_silage ) and plant
+            elsif procedures_transcode[r.procedure_name] == :grains_harvest and extrant_variant and extrant_variant.variety == "silage" and plant
                       
                       # Silage
                       intervention = Ekylibre::FirstRun::Booker.intervene(:direct_silage, intervention_year, intervention_month, intervention_day, 3.13 * coeff, support: support) do |i|
@@ -500,13 +512,16 @@ load_data :interventions do |loader|
             
             elsif procedures_transcode[r.procedure_name] == :grains_harvest and extrant_variant and plant
                       
+                      straw_variant = ProductNatureVariant.find_or_import!(:straw, derivative_of: plant.variety).first
+                      straw_variant ||= ProductNatureVariant.import_from_nomenclature(:crop_residue)
+                      
                       # Grain harvest
                       intervention = Ekylibre::FirstRun::Booker.intervene(:grains_harvest, intervention_year, intervention_month, intervention_day, 3.13 * coeff, support: support) do |i|
                       i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: "harvest(poaceae)"))
                       i.add_cast(reference_name: 'cropper_driver', actor: i.find(Worker))
                       i.add_cast(reference_name: 'cultivation',    actor: plant)
                       i.add_cast(reference_name: 'grains',         population: global_extrant_value, variant: extrant_variant)
-                      i.add_cast(reference_name: 'straws',         population: global_extrant_value / 10, variant: ProductNatureVariant.import_from_nomenclature(:bulk_wheat_straw))
+                      i.add_cast(reference_name: 'straws',         population: global_extrant_value / 10, variant: straw_variant)
                         end
             
             
@@ -518,8 +533,13 @@ load_data :interventions do |loader|
               puts "Intervention is in a black hole".red
               
             end
-            puts "Intervention n°#{intervention.id} - #{intervention.name} has been created".green if intervention
-          
+            
+            if intervention
+              intervention.description = information_import_context + " - N° : " + r.intervention_number + " - " +  row[6].to_s + " - operation : " + row[10].to_s + " - support : " + row[1].to_s + " - intrant : " + row[15].to_s
+              intervention.save!
+              puts "Intervention n°#{intervention.id} - #{intervention.name} has been created".green 
+            end
+            
           end
         
         

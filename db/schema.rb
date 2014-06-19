@@ -1079,6 +1079,7 @@ ActiveRecord::Schema.define(version: 20140611084801) do
     t.integer  "event_id"
     t.string   "number"
     t.text     "parameters"
+    t.text     "description"
   end
 
   add_index "interventions", ["created_at"], :name => "index_interventions_on_created_at"
