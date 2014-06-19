@@ -201,8 +201,10 @@ Math.floor2 = (number, round = 1) ->
       if maxMagnitude.power > minMagnitude.power
         ref = maxMagnitude
       choropleth.power = ref.power
-      choropleth.maxValue = Math.ceil2(choropleth.maxValue,  ref.magnitude * choropleth.round)
-      choropleth.minValue = Math.floor2(choropleth.minValue, ref.magnitude * choropleth.round)
+      mag = ref.magnitude
+      mag = mag / 10 if mag >= 100
+      choropleth.maxValue = Math.ceil2(choropleth.maxValue,  mag * choropleth.round)
+      choropleth.minValue = Math.floor2(choropleth.minValue, mag * choropleth.round)
       choropleth.length = choropleth.maxValue - choropleth.minValue
 
       if choropleth.length == 0
@@ -215,32 +217,26 @@ Math.floor2 = (number, round = 1) ->
 
       start = this._parseColor(choropleth.startColor)
       stop  = this._parseColor(choropleth.stopColor)
-      gap =
-        red:   Math.round(stop.red   - start.red)
-        green: Math.round(stop.green - start.green)
-        blue:  Math.round(stop.blue  - start.blue)
-      console.log "Gap color computed"
       
       for g in [1..choropleth.levelNumber]
         level = (g - 1.0) / (choropleth.levelNumber - 1.0)
         grade = 
           color: this._toColorString
-            red:   start.red   + (gap.red   * level)
-            green: start.green + (gap.green * level)       
-            blue:  start.blue  + (gap.blue  * level)
+            red:   start.red   + (Math.round(stop.red   - start.red)   * level)
+            green: start.green + (Math.round(stop.green - start.green) * level)       
+            blue:  start.blue  + (Math.round(stop.blue  - start.blue)  * level)
           min: choropleth.minValue + (g-1) * choropleth.length / choropleth.levelNumber
           max: choropleth.minValue +  g    * choropleth.length / choropleth.levelNumber
         grade.minLabel = Math.humanize(grade.min, choropleth.power)
         grade.maxLabel = Math.humanize(grade.max, choropleth.power)
         choropleth.grades.push grade
+      console.log "Grades computed"
           
       $.each layer.data, (index, zone) ->
-        level = 1.0 * (zone[property] - choropleth.minValue) / choropleth.length
-        # zone.fillColor = choropleth.grades[]
-        zone.fillColor = widget._toColorString
-          red:   start.red   + (gap.red   * level)
-          green: start.green + (gap.green * level)       
-          blue:  start.blue  + (gap.blue  * level)
+        level = Math.round(choropleth.levelNumber * (zone[property] - choropleth.minValue) / choropleth.length)
+        level = choropleth.levelNumber - 1 if level >= choropleth.levelNumber
+        level = 0 if level < 0
+        zone.fillColor = choropleth.grades[level].color
         
       console.log "Choropleth computed"
       true
