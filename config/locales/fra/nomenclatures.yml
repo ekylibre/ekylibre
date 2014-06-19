@@ -1594,7 +1594,7 @@ fra:
         insecta_disease: "Présence d'insecte"
         issue: "Incident"
         limping: "Boîterie"
-        mammite: "Mammite" #?
+        mammite: "Mammite"
         mechanical_issue: "Problème mécanique"
         nematoda_disease: "Maladie à nématodes"
         noble_rot: "Pourriture grise ou noble"

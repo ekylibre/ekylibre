@@ -49,9 +49,9 @@
   
 
 = visualization :supports do |v|
-  - v.background :base, "OpenStreetMap.HOT"
-  - v.background :water_base, "Thunderforest.Transport"
-  - v.background :outdoors_base, "Thunderforest.Outdoors"
+  - v.background "OpenStreetMap.HOT"
+  - v.background "Thunderforest.Transport"
+  - v.background "Thunderforest.Outdoors"
   - if params[:visualization] == "nitrogen_footprint"
     - v.choropleth :interventions_count, data
     - v.choropleth :nitrogen, data, choropleth: {stopColor: "#777777"}

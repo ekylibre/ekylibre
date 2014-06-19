@@ -61,6 +61,7 @@
   <nomenclature name="issue_natures-bacteria_disease">
     <items>
       <item name="grapevine_yellows"  target="vitis"/> <!-- cause="candidatus_phytoplasma_vitis" http://fr.wikipedia.org/wiki/Flavescence_dor%C3%A9e -->
+      <item name="mammite"            target="mammalia"/>
     </items>
   </nomenclature>
   

@@ -4,26 +4,30 @@ String.prototype.camelize = () ->
   array = jQuery.map this.split("_"), (word)->
     word.charAt(0).toUpperCase() + word.slice(1)
   return array.join()
-
-Math.magnitude = (number, step = 1, radix = 10) ->
+  
+String.prototype.repeat = (count) ->
+  return new Array(count + 1).join(this)
+  
+Math.magnitude = (number, step = 1) ->
   value = Math.abs(number)
   power = 0
   if value > 1
-    while Math.pow(radix, power) < value
+    while Math.pow(10, power + step) < value
       power += step
   else
-    while Math.pow(radix, power) > value
+    while Math.pow(10, power - step) > value
       power -= step
+  mag = Math.pow(10, power)
   result =
-    radix: radix
     power: power
-    base: number / Math.pow(radix, power)
-  return result
+    magnitude: mag
+    base: number / mag
 
 Math.round2 = (number, round = 1) ->
   return round * Math.round(number / round)
 
 Math.humanize = (value, power = 0) ->
+  return Math.round(value)
   # return Math.round(value / Math.pow(10, power)) + "e#{power}"
   size = Math.round(power / 3)
   return Math.round(value / Math.pow(10, 3 * size)) + "pnµm KMGTPE"[size + 4]
@@ -33,7 +37,6 @@ Math.ceil2 = (number, round = 1) ->
 
 Math.floor2 = (number, round = 1) ->
   return round * Math.floor(number / round)
-
  
 
 (($) ->
@@ -184,7 +187,6 @@ Math.floor2 = (number, round = 1) ->
         minValue: layer.data[0][property]
         grades: []
       layer.choropleth = $.extend true, {}, @options.layerDefaults.choropleth, defaultChoropleth, layer.choropleth
-      console.log layer.choropleth
       choropleth = layer.choropleth
       $.each layer.data, (index, zone) ->
         if zone[property] > choropleth.maxValue
@@ -195,18 +197,18 @@ Math.floor2 = (number, round = 1) ->
       # Simplify values
       maxMagnitude = Math.magnitude(choropleth.maxValue)
       minMagnitude = Math.magnitude(choropleth.minValue)
-      console.log maxMagnitude
-      console.log minMagnitude
       ref = minMagnitude
       if maxMagnitude.power > minMagnitude.power
         ref = maxMagnitude
-      choropleth.magnitude = Math.pow(ref.radix, ref.power)
       choropleth.power = ref.power
-      choropleth.maxValue = Math.ceil2(choropleth.maxValue,  choropleth.magnitude * choropleth.round)
-      choropleth.minValue = Math.floor2(choropleth.minValue, choropleth.magnitude * choropleth.round)
-      
+      choropleth.maxValue = Math.ceil2(choropleth.maxValue,  ref.magnitude * choropleth.round)
+      choropleth.minValue = Math.floor2(choropleth.minValue, ref.magnitude * choropleth.round)
       choropleth.length = choropleth.maxValue - choropleth.minValue
 
+      if choropleth.length == 0
+        console.log "Length is null"
+        return false
+      
       if choropleth.levelNumber > choropleth.length and choropleth.length > 2
         choropleth.levelNumber = choropleth.length
       console.log "Min (#{choropleth.minValue}) and max (#{choropleth.maxValue}) computed"
@@ -221,23 +223,27 @@ Math.floor2 = (number, round = 1) ->
       
       for g in [1..choropleth.levelNumber]
         level = (g - 1.0) / (choropleth.levelNumber - 1.0)
-        choropleth.grades.push
+        grade = 
           color: this._toColorString
             red:   start.red   + (gap.red   * level)
             green: start.green + (gap.green * level)       
             blue:  start.blue  + (gap.blue  * level)
-          min: Math.humanize(choropleth.minValue + (g-1) * choropleth.length / choropleth.levelNumber, choropleth.power)
-          max: Math.humanize(choropleth.minValue +  g    * choropleth.length / choropleth.levelNumber, choropleth.power)
+          min: choropleth.minValue + (g-1) * choropleth.length / choropleth.levelNumber
+          max: choropleth.minValue +  g    * choropleth.length / choropleth.levelNumber
+        grade.minLabel = Math.humanize(grade.min, choropleth.power)
+        grade.maxLabel = Math.humanize(grade.max, choropleth.power)
+        choropleth.grades.push grade
           
       $.each layer.data, (index, zone) ->
         level = 1.0 * (zone[property] - choropleth.minValue) / choropleth.length
+        # zone.fillColor = choropleth.grades[]
         zone.fillColor = widget._toColorString
           red:   start.red   + (gap.red   * level)
           green: start.green + (gap.green * level)       
           blue:  start.blue  + (gap.blue  * level)
         
       console.log "Choropleth computed"
-      this
+      true
 
     # Displays all given controls
     _refreshControls: ->
@@ -270,8 +276,8 @@ Math.floor2 = (number, round = 1) ->
       overlays = {}
       
       $.each @options.backgrounds, (index, layer) -> 
-        backgroundLayer = L.tileLayer.provider(layer.provider_name)
-        baseLayers[layer.name] = backgroundLayer
+        backgroundLayer = L.tileLayer.provider(layer.provider)
+        baseLayers[layer.label] = backgroundLayer
         widget.map.addLayer(backgroundLayer) if index == 0
       
       $.each @options.overlays, (index, layer) -> 
@@ -288,29 +294,29 @@ Math.floor2 = (number, round = 1) ->
         functionName = "_add#{layer.type.camelize()}Layer"
         if $.isFunction widget[functionName]
           options = {} if options is true
-          layerGroup = widget[functionName].call(widget, layer, legendControl)
-          overlayLayer = L.layerGroup(layerGroup)
-          layer.overlay = overlays[layer.name] = overlayLayer
-          widget.map.addLayer(overlayLayer)
-
-          group = new L.featureGroup(layerGroup)
-          widget.map.fitBounds(group.getBounds())
+          if layerGroup = widget[functionName].call(widget, layer, legendControl)
+            overlayLayer = L.layerGroup(layerGroup)
+            overlayLayer.name = layer.name            
+            layer.overlay = overlays[layer.label] = overlayLayer
+            widget.map.addLayer(overlayLayer)
+            group = new L.featureGroup(layerGroup)
+            widget.map.fitBounds(group.getBounds())
         else
           console.log "Unknown layer type: #{layer.type}"
         
       @map.on "overlayadd", (event) ->
         console.log "Add legend control..."
         legend = $(legendControl.getContainer())
-        legend.children("#legend-#{event.name}").show()
+        legend.children("#legend-#{event.layer.name}").show()
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.removeClass("empty")
         return       
         
       @map.on "overlayremove", (event) ->
-        console.log "Remove legend control #{event}..."
+        console.log "Remove legend control..."
         legend = $(legendControl.getContainer())
-        legend.children("#legend-#{event.name}").hide()
+        legend.children("#legend-#{event.layer.name}").hide()
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.addClass("empty") if legend.children(":visible").length <= 0
@@ -341,7 +347,7 @@ Math.floor2 = (number, round = 1) ->
 
     _addChoroplethLayer: (layer, legendControl)->
       widget = this
-      this._computeChoropleth(layer)
+      return false unless this._computeChoropleth(layer)
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
       $.each layer.data, (index, zone) ->            
@@ -354,13 +360,13 @@ Math.floor2 = (number, round = 1) ->
       legend = legendControl.getContainer()
       console.log(legend)
       html  = "<div class='leaflet-legend-item' id='legend-#{layer.name}'>"
-      html += "<h3>#{layer.name}</h3>"
+      html += "<h3>#{layer.label}</h3>"
       html += "<div class='leaflet-legend-body leaflet-choropleth-scale'>"
-      html += "<span class='min-value'>#{layer.choropleth.grades[0].min}</span>"
-      html += "<span class='max-value'>#{layer.choropleth.grades[layer.choropleth.levelNumber - 1].max}</span>"
+      html += "<span class='min-value'>#{layer.choropleth.grades[0].minLabel}</span>"
+      html += "<span class='max-value'>#{layer.choropleth.grades[layer.choropleth.levelNumber - 1].maxLabel}</span>"
       html += "<span class='leaflet-choropleth-grades'>"
       $.each layer.choropleth.grades, (index, grade) ->               
-        html += "<i class='leaflet-choropleth-grade' style='width: #{100 / layer.choropleth.levelNumber}%; background-color: #{grade.color}' title='#{grade.min} ~ #{grade.max}'></i>"
+        html += "<i class='leaflet-choropleth-grade' style='width: #{100 / layer.choropleth.levelNumber}%; background-color: #{grade.color}' title='#{grade.minLabel} ~ #{grade.maxLabel}'></i>"
       html += "</span>"
       html += "</div>"
       html += "</div>"

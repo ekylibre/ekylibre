@@ -118,12 +118,12 @@
 = beehive do |b|
   - b.cell :plants do
     = visualization :plants do |v|
-      - v.background :base, "OpenStreetMap.HOT"
-      - v.background :forest_base, "Thunderforest"
-      -# v.background :water_base, "Thunderforest.Transport"
-      - v.background :landscape_base, "Thunderforest.Landscape"
-      -# v.background :outdoors_base, "Thunderforest.Outdoors"
-      -# v.background :map_quest_open_aerial, "MapQuestOpen.Aerial"
+      - v.background "OpenStreetMap.HOT", label: "Toto"
+      - v.background "Thunderforest"
+      -# v.background "Thunderforest.Transport"
+      - v.background "Thunderforest.Landscape"
+      -# v.background "Thunderforest.Outdoors"
+      -# v.background "MapQuestOpen.Aerial"
       - v.choropleth :age, data
       - v.choropleth :issues_count, data
       - v.choropleth :interventions_count, data

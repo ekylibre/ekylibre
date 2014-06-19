@@ -200,7 +200,7 @@ class ActionController::TestCase
           test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_response :success, #{show_notification}\n"
-          for format in [:csv, :xcsv, :ods]
+          for format in [:csv, :ods] # :xcsv,
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
             test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end
@@ -221,7 +221,7 @@ class ActionController::TestCase
         elsif mode == :list
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-          for format in [:csv, :xcsv, :ods]
+          for format in [:csv, :ods] # , :xcsv
             test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
             test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end

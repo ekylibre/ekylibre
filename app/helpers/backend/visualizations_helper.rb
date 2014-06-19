@@ -8,9 +8,12 @@ module Backend::VisualizationsHelper
       @data = data
     end
     
-    def background(name, provider_name)
+    def background(name, options = {})
+      options[:name] = name
+      options[:provider] ||= options[:name]
+      options[:label] ||= options[:name].humanize
       @data[:backgrounds] ||= []
-      @data[:backgrounds] << {name: name, provider_name: provider_name}
+      @data[:backgrounds] << options
     end
     
     def overlay(name, provider_name)
@@ -24,6 +27,7 @@ module Backend::VisualizationsHelper
     # end
     
     def layer(name, data, options = {})
+      options[:label] ||= name.tl(default: "attributes.#{name}".to_sym)
       data = data.compact.collect do |item|
         next unless item[:shape]
         item

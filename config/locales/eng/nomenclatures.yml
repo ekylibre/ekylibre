@@ -1599,6 +1599,7 @@ eng:
         insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
         limping: "Limping"                                 #< disease
+        mammite: "Mammite"                                 #< bacteria_disease
         mechanical_issue: "Mechanical issue"               #< issue
         nematoda_disease: "Nematoda disease"               #< disease
         noble_rot: "Noble rot"                             #< fungus_disease
