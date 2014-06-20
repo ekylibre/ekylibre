@@ -114,7 +114,7 @@ class InterventionCast < Ekylibre::Record::Base
       if self.input?
         price * (self.population || 0.0)
       else self.tool? or self.doer?
-        price * ((self.stopped_at - self.started_at) / 3600)
+        price * ((self.stopped_at - self.started_at).to_d / 3600)
       end
     else
       return nil
