@@ -157,7 +157,7 @@ load_data :demo_interventions do |loader|
                   end
                   
                   # Hoeing  01-06-M -> 30-07-M
-                  Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support) do |i|
+                  Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support, parameters: {readings: {"base-hoeing-0-500-1" => "covered"}}) do |i|
                     i.add_cast(reference_name: 'cultivator',  actor: i.find(Equipment, can: "hoe"))
                     i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
                     i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(equipment)"))
