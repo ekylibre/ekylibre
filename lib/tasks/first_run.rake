@@ -9,7 +9,7 @@ def load_data(name, &block)
     folder = ENV["folder"]
     folder = "default" if Ekylibre::FirstRun.path.join("default").exist?
     folder ||= "demo"
-    ActiveRecord::Base.transaction do
+    Ekylibre::FirstRun.transaction quiet: true do
       yield Ekylibre::FirstRun::Loader.new(folder)
     end
   end
@@ -23,7 +23,7 @@ end
 
 desc "Create first_run data -- also available " + Ekylibre::FirstRun::LOADERS.collect{|c| "first_run:#{c}"}.join(", ")
 task :first_run => :environment do
-  ActiveRecord::Base.transaction do
+  Ekylibre::FirstRun.transaction do
     for loader in Ekylibre::FirstRun::LOADERS
       Rake::Task["first_run:#{loader}"].invoke
     end

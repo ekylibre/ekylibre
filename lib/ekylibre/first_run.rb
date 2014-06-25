@@ -16,6 +16,25 @@ module Ekylibre
     autoload :Loader,   'ekylibre/first_run/loader'
     autoload :Manifest, 'ekylibre/first_run/manifest'
 
+    class << self
+
+      # Check if hard mode is required
+      def hard?
+        ENV["MODE"].to_s.downcase == "hard" or Rails.env.production?
+      end
+
+      # Transaction for first run
+      def transaction(options = {}, &block)
+        if hard?
+          puts "No transaction".red unless options[:quiet]
+          yield
+        else
+          ActiveRecord::Base.transaction(&block)
+        end
+      end
+
+    end
+
     IMPORTS = {
       telepac: {
         shapes: :file,
