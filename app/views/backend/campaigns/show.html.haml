@@ -15,3 +15,5 @@
       = toolbar do |t|
         - t.new(params: {controller: :productions, :campaign_id => @campaign.id})
       = list(:productions)
+
+  - b.cell :map, params: {campaign_ids: @campaign.id}

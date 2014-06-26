@@ -1,5 +1,5 @@
 class Backend::Cells::MapCellsController < Backend::CellsController
-  before_action :load_config
+  #before_action :load_config
 
   class CartoDBConnection
     def initialize(account, key)
@@ -14,6 +14,11 @@ class Backend::Cells::MapCellsController < Backend::CellsController
   end
 
   def show
+    if params[:campaign_ids]
+      @campaigns = Campaign.find(params[:campaign_ids])
+    else
+      @campaigns = Campaign.find(2) #currents.last
+    end
   end
 
   def update
