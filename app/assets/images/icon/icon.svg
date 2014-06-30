@@ -11,14 +11,14 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="720"
-   height="719.99982"
-   id="svg2548"
+   height="720"
+   id="ekylibre-icon"
    sodipodi:version="0.32"
    inkscape:version="0.48.3.1 r9886"
    version="1.0"
    sodipodi:docname="icon.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/brice/dev/ekylibre/public/images/ekylibre.png"
+   inkscape:export-filename="ekylibre.png"
    inkscape:export-xdpi="180"
    inkscape:export-ydpi="180">
   <defs
@@ -45,106 +45,6 @@
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3265"
-       id="linearGradient2566"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-232.76642,420.63751)"
-       x1="-100"
-       y1="288.00003"
-       x2="-68"
-       y2="320" />
-    <linearGradient
-       id="linearGradient4126-5-4">
-      <stop
-         style="stop-color:#ececec;stop-opacity:1;"
-         offset="0"
-         id="stop4128-2-2" />
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
-         offset="1"
-         id="stop4130-2-5" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient3265-0">
-      <stop
-         style="stop-color:#7097d8;stop-opacity:1;"
-         offset="0"
-         id="stop3267-68" />
-      <stop
-         id="stop3285-92"
-         offset="0.31429297"
-         style="stop-color:#224580;stop-opacity:1;" />
-      <stop
-         style="stop-color:#6085c3;stop-opacity:1;"
-         offset="0.68766028"
-         id="stop3287-6" />
-      <stop
-         style="stop-color:#1b3a6c;stop-opacity:1;"
-         offset="1"
-         id="stop3269-6" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4126-5-4"
-       id="linearGradient4070"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-232.69492,420.96598)"
-       x1="-49.40004"
-       y1="308.00003"
-       x2="-49.400009"
-       y2="288.00003"
-       spreadMethod="reflect" />
-    <inkscape:perspective
-       id="perspective4080"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4126-5-4-0"
-       id="linearGradient4070-1"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(5.0000038,0,0,5.0000038,370.00018,-1187.0013)"
-       x1="-49.40004"
-       y1="308.00003"
-       x2="-49.400009"
-       y2="288.00003"
-       spreadMethod="reflect" />
-    <linearGradient
-       id="linearGradient4126-5-4-0">
-      <stop
-         style="stop-color:#e8e8e8;stop-opacity:1;"
-         offset="0"
-         id="stop4128-2-2-8" />
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
-         offset="1"
-         id="stop4130-2-5-3" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3265"
-       id="linearGradient3014"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-232.76642,420.63751)"
-       x1="-100"
-       y1="288.00003"
-       x2="-68"
-       y2="320" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3265"
-       id="linearGradient3018"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(5.0000038,0,0,5.0000038,1343.9289,-1135.7106)"
-       x1="-100"
-       y1="288.00003"
-       x2="-68"
-       y2="320" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3265"
        id="linearGradient3010"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(5.0000038,0,0,5.0000038,1343.9289,-1135.7106)"
@@ -161,7 +61,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="307.60382"
+     inkscape:cx="309.60382"
      inkscape:cy="461.04301"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"

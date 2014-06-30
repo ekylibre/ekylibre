@@ -10,15 +10,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="700.00049"
+   width="700"
    height="200"
-   id="svg2548"
+   id="ekylibre-logo"
    sodipodi:version="0.32"
-   inkscape:version="0.47 r22583"
+   inkscape:version="0.48.3.1 r9886"
    version="1.0"
    sodipodi:docname="ekylibre.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/brice/dev/ekylibre/public/images/ekylibre.png"
+   inkscape:export-filename="ekylibre.png"
    inkscape:export-xdpi="180"
    inkscape:export-ydpi="180">
   <defs
@@ -52,84 +52,6 @@
        y1="288.00003"
        x2="-68"
        y2="320" />
-    <linearGradient
-       id="linearGradient4126-5-4">
-      <stop
-         style="stop-color:#ececec;stop-opacity:1;"
-         offset="0"
-         id="stop4128-2-2" />
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
-         offset="1"
-         id="stop4130-2-5" />
-    </linearGradient>
-    <linearGradient
-       id="linearGradient3265-0">
-      <stop
-         style="stop-color:#7097d8;stop-opacity:1;"
-         offset="0"
-         id="stop3267-68" />
-      <stop
-         id="stop3285-92"
-         offset="0.31429297"
-         style="stop-color:#224580;stop-opacity:1;" />
-      <stop
-         style="stop-color:#6085c3;stop-opacity:1;"
-         offset="0.68766028"
-         id="stop3287-6" />
-      <stop
-         style="stop-color:#1b3a6c;stop-opacity:1;"
-         offset="1"
-         id="stop3269-6" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4126-5-4"
-       id="linearGradient4070"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-232.69492,420.96598)"
-       x1="-49.40004"
-       y1="308.00003"
-       x2="-49.400009"
-       y2="288.00003"
-       spreadMethod="reflect" />
-    <inkscape:perspective
-       id="perspective4080"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4126-5-4-0"
-       id="linearGradient4070-1"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(5.0000038,0,0,5.0000038,370.00018,-1187.0013)"
-       x1="-49.40004"
-       y1="308.00003"
-       x2="-49.400009"
-       y2="288.00003"
-       spreadMethod="reflect" />
-    <linearGradient
-       id="linearGradient4126-5-4-0">
-      <stop
-         style="stop-color:#e8e8e8;stop-opacity:1;"
-         offset="0"
-         id="stop4128-2-2-8" />
-      <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
-         offset="1"
-         id="stop4130-2-5-3" />
-    </linearGradient>
-    <filter
-       inkscape:collect="always"
-       id="filter4122">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.80357036"
-         id="feGaussianBlur4124" />
-    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -139,8 +61,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="303.60381"
-     inkscape:cy="61.04286"
+     inkscape:cx="305.60381"
+     inkscape:cy="59.04286"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -157,7 +79,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -169,15 +91,15 @@
     <g
        transform="translate(1176.695,-244.34681)"
        id="logo"
-       inkscape:export-filename="/home/brice/Projets/ekylibre/app/assets/images/ekylibre.png"
+       inkscape:export-filename="ekylibre.png"
        inkscape:export-xdpi="72"
        inkscape:export-ydpi="72"
        inkscape:label="Ekylibre">
       <title
-         id="title5870">Logo d'ekylibre</title>
+         id="title5870">Ekylibre logo</title>
       <g
          id="g2568"
-         inkscape:export-filename="/home/brice/dev/ekylibre/public/images/ekylibre.png"
+         inkscape:export-filename="ekylibre.png"
          inkscape:export-xdpi="36"
          inkscape:export-ydpi="36"
          transform="matrix(5.0000038,0,0,5.0000038,1331.0669,-2994.5529)">
