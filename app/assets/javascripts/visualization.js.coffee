@@ -116,7 +116,7 @@ Math.floor2 = (number, round = 1) ->
                 
     _create: ->     
       console.log "1"
-      $.extend(true, this.options, this.element.data("visualization"))
+      $.extend(true, @options, @element.data("visualization"))
 
       console.log "2"
       @mapElement = $("<div>", class: "map").insertAfter(@element)

@@ -28,7 +28,6 @@
 //= require cocoon
 //= require support
 //= require selector
-//= require highcharts
 //= require modernizr.mq
 //= require ui
 //= require jstz

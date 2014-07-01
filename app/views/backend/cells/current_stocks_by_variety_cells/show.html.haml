@@ -11,7 +11,7 @@
       product_natures_serie = product_natures.collect do |product_nature|
         count = product_nature.products.map(&method).compact.sum
         count = count.in(unit) if unit
-        { name: product_nature.name, y: count.to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*Backend::ChartsHelper::COLORS) }
+        { name: product_nature.name, y: count.to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*theme_colors) }
       end
       product_nature_variants_serie = ProductNatureVariant.of_natures(product_natures).order("nature_id, id").collect do |product_nature_variant|
         count =  product_nature_variant.products.map(&method).compact.sum

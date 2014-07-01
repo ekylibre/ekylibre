@@ -42,7 +42,7 @@
 
             if cultivable_zones.any?
               cultivable_zones_serie = cultivable_zones.collect do |cultivable_zone|
-                        { name: cultivable_zone.name, y: cultivable_zone.area.to_s.to_f, color: cycle(*Backend::ChartsHelper::COLORS), url: backend_cultivable_zone_path(cultivable_zone) }
+                        { name: cultivable_zone.name, y: cultivable_zone.area.to_s.to_f, color: cycle(*theme_colors), url: backend_cultivable_zone_path(cultivable_zone) }
               end
             end
 

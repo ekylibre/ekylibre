@@ -57,10 +57,10 @@
               end
             end
             
-            data_series << { name: "Reste à apporter", isSum: true, color: cycle(*Backend::ChartsHelper::COLORS)}
+            data_series << { name: "Reste à apporter", isSum: true, color: cycle(*theme_colors)}
 
           series = []
-          series << {up_color: cycle(*Backend::ChartsHelper::COLORS), color: cycle(*Backend::ChartsHelper::COLORS), data: data_series, data_labels: {enabled: false}}
+          series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
 
         = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f} kg N / Ha'}, title: {text: 'Bilan azote'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N / Ha'}})
       - else

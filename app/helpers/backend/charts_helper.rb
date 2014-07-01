@@ -29,9 +29,6 @@ module Backend::ChartsHelper
     hash
   end.freeze
 
-  COLORS = ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970',
-    '#f28f43', '#77a1e5', '#c42525', '#a6c96a']
-
   def ligthen(color, rate)
     r, g, b = color[1..2].to_i(16), color[3..4].to_i(16), color[5..6].to_i(16)
     r *= (1+rate)
@@ -45,31 +42,35 @@ module Backend::ChartsHelper
 
   for type, absolute_type in TYPES
     code  = "def #{type}_chart(series, options = {}, html_options = {})\n"
-    code << "  options[:type] = '#{absolute_type}'\n"
+    code << "  options[:chart] ||= {}\n"
+    code << "  options[:chart][:type] = '#{absolute_type}'\n"
+    code << "  options[:chart][:style] ||= {}\n"
+    code << "  options[:chart][:style][:font_family] ||= theme_font_family\n"
+    code << "  options[:chart][:style][:font_size]   ||= theme_font_size\n"
+    code << "  options[:colors] ||= theme_colors\n"
     code << "  if options[:title].is_a?(String)\n"
     code << "    options[:title] = {text: options[:title].dup}\n"
     code << "  end\n"
     code << "  if options[:subtitle].is_a?(String)\n"
     code << "    options[:subtitle] = {text: options[:subtitle].dup}\n"
     code << "  end\n"
-    for name, absolute_name in OPTIONS
-      code << "  if options.has_key?(:#{name})\n"
-      if [:legend, :credits].include?(name)
-        code << "    options[:#{name}][:enabled] ||= true\n"
-      end
-      code << "    if options[:#{name}]\n"
-      code << "      html_options['data-highchart-#{absolute_name}'] = options.delete(:#{name}).jsonize_keys.to_json\n"
-      code << "    end\n"
-      code << "  end\n"
-    end
     code << "  series = [series] unless series.is_a?(Array)\n"
-    code << "  html_options['data-highchart-series'] = series.map(&:jsonize_keys).to_json\n"
-    code << "  html_options['data-highchart'] = options.jsonize_keys.to_json\n"
+    code << "  options[:series] = series\n"
+    for name, absolute_name in OPTIONS
+      if [:legend, :credits].include?(name)
+        code << "  if options.has_key?(:#{name})\n"
+        code << "    options[:#{name}] = {enabled: true} if options[:#{name}].is_a?(TrueClass)\n"
+        code << "  end\n"
+      end
+    end
+    code << "  html_options[:data] ||= {}\n"
+    code << "  html_options[:data][:chart] = options.jsonize_keys.to_json\n"
     code << "  return content_tag(:div, nil, html_options)\n"
     code << "end\n"
     # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
     eval(code)
   end
+
 
   def normalize_serie(values, x_values, default = 0.0)
      data = []
