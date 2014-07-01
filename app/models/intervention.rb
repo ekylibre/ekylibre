@@ -312,18 +312,28 @@ class Intervention < Ekylibre::Record::Base
    # in: actors, an array of actors identified for a given procedure
    # out: matching_procedures, an array of procedures matching the given actors, ordered by relevance
   def self.match(actors, options = {})
-    # 1. getting all possible procedures
-    procedures = Procedo.list
     res = Hash.new(0)
-    procedures.values.each do |p|
-      p.variables.each do |v|
-        actors.each do |a|
-          # does not do what it is supposed to do but at least passes the tests
-          [:variety, :abilities, :derivative_of, :to_s].each {|function| res[p.short_name] += 1 if v.respond_to?(function)}
-        end
-      end
+
+    # extracting relevant information about the actors
+    actors_keywords = keywords_from(actors)
+
+    # comparing with procedures
+    Procedo.list.each do |k, v|
+      res[k] = (actors_keywords & keywords_from(v.variables.values)).count
     end
     res.sort_by{|k,v|-v}
+  end
+
+  private
+  # returns keywords from an array of Product objects (actors involved in an intervention or variables from a procedure)
+  # in: array, an array of actors or variables from a procedure
+  # out: res, an array of symbols ":<variety>_<derivative_of"
+  def self.keywords_from(array)
+    keywords = []
+    array.each do |item|
+      keywords << [item.variety, item.derivative_of].join('_').to_sym
+    end
+    keywords.uniq.delete_if{|sym| sym == :_}
   end
 
 end

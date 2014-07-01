@@ -1,7 +1,102 @@
 :ruby
+  # example: Intervention: Plowing #89
+  # let's take all the actors for this intervention
   actors = []
-  actors << CultivableZone.find(67)
-  actors << Equipment.find(179)
+  actors << CultivableZone.find(67) # cultivable zone
+  actors << Equipment.find(179) # plow
+  actors << Equipment.find(167) # tractor
+  actors << Worker.find(206) # worker
+
+  # Intervention.match should return "plowing" among the most
+  # relevant procedures, so let's select this procedure to compare
+  plowing = Procedo[:'base-plowing-0']
+  procedures = Procedo.list
+
+  # accessors for keywords' extraction
+  relevant_accessors = [:variety, :derivative_of]
+  #TODO: manage abilities later
+
+  def get_relevant_keywords_from(array)
+    keywords = []
+    array.each do |item|
+      keywords << [item.variety, item.derivative_of].join('_').to_sym
+    end
+    keywords.uniq.delete_if{|sym| sym == :_}
+  end
+
+  relevant_keywords_from_actors = get_relevant_keywords_from(actors)
+  relevant_keywords_from_procedure = get_relevant_keywords_from(plowing.variables.values)
+
+  # calculating relevance of a procedure
+  # a procedure is relevant when the intersection between procedure's keywords
+  # and actors' keywords is not empty
+  # the larger the better
+  procedures_by_relevance = Hash.new(0)
+  procedures.each do |k, p|
+    procedures_by_relevance[p.short_name] = (relevant_keywords_from_actors & get_relevant_keywords_from(p.variables.values)).count
+  end
+
+
+
   result = Intervention.match(actors)
-  #result = Procedo.list
-= result.inspect
+%h2 procedures' match
+%br
+from dirty code
+%br
+= procedures_by_relevance.sort_by{|k, v| -v}.inspect
+%br
+from Intervention#match
+%br
+= result
+%br
+%br
+%h2
+  relevant keywords
+%p
+  actors:
+  = relevant_keywords_from_actors.inspect
+%p
+  procedure:
+  = relevant_keywords_from_procedure
+
+%h2
+  Actors for the intervention "Plowing #89"
+%ul
+- actors.each do |a|
+  %li
+    Actor:
+    = a.class
+  %li
+    abilities :
+    = a.abilities.inspect
+  %li
+    variety:
+    = a.variety
+    = a.send(:variety)
+  %li
+    derivative_of:
+    = a.derivative_of
+    = a.send(:derivative_of)
+  %br
+%br
+%br
+%h2
+  details for the procedure:
+  = plowing.short_name
+%br
+
+%ul
+- plowing.variables.each do |k, v|
+  %li
+    = k
+  %li
+    variety:
+    =v.variety
+  %li
+    derivative_of
+    =v.derivative_of
+  %li
+    abilities:
+    =v.abilities.inspect
+
+%br
