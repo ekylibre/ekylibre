@@ -116,7 +116,7 @@
       end
     end
     
-    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, popup: {header: true, content: popup_content} }
+    {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Varieties[p.variety].human_name, popup: {header: true, content: popup_content} }
   end
       
 = kujaku
@@ -126,17 +126,19 @@
 
 = beehive do |b|
   - b.cell :plants do
-    = visualization :plants do |v|
-      - v.background "OpenStreetMap.HOT", label: "Toto"
+    = visualization do |v|
+      - v.serie :main, data
+      - v.background "OpenStreetMap.HOT"
       - v.background "Thunderforest"
       -# v.background "Thunderforest.Transport"
       - v.background "Thunderforest.Landscape"
       -# v.background "Thunderforest.Outdoors"
       -# v.background "MapQuestOpen.Aerial"
-      - v.choropleth :age, data
-      - v.choropleth :issues_count, data
-      - v.choropleth :interventions_count, data
-      - v.choropleth :watering_concentration, data, choropleth: {stopColor: "#1122DD"}
+      - v.choropleth :age, :main
+      - v.bubbles :issues_count, :main
+      - v.categories :variety, :main
+      - v.choropleth :interventions_count, :main
+      - v.choropleth :watering_concentration, :main, choropleth: {stopColor: "#1122DD"}
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen

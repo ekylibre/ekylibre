@@ -50,4 +50,8 @@
 //= require leaflet/label/Path
 //= require leaflet/styleeditor
 //= require leaflet/styleform
+//= require_self
 //= require_tree .
+
+
+var visualization = {};

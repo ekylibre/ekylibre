@@ -1,43 +1,8 @@
-# Core extension for vizualisation
-# 
-String.prototype.camelize = () ->
-  array = jQuery.map this.split("_"), (word)->
-    word.charAt(0).toUpperCase() + word.slice(1)
-  return array.join()
-  
-String.prototype.repeat = (count) ->
-  return new Array(count + 1).join(this)
-  
-Math.magnitude = (number, step = 1) ->
-  value = Math.abs(number)
-  power = 0
-  if value > 1
-    while Math.pow(10, power + step) < value
-      power += step
-  else
-    while Math.pow(10, power - step) > value
-      power -= step
-  mag = Math.pow(10, power)
-  result =
-    power: power
-    magnitude: mag
-    base: number / mag
-
-Math.round2 = (number, round = 1) ->
-  return round * Math.round(number / round)
-
-Math.humanize = (value, power = 0) ->
-  return Math.round(value)
-  # return Math.round(value / Math.pow(10, power)) + "e#{power}"
-  size = Math.round(power / 3)
-  return Math.round(value / Math.pow(10, 3 * size)) + "pnµm KMGTPE"[size + 4]
-
-Math.ceil2 = (number, round = 1) ->
-  return round * Math.ceil(number / round)
-
-Math.floor2 = (number, round = 1) ->
-  return round * Math.floor(number / round)
- 
+# Add sprockets directives below:
+#= require core_ext
+#= require visualization/color
+#= require visualization/choropleth
+#= require visualization/bubbles
 
 (($) ->
   "use strict"
@@ -164,95 +129,6 @@ Math.floor2 = (number, round = 1) ->
       else
         console.log "Cannot find serie #{name}"
         alert "Cannot find serie #{name}"
-        
-    # Returns hexadecimal value of given integer on 2 digits.
-    _toHex: (integer) ->
-      hex = Math.round(integer).toString(16)
-      if integer <= 0
-        return "00"
-      else if integer < 16
-        return "0" + hex
-      else if integer > 255
-        return "FF"
-      else
-        return hex
-
-    # Retuns an object with rgb properties
-    _parseColor: (color) ->
-      value =
-        red:   parseInt(color.slice(1,3), 16)
-        green: parseInt(color.slice(3,5), 16)
-        blue:  parseInt(color.slice(5,7), 16)
-      return value
-
-    _toColorString: (color) ->
-      return "##{this._toHex(color.red)}#{this._toHex(color.green)}#{this._toHex(color.blue)}"
-
-    _computeChoropleth: (layer) ->
-      widget = this
-      property = layer.reference
-      data = this._getSerieData(layer.serie)
-      defaultChoropleth =
-        maxValue: data[0][property]
-        minValue: data[0][property]
-        grades: []
-      layer.choropleth = $.extend true, {}, @options.layerDefaults.choropleth, defaultChoropleth, layer.choropleth
-      choropleth = layer.choropleth
-      $.each data, (index, zone) ->
-        if zone[property] > choropleth.maxValue
-          choropleth.maxValue = zone[property]
-        if zone[property] < choropleth.minValue
-          choropleth.minValue = zone[property]
-
-      console.log "Exact min (#{choropleth.minValue}) and max (#{choropleth.maxValue}) computed"
-
-      # Simplify values
-      maxMagnitude = Math.magnitude(choropleth.maxValue)
-      minMagnitude = Math.magnitude(choropleth.minValue)
-      ref = minMagnitude
-      if maxMagnitude.power > minMagnitude.power
-        ref = maxMagnitude
-      choropleth.power = ref.power
-      mag = ref.magnitude
-      mag = mag / 10 if mag >= 100
-      choropleth.maxValue = Math.ceil2(choropleth.maxValue,  mag * choropleth.round)
-      choropleth.minValue = Math.floor2(choropleth.minValue, mag * choropleth.round)
-      choropleth.length = choropleth.maxValue - choropleth.minValue
-
-      if choropleth.length == 0
-        console.log "Length is null"
-        return false
-      
-      if choropleth.levelNumber > choropleth.length and choropleth.length > 2
-        choropleth.levelNumber = choropleth.length
-
-      console.log "Min (#{choropleth.minValue}) and max (#{choropleth.maxValue}) computed"
-
-      start = this._parseColor(choropleth.startColor)
-      stop  = this._parseColor(choropleth.stopColor)
-      
-      for g in [1..choropleth.levelNumber]
-        level = (g - 1.0) / (choropleth.levelNumber - 1.0)
-        grade = 
-          color: this._toColorString
-            red:   start.red   + (Math.round(stop.red   - start.red)   * level)
-            green: start.green + (Math.round(stop.green - start.green) * level)       
-            blue:  start.blue  + (Math.round(stop.blue  - start.blue)  * level)
-          min: choropleth.minValue + (g-1) * choropleth.length / choropleth.levelNumber
-          max: choropleth.minValue +  g    * choropleth.length / choropleth.levelNumber
-        grade.minLabel = Math.humanize(grade.min, choropleth.power)
-        grade.maxLabel = Math.humanize(grade.max, choropleth.power)
-        choropleth.grades.push grade
-      console.log "Grades computed"
-          
-      $.each data, (index, zone) ->
-        level = Math.round(choropleth.levelNumber * (zone[property] - choropleth.minValue) / choropleth.length)
-        level = choropleth.levelNumber - 1 if level >= choropleth.levelNumber
-        level = 0 if level < 0 or isNaN(level)
-        zone.fillColor = choropleth.grades[level].color
-        
-      console.log "Choropleth computed"
-      true
 
     # Displays all given controls
     _refreshControls: ->
@@ -358,10 +234,12 @@ Math.floor2 = (number, round = 1) ->
 
     _addChoroplethLayer: (layer, legendControl)->
       widget = this
-      return false unless this._computeChoropleth(layer)
+      data = this._getSerieData(layer.serie)
+      layer.choropleth = $.extend true, {}, @options.layerDefaults.choropleth, layer.choropleth
+      return false unless visualization.choropleth.compute(layer, data)
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
-      $.each this._getSerieData(layer.serie), (index, zone) ->            
+      $.each data, (index, zone) ->            
         zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: zone.fillColor, fillOpacity: options.fillOpacity} )
         widget._bindPopup(zoneLayer, zone)
         layerGroup.push(zoneLayer)
@@ -369,19 +247,7 @@ Math.floor2 = (number, round = 1) ->
 
       # Add legend
       legend = legendControl.getContainer()
-      console.log(legend)
-      html  = "<div class='leaflet-legend-item' id='legend-#{layer.name}'>"
-      html += "<h3>#{layer.label}</h3>"
-      html += "<div class='leaflet-legend-body leaflet-choropleth-scale'>"
-      html += "<span class='min-value'>#{layer.choropleth.grades[0].minLabel}</span>"
-      html += "<span class='max-value'>#{layer.choropleth.grades[layer.choropleth.levelNumber - 1].maxLabel}</span>"
-      html += "<span class='leaflet-choropleth-grades'>"
-      $.each layer.choropleth.grades, (index, grade) ->               
-        html += "<i class='leaflet-choropleth-grade' style='width: #{100 / layer.choropleth.levelNumber}%; background-color: #{grade.color}' title='#{grade.minLabel} ~ #{grade.maxLabel}'></i>"
-      html += "</span>"
-      html += "</div>"
-      html += "</div>"
-      legend.innerHTML += html
+      legend.innerHTML += visualization.choropleth.legend(layer)
 
       return layerGroup
 
@@ -389,7 +255,7 @@ Math.floor2 = (number, round = 1) ->
       widget = this
       layerGroup = []
       alert "Not implemented"
-      return layerGroup
+      return false
       options = $.extend(true, {}, @options.layerDefaults.bubbles, layer)
       $.each this._getSerieData(layer.serie), (index, zone) ->            
         if zone.radius > max_bubble_zone
@@ -404,7 +270,8 @@ Math.floor2 = (number, round = 1) ->
 
     _addCategoriesLayer: (layer, legendControl)->
       layerGroup = []
-      alert "Not implemented"
+      console.log "Categories are not implemented"
+      return false
       return layerGroup
 
     # Build a popup from given parameters. For now it only uses popup attribute of
