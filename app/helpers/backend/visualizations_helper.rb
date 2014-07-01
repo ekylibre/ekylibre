@@ -2,64 +2,65 @@ module Backend::VisualizationsHelper
   
   class VisualizationConfiguration  
     
-    def initialize(data = {})
-      @data = data
+    def initialize(config = {})
+      @config = config
     end
     
     def background(name, options = {})
       options[:name] = name
       options[:provider] ||= options[:name]
       options[:label] ||= options[:name].humanize
-      @data[:backgrounds] ||= []
-      @data[:backgrounds] << options
+      @config[:backgrounds] ||= []
+      @config[:backgrounds] << options
     end
     
     def overlay(name, provider_name)
-      @data[:overlays] ||= []
-      @data[:overlays] << {name: name, provider_name: provider_name}
+      @config[:overlays] ||= []
+      @config[:overlays] << {name: name, provider_name: provider_name}
     end
     
     # def layer(name, list = {})
-    #   @data[:layers] ||= []
-    #   @data[:layers] << {name: name, list: list}
+    #   @config[:layers] ||= []
+    #   @config[:layers] << {name: name, list: list}
     # end
     
-    def layer(name, data, options = {})
+    def layer(name, serie, options = {})
       options[:label] ||= name.tl(default: "attributes.#{name}".to_sym)
-      data = data.compact.collect do |item|
+      @config[:layers] ||= []
+      @config[:layers] << {reference: name.to_s.camelcase(:lower)}.merge(options.merge(name: name, serie: serie.to_s.camelcase(:lower)))
+    end
+    
+    def choropleth(name, serie, options = {})
+      layer(name, serie, options.merge(type: :choropleth))
+    end
+    
+    def bubbles(name, serie, options = {})
+      layer(name, serie, options.merge(type: :bubbles))
+    end
+    
+    def categories(name, serie, options = {})
+      layer(name, serie, options.merge(type: :categories))
+    end
+
+    # Add a serie of geo data
+    def serie(name, data)
+      @config[:series] ||= {}.with_indifferent_access
+      @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
         item
           .merge(shape: Charta::Geometry.new(item[:shape]).transform(:WGS84).to_geojson)
           .merge(item[:popup] ? {popup: compile_visualization_popup(item[:popup], item)} : {})
       end.compact
-      @data[:layers] ||= []
-      @data[:layers] << {reference: name}.merge(options.merge(name: name, data: data))
-    end
-    
-    def choropleth(name, data, options = {})
-      layer(name, data, options.merge(type: :choropleth))
-    end
-    
-    def bubbles(name, data, options = {})
-      layer(name, data, options.merge(type: :bubbles))
-    end
-    
-    def categories(name, data, options = {})
-      layer(name, data, options.merge(type: :categories))
-    end
-    
-    def dataset(name, data)
-      @data[:datasets] ||= {}.with_indifferent_access
-      @data[:datasets][name] = data
     end
 
+    # Add a control
     def control(name, options = true)
-      @data[:controls] ||= {}.with_indifferent_access
-      @data[:controls][name.to_s.camelize(:lower)] = options
+      @config[:controls] ||= {}.with_indifferent_access
+      @config[:controls][name.to_s.camelize(:lower)] = options
     end
 
     def to_json
-      @data.jsonize_keys.to_json
+      @config.jsonize_keys.to_json
     end
 
     protected
@@ -160,20 +161,21 @@ module Backend::VisualizationsHelper
 
   # Example of how to use in HAML view:
   #
-  #   = visualization :vizu1 do |v|
+  #   = visualization do |v|
+  #     - v.serie :data, <data>
   #     - v.background "openstreetmap.hot"
   #     - v.background "openweather.precipitations"
   #     - v.background "openweather.heat"
-  #     - v.choropleth :<property>, <data>
+  #     - v.choropleth :<property>, :data
   #     - v.control :fullscreen
   #     - v.control :layer_selector
   #     - v.control :background_selector
   #     - v.control :search  
   #
-  def visualization(name, options = {}, html_options = {})
+  def visualization(options = {}, html_options = {})
     config = VisualizationConfiguration.new(options)
     yield config
-    return content_tag(:div, nil, data: {visualization: config.to_json})
+    return content_tag(:div, nil, html_options.deep_merge(data: {visualization: config.to_json}))
   end
 
 

@@ -75,20 +75,21 @@
 
   
 
-= visualization :supports do |v|
+= visualization do |v|
+  - v.serie :main, data
   - v.background "OpenStreetMap.HOT"
   - v.background "Thunderforest.Transport"
   - v.background "Thunderforest.Outdoors"
   - if params[:visualization] == "nitrogen_footprint"
-    - v.choropleth :interventions_count, data
-    - v.choropleth :nitrogen_concentration, data, choropleth: {stopColor: "#777777"}
-    - v.choropleth :phosphorus_concentration, data, choropleth: {stopColor: "#11BB99"}
-    - v.choropleth :potassium_concentration, data
+    - v.choropleth :interventions_count, :main
+    - v.choropleth :nitrogen_concentration, :main, choropleth: {stopColor: "#777777"}
+    - v.choropleth :phosphorus_concentration, :main, choropleth: {stopColor: "#11BB99"}
+    - v.choropleth :potassium_concentration, :main
   - else
-    - v.choropleth :interventions_count, data
-    - v.choropleth :tool_cost, data, choropleth: {stopColor: "#00AA00"}
-    - v.choropleth :input_cost, data, choropleth: {stopColor: "#1122DD"}
-    - v.choropleth :time_cost, data
+    - v.choropleth :interventions_count, :main
+    - v.choropleth :tool_cost, :main, choropleth: {stopColor: "#00AA00"}
+    - v.choropleth :input_cost, :main, choropleth: {stopColor: "#1122DD"}
+    - v.choropleth :time_cost, :main
   - v.control :zoom
   - v.control :scale
   - v.control :fullscreen

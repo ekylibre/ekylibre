@@ -1,5 +1,5 @@
-console.log "?"
-
+# Core extension for vizualisation
+# 
 String.prototype.camelize = () ->
   array = jQuery.map this.split("_"), (word)->
     word.charAt(0).toUpperCase() + word.slice(1)
@@ -50,6 +50,7 @@ Math.floor2 = (number, round = 1) ->
       backgrounds: {}
       overlays: {}
       controls: {}
+      series: {}
       controlDefaults:
         fullscreen:
           position: 'topleft'
@@ -155,6 +156,14 @@ Math.floor2 = (number, round = 1) ->
         if this.options.box.width?
           @mapElement.width this.options.box.width
         this._trigger "resize"
+
+    # Retuns data from a serie found with the given name
+    _getSerieData: (name) ->
+      if @options.series[name]?
+        return @options.series[name]
+      else
+        console.log "Cannot find serie #{name}"
+        alert "Cannot find serie #{name}"
         
     # Returns hexadecimal value of given integer on 2 digits.
     _toHex: (integer) ->
@@ -182,17 +191,20 @@ Math.floor2 = (number, round = 1) ->
     _computeChoropleth: (layer) ->
       widget = this
       property = layer.reference
+      data = this._getSerieData(layer.serie)
       defaultChoropleth =
-        maxValue: layer.data[0][property]
-        minValue: layer.data[0][property]
+        maxValue: data[0][property]
+        minValue: data[0][property]
         grades: []
       layer.choropleth = $.extend true, {}, @options.layerDefaults.choropleth, defaultChoropleth, layer.choropleth
       choropleth = layer.choropleth
-      $.each layer.data, (index, zone) ->
+      $.each data, (index, zone) ->
         if zone[property] > choropleth.maxValue
           choropleth.maxValue = zone[property]
         if zone[property] < choropleth.minValue
           choropleth.minValue = zone[property]
+
+      console.log "Exact min (#{choropleth.minValue}) and max (#{choropleth.maxValue}) computed"
 
       # Simplify values
       maxMagnitude = Math.magnitude(choropleth.maxValue)
@@ -213,6 +225,7 @@ Math.floor2 = (number, round = 1) ->
       
       if choropleth.levelNumber > choropleth.length and choropleth.length > 2
         choropleth.levelNumber = choropleth.length
+
       console.log "Min (#{choropleth.minValue}) and max (#{choropleth.maxValue}) computed"
 
       start = this._parseColor(choropleth.startColor)
@@ -232,10 +245,10 @@ Math.floor2 = (number, round = 1) ->
         choropleth.grades.push grade
       console.log "Grades computed"
           
-      $.each layer.data, (index, zone) ->
+      $.each data, (index, zone) ->
         level = Math.round(choropleth.levelNumber * (zone[property] - choropleth.minValue) / choropleth.length)
         level = choropleth.levelNumber - 1 if level >= choropleth.levelNumber
-        level = 0 if level < 0
+        level = 0 if level < 0 or isNaN(level)
         zone.fillColor = choropleth.grades[level].color
         
       console.log "Choropleth computed"
@@ -297,6 +310,8 @@ Math.floor2 = (number, round = 1) ->
             widget.map.addLayer(overlayLayer)
             group = new L.featureGroup(layerGroup)
             widget.map.fitBounds(group.getBounds())
+          else
+            console.log "Cannot add layer #{layer.type}"
         else
           console.log "Unknown layer type: #{layer.type}"
         
@@ -335,7 +350,7 @@ Math.floor2 = (number, round = 1) ->
       widget = this
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.simple, layer)
-      $.each layer.data, (index, zone) ->
+      $.each this._getSerieData(layer.serie), (index, zone) ->
         zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: options.fillColor, fillOpacity: options.fillOpacity} )
         widget._bindPopup(zoneLayer, zone)
         layerGroup.push(zoneLayer)
@@ -346,7 +361,7 @@ Math.floor2 = (number, round = 1) ->
       return false unless this._computeChoropleth(layer)
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
-      $.each layer.data, (index, zone) ->            
+      $.each this._getSerieData(layer.serie), (index, zone) ->            
         zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: zone.fillColor, fillOpacity: options.fillOpacity} )
         widget._bindPopup(zoneLayer, zone)
         layerGroup.push(zoneLayer)
@@ -376,7 +391,7 @@ Math.floor2 = (number, round = 1) ->
       alert "Not implemented"
       return layerGroup
       options = $.extend(true, {}, @options.layerDefaults.bubbles, layer)
-      $.each layer.data, (index, zone) ->            
+      $.each this._getSerieData(layer.serie), (index, zone) ->            
         if zone.radius > max_bubble_zone
           bubble_legend_color = zone.fillColor
           max_bubble_value = zone.radius

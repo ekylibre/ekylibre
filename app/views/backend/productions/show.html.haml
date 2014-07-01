@@ -49,7 +49,7 @@
             series = []
             series << {name: CultivableZone.model_name.human, data: cultivable_zones_serie, size: "80%"}
 
-          = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: {})
+          = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
         - else
           = no_data
       - b.cell(:supports) do

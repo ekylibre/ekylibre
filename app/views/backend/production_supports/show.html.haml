@@ -116,7 +116,7 @@
           
           
           
-      = column_chart(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: {}, plot_options: { column: {stacking: 'normal'}})
+      = column_chart(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: true, plot_options: { column: {stacking: 'normal'}})
   - else
     = no_data
           
