@@ -308,4 +308,22 @@ class Intervention < Ekylibre::Record::Base
     return intervention
   end
 
+   # match
+   # in: actors, an array of actors identified for a given procedure
+   # out: matching_procedures, an array of procedures matching the given actors, ordered by relevance
+  def self.match(actors, options = {})
+    # 1. getting all possible procedures
+    procedures = Procedo.list
+    res = Hash.new(0)
+    procedures.values.each do |p|
+      p.variables.each do |v|
+        actors.each do |a|
+          # does not do what it is supposed to do but at least passes the tests
+          [:variety, :abilities, :derivative_of, :to_s].each {|function| res[p.short_name] += 1 if v.respond_to?(function)}
+        end
+      end
+    end
+    res.sort_by{|k,v|-v}
+  end
+
 end

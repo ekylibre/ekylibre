@@ -1040,6 +1040,7 @@ eng:
     new_value: "New value" #?
     next: "Next" #?
     nitrogen_concentration: "Nitrogen_concentration" #?
+    # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_commercial: "No commercial" #?
     no_contacts: "No address defined for %{name}" #?
     no_data: "No data"
@@ -1102,6 +1103,7 @@ eng:
     pertinence: "%{value}%" #?
     phone: "Pho." #?
     phosphorus_concentration: "Phosphorus concentration" #?
+    # phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places" #?
@@ -1112,6 +1114,7 @@ eng:
     point: "Point" #?
     population: "Population"
     potassium_concentration: "Potassium concentration" #?
+    # potassium_concentration_per_hectare: "Potassium concentration per hectare"
     precipitation: "Precipitation"
     preferences: "Preferences" #?
     prescription: "Prescription" #?
@@ -1266,6 +1269,7 @@ eng:
     target_zone: "Target zone" #?
     taxes: "Taxes" #?
     time_cost: "Time cost" #?
+    # time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
     to: "to" #?
     to_bank_at: "To bank on" #?
@@ -1274,6 +1278,7 @@ eng:
     to_deposit: "To deposit" #?
     today: "Today" #?
     tool_cost: "Tool cost"
+    # tool_cost_per_hectare: "Tool cost per hectare"
     tools: "Tools"
     tools_list: "Tools" #?
     total: "Total"
