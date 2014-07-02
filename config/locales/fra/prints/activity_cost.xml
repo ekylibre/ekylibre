@@ -204,7 +204,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Nom de l'intervention]]></text>
+					<text><![CDATA[Nom de l’intervention]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="1c5f55c2-fc3c-4d41-b2ce-16e830a94d1d" style="strong" x="0" y="49" width="539" height="20"/>
@@ -240,7 +240,7 @@
 							<labelExpression><![CDATA[$V{input_cost_support_per_area}.toString()]]></labelExpression>
 						</categorySeries>
 						<categorySeries>
-							<seriesExpression><![CDATA["Main d'oeuvre"]]></seriesExpression>
+							<seriesExpression><![CDATA["Main d’œuvre"]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{intervention_support}]]></categoryExpression>
 							<valueExpression><![CDATA[$V{doer_cost_support_per_area}]]></valueExpression>
 							<labelExpression><![CDATA[$V{doer_cost_support_per_area}.toString()]]></labelExpression>
@@ -302,7 +302,7 @@
 				<staticText>
 					<reportElement uuid="79978752-6d26-4b6b-9374-6b3053cabb46" style="base" x="114" y="6" width="117" height="20"/>
 					<textElement/>
-					<text><![CDATA[heures d'interventions]]></text>
+					<text><![CDATA[heures d’interventions]]></text>
 				</staticText>
 				<textField pattern="###0.00" isBlankWhenNull="true">
 					<reportElement uuid="335d82da-ac56-46b6-89e6-24e788e9b90e" x="379" y="7" width="55" height="20"/>

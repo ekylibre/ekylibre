@@ -50,7 +50,7 @@
           opacity: 1
           fill: true
           fillColor: "orange"
-          fillOpacity: 0.6
+          fillOpacity: 1
         categories:
           stroke: true
           color: "#333333"
@@ -65,9 +65,9 @@
           opacity: 1
           fill: true
           fillColor: "blue"
-          fillOpacity: 0.8
+          fillOpacity: 1
           round: 5
-          startColor: '#EEEEE0'
+          startColor: '#FFFFFF'
           stopColor: '#910000'
           levelNumber: 7   
         simple:

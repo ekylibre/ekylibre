@@ -82,14 +82,14 @@
   - v.background "Thunderforest.Outdoors"
   - if params[:visualization] == "nitrogen_footprint"
     - v.choropleth :interventions_count, :main
-    - v.choropleth :nitrogen_concentration, :main, choropleth: {stopColor: "#777777"}
-    - v.choropleth :phosphorus_concentration, :main, choropleth: {stopColor: "#11BB99"}
-    - v.choropleth :potassium_concentration, :main
+    - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
+    - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
+    - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
   - else
     - v.choropleth :interventions_count, :main
-    - v.choropleth :tool_cost, :main, choropleth: {stopColor: "#00AA00"}
-    - v.choropleth :input_cost, :main, choropleth: {stopColor: "#1122DD"}
-    - v.choropleth :time_cost, :main
+    - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
+    - v.choropleth :input_cost, :main, stop_color: "#1122DD"
+    - v.choropleth :time_cost, :main, stop_color: "#E77000"
   - v.control :zoom
   - v.control :scale
   - v.control :fullscreen

@@ -283,8 +283,8 @@ fra:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      run: "Exécuter l'intervention"
-      set: "Saisie des valeurs de l'intervention"
+      run: "Exécuter l’intervention"
+      set: "Saisie des valeurs de l’intervention"
       show: "%{procedure_name} N°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -667,7 +667,7 @@ fra:
     backend/incoming_delivery_modes: "Modes de réception d’arrivage" #?
     backend/incoming_payment_modes: "Modes d’encaissement" #?
     backend/incoming_payments: "Encaissements" #?
-    backend/intervention_casts: "Acteurs d'intervention" #?
+    backend/intervention_casts: "Acteurs d’intervention" #?
     backend/interventions: "Interventions" #?
     backend/inventories: "Inventaires" #?
     backend/inventory_items: "Lignes d’inventaires" #?
@@ -1014,7 +1014,7 @@ fra:
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
-    doer_cost: "Coût de main d'oeuvre"
+    doer_cost: "Coût de main d’œuvre"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau"
@@ -1143,7 +1143,7 @@ fra:
     info: "Information\_: %{value}"
     infos: "Information générales"
     inhibitors_presence: "Présence de résidus d’inhibiteurs" #?
-    input_cost: "Coût d'intrant"
+    input_cost: "Coût d’intrant"
     input_cost_per_hectare: "Coût des intrants par hectare"
     insert_actual_password: "Saisissez votre mot de passe actuel"
     insert_password: "Saisissez votre nouveau mot de passe"
@@ -1153,7 +1153,7 @@ fra:
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
     intervention_casts: "Actions dans les interventions" #?
-    interventions_count: "Nombre d'interventions"
+    interventions_count: "Nombre d’interventions"
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire"
@@ -1162,7 +1162,7 @@ fra:
     is: "Est"
     issue: "Incident"
     issues: "Incidents"
-    issues_count: "Nombre d'incidents"
+    issues_count: "Nombre d’incidents"
     isu_index: "Index génétique ISU" #?
     items: "Éléments" #?
     journal: "Journal"
@@ -1640,7 +1640,7 @@ fra:
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
-    time_cost: "Coût de main d'oeuvre"
+    time_cost: "Coût de main d’œuvre"
     time_zone: "Fuseau horaire"
     to: "Au"
     to_bank_at: "À encaisser le"

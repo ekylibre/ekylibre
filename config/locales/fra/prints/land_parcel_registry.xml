@@ -250,7 +250,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Date d'implantation]]></text>
+					<text><![CDATA[Date d’implantation]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="label" x="414" y="50" width="102" height="23" uuid="16cd9442-22dc-4dfe-97e4-5ba5d347d272"/>
@@ -302,7 +302,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Acteurs (Main d'oeuvre, matériels utilisés, intrants, parcelle...)]]></text>
+					<text><![CDATA[Acteurs (Main d’œuvre, matériels utilisés, intrants, parcelle...)]]></text>
 				</staticText>
 				<ellipse>
 					<reportElement x="188" y="159" width="10" height="10" forecolor="#FFFFFF" backcolor="#65A907" uuid="9d88d731-e0ff-4139-9b42-fa390601a67e"/>
