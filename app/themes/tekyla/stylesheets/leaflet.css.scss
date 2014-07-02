@@ -13,10 +13,7 @@ $map-button-size: round(2 * $fs-normal);
 }
 
 .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    -webkit-user-drag: none;
+		@include user-select(none);
 }
 
 .leaflet-marker-icon, .leaflet-marker-shadow {
@@ -836,11 +833,16 @@ $map-button-size: round(2 * $fs-normal);
             line-height: $lh-normal;
         }
         .leaflet-legend-body {
-            padding: $default-gap;
+						.min-value, .max-value {
+								color: $neutral-color;
+								font-size: $fs-small;
+								line-height: $lh-small;
+								font-weight: bold;
+						}
         }
         
     }
-
+/*
     .legend {
         line-height: 18px;
         color: #555;
@@ -857,13 +859,19 @@ $map-button-size: round(2 * $fs-normal);
         margin: 0 0 5px;
         color: #777;
     }
+*/
+    .leaflet-bubbles-scale {
+        .leaflet-bubbles-grades {
+						.leaflet-bubbles-grade {
+								@include inline-block;
+								@include border-radius(50%);
+								margin: $default-gap;
+								border-style: solid;
+						}
+				}
+		}
+
     .leaflet-choropleth-scale {
-        .min-value, .max-value {
-            color: $neutral-color;
-						font-size: $fs-small;
-						line-height: $lh-small;
-						font-weight: bold;
-        }
         .min-value {
             @include float(left);
         }
@@ -871,18 +879,19 @@ $map-button-size: round(2 * $fs-normal);
             @include float(right);
         }
         .leaflet-choropleth-grades {
+						$height: $fs-small;
             display: block;
             clear: both;
             $border: 1px solid #333;
-            margin: $default-gap 0 0 0;
+            // margin: $default-gap 0 0 0;
             width: 15 * $lh-normal;
-            height: $lh-normal;
+            height: $height;
             @include border-radius(3px);
             border: $border;
             .leaflet-choropleth-grade {
                 @include inline-block;
 								vertical-align: top;
-                height: $lh-normal;
+                height: $height;
             }
         }
     }

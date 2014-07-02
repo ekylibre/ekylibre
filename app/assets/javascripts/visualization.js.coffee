@@ -46,7 +46,7 @@
         bubbles:
           stroke: true
           color: "black"
-          weight: 1
+          weight: 2
           opacity: 1
           fill: true
           fillColor: "orange"
@@ -127,7 +127,7 @@
       if @options.series[name]?
         return @options.series[name]
       else
-        console.log "Cannot find serie #{name}"
+        console.error "Cannot find serie #{name}"
         alert "Cannot find serie #{name}"
 
     # Displays all given controls
@@ -156,16 +156,15 @@
       @map.addControl control
 
     _addLayerSelectorControl: (options) ->
-      widget = this
       baseLayers = {}
       overlays = {}
       
-      $.each @options.backgrounds, (index, layer) -> 
+      for layer, index in @options.backgrounds
         backgroundLayer = L.tileLayer.provider(layer.provider)
         baseLayers[layer.label] = backgroundLayer
-        widget.map.addLayer(backgroundLayer) if index == 0
+        @map.addLayer(backgroundLayer) if index == 0
       
-      $.each @options.overlays, (index, layer) -> 
+      for layer in @options.overlays
         overlayLayer = L.tileLayer.provider(layer.provider_name)
         overlays[layer.name] = overlayLayer
 
@@ -174,22 +173,26 @@
         L.DomUtil.create('div', 'leaflet-legend-control')
       @map.addControl legendControl
         
-      $.each @options.layers, (index, layer) ->
-        console.log "Add layer..."
+      for layer in @options.layers
+        if console.group isnt undefined
+          console.group "Add layer #{layer.name}..."
+        else
+          console.log "Add layer #{layer.name}..."
         functionName = "_add#{layer.type.camelize()}Layer"
-        if $.isFunction widget[functionName]
+        if $.isFunction this[functionName]
           options = {} if options is true
-          if layerGroup = widget[functionName].call(widget, layer, legendControl)
+          if layerGroup = this[functionName].call(this, layer, legendControl)
             overlayLayer = L.layerGroup(layerGroup)
             overlayLayer.name = layer.name            
             layer.overlay = overlays[layer.label] = overlayLayer
-            widget.map.addLayer(overlayLayer)
+            @map.addLayer(overlayLayer)
             group = new L.featureGroup(layerGroup)
-            widget.map.fitBounds(group.getBounds())
+            @map.fitBounds(group.getBounds())
           else
-            console.log "Cannot add layer #{layer.type}"
+            console.warn "Cannot add layer #{layer.type}"
         else
           console.log "Unknown layer type: #{layer.type}"
+        console.groupEnd() if console.groupEnd isnt undefined
         
       @map.on "overlayadd", (event) ->
         console.log "Add legend control..."
@@ -235,37 +238,35 @@
     _addChoroplethLayer: (layer, legendControl)->
       widget = this
       data = this._getSerieData(layer.serie)
-      layer.choropleth = $.extend true, {}, @options.layerDefaults.choropleth, layer.choropleth
-      return false unless visualization.choropleth.compute(layer, data)
-      layerGroup = []
-      options = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
-      $.each data, (index, zone) ->            
-        zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: zone.fillColor, fillOpacity: options.fillOpacity} )
-        widget._bindPopup(zoneLayer, zone)
-        layerGroup.push(zoneLayer)
+      options = $.extend true, {}, @options.layerDefaults.choropleth, layer.choropleth
+      choropleth = new visualization.Choropleth(layer, data, options)
+      return false unless choropleth.valid()
+      # return false unless visualization.choropleth.compute(layer, data)
+      style = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
+      layerGroup = choropleth.buildLayerGroup(widget, style)
       console.log("Choropleth layer added")
 
       # Add legend
       legend = legendControl.getContainer()
-      legend.innerHTML += visualization.choropleth.legend(layer)
+      legend.innerHTML += choropleth.buildLegend()
 
       return layerGroup
 
     _addBubblesLayer: (layer, legendControl)->
       widget = this
-      layerGroup = []
-      alert "Not implemented"
-      return false
-      options = $.extend(true, {}, @options.layerDefaults.bubbles, layer)
-      $.each this._getSerieData(layer.serie), (index, zone) ->            
-        if zone.radius > max_bubble_zone
-          bubble_legend_color = zone.fillColor
-          max_bubble_value = zone.radius
-          max_bubble_value_digits = (max_bubble_value.toString().length)-1
-              
-        zoneLayer = new L.Circle(zone.center, zone.radius, {stroke: layer.stroke, color: layer.color, weight: layer.weight, opacity: layer.opacity, fill: layer.fill, fillColor: layer.fillColor, fillOpacity: layer.fillOpacity} )
-        widget._bindPopup(zoneLayer, zone)
-        layerGroup.push(zoneLayer)
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.layerDefaults.bubbles, layer.bubbles
+      bubbles = new visualization.Bubbles(layer, data, options)
+      return false unless bubbles.valid()
+      # return false unless visualization.bubbles.compute(layer, data)
+      style = $.extend(true, {}, @options.layerDefaults.bubbles, layer)
+      layerGroup = bubbles.buildLayerGroup(widget, style)
+      console.log("Bubbles layer added")
+
+      # Add legend
+      legend = legendControl.getContainer()
+      legend.innerHTML += bubbles.buildLegend()
+
       return layerGroup
 
     _addCategoriesLayer: (layer, legendControl)->
