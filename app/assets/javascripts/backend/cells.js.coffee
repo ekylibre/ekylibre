@@ -5,6 +5,7 @@
     $("*[data-cell]").each (index) ->
       element = $(this)
       element.addClass("loading")
+      element.html("<i class='cell-loader'></i>")
       $.ajax(element.data("cell"), {
         dataType: "html",
         success: (data, status, request) ->
