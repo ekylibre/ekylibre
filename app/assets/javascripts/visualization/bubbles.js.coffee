@@ -12,8 +12,8 @@ class visualization.Bubbles extends visualization.Gradient
     if this.valid()
 
       # Compute radius
-      options.startRadius ?= 5
-      options.stopRadius  ?= 25
+      options.startRadius ?= 4
+      options.stopRadius  ?= 24
       start = options.startRadius
       stop  = options.stopRadius
       for grade in @grades
@@ -68,39 +68,8 @@ class visualization.Bubbles extends visualization.Gradient
     html += "</div>"
     return html
 
+  # Compute a centroid based on bounds
+  # The point can be out of the surface...
   _centroid: (shape) ->
     geojson = new L.GeoJSON(shape)
     return geojson.getBounds().getCenter()
-  
-# visualization.bubbles =
-#   compute: (layer, data) ->
-#     return false
-#     options = layer.bubbles
-        
-#     gradient = visualization.gradient(data, layer.reference, layer.bubbles)
-#     return false if layer.gradient is false
-
-#     # Computes center and radius
-
-      
-#     return false
-    
-#     return true
-
-#   legend: (layer) ->
-#     html  = "<div class='leaflet-legend-item' id='legend-#{layer.name}'>"
-#     html += "</div>"
-#     return html
-
-#   buildLayerGroup: (widget, globalStyle = {}) ->
-#     group = []
-#     $.each data, (index, zone) ->
-#       grade = layer.gradient.gradeFor(zone[layer.reference])
-#       zoneStyle =
-#         fillColor: layer.gradient.gradeFor(zone[layer.reference]).color
-#       center = sdsd
-#       radius = sdsd
-#       zoneLayer = new L.CircleMarker(center, radius, $.extend(true, {}, globalStyle, zoneStyle))
-#       widget._bindPopup(zoneLayer, zone)
-#       group.push(zoneLayer)
-#     return group

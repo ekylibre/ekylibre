@@ -13,7 +13,7 @@ class visualization.Choropleth extends visualization.Gradient
       stop  = new visualization.Color(options.stopColor)
       for grade in @grades
         level = grade.index / (@levelNumber - 1.0)
-        grade.color = visualization.Color.toString
+        grade.fillColor = visualization.Color.toString
           red:   start.red   + (Math.round(stop.red   - start.red)   * level)
           green: start.green + (Math.round(stop.green - start.green) * level)       
           blue:  start.blue  + (Math.round(stop.blue  - start.blue)  * level)
@@ -26,7 +26,7 @@ class visualization.Choropleth extends visualization.Gradient
     group = []
     for zone in @data
       zoneStyle =
-        fillColor: this.gradeFor(zone[@layer.reference]).color
+        fillColor: this.gradeFor(zone[@layer.reference]).fillColor
       zoneLayer = new L.GeoJSON(zone.shape, $.extend(true, {}, globalStyle, zoneStyle))
       widget._bindPopup(zoneLayer, zone)
       group.push(zoneLayer)
@@ -41,7 +41,7 @@ class visualization.Choropleth extends visualization.Gradient
     html += "<span class='max-value'>#{@grades[@levelNumber - 1].maxLabel}</span>"
     html += "<span class='leaflet-choropleth-grades'>"
     for grade in @grades
-      html += "<i class='leaflet-choropleth-grade' style='width: #{100 / @levelNumber}%; background-color: #{grade.color}' title='#{grade.minLabel} ~ #{grade.maxLabel}'></i>"
+      html += "<i class='leaflet-choropleth-grade' style='width: #{100 / @levelNumber}%; background-color: #{grade.fillColor}' title='#{grade.minLabel} ~ #{grade.maxLabel}'></i>"
     html += "</span>"
     html += "</div>"
     html += "</div>"

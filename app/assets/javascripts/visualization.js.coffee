@@ -45,15 +45,22 @@
       layerDefaults:
         bubbles:
           stroke: true
-          color: "black"
-          weight: 2
+          color: "#333333"
+          weight: 1
           opacity: 1
           fill: true
           fillColor: "orange"
           fillOpacity: 0.6
+        categories:
+          stroke: true
+          color: "#333333"
+          weight: 1
+          opacity: 1
+          fill: true
+          fillOpacity: 1
         choropleth:
           stroke: true
-          color: "black"
+          color: "#333333"
           weight: 1
           opacity: 1
           fill: true
@@ -65,12 +72,12 @@
           levelNumber: 7   
         simple:
           stroke: true
-          color: "black"
+          color: "#333333"
           weight: 1
           opacity: 1
           fill: true
           fillColor: "green"
-          fillOpacity: 0.6
+          fillOpacity: 1
       map:
         maxZoom: 18
         minZoom:2
@@ -226,24 +233,22 @@
       @map.addControl control
 
     _addSimpleLayer: (layer, legendControl)->
-      widget = this
       layerGroup = []
       options = $.extend(true, {}, @options.layerDefaults.simple, layer)
-      $.each this._getSerieData(layer.serie), (index, zone) ->
-        zoneLayer = new L.GeoJSON(zone.shape, {stroke: options.stroke, color: options.color, weight: options.weight, opacity: options.opacity, fill: options.fill, fillColor: options.fillColor, fillOpacity: options.fillOpacity} )
-        widget._bindPopup(zoneLayer, zone)
+      for zone in this._getSerieData(layer.serie)
+        zoneLayer = new L.GeoJSON(zone.shape, options)
+        this._bindPopup(zoneLayer, zone)
         layerGroup.push(zoneLayer)
       return layerGroup
 
     _addChoroplethLayer: (layer, legendControl)->
-      widget = this
       data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.choropleth, layer.choropleth
+      options = $.extend true, {}, @options.layerDefaults.choropleth, layer
       choropleth = new visualization.Choropleth(layer, data, options)
-      return false unless choropleth.valid()
-      # return false unless visualization.choropleth.compute(layer, data)
-      style = $.extend(true, {}, @options.layerDefaults.choropleth, layer)
-      layerGroup = choropleth.buildLayerGroup(widget, style)
+      unless choropleth.valid()
+        return false 
+
+      layerGroup = choropleth.buildLayerGroup(this, options)
       console.log("Choropleth layer added")
 
       # Add legend
@@ -253,14 +258,12 @@
       return layerGroup
 
     _addBubblesLayer: (layer, legendControl)->
-      widget = this
       data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.bubbles, layer.bubbles
+      options = $.extend true, {}, @options.layerDefaults.bubbles, layer
       bubbles = new visualization.Bubbles(layer, data, options)
       return false unless bubbles.valid()
-      # return false unless visualization.bubbles.compute(layer, data)
-      style = $.extend(true, {}, @options.layerDefaults.bubbles, layer)
-      layerGroup = bubbles.buildLayerGroup(widget, style)
+
+      layerGroup = bubbles.buildLayerGroup(this, options)
       console.log("Bubbles layer added")
 
       # Add legend
@@ -270,9 +273,18 @@
       return layerGroup
 
     _addCategoriesLayer: (layer, legendControl)->
-      layerGroup = []
-      console.log "Categories are not implemented"
-      return false
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.layerDefaults.categories, layer
+      categories = new visualization.Categories(layer, data, options)
+      return false unless categories.valid()
+
+      layerGroup = categories.buildLayerGroup(this, options)
+      console.log("Categories layer added")
+
+      # Add legend
+      legend = legendControl.getContainer()
+      legend.innerHTML += categories.buildLegend()
+
       return layerGroup
 
     # Build a popup from given parameters. For now it only uses popup attribute of

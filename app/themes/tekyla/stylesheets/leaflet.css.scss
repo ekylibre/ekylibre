@@ -814,6 +814,7 @@ $map-button-size: round(2 * $fs-normal);
    /* ================================================================== */
 
 .leaflet-legend-control {
+		$cell-height: $fs-small;
     @include menu-box;
     min-width: 220px;
     
@@ -824,6 +825,8 @@ $map-button-size: round(2 * $fs-normal);
     .leaflet-legend-item {
         padding: $default-gap;
         border-top: $menu-border;
+				display: block;
+        min-width: 15 * $lh-normal;
         &.first, &:first-child {
             border-top: none;
         }
@@ -831,6 +834,7 @@ $map-button-size: round(2 * $fs-normal);
             color: $text-color;
             font-size: $fs-normal;
             line-height: $lh-normal;
+						font-weight: bold;
         }
         .leaflet-legend-body {
 						.min-value, .max-value {
@@ -840,33 +844,46 @@ $map-button-size: round(2 * $fs-normal);
 								font-weight: bold;
 						}
         }
-        
     }
-/*
-    .legend {
-        line-height: 18px;
-        color: #555;
-    }
-    .legend-i {
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 8px;
-        opacity: 1;
-    }
-    
-    .info h4 {
-        margin: 0 0 5px;
-        color: #777;
-    }
-*/
+
     .leaflet-bubbles-scale {
+				text-align: center;
+				.min-value {
+						@include margin-right($default-gap);
+				}
+				.max-value {
+						@include margin-left($default-gap);
+				}
         .leaflet-bubbles-grades {
 						.leaflet-bubbles-grade {
 								@include inline-block;
 								@include border-radius(50%);
-								margin: $default-gap;
+								margin: 0 round(0.6*$default-gap);
 								border-style: solid;
+						}
+				}
+		}
+
+    .leaflet-categories-scale {
+        .leaflet-categories-items {
+						.leaflet-categories-item {
+								display: block;
+								color: $neutral-color;
+								font-size: $fs-small;
+								line-height: $lh-small;
+								font-weight: bold;
+								text-transform: uppercase;
+								margin-top: round($default-gap * 0.3);
+								&:first-child {
+										margin-top: 0;
+								}
+								.leaflet-categories-sample {
+										@include inline-block;
+										height: $cell-height;
+										width: $cell-height;
+										@include border-radius(50%);
+										border: 1px solid #333;										
+								}
 						}
 				}
 		}
@@ -879,19 +896,17 @@ $map-button-size: round(2 * $fs-normal);
             @include float(right);
         }
         .leaflet-choropleth-grades {
-						$height: $fs-small;
             display: block;
             clear: both;
             $border: 1px solid #333;
             // margin: $default-gap 0 0 0;
-            width: 15 * $lh-normal;
-            height: $height;
-            @include border-radius(3px);
+            // width: 15 * $lh-normal;
+            height: $cell-height;
             border: $border;
             .leaflet-choropleth-grade {
                 @include inline-block;
 								vertical-align: top;
-                height: $height;
+                height: $cell-height;
             }
         }
     }

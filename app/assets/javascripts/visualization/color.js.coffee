@@ -30,3 +30,10 @@ visualization.Color.parse = (color) ->
     green: parseInt(color.slice(3,5), 16)
     blue:  parseInt(color.slice(5,7), 16)
   return value
+
+visualization.Color.random = () ->
+  value = 
+    red:   16 * Math.round(16*Math.random())
+    green: 16 * Math.round(16*Math.random())
+    blue:  16 * Math.round(16*Math.random())
+  return visualization.Color.toString value

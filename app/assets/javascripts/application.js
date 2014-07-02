@@ -35,21 +35,8 @@
 //= require leaflet
 //= require leaflet/draw
 //= require leaflet/wicket
-//= require leaflet/tilelegend
 //= require leaflet/fullscreen
 //= require leaflet/providers
-//= require leaflet/active_layers
-//= require leaflet/select_layers
-//= require leaflet/osm_geocoder
-//= require leaflet/label/BaseMarkerMethod
-//= require leaflet/label/CircleMarker
-//= require leaflet/label/FeatureGroup
-//= require leaflet/label/Label
-//= require leaflet/label/Map
-//= require leaflet/label/Marker
-//= require leaflet/label/Path
-//= require leaflet/styleeditor
-//= require leaflet/styleform
 //= require_self
 //= require_tree .
 

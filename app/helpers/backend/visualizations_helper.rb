@@ -4,6 +4,7 @@ module Backend::VisualizationsHelper
     
     def initialize(config = {})
       @config = config
+      @categories_colors = @config.delete(:categories_colors)
     end
     
     def background(name, options = {})
@@ -39,7 +40,7 @@ module Backend::VisualizationsHelper
     end
     
     def categories(name, serie, options = {})
-      layer(name, serie, options.merge(type: :categories))
+      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :categories)))
     end
 
     # Add a serie of geo data
@@ -173,7 +174,7 @@ module Backend::VisualizationsHelper
   #     - v.control :search  
   #
   def visualization(options = {}, html_options = {})
-    config = VisualizationConfiguration.new(options)
+    config = VisualizationConfiguration.new({categories_colors: theme_colors}.merge(options))
     yield config
     return content_tag(:div, nil, html_options.deep_merge(data: {visualization: config.to_json}))
   end
