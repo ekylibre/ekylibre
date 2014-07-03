@@ -1,69 +1,231 @@
+:css
+  h2
+  {
+    font-weight: bolder;
+    color: red;
+  }
+
+  h3
+  {
+    font-weight: bold;
+    color: green;
+  }
+  .bold{font-weight: bold;}
+
+  .italic{font-style: italic}
+
+  .key
+  {
+    font-style: italic;
+    color: blue;
+  }
+
+  .result
+  {
+    font-style: italic;
+    color: purple;
+  }
+
+  .variety
+  {
+    color: orange;
+  }
+
+
+
 :ruby
-  # example: Intervention: Plowing #89
-  # let's take all the actors for this intervention
-  actors = []
-  actors << CultivableZone.find(67) # cultivable zone
-  actors << Equipment.find(179) # plow
-  actors << Equipment.find(167) # tractor
-  actors << Worker.find(206) # worker
-
-  # Intervention.match should return "plowing" among the most
-  # relevant procedures, so let's select this procedure to compare
-  plowing = Procedo[:'base-plowing-0']
-  procedures = Procedo.list
-
-  # accessors for keywords' extraction
-  relevant_accessors = [:variety, :derivative_of]
-  #TODO: manage abilities later
-
-  def get_relevant_keywords_from(array)
-    keywords = []
-    array.each do |item|
-      keywords << [item.variety, item.derivative_of].join('_').to_sym
+  # returns an array of actors from a real intervention example
+  def actors_from_intervention(procedure_name)
+    res = []
+    casts = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last.casts
+    casts.each do |ic| # InterventionCast
+      res << Product.find(ic.actor) unless ic.reference.new?
     end
-    keywords.uniq.delete_if{|sym| sym == :_}
+    res
   end
 
-  relevant_keywords_from_actors = get_relevant_keywords_from(actors)
-  relevant_keywords_from_procedure = get_relevant_keywords_from(plowing.variables.values)
+  plowing_actors = actors_from_intervention('base-plowing-0')
+  plowing = Procedo[:'base-plowing-0']
 
-  # calculating relevance of a procedure
-  # a procedure is relevant when the intersection between procedure's keywords
-  # and actors' keywords is not empty
-  # the larger the better
-  procedures_by_relevance = Hash.new(0)
-  procedures.each do |k, p|
-    procedures_by_relevance[p.short_name] = (relevant_keywords_from_actors & get_relevant_keywords_from(p.variables.values)).count
+  aiosowing_actors = actors_from_intervention('base-all_in_one_sowing-0')
+  all_in_one_sowing = Procedo[:'base-all_in_one_sowing-0']
+
+  # loop Procedures > procedure p > actor a > variable v
+  def relevance_by_actors(actors)
+    relevant_procedures = Hash.new(0)
+    Procedo.list.each do |k, procedure|
+      actors.each do |actor|
+        relevant_procedures[procedure.short_name] += 1 if possible_variables_matching(actor, procedure.variables.values).length > 0 #presence_of?(actor, procedure)
+      end
+    end
+    # at that step it should return a hash of procedures sorted by value, the
+    # key being a procedure's name, the value being the number of matching actors
+    relevant_procedures.sort_by{|k, v| -v}
   end
 
+  # loop Procedures > procedure p > variable v > actor a
+  def r_b_a(actors)
+    relevant_procedures = Hash.new(0)
+    Procedo.list.each do |k, procedure|
+      procedure.variables.values.each do |variable|
+        relevant_procedures[procedure.short_name] +=1 if possible_actors_matching(actors, variable).length > 0
+      end
+    end
+    relevant_procedures.sort_by{|k,v| -v }
+  end
 
+  # params:   - actors, an array of actors we want to check
+  #           - variable, a procedure variable for which we want to know who could comply with
+  # return:   - result, an array of all the actors that might comply with the given variable
+  def possible_actors_matching(actors, variable)
+    result = []
+      actors.each do |actor|
+        result << actor if actor_matching_variable?(actor,variable)
+      end
+    result
+  end
 
-  result = Intervention.match(actors)
+  # params:   - actor, an actor for which we want to check matching procedure's variables
+  #           - variables, an array of variables from a procedure
+  # return:   - result, an array of variables that might comply with the given actor
+  def possible_variables_matching(actor, variables)
+    result = []
+    variables.each do |variable|
+      result << variable if actor_matching_variable?(actor, variable)
+    end
+    result
+  end
+
+  def actor_matching_variable?(actor, variable)
+    # first, comparing variety, derivative and abilities
+    # 3 possible situations :
+    #   - the procedure variable contains only the variety
+    #     => we just check the variety
+    return true if variable.variety == actor.variety && variable.derivative_of.nil? && variable.abilities.empty?
+    #   - the procedure variable contains variety and derivative
+    #     => we check both
+    return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && variable.abilities.empty?
+    #   - the procedure variable contains variety and/or derivative and abilities
+    #     => we check everything
+    return true if variable.variety == actor.variety && variable.derivative_of.nil? && is_able_of_everything?(actor, variable.abilities)
+    return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && is_able_of_everything?(actor, variable.abilities)
+
+    # then, if the previous step didn't match, try with abilities only
+    return true if !variable.abilities.empty? && is_able_of_everything?(actor, variable.abilities)
+
+    #default
+    return false
+  end
+
+  def presence_of?(actor, procedure)
+    procedure.variables.values.each do |variable|
+      # first, comparing variety, derivative and abilities
+      # 3 possible situations :
+      #   - a procedure variable contains only the variety
+      #     => we just check the variety
+      return true if variable.variety == actor.variety && variable.derivative_of.nil? && variable.abilities.empty?
+      #   - a procedure variable contains variety and derivative
+      #     => we check both
+      return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && variable.abilities.empty?
+      #   - a procedure variable contains variety and/or derivative and abilities
+      #     => we check everything
+      return true if variable.variety == actor.variety && variable.derivative_of.nil? && is_able_of_everything?(actor, variable.abilities)
+      return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && is_able_of_everything?(actor, variable.abilities)
+
+      # then, if the previous step didn't match, try with abilities only
+      return true if !variable.abilities.empty? && is_able_of_everything?(actor, variable.abilities)
+    end
+    # if we get here, we didn't find anything
+    return false
+  end
+
+  def is_able_of_everything?(actor, abilities)
+    if  abilities.length == 1 # case of the last ability to check
+      return actor.able_to?(abilities[0])
+    elsif !actor.able_to?(abilities[0])
+      return false # it's useless to go on if one ability is missing
+    end
+    return actor.able_to?(abilities[0]) && is_able_of_everything?(actor, abilities.drop(1))
+  end
+
+  # result from draft code
+  sowing_procedures = relevance_by_actors(aiosowing_actors)
+  sowing_procedures2 = r_b_a(aiosowing_actors)
+
+  # checking if code refactoring works properly
+  plowing_result = nil #Intervention.match(plowing_actors)
+  sowing_result = nil #Intervention.match(aiosowing_actors)
+
+%h2 testing possible_actors_matching
+%ul
+- all_in_one_sowing.variables.values.each do |v|
+  %li.key
+    variable data:
+    %br
+    name:
+    = v.name
+    %br
+    variety:
+    = v.variety
+    = v.variety.class
+    %br
+    derivative of:
+    = v.derivative_of
+    = v.derivative_of.class
+    %br
+    abilities:
+    = v.abilities.inspect
+  %li.result
+    - possible_actors_matching(aiosowing_actors, v).each do |item|
+      name:
+      = item.name
+      = item.name.class.superclass
+      %br
+      variety:
+      = item.variety
+      = item.variety.class.superclass
+      %br
+      derivative:
+      = item.derivative_of
+      = item.derivative_of.class.superclass
+      %br
+      abilities:
+      = item.abilities.inspect
+      %br
+      %br
+%h2 testing actor_matching_variable
+%ul
+- aiosowing_actors.each do |actor|
+  %li.key
+    actor:
+    =actor.name
+    %br
+    = actor.class
+  %li.result
+    matching variables:
+    - all_in_one_sowing.variables.values.each do |v|
+      = v.inspect if actor_matching_variable?(actor, v)
 %h2 procedures' match
 %br
-from dirty code
+%h3 from relevance_by_actors
+expected behavior: having 'base-plowing-0' among most relevant procedures
 %br
-= procedures_by_relevance.sort_by{|k, v| -v}.inspect
-%br
-from Intervention#match
-%br
-= result
+= sowing_procedures.inspect
 %br
 %br
-%h2
-  relevant keywords
-%p
-  actors:
-  = relevant_keywords_from_actors.inspect
-%p
-  procedure:
-  = relevant_keywords_from_procedure
+%h3 from r_b_a
+expected behavior: should return the same result
+%br
+= sowing_procedures2.inspect
 
-%h2
-  Actors for the intervention "Plowing #89"
+
+%h2  Actors inspection
+
+%h3 all in one sowing
+
 %ul
-- actors.each do |a|
-  %li
+- aiosowing_actors.each do |a|
+  %li.key
     Actor:
     = a.class
   %li
@@ -72,22 +234,19 @@ from Intervention#match
   %li
     variety:
     = a.variety
-    = a.send(:variety)
   %li
     derivative_of:
     = a.derivative_of
-    = a.send(:derivative_of)
   %br
 %br
 %br
-%h2
-  details for the procedure:
-  = plowing.short_name
-%br
 
+%h2 procedures inspection
+
+%h3 all in one sowing
 %ul
-- plowing.variables.each do |k, v|
-  %li
+- all_in_one_sowing.variables.each do |k, v|
+  %li.key
     = k
   %li
     variety:
