@@ -1,7 +1,7 @@
 :ruby
-  # of_campaign(@campaigns)
+  if @campaigns
     data = []
-    ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+    ProductionSupport.of_campaign(@campaigns).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
 
       popup_content = []
 
@@ -71,6 +71,7 @@
       }
       data << item
       end
+    end
 
 
   
