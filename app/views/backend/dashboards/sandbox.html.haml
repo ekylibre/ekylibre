@@ -39,7 +39,7 @@
     res = []
     casts = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last.casts
     casts.each do |ic| # InterventionCast
-      res << Product.find(ic.actor) unless ic.reference.new?
+      res << Product.find(ic.actor) # unless ic.reference.new?
     end
     res
   end
@@ -55,7 +55,7 @@
     relevant_procedures = Hash.new(0)
     Procedo.list.each do |k, procedure|
       actors.each do |actor|
-        relevant_procedures[procedure.short_name] += 1 if possible_variables_matching(actor, procedure.variables.values).length > 0 #presence_of?(actor, procedure)
+        relevant_procedures[procedure.short_name] += 1 if possible_variables_matching(actor, procedure.variables.values).length > 0
       end
     end
     # at that step it should return a hash of procedures sorted by value, the
@@ -148,6 +148,100 @@
     return actor.able_to?(abilities[0]) && is_able_of_everything?(actor, abilities.drop(1))
   end
 
+  # generate labels for a matrix so we can write
+  # "matrix[variable, actor] = value" instead of
+  # "matrix[5, 3] = value"
+  # params : items, an array of items for which we want to create labels
+  # return : res, a hash associating an item (converted into sym) to an
+  # integer being the number of its row or column in the matrix
+  def labels_for(items)
+    res = Hash.new
+    items.inject(0){|i, item| res[item.name.to_sym] = i; i+=1}
+    res
+  end
+
+  # generate a hash associating one actor to each variable
+  # of a procedure.
+  # params:   - variables, an array of procedure variables
+  #           - actors, an array of actors possibly matching variables
+  # return:   - result, a hash associating one actor to one variable
+  #               key: variable, value: actor
+  def associate_actors_to_variables(variables, actors)
+    result = {}
+    rows = labels_for variables
+    cols = labels_for actors
+    m = []
+    rows.length.times do
+      m << Array.new(cols.length, 0)
+    end
+
+    # generating arrays of actors matching each variable
+    # and variables matching each actor
+    actors_for_each_variable = Hash.new
+
+    variables.each do |variable|
+      actors_for_each_variable[variable.name.to_sym] = possible_actors_matching(actors, variable)
+    end
+
+    # filling matrix
+    actors_for_each_variable.each do |var_key, actor_ary|
+      actor_ary.each do |actor|
+        m[rows[var_key]][cols[actor.name.to_sym]] = 1
+      end
+    end
+
+    # managing matrix
+    while m.reduce(0){|sum, row| sum += row.reduce(:+)} > 0
+      current_variable = 0
+      current_actor = 0
+
+      # case of variables having only one actor matching
+      while current_variable < m.length
+        if m[current_variable].reduce(:+) == 1
+          current_actor = m[current_variable].index(1)
+          result[rows.key(current_variable)] = cols.key(current_actor)
+          # we remove the current actor
+          m.each{|row| row[current_actor] = 0}
+          # we remove the current variable
+          m[current_variable] = Array.new(cols.length, 0)
+          # we return to the first line
+          current_variable = 0
+          current_actor = 0
+        else
+          current_variable += 1
+        end
+      end
+      # no more variable with only one actor
+      current_actor = 0
+      while current_actor < cols.length
+        column = []
+        m.each {|row| column << row[current_actor]}
+        column.flatten!
+        if column.reduce(:+) == 1
+          # we store the result
+          result[rows.key(current_variable)] = cols.key(current_actor)
+          # we remove the variable
+          m[column.index(1)].fill(0)
+          # we remove the actor
+          m.each{|row| row[current_actor] = 0}
+          # we return to the first line
+          current_variable = 0
+          break
+        else
+          current_actor += 1
+        end
+      end
+      # no more variable with one actor, nor actor with one variable
+      if current_actor >= cols.length
+        rows.length.times do |n|
+          result[rows.key(n)] ||= cols.key(m[n].index(1))
+        end
+      end
+    end
+
+    result
+  end
+
   # result from draft code
   sowing_procedures = relevance_by_actors(aiosowing_actors)
   sowing_procedures2 = r_b_a(aiosowing_actors)
@@ -155,6 +249,23 @@
   # checking if code refactoring works properly
   plowing_result = nil #Intervention.match(plowing_actors)
   sowing_result = nil #Intervention.match(aiosowing_actors)
+
+%h2 testing labels
+count:
+= labels_for(aiosowing_actors).count
+%br
+= labels_for(aiosowing_actors).inspect
+%br
+count:
+= labels_for(all_in_one_sowing.variables.values).count
+= labels_for(all_in_one_sowing.variables.values).inspect
+%h2 testing matching
+= associate_actors_to_variables(all_in_one_sowing.variables.values, aiosowing_actors).inspect
+
+
+%h2 testing Nomen::
+%h3 Nomen::Varieties
+= Nomen::Varieties[:zea_bergxxon].parent.parent.parent.inspect
 
 %h2 testing possible_actors_matching
 %ul
