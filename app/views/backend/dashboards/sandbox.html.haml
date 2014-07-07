@@ -34,21 +34,46 @@
 
 
 :ruby
+
+  ############################
+  # generating data for test #
+  ############################
+
   # returns an array of actors from a real intervention example
   def actors_from_intervention(procedure_name)
     res = []
-    casts = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last.casts
-    casts.each do |ic| # InterventionCast
-      res << Product.find(ic.actor) # unless ic.reference.new?
+    casts = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last
+    if !casts.nil?
+      casts.casts.each do |ic| # InterventionCast
+        res << Product.find(ic.actor) # unless ic.reference.new?
+      end
+    else
+      return nil
     end
     res
   end
 
-  plowing_actors = actors_from_intervention('base-plowing-0')
-  plowing = Procedo[:'base-plowing-0']
-
   aiosowing_actors = actors_from_intervention('base-all_in_one_sowing-0')
   all_in_one_sowing = Procedo[:'base-all_in_one_sowing-0']
+
+  corn_cultivation = Product.find(696)
+
+  # Struct for massive testing
+  procedureData = Struct.new(:procedure, :actors)
+
+  massive_test_hash = {}
+  Procedo.list.keys.each do |k|
+    massive_test_hash[k.to_sym] = procedureData.new(Procedo[k.to_sym], actors_from_intervention(k.to_sym)) if !actors_from_intervention(k.to_sym).nil?
+  end
+
+
+  #####################################
+  # draft code
+  #####################################
+
+  #####################################
+  # code for relevance sorting
+  #####################################
 
   # loop Procedures > procedure p > actor a > variable v
   def relevance_by_actors(actors)
@@ -80,9 +105,9 @@
   def possible_actors_matching(actors, variable)
     result = []
       actors.each do |actor|
-        result << actor if actor_matching_variable?(actor,variable)
+        result << actor.name.to_sym if actor_matching_variable?(actor,variable)
       end
-    result
+    return result
   end
 
   # params:   - actor, an actor for which we want to check matching procedure's variables
@@ -91,52 +116,44 @@
   def possible_variables_matching(actor, variables)
     result = []
     variables.each do |variable|
-      result << variable if actor_matching_variable?(actor, variable)
+      result << variable.name.to_sym if actor_matching_variable?(actor, variable)
     end
     result
   end
 
   def actor_matching_variable?(actor, variable)
-    # first, comparing variety, derivative and abilities
-    # 3 possible situations :
-    #   - the procedure variable contains only the variety
-    #     => we just check the variety
-    return true if variable.variety == actor.variety && variable.derivative_of.nil? && variable.abilities.empty?
-    #   - the procedure variable contains variety and derivative
-    #     => we check both
-    return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && variable.abilities.empty?
-    #   - the procedure variable contains variety and/or derivative and abilities
-    #     => we check everything
-    return true if variable.variety == actor.variety && variable.derivative_of.nil? && is_able_of_everything?(actor, variable.abilities)
-    return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && is_able_of_everything?(actor, variable.abilities)
-
-    # then, if the previous step didn't match, try with abilities only
-    return true if !variable.abilities.empty? && is_able_of_everything?(actor, variable.abilities)
-
-    #default
-    return false
+    result = nil
+    if !variable.variety.nil?
+      result = same_varieties?(actor, variable)
+    end
+    if !variable.derivative_of.nil? && !actor.derivative_of.nil?
+      result = (result.nil?)? same_derivatives?(actor, variable):result && same_derivatives?(actor, variable)
+    end
+    if !variable.abilities.empty?
+      result = (result.nil?)? is_able_of_everything?(actor, variable.abilities): result && is_able_of_everything?(actor, variable.abilities)
+    end
+    # default
+    return result || false
   end
 
-  def presence_of?(actor, procedure)
-    procedure.variables.values.each do |variable|
-      # first, comparing variety, derivative and abilities
-      # 3 possible situations :
-      #   - a procedure variable contains only the variety
-      #     => we just check the variety
-      return true if variable.variety == actor.variety && variable.derivative_of.nil? && variable.abilities.empty?
-      #   - a procedure variable contains variety and derivative
-      #     => we check both
-      return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && variable.abilities.empty?
-      #   - a procedure variable contains variety and/or derivative and abilities
-      #     => we check everything
-      return true if variable.variety == actor.variety && variable.derivative_of.nil? && is_able_of_everything?(actor, variable.abilities)
-      return true if variable.variety == actor.variety && variable.derivative_of == actor.derivative_of && is_able_of_everything?(actor, variable.abilities)
+  def same_varieties?(actor, variable)
+    return same_item?(actor.variety, variable.variety)
+  end
 
-      # then, if the previous step didn't match, try with abilities only
-      return true if !variable.abilities.empty? && is_able_of_everything?(actor, variable.abilities)
+  def same_derivatives?(actor, variable)
+    return same_item?(actor.derivative_of, variable.derivative_of)
+  end
+
+  def same_item?(actor_item, variable_item)
+    actor_nomenclature_item = Nomen::Varieties[actor_item.to_sym]
+    variable_nomenclature_item = Nomen::Varieties[variable_item.to_sym]
+
+    if !actor_nomenclature_item.nil? && !variable_nomenclature_item.nil?
+      return actor_nomenclature_item <= variable_nomenclature_item
     end
-    # if we get here, we didn't find anything
-    return false
+
+    return actor_item == variable_item
+
   end
 
   def is_able_of_everything?(actor, abilities)
@@ -148,18 +165,6 @@
     return actor.able_to?(abilities[0]) && is_able_of_everything?(actor, abilities.drop(1))
   end
 
-  # generate labels for a matrix so we can write
-  # "matrix[variable, actor] = value" instead of
-  # "matrix[5, 3] = value"
-  # params : items, an array of items for which we want to create labels
-  # return : res, a hash associating an item (converted into sym) to an
-  # integer being the number of its row or column in the matrix
-  def labels_for(items)
-    res = Hash.new
-    items.inject(0){|i, item| res[item.name.to_sym] = i; i+=1}
-    res
-  end
-
   # generate a hash associating one actor to each variable
   # of a procedure.
   # params:   - variables, an array of procedure variables
@@ -168,205 +173,100 @@
   #               key: variable, value: actor
   def associate_actors_to_variables(variables, actors)
     result = {}
-    rows = labels_for variables
-    cols = labels_for actors
-    m = []
-    rows.length.times do
-      m << Array.new(cols.length, 0)
-    end
 
     # generating arrays of actors matching each variable
     # and variables matching each actor
     actors_for_each_variable = Hash.new
-
     variables.each do |variable|
       actors_for_each_variable[variable.name.to_sym] = possible_actors_matching(actors, variable)
     end
 
-    # filling matrix
-    actors_for_each_variable.each do |var_key, actor_ary|
-      actor_ary.each do |actor|
-        m[rows[var_key]][cols[actor.name.to_sym]] = 1
-      end
+    variables_for_each_actor = Hash.new
+    actors.each do |actor|
+      variables_for_each_actor[actor.name.to_sym] = possible_variables_matching(actor, variables)
     end
 
-    # managing matrix
-    while m.reduce(0){|sum, row| sum += row.reduce(:+)} > 0
-      current_variable = 0
-      current_actor = 0
+    # setting cursors
+    current_variable = current_actor = 0
 
-      # case of variables having only one actor matching
-      while current_variable < m.length
-        if m[current_variable].reduce(:+) == 1
-          current_actor = m[current_variable].index(1)
-          result[rows.key(current_variable)] = cols.key(current_actor)
-          # we remove the current actor
-          m.each{|row| row[current_actor] = 0}
-          # we remove the current variable
-          m[current_variable] = Array.new(cols.length, 0)
-          # we return to the first line
+    while result.length != variables.length
+      # first, manage all variables having only one actor matching
+      while current_variable < actors_for_each_variable.length
+        current_variable_key = actors_for_each_variable.keys[current_variable]
+        if actors_for_each_variable[current_variable_key].count == 1 && !actors_for_each_variable[current_variable_key].nil? # only one actor for the current variable
+          result[current_variable_key] = actors_for_each_variable[current_variable_key].first
+          # deleting actor from hash "actor => variables"
+          variables_for_each_actor.delete(result[current_variable_key])
+          # deleting actor for all remaining variables
+          actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
+          # removing current variable for all remaining actors
+          variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
+          # removing current variable from hash "variable => actors"
+          actors_for_each_variable.delete(current_variable_key)
+          # restart from the beginning
           current_variable = 0
-          current_actor = 0
         else
           current_variable += 1
         end
       end
-      # no more variable with only one actor
-      current_actor = 0
-      while current_actor < cols.length
-        column = []
-        m.each {|row| column << row[current_actor]}
-        column.flatten!
-        if column.reduce(:+) == 1
-          # we store the result
-          result[rows.key(current_variable)] = cols.key(current_actor)
-          # we remove the variable
-          m[column.index(1)].fill(0)
-          # we remove the actor
-          m.each{|row| row[current_actor] = 0}
-          # we return to the first line
-          current_variable = 0
+
+      # then, manage first actor having only one variable matching and go back to the first step
+      while current_actor < variables_for_each_actor.length
+        current_actor_key = variables_for_each_actor.keys[current_actor]
+        if variables_for_each_actor[current_actor_key].count == 1
+          current_variable_key = variables_for_each_actor[current_actor_key].first
+          result[current_variable_key] = current_actor_key
+          # deleting actor from hash "actor => variables"
+          variables_for_each_actor.delete(result[current_variable_key])
+          # deleting actor for all remaining variables
+          actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
+          # removing current variable for all remaining actors
+          variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
+          # removing current variable from hash "variable => actors"
+          actors_for_each_variable.delete(current_variable_key)
+          # return to first step
+          current_actor = 0
           break
         else
           current_actor += 1
         end
       end
-      # no more variable with one actor, nor actor with one variable
-      if current_actor >= cols.length
-        rows.length.times do |n|
-          result[rows.key(n)] ||= cols.key(m[n].index(1))
+      # then, manage the case when no actor has only one variable matching
+      if current_actor == variables_for_each_actor.length
+        current_variable = 0
+        current_variable_key = actors_for_each_variable.keys[current_variable]
+        result[current_variable_key] = actors_for_each_variable[current_variable_key].first unless actors_for_each_variable[current_variable_key].nil?
+        # deleting actor from hash "actor => variables"
+        variables_for_each_actor.delete(result[current_variable_key])
+        # deleting actor for all remaining variables
+        actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
+        # removing current variable for all remaining actors
+        variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
+        # removing current variable from hash "variable => actors"
+        actors_for_each_variable.delete(current_variable_key)
+        # return to first step
+      end
+
+      # finally, manage the case when there's no more actor to match with variables
+      if variables_for_each_actor.length == 0
+        actors_for_each_variable.keys.each do |variable_key|
+          result[variable_key] = nil
         end
       end
-    end
 
-    result
+    end
+    return result
   end
 
-  # result from draft code
-  sowing_procedures = relevance_by_actors(aiosowing_actors)
-  sowing_procedures2 = r_b_a(aiosowing_actors)
-
-  # checking if code refactoring works properly
-  plowing_result = nil #Intervention.match(plowing_actors)
-  sowing_result = nil #Intervention.match(aiosowing_actors)
-
-%h2 testing labels
-count:
-= labels_for(aiosowing_actors).count
-%br
-= labels_for(aiosowing_actors).inspect
-%br
-count:
-= labels_for(all_in_one_sowing.variables.values).count
-= labels_for(all_in_one_sowing.variables.values).inspect
-%h2 testing matching
-= associate_actors_to_variables(all_in_one_sowing.variables.values, aiosowing_actors).inspect
-
-
-%h2 testing Nomen::
-%h3 Nomen::Varieties
-= Nomen::Varieties[:zea_bergxxon].parent.parent.parent.inspect
-
-%h2 testing possible_actors_matching
-%ul
-- all_in_one_sowing.variables.values.each do |v|
-  %li.key
-    variable data:
-    %br
-    name:
-    = v.name
-    %br
-    variety:
-    = v.variety
-    = v.variety.class
-    %br
-    derivative of:
-    = v.derivative_of
-    = v.derivative_of.class
-    %br
-    abilities:
-    = v.abilities.inspect
-  %li.result
-    - possible_actors_matching(aiosowing_actors, v).each do |item|
-      name:
-      = item.name
-      = item.name.class.superclass
-      %br
-      variety:
-      = item.variety
-      = item.variety.class.superclass
-      %br
-      derivative:
-      = item.derivative_of
-      = item.derivative_of.class.superclass
-      %br
-      abilities:
-      = item.abilities.inspect
-      %br
-      %br
-%h2 testing actor_matching_variable
-%ul
-- aiosowing_actors.each do |actor|
-  %li.key
-    actor:
-    =actor.name
-    %br
-    = actor.class
-  %li.result
-    matching variables:
-    - all_in_one_sowing.variables.values.each do |v|
-      = v.inspect if actor_matching_variable?(actor, v)
-%h2 procedures' match
-%br
-%h3 from relevance_by_actors
-expected behavior: having 'base-plowing-0' among most relevant procedures
-%br
-= sowing_procedures.inspect
-%br
-%br
-%h3 from r_b_a
-expected behavior: should return the same result
-%br
-= sowing_procedures2.inspect
-
-
-%h2  Actors inspection
-
-%h3 all in one sowing
-
-%ul
-- aiosowing_actors.each do |a|
-  %li.key
-    Actor:
-    = a.class
-  %li
-    abilities :
-    = a.abilities.inspect
-  %li
-    variety:
-    = a.variety
-  %li
-    derivative_of:
-    = a.derivative_of
-  %br
-%br
-%br
-
-%h2 procedures inspection
-
-%h3 all in one sowing
-%ul
-- all_in_one_sowing.variables.each do |k, v|
-  %li.key
+%h2 massive testing
+- massive_test_hash.each do |k, v|
+  %h3
     = k
-  %li
-    variety:
-    =v.variety
-  %li
-    derivative_of
-    =v.derivative_of
-  %li
-    abilities:
-    =v.abilities.inspect
-
-%br
+  = v.procedure.name
+  %br
+  %ul
+  - associate_actors_to_variables(v.procedure.variables.values, v.actors).each do |k,v|
+    %li.key
+      = k
+    %li.result
+      = v
