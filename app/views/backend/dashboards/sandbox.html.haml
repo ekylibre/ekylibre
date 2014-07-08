@@ -38,14 +38,16 @@
   ############################
   # generating data for test #
   ############################
-
+  require 'logger'
+  logger = Logger.new(STDOUT)
+  logger.level = Logger::INFO
   # returns an array of actors from a real intervention example
   def actors_from_intervention(procedure_name)
     res = []
     casts = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last
     if !casts.nil?
       casts.casts.each do |ic| # InterventionCast
-        res << Product.find(ic.actor) # unless ic.reference.new?
+        res << Product.find(ic.actor) unless ic.reference.new?
       end
     else
       return nil
@@ -53,10 +55,6 @@
     res
   end
 
-  aiosowing_actors = actors_from_intervention('base-all_in_one_sowing-0')
-  all_in_one_sowing = Procedo[:'base-all_in_one_sowing-0']
-
-  corn_cultivation = Product.find(696)
 
   # Struct for massive testing
   procedureData = Struct.new(:procedure, :actors)
@@ -66,6 +64,19 @@
     massive_test_hash[k.to_sym] = procedureData.new(Procedo[k.to_sym], actors_from_intervention(k.to_sym)) if !actors_from_intervention(k.to_sym).nil?
   end
 
+  random_actors = []
+  3.times do
+    r = Random.new.rand(0..697)
+    random_actors << Product.find(r)
+  end
+
+  allmost_random_actors = actors_from_intervention('base-all_in_one_sowing-0')[0..2]
+
+  # listing procedures for which we have interventions
+  intervention_list = []
+  Procedo.list.keys.each do |procedure|
+    intervention_list << procedure unless actors_from_intervention(procedure).nil?
+  end
 
   #####################################
   # draft code
@@ -75,28 +86,22 @@
   # code for relevance sorting
   #####################################
 
-  # loop Procedures > procedure p > actor a > variable v
-  def relevance_by_actors(actors)
-    relevant_procedures = Hash.new(0)
-    Procedo.list.each do |k, procedure|
-      actors.each do |actor|
-        relevant_procedures[procedure.short_name] += 1 if possible_variables_matching(actor, procedure.variables.values).length > 0
+  def match(actors, options = {})
+    limit = options[:limit] || -1
+    relevance_threshold = options[:relevance] || 0
+    matchedProcedure = Struct.new(:procedure, :relevance, :arity)
+    result = {}
+    Procedo.list.each do |key, procedure|
+      matched_variables = associate_actors_to_variables(procedure, actors)
+      if matched_variables.count > 0
+        result[key] = matchedProcedure.new(procedure,
+                                          (matched_variables.values.count.to_f/actors.count),
+                                           matched_variables.values.count)
       end
     end
-    # at that step it should return a hash of procedures sorted by value, the
-    # key being a procedure's name, the value being the number of matching actors
-    relevant_procedures.sort_by{|k, v| -v}
-  end
-
-  # loop Procedures > procedure p > variable v > actor a
-  def r_b_a(actors)
-    relevant_procedures = Hash.new(0)
-    Procedo.list.each do |k, procedure|
-      procedure.variables.values.each do |variable|
-        relevant_procedures[procedure.short_name] +=1 if possible_actors_matching(actors, variable).length > 0
-      end
-    end
-    relevant_procedures.sort_by{|k,v| -v }
+    result.delete_if{|k, v| v.relevance < relevance_threshold}
+    result.sort_by{|k,v|-v.relevance}
+    return Hash[*result.to_a[0..limit].flatten]
   end
 
   # params:   - actors, an array of actors we want to check
@@ -122,6 +127,9 @@
   end
 
   def actor_matching_variable?(actor, variable)
+    # we don't test created variables
+    return false if variable.new?
+    logger.info("comparing #{actor.name} with #{variable.name}")
     result = nil
     if !variable.variety.nil?
       result = same_varieties?(actor, variable)
@@ -133,6 +141,7 @@
       result = (result.nil?)? is_able_of_everything?(actor, variable.abilities): result && is_able_of_everything?(actor, variable.abilities)
     end
     # default
+    logger.info("result: #{result}")
     return result || false
   end
 
@@ -141,17 +150,20 @@
   end
 
   def same_derivatives?(actor, variable)
+    logger.info("Derivatives: comparing #{actor.derivative_of} with #{variable.derivative_of}")
     return same_item?(actor.derivative_of, variable.derivative_of)
   end
 
   def same_item?(actor_item, variable_item)
+    if actor_item == variable_item
+      return true
+    end
     actor_nomenclature_item = Nomen::Varieties[actor_item.to_sym]
     variable_nomenclature_item = Nomen::Varieties[variable_item.to_sym]
 
     if !actor_nomenclature_item.nil? && !variable_nomenclature_item.nil?
       return actor_nomenclature_item <= variable_nomenclature_item
     end
-
     return actor_item == variable_item
 
   end
@@ -165,13 +177,31 @@
     return actor.able_to?(abilities[0]) && is_able_of_everything?(actor, abilities.drop(1))
   end
 
+  #turns a hash {k1=>[v1, v2, v3,…], k2=>[v1, v3, vn,…]} into {v1=>[k1,kn],…}
+  def reverse_hash_from(other)
+    logger.info("reversing hash")
+    logger.info("former hash : #{other.inspect}")
+    res = {}
+    other.values.uniq.flatten.each{|v| res[v]=[]}
+    other.map do |k,v|
+      v.map do |w|
+        res[w]<< k
+      end
+    end
+    logger.info("new hash: #{res.inspect}")
+    return res
+
+  end
+
   # generate a hash associating one actor to each variable
   # of a procedure.
-  # params:   - variables, an array of procedure variables
-  #           - actors, an array of actors possibly matching variables
+  # params:   - procedure, the procedure for which we intent to match actors with variables
+  #           - actors, an array of actors possibly matching procedure variables
+  #
   # return:   - result, a hash associating one actor to one variable
   #               key: variable, value: actor
-  def associate_actors_to_variables(variables, actors)
+  def associate_actors_to_variables(procedure, actors)
+    variables = procedure.variables.values
     result = {}
 
     # generating arrays of actors matching each variable
@@ -181,15 +211,24 @@
       actors_for_each_variable[variable.name.to_sym] = possible_actors_matching(actors, variable)
     end
 
+    # variables_for_each_actor = reverse_hash_from(actors_for_each_variable)
+
     variables_for_each_actor = Hash.new
     actors.each do |actor|
-      variables_for_each_actor[actor.name.to_sym] = possible_variables_matching(actor, variables)
+     variables_for_each_actor[actor.name.to_sym] = possible_variables_matching(actor, variables)
     end
 
     # setting cursors
     current_variable = current_actor = 0
 
     while result.length != variables.length
+      # before, cleaning variables with no actor
+      actors_for_each_variable.each do |variable_key, actors_ary|
+        if actors_ary.empty?
+          result[variable_key] = nil
+          actors_for_each_variable.delete(variable_key)
+        end
+      end
       # first, manage all variables having only one actor matching
       while current_variable < actors_for_each_variable.length
         current_variable_key = actors_for_each_variable.keys[current_variable]
@@ -255,18 +294,36 @@
       end
 
     end
-    return result
+    return result.delete_if{|k,v|v.nil?}
   end
 
-%h2 massive testing
-- massive_test_hash.each do |k, v|
-  %h3
+%h2 massive testing on allmost random actors
+- k = intervention_list[rand(0...intervention_list.length)]
+%h3
+  = k
+- actors = actors_from_intervention(k); lim = rand(-1..3); relevance = rand()
+Actors:
+%ul
+- actors.each do |a|
+  %li
+    = a.name
+Matching procedures:
+%br
+Parameters:
+%ul
+  %li
+    limit:
+    = lim
+  %li
+    relevance threshold:
+    = relevance
+%ul
+- match(actors, {:limit=>lim, :relevance=> relevance}).each do |k, v|
+  %li.key
     = k
-  = v.procedure.name
-  %br
-  %ul
-  - associate_actors_to_variables(v.procedure.variables.values, v.actors).each do |k,v|
-    %li.key
-      = k
-    %li.result
-      = v
+  %li.result
+    relevance:
+    = v.relevance
+  %li
+    arity:
+    = v.arity
