@@ -35,12 +35,16 @@
 
 :ruby
 
-  ############################
-  # generating data for test #
-  ############################
   require 'logger'
   logger = Logger.new(STDOUT)
   logger.level = Logger::INFO
+
+  require 'benchmark'
+
+  ############################
+  # generating data for test #
+  ############################
+
   # returns an array of actors from a real intervention example
   def actors_from_intervention(procedure_name)
     res = []
@@ -55,8 +59,14 @@
     return res
   end
 
+  product_ids = Product.pluck(:id)
+  # select 3 totally random actors
+  random_actors = []
+  3.times do
+    random_actors << Product.find(product_ids.sample)
+  end
 
-  # Struct for massive testing
+   # Struct for massive testing
   Struct.new("ProcedureData", :procedure, :actors)
 
   massive_test_hash = {}
@@ -66,20 +76,17 @@
     end
   end
 
-  product_ids = Product.pluck(:id)
-  # select 3 totally random actors
-  random_actors = []
-  3.times do
-    random_actors << Product.find(product_ids.sample)
-  end
-
   # select three actors from a random intervention
-  # almost_random_actors = actors_from_intervention(massive_test_hash.keys[rand(0..massive_test_hash.length)])[0..2]
+  almost_random_actors = actors_from_intervention(massive_test_hash.keys.sample)[0..2]
 
   # listing procedures for which we have interventions
   intervention_list = []
   Procedo.list.keys.each do |procedure|
     intervention_list << procedure unless actors_from_intervention(procedure).blank?
+  end
+
+  asso_bm = lambda do |actors|
+    Procedo.list.each {|k, procedure| associate_actors_to_variables(procedure, actors)}
   end
 
   #####################################
@@ -91,19 +98,23 @@
   #####################################
 
   def match(actors, options = {})
-    limit = options[:limit] -1 || -1
+    limit = -1
+    limit = options[:limit] -1 if options[:limit].present?
     relevance_threshold = options[:relevance] || 0
-    matchedProcedure = Struct.new(:procedure, :relevance, :arity)
+    Struct.new("MatchedProcedure", :procedure, :relevance, :arity)
     result = {}
-    Procedo.list.each do |key, procedure|
+    # logger.info('matching')
+    Procedo.list.map do |key, procedure|
       matched_variables = associate_actors_to_variables(procedure, actors)
       if matched_variables.count > 0
-        result[key] = matchedProcedure.new(procedure,
+        result[key] = Struct::MatchedProcedure.new(procedure,
                                           (matched_variables.values.count.to_f/actors.count),
                                            matched_variables.values.count)
       end
     end
+    # logger.info('cleaning')
     result.delete_if{|k, v| v.relevance < relevance_threshold}
+    # logger.info('sorting')
     return result.sort_by{|k, v| -v.relevance}.to_a[0..limit]
   end
 
@@ -180,7 +191,7 @@
     return actor.able_to?(abilities[0]) && is_able_of_everything?(actor, abilities.drop(1))
   end
 
-  #turns a hash {k1=>[v1, v2, v3,…], k2=>[v1, v3, vn,…]} into {v1=>[k1,kn],…}
+  # turns a hash {k1=>[v1, v2, v3,…], k2=>[v1, v3, vn,…]} into {v1=>[k1,kn],…}
   def reverse_hash_from(other)
     res = {}
     other.values.uniq.flatten.each{|v| res[v]=[]}
@@ -308,67 +319,46 @@
     return actors_for_each_variable
   end
 
-
-
-%h2 testing on actual actors
-- k = 'base-organic_fertilizing-0'
-%h3
-  = k
-- actors = actors_from_intervention(k); lim = 0; relevance = 0
-Actors:
+%h2 Inspecting
+%h3 massive test hash
 %ul
-- actors.each do |a|
-  %li
-    = a.name
-    = a.abilities
-= associate_actors_to_variables(Procedo[k], actors).inspect
-Matching procedures:
-%br
-Parameters:
-%ul
-  %li
-    limit:
-    = lim
-  %li
-    relevance threshold:
-    = relevance
-%ul
-- match(actors, {:limit=>lim, :relevance=> relevance}).each do |k, v|
+- massive_test_hash.sort_by{|k, v| v.actors.count }.each do |k, v|
   %li.key
     = k
   %li.result
-    relevance:
-    = v.relevance
-  %li
-    arity:
-    = v.arity
-%h2 testing on random procedure
-- k = intervention_list[rand(0...intervention_list.length)]
-%h3
-  = k
-- actors = actors_from_intervention(k); lim = rand(0..10); relevance = rand()
-Actors:
+    actors count:
+    = v.actors.count
+
+%h2 Benchmarks
+%h3 benchmarking #match
+
 %ul
-- actors.each do |a|
-  %li
-    = a.name
-Matching procedures:
-%br
-Parameters:
-%ul
-  %li
-    limit:
-    = lim
-  %li
-    relevance threshold:
-    = relevance
-%ul
-- match(actors, {:limit=>lim, :relevance=> relevance}).each do |k, v|
+- Benchmark.bm do |bm|
   %li.key
-    = k
+    with 1 actor:
   %li.result
-    relevance:
-    = v.relevance
-  %li
-    arity:
-    = v.arity
+    = "bm.report('testing #match with one actor'){match([random_actors.first])} # remove quote"
+  %li.key
+    with 2 actors:
+  %li.result
+    = "bm.report('testing #match with two actors'){match(random_actors[0..1])} # remove quote"
+  %li.key
+    with 3 actors:
+  %li.result
+    = "bm.report('testing #match with three actors'){match(random_actors)} # remove quote"
+  %li.key
+    with actors from an actual intervention:
+  %li.result
+    = "bm.report('testing #match'){match(massive_test_hash['base-plowing-0'].actors)} # remove quote"
+
+%h3 benchmarking #associate_actors_to_variables
+%ul
+- Benchmark.bm do |bm|
+  %li.key
+    testing with "base-plowing-0"
+  %li.result
+    = "bm.report{100.times{associate_actors_to_variables(massive_test_hash['base-plowing-0'].procedure, massive_test_hash['base-plowing-0'].actors)}} # remove quote"
+  %li.key
+    testing with all procedures and one actor
+  %li.result
+    = "bm.report {asso_bm.call([random_actors.first])} # remove quote "
