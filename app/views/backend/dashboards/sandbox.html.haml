@@ -57,12 +57,12 @@
 
 
   # Struct for massive testing
-  # ProcedureData = Struct.new(:procedure, :actors)
+  Struct.new("ProcedureData", :procedure, :actors)
 
   massive_test_hash = {}
   Procedo.list.keys.each do |k|
     if  actors_from_intervention(k).present?
-      massive_test_hash[k] = procedureData.new(Procedo[k], actors_from_intervention(k))
+      massive_test_hash[k] = Struct::ProcedureData.new(Procedo[k], actors_from_intervention(k))
     end
   end
 
