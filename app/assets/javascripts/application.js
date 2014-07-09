@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.ui.datepicker
-//= require jquery.ui.dialog
+//= require jquery-ui/datepicker
+//= require jquery-ui/dialog
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
