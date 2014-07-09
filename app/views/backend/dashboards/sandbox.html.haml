@@ -44,38 +44,42 @@
   # returns an array of actors from a real intervention example
   def actors_from_intervention(procedure_name)
     res = []
-    casts = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last
-    if !casts.nil?
-      casts.casts.each do |ic| # InterventionCast
+    intervention = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last
+    if intervention.present?
+      intervention.casts.each do |ic| # InterventionCast
         res << Product.find(ic.actor) unless ic.reference.new?
       end
     else
       return nil
     end
-    res
+    return res
   end
 
 
   # Struct for massive testing
-  procedureData = Struct.new(:procedure, :actors)
+  # ProcedureData = Struct.new(:procedure, :actors)
 
   massive_test_hash = {}
   Procedo.list.keys.each do |k|
-    massive_test_hash[k.to_sym] = procedureData.new(Procedo[k.to_sym], actors_from_intervention(k.to_sym)) if actors_from_intervention(k.to_sym).present?
+    if  actors_from_intervention(k).present?
+      massive_test_hash[k] = procedureData.new(Procedo[k], actors_from_intervention(k))
+    end
   end
 
+  product_ids = Product.pluck(:id)
+  # select 3 totally random actors
   random_actors = []
   3.times do
-    r = Random.new.rand(0..697)
-    random_actors << Product.find(r)
+    random_actors << Product.find(product_ids.sample)
   end
 
-  allmost_random_actors = actors_from_intervention('base-all_in_one_sowing-0')[0..2]
+  # select three actors from a random intervention
+  # almost_random_actors = actors_from_intervention(massive_test_hash.keys[rand(0..massive_test_hash.length)])[0..2]
 
   # listing procedures for which we have interventions
   intervention_list = []
   Procedo.list.keys.each do |procedure|
-    intervention_list << procedure unless actors_from_intervention(procedure).nil?
+    intervention_list << procedure unless actors_from_intervention(procedure).blank?
   end
 
   #####################################
@@ -87,7 +91,7 @@
   #####################################
 
   def match(actors, options = {})
-    limit = options[:limit] || -1
+    limit = options[:limit] -1 || -1
     relevance_threshold = options[:relevance] || 0
     matchedProcedure = Struct.new(:procedure, :relevance, :arity)
     result = {}
@@ -100,7 +104,7 @@
       end
     end
     result.delete_if{|k, v| v.relevance < relevance_threshold}
-    return result.sort_by{|k,v|-v.relevance}
+    return result.sort_by{|k, v| -v.relevance}.to_a[0..limit]
   end
 
   # params:   - actors, an array of actors we want to check
@@ -306,11 +310,43 @@
 
 
 
-%h2 massive testing on almost random actors
+%h2 testing on actual actors
+- k = 'base-organic_fertilizing-0'
+%h3
+  = k
+- actors = actors_from_intervention(k); lim = 0; relevance = 0
+Actors:
+%ul
+- actors.each do |a|
+  %li
+    = a.name
+    = a.abilities
+= associate_actors_to_variables(Procedo[k], actors).inspect
+Matching procedures:
+%br
+Parameters:
+%ul
+  %li
+    limit:
+    = lim
+  %li
+    relevance threshold:
+    = relevance
+%ul
+- match(actors, {:limit=>lim, :relevance=> relevance}).each do |k, v|
+  %li.key
+    = k
+  %li.result
+    relevance:
+    = v.relevance
+  %li
+    arity:
+    = v.arity
+%h2 testing on random procedure
 - k = intervention_list[rand(0...intervention_list.length)]
 %h3
   = k
-- actors = actors_from_intervention(k); lim = rand(-1..3); relevance = rand()
+- actors = actors_from_intervention(k); lim = rand(0..10); relevance = rand()
 Actors:
 %ul
 - actors.each do |a|

@@ -33,7 +33,7 @@
       </variable> 
       <variable name="spreader" abilities="spread(excrement)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver"  abilities="drive(tractor)" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+      <variable name="tractor" variety="equipment" abilities="tow(equipment)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
