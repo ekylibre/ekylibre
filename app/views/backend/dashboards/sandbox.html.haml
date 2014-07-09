@@ -61,7 +61,7 @@
 
   massive_test_hash = {}
   Procedo.list.keys.each do |k|
-    massive_test_hash[k.to_sym] = procedureData.new(Procedo[k.to_sym], actors_from_intervention(k.to_sym)) if !actors_from_intervention(k.to_sym).nil?
+    massive_test_hash[k.to_sym] = procedureData.new(Procedo[k.to_sym], actors_from_intervention(k.to_sym)) if actors_from_intervention(k.to_sym).present?
   end
 
   random_actors = []
@@ -100,8 +100,7 @@
       end
     end
     result.delete_if{|k, v| v.relevance < relevance_threshold}
-    result.sort_by{|k,v|-v.relevance}
-    return Hash[*result.to_a[0..limit].flatten]
+    return result.sort_by{|k,v|-v.relevance}
   end
 
   # params:   - actors, an array of actors we want to check
@@ -129,19 +128,19 @@
   def actor_matching_variable?(actor, variable)
     # we don't test created variables
     return false if variable.new?
-    logger.info("comparing #{actor.name} with #{variable.name}")
+    # logger.info("comparing #{actor.name} with #{variable.name}")
     result = nil
-    if !variable.variety.nil?
+    if variable.variety.present?
       result = same_varieties?(actor, variable)
     end
-    if !variable.derivative_of.nil? && !actor.derivative_of.nil?
+    if variable.derivative_of.present? && actor.derivative_of.present?
       result = (result.nil?)? same_derivatives?(actor, variable):result && same_derivatives?(actor, variable)
     end
     if !variable.abilities.empty?
       result = (result.nil?)? is_able_of_everything?(actor, variable.abilities): result && is_able_of_everything?(actor, variable.abilities)
     end
     # default
-    logger.info("result: #{result}")
+    # logger.info("result: #{result}")
     return result || false
   end
 
@@ -150,7 +149,7 @@
   end
 
   def same_derivatives?(actor, variable)
-    logger.info("Derivatives: comparing #{actor.derivative_of} with #{variable.derivative_of}")
+    # logger.info("Derivatives: comparing #{actor.derivative_of} with #{variable.derivative_of}")
     return same_item?(actor.derivative_of, variable.derivative_of)
   end
 
@@ -161,10 +160,10 @@
     actor_nomenclature_item = Nomen::Varieties[actor_item.to_sym]
     variable_nomenclature_item = Nomen::Varieties[variable_item.to_sym]
 
-    if !actor_nomenclature_item.nil? && !variable_nomenclature_item.nil?
+    if actor_nomenclature_item.present? && variable_nomenclature_item.present?
       return actor_nomenclature_item <= variable_nomenclature_item
     end
-    return actor_item == variable_item
+    return false
 
   end
 
@@ -179,8 +178,6 @@
 
   #turns a hash {k1=>[v1, v2, v3,…], k2=>[v1, v3, vn,…]} into {v1=>[k1,kn],…}
   def reverse_hash_from(other)
-    logger.info("reversing hash")
-    logger.info("former hash : #{other.inspect}")
     res = {}
     other.values.uniq.flatten.each{|v| res[v]=[]}
     other.map do |k,v|
@@ -188,7 +185,6 @@
         res[w]<< k
       end
     end
-    logger.info("new hash: #{res.inspect}")
     return res
 
   end
@@ -211,12 +207,7 @@
       actors_for_each_variable[variable.name.to_sym] = possible_actors_matching(actors, variable)
     end
 
-    # variables_for_each_actor = reverse_hash_from(actors_for_each_variable)
-
-    variables_for_each_actor = Hash.new
-    actors.each do |actor|
-     variables_for_each_actor[actor.name.to_sym] = possible_variables_matching(actor, variables)
-    end
+    variables_for_each_actor = reverse_hash_from(actors_for_each_variable)
 
     # setting cursors
     current_variable = current_actor = 0
@@ -232,7 +223,7 @@
       # first, manage all variables having only one actor matching
       while current_variable < actors_for_each_variable.length
         current_variable_key = actors_for_each_variable.keys[current_variable]
-        if actors_for_each_variable[current_variable_key].count == 1 && !actors_for_each_variable[current_variable_key].nil? # only one actor for the current variable
+        if actors_for_each_variable[current_variable_key].count == 1 && actors_for_each_variable[current_variable_key].present? # only one actor for the current variable
           result[current_variable_key] = actors_for_each_variable[current_variable_key].first
           # deleting actor from hash "actor => variables"
           variables_for_each_actor.delete(result[current_variable_key])
@@ -297,7 +288,25 @@
     return result.delete_if{|k,v|v.nil?}
   end
 
-%h2 massive testing on allmost random actors
+  def v_for_each_a(actors, variables)
+    variables_for_each_actor = Hash.new
+    actors.each do |actor|
+      variables_for_each_actor[actor.name.to_sym] = possible_variables_matching(actor, variables)
+    end
+    return variables_for_each_actor
+  end
+
+  def a_for_each_v(actors, variables)
+    actors_for_each_variable = Hash.new
+    variables.each do |variable|
+      actors_for_each_variable[variable.name.to_sym] = possible_actors_matching(actors, variable)
+    end
+    return actors_for_each_variable
+  end
+
+
+
+%h2 massive testing on almost random actors
 - k = intervention_list[rand(0...intervention_list.length)]
 %h3
   = k
