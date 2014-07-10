@@ -279,7 +279,6 @@ class ProductNature < Ekylibre::Record::Base
     end.compact
   end
 
-
   def able_to?(ability)
     exp = nil
     if ability =~ /\(.*\)\z/
@@ -313,6 +312,18 @@ class ProductNature < Ekylibre::Record::Base
     end.any?
   end
 
+  # tests if all abilities are present
+  # @params: *abilities, a list of abilities to check. Can't be empty
+  # @returns: true if all abilities are matched, false if at least one ability is missing
+  def able_to_each?(*abilities)
+    abilities.flatten!
+    if  abilities.length == 1 # case of the last ability to check
+      return able_to?(abilities[0])
+    elsif !able_to?(abilities[0])
+      return false # it's useless to go on if one ability is missing
+    end
+    return able_to?(abilities[0]) && able_to_each?(abilities.drop(1))
+  end
 
   # Returns list of abilities as an array of ability items from the nomenclature
   def linkage_points

@@ -258,5 +258,74 @@ module Procedo
       [procedure.variables[self.variety.split(/\:\s*/)], procedure.variables[self.derivative_of.split(/\:\s*/)]].compact
     end
 
+    # check if a given actor might fulfill the procedure's variable
+    # @params: actor, a _Product object or any object responding to #variety, #derivative_of and #abilities
+    # @returns: true if all information provided by the variable (variety, derivative_of and/or abilities) match
+    # with actor's ones, false if at least one does not fit or is missing
+    def fulfilled_by?(actor)
+      # do not test created variables
+      return false if new?
+      result = nil
+      if @variety.present?
+        result = same_variety_as?(actor)
+      end
+      if @derivative_of.present? && actor.derivative_of.present?
+        result = (result.nil?)? same_derivative_of_as?(actor):result && same_derivative_of_as?(actor)
+      end
+      if @abilities.present?
+        result = (result.nil?)? actor.able_to_each?(abilities): result && actor.able_to_each?(abilities)
+      end
+      # default
+      return result || false
+    end
+
+    # check if a given actor has got the same variety as a procedure's variable
+    # the comparison uses _Nomen::Item whenever possible
+    # @params: actor, a _Product object or any object responding to #variety
+    # @returns: true if actor's variety is the same as variable's variety or if
+    # actor's variety is a child of variable's variety, false otherwise
+    def same_variety_as?(actor)
+      return same_items?(@variety, actor.variety)
+    end
+
+    # check if a given actor has got the same derivative_of as a procedure's variable
+    # the comparison uses _Nomen::Item whenever possible
+    # @params: actor, a _Product object or any object responding to #derivative_of
+    # @returns: true if actor's derivative_of is the same as variable's derivative_of or if
+    # actor's variety is a child of variable's derivative_of, false otherwise
+    def same_derivative_of_as?(actor)
+      return same_items?(@derivative_of, actor.derivative_of)
+    end
+
+    # match actors to variable
+    # @params: actors, a list of actors to check
+    # @returns: result, an array of actors fulfilling variable
+    def possible_matching_for(*actors)
+      actors.flatten!
+      result = []
+      actors.each do |actor|
+        result << actor.name.to_sym if fulfilled_by?(actor)
+      end
+      return result
+    end
+
+    private
+    # compare two _Nomen::Varieties items
+    # @params:  - variable_item, current variable own variety or derivative_of
+    #           - actor_item, the actor's variety or derivative_of to compare
+    # @returns: true if actor's item is the same as variable's one or if
+    # actor's item is a child of variable's variety, false otherwise
+    def same_items?(variable_item, actor_item)
+      if actor_item == variable_item
+        return true
+      end
+      actor_nomenclature_item = Nomen::Varieties[actor_item]
+      variable_nomenclature_item = Nomen::Varieties[variable_item]
+
+      if actor_nomenclature_item.present? && variable_nomenclature_item.present?
+        return actor_nomenclature_item <= variable_nomenclature_item
+      end
+      return false
+    end
   end
 end

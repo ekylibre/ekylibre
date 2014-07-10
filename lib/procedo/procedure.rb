@@ -467,7 +467,7 @@ module Procedo
         end
       end
       # global:at is called at every interventions form call so we use it
-      # TODO replace this with more clean way with a global updater like "global:start"
+      # TODO replace this in a cleaner way with a global updater like "global:start"
       code << "      elsif @__updater__.second == :at\n"
       # What to do ? Check existence and destinations of products at this moment ?
       for variable in self.variables.values
@@ -573,6 +573,112 @@ module Procedo
       puts before.inspect.red
       puts after.inspect.green
       return after
+    end
+
+    # generate a hash associating one actor to each procedure variable whenever possible
+    # @params: actors, a list of actors possibly matching procedure variables
+    # @return:   - result, a hash associating one actor to one variable
+    #               key: variable, value: actor
+    def associate_variables_to(*actors)
+      actors.flatten!
+      result = {}
+      # generating arrays of actors matching each variable
+      # and variables matching each actor
+      actors_for_each_variable = Hash.new
+      @variables.values.each do |variable|
+        actors_for_each_variable[variable.name.to_sym] = variable.possible_matching_for(actors)
+      end
+
+      def actors_for_each_variable.reverse
+        res = {}
+        values.uniq.flatten.each{|v| res[v]=[]}
+        map do |k,v|
+          v.map do |w|
+            res[w]<< k
+          end
+        end
+        return res
+      end
+
+      variables_for_each_actor = actors_for_each_variable.reverse
+
+      # setting cursors
+      current_variable = current_actor = 0
+
+      while result.length != variables.length
+        # before, cleaning variables with no actor
+        actors_for_each_variable.each do |variable_key, actors_ary|
+          if actors_ary.empty?
+            result[variable_key] = nil
+            actors_for_each_variable.delete(variable_key)
+          end
+        end
+        # first, manage all variables having only one actor matching
+        while current_variable < actors_for_each_variable.length
+          current_variable_key = actors_for_each_variable.keys[current_variable]
+          if actors_for_each_variable[current_variable_key].count == 1 && actors_for_each_variable[current_variable_key].present? # only one actor for the current variable
+            result[current_variable_key] = actors_for_each_variable[current_variable_key].first
+            # deleting actor from hash "actor => variables"
+            variables_for_each_actor.delete(result[current_variable_key])
+            # deleting actor for all remaining variables
+            actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
+            # removing current variable for all remaining actors
+            variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
+            # removing current variable from hash "variable => actors"
+            actors_for_each_variable.delete(current_variable_key)
+            # restart from the beginning
+            current_variable = 0
+          else
+            current_variable += 1
+          end
+        end
+
+        # then, manage first actor having only one variable matching and go back to the first step
+        while current_actor < variables_for_each_actor.length
+          current_actor_key = variables_for_each_actor.keys[current_actor]
+          if variables_for_each_actor[current_actor_key].count == 1
+            current_variable_key = variables_for_each_actor[current_actor_key].first
+            result[current_variable_key] = current_actor_key
+            # deleting actor from hash "actor => variables"
+            variables_for_each_actor.delete(result[current_variable_key])
+            # deleting actor for all remaining variables
+            actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
+            # removing current variable for all remaining actors
+            variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
+            # removing current variable from hash "variable => actors"
+            actors_for_each_variable.delete(current_variable_key)
+            # return to first step
+            current_actor = 0
+            break
+          else
+            current_actor += 1
+          end
+        end
+        # then, manage the case when no actor has only one variable matching
+        if current_actor == variables_for_each_actor.length
+          current_variable = 0
+          current_variable_key = actors_for_each_variable.keys[current_variable]
+          result[current_variable_key] = actors_for_each_variable[current_variable_key].first unless actors_for_each_variable[current_variable_key].nil?
+          # deleting actor from hash "actor => variables"
+          variables_for_each_actor.delete(result[current_variable_key])
+          # deleting actor for all remaining variables
+          actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
+          # removing current variable for all remaining actors
+          variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
+          # removing current variable from hash "variable => actors"
+          actors_for_each_variable.delete(current_variable_key)
+          # return to first step
+        end
+
+        # finally, manage the case when there's no more actor to match with variables
+        if variables_for_each_actor.empty?
+          actors_for_each_variable.keys.each do |variable_key|
+            result[variable_key] = nil
+          end
+        end
+
+      end
+      return result.delete_if{|k,v|v.nil?}
     end
 
   end

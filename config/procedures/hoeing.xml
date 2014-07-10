@@ -12,7 +12,7 @@
       </variable>
 
       <variable name="driver" abilities="move, drive(tractor)" roles="raking-doer,plant_physical_weed-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="raking-tool,plant_physical_weed-tool"/>
+      <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="raking-tool,plant_physical_weed-tool"/>
       <variable name="cultivator"    variety="equipment" abilities="hoe" roles="raking-tool,plant_physical_weed-tool"/>
       
     </variables>

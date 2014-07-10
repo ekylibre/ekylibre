@@ -192,7 +192,7 @@ class Product < Ekylibre::Record::Base
   delegate :name, to: :nature, prefix: true
   delegate :variety, :derivative_of, :name, :nature, :reference_name, to: :variant, prefix: true
   delegate :unit_name, to: :variant
-  delegate :able_to?, :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, :population_counting_unitary?, to: :nature
+  delegate :able_to_each?, :able_to?, :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, :population_counting_unitary?, to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name

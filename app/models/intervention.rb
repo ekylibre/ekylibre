@@ -308,32 +308,24 @@ class Intervention < Ekylibre::Record::Base
     return intervention
   end
 
-   # match
-   # in: actors, an array of actors identified for a given procedure
-   # out: matching_procedures, an array of procedures matching the given actors, ordered by relevance
+  # match
+  # @params: actors, an array of actors identified for a given procedure
+  # @returns: matching_procedures, an array of procedures matching the given actors, ordered by relevance,
+  # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
+  # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
+  # matched in the procedure
   def self.match(actors, options = {})
-    res = Hash.new(0)
-
-    # extracting relevant information about the actors
-    actors_keywords = keywords_from(actors)
-
-    # comparing with procedures
-    Procedo.list.each do |k, v|
-      res[k] = (actors_keywords & keywords_from(v.variables.values)).count
+    limit = -1
+    limit = options[:limit] -1 if options[:limit].present?
+    relevance_threshold = options[:relevance] || 0
+    result = []
+    Procedo.list.map do |key, procedure|
+      matched_variables = procedure.associate_variables_to(actors)
+      if matched_variables.count > 0
+        result << [procedure, (matched_variables.values.count.to_f/actors.count),matched_variables.values.count]
+      end
     end
-    res.sort_by{|k,v|-v}
+    result.delete_if{|procedure, relevance, arity| relevance < relevance_threshold}
+    return result.sort_by{|procedure, relevance, arity| -relevance}[0..limit]
   end
-
-  private
-  # returns keywords from an array of Product objects (actors involved in an intervention or variables from a procedure)
-  # in: array, an array of actors or variables from a procedure
-  # out: res, an array of symbols ":<variety>_<derivative_of"
-  def self.keywords_from(array)
-    keywords = []
-    array.each do |item|
-      keywords << [item.variety, item.derivative_of].join('_').to_sym
-    end
-    keywords.uniq.delete_if{|sym| sym == :_}
-  end
-
 end
