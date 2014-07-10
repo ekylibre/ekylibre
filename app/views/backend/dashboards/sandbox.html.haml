@@ -60,7 +60,7 @@
   end
 
   product_ids = Product.pluck(:id)
-  # select 3 totally random actors
+  # select totally random actors
   random_actors = []
   2.times do
     random_actors << Product.find(product_ids.sample)
@@ -84,31 +84,3 @@
   Procedo.list.keys.each do |procedure|
     intervention_list << procedure unless actors_from_intervention(procedure).blank?
   end
-
-%h2 inspecting
-%h3 testing refactoring for Intervention#match
-Actors:
-%ul
-- almost_random_actors.each do |a|
-  %li
-    = a.name if a.respond_to? :name
-%ul
-- Intervention.match(almost_random_actors).each do |procedure, relevance, arity|
-  %li.key
-    = procedure.name unless procedure.blank?
-  %li.result
-    relevance:
-    = relevance
-  %li
-    arity:
-    = arity
-
-%h2 Benchmarks
-%h3 benchmarking #match
-
-%ul
-- Benchmark.bm do |bm|
-  %li.key
-    with 1 actor:
-  %li.result
-    = "bm.report('testing #match with one actor'){Intervention.match([random_actors.first])} # remove quote"
