@@ -32,6 +32,7 @@ module Nomen
         # Browse recursively nomenclatures and sub-nomenclatures
         n = Nomenclature.new(nomenclature_name, !(root.attr("translateable").to_s == "false"))
         n.harvest(root, sets, root: true)
+        n.rebuild_tree!
         return n
       end
 
@@ -51,6 +52,17 @@ module Nomen
         end
       end
       return self
+    end
+
+
+    # Build a nested set index on items
+    # Returns last right value
+    def rebuild_tree!
+      left = 0
+      for item in roots
+        left = item.rebuild_tree!(left) + 1
+      end
+      return left - 1
     end
 
     # Add an item to the nomenclature

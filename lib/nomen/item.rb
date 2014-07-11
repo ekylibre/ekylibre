@@ -2,7 +2,7 @@ module Nomen
 
   # An item of a nomenclature is the core data.
   class Item
-    attr_reader :nomenclature, :name, :properties, :children, :parent
+    attr_reader :nomenclature, :name, :properties, :children, :parent, :left, :right, :depth
 
     # New item
     def initialize(nomenclature, element, options = {})
@@ -48,13 +48,33 @@ module Nomen
       [self] + self.parents
     end
 
+
+    # Computes left/right value for nested set
+    # Returns right index
+    def rebuild_tree!(left = 0, depth = 0)
+      @depth = depth
+      @left = left
+      @right = @left + 1
+      # puts "  " * @depth + "#{self.name.to_s.red} (#{@left.to_s.green}-#{@right.to_s.green})"
+      children = self.children(false)
+      for child in children
+        @right = child.rebuild_tree!(@right, @depth + 1) + 1
+      end
+      # puts "  " * @depth + "> #{@left.to_s.green}-#{@right.to_s.yellow}" if children.any?
+      return @right
+    end
+
+
     # Returns true if the given item name match the current item or its children
     def include?(other)
       other = nomenclature.items[other] unless other.is_a?(Item)
-      raise "Invalid item" unless other.nomenclature == self.nomenclature
-      return self_and_children.detect do |item|
-        item.name == other.name
+      unless other.nomenclature == self.nomenclature
+        raise StandardError, "Invalid item" 
       end
+      return (@left <= other.left and other.right <= @right)
+      # return self_and_children.detect do |item|
+      #   item.name == other.name
+      # end
     end
 
     # Return human name of item
@@ -69,30 +89,34 @@ module Nomen
 
     def <(other)
       unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise "Invalid operand to compare"
+        raise StandardError, "Invalid operand to compare"
       end
-      other.children.include?(self)
+      # other.children.include?(self)
+      return (other.left < @left and @right < other.right)
     end
 
     def >(other)
       unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise "Invalid operand to compare"
+        raise StandardError, "Invalid operand to compare"
       end
-      self.children.include?(other)
-    end
+      # self.children.include?(other)
+      return (@left < other.left and other.right < @right)
+   end
 
     def <=(other)
       unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise "Invalid operand to compare"
+        raise StandardError, "Invalid operand to compare"
       end
-      other.self_and_children.include?(self)
+      # other.self_and_children.include?(self)
+      return (other.left <= @left and @right <= other.right)
     end
 
     def >=(other)
       unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise "Invalid operand to compare"
+        raise StandardError, "Invalid operand to compare"
       end
-      self.self_and_children.include?(other)
+      # self.self_and_children.include?(other)
+      return (@left <= other.left and other.right <= @right)
     end
 
     def inspect
