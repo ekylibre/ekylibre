@@ -579,7 +579,7 @@ module Procedo
     # @params: actors, a list of actors possibly matching procedure variables
     # @return:   - result, a hash associating one actor to one variable
     #               key: variable, value: actor
-    def associate_variables_to(*actors)
+    def matching_variables_for(*actors)
       actors.flatten!
       result = {}
       # generating arrays of actors matching each variable
@@ -589,24 +589,21 @@ module Procedo
         actors_for_each_variable[variable.name.to_sym] = variable.possible_matching_for(actors)
       end
 
-      def actors_for_each_variable.reverse
-        res = {}
-        values.uniq.flatten.each{|v| res[v]=[]}
-        map do |k,v|
-          v.map do |w|
-            res[w]<< k
+      variables_for_each_actor = actors_for_each_variable.inject({}) do |res, (variable_key, actors_ary)|
+        unless actors_ary.blank?
+          actors_ary.each do |actor|
+            res[actor] ||= []
+            res[actor] << variable_key
           end
         end
-        return res
+        res
       end
-
-      variables_for_each_actor = actors_for_each_variable.reverse
 
       # setting cursors
       current_variable = current_actor = 0
 
       while result.length != variables.length
-        # before, cleaning variables with no actor
+        # cleaning variables with no actor
         actors_for_each_variable.each do |variable_key, actors_ary|
           if actors_ary.empty?
             result[variable_key] = nil
@@ -618,14 +615,7 @@ module Procedo
           current_variable_key = actors_for_each_variable.keys[current_variable]
           if actors_for_each_variable[current_variable_key].count == 1 && actors_for_each_variable[current_variable_key].present? # only one actor for the current variable
             result[current_variable_key] = actors_for_each_variable[current_variable_key].first
-            # deleting actor from hash "actor => variables"
-            variables_for_each_actor.delete(result[current_variable_key])
-            # deleting actor for all remaining variables
-            actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
-            # removing current variable for all remaining actors
-            variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
-            # removing current variable from hash "variable => actors"
-            actors_for_each_variable.delete(current_variable_key)
+            clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
             # restart from the beginning
             current_variable = 0
           else
@@ -639,14 +629,7 @@ module Procedo
           if variables_for_each_actor[current_actor_key].count == 1
             current_variable_key = variables_for_each_actor[current_actor_key].first
             result[current_variable_key] = current_actor_key
-            # deleting actor from hash "actor => variables"
-            variables_for_each_actor.delete(result[current_variable_key])
-            # deleting actor for all remaining variables
-            actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
-            # removing current variable for all remaining actors
-            variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
-            # removing current variable from hash "variable => actors"
-            actors_for_each_variable.delete(current_variable_key)
+            clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
             # return to first step
             current_actor = 0
             break
@@ -659,14 +642,7 @@ module Procedo
           current_variable = 0
           current_variable_key = actors_for_each_variable.keys[current_variable]
           result[current_variable_key] = actors_for_each_variable[current_variable_key].first unless actors_for_each_variable[current_variable_key].nil?
-          # deleting actor from hash "actor => variables"
-          variables_for_each_actor.delete(result[current_variable_key])
-          # deleting actor for all remaining variables
-          actors_for_each_variable.values.each {|ary| ary.delete(result[current_variable_key])}
-          # removing current variable for all remaining actors
-          variables_for_each_actor.values.each {|ary| ary.delete(current_variable_key)}
-          # removing current variable from hash "variable => actors"
-          actors_for_each_variable.delete(current_variable_key)
+          clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
           # return to first step
         end
 
@@ -679,6 +655,24 @@ module Procedo
 
       end
       return result.delete_if{|k,v|v.nil?}
+    end
+
+    private
+    # clean
+    # removes newly matched actor and variable from hashes
+    # associating all possible actors for each variable and
+    # all possible variables for each actor
+    # @params:  - actors_hash, variables_hash, the hashes to clean
+    #           - actor, variable, the values to remove
+    def clean(actors_hash, variables_hash, actor, variable)
+      # deleting actor from hash "actor => variables"
+      actors_hash.delete(actor)
+      # deleting actor for all remaining variables
+      variables_hash.values.each {|ary| ary.delete(actor)}
+      # removing current variable for all remaining actors
+      actors_hash.values.each {|ary| ary.delete(variable)}
+      # removing current variable from hash "variable => actors"
+      variables_hash.delete(variable)
     end
 
   end

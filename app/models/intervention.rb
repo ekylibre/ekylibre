@@ -320,7 +320,7 @@ class Intervention < Ekylibre::Record::Base
     relevance_threshold = options[:relevance] || 0
     result = []
     Procedo.list.map do |key, procedure|
-      matched_variables = procedure.associate_variables_to(actors)
+      matched_variables = procedure.matching_variables_for(actors)
       if matched_variables.count > 0
         result << [procedure, (matched_variables.values.count.to_f/actors.count),matched_variables.values.count]
       end

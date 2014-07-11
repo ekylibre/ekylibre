@@ -84,3 +84,13 @@
   Procedo.list.keys.each do |procedure|
     intervention_list << procedure unless actors_from_intervention(procedure).blank?
   end
+
+%h2 Benchmarks
+%h3 benchmarking #match
+
+%ul
+- Benchmark.bm do |bm|
+  %li.key
+    with 1 actor:
+  %li.result
+    = "bm.report('testing #match with one actor'){Intervention.match([random_actors.first])} # remove quote"

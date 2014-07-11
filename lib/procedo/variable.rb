@@ -267,34 +267,16 @@ module Procedo
       return false if new?
       result = nil
       if @variety.present?
-        result = same_variety_as?(actor)
+        result = same_items?(@variety, actor.variety)
       end
       if @derivative_of.present? && actor.derivative_of.present?
-        result = (result.nil?)? same_derivative_of_as?(actor):result && same_derivative_of_as?(actor)
+        result = (result.nil?)? same_items?(@derivative_of, actor.derivative_of):result && same_items?(@derivative_of, actor.derivative_of)
       end
       if @abilities.present?
         result = (result.nil?)? actor.able_to_each?(abilities): result && actor.able_to_each?(abilities)
       end
       # default
       return result || false
-    end
-
-    # check if a given actor has got the same variety as a procedure's variable
-    # the comparison uses _Nomen::Item whenever possible
-    # @params: actor, a _Product object or any object responding to #variety
-    # @returns: true if actor's variety is the same as variable's variety or if
-    # actor's variety is a child of variable's variety, false otherwise
-    def same_variety_as?(actor)
-      return same_items?(@variety, actor.variety)
-    end
-
-    # check if a given actor has got the same derivative_of as a procedure's variable
-    # the comparison uses _Nomen::Item whenever possible
-    # @params: actor, a _Product object or any object responding to #derivative_of
-    # @returns: true if actor's derivative_of is the same as variable's derivative_of or if
-    # actor's variety is a child of variable's derivative_of, false otherwise
-    def same_derivative_of_as?(actor)
-      return same_items?(@derivative_of, actor.derivative_of)
     end
 
     # match actors to variable
@@ -316,16 +298,16 @@ module Procedo
     # @returns: true if actor's item is the same as variable's one or if
     # actor's item is a child of variable's variety, false otherwise
     def same_items?(variable_item, actor_item)
+      # if possible it is better to squeeze nomenclature items comparison since it's quite slow
       if actor_item == variable_item
         return true
       end
-      actor_nomenclature_item = Nomen::Varieties[actor_item]
-      variable_nomenclature_item = Nomen::Varieties[variable_item]
 
-      if actor_nomenclature_item.present? && variable_nomenclature_item.present?
-        return actor_nomenclature_item <= variable_nomenclature_item
+      begin
+        return Nomen::Varieties[variable_item] >= actor_item
+      rescue # manage the case when there is no item in nomenclature for the varieties to compare
+        return false
       end
-      return false
     end
   end
 end
