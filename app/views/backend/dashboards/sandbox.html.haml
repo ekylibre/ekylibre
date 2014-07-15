@@ -96,10 +96,12 @@
 
   # select three actors from a random intervention
   almost_random_actors = massive_test_hash.values.sample
-  almost_random_actors.each do |actor|
-    procedures_for(actor).each do |res|
-      history << res
-      history.flatten!
+  if almost_random_actors.present?
+    almost_random_actors.each do |actor|
+      procedures_for(actor).each do |res|
+        history << res
+        history.flatten!
+      end
     end
   end
 
