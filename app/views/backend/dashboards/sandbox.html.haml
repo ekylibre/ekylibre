@@ -59,6 +59,25 @@
     return res
   end
 
+  # find all procedures from interventions involving a given actor
+  def procedures_for(actor)
+    res = []
+    Intervention.real.joins(:casts).where("intervention_casts.actor_id = #{actor.id}").each do |intervention|
+      res << intervention.reference_name unless intervention.blank?
+    end
+    return res.flatten
+  end
+
+  history = []
+
+  def provisional
+    res = []
+    Intervention.provisional.each do |intervention|
+      res << intervention.reference_name
+    end
+    res
+  end
+
   product_ids = Product.pluck(:id)
   # select totally random actors
   random_actors = []
@@ -77,6 +96,12 @@
 
   # select three actors from a random intervention
   almost_random_actors = massive_test_hash.values.sample
+  almost_random_actors.each do |actor|
+    procedures_for(actor).each do |res|
+      history << res
+      history.flatten!
+    end
+  end
 
   # listing procedures for which we have interventions
   intervention_list = []
@@ -84,7 +109,7 @@
     intervention_list << procedure unless actors_from_intervention(procedure).blank?
   end
   
-  rendering = false
+  rendering = true
 
 - if rendering
 
@@ -94,7 +119,15 @@
       testing with actors from 
       = procedure_name
     %ul
-      - Intervention.match(actors_ary, :limit =>10, :relevance =>0.4).each do |procedure, relevance, arity|
+      %li
+        Actors:
+      - actors_ary.each do |actor|
+        %li.key
+          = actor.name
+    %ul
+      %li
+        Procedures:
+      - Intervention.match(actors_ary, limit: 10, relevance: 0.2, history: true).each do |procedure, relevance, arity|
         %li.key 
           = procedure.name
         %li.result
@@ -105,14 +138,26 @@
           = arity
             
   %h2 Benchmarks
-  %h3 benchmarking #match
+  %h3 benchmarking #match with and without history
   %ul
     - Benchmark.bm do |bm|
       %li.key
         with 1 actor:
+      %li.variety
+        with history:
       %li.result
-        = bm.report('testing #match with one actor'){Intervention.match([random_actors.first])} # remove quote"
+        = bm.report{Intervention.match([random_actors.first], history: true)} # remove quote"
+      %li.variety
+        without history:
+      %li.result
+        = bm.report{Intervention.match([random_actors.first])} # remove quote"
       %li.key 
-        with 10 actors: 
+        with 10 actors:
+      %li.variety
+        with history:
       %li.result
-        =bm.report{Intervention.match(random_actors)} # remove quote
+        = bm.report{Intervention.match(random_actors, history: true)} # remove quote"
+      %li.variety
+        without history:
+      %li.result
+        = bm.report{Intervention.match(random_actors)} # remove quote"
