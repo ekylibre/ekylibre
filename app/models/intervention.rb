@@ -310,50 +310,62 @@ class Intervention < Ekylibre::Record::Base
 
   # match
   # @params: actors, an array of actors identified for a given procedure
+  # @options: - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
+  # is expected. Default value: 0.
+  #           - limit: sets the number of wanted results. By default all results are returned
+  #           - history: sets the use of actors history to calculate relevance. A boolean is expected.
+  # Default: false,since checking through history is slower
+  #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
+  # Default: false, since it's slower
   # @returns: matching_procedures, an array of procedures matching the given actors, ordered by relevance,
   # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
   # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
   # matched in the procedure
-  # @options: - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
-  # is expected. Default value: 0.
-  #           - limit: sets the number of wanted results. By default all results are returned
-  #           - history: sets the use of actors history and provisional to calculate relevance. A boolean is expected.
-  # Default: false,since checking through history and provisional is slower
   def self.match(actors, options = {})
-    limit = -1
-    limit = options[:limit] -1 if options[:limit].present?
-    relevance_threshold = options[:relevance] || 0
+    limit = options[:limit].to_i - 1
+    relevance_threshold = options[:relevance].to_f
 
     # creating coefficients for relevance calculation for each procedure
     # coefficients depend on provisional, actors history and actors presence in procedures
-    history = []
+    history = Hash.new(0)
     provisional = []
+    actors_id = []
+    if options[:history] || options[:provisional]
+      actors.each {|actor| actors_id << actor.id}
+    end
+
+    # select interventions from all actors history
     if options[:history]
-       actors.each do |actor|
-        Intervention.real.joins(:casts).where("intervention_casts.actor_id = '#{actor.id}'").each do |intervention|
-          history << intervention.reference_name unless intervention.blank?
-        end
-        Intervention.provisional.distinct.joins(:casts).where("intervention_casts.actor_id = '#{actor.id}'").each do |intervention|
-          provisional << intervention.reference_name unless intervention.blank?
-        end
-      end
+      history.merge!(Intervention.joins(:casts).
+          where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
+          where(started_at: (Time.now.midnight - 1.year)..(Time.now)). # history is considered relevant on 1 year
+          group(:'interventions.reference_name').
+          count(:'interventions.reference_name'))
     end
+
+    if options[:provisional]
+      provisional.concat(Intervention.distinct.
+          joins(:casts).
+          where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
+          where(started_at: (Time.now.midnight - 1.day)..(Time.now + 3.days)).
+          pluck('interventions.reference_name')).uniq!
+    end
+
     coeff = {}
+
     history_size = 1.0 # prevents division by zero
-    history_size = history.count.to_f if history.count > 1
-    Procedo.list.keys.each do |procedure_key|
-      coeff[procedure_key] = 1.0 + 2.0*(history.count(procedure_key).to_f/history_size.to_f) + 3.0*provisional.count(procedure_key).to_f
-    end
+    history_size = history.values.reduce(:+).to_f if history.count >= 1
 
     denominator = 1.0
-    denominator = 3.0 if options[:history]
-    denominator = 6.0 if provisional.present? # if provisional is empty, it's pointless using it for relevance calculation
+    denominator += 2.0 if options[:history] && history.present?
+    denominator += 3.0 if provisional.present? # if provisional is empty, it's pointless using it for relevance calculation
 
     result = []
-    Procedo.list.map do |key, procedure|
+    Procedo.list.map do |procedure_key, procedure|
+      coeff[procedure_key] = 1.0 + 2.0*(history[procedure_key].to_f/history_size) + 3.0*provisional.count(procedure_key).to_f
       matched_variables = procedure.matching_variables_for(actors)
       if matched_variables.count > 0
-        result << [procedure, (((matched_variables.values.count.to_f/actors.count)*coeff[key])/denominator),matched_variables.values.count]
+        result << [procedure, (((matched_variables.values.count.to_f/actors.count)*coeff[procedure_key])/denominator),matched_variables.values.count]
       end
     end
     result.delete_if{|procedure, relevance, arity| relevance < relevance_threshold}

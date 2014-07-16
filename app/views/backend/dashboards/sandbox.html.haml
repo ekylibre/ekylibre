@@ -48,7 +48,7 @@
   # returns an array of actors from a real intervention example
   def actors_from_intervention(procedure_name)
     res = []
-    intervention = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").last
+    intervention = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").sample
     if intervention.present?
       intervention.casts.each do |ic| # InterventionCast
         res << Product.find(ic.actor) unless ic.reference.new?
@@ -56,26 +56,19 @@
     else
       return nil
     end
-    return res
-  end
-
-  # find all procedures from interventions involving a given actor
-  def procedures_for(actor)
-    res = []
-    Intervention.real.joins(:casts).where("intervention_casts.actor_id = #{actor.id}").each do |intervention|
-      res << intervention.reference_name unless intervention.blank?
-    end
-    return res.flatten
-  end
-
-  history = []
-
-  def provisional
-    res = []
-    Intervention.provisional.each do |intervention|
-      res << intervention.reference_name
-    end
     res
+  end
+
+  # find all procedures from interventions involving given actors
+  def procedures_for(*actors)
+    actors.flatten!
+    actors_id = []
+    actors.each {|actor| actors_id << actor.id}
+    res = Intervention.real.joins(:casts).
+          where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
+          group(:'interventions.reference_name').
+          count(:'interventions.reference_name')
+    res.sort_by{|k,v|-v}
   end
 
   product_ids = Product.pluck(:id)
@@ -94,16 +87,8 @@
     end
   end
 
-  # select three actors from a random intervention
+  # select actors from a random intervention
   almost_random_actors = massive_test_hash.values.sample
-  if almost_random_actors.present?
-    almost_random_actors.each do |actor|
-      procedures_for(actor).each do |res|
-        history << res
-        history.flatten!
-      end
-    end
-  end
 
   # listing procedures for which we have interventions
   intervention_list = []
@@ -114,6 +99,35 @@
   rendering = false
 
 - if rendering
+  %h2 testing on individual random actors
+  - random_actors.each do |actor|
+    %h3
+      = actor.name
+    %ul
+      - Intervention.match([actor], history: true, provisional: true).each do |procedure, relevance, arity|
+        %li.variety
+          = procedure.name
+        %li.key
+          relevance:
+          = relevance
+        %li.result
+          arity:
+          = arity
+  %h2 testing on individual random actors having a history
+  - almost_random_actors.each do |actor|
+    %h3
+      Actor:
+      = actor.name
+    %ul
+      - Intervention.match([actor], history: true, provisional: true).each do |procedure, relevance, arity|
+        %li.variety
+          = procedure.name
+        %li.key
+          relevance:
+          = relevance
+        %li.result
+          arity:
+          = arity
 
   %h2 massive matching test on actual interventions actors 
   - massive_test_hash.each do |procedure_name, actors_ary|
@@ -121,15 +135,15 @@
       testing with actors from 
       = procedure_name
     %ul
-      %li
+      %li.bold
         Actors:
       - actors_ary.each do |actor|
         %li.key
           = actor.name
     %ul
-      %li
+      %li.italic
         Procedures:
-      - Intervention.match(actors_ary, limit: 10, relevance: 0.2, history: true).each do |procedure, relevance, arity|
+      - Intervention.match(actors_ary, limit: 10, relevance: 0.2, history: true, provisional: true).each do |procedure, relevance, arity|
         %li.key 
           = procedure.name
         %li.result
@@ -148,7 +162,7 @@
       %li.variety
         with history:
       %li.result
-        = bm.report{Intervention.match([random_actors.first], history: true)} # remove quote"
+        = bm.report{Intervention.match([random_actors.first], history: true, provisional: true)} # remove quote"
       %li.variety
         without history:
       %li.result
@@ -158,7 +172,7 @@
       %li.variety
         with history:
       %li.result
-        = bm.report{Intervention.match(random_actors, history: true)} # remove quote"
+        = bm.report{Intervention.match(random_actors, history: true, provisional: true)} # remove quote"
       %li.variety
         without history:
       %li.result
