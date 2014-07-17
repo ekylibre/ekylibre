@@ -10,9 +10,9 @@ class Mailman < ActionMailer::Base
     if piece
       attachments[piece[:filename]] = piece[:body]
       # attachment piece
-# (:content_type => piece.content_type,
-#                  :body => piece.read,
-#                  :filename=>piece.original_filename)
+      # (:content_type => piece.content_type,
+      #                  :body => piece.read,
+      #                  :filename=>piece.original_filename)
     end
     mail(:from => expedier, :to => recipient, :subject => subject)
   end

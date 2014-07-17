@@ -41,7 +41,7 @@ class Backend::ListingsController < BackendController
   def extract
     return unless @listing = find_and_check
     begin
-      @listing.save if @listing.query.blank?
+      @listing.save unless @listing.query?
       query = @listing.query.to_s
       # FIXME: This is dirty code to solve quickly no_mail mode
       query.gsub!(" ORDER BY ", " AND (" + @listing.coordinate_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ") + ") ORDER BY ") if params[:mode] == "no_mail"

@@ -44,7 +44,7 @@
         - l.attribute :payment_delay, :label => :name
         - l.attribute :nature
         - l.attribute :currency unless @sale.currency == Entity.of_company.currency
-        - l.attribute :description unless @sale.description.blank?
+        - l.attribute :description if @sale.description?
         - l.attribute :address, :label => :coordinate
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :invoice_address, :label => :coordinate
