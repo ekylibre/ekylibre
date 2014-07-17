@@ -1,5 +1,5 @@
-:ruby
-  if @campaigns
+- if @campaigns
+  :ruby
     data = []
     ProductionSupport.of_campaign(@campaigns).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
 
@@ -70,39 +70,28 @@
         popup: {header: true, content: popup_content}
       }
       data << item
-      end
     end
+  end
 
+  = visualization do |v|
+    - v.serie :main, data
+    - v.background "OpenStreetMap.HOT"
+    - v.background "Thunderforest.Transport"
+    - v.background "Thunderforest.Outdoors"
+    - if params[:visualization] == "nitrogen_footprint"
+      - v.choropleth :interventions_count, :main
+      - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
+      - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
+      - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
+    - else
+      - v.choropleth :interventions_count, :main
+      - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
+      - v.choropleth :input_cost, :main, stop_color: "#1122DD"
+      - v.choropleth :time_cost, :main, stop_color: "#E77000"
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
 
-
-
-= visualization do |v|
-  - v.serie :main, data
-  - v.background "OpenStreetMap.HOT"
-  - v.background "Thunderforest.Transport"
-  - v.background "Thunderforest.Outdoors"
-  - if params[:visualization] == "nitrogen_footprint"
-    - v.choropleth :interventions_count, :main
-    - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
-    - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
-    - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
-  - else
-    - v.choropleth :interventions_count, :main
-    - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
-    - v.choropleth :input_cost, :main, stop_color: "#1122DD"
-    - v.choropleth :time_cost, :main, stop_color: "#E77000"
-  - v.control :zoom
-  - v.control :scale
-  - v.control :fullscreen
-  - v.control :layer_selector
-
-
-
--# if @visualization
-  - id = "map-#{@visualization}"
-  %div{id: id}
-    -# &sql=&zoom=3&center_lat=45.27488643704891&center_lon=9.84375
-    %iframe{width: '100%', height: 520, frameborder: 0, src: "//#{@account}.cartodb.com/viz/#{@visualization}/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=false&layer_selector=true&legends=true&scrollwheel=false&sublayer_options=1"}
-    = link_to(:refresh.tl, {action: :update, visualization: params[:visualization]}, method: :patch, remote: true, 'data-update' => "##{id}", 'data-update-at' => 'replace', class: "btn")
--# else
+- else
   = no_data

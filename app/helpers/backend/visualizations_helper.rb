@@ -45,6 +45,9 @@ module Backend::VisualizationsHelper
 
     # Add a serie of geo data
     def serie(name, data)
+      unless data.is_a? Array
+        raise StandardError, "data must be an array"
+      end
       @config[:series] ||= {}.with_indifferent_access
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
