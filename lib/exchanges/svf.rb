@@ -260,7 +260,7 @@ module SVF
       end
       code << "  end\n"
       # code << "  def self.parse(line)\n"
-      # code << "    raise Exception.new(\"Bad key used for #{element.class_name}: '#{element.key}' expected, got '\#{line[0..#{element.key.length-1}]}'\") if line[0..#{element.key.length-1}] != '#{element.key}'\n"
+      # code << "    raise StandardError.new(\"Bad key used for #{element.class_name}: '#{element.key}' expected, got '\#{line[0..#{element.key.length-1}]}'\") if line[0..#{element.key.length-1}] != '#{element.key}'\n"
       # code << "    return #{element.class_name}.new("+element.cells.collect{|c| c.parse_value}.join(', ')+")\n"
       # code << "  end\n"
       code << "end\n\n"
@@ -313,10 +313,10 @@ module SVF
         code << "    break\n"
         code << "  else\n"
         rep = '[#{__LINE__}]'
-        code << "    raise Exception.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
+        code << "    raise StandardError.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
       else
         code << "e\n"
-        code << "    raise Exception.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
+        code << "    raise StandardError.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
       end
       code << "  end\n"
 

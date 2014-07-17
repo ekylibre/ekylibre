@@ -346,7 +346,7 @@ class Sale < Ekylibre::Record::Base
         copy.subscriptions.create!(:sale_id => copy.id, :entity_id => sub.entity_id, :address_id => sub.address_id, :quantity => sub.quantity, :nature_id => sub.nature_id, :product_id => sub.product_id, :sale_item_id => items[sub.sale_item_id])
       end
     else
-      raise Exception.new(copy.errors.inspect)
+      raise StandardError.new(copy.errors.inspect)
     end
     copy
   end

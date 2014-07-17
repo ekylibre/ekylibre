@@ -34,7 +34,7 @@ module Clean
         needed = columns.select{|c| not c.null and c.type != :boolean}.collect{|c| ":#{c.name}"}
         needed += model.reflect_on_all_associations(:belongs_to).select do |association|
           column = model.columns_hash[association.foreign_key.to_s]
-          raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
+          raise StandardError.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
           !column.null and validable_column?(column)
         end.collect{|r| ":#{r.name}"}
         code << "  validates_presence_of "+needed.sort.join(', ')+"\n" if needed.size > 0

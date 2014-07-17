@@ -478,7 +478,7 @@ class Account < Ekylibre::Record::Base
       #       end
 
       #if account.number.match /^12/
-      # raise Exception.new compute[:balance].to_s
+      # raise StandardError.new compute[:balance].to_s
       #end
 
       if account.number.match /^(6|7)/
@@ -488,10 +488,10 @@ class Account < Ekylibre::Record::Base
       end
 
       #solde += compute[:balance] if account.number.match /^(6|7)/
-      #      raise Exception.new solde.to_s if account.number.match /^(6|7)/
+      #      raise StandardError.new solde.to_s if account.number.match /^(6|7)/
       balance << compute
     end
-    #raise Exception.new res_balance.to_s
+    #raise StandardError.new res_balance.to_s
     balance.each do |account|
       if res_balance > 0
         if account[:number].to_s.match /^12/
@@ -507,7 +507,7 @@ class Account < Ekylibre::Record::Base
         end
       end
     end
-    # raise Exception.new(balance.inspect)
+    # raise StandardError.new(balance.inspect)
     balance.compact
   end
 

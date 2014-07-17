@@ -60,7 +60,7 @@ class Backend::BankStatementsController < BackendController
     session[:statement] = params[:id]  if request.get?
     return unless @bank_statement = find_and_check
     if request.post?
-      # raise Exception.new(params[:journal_entry_item].inspect)
+      # raise StandardError.new(params[:journal_entry_item].inspect)
       if @bank_statement.point(params[:journal_entry_item].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i})
         redirect_to action: :index
         return

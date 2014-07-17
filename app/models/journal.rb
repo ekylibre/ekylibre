@@ -227,7 +227,7 @@ class Journal < Ekylibre::Record::Base
     # account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
     account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
 
-    # raise Exception.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
+    # raise StandardError.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}
     options[:centralize] = centralize.join(" ")
     centralized = centralize.collect{|c| "#{accounts}.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")

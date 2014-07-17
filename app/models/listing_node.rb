@@ -120,7 +120,7 @@ class ListingNode < Ekylibre::Record::Base
       if self.parent.model
         self.sql_type = self.convert_sql_type(self.parent.model.columns_definition[self.attribute_name][:type].to_s)
       end
-      #raise Exception.new self.attribute_name.inspect
+      #raise StandardError.new self.attribute_name.inspect
       self.name = self.parent.name.underscore+"."+self.attribute_name
     end
   end
@@ -164,7 +164,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def comparators
-    #raise Exception.new self.sql_type.inspect
+    #raise StandardError.new self.sql_type.inspect
     #return @@comparators[self.sql_type.to_sym] if self.sql_type
     @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_node.comparators.'+x),x]} if self.sql_type
   end
@@ -242,7 +242,7 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def convert_sql_type(type)
-    #raise Exception.new type.inspect
+    #raise StandardError.new type.inspect
     if type == "decimal" or type == "integer"
       return 'numeric'
     elsif type == "string" or type == "text"

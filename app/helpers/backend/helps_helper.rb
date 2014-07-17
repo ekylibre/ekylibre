@@ -169,7 +169,7 @@ module Backend::HelpsHelper
 
     content.strip!
 
-    #raise Exception.new content
+    #raise StandardError.new content
     return content.html_safe
   end
 

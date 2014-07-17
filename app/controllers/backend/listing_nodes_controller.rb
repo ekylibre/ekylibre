@@ -23,7 +23,7 @@ class Backend::ListingNodesController < BackendController
     return unless @listing_node = find_and_check(id: params[:parent_id])
     if params[:nature]
       desc = params[:nature].split("-")
-      # raise Exception.new desc.inspect
+      # raise StandardError.new desc.inspect
       if desc[0] == "special"
         if desc[1] == "all_columns"
           model = @listing_node.model
@@ -48,7 +48,7 @@ class Backend::ListingNodesController < BackendController
     return unless @listing_node = find_and_check(id: params[:parent_id])
     render :text => "[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
-    # raise Exception.new desc.inspect
+    # raise StandardError.new desc.inspect
     if desc[0] == "special"
       if desc[1] == "all_columns"
         model = @listing_node.model

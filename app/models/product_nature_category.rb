@@ -120,7 +120,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   def duration
-    #raise Exception.new self.subscription_nature.nature.inspect+" blabla"
+    #raise StandardError.new self.subscription_nature.nature.inspect+" blabla"
     if self.subscription_nature
       self.send('subscription_'+self.subscription_nature.nature)
     else
@@ -130,7 +130,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   def duration=(value)
-    #raise Exception.new subscription.inspect+self.subscription_nature_id.inspect
+    #raise StandardError.new subscription.inspect+self.subscription_nature_id.inspect
     if self.subscription_nature
       self.send('subscription_'+self.subscription_nature.nature+'=', value)
     end

@@ -302,7 +302,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def merge_with(entity)
-    raise Exception.new("Company entity is not mergeable") if entity.of_company?
+    raise StandardError.new("Company entity is not mergeable") if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # Classics
       for many in [:direct_links, :events, :godchildren, :indirect_links, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_items, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]

@@ -252,7 +252,7 @@ class Backend::EntitiesController < BackendController
           notify_error_now(:entity_columns_are_needed)
           return
         end
-        # raise Exception.new columns.inspect+"\n"+cols.inspect
+        # raise StandardError.new columns.inspect+"\n"+cols.inspect
         session[:entities_import_cols] = cols
         redirect_to action: :import, id: :validate
       end

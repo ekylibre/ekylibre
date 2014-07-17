@@ -158,9 +158,9 @@ module Exchanges
               # Check all lines line-per-line
               benchmark "Check all entries" do
                 found, expected = fy.journal_entries.size, isa_fy.entries.size
-                raise Exception.new("The count of entries is different: #{found} in database and #{expected} in file") if found != expected
+                raise StandardError.new("The count of entries is different: #{found} in database and #{expected} in file") if found != expected
                 found, expected = JournalEntryLine.between(fy.started_on, fy.stopped_on).count, isa_fy.entries.inject(0){|s, e| s += e.lines.size}
-                raise Exception.new("The count of entry lines is different: #{found} in database and #{expected} in file") if found != expected
+                raise StandardError.new("The count of entry lines is different: #{found} in database and #{expected} in file") if found != expected
                 for entry in fy.journal_entries
                 end
               end

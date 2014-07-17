@@ -123,7 +123,7 @@ class Backend::ListingsController < BackendController
     if session[:listing_coordinate_column] or @listing.coordinate_columns.count == 1
       full_results = ActiveRecord::Base.connection.select_all(query)
       listing_coordinate_column = @listing.coordinate_columns.count == 1 ? @listing.coordinate_columns[0] : find_and_check(:listing_node, session[:listing_coordinate_column])
-      #raise Exception.new listing_coordinate_column.inspect
+      #raise StandardError.new listing_coordinate_column.inspect
       results = full_results.select{|c| !c[listing_coordinate_column.label].blank? }
       @mails = results.collect{|c| c[listing_coordinate_column.label] }
       # @mails.uniq! ### CHECK ????????
@@ -158,7 +158,7 @@ class Backend::ListingsController < BackendController
         notify_success_now(:mails_are_sent)
 	# nature = EventNature.where(:usage => "mailing").first
         # nature = EventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
-        # #raise Exception.new nature.inspect
+        # #raise StandardError.new nature.inspect
 	# EntityAddress.emails.where(:coordinate => @mails).find_each do |address|
         #   Event.create!(:entity_id => address.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
         # end

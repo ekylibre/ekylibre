@@ -80,7 +80,7 @@ class Subscription < Ekylibre::Record::Base
         else
           period = '1 year'
         end
-        #raise Exception.new "ok"+period.inspect+self.product.subscription_period.inspect
+        #raise StandardError.new "ok"+period.inspect+self.product.subscription_period.inspect
         self.started_at ||= Date.today
         self.stopped_at ||= Delay.compute(period+", 1 day ago", self.started_at)
       elsif self.nature.quantity?

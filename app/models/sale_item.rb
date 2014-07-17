@@ -218,7 +218,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def new_subscription(attributes={})
-    #raise Exception.new attributes.inspect
+    #raise StandardError.new attributes.inspect
     subscription = Subscription.new((attributes||{}).merge(:sale_id => self.sale.id, :product_id => self.product_id, :nature_id => self.product.subscription_nature_id, :sale_item_id => self.id))
     subscription.attributes = attributes
     product = subscription.product
