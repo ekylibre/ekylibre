@@ -2963,14 +2963,19 @@ eng:
         corker: "Corker"                                   #< equipment
         corylus: "Hazel"                                   #< betulaceae
         corylus_avellana: "Common hazel"                   #< corylus
+        corylus_avellana_butler: "Common hazel Butler"     #< corylus_avellana
         corylus_avellana_corabel: "Common hazel Corabel"   #< corylus_avellana
         corylus_avellana_ennis: "Common hazel Ennis"       #< corylus_avellana
         corylus_avellana_fercoril_corabel: "Common hazel Fercoril Corabel" #< corylus_avellana
         corylus_avellana_feriale: "Common hazel Feriale"   #< corylus_avellana
+        corylus_avellana_fertile: "Common hazel Fertile"   #< corylus_avellana
         corylus_avellana_fertile_coutard: "Common hazel Fertile coutard" #< corylus_avellana
+        corylus_avellana_jemstegaard: "Common hazel Jemstegaard" #< corylus_avellana
         corylus_avellana_lewis: "Common hazel Lewis"       #< corylus_avellana
         corylus_avellana_merveille: "Common hazel Merveille" #< corylus_avellana
+        corylus_avellana_negret: "Common hazel Negret"     #< corylus_avellana
         corylus_avellana_pauetet: "Common hazel Pauetet"   #< corylus_avellana
+        corylus_avellana_ronde_de_piemont: "Common hazel Ronde de piemont" #< corylus_avellana
         corylus_avellana_segorbe: "Common hazel Segorbe"   #< corylus_avellana
         corylus_avellana_tonda_giffoni: "Common hazel Tonda Giffoni" #< corylus_avellana
         crocus: "Crocus"                                   #< iridaceae
@@ -3050,6 +3055,12 @@ eng:
         item: "Item"                                       #< equipment
         juglandaceae: "Juglandaceae"                       #< plant
         juglans: "Juglans"                                 #< juglandaceae
+        juglans_regia: "Common walnut"                     #< juglans
+        juglans_regia_chandler: "Common walnut Chandler"   #< juglans_regia
+        juglans_regia_fernor: "Common walnut Fernor"       #< juglans_regia
+        juglans_regia_franquette: "Common walnut Franquette" #< juglans_regia
+        juglans_regia_howard: "Common walnut Howard"       #< juglans_regia
+        juglans_regia_lara: "Common walnut Lara"           #< juglans_regia
         juice: "Juice"                                     #< preparation
         label: "Label"                                     #< packaged_matter
         lactuca: "Lettuce"                                 #< asteraceae

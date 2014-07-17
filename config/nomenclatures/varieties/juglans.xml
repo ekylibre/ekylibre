@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="varieties-juglans" hierarchical="true">
+    <items>
+      <item name="juglans_regia" itis_tsn="503244"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-juglans_regia" hierarchical="true">
+    <items>
+      <item name="juglans_regia_chandler" itis_tsn="00000"/>
+      <item name="juglans_regia_fernor" itis_tsn="00000"/>
+      <item name="juglans_regia_franquette" itis_tsn="00000"/>
+      <item name="juglans_regia_howard" itis_tsn="00000"/>
+      <item name="juglans_regia_lara" itis_tsn="00000"/>
+    </items>
+  </nomenclature>
+    
+</nomenclatures>
