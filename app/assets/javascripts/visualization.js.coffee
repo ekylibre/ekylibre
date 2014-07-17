@@ -6,7 +6,7 @@
 
 (($) ->
   "use strict"
- 
+
   $.widget "ui.visualization",
     options:
       box:
@@ -23,8 +23,8 @@
           collapsed: true,
           position: 'topright',
           text: 'Locate',
-          bounds: null, 
-          email: null       
+          bounds: null,
+          email: null
         layerSelector:
           collapsed: true,
           position: 'topright',
@@ -34,7 +34,7 @@
           maxWidth: 200
           metric: true
           imperial: false
-          updateWhenIdle: false        
+          updateWhenIdle: false
         zoom:
           position: 'topleft'
           zoomInText: ''
@@ -69,7 +69,7 @@
           round: 5
           startColor: '#FFFFFF'
           stopColor: '#910000'
-          levelNumber: 7   
+          levelNumber: 7
         simple:
           stroke: true
           color: "#333333"
@@ -82,12 +82,12 @@
         maxZoom: 18
         minZoom:2
         zoomControl: false
-        attributionControl: false      
-      view: 
+        attributionControl: false
+      view:
         center:[]
         zoom : 13
-                
-    _create: ->     
+
+    _create: ->
       console.log "1"
       $.extend(true, @options, @element.data("visualization"))
 
@@ -102,26 +102,26 @@
 
       console.log "5"
       this._refreshView()
-      
+
       console.log "8"
       this._refreshControls()
-           
+
       console.log "9"
- 
+
     _destroy: ->
       @mapElement.remove()
-            
+
     zoom: (zoom) ->
       return @map.getZoom() unless zoom?
       this.options.view.zoom = zoom
       this._refreshZoom()
- 
+
     height: (height) ->
       return this.options.box.height unless height?
       this.options.view.box.height = height
       this._resize()
- 
-    _resize: -> 
+
+    _resize: ->
       if this.options.box?
         if this.options.box.height?
           @mapElement.height this.options.box.height
@@ -165,12 +165,12 @@
     _addLayerSelectorControl: (options) ->
       baseLayers = {}
       overlays = {}
-      
+
       for layer, index in @options.backgrounds
         backgroundLayer = L.tileLayer.provider(layer.provider)
         baseLayers[layer.label] = backgroundLayer
         @map.addLayer(backgroundLayer) if index == 0
-      
+
       for layer in @options.overlays
         overlayLayer = L.tileLayer.provider(layer.provider_name)
         overlays[layer.name] = overlayLayer
@@ -179,7 +179,7 @@
       legendControl.onAdd = (map) ->
         L.DomUtil.create('div', 'leaflet-legend-control')
       @map.addControl legendControl
-        
+
       for layer in @options.layers
         if console.group isnt undefined
           console.group "Add layer #{layer.name}..."
@@ -190,7 +190,7 @@
           options = {} if options is true
           if layerGroup = this[functionName].call(this, layer, legendControl)
             overlayLayer = L.layerGroup(layerGroup)
-            overlayLayer.name = layer.name            
+            overlayLayer.name = layer.name
             layer.overlay = overlays[layer.label] = overlayLayer
             @map.addLayer(overlayLayer)
             group = new L.featureGroup(layerGroup)
@@ -200,7 +200,7 @@
         else
           console.log "Unknown layer type: #{layer.type}"
         console.groupEnd() if console.groupEnd isnt undefined
-        
+
       @map.on "overlayadd", (event) ->
         console.log "Add legend control..."
         legend = $(legendControl.getContainer())
@@ -208,8 +208,8 @@
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.removeClass("empty")
-        return       
-        
+        return
+
       @map.on "overlayremove", (event) ->
         console.log "Remove legend control..."
         legend = $(legendControl.getContainer())
@@ -217,7 +217,7 @@
         legend.children(".first").removeClass("first")
         legend.children(":visible:first").addClass("first")
         legend.addClass("empty") if legend.children(":visible").length <= 0
-        return                                                 
+        return
 
       control = new L.Control.Layers(baseLayers, overlays, @options.controlDefaults.layerSelector)
       @map.addControl control
@@ -246,7 +246,7 @@
       options = $.extend true, {}, @options.layerDefaults.choropleth, layer
       choropleth = new visualization.Choropleth(layer, data, options)
       unless choropleth.valid()
-        return false 
+        return false
 
       layerGroup = choropleth.buildLayerGroup(this, options)
       console.log("Choropleth layer added")
@@ -298,14 +298,14 @@
         if block.label?
           popup += "<span class='popup-block-label'>#{block.label}</span>"
         if block.content?
-          popup += "<span class='popup-block-content'>#{block.content}</span>"         
+          popup += "<span class='popup-block-content'>#{block.content}</span>"
         else if block.value?
           popup += "<span class='popup-block-value'>#{block.value}</span>"
         popup += "</div>"
       layer.bindPopup(popup)
       return layer
-                                
- 
+
+
     _refreshView: (view) ->
       this._setDefaultView()
       # else if view.center?
@@ -316,11 +316,11 @@
       #   else
       #     @map.setView(center, zoom)
       # this
- 
+
     _setDefaultView: ->
       @map.fitWorld()
       @map.setZoom 6
-           
+
     _refreshZoom: ->
       if this.options.view.zoom?
         @map.setZoom(this.options.view.zoom)

@@ -151,7 +151,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
       if cartodb_visualization_default = Identifier.find_by_nature(:cartodb_visualization_default) and cartodb_visualization_nitrogen_footprint = Identifier.find_by_nature(:cartodb_visualization_nitrogen_footprint)
         @config = {account: cartodb_subdomain.value, key: cartodb_api_key.value, visualizations:{default: cartodb_visualization_default.value, nitrogen_footprint: cartodb_visualization_nitrogen_footprint.value}}
       @account = @config[:account]
-      @visualization = (@config[:visualizations] || {})[(params[:visualization] || :default).to_sym]  
+      @visualization = (@config[:visualizations] || {})[(params[:visualization] || :default).to_sym]
       end
       if cooperative_cartodb_account = Identifier.find_by_nature(:cooperative_cartodb_account) and cooperative_cartodb_key = Identifier.find_by_nature(:cooperative_cartodb_key)
         @cooperative_config = {account: cooperative_cartodb_account.value, key: cooperative_cartodb_key.value}

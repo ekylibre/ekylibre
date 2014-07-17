@@ -348,7 +348,7 @@ $map-button-size: round(2 * $fs-normal);
 						border-top: $menu-border;
 				}
 				.leaflet-control-layers-base, .leaflet-control-layers-overlays {
-						padding: $default-gap;						
+						padding: $default-gap;
 						label {
 								&, * {
 										vertical-align: middle;
@@ -817,7 +817,7 @@ $map-button-size: round(2 * $fs-normal);
 		$cell-height: $fs-small;
     @include menu-box;
     min-width: 220px;
-    
+
     &.empty {
         display: none;
     }
@@ -882,7 +882,7 @@ $map-button-size: round(2 * $fs-normal);
 										height: $cell-height;
 										width: $cell-height;
 										@include border-radius(50%);
-										border: 1px solid #333;										
+										border: 1px solid #333;
 								}
 						}
 				}
@@ -919,4 +919,4 @@ $map-button-size: round(2 * $fs-normal);
         margin-top: 8px;
     }
 
-}  
+}

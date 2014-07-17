@@ -116,7 +116,7 @@ module Procedo
     def need_parameters?
       return wanted_indicators.any?
     end
-    
+
     def wanted_indicators
       return self.parameters.values.select do |parameter|
         parameter.is_a?(Procedo::Indicator) and !parameter.value?

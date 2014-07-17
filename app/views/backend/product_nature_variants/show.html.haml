@@ -11,7 +11,7 @@
         .info
           %span.title= reading.indicator.human_name
           %span.value= reading.value
-         
+
       -# .info
         %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
         %span.value= resource.products.map(&:net_mass).compact.sum

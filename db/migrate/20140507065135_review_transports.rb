@@ -10,7 +10,7 @@ class ReviewTransports < ActiveRecord::Migration
     add_column :outgoing_deliveries, :mode, :string
     execute "UPDATE outgoing_deliveries SET mode = 'ex_works'"
     change_column_null :outgoing_deliveries, :mode, false
-   
+
     remove_column :outgoing_delivery_items, :source_product_id
     change_column_default :outgoing_delivery_items, :population, nil
     change_column_null    :outgoing_delivery_items, :population, true
@@ -31,6 +31,6 @@ class ReviewTransports < ActiveRecord::Migration
 
     drop_table :incoming_delivery_modes
 
-    drop_table :outgoing_delivery_modes    
+    drop_table :outgoing_delivery_modes
   end
 end

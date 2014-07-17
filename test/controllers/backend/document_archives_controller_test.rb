@@ -11,7 +11,7 @@ class Backend::DocumentArchivesControllerTest < ActionController::TestCase
     for id, file in FILES
       archive = document_archives(id)
       old_updated_at = archive.file_updated_at
-      archive.file = fixture_file_upload("files/#{file}", "application/#{file.split('.').last}") 
+      archive.file = fixture_file_upload("files/#{file}", "application/#{file.split('.').last}")
       archive.save!
       assert_not_equal old_updated_at, archive.file_updated_at, "File doesn't seems to be updated"
     end

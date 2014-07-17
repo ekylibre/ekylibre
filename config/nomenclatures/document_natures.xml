@@ -44,11 +44,11 @@
       <item name="vine_phytosanitary_registry" category="land_parcel_management"/>
       <item name="activity_cost" category="management"/>
       <item name="intervention_registry" category="management"/>
-      
+
       <item name="wine_detention_registry" category="vinification"/>
       <item name="wine_bottling_registry" category="vinification"/>
       <item name="wine_manipulation_registry" category="vinification"/>
-      
+
       <item name="entity_sheet" category="exploitation"/>
     </items>
   </nomenclature>

@@ -1,6 +1,6 @@
 module Calculus
   module ManureManagementPlan
-    
+
     # This method considers that values are not computed here so it does quite nothing
     class External < Method
 
@@ -13,7 +13,7 @@ module Calculus
       def compute
         return @options
       end
-      
+
     end
 
   end

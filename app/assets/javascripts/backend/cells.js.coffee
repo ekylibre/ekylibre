@@ -1,5 +1,5 @@
 # Cells management
-# 
+#
 (($) ->
   $(document).ready ->
     $("*[data-cell]").each (index) ->

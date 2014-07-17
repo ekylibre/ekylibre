@@ -95,7 +95,7 @@
   Procedo.list.keys.each do |procedure|
     intervention_list << procedure unless actors_from_intervention(procedure).blank?
   end
-  
+
   rendering = false
 
 - if rendering
@@ -129,10 +129,10 @@
           arity:
           = arity
 
-  %h2 massive matching test on actual interventions actors 
+  %h2 massive matching test on actual interventions actors
   - massive_test_hash.each do |procedure_name, actors_ary|
-    %h3 
-      testing with actors from 
+    %h3
+      testing with actors from
       = procedure_name
     %ul
       %li.bold
@@ -144,15 +144,15 @@
       %li.italic
         Procedures:
       - Intervention.match(actors_ary, limit: 10, relevance: 0.2, history: true, provisional: true).each do |procedure, relevance, arity|
-        %li.key 
+        %li.key
           = procedure.name
         %li.result
-          relevance: 
+          relevance:
           = relevance
-        %li.variety 
-          arity: 
+        %li.variety
+          arity:
           = arity
-            
+
   %h2 Benchmarks
   %h3 benchmarking #match with and without history
   %ul
@@ -167,7 +167,7 @@
         without history:
       %li.result
         = bm.report{Intervention.match([random_actors.first])} # remove quote"
-      %li.key 
+      %li.key
         with 10 actors:
       %li.variety
         with history:

@@ -4,7 +4,7 @@
     <variables>
       <variable name="tank" variety="tank" abilities="store_liquid" roles="fermentation-tool" default-actor="storage"/>
       <variable name="juice_to_ferment"  variety="juice" derivative-of="fruit" roles="fermentation-target" default-actor="first-localized-in: tank" read-only="true" />
-      
+
       <variable name="oenological_intrant"        variety="matter" abilities="fermentize(wine)"/>
       <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="fermentation-input" need="population">
         <handler indicator="population" />
@@ -13,7 +13,7 @@
                  backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)"
                  /> <!-- g/hl -->
       <!--NOT WORKING FOR INSTANCE
-        <handler indicator="cells_concentration"   name="cells_density" unit="million_per_liter"   to="population" 
+        <handler indicator="cells_concentration"   name="cells_density" unit="million_per_liter"   to="population"
      if="self.cells_mass_concentration? &amp; self.cells_mass_concentration(billion_per_gram) > 0"
                  forward="(value * wine_to_treat.net_volume(liter) * 1000) / (self..net_mass(gram) * self.cells_mass_concentration(billion_per_gram))"
                  backward="(value * self..net_mass(gram) * (self.cells_mass_concentration(billion_per_gram))) / (wine_to_treat.net_volume(liter) * 1000)"
@@ -21,7 +21,7 @@
       -->
       </variable>
       <variable name="wine_man" variety="worker" abilities="move" roles="fermentation-doer"/>
-      
+
       <variable name="fermented_juice" derivative-of="derivative-of: juice_to_ferment" new="produced-by: juice_to_ferment" roles="fermentation-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
       <handler indicator="population" />
       </variable>

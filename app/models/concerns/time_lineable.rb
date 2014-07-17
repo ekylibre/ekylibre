@@ -61,10 +61,10 @@ module TimeLineable
     def first_of_all
       reorder(:started_at).first
     end
-    
+
     def last_of_all
       reorder(:started_at).last
-    end    
+    end
 
   end
 

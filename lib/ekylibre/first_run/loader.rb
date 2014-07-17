@@ -4,7 +4,7 @@ module Ekylibre
 
     class Loader
       attr_reader :folder
-      
+
       def initialize(folder, options = {})
         @folder = folder.to_s
         @folder_path = Ekylibre::FirstRun.path.join(@folder)
@@ -12,7 +12,7 @@ module Ekylibre
         @max = COUNTER_MAX if @max.zero?
         @records = {}.with_indifferent_access
       end
-      
+
       def [](key)
         @manifest[key]
       end
@@ -31,11 +31,11 @@ module Ekylibre
         end
         return @manifest
       end
-      
+
       def can_load?(key)
         !@manifest[key].is_a?(FalseClass)
       end
-      
+
       def can_load_default?(key)
         can_load?(key) and !@manifest[key].is_a?(Hash)
       end

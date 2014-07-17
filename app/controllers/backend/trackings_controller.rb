@@ -30,12 +30,12 @@ class Backend::TrackingsController < BackendController
     t.action :edit
     t.action :destroy
   end
-  
+
   list(:products, model: :products, conditions: {tracking_id: 'params[:id]'.c}, order: {born_at: :asc}) do |t|
     t.column :number, url: true
     t.column :name
     t.column :born_at
     t.column :container
   end
-  
+
 end

@@ -8,7 +8,7 @@
       <item name="trifolium_incarnatum" itis_tsn="26262"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-trifolium_repens" hierarchical="true">
     <items>
       <item name="trifolium_repens_avalon" itis_tsn="12345"/>
@@ -27,7 +27,7 @@
       <item name="trifolium_repens_triple" itis_tsn="12345"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-trifolium_pratense" hierarchical="true">
     <items>
       <item name="trifolium_pratense_amos" itis_tsn="12345"/>
@@ -53,5 +53,5 @@
       <item name="trifolium_pratense_vendelin" itis_tsn="12345"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

@@ -1,26 +1,26 @@
 # -*- coding: utf-8 -*-
 load_data :analyses do |loader|
-  
+
   # Collect activity family matchings
   landparcels_transcode = {}.with_indifferent_access
-  
+
   file = loader.path("charentes_alliance", "landparcels_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       landparcels_transcode[row[0]] = row[1].to_s
     end
   end
-  
+
   soil_natures_transcode = {}.with_indifferent_access
-  
+
   file = loader.path("charentes_alliance", "soil_natures_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       soil_natures_transcode[row[0]] = row[1].to_sym
     end
   end
-  
-  
+
+
   file = loader.path("charentes_alliance", "analyses_sol.txt")
   if file.exist?
     loader.count :soil_analyses_import do |w|
@@ -59,20 +59,20 @@ load_data :analyses do |loader|
                            :p_ppm_value => row[49].blank? ? nil : ((row[49].to_d)*0.436).in_parts_per_million,
                            :k2o_ppm_value => row[55].blank? ? nil : (row[55].to_d).in_parts_per_million,
                            :k_ppm_value => row[55].blank? ? nil : ((row[55].to_d)*0.83).in_parts_per_million,
-                           :mg_ppm_value => row[61].blank? ? nil : (row[61].to_d).in_parts_per_million, 
+                           :mg_ppm_value => row[61].blank? ? nil : (row[61].to_d).in_parts_per_million,
                            :b_ppm_value => row[82].blank? ? nil : (row[82].to_d).in_parts_per_million,
                            :zn_ppm_value => row[85].blank? ? nil : (row[85].to_d).in_parts_per_million,
                            :mn_ppm_value => row[88].blank? ? nil : (row[88].to_d).in_parts_per_million,
                            :cu_ppm_value => row[91].blank? ? nil : (row[91].to_d).in_parts_per_million,
                            :fe_ppm_value => row[94].blank? ? nil : (row[94].to_d).in_parts_per_million,
-                           :sampled_at => (row[179].blank? ? nil : Date.civil(*row[179].to_s.split(/\//).reverse.map(&:to_i)))                           
+                           :sampled_at => (row[179].blank? ? nil : Date.civil(*row[179].to_s.split(/\//).reverse.map(&:to_i)))
                            )
-        
 
-        
-        
-        
-        
+
+
+
+
+
         unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
           analysis = Analysis.create!(reference_number: r.reference_number, nature: "soil_analysis",
                                       analyser: analyser, sampled_at: r.sampled_at, analysed_at: r.at
@@ -83,14 +83,14 @@ load_data :analyses do |loader|
           analysis.read!(:potential_hydrogen, r.potential_hydrogen) if r.potential_hydrogen
           analysis.read!(:cation_exchange_capacity, r.cation_exchange_capacity) if r.cation_exchange_capacity
           analysis.read!(:phosphate_concentration, r.p2o5_olsen_ppm_value) if r.p2o5_olsen_ppm_value
-          analysis.read!(:potash_concentration, r.k2o_ppm_value) if r.k2o_ppm_value          
+          analysis.read!(:potash_concentration, r.k2o_ppm_value) if r.k2o_ppm_value
           analysis.read!(:magnesium_concentration, r.mg_ppm_value) if r.mg_ppm_value
           analysis.read!(:boron_concentration, r.b_ppm_value) if r.b_ppm_value
           analysis.read!(:zinc_concentration, r.zn_ppm_value) if r.zn_ppm_value
           analysis.read!(:manganese_concentration, r.mn_ppm_value) if r.mn_ppm_value
           analysis.read!(:copper_concentration, r.cu_ppm_value) if r.cu_ppm_value
           analysis.read!(:iron_concentration, r.fe_ppm_value) if r.fe_ppm_value
-          
+
         end
         # if an lan_parcel exist , link to analysis
         if land_parcel = LandParcel.find_by_work_number(r.landparcel_work_number)
@@ -100,12 +100,12 @@ load_data :analyses do |loader|
           land_parcel.read!(:phosphorus_concentration, r.p_ppm_value, at: r.sampled_at) if r.p_ppm_value
           land_parcel.read!(:potassium_concentration, r.k_ppm_value, at: r.sampled_at) if r.k_ppm_value
         end
-        
+
         w.check_point
       end
     end
   end
-  
+
   file = loader.path("charentes_alliance", "analyses_eau.txt")
   if file.exist?
     loader.count :water_analyses_import do |w|
@@ -138,9 +138,9 @@ load_data :analyses do |loader|
                            :water_work_number => row[8].blank? ? nil : landparcels_transcode[row[8]],
                            :potential_hydrogen => row[9].blank? ? nil : row[9].to_d,
                            :nitrogen_concentration => row[10].blank? ? nil : (row[10].to_d).in_percent,
-                           :sampled_at => (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i)))                           
+                           :sampled_at => (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i)))
                            )
-        
+
         unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
           analysis = Analysis.create!(reference_number: r.reference_number, nature: "water_analysis",
                                       analyser: analyser, sampled_at: r.sampled_at, analysed_at: r.at
@@ -157,13 +157,13 @@ load_data :analyses do |loader|
           water.read!(:potential_hydrogen, r.potential_hydrogen, at: r.sampled_at) if r.potential_hydrogen
           water.read!(:nitrogen_concentration, r.nitrogen_concentration, at: r.sampled_at) if r.nitrogen_concentration
         end
-        
+
         w.check_point
       end
     end
   end
-  
-  
+
+
   file = loader.path("lilco", "HistoIP_V.csv")
   if file.exist?
     loader.count :milk_analyses_import do |w|
@@ -253,7 +253,7 @@ load_data :analyses do |loader|
   end
 
   # @TODO need a method for each file in a folder like loader.glob('lca/*.csv') do |file|
-  
+
   file = loader.path("galactea3", "cl_all.csv")
   if file.exist?
     loader.count :milk_unitary_control_analyses_import do |w|
@@ -332,12 +332,12 @@ load_data :analyses do |loader|
           animal.read!(:healthy, true,  at: r.at, force: true) if r.animal_state == :good
           animal.read!(:healthy, false,  at: r.at, force: true) if r.animal_state == :bad
         end
-        
+
         w.check_point
       end
     end
   end
-  
+
   file = loader.path("bovins_croissance", "perf.csv")
   if file.exist?
     loader.count :weight_unitary_control_analyses_import do |w|
@@ -362,11 +362,11 @@ load_data :analyses do |loader|
           animal.read!(:net_mass, r.third_weighting_value,  at: r.third_weighting_at, force: true) if r.third_weighting_at
           animal.read!(:net_mass, r.fourth_weighting_value,  at: r.fourth_weighting_at, force: true) if r.fourth_weighting_at
         end
-        
+
         w.check_point
       end
     end
   end
-  
-  
+
+
 end

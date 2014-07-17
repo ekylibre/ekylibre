@@ -46,7 +46,7 @@
       <item name="certification"        datatype="choice" choices="certifications"/><!-- for "appellation" -->
       <item name="cells_mass_concentration" datatype="measure" unit="billion_per_gram"/>
       <item name="cells_concentration" datatype="measure" unit="million_per_liter"/>
-      
+
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
       <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
@@ -56,7 +56,7 @@
       <!-- equipment -->
       <item name="motor_power"              datatype="measure" unit="french_horsepower"/>
       <item name="application_width"        datatype="measure" unit="meter" gathering="proportional_to_population"/>
-      
+
       <!-- animal -->
       <item name="animal_life_state"        datatype="choice" choices="animal_life_states"/>
       <item name="mammalia_birth_condition" datatype="choice" choices="mammalia_birth_conditions"/>
@@ -85,7 +85,7 @@
       <item name="lipolysis"                        datatype="measure" unit="thousand_per_hectogram"/>
       <item name="immunoglobulins_concentration"    datatype="measure" unit="unity_per_liter"/>
       <item name="urea_concentration"               datatype="measure" unit="milligram_per_liter"/>
-      
+
       <!-- for fertilization plant's and soil analysis -->
       <!-- macro-element -->
       <item name="organic_matter_concentration"   datatype="measure" unit="mass_percent"/>
@@ -93,17 +93,17 @@
 
       <!-- K2O = 1.205 * K (mass approach) -->
       <item name="potash_concentration"             datatype="measure" unit="mass_percent"/>
-      <!-- K = 0.83 * K2O  (mass approach) --> 
+      <!-- K = 0.83 * K2O  (mass approach) -->
       <item name="potassium_concentration"          datatype="measure" unit="mass_percent"/>
       <!-- P2O5 = 2.291 * P (mass approach) -->
       <item name="phosphate_concentration"          datatype="measure" unit="mass_percent"/>
-      <!-- P = 0.436 * P2O5 (mass approach) --> 
+      <!-- P = 0.436 * P2O5 (mass approach) -->
       <item name="phosphorus_concentration"         datatype="measure" unit="mass_percent"/>
       <item name="calcium_concentration"            datatype="measure" unit="mass_percent"/>
       <item name="magnesium_concentration"          datatype="measure" unit="mass_percent"/>
       <item name="sulfur_concentration"             datatype="measure" unit="mass_percent"/>
       <item name="sulfur_dioxide_concentration"     datatype="measure" unit="mass_percent"/>
-      
+
       <!-- oligo-element -->
       <item name="boron_concentration"      datatype="measure" unit="parts_per_million"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
@@ -121,16 +121,16 @@
       <!-- analysis_method -->
       <item name="cation_exchange_capacity_analysis_method" datatype="choice" choices="cation_exchange_capacity_analysis_methods"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
-      
+
       <!-- for grain analysis -->
       <item name="protein_concentration"      datatype="measure" unit="mass_percent"/>
       <item name="impurity_concentration"     datatype="measure" unit="mass_percent"/>
       <item name="specific_weight"            datatype="measure" unit="kilogram_per_hectoliter"/>
       <item name="hagberg_falling_number"     datatype="measure" unit="second"/>
-      
+
       <!-- for wine analysis -->
       <item name="sucrose_concentration"      datatype="measure" unit="mass_percent"/>
-      
+
       <!-- for milk unitary animal analysis -->
       <item name="milk_daily_production"      datatype="measure" unit="kilogram_per_day"/>
 
@@ -149,7 +149,7 @@
       <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
       <item name="calving_ease_index"             datatype="measure" unit="unity"/>
       <item name="fertility_index"                datatype="measure" unit="unity"/>
-      
+
 
       <!-- for support markers -->
       <!-- <item name="nitrogen_input_per_area" datatype="measure" unit="kilogram_per_hectare"/> -->
@@ -159,14 +159,14 @@
       <item name="volume_area_density"         datatype="measure" unit="liter_per_square_meter"/>
       <item name="mass_area_yield"             datatype="measure" unit="quintal_per_hectare"/>
       <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
-      
+
       <item name="precocity_index"             datatype="decimal" />
       <item name="plant_growth_level"          datatype="choice"  choices="plants_growth_levels"/>
       <item name="mass_volume_density"         datatype="measure" unit="kilogram_per_liter"/>
       <item name="volume_density"              datatype="measure" unit="centiliter_per_hectoliter"/>
-      
-      
-      
+
+
+
       <!-- TODO waiting for remove these 2 lines -->
       <!--
           <item name="grain_yield_per_area" datatype="measure" unit="quintal_per_hectare"/>
@@ -179,14 +179,14 @@
 
       <!-- for energy consumption -->
       <item name="energy"            datatype="measure" unit="kilowatt_hour"/>
-      
+
       <!--  for plant treatment @TODO link with ephy database for 1.0 -->
       <item name="wait_before_harvest_period" datatype="measure" unit="day"/>
       <item name="approved_input_dose"        datatype="measure" unit="kilogram_per_hectare"/>
       <item name="untreated_zone_length"      datatype="measure" unit="meter"/>
-      
-      
-      
+
+
+
 
       <!-- @TODO waiting for choice througt nomenclature -->
       <item name="fresh_mass"        datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
@@ -198,7 +198,7 @@
       <!-- Activate that later
 	  <item name="rows_horizontal_shift" datatype="measure" unit="meter"/>
 	  <item name="rows_vertical_shift" datatype="measure" unit="meter"/>
-	  
+
       -->
     </items>
   </nomenclature>

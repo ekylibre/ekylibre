@@ -1,14 +1,14 @@
 -#:ruby
-  
+
   # for cartodb map #1 (Simple with category for )
   # 1 simple layer with activity as category
-  
+
   campaign = Campaign.currents.last
-  
+
   dataset_one = []
-  
+
       ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
-        
+
         item = {
           name:    support.name,
           shape:   (support.shape ? Charta::Geometry.new(support.shape).transform(:WGS84) : nil),
@@ -20,17 +20,17 @@
           input_cost: support.input_cost.to_s.to_f.round(2),
           time_cost:  support.time_cost.to_s.to_f.round(2)
         }
-        
+
         dataset_one << item
       end
-      
+
     # for cartodb map #2
     # 3 choropleth layer with nitrogen_balance, phosphorus_balance, potassium_balance as indicator
-    
+
     dataset_two = []
-    
+
       ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
-        
+
         item = {
           name:    support.name,
           shape:   (support.shape ? Charta::Geometry.new(support.shape).transform(:WGS84) : nil),
@@ -41,41 +41,41 @@
           potassium_balance: support.potassium_balance.to_s.to_f.round(2),
           provisional_nitrogen_input: support.provisional_nitrogen_input.to_s.to_f.round(2)
         }
-        
+
         dataset_two << item
-        
+
       end
 
-  
+
 
       choro = []
-  
+
       dataset_one.each do |item|
-        
+
         if item[:shape]
-        
+
           choro << {style: 'choropleth', choropleth_value: 'area', choropleth_level_number: 7, choropleth_start_color: '#77a1e5', choropleth_end_color: '#910000', category: item[:activity], center: item[:shape].centroid, choropleth_type: 'linear', name: item[:name], area: item[:shape].area, coord: item[:shape].to_geojson, stroke: true , color: 'black', weight: 1, fillColor: 'white', opacity: 1, fill: true, fillOpacity: 0.8}
-        
+
         end
-      
+
       end
 
 
 :ruby
   data = Plant.all.collect do |p|
     next unless p.shape
-    
+
     popup_content = []
-    
+
     # for all plant
     popup_content << {label: Plant.human_attribute_name(:net_surface_area), value: p.net_surface_area.in_hectare.round(2).l}
     popup_content << {label: Nomen::Varieties.find(p.nature.variety).human_name, value: Nomen::Varieties.find(p.variety).human_name}
-    
+
     # for vine plant
     #if p.woodstock_variety
      # popup_content << {label: Nomen::Indicators.find(:woodstock_variety).human_name, value: Nomen::Varieties.find(p.woodstock_variety).human_name}
     #end
-    
+
     # for indicators in list
     indicators = [:tiller_count, :plants_count, :rows_interval, :plants_interval, :rows_orientation]
     for indicator in indicators
@@ -83,7 +83,7 @@
         popup_content << {label: Nomen::Indicators.find(indicator.to_sym).human_name, value: p.send(indicator).l }
       end
     end
-    
+
     if container = p.container
       popup_content << {label: :cultivable_zone.tl, value: link_to(container.name, backend_product_path(container)) }
     end
@@ -95,17 +95,17 @@
     if interventions.count > 0 and last_intervention = interventions.last
       popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
     end
-    
+
     if issues = Issue.where(target_id: p.id, target_type: p.class.name ).reorder(:observed_at)
       popup_content << {label: :issues_count.tl, value: issues.count }
     end
-    
+
     if issues.count > 0 and last_issue = issues.last
       popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
     end
 
     popup_content << render('popup', plant: p)
-    
+
     # for irrigation management
     water_concentration = []
     water_interventions = Intervention.of_nature(:plant_irrigation).with_cast(:target, p)
@@ -115,10 +115,10 @@
         water_concentration << i
       end
     end
-    
+
     {name: p.name, shape: p.shape, age: (Time.now - p.born_at) / (3600 * 24 * 30), interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Varieties[p.variety].human_name, popup: {header: true, content: popup_content} }
   end
-      
+
 = kujaku
 
 - main_toolbar do |t|
@@ -141,6 +141,6 @@
       - v.control :scale
       - v.control :fullscreen
       - v.control :layer_selector
-          
+
   - b.cell :list do
     = list

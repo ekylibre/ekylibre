@@ -6,14 +6,14 @@
       <item name="spinacia" itis_tsn="20708"/>
     </items>
   </nomenclature>
-  
-  
+
+
   <nomenclature name="varieties-beta" hierarchical="true">
     <items>
       <item name="beta_vulgaris" itis_tsn="20680"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-spinacia" hierarchical="true">
     <items>
       <item name="spinacia_oleracea" itis_tsn="20709"/>

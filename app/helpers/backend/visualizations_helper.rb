@@ -1,12 +1,12 @@
 module Backend::VisualizationsHelper
-  
-  class VisualizationConfiguration  
-    
+
+  class VisualizationConfiguration
+
     def initialize(config = {})
       @config = config
       @categories_colors = @config.delete(:categories_colors)
     end
-    
+
     def background(name, options = {})
       options[:name] = name
       options[:provider] ||= options[:name]
@@ -14,31 +14,31 @@ module Backend::VisualizationsHelper
       @config[:backgrounds] ||= []
       @config[:backgrounds] << options
     end
-    
+
     def overlay(name, provider_name)
       @config[:overlays] ||= []
       @config[:overlays] << {name: name, provider_name: provider_name}
     end
-    
+
     # def layer(name, list = {})
     #   @config[:layers] ||= []
     #   @config[:layers] << {name: name, list: list}
     # end
-    
+
     def layer(name, serie, options = {})
       options[:label] ||= name.tl(default: "attributes.#{name}".to_sym)
       @config[:layers] ||= []
       @config[:layers] << {reference: name.to_s.camelcase(:lower)}.merge(options.merge(name: name, serie: serie.to_s.camelcase(:lower)))
     end
-    
+
     def choropleth(name, serie, options = {})
       layer(name, serie, options.merge(type: :choropleth))
     end
-    
+
     def bubbles(name, serie, options = {})
       layer(name, serie, options.merge(type: :bubbles))
     end
-    
+
     def categories(name, serie, options = {})
       layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :categories)))
     end
@@ -95,7 +95,7 @@ module Backend::VisualizationsHelper
                 block.update(value)
               else
                 raise "Not implemented array block for #{object.class}"
-              end        
+              end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
               elsif !block[:label]
@@ -114,7 +114,7 @@ module Backend::VisualizationsHelper
                 block.update(value: item[attribute].to_s, label: true)
               else
                 raise "Not implemented hash block for #{object.class}"
-              end        
+              end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
               elsif !block[:label]
@@ -158,7 +158,7 @@ module Backend::VisualizationsHelper
 
 
   end
-  
+
 
   # Example of how to use in HAML view:
   #
@@ -171,7 +171,7 @@ module Backend::VisualizationsHelper
   #     - v.control :fullscreen
   #     - v.control :layer_selector
   #     - v.control :background_selector
-  #     - v.control :search  
+  #     - v.control :search
   #
   def visualization(options = {}, html_options = {})
     config = VisualizationConfiguration.new({categories_colors: theme_colors}.merge(options))

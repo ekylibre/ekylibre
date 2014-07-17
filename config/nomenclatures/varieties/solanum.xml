@@ -4,13 +4,13 @@
     <items>
       <item name="solanum_tuberosum" itis_tsn="505272"/>
       <item name="solanum_melongena" itis_tsn="30446"/>
-    </items>  
+    </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-solanum_tuberosum" hierarchical="true">
     <items>
       <item name="solanum_tuberosum_agata" itis_tsn="00000"/>
-    </items> 
+    </items>
   </nomenclature>
-  
+
 </nomenclatures>

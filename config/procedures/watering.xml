@@ -15,12 +15,12 @@
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"
                  backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
                  /> <!-- l /m² -->
-				<handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
+				<handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
 								 if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(milligram_per_kilogram) > 0"
                  forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(milligram_per_kilogram) / 1000000)"
                  backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(milligram_per_kilogram) / 1000000)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg N/ha -->
-      </variable> 
+      </variable>
       <variable name="spreader" abilities="spread(water)" roles="soil_enrichment-tool"/>
       <variable name="driver"   abilities="drive(tractor)" roles="soil_enrichment-doer"/>
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" default-shape=":land_parcel">

@@ -48,7 +48,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :net_mass, through: :product, datatype: :measure
     # t.column :name, through: :building, url: true
   end
- 
+
   def invoice
     for id in ids = params[:id].split(',')
       return unless find_and_check(id: id)
@@ -56,7 +56,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     sale = OutgoingDelivery.invoice(ids)
     redirect_to backend_sale_url(sale)
   end
- 
+
   def ship
     for id in ids = params[:id].split(',')
       return unless find_and_check(id: id)

@@ -56,7 +56,7 @@
                 element.selector("value", attributes.actor)
             else if attributes.actor != parseInt element.val()
               element.val(attributes.actor)
-                
+
         if attributes.variant?
           $("*[data-procedure='#{procedure}'][data-variable-variant='#{variable}']").each (index) ->
             element = $(this)
@@ -65,7 +65,7 @@
                 element.selector("value", attributes.variant)
             else if attributes.variant != parseInt element.val()
               element.val(attributes.variant)
-                
+
         if attributes.handlers?
           for handler, attrs of attributes.handlers
             value = attrs.value
@@ -86,7 +86,7 @@
               else if value != parseFloat element.val()
                 unless updater == element.data('intervention-updater')
                   element.val(value)
-                
+
         if attributes.destinations?
           for destination, value of attributes.destinations
             $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-destination='#{destination}']").each (index) ->
@@ -95,7 +95,7 @@
                 $(this).val(JSON.stringify(value))
               else
                 $(this).val(value)
-      
+
 
     refresh: (origin) ->
       procedure = origin.data('procedure')

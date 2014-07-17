@@ -1,13 +1,13 @@
 # Core extension for vizualisation
-# 
+#
 String.prototype.camelize = () ->
   array = jQuery.map this.split("_"), (word)->
     word.charAt(0).toUpperCase() + word.slice(1)
   return array.join()
-  
+
 String.prototype.repeat = (count) ->
   return new Array(count + 1).join(this)
-  
+
 Math.magnitude = (number, step = 1) ->
   value = Math.abs(number)
   power = 0
@@ -37,4 +37,4 @@ Math.ceil2 = (number, round = 1) ->
 
 Math.floor2 = (number, round = 1) ->
   return round * Math.floor(number / round)
- 
+

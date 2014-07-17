@@ -47,12 +47,12 @@ load_data :equipments do |loader|
         else
           owner = Entity.of_company
         end
-        
+
         container = nil
         unless container = Product.find_by_work_number(r.place_code)
           container = building_division
         end
-        
+
         # create the equipment
         equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :initial_container => container, :default_storage => container, :work_number => r.work_number )
 
@@ -60,18 +60,18 @@ load_data :equipments do |loader|
         for indicator, value in r.indicators
           equipment.read!(indicator, value, at: r.born_at, force: true)
         end
-        
+
         if container = Product.find_by_work_number(r.place_code)
           # container.add(zone, born_at)
           equipment.update_attributes(initial_container: container)
         end
-        
+
         w.check_point
       end
 
     end
-  end  
-  
+  end
+
   path = loader.path("alamano", "zones", "equipments.shp")
   if path.exist?
     loader.count :equipments_shapes do |w|
@@ -109,7 +109,7 @@ load_data :equipments do |loader|
                            )
 
         # Find or import from variant reference_name the correct ProductNatureVariant
-        unless variant = ProductNatureVariant.find_by(reference_name: r.variant_reference_name) 
+        unless variant = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
           variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
         end
         pmodel = variant.matching_model
@@ -125,18 +125,18 @@ load_data :equipments do |loader|
         end
 
         owner = Entity.of_company
-        
+
         unless container = Product.find_by(work_number: r.place_code)
           container = building_division
         end
-        
+
         # create the worker
         worker = pmodel.create!(variant: variant, name: r.name, initial_born_at: r.born_at, initial_owner: owner, default_storage: container, work_number: r.work_number, person: person)
-                
+
         w.check_point
       end
 
     end
-  end  
+  end
 
 end

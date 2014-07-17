@@ -22,15 +22,15 @@
         <handler indicator="mass_area_density"   unit="kilogram_per_square_meter" to="population" name="dry_matter_mass_area_density"
                  forward="(value * animal_housing.net_surface_area(square_meter)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / animal_housing.net_surface_area(square_meter)"
-                 /> <!-- kg/m2 -->        
+                 /> <!-- kg/m2 -->
       </variable>
-      
+
       <variable name="cleaner"            abilities="clean" roles="animal_housing_cleaning-tool"/>
       <variable name="driver"             abilities="drive(equipment), move" roles="animal_housing_cleaning-doer"/>
       <variable name="tractor"            abilities="tow(equipment), move" roles="animal_housing_cleaning-tool"/>
-      
+
       <variable name="excrement_zone"      abilities="store(excrement)"/>
-      
+
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

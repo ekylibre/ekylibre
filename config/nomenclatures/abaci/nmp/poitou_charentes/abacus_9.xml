@@ -53,7 +53,7 @@
       <item name="stony_alluvium_min" soil_nature="stony_alluvium_soil" rf="10" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="stony_alluvium_med" soil_nature="stony_alluvium_soil" rf="15" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="stony_alluvium_max" soil_nature="stony_alluvium_soil" rf="20" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      
+
     </items>
   </nomenclature>
 </nomenclatures>

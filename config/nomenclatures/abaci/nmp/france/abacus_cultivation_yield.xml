@@ -12,9 +12,9 @@
       <property-nature name="irrigated" type="boolean" required="false"/>
     </property-natures>
     <items>
-      
+
       <!-- AVOINE -->
-      
+
       <item name="avena_yield_16" cultivation_variety="avena" administrative_area="france_department_charente" expected_yield="43"/>
       <item name="avena_yield_17" cultivation_variety="avena" administrative_area="france_department_charente_maritime" expected_yield="38"/>
       <item name="avena_yield_24" cultivation_variety="avena" administrative_area="france_department_dordogne" expected_yield="39"/>
@@ -24,35 +24,35 @@
       <item name="avena_yield_64" cultivation_variety="avena" administrative_area="france_department_pyrenees_atlantiques" expected_yield="40"/>
       <item name="avena_yield_79" cultivation_variety="avena" administrative_area="france_department_deux_sevres" expected_yield="42"/>
       <item name="avena_yield_86" cultivation_variety="avena" administrative_area="france_department_vienne" expected_yield="42"/>
-      
-      
+
+
       <!-- Blé tendre -->
-      
+
       <item name="wheat_yield_24" cultivation_variety="triticum_aestivum" administrative_area="france_department_dordogne" expected_yield="48"/>
       <item name="wheat_yield_33" cultivation_variety="triticum_aestivum" administrative_area="france_department_gironde" expected_yield="49"/>
       <item name="wheat_yield_40" cultivation_variety="triticum_aestivum" administrative_area="france_department_landes" expected_yield="51"/>
       <item name="wheat_yield_47" cultivation_variety="triticum_aestivum" administrative_area="france_department_lot_et_garonne" expected_yield="54"/>
       <item name="wheat_yield_64" cultivation_variety="triticum_aestivum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="53"/>
-      
+
       <!-- Blé dur -->
-      
+
       <item name="hard_wheat_yield_24" cultivation_variety="triticum_durum" administrative_area="france_department_dordogne" expected_yield="49"/>
       <item name="hard_wheat_yield_33" cultivation_variety="triticum_durum" administrative_area="france_department_gironde" expected_yield="49"/>
       <item name="hard_wheat_yield_40" cultivation_variety="triticum_durum" administrative_area="france_department_landes" expected_yield="50"/>
       <item name="hard_wheat_yield_47" cultivation_variety="triticum_durum" administrative_area="france_department_lot_et_garonne" expected_yield="51"/>
       <item name="hard_wheat_yield_64" cultivation_variety="triticum_durum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="50"/>
-      
+
       <!-- Colza -->
-      
+
       <item name="rapeseed_yield_24" cultivation_variety="brassica_napus" administrative_area="france_department_dordogne" expected_yield="23"/>
       <item name="rapeseed_yield_33" cultivation_variety="brassica_napus" administrative_area="france_department_gironde" expected_yield="25"/>
       <item name="rapeseed_yield_40" cultivation_variety="brassica_napus" administrative_area="france_department_landes" expected_yield="27"/>
       <item name="rapeseed_yield_47" cultivation_variety="brassica_napus" administrative_area="france_department_lot_et_garonne" expected_yield="30"/>
       <item name="rapeseed_yield_64" cultivation_variety="brassica_napus" administrative_area="france_department_pyrenees_atlantiques" expected_yield="28"/>
-      
-      
+
+
        <!-- SEIGLE -->
-       
+
       <item name="secale_yield_16" cultivation_variety="secale" administrative_area="france_department_charente" expected_yield="48"/>
       <item name="secale_yield_17" cultivation_variety="secale" administrative_area="france_department_charente_maritime" expected_yield="49"/>
       <item name="secale_yield_24" cultivation_variety="secale" administrative_area="france_department_dordogne" expected_yield="37"/>
@@ -62,9 +62,9 @@
       <item name="secale_yield_64" cultivation_variety="secale" administrative_area="france_department_pyrenees_atlantiques" expected_yield="39"/>
       <item name="secale_yield_79" cultivation_variety="secale" administrative_area="france_department_deux_sevres" expected_yield="45"/>
       <item name="secale_yield_86" cultivation_variety="secale" administrative_area="france_department_vienne" expected_yield="50"/>
-      
+
        <!-- MELANGE DE CEREALES -->
-       
+
       <item name="poa_yield_16" cultivation_variety="poa" administrative_area="france_department_charente" expected_yield="48"/>
       <item name="poa_yield_17" cultivation_variety="poa" administrative_area="france_department_charente_maritime" expected_yield="49"/>
       <item name="poa_yield_24" cultivation_variety="poa" administrative_area="france_department_dordogne" expected_yield="42"/>
@@ -74,9 +74,9 @@
       <item name="poa_yield_64" cultivation_variety="poa" administrative_area="france_department_pyrenees_atlantiques" expected_yield="42"/>
       <item name="poa_yield_79" cultivation_variety="poa" administrative_area="france_department_deux_sevres" expected_yield="45"/>
       <item name="poa_yield_86" cultivation_variety="poa" administrative_area="france_department_vienne" expected_yield="50"/>
-      
+
        <!-- Maïs semence -->
-       
+
       <item name="seed_corn_yield_16" cultivation_variety="zea" administrative_area="france_department_charente" production_usage="seed" expected_yield="35"/>
       <item name="seed_corn_yield_17" cultivation_variety="zea" administrative_area="france_department_charente_maritime" production_usage="seed" expected_yield="35"/>
       <item name="seed_corn_yield_24" cultivation_variety="zea" administrative_area="france_department_dordogne" production_usage="seed" expected_yield="34"/>
@@ -86,7 +86,7 @@
       <item name="seed_corn_yield_64" cultivation_variety="zea" administrative_area="france_department_pyrenees_atlantiques" production_usage="seed" expected_yield="36"/>
       <item name="seed_corn_yield_79" cultivation_variety="zea" administrative_area="france_department_deux_sevres" production_usage="seed" expected_yield="35"/>
       <item name="seed_corn_yield_86" cultivation_variety="zea" administrative_area="france_department_vienne" production_usage="seed" expected_yield="35"/>
-      
+
       <!-- Maïs grain -->
 
       <item name="grain_corn_yield_24" cultivation_variety="zea" administrative_area="france_department_dordogne" expected_yield="54"/>
@@ -94,7 +94,7 @@
       <item name="grain_corn_yield_40" cultivation_variety="zea" administrative_area="france_department_landes" expected_yield="83"/>
       <item name="grain_corn_yield_47" cultivation_variety="zea" administrative_area="france_department_lot_et_garonne" expected_yield="71"/>
       <item name="grain_corn_yield_64" cultivation_variety="zea" administrative_area="france_department_pyrenees_atlantiques" expected_yield="82"/>
-      
+
       <!-- Maïs grain irrigué-->
 
       <item name="grain_corn_yield_24" cultivation_variety="zea" administrative_area="france_department_dordogne" irrigated="true" expected_yield="93"/>
@@ -102,7 +102,7 @@
       <item name="grain_corn_yield_40" cultivation_variety="zea" administrative_area="france_department_landes" irrigated="true" expected_yield="113"/>
       <item name="grain_corn_yield_47" cultivation_variety="zea" administrative_area="france_department_lot_et_garonne" irrigated="true" expected_yield="98"/>
       <item name="grain_corn_yield_64" cultivation_variety="zea" administrative_area="france_department_pyrenees_atlantiques" irrigated="true" expected_yield="110"/>
-      
+
       <!-- Maïs doux -->
 
       <item name="sweet_grain_corn_yield_24" cultivation_variety="zea_mays_saccharata" administrative_area="france_department_dordogne" expected_yield="195"/>
@@ -110,40 +110,40 @@
       <item name="sweet_grain_corn_yield_40" cultivation_variety="zea_mays_saccharata" administrative_area="france_department_landes" expected_yield="198"/>
       <item name="sweet_grain_corn_yield_47" cultivation_variety="zea_mays_saccharata" administrative_area="france_department_lot_et_garonne" expected_yield="196"/>
       <item name="sweet_grain_corn_yield_64" cultivation_variety="zea_mays_saccharata" administrative_area="france_department_pyrenees_atlantiques" expected_yield="198"/>
-      
+
       <!-- Maïs fourrage -->
-      
+
       <item name="fodder_corn_yield_16" cultivation_variety="zea" administrative_area="france_department_charente" production_usage="fodder" expected_yield="99"/>
       <item name="fodder_corn_yield_17" cultivation_variety="zea" administrative_area="france_department_charente_maritime" production_usage="fodder" expected_yield="118"/>
       <item name="fodder_corn_yield_79" cultivation_variety="zea" administrative_area="france_department_deux_sevres" production_usage="fodder" expected_yield="114"/>
       <item name="fodder_corn_yield_86" cultivation_variety="zea" administrative_area="france_department_vienne" production_usage="fodder" expected_yield="110"/>
-      
+
       <!-- Noyer -->
-      
+
       <item name="walnut_yield_24" cultivation_variety="juglans" administrative_area="france_department_dordogne" expected_yield="19"/>
       <item name="walnut_yield_33" cultivation_variety="juglans" administrative_area="france_department_gironde" expected_yield="19"/>
       <item name="walnut_yield_40" cultivation_variety="juglans" administrative_area="france_department_landes" expected_yield="18"/>
       <item name="walnut_yield_47" cultivation_variety="juglans" administrative_area="france_department_lot_et_garonne" expected_yield="20"/>
-      <item name="walnut_yield_64" cultivation_variety="juglans" administrative_area="france_department_pyrenees_atlantiques" expected_yield="19"/>  
-      
+      <item name="walnut_yield_64" cultivation_variety="juglans" administrative_area="france_department_pyrenees_atlantiques" expected_yield="19"/>
+
       <!-- Orge d'hiver -->
-      
+
       <item name="winter_barley_yield_24" cultivation_variety="hordeum_hibernum" administrative_area="france_department_dordogne" expected_yield="46"/>
       <item name="winter_barley_yield_33" cultivation_variety="hordeum_hibernum" administrative_area="france_department_gironde" expected_yield="46"/>
       <item name="winter_barley_yield_40" cultivation_variety="hordeum_hibernum" administrative_area="france_department_landes" expected_yield="47"/>
       <item name="winter_barley_yield_47" cultivation_variety="hordeum_hibernum" administrative_area="france_department_lot_et_garonne" expected_yield="51"/>
-      <item name="winter_barley_yield_64" cultivation_variety="hordeum_hibernum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="48"/>     
-      
+      <item name="winter_barley_yield_64" cultivation_variety="hordeum_hibernum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="48"/>
+
       <!-- Orge de printemps -->
-      
+
       <item name="spring_barley_yield_24" cultivation_variety="hordeum_vernum" administrative_area="france_department_dordogne" expected_yield="40"/>
       <item name="spring_barley_yield_33" cultivation_variety="hordeum_vernum" administrative_area="france_department_gironde" expected_yield="41"/>
       <item name="spring_barley_yield_40" cultivation_variety="hordeum_vernum" administrative_area="france_department_landes" expected_yield="44"/>
       <item name="spring_barley_yield_47" cultivation_variety="hordeum_vernum" administrative_area="france_department_lot_et_garonne" expected_yield="48"/>
       <item name="spring_barley_yield_64" cultivation_variety="hordeum_vernum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="42"/>
-      
+
       <!-- Sorgho grain -->
-      
+
       <item name="grain_sorghum_yield_16" cultivation_variety="sorghum" administrative_area="france_department_charente" expected_yield="52"/>
       <item name="grain_sorghum_yield_17" cultivation_variety="sorghum" administrative_area="france_department_charente_maritime" expected_yield="56"/>
       <item name="grain_sorghum_yield_24" cultivation_variety="sorghum" administrative_area="france_department_dordogne" expected_yield="62"/>
@@ -153,56 +153,56 @@
       <item name="grain_sorghum_yield_64" cultivation_variety="sorghum" administrative_area="france_department_pyrenees_atlantiques" expected_yield="63"/>
       <item name="grain_sorghum_yield_79" cultivation_variety="sorghum" administrative_area="france_department_deux_sevres" expected_yield="53"/>
       <item name="grain_sorghum_yield_86" cultivation_variety="sorghum" administrative_area="france_department_vienne" expected_yield="53"/>
-      
+
       <!-- Soja -->
-      
+
       <item name="soybean_yield_24" cultivation_variety="glycine_max" administrative_area="france_department_dordogne" expected_yield="23"/>
       <item name="soybean_yield_33" cultivation_variety="glycine_max" administrative_area="france_department_gironde" expected_yield="24"/>
       <item name="soybean_yield_40" cultivation_variety="glycine_max" administrative_area="france_department_landes" expected_yield="23"/>
       <item name="soybean_yield_47" cultivation_variety="glycine_max" administrative_area="france_department_lot_et_garonne" expected_yield="26"/>
       <item name="soybean_yield_64" cultivation_variety="glycine_max" administrative_area="france_department_pyrenees_atlantiques" expected_yield="24"/>
       <!-- Tabac -->
-      
+
       <!-- Tabac brun-->
-      
+
       <item name="brown_tobacco_yield_24" cultivation_variety="nicotiana_tabacum_brown" administrative_area="france_department_dordogne" expected_yield="25"/>
       <item name="brown_tobacco_yield_33" cultivation_variety="nicotiana_tabacum_brown" administrative_area="france_department_gironde" expected_yield="29"/>
       <item name="brown_tobacco_yield_40" cultivation_variety="nicotiana_tabacum_brown" administrative_area="france_department_landes" expected_yield="29"/>
       <item name="brown_tobacco_yield_47" cultivation_variety="nicotiana_tabacum_brown" administrative_area="france_department_lot_et_garonne" expected_yield="28"/>
       <item name="brown_tobacco_yield_64" cultivation_variety="nicotiana_tabacum_brown" administrative_area="france_department_pyrenees_atlantiques" expected_yield="27"/>
-      
+
       <!-- Tabac virginie-->
-      
+
       <item name="virginia_tobacco_yield_24" cultivation_variety="nicotiana_tabacum_virginie" administrative_area="france_department_dordogne" expected_yield="27"/>
       <item name="virginia_tobacco_yield_33" cultivation_variety="nicotiana_tabacum_virginie" administrative_area="france_department_gironde" expected_yield="27"/>
       <item name="virginia_tobacco_yield_40" cultivation_variety="nicotiana_tabacum_virginie" administrative_area="france_department_landes" expected_yield="25"/>
       <item name="virginia_tobacco_yield_47" cultivation_variety="nicotiana_tabacum_virginie" administrative_area="france_department_lot_et_garonne" expected_yield="26"/>
       <item name="virginia_tobacco_yield_64" cultivation_variety="nicotiana_tabacum_virginie" administrative_area="france_department_pyrenees_atlantiques" expected_yield="26"/>
-      
+
       <!-- Tabac burley-->
-      
+
       <item name="burley_tobacco_yield_24" cultivation_variety="nicotiana_tabacum_burley" administrative_area="france_department_dordogne" expected_yield="27"/>
       <item name="burley_tobacco_yield_33" cultivation_variety="nicotiana_tabacum_burley" administrative_area="france_department_gironde" expected_yield="27"/>
       <item name="burley_tobacco_yield_40" cultivation_variety="nicotiana_tabacum_burley" administrative_area="france_department_landes" expected_yield="25"/>
       <item name="burley_tobacco_yield_47" cultivation_variety="nicotiana_tabacum_burley" administrative_area="france_department_lot_et_garonne" expected_yield="26"/>
       <item name="burley_tobacco_yield_64" cultivation_variety="nicotiana_tabacum_burley" administrative_area="france_department_pyrenees_atlantiques" expected_yield="26"/>
-      
+
       <!-- Tournesol -->
-      
+
       <item name="sunflower_yield_24" cultivation_variety="helianthus" administrative_area="france_department_dordogne" expected_yield="24"/>
       <item name="sunflower_yield_33" cultivation_variety="helianthus" administrative_area="france_department_gironde" expected_yield="24"/>
       <item name="sunflower_yield_40" cultivation_variety="helianthus" administrative_area="france_department_landes" expected_yield="24"/>
       <item name="sunflower_yield_47" cultivation_variety="helianthus" administrative_area="france_department_lot_et_garonne" expected_yield="26"/>
       <item name="sunflower_yield_64" cultivation_variety="helianthus" administrative_area="france_department_pyrenees_atlantiques" expected_yield="26"/>
-      
+
       <!-- Triticale -->
-      
+
       <item name="triticosecale_yield_24" cultivation_variety="triticosecale" administrative_area="france_department_dordogne" expected_yield="47"/>
       <item name="triticosecale_yield_33" cultivation_variety="triticosecale" administrative_area="france_department_gironde" expected_yield="46"/>
       <item name="triticosecale_yield_40" cultivation_variety="triticosecale" administrative_area="france_department_landes" expected_yield="48"/>
       <item name="triticosecale_yield_47" cultivation_variety="triticosecale" administrative_area="france_department_lot_et_garonne" expected_yield="51"/>
       <item name="triticosecale_yield_64" cultivation_variety="triticosecale" administrative_area="france_department_pyrenees_atlantiques" expected_yield="48"/>
-          
+
     </items>
   </nomenclature>
 </nomenclatures>

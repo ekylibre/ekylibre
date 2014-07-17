@@ -27,7 +27,7 @@
         <handler indicator="mass_area_density"   unit="hectoliter_per_hectare"   to="population"
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(hectoliter)"
                  backward="(value * self..net_volume(hectoliter)) / cultivation.net_surface_area(hectare)"
-                 /> <!-- kg/ha -->         
+                 /> <!-- kg/ha -->
       </variable>
     </variables>
     <operations>

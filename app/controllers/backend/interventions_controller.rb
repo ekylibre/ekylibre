@@ -78,7 +78,7 @@ class Backend::InterventionsController < BackendController
   end
 
   def set
-    return unless @intervention = find_and_check    
+    return unless @intervention = find_and_check
   end
 
   def run

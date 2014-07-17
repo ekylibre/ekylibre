@@ -8,56 +8,56 @@
       <item name="sclerotiniaceae" itis_tsn="194121"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-saccharomycetaceae" hierarchical="true">
     <items>
       <item name="saccharomyces" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-saccharomyces" hierarchical="true">
     <items>
       <item name="saccharomyces_cerevisiae" itis_tsn="194157"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-peronosporaceae" hierarchical="true">
     <items>
       <item name="plasmopara" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-plasmopara" hierarchical="true">
     <items>
       <item name="plasmopara_viticola" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
-  
+
+
   <nomenclature name="varieties-erysiphaceae" hierarchical="true">
     <items>
       <item name="uncinula" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-uncinula" hierarchical="true">
     <items>
       <item name="uncinula_necator" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
-  
+
+
   <nomenclature name="varieties-sclerotiniaceae" hierarchical="true">
     <items>
       <item name="botrytis" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-botrytis" hierarchical="true">
     <items>
       <item name="botrytis_cinerea" itis_tsn="194154"/>
     </items>
   </nomenclature>
-  
-  
+
+
 </nomenclatures>

@@ -7,7 +7,7 @@
       <item name="prunus_persica" itis_tsn="24765"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-prunus_domestica" hierarchical="true">
     <items>
       <item name="prunus_domestica_bernardina" itis_tsn="00000"/>
@@ -15,7 +15,7 @@
       <item name="prunus_domestica_carpatin" itis_tsn="000000"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-prunus_salicina" hierarchical="true">
     <items>
       <item name="prunus_salicina_allo" itis_tsn="00000"/>
@@ -24,7 +24,7 @@
       <item name="prunus_salicina_beauty" itis_tsn="000000"/>
     </items>
   </nomenclature>
-  
+
    <nomenclature name="varieties-prunus_persica" hierarchical="true">
     <items>
       <item name="prunus_persica_saint_hilaire" itis_tsn="00000"/>
@@ -32,6 +32,6 @@
       <item name="prunus_persica_jh_hall" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
-  
+
+
 </nomenclatures>

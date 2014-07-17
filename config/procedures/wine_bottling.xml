@@ -13,8 +13,8 @@
         <handler indicator="net_volume"            unit="liter"               to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
                  forward="value / self..net_volume(liter)"
                  backward="value * self..net_volume(liter)"
-                 /> <!-- l    -->      
-      </variable> 
+                 /> <!-- l    -->
+      </variable>
       <variable name="bottles"        variety="cork_bottle" abilities="store(wine)"/>
       <variable name="bottles_to_use" new="parted-from: bottles" roles="bottling-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
@@ -37,7 +37,7 @@
       <variable name="wine_bottles" variety="wine" derivative-of=":wine_to_pack" new="produced-by: wine_to_pack" roles="bottling-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" >
 	<handler indicator="population" />
       </variable>
-    <variable name="wine_storage" variety="building_division" abilities="store(wine)" /> 
+    <variable name="wine_storage" variety="building_division" abilities="store(wine)" />
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

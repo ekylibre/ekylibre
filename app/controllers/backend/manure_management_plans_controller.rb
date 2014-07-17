@@ -19,9 +19,9 @@
 
 class Backend::ManureManagementPlansController < BackendController
   manage_restfully redirect_to: "{action: :edit, id: 'id'}".c
-  
+
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
-  
+
   unroll
 
   list do |t|
@@ -52,7 +52,7 @@ class Backend::ManureManagementPlansController < BackendController
     t.column :maximum_nitrogen_input
     t.column :nitrogen_input
   end
-  
+
   # Show one animal with params_id
   def show
     return unless @manure_management_plan = find_and_check
@@ -60,5 +60,5 @@ class Backend::ManureManagementPlansController < BackendController
     respond_with(@manure_management_plan, :include => [:campaign, :recommender, {:zones => {:include => [{:support => {:include => :storage}}, :activity, :production]}}])
 
   end
-  
+
 end

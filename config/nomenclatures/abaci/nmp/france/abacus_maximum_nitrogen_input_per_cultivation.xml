@@ -12,119 +12,119 @@
       <property-nature name="irrigated" type="boolean" required="false"/>
     </property-natures>
     <items>
-      
+
       <!-- Ail -->
-      
+
       <item name="onion_aquitaine" cultivation_variety="allium" administrative_area="france_region_aquitaine" maximum_nitrogen_input="150"/>
       <item name="onion_poitou_charentes" cultivation_variety="allium" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="150"/>
-      
+
       <!-- Artichaud -->
-      
+
       <item name="artichoke_aquitaine" cultivation_variety="cynara" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180"/>
       <item name="artichoke_poitou_charentes" cultivation_variety="cynara" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
-      
+
       <!-- Asperge -->
-      
+
       <item name="asparagus_aquitaine" cultivation_variety="asparagus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="170"/>
       <item name="asparagus_poitou_charentes" cultivation_variety="asparagus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
-      
+
       <!-- Aubergine -->
-      
+
       <item name="eggplant_aquitaine" cultivation_variety="solanum_melongena" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250"/>
       <item name="eggplant_poitou_charentes" cultivation_variety="solanum_melongena" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="250"/>
-      
+
       <!-- Betterave -->
-      
+
       <item name="beet_aquitaine" cultivation_variety="beta_vulgaris" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250"/>
       <item name="beet_poitou_charentes" cultivation_variety="beta_vulgaris" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
-      
+
       <!-- Carotte -->
-      
+
       <item name="carrot_aquitaine" cultivation_variety="daucus_carota" administrative_area="france_region_aquitaine" maximum_nitrogen_input="180"/>
       <item name="carrot_poitou_charentes" cultivation_variety="daucus_carota" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
-      
+
       <!-- Celeri rave -->
-      
+
       <item name="wild_celery_aquitaine" cultivation_variety="apium_graveolens" administrative_area="france_region_aquitaine" maximum_nitrogen_input="260"/>
       <item name="wild_celery_poitou_charentes" cultivation_variety="apium_graveolens" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
-      
+
       <!-- Chicorée frisée -->
-      
+
       <item name="curly_chicory_aquitaine" cultivation_variety="cichorium_endivia" administrative_area="france_region_aquitaine" maximum_nitrogen_input="145"/>
-      
+
       <!-- Chou de Bruxelles -->
-      
+
       <item name="brussels_sprout_aquitaine" cultivation_variety="brassica_oleracea_gemmifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210"/>
       <item name="brussels_sprout_poitou_charentes" cultivation_variety="brassica_oleracea_gemmifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="160"/>
-      
+
       <!-- Chou fleur -->
-      
+
       <item name="cauliflower_aquitaine" cultivation_variety="brassica_oleracea_botrytis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="340"/>
       <item name="cauliflower_poitou_charentes" cultivation_variety="brassica_oleracea_botrytis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
-      
+
        <!-- Chou pomme -->
-      
+
       <item name="apple_cabbage_aquitaine" cultivation_variety="brassica_oleracea_capitata" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250"/>
       <item name="apple_cabbage_poitou_charentes" cultivation_variety="brassica_oleracea_capitata" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="200"/>
-      
-      
+
+
        <!-- Concombre -->
-      
+
       <item name="cucumber_aquitaine" cultivation_variety="cucurbita" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300"/>
       <item name="cucumber_poitou_charentes" cultivation_variety="cucurbita" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="170"/>
-      
-      
+
+
       <!-- Courgette -->
-      
+
       <item name="zucchini_aquitaine" cultivation_variety="cucurbita_pepo" administrative_area="france_region_aquitaine" maximum_nitrogen_input="300"/>
       <item name="zucchini_poitou_charentes" cultivation_variety="cucurbita_pepo" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="160"/>
-      
+
       <!-- Echallote -->
-      
+
       <item name="shallot_aquitaine" cultivation_variety="allium_cepa" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100"/>
       <item name="shallot_poitou_charentes" cultivation_variety="allium_cepa" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="110"/>
-      
+
       <!-- Epinard -->
-      
+
       <item name="spinach_aquitaine" cultivation_variety="spinacia_oleracea" administrative_area="france_region_aquitaine" maximum_nitrogen_input="220"/>
       <item name="spinach_poitou_charentes" cultivation_variety="spinacia_oleracea" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
-      
+
       <!-- Fraise -->
-      
+
       <item name="strawberry_aquitaine" cultivation_variety="fragaria" administrative_area="france_region_aquitaine" maximum_nitrogen_input="250"/>
-      
+
       <!-- Haricot -->
-      
+
       <item name="bean_aquitaine" cultivation_variety="phaseolus" administrative_area="france_region_aquitaine" maximum_nitrogen_input="120"/>
       <item name="bean_poitou_charentes" cultivation_variety="phaseolus" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="50"/>
-      
+
       <!-- Laitue -->
-      
+
       <item name="lettuce_aquitaine" cultivation_variety="lactuca" administrative_area="france_region_aquitaine" maximum_nitrogen_input="120"/>
       <item name="lettuce_poitou_charentes" cultivation_variety="lactuca" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="120"/>
-      
+
       <!-- Mâche -->
-      
+
       <item name="corn_salad_aquitaine" cultivation_variety="valerianella_locusta" administrative_area="france_region_aquitaine" maximum_nitrogen_input="70"/>
       <item name="corn_salad_poitou_charentes" cultivation_variety="valerianella_locusta" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="70"/>
-      
+
       <!-- Melon -->
-      
+
       <item name="muskmelon_salad_aquitaine" cultivation_variety="cucumis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="160"/>
       <item name="muskmelon_salad_poitou_charentes" cultivation_variety="cucumis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="140"/>
-      
-      
+
+
       <!-- Vigne de cuve-->
-      
+
       <item name="vine_aquitaine" cultivation_variety="vitis_vinifera" administrative_area="france_region_aquitaine" maximum_nitrogen_input="100"/>
       <item name="vine_poitou_charentes" cultivation_variety="vitis_vinifera" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80"/>
-      
+
       <!-- Vigne de table-->
-      
+
       <item name="table_vine_aquitaine" cultivation_variety="vitis" administrative_area="france_region_aquitaine" maximum_nitrogen_input="210"/>
       <item name="table_vine_poitou_charentes" cultivation_variety="vitis" administrative_area="france_region_poitou_charentes" maximum_nitrogen_input="80"/>
-        
-      
+
+
     </items>
   </nomenclature>
 </nomenclatures>

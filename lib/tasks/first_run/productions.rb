@@ -28,10 +28,10 @@ load_data :productions do |loader|
                            :support_markers => row[12].blank? ? {} : row[12].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                              h[i.first.strip.downcase.to_sym] = i.second
                              h
-                           }                           
+                           }
                            )
 
-        
+
         # Create a campaign if not exist
         unless r.campaign_harvest_year.present?
           raise "No campaign given"
@@ -41,16 +41,16 @@ load_data :productions do |loader|
         unless campaign = Campaign.find_by(harvest_year: r.campaign_harvest_year)
           campaign = Campaign.create!(harvest_year: r.campaign_harvest_year, closed: false)
         end
-        
+
         # Create an activity if not exist with production_code
         unless activity_family = Nomen::ActivityFamilies[r.production_nature.activity]
-          raise "No activity family. (#{r.inspect})"          
+          raise "No activity family. (#{r.inspect})"
         end
 
-        unless activity = Activity.find_by(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))  
+        unless activity = Activity.find_by(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))
           activity = Activity.create!(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))
         end
-        
+
         # if a variant_reference_name is present
         product_nature_variant = nil
         if r.variant
@@ -60,7 +60,7 @@ load_data :productions do |loader|
           # Import from nomen with item of ProductionNature
           product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.production_nature.variant_support.to_s)
         end
-        
+
         if product_nature_variant
           # Find or create a production
           unless production = Production.find_by(campaign_id: campaign.id, activity_id: activity.id, variant_id: product_nature_variant.id)
@@ -89,7 +89,7 @@ load_data :productions do |loader|
             for indicator, value in r.support_markers
               support.read!(indicator, value)
             end
-          end         
+          end
         end
         w.check_point
       end

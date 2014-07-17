@@ -44,7 +44,7 @@
       <item name="piece_replacement" roles="target, doer, input"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-transformation">
     <items>
       <item name="transfer"     roles="input, target, doer"/>
@@ -58,13 +58,13 @@
       <item name="remontage"    roles="target, doer"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-addition">
     <!-- <items> -->
     <!--   <item name="wine_addition" roles="input, target, doer"/> -->
     <!-- </items> -->
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-tillage">
     <items>
       <item name="plowing" roles="target, doer, tool"/>
@@ -81,20 +81,20 @@
       <item name="animal_housing_cleaning" roles="output, target, doer, tool"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-animal_illness_treatment">
     <items>
       <item name="animal_curative_medicine_admission" roles="input, target, doer, input_origin"/>
       <item name="animal_preventive_medicine_admission" roles="input, target, doer, input_origin"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-animal_production">
     <items>
       <item name="milk_production" roles="output, target, doer"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-animal_feeding">
     <items>
       <item name="food_supply" roles="input, target, doer, tool"/>
@@ -110,7 +110,7 @@
       <item name="plant_chemical_weed" roles="input, target, doer, tool, input_origin"/>
       </items>
   </nomenclature>
-  
+
   <nomenclature name="procedure_natures-plant_nutrition">
     <items>
       <item name="plant_irrigation" roles="input, target"/>

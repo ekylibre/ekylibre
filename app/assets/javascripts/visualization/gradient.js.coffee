@@ -3,11 +3,11 @@
 
 # Computes grades for a given
 class visualization.Gradient
-  
+
   constructor: (data, property, options = {}) ->
     options.round       ?= 5
     options.levelNumber ?= 7
-    
+
     # Default values
     @round       ?= options.round
     @levelNumber ?= options.levelNumber

@@ -6,9 +6,9 @@ class visualization.Bubbles extends visualization.Gradient
 
   constructor: (@layer, @data, options = {}) ->
     options.levelNumber ?= 5
-    
+
     super @data, @layer.reference, options
-    
+
     if this.valid()
 
       # Compute radius

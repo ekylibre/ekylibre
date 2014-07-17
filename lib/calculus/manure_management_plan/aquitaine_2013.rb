@@ -1,8 +1,8 @@
 module Calculus
   module ManureManagementPlan
-    
+
     class Aquitaine2013 < PoitouCharentes2013
-      
+
       # Estimate "y"
       def estimate_expected_yield
 expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate_expected_yield
@@ -22,11 +22,11 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
 
 
       # Estimate "Pf" see PoitouCharentes2013
-      
+
       # Estimate Rf see PoitouCharentes2013
-      
+
       # Estimate "Ri" see PoitouCharentes2013
-      
+
       # Estimate "Mh"
       def estimate_humus_mineralization
         quantity = 30.in_kilogram_per_hectare
@@ -69,17 +69,17 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
         end
         return quantity
       end
-      
+
       # Estimate Xa see PoitouCharentes2013
 
       # Estimate "Mrci" see PoitouCharentes2013
-      
+
       # Estimate "Xmax" see PoitouCharentes2013
 
       # Estimate Nirr
       def estimate_irrigation_water_nitrogen
         quantity = 0.in_kilogram_per_hectare
-        if input_water = @support.get(:irrigation_water_input_area_density) 
+        if input_water = @support.get(:irrigation_water_input_area_density)
           if input_water.to_d(:liter_per_square_meter) >= 100.00
             # TODO find an analysis for nitrogen concentration of input water for irrigation 'c'
             c = 25
@@ -87,16 +87,16 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
             quantity = ((v / 100) * (c / 4.43)).in_kilogram_per_hectare
           end
         end
-        return quantity       
+        return quantity
       end
 
       def compute
-     
+
         values = {}
 
         # Pf
         values[:nitrogen_need]                  = estimate_nitrogen_need
-        
+
         # Pi
         values[:absorbed_nitrogen_at_opening] = estimate_absorbed_nitrogen_at_opening
 
@@ -126,10 +126,10 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
 
         # Po
         values[:soil_production]       = estimate_soil_production
-        
+
         # Xmax
         values[:maximum_nitrogen_input] = estimate_maximum_nitrogen_input
-        
+
         # X
         values[:nitrogen_input] = 0.in_kilogram_per_hectare
         # get sets corresponding to @variety
@@ -139,45 +139,45 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
           fertilizer_apparent_use_coeffient = 0.8.to_d
           values[:nitrogen_input] = (((values[:nitrogen_need] + values[:nitrogen_at_closing]) -
                                        (values[:mineral_nitrogen_at_opening] + values[:humus_mineralization] +
-                                       values[:meadow_humus_mineralization] + 
+                                       values[:meadow_humus_mineralization] +
                                        values[:previous_cultivation_residue_mineralization])) /
-                                       fertilizer_apparent_use_coeffient) - 
-                                       values[:organic_fertilizer_mineral_fraction] 
-          
+                                       fertilizer_apparent_use_coeffient) -
+                                       values[:organic_fertilizer_mineral_fraction]
+
         end
         # MAIS / TABAC / SORGHO : ((Pf + Rf) – (Ri + Mh + Mhp + Mr + MrCi + Nirr) - Xa ) / CAU = X
         if @variety <= :zea or @variety <= :nicotiana or @variety <= :sorghum
           fertilizer_apparent_use_coeffient = 0.8.to_d
           values[:nitrogen_input] = (((values[:nitrogen_need] + values[:nitrogen_at_closing]) -
                                        (values[:mineral_nitrogen_at_opening] + values[:humus_mineralization] +
-                                       values[:meadow_humus_mineralization] + 
-                                       values[:previous_cultivation_residue_mineralization])) - 
+                                       values[:meadow_humus_mineralization] +
+                                       values[:previous_cultivation_residue_mineralization])) -
                                        values[:organic_fertilizer_mineral_fraction] ) /
                                        fertilizer_apparent_use_coeffient
-          
+
         end
-        
+
         # PRAIRIE : N exp – (Mh + N rest + FS) = Xa + (X * CAU)
-        
+
         # NOYER : Xa + X = d * b
-        
+
         # TOURNESOL
-        
+
         # COLZA
-        
+
         # SOJA : pas d'apport sauf échec de nodulation
-        
-        # LEGUMES / ARBO / VIGNES : Dose plafond à partir d'abaques    
+
+        # LEGUMES / ARBO / VIGNES : Dose plafond à partir d'abaques
         # X ≤ nitrogen_input_max – Nirr – Xa
         if @variety and (@variety <= :vitis or @variety <= :solanum_tuberosum or @variety <= :cucumis or sets.include?("gardening_vegetables"))
           values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
         end
-        
-        
+
+
         return values
       end
 
-      
+
 
     end
 

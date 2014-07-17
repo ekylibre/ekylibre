@@ -14,7 +14,7 @@
         <variable name="recommender" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.recommender"/>
         <property name="manure_management_plan_name" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.name"/>
         <property name="recommender_full_name" if="recommender" value="recommender.full_name"/>
-        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>    
+        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>
         <property name="manure_management_plan_default_computation_method" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.default_computation_method"/>
         <property name="manure_management_plan_opened_at" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.opened_at" type="datetime"/>
         <!-- looking for all CultivableLandParcel in current campaign -->
@@ -37,16 +37,16 @@
             <property name="stopped_at" of="support" type="datetime"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
-            
+
             <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
             <property name="nitrogen_balance" value="support.nitrogen_balance.in(:kilogram_per_hectare).round(2)" type="measure"/>
-            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target 
-            
+            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target
+
             -->
             <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="provisional_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment').with_cast(:'soil_enrichment-target', zone).reorder(:started_at)" of-type="record">
               <!-- <variable name="working_area" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.population"/>
-              
+
                variable for original_input -->
                <variable name="intervention_working_area" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.population"/>
               <variable name="original_input" value="provisional_intervention.casts.of_role(:'soil_enrichment-input_origin').first"/>

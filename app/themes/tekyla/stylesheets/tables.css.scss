@@ -163,7 +163,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 	}
 	ul {
 	    display: none;
-            position: absolute;    
+            position: absolute;
 	    top: 20px;
 	    margin: 0;
             @include right(0);

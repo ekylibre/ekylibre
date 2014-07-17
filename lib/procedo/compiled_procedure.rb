@@ -12,7 +12,7 @@ module Procedo
     #   send("update_other_from_#{updater.join('_')}")
     #   return @updates
     # end
-      
+
     # # Register casting
     # def cast(casting)
     #   @casting = casting

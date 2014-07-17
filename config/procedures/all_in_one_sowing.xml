@@ -45,26 +45,26 @@
                  forward="(value * land_parcel.net_surface_area(square_meter)) / self..net_volume(liter)"
                  backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(square_meter)"
                  /> <!-- l/m² -->
-  <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
+  <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
      if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->          
-  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population" 
+                 /> <!-- kg N/ha -->
+  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population"
      if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->         
+                 /> <!-- kg P/ha -->
   <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
      if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg K/ha -->            
-        
+                 /> <!-- kg K/ha -->
+
       </variable>
       <variable name="insecticide"          variety="preparation" abilities="kill(insecta)" roles="plant_illness_treatment-input_origin"/>
       <variable name="insecticide_to_input" new="parted-from: insecticide" roles="plant_illness_treatment-input" default-population=":insecticide">
-	
+
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
@@ -74,7 +74,7 @@
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg/ha -->
-	
+
       </variable>
       <variable name="molluscicide"          variety="preparation" abilities="kill(mollusca)" roles="plant_illness_treatment-input_origin"/>
       <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
@@ -87,8 +87,8 @@
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg/ha -->
-	
-      </variable> 
+
+      </variable>
 
       <variable name="sower"        abilities="spread(preparation), sow, spray" roles="soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer,soil_enrichment-doer,soil_enrichment-doer,plant_illness_treatment-doer"/>

@@ -22,7 +22,7 @@
         <handler indicator="dry_matter_rate"       unit="ton" name="dry_matter_mass" to="population" if="silage.net_mass? &amp; silage.dry_matter_rate?"
                  forward="value / ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"
                  backward="value * ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"
-                 /> <!-- t de MS-->        
+                 /> <!-- t de MS-->
       </variable>
       <variable name="driver"           abilities="drive(tractor), move" roles="food_supply-doer"/>
       <variable name="tractor"          abilities="tow(equipment), move" roles="food_supply-tool"/>

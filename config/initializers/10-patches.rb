@@ -40,13 +40,13 @@ end
 
 
 class ::BigDecimal
-  
+
   # Overwrite badly bigdecimal
   # TODO What to do for that ?
   def to_f
     self.to_s('F').to_f
   end
-  
+
 end
 
 

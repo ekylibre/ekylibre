@@ -5,7 +5,7 @@
       <item name="helianthus_annuus" itis_tsn="36616"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-helianthus_annuus" hierarchical="true">
     <items>
       <!-- PRECOCE -->
@@ -23,6 +23,6 @@
       <item name="helianthus_annuus_sy_valeo" itis_tsn="000000"/>
     </items>
   </nomenclature>
-  
-  
+
+
 </nomenclatures>

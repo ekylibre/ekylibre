@@ -29,7 +29,7 @@
           <cell name="stopped_at" of="intervention" type="datetime"/>
           <cell name="input_quantity" value="intervention.casts.of_role('addition-input').first.population"/>
           <cell name="input_unit_name" value="product.unit_name"/>
-          </matrix>  
+          </matrix>
         </sections>
       </sections>
     </section>

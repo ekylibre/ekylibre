@@ -385,7 +385,7 @@ html.authentication {
               margin: 10px auto;
 	      display: block;
               height: 3 * $fs-normal;
-              
+
           }
 	  .field {
             margin-bottom: $default-gap;
@@ -411,7 +411,7 @@ html.authentication {
 }
 
 .main-toolbar {
-  @include toolbar();  
+  @include toolbar();
   margin-top: round(($header-height - $button-height) / 2);
   margin-bottom: round(($header-height - $button-height) / 2);
   @include margin-left($default-gap);
@@ -1024,8 +1024,8 @@ form.search {
   }
 
   &.collapsed {
-      .buttons .toggle { 
-	  @include use-icon(plus-square-o); 
+      .buttons .toggle {
+	  @include use-icon(plus-square-o);
       }
       .fieldset-fields {
 	  display: none;
@@ -1037,7 +1037,7 @@ form.search {
       color: $invalid-color;
     }
   }
-  
+
 }
 
 .help-inline {
@@ -1951,7 +1951,7 @@ svg.map {
 }
 
 #help-center {
-   @include text-align(center);   
+   @include text-align(center);
 }
 
 /* Calendar */

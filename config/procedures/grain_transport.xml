@@ -9,15 +9,15 @@
                  forward="(value / self..net_mass(ton))"
                  backward="(value * self..net_mass(ton))"
                  /> <!-- t -->
-      </variable> 
+      </variable>
       <variable name="trailer" variety="trailer" abilities="store(grain)" roles="transport-tool"/>
       <variable name="driver"  abilities="drive(tractor)" roles="transport-doer"/>
       <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="transport-tool"/>
       <variable name="silo"    abilities="store(grain)" roles="transport-target"/>
     </variables>
     <operations>
-     
-     
+
+
      <operation id="100" duration="4 minutes">
         <task do="[driver] moves in [tractor]"/>
       </operation>
@@ -40,12 +40,12 @@
         <task do="[tractor] moves at [silo]"/>
       </operation>
       <operation id="800" repeatable="true">
-        <task do="[grain_to_deliver] moves in [silo]"/> 
+        <task do="[grain_to_deliver] moves in [silo]"/>
         <task do="grain_to_deliver|water_content_rate is measured"/>
         <task do="grain_to_deliver|protein_concentration is measured"/>
         <task do="grain_to_deliver|impurity_concentration is measured"/>
         <task do="grain_to_deliver|specific_weight is measured"/>
-        <task do="grain_to_deliver|hagberg_falling_number is measured"/>       
+        <task do="grain_to_deliver|hagberg_falling_number is measured"/>
       </operation>
       <operation id="900" duration="18 minutes">
         <task do="[tractor] moves in default storage of [trailer]"/>

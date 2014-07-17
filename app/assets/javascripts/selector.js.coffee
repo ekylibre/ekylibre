@@ -1,9 +1,9 @@
 # Selectors for unroll action
 #= require jquery.scrollTo
-# 
+#
 (($) ->
   "use strict"
- 
+
   $.widget "ui.selector",
     options:
       clear: false
@@ -49,12 +49,12 @@
 
     value: (newValue) ->
       if newValue is null or newValue is undefined or newValue is ""
-        return this.valueField.val() 
+        return this.valueField.val()
       this._set(newValue)
-                  
+
     _set: (id, triggerEvents = false) ->
       if id is null or id is undefined or id is ""
-        return this.valueField.val() 
+        return this.valueField.val()
       that = this
       $.ajax
         url: this.sourceURL,
@@ -70,7 +70,7 @@
         error: (request, status, error) ->
           alert "Cannot get details of item on #{this.sourceURL} (#{status}): #{error}"
       this
-      
+
     _select: (id, label, triggerEvents = false) ->
       console.log "select"
       this.lastSearch = label
@@ -112,21 +112,21 @@
 
     _closeMenu: ->
       console.log "closeMenu"
-      if this.element.attr("required") is "true"        
+      if this.element.attr("required") is "true"
         # Restore last value if possible
         if this.valueField.val().length > 0
-          search = this.valueField.prop("itemLabel")  
+          search = this.valueField.prop("itemLabel")
       else
         # Empty values if empty
         if this.element.val().length <= 0
           this.valueField.val ""
           search = ""
         else if this.valueField.val().length > 0
-          search = this.valueField.prop("itemLabel") 
+          search = this.valueField.prop("itemLabel")
       this.lastSearch = search
       this.element.val search
       if this.dropDownMenu.is(":visible")
-        this.dropDownMenu.hide() 
+        this.dropDownMenu.hide()
       true
 
     _choose: (selected) ->
@@ -154,8 +154,8 @@
           alert "Don't known how to manage this option"
       else
         console.log "No selected item to choose..."
-      this    
-      
+      this
+
     _keypress: (event) ->
       code = (event.keyCode or event.which)
       if code is 13 or code is 10 # Enter
@@ -167,9 +167,9 @@
           this._openMenu(this.element.val())
           return false
       true
-    
 
-    _keyup: (event) -> 
+
+    _keyup: (event) ->
       code = (event.keyCode or event.which)
       search = this.element.val()
       if this.lastSearch isnt search
@@ -212,7 +212,7 @@
       else
         this._openMenu()
       false
-      
+
     _menuClick: (event) ->
       console.log "menuclick"
       console.log event.target

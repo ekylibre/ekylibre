@@ -267,7 +267,7 @@ task :locales => :environment do
     translation << line+"\n"
   end
   warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
- 
+
 
 
   # Unroll

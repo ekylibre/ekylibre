@@ -14,7 +14,7 @@
         <handler indicator="net_volume"            unit="cubic_meter"               to="population"
                  forward="value / self..net_volume(cubic_meter)"
                  backward="value * self..net_volume(cubic_meter)"
-                 /> <!-- t -->         
+                 /> <!-- t -->
       </variable>
     </variables>
     <operations>

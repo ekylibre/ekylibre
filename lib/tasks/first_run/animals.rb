@@ -2,7 +2,7 @@
 load_data :animals do |loader|
 
   groups = []
-  
+
   file = loader.path("alamano", "animal_groups.csv")
   if file.exist?
     # find animals credentials in preferences
@@ -138,8 +138,8 @@ load_data :animals do |loader|
               (g.sex.blank? or g.sex == r.sex) and (g.minimum_age.blank? or r.age >= g.minimum_age) and (g.maximum_age.blank? or r.age < g.maximum_age)
             end
             raise "Cannot find a valid group for the given"
-          end        
-          
+          end
+
           variant = ProductNatureVariant.import_from_nomenclature(group.member_nature)
           animal = Animal.create!(variant: variant,
                                   name: r.name,
@@ -155,7 +155,7 @@ load_data :animals do |loader|
 
           # Sex is already known but not if the group has no sex
           animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
-          
+
           # load demo data weight and state
           if loader.manifest[:demo]
             weighted_at = r.born_at
@@ -173,10 +173,10 @@ load_data :animals do |loader|
             animal.read!(:healthy, false, at: (now - 2.days))
             animal.read!(:healthy, true,  at: now)
           end
-          
+
           group.record.add(animal, r.arrived_on)
           group.record.remove(animal, r.departed_on) if r.departed_on
-          
+
           w.check_point
         end
       end

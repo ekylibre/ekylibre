@@ -5,12 +5,12 @@
       <item name="bos_taurus" itis_tsn="183838"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-bos_taurus" hierarchical="true">
     <items>
       <item name="bos_taurus_abondance" />
       <item name="bos_taurus_armoricaine" />
-      <item name="bos_taurus_aubrac" />  
+      <item name="bos_taurus_aubrac" />
       <item name="bos_taurus_bazadaise" />
       <item name="bos_taurus_bearnaise" />
       <item name="bos_taurus_blonde_aquitaine" />

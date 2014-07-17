@@ -5,7 +5,7 @@
       <item name="rubus_idaeus" itis_tsn="24947"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-rubus_idaeus" hierarchical="true">
     <items>
       <item name="rubus_idaeus_frida" itis_tsn="00000"/>
@@ -15,5 +15,5 @@
       <item name="rubus_idaeus_tulameen" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

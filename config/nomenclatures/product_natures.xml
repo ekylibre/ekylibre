@@ -27,8 +27,8 @@
             abilities="inseminate(animal)"
             variable_indicators="population, unique_synthesis_index, economical_milk_index, sex"
             frozen_indicators=""
-            /> 
-       <!-- ANIMAL -->     
+            />
+       <!-- ANIMAL -->
       <item name="cattle_herd"
             category="cattle_herd"
             variety="animal_group"
@@ -329,7 +329,7 @@
             abilities=""
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume"
-            />  
+            />
       <item name="grass"
             category="grass"
             variety="grass"
@@ -410,7 +410,7 @@
             abilities=""
             variable_indicators="population, temperature, total_bacteria_concentration, reference_year, certification"
             frozen_indicators="net_volume, net_mass"
-            />      
+            />
       <item name="packaged_process_food"
             category="fruit"
             variety="mix"
@@ -429,7 +429,7 @@
             variable_indicators="population, net_mass, net_volume"
             frozen_indicators=""
             />
-       <!-- INTRANT -->      
+       <!-- INTRANT -->
       <item name="herbicide"
             category="plant_medicine"
             variety="preparation"
@@ -562,7 +562,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass"
             />
-      <!-- PACKAGED MATTER -->     
+      <!-- PACKAGED MATTER -->
       <item name="bottle"
             category="wine_package_consumable"
             variety="bottle"
@@ -616,7 +616,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass, thousand_grains_mass"
             />
-       
+
       <item name="animal_food"
             category="animal_food"
             variety="mix"
@@ -875,7 +875,7 @@
             abilities="store(preparation)"
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
-            />     
+            />
       <item name="spreader_trailer"
             category="equipment"
             variety="trailer"
@@ -979,7 +979,7 @@
             abilities="clean(settlement),clean(building_division)"
             variable_indicators="application_width"
             frozen_indicators="population"
-            />      
+            />
       <item name="mower"
             category="equipment"
             variety="harvester"
@@ -1019,7 +1019,7 @@
             abilities="harvest(prunus), harvest(corylus), consume(oil), consume(fuel)"
             variable_indicators="application_width"
             frozen_indicators="population"
-            />   
+            />
       <item name="forager"
             category="equipment"
             variety="forager"
@@ -1100,7 +1100,7 @@
             abilities="move, administer_inseminate(animal)"
             variable_indicators=""
             frozen_indicators="population"
-            />     
+            />
       <!-- WATER AND FLUID-->
       <item name="running_water"
             category="running_water"

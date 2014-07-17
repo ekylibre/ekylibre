@@ -132,7 +132,7 @@ module Ekylibre
 
       def add_cast(options = {})
         unless reference.variables[options[:reference_name]]
-          raise "Invalid variable: #{options[:reference_name]} in procedure #{reference.name}" 
+          raise "Invalid variable: #{options[:reference_name]} in procedure #{reference.name}"
         end
         @casts << options
       end

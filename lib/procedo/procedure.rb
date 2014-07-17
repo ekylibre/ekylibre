@@ -194,7 +194,7 @@ module Procedo
       rubyist = Procedo::Compilers::Rubyist.new
       full_name = ["::Procedo", "CompiledProcedures", self.namespace.to_s.camelcase, self.short_name.to_s.camelcase, "V#{self.version}"]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
-      
+
       for variable in @variables.values
         code << "  class #{variable.name.to_s.camelcase} < ::Procedo::CompiledVariable\n\n"
 
@@ -287,7 +287,7 @@ module Procedo
 
           code << "    end\n\n"
         end
-        
+
         # Handlers
         for h in variable.handlers
           rubyist.value = "@handlers[:#{h.name}]"
@@ -333,15 +333,15 @@ module Procedo
           variant      = (variable.new? ? "@variant" : "@actor.variant")
           variant_test = (variable.new? ? variant : "@actor and #{variant}")
           code << "      if #{variant_test}\n"
-          
+
           # Set variants of "parted-from variables"
           for other in variable.others
             if other.parted? and other.producer == variable
               code << "        # Updates variant of #{other.name} if possible\n"
               code << "        if procedure.#{other.name}.variant != #{variant}\n"
-              code << "          procedure.#{other.name}.variant = #{variant}\n"            
+              code << "          procedure.#{other.name}.variant = #{variant}\n"
               code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
-              code << "        end\n"            
+              code << "        end\n"
             end
           end
           code << "      end\n"
@@ -361,15 +361,15 @@ module Procedo
               code << "        begin\n"
               code << "          #{dest} = "
               code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
-              code << "self.get(:#{destination}, at: now)\n"            
+              code << "self.get(:#{destination}, at: now)\n"
               if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
                 code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
               end
               code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
               code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
               code << "          puts e.message.red\n"
-              code << "        end\n"            
-              code << "      end\n"            
+              code << "        end\n"
+              code << "      end\n"
             end
           end
         end
@@ -378,14 +378,14 @@ module Procedo
           for destination in variable.destinations
             dest = "@destinations[:#{destination}]"
             code << "        begin\n"
-            code << "          #{dest} = self.get(:#{destination}, at: now)\n"            
+            code << "          #{dest} = self.get(:#{destination}, at: now)\n"
             if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
-              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n" 
+              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
             end
             code << "          impact_destination_#{destination}!\n"
             code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
             code << "          puts e.message.red\n"
-            code << "        end\n"            
+            code << "        end\n"
           end
         end
 
@@ -417,7 +417,7 @@ module Procedo
         end
 
         code << "    end\n\n"
-        
+
         code << "  end\n\n"
       end
 
@@ -432,8 +432,8 @@ module Procedo
       code << "    @__now__     = global[:at].blank? ? Time.now : global[:at].to_time\n"
       code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
-      
-      
+
+
       code << "  def impact!\n"
       code << "    if @__updater__.first == :global\n"
       code << "      if @__updater__.second == :support\n"

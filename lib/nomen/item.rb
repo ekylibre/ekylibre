@@ -69,7 +69,7 @@ module Nomen
     def include?(other)
       other = nomenclature.items[other] unless other.is_a?(Item)
       unless other.nomenclature == self.nomenclature
-        raise StandardError, "Invalid item" 
+        raise StandardError, "Invalid item"
       end
       return (@left <= other.left and other.right <= @right)
       # return self_and_children.detect do |item|
@@ -133,7 +133,7 @@ module Nomen
           break if value
         end
       end
-      
+
       if property_nature.default
         value ||= cast_property(name, property_nature.default)
       end

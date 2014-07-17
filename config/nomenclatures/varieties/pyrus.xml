@@ -5,7 +5,7 @@
       <item name="pyrus_communis" itis_tsn="25295"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-pyrus_communis" hierarchical="true">
     <items>
       <item name="pyrus_communis_william" itis_tsn="00000"/>
@@ -13,5 +13,5 @@
       <item name="pyrus_communis_william_bon_chretien" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

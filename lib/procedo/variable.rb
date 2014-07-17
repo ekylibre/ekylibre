@@ -49,12 +49,12 @@ module Procedo
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
       if element.has_attribute?("variety")
-        @variety = element.attr("variety").to_s.strip 
+        @variety = element.attr("variety").to_s.strip
       elsif parted?
         @variety = ":#{@producer_name}"
       end
       if element.has_attribute?("derivative-of")
-        @derivative_of = element.attr("derivative-of").to_s.strip 
+        @derivative_of = element.attr("derivative-of").to_s.strip
       elsif parted?
         @derivative_of = ":#{@producer_name}"
       end
@@ -247,7 +247,7 @@ module Procedo
     # Returns dependent variables. Variables that point on me
     def dependent_variables
       procedure.variables.values.select do |v|
-        # v.producer == self or 
+        # v.producer == self or
         v.variety =~ /\:\s*#{self.name}\z/ or v.derivative_of =~ /\:\s*#{self.name}\z/
       end
     end

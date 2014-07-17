@@ -39,7 +39,7 @@ module Procedo
       if name.blank?
         name = @indicator.name.dup
         if @unit and @variable.handlers.detect{|h| h.name.to_s == name}
-          name << "_in_#{@unit.name}" 
+          name << "_in_#{@unit.name}"
         end
       end
       @name = name.to_sym
@@ -48,7 +48,7 @@ module Procedo
       @converters = []
       if element[:converters] and element[:converters].any?
         for converter in element[:converters]
-          @converters << Converter.new(self, converter)          
+          @converters << Converter.new(self, converter)
         end
       else
         element[:to] ||= @indicator.name
@@ -115,7 +115,7 @@ module Procedo
     def human_name
       default, params = [], {indicator: indicator.human_name}
       if unit?
-        default << :indicator_with_unit 
+        default << :indicator_with_unit
         params[:unit] = unit.symbol
       end
       default << @indicator.human_name
@@ -125,11 +125,11 @@ module Procedo
     def backward_converters
       converters.select(&:backward?)
     end
-    
+
     def forward_converters
       converters.select(&:forward?)
     end
-    
+
 
     # Returns keys
     def depend_on?(variable_name, mode = nil)
@@ -138,7 +138,7 @@ module Procedo
       end
       return false
     end
-    
+
     def forward_depend_on?(variable_name)
       depend_on?(variable_name, :forward)
     end

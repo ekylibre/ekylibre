@@ -13,13 +13,13 @@
       <item name="pomace" derivative_of="fruit"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-fermented_juice">
     <items>
       <item name="wine" derivative_of="fruit"/>
     </items>
   </nomenclature>
-  
+
   <!--
   <nomenclature name="varieties-medicine">
     <items>

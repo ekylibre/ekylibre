@@ -16,19 +16,19 @@
       <item name="numida"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-osteichthyes">
     <items>
       <item name="salmo"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-mollusca">
     <items>
       <item name="ostreidae" itis_tsn="79866"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-insecta">
     <items>
       <item name="apis"/>
@@ -36,7 +36,7 @@
       <item name="empoasca_vitis"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-mammalia">
     <items>
       <item name="capra"/>

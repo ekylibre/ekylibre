@@ -180,9 +180,9 @@ module Indicateable
     unless unit = Nomen::Units.find_by(dimension: dimension)
       raise "No unit found for: #{dimension.inspect}"
     end
-    
+
     # Compute calculation
-    return (self.get(numerator, options).to_d(numerator_dimension.symbol) / 
+    return (self.get(numerator, options).to_d(numerator_dimension.symbol) /
             self.get(denominator, options).to_d(denominator_dimension.symbol)).in(unit)
   end
 

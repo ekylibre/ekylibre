@@ -47,7 +47,7 @@
       <item name="empty_fuel_tank"/>
     </items>
   </nomenclature>
-  
+
   <!-- level 3 - branch 1 -->
   <nomenclature name="issue_natures-fungus_disease">
     <items>
@@ -56,7 +56,7 @@
       <item name="noble_rot"           cause="botrytis_cinerea" target="grape"/>
     </items>
   </nomenclature>
-  
+
   <!-- level 3 - branch 2 -->
   <nomenclature name="issue_natures-bacteria_disease">
     <items>
@@ -64,7 +64,7 @@
       <item name="mammite"            target="mammalia"/>
     </items>
   </nomenclature>
-  
+
   <!-- level 3 - branch 2 -->
   <nomenclature name="issue_natures-insecta_disease">
     <items>

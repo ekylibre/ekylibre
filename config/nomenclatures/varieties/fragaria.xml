@@ -5,11 +5,11 @@
       <item name="fragaria_ananassa" itis_tsn="24630"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-fragaria_ananassa" hierarchical="true">
     <items>
       <item name="fragaria_ananassa_mara_des_bois" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

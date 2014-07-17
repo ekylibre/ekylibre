@@ -6,13 +6,13 @@
       <item name="ribes_rubrum" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-ribes_nigrum" hierarchical="true">
     <items>
       <item name="ribes_nigrum_andega" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-ribes_rubrum" hierarchical="true">
     <items>
       <item name="ribes_rubrum_wilder" itis_tsn="00000"/>

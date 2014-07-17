@@ -252,7 +252,7 @@ L.StyleForms = L.Class.extend({
         currentElement.setStyle(newStyle);
         this.fireChangeEvent(currentElement);
     },
-    
+
     fireChangeEvent: function(element){
         this.options.currentElement.target._map.fireEvent('styleeditor:changed', element);
     },

@@ -30,11 +30,11 @@ task :rights => :environment do
   used_actions = rights.values.collect{|h| h.values.collect{|v| v["actions"]}}.flatten.compact.uniq.sort
   unused_actions     = all_actions - used_actions
   unexistent_actions = used_actions - all_actions
-  
+
   # Enregistrement du nouveau fichier
   yaml = ""
   if unused_actions.any?
-    yaml << "# THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION\n" 
+    yaml << "# THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION\n"
     for action in unused_actions.sort
       yaml << "#     - \"#{action}\"\n"
     end

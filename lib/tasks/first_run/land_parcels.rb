@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 load_data :land_parcels do |loader|
-  
+
   shapes = {}.with_indifferent_access
-  
+
   path = loader.path("telepac", "ilot.shp")
   if path.exist?
     loader.count :telepac_shape_file_import do |w|
@@ -38,7 +38,7 @@ load_data :land_parcels do |loader|
     end
 
   end
-  
+
   path = loader.path("telepac", "parcelle.shp")
   if path.exist?
     loader.count :telepac_landparcel_shape_file_import do |w|
@@ -60,7 +60,7 @@ load_data :land_parcels do |loader|
       # ANNEE_ENGM
 
       land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-      
+
 
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
@@ -83,9 +83,9 @@ load_data :land_parcels do |loader|
           if record.geometry
             shapes["LP" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
           end
-          
-          
-          
+
+
+
           # create activities if option true
           if loader.manifest[:create_activities_from_telepac]
             # create a cultivable zone for each entries
@@ -97,13 +97,13 @@ load_data :land_parcels do |loader|
                                                :initial_born_at => land_parcel.born_at,
                                                :initial_owner => Entity.of_company,
                                                :identification_number => land_parcel.identification_number.tr("LP","ZC"))
-      
+
               if zc_geometry = shapes[land_parcel.work_number]
                 cultivable_zone.read!(:shape, zc_geometry, at: born_at)
                 ind_area = cultivable_zone.shape_area
-                
+
                 cultivable_zone.read!(:population, land_parcel.population, at: born_at)
-        
+
                 # link cultivable zone and land parcel for each entries
                 #
                 cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
@@ -113,29 +113,29 @@ load_data :land_parcels do |loader|
                                                                                 :population => land_parcel.population
                                                                                 )
               end
-            
+
             # create a campaign if not exist
             # Get campaign
             unless campaign = Campaign.find_by(harvest_year: record.attributes['CAMPAGNE'].to_i)
               campaign = Campaign.create!(harvest_year: record.attributes['CAMPAGNE'].to_i, closed: false)
             end
-            
+
             item = Nomen::ProductionNatures.where(telepac_crop_code: record.attributes['TYPE'].to_s).first
             # Create an activity if not exist with production_code
             unless activity_family = Nomen::ActivityFamilies[item.activity]
-              raise "No activity family. (#{item.inspect})"          
+              raise "No activity family. (#{item.inspect})"
             end
-            
-            unless activity = Activity.find_by(family: activity_family.name)  
+
+            unless activity = Activity.find_by(family: activity_family.name)
               activity = Activity.create!(:nature => :main, :family => activity_family.name, :name => activity_family.human_name)
             end
-            
-            
+
+
             # create a production if not exist
             product_nature_variant = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
-            
+
              if product_nature_variant
-               
+
                unless production = Production.find_by(campaign_id: campaign.id, activity_id: activity.id, variant_id: product_nature_variant.id)
                 production = activity.productions.create!(variant_id: product_nature_variant.id, campaign_id: campaign.id, state: :validated)
                 end
@@ -160,7 +160,7 @@ load_data :land_parcels do |loader|
   end
 
 
-  
+
   path = loader.path("alamano", "zones", "cultivable_zones.shp")
   if path.exist?
     loader.count :cultivable_zones_shapes do |w|
@@ -279,12 +279,12 @@ load_data :land_parcels do |loader|
         w.check_point
       end
     end
-  
+
   end
-  
+
   path = loader.path("alamano", "cultivations.csv")
   if path.exist?
-    
+
     loader.count :cultivations do |w|
       CSV.foreach(path, headers: true) do |row|
         next if row[0].blank?
@@ -306,7 +306,7 @@ load_data :land_parcels do |loader|
         unless container = Product.find_by_work_number(r.cultivable_zone_code)
           raise "No container for cultivation!"
         end
-        
+
         # create the plant
         product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
                                  :name => r.name, :initial_born_at => r.born_at, :initial_owner => Entity.of_company, :variety => r.variety, :initial_container => container)
@@ -318,47 +318,47 @@ load_data :land_parcels do |loader|
         if geometry = shapes[r.cultivable_zone_code]
           product.read!(:shape, geometry, at: born_at, force: true)
         end
-        
+
         w.check_point
       end
     end
-  
+
   end
-  
-  
+
+
   # For Viniteca sofware
-  
+
   # load transcoding files
-  
+
   varieties_transcode = {}.with_indifferent_access
-  
+
   path = loader.path("viniteca", "varieties_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       varieties_transcode[row[0]] = row[1].to_sym
     end
   end
-  
+
   certifications_transcode = {}.with_indifferent_access
-  
+
   path = loader.path("viniteca", "certifications_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       certifications_transcode[row[0]] = row[1].to_sym
     end
   end
-  
+
   cultivable_zones_transcode = {}.with_indifferent_access
-  
+
   path = loader.path("viniteca", "cultivable_zones_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       cultivable_zones_transcode[row[0]] = row[1].to_s
     end
   end
-  
+
   # load data files from Viniteca software
-  
+
   path = loader.path("viniteca", "plant.shp")
   if path.exist?
     loader.count :plant_shapes do |w|
@@ -373,11 +373,11 @@ load_data :land_parcels do |loader|
       # DATE_CREATI (born_at of plant)
       # CODE_AOC (certification of plant)
       born_at = Time.new(1980, 1, 1, 10, 0, 0, "+00:00")
-      
+
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |shape_file|
         # puts "File contains #{file.num_records} records."
         shape_file.each do |record|
-          
+
           # puts "  Attributes: #{record.attributes.inspect}"
           # build variable for transcode
           record_variety = record.attributes['CEPAGE'].to_s.downcase + ' ' + record.attributes['COULEUR_PA'].to_s.downcase
@@ -389,30 +389,30 @@ load_data :land_parcels do |loader|
           #else
             vine_crop_variant = ProductNatureVariant.find_or_import!(:vitis_vinifera)
           end
-          
+
           initial_born_at = (record.attributes['DATE_CREAT'].blank? ? born_at : record.attributes['DATE_CREAT'].to_datetime)
-          
+
           zc_work_number = cultivable_zones_transcode[record.attributes['NOM_PIECE']]
           # create plant
           plant = Plant.create!(:variant_id => vine_crop_variant.first.id,
                   :name =>  record.attributes['CEPAGE'].to_s + " (" + record.attributes['PORTE_GREF'].to_s + ") - [" + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s + "]",
                   :work_number => "PLANT_" + record.attributes['N_PARCELLE'].to_s + "_" + record.attributes['NOM_PIECE'].to_s,
-                  :variety => variety, 
-                  :initial_born_at => initial_born_at,                       
+                  :variety => variety,
+                  :initial_born_at => initial_born_at,
                   :initial_owner => Entity.of_company,
                   :default_storage => CultivableZone.find_by_work_number(zc_work_number) || CultivableZone.first,
                   :identification_number => record.attributes['N_PARCELLE'].to_s )
-          
-          # shape and population         
+
+          # shape and population
           plant.read!(:shape, record.geometry, at: initial_born_at)
           plant.read!(:population, record.attributes['SURFACE_RE'].to_d, at: initial_born_at) if record.attributes['SURFACE_RE']
-         
+
           # vine indicators
           # plant_life_state, woodstock_variety, certification, plants_count, rows_interval, plants_interval
           #puts varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!]
-          if !record.attributes['CODE_AOC'].blank?          
+          if !record.attributes['CODE_AOC'].blank?
             code_aoc = record.attributes['CODE_AOC'].to_s.downcase
-            plant.read!(:certification, certifications_transcode[code_aoc], at: initial_born_at) if code_aoc 
+            plant.read!(:certification, certifications_transcode[code_aoc], at: initial_born_at) if code_aoc
           end
           #puts varieties_transcode[record.attributes['PORTE_GREF'].to_s.downcase!]
           if !record.attributes['PORTE_GREF'].blank?
@@ -421,18 +421,18 @@ load_data :land_parcels do |loader|
           end
           #puts record.attributes['ECARTEMENT'].inspect
           if record.attributes['ECARTEMENT']
-            plant.read!(:rows_interval, record.attributes['ECARTEMENT'].to_d.in_meter, at: initial_born_at) 
+            plant.read!(:rows_interval, record.attributes['ECARTEMENT'].to_d.in_meter, at: initial_born_at)
           end
           #puts record.attributes['ECARTEMEN0'].inspect
           if record.attributes['ECARTEMEN0']
-            plant.read!(:plants_interval, record.attributes['ECARTEMEN0'].to_d.in_meter, at: initial_born_at) 
+            plant.read!(:plants_interval, record.attributes['ECARTEMEN0'].to_d.in_meter, at: initial_born_at)
           end
-          
+
           w.check_point
         end
       end
     end
   end
-  
+
 
 end

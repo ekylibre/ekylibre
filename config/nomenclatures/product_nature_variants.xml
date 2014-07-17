@@ -17,7 +17,7 @@
             derivative_of="bos"
             unit_name="dose"
             frozen_indicators_values=""
-            /> 
+            />
       <!-- ANIMAL -->
       <!-- CATTLE -->
       <item name="cattle_herd"
@@ -467,14 +467,14 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      
+
       <!-- FLOWER CROP -->
       <item name="saffron_crop"
             nature="flower_crop"
             variety="crocus_sativus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00square_meter"
-            />     
+            />
      <item name="rose_crop"
             nature="fruit_crop"
             variety="rosa"
@@ -504,13 +504,13 @@
             variety="ribes_nigrum"
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
-            />   
+            />
       <item name="pear_crop"
             nature="fruit_crop"
             variety="pyrus"
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
-            /> 
+            />
       <item name="peach_crop"
             nature="fruit_crop"
             variety="prunus_persica"
@@ -544,7 +544,7 @@
             derivative_of="crocus_sativus"
             unit_name="gram"
             frozen_indicators_values="net_mass: 1.00gram, net_volume: 1.00milliliter"
-            /> 
+            />
       <!-- FRUIT BASED -->
       <item name="frozen_fruit"
             nature="fruit"
@@ -563,7 +563,7 @@
             derivative_of="fruit"
             unit_name="unit"
             frozen_indicators_values="net_mass: 230gram, net_volume: 230milliliter"
-            />      
+            />
       <item name="fruit_derivative_good"
             nature="process_food"
             derivative_of="fruit"
@@ -641,7 +641,7 @@
             derivative_of="brassica_napus"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
-            /> 
+            />
       <!-- STRAW -->
       <item name="bulk_wheat_straw"
             nature="straw"
@@ -666,12 +666,12 @@
             derivative_of="triticum"
             unit_name="small_rectangular_bale"
             frozen_indicators_values="net_mass: 12.50kilogram, net_volume: 0.16cubic_meter"
-            />     
+            />
       <item name="crop_residue"
             nature="crop_residue"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 20.00cubic_meter"
-            />   
+            />
       <!-- INDUSTRIAL CATTLE FEED -->
       <item name="bulk_animal_food"
             nature="animal_food"
@@ -741,7 +741,7 @@
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter"
             />
       <!-- OENOLOGICAL PRODUCT -->
-      <!-- SO2 -->     
+      <!-- SO2 -->
       <item name="so2_liquid_a8"
             nature="so2_solution"
             unit_name="liter"
@@ -770,7 +770,7 @@
             unit_name="bag"
             frozen_indicators_values="net_mass: 500.00gram, cells_mass_concentration: 10billion_per_gram"
             />
-      <!-- PH PRODUCT -->     
+      <!-- PH PRODUCT -->
       <item name="malic_acid_25kg"
             nature="wine_acidifying"
             unit_name="25kg_bag"
@@ -803,7 +803,7 @@
             nature="sugar"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram"
-            />       
+            />
       <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"
             nature="herbicide"
@@ -849,7 +849,7 @@
             nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
-            />   
+            />
       <item name="additive"
             nature="additive"
             unit_name="liter"
@@ -926,8 +926,8 @@
             nature="mixed_liquid_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
-            />     
-            
+            />
+
       <!-- ORGANIC FERTILIZER -->
       <!-- CATTLE -->
       <item name="cattle_manure"
@@ -1073,7 +1073,7 @@
             variety="slurry"
             derivative_of="animal"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.20percent" 
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.20percent"
             /><!-- , dry_matter_rate: 5.00percent -->
       <item name="urban_compost"
             nature="organic_fertilizer"
@@ -1128,7 +1128,7 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
-      <!-- PLANT INPLANT -->     
+      <!-- PLANT INPLANT -->
       <item name="saffron_seedling"
             nature="seedling"
             derivative_of="crocus_sativus"
@@ -1386,7 +1386,7 @@
             variety="cork_bottle"
             unit_name="100cl_bottle"
             frozen_indicators_values="net_volume: 100.00centiliter"
-            /> 
+            />
       <!-- LAND PARCEL -->
       <item name="land_parcel"
             nature="land_parcel"
@@ -1574,7 +1574,7 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-      
+
         <!-- EQUIPMENT FOR WINE -->
           <!-- TANK FOR WINE -->
       <item name="concrete_tank"
@@ -1706,9 +1706,9 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
       />
-      
-      
-      
+
+
+
       <!-- WORKER -->
       <item name="technician"
             nature="technician"
@@ -1783,7 +1783,7 @@
             />
 
       <!-- Coop variants -->
-      
+
       <!-- SEED -->
       <!-- AVENA -->
       <item name="coop:avoine_d_hiver_n_evora_cel_net_s25kg"
@@ -1797,14 +1797,14 @@
             derivative_of="avena_une_de_mai"
             unit_name="20kg_bag"
             frozen_indicators_values="net_mass: 20.00kilogram, thousand_grains_mass: 35gram"
-            />     
+            />
       <item name="coop:avoine_d_hiver_une_de_mai_red_25kg"
             nature="seed"
             derivative_of="avena_une_de_mai"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram"
             />
-      <!-- BARLEY -->      
+      <!-- BARLEY -->
       <item name="coop:esc_s_etincel_r1_gau_red_s25kg"
             nature="seed"
             derivative_of="hordeum_hibernum_etincel"
@@ -1823,7 +1823,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram"
             />
-            
+
       <!-- PEA -->
       <item name="coop:pois_s_kayanne_print_wakil_xl_r1_s25kg"
             nature="seed"
@@ -1831,7 +1831,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 245gram"
             />
-      
+
       <!-- SUNFLOWER -->
       <item name="coop:to_ol_ferti_150mg"
             nature="seed"
@@ -1839,7 +1839,7 @@
             unit_name="150tg_bag"
             frozen_indicators_values="net_mass: 7.50kilogram, thousand_grains_mass: 50gram"
             />
-            
+
       <!-- SORGHUM AND OTHER FODDER CROP -->
       <item name="coop:sorgho_ensilage_bmr_333_220mg"
             nature="seed"
@@ -1876,7 +1876,7 @@
             derivative_of="medicago_comete"
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
-            />     
+            />
        <item name="coop:trefle_alexandrie_s10k"
             nature="seed"
             derivative_of="trifolium_alexandrinum"
@@ -1895,7 +1895,7 @@
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 32gram"
             />
-            
+
       <!-- CORN -->
       <item name="coop:ma_aallexia_50mg"
             nature="seed"
@@ -1914,7 +1914,7 @@
             derivative_of="zea_bergxxon"
             unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
-            />     
+            />
       <item name="coop:ma_bergxxon_duo_sonido_d50mg"
             nature="seed"
             derivative_of="zea_bergxxon"
@@ -1987,7 +1987,7 @@
             derivative_of="triticum_aestivum_ascott"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
-            />   
+            />
       <item name="coop:bth_s_caphorn_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
@@ -2031,7 +2031,7 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
 
-       <!-- HARD WHEAT -->      
+       <!-- HARD WHEAT -->
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
@@ -2056,7 +2056,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 48gram"
             />
-      
+
       <!-- FERTILIZER -->
       <item name="coop:humistart_bb"
             nature="chemical_fertilizer"
@@ -2067,7 +2067,7 @@
             nature="chemical_fertilizer"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, nitrogen_concentration: 13percent, phosphorus_concentration: 5percent"
-            />          
+            />
       <item name="coop:ammonitre_27_____vr"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -2110,8 +2110,8 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-        <!-- INSECTICIDE --> 
-        <!-- MOLLUSCICIDE -->    
+        <!-- INSECTICIDE -->
+        <!-- MOLLUSCICIDE -->
       <item name="coop:metarex_rg_tds_20kg"
             nature="molluscicide"
             unit_name="20kg_bag"

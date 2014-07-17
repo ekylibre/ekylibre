@@ -34,7 +34,7 @@ module Ekylibre::FirstRun
     end
     # Payment
     return if rand(factor * 4).zero? or sale.amount <= 0
-    d += rand(30).days    
+    d += rand(30).days
     Timecop.travel(d) do
       payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: d)
       sale.affair.attach(payment)
@@ -45,7 +45,7 @@ module Ekylibre::FirstRun
 end
 
 load_data :sales do |loader|
-  
+
   if loader.manifest[:demo]
 
     loader.count :variant_import do |w|
@@ -65,7 +65,7 @@ load_data :sales do |loader|
       hay    = ProductNatureVariant.import_from_nomenclature(:bulk_hay)
       silage = ProductNatureVariant.import_from_nomenclature(:grass_silage)
       grass  = ProductNatureVariant.import_from_nomenclature(:grass)
-      
+
       # Create product_nature_price for wheat product
       # wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
       # wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
@@ -245,7 +245,7 @@ load_data :sales do |loader|
       end
     end
 
-    
+
     loader.count :bottle_wine_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
@@ -305,7 +305,7 @@ load_data :sales do |loader|
         w.check_point
       end
     end
-    
+
     loader.count :bulk_wine_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
@@ -365,6 +365,6 @@ load_data :sales do |loader|
         w.check_point
       end
     end
-    
+
   end
 end

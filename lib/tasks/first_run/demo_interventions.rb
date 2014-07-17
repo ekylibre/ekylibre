@@ -6,11 +6,11 @@ load_data :demo_interventions do |loader|
   autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
     Nomen::Varieties[n]
   end
-  
+
   spring_sowables = [:hordeum_vernum, :pisum_vernum, :helianthus].collect do |n|
     Nomen::Varieties[n]
   end
-  
+
   later_spring_sowables = [:zea].collect do |n|
     Nomen::Varieties[n]
   end
@@ -91,8 +91,8 @@ load_data :demo_interventions do |loader|
         end
       end
     end
-    
-    
+
+
     loader.count :zea_cultural_interventions do |w|
       for production in Production.all
         if production.active?
@@ -118,7 +118,7 @@ load_data :demo_interventions do |loader|
                   int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-all_in_one_sowing-0-1200-2" => 80000 + rand(10000)}}) do |i|
                     i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety, can: "grow"))
                     i.add_cast(reference_name: 'seeds_to_sow', population: (rand(4) + 6) * coeff)
-                    
+
                     i.add_cast(reference_name: 'fertilizer',   actor: i.find(Product, variety: :preparation, can: "fertilize"))
                     i.add_cast(reference_name: 'fertilizer_to_spread', population: (rand(0.2) + 1) * coeff)
                     i.add_cast(reference_name: 'insecticide',   actor: i.find(Product, variety: :preparation, can: "kill(insecta)"))
@@ -144,7 +144,7 @@ load_data :demo_interventions do |loader|
                     i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
                   end
 
-                  if w.count.modulo(3).zero?  
+                  if w.count.modulo(3).zero?
                     # Treatment herbicide 01-04 30-04
                     Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 5, 27, 1.07 * coeff, support: support) do |i|
                       i.add_cast(reference_name: 'plant_medicine', actor: i.find(Product, variety: :preparation, can: "care(plant), kill(plant)"))
@@ -155,7 +155,7 @@ load_data :demo_interventions do |loader|
                       i.add_cast(reference_name: 'cultivation', actor: cultivation)
                     end
                   end
-                  
+
                   # Hoeing  01-06-M -> 30-07-M
                   Ekylibre::FirstRun::Booker.intervene(:hoeing, year, 6, 20, 3 * coeff, support: support, parameters: {readings: {"base-hoeing-0-500-1" => "covered"}}) do |i|
                     i.add_cast(reference_name: 'cultivator',  actor: i.find(Equipment, can: "hoe"))
@@ -163,9 +163,9 @@ load_data :demo_interventions do |loader|
                     i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(equipment)"))
                     i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
                   end
-                  
-                  
-                  
+
+
+
                 end
               end
               w.check_point
@@ -174,8 +174,8 @@ load_data :demo_interventions do |loader|
         end
       end
     end
-    
-    
+
+
   loader.count :irrigation_interventions do |w|
       a = Activity.of_families(:maize_crops)
       for production in Production.of_activities(a)
@@ -189,11 +189,11 @@ load_data :demo_interventions do |loader|
                 land_parcel = support.storage
                 if area = land_parcel.shape_area
                   coeff = (area.to_s.to_f / 10000.0) / 6.0
-                  
+
                   if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
-                    
+
                     cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
-                    
+
                     # Watering  15-05-M -> 31-08-M
                     Ekylibre::FirstRun::Booker.intervene(:watering, year, 7, 15, 0.96 * coeff, support: support) do |i|
                       i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
@@ -204,7 +204,7 @@ load_data :demo_interventions do |loader|
                       i.add_cast(reference_name: 'cultivation', actor: cultivation)
                     end
                   end
-                
+
                 end
               end
               w.check_point
@@ -375,5 +375,5 @@ load_data :demo_interventions do |loader|
 
     end
   end
-  
+
 end

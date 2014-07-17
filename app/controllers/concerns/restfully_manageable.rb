@@ -230,7 +230,7 @@ module RestfullyManageable
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
       code = ''
-      
+
       columns = model.columns_hash.keys
       columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
       values = columns.inject({}) do |hash, attr|

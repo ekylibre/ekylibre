@@ -11,16 +11,16 @@ load_data :deliveries do |loader|
   suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name)
   suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
 
-  
+
   variants_transcode = {}.with_indifferent_access
-  
+
   file = loader.path("charentes_alliance", "variants_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       variants_transcode[row[0]] = row[1].to_sym
     end
   end
-  
+
   # @TODO refactorize to make import for n entities
   file = loader.path("charentes_alliance", "appros.csv")
   if file.exist?
@@ -57,7 +57,7 @@ load_data :deliveries do |loader|
           # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
           unless product_nature_variant = ProductNatureVariant.find_by_reference_name(r.coop_variant_reference_name)
             if Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)
-              product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name) 
+              product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
             end
             # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
             product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)

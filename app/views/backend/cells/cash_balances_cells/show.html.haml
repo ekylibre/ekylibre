@@ -19,7 +19,7 @@
       for name, period in periods
         item = items.where(printed_at: period).last
         data << (item ? item.cumulated_absolute_balance.to_f : 0.0)
-      end  
+      end
       series << {name: cash.name, data: data }
     end
 

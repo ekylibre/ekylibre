@@ -10,7 +10,7 @@
       <property-nature name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
     </property-natures>
     <items>
-      
+
       <!-- A - ADMINISTRATIVE ACTIVITIES -->
       <item name="administrative"
             production_code="A100"
@@ -282,13 +282,13 @@
             activity="fruits_crops"
             telepac_crop_code="PK"
             variant_support="pear_crop"
-            /> 
+            />
       <item name="peach"
             production_code="5300"
             activity="fruits_crops"
             telepac_crop_code="PG"
             variant_support="peach_crop"
-            /> 
+            />
       <item name="plum"
             production_code="5500"
             activity="fruits_crops"
@@ -331,8 +331,8 @@
             activity="vine_wine"
             telepac_crop_code="RE"
             variant_support="vine_grape_crop"
-            />      
-            
+            />
+
       <item name="winery"
             activity="vine_wine"
             variant_support="vine_grape_must"
@@ -348,7 +348,7 @@
             telepac_crop_code="PV"
             variant_support="rose_crop"
             />
-      
+
       <!-- 8 - BIG ANIMALS -->
       <item name="milk_cattle"
             production_code="8200"

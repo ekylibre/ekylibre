@@ -72,7 +72,7 @@ module Procedo
     class << self
 
       def count_variables(node, name)
-        if (node.is_a?(Procedo::HandlerMethod::Self) and name == :self) or 
+        if (node.is_a?(Procedo::HandlerMethod::Self) and name == :self) or
             (node.is_a?(Procedo::HandlerMethod::Variable) and name.to_s == node.text_value)
           return 1
         end
@@ -84,7 +84,7 @@ module Procedo
       end
 
     end
-    
+
 
     def initialize(handler, element = nil)
       @handler = handler

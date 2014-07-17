@@ -941,7 +941,7 @@ eng:
     journal_entries: "Journal's entries" #?
     journal_entries_states: "States of entries" #?
     journal_name: "%{name}" #?
-    journal_view: 
+    journal_view:
       entries: "Entries"
       items: "Items of entries"
       mixed: "Entries and items"
@@ -989,7 +989,7 @@ eng:
     meeting: "Meeting" #?
     meetings: "Meetings" #?
     members: "Members" #?
-    menus: 
+    menus:
       accountancy: "Accountancy"
       archives: "Archives"
       exchange: "Data exchanges"
@@ -1031,10 +1031,10 @@ eng:
       other: "Make a deposit %{mode}: %{count} available payments" #?
       zero: "Make a deposit %{mode}: no available payments" #?
     new_title: "New title" #?
-    new_transport_of_x_deliveries: 
+    new_transport_of_x_deliveries:
       one: "New transport (%{count} delivery)"
       other: "New transport (%{count} deliveries)"
-    new_transport_of_x_deliveries_for_y: 
+    new_transport_of_x_deliveries_for_y:
       one: "New transport for %{transporter} (%{count} delivery)"
       other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "New value" #?
@@ -1347,103 +1347,103 @@ eng:
     with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases…)" #?
     working_zone: "Working zone" #?
-    x_cashes: 
+    x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"
-    x_contacts: 
+    x_contacts:
       one: "%{count} contact"
       other: "%{count} contacts"
-    x_days: 
+    x_days:
       one: "%{count} day"
       other: "%{count} days"
-    x_depositable_payments: 
+    x_depositable_payments:
       one: "1 incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
       zero: "No incoming payments to deposit"
-    x_deposits_to_validate: 
+    x_deposits_to_validate:
       one: "%{count} deposit to validate"
       other: "%{count} deposits to validate"
       zero: "No deposits to validate"
-    x_entities: 
+    x_entities:
       one: "%{count} person"
       other: "%{count} people"
       zero: "No people"
-    x_entity_links: 
+    x_entity_links:
       one: "%{count} link"
       other: "%{count} links"
-    x_events: 
+    x_events:
       one: "1 event"
       other: "%{count} events"
       zero: "0 events"
-    x_events_of_nature_y: 
+    x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       zero: "No events %{nature}"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
-    x_incoming_payments: 
+    x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
-    x_intervention_casts: 
+    x_intervention_casts:
       one: "%{count} intervention cast"
       other: "%{count} intervention casts"
-    x_items_remain: 
+    x_items_remain:
       one: "%{count} item remains"
       other: "%{count} items remain"
-    x_journal_entries: 
+    x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
-    x_mandates: 
+    x_mandates:
       one: "%{count} mandate"
       other: "%{count} mandates"
       zero: "No mandate"
-    x_months: 
+    x_months:
       one: "%{count} month"
       other: "%{count} months"
-    x_observations: 
+    x_observations:
       one: "%{count} observation"
       other: "%{count} observations"
     x_of_y: "%{x} of %{y}"
-    x_operations: 
+    x_operations:
       one: "1 operation"
       other: "%{count} operations"
       zero: "0 operations"
-    x_outgoing_payments: 
+    x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
-    x_performed_operations: 
+    x_performed_operations:
       one: "1 operation performed"
       other: "%{count} operation performed"
       zero: "No operation performed"
-    x_prices: 
+    x_prices:
       one: "1 price"
       other: "%{count} prices"
       zero: "0 prices"
-    x_purchases: 
+    x_purchases:
       one: "1 purchase"
       other: "%{count} purchases"
       zero: "0 purchases"
-    x_readings: 
+    x_readings:
       one: "%{count} indicator"
       other: "%{count} indicators"
       zero: "No indicator"
-    x_results: 
+    x_results:
       one: "%{count} result found"
       other: "%{count} results found"
       zero: "No results found"
-    x_sales: 
+    x_sales:
       one: "1 sale"
       other: "%{count} sales"
       zero: "0 sales"
-    x_sales_invoices: 
+    x_sales_invoices:
       one: "1 sales invoice"
       other: "%{count} sales invoices"
       zero: "0 sales invoices"
-    x_stock_transfers_to_confirm: 
+    x_stock_transfers_to_confirm:
       one: "%{count} stock transfer to confirm"
       other: "%{count} stock transfers to confirm"
-    x_subscriptions: 
+    x_subscriptions:
       one: "1 subscription"
       other: "%{count} subscriptions"
       zero: "0 subscriptions"
@@ -1451,13 +1451,13 @@ eng:
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} of %{product}"
-    x_waiting_incoming_deliveries: 
+    x_waiting_incoming_deliveries:
       one: "%{count} waiting incoming delivery"
       other: "%{count} waiting incoming deliveries"
-    x_waiting_outgoing_deliveries: 
+    x_waiting_outgoing_deliveries:
       one: "%{count} waiting outgoing delivery"
       other: "%{count} waiting outgoing deliveries"
-    x_years: 
+    x_years:
       one: "1 year"
       other: "%{count} years"
       zero: "0 years"
@@ -1482,7 +1482,7 @@ eng:
       closed_financial_years: "The financial year has been closed successfully"
       columns_are_already_uses: "One or many columns are selected many times"
       dashboard_is_being_developed: "Dashboard is under heavy development"
-      draft_entry_items_are_validated: 
+      draft_entry_items_are_validated:
         one: "One entry has been validated"
         other: "%{count} entries have been validated"
         zero: "No entries has been validated"
@@ -1528,7 +1528,7 @@ eng:
       unavailable_model: "Inexistent %{model} (%{id})"
       unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
       update_is_done: "The update has been made"
-      x_unpointed_journal_entry_items: 
+      x_unpointed_journal_entry_items:
         one: "There is one entry to point"
         other: "There are %{count} entries to point"
         zero: "There are no entries to point at the moment"

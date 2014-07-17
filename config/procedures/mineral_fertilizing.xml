@@ -21,23 +21,23 @@
                  forward="(value * land_parcel.net_surface_area(square_meter)) / self..net_volume(liter)"
                  backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(square_meter)"
                  /> <!-- l/m² -->
-	<handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
+	<handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
 		 if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->          
-	<handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population" 
+                 /> <!-- kg N/ha -->
+	<handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population"
 		 if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->         
+                 /> <!-- kg P/ha -->
 	<handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
 		 if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg K/ha -->            
-        
-      </variable>  
+                 /> <!-- kg K/ha -->
+
+      </variable>
       <variable name="spreader" abilities="spread(preparation)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver"  abilities="drive(tractor)" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(spreader)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->

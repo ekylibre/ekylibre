@@ -26,7 +26,7 @@
         = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
           - for need in reference.needs
             - v.object.send("#{need}=", v.object.send(need))
-            = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})        
+            = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
           .handlers
             -# Handlers
             - for handler in reference.handlers

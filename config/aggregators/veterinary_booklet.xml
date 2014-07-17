@@ -51,7 +51,7 @@
           <matrix name="inputs" for="input" in="intervention.casts.of_role(:input)">
             <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
             <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
-            
+
             <cell name="id" of="input" level="api"/>
             <cell name="variant_name" value="input.actor.variant_name"/>
             <cell name="population" of="input"/>
@@ -64,7 +64,7 @@
               <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_time" type="datetime"/>
               <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_time" type="datetime"/>
             </matrix>
-          
+
           </matrix>
         </sections>
       </sections>

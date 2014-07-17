@@ -5,7 +5,7 @@ load_data :products do |loader|
     raise "Need a BuildingDivision"
   end
 
-  
+
   path = loader.path("alamano", "matters.csv")
   if path.exist?
 
@@ -46,12 +46,12 @@ load_data :products do |loader|
         else
           owner = Entity.of_company
         end
-        
+
         container = nil
         unless container = Product.find_by_work_number(r.place_code)
           container = building_division
         end
-        
+
         # create the product
         product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
                                  :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :initial_container => container, :default_storage => container)
@@ -60,11 +60,11 @@ load_data :products do |loader|
         for indicator, value in r.indicators
           product.read!(indicator, value, at: r.born_at, force: true)
         end
-        
+
         w.check_point
       end
     end
 
   end
-  
+
 end

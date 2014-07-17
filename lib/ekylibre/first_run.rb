@@ -4,13 +4,13 @@ module Ekylibre
   module FirstRun
 
     COUNTER_MAX = -1
-    
+
 
     LOADERS = [:base, :general_ledger, :entities, :land_parcels, :buildings, :equipments, :products, :animals, :productions, :analyses, :sales, :deliveries, :demo_interventions, :interventions, :guides]
-    
+
     class CountExceeded < StandardError
     end
-    
+
     autoload :Counter,  'ekylibre/first_run/counter'
     autoload :Booker,   'ekylibre/first_run/booker'
     autoload :Loader,   'ekylibre/first_run/loader'

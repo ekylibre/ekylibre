@@ -30,7 +30,7 @@
             circle: false
             polygon:
               allowIntersection: false
-              showArea: true        
+              showArea: true
         zoom:
           position: "topleft"
           zoomInText: ""
@@ -45,17 +45,17 @@
       this.element.attr "type", "hidden"
 
       $.extend(true, this.options, this.element.data("map-editor"))
-      
+
       this.mapElement = $("<div>", class: "map")
         .insertAfter(this.element)
       this.map = L.map(this.mapElement[0],
         maxZoom: 25
         zoomControl: false
-        attributionControl: false 
+        attributionControl: false
       )
 
       widget = this
-      
+
       this.map.on "draw:created", (e) ->
         widget.edition.addLayer e.layer
         widget._saveUpdates()
@@ -81,11 +81,11 @@
       # console.log "viewed"
       this._refreshControls()
       # console.log "controlled"
-     
+
     _destroy: ->
       this.element.attr this.oldElementType
       this.mapElement.remove()
-      
+
     back: (back) ->
       return this.options.back unless back?
       this.options.back = back
@@ -123,7 +123,7 @@
         if this.options.box.width?
           this.mapElement.width this.options.box.width
         this._trigger "resize"
-    
+
     _refreshBackgroundLayer: ->
       if this.backgroundLayer?
         this.map.removeLayer(this.backgroundLayer)
@@ -189,7 +189,7 @@
     _setDefaultView: ->
       this.map.fitWorld()
       this.map.setZoom 6
-          
+
     _refreshZoom: ->
       if this.options.view.zoom?
         this.map.setZoom(this.options.view.zoom)

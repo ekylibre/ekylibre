@@ -15,20 +15,20 @@
       <item name="zea" itis_tsn="42268"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-poa" hierarchical="true">
     <items>
       <item name="dactylis" itis_tsn="193445"/>
       <item name="lolium" itis_tsn="40891"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-dactylis" hierarchical="true">
     <items>
       <item name="dactylis_lazuly" itis_tsn="12345"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-lolium" hierarchical="true">
     <items>
       <item name="lolium_perenne" itis_tsn="40893"/><!-- RGA -->
@@ -36,12 +36,12 @@
       <item name="lolium_hybridum" itis_tsn="783684"/><!-- RGH -->
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-lolium_hybridum" hierarchical="true">
     <items>
       <item name="lolium_hybridum_bahial" itis_tsn="12345"/>
     </items>
   </nomenclature>
-  
-  
+
+
 </nomenclatures>

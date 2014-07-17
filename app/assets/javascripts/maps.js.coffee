@@ -1,6 +1,6 @@
 (($) ->
   "use strict"
-  
+
   $.fn.mapsFromData = ->
     $(this).each ->
       mapElement = $(this)
@@ -8,7 +8,7 @@
       map = {}
       if mapElement.prop("mapLoaded") isnt true
         options = mapElement.data("map")
-        
+
         # Box
         if options.box
           mapElement.height options.box.height  if options.box.height
@@ -21,7 +21,7 @@
           attributionControl: false
         )
         mapElement.prop("map", map)
-        
+
         # Add an OpenStreetMap tile layer
         L.tileLayer.provider("OpenStreetMap.HOT").addTo map
         $.each options.geometries, (index, value) ->
@@ -36,7 +36,7 @@
             layer.addTo map
           return
 
-        # Zoom        
+        # Zoom
         map.addControl L.control.zoom(
           position: "topleft"
           zoomInText: ""
@@ -47,7 +47,7 @@
           imperial: false
           maxWidth: 200
         )
-        
+
         # Bounding box
         map.fitBounds L.latLngBounds(options.view.boundingBox)  if options.view and options.view.boundingBox
         mapElement.prop "mapLoaded", true

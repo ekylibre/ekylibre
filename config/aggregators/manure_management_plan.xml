@@ -14,7 +14,7 @@
         <variable name="recommender" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.recommender"/>
         <property name="manure_management_plan_name" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.name"/>
         <property name="recommender_full_name" if="recommender" value="recommender.full_name"/>
-        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>    
+        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>
         <property name="manure_management_plan_default_computation_method" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.default_computation_method"/>
         <property name="manure_management_plan_opened_at" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.opened_at" type="datetime"/>
         <!-- looking for all CultivableLandParcel in current campaign -->
@@ -37,15 +37,15 @@
             <property name="stopped_at" if="support.stopped_at" of="support" type="datetime"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
-            
+
             <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
             <property name="nitrogen_balance" value="support.nitrogen_balance.in(:kilogram_per_hectare).round(2)" type="measure"/>
-            
+
             <property name="sowed_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
             <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
-            
+
             <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
-            
+
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone).reorder(:started_at)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
@@ -63,7 +63,7 @@
                 <property name="description"/>
               </section>
               <matrix name="inputs" for="input" in="intervention.casts.of_role(:'soil_enrichment-input')">
-                <variable name="input_in_kilogram_per_hectare" value="(input.actor.net_mass(input).to_d(:kilogram) / enrichment_working_area )"/>   
+                <variable name="input_in_kilogram_per_hectare" value="(input.actor.net_mass(input).to_d(:kilogram) / enrichment_working_area )"/>
                   <cell name="id" of="input" level="api"/>
                   <cell name="name" of="input"/>
                   <cell name="actor_name" value="input.actor.name"/>

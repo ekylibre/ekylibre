@@ -3,7 +3,7 @@
     <items>
       <item name="salt"/>
       <item name="sand"/>
-      <!-- 
+      <!--
 	   <item name="chemical_fertilizer"/>
       -->
       <item name="potassium_ferrocyanide"/>
@@ -18,7 +18,7 @@
       <item name="flower" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
       <item name="grass" derivative_of="plant"/>
-      <item name="sugar" derivative_of="plant"/> 
+      <item name="sugar" derivative_of="plant"/>
       <!-- VEGETALS INTRANTS -->
       <item name="seed" derivative_of="plant"/>
       <item name="seedling" derivative_of="plant"/>
@@ -29,20 +29,20 @@
       <item name="oil"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-sugar">
     <items>
       <item name="saccharose" derivative_of="plant"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-grass">
     <items>
       <item name="straw" derivative_of="plant"/>
-      <item name="hay" derivative_of="poaceae"/> 
+      <item name="hay" derivative_of="poaceae"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-fruit">
     <items>
       <item name="grape" derivative_of="vitis"/>
@@ -55,5 +55,5 @@
       <item name="walnut" derivative_of="plant"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

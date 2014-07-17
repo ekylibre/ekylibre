@@ -5283,6 +5283,7 @@ fra:
         cash_transfer: "Virement interne"
         catalog: "Liste de prix"
         catalog_price: "Prix"
+        crumb: "Miette"
         cultivable_zone: "Parcelle culturale"
         cultivable_zone_membership: "Membre d'une zone cultivable"
         custom_field: "Champ complémentaire"

@@ -141,13 +141,13 @@ module Clean
             source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.tl/) do |exp|
               exp.gsub!(/\.tl\z/, '')
               exp.gsub!(/\A\:/, '')
-              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/ 
+              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/
               exp.gsub!(/\#\{[^\}]+\}/, '*')
               list << exp
             end
             source.gsub(/(\'labels\.[^\']+\'|\"labels\.[^\"]+\")\.t/) do |exp|
               exp.gsub!(/\.t\z/, '')
-              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/ 
+              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/
               exp.gsub!(/\Alabels\./, '')
               exp.gsub!(/\#\{[^\}]+\}/, '*')
               list << exp
@@ -167,7 +167,7 @@ module Clean
       end
 
 
-      
+
       def default_action_title(controller_path, action_name)
         action_name = action_name.to_sym unless action_name.is_a?(Symbol)
         controller_name = controller_path.split("/").last

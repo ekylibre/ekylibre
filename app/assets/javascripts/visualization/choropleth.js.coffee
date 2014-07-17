@@ -5,7 +5,7 @@ class visualization.Choropleth extends visualization.Gradient
 
   constructor: (@layer, @data, options = {}) ->
     super @data, @layer.reference, options
-    
+
     if this.valid()
 
       # Compute colors
@@ -15,7 +15,7 @@ class visualization.Choropleth extends visualization.Gradient
         level = grade.index / (@levelNumber - 1.0)
         grade.fillColor = visualization.Color.toString
           red:   start.red   + (Math.round(stop.red   - start.red)   * level)
-          green: start.green + (Math.round(stop.green - start.green) * level)       
+          green: start.green + (Math.round(stop.green - start.green) * level)
           blue:  start.blue  + (Math.round(stop.blue  - start.blue)  * level)
       console.log "Colors computed"
     else
@@ -46,4 +46,4 @@ class visualization.Choropleth extends visualization.Gradient
     html += "</div>"
     html += "</div>"
     return html
-   
+

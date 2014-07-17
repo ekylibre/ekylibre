@@ -18,7 +18,7 @@ module Taskable
     has_many :product_quintuple_mixings,       dependent: :destroy
     has_many :product_reading_tasks,  as: :originator, dependent: :destroy
     has_many :product_triple_mixings,       dependent: :destroy
-    
+
     has_one :intervention, through: :operation
   end
 

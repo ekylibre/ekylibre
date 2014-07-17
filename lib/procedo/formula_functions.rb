@@ -16,7 +16,7 @@ module Procedo
       rescue
         raise Procedo::FailedFunctionCall
       end
-      
+
       def members_count(group)
         if group.present?
           value = group.actor.members_at(group.now).count.to_i

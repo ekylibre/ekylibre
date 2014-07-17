@@ -25,12 +25,12 @@ class Api::V1::TokensController < Api::V1::BaseController
   def create
     puts "???".green
     email, password = params[:email], params[:password]
-    
+
     if email.blank? or password.blank?
       render status: :bad_request, json: {message: "The request must contain the user email and password."}
       return
     end
-    
+
     unless @user = User.find_by(email: email.downcase)
       logger.info("User #{email} failed signin, user cannot be found.")
       puts "???".red
@@ -39,7 +39,7 @@ class Api::V1::TokensController < Api::V1::BaseController
     end
 
     @user.save!
-    
+
     if @user.valid_password?(password)
       render json: {token: @user.authentication_token}
     else
@@ -48,7 +48,7 @@ class Api::V1::TokensController < Api::V1::BaseController
       render status: :unauthorized, json: {message: "Invalid email or password."}
     end
   end
-  
+
   def destroy
     if @user = User.find_by(authentication_token: params[:id])
       @user.authentication_token = nil
@@ -59,5 +59,5 @@ class Api::V1::TokensController < Api::V1::BaseController
       render status: :not_found, json: {message: "Invalid token."}
     end
   end
-  
+
 end

@@ -1,7 +1,7 @@
 module Ekylibre
   module Access
 
-    class << self 
+    class << self
 
       def reference_file
         Rails.root.join("config", "rights.yml")
@@ -10,7 +10,7 @@ module Ekylibre
       def list
         LIST
       end
-      
+
       def reversed_list
         REVERSED_LIST
       end
@@ -18,7 +18,7 @@ module Ekylibre
       def actions
         ACTIONS
       end
-      
+
     end
 
     LIST = YAML.load_file(reference_file).with_indifferent_access.freeze
@@ -30,7 +30,7 @@ module Ekylibre
       end
       hash
     end.with_indifferent_access.freeze
-    
+
     REVERSED_LIST = LIST.inject({}) do |hash, pair|
       for action, details in pair.second
         for controller_action in details["actions"] || []

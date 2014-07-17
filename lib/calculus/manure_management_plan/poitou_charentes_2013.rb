@@ -1,8 +1,8 @@
 module Calculus
   module ManureManagementPlan
-    
+
     class PoitouCharentes2013 < Method
-      
+
       # Estimate "y"
       def estimate_expected_yield
         expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate_expected_yield
@@ -55,7 +55,7 @@ module Calculus
         quantity = 10.in_kilogram_per_hectare
         if @cultivation.blank? and @variety and (@variety <= :zea or @variety <= :sorghum or @variety <= :helianthus or @variety <= :linum or @variety <= :cannabis or @variety <= :nicotiana)
           quantity = 0.in_kilogram_per_hectare
-        elsif @cultivation 
+        elsif @cultivation
           if count = @cultivation.leaf_count(at: @opened_at) and activity.nature.to_sym == :straw_cereal_crops
             items = Nomen::NmpPoitouCharentesAbacusFour.list.select do |item|
               item.minimum_leaf_count <= count and count <= item.minimum_leaf_count
@@ -75,7 +75,7 @@ module Calculus
         return quantity
       end
 
-      
+
       # Estimate "Ri"
       def estimate_mineral_nitrogen_at_opening
         @options[:mineral_nitrogen_at_opening] ||= 0.0
@@ -111,7 +111,7 @@ module Calculus
             # elsif all production on the campagin is link to a crop_set :cereals then :cereal_crop
             elsif Activity.of_campaign(campaigns).of_families(:straw_cereal_crops).count == Activity.of_campaign(campaigns).of_families(:vegetal_crops).count
               typology = :cereal_crop
-            else 
+            else
               typology = :mixed_crop
             end
             quantity = items.first.send(typology).in_kilogram_per_hectare
@@ -173,7 +173,7 @@ module Calculus
           end
           break if previous_variety
         end
-        
+
         if previous_variety
           # find corresponding crop_sets to previous_variety
           previous_crop_sets = Nomen::CropSets.list.select do |i|
@@ -251,7 +251,7 @@ module Calculus
               end
               previous_sets = previous_crop_sets.map(&:name).map(&:to_s)
             end
-            
+
             # build variables for abacus 11
             previous_crop_destruction_period = '0831'
             previous_crop_plants_growth_level = "hight"
@@ -279,7 +279,7 @@ module Calculus
       # Estimate Nirr
       def estimate_irrigation_water_nitrogen
         quantity = 0.in_kilogram_per_hectare
-        if input_water = @support.get(:irrigation_water_input_area_density) 
+        if input_water = @support.get(:irrigation_water_input_area_density)
           if input_water.to_d(:liter_per_square_meter) >= 100.00
             # TODO find an analysis for nitrogen concentration of input water for irrigation 'c'
             c = 40
@@ -287,7 +287,7 @@ module Calculus
             quantity = ((v / 100) * (c / 4.43)).in_kilogram_per_hectare
           end
         end
-        return quantity        
+        return quantity
       end
 
 
@@ -337,7 +337,7 @@ module Calculus
           end
         end
         quantity = global_xa.compact.sum.in_kilogram_per_hectare
-        return quantity        
+        return quantity
       end
 
 
@@ -355,7 +355,7 @@ module Calculus
             quantity = items.first.rf.in_kilogram_per_hectare
           end
         end
-        return quantity        
+        return quantity
       end
 
       # Estimate Po
@@ -364,10 +364,10 @@ module Calculus
         sets = crop_sets.map(&:name).map(&:to_s)
         # TODO find a way to retrieve water falls
         water_falls = 380.in_liter_per_square_meter
-        
-        if capacity = @options[:available_water_capacity].in_liter_per_square_meter and sets = crop_sets.map(&:name).map(&:to_s) 
+
+        if capacity = @options[:available_water_capacity].in_liter_per_square_meter and sets = crop_sets.map(&:name).map(&:to_s)
           if @variety and @variety <= :brassica_napus and  plant_growth_indicator = @cultivation.density(:fresh_mass, :net_surface_area).to_d(:kilogram_per_hectare)
-            
+
             if plant_growth_indicator <= 0.4
               plant_growth = 'low'
             elsif plant_growth_indicator > 0.4 and plant_growth_indicator <= 1.6
@@ -377,14 +377,14 @@ module Calculus
             else
               plant_growth = 'low'
             end
-            
+
             items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
             item.plant_developpment == plant_growth.to_s and sets.include?(item.crop.to_s) and (item.precipitations_min.in_liter_per_square_meter <= water_falls and water_falls < item.precipitations_max.in_liter_per_square_meter)
             end
-            
-            
+
+
           elsif @variety
-            
+
             items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
             (item.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < item.maximum_available_water_capacity.in_liter_per_square_meter) and sets.include?(item.crop.to_s) and (item.precipitations_min.in_liter_per_square_meter <= water_falls and water_falls < item.precipitations_max.in_liter_per_square_meter)
             end
@@ -395,7 +395,7 @@ module Calculus
             quantity = items.first.po.in_kilogram_per_hectare
           end
         end
-        return quantity        
+        return quantity
       end
 
 
@@ -412,7 +412,7 @@ module Calculus
         end
         return quantity
       end
-      
+
       def compute
         values = {}
 
@@ -448,15 +448,15 @@ module Calculus
 
         # Po
         values[:soil_production]       = estimate_soil_production
-        
+
         # Xmax
         values[:maximum_nitrogen_input] = estimate_maximum_nitrogen_input
-        
+
         # X
         values[:nitrogen_input] = 0.in_kilogram_per_hectare
-        
+
         sets = crop_sets.map(&:name).map(&:to_s)
-        
+
         if @variety and ( @variety <= :poaceae or @variety <= :brassicaceae or @variety <= :medicago or @variety <= :helianthus or @variety <= :nicotiana or @variety <= :linum )
           if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil]) or soil_natures.include?(Nomen::SoilNatures[:chesnut_red_soil]) and @variety and @variety > :nicotiana
             # CAU = 0.8
@@ -481,15 +481,15 @@ module Calculus
                                        values[:organic_fertilizer_mineral_fraction] +
                                        values[:nitrogen_at_closing])
           end
-  
+
           if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil])
             values[:nitrogen_input] *= 1.15.to_d
           else
             values[:nitrogen_input] *= 1.10.to_d
           end
         end
-        
-        # LEGUMES / ARBO / VIGNES : Dose plafond à partir d'abaques    
+
+        # LEGUMES / ARBO / VIGNES : Dose plafond à partir d'abaques
         # X ≤ nitrogen_input_max – Nirr – Xa
         if @variety and (@variety <= :vitis or @variety <= :solanum_tuberosum or @variety <= :cucumis or sets.include?("gardening_vegetables"))
           values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
@@ -504,7 +504,7 @@ module Calculus
         return values
       end
 
-      
+
 
     end
 

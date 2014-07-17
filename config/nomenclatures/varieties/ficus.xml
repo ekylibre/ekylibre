@@ -5,11 +5,11 @@
       <item name="ficus_carica" itis_tsn="19081"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-ficus_carica" hierarchical="true">
     <items>
       <item name="ficus_carica_saint_pierre" itis_tsn="00000"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

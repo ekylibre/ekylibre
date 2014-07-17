@@ -5,7 +5,7 @@
       <item name="corylus_avellana" itis_tsn="501642"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-corylus_avellana" hierarchical="true">
     <items>
       <item name="corylus_avellana_butler" itis_tsn="00000"/>
@@ -25,5 +25,5 @@
       <item name="corylus_avellana_tonda_giffoni" itis_tsn="00000"/>
     </items>
   </nomenclature>
-    
+
 </nomenclatures>

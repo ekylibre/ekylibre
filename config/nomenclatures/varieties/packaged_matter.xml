@@ -7,18 +7,18 @@
       <item name="label"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-bottle">
     <items>
       <item name="screw_bottle" derivative_of="matter"/>
       <item name="cork_bottle" derivative_of="matter"/>
     </items>
   </nomenclature>
-  
+
   <nomenclature name="varieties-cap">
     <items>
       <item name="screw_cap" derivative_of="matter"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

@@ -18,8 +18,8 @@
       <variable name="tractor" variety="equipment" abilities="move, catch(sprayer)" roles="plant_chemical_weed-tool"/>
       <variable name="sprayer" abilities="spray" roles="plant_chemical_weed-tool"/>
       <variable name="driver"  abilities="move, drive(tractor), drive(sprayer)" roles="plant_chemical_weed-doer"/>
-      
-      
+
+
       <variable name="land_parcel"  abilities="store(plant)" roles="plant_chemical_weed-target" need="shape" default-actor="storage" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>

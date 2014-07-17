@@ -43,7 +43,7 @@ module Backend::FormHelper
     end
   end
 
-  
+
   def indicator_field_tag(*args)
     options = args.extract_options!
     name = args.shift
@@ -62,8 +62,8 @@ module Backend::FormHelper
     elsif datatype == :choice
       select_tag(name, options_for_select(indicator.selection(:choices), value))
     else
-      return indicator.name.upcase      
+      return indicator.name.upcase
     end
   end
-  
+
 end

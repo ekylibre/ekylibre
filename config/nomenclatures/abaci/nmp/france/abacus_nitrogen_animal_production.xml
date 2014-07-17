@@ -15,17 +15,17 @@
     </property-natures>
     <items>
       <!-- Tableau Herbivores -->
-      
+
       <!-- BOVINS LAITIER < 4 mois -->
-      <item name="milking_cow_outside_min_prod_min" variant="female_adult_cow" maximum_outside_presence="4" maximum_milk_production="6000" quantity="75"/>     
+      <item name="milking_cow_outside_min_prod_min" variant="female_adult_cow" maximum_outside_presence="4" maximum_milk_production="6000" quantity="75"/>
       <item name="milking_cow_outside_min_prod_med" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="6000" maximum_milk_production="8000" quantity="83"/>
       <item name="milking_cow_outside_min_prod_max" variant="female_adult_cow" maximum_outside_presence="4" minimum_milk_production="8000" quantity="91"/>
       <!-- BOVINS LAITIER > 4 et  7 mois -->
-      <item name="milking_cow_outside_med_prod_min" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" maximum_milk_production="6000" quantity="92"/>     
+      <item name="milking_cow_outside_med_prod_min" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" maximum_milk_production="6000" quantity="92"/>
       <item name="milking_cow_outside_med_prod_med" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="101"/>
       <item name="milking_cow_outside_med_prod_max" variant="female_adult_cow" minimum_outside_presence="4" maximum_outside_presence="7" minimum_milk_production="8000" quantity="111"/>
       <!-- BOVINS LAITIER > 7 mois -->
-      <item name="milking_cow_outside_max_prod_min" variant="female_adult_cow" minimum_outside_presence="7" maximum_milk_production="6000" quantity="104"/>     
+      <item name="milking_cow_outside_max_prod_min" variant="female_adult_cow" minimum_outside_presence="7" maximum_milk_production="6000" quantity="104"/>
       <item name="milking_cow_outside_max_prod_med" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="6000" maximum_milk_production="8000" quantity="115"/>
       <item name="milking_cow_outside_max_prod_max" variant="female_adult_cow" minimum_outside_presence="7" minimum_milk_production="8000" quantity="126"/>
       <!-- BOVINS NON LAITIER-->
