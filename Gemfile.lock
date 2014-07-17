@@ -140,9 +140,9 @@ GEM
       sax-machine (~> 0.2.1)
     ffaker (1.24.0)
     ffi (1.9.3)
-    formize (2.0.1)
+    formize (2.1.0)
       jquery-rails (>= 3)
-      jquery-ui-rails (>= 4, < 5)
+      jquery-ui-rails (>= 5)
       rails (>= 3.2)
     fssm (0.2.10)
     haml (4.0.5)
@@ -164,7 +164,7 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (4.2.1)
+    jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
     kgio (2.9.2)
@@ -284,7 +284,7 @@ GEM
       actionmailer (>= 3.2.6, < 5)
       activerecord (>= 3.2.6, < 5)
       devise (~> 3.2.0)
-    simplecov (0.8.2)
+    simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
       simplecov-html (~> 0.8.0)
@@ -371,7 +371,7 @@ DEPENDENCIES
   fastercsv
   feedjira
   ffaker
-  formize (~> 2.0.0)
+  formize (~> 2.0)
   haml
   http_accept_language
   i18n-complements
