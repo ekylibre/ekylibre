@@ -374,6 +374,30 @@ load_data :demo_interventions do |loader|
       end
 
     end
+
+
+    # populate crumbs
+    path = loader.path("alamano", "trips", "trip_simulation.shp")
+    if path.exist?
+      loader.count :trip_simulation do |w|
+        #############################################################################
+        read_at = Time.new(2014, 1, 1, 10, 0, 0, "+00:00")
+        user = User.first
+        RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+          file.each do |record|
+            Crumb.create!(accuracy: 1,
+                          geolocation: record.geometry,
+                          metadata: record.attributes['metadata'],
+                          nature: record.attributes['nature'].to_sym,
+                          read_at: read_at,
+                          user_id: user.id
+                          )
+            w.check_point
+          end
+        end
+      end
+    end
+
   end
 
 end
