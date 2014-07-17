@@ -785,6 +785,7 @@ arb:
       # catalog_price: "Catalog price"
       company: "الشركة" #?
       contact: "الاتصالات" #?
+      # crumb: "Crumb"
       # cultivable_zone: "Cultivable zone"
       # cultivable_zone_membership: "Cultivable zone membership"
       currency: "العملة" #?
@@ -964,6 +965,7 @@ arb:
     # accountable: "Accountable"
     accounted_at: "تمت محاسبته يوم"
     accounts: "الحسابات" #?
+    # accuracy: "Accuracy"
     # achieved_at: "Achieved at"
     acquisition_amount: "قيمة الاقتناء" #?
     active: "فعال"
@@ -1538,6 +1540,7 @@ arb:
     # member: "Member"
     # members: "Members"
     # memberships: "Memberships"
+    # metadata: "Metadata"
     min_duration: "(دقيقة (دقائق" #?
     # mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
     # minimal_length: "Minimal length"

@@ -230,6 +230,7 @@ spa:
       # catalog: "Person category"
       # catalog_price: "Catalog price"
       company: "Compañía" #?
+      # crumb: "Crumb"
       # cultivable_zone: "Cultivable zone"
       # cultivable_zone_membership: "Cultivable zone membership"
       # custom_field: "Custom field"
@@ -362,6 +363,7 @@ spa:
     # account_balances: "Account balances"
     # accountable: "Accountable"
     # accounted_at: "Accounted at"
+    # accuracy: "Accuracy"
     # achieved_at: "Achieved at"
     # active: "Active"
     # active_prices: "Active prices"
@@ -760,6 +762,7 @@ spa:
     # member: "Member"
     # members: "Members"
     # memberships: "Memberships"
+    # metadata: "Metadata"
     # mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
     # minimal_length: "Minimal length"
     # minimal_value: "Minimal value"

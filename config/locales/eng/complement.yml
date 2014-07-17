@@ -5280,6 +5280,7 @@ eng:
         cash_transfer: "Cash transfer"
         catalog: "Person category"
         catalog_price: "Catalog price"
+        crumb: "Crumb"
         cultivable_zone: "Cultivable zone"
         cultivable_zone_membership: "Cultivable zone membership"
         custom_field: "Custom field"

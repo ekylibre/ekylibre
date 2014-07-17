@@ -234,6 +234,20 @@ catalogs:
   updater_id: {type: integer, references: user}
   usage: {type: string, limit: 20, required: true}
 
+crumbs:
+  accuracy: {type: decimal, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  geolocation: {type: spatial, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  metadata: {type: text}
+  nature: {type: string, required: true}
+  read_at: {type: datetime, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+  user_id: {type: integer, references: user, required: true}
+
 cultivable_zone_memberships:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
