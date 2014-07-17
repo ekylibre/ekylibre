@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717071149) do
+ActiveRecord::Schema.define(version: 20140717154544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20140717071149) do
   add_index "analysis_items", ["created_at"], :name => "index_analysis_items_on_created_at"
   add_index "analysis_items", ["creator_id"], :name => "index_analysis_items_on_creator_id"
   add_index "analysis_items", ["indicator_name"], :name => "index_analysis_items_on_indicator_name"
+  add_index "analysis_items", ["product_reading_id"], :name => "index_analysis_items_on_product_reading_id"
   add_index "analysis_items", ["updated_at"], :name => "index_analysis_items_on_updated_at"
   add_index "analysis_items", ["updater_id"], :name => "index_analysis_items_on_updater_id"
 
@@ -1071,6 +1072,7 @@ ActiveRecord::Schema.define(version: 20140717071149) do
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
   add_index "intervention_casts", ["created_at"], :name => "index_intervention_casts_on_created_at"
   add_index "intervention_casts", ["creator_id"], :name => "index_intervention_casts_on_creator_id"
+  add_index "intervention_casts", ["event_participation_id"], :name => "index_intervention_casts_on_event_participation_id"
   add_index "intervention_casts", ["intervention_id"], :name => "index_intervention_casts_on_intervention_id"
   add_index "intervention_casts", ["reference_name"], :name => "index_intervention_casts_on_reference_name"
   add_index "intervention_casts", ["updated_at"], :name => "index_intervention_casts_on_updated_at"
@@ -1106,6 +1108,7 @@ ActiveRecord::Schema.define(version: 20140717071149) do
 
   add_index "interventions", ["created_at"], :name => "index_interventions_on_created_at"
   add_index "interventions", ["creator_id"], :name => "index_interventions_on_creator_id"
+  add_index "interventions", ["event_id"], :name => "index_interventions_on_event_id"
   add_index "interventions", ["issue_id"], :name => "index_interventions_on_issue_id"
   add_index "interventions", ["prescription_id"], :name => "index_interventions_on_prescription_id"
   add_index "interventions", ["production_id"], :name => "index_interventions_on_production_id"
@@ -1531,6 +1534,7 @@ ActiveRecord::Schema.define(version: 20140717071149) do
     t.integer  "container_id"
   end
 
+  add_index "outgoing_delivery_items", ["container_id"], :name => "index_outgoing_delivery_items_on_container_id"
   add_index "outgoing_delivery_items", ["created_at"], :name => "index_outgoing_delivery_items_on_created_at"
   add_index "outgoing_delivery_items", ["creator_id"], :name => "index_outgoing_delivery_items_on_creator_id"
   add_index "outgoing_delivery_items", ["delivery_id"], :name => "index_outgoing_delivery_items_on_delivery_id"
