@@ -362,8 +362,11 @@ ActiveRecord::Schema.define(version: 20140717071149) do
 
   add_index "crumbs", ["created_at"], :name => "index_crumbs_on_created_at"
   add_index "crumbs", ["creator_id"], :name => "index_crumbs_on_creator_id"
+  add_index "crumbs", ["nature"], :name => "index_crumbs_on_nature"
+  add_index "crumbs", ["read_at"], :name => "index_crumbs_on_read_at"
   add_index "crumbs", ["updated_at"], :name => "index_crumbs_on_updated_at"
   add_index "crumbs", ["updater_id"], :name => "index_crumbs_on_updater_id"
+  add_index "crumbs", ["user_id"], :name => "index_crumbs_on_user_id"
 
   create_table "cultivable_zone_memberships", force: true do |t|
     t.integer  "group_id",                                                                                   null: false
