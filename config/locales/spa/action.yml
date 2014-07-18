@@ -1524,6 +1524,7 @@ spa:
     # taxes: "Taxes"
     theoric_quantity: "cantidad teorica" #?
     # time_cost: "Time cost"
+    # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     to: "Al"
     # to_bank_at: "To bank on"
@@ -1532,6 +1533,7 @@ spa:
     # to_deposit: "To deposit"
     # today: "Today"
     # tool_cost: "Tool cost"
+    # tool_cost_per_hectare: "Tool cost per hectare"
     # tools: "Tools"
     # tools_list: "Tools"
     total: "Total"

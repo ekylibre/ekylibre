@@ -1641,6 +1641,7 @@ fra:
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
     time_cost: "Coût de main d’œuvre"
+    time_cost_per_hectare: "Coût de main d’œuvre par hectare"
     time_zone: "Fuseau horaire"
     to: "Au"
     to_bank_at: "À encaisser le"
@@ -1649,6 +1650,7 @@ fra:
     to_deposit: "À encaisser"
     today: "Aujourd’hui"
     tool_cost: "Coût de matériel"
+    tool_cost_per_hectare: "Coût de matériel par hectare"
     tools: "Outils"
     tools_list: "Liste d’outils"
     total: "Total"

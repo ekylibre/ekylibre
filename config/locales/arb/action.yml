@@ -1788,6 +1788,7 @@ arb:
     # taxes: "Taxes"
     theoric_quantity: "الكمية النظرية" #?
     # time_cost: "Time cost"
+    # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     to: "الى"
     # to_bank_at: "To bank on"
@@ -1796,6 +1797,7 @@ arb:
     # to_deposit: "To deposit"
     # today: "Today"
     # tool_cost: "Tool cost"
+    # tool_cost_per_hectare: "Tool cost per hectare"
     tool_create: "اضافة مادة" #?
     tool_update: "تعديل المادة" #?
     tools: "مادة مستخدمة"

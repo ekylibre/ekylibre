@@ -1171,7 +1171,7 @@ eng:
     record_has_not_been_removed: "The record has not been removed" #?
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
-    refresh: "Refresh"
+    refresh: "Refresh" #?
     related_people: "Related people"
     relationship: "Relationship management"
     remove: "Remove"
@@ -1269,7 +1269,7 @@ eng:
     target_zone: "Target zone" #?
     taxes: "Taxes" #?
     time_cost: "Time cost" #?
-    # time_cost_per_hectare: "Time cost per hectare"
+    time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
     to: "to" #?
     to_bank_at: "To bank on" #?
@@ -1278,7 +1278,7 @@ eng:
     to_deposit: "To deposit" #?
     today: "Today" #?
     tool_cost: "Tool cost"
-    # tool_cost_per_hectare: "Tool cost per hectare"
+    tool_cost_per_hectare: "Tool cost per hectare"
     tools: "Tools"
     tools_list: "Tools" #?
     total: "Total"
