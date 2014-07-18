@@ -129,6 +129,10 @@ module Charta
       return self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(#{self.geom})), 3)))"))
     end
 
+    def circle(radius)
+      return self.class.new(select_value("SELECT ST_Buffer(#{self.geom}, #{radius})"))
+    end
+
 
     # def merge!(other_geometry)
     #   @ewkt = self.merge(other_geometry).ewkt
