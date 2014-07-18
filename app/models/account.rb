@@ -84,7 +84,7 @@ class Account < Ekylibre::Record::Base
 
   scope :used_between, lambda { |started_at, stopped_at|
     # where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_at BETWEEN ? AND ? )", started_at, stopped_at)
-    where(id: JournalEntryItem.between(started, stopped_at).select(:account_id))
+    where(id: JournalEntryItem.between(started_at, stopped_at).select(:account_id))
   }
 
   #scope :used_in_journal_entry_items, lambda { |started_at, stopped_at|
