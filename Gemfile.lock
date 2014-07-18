@@ -94,7 +94,7 @@ GEM
       execjs
     coffee-script-source (1.7.1)
     colored (1.2)
-    compass (0.12.6)
+    compass (0.12.7)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.19)
