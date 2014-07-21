@@ -180,7 +180,7 @@ GEM
     minitest (5.4.0)
     multi_json (1.10.1)
     netrc (0.7.7)
-    nokogiri (1.6.2.1)
+    nokogiri (1.6.3)
       mini_portile (= 0.6.0)
     ofx-parser (1.1.0)
       hpricot (>= 0.6)
