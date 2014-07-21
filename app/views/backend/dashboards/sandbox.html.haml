@@ -46,7 +46,9 @@
   ############################
 
   crumbs_data = []
+  paths_data = []
 
+  # raw crumbs
   Crumb.find_each do |crumb|
     shape = Charta::Geometry.new(crumb.geolocation)
     item = {
@@ -57,6 +59,44 @@
 
               }
               crumbs_data << item
+  end
+
+  # crumbs grouped in paths
+  # first actual intervention path (crumbs between first hard_start and first hard_stop)
+
+  sql = ""
+  sql << "SELECT ST_AsText(m.multiline) FROM ("
+  sql << " SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
+  sql << "  ("
+  sql << "    SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
+  sql << "    ("
+  sql << "      SELECT id, created_at, nature, geolocation FROM crumbs"
+  sql << "        WHERE created_at"
+  sql << "        BETWEEN"
+  sql << "          (SELECT created_at FROM crumbs WHERE nature = 'hard_start' ORDER BY created_at LIMIT 1)"
+  sql << "        AND"
+  sql << "          (SELECT created_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY created_at LIMIT 1)"
+  sql << "    UNION"
+  sql << "    SELECT id, created_at, nature, geolocation FROM crumbs"
+  sql << "      WHERE created_at BETWEEN"
+  sql << "        (SELECT created_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY created_at LIMIT 1)"
+  sql << "        AND"
+  sql << "        (SELECT created_at FROM crumbs WHERE nature = 'hard_start' ORDER BY created_at LIMIT 1)"
+  sql << "    ORDER BY created_at"
+  sql << "    ) AS actual_job"
+  sql << "  ) AS multipoint"
+  sql << ") AS m"
+
+  ActiveRecord::Base.connection.execute(sql).each do |path|
+    job_path = path #Charta::Geometry.new(path)
+    item = {
+      name: 'actual job',
+      shape: job_path,
+      nature: 'actual job',
+      accuracy: 1.0
+    }
+    paths_data << item
+    crumbs_data << item
   end
 
   campaign = Campaign.currents.last
@@ -175,15 +215,29 @@
   # listing possibles products matching a point
   # using postgis operators on geometry objects
   # @param: crumb, a _Crumb object
-  # @returns: an array of products whose shape contains the crumb among products involved in current campaigns
+  # @returns: an array of products whose shape contains the crumb
+  # the method only matches plants, cultivable zones, building divisions or equipments
   def actors_containing(crumb)
     actors_id = ProductReading.where("geometry_value ~ (SELECT geolocation FROM crumbs WHERE id ='#{crumb.id}')").pluck(:product_id)
-    Product.find(actors_id).sort_by{|product| product.contents.uniq.length}
+    Product.find(actors_id).
+      delete_if{|actor| [Plant, CultivableZone, BuildingDivision, Equipment].
+        inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
+  end
+
+  # detects possible production supports matching a point
+  # using postgis operators on geometry objects
+  # @param: crumb, a _Crumb object
+  # @returns: an array of production supports whose shape contains the crumb among products involved in current campaigns
+  def production_supports_containing(crumb)
+    production_support_ids = ProductionSupport.joins(:campaign, :storage).
+                              joins('INNER JOIN product_readings ON product_readings.product_id = products.id').
+                              where("geometry_value ~ (SELECT geolocation FROM crumbs WHERE id ='#{crumb.id}')").pluck(:product_id)
+    Product.find(production_support_ids)
   end
 
   hard_start_crumb = Crumb.where("nature = 'hard_start'").first
 
-  rendering = false
+  rendering = false 
 
 - if rendering
   %h2 playing with maps
@@ -199,7 +253,32 @@
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
-
+  %h2 inspecting geodata
+  %h3 raw db result for path creation:
+  sql request:
+  = sql
+  %br
+  record:
+  = ActiveRecord::Base.connection.execute(sql).inspect
+  - crumbs_data.each do |item|
+    %h3
+      = item[:name]
+    %ul
+      %li.key
+        accuracy:
+        = item[:accuracy]
+      %li.result
+        nature:
+        = item[:nature]
+      %li.variety
+        shape:
+        = item[:shape].inspect
+  %h2 inspecting production support
+  %h3 matching production supports with hard start crumb:
+  - production_supports_containing(hard_start_crumb).each do |ps|
+    = ps.name
+    is a Cultivable zone?
+    = ps.is_a? CultivableZone
   %h2 inspecting actors_from crumb
   %h3 testing with hard start crumb:
   Actors containing crumb:
@@ -210,7 +289,7 @@
 
   Possible procedures matching
   %ul
-    - Intervention.match(actors_containing(hard_start_crumb), history: true, provisional: true).each do |procedure, relevance, arity|
+    - Intervention.match(production_supports_containing(hard_start_crumb), history: true, provisional: true).each do |procedure, relevance, arity|
       %li.variety
         = procedure.name
       %li.key
