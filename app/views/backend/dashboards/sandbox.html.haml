@@ -35,10 +35,6 @@
 
 :ruby
 
-  require 'logger'
-  logger = Logger.new(STDOUT)
-  logger.level = Logger::INFO
-
   require 'benchmark'
 
   ############################
@@ -58,7 +54,7 @@
                 shape:      shape.circle(crumb.accuracy/50000)
 
               }
-              crumbs_data << item
+    crumbs_data << item
   end
 
   # crumbs grouped in paths
@@ -79,6 +75,7 @@
   sql << "      ) AS actual_job"
   sql << "    ) AS multipoint"
   sql << "  ) AS m"
+  puts "paths from crumbs".red
   ActiveRecord::Base.connection.execute(sql).each do |path|
     job_path = path.values.first #Charta::Geometry.new(path, 4326)
     item = {
@@ -88,7 +85,7 @@
       accuracy: 1.0
     }
     # paths_data << item
-    # crumbs_data << item
+    crumbs_data << item
   end
 
   # then the whole intervention i.e from start to stop
@@ -118,9 +115,8 @@
       accuracy: 1.0
     }
     # paths_data << item
-    # crumbs_data << item
+    crumbs_data << item
   end
-
 
   campaign = Campaign.currents.last
   data = []
@@ -210,31 +206,6 @@
     res.sort_by{|k,v|-v}
   end
 
-  product_ids = Product.pluck(:id)
-  # select totally random actors
-  random_actors = []
-  10.times do
-    random_actors << Product.find(product_ids.sample)
-  end
-
-  # generating actors arrays for every procedures for which there are
-  # interventions in database
-  massive_test_hash = {}
-  Procedo.list.keys.each do |k|
-    if  actors_from_intervention(k).present?
-      massive_test_hash[k] = actors_from_intervention(k)
-    end
-  end
-
-  # select actors from a random intervention
-  almost_random_actors = massive_test_hash.values.sample
-
-  # listing procedures for which we have interventions
-  intervention_list = []
-  Procedo.list.keys.each do |procedure|
-    intervention_list << procedure unless actors_from_intervention(procedure).blank?
-  end
-
   # listing possibles products matching a point
   # using postgis operators on geometry objects
   # @param: crumb, a _Crumb object
@@ -269,13 +240,12 @@
     crumbs.flatten!
     result = []
     crumbs.each do |crumb|
-      actors_containing(crumb).each do |actor|
+      actors_containing(crumb).to_a.each do |actor|
         result << actor if actor.is_a? CultivableZone
         result << actor if actor.is_a? Plant
-        # TODO: manage animal production. Hint: looking for buildingDivisions that contain animals
         if actor.is_a? BuildingDivision
-          actor.contents.uniq.each do |content|
-            result << content if content.is_a? Animal
+          actor.contains(:animal, crumb.read_at).to_a.each do |content|
+            result << content
           end
         end
       end
@@ -295,16 +265,15 @@
     crumbs.flatten!
     result = []
     crumbs.each do |crumb|
-      actors_containing(crumb).each do |actor|
-        result << actor if actor.is_a? Equipment
+      actors_containing(crumb).to_a.each do |actor|
         if actor.is_a? BuildingDivision
-          actor.contents.uniq.each do |content|
-            result << content if content.is_a? Equipment
+          actor.contains.to_a.each do |localization|
+            result << localization.product
           end
         end
       end
     end
-    result.uniq
+    result.uniq.keep_if{|actor| actor.is_a? Equipment }
   end
 
   hard_start_crumb = Crumb.where("nature = 'hard_start'").first
@@ -313,9 +282,6 @@
   stop_crumb = Crumb.where("nature = 'stop'").first
 
   actors_found_from_crumbs = []
-
-  bat_genisse = Product.find(102)
-  bat_stockage = Product.find(135)
 
   rendering = false 
 
@@ -334,42 +300,6 @@
     - v.control :fullscreen
     - v.control :layer_selector
 
-  %h2
-    inspecting
-    = bat_genisse.name
-  %h3 inspecting content
-  %ul
-    - bat_genisse.contents.each do |content|
-      %li.key
-        = content.name
-      %li.result
-        class:
-        = content.class
-  %h2
-    inspecting
-    = bat_stockage.name
-  %h3 inspecting content
-  %ul
-    - bat_stockage.contents.each do |content|
-      %li.key
-        = content.name
-      %li.result
-        class:
-        = content.class
-  %h2 inspecting everything matching start crumb
-  %ul
-    - actors_containing(start_crumb).each do |actor|
-      %li.key
-        = actor.name
-      %li.result
-        = actor.class
-      - if actor.is_a? BuildingDivision
-        - actor.contents.uniq.each do |content|
-          %li.variety
-            = content.name
-          %li
-            is an equipment?
-            = content.is_a? Equipment
   %h2 possible equipments used:
   %h3 testing equipments deduction with start and stop crumbs
   %ul
@@ -377,7 +307,8 @@
       Dear user, did you use this?
     - identify_possible_equipments_from(start_crumb, stop_crumb).each do |equipment|
       %li.key
-        = equipment.name
+        = equipment.class
+        = equipment.name if equipment.respond_to?(:name)
         - actors_found_from_crumbs << equipment
   %h2 possible targets
   %h3 testing target deduction with hard_stard and hard_stop crumbs
@@ -388,12 +319,20 @@
       %li.key
         = target.name
         - actors_found_from_crumbs << target
+  %h2 inspecting actors found
+  %ul
+    - actors_found_from_crumbs.each do |actor|
+      %li.key
+        = actor.class
+        name:
+        = actor.name if actor.respond_to? :name
+
   %h2 Possible procedures matching
   %h3 testing intervention deduction with actors identified previously
   %ul
     %li
       Dear user, did you do one of these actions?
-    - Intervention.match(actors_found_from_crumbs, history: true, provisional: true).each do |procedure, relevance, arity|
+    - Intervention.match(actors_found_from_crumbs, history: true, provisional: true, relevance: 0.2, limit: 3).each do |procedure, relevance, arity|
       %li.variety
         = procedure.name
       %li.key
