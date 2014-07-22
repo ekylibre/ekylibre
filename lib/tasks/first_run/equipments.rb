@@ -64,6 +64,7 @@ load_data :equipments do |loader|
         if container = Product.find_by_work_number(r.place_code)
           # container.add(zone, born_at)
           equipment.update_attributes(initial_container: container)
+          equipment.save!
         end
 
         w.check_point
