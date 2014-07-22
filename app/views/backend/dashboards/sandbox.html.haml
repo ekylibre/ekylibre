@@ -63,41 +63,64 @@
 
   # crumbs grouped in paths
   # first actual intervention path (crumbs between first hard_start and first hard_stop)
-
   sql = ""
-  sql << "SELECT ST_AsText(m.multiline) FROM ("
-  sql << " SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
-  sql << "  ("
-  sql << "    SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
+  sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
+  sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
   sql << "    ("
-  sql << "      SELECT id, created_at, nature, geolocation FROM crumbs"
-  sql << "        WHERE created_at"
-  sql << "        BETWEEN"
-  sql << "          (SELECT created_at FROM crumbs WHERE nature = 'hard_start' ORDER BY created_at LIMIT 1)"
-  sql << "        AND"
-  sql << "          (SELECT created_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY created_at LIMIT 1)"
-  sql << "    UNION"
-  sql << "    SELECT id, created_at, nature, geolocation FROM crumbs"
-  sql << "      WHERE created_at BETWEEN"
-  sql << "        (SELECT created_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY created_at LIMIT 1)"
-  sql << "        AND"
-  sql << "        (SELECT created_at FROM crumbs WHERE nature = 'hard_start' ORDER BY created_at LIMIT 1)"
-  sql << "    ORDER BY created_at"
-  sql << "    ) AS actual_job"
-  sql << "  ) AS multipoint"
-  sql << ") AS m"
-
+  sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
+  sql << "      ("
+  sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
+  sql << "          WHERE read_at"
+  sql << "          BETWEEN"
+  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_start' ORDER BY read_at LIMIT 1)"
+  sql << "          AND"
+  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY read_at LIMIT 1)"
+  sql << "      ORDER BY read_at"
+  sql << "      ) AS actual_job"
+  sql << "    ) AS multipoint"
+  sql << "  ) AS m"
   ActiveRecord::Base.connection.execute(sql).each do |path|
-    job_path = path #Charta::Geometry.new(path)
+    job_path = path.values.first #Charta::Geometry.new(path, 4326)
     item = {
       name: 'actual job',
-      shape: job_path,
+      shape: Charta::Geometry.new(job_path),
       nature: 'actual job',
       accuracy: 1.0
     }
-    paths_data << item
-    crumbs_data << item
+    # paths_data << item
+    # crumbs_data << item
   end
+
+  # then the whole intervention i.e from start to stop
+  sql = ""
+  sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
+  sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
+  sql << "    ("
+  sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
+  sql << "      ("
+  sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
+  sql << "          WHERE read_at"
+  sql << "          BETWEEN"
+  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'start' ORDER BY read_at LIMIT 1)"
+  sql << "          AND"
+  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'stop' ORDER BY read_at LIMIT 1)"
+  sql << "      ORDER BY read_at"
+  sql << "      ) AS actual_job"
+  sql << "    ) AS multipoint"
+  sql << "  ) AS m"
+
+  ActiveRecord::Base.connection.execute(sql).each do |path|
+    job_path = path.values.first #Charta::Geometry.new(path, 4326)
+    item = {
+      name: 'actual job',
+      shape: Charta::Geometry.new(job_path),
+      nature: 'whole intervention',
+      accuracy: 1.0
+    }
+    # paths_data << item
+    # crumbs_data << item
+  end
+
 
   campaign = Campaign.currents.last
   data = []
@@ -235,7 +258,64 @@
     Product.find(production_support_ids)
   end
 
+  # this method aims at identifying potential
+  # procedures targets.
+  # @params:  - crumbs, objects having a geolocation attribute Postgis can handle
+  # @returns: - an array of Products among Animals, Plants or CultivableZones,
+  #           whose shapes or container's shapes intersect the crumbs given in parameters
+  # Hint: this method should give better results if crumbs between 'hard_start' and 'hard_stop' are
+  # given in parameters
+  def identify_possible_targets_from(*crumbs)
+    crumbs.flatten!
+    result = []
+    crumbs.each do |crumb|
+      actors_containing(crumb).each do |actor|
+        result << actor if actor.is_a? CultivableZone
+        result << actor if actor.is_a? Plant
+        # TODO: manage animal production. Hint: looking for buildingDivisions that contain animals
+        if actor.is_a? BuildingDivision
+          actor.contents.uniq.each do |content|
+            result << content if content.is_a? Animal
+          end
+        end
+      end
+    end
+    result.uniq
+  end
+
+  # this method aims at identifying potential
+  # equipments for procedures
+  # @params: - crumbs, objects having a geolocation attribute Postgis can handle.
+  # @returns: - an array of equipments whose shape or container's shape
+  #           intersect the crumbs given in parameters
+  # Hint: this method should give better results if 'start' or 'stop' crumbs
+  # are used, since the user is supposed to launch Rei from the place where
+  # his equipments are stored and return back to that place at the end of the intervention
+  def identify_possible_equipments_from(*crumbs)
+    crumbs.flatten!
+    result = []
+    crumbs.each do |crumb|
+      actors_containing(crumb).each do |actor|
+        result << actor if actor.is_a? Equipment
+        if actor.is_a? BuildingDivision
+          actor.contents.uniq.each do |content|
+            result << content if content.is_a? Equipment
+          end
+        end
+      end
+    end
+    result.uniq
+  end
+
   hard_start_crumb = Crumb.where("nature = 'hard_start'").first
+  hard_stop_crumb = Crumb.where("nature = 'hard_stop'").first
+  start_crumb = Crumb.where("nature = 'start'").first
+  stop_crumb = Crumb.where("nature = 'stop'").first
+
+  actors_found_from_crumbs = []
+
+  bat_genisse = Product.find(102)
+  bat_stockage = Product.find(135)
 
   rendering = false 
 
@@ -253,43 +333,67 @@
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
-  %h2 inspecting geodata
-  %h3 raw db result for path creation:
-  sql request:
-  = sql
-  %br
-  record:
-  = ActiveRecord::Base.connection.execute(sql).inspect
-  - crumbs_data.each do |item|
-    %h3
-      = item[:name]
-    %ul
-      %li.key
-        accuracy:
-        = item[:accuracy]
-      %li.result
-        nature:
-        = item[:nature]
-      %li.variety
-        shape:
-        = item[:shape].inspect
-  %h2 inspecting production support
-  %h3 matching production supports with hard start crumb:
-  - production_supports_containing(hard_start_crumb).each do |ps|
-    = ps.name
-    is a Cultivable zone?
-    = ps.is_a? CultivableZone
-  %h2 inspecting actors_from crumb
-  %h3 testing with hard start crumb:
-  Actors containing crumb:
-  %ul
-    - actors_containing(hard_start_crumb).each do |actor|
-      %li.key
-        = actor.name if actor.respond_to? :name
 
-  Possible procedures matching
+  %h2
+    inspecting
+    = bat_genisse.name
+  %h3 inspecting content
   %ul
-    - Intervention.match(production_supports_containing(hard_start_crumb), history: true, provisional: true).each do |procedure, relevance, arity|
+    - bat_genisse.contents.each do |content|
+      %li.key
+        = content.name
+      %li.result
+        class:
+        = content.class
+  %h2
+    inspecting
+    = bat_stockage.name
+  %h3 inspecting content
+  %ul
+    - bat_stockage.contents.each do |content|
+      %li.key
+        = content.name
+      %li.result
+        class:
+        = content.class
+  %h2 inspecting everything matching start crumb
+  %ul
+    - actors_containing(start_crumb).each do |actor|
+      %li.key
+        = actor.name
+      %li.result
+        = actor.class
+      - if actor.is_a? BuildingDivision
+        - actor.contents.uniq.each do |content|
+          %li.variety
+            = content.name
+          %li
+            is an equipment?
+            = content.is_a? Equipment
+  %h2 possible equipments used:
+  %h3 testing equipments deduction with start and stop crumbs
+  %ul
+    %li.result
+      Dear user, did you use this?
+    - identify_possible_equipments_from(start_crumb, stop_crumb).each do |equipment|
+      %li.key
+        = equipment.name
+        - actors_found_from_crumbs << equipment
+  %h2 possible targets
+  %h3 testing target deduction with hard_stard and hard_stop crumbs
+  %ul
+    %li.result
+      Dear user, did you work on this?
+    - identify_possible_targets_from(hard_start_crumb, hard_stop_crumb).each do |target|
+      %li.key
+        = target.name
+        - actors_found_from_crumbs << target
+  %h2 Possible procedures matching
+  %h3 testing intervention deduction with actors identified previously
+  %ul
+    %li
+      Dear user, did you do one of these actions?
+    - Intervention.match(actors_found_from_crumbs, history: true, provisional: true).each do |procedure, relevance, arity|
       %li.variety
         = procedure.name
       %li.key
