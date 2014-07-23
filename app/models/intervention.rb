@@ -317,6 +317,7 @@ class Intervention < Ekylibre::Record::Base
   # Default: false,since checking through history is slower
   #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
   # Default: false, since it's slower
+  #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false
   # @returns: matching_procedures, an array of procedures matching the given actors, ordered by relevance,
   # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
   # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
@@ -324,6 +325,7 @@ class Intervention < Ekylibre::Record::Base
   def self.match(actors, options = {})
     limit = options[:limit].to_i - 1
     relevance_threshold = options[:relevance].to_f
+    maximum_arity = 0
 
     # creating coefficients for relevance calculation for each procedure
     # coefficients depend on provisional, actors history and actors presence in procedures
@@ -366,9 +368,11 @@ class Intervention < Ekylibre::Record::Base
       matched_variables = procedure.matching_variables_for(actors)
       if matched_variables.count > 0
         result << [procedure, (((matched_variables.values.count.to_f/actors.count)*coeff[procedure_key])/denominator),matched_variables.values.count]
+        maximum_arity = matched_variables.values.count if maximum_arity < matched_variables.values.count
       end
     end
     result.delete_if{|procedure, relevance, arity| relevance < relevance_threshold}
+    result.delete_if{|procedure, relevance, arity| arity < maximum_arity} if options[:max_arity]
     return result.sort_by{|procedure, relevance, arity| -relevance}[0..limit]
   end
 end
