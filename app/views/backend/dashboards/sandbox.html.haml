@@ -36,6 +36,9 @@
 :ruby
 
   require 'benchmark'
+  
+  activated = false
+  if activated 
 
   ############################
   # generating data for test #
@@ -299,9 +302,10 @@
 
   provisional_interventions = Intervention.provisional
   #provisional_interventions = Intervention.where("started_at > '#{Time.now - 3.months}'").limit(3)
+  
+  end # 'activated' block
 
-
-  rendering = false
+  rendering = activated
 
 - if rendering
   %h2 playing with beehive
