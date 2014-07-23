@@ -131,7 +131,8 @@
 
   # raw crumbs
   Crumb.find_each do |crumb|
-    shape = Charta::Geometry.new(crumb.geolocation)
+    begin
+      shape = Charta::Geometry.new(crumb.geolocation)
     item = {
                 name:       crumb.id,
                 accuracy:   crumb.accuracy,
@@ -139,6 +140,9 @@
                 shape:      shape.circle(crumb.accuracy/50000)
 
               }
+    rescue
+      item = {}
+    end
     crumbs_data << item
   end
 
@@ -155,6 +159,7 @@
       end
     end
 
+    begin
     shape = Charta::Geometry.new(crumb.geolocation)
     item = {
                 name:       crumb.id,
@@ -163,6 +168,9 @@
                 shape:      crumb.geolocation,
                 popup: {header: false, content: popup_content}
             }
+    rescue
+      item = {}
+    end
     hard_crumbs_data << item
   end
 
