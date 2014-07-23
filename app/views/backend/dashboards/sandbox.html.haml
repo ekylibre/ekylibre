@@ -41,171 +41,12 @@
   # generating data for test #
   ############################
 
-  crumbs_data = []
-  paths_data = []
+  actors_found_from_crumbs = []
 
-  # raw crumbs
-  Crumb.find_each do |crumb|
-    shape = Charta::Geometry.new(crumb.geolocation)
-    item = {
-                name:       crumb.id,
-                accuracy:   crumb.accuracy,
-                nature:     crumb.nature,
-                shape:      shape.circle(crumb.accuracy/50000)
-
-              }
-    crumbs_data << item
-  end
-
-  # crumbs grouped in paths
-  # first actual intervention path (crumbs between first hard_start and first hard_stop)
-  sql = ""
-  sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
-  sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
-  sql << "    ("
-  sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
-  sql << "      ("
-  sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
-  sql << "          WHERE read_at"
-  sql << "          BETWEEN"
-  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_start' ORDER BY read_at LIMIT 1)"
-  sql << "          AND"
-  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY read_at LIMIT 1)"
-  sql << "      ORDER BY read_at"
-  sql << "      ) AS actual_job"
-  sql << "    ) AS multipoint"
-  sql << "  ) AS m"
-  puts "paths from crumbs".red
-  ActiveRecord::Base.connection.execute(sql).each do |path|
-    job_path = path.values.first #Charta::Geometry.new(path, 4326)
-    item = {
-      name: 'actual job',
-      shape: Charta::Geometry.new(job_path),
-      nature: 'actual job',
-      accuracy: 1.0
-    }
-    # paths_data << item
-    crumbs_data << item
-  end
-
-  # then the whole intervention i.e from start to stop
-  sql = ""
-  sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
-  sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
-  sql << "    ("
-  sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
-  sql << "      ("
-  sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
-  sql << "          WHERE read_at"
-  sql << "          BETWEEN"
-  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'start' ORDER BY read_at LIMIT 1)"
-  sql << "          AND"
-  sql << "            (SELECT read_at FROM crumbs WHERE nature = 'stop' ORDER BY read_at LIMIT 1)"
-  sql << "      ORDER BY read_at"
-  sql << "      ) AS actual_job"
-  sql << "    ) AS multipoint"
-  sql << "  ) AS m"
-
-  ActiveRecord::Base.connection.execute(sql).each do |path|
-    job_path = path.values.first #Charta::Geometry.new(path, 4326)
-    item = {
-      name: 'actual job',
-      shape: Charta::Geometry.new(job_path),
-      nature: 'whole intervention',
-      accuracy: 1.0
-    }
-    # paths_data << item
-    crumbs_data << item
-  end
-
-  campaign = Campaign.currents.last
-  data = []
-  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
-    popup_content = []
-    # for support
-
-    popup_content << {label: :campaign.tl, value: support.production.campaign.name}
-    popup_content << {label: :activity.tl, value: support.production.activity.name}
-    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
-
-    if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
-      popup_content << {label: :input_cost_per_hectare.tl, value: support_input_cost.to_s.to_f.round(2)}
-    end
-
-    if support_tool_cost = support.tool_cost and support_tool_cost.to_d > 0.0
-      popup_content << {label: :tool_cost_per_hectare.tl, value: support_tool_cost.to_s.to_f.round(2)}
-    end
-
-    if support_time_cost = support.time_cost and support_time_cost.to_d > 0.0
-      popup_content << {label: :time_cost_per_hectare.tl, value: support_time_cost.to_s.to_f.round(2)}
-    end
-
-    if params[:visualization] == "nitrogen_footprint"
-      if nitrogen_concentration = support.nitrogen_balance and nitrogen_concentration.to_d != 0.0
-        popup_content << {label: :nitrogen_concentration_per_hectare.tl, value: nitrogen_concentration.to_s.to_f.round(2)}
-      end
-      if phosphorus_concentration = support.phosphorus_balance and phosphorus_concentration.to_d != 0.0
-        popup_content << {label: :phosphorus_concentration_per_hectare.tl, value: phosphorus_concentration.to_s.to_f.round(2)}
-      end
-      if potassium_concentration = support.potassium_balance and potassium_concentration.to_d != 0.0
-        popup_content << {label: :potassium_concentration_per_hectare.tl, value: potassium_concentration.to_s.to_f.round(2)}
-      end
-    end
-
-    if support.storage
-      popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
-    end
-    if interventions = Intervention.where(production_support: support).reorder(:started_at)
-      popup_content << {label: :interventions_count.tl, value: interventions.count }
-    end
-    if interventions.count > 0 and last_intervention = interventions.last
-      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
-    end
-    popup_content << render('popup', support: support)
-    item = {
-      name:       support.name,
-      shape:      support.shape,
-      campaign:   support.production.campaign.name,
-      activity:   support.production.activity.name,
-      production: support.production.name,
-      variant:    support.production.variant.name,
-      tool_cost:  support_tool_cost.to_s.to_f.round(2),
-      input_cost: support_input_cost.to_s.to_f.round(2),
-      time_cost:  support_time_cost.to_s.to_f.round(2),
-      nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
-      phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
-      potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
-      interventions_count: interventions.count,
-      popup: {header: true, content: popup_content}
-      }
-    data << item
-  end
-  # returns an array of actors from a real intervention example
-  def actors_from_intervention(procedure_name)
-    res = []
-    intervention = Intervention.where("reference_name = '#{procedure_name}' AND state = 'done'").sample
-    if intervention.present?
-      intervention.casts.each do |ic| # InterventionCast
-        res << Product.find(ic.actor) unless ic.reference.new?
-      end
-    else
-      return nil
-    end
-    res
-  end
-
-  # find all procedures from interventions involving given actors
-  def procedures_for(*actors)
-    actors.flatten!
-    actors_id = []
-    actors.each {|actor| actors_id << actor.id}
-    res = Intervention.real.joins(:casts).
-          where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
-          group(:'interventions.reference_name').
-          count(:'interventions.reference_name')
-    res.sort_by{|k,v|-v}
-  end
-
+  hard_start_crumb = Crumb.where("nature = 'hard_start'").first
+  hard_stop_crumb = Crumb.where("nature = 'hard_stop'").first
+  start_crumb = Crumb.where("nature = 'start'").first
+  stop_crumb = Crumb.where("nature = 'stop'").first
   # listing possibles products matching a point
   # using postgis operators on geometry objects
   # @param: crumb, a _Crumb object
@@ -276,68 +117,223 @@
     result.uniq.keep_if{|actor| actor.is_a? Equipment }
   end
 
-  hard_start_crumb = Crumb.where("nature = 'hard_start'").first
-  hard_stop_crumb = Crumb.where("nature = 'hard_stop'").first
-  start_crumb = Crumb.where("nature = 'start'").first
-  stop_crumb = Crumb.where("nature = 'stop'").first
+  identify_possible_targets_from(hard_start_crumb, hard_stop_crumb).each do |target|
+    actors_found_from_crumbs << target
+  end
 
-  actors_found_from_crumbs = []
+  identify_possible_equipments_from(start_crumb, stop_crumb).each do |equipment|
+    actors_found_from_crumbs << equipment
+  end
 
-  rendering = false 
+  crumbs_data = []
+  hard_crumbs_data = []
+  paths_data = []
+
+  # raw crumbs
+  Crumb.find_each do |crumb|
+    shape = Charta::Geometry.new(crumb.geolocation)
+    item = {
+                name:       crumb.id,
+                accuracy:   crumb.accuracy,
+                nature:     crumb.nature,
+                shape:      shape.circle(crumb.accuracy/50000)
+
+              }
+    crumbs_data << item
+  end
+
+  Crumb.where("nature IN ('start','stop', 'hard_start', 'hard_stop')").find_each do |crumb|
+    #popup
+    popup_content = []
+    if ["start", "stop"].include?(crumb.nature)
+      identify_possible_equipments_from(crumb).each do |equipment|
+        popup_content << {label: 'equipment', value: equipment.name}
+      end
+    else
+      identify_possible_targets_from(crumb).each do |target|
+        popup_content << {label: 'target', value: target.name}
+      end
+    end
+
+    shape = Charta::Geometry.new(crumb.geolocation)
+    item = {
+                name:       crumb.id,
+                accuracy:   crumb.accuracy,
+                nature:     crumb.nature,
+                shape:      crumb.geolocation,
+                popup: {header: false, content: popup_content}
+            }
+    hard_crumbs_data << item
+  end
+
+  ## crumbs grouped in paths
+  ## first actual intervention path (crumbs between first hard_start and first hard_stop)
+  #sql = ""
+  #sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
+  #sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
+  #sql << "    ("
+  #sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
+  #sql << "      ("
+  #sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
+  #sql << "          WHERE read_at"
+  #sql << "          BETWEEN"
+  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_start' ORDER BY read_at LIMIT 1)"
+  #sql << "          AND"
+  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY read_at LIMIT 1)"
+  #sql << "      ORDER BY read_at"
+  #sql << "      ) AS actual_job"
+  #sql << "    ) AS multipoint"
+  #sql << "  #) AS m"
+  #ActiveRecord::Base.connection.execute(sql).each do |path|
+  #  job_path = path.values.first #Charta::Geometry.new(path, 4326)
+  #  item = {
+  #    name: 'actual job',
+  #    shape: Charta::Geometry.new(job_path),
+  #    nature: 'actual job',
+  #    accuracy: 1.0
+  #  }
+  #  # paths_data << item
+  #  crumbs_data << item
+  #end
+
+  ## then the whole intervention i.e from start to stop
+  #sql = ""
+  #sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
+  #sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
+  #sql << "    ("
+  #sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
+  #sql << "      ("
+  #sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
+  #sql << "          WHERE read_at"
+  #sql << "          BETWEEN"
+  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'start' ORDER BY read_at LIMIT 1)"
+  #sql << "          AND"
+  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'stop' ORDER BY read_at LIMIT 1)"
+  #sql << "      ORDER BY read_at"
+  #sql << "      ) AS actual_job"
+  #sql << "    ) AS multipoint"
+  #sql << "  ) AS m"
+
+  #ActiveRecord::Base.connection.execute(sql).each do |path|
+  #  job_path = path.values.first #Charta::Geometry.new(path, 4326)
+  #  item = {
+  #    name: 'actual job',
+  #    shape: Charta::Geometry.new(job_path),
+  #    nature: 'whole intervention',
+  #    accuracy: 1.0
+  #  }
+  #  # paths_data << item
+  #  crumbs_data << item
+  #end
+
+  campaign = Campaign.currents.last
+  data = []
+  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+    popup_content = []
+    # for support
+
+    popup_content << {label: :campaign.tl, value: support.production.campaign.name}
+    popup_content << {label: :activity.tl, value: support.production.activity.name}
+    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+
+    if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
+      popup_content << {label: :input_cost_per_hectare.tl, value: support_input_cost.to_s.to_f.round(2)}
+    end
+
+    if support_tool_cost = support.tool_cost and support_tool_cost.to_d > 0.0
+      popup_content << {label: :tool_cost_per_hectare.tl, value: support_tool_cost.to_s.to_f.round(2)}
+    end
+
+    if support_time_cost = support.time_cost and support_time_cost.to_d > 0.0
+      popup_content << {label: :time_cost_per_hectare.tl, value: support_time_cost.to_s.to_f.round(2)}
+    end
+
+    if params[:visualization] == "nitrogen_footprint"
+      if nitrogen_concentration = support.nitrogen_balance and nitrogen_concentration.to_d != 0.0
+        popup_content << {label: :nitrogen_concentration_per_hectare.tl, value: nitrogen_concentration.to_s.to_f.round(2)}
+      end
+      if phosphorus_concentration = support.phosphorus_balance and phosphorus_concentration.to_d != 0.0
+        popup_content << {label: :phosphorus_concentration_per_hectare.tl, value: phosphorus_concentration.to_s.to_f.round(2)}
+      end
+      if potassium_concentration = support.potassium_balance and potassium_concentration.to_d != 0.0
+        popup_content << {label: :potassium_concentration_per_hectare.tl, value: potassium_concentration.to_s.to_f.round(2)}
+      end
+    end
+
+    if support.storage
+      popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
+    end
+    if interventions = Intervention.where(production_support: support).reorder(:started_at)
+      popup_content << {label: :interventions_count.tl, value: interventions.count }
+    end
+    if interventions.count > 0 and last_intervention = interventions.last
+      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+    end
+    popup_content << render('popup', support: support, actors: actors_found_from_crumbs)
+    item = {
+      name:       support.name,
+      shape:      support.shape,
+      campaign:   support.production.campaign.name,
+      activity:   support.production.activity.name,
+      production: support.production.name,
+      variant:    support.production.variant.name,
+      tool_cost:  support_tool_cost.to_s.to_f.round(2),
+      input_cost: support_input_cost.to_s.to_f.round(2),
+      time_cost:  support_time_cost.to_s.to_f.round(2),
+      nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
+      phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
+      potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
+      interventions_count: interventions.count,
+      popup: {header: true, content: popup_content}
+      }
+    data << item
+  end
+
+  provisional_interventions = Intervention.provisional
+  #provisional_interventions = Intervention.where("started_at > '#{Time.now - 3.months}'").limit(3)
+
+
+  rendering = false
 
 - if rendering
-  %h2 playing with maps
-  = visualization do |v|
-    - v.serie :main, data
-    - v.serie :crumbs, crumbs_data
-    - v.categories :activity, :main
-    - v.categories :nature, :crumbs
-    - v.background "OpenStreetMap.HOT"
-    - v.background "Thunderforest.Transport"
-    - v.background "Thunderforest.Outdoors"
-    - v.control :zoom
-    - v.control :scale
-    - v.control :fullscreen
-    - v.control :layer_selector
-
-  %h2 possible equipments used:
-  %h3 testing equipments deduction with start and stop crumbs
-  %ul
-    %li.result
-      Dear user, did you use this?
-    - identify_possible_equipments_from(start_crumb, stop_crumb).each do |equipment|
-      %li.key
-        = equipment.class
-        = equipment.name if equipment.respond_to?(:name)
-        - actors_found_from_crumbs << equipment
-  %h2 possible targets
-  %h3 testing target deduction with hard_stard and hard_stop crumbs
-  %ul
-    %li.result
-      Dear user, did you work on this?
-    - identify_possible_targets_from(hard_start_crumb, hard_stop_crumb).each do |target|
-      %li.key
-        = target.name
-        - actors_found_from_crumbs << target
-  %h2 inspecting actors found
-  %ul
-    - actors_found_from_crumbs.each do |actor|
-      %li.key
-        = actor.class
-        name:
-        = actor.name if actor.respond_to? :name
-
-  %h2 Possible procedures matching
-  %h3 testing intervention deduction with actors identified previously
-  %ul
-    %li
-      Dear user, did you do one of these actions?
-    - Intervention.match(actors_found_from_crumbs, history: true, provisional: true, relevance: 0.2, limit: 3).each do |procedure, relevance, arity|
-      %li.variety
-        = procedure.name
-      %li.key
-        relevance:
-        = relevance
-      %li.result
-        arity:
-        = arity
+  %h2 playing with beehive
+  = beehive do |b|
+    -b.cell :map do
+      = visualization do |v|
+        - v.serie :main, data
+        - v.serie :crumbs, crumbs_data
+        - v.serie :hard_crumbs, hard_crumbs_data
+        - v.categories :activity, :main
+        - v.categories :nature, :crumbs
+        - v.bubbles :accuracy, :hard_crumbs
+        - v.background "OpenStreetMap.HOT"
+        - v.background "Thunderforest.Transport"
+        - v.background "Thunderforest.Outdoors"
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
+    - b.hbox do
+      - b.cell :equipment do
+        did you use such equipment?
+        %ul
+          - identify_possible_equipments_from(start_crumb, stop_crumb).each do |eqpt|
+            %li
+              = eqpt.name
+        equipment actually used:
+        %ul
+          %li
+            stub
+          %li
+            stub
+      - b.cell :intervention do
+        %ul
+          - Intervention.match(actors_found_from_crumbs, max_arity: true).each do |procedure, relevance, arity|
+            %li
+              = link_to(procedure.human_name, controller: "/backend/interventions", action: :new, reference_name: procedure.name)
+      - if provisional_interventions.present?
+        - b.cell :provisional do
+          %ul
+            - provisional_interventions.each do |pi|
+              %li
+                = link_to (pi.reference_name)

@@ -1,2 +1,4 @@
 = toolbar do
-  = tool_to( :intervention.tl, {action: :new, controller: "/backend/interventions", production_support_id: support.id}, tool: 'new-intervention')
+  - Intervention.match(actors, history: true, provisional: true, max_arity: true).each do |procedure, relevance, arity|
+    = tool_to(procedure.human_name.to_sym, {action: :new, controller: "/backend/interventions", production_support_id: support.id, reference_name: procedure.name}, tool: 'new-intervention')
+  = tool_to(:intervention.tl, {action: :new, controller: "/backend/interventions", production_support_id: support.id}, tool: 'new-intervention')
