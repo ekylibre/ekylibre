@@ -37,7 +37,7 @@
 
   require 'benchmark'
   
-  activated = false
+  activated = true
   if activated 
 
   ############################
@@ -67,7 +67,7 @@
   # @param: crumb, a _Crumb object
   # @returns: an array of production supports whose shape contains the crumb among products involved in current campaigns
   def production_supports_containing(crumb)
-    production_support_ids = ProductionSupport.joins(:campaign, :storage).
+    production_support_ids = ProductionSupport.of_campaign(Campaign.currents.last).joins(:campaign, :storage).
                               joins('INNER JOIN product_readings ON product_readings.product_id = products.id').
                               where("geometry_value ~ (SELECT geolocation FROM crumbs WHERE id ='#{crumb.id}')").pluck(:product_id)
     Product.find(production_support_ids)
@@ -153,13 +153,9 @@
     #popup
     popup_content = []
     if ["start", "stop"].include?(crumb.nature)
-      identify_possible_equipments_from(crumb).each do |equipment|
-        popup_content << {label: 'equipment', value: equipment.name}
-      end
+      popup_content << render('actors', actors_list: identify_possible_equipments_from(crumb).uniq)
     else
-      identify_possible_targets_from(crumb).each do |target|
-        popup_content << {label: 'target', value: target.name}
-      end
+      popup_content << render('actors', actors_list: identify_possible_targets_from(crumb).uniq)
     end
 
     begin
@@ -302,6 +298,10 @@
 
   provisional_interventions = Intervention.provisional
   #provisional_interventions = Intervention.where("started_at > '#{Time.now - 3.months}'").limit(3)
+
+  all_actors = []
+  all_actors << identify_possible_equipments_from(start_crumb, stop_crumb)
+  all_actors << identify_possible_targets_from(hard_start_crumb, hard_stop_crumb)
   
   end # 'activated' block
 
@@ -326,26 +326,9 @@
         - v.control :fullscreen
         - v.control :layer_selector
     - b.hbox do
-      - b.cell :equipment do
-        did you use such equipment?
-        %ul
-          - identify_possible_equipments_from(start_crumb, stop_crumb).each do |eqpt|
-            %li
-              = eqpt.name
-        equipment actually used:
-        %ul
-          %li
-            stub
-          %li
-            stub
-      - b.cell :intervention do
-        %ul
-          - Intervention.match(actors_found_from_crumbs, max_arity: true).each do |procedure, relevance, arity|
-            %li
-              = link_to(procedure.human_name, controller: "/backend/interventions", action: :new, reference_name: procedure.name)
-      - if provisional_interventions.present?
-        - b.cell :provisional do
-          %ul
-            - provisional_interventions.each do |pi|
-              %li
-                = link_to (pi.reference_name)
+      - b.cell :actors do
+        = render 'actors', actors_list: all_actors.flatten
+      - b.cell :procedures do
+        = render 'procedures', procedures: Intervention.match(actors_found_from_crumbs, max_arity: true)
+      - b.cell :interventions do
+        = render 'interventions', procedure: Procedo['base-plowing-0'], production_supports_list: production_supports_containing(hard_stop_crumb), provisional_list: provisional_interventions)
