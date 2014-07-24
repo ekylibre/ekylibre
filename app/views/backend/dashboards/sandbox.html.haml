@@ -37,7 +37,7 @@
 
   require 'benchmark'
   
-  activated = true
+  activated = false 
   if activated 
 
   ############################
@@ -310,7 +310,6 @@
   # it contains one or several hard_start and hard_stop crumbs.
   def trip_generator
     users = Crumb.all.pluck(:user_id).uniq
-    unqualified_crumbs_sets = {}
     
   end
 
@@ -325,7 +324,7 @@
 
 - if rendering
 
-  = field_set do |b|
+  = beehive do |b|
     -b.cell :map do
       = visualization do |v|
         - v.serie :main, data

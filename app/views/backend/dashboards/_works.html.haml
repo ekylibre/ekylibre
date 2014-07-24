@@ -1,0 +1,7 @@
+What did you do?
+%ul
+  - procedures.each do |procedure, *|
+    %li.control-group
+      .controls
+        =radio_button_tag('procedure', '1')
+        = procedure.human_name
