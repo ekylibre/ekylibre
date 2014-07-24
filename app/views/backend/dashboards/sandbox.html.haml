@@ -305,11 +305,27 @@
   
   end # 'activated' block
 
+  # trip generator
+  # a trip is a set of crumbs for one user (user_id field), ordered by read_at, between a start crumb and the stop crumb that follows
+  # it contains one or several hard_start and hard_stop crumbs.
+  def trip_generator
+    users = Crumb.all.pluck(:user_id).uniq
+    unqualified_crumbs_sets = {}
+    
+  end
+
+  trips = trip_generator
+  trip = {}
+  trip[:number] = 1
+  trip[:date] = '25/08/2014'
+  trip[:km] = 42
+  trip[:count] = 1
+
   rendering = activated
 
 - if rendering
-  %h2 playing with beehive
-  = beehive do |b|
+
+  = field_set do |b|
     -b.cell :map do
       = visualization do |v|
         - v.serie :main, data
@@ -328,7 +344,7 @@
     - b.hbox do
       - b.cell :actors do
         = render 'actors', actors_list: all_actors.flatten
-      - b.cell :procedures do
-        = render 'procedures', procedures: Intervention.match(actors_found_from_crumbs, max_arity: true)
-      - b.cell :interventions do
-        = render 'interventions', procedure: Procedo['base-plowing-0'], production_supports_list: production_supports_containing(hard_stop_crumb), provisional_list: provisional_interventions)
+      - b.cell :works do
+        = render 'works', procedures: Intervention.match(actors_found_from_crumbs, max_arity: true)
+    - b.cell :interventions do
+      = render 'interventions'
