@@ -37,7 +37,7 @@
 
   require 'benchmark'
   
-  activated = false 
+  activated = true
   if activated 
 
   ############################
@@ -50,6 +50,7 @@
   hard_stop_crumb = Crumb.where("nature = 'hard_stop'").first
   start_crumb = Crumb.where("nature = 'start'").first
   stop_crumb = Crumb.where("nature = 'stop'").first
+
   # listing possibles products matching a point
   # using postgis operators on geometry objects
   # @param: crumb, a _Crumb object
@@ -302,15 +303,14 @@
   all_actors = []
   all_actors << identify_possible_equipments_from(start_crumb, stop_crumb)
   all_actors << identify_possible_targets_from(hard_start_crumb, hard_stop_crumb)
-  
-  end # 'activated' block
 
   # trip generator
   # a trip is a set of crumbs for one user (user_id field), ordered by read_at, between a start crumb and the stop crumb that follows
   # it contains one or several hard_start and hard_stop crumbs.
   def trip_generator
     users = Crumb.all.pluck(:user_id).uniq
-    
+    states = %w{}
+
   end
 
   trips = trip_generator
@@ -319,6 +319,8 @@
   trip[:date] = '25/08/2014'
   trip[:km] = 42
   trip[:count] = 1
+  
+  end # 'activated' block
 
   rendering = activated
 
