@@ -319,11 +319,11 @@
     former_state = nil
 
     # actions
-    store = lambda {buffer << crumb}
-    trash_and_restart = lambda{trash << buffer; buffer = []; store.call}
-    save_trip = lambda{store.call; trips << buffer; buffer = []}
-    pausing = lambda{store.call; former_state = state}
-    resuming = lambda{store.call; state = former_state}
+    store = lambda {|crumb|buffer << crumb}
+    trash_and_restart = lambda{|crumb|trash << buffer; buffer = []; store.call(crumb)}
+    save_trip = lambda{|crumb|store.call(crumb); trips << buffer; buffer = []}
+    pausing = lambda{|crumb|store.call(crumb); former_state = state}
+    resuming = lambda{|crumb|store.call(crumb); state = former_state}
 
     # actions and state change table:
     # columns: current state
@@ -354,13 +354,13 @@
     #             | -> trash      | -> trash          | -> trip_end       | -> trash      | -> trash          | -> trash          | -> trash
     #-------------------------------------------------------------------------------------------------------------------------------------------
 
-    actions = [ [store,   trash_and_restart,  trash_and_restart,  store, trash_and_restart,   trash_and_restart, trash_and_restart], # start
-                [store,   store,              store,              store, store,               store,             store            ], # point
-                [store,   store,              store,              store, store,               store,             store            ], # hard_start
-                [store,   store,              store,              store, store,               store,             store            ], # hard_stop
-                [store,   pausing,            pausing,            store, pausing,             store,             store            ], # pause
-                [store,   store,              store,              store, store,               resuming,          store            ], # resume
-                [store,   store,              save_trip,          store, store,               store,             store            ]  # stop
+    actions = [ [store,   trash_and_restart,                      trash_and_restart,  store, trash_and_restart,   trash_and_restart, trash_and_restart], # start
+                [store,   store,              store,              store,              store,               store,             store            ], # point
+                [store,   store,              store,              store,              store,               store,             store            ], # hard_start
+                [store,   store,              store,              store,              store,               store,             store            ], # hard_stop
+                [store,   pausing,            pausing,            store,              pausing,             store,             store            ], # pause
+                [store,   store,              store,              store,              store,               resuming,          store            ], # resume
+                [store,   store,              save_trip,          store,              store,               store,             store            ]  # stop
               ]
 
     state_change = [  [:trip_start, :trip_start, :trip_start, :trip_start,   :trip_start, :trip_start,  :trip_start ], # start
@@ -373,8 +373,8 @@
                    ]
 
     users.each do |user|
-      Crumb.where(user_id: user.id).order_by(:read_at).find_each do |crumb|
-        actions[natures.index(crumb.nature.to_sym)][states.index(state)].call
+      Crumb.where(user_id: user).order(read_at: :asc).each do |crumb|
+        actions[natures.index(crumb.nature.to_sym)][states.index(state)].call(crumb)
         state = state_change[natures.index(crumb.nature.to_sym)][states.index(state)]
       end
       # cleaning buffer
@@ -399,16 +399,20 @@
 
 - if rendering
   %h2 testing trip generator
-  = trips.inspect
-
   %h3 inspecting trips
-  - trips[:trips].each do |trip|
-    .bold
-      trip to inspect
+  number of valid trips:
+  = trips[:trips].count
+  %h3 inspecting trash
+  number of invalid trips:
+  = trips[:trash].count
+  - trips[:trash].each do |invalid_trip|
+    %h4.bold invalid trip to inspect:
     %ul
-      - trip.each do |crumb|
+      - invalid_trip.each do |crumb|
         %li.key
           = crumb.nature
+        %li.result
+          = crumb.read_at
 
 
   = beehive do |b|
