@@ -1321,6 +1321,7 @@ fra:
     new_value: "Nouvelle valeur"
     next: "Suivant"
     nitrogen_concentration: "Teneur en azote (N)"
+    nitrogen_concentration_per_hectare: "Teneur en azote par hectare"
     nitrogen_input_prev: "Apport prévisionnel en azote" #?
     nitrogen_input_real: "Apport réalisé en azote" #?
     no_commercial: "— Sans commercial —"
@@ -1402,6 +1403,7 @@ fra:
     pertinence: "%{value}%"
     phone: "Tél."
     phosphorus_concentration: "Teneur en phosphore (P)"
+    phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare"
     pick: "Importer" #?
     picture: "Photo"
     placeholder: "Espace réservé"
@@ -1412,12 +1414,14 @@ fra:
     plant_medicines: "Produits phytosanitaires" #?
     plant_productions: "Productions végétales"
     plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal" #?
+    plantation_density: "Densité de plantation"
     play: "Éxécuter" #?
     please_wait: "Merci de patienter…"
     point: "Point"
     population: "Population"
     postal_zone_x: "%{name} (%{postal_code})" #?
     potassium_concentration: "Teneur en potassium (K)"
+    potassium_concentration_per_hectare: "Teneur en potassium par hectare"
     precipitation: "Précipitations"
     preferences: "Préférences"
     prescription: "Prescription"

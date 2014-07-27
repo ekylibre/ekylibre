@@ -326,11 +326,17 @@ load_data :land_parcels do |loader|
   end
 
 
-  # For Viniteca sofware
+
 
   # load transcoding files
 
   varieties_transcode = {}.with_indifferent_access
+
+  certifications_transcode = {}.with_indifferent_access
+
+  cultivable_zones_transcode = {}.with_indifferent_access
+
+  # For Viniteca sofware
 
   path = loader.path("viniteca", "varieties_transcode.csv")
   if path.exist?
@@ -339,16 +345,12 @@ load_data :land_parcels do |loader|
     end
   end
 
-  certifications_transcode = {}.with_indifferent_access
-
   path = loader.path("viniteca", "certifications_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       certifications_transcode[row[0]] = row[1].to_sym
     end
   end
-
-  cultivable_zones_transcode = {}.with_indifferent_access
 
   path = loader.path("viniteca", "cultivable_zones_transcode.csv")
   if path.exist?
@@ -434,5 +436,80 @@ load_data :land_parcels do |loader|
     end
   end
 
+  # For Unicoque data
+
+  path = loader.path("unicoque", "varieties_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      varieties_transcode[row[0]] = row[1].to_sym
+    end
+  end
+
+   # orchard shape
+
+
+  path = loader.path("unicoque", "plantation", "plantation.shp")
+  if path.exist?
+    loader.count :cultivable_zones_shapes do |w|
+      #############################################################################
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          if record.geometry
+            shapes[record.attributes['BLOC']] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
+          end
+          w.check_point
+        end
+      end
+    end
+  end
+
+  # orchard inventory
+
+  path = loader.path("unicoque", "inventaire_verger.csv")
+  if path.exist?
+    loader.count :unicoque_orchard do |w|
+      CSV.foreach(path, headers: true, col_sep: ";") do |row|
+        next if row[0].blank?
+        r = OpenStruct.new(name: row[34].to_s + " - [" + row[19].to_s.capitalize! + "]",
+                           bloc: row[32].to_s,
+                           # cultivable_zone_code: (row[3].blank? ? nil : row[3].to_s),
+                           rows_interval: (row[9].blank? ? nil : row[9].gsub(",",".").to_d),
+                           plants_interval: (row[10].blank? ? nil : row[10].gsub(",",".").to_d),
+                           plants_population: (row[11].blank? ? nil : row[11].to_d),
+                           surface_area: (row[12].blank? ? nil : row[12].gsub(",",".").to_d),
+                           measured_at: (row[1].blank? ? nil : (row[1].to_s + "-01-01 00:00").to_datetime),
+                           born_at: (row[13].blank? ? nil : (row[13].to_s + "-01-01 00:00").to_datetime),
+                           variety: (row[7].blank? ? nil : varieties_transcode[row[7].to_s]),
+                           reference_variant: (row[35].to_s == '21' ? :hazel_crop : :walnut_crop )
+                           )
+        # find or import from variant reference_nameclature the correct ProductNatureVariant
+        variant = ProductNatureVariant.find_or_import!(r.variety).first || ProductNatureVariant.import_from_nomenclature(r.reference_variant)
+        pmodel = variant.nature.matching_model
+        # find the container
+        #unless container = Product.first #find_by_work_number(r.cultivable_zone_code)
+        #  raise "No container for cultivation!"
+        #end
+
+        # create the plant
+        plant = pmodel.create!(:variant_id => variant.id, :work_number => "PLANT_" + r.bloc,
+                                 :name => r.name, :initial_born_at => r.born_at, :initial_owner => Entity.of_company, :variety => r.variety#, :initial_container => container
+                                 )
+
+        # create indicators linked to plant
+        if geometry = shapes[r.bloc]
+          plant.read!(:shape, geometry, at: r.born_at, force: true)
+        end
+        plant.read!(:population, r.surface_area, at: r.measured_at) if r.surface_area
+        plant.read!(:rows_interval, r.rows_interval.in_meter, at: r.measured_at) if r.rows_interval
+        plant.read!(:plants_interval, r.plants_interval.in_meter, at: r.measured_at) if r.plants_interval
+        # build density
+        plant.read!(:plants_count, (r.plants_population / r.surface_area).to_i, at: r.measured_at) if (r.plants_population and r.surface_area)
+
+        w.check_point
+      end
+    end
+
+  end
 
 end
