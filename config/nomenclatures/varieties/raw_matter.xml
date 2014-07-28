@@ -52,7 +52,8 @@
       <item name="raspberry" derivative_of="rubus"/>
       <item name="strawberry" derivative_of="fragaria"/>
       <item name="grain" derivative_of="plant"/>
-      <item name="walnut" derivative_of="plant"/>
+      <item name="walnut" derivative_of="juglans"/>
+      <item name="hazelnut" derivative_of="corylus"/>
     </items>
   </nomenclature>
 

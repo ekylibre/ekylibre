@@ -401,6 +401,24 @@
             variable_indicators="population, reference_year"
             frozen_indicators="net_mass, net_volume"
             />
+      <item name="hazelnut"
+            category="fruit"
+            variety="hazelnut"
+            derivative_of="corylus"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, water_content_rate"
+            frozen_indicators="net_mass"
+            />
+       <item name="walnut"
+            category="fruit"
+            variety="walnut"
+            derivative_of="juglans"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, water_content_rate"
+            frozen_indicators="net_mass"
+            />
       <!-- PROCESS PRODUCT  -->
       <item name="wine"
             category="wine"

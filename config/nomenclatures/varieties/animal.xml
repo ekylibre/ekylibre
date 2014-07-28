@@ -34,6 +34,11 @@
       <item name="apis"/>
       <item name="scaphoideus_titanus"/>
       <item name="empoasca_vitis"/>
+      <item name="cydia_pomonella"/>
+      <item name="aphidoidea"/>
+      <item name="coccoidea"/>
+      <item name="rhagoletis_completa"/>
+      <item name="curculio_nucum"/> <!-- http://www7.inra.fr/hyppz/glossair.htm -->
     </items>
   </nomenclature>
 

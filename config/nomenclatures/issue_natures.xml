@@ -51,9 +51,17 @@
   <!-- level 3 - branch 1 -->
   <nomenclature name="issue_natures-fungus_disease">
     <items>
-      <item name="vine_powdery_mildew" cause="uncinula_necator" target="vitis"/> <!-- http://fr.wikipedia.org/wiki/Erysiphe_necator http://en.wikipedia.org/wiki/Powdery_mildew -->
+      <item name="vine_powdery_mildew" cause="uncinula_necator"    target="vitis"/> <!-- http://fr.wikipedia.org/wiki/Erysiphe_necator http://en.wikipedia.org/wiki/Powdery_mildew -->
       <item name="vine_mildew"         cause="plasmopara_viticola" target="vitis"/>
-      <item name="noble_rot"           cause="botrytis_cinerea" target="grape"/>
+      <item name="noble_rot"           cause="botrytis_cinerea"    target="grape"/>
+      <!-- fungus on hazelnut plant -->
+      <item name="fomitiporia"         cause="fomitiporia"         target="corylus"/> <!-- fomitiporia -->
+      <item name="pourridie_rot"       cause="fungus"              target="corylus"/> <!-- pourridié -->
+      <!-- fungus on walnut plant -->
+      <item name="anthracnose"         cause="fungus"              target="juglans"/> <!-- anthracnose -->
+      <item name="phytophthora"        cause="fungus"              target="juglans"/> <!-- phytophthora -->
+
+
     </items>
   </nomenclature>
 
@@ -62,6 +70,13 @@
     <items>
       <item name="grapevine_yellows"  target="vitis"/> <!-- cause="candidatus_phytoplasma_vitis" http://fr.wikipedia.org/wiki/Flavescence_dor%C3%A9e -->
       <item name="mammite"            target="mammalia"/>
+       <!-- bacteria on walnut plant -->
+      <item name="bacteriosis"        cause="xanthomonas_arboricola"  target="juglans"/> <!-- bactériose -->
+
+
+
+
+
     </items>
   </nomenclature>
 
@@ -70,6 +85,15 @@
     <items>
       <item name="scaphoideus_titanus_leafhopper" cause="scaphoideus_titanus" target="vitis"/><!--http://fr.wikipedia.org/wiki/Cicadelle_de_la_vigne -->
       <item name="empoasca_vitis_leafhopper" cause="empoasca_vitis" target="vitis"/><!--http://fr.wikipedia.org/wiki/Cicadelle_des_grillures_de_la_vigne -->
+      <item name="codling_moth" cause="cydia_pomonella"     target="plant"/> <!-- carpocapse -->
+      <item name="aphid"        cause="aphidoidea"          target="plant"/> <!-- puceron -->
+      <item name="scale_insect" cause="coccoidea"           target="plant"/> <!-- cochenille -->
+      <item name="husk_fly"     cause="rhagoletis_completa" target="juglans"/> <!-- mouche du brou -->
+
+
+
+
+
     </items>
   </nomenclature>
 </nomenclatures>

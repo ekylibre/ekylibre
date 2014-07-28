@@ -1583,8 +1583,12 @@ eng:
         treatments: "Treatments"
       items:
         accident: "Accident"                               #< issue
+        anthracnose: "Anthracnose"                         #< fungus_disease
+        aphid: "Aphid"                                     #< insecta_disease
         bacteria_disease: "Bacteria disease"               #< disease
+        bacteriosis: "Bacteriosis"                         #< bacteria_disease
         climate_issue: "Climate issue"                     #< issue
+        codling_moth: "Codling moth"                       #< insecta_disease
         cough: "Cough"                                     #< disease
         diarrhea: "Diarrhea"                               #< disease
         disease: "Disease"                                 #< issue
@@ -1594,8 +1598,10 @@ eng:
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
+        fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
         grapevine_yellows: "Grapevine yellows"             #< bacteria_disease
+        husk_fly: "Husk fly"                               #< insecta_disease
         insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
         limping: "Limping"                                 #< disease
@@ -1603,9 +1609,12 @@ eng:
         mechanical_issue: "Mechanical issue"               #< issue
         nematoda_disease: "Nematoda disease"               #< disease
         noble_rot: "Noble rot"                             #< fungus_disease
+        phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
+        pourridie_rot: "Pourridie rot"                     #< fungus_disease
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease
+        scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
         vine_mildew: "Vine mildew"                         #< fungus_disease
         vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
@@ -2113,6 +2122,7 @@ eng:
         bulk_kg_animal_food: "Bulk kg animal food"
         bulk_urea_46: "Bulk urea 46"
         bulk_wheat_straw: "Bulk wheat straw"
+        butler_hazelnut: "Butler hazelnut"
         calcium_carbonate_25kg: "Calcium carbonate 25kg"
         calf: "Calf"
         caphorn_wheat_crop: "Caphorn wheat crop"
@@ -2125,6 +2135,7 @@ eng:
         cattle_manure: "Cattle manure"
         cattle_slurry: "Cattle slurry"
         cereals_feed_bag_25: "Cereals feed bag 25"
+        chandler_walnut: "Chandler walnut"
         chemical_fertilizer_division: "Chemical fertilizer division"
         complete_herbicide: "Complete herbicide"
         concrete_tank: "Concrete tank"
@@ -2217,6 +2228,7 @@ eng:
         coop:trefle_v__segur_s10k: "Coop:trefle v  segur s10k"
         coop:uree_gr_vrac: "Coop:uree gr vrac"
         coop:vesce_velue_savane_hiver_10k: "Coop:vesce velue savane hiver 10k"
+        corabel_hazelnut: "Corabel hazelnut"
         corker: "Corker"
         corn_crop: "Corn crop"
         corn_grain: "Corn grain"
@@ -2237,6 +2249,7 @@ eng:
         duck_slurry: "Duck slurry"
         electricity: "Electricity"
         employee: "Employee"
+        ennis_hazelnut: "Ennis hazelnut"
         equipment: "Equipment"
         equipment_building_division: "Equipment building division"
         escourgeon_barley_crop: "Escourgeon barley crop"
@@ -2253,12 +2266,18 @@ eng:
         female_adult_sheep_herd: "Female adult sheep herd"
         female_hen_band: "Female hen band"
         female_young_cow: "Female young cow"
+        fercoril_corabel_hazelnut: "Fercoril corabel hazelnut"
+        feriale_hazelnut: "Feriale hazelnut"
+        fernor_walnut: "Fernor walnut"
+        fertile_coutard_hazelnut: "Fertile coutard hazelnut"
+        fertile_hazelnut: "Fertile hazelnut"
         fiberglass_tank: "Fiberglass tank"
         fig_crop: "Fig crop"
         fig_seedling: "Fig seedling"
         food_equipment_division: "Food equipment division"
         food_tank: "Food tank"
         forager: "Forager"
+        franquette_walnut: "Franquette walnut"
         freezer_tank: "Freezer tank"
         frozen_fruit: "Frozen fruit"
         fruit_derivative_good: "Fruit derivative good"
@@ -2291,6 +2310,7 @@ eng:
         hazel_crop: "Hazel crop"
         hazel_reaper: "Hazel reaper"
         hazel_seedling: "Hazel seedling"
+        hazelnut: "Hazelnut"
         helianthus_herbicide: "Helianthus herbicide"
         hen_compost: "Hen compost"
         hen_guano: "Hen guano"
@@ -2300,17 +2320,21 @@ eng:
         hoe: "Hoe"
         horse_manure: "Horse manure"
         horsebean_crop: "Horsebean crop"
+        howard_walnut: "Howard walnut"
         hydraulic_oil: "Hydraulic oil"
         implanter: "Implanter"
         insecticide: "Insecticide"
         inseminator: "Inseminator"
         irrigation_water: "Irrigation water"
+        jemstegaard_hazelnut: "Jemstegaard hazelnut"
         lactic_acid_25kg: "Lactic acid 25kg"
         lamb: "Lamb"
         land_parcel: "Land parcel"
         land_parcel_cluster: "Land parcel cluster"
+        lara_walnut: "Lara walnut"
         lavender_crop: "Lavender crop"
         lentil_crop: "Lentil crop"
+        lewis_hazelnut: "Lewis hazelnut"
         liquid_10_25_d1.4: "Liquid 10 25 d1.4"
         liquid_10_34_d1.4: "Liquid 10 34 d1.4"
         liquid_nitrogen_30_d1.3: "Liquid nitrogen 30 d1.3"
@@ -2330,6 +2354,7 @@ eng:
         meadow_grass: "Meadow grass"
         melon_crop: "Melon crop"
         merlot_noir_so4_vine_seedling: "Merlot noir so4 vine seedling"
+        merveille_hazelnut: "Merveille hazelnut"
         milk_tank: "Milk tank"
         milking_division: "Milking division"
         mineral_cleaner: "Mineral cleaner"
@@ -2346,6 +2371,7 @@ eng:
         mud: "Mud"
         natural_cork: "Natural cork"
         natural_water: "Natural water"
+        negret_hazelnut: "Negret hazelnut"
         nomacorc_cork: "Nomacorc cork"
         oenological_yeast_sc_500g: "Oenological yeast sc 500g"
         office_building: "Office building"
@@ -2355,6 +2381,7 @@ eng:
         ovis_compost: "Ovis compost"
         ovis_manure: "Ovis manure"
         oyster_band: "Oyster band"
+        pauetet_hazelnut: "Pauetet hazelnut"
         pea_crop: "Pea crop"
         pea_grain: "Pea grain"
         pea_seed: "Pea seed"
@@ -2383,6 +2410,7 @@ eng:
         raspberry_seedling: "Raspberry seedling"
         reaper: "Reaper"
         riflexine: "Riflexine"
+        ronde_de_piemont_hazelnut: "Ronde de piemont hazelnut"
         rose_crop: "Rose crop"
         rose_seedling: "Rose seedling"
         running_water: "Running water"
@@ -2394,6 +2422,7 @@ eng:
         screed_building: "Screed building"
         seed: "Seed"
         seedling: "Seedling"
+        segorbe_hazelnut: "Segorbe hazelnut"
         settlement: "Settlement"
         sheep_herd: "Sheep herd"
         silage_distributor: "Silage distributor"
@@ -2431,6 +2460,7 @@ eng:
         technician: "Technician"
         temporary_meadow_crop: "Temporary meadow crop"
         tobacco_crop: "Tobacco crop"
+        tonda_giffoni_hazelnut: "Tonda giffoni hazelnut"
         tractor: "Tractor"
         trailer: "Trailer"
         triticale_crop: "Triticale crop"
@@ -2440,6 +2470,7 @@ eng:
         vine_grape_juice: "Vine grape juice"
         vine_grape_must: "Vine grape must"
         vine_residu: "Vine residu"
+        walnut: "Walnut"
         walnut_crop: "Walnut crop"
         water_spreader: "Water spreader"
         wheat_crop: "Wheat crop"
@@ -2540,6 +2571,7 @@ eng:
         hand_drawn: "Hand drawn"
         hay_rake: "Hay rake"
         hazel_seedling: "Hazel seedling"
+        hazelnut: "Hazelnut"
         hen_band: "Hen band"
         herbicide: "Herbicide"
         hoe: "Hoe"
@@ -2603,6 +2635,7 @@ eng:
         trailer: "Trailer"
         usual_vine_seedling: "Usual vine seedling"
         vial: "Vial"
+        walnut: "Walnut"
         walnut_crop: "Walnut crop"
         water_spreader: "Water spreader"
         wine: "Wine"
@@ -2891,6 +2924,7 @@ eng:
         anas: "Anas"                                       #< aves
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
+        aphidoidea: "Aphidoidea"                           #< insecta
         apiaceae: "Apiaceae"                               #< plant
         apis: "Apis"                                       #< insecta
         apium: "Celery"                                    #< apiaceae
@@ -2901,6 +2935,7 @@ eng:
         avena_evora: "Oat evora"                           #< avena
         avena_une_de_mai: "Oat une de mai"                 #< avena
         aves: "Bird"                                       #< animal
+        bacteria: "Bacteria"                               #< bioproduct
         baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
         beta: "Beta"                                       #< amaranthaceae
@@ -2956,6 +2991,7 @@ eng:
         cichorium: "Cichorium"                             #< asteraceae
         cichorium_endivia: "Curly chicory"                 #< cichorium
         cleaner: "Cleaner"                                 #< equipment
+        coccoidea: "Coccoidea"                             #< insecta
         compost: "Compost"                                 #< excrement
         concentrated_rectified_must: "Concentrated rectified must" #< preparation
         cork: "Cork"                                       #< packaged_matter
@@ -2986,6 +3022,8 @@ eng:
         cucurbita_pepo: "Zucchini"                         #< cucurbita
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
+        curculio_nucum: "Curculio nucum"                   #< insecta
+        cydia_pomonella: "Cydia pomonella"                 #< insecta
         cynara: "Artichoke"                                #< asteraceae
         dactylis: "Dactylis"                               #< poa
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
@@ -3005,6 +3043,7 @@ eng:
         ficus_carica: "Common fig"                         #< ficus
         ficus_carica_saint_pierre: "Common fig Saint-Pierre" #< ficus_carica
         flower: "Flower"                                   #< raw_matter
+        fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
         forager: "Forager"                                 #< equipment
         fragaria: "Fragaria"                               #< rosaceae
@@ -3024,6 +3063,7 @@ eng:
         guano: "Guano"                                     #< excrement
         harvester: "Harvester"                             #< equipment
         hay: "Hay"                                         #< grass
+        hazelnut: "Hazelnut"                               #< fruit
         helianthus: "Sunflower"                            #< asteraceae
         helianthus_annuus: "Annual sunflower"              #< helianthus
         helianthus_annuus_aurasol: "Annual sunflower aurasol" #< helianthus_annuus
@@ -3048,6 +3088,7 @@ eng:
         hordeum_vernum_hypoproteinae: "Spring hordeum hypoproteinae" #< hordeum_vernum
         hordeum_vernum_traveler: "Spring hordeum traveler" #< hordeum_vernum
         hordeum_vulgare: "Hordeum vulgare"                 #< hordeum
+        hymenochaetaceae: "Hymenochaetaceae"               #< fungus
         immatter: "Immatter"                               #< product
         implanter: "Implanter"                             #< equipment
         insecta: "Insecta"                                 #< animal
@@ -3159,6 +3200,7 @@ eng:
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
         reaper: "Reaper"                                   #< equipment
+        rhagoletis_completa: "Rhagoletis completa"         #< insecta
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
         ribes_nigrum_andega: "Blackcurrant Andega"         #< ribes_nigrum
@@ -3368,6 +3410,9 @@ eng:
         water: "Water"                                     #< matter
         wine: "Wine"                                       #< fermented_juice
         worker: "Worker"                                   #< product
+        xanthomonadaceae: "Xanthomonadaceae"               #< bacteria
+        xanthomonas: "Xanthomonas"                         #< xanthomonadaceae
+        xanthomonas_arboricola: "Xanthomonas arboricola"   #< xanthomonas
         yeast: "Yeast"                                     #< preparation
         zea: "Corn"                                        #< poaceae
         zea_aallexia: "Corn Aallexia"                      #< zea
