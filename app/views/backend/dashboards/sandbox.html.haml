@@ -51,27 +51,60 @@
   start_crumb = Crumb.where("nature = 'start'").first
   stop_crumb = Crumb.where("nature = 'stop'").first
 
+  # Tries to guess all actors of a procedure from a trip.
+  #
+  # ==== Parameters:
+  # - trip, a Trip object
+  #
+  # ==== What it does
+  # this method first deduces the worker from crumbs' user_id.
+  # It tries to deduce equipment from start and stop crumbs. If none was found it tries with
+  # all crumbs between start and the first hard start or the 10 first crumbs if there's no hard_start
+  # then it tries to deduce target plants, cultivable zones, building divisions, production supports or equipment
+  # from hard_start and hard_stop crumbs if there are hard_start and hard_stop crumbs
+  # finally, it tries to deduce all possible actors from all crumbs
+
+  #def actors_from(*crumbs)
+    #crumbs.flatten!
+    #start_stop_crumbs = crumbs.select{|crumb| %w{ 'start' 'stop' }.include?(crumb.nature)}
+    #hard_start_crumbs = crumbs.select{|crumb| crumb.nature == 'hard_start'}
+    #actors = {}
+    #actors[:doer] << Product.find(crumbs.first.user_id)
+    #actors[:building_divisions] << actors_matching(crumbs, natures: [BuildingDivision], intersection: true)
+    #actors[:equipment] << actors_matching(start_stop_crumbs, natures: Equipment)
+    #actors[:building_divisions].each do |bd|
+    #  bd.contains.to_a.each{|localization| actors[:equipment] << localization.product if localization.product.is_a?(Equipment)}
+    #end
+    #actors[:targets] << actors_matching(hard_start_crumbs, natures: [CultivableZone, Plant])
+    #actors[:production_supports] << nil
+    #actors[:all]<< nil
+    #actors
+  #end
+
   # listing possibles products matching a point
   # using postgis operators on geometry objects
-  # @param: crumb, a _Crumb object
-  # @returns: an array of products whose shape contains the crumb
-  # the method only matches plants, cultivable zones, building divisions or equipments
-  def actors_containing(crumb)
-    actors_id = ProductReading.where("geometry_value ~ (SELECT geolocation FROM crumbs WHERE id ='#{crumb.id}')").pluck(:product_id)
+  # == params:
+  #   - crumbs, a set of Crumb objects
+  # == options
+  #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
+  #     the method returns only actors that include the crumbs.
+  #   - natures: matches all actors whose nature is given. By default the method returns Plant, CultivableZone,
+  #     BuildingDivision and Equipment objects.
+  # @returns: an array of products whose shape contains or intersects the crumbs
+  # the method only matches plants, cultivable zones, building divisions or equipment
+  def actors_matching(*crumbs, options = {})
+    operator = '~'
+    operator = '&&' if options[:intersection]
+    options[:natures] ||= [Plant, CultivableZone, BuildingDivision, Equipment]
+    crumbs.flatten!
+    crumbs_id = []
+    crumbs.each {|crumb| crumbs_id << crumb.id }
+    actors_id = ProductReading.
+      where("geometry_value #{operator} (SELECT ST_Multi(ST_Collect(geolocation)) FROM (SELECT geolocation FROM crumbs WHERE id IN (#{crumbs_id.join(', ')})) AS m)").pluck(:product_id)
     Product.find(actors_id).
-      delete_if{|actor| [Plant, CultivableZone, BuildingDivision, Equipment].
-        inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
-  end
-
-  # detects possible production supports matching a point
-  # using postgis operators on geometry objects
-  # @param: crumb, a _Crumb object
-  # @returns: an array of production supports whose shape contains the crumb among products involved in current campaigns
-  def production_supports_containing(crumb)
-    production_support_ids = ProductionSupport.of_campaign(Campaign.currents.last).joins(:campaign, :storage).
-                              joins('INNER JOIN product_readings ON product_readings.product_id = products.id').
-                              where("geometry_value ~ (SELECT geolocation FROM crumbs WHERE id ='#{crumb.id}')").pluck(:product_id)
-    Product.find(production_support_ids)
+      delete_if{|actor| options[:natures].
+      flatten.
+      inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
   end
 
   # this method aims at identifying potential
@@ -85,7 +118,7 @@
     crumbs.flatten!
     result = []
     crumbs.each do |crumb|
-      actors_containing(crumb).to_a.each do |actor|
+      actors_matching(crumb).to_a.each do |actor|
         result << actor if actor.is_a? CultivableZone
         result << actor if actor.is_a? Plant
         if actor.is_a? BuildingDivision
@@ -110,7 +143,7 @@
     crumbs.flatten!
     result = []
     crumbs.each do |crumb|
-      actors_containing(crumb).to_a.each do |actor|
+      actors_matching(crumb).to_a.each do |actor|
         if actor.is_a? BuildingDivision
           actor.contains.to_a.each do |localization|
             result << localization.product
@@ -174,69 +207,21 @@
     hard_crumbs_data << item
   end
 
-  ## crumbs grouped in paths
-  ## first actual intervention path (crumbs between first hard_start and first hard_stop)
-  #sql = ""
-  #sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
-  #sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
-  #sql << "    ("
-  #sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
-  #sql << "      ("
-  #sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
-  #sql << "          WHERE read_at"
-  #sql << "          BETWEEN"
-  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_start' ORDER BY read_at LIMIT 1)"
-  #sql << "          AND"
-  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'hard_stop' ORDER BY read_at LIMIT 1)"
-  #sql << "      ORDER BY read_at"
-  #sql << "      ) AS actual_job"
-  #sql << "    ) AS multipoint"
-  #sql << "  #) AS m"
-  #ActiveRecord::Base.connection.execute(sql).each do |path|
-  #  job_path = path.values.first #Charta::Geometry.new(path, 4326)
-  #  item = {
-  #    name: 'actual job',
-  #    shape: Charta::Geometry.new(job_path),
-  #    nature: 'actual job',
-  #    accuracy: 1.0
-  #  }
-  #  # paths_data << item
-  #  crumbs_data << item
-  #end
+  def identify_production_supports_from(*crumbs)
+    crumbs_id = []
+    crumbs.flatten!
+    crumbs.each {|crumb| crumbs_id << crumb.id }
+    res = []
+    where_clause = "geometry_value && (SELECT ST_Multi(ST_Collect(geolocation)) FROM "
+    where_clause << "(SELECT geolocation FROM crumbs WHERE id IN (#{crumbs_id.join(', ')})) AS m)"
+    ProductionSupport.of_campaign(Campaign.currents).includes({production: [:activity, :campaign, :variant]}, :storage)
+      .joins(:storage)
+      .joins("INNER JOIN product_readings ON products.id = product_readings.product_id")
+      .where(where_clause)
+  end
 
-  ## then the whole intervention i.e from start to stop
-  #sql = ""
-  #sql << "  SELECT ST_AsEwkt(m.multiline) FROM("
-  #sql << "  SELECT ST_LineFromMultiPoint(multipoint.actual_job_path) AS multiline FROM"
-  #sql << "    ("
-  #sql << "      SELECT ST_Collect(actual_job.geolocation) AS actual_job_path FROM"
-  #sql << "      ("
-  #sql << "        SELECT id, read_at, nature, geolocation FROM crumbs"
-  #sql << "          WHERE read_at"
-  #sql << "          BETWEEN"
-  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'start' ORDER BY read_at LIMIT 1)"
-  #sql << "          AND"
-  #sql << "            (SELECT read_at FROM crumbs WHERE nature = 'stop' ORDER BY read_at LIMIT 1)"
-  #sql << "      ORDER BY read_at"
-  #sql << "      ) AS actual_job"
-  #sql << "    ) AS multipoint"
-  #sql << "  ) AS m"
-
-  #ActiveRecord::Base.connection.execute(sql).each do |path|
-  #  job_path = path.values.first #Charta::Geometry.new(path, 4326)
-  #  item = {
-  #    name: 'actual job',
-  #    shape: Charta::Geometry.new(job_path),
-  #    nature: 'whole intervention',
-  #    accuracy: 1.0
-  #  }
-  #  # paths_data << item
-  #  crumbs_data << item
-  #end
-
-  campaign = Campaign.currents.last
   data = []
-  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+  identify_production_supports_from(start_crumb, stop_crumb, hard_start_crumb, hard_stop_crumb).find_each do |support|
     popup_content = []
     # for support
 
@@ -297,9 +282,6 @@
     data << item
   end
 
-  provisional_interventions = Intervention.provisional
-  #provisional_interventions = Intervention.where("started_at > '#{Time.now - 3.months}'").limit(3)
-
   all_actors = []
   all_actors << identify_possible_equipments_from(start_crumb, stop_crumb)
   all_actors << identify_possible_targets_from(hard_start_crumb, hard_stop_crumb)
@@ -354,13 +336,13 @@
     #             | -> trash      | -> trash          | -> trip_end       | -> trash      | -> trash          | -> trash          | -> trash
     #-------------------------------------------------------------------------------------------------------------------------------------------
 
-    actions = [ [store,   trash_and_restart,                      trash_and_restart,  store, trash_and_restart,   trash_and_restart, trash_and_restart], # start
-                [store,   store,              store,              store,              store,               store,             store            ], # point
-                [store,   store,              store,              store,              store,               store,             store            ], # hard_start
-                [store,   store,              store,              store,              store,               store,             store            ], # hard_stop
-                [store,   pausing,            pausing,            store,              pausing,             store,             store            ], # pause
-                [store,   store,              store,              store,              store,               resuming,          store            ], # resume
-                [store,   store,              save_trip,          store,              store,               store,             store            ]  # stop
+    actions = [ [store,   trash_and_restart,  trash_and_restart,  store,  trash_and_restart,   trash_and_restart, trash_and_restart], # start
+                [store,   store,              store,              store,  store,               store,             store            ], # point
+                [store,   store,              store,              store,  store,               store,             store            ], # hard_start
+                [store,   store,              store,              store,  store,               store,             store            ], # hard_stop
+                [store,   pausing,            pausing,            store,  pausing,             store,             store            ], # pause
+                [store,   store,              store,              store,  store,               resuming,          store            ], # resume
+                [store,   store,              save_trip,          store,  store,               store,             store            ]  # stop
               ]
 
     state_change = [  [:trip_start, :trip_start, :trip_start, :trip_start,   :trip_start, :trip_start,  :trip_start ], # start
@@ -398,23 +380,19 @@
   rendering = activated
 
 - if rendering
-  %h2 testing trip generator
-  %h3 inspecting trips
-  number of valid trips:
-  = trips[:trips].count
-  %h3 inspecting trash
-  number of invalid trips:
-  = trips[:trash].count
-  - trips[:trash].each do |invalid_trip|
-    %h4.bold invalid trip to inspect:
+  %h2 inspecting
+  %h3 actors from crumbs
+  - trips[:trips].each do |trip|
+    .bold
+      inspecting trip
     %ul
-      - invalid_trip.each do |crumb|
+      - actors_from(trip).each do |key, value|
         %li.key
-          = crumb.nature
+          key
         %li.result
-          = crumb.read_at
-
-
+          - value.flatten.each do |actor|
+            = actor.name
+            %br
   = beehive do |b|
     -b.cell :map do
       = visualization do |v|
