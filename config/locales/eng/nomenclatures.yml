@@ -1582,6 +1582,7 @@ eng:
         target: "Target"
         treatments: "Treatments"
       items:
+        acarine_gall_mite: "Acarine gall mite"             #< insecta_disease
         accident: "Accident"                               #< issue
         anthracnose: "Anthracnose"                         #< fungus_disease
         aphid: "Aphid"                                     #< insecta_disease
@@ -1590,6 +1591,8 @@ eng:
         climate_issue: "Climate issue"                     #< issue
         codling_moth: "Codling moth"                       #< insecta_disease
         cough: "Cough"                                     #< disease
+        croesus_septentrionalis: "Croesus septentrionalis" #< insecta_disease
+        defoliant_caterpillar: "Defoliant caterpillar"     #< insecta_disease
         diarrhea: "Diarrhea"                               #< disease
         disease: "Disease"                                 #< issue
         edema: "Edema"                                     #< disease
@@ -1605,10 +1608,12 @@ eng:
         insecta_disease: "Insecta disease"                 #< disease
         issue: "Issue"
         limping: "Limping"                                 #< disease
+        longhorn_beetle: "Longhorn beetle"                 #< insecta_disease
         mammite: "Mammite"                                 #< bacteria_disease
         mechanical_issue: "Mechanical issue"               #< issue
         nematoda_disease: "Nematoda disease"               #< disease
         noble_rot: "Noble rot"                             #< fungus_disease
+        nut_weevil: "Nut weevil"                           #< insecta_disease
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
@@ -1618,6 +1623,8 @@ eng:
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
         vine_mildew: "Vine mildew"                         #< fungus_disease
         vine_powdery_mildew: "Vine powdery mildew"         #< fungus_disease
+        wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
+        yellow_acarine: "Yellow acarine"                   #< insecta_disease
     lands:
       name: "Lands"
       items:
@@ -2988,6 +2995,7 @@ eng:
         cannabis_sativa: "Hemp"                            #< cannabis
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< mammalia
+        cerambycidae: "Cerambycidae"                       #< insecta
         cichorium: "Cichorium"                             #< asteraceae
         cichorium_endivia: "Curly chicory"                 #< cichorium
         cleaner: "Cleaner"                                 #< equipment
@@ -3016,6 +3024,7 @@ eng:
         corylus_avellana_tonda_giffoni: "Common hazel Tonda Giffoni" #< corylus_avellana
         crocus: "Crocus"                                   #< iridaceae
         crocus_sativus: "Saffron crocus"                   #< crocus
+        croesus_septentrionalis: "Croesus septentrionalis" #< insecta
         cucumis: "Cucumis"                                 #< cucurbitaceae
         cucumis_melo: "Muskmelon"                          #< cucumis
         cucurbita: "Cucurbita"                             #< cucurbitaceae
@@ -3033,6 +3042,7 @@ eng:
         egg: "Egg"                                         #< raw_matter
         electricity: "Electricity"                         #< matter
         empoasca_vitis: "Empoasca vitis"                   #< insecta
+        eotetranychus_coryli: "Eotetranychus coryli"       #< insecta
         equipment: "Equipment"                             #< matter
         equus: "Equine"                                    #< mammalia
         erysiphaceae: "Erysiphaceae"                       #< fungus
@@ -3141,6 +3151,7 @@ eng:
         nicotiana_tabacum_virginie: "Cultivated tobacco Virginie" #< nicotiana_tabacum
         numida: "Helmeted Guineafowl"                      #< aves
         oil: "Oil"                                         #< raw_matter
+        operophtera_brumata: "Operophtera brumata"         #< insecta
         oryza: "Rice"                                      #< poaceae
         osteichthyes: "Osteichthyes"                       #< animal
         ostreidae: "Ostreidae"                             #< mollusca
@@ -3151,6 +3162,7 @@ eng:
         peronosporaceae: "Peronosporaceae"                 #< fungus
         phacelia: "Phacelia"                               #< boraginaceae
         phaseolus: "Phaseolus"                             #< fabaceae
+        phytoptus_avellanae: "Phytoptus avellanae"         #< insecta
         pisum: "Pea"                                       #< fabaceae
         pisum_hibernum: "Winter pea"                       #< pisum
         pisum_vernum: "Spring pea"                         #< pisum
@@ -3424,6 +3436,7 @@ eng:
         zea_lg3530: "Corn LG 35.30"                        #< zea
         zea_mays_saccharata: "Sweet corn"                  #< zea
         zea_shannon: "Corn Shannon"                        #< zea
+        zeuzera_pyrina: "Zeuzera pyrina"                   #< insecta
         zone: "Zone"                                       #< product
         zone_property_title: "Zone property title"         #< property_title
     working_sets:

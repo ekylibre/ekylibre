@@ -39,6 +39,16 @@
       <item name="coccoidea"/>
       <item name="rhagoletis_completa"/>
       <item name="curculio_nucum"/> <!-- http://www7.inra.fr/hyppz/glossair.htm -->
+      <item name="phytoptus_avellanae"/>
+      <item name="operophtera_brumata"/>
+      <item name="eotetranychus_coryli"/>
+      <item name="croesus_septentrionalis"/>
+      <item name="cerambycidae"/>
+      <item name="zeuzera_pyrina"/>
+
+
+
+
     </items>
   </nomenclature>
 
