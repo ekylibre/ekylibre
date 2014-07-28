@@ -57,7 +57,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   before_validation do
     if self.product
       self.population = self.product.population
-      self.shape = self.product.population
+      self.shape = self.product.shape if self.product.shape
     end
     true
   end
