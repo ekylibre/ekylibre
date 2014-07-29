@@ -37,8 +37,8 @@
 
   require 'benchmark'
   
-  activated = false 
-  if activated 
+  activated = true
+  if activated
 
   ############################
   # generating data for test #
@@ -64,27 +64,26 @@
   # from hard_start and hard_stop crumbs if there are hard_start and hard_stop crumbs
   # finally, it tries to deduce all possible actors from all crumbs
 
-  #def actors_from(*crumbs)
-    #crumbs.flatten!
-    #start_stop_crumbs = crumbs.select{|crumb| %w{ 'start' 'stop' }.include?(crumb.nature)}
-    #hard_start_crumbs = crumbs.select{|crumb| crumb.nature == 'hard_start'}
-    #actors = {}
-    #actors[:doer] << Product.find(crumbs.first.user_id)
-    #actors[:building_divisions] << actors_matching(crumbs, natures: [BuildingDivision], intersection: true)
-    #actors[:equipment] << actors_matching(start_stop_crumbs, natures: Equipment)
-    #actors[:building_divisions].each do |bd|
-    #  bd.contains.to_a.each{|localization| actors[:equipment] << localization.product if localization.product.is_a?(Equipment)}
-    #end
-    #actors[:targets] << actors_matching(hard_start_crumbs, natures: [CultivableZone, Plant])
-    #actors[:production_supports] << nil
-    #actors[:all]<< nil
-    #actors
-  #end
+  def actors_from(crumbs, options = {})
+    start_stop_crumbs = crumbs.select{|crumb| crumb.nature == 'start' || crumb.nature == 'stop'}
+    hard_start_crumbs = crumbs.select{|crumb| crumb.nature == 'hard_start'}
+    actors = {}
+    actors[:doer] = User.find(crumbs.first.user_id)
+    actors[:equipment] = identify_possible_equipments_from(start_stop_crumbs)
+    actors[:targets] = []
+    hard_start_crumbs.each do |crumb|
+      actors[:targets] << actors_matching(crumb, natures: [CultivableZone, Plant])
+    end
+    actors[:targets] = actors[:targets].flatten.uniq
+    # actors[:production_supports] << nil
+    # actors[:all]<< nil
+    actors
+  end
 
   # listing possibles products matching a point
   # using postgis operators on geometry objects
   # == params:
-  #   - crumbs, a set of Crumb objects
+  #   - crumbs, an array of Crumb objects
   # == options
   #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
   #     the method returns only actors that include the crumbs.
@@ -92,11 +91,11 @@
   #     BuildingDivision and Equipment objects.
   # @returns: an array of products whose shape contains or intersects the crumbs
   # the method only matches plants, cultivable zones, building divisions or equipment
-  def actors_matching(*crumbs, options = {})
+  def actors_matching(crumbs, options = {})
     operator = '~'
     operator = '&&' if options[:intersection]
     options[:natures] ||= [Plant, CultivableZone, BuildingDivision, Equipment]
-    crumbs.flatten!
+    crumbs = [crumbs].flatten
     crumbs_id = []
     crumbs.each {|crumb| crumbs_id << crumb.id }
     actors_id = ProductReading.
@@ -118,7 +117,7 @@
     crumbs.flatten!
     result = []
     crumbs.each do |crumb|
-      actors_matching(crumb).to_a.each do |actor|
+      actors_matching([crumb]).to_a.each do |actor|
         result << actor if actor.is_a? CultivableZone
         result << actor if actor.is_a? Plant
         if actor.is_a? BuildingDivision
@@ -143,7 +142,7 @@
     crumbs.flatten!
     result = []
     crumbs.each do |crumb|
-      actors_matching(crumb).to_a.each do |actor|
+      actors_matching([crumb]).to_a.each do |actor|
         if actor.is_a? BuildingDivision
           actor.contains.to_a.each do |localization|
             result << localization.product
@@ -221,7 +220,7 @@
   end
 
   data = []
-  identify_production_supports_from(start_crumb, stop_crumb, hard_start_crumb, hard_stop_crumb).find_each do |support|
+  identify_production_supports_from(Crumb.all).find_each do |support|
     popup_content = []
     # for support
 
@@ -372,27 +371,33 @@
     result[:trash] = trash
     result
   end
-
-  trips = trip_generator
   
   end # 'activated' block
 
   rendering = activated
 
 - if rendering
-  %h2 inspecting
-  %h3 actors from crumbs
-  - trips[:trips].each do |trip|
-    .bold
-      inspecting trip
-    %ul
-      - actors_from(trip).each do |key, value|
-        %li.key
-          key
-        %li.result
-          - value.flatten.each do |actor|
-            = actor.name
-            %br
+  -#%h2 inspecting
+  -#%h3 actors from crumbs
+  -#- trip_generator[:trips].each do |trip|
+  -#  - unless trip.blank?
+  -#    .bold
+  -#      inspecting crumbs
+  -#    %ul
+  -#      - trip.each do |crumb|
+  -#        %li.variety
+  -#          = crumb.nature if crumb.nature != 'point'
+  -#    .bold
+  -#      inspecting trip
+  -#    %ul
+  -#      - actors_from(trip).each do |key, value|
+  -#        %li.key
+  -#          = key
+  -#        %li.result
+  -#          - [value].flatten.each do |actor|
+  -#            = actor.name
+  -#            %br
+  %h2 Fake show view
   = beehive do |b|
     -b.cell :map do
       = visualization do |v|
@@ -416,3 +421,4 @@
         = render 'works', procedures: Intervention.match(actors_found_from_crumbs, max_arity: true)
     - b.cell :interventions do
       = render 'interventions'
+
