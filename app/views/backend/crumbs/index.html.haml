@@ -1,0 +1,16 @@
+= beehive do |b|
+  -b.cell :map do
+    = visualization do |v|
+      -# v.serie :main, data
+      -# v.serie :crumbs, crumbs_data
+      -# v.serie :hard_crumbs, hard_crumbs_data
+      -# v.categories :activity, :main
+      -# v.categories :nature, :crumbs
+      -# v.bubbles :accuracy, :hard_crumbs
+      - v.background 'OpenStreetMap.HOT'
+      - v.background 'Thunderforest.Transport'
+      - v.background 'Thunderforest.Outdoors'
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector

@@ -1740,6 +1740,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="crumbs">
+        <page to="backend/crumbs#index"/>
+        <page to="backend/crumbs#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

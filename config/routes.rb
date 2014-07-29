@@ -252,6 +252,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :crumbs
+
     resources :cultivable_zones, concerns: :products do
       member do
         get :list_productions

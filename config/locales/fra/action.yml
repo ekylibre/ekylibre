@@ -135,6 +135,7 @@ fra:
     backend/cells/rss_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
+    backend/crumbs: #?
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
       index: "Zones cultivables"

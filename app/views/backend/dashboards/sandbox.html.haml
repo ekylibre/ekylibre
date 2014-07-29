@@ -36,8 +36,8 @@
 :ruby
 
   require 'benchmark'
-  
-  activated = true
+
+  activated = false
   if activated
 
   ############################
@@ -371,32 +371,32 @@
     result[:trash] = trash
     result
   end
-  
+
   end # 'activated' block
 
   rendering = activated
 
 - if rendering
-  -#%h2 inspecting
-  -#%h3 actors from crumbs
-  -#- trip_generator[:trips].each do |trip|
-  -#  - unless trip.blank?
-  -#    .bold
-  -#      inspecting crumbs
-  -#    %ul
-  -#      - trip.each do |crumb|
-  -#        %li.variety
-  -#          = crumb.nature if crumb.nature != 'point'
-  -#    .bold
-  -#      inspecting trip
-  -#    %ul
-  -#      - actors_from(trip).each do |key, value|
-  -#        %li.key
-  -#          = key
-  -#        %li.result
-  -#          - [value].flatten.each do |actor|
-  -#            = actor.name
-  -#            %br
+  %h2 inspecting
+  %h3 actors from crumbs
+  - trip_generator[:trips].each do |trip|
+    - unless trip.blank?
+      .bold
+        inspecting crumbs
+      %ul
+        - trip.each do |crumb|
+          %li.variety
+            = crumb.nature if crumb.nature != 'point'
+      .bold
+        inspecting trip
+      %ul
+        - actors_from(trip).each do |key, value|
+          %li.key
+            = key
+          %li.result
+            - [value].flatten.each do |actor|
+              = actor.name
+              %br
   %h2 Fake show view
   = beehive do |b|
     -b.cell :map do

@@ -154,6 +154,9 @@ eng:
       # show: "Weather cell: %{name}"
     backend/cells/working_sets_stocks_cells:
       # show: "Working sets stocks cell: %{name}"
+    backend/crumbs:
+      # index: "Crumbs"
+      # show: "Crumb: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"

@@ -175,6 +175,7 @@ spa:
       listing_nodes: "Escoge las informaciones para extraer" #?
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
     backend/contacts: #?
+    backend/crumbs: #?
     backend/cultivable_zones:
       # edit: "Edit cultivable zone: %{name}"
       # index: "Cultivable zones"

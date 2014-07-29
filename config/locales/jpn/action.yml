@@ -133,6 +133,7 @@ jpn:
     backend/cells/rss_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
+    backend/crumbs: #?
     backend/cultivable_zones:
       # edit: "Edit cultivable zone: %{name}"
       # index: "Cultivable zones"

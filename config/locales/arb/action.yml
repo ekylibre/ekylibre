@@ -178,6 +178,7 @@ arb:
     backend/contacts:  #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
+    backend/crumbs: #?
     backend/cultivable_zones:
       # edit: "Edit cultivable zone: %{name}"
       # index: "Cultivable zones"
