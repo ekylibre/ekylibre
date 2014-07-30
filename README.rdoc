@@ -23,10 +23,10 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 == Installation
 
-This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...).
+This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* {Installation (English)}[https://github.com/ekylibre/ekylibre/wiki/Installation-for-developers]
-* {Installation (Français)}[https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances]
+* {English}[https://github.com/ekylibre/ekylibre/wiki/Installation-for-developers]
+* {Français}[https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances]
 
 == Contributing
 
