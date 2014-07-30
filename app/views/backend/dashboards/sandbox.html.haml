@@ -37,7 +37,7 @@
 
   require 'benchmark'
 
-  activated = false
+  activated = true
   if activated
 
   ############################
@@ -418,7 +418,7 @@
       - b.cell :actors do
         = render 'actors', actors_list: all_actors.flatten
       - b.cell :works do
-        = render 'works', procedures: Intervention.match(actors_found_from_crumbs, max_arity: true)
+        = render 'works', procedures: Intervention.match(actors_matching(trip_generator[:trips].first))
     - b.cell :interventions do
       = render 'interventions'
 

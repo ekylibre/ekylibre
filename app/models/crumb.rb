@@ -44,4 +44,45 @@ class Crumb < Ekylibre::Record::Base
   validates_presence_of :accuracy, :geolocation, :nature, :read_at, :user
   #]VALIDATORS]
   serialize :metadata
+
+  # returns all products whose shape contains the crumb
+  def match
+    result = []
+    product_ids = ProductReading.
+        where("geometry_value ~ '#{geolocation}'").pluck(:product_id)
+    Product.find(product_ids).each do |product|
+      result << product
+      if product.is_a? BuildingDivision
+        product.contains(:product, read_at).to_a.each do |localization|
+          result << localization.product
+        end
+      end
+    end
+    result
+  end
+
+  # listing possibles products matching a point
+  # using postgis operators on geometry objects
+  # == params:
+  #   - crumbs, an array of Crumb objects
+  # == options
+  #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
+  #     the method returns only actors that include the crumbs.
+  #   - natures: matches all actors whose nature is given.
+  # @returns: an array of products whose shape contains or intersects the crumbs
+  def self.match(crumbs, options = {})
+    operator = '~'
+    operator = '&&' if options[:intersection]
+    options[:natures] ||= [Product]
+    crumbs = [crumbs].flatten
+    crumbs_id = []
+    crumbs.each {|crumb| crumbs_id << crumb.id }
+    actors_id = ProductReading.
+        where("geometry_value #{operator} (SELECT ST_Multi(ST_Collect(geolocation)) FROM (SELECT geolocation FROM crumbs WHERE id IN (#{crumbs_id.join(', ')})) AS m)").pluck(:product_id)
+    Product.find(actors_id).
+        delete_if{|actor| options[:natures].
+        flatten.
+        inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
+  end
+
 end
