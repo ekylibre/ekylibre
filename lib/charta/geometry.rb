@@ -138,6 +138,17 @@ module Charta
     #   @ewkt = self.merge(other_geometry).ewkt
     # end
 
+    def actors_matching(options = {})
+      operator = '~'
+      operator = '&&' if options[:intersection]
+      options[:nature] ||= Product
+      actors_id = ProductReading.
+        where("geometry_value #{operator} #{self.geom}").pluck(:product_id)
+      return Product.find(actors_id).
+        delete_if{|actor| !actor.is_a?(options[:nature]) || actor == self}.
+        flatten
+    end
+
     def merge(other_geometry)
       other = self.class.new(other_geometry).transform(self.srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{self.geom}, #{other.geom}))"))
