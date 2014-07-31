@@ -156,7 +156,6 @@ eng:
       # show: "Working sets stocks cell: %{name}"
     backend/crumbs:
       # index: "Crumbs"
-      # show: "Crumb: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"
