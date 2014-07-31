@@ -238,8 +238,8 @@ load_data :land_parcels do |loader|
         r = OpenStruct.new(name: row[0].to_s,
                            nature: (row[1].blank? ? nil : row[1].to_sym),
                            code: (row[2].blank? ? nil : row[2].to_s),
-                           shape_number: (row[3].blank? ? nil : row[3].to_s),
-                           members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
+                           shape_number: (row[3].blank? ? nil : row[3].to_s)
+                           #members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
                            )
 
         unless zone = CultivableZone.find_by_work_number(r.code)
@@ -256,18 +256,23 @@ load_data :land_parcels do |loader|
 
         # link cultivable zone and land parcel for each entries
         #
-        for land_parcel_work_number in r.members
-          if land_parcel = LandParcel.find_by_work_number(land_parcel_work_number)
-            if land_parcel.shape
-              cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
-              cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
-                                                                               :member => land_parcel,
-                                                                               :shape => land_parcel.shape,
-                                                                               :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
-                                                                               )
+        if zone.shape
+          zone_shape = Charta::Geometry.new(zone.shape)
+          if products_around = zone_shape.actors_matching(nature: LandParcel)
+            for land_parcel in products_around
+              if land_parcel.shape
+                cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
+                cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
+                                                                                 :member => land_parcel,
+                                                                                 :shape => land_parcel.shape,
+                                                                                 :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
+                                                                                 )
+              end
             end
           end
         end
+
+
         # # Add available_water_capacity indicator
         # if r.land_parcel_available_water_capacity
         #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
@@ -486,10 +491,6 @@ load_data :land_parcels do |loader|
         # find or import from variant reference_nameclature the correct ProductNatureVariant
         variant = ProductNatureVariant.find_or_import!(r.variety).first || ProductNatureVariant.import_from_nomenclature(r.reference_variant)
         pmodel = variant.nature.matching_model
-        # find the container
-        #unless container = Product.first #find_by_work_number(r.cultivable_zone_code)
-        #  raise "No container for cultivation!"
-        #end
 
         # create the plant
         plant = pmodel.create!(:variant_id => variant.id, :work_number => "PLANT_" + r.bloc,
@@ -505,6 +506,14 @@ load_data :land_parcels do |loader|
         plant.read!(:plants_interval, r.plants_interval.in_meter, at: r.measured_at) if r.plants_interval
         # build density
         plant.read!(:plants_count, (r.plants_population / r.surface_area).to_i, at: r.measured_at) if (r.plants_population and r.surface_area)
+
+        if plant.shape
+          plant_shape = Charta::Geometry.new(plant.shape)
+          if product_around = plant_shape.actors_matching(nature: CultivableZone).first
+            plant.initial_container = product_around
+            plant.save!
+          end
+        end
 
         w.check_point
       end
