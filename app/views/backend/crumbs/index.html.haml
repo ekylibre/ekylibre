@@ -16,16 +16,6 @@
     crumbs_data << item
   end
 
-  data = []
-  Crumb.match(Crumb.all, natures: ProductionSupport).each do |support|
-    item =  {
-              name:   support.id,
-              activity: support.nature,
-              shape:  support.shape
-
-            }
-    data << item
-  end
   actors = []
   Crumb.all.each do |crumb|
     actors << crumb.match
@@ -38,9 +28,7 @@
 = beehive do |b|
   -b.cell :map do
     = visualization do |v|
-      - v.serie :main, data
       - v.serie :crumbs, crumbs_data
-      - v.categories :activity, :main
       - v.categories :nature, :crumbs
       - v.background 'OpenStreetMap.HOT'
       - v.background 'Thunderforest.Transport'
@@ -50,6 +38,6 @@
       - v.control :fullscreen
       - v.control :layer_selector
   - b.cell :actors do
-    = render 'actors', actors: actors
+    = render 'actors', actors: actors if actors.present?
   - b.cell :interventions do
-    = render 'interventions', actors: actors
+    = render 'interventions', actors: actors if actors.present?
