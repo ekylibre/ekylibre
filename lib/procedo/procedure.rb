@@ -602,7 +602,7 @@ module Procedo
       # setting cursors
       current_variable = current_actor = 0
 
-      while result.length != variables.length
+      while result.count != variables.count
         # cleaning variables with no actor
         actors_for_each_variable.each do |variable_key, actors_ary|
           if actors_ary.empty?

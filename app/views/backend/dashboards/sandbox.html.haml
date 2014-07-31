@@ -80,15 +80,16 @@
     actors
   end
 
-  # listing possibles products matching a point
-  # using postgis operators on geometry objects
-  # == params:
-  #   - crumbs, an array of Crumb objects
-  # == options
-  #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
-  #     the method returns only actors that include the crumbs.
-  #   - natures: matches all actors whose nature is given. By default the method returns Plant, CultivableZone,
-  #     BuildingDivision and Equipment objects.
+  # listing possibles products matching a point using postgis operators on geometry objects
+  #
+  # ==== Parameters:
+  # - crumbs, an array of Crumb objects.
+  #
+  # ==== Options: 
+  # - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
+  #   the method returns only actors that include the crumbs.
+  # - natures: matches all actors whose nature is given. By default the method returns Plant, CultivableZone,
+  #   BuildingDivision and Equipment objects.
   # @returns: an array of products whose shape contains or intersects the crumbs
   # the method only matches plants, cultivable zones, building divisions or equipment
   def actors_matching(crumbs, options = {})

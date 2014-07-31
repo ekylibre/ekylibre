@@ -323,6 +323,7 @@ class Intervention < Ekylibre::Record::Base
   # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
   # matched in the procedure
   def self.match(actors, options = {})
+    actors = [actors].flatten
     limit = options[:limit].to_i - 1
     relevance_threshold = options[:relevance].to_f
     maximum_arity = 0
