@@ -268,6 +268,15 @@ load_data :interventions do |loader|
       units_transcode[row[1]] = row[2].to_sym
     end
   end
+  
+  workers_transcode = {}.with_indifferent_access
+
+  path = loader.path("isaculture", "workers_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      workers_transcode[row[0]] = row[1].to_sym
+    end
+  end
 
 
   path = loader.path("isaculture", "interventions.csv")
@@ -291,11 +300,15 @@ load_data :interventions do |loader|
       # 24 "rendement"
       # 25 "unite produit";"materiel";"temps materiel";"nom et prenom main d oeuvre";"temps main d oeuvre";"motivation";"commentaire motivation";"commentaire 1";"commentaire 2"
       #
+      
+      # TODO refactor method according file structure because one intervention is on 4 or 5 lines
+      # need to group and merge csv row before 
+       
       information_import_context = "Import from isaculture on #{Time.now.l}"
 
       CSV.read(path, headers: true, col_sep: ";").sort{|a,b| a[6].split(/\D/).reverse.join <=> b[6].split(/\D/).reverse.join }.each do |row|
       #CSV.foreach(path, headers: true, col_sep: ";") do |row|
-
+        next if (row[15].blank? || row[28].blank?)
         r = OpenStruct.new(    intervention_number: row[0].to_s.downcase,
                                cultivable_zone_code: row[1].to_s.downcase,
                                production_informations: row[2].to_s.downcase,
@@ -304,19 +317,26 @@ load_data :interventions do |loader|
                                intervention_started_at: (row[6].blank? ? nil : Date.strptime(row[6].to_s, "%d/%m/%Y")),
                                intervention_stopped_at: (row[7].blank? ? nil : Date.strptime(row[7].to_s, "%d/%m/%Y")),
                                procedure_name: row[10].to_s.downcase, # to transcode
+                               intervention_duration_in_hour: (row[11].blank? ? nil : row[11].gsub(",",".").to_d),
                                product_name: (row[15].blank? ? nil : row[15].gsub(",","_").to_s.downcase), # to create
                                product_input_population: (row[16].blank? ? nil : row[16].gsub(",",".").to_d),
                                product_input_unit: (row[17].blank? ? nil : row[17].to_s.downcase),
                                extrant_name: (row[22].blank? ? nil : row[22].to_s.downcase),
                                extrant_population: (row[24].blank? ? nil : row[24].gsub(",",".").to_d),
                                extrant_population_unit: (row[25].blank? ? nil : row[25].to_s.downcase),
+                               worker_name: (row[28].blank? ? nil : row[28].to_s.downcase)
                                )
-
+        
         intervention_started_at = r.intervention_started_at.to_time + 9.hours
+        if r.intervention_duration
+          intervention_stopped_at = intervention_started_at + r.intervention_duration.hours
+        else
+          intervention_stopped_at = intervention_started_at + 2.hours
+        end
+        
         intervention_year = intervention_started_at.year
         intervention_month = intervention_started_at.month
         intervention_day = intervention_started_at.day
-        intervention_stopped_at = r.intervention_stopped_at.to_time + 11.hours
 
         production_array = r.production_informations.gsub("/",",").split(",").map(&:strip)
 
@@ -324,9 +344,16 @@ load_data :interventions do |loader|
         campaign ||= Campaign.create!(name: production_array[1], harvest_year: production_array[1])
 
         cultivable_zone = CultivableZone.find_by_work_number(cultivable_zones_transcode[r.cultivable_zone_code])
-
+        
+        if r.worker_name
+          worker = Worker.find_by_work_number(workers_transcode[r.worker_name])
+        end
+        
         plant = nil
         if cultivable_zone and campaign
+          
+          
+          
           support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first
           plant_variant = support.production.variant if support
           # try to find the current plant on cultivable zone
@@ -342,6 +369,7 @@ load_data :interventions do |loader|
         puts " variant : " + variants_transcode[r.product_name].inspect.yellow
         puts " cultivable_zone : " + cultivable_zone.name.inspect.yellow
         puts " support : " + support.id.inspect.yellow
+        puts " worker : " + worker.name.inspect.yellow
 
         # create intrant if variant exist
         if variants_transcode[r.product_name]
@@ -421,23 +449,23 @@ load_data :interventions do |loader|
           #
             if (procedures_transcode[r.procedure_name] == :mineral_fertilizing || procedures_transcode[r.procedure_name] == :sowing) and intrant and intrant.able_to?("fertilize")
                         # Mineral fertilizing
-                        intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
+                        intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (0.96 * coeff)), support: support) do |i|
                           i.add_cast(reference_name: 'fertilizer',  actor: intrant)
                           i.add_cast(reference_name: 'fertilizer_to_spread', population: global_intrant_value)
                           i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
-                          i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
+                          i.add_cast(reference_name: 'driver',      actor: (worker? ? worker : i.find(Worker)))
                           i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(spreader)"))
                           i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                         end
-
+            
             elsif procedures_transcode[r.procedure_name] == :organic_fertilizing and intrant
 
                       # Organic fertilizing
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (0.96 * coeff)), support: support) do |i|
                         i.add_cast(reference_name: 'manure',      actor: intrant)
                         i.add_cast(reference_name: 'manure_to_spread', population: global_intrant_value)
                         i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
-                        i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
+                        i.add_cast(reference_name: 'driver',      actor: (worker? ? worker : i.find(Worker)))
                         i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(spreader)"))
                         i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                       end
@@ -445,11 +473,11 @@ load_data :interventions do |loader|
             elsif procedures_transcode[r.procedure_name] == :chemical_weed and intrant
 
                       # Chemical weed
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: {readings: {"base-chemical_weed-0-800-1" => "nude"}}) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (1.07 * coeff)), support: support, parameters: {readings: {"base-chemical_weed-0-800-1" => "nude"}}) do |i|
                         i.add_cast(reference_name: 'weedkilling',      actor: intrant)
                         i.add_cast(reference_name: 'weedkilling_to_spray', population: global_intrant_value)
                         i.add_cast(reference_name: 'sprayer',    actor: i.find(Product, can: "spray"))
-                        i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
+                        i.add_cast(reference_name: 'driver',      actor: (worker? ? worker : i.find(Worker)))
                         i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
                         i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                       end
@@ -460,11 +488,11 @@ load_data :interventions do |loader|
                       # Spraying on cultivation
                       #puts plant.container.inspect.red
 
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (1.07 * coeff)), support: support) do |i|
                           i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                           i.add_cast(reference_name: 'plant_medicine_to_spray', population: global_intrant_value)
                           i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
-                          i.add_cast(reference_name: 'driver',   actor: i.find(Worker))
+                          i.add_cast(reference_name: 'driver',   actor: (worker? ? worker : i.find(Worker)))
                           i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
                           i.add_cast(reference_name: 'cultivation', actor: plant)
                         end
@@ -472,11 +500,11 @@ load_data :interventions do |loader|
             elsif procedures_transcode[r.procedure_name] == :spraying_on_land_parcel and intrant
 
                       # Spraying on cultivation
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_land_parcel, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_land_parcel, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (1.07 * coeff)), support: support) do |i|
                           i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                           i.add_cast(reference_name: 'plant_medicine_to_spray', population: global_intrant_value)
                           i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
-                          i.add_cast(reference_name: 'driver',   actor: i.find(Worker))
+                          i.add_cast(reference_name: 'driver',   actor: (worker? ? worker : i.find(Worker)))
                           i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
                           i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                         end
@@ -484,24 +512,42 @@ load_data :interventions do |loader|
             elsif procedures_transcode[r.procedure_name] == :sowing and intrant and plant_variant and intrant.able_to?("grow")
 
                       # Spraying on cultivation
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:sowing, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: {readings: {"base-sowing-0-750-2" => global_intrant_value.to_i}}) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:sowing, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (1.07 * coeff)), support: support, parameters: {readings: {"base-sowing-0-750-2" => global_intrant_value.to_i}}) do |i|
 
                           i.add_cast(reference_name: 'seeds',        actor: intrant)
                           i.add_cast(reference_name: 'seeds_to_sow', population: global_intrant_value)
                           i.add_cast(reference_name: 'sower',        actor: i.find(Product, can: "sow"))
-                          i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
+                          i.add_cast(reference_name: 'driver',       actor: (worker? ? worker : i.find(Worker)))
                           i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
                           i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                           i.add_cast(reference_name: 'cultivation',  variant: plant_variant, population: r.working_area, shape: cultivable_zone.shape)
 
                         end
 
+            
+            
+            
+            # watering
+            elsif procedures_transcode[r.procedure_name] == :watering and plant and intrant and intrant.variety == 'water'
 
+                      # Spraying on cultivation
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:watering, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (1.07 * coeff)), support: support) do |i|
+
+                          i.add_cast(reference_name: 'water',           actor: intrant)
+                          i.add_cast(reference_name: 'water_to_spread', population: global_intrant_value)
+                          i.add_cast(reference_name: 'spreader',        actor: i.find(Product, can: "spread(water)"))
+                          i.add_cast(reference_name: 'driver',       actor: (worker? ? worker : i.find(Worker)))
+                          i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
+                          i.add_cast(reference_name: 'cultivation',  actor: plant , population: r.working_area, shape: plant.shape)
+
+                        end
+            
+            
 
             elsif procedures_transcode[r.procedure_name] == :grains_harvest and extrant_variant and extrant_variant.variety == "silage" and plant
 
                       # Silage
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:direct_silage, intervention_year, intervention_month, intervention_day, 3.13 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:direct_silage, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (3.13 * coeff)), support: support) do |i|
                       i.add_cast(reference_name: 'forager',        actor: i.find(Product, can: "harvest(plant)"))
                       i.add_cast(reference_name: 'forager_driver', actor: i.find(Worker))
                       i.add_cast(reference_name: 'cultivation',    actor: plant)
@@ -516,7 +562,7 @@ load_data :interventions do |loader|
                       straw_variant ||= ProductNatureVariant.import_from_nomenclature(:crop_residue)
 
                       # Grain harvest
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:grains_harvest, intervention_year, intervention_month, intervention_day, 3.13 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:grains_harvest, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (3.13 * coeff)), support: support) do |i|
                       i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: "harvest(poaceae)"))
                       i.add_cast(reference_name: 'cropper_driver', actor: i.find(Worker))
                       i.add_cast(reference_name: 'cultivation',    actor: plant)
