@@ -598,9 +598,6 @@ module Procedo
         end
         res
       end
-
-      # setting cursors
-      current_variable = current_actor = 0
       
       # cleaning variables with no actor
       actors_for_each_variable.each do |variable_key, actors_ary|
@@ -610,7 +607,11 @@ module Procedo
         end
       end
 
-      while actors_for_each_variable.values.flatten.present? # the methods loops while there are variables with actors to match
+      # setting cursors
+      current_variable = current_actor = 0
+
+      while actors_for_each_variable.values.flatten.compact.present?
+        puts actors_for_each_variable.values.flatten.compact.inspect.red 
         # first, manage all variables having only one actor matching
         while current_variable < actors_for_each_variable.length
           current_variable_key = actors_for_each_variable.keys[current_variable]
@@ -634,26 +635,21 @@ module Procedo
             # return to first step
             current_actor = 0
             break
-          else 
+          else
             current_actor += 1
           end
         end
-        
         # then, manage the case when no actor has only one variable matching
         if current_actor >= variables_for_each_actor.length
           current_variable = 0
           current_variable_key = actors_for_each_variable.keys[current_variable]
-          begin
-            result[current_variable_key] = actors_for_each_variable[current_variable_key].first
-          rescue
-            result[current_variable_key] = nil
-          end
+          result[current_variable_key] = actors_for_each_variable[current_variable_key].first unless actors_for_each_variable[current_variable_key].nil?
           clean(variables_for_each_actor, actors_for_each_variable, result[current_variable_key], current_variable_key)
           # return to first step
         end
 
         # finally, manage the case when there's no more actor to match with variables
-        if variables_for_each_actor.values.flatten.compact.empty?
+        if variables_for_each_actor.empty?
           actors_for_each_variable.keys.each do |variable_key|
             result[variable_key] = nil
           end
