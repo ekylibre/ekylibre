@@ -16,15 +16,6 @@
     crumbs_data << item
   end
 
-  actors = []
-  Crumb.all.each do |crumb|
-    actors << crumb.match
-  end
-  actors.flatten!
-  actors.uniq!
-  actors.sort_by!{|a| a.name}
-  actors.delete_if{|a| a.variety == 'tank'}
-
 = beehive do |b|
   -b.cell :map do
     = visualization do |v|
@@ -38,6 +29,6 @@
       - v.control :fullscreen
       - v.control :layer_selector
   - b.cell :actors do
-    = render 'actors', actors: actors if actors.present?
+    = render 'actors', actors: @actors if @actors.present?
   - b.cell :interventions do
-    = render 'interventions', actors: actors if actors.present?
+    = render 'interventions', actors: @actors if @actors.present?
