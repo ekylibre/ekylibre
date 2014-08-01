@@ -85,14 +85,14 @@ class Crumb < Ekylibre::Record::Base
         flatten.
         inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
   end
-  
+
   # returns all the interventions for the current user
   # an intervention is an array of crumbs, ordered by read_at, between a 'start' crumb and a 'stop' crumb
   def self.interventions(user_id)
     buffer = []
     result = []
     Crumb.where(user_id: user_id).order(read_at: :asc).each do |crumb|
-      buffer << crumb 
+      buffer << crumb
       if crumb.nature == 'stop'
         result << buffer
         buffer = []

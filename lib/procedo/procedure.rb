@@ -598,7 +598,7 @@ module Procedo
         end
         res
       end
-      
+
       # cleaning variables with no actor
       actors_for_each_variable.each do |variable_key, actors_ary|
         if actors_ary.empty?
@@ -611,7 +611,7 @@ module Procedo
       current_variable = current_actor = 0
 
       while actors_for_each_variable.values.flatten.compact.present?
-        puts actors_for_each_variable.values.flatten.compact.inspect.red 
+        puts actors_for_each_variable.values.flatten.compact.inspect.red
         # first, manage all variables having only one actor matching
         while current_variable < actors_for_each_variable.length
           current_variable_key = actors_for_each_variable.keys[current_variable]
