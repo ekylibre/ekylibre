@@ -1,8 +1,8 @@
 = beehive do |b|
   -b.cell :map do
     = visualization do |v|
-      - v.serie :crumbs, Backend::CrumbsController.interventions_crumbs
-      - v.categories :name, :crumbs
+      - v.serie :crumbs, @interventions_crumbs
+      - v.categories :started_at, :crumbs
       - v.background 'OpenStreetMap.HOT'
       - v.background 'Thunderforest.Transport'
       - v.background 'Thunderforest.Outdoors'
