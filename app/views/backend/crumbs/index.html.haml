@@ -1,26 +1,8 @@
-:ruby
-  crumbs_data = []
-  Crumb.find_each do |crumb|
-      begin
-        shape = Charta::Geometry.new(crumb.geolocation)
-      item = {
-                  name:       crumb.id,
-                  accuracy:   crumb.accuracy,
-                  nature:     crumb.nature,
-                  shape:      shape.circle(crumb.accuracy/50000)
-
-                }
-      rescue
-        item = {}
-      end
-    crumbs_data << item
-  end
-
 = beehive do |b|
   -b.cell :map do
     = visualization do |v|
-      - v.serie :crumbs, crumbs_data
-      - v.categories :nature, :crumbs
+      - v.serie :crumbs, Backend::CrumbsController.interventions_crumbs
+      - v.categories :name, :crumbs
       - v.background 'OpenStreetMap.HOT'
       - v.background 'Thunderforest.Transport'
       - v.background 'Thunderforest.Outdoors'

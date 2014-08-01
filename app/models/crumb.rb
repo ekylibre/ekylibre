@@ -52,6 +52,7 @@ class Crumb < Ekylibre::Record::Base
         where("geometry_value ~ '#{geolocation}'").pluck(:product_id)
     Product.find(product_ids).each do |product|
       result << product
+      # TODO: remove this when Ekylibre manages geolocation for equipment and all products in general
       if product.is_a? BuildingDivision
         product.contains(:product, read_at).to_a.each do |localization|
           result << localization.product
@@ -83,6 +84,21 @@ class Crumb < Ekylibre::Record::Base
         delete_if{|actor| options[:natures].
         flatten.
         inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
+  end
+  
+  # returns all the interventions for the current user
+  # an intervention is an array of crumbs, ordered by read_at, between a 'start' crumb and a 'stop' crumb
+  def self.interventions(user_id)
+    buffer = []
+    result = []
+    Crumb.where(user_id: user_id).order(read_at: :asc).each do |crumb|
+      buffer << crumb 
+      if crumb.nature == 'stop'
+        result << buffer
+        buffer = []
+      end
+    end
+    result
   end
 
 end
