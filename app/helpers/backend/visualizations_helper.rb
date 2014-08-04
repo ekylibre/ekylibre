@@ -42,7 +42,7 @@ module Backend::VisualizationsHelper
     def categories(name, serie, options = {})
       layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :categories)))
     end
-    
+
     def paths(name, serie, options = {})
       layer(name, serie, options.merge(type: :paths))
     end

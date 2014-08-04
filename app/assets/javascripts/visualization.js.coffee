@@ -85,7 +85,7 @@
           opacity: 1
           fill: true
           fillOpacity: 1
-          
+
       map:
         maxZoom: 18
         minZoom:2
@@ -294,7 +294,7 @@
       legend.innerHTML += categories.buildLegend()
 
       return layerGroup
-      
+
     _addPathsLayer: (layer, legendControl)->
       data = this._getSerieData(layer.serie)
       options = $.extend true, {}, @options.layerDefaults.paths, layer

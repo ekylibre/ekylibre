@@ -28,7 +28,7 @@ class visualization.Paths
     for crumb in @data
       crumbStyle =
         fillColor: this.itemFor(crumb[@layer.reference]).fillColor
-      crumbLayer = new L.GeoJSON(crumb.shape, $.extend(true, {}, globalStyle, crumbStyle))
+      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), 1.5, $.extend(true, {}, globalStyle, crumbStyle))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
     group
