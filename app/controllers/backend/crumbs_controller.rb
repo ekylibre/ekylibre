@@ -6,14 +6,12 @@ class Backend::CrumbsController < BackendController
     # array of crumbs ready to be managed by VisualizationHelper
     @interventions_crumbs = []
 
-    # TODO: replace by the actual current user id! crumbs are personal data
-    current_user_id = User.first
-    interventions = Crumb.interventions(current_user_id)
+    interventions = Crumb.interventions(current_user.id)
     interventions.each do |intervention|
       name = interventions.index(intervention)
       started_at = intervention.first.read_at
       stopped_at = intervention.last.read_at
-      doer = User.find(current_user_id)
+      doer = User.find(intervention.first.user_id)
 
       intervention.each do |crumb|
         item =  {
