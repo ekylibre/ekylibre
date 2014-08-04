@@ -1352,6 +1352,22 @@ eng:
         public_interest_group: "Public interest group"     #< legal_entity
         sir: "Sir"                                         #< person
         syndicate: "Syndicate"                             #< legal_entity
+    equipment_costs_france_abacus_tractor:
+      # name: "Equipment costs france abacus tractor"
+      property_natures:
+        # average_purchase_price: "Average purchase price"
+        # currency: "Currency"
+        # hourly_cost: "Hourly cost"
+        # maximum_power: "Maximum power"
+        # minimum_power: "Minimum power"
+        # power_indicator: "Power indicator"
+        # variant: "Variant"
+        # year: "Year"
+      items:
+        # 2014_small_tractor_56_to_64_fhp: "2014 small tractor 56 to 64 fhp"
+        # 2014_small_tractor_66_to_75_fhp: "2014 small tractor 66 to 75 fhp"
+        # 2014_small_tractor_75_to_85_fhp: "2014 small tractor 75 to 85 fhp"
+        # 2014_small_tractor_85_to_95_fhp: "2014 small tractor 85 to 95 fhp"
     event_natures:
       name: "Event natures"
       property_natures:

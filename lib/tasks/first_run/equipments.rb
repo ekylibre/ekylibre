@@ -140,4 +140,20 @@ load_data :equipments do |loader|
     end
   end
 
+  path = loader.path("alamano", "zones", "initial_geolocations.shp")
+  if path.exist?
+    loader.count :initial_geolocations do |w|
+      #############################################################################
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          if product = Product.find_by_work_number(record.attributes['number'])
+            product.read!(:geolocation, record.geometry, at: product.born_at, force: true)
+          end
+          w.check_point
+        end
+      end
+    end
+  end
+
 end

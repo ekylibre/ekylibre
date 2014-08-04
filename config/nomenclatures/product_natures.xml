@@ -802,7 +802,7 @@
             variety="tractor"
             population_counting="unitary"
             abilities="catch(equipment), move, tow(matter), consume(oil), consume(fuel)"
-            variable_indicators="net_surface_area, motor_power"
+            variable_indicators="net_surface_area, motor_power, geolocation"
             frozen_indicators="population"
             linkage_points="rear, front"
             />
@@ -811,7 +811,7 @@
             variety="trailer"
             population_counting="unitary"
             abilities="store_fluid, store(grain), store(grass), store(raw_matter), move"
-            variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass"
+            variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation"
             frozen_indicators="population"
             />
        <item name="grape_trailer"
@@ -899,7 +899,7 @@
             variety="trailer"
             population_counting="unitary"
             abilities="store(excrement), move, spread(excrement), store_fluid"
-            variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume"
+            variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume, geolocation"
             frozen_indicators="population"
             />
       <item name="spreader"
@@ -907,7 +907,7 @@
             variety="spreader"
             population_counting="unitary"
             abilities="spread(preparation)"
-            variable_indicators="nominal_storable_net_volume, application_width"
+            variable_indicators="nominal_storable_net_volume, application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="water_spreader"
@@ -923,7 +923,7 @@
             variety="sower"
             population_counting="unitary"
             abilities="sow"
-            variable_indicators="nominal_storable_net_volume, application_width"
+            variable_indicators="nominal_storable_net_volume, application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="complete_sower"
@@ -931,7 +931,7 @@
             variety="sower"
             population_counting="unitary"
             abilities="spread(preparation), sow, spray"
-            variable_indicators="nominal_storable_net_volume, application_width"
+            variable_indicators="nominal_storable_net_volume, application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="implanter"
@@ -939,7 +939,7 @@
             variety="implanter"
             population_counting="unitary"
             abilities="implant"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="plow"
@@ -947,7 +947,7 @@
             variety="plower"
             population_counting="unitary"
             abilities="plow"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="superficial_plow"
@@ -955,7 +955,7 @@
             variety="plower"
             population_counting="unitary"
             abilities="plow_superficially"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="hoe"
@@ -963,7 +963,7 @@
             variety="plower"
             population_counting="unitary"
             abilities="plow_superficially, hoe"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="sprayer"
@@ -971,7 +971,7 @@
             variety="sprayer"
             population_counting="unitary"
             abilities="spray"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="baler"
@@ -979,7 +979,7 @@
             variety="harvester"
             population_counting="unitary"
             abilities="bunch"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
        <item name="food_distributor"
@@ -1003,7 +1003,7 @@
             variety="harvester"
             population_counting="unitary"
             abilities="mow"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="hay_rake"
@@ -1011,7 +1011,7 @@
             variety="harvester"
             population_counting="unitary"
             abilities="rake(straw), rake(hay)"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="reaper"
@@ -1019,7 +1019,7 @@
             variety="reaper"
             population_counting="unitary"
             abilities="harvest(plant), consume(oil), consume(fuel)"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="grape_reaper"
@@ -1027,7 +1027,7 @@
             variety="reaper"
             population_counting="unitary"
             abilities="harvest(vitis), consume(oil), consume(fuel)"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
        <item name="shell_fruit_reaper"
@@ -1043,7 +1043,7 @@
             variety="forager"
             population_counting="unitary"
             abilities="harvest(plant), consume(oil), consume(fuel)"
-            variable_indicators="application_width"
+            variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
       <item name="wine_press"
@@ -1092,7 +1092,7 @@
             variety="worker"
             population_counting="unitary"
             abilities="drive(equipment), move, milk(mammalia), repair(equipment), administer_care(animal)"
-            variable_indicators=""
+            variable_indicators="geolocation"
             frozen_indicators="population"
             />
       <item name="mechanic"
@@ -1100,7 +1100,7 @@
             variety="worker"
             population_counting="unitary"
             abilities="drive(equipment), move, repair(equipment)"
-            variable_indicators=""
+            variable_indicators="geolocation"
             frozen_indicators="population"
             />
       <item name="manager"
@@ -1108,7 +1108,7 @@
             variety="worker"
             population_counting="unitary"
             abilities="drive(equipment), manage(worker), milk(mammalia), move, administer_care(animal)"
-            variable_indicators=""
+            variable_indicators="geolocation"
             frozen_indicators="population"
             />
        <item name="inseminator"
@@ -1116,7 +1116,7 @@
             variety="worker"
             population_counting="unitary"
             abilities="move, administer_inseminate(animal)"
-            variable_indicators=""
+            variable_indicators="geolocation"
             frozen_indicators="population"
             />
       <!-- WATER AND FLUID-->

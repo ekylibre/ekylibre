@@ -1369,6 +1369,9 @@ jpn:
         # sir: "Sir"
         # syndicate: "Syndicate"
       # name: "Entity natures"
+    equipment_costs_france_abacus_tractor:
+      items: #?
+      property_natures: #?
     event_natures:
       items:
         # absence: "Absence"

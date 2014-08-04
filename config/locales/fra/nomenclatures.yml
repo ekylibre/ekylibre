@@ -1352,6 +1352,9 @@ fra:
         sir: "Monsieur"
         syndicate: "Syndicat"
       name: "Types de tiers"
+    equipment_costs_france_abacus_tractor:
+      items: #?
+      property_natures: #?
     event_natures:
       items:
         absence: "Absence"
