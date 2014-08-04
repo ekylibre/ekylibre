@@ -4,5 +4,5 @@
 (($) ->
   'use strict'
 
-  
+
 ) jQuery

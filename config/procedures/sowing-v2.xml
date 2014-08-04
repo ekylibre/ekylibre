@@ -63,7 +63,7 @@
 
       <loop for="land_parcel" in="land_parcels">
 
-	    <if test="tractor not at seeds">      
+	    <if test="tractor not at seeds">
               <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
 	      <operation id="400" default-duration="4 minutes" type="movement">
 		<movement product="tractor" localizable="seeds"/>
@@ -79,7 +79,7 @@
               <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
               <entering product="seeds_to_sow" localization="sower"/>
 	    </operation>
-	    
+
 	  </when>
 	  <otherwise>
 
@@ -88,35 +88,35 @@
 	      <case value="merge">
 		<choose>
 		  <when test="(contained seeds variant == seeds_to_transport) or prompt(is_it_a_merge)">
-		    
+
 		    <!-- Merge seeds_to_transport into transported_seeds -->
-		    
+
 		  </when>
 		  <otherwise>
-		      
+
 		    <!-- Mix seeds_to_transport into transported_seeds -->
 		    <input in="mix_variant" type="variant"/>
-		    
+
 		  </otherwise>
 		</choose>
 	      </case>
 	      <case value="unload_and_reload_other">
-		
+
 	      </case>
 	    </switch>
-	    
+
 	  </otherwise>
 	</choose>
 
 	<unless test="sower contains some seeds">
 
-	  <if test="tractor not at seeds">      
+	  <if test="tractor not at seeds">
             <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
 	    <operation id="400" default-duration="4 minutes" type="movement">
               <movement product="tractor" localizable="seeds"/>
 	    </operation>
 	  </if>
-	  
+
 	  <operation id="500" default-duration="4 minutes" type="loading">
             <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
             <division producer="seeds" product="seeds_to_sow"/>
@@ -156,23 +156,23 @@
 
 	<if prompt="does_i_refill_the_sower">
 
-	  <if test="tractor not at seeds">     
+	  <if test="tractor not at seeds">
 	    <operation id="775" type="movement">
 	      <entering product="tractor" localizable="seeds"/>
 	    </operation>
 	  </if>
-	  
+
 	  <operation id="780" default-duration="4 minutes" type="loading">
             <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
             <division producer="seeds" product="seeds_to_sow"/>
             <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
             <entering product="seeds_to_sow" localization="sower"/>
 	  </operation>
-	  
+
 	</if>
 
       </loop>
-      
+
       <unless prompt="does_tractor_remain_in_land_parcel">
 
 	<if test="tractor still contains seeds">

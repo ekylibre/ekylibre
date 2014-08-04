@@ -1,24 +1,24 @@
 # visualization.Paths class
 # displays crumbs by intervention as a path
-# 
+#
 # @data is an array of hashes containing info to display
 # @layer is the layer name
-# 
+#
 # ==== examples
 #
-# @data is an array of hashes built according to the following model: 
-# * minimal example of a hash representing a crumb: 
-#   item  {  
+# @data is an array of hashes built according to the following model:
+# * minimal example of a hash representing a crumb:
+#   item  {
 #           name:         <intervention name>,  # may be the date, the doer's name, whatever you want as long as all the crumbs
-#                                               # for a given intervention have the same one. this is what is called in the 
+#                                               # for a given intervention have the same one. this is what is called in the
 #                                               # VisualizationHelper to build the legend if you wrote something like:
 #                                               #   = visualization do |v|
 #                                               #     - v.serie :crumbs, my_array_of_crumbs_hashes
 #                                               #     - v.paths :name, :crumbs
-#                                               # :name being the @layer parameter the constructor requires. 
+#                                               # :name being the @layer parameter the constructor requires.
 #
-#           nature:       crumb.nature,         # proper to the crumb. May be one of the natures enumerated in Crumb model. 
-#                                               # this option is used to display particular points bigger and to change the 
+#           nature:       crumb.nature,         # proper to the crumb. May be one of the natures enumerated in Crumb model.
+#                                               # this option is used to display particular points bigger and to change the
 #                                               # path opacity for parts that correspond to actual works (points between a hard_start)
 #                                               # and a hard_stop crumb
 #

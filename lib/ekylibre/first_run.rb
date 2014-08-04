@@ -41,7 +41,7 @@ module Ekylibre
         end
         return nil
       end
-      
+
       # Set the last loader in preferences for next run
       def last_loader=(value)
         unless preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
@@ -50,7 +50,7 @@ module Ekylibre
         preference.value = value
         preference.save!
       end
-      
+
     end
 
     IMPORTS = {
