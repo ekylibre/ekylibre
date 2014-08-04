@@ -82,7 +82,7 @@
           stroke: true
           color: "#333333"
           weight: 2
-          opacity: 1
+          opacity: 0.2
           fill: true
           fillOpacity: 1
 

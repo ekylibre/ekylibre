@@ -26,10 +26,14 @@ class visualization.Paths
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
     for crumb in @data
+      radius = 0.5
+      if crumb.nature != 'point'
+        radius = 5.0
       crumbStyle =
         fillColor: this.itemFor(crumb[@layer.reference]).fillColor
         color: this.itemFor(crumb[@layer.reference]).fillColor
-      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), 0.5, $.extend(true, {}, globalStyle, crumbStyle))
+        opacity: opacity
+      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), radius, $.extend(true, {}, globalStyle, crumbStyle))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
       previous_crumb = @data[@data.indexOf(crumb) - 1]
@@ -38,6 +42,10 @@ class visualization.Paths
         points.push(new L.geoJson(previous_crumb.shape).getBounds().getCenter())
         points.push(new L.geoJson(crumb.shape).getBounds().getCenter())
         crumbLayer = new L.polyline(points, $.extend(true, {}, globalStyle, crumbStyle))
+        if crumb.nature == 'hard_start'
+          opacity = 1
+        if crumb.nature == 'hard_stop'
+          opacity = 0.2
         group.push(crumbLayer)
     group
 
