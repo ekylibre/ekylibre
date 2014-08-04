@@ -78,6 +78,14 @@
           fill: true
           fillColor: "green"
           fillOpacity: 1
+        paths:
+          stroke: true
+          color: "#333333"
+          weight: 1
+          opacity: 1
+          fill: true
+          fillOpacity: 1
+          
       map:
         maxZoom: 18
         minZoom:2
@@ -285,6 +293,20 @@
       legend = legendControl.getContainer()
       legend.innerHTML += categories.buildLegend()
 
+      return layerGroup
+      
+    _addPathsLayer: (layer, legendControl)->
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.layerDefaults.paths, layer
+      paths = new visualization.Paths(layer, data, options)
+      return false unless paths.valid()
+
+      layerGroup = paths.buildLayerGroup(this, options)
+      console.log("Paths layer added")
+
+      # Add legend
+      legend = legendControl.getContainer()
+      legend.innerHTML += paths.buildLegend()
       return layerGroup
 
     # Build a popup from given parameters. For now it only uses popup attribute of

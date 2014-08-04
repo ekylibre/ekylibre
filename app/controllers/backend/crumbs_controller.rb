@@ -16,8 +16,9 @@ class Backend::CrumbsController < BackendController
       intervention.each do |crumb|
         item =  {
                   name:         name,
+                  read_at:      crumb.read_at,
                   nature:       crumb.nature,
-                  shape:        Charta::Geometry.new(crumb.geolocation).circle(crumb.accuracy/50000),
+                  shape:        crumb.geolocation,
                   started_at:   started_at,
                   stopped_at:   stopped_at,
                   doer:         doer
