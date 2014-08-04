@@ -125,6 +125,11 @@ class Product < Ekylibre::Record::Base
     }
   }
 
+  # find Product by work_numbers (work_numbers must be an Array)
+  scope :of_work_numbers, lambda { |work_numbers|
+    where(work_number: work_numbers)
+  }
+
   scope :members_of, lambda { |group, viewed_at|
     # where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)
     where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: "interior").at(viewed_at))

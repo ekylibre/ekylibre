@@ -274,7 +274,16 @@ load_data :interventions do |loader|
   path = loader.path("isaculture", "workers_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
-      workers_transcode[row[0]] = row[1].to_sym
+      workers_transcode[row[0]] = row[1]
+    end
+  end
+
+  equipments_transcode = {}.with_indifferent_access
+
+  path = loader.path("isaculture", "equipments_transcode.csv")
+  if path.exist?
+    CSV.foreach(path, headers: true) do |row|
+      equipments_transcode[row[0]] = row[1]
     end
   end
 
@@ -378,13 +387,24 @@ load_data :interventions do |loader|
 
                 cultivable_zone = CultivableZone.find_by_work_number(cultivable_zones_transcode[r.cultivable_zone_code])
 
-                workers = nil
+                equipments_work_number = nil
+                if r.equipments_name
+                  equipments_work_number = []
+                  for equipment_name in r.equipments_name
+                    equipment = Equipment.find_by_work_number(equipments_transcode[equipment_name.to_s])
+                    equipments_work_number << equipment.work_number if equipment
+                  end
+                  equipments_work_number.compact!
+                end
+
+                workers_work_number = nil
                 if r.workers_name
-                  workers = []
+                  workers_work_number = []
                   for worker_name in r.workers_name
                     worker = Worker.find_by_work_number(workers_transcode[worker_name.to_s.downcase])
-                    workers << worker
+                    workers_work_number << worker.work_number if worker
                   end
+                  workers_work_number.compact!
                 end
 
                 plant = nil
@@ -400,14 +420,16 @@ load_data :interventions do |loader|
                   end
                 end
 
-                puts "----------- #{w.count} -----------".blue
+                puts "----------- #{w.count} / #{current_intervention} -----------".blue
                 # puts r.product_name.inspect.green
                 puts " procedure : " + procedures_transcode[r.procedure_name].inspect.green
                 puts " intrants : " + products_array.inspect.yellow if products_array
                 puts " cultivable_zone : " + cultivable_zone.name.inspect.yellow if cultivable_zone
                 puts " plant : " + plant.name.inspect.yellow if plant
-                puts " support : " + support.id.inspect.yellow if support
-                puts " workers : " + workers.inspect.yellow if workers
+                puts " support : " + support.name.inspect.yellow if support
+                puts " workers_work_number : " + workers_work_number.inspect.yellow if workers_work_number
+                puts " equipments_work_number : " + equipments_work_number.inspect.yellow if equipments_work_number
+
 
                 intrants = []
                 for input_product in products_array
@@ -506,9 +528,9 @@ load_data :interventions do |loader|
                                 intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (0.96 * coeff)), support: support) do |i|
                                   i.add_cast(reference_name: 'fertilizer',  actor: intrant)
                                   i.add_cast(reference_name: 'fertilizer_to_spread', population: global_intrant_value)
-                                  i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
-                                  i.add_cast(reference_name: 'driver',      actor: (workers ? workers.first : i.find(Worker)))
-                                  i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(spreader)"))
+                                  i.add_cast(reference_name: 'spreader',    actor: (equipments_work_number ? i.find(Product, of_work_numbers: equipments_work_number, can: "spread(preparation)") : i.find(Product, can: "spread(preparation)")))
+                                  i.add_cast(reference_name: 'driver',      actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number ? i.find(Product, of_work_numbers: equipments_work_number, can: "tow(spreader)") : i.find(Product, can: "tow(spreader)")))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
 
@@ -519,7 +541,7 @@ load_data :interventions do |loader|
                                 i.add_cast(reference_name: 'manure',      actor: intrant)
                                 i.add_cast(reference_name: 'manure_to_spread', population: global_intrant_value)
                                 i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
-                                i.add_cast(reference_name: 'driver',      actor: (workers ? workers.first : i.find(Worker)))
+                                i.add_cast(reference_name: 'driver',      actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                                 i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(spreader)"))
                                 i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                               end
@@ -531,7 +553,7 @@ load_data :interventions do |loader|
                                 i.add_cast(reference_name: 'weedkilling',      actor: intrant)
                                 i.add_cast(reference_name: 'weedkilling_to_spray', population: global_intrant_value)
                                 i.add_cast(reference_name: 'sprayer',    actor: i.find(Product, can: "spray"))
-                                i.add_cast(reference_name: 'driver',      actor: (workers ? workers.first : i.find(Worker)))
+                                i.add_cast(reference_name: 'driver',      actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                                 i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
                                 i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                               end
@@ -546,7 +568,7 @@ load_data :interventions do |loader|
                                   i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                                   i.add_cast(reference_name: 'plant_medicine_to_spray', population: global_intrant_value)
                                   i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
-                                  i.add_cast(reference_name: 'driver',   actor: (workers ? workers.first : i.find(Worker)))
+                                  i.add_cast(reference_name: 'driver',   actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
                                   i.add_cast(reference_name: 'cultivation', actor: plant)
                                 end
@@ -558,7 +580,7 @@ load_data :interventions do |loader|
                                   i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                                   i.add_cast(reference_name: 'plant_medicine_to_spray', population: global_intrant_value)
                                   i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
-                                  i.add_cast(reference_name: 'driver',   actor: (workers ? workers.first : i.find(Worker)))
+                                  i.add_cast(reference_name: 'driver',   actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
@@ -571,7 +593,7 @@ load_data :interventions do |loader|
                                   i.add_cast(reference_name: 'seeds',        actor: intrant)
                                   i.add_cast(reference_name: 'seeds_to_sow', population: global_intrant_value)
                                   i.add_cast(reference_name: 'sower',        actor: i.find(Product, can: "sow"))
-                                  i.add_cast(reference_name: 'driver',       actor: (workers ? workers.first : i.find(Worker)))
+                                  i.add_cast(reference_name: 'driver',       actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
                                   i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                                   i.add_cast(reference_name: 'cultivation',  variant: plant_variant, population: r.working_area, shape: cultivable_zone.shape)
@@ -590,7 +612,7 @@ load_data :interventions do |loader|
                                   i.add_cast(reference_name: 'water',           actor: intrant)
                                   i.add_cast(reference_name: 'water_to_spread', population: global_intrant_value)
                                   i.add_cast(reference_name: 'spreader',        actor: i.find(Product, can: "spread(water)"))
-                                  i.add_cast(reference_name: 'driver',       actor: (workers ? workers.first : i.find(Worker)))
+                                  i.add_cast(reference_name: 'driver',       actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'land_parcel',  actor: cultivable_zone)
                                   i.add_cast(reference_name: 'cultivation',  actor: plant , population: r.working_area, shape: plant.shape)
 
@@ -600,13 +622,6 @@ load_data :interventions do |loader|
 
                     end
 
-                    if intervention
-                      intervention.description = information_import_context + " - N° : " + r.intervention_number + " - " +  row[6].to_s + " - operation : " + row[10].to_s + " - support : " + row[1].to_s + " - intrant : " + row[15].to_s
-                      intervention.save!
-                      puts "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
-                    else
-                      puts "Intervention is in a black hole".red
-                    end
 
 
                   end
@@ -619,7 +634,7 @@ load_data :interventions do |loader|
                               # Silage
                               intervention = Ekylibre::FirstRun::Booker.intervene(:direct_silage, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (3.13 * coeff)), support: support) do |i|
                               i.add_cast(reference_name: 'forager',        actor: i.find(Product, can: "harvest(plant)"))
-                              i.add_cast(reference_name: 'forager_driver', actor: (workers ? workers.first : i.find(Worker)))
+                              i.add_cast(reference_name: 'forager_driver', actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                               i.add_cast(reference_name: 'cultivation',    actor: plant)
                               i.add_cast(reference_name: 'silage',         population: global_extrant_value, variant: extrant_variant)
                                 end
@@ -634,7 +649,7 @@ load_data :interventions do |loader|
                               # Grain harvest
                               intervention = Ekylibre::FirstRun::Booker.intervene(:grains_harvest, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (3.13 * coeff)), support: support) do |i|
                               i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: "harvest(poaceae)"))
-                              i.add_cast(reference_name: 'cropper_driver', actor: (workers ? workers.first : i.find(Worker)))
+                              i.add_cast(reference_name: 'cropper_driver', actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
                               i.add_cast(reference_name: 'cultivation',    actor: plant)
                               i.add_cast(reference_name: 'grains',         population: global_extrant_value, variant: extrant_variant)
                               i.add_cast(reference_name: 'straws',         population: global_extrant_value / 10, variant: straw_variant)
@@ -642,11 +657,6 @@ load_data :interventions do |loader|
 
 
 
-
-
-                  else
-
-                      puts "Intervention is in a black hole".red
 
                   end
 

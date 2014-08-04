@@ -10,6 +10,7 @@ module Ekylibre
         def find(model, options = {})
           relation = model
           relation = relation.where("COALESCE(born_at, ?) <= ? ", options[:started_at], options[:started_at]) if options[:started_at]
+          relation = relation.of_work_numbers(options[:of_work_numbers]) if options[:of_work_numbers]
           relation = relation.can(options[:can]) if options[:can]
           relation = relation.of_variety(options[:variety]) if options[:variety]
           relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
