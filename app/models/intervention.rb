@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -179,11 +180,6 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns total duration of an intervention
   def duration
-    # if self.operations.count > 0
-    #   self.operations.map(&:duration).compact.sum
-    # else
-    #   return 0
-    # end
     return (self.stopped_at - self.started_at)
   end
 

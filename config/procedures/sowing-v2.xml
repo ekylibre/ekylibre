@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2014/procedures">
+  <procedure name="sowing" types="sowing" version="0" status="frozen">
+    <variables>
+      <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
+      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}] ">
+	<handler indicator="population" />
+        <handler indicator="net_mass"            unit="kilogram"               to="population"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg/ha -->
+        <handler indicator="grains_area_density" unit="unity_per_square_meter" to="population"
+                 forward="(((value * self.thousand_grains_mass(gram)) / 1000) * cultivation.net_surface_area(square_meter)) / self..net_mass(gram)"
+                 backward="(((value * self..net_mass(gram)) / cultivation.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)"
+                 /> <!--  u/m² -->
+        <handler indicator="grains_area_density" unit="thousand_per_hectare"   to="population"
+                 forward="(value * self.thousand_grains_mass(gram) * cultivation.net_surface_area(hectare)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / (cultivation.net_surface_area(hectare) * self.thousand_grains_mass(gram))"
+                 /> <!--  M/ha -->
+        <handler indicator="grains_count"        unit="thousand"               to="population"
+                 forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
+                 /> <!--  M    -->
+      </variable>
+      <variable name="sower"        abilities="sow" roles="sowing-tool"/>
+      <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer"/>
+      <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
+      <variable name="land_parcels" type="products[]" abilities="store(plant)" roles="sowing-target" default-actor="storage"/>
+      <variable name="cultivations" type="products[]" variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
+	<handler indicator="shape">
+	  <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+	  <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+	</handler>
+      </variable>
+    </variables>
+
+    <operations>
+
+      <if test="driver not in tractor">
+        <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
+	<operation id="100" default-duration="4 minutes" type="movement">
+          <movement product="driver" localizable="tractor"/>
+	</operation>
+      </if>
+
+      <if test="tractor not at sower">
+        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
+	<operation id="200" default-duration="4 minutes" type="movement">
+          <movement product="tractor" localizable="sower"/>
+	</operation>
+      </if>
+
+      <if test="sower not attached to tractor">
+        <!-- le chauffeur attache la charrue au tracteur -->
+	<operation id="300" default-duration="7 minutes" type="attachment">
+          <simple-attachment carrier="tractor" carried="sower"/>
+	</operation>
+      </if>
+
+      <loop for="land_parcel" in="land_parcels">
+
+	    <if test="tractor not at seeds">      
+              <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
+	      <operation id="400" default-duration="4 minutes" type="movement">
+		<movement product="tractor" localizable="seeds"/>
+	      </operation>
+	    </if>
+
+	<choose>
+	  <when test="sower is empty">
+
+	    <operation id="500" default-duration="4 minutes" type="loading">
+              <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
+              <division producer="seeds" product="seeds_to_sow"/>
+              <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
+              <entering product="seeds_to_sow" localization="sower"/>
+	    </operation>
+	    
+	  </when>
+	  <otherwise>
+
+	    <switch prompt="how_to_fill_sower">
+	      <case value="keep"/>
+	      <case value="merge">
+		<choose>
+		  <when test="(contained seeds variant == seeds_to_transport) or prompt(is_it_a_merge)">
+		    
+		    <!-- Merge seeds_to_transport into transported_seeds -->
+		    
+		  </when>
+		  <otherwise>
+		      
+		    <!-- Mix seeds_to_transport into transported_seeds -->
+		    <input in="mix_variant" type="variant"/>
+		    
+		  </otherwise>
+		</choose>
+	      </case>
+	      <case value="unload_and_reload_other">
+		
+	      </case>
+	    </switch>
+	    
+	  </otherwise>
+	</choose>
+
+	<unless test="sower contains some seeds">
+
+	  <if test="tractor not at seeds">      
+            <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
+	    <operation id="400" default-duration="4 minutes" type="movement">
+              <movement product="tractor" localizable="seeds"/>
+	    </operation>
+	  </if>
+	  
+	  <operation id="500" default-duration="4 minutes" type="loading">
+            <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
+            <division producer="seeds" product="seeds_to_sow"/>
+            <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
+            <entering product="seeds_to_sow" localization="sower"/>
+	  </operation>
+
+	</unless>
+
+	<if test="tractor not in land_parcel">
+          <!-- le chauffeur + son tracteur et son semoir chargé de semences se déplace vers la parcelle et rentre dedant (?) -->
+	  <operation id="600" default-duration="18 minutes" type="transport">
+            <direct-movement product="tractor" localizable="land_parcel"/>
+	  </operation>
+	</if>
+
+	<operation id="700" type="sowing">
+          <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne, le conducteur roule, le semoir sème) les task tournent -->
+          <entering product="seeds_to_sow" localization="land_parcel"/>
+          <!-- les semences tombe par terre car le semoir tourne  -->
+          <consumption absorber="land_parcel" product="seeds_to_sow"/>
+          <!-- la parcelle consomme les semences épandues -->
+          <production producer="land_parcel" product="cultivation"/>
+          <!-- les semences tombées sur le sol produise une sole de blé -->
+          <direct-entering product="cultivation" localization="land_parcel"/>
+          <!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->
+          <!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
+          <!-- et je retourne charger des semences sur le tas global-->
+          <!-- <task do="cultivation|shape|:land_parcel is measured"/> -->
+	</operation>
+
+	<operation id="750" type="reading" default-duration="1 minute">
+          <simple-reading product="cultivation" indicator="population" value="superficial_count:cultivation"/>
+          <simple-reading product="land_parcel" indicator="soil_cultural_state" value="covered"/>
+          <simple-reading product="cultivation" indicator="plants_count"/>
+	</operation>
+
+	<if prompt="does_i_refill_the_sower">
+
+	  <if test="tractor not at seeds">     
+	    <operation id="775" type="movement">
+	      <entering product="tractor" localizable="seeds"/>
+	    </operation>
+	  </if>
+	  
+	  <operation id="780" default-duration="4 minutes" type="loading">
+            <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
+            <division producer="seeds" product="seeds_to_sow"/>
+            <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
+            <entering product="seeds_to_sow" localization="sower"/>
+	  </operation>
+	  
+	</if>
+
+      </loop>
+      
+      <unless prompt="does_tractor_remain_in_land_parcel">
+
+	<if test="tractor still contains seeds">
+	  <if prompt="does_sower_release_remaining_seeds">
+
+	    <operation id="790" type="transport" default-duration="18 minutes">
+              <movement product="tractor" localizable="seeds"/>
+	    </operation>
+
+	    <operation id="795" type="transfer">
+              <movement product="seeds_to_transport" localizable="seeds"/>
+              <merging absorber="seeds" product="seeds_to_transport"/>
+	    </operation>
+
+	  </if>
+	</if>
+
+	<unless prompt="does_sower_remain_attached_to_tractor">
+	  <operation id="800" default-duration="18 minutes" type="movement">
+            <given-home-coming product="tractor" localizable="sower"/>
+	  </operation>
+	  <operation id="900" default-duration="4 minutes">
+            <detachment carrier="tractor" carried="sower"/>
+	  </operation>
+	</unless>
+
+	<if prompt="do_the_tractor_go_home">
+	  <operation id="1000" default-duration="7 minutes">
+            <home-coming product="tractor"/>
+	  </operation>
+	</if>
+
+	<operation id="1100" default-duration="4 minutes">
+          <home-coming product="driver"/>
+	</operation>
+
+      </unless>
+
+    </operations>
+
+  </procedure>
+</procedures>
