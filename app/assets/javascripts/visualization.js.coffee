@@ -81,7 +81,7 @@
         paths:
           stroke: true
           color: "#333333"
-          weight: 1
+          weight: 2
           opacity: 1
           fill: true
           fillOpacity: 1

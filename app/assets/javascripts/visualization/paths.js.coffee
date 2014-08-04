@@ -28,9 +28,17 @@ class visualization.Paths
     for crumb in @data
       crumbStyle =
         fillColor: this.itemFor(crumb[@layer.reference]).fillColor
-      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), 1.5, $.extend(true, {}, globalStyle, crumbStyle))
+        color: this.itemFor(crumb[@layer.reference]).fillColor
+      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), 0.5, $.extend(true, {}, globalStyle, crumbStyle))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
+      previous_crumb = @data[@data.indexOf(crumb) - 1]
+      if previous_crumb
+        points = []
+        points.push(new L.geoJson(previous_crumb.shape).getBounds().getCenter())
+        points.push(new L.geoJson(crumb.shape).getBounds().getCenter())
+        crumbLayer = new L.polyline(points, $.extend(true, {}, globalStyle, crumbStyle))
+        group.push(crumbLayer)
     group
 
   # Build HTML legend for given categories computed layer
