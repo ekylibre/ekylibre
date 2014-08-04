@@ -11,6 +11,7 @@ def load_data(name, &block)
     folder ||= "demo"
     Ekylibre::FirstRun.transaction quiet: true do
       yield Ekylibre::FirstRun::Loader.new(folder)
+      Ekylibre::FirstRun.last_loader = name
     end
   end
 end
@@ -49,10 +50,20 @@ end
 
 desc "Create first_run data independently -- also available " + Ekylibre::FirstRun::LOADERS.collect{|c| "first_run:#{c}"}.join(", ")
 task :first_runs => :environment do
-  for loader in Ekylibre::FirstRun::LOADERS
-    puts "Load #{loader.to_s.red}:"
-    Rake::Task["first_run:#{loader}"].invoke
+  loader = nil
+
+  if last = Ekylibre::FirstRun.last_loader
+    index = Ekylibre::FirstRun::LOADERS.index(last.to_sym) + 1
+    if index == Ekylibre::FirstRun::LOADERS.size
+      puts "All loader runned".green
+    else
+      loader = Ekylibre::FirstRun::LOADERS[index]
+    end
+  else
+    loader = Ekylibre::FirstRun::LOADERS.first
   end
+
+  Rake::Task["first_runs:#{loader}"].invoke if loader
 end
 
 

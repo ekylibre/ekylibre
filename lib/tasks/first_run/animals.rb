@@ -137,7 +137,7 @@ load_data :animals do |loader|
           unless group = groups.detect do |g|
               (g.sex.blank? or g.sex == r.sex) and (g.minimum_age.blank? or r.age >= g.minimum_age) and (g.maximum_age.blank? or r.age < g.maximum_age)
             end
-            raise "Cannot find a valid group for the given"
+            raise "Cannot find a valid group for the given (for #{r.inspect})"
           end
 
           variant = ProductNatureVariant.import_from_nomenclature(group.member_nature)

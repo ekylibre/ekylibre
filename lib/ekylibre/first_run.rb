@@ -5,6 +5,7 @@ module Ekylibre
 
     COUNTER_MAX = -1
 
+    LAST_LOADER_PREFERENCE = "first_run.last_loader"
 
     LOADERS = [:base, :general_ledger, :entities, :land_parcels, :buildings, :equipments, :products, :animals, :productions, :analyses, :sales, :deliveries, :demo_interventions, :interventions, :guides]
 
@@ -33,6 +34,23 @@ module Ekylibre
         end
       end
 
+      # Get the last completed loader from preferences
+      def last_loader
+        if preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
+          return preference.value
+        end
+        return nil
+      end
+      
+      # Set the last loader in preferences for next run
+      def last_loader=(value)
+        unless preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
+          preference = Preference.new(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE, nature: :string)
+        end
+        preference.value = value
+        preference.save!
+      end
+      
     end
 
     IMPORTS = {

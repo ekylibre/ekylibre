@@ -3,6 +3,7 @@ module Ekylibre
   module FirstRun
 
     class Loader
+
       attr_reader :folder
 
       def initialize(folder, options = {})

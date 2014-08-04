@@ -110,7 +110,7 @@ class Preference < Ekylibre::Record::Base
       preference.value = self.reference[name][:default] if self.reference[name][:default]
       preference.save!
     elsif preference.nil?
-      raise ArgumentError.new("Undefined preference: " + name)
+      raise ArgumentError, "Undefined preference: #{name}"
     end
     return preference
   end
