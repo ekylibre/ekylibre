@@ -1,0 +1,12 @@
+= visualization do |v|
+  -# v.serie :production_supports, production_supports
+  - v.serie :interventions, data
+  -# v.categories :nature, :production_supports if production_supports.present?
+  - v.paths legend, :interventions
+  - v.background 'OpenStreetMap.HOT'
+  - v.background 'Thunderforest.Transport'
+  - v.background 'Thunderforest.Outdoors'
+  - v.control :zoom
+  - v.control :scale
+  - v.control :fullscreen
+  - v.control :layer_selector

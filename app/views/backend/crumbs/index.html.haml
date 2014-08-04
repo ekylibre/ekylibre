@@ -1,16 +1,5 @@
 = beehive do |b|
   -b.cell :map do
-    = visualization do |v|
-      - v.serie :crumbs, @interventions_crumbs
-      - v.paths :started_at, :crumbs
-      - v.background 'OpenStreetMap.HOT'
-      - v.background 'Thunderforest.Transport'
-      - v.background 'Thunderforest.Outdoors'
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
-  - b.cell :actors do
-    = render 'actors', actors: @actors if @actors.present?
+    = render 'map', legend: :started_at, data: @interventions_crumbs, production_supports: []
   - b.cell :interventions do
-    = render 'interventions', actors: @actors if @actors.present?
+    = render 'interventions'

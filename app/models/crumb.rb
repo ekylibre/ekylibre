@@ -61,14 +61,22 @@ class Crumb < Ekylibre::Record::Base
     end
     result
   end
+  
+  # returns the current production support on which the crumb is located
+  def production_support
+    ProductionSupport.of_campaign(Campaign.currents).includes({production: [:activity, :campaign, :variant]}, :storage)
+      .joins(:storage)
+      .joins("INNER JOIN product_readings ON products.id = product_readings.product_id")
+      .where("geometry_value ~ geolocation")    
+  end
 
-  # listing possibles products matching a point
+  # listing possibles products matching points
   # using postgis operators on geometry objects
   # == params:
   #   - crumbs, an array of Crumb objects
   # == options
   #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
-  #     the method returns only actors that include the crumbs.
+  #     the method returns only actors that include all the crumbs.
   #   - natures: matches all actors whose nature is given.
   # @returns: an array of products whose shape contains or intersects the crumbs
   def self.match(crumbs, options = {})
