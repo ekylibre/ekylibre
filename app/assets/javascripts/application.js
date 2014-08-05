@@ -39,6 +39,7 @@
 //= require leaflet/providers
 //= require_self
 //= require_tree .
+//= require jquery-ui/slider
 
 
 var visualization = {};

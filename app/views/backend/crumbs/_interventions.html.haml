@@ -1,1 +1,12 @@
-%h1 stub
+:ruby
+  cursors = []
+  data.inject(0){|index, item| cursors << index if ['start','stop'].include? item[:nature]; index += 1}
+  
+%div#slider
+  
+:coffee
+  $ -> 
+    $("#slider").slider
+      min: 0
+      max: #{data.length - 1}
+      values: #{cursors}

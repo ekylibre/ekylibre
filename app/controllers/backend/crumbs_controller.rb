@@ -21,7 +21,8 @@ class Backend::CrumbsController < BackendController
                   shape:        crumb.geolocation,
                   started_at:   started_at,
                   stopped_at:   stopped_at,
-                  doer:         doer
+                  doer:         doer,
+                  crumb:        crumb
                 }
         @interventions_crumbs << item
       end
