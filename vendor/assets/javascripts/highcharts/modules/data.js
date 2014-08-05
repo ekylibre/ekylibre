@@ -24,8 +24,9 @@
  * - complete : Function(chartOptions)
  * The callback that is evaluated when the data is finished loading, optionally from an
  * external source, and parsed. The first argument passed is a finished chart options
- * object, containing series and an xAxis with categories if applicable. Thise options
- * can be extended with additional options and passed directly to the chart constructor.
+ * object, containing the series. Thise options
+ * can be extended with additional options and passed directly to the chart constructor. This is
+ * related to the parsed callback, that goes in at an earlier stage.
  *
  * - csv : String
  * A comma delimited string to be parsed. Related options are startRow, endRow, startColumn
@@ -57,7 +58,9 @@
  *
  * - parsed : Function
  * A callback function to access the parsed columns, the two-dimentional input data
- * array directly, before they are interpreted into series data and categories.
+ * array directly, before they are interpreted into series data and categories. See also
+ * the complete callback, that goes in on a later stage where the raw columns are interpreted
+ * into a Highcharts option structure.
  *
  * - parseDate : Function
  * A callback function to parse string representations of dates into JavaScript timestamps.
@@ -84,7 +87,7 @@
 // JSLint options:
 /*global jQuery */
 
-(function (Highcharts) {
+(function (Highcharts) { // docs
 
 	// Utilities
 	var each = Highcharts.each;
@@ -232,8 +235,7 @@
 			startRow = options.startRow || 0,
 			endRow = options.endRow || Number.MAX_VALUE,
 			startColumn = options.startColumn || 0,
-			endColumn = options.endColumn || Number.MAX_VALUE,
-			colNo;
+			endColumn = options.endColumn || Number.MAX_VALUE;
 
 		if (table) {
 
@@ -242,16 +244,14 @@
 			}
 
 			each(table.getElementsByTagName('tr'), function (tr, rowNo) {
-				colNo = 0;
 				if (rowNo >= startRow && rowNo <= endRow) {
-					each(tr.childNodes, function (item) {
+					each(tr.children, function (item, colNo) {
 						if ((item.tagName === 'TD' || item.tagName === 'TH') && colNo >= startColumn && colNo <= endColumn) {
-							if (!columns[colNo]) {
-								columns[colNo] = [];
+							if (!columns[colNo - startColumn]) {
+								columns[colNo - startColumn] = [];
 							}
-							columns[colNo][rowNo - startRow] = item.innerHTML;
 
-							colNo += 1;
+							columns[colNo - startColumn][rowNo - startRow] = item.innerHTML;
 						}
 					});
 				}
@@ -276,53 +276,56 @@
 			gc; // google column
 
 		if (googleSpreadsheetKey) {
-			jQuery.getJSON('https://spreadsheets.google.com/feeds/cells/' +
+			jQuery.ajax({
+				dataType: 'json',
+				url: 'https://spreadsheets.google.com/feeds/cells/' +
 				  googleSpreadsheetKey + '/' + (options.googleSpreadsheetWorksheet || 'od6') +
 					  '/public/values?alt=json-in-script&callback=?',
-					  function (json) {
+				error: options.error,
+				success: function (json) {
+					// Prepare the data from the spreadsheat
+					var cells = json.feed.entry,
+						cell,
+						cellCount = cells.length,
+						colCount = 0,
+						rowCount = 0,
+						i;
 
-				// Prepare the data from the spreadsheat
-				var cells = json.feed.entry,
-					cell,
-					cellCount = cells.length,
-					colCount = 0,
-					rowCount = 0,
-					i;
-
-				// First, find the total number of columns and rows that
-				// are actually filled with data
-				for (i = 0; i < cellCount; i++) {
-					cell = cells[i];
-					colCount = Math.max(colCount, cell.gs$cell.col);
-					rowCount = Math.max(rowCount, cell.gs$cell.row);
-				}
-
-				// Set up arrays containing the column data
-				for (i = 0; i < colCount; i++) {
-					if (i >= startColumn && i <= endColumn) {
-						// Create new columns with the length of either end-start or rowCount
-						columns[i - startColumn] = [];
-
-						// Setting the length to avoid jslint warning
-						columns[i - startColumn].length = Math.min(rowCount, endRow - startRow);
+					// First, find the total number of columns and rows that
+					// are actually filled with data
+					for (i = 0; i < cellCount; i++) {
+						cell = cells[i];
+						colCount = Math.max(colCount, cell.gs$cell.col);
+						rowCount = Math.max(rowCount, cell.gs$cell.row);
 					}
-				}
 
-				// Loop over the cells and assign the value to the right
-				// place in the column arrays
-				for (i = 0; i < cellCount; i++) {
-					cell = cells[i];
-					gr = cell.gs$cell.row - 1; // rows start at 1
-					gc = cell.gs$cell.col - 1; // columns start at 1
+					// Set up arrays containing the column data
+					for (i = 0; i < colCount; i++) {
+						if (i >= startColumn && i <= endColumn) {
+							// Create new columns with the length of either end-start or rowCount
+							columns[i - startColumn] = [];
 
-					// If both row and col falls inside start and end
-					// set the transposed cell value in the newly created columns
-					if (gc >= startColumn && gc <= endColumn &&
-						gr >= startRow && gr <= endRow) {
-						columns[gc - startColumn][gr - startRow] = cell.content.$t;
+							// Setting the length to avoid jslint warning
+							columns[i - startColumn].length = Math.min(rowCount, endRow - startRow);
+						}
 					}
+
+					// Loop over the cells and assign the value to the right
+					// place in the column arrays
+					for (i = 0; i < cellCount; i++) {
+						cell = cells[i];
+						gr = cell.gs$cell.row - 1; // rows start at 1
+						gc = cell.gs$cell.col - 1; // columns start at 1
+
+						// If both row and col falls inside start and end
+						// set the transposed cell value in the newly created columns
+						if (gc >= startColumn && gc <= endColumn &&
+							gr >= startRow && gr <= endRow) {
+							columns[gc - startColumn][gr - startRow] = cell.content.$t;
+						}
+					}
+					self.dataFound();
 				}
-				self.dataFound();
 			});
 		}
 	},
@@ -485,10 +488,11 @@
 			data,
 			i,
 			j,
-			seriesIndex;
+			seriesIndex,
+			chartOptions;
 
 
-		if (options.complete) {
+		if (options.complete || options.afterComplete) {
 
 			this.getColumnDistribution();
 
@@ -523,22 +527,27 @@
 
 				// Iterate down the cells of each column and add data to the series
 				data = [];
-				for (j = 0; j < columns[i].length; j++) {
-					data[j] = [
-						firstCol[j],
-						columns[i][j] !== undefined ? columns[i][j] : null
-					];
-					if (valueCount > 1) {
-						data[j].push(columns[i + 1][j] !== undefined ? columns[i + 1][j] : null);
-					}
-					if (valueCount > 2) {
-						data[j].push(columns[i + 2][j] !== undefined ? columns[i + 2][j] : null);
-					}
-					if (valueCount > 3) {
-						data[j].push(columns[i + 3][j] !== undefined ? columns[i + 3][j] : null);
-					}
-					if (valueCount > 4) {
-						data[j].push(columns[i + 4][j] !== undefined ? columns[i + 4][j] : null);
+
+				// Only loop and fill the data series if there are columns available.
+				// We need this check to avoid reading outside the array bounds.
+				if (i + valueCount <= columns.length) {
+					for (j = 0; j < columns[i].length; j++) {
+						data[j] = [
+							firstCol[j],
+							columns[i][j] !== undefined ? columns[i][j] : null
+						];
+						if (valueCount > 1) {
+							data[j].push(columns[i + 1][j] !== undefined ? columns[i + 1][j] : null);
+						}
+						if (valueCount > 2) {
+							data[j].push(columns[i + 2][j] !== undefined ? columns[i + 2][j] : null);
+						}
+						if (valueCount > 3) {
+							data[j].push(columns[i + 3][j] !== undefined ? columns[i + 3][j] : null);
+						}
+						if (valueCount > 4) {
+							data[j].push(columns[i + 4][j] !== undefined ? columns[i + 4][j] : null);
+						}
 					}
 				}
 
@@ -552,12 +561,20 @@
 			}
 
 			// Do the callback
-			options.complete({
+			chartOptions = {
 				xAxis: {
 					type: type
 				},
 				series: series
-			});
+			};
+			if (options.complete) {
+				options.complete(chartOptions);
+			}
+			// The afterComplete hook is used internally to avoid conflict with the externally
+			// available complete option.
+			if (options.afterComplete) {
+				options.afterComplete(chartOptions);
+			}
 		}
 	}
 	});
@@ -575,13 +592,20 @@
 
 		if (userOptions && userOptions.data) {
 			Highcharts.data(Highcharts.extend(userOptions.data, {
-				complete: function (dataOptions) {
+				afterComplete: function (dataOptions) {
+					var i, series;
 
 					// Merge series configs
-					if (userOptions.series) {
-						each(userOptions.series, function (series, i) {
-							userOptions.series[i] = Highcharts.merge(series, dataOptions.series[i]);
-						});
+					if (userOptions.hasOwnProperty('series')) {
+						if (typeof userOptions.series === 'object') {
+							i = Math.max(userOptions.series.length, dataOptions.series.length);
+							while (i--) {
+								series = userOptions.series[i] || {};
+								userOptions.series[i] = Highcharts.merge(series, dataOptions.series[i]);
+							}
+						} else { // Allow merging in dataOptions.series (#2856)
+							delete userOptions.series;
+						}
 					}
 
 					// Do the merge
