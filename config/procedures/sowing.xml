@@ -4,7 +4,7 @@
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}] ">
-	<handler indicator="population" />
+        <handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
                  backward="value * self..net_mass(kilogram)"
@@ -31,10 +31,10 @@
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target" default-actor="storage"/>
       <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
-	<handler indicator="shape">
-	  <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
-	  <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
-	</handler>
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
       </variable>
     </variables>
     <operations>
