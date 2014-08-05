@@ -11,7 +11,7 @@
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="harrow" type="equipment" abilities="uncompact" roles="plowing-tool"/>
+      <variable name="harrow" abilities="uncompact" roles="plowing-tool"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

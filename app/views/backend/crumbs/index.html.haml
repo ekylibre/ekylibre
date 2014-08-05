@@ -1,17 +1,17 @@
-:ruby 
+:ruby
   crumbs = @interventions_crumbs
   interventions = {}
   crumbs.each do |item|
     interventions[item[:name]] ||= []
     interventions[item[:name]] << item
-  end 
-  
+  end
+
 = beehive do |b|
   -b.cell :map do
     = render 'map', legend: :started_at, data: crumbs, production_supports: []
   - b.cell :interventions do
     = render 'interventions', data: crumbs
   - interventions.each do |name, intervention|
-    - b.cell intervention.first[:started_at] do 
+    - b.cell intervention.first[:started_at] do
       = render 'intervention', data: intervention
   

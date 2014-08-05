@@ -95,12 +95,12 @@
 				<when value="home">
           <operation id="800" default-duration="18 minutes" nature="movement">
             <given-home-coming product="tractor" localizable="sower"/>
-          </operation>					
+          </operation>
 				</when>
 				<when value="somewhere-else">
           <operation id="800" default-duration="18 minutes" nature="movement">
             <movement product="tractor" localizable="PROMPT"/>
-          </operation>					
+          </operation>
 				</when>
 				<otherwise>
 					<!-- NOP -->

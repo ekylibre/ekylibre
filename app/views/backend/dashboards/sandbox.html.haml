@@ -36,17 +36,17 @@
   require 'benchmark'
 
   activated = false
-  
+
   if activated
 
   ############################
-  # generating data for test 
+  # generating data for test
   ############################
-  
+
   # array of crumbs ready to be managed by VisualizationHelper
   interventions_crumbs = []
-  
-  @slider_ary = nil 
+
+  @slider_ary = nil
 
   interventions = Crumb.interventions(current_user.id)
   interventions.each do |intervention|
@@ -68,13 +68,13 @@
       @slider_ary << crumb.read_at
     end
   end
-  
+
   end # 'activated' block
 
   rendering = activated
 
 - if rendering
-  %h2 Playing with sliders 
+  %h2 Playing with sliders
   = visualization do |v|
     - v.serie :crumbs, interventions_crumbs
     - v.background 'Thunderforest.Transport'
@@ -83,18 +83,18 @@
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
-  
-  %p 
+
+  %p
     %label sliderval
     %input#sliderval
-  %div#slider 
-    
+  %div#slider
+
 :coffee
   $ ->
     $("#slider").slider
       slide: (event, ui) ->
         $("#sliderval").val(ui.value)
-        
+
     $("#sliderval").val($("#slider").slider("value"))
-      
+
 

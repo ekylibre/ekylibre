@@ -2,11 +2,11 @@
   cursors = []
   data.inject(0){|index, item| cursors << index if ['hard_start','hard_stop'].include? item[:nature]; index += 1}
   div_id = "intervention_#{data.first[:name]}"
-  
+
 %div{id: div_id}
-  
+
 :coffee
-  $ -> 
+  $ ->
     $("##{div_id}").slider
       min: 0
       max: #{data.length - 1}

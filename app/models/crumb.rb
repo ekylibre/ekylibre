@@ -61,13 +61,13 @@ class Crumb < Ekylibre::Record::Base
     end
     result
   end
-  
+
   # returns the current production support on which the crumb is located
   def production_support
     ProductionSupport.of_campaign(Campaign.currents).includes({production: [:activity, :campaign, :variant]}, :storage)
       .joins(:storage)
       .joins("INNER JOIN product_readings ON products.id = product_readings.product_id")
-      .where("geometry_value ~ geolocation")    
+      .where("geometry_value ~ geolocation")
   end
 
   # listing possibles products matching points
