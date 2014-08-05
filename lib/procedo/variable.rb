@@ -1,7 +1,7 @@
 module Procedo
   class Variable
 
-    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name, :destinations, :default_actor, :default_variant, :position
+    attr_reader :abilities, :birth_nature, :derivative_of, :default_name, :destinations, :default_actor, :default_variant, :handlers, :name, :position, :procedure, :producer_name, :roles, :type, :value, :variety
 
     def initialize(procedure, element, position)
       @procedure = procedure
@@ -16,6 +16,10 @@ module Procedo
         new_array = new.split(/\s*\:\s*/)
         @birth_nature  = new_array.shift.underscore.to_sym
         @producer_name = new_array.shift.to_sym
+      end
+      @type = element.has_attribute?('type') ? element.attr("type").underscore.to_sym : :product
+      unless [:product, :variant].include?(@type)
+        raise StandardError, "Unknown variable type: #{@type.inspect}"
       end
       @default_name = element.attr("default-name").to_s
       @default_actor   = element.has_attribute?('default-actor')   ? element.attr("default-actor").underscore.to_sym   : :none

@@ -2,22 +2,15 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## ANIMAUX ########################################### -->
   <procedure name="animal_group_changing" natures="animal_moving,animal_group_changing" version="0" status="frozen">
+
     <variables>
-
-      <variable name="animal"  variety="animal" abilities="move" roles="animal_moving-input,animal_group_changing-input"/>
-
-      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_moving-target" default-actor="storage" need="shape" default-shape=":animal_housing">
-      </variable>
-
-      <variable name="herd" variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="variant-localized-in-storage">
-      </variable>
-
-      <variable name="new_animal_variant" type="variant" variety="variety: animal">
-      </variable>
-
-      <variable name="caregiver"  variety="worker" abilities="move" roles="animal_moving-doer"/>
-
+      <variable name="animal"             variety="animal" abilities="move" roles="animal_moving-input,animal_group_changing-input"/>
+      <variable name="animal_housing"     variety="building_division" abilities="store(animal)"  roles="animal_moving-target" default-actor="storage" need="shape" default-shape=":animal_housing"/>
+      <variable name="herd"               variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="variant-localized-in-storage"/>
+      <variable name="new_animal_variant" type="variant" variety="variety: animal"/>
+      <variable name="caregiver"          variety="worker" abilities="move" roles="animal_moving-doer"/>
     </variables>
+
     <operations>
       <operation id="100" duration="4 minutes">
         <task do="[caregiver] moves at [animal]"/>
