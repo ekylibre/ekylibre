@@ -387,9 +387,8 @@ load_data :interventions do |loader|
 
                 cultivable_zone = CultivableZone.find_by_work_number(cultivable_zones_transcode[r.cultivable_zone_code])
 
-                equipments_work_number = nil
+                equipments_work_number = []
                 if r.equipments_name
-                  equipments_work_number = []
                   for equipment_name in r.equipments_name
                     equipment = Equipment.find_by_work_number(equipments_transcode[equipment_name.to_s])
                     equipments_work_number << equipment.work_number if equipment
@@ -397,9 +396,8 @@ load_data :interventions do |loader|
                   equipments_work_number.compact!
                 end
 
-                workers_work_number = nil
+                workers_work_number = []
                 if r.workers_name
-                  workers_work_number = []
                   for worker_name in r.workers_name
                     worker = Worker.find_by_work_number(workers_transcode[worker_name.to_s.downcase])
                     workers_work_number << worker.work_number if worker
@@ -528,9 +526,9 @@ load_data :interventions do |loader|
                                 intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, (r.intervention_duration? ? r.intervention_duration : (0.96 * coeff)), support: support) do |i|
                                   i.add_cast(reference_name: 'fertilizer',  actor: intrant)
                                   i.add_cast(reference_name: 'fertilizer_to_spread', population: global_intrant_value)
-                                  i.add_cast(reference_name: 'spreader',    actor: (equipments_work_number ? i.find(Product, of_work_numbers: equipments_work_number, can: "spread(preparation)") : i.find(Product, can: "spread(preparation)")))
-                                  i.add_cast(reference_name: 'driver',      actor: (workers_work_number ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
-                                  i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number ? i.find(Product, of_work_numbers: equipments_work_number, can: "tow(spreader)") : i.find(Product, can: "tow(spreader)")))
+                                  i.add_cast(reference_name: 'spreader',    actor: (equipments_work_number.count > 0 ? i.find(Product, of_work_numbers: equipments_work_number, can: "spread(preparation)") : i.find(Product, can: "spread(preparation)")))
+                                  i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, of_work_numbers: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Product, of_work_numbers: equipments_work_number, can: "tow(spreader)") : i.find(Product, can: "tow(spreader)")))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
 
