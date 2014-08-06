@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0" status="frozen">
+  <procedure name="grinding" natures="grinding" version="0" status="frozen">
     <variables>
-      <variable name="cultivation" variety="plant" roles="soil_enrichment-input_origin" default-actor="variant-localized-in-storage"/>
-      <variable name="tractor"     abilities="tow(equipment)"/>
-      <variable name="grinder"     abilities="grind(plant)" roles="soil_enrichment-tool, grinding-tool"/>
-      <variable name="grinded"     variety="straw" derivative-of="variety: cultivation" roles="soil_enrichment-input" new="produced-by: cultivation" need="population"/>
-      <variable name="land_parcel" variety="cultivable_zone" roles="grinding-target, soil_enrichment-target"/>
-      <variable name="driver"      abilities="drive(tractor)" roles="grinding-doer, soil_enrichment-doer"/>
+      <variable name="tractor"     abilities="catch(equipment)" roles="grinding-tool"/>
+      <variable name="grinder"     abilities="grind(plant)" roles="grinding-tool"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="grinding-target"/>
+      <variable name="driver"      abilities="drive(tractor)" roles="grinding-doer"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -29,10 +27,6 @@
       <operation id="500">
         <!-- <task do="[driver] drives [grinder]"/> -->
         <task do="[tractor] acts on [land_parcel]"/>
-        <task do="[grinder] consumes [cultivation]"/>
-        <task do="[grinder] produces [grinded]"/>
-        <task do="[grinded] moves in [land_parcel]"/>
-        <task do="[land_parcel] consumes [grinded]"/>
       </operation>
       <operation id="600" duration="18 minutes">
         <task do="[tractor] moves in default storage of [grinder]"/>

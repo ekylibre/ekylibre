@@ -25,7 +25,7 @@
       <item name="soil_cleaning" roles="target"/>
       <item name="implantation" roles="input, target, output, doer, tool, input_origin"/>
       <item name="pruning" roles="doer, target"/>
-      <item name="grinding" roles="input, output, doer, tool"/>
+      <item name="grinding" roles="doer, tool, target"/>
       <item name="growth_control" roles="target"/>
       <item name="maintenance" roles="target"/>
     </items>

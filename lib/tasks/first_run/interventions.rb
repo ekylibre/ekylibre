@@ -514,43 +514,52 @@ load_data :interventions do |loader|
 
 
                 coeff = ((r.working_area / 10000.0) / 6.0).to_d
-                
+
                 if procedures_transcode[r.procedure_name] and support and (coeff.to_f > 0.0)
 
                   Ekylibre::FirstRun::Booker.production = support.production
-                  
-                                    
+
+
                   #
                   # create intervention without intrant(s)
                   #
-                  
-                  
+
+
                   if procedures_transcode[r.procedure_name] == :raking
                                 # Raking
-                               
+
                                 intervention = Ekylibre::FirstRun::Booker.force(:raking, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support, parameters: {readings: {"base-raking-0-500-1" => 'plowed'}}) do |i|
                                   i.add_cast(reference_name: 'harrow',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "plow_superficially") : i.find(Equipment, can: "plow_superficially")))
                                   i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
-                    
+
+                  elsif procedures_transcode[r.procedure_name] == :grinding
+
+                                intervention = Ekylibre::FirstRun::Booker.force(:grinding, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
+                                  i.add_cast(reference_name: 'grinder',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "grind(plant)") : i.find(Equipment, can: "grind(plant)")))
+                                  i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
+                                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+                                end
+
                   end
-                  
-                  
-                  
+
+
+
                   #
                   # create intervention with intrant(s)
                   #
-                  
-                  
+
+
                   for intrant in intrants
 
 
                     if (procedures_transcode[r.procedure_name] == :mineral_fertilizing || procedures_transcode[r.procedure_name] == :sowing) and intrant and intrant.able_to?("fertilize")
                                 # Mineral fertilizing
-                                                                    
-                                                                
+
+
                                 intervention = Ekylibre::FirstRun::Booker.force(:mineral_fertilizing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.96 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'fertilizer',  actor: intrant)
                                   i.add_cast(reference_name: 'fertilizer_to_spread', population: global_intrant_value)
@@ -651,8 +660,8 @@ load_data :interventions do |loader|
 
 
                   end
-                  
-                  
+
+
 
 
 

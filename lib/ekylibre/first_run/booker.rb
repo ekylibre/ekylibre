@@ -119,23 +119,23 @@ module Ekylibre
           end
           return intervention
         end
-        
+
         # used for importing intervention from others editors
         # procedure_code symbol (from procedure)
         # started_at datetime
         # duration integer (hours)
         def force(procedure_code, started_at, duration, options = {}, &block)
-          
+
           # Find procedure
           procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
           unless procedure = Procedo[procedure_name]
             raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
           end
-          
+
           # Adds fixed durations to given time
           fixed_duration = procedure.fixed_duration / 3600
           duration += fixed_duration
-          
+
           # Find actors
           booker = new(procedure, started_at, duration)
           yield booker
@@ -143,18 +143,18 @@ module Ekylibre
           if actors.empty?
             raise ArgumentError, "What's the fuck ? No actors ? "
           end
-          
+
           # Find a slot for all actors for given day and given duration
           at = nil
           9.times do |p|
             at = started_at + p
             break unless InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where("? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at", at, at + duration.hours).any?
           end
-          
+
           # Run interventions
           intervention = nil
             stopped_at = at + duration.hours
-            if stopped_at < Time.now    
+            if stopped_at < Time.now
               intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: at, stopped_at: stopped_at)
               for cast in booker.casts
                 intervention.add_cast!(cast)

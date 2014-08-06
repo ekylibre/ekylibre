@@ -1006,6 +1006,14 @@
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
+      <item name="grinder"
+            category="equipment"
+            variety="plower"
+            population_counting="unitary"
+            abilities="grind(plant)"
+            variable_indicators="application_width, geolocation"
+            frozen_indicators="population"
+            />
       <item name="hay_rake"
             category="equipment"
             variety="harvester"
