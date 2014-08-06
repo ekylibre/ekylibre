@@ -730,6 +730,7 @@ intervention_casts:
   id: {type: integer, required: true}
   intervention_id: {type: integer, references: intervention, required: true}
   lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
   population: {type: decimal, precision: 19, scale: 4}
   position: {type: integer, required: true}
   reference_name: {type: string, required: true}

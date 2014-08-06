@@ -29,6 +29,7 @@
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
+#  nature                 :string(255)      not null
 #  population             :decimal(19, 4)
 #  position               :integer          not null
 #  reference_name         :string(255)      not null
@@ -40,23 +41,24 @@
 #
 
 class InterventionCast < Ekylibre::Record::Base
+  enumerize :nature, in: [:product, :variant], default: :product, predicates: {prefix: true}
   belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :casts
   belongs_to :variant, class_name: "ProductNatureVariant"
-  has_one :nature, through: :variant
+  has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
   has_one :event,    through: :intervention
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
-  validates_length_of :reference_name, allow_nil: true, maximum: 255
+  validates_length_of :nature, :reference_name, allow_nil: true, maximum: 255
   validates_length_of :roles, allow_nil: true, maximum: 320
-  validates_presence_of :intervention, :reference_name
+  validates_presence_of :intervention, :nature, :reference_name
   #]VALIDATORS]
 
   delegate :name, to: :actor, prefix: true
-  delegate :name, to: :nature, prefix: true
+  delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :actor
   delegate :tracking, to: :actor
   delegate :started_at, :stopped_at, to: :intervention
@@ -66,11 +68,12 @@ class InterventionCast < Ekylibre::Record::Base
     # for nature in natures
     #   raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     # end
-    where("roles ~ E?", "\\\\m#{role}\\\\M")
+    # where("roles ~ E?", "\\\\m#{role}\\\\M")
+    where("roles ~ E?", "-#{role}(,|$)")
   }
 
   scope :with_cast, lambda { |role, object|
-   self.of_role(role).where(actor_id: object.id)
+    self.of_role(role).where(actor_id: object.id)
   }
 
   before_validation do
@@ -93,6 +96,10 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   before_save do
+    if self.nature_variant?
+      self.actor = nil
+    end
+
     if self.actor and self.actor.respond_to?(:person) and self.actor.person
       columns = {event_id: self.event.id, participant_id: self.actor.person_id, state: :accepted}
       if self.event_participation
@@ -112,13 +119,12 @@ class InterventionCast < Ekylibre::Record::Base
   def cost
     if self.actor and price = self.evaluated_price
       if self.input?
-        price * (self.population || 0.0)
-      else self.tool? or self.doer?
-        price * ((self.stopped_at - self.started_at).to_d / 3600)
+        return price * (self.population || 0.0)
+      elsif self.tool? or self.doer?
+        return price * ((self.stopped_at - self.started_at).to_d / 3600)
       end
-    else
-      return nil
     end
+    return nil
   end
 
   def reference

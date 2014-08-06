@@ -28,6 +28,7 @@
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
+#  nature                 :string(255)      not null
 #  population             :decimal(19, 4)
 #  position               :integer          not null
 #  reference_name         :string(255)      not null
@@ -43,6 +44,7 @@
 # intervention_casts_001:
 #   creator: users_001
 #   intervention: interventions_001
+#   nature: "Lorem ipsum"
 #   position: 0
 #   reference_name: "Lorem ipsum"
 #   updater: users_001

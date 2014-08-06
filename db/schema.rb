@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717154544) do
+ActiveRecord::Schema.define(version: 20140806082909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1067,6 +1067,7 @@ ActiveRecord::Schema.define(version: 20140717154544) do
     t.integer  "lock_version",                                                                             default: 0, null: false
     t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "event_participation_id"
+    t.string   "nature",                                                                                               null: false
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
