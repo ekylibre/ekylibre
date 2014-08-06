@@ -241,20 +241,32 @@
       @map.addControl control
 
     _addSimpleLayer: (layer, legendControl)->
-      layerGroup = []
-      options = $.extend(true, {}, @options.layerDefaults.simple, layer)
-      for zone in this._getSerieData(layer.serie)
-        zoneLayer = new L.GeoJSON(zone.shape, options)
-        this._bindPopup(zoneLayer, zone)
-        layerGroup.push(zoneLayer)
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.layerDefaults.simple, layer
+      simple = new visualization.Simple(layer, data, options)      
+      return false unless simple.valid()
+
+      layerGroup = simple.buildLayerGroup(this, options)
+      console.log("Simple layer added")
+
+      # Add legend
+      legend = legendControl.getContainer()
+      legend.innerHTML += simple.buildLegend()
+
       return layerGroup
+      # layerGroup = []
+      # options = $.extend(true, {}, @options.layerDefaults.simple, layer)
+      # for zone in this._getSerieData(layer.serie)
+      #   zoneLayer = new L.GeoJSON(zone.shape, options)
+      #   this._bindPopup(zoneLayer, zone)
+      #   layerGroup.push(zoneLayer)
+      # return layerGroup
 
     _addChoroplethLayer: (layer, legendControl)->
       data = this._getSerieData(layer.serie)
       options = $.extend true, {}, @options.layerDefaults.choropleth, layer
       choropleth = new visualization.Choropleth(layer, data, options)
-      unless choropleth.valid()
-        return false
+      return false unless choropleth.valid()
 
       layerGroup = choropleth.buildLayerGroup(this, options)
       console.log("Choropleth layer added")

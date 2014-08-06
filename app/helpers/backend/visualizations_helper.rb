@@ -26,9 +26,16 @@ module Backend::VisualizationsHelper
     # end
 
     def layer(name, serie, options = {})
-      options[:label] ||= name.tl(default: "attributes.#{name}".to_sym)
+      unless options[:label]
+        options[:label] = name.is_a?(String) ? name : name.tl(default: "attributes.#{name}".to_sym)
+      end
+      name = name.parameterize.gsub('-', '_')
       @config[:layers] ||= []
       @config[:layers] << {reference: name.to_s.camelcase(:lower)}.merge(options.merge(name: name, serie: serie.to_s.camelcase(:lower)))
+    end
+
+    def simple(name, serie, options = {})
+      layer(name, serie, options.merge(type: :simple))
     end
 
     def choropleth(name, serie, options = {})
