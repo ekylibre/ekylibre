@@ -72,9 +72,9 @@ class Crumb < Ekylibre::Record::Base
 
   # listing possibles products matching points
   # using postgis operators on geometry objects
-  # == params:
+  # ==== params:
   #   - crumbs, an array of Crumb objects
-  # == options
+  # ==== options
   #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
   #     the method returns only actors that include all the crumbs.
   #   - natures: matches all actors whose nature is given.
