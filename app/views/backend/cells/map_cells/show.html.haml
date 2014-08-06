@@ -76,8 +76,9 @@
   = visualization do |v|
     - v.serie :main, data
     - v.background "OpenStreetMap.HOT"
-    - v.background "Thunderforest.Transport"
-    - v.background "Thunderforest.Outdoors"
+    - v.background "OpenStreetMap.Mapnik"
+    - v.background "Thunderforest.Landscape"
+    - v.background "Esri.WorldImagery"
     - if params[:visualization] == "nitrogen_footprint"
       - v.choropleth :interventions_count, :main
       - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
