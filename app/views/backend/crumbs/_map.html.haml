@@ -1,7 +1,19 @@
+:ruby
+  supports = []
+  production_supports.each do |supps|
+    supps.find_each do |support|
+      line = {
+          activity:     support.production.activity.name,
+          shape:   (support.shape ? support.shape_to_ewkt : nil)
+        }
+        supports << line
+    end
+  end
+
 = visualization do |v|
-  -# v.serie :production_supports, production_supports
+  - v.serie :production_supports, supports
   - v.serie :interventions, data
-  -# v.categories :nature, :production_supports if production_supports.present?
+  - v.categories :activity, :production_supports
   - v.paths legend, :interventions
   - v.background 'OpenStreetMap.HOT'
   - v.background 'Thunderforest.Transport'

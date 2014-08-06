@@ -6,6 +6,9 @@ class Backend::CrumbsController < BackendController
     # array of crumbs ready to be managed by VisualizationHelper
     @interventions_crumbs = []
 
+    # production supports
+    @production_supports = []
+
     interventions = Crumb.interventions(current_user.id)
     interventions.each do |intervention|
       name = interventions.index(intervention)
@@ -25,6 +28,7 @@ class Backend::CrumbsController < BackendController
                   crumb:        crumb
                 }
         @interventions_crumbs << item
+        @production_supports << crumb.production_support unless @production_supports.include?(crumb.production_support)
       end
     end
   end

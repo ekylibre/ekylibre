@@ -64,15 +64,15 @@ class Crumb < Ekylibre::Record::Base
 
   # returns the current production support on which the crumb is located
   def production_support
-    ProductionSupport.of_campaign(Campaign.currents).includes({production: [:activity, :campaign, :variant]}, :storage)
+    ProductionSupport.of_campaign(Campaign.currents)
       .joins(:storage)
       .joins("INNER JOIN product_readings ON products.id = product_readings.product_id")
-      .where("geometry_value ~ geolocation")
+      .where("geometry_value ~ '#{geolocation}'")
   end
 
   # listing possibles products matching points
   # using postgis operators on geometry objects
-  # ==== params:
+  # ==== parameters:
   #   - crumbs, an array of Crumb objects
   # ==== options
   #   - intersection: matches all actors intersecting the crumbs. Expects a boolean. Default false. By default
@@ -89,16 +89,19 @@ class Crumb < Ekylibre::Record::Base
     actors_id = ProductReading.
         where("geometry_value #{operator} (SELECT ST_Multi(ST_Collect(geolocation)) FROM (SELECT geolocation FROM crumbs WHERE id IN (#{crumbs_id.join(', ')})) AS m)").pluck(:product_id)
     Product.find(actors_id).
-        delete_if{|actor| options[:natures].
-        flatten.
-        inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
+        delete_if{|actor| options[:natures].flatten.
+                    inject(false){|one_of_previous, klass| actor.is_a?(klass) || one_of_previous} == false}
   end
 
-  # returns all the interventions for the current user
+  # returns all the interventions for a given user as an array of arrays of crumbs
   # an intervention is an array of crumbs, ordered by read_at, between a 'start' crumb and a 'stop' crumb
-  def self.interventions(user_id)
+  # ==== Parameters
+  #     - user, the user whose crumbs are looked for. accepted values: an actual User or a user id.
+  #     if a user is given, it is automatically converted to a user id.
+  def self.interventions(user)
     buffer = []
     result = []
+    user_id = (user.is_a? Fixnum) ? user : user.id
     Crumb.where(user_id: user_id).order(read_at: :asc).each do |crumb|
       buffer << crumb
       if crumb.nature == 'stop'
