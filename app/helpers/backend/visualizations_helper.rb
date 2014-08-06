@@ -29,7 +29,7 @@ module Backend::VisualizationsHelper
       unless options[:label]
         options[:label] = name.is_a?(String) ? name : name.tl(default: "attributes.#{name}".to_sym)
       end
-      name = name.parameterize.gsub('-', '_')
+      name = name.to_s.parameterize.gsub('-', '_') unless name.is_a?(Symbol)
       @config[:layers] ||= []
       @config[:layers] << {reference: name.to_s.camelcase(:lower)}.merge(options.merge(name: name, serie: serie.to_s.camelcase(:lower)))
     end
