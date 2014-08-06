@@ -252,7 +252,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :crumbs, only: [:index]
+    resources :crumbs, only: [:index, :update]
 
     resources :cultivable_zones, concerns: :products do
       member do

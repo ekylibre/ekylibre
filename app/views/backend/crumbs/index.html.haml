@@ -1,14 +1,16 @@
 :ruby
   crumbs = @interventions_crumbs
   interventions = {}
+  previous_crumb = nil
   crumbs.each do |item|
     interventions[item[:name]] ||= []
     interventions[item[:name]] << item
     popup_content = []
     popup_content << {label: :nature, value: item[:nature] }
     popup_content << {label: :date, value: item[:crumb].read_at}
-    popup_content << render 'form', crumb: item[:crumb]
+    popup_content << render('form', crumb: item[:crumb])
     item[:popup] = {content: popup_content}
+    previous_crumb = item[:crumb]
   end
 
   production_supports = @production_supports
