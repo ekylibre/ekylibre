@@ -4,7 +4,7 @@
     <!-- Hersage d'une zone cultivable -->
     <variables>
       <variable name="driver"  abilities="drive(tractor)" roles="raking-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="raking-tool"/>
+      <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="raking-tool"/>
       <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
