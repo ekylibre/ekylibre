@@ -54,6 +54,7 @@ intervention_casts_001:
   actor: equipments_003
   creator: users_001
   intervention: interventions_001
+  nature: product
   population: 1
   position: 1
   reference_name: grinder
@@ -64,6 +65,7 @@ intervention_casts_002:
   actor: matters_003
   creator: users_001
   intervention: interventions_002
+  nature: product
   population: 12
   position: 1
   reference_name: grinded
@@ -74,6 +76,7 @@ intervention_casts_003:
   actor: plants_001
   creator: users_001
   intervention: interventions_001
+  nature: product
   population: 1.8
   position: 1
   reference_name: cultivation
@@ -84,6 +87,7 @@ intervention_casts_004:
   actor: equipments_001
   creator: users_001
   intervention: interventions_001
+  nature: product
   population: 1
   position: 1
   reference_name: tractor
@@ -93,6 +97,7 @@ intervention_casts_005:
   actor: matters_003
   creator: users_001
   intervention: interventions_001
+  nature: product
   population: 12
   position: 1
   reference_name: grinded
@@ -104,6 +109,7 @@ intervention_casts_006:
   actor: cultivable_zones_003
   creator: users_001
   intervention: interventions_001
+  nature: product
   population: 1.8
   position: 1
   reference_name: land_parcel
@@ -114,6 +120,7 @@ intervention_casts_007:
   actor: workers_003
   creator: users_001
   intervention: interventions_001
+  nature: product
   population: 1
   position: 1
   reference_name: driver
