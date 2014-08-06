@@ -400,6 +400,7 @@
     border: 1px solid transparent;
     padding: round($default-gap / 2) $default-gap;
     margin-top: $default-gap;
+		@include clearfix;
     &:first-child {
       margin-top: 0;
     }

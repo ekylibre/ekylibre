@@ -1,44 +1,90 @@
 - main_toolbar do |t|
-  - t.edit @intervention
-  - if @intervention.destroyable?
-    - t.destroy @intervention, method: :delete, "data-confirm" => :are_you_sure.tl
-  - if @intervention.runnable?
-    - t.run @intervention, method: :post, "data-confirm" => :are_you_sure.tl
+  - t.edit resource
+  - if resource.destroyable?
+    - t.destroy resource, method: :delete, "data-confirm" => :are_you_sure.tl
+  - if resource.runnable?
+    - t.run resource, method: :post, "data-confirm" => :are_you_sure.tl
 
 = beehive do |b|
   - b.hbox do
-    - if target = @intervention.casts.of_role(:target).first
-      - if target.actor.shape
-        - b.cell :target_zone do
-          = mini_map(target.actor)
-    - if output = @intervention.casts.of_role(:output).first
-      - if output.shape
-        - b.cell :working_zone do
-          = mini_map(output)
-    - if target.shape
-      - b.cell :working_zone do
-        = mini_map(target)
-
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :started_at
-        - l.attribute :stopped_at
-        - l.attribute :state
-        - l.attribute :production, url: true
-        - if @intervention.production_support
-          - l.attribute :storage, url: true
-        - if @intervention.prescription
-          - l.attribute :prescription, label_method: :name, url: true
-        - if @intervention.issue
-          - l.attribute :issue, url: true
-        - if @intervention.description
-          - l.attribute :description
+    - count = 0
+    - map = visualization do |v|
+      - v.background "OpenStreetMap.HOT"
+      - v.background "Thunderforest"
+      - v.background "Thunderforest.Landscape"
+      - for cast in resource.casts
+        - shape = cast.shape
+        - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
+        - if shape
+          - v.serie cast.id, [{name: cast.name, shape: shape}]
+          - v.simple cast.actor.name, cast.id, fill_color: cycle(theme_colors)
+          - count += 1
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+    - if count > 0
+      - b.cell :map do
+        = map
+    - b.cell(:costs) do
+      .big-infos.costs
+        - total = 0
+        - for type in [:input, :tool, :doer]
+          - cost = (resource.cost(type) || 0.0).round.to_i
+          - total += cost
+          .big-info.cost
+            %span.title= "evaluated_#{type}_cost".tl
+            %span.value
+              %i.picto{class: "picto-#{type}"}
+              = cost.l(currency: Preference[:currency])
+        .big-info.cost.important
+          %span.title= "total_cost".tl
+          %span.value= total.l(currency: Preference[:currency])
 
   - b.hbox do
     - b.cell(:casts) do
-      = list(:casts)
+      %ul.casts= render partial: "cast", collection: resource.casts
 
-  - if @intervention.operations.any?
+    - b.cell(:general_informations) do
+      .big-infos
+        .big-info.important
+          %span.title= Intervention.human_attribute_name(:state)
+          %span.value= lights(resource.status)
+        .big-info
+          %span.title= Intervention.human_attribute_name(:duration)
+          %span.value
+            %i.picto.picto-clock-o
+            = human_duration(resource.duration)
+      .info
+        %span.title= Intervention.human_attribute_name(:started_at)
+        %span.value= resource.started_at.l
+      .info
+        %span.title= Intervention.human_attribute_name(:stopped_at)
+        %span.value= resource.stopped_at.l
+      .info
+        %span.title= Intervention.human_attribute_name(:production)
+        %span.value= link_to(resource.production.name, {controller: :productions, action: :show, id: resource.production})
+
+      - if resource.production_support
+        .info
+          %span.title= Intervention.human_attribute_name(:storage)
+          %span.value= link_to(resource.storage.name, {controller: :products, action: :show, id: resource.storage})
+
+      - if resource.prescription
+        .info
+          %span.title= Intervention.human_attribute_name(:prescription)
+          %span.value= link_to(resource.prescription.name, {controller: :prescriptions, action: :show, id: resource.prescription})
+
+      - if resource.issue
+        .info
+          %span.title= Intervention.human_attribute_name(:issue)
+          %span.value= link_to(resource.issue.name, {controller: :issues, action: :show, id: resource.issue})
+
+      - if resource.description?
+        .info
+          %span.title= Intervention.human_attribute_name(:description)
+          %span.value= resource.description
+
+  - if resource.operations.any?
     - b.cell(:operations) do
       = list(:operations)

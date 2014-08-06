@@ -311,4 +311,19 @@ module BackendHelper
   end
 
 
+
+
+  def lights(status, html_options = {})
+    if html_options.has_key?(:class)
+      html_options[:class] << " lights lights-#{status}"
+    else
+      html_options[:class] = "lights lights-#{status}"
+    end
+    return content_tag(:span, html_options) do
+      content_tag(:span, nil, class: "go") +
+        content_tag(:span, nil, class: "caution") +
+        content_tag(:span, nil, class: "stop")
+    end
+  end
+
 end

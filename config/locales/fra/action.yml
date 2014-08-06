@@ -1661,6 +1661,7 @@ fra:
     total: "Total"
     total_amount: "Montant total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
+    total_cost: "Coût total"
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé"
     total_paid_amount: "Montant total payé"
@@ -1852,6 +1853,7 @@ fra:
       one: "%{count} abonnement"
       other: "%{count} abonnements"
       zero: "0 abonnement"
+    x_thing: "%{x} %{thing}"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"

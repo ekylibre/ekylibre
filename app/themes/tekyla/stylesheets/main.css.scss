@@ -658,6 +658,53 @@ form.search {
   height: 300px;
 }
 
+.big-info {
+		padding: 3 * $default-gap $default-gap;
+		@include box-sizing(border-box);
+
+		.title {
+				// margin-bottom: -2 * $default-gap;
+				display: block;
+				color: #777;
+				font-size: $fs-large;
+				line-height: $lh-large;
+				@include text-align(center);
+		}
+		.value {
+				display: block;
+				font-size: $fs-awesome;
+				line-height: $lh-awesome;
+				@include text-align(center);
+				.picto {
+						color: #AAA;
+				}
+		}
+		&.important {
+				.title {
+						font-weight: bold;
+				}
+				.value {
+						font-weight: bold;
+						color: $success-color;
+						.picto {
+								color: #AAA;
+						}
+				}
+		}
+}
+
+
+.big-infos {
+		@include respond-to-bigger-than(medium) {
+				@include clearfix;
+				.big-info {
+						width: 50%;
+						@include float(left);
+				}
+		}
+}
+
+
 .info {
   @include ellipsis;
   &, & * {
@@ -1890,6 +1937,52 @@ ul.desc-list {
   @include description-list;
 }
 
+ul.casts {
+		@include description-list;
+		li.cast {
+				.details {
+						h3 {
+								&, * {
+										font-size: $fs-large;
+										line-height: $lh-large;
+										font-weight: bold;
+								}
+						}
+				}
+				.cost {
+						@include float(right);
+						padding: 2 * $default-gap;
+						font-size: $fs-very-huge;
+						line-height: $lh-very-huge;
+						font-weight: bold;
+				}
+		}
+}
+
+.picto {
+		@include is-icon(64px);
+		@include text-align(center);
+		min-width: 64px;
+
+  // Defines default names
+  @each $symbolic-icon in $symbolic-icons {
+			$symbol-name: nth($symbolic-icon, 1);
+			$symbol-code: nth($symbolic-icon, 2);
+			&.picto-#{$symbol-name} {
+					@include icon($symbol-code);
+			}
+  }
+
+  // Adds synonyms
+  @each $renaming in $all-aliases {
+			&.picto-#{nth($renaming, 1)} {
+					@include use-icon(nth($renaming, 2));
+			}
+  }
+
+}
+
+
 .search {
   .results {
     @include description-list;
@@ -2128,7 +2221,18 @@ svg.map {
       }
     }
   }
+
+	.big-info .value & {
+		& > * {
+				$light-size: 2 * round($fs-awesome * 0.35);
+				width:  $light-size;
+				height: $light-size;
+				margin: 0 ($fs-awesome - $light-size) ($fs-awesome - $light-size);
+		}
+	}
 }
+
+
 
 .badge {
   background: $neutral-color;

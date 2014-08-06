@@ -243,7 +243,7 @@
     _addSimpleLayer: (layer, legendControl)->
       data = this._getSerieData(layer.serie)
       options = $.extend true, {}, @options.layerDefaults.simple, layer
-      simple = new visualization.Simple(layer, data, options)      
+      simple = new visualization.Simple(layer, data, options)
       return false unless simple.valid()
 
       layerGroup = simple.buildLayerGroup(this, options)

@@ -123,6 +123,17 @@ module ApplicationHelper
     return vals.to_sentence
   end
 
+  def human_duration(seconds, options = {})
+    return options[:default] || "&ndash;".html_safe if seconds.nil?
+    vals = []
+    vals << (seconds/1.hour).floor
+    seconds -= 1.hour * (seconds/1.hour).floor
+    vals << (seconds/1.minute).floor.to_s.rjust(2, "0")
+    seconds -= 1.minute * (seconds/1.minute).floor
+    # vals << seconds.round.to_s.rjust(2, "0")
+    return vals.join(":")
+  end
+
   # def locale_selector
   #   # , :selected => ::I18n.locale)
   #   locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}

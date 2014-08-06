@@ -1,0 +1,38 @@
+%li.cast
+  .cost
+    - cost = cast.cost
+    - if cost
+      = cast.cost.round.to_i.l(currency: Preference[:currency])
+  - if actor = cast.actor
+    .picture
+      - if actor.picture.file?
+        = image_tag(actor.picture.url(:thumb))
+      - elsif pictogram = actor.category.pictogram
+        .picto{class: "picto-#{pictogram.gsub('_', '-')}"}
+      - else
+        .picto{class: "picto-question"}
+
+    .details
+      %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
+      %p= cast.name
+      %p= cast.human_roles
+      - if actor.is_a?(Product) and !actor.population_counting_unitary? and variant = cast.variant
+        %p= :x_thing.tl(x: cast.population.round(2).l, thing: variant.unit_name.mb_chars.downcase)
+  - elsif variant = cast.variant
+    .picture
+      - if variant.picture.file?
+        = image_tag(variant.picture.url(:thumb))
+      - elsif pictogram = variant.category.pictogram
+        .picto{class: "picto-#{pictogram.gsub('_', '-')}"}
+      - else
+        .picto{class: "picto-question"}
+
+    .details
+      %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
+      %p= cast.name
+      %p= cast.human_roles
+
+  - else
+    .picto{class: "picto-question"}
+
+

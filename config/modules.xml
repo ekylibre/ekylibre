@@ -608,6 +608,8 @@
         <page to="backend/interventions#run"/>
         <page to="backend/interventions#set"/>
         <page to="backend/interventions#unroll"/>
+        <page to="backend/crumbs#index"/>
+        <page to="backend/crumbs#update"/>
       </item>
       <item name="prescriptions">
         <page to="backend/prescriptions#index"/>
@@ -1740,11 +1742,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="crumbs">
-        <page to="backend/crumbs#index"/>
-        <page to="backend/crumbs#update"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>
