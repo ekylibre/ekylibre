@@ -4,6 +4,11 @@
   div_id = "intervention_#{data.first[:name]}"
 
 %div{id: div_id}
+%ul 
+  %li
+    Worker: 
+    = data.first[:doer].name
+    
 
 :coffee
   $ ->

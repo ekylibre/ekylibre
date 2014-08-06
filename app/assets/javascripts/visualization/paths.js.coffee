@@ -54,7 +54,7 @@ class visualization.Paths
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
     for crumb in @data
-      radius = 0.5
+      radius = 1.5
       if crumb.nature != 'point'
         radius = 5.0
       crumbStyle =

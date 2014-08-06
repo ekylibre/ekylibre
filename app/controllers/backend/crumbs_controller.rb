@@ -21,7 +21,7 @@ class Backend::CrumbsController < BackendController
                   name:         name,
                   read_at:      crumb.read_at,
                   nature:       crumb.nature,
-                  shape:        crumb.geolocation,
+                  shape:        Charta::Geometry.new(crumb.geolocation).circle(0.005),
                   started_at:   started_at,
                   stopped_at:   stopped_at,
                   doer:         doer,
