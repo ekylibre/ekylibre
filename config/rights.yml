@@ -47,6 +47,7 @@
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/crumbs#index"
+#     - "backend/crumbs#update"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#index"
 #     - "backend/dashboards#production"

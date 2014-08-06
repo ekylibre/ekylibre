@@ -32,15 +32,15 @@ class Backend::CrumbsController < BackendController
       end
     end
   end
-  
+
   def update
     crumb = Crumb.find(params[:id])
     if crumb.update(crumb_params)
       redirect_to backend_crumbs_path
     end
   end
-    
-  private 
+
+  private
     def crumb_params
       params.permit(:nature)
     end

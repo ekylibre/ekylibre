@@ -1743,6 +1743,7 @@
     <group>
       <item name="crumbs">
         <page to="backend/crumbs#index"/>
+        <page to="backend/crumbs#update"/>
       </item>
     </group>
   </untreated-actions>
