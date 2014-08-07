@@ -447,6 +447,9 @@ module Procedo
           if variable.default_actor == :storage
             code << "        #{variable.name}.actor = @__support__.storage\n"
             code << "        #{variable.name}.impact_actor!\n"
+          elsif variable.default_actor == :default_storage_of_support
+            code << "        #{variable.name}.actor = @__support__.storage.default_storage\n"
+            code << "        #{variable.name}.impact_actor!\n"
           elsif variable.default_actor == :variant_localized_in_storage
             code << "        __localizeds__ = @__support__.storage.localized_variants(@__support__.production_variant, at: now!)\n"
             code << "        if __localizeds__.any?\n"

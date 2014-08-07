@@ -5,8 +5,8 @@
 
     <variables>
       <variable name="animal"             variety="animal" abilities="move" roles="animal_moving-input,animal_group_changing-input"/>
-      <variable name="animal_housing"     variety="building_division" abilities="store(animal)"  roles="animal_moving-target" default-actor="storage"/>
-      <variable name="herd"               variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="variant-localized-in-storage"/>
+      <variable name="animal_housing"     variety="building_division" abilities="store(animal)"  roles="animal_moving-target" default-actor="default-storage-of-support" />
+      <variable name="herd"               variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="storage"/>
       <variable name="new_animal_variant" type="variant" variety=":animal"/>
       <variable name="caregiver"          variety="worker" abilities="move" roles="animal_moving-doer"/>
     </variables>

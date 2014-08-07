@@ -3,7 +3,7 @@
   <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
   <procedure name="mammal_herd_milking" natures="milk_production" version="0" status="frozen">
     <variables>
-      <variable name="mammal_herd_to_milk" variety="animal_group" derivative-of="mammalia" abilities="produce(milk)"  roles="milk_production-target"/>
+      <variable name="mammal_herd_to_milk" variety="animal_group" derivative-of="mammalia" abilities="produce(milk)"  roles="milk_production-target" default-actor="default-storage-of-support"/>
       <variable name="milk" variety="milk" derivative-of="variety: mammal_herd_to_milk" roles="milk_production-output" new="produced-by: mammal_herd_to_milk" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
       <handler indicator="population" />
       <handler indicator="net_mass"    unit="kilogram"               to="population"

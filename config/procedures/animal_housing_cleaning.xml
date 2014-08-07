@@ -3,13 +3,13 @@
   <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
   <procedure name="animal_housing_cleaning" natures="animal_housing_cleaning" version="0" status="frozen">
     <variables>
-      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_housing_cleaning-target" default-actor="storage" need="shape" default-shape=":animal_housing">
+      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_housing_cleaning-target" default-actor="default-storage-of-support" need="shape" default-shape=":animal_housing">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="excrement"          variety="excrement" derivative-of="animal" roles="animal_housing_cleaning-output" new="produced-by: animal_housing" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+      <variable name="excrement"          variety="excrement" derivative-of="animal" roles="animal_housing_cleaning-output" new="produced-by: storage" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"             to="population"
                  forward="value / self..net_mass(ton)"
