@@ -1,8 +1,12 @@
 = form_for crumb, action: :update, url: backend_crumb_path(crumb.id), method: :patch do |f|
-  = radio_button_tag('nature', 'point')
-  point
-  = radio_button_tag('nature', 'start')
-  start
-  = radio_button_tag('nature', 'stop')
-  stop
-  = f.submit
+  %ul 
+    - ['point','start', 'stop', 'hard_start', 'hard_stop', 'pause','resume'].each do |nature|
+      %li
+        = radio_button_tag('nature', nature, (crumb.nature == nature))
+        = nature
+  = f.submit 
+- if !previous.nil?
+  = form_for crumb, action: :update, url: backend_crumb_path(crumb.id), method: :patch do |f|
+    = f.hidden_field :previous_crumb_id, value: previous.id
+    = f.hidden_field :nature, value: 'start'
+    = f.submit "start new intervention here"

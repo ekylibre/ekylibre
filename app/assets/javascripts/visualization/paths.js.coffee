@@ -54,9 +54,9 @@ class visualization.Paths
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
     for crumb in @data
-      radius = 1.5
+      radius = 1.0
       if crumb.nature != 'point'
-        radius = 5.0
+        radius = 2.5
       crumbStyle =
         fillColor: this.itemFor(crumb[@layer.reference]).fillColor
         color: this.itemFor(crumb[@layer.reference]).fillColor

@@ -8,7 +8,7 @@
     popup_content = []
     popup_content << {label: :nature, value: item[:nature] }
     popup_content << {label: :date, value: item[:crumb].read_at}
-    popup_content << render('form', crumb: item[:crumb])
+    popup_content << render('form', crumb: item[:crumb], previous: previous_crumb)
     item[:popup] = {content: popup_content}
     previous_crumb = item[:crumb]
   end

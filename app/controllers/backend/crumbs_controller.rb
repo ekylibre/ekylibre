@@ -21,7 +21,7 @@ class Backend::CrumbsController < BackendController
                   name:         name,
                   read_at:      crumb.read_at,
                   nature:       crumb.nature,
-                  shape:        Charta::Geometry.new(crumb.geolocation).circle(0.005),
+                  shape:        crumb.geolocation,
                   started_at:   started_at,
                   stopped_at:   stopped_at,
                   doer:         doer,
@@ -35,14 +35,17 @@ class Backend::CrumbsController < BackendController
 
   def update
     crumb = Crumb.find(params[:id])
-    if crumb.update(crumb_params)
-      redirect_to backend_crumbs_path
+    if crumb_params[:previous_crumb_id]
+      previous = Crumb.find(crumb_params[:previous_crumb_id])
+      previous.update(nature: 'stop')
     end
+    crumb.update(crumb_params)
+    redirect_to backend_crumbs_path
   end
 
   private
     def crumb_params
-      params.permit(:nature)
+      params.permit(:nature, :previous_crumb_id)
     end
 
 end
