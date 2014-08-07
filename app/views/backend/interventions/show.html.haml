@@ -18,7 +18,7 @@
         - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
         - if shape
           - v.serie cast.id, [{name: cast.name, shape: shape}]
-          - v.simple cast.actor.name, cast.id, fill_color: cycle(theme_colors)
+          - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
           - count += 1
       - v.control :zoom
       - v.control :scale

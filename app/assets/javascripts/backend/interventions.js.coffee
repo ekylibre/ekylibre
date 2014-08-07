@@ -47,6 +47,7 @@
       casting
 
     unserialize: (procedure, casting, updater) ->
+      console.log("Unserialize data")
       for variable, attributes of casting
         if attributes.actor?
           $("*[data-procedure='#{procedure}'][data-variable-actor='#{variable}']").each (index) ->
@@ -96,9 +97,12 @@
               else
                 $(this).val(value)
 
-
+    # Ask for a refresh of values depending on given field
     refresh: (origin) ->
-      procedure = origin.data('procedure')
+      this.refreshHard(origin.data('procedure'), origin.data('intervention-updater'), origin)
+
+    # Ask for a refresh of values depending on given update
+    refreshHard: (procedure, updaterName = 'initial', updaterElement = null) ->
       computing = $("*[data-procedure-computing='#{procedure}']")
       unless computing.length > 0
         console.log "No computing element for #{procedure}"
@@ -108,7 +112,7 @@
         # Serialize data
         intervention =
           procedure: procedure
-          updater: origin.data('intervention-updater')
+          updater: updaterName
           global:  $.interventions.serializeGlobal(procedure)
           casting: $.interventions.serializeCasting(procedure)
 
@@ -125,8 +129,8 @@
             computing.prop 'state', 'ready'
             # Updates elements with new values
             $.interventions.unserialize(procedure, data, intervention.updater)
-            if initialValue != $.value($("*[data-intervention-updater='#{intervention.updater}']").first())
-              $.interventions.refresh origin
+            if updaterElement? and initialValue != $.value($("*[data-intervention-updater='#{intervention.updater}']").first())
+              $.interventions.refresh updaterElement
 
   ##############################################################################
   # Triggers
@@ -141,6 +145,10 @@
   $(document).on 'change', '*[data-procedure-global="at"]', ->
     $(this).each ->
       $.interventions.refresh $(this)
+
+  $(document).behave "load", '*[data-procedure-computing]', (event) ->
+    $(this).each ->
+      $.interventions.refreshHard $(this).data('procedure-computing')
 
   true
 ) jQuery

@@ -498,6 +498,15 @@ module Procedo
       code << "      else\n"
       code << "        raise \"Unknown variable \#{@__updater__.second}\"\n"
       code << "      end\n"
+      code << "    elsif @__updater__.first == :initial\n"
+      # Refresh all handlers from all destinations
+      for variable in self.variables.values
+        if variable.handlers.any?
+          for destination in variable.destinations
+            code << "      #{variable.name}.impact_destination_#{destination}!\n"
+          end
+        end
+      end
       code << "    else\n"
       code << "      raise \"Unknown part \#{@__updater__.first}\"\n"
       code << "    end\n"

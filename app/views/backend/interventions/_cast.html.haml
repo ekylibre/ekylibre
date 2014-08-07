@@ -28,9 +28,11 @@
         .picto{class: "picto-question"}
 
     .details
-      %h3= link_to(actor.name, {controller: actor.class.table_name, action: :show, id: actor.id})
+      %h3= link_to(variant.name, {controller: variant.class.table_name, action: :show, id: variant.id})
       %p= cast.name
       %p= cast.human_roles
+      - if !variant.population_counting_unitary?
+        %p= :x_thing.tl(x: cast.population.round(2).l, thing: variant.unit_name.mb_chars.downcase)
 
   - else
     .picto{class: "picto-question"}

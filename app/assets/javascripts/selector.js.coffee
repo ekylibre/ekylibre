@@ -11,50 +11,53 @@
     id: null
 
     _create: ->
-      this.element.attr "autocomplete", "off"
-      this.dropDownButton = $ "<a>",
-          href: "##{this.element.attr('id')}"
+      @element.attr "autocomplete", "off"
+      @dropDownButton = $ "<a>",
+          href: "##{@element.attr('id')}"
           rel: 'dropdown'
           class: 'selector-dropdown'
         .append $("<i>")
-        .insertAfter this.element
-      this.lastSearch = this.element.val()
-      this.dropDownMenu = $ "<div>",
+        .insertAfter @element
+      @lastSearch = @element.val()
+      @dropDownMenu = $ "<div>",
           class: "items-menu"
         .hide()
-        .insertAfter(this.element)
-      if this.element.data("valueField")?
-        this.valueField = $ this.element.data("valueField")
+        .insertAfter(@element)
+      if @element.data("valueField")?
+        @valueField = $ @element.data("valueField")
       else
-        this.valueField = $ "<input type='hidden' name='#{this.element.attr('name')}'/>"
-        this.element.after this.valueField
-      this.element.removeAttr "name"
-      if this.element.attr("required") is "true"
-        this.valueField.attr "required", "true"
-      this._on this.element,
+        @valueField = $ "<input type='hidden' name='#{@element.attr('name')}'/>"
+        @element.after @valueField
+      @element.removeAttr "name"
+      if @element.attr("required") is "true"
+        @valueField.attr "required", "true"
+      this._on @element,
         keypress: "_keypress"
         keyup: "_keyup"
         focusout: "_focusOut"
         # blur: "_focusOut"
-      this._on this.dropDownButton,
+      this._on @dropDownButton,
         click: "_unrollClick"
         focusout: "_focusOut"
         # blur: "_focusOut"
-      this._on this.dropDownMenu,
+      this._on @dropDownMenu,
         "click ul li.item": "_menuClick"
         "mouseenter ul li.item": "_menuMouseEnter"
         # "hover ul li.item": "_menuMouseEnter"
-      this.sourceURL = this.element.data("selector")
-      this._set this.element.val()
+      this.sourceURL = @element.data("selector")
+      if @valueField.val()? and @valueField.val().length > 0
+        this._set @valueField.val()
+      else if @element.val()? and @element.val().length > 0
+        this._set @element.val()
 
     value: (newValue) ->
       if newValue is null or newValue is undefined or newValue is ""
-        return this.valueField.val()
+        return @valueField.val()
       this._set(newValue)
 
     _set: (id, triggerEvents = false) ->
       if id is null or id is undefined or id is ""
-        return this.valueField.val()
+        return @valueField.val()
       that = this
       $.ajax
         url: this.sourceURL,
@@ -72,31 +75,31 @@
       this
 
     _select: (id, label, triggerEvents = false) ->
-      console.log "select"
-      this.lastSearch = label
+      # console.log "select"
+      @lastSearch = label
       len = 10 * Math.round(Math.round(1.5 * label.length) / 10)
-      this.element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
-      this.element.val label
-      this.valueField.prop "itemLabel", label
-      this.valueField.val id
+      @element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
+      @element.val label
+      @valueField.prop "itemLabel", label
+      @valueField.val id
       this.id = parseInt id
-      if this.dropDownMenu.is(":visible")
-        this.dropDownMenu.hide()
+      if @dropDownMenu.is(":visible")
+        @dropDownMenu.hide()
       if triggerEvents is true
-        this.element.trigger "selector:change"
+        @element.trigger "selector:change"
       this
 
     _openMenu: (search) ->
-      console.log "openMenu"
+      # console.log "openMenu"
       data = {}
       if search?
         data.q = search
-      if this.element.data("with")
-        $(this.element.data("with")).each ->
+      if @element.data("with")
+        $(@element.data("with")).each ->
           paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id")
           if paramName?
             data[paramName] = $(this).val() || $.trim($(this).html())
-      menu = this.dropDownMenu
+      menu = @dropDownMenu
       $.ajax
         url: this.sourceURL
         dataType: "html"
@@ -111,27 +114,27 @@
           alert "Selector failure on #{this.sourceURL} (#{status}): #{error}"
 
     _closeMenu: ->
-      console.log "closeMenu"
-      if this.element.attr("required") is "true"
+      # console.log "closeMenu"
+      if @element.attr("required") is "true"
         # Restore last value if possible
-        if this.valueField.val().length > 0
-          search = this.valueField.prop("itemLabel")
+        if @valueField.val().length > 0
+          search = @valueField.prop("itemLabel")
       else
         # Empty values if empty
-        if this.element.val().length <= 0
-          this.valueField.val ""
+        if @element.val().length <= 0
+          @valueField.val ""
           search = ""
-        else if this.valueField.val().length > 0
-          search = this.valueField.prop("itemLabel")
-      this.lastSearch = search
-      this.element.val search
-      if this.dropDownMenu.is(":visible")
-        this.dropDownMenu.hide()
+        else if @valueField.val().length > 0
+          search = @valueField.prop("itemLabel")
+      @lastSearch = search
+      @element.val search
+      if @dropDownMenu.is(":visible")
+        @dropDownMenu.hide()
       true
 
     _choose: (selected) ->
-      console.log "choose"
-      selected ?= this.dropDownMenu.find("ul li.item.selected").first()
+      # console.log "choose"
+      selected ?= @dropDownMenu.find("ul li.item.selected").first()
       if selected.length > 0
         if selected.is("[data-item-label][data-item-id]")
           this._select(selected.data("item-id"), selected.data("item-label"), true)
@@ -140,7 +143,7 @@
           if selected.data("new-item").length > 0
             parameters.name = selected.data("new-item")
           that = this
-          $.ajaxDialog this.element.data("selector-new-item"),
+          $.ajaxDialog @element.data("selector-new-item"),
             data: parameters
             returns:
               success: (frame, data, status, request) ->
@@ -159,31 +162,31 @@
     _keypress: (event) ->
       code = (event.keyCode or event.which)
       if code is 13 or code is 10 # Enter
-        if this.dropDownMenu.is(":visible")
+        if @dropDownMenu.is(":visible")
           this._choose()
           return false
       else if code is 40 # Down
-        if this.dropDownMenu.is(":hidden")
-          this._openMenu(this.element.val())
+        if @dropDownMenu.is(":hidden")
+          this._openMenu(@element.val())
           return false
       true
 
 
     _keyup: (event) ->
       code = (event.keyCode or event.which)
-      search = this.element.val()
-      if this.lastSearch isnt search
+      search = @element.val()
+      if @lastSearch isnt search
         if search.length > 0
           this._openMenu search
         else
-          this.dropDownMenu.hide()
-        this.lastSearch = search
-      else if this.dropDownMenu.is(":visible")
-        selected = this.dropDownMenu.find("ul li.selected.item").first()
+          @dropDownMenu.hide()
+        @lastSearch = search
+      else if @dropDownMenu.is(":visible")
+        selected = @dropDownMenu.find("ul li.selected.item").first()
         if code is 27 # Escape
-          this.dropDownMenu.hide()
+          @dropDownMenu.hide()
         else if selected[0] is null or selected[0] is undefined
-          selected = this.dropDownMenu.find("ul li.item").first()
+          selected = @dropDownMenu.find("ul li.item").first()
           selected.addClass "selected"
         else
           if code is 40 # Down
@@ -199,7 +202,7 @@
       true
 
     _focusOut: (event) ->
-      console.log "focusout"
+      # console.log "focusout"
       that = this
       setTimeout ->
         that._closeMenu()
@@ -207,15 +210,15 @@
       true
 
     _unrollClick: (event) ->
-      if this.dropDownMenu.is(":visible")
-        this.dropDownMenu.hide()
+      if @dropDownMenu.is(":visible")
+        @dropDownMenu.hide()
       else
         this._openMenu()
       false
 
     _menuClick: (event) ->
-      console.log "menuclick"
-      console.log event.target
+      # console.log "menuclick"
+      # console.log event.target
       this._choose()
       false
 
