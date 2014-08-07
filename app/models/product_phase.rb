@@ -50,15 +50,39 @@ class ProductPhase < Ekylibre::Record::Base
 
   delegate :variety, :derivative_of, :name, :nature, to: :variant, prefix: true
 
-  before_validation :set_default_values, on: :create
-
   # Sets nature and variety from variant
-  def set_default_values
+  before_validation on: :create do
     if self.variant
       self.nature   = self.variant.nature
     end
     if self.nature
       self.category = self.nature.category
+    end
+  end
+
+  # Updates product
+  after_save do
+    if self.last_for_now?
+      product = self.product
+      product.variant  = self.variant
+      product.nature   = self.nature
+      product.category = self.category
+      product.save!
+    end
+  end
+
+  # Updates product
+  before_destroy do
+    if self.last_for_now?
+      if previous = self.previous
+        product = self.product
+        product.variant  = previous.variant
+        product.nature   = previous.nature
+        product.category = previous.category
+        product.save!
+      else
+        raise "Cannot destroy this product phase"
+      end
     end
   end
 

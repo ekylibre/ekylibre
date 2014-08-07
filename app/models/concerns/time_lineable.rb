@@ -87,6 +87,10 @@ module TimeLineable
     siblings.after(self.started_at).any?
   end
 
+  def last_for_now?
+    siblings.after(self.started_at).before(Time.now).empty?
+  end
+
   private
 
   def siblings

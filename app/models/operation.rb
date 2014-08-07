@@ -53,10 +53,11 @@ class Operation < Ekylibre::Record::Base
   has_many :product_mergings,      dependent: :destroy
   has_many :product_mixings,       dependent: :destroy
   has_many :product_ownerships,    dependent: :destroy
-  has_many :product_quadruple_mixings,       dependent: :destroy
-  has_many :product_quintuple_mixings,       dependent: :destroy
+  has_many :product_phases,        dependent: :destroy
+  has_many :product_quadruple_mixings, dependent: :destroy
+  has_many :product_quintuple_mixings, dependent: :destroy
   has_many :product_reading_tasks, dependent: :destroy
-  has_many :product_triple_mixings,       dependent: :destroy
+  has_many :product_triple_mixings,    dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
@@ -242,6 +243,17 @@ class Operation < Ekylibre::Record::Base
   def perform_merging(reference, params)
     self.product_mergings.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, absorber: params[:absorber].actor)
   end
+
+  # == Phases
+
+  def perform_variant_cast(reference, params)
+    self.product_phases.create!(started_at: self.stopped_at, product: params[:product].actor, variant: params[:variant].variant)
+  end
+
+  def perform_nature_cast(reference, params)
+    self.product_phases.create!(started_at: self.stopped_at, product: params[:product].actor, variant: params[:nature].variant.nature)
+  end
+
 
   # == Mixing
 

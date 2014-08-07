@@ -22,40 +22,43 @@
     = f.backend_fields_for :casts do |v|
       - reference = v.object.reference
       = v.input :reference_name, as: :hidden
-      - if reference.handlers.any?
-        = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
-          - for need in reference.needs
-            - v.object.send("#{need}=", v.object.send(need))
-            = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
-          .handlers
-            -# Handlers
-            - for handler in reference.handlers
-              .handler{class: handler.widget}
-                .title= handler.human_name
-                .value
-                  - if handler.widget == :number
-                    = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "casting:#{reference.name}:handlers:#{handler.name}"})
-                    - if handler.unit?
-                      .add-on= handler.unit.symbol
-                  - elsif handler.widget == :map
-                    = shape_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "casting:#{reference.name}:handlers:#{handler.name}"})
-            -# Variant
-            - if reference.new?
-              - if reference.known_variant?
-                = v.association :variant, as: :hidden, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
+      - if reference.type_product?
+        - if reference.handlers.any?
+          = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
+            - for need in reference.needs
+              - v.object.send("#{need}=", v.object.send(need))
+              = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
+            .handlers
+              -# Handlers
+              - for handler in reference.handlers
+                .handler{class: handler.widget}
+                  .title= handler.human_name
+                  .value
+                    - if handler.widget == :number
+                      = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "casting:#{reference.name}:handlers:#{handler.name}"})
+                      - if handler.unit?
+                        .add-on= handler.unit.symbol
+                    - elsif handler.widget == :map
+                      = shape_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "casting:#{reference.name}:handlers:#{handler.name}"})
+              -# Variant
+              - if reference.new?
+                - if reference.known_variant?
+                  = v.association :variant, as: :hidden, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
+                - else
+                  .handler.long
+                    .title= InterventionCast.human_attribute_name(:variant)
+                    .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
               - else
                 .handler.long
-                  .title= InterventionCast.human_attribute_name(:variant)
-                  .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
-            - else
-              .handler.long
-                .title= InterventionCast.human_attribute_name(:actor)
-                .value= v.referenced_association_field :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
+                  .title= InterventionCast.human_attribute_name(:actor)
+                  .value= v.referenced_association_field :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
+        - else
+          = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
+      - elsif reference.type_variant?
+        = v.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
       - else
-        = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
+        - raise "Unknown type: #{reference.type.inspect}"
 
-  -# if f.object.errors.any?
-    = f.object.errors.messages.inspect
 
 
 - else # Root Procedure Natures

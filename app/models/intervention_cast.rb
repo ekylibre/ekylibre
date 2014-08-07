@@ -233,9 +233,12 @@ class InterventionCast < Ekylibre::Record::Base
       end
     elsif self.reference.produced?
       return self.variant
+    elsif self.reference.type_variant?
+      return self.variant
     else
       return self.actor
     end
+    return false
   end
 
 

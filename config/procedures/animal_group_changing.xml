@@ -5,9 +5,9 @@
 
     <variables>
       <variable name="animal"             variety="animal" abilities="move" roles="animal_moving-input,animal_group_changing-input"/>
-      <variable name="animal_housing"     variety="building_division" abilities="store(animal)"  roles="animal_moving-target" default-actor="storage" need="shape" default-shape=":animal_housing"/>
+      <variable name="animal_housing"     variety="building_division" abilities="store(animal)"  roles="animal_moving-target" default-actor="storage"/>
       <variable name="herd"               variety="animal_group" derivative-of="animal" roles="animal_group_changing-target" default-actor="variant-localized-in-storage"/>
-      <variable name="new_animal_variant" type="variant" variety="variety: animal"/>
+      <variable name="new_animal_variant" type="variant" variety=":animal"/>
       <variable name="caregiver"          variety="worker" abilities="move" roles="animal_moving-doer"/>
     </variables>
 
@@ -15,15 +15,11 @@
       <operation id="100" duration="4 minutes">
         <task do="[caregiver] moves at [animal]"/>
       </operation>
-      <operation id="200" duration="4 minutes">
+      <operation id="200">
         <task do="[animal] moves in [animal_housing]"/>
         <task do="[caregiver] moves in [animal_housing]"/>
-      </operation>
-      <operation id="300" duration="7 minutes">
         <task do="[animal] goes into [herd]"/>
-        <!--  TODO Waiting for variant selection
         <task do="[animal] variant cast into [new_animal_variant]"/>
-        -->
       </operation>
       <operation id="400" duration="4 minutes">
         <task do="[caregiver] moves in default storage"/>

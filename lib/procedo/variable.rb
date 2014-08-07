@@ -148,6 +148,15 @@ module Procedo
       !@default_name.blank?
     end
 
+    def type_product?
+      @type == :product
+    end
+
+    def type_variant?
+      @type == :variant
+    end
+
+
     def producer
       @producer ||= @procedure.variables[@producer_name]
     end
