@@ -275,6 +275,8 @@ class Backend::JournalsController < BackendController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency
     t.column :absolute_credit, currency: :absolute_currency
+    t.column :cumulated_absolute_debit,  currency: :absolute_currency
+    t.column :cumulated_absolute_credit, currency: :absolute_currency
   end
 
   def general_ledger
