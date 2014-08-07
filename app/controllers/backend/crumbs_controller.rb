@@ -39,7 +39,7 @@ class Backend::CrumbsController < BackendController
       previous = Crumb.find(crumb_params[:previous_crumb_id])
       previous.update(nature: 'stop')
     end
-    crumb.update(crumb_params)
+    crumb.update(nature: crumb_params[:nature])
     redirect_to backend_crumbs_path
   end
 
