@@ -1,4 +1,4 @@
 %ul
   %li
     Worker:
-    = data.first[:doer].name
+    = User.find(data.first[:doer_id]).name

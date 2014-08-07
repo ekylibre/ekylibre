@@ -24,8 +24,8 @@ class Backend::CrumbsController < BackendController
                   shape:        crumb.geolocation,
                   started_at:   started_at,
                   stopped_at:   stopped_at,
-                  doer:         doer,
-                  crumb:        crumb
+                  doer_id:      doer.id,
+                  crumb_id:     crumb.id
                 }
         @interventions_crumbs << item
         @production_supports << crumb.production_support unless @production_supports.include?(crumb.production_support)

@@ -2,12 +2,8 @@
   cursors = []
   data.inject(0){|index, item| cursors << index if ['stop'].include? item[:nature]; index += 1}
   cursors.pop
+  config = {}
+  config[:crumbs] = data
+  config[:cursors] = cursors
 
-%div#slider
-
-:coffee
-  $ ->
-    $("#slider").slider
-      min: 0
-      max: #{data.length - 1}
-      values: #{cursors}
+= content_tag(:div, nil, data: {slider: config.to_json})
