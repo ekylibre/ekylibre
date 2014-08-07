@@ -1,9 +1,9 @@
-Name,Nature,Member nature,Code,Minimum age (days),Maximum age (days),Sex,Place,Date des indicateurs,Indicateurs
-Veaux,cattle_herd,calf,VEAU,1,30,,S03_D12,2014-01-01,Population : 1
-Génisses 1,cattle_herd,female_young_cow,GEN_1,30,366,female,S03_D04,2014-01-01,Population : 1
-Taurillon 1,cattle_herd,male_young_cow,TAUR_1,30,366,male,S07_D01,2014-01-01,Population : 1
-Génisses 2,cattle_herd,female_young_cow,GEN_2,366,732,female,S03_D09,2014-01-01,Population : 1
-Taurillon 2,cattle_herd,male_young_cow,TAUR_2,366,,male,S03_D04,2014-01-01,Population : 1
-Génisses 3,cattle_herd,female_young_cow,GEN_3,732,998,female,S03_D11,2014-01-01,Population : 1
-Vaches laitières,female_adult_cattle_herd,female_adult_cow,VL,998,8000,female,S05_D12,2014-01-01,Population : 1
-Vaches taries,female_adult_cattle_herd,female_adult_cow,VL,998,8000,female,S03_D11,2014-01-01,Population : 1
+"Name","Nature","Member nature","Code","Minimum age (days)","Maximum age (days)","Sex","Place","Date des indicateurs","Indicateurs"
+"Veaux","cattle_herd","calf","VEAU",1,30,,"S03_D12","2014-01-01","Population : 1"
+"Génisses 1","cattle_herd","female_young_cow","GEN_1",30,366,"female","S03_D04","2014-01-01","Population : 1"
+"Taurillon 1","cattle_herd","male_young_cow","TAUR_1",30,366,"male","S07_D01","2014-01-01","Population : 1"
+"Génisses 2","cattle_herd","female_young_cow","GEN_2",366,732,"female","S03_D09","2014-01-01","Population : 1"
+"Taurillon 2","cattle_herd","male_young_cow","TAUR_2",366,,"male","S03_D04","2014-01-01","Population : 1"
+"Génisses 3","cattle_herd","female_young_cow","GEN_3",732,998,"female","S03_D11","2014-01-01","Population : 1"
+"Vaches laitières","female_adult_cattle_herd","female_adult_cow","VL",998,8000,"female","S05_D12","2014-01-01","Population : 1"
+"Vaches taries","female_adult_cattle_herd","female_adult_cow","VT",998,8000,"female","S03_D11","2014-01-01","Population : 1"
