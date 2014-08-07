@@ -1,6 +1,7 @@
 :ruby
   cursors = []
-  data.inject(0){|index, item| cursors << index if ['start','stop'].include? item[:nature]; index += 1}
+  data.inject(0){|index, item| cursors << index if ['stop'].include? item[:nature]; index += 1}
+  cursors.pop
 
 %div#slider
 

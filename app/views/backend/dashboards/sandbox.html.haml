@@ -35,7 +35,7 @@
 
   require 'benchmark'
 
-  activated = false
+  activated = true
 
   if activated
 
@@ -46,7 +46,7 @@
   # array of crumbs ready to be managed by VisualizationHelper
   interventions_crumbs = []
 
-  @slider_ary = nil
+  @slider_ary = []
 
   interventions = Crumb.interventions(current_user.id)
   interventions.each do |intervention|
@@ -92,6 +92,9 @@
 :coffee
   $ ->
     $("#slider").slider
+      min: 0
+      max: 100
+      values: [0,10,11,20,21,30,31,100]
       slide: (event, ui) ->
         $("#sliderval").val(ui.value)
 
