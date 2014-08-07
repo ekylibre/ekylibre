@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui/datepicker
 //= require jquery-ui/dialog
+//= require jquery-ui/slider
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
@@ -39,7 +40,5 @@
 //= require leaflet/providers
 //= require_self
 //= require_tree .
-//= require jquery-ui/slider
-
 
 var visualization = {};
