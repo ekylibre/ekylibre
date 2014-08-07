@@ -4310,6 +4310,7 @@ eng:
         base-grains_harvest: "Harvest"
         base-grape_pressing: "Grape pressing"
         base-grape_transport: "Grape transport"
+        base-grinding: "Grinding"
         base-hoeing: "Hoeing"
         base-implanting: "Plantation"
         base-indirect_silage: "Indirect silage"

@@ -178,6 +178,7 @@ fra:
     base-grains_harvest: "Moisson"
     base-grape_pressing: "Pressage de raisin"
     base-grape_transport: "Transport de raisin"
+    base-grinding: "Broyage"
     base-hoeing: "Binage"
     base-implanting: "Plantation"
     base-indirect_silage: "Ensilage indirect"
