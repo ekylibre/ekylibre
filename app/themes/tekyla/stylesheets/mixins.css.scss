@@ -32,11 +32,11 @@
 
 
 @mixin keyframes($name) {
-    @-webkit-keyframes $name { @content;  }
-    @-moz-keyframes $name { @content; }
-    @-ms-keyframes $name { @content; }
-    @-o-keyframes $name { @content; }
-    @keyframes $name { @content;  }
+  @-webkit-keyframes $name { @content;  }
+  @-moz-keyframes $name { @content; }
+  @-ms-keyframes $name { @content; }
+  @-o-keyframes $name { @content; }
+  @keyframes $name { @content;  }
 }
 
 
@@ -400,7 +400,7 @@
     border: 1px solid transparent;
     padding: round($default-gap / 2) $default-gap;
     margin-top: $default-gap;
-		@include clearfix;
+    @include clearfix;
     &:first-child {
       margin-top: 0;
     }

@@ -23,14 +23,14 @@
       @include transition(background 0.4s, box-shadow 0.4s);
     }
   }
-/*
-  li.dropdown {
+  /*
+    li.dropdown {
     position: relative;
-  }
+    }
 
-  ul.dropdown-menu {
-    @include dropdown-menu;
-  }
+ul.dropdown-menu {
+@include dropdown-menu;
+}
 */
   .collapse {
     > ul {
@@ -46,8 +46,8 @@
       height: $topbar-height;
       &.separator {
         width: 0;
-	@include border-right(1px solid lighten($active-color, $default-lightness-variation));
-	@include border-left(1px solid darken($active-color, $default-lightness-variation));
+        @include border-right(1px solid lighten($active-color, $default-lightness-variation));
+        @include border-left(1px solid darken($active-color, $default-lightness-variation));
       }
     }
   }
@@ -247,11 +247,11 @@ html.backend {
 
       @media only screen and (max-width: $mini-screen){
         & > #side {
-	  display: none;
-	}
+          display: none;
+        }
         & > #main {
-	  width: 100%;
-	}
+          width: 100%;
+        }
         &.mini-screen-show-side, &.mini-screen-show-side.show-help {
           & > #side {
             display: block;
@@ -359,13 +359,13 @@ html.authentication {
             }
           }
           form {
-    	    max-width: 320px;
+            max-width: 320px;
             margin: $fs-large auto;
           }
           h2 {
             font-size: $fs-large;
             line-height: round(1.6*$fs-large);
-	    margin-bottom: round(0.4*$fs-large);
+            margin-bottom: round(0.4*$fs-large);
           }
           label {
             display: block;
@@ -378,18 +378,18 @@ html.authentication {
             height: 2 * $fs-normal;
           }
           input[type="submit"] {
-	      @include inline-block;
-              @include box-sizing(border-box);
-              width: 100%;
-              text-align: center;
-              margin: 10px auto;
-	      display: block;
-              height: 3 * $fs-normal;
+            @include inline-block;
+            @include box-sizing(border-box);
+            width: 100%;
+            text-align: center;
+            margin: 10px auto;
+            display: block;
+            height: 3 * $fs-normal;
 
           }
-	  .field {
+          .field {
             margin-bottom: $default-gap;
-	    &.field-remember-me {
+            &.field-remember-me {
               label {
                 display: inline;
               }
@@ -559,13 +559,13 @@ div[data-deck] > div#default {
   }
 
   .snippet-content {
-  ul {
-    $transp: 40%;
-    li {
-      display:block;
-      margin-top: -1 * $menu-border-width;
-      $padding: round($fs-normal*0.7);
-      a {
+    ul {
+      $transp: 40%;
+      li {
+        display:block;
+        margin-top: -1 * $menu-border-width;
+        $padding: round($fs-normal*0.7);
+        a {
           background: white;
           display:block;
           padding: $padding;
@@ -577,11 +577,11 @@ div[data-deck] > div#default {
         &:first-child {
           margin-top: 0;
           a {
-	    // @include border-top-radius($default-border-radius);
+            // @include border-top-radius($default-border-radius);
           }
         }
         &:last-child a {
-	  // @include border-bottom-radius($default-border-radius);
+          // @include border-bottom-radius($default-border-radius);
         }
         &:hover a {
           background: mix(white, $menu-border-color, 80%);
@@ -599,8 +599,8 @@ div[data-deck] > div#default {
             color: white;
           }
         }
-     }
-   }
+      }
+    }
   }
 }
 
@@ -659,49 +659,50 @@ form.search {
 }
 
 .big-info {
-		padding: 3 * $default-gap $default-gap;
-		@include box-sizing(border-box);
+  padding: 3 * $default-gap $default-gap;
+  @include box-sizing(border-box);
 
-		.title {
-				// margin-bottom: -2 * $default-gap;
-				display: block;
-				color: #777;
-				font-size: $fs-large;
-				line-height: $lh-large;
-				@include text-align(center);
-		}
-		.value {
-				display: block;
-				font-size: $fs-awesome;
-				line-height: $lh-awesome;
-				@include text-align(center);
-				.picto {
-						color: #AAA;
-				}
-		}
-		&.important {
-				.title {
-						font-weight: bold;
-				}
-				.value {
-						font-weight: bold;
-						color: $success-color;
-						.picto {
-								color: #AAA;
-						}
-				}
-		}
+  .title {
+    // margin-bottom: -2 * $default-gap;
+        display: block;
+        color: #777;
+        font-size: $fs-large;
+        line-height: $lh-large;
+        @include text-align(center);
+  }
+  .value {
+    white-space: nowrap;
+    display: block;
+    font-size: $fs-awesome;
+    line-height: $lh-awesome;
+    @include text-align(center);
+    .picto {
+      color: #AAA;
+    }
+  }
+  &.important {
+    .title {
+      font-weight: bold;
+    }
+    .value {
+      font-weight: bold;
+      color: $success-color;
+      .picto {
+        color: #AAA;
+      }
+    }
+  }
 }
 
 
 .big-infos {
-		@include respond-to-bigger-than(medium) {
-				@include clearfix;
-				.big-info {
-						width: 50%;
-						@include float(left);
-				}
-		}
+  @include respond-to-bigger-than(medium) {
+    @include clearfix;
+    .big-info {
+      width: 50%;
+      @include float(left);
+    }
+  }
 }
 
 
@@ -733,8 +734,8 @@ form.search {
   @include respond-to(medium) {
     @include columns(1.5em 2);
   }
-//  @include respond-to(large) {
-//    @include column-count(4);
+  //  @include respond-to(large) {
+    //    @include column-count(4);
 //  }
   $attribute-label-width: 40%;
   margin: 0 $default-gap 1em;
@@ -790,14 +791,14 @@ form.search {
 
 
 @media screen and (min-width: $mini-screen + 1px){
-    body #main .header {
-	@include transition(box-shadow 0.6s);
-    }
-    body.content-scrolling #main .header {
-	@include box-shadow(0 0 $default-gap rgba(0, 0, 0, 0.25));
-	position: relative;
-	z-index: 6;
-    }
+  body #main .header {
+    @include transition(box-shadow 0.6s);
+  }
+  body.content-scrolling #main .header {
+    @include box-shadow(0 0 $default-gap rgba(0, 0, 0, 0.25));
+    position: relative;
+    z-index: 6;
+  }
 }
 
 
@@ -1024,7 +1025,7 @@ form.search {
     &.#{ nth($field_set, 1) }.fieldset .fieldset-legend .title i {
       @include use-icon(nth($field_set, 2));
     }
-  }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
   .fieldset-fields {
     // border-top: $fieldset-border;
     border-top: 2px solid $active-color;
@@ -1071,12 +1072,12 @@ form.search {
   }
 
   &.collapsed {
-      .buttons .toggle {
-	  @include use-icon(plus-square-o);
-      }
-      .fieldset-fields {
-	  display: none;
-      }
+    .buttons .toggle {
+      @include use-icon(plus-square-o);
+    }
+    .fieldset-fields {
+      display: none;
+    }
   }
   &.not-collapsed .buttons .toggle { @include use-icon(minus-square-o); }
   &.error.collapsed .fieldset-legend {
@@ -1163,8 +1164,8 @@ $controls-margin-left: round($label-width * 1.1);
       }
     }
   }
-//  &.selector .controls .input {
-//    @include toolbar;
+  //  &.selector .controls .input {
+    //    @include toolbar;
 //   }
   &.hidden {
     display: none;
@@ -1176,12 +1177,12 @@ $controls-margin-left: round($label-width * 1.1);
 }
 
 .input-append {
-   @include button-group;
+  @include button-group;
   .btn {
     font-size: 0;
     i {
-       margin-left: 0;
-        margin-right: 0;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 }
@@ -1371,7 +1372,7 @@ $form-actions-height: 48px;
         display: none;
       }
       &:focus, &:active, &:hover {
-	@include opacity(0.5);
+        @include opacity(0.5);
       }
     }
   }
@@ -1685,18 +1686,18 @@ $form-actions-height: 48px;
       list-style-type: decimal;
       &, & * {
         font-size: $fs-normal;
-	line-height: round($fs-normal*1.4);
-	vertical-align: middle;
+        line-height: round($fs-normal*1.4);
+        vertical-align: middle;
       }
       .dealt-on { width: 16ex; }
       .amount {
         @include text-align(right);
         &.credit {
-	  &, & * { color: $invalid-color }
-	}
+          &, & * { color: $invalid-color }
+        }
         &.debit {
           &, & * { color: green }
-	}
+        }
         &, & * {
           font-weight: bold;
         }
@@ -1861,9 +1862,9 @@ ul.tree {
               border-bottom: $border;
               height: $space;
               margin: 0 0 $space 0;
-	    }
+            }
           }
-	}
+        }
       }
     }
   }
@@ -1927,10 +1928,10 @@ ul.tree {
 }
 
 .desc {
-    &, * {
-	font-style: italic;
-	opacity: 0.8;
-    }
+  &, * {
+    font-style: italic;
+    opacity: 0.8;
+  }
 }
 
 ul.desc-list {
@@ -1938,46 +1939,46 @@ ul.desc-list {
 }
 
 ul.casts {
-		@include description-list;
-		li.cast {
-				.details {
-						h3 {
-								&, * {
-										font-size: $fs-large;
-										line-height: $lh-large;
-										font-weight: bold;
-								}
-						}
-				}
-				.cost {
-						@include float(right);
-						padding: 2 * $default-gap;
-						font-size: $fs-very-huge;
-						line-height: $lh-very-huge;
-						font-weight: bold;
-				}
-		}
+  @include description-list;
+  li.cast {
+    .details {
+      h3 {
+        &, * {
+          font-size: $fs-large;
+          line-height: $lh-large;
+          font-weight: bold;
+        }
+      }
+    }
+    .cost {
+      @include float(right);
+      padding: 2 * $default-gap;
+      font-size: $fs-very-huge;
+      line-height: $lh-very-huge;
+      font-weight: bold;
+    }
+  }
 }
 
 .picto {
-		@include is-icon(64px);
-		@include text-align(center);
-		min-width: 64px;
+  @include is-icon(64px);
+  @include text-align(center);
+  min-width: 64px;
 
   // Defines default names
   @each $symbolic-icon in $symbolic-icons {
-			$symbol-name: nth($symbolic-icon, 1);
-			$symbol-code: nth($symbolic-icon, 2);
-			&.picto-#{$symbol-name} {
-					@include icon($symbol-code);
-			}
+    $symbol-name: nth($symbolic-icon, 1);
+    $symbol-code: nth($symbolic-icon, 2);
+    &.picto-#{$symbol-name} {
+      @include icon($symbol-code);
+    }
   }
 
   // Adds synonyms
   @each $renaming in $all-aliases {
-			&.picto-#{nth($renaming, 1)} {
-					@include use-icon(nth($renaming, 2));
-			}
+    &.picto-#{nth($renaming, 1)} {
+      @include use-icon(nth($renaming, 2));
+    }
   }
 
 }
@@ -2044,7 +2045,7 @@ svg.map {
 }
 
 #help-center {
-   @include text-align(center);
+  @include text-align(center);
 }
 
 /* Calendar */
@@ -2092,8 +2093,8 @@ svg.map {
             font-size: $fs-small;
           }
           h3 {
-	      font-size: $fs-normal;
-	  }
+            font-size: $fs-normal;
+          }
           &.squeezed {
             text-decoration: line-through;
           }
@@ -2203,6 +2204,7 @@ svg.map {
   $light-darken: 6%;
   $default-color: rgba($neutral-color, 0.2);
   @include inline-block;
+  white-space: nowrap;
   & > * {
     @include inline-block;
     width:  $light-size;
@@ -2222,14 +2224,14 @@ svg.map {
     }
   }
 
-	.big-info .value & {
-		& > * {
-				$light-size: 2 * round($fs-awesome * 0.35);
-				width:  $light-size;
-				height: $light-size;
-				margin: 0 ($fs-awesome - $light-size) ($fs-awesome - $light-size);
-		}
-	}
+  .big-info .value & {
+    & > * {
+      $light-size: 2 * round($fs-awesome * 0.35);
+      width:  $light-size;
+      height: $light-size;
+      margin: 0 (0.25*$light-size) ($fs-awesome - $light-size);
+    }
+  }
 }
 
 

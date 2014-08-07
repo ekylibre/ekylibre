@@ -88,15 +88,15 @@ table {
       @include text-align(right);
     }
   }
-/*
-  thead {
+  /*
+    thead {
     tr:last-child {
-      th, td {
-        border-bottom: 1px solid $base-color;
-      }
+    th, td {
+    border-bottom: 1px solid $base-color;
     }
-  }
-*/
+    }
+    }
+    */
   tbody {
     td {
       border-top: 1px solid #AAA;

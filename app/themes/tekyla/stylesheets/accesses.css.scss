@@ -1,37 +1,37 @@
 @mixin access-color($color) {
-    // $color: change-color($color, $lightness: 60%);
+  // $color: change-color($color, $lightness: 60%);
     color: $color;
     border-color: $color;
     background: mix(white, $color, 80%);
 }
 
 .chk-access {
-    @include inline-block;
-    min-width: 10ex;
-    @include text-align(center);
-    $inactive-color: $neutral-color;
-    $background-mix-percent: 80%;
-    text-transform: uppercase;
-    padding: $default-gap*0.4 $default-gap;
-    border: $default-gap / 3 solid black;
-    @include access-color(lighten($inactive-color, 30%));
-    font-weight: bold;
-    margin-left: $default-gap / 3;
-    @include border-radius($default-border-radius);
-    @include user-select(none);
-    &:first-child {
-	margin-left: 0;
+  @include inline-block;
+  min-width: 10ex;
+  @include text-align(center);
+  $inactive-color: $neutral-color;
+  $background-mix-percent: 80%;
+  text-transform: uppercase;
+  padding: $default-gap*0.4 $default-gap;
+  border: $default-gap / 3 solid black;
+  @include access-color(lighten($inactive-color, 30%));
+  font-weight: bold;
+  margin-left: $default-gap / 3;
+  @include border-radius($default-border-radius);
+  @include user-select(none);
+  &:first-child {
+    margin-left: 0;
+  }
+  input {
+    display: none;
+  }
+  &.active {
+    @include access-color($invalid-color);
+    &.chk-access-read {
+      @include access-color($success-color);
     }
-    input {
-	display: none;
+    &.chk-access-write, &.chk-access-link, &.chk-access-execute {
+      @include access-color($caution-color);
     }
-    &.active {
-	@include access-color($invalid-color);
-	&.chk-access-read {
-	    @include access-color($success-color);
-	}
-	&.chk-access-write, &.chk-access-link, &.chk-access-execute {
-	    @include access-color($caution-color);
-	}
-    }
+  }
 }

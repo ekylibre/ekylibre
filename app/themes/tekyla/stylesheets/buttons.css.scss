@@ -71,11 +71,11 @@
     background: #CCC;
     cursor: default;
     pointer-events: none;
-     &, &:hover, &:focus {
-	&, & > i {
-	   @include opacity(0.6);
-	}
-     }
+    &, &:hover, &:focus {
+      &, & > i {
+        @include opacity(0.6);
+      }
+    }
   }
 }
 
