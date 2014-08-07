@@ -1710,6 +1710,7 @@ arb:
     # product_nature_category: "Product nature category"
     # product_nature_category_taxations: "Product nature category taxations"
     # product_ownerships: "Product ownerships"
+    # product_phases: "Product phases"
     # product_quadruple_mixings: "Product quadruple mixings"
     # product_quintuple_mixings: "Product quintuple mixings"
     # product_reading: "Product reading"

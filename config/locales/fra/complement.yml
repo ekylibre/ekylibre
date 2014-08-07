@@ -6,13 +6,14 @@ fra:
     activity:
       family:
         accountancy: "Comptabilité"
-        animal_farming: "Élevage bovins"
+        animal_farming: "Élevage"
         aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
         beekeeping: "Apiculture"
         beet_crops: "Betterave"
         cattle_farming: "Élevage"
         exploitation: "Exploitation"
         fallow_land: "Jachère"
+        field_crops: "Cultures de plein champ"
         fish_farming: "Aquaculture"
         fodder_crops: "Culture fourragères"
         fruits_crops: "Cultures fruitières"
@@ -25,7 +26,7 @@ fra:
         palmiped_farming: "Élevage de palmipèdes"
         pig_farming: "Élevage porcins"
         potato_crops: "Culture de pomme de terre"
-        poultry_farming: "Élevage avicole"
+        poultry_farming: "Élevage de volaille"
         processing: "Transformation"
         protein_crops: "Culture protéagineuse"
         purchases: "Achats"
@@ -36,7 +37,9 @@ fra:
         stocks: "Stocks"
         straw_cereal_crops: "Céréales à paille"
         vegetal_crops: "Production végétale"
+        vine: "Vigne"
         vine_wine: "Vignes & vin"
+        wine: "Vin"
     analysis:
       nature:
         cow_milk_analysis: "Analyse de lait de vache"

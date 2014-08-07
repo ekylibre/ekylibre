@@ -265,18 +265,19 @@ fra:
     activity_families:
       items:
         accountancy: "Comptabilité"
-        animal_farming: "Élevage bovins"
+        animal_farming: "Élevage"
         aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
         beekeeping: "Apiculture"
         beet_crops: "Betterave"
         cattle_farming: "Élevage"
         exploitation: "Exploitation"
         fallow_land: "Jachère"
+        field_crops: "Cultures de plein champ"
         fish_farming: "Aquaculture"
         fodder_crops: "Culture fourragères"
         fruits_crops: "Cultures fruitières"
         goat_farming: "Élevage caprins"
-        handicraft: "Artisanat"
+        handicraft: "Artisanat" #?
         maize_crops: "Culture de maïs"
         market_garden_crops: "Maraîchage"
         meadow: "Prairie"
@@ -284,7 +285,7 @@ fra:
         palmiped_farming: "Élevage de palmipèdes"
         pig_farming: "Élevage porcins"
         potato_crops: "Culture de pomme de terre"
-        poultry_farming: "Élevage avicole"
+        poultry_farming: "Élevage de volaille"
         processing: "Transformation"
         protein_crops: "Culture protéagineuse"
         purchases: "Achats"
@@ -295,7 +296,9 @@ fra:
         stocks: "Stocks"
         straw_cereal_crops: "Céréales à paille"
         vegetal_crops: "Production végétale"
-        vine_wine: "Vignes & vin"
+        vine: "Vigne" #?
+        vine_wine: "Vignes & vin" #?
+        wine: "Vin"
       name: "Familles d’activité"
     administrative_area_natures:
       items:
@@ -1352,9 +1355,6 @@ fra:
         sir: "Monsieur"
         syndicate: "Syndicat"
       name: "Types de tiers"
-    equipment_costs_france_abacus_tractor:
-      items: #?
-      property_natures: #?
     event_natures:
       items:
         absence: "Absence"
@@ -2768,6 +2768,26 @@ fra:
       name: "Rôles"
       property_natures:
         accesses: "Accès"
+    running_costs:
+      choices:
+        origin:
+          french_cooperation_scale: "Barême d'entraide français"
+      items:
+        2014_small_tractor_56_to_64_fhp: "Petit tracteur 2014 de 56 à 64 CV"
+        2014_small_tractor_66_to_75_fhp: "Petit tracteur 2014 de 66 à 75 CV"
+        2014_small_tractor_75_to_85_fhp: "Petit tracteur 2014 de 75 à 85 CV"
+        2014_small_tractor_85_to_95_fhp: "Petit tracteur 2014 de 85 à 95 CV"
+      name: "Coûts d'utilisation"
+      property_natures:
+        average_purchase_price: "Prix d'achat moyen"
+        currency: "Monnaie"
+        hourly_cost: "Coût horaire"
+        maximum_power: "Puissance maximale"
+        minimum_power: "Puissance minimale"
+        origin: "Origine"
+        power_unit: "Unité de puissance"
+        variant: "Variant"
+        year: "Année"
     sexes:
       items:
         female: "Femelle"

@@ -13,11 +13,11 @@ eng:
         cattle_farming: "Cattle farming"
         exploitation: "Exploitation"
         fallow_land: "Fallow land"
+        field_crops: "Field crops"
         fish_farming: "Fish farming"
         fodder_crops: "Fodder crops"
         fruits_crops: "Fruits crops"
         goat_farming: "Goat farming"
-        handicraft: "Handicraft"
         maize_crops: "Maize crops"
         market_garden_crops: "Market garden crops"
         meadow: "Meadow"
@@ -36,7 +36,7 @@ eng:
         stocks: "Stocks"
         straw_cereal_crops: "Straw cereal crops"
         vegetal_crops: "Vegetal crops"
-        vine_wine: "Vine wine"
+        wine: "Wine"
     analysis:
       nature:
         cow_milk_analysis: "Cow milk analysis"

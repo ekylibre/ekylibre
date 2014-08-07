@@ -2,6 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="production_natures">
+
     <property-natures>
       <!-- Inside the model-->
       <property-nature name="activity" type="choice" nomenclature="activity_families" required="true"/>
@@ -9,6 +10,7 @@
       <property-nature name="telepac_crop_code" type="string" required="false"/>
       <property-nature name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
     </property-natures>
+
     <items>
 
       <!-- A - ADMINISTRATIVE ACTIVITIES -->
@@ -322,23 +324,23 @@
       <!-- 6 - VINE CROP AND WINE -->
       <item name="vine"
             production_code="6000"
-            activity="vine_wine"
+            activity="vines"
             telepac_crop_code="VY"
             variant_support="vine_grape_crop"
             />
       <item name="vine_restructuration"
             production_code="6100"
-            activity="vine_wine"
+            activity="vines"
             telepac_crop_code="RE"
             variant_support="vine_grape_crop"
             />
 
       <item name="winery"
-            activity="vine_wine"
+            activity="wine"
             variant_support="vine_grape_must"
             />
       <item name="wine_storehouse"
-            activity="vine_wine"
+            activity="wine"
             variant_support="wine"
             />
       <!-- 7 - TREE AND FLOWER CROP  -->

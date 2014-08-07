@@ -273,11 +273,11 @@ arb:
         # cattle_farming: "Cattle farming"
         # exploitation: "Exploitation"
         # fallow_land: "Fallow land"
+        # field_crops: "Field crops"
         # fish_farming: "Fish farming"
         # fodder_crops: "Fodder crops"
         # fruits_crops: "Fruits crops"
         # goat_farming: "Goat farming"
-        # handicraft: "Handicraft"
         # maize_crops: "Maize crops"
         # market_garden_crops: "Market garden crops"
         # meadow: "Meadow"
@@ -296,7 +296,7 @@ arb:
         # stocks: "Stocks"
         # straw_cereal_crops: "Straw cereal crops"
         # vegetal_crops: "Vegetal crops"
-        # vine_wine: "Vine wine"
+        # wine: "Wine"
       # name: "Activity families"
     administrative_area_natures:
       items:
@@ -1367,9 +1367,7 @@ arb:
         # sir: "Sir"
         # syndicate: "Syndicate"
       # name: "Entity natures"
-    equipment_costs_france_abacus_tractor:
-      items: #?
-      property_natures: #?
+    equipment_costs_france_abacus_tractor: #?
     event_natures:
       items:
         # absence: "Absence"
@@ -2780,6 +2778,26 @@ arb:
       # name: "Roles"
       property_natures:
         # accesses: "Accesses"
+    running_costs:
+      choices:
+        origin:
+          # french_cooperation_scale: "French cooperation scale"
+      items:
+        # 2014_small_tractor_56_to_64_fhp: "2014 small tractor 56 to 64 fhp"
+        # 2014_small_tractor_66_to_75_fhp: "2014 small tractor 66 to 75 fhp"
+        # 2014_small_tractor_75_to_85_fhp: "2014 small tractor 75 to 85 fhp"
+        # 2014_small_tractor_85_to_95_fhp: "2014 small tractor 85 to 95 fhp"
+      # name: "Running costs"
+      property_natures:
+        # average_purchase_price: "Average purchase price"
+        # currency: "Currency"
+        # hourly_cost: "Hourly cost"
+        # maximum_power: "Maximum power"
+        # minimum_power: "Minimum power"
+        # origin: "Origin"
+        # power_unit: "Power unit"
+        # variant: "Variant"
+        # year: "Year"
     sexes:
       items:
         # female: "Female"

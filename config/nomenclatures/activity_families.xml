@@ -7,7 +7,7 @@
       <item name="vegetal_crops"/>
       <item name="animal_farming"/>
       <item name="processing"/>
-      <item name="handicraft"/>
+      <!-- <item name="handicraft"/> -->
       <item name="service"/>
     </items>
   </nomenclature>
@@ -23,19 +23,32 @@
 
   <nomenclature name="activity_families-vegetal_crops">
     <items>
+      <item name="field_crops"/>
+      <item name="market_garden_crops"/>
+      <item name="fruits_crops"/>
+      <item name="arboriculture"/>
+      <item name="aromatic_and_medicinal_plants"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-arboriculture">
+    <items>
+      <item name="orchard_crops"/>
+      <item name="vines"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-field_crops">
+    <items>
       <item name="straw_cereal_crops"/>
       <item name="maize_crops"/>
       <item name="oilseed_crops"/>
       <item name="protein_crops"/>
       <item name="potato_crops"/>
       <item name="beet_crops"/>
-      <item name="market_garden_crops"/>
-      <item name="fruits_crops"/>
-      <item name="aromatic_and_medicinal_plants"/>
-      <item name="vine_wine"/>
+      <item name="fallow_land"/>
       <item name="fodder_crops"/>
       <item name="meadow"/>
-      <item name="fallow_land"/>
     </items>
   </nomenclature>
 
@@ -50,6 +63,12 @@
       <item name="rabbit_farming"/>
       <item name="fish_farming"/>
       <item name="beekeeping"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-processing">
+    <items>
+      <item name="wine"/>
     </items>
   </nomenclature>
 
