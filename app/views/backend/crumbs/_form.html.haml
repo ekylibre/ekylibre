@@ -1,4 +1,4 @@
-- if !previous.nil?
+- if !previous.nil? && !(['start','stop'].include? crumb.nature)
   = form_for crumb, action: :update, url: backend_crumb_path(crumb.id), method: :patch do |f|
     = hidden_field_tag :previous_crumb_id, previous.id
     = hidden_field_tag :nature, 'start'
