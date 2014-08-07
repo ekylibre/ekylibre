@@ -155,7 +155,7 @@ eng:
     backend/cells/working_sets_stocks_cells:
       # show: "Working sets stocks cell: %{name}"
     backend/crumbs:
-      # index: "Crumbs"
+      index: "Crumbs"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"
@@ -321,12 +321,12 @@ eng:
       show: "Issue: %{name}"
     backend/journal_entries:
       edit: "Edit journal entry: %{number}"
-      index: "Journal entries"
+      # index: "Journal entries"
       new: "New entry"
       show: "Journal entry: %{number}"
     backend/journal_entry_items:
       new: "New entry item"
-      show: "Journal entry item: %{name}"
+      # show: "Journal entry item: %{name}"
     backend/journals:
       balance: "Balance"
       bookkeep: "Bookkeep"
@@ -340,7 +340,7 @@ eng:
       reopen: "Reopen journal : %{name}"
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
-      toggle: "Toggle kujaku: %{name}"
+      # toggle: "Toggle kujaku: %{name}"
     backend/land_parcel_clusters:
       edit: "Edit land parcel cluster : %{name}"
       index: "Land parcel clusters"
@@ -359,10 +359,10 @@ eng:
     backend/legal_entities:
       # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
       edit: "Edit legal entity: %{full_name}"
-      export: "Export legal entities"
-      import: "Import legal entities"
+      # export: "Export legal entities"
+      # import: "Import legal entities"
       index: "Legal entities"
-      merge: "Merge legal entity: %{full_name}"
+      # merge: "Merge legal entity: %{name}"
       new: "New legal entity"
       show: "Legal entity: %{full_name}"
     backend/listing_nodes:
@@ -416,10 +416,10 @@ eng:
     backend/people:
       # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
       edit: "Edit person: %{full_name}"
-      export: "Export people"
-      import: "Import people"
+      # export: "Export people"
+      # import: "Import people"
       index: "People"
-      merge: "Merge person: %{full_name}"
+      # merge: "Merge person: %{name}"
       new: "New person"
       show: "Person: %{full_name}"
     backend/plant_fertilizers:
@@ -495,10 +495,10 @@ eng:
       new: "New product"
       show: "%{nature}: %{name}"
     backend/purchase_items:
-      edit: "Edit purhase order item"
-      index: "Purchase items"
-      new: "Add a product to the purchase"
-      show: "Purchase item: %{name}"
+      edit: "Edit purchase item"
+      # index: "Purchase items"
+      new: "New purchase item"
+      # show: "Purchase item: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -513,7 +513,7 @@ eng:
       invoice: "Receive invoice"
       new: "New purchase"
       propose: "Propose order"
-      # propose_and_invoice: "Propose and invoice purchase: %{name}"
+      propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
     backend/roles:
@@ -524,11 +524,11 @@ eng:
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
     backend/sale_items:
-      detail: "Details sale's item"
+      # detail: "Detail sale item: %{name}"
       edit: "Edit sale's item"
-      index: "Sale items"
+      # index: "Sale items"
       new: "Add a product to the sale"
-      show: "Sale item: %{name}"
+      # show: "Sale item: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -563,7 +563,7 @@ eng:
       new: "New settlement"
       show: "Settlement: %{name}"
     backend/snippets:
-      toggle: "Toggle snippet: %{name}"
+      # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
       edit: "Edit subscription type: %{name}"
       index: "Subscription types"
@@ -610,20 +610,20 @@ eng:
       new: "New worker"
       show: "Worker: %{name}"
     devise/confirmations:
-      new: "New confirmation"
-      show: "Confirmation: %{name}"
+      # new: "New confirmation"
+      # show: "Confirmation: %{name}"
     devise/passwords:
-      edit: "Edit password: %{name}"
-      new: "New password"
+      # edit: "Edit password: %{name}"
+      # new: "New password"
     devise/registrations:
-      cancel: "Cancel registration: %{name}"
-      edit: "Edit registration: %{name}"
-      new: "New registration"
+      # cancel: "Cancel registration: %{name}"
+      # edit: "Edit registration: %{name}"
+      # new: "New registration"
     devise/sessions:
-      new: "New session"
+      # new: "New session"
     devise/unlocks:
-      new: "New unlock"
-      show: "Unlock: %{name}"
+      # new: "New unlock"
+      # show: "Unlock: %{name}"
     public:
       index: "Home"
   errors:
@@ -693,14 +693,15 @@ eng:
     animal_productions: "Animal productions"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
-    are_you_sure_you_want_to: "Are you sure you want to"
+    are_you_sure_you_want_to:
+      abort_issue: "Are you sure you want to abort this issue ?"
+      close_issue: "Are you sure you want to close this issue ?"
+      reopen_issue: "Are you sure you want to reopen this issue ?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
-    area_x: "%{name} (%{postcode})" #?
-    assets: "Assets management" #?
     attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}" #?
     attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}" #?
     attach_deal: "Add a deal"

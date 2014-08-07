@@ -1312,7 +1312,7 @@ fra:
         transports: "Transports"
         users: "Utilisateurs"
         wine_tanks: "Cuves à vin"
-        # wine_transformers: "Wine transformers"
+        wine_transformers: "Additifs œnologiques"
         workers: "Workers"
       name: "Ressources d’entreprise"
       property_natures:

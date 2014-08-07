@@ -178,7 +178,8 @@ arb:
     backend/contacts:  #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
-    backend/crumbs: #?
+    backend/crumbs:
+      # index: "Crumbs"
     backend/cultivable_zones:
       # edit: "Edit cultivable zone: %{name}"
       # index: "Cultivable zones"
@@ -381,12 +382,10 @@ arb:
       # show: "Issue: %{name}"
     backend/journal_entries:
       edit: "تعديل السجل رقم %{number} من %{created_at}"
-      # index: "Journal entries"
       new: "اضافة سجل"
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
       # new: "New entry item"
-      # show: "Journal entry item: %{name}"
     backend/journal_entry_lines: #?
     backend/journals:
       balance: "رصيد الحساب"
@@ -400,8 +399,7 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
-    backend/kujakus:
-      # toggle: "Toggle kujaku: %{name}"
+    backend/kujakus: #?
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster : %{name}"
       # index: "Land parcel clusters"
@@ -419,10 +417,7 @@ arb:
       show: "نظام %{name}"
     backend/legal_entities:
       # edit: "Edit legal entity: %{full_name}"
-      # export: "Export legal entities"
-      # import: "Import legal entities"
       # index: "Legal entities"
-      # merge: "Merge legal entity: %{full_name}"
       # new: "New legal entity"
       # show: "Legal entity: %{full_name}"
     backend/listing_node_items: #?
@@ -509,10 +504,7 @@ arb:
       show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/people:
       # edit: "Edit person: %{full_name}"
-      # export: "Export people"
-      # import: "Import people"
       # index: "People"
-      # merge: "Merge person: %{full_name}"
       # new: "New person"
       # show: "Person: %{full_name}"
     backend/places: #?
@@ -649,9 +641,7 @@ arb:
     backend/public: #?
     backend/purchase_items:
       edit: "تعديل تصميم الطلب"
-      # index: "Purchase items"
       new: "اضافة طلب للمنتج : %{number}"
-      # show: "Purchase item: %{name}"
     backend/purchase_lines:  #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -669,6 +659,7 @@ arb:
       # invoice: "Receive invoice"
       new: "شراء جديد"
       # propose: "Propose order"
+      # propose_and_invoice: "Invoice directly"
       # refuse: "Refused order"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
     backend/relations:  #?
@@ -680,11 +671,8 @@ arb:
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
     backend/sale_items:
-      # detail: "Details sale's item"
       edit: "تعديل مسار طلب المنتج"
-      # index: "Sale items"
       new: "اضافة تصميم خطوط المنتج"
-      # show: "Sale item: %{name}"
     backend/sale_lines:  #?
       edit: "تعديل مسار طلب المنتج" #?
       new: "اضافة تصميم خطوط المنتج" #?
@@ -727,8 +715,7 @@ arb:
       # index: "Settlement"
       # new: "New settlement"
       # show: "Settlement: %{name}"
-    backend/snippets:
-      # toggle: "Toggle snippet: %{name}"
+    backend/snippets: #?
     backend/stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -805,21 +792,11 @@ arb:
       # new: "New worker"
       # show: "Worker: %{name}"
     backend/working_sets: #?
-    devise/confirmations:
-      # new: "New confirmation"
-      # show: "Confirmation: %{name}"
-    devise/passwords:
-      # edit: "Edit password: %{name}"
-      # new: "New password"
-    devise/registrations:
-      # cancel: "Cancel registration: %{name}"
-      # edit: "Edit registration: %{name}"
-      # new: "New registration"
-    devise/sessions:
-      # new: "New session"
-    devise/unlocks:
-      # new: "New unlock"
-      # show: "Unlock: %{name}"
+    devise/confirmations: #?
+    devise/passwords: #?
+    devise/registrations: #?
+    devise/sessions: #?
+    devise/unlocks: #?
     public:
       # index: "Home"
   controllers:  #?
@@ -981,16 +958,18 @@ arb:
     apply: "تطبيق" #?
     # archives: "Archives"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
-    # are_you_sure_you_want_to: "Are you sure you want to"
+    are_you_sure_you_want_to:
+      # abort_issue: "Are you sure you want to abort this issue ?"
+      # close_issue: "Are you sure you want to close this issue ?"
+      # reopen_issue: "Are you sure you want to reopen this issue ?"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟"
     are_you_sure_you_want_to_invoice: "هل انت متأكد من رغبتك باعداد فاتورة البيع؟"
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
     area_create: "اضافة عنوان بريدي" #?
-    area_x: "%{name} (%{postcode})"
+    area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
-    # assets: "Assets management"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
     # attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}"
     # attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}"

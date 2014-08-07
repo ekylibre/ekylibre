@@ -135,7 +135,8 @@ fra:
     backend/cells/rss_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
-    backend/crumbs: #?
+    backend/crumbs:
+      index: "Miettes"
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
       index: "Zones cultivables"
@@ -302,12 +303,10 @@ fra:
       show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
-      # index: "Journal entries"
       new: "Nouvelle écriture"
       show: "Écriture\_: %{number}"
     backend/journal_entry_items:
       new: "Nouvelle ligne d’écriture"
-      # show: "Journal entry item: %{name}"
     backend/journals:
       balance: "Balance"
       bookkeep: "Bascule comptable"
@@ -321,8 +320,7 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
-    backend/kujakus:
-      # toggle: "Toggle kujaku: %{name}"
+    backend/kujakus: #?
     backend/land_parcel_clusters:
       edit: "Modifier l’îlot\_: %{name}"
       index: "Îlots"
@@ -343,13 +341,10 @@ fra:
       new: "Nouvelle parcelle"
       show: "Parcelle %{name}"
     backend/legal_entities:
-      # edit: "Edit legal entity: %{full_name}"
-      # export: "Export legal entities"
-      # import: "Import legal entities"
-      # index: "Legal entities"
-      # merge: "Merge legal entity: %{full_name}"
-      # new: "New legal entity"
-      # show: "Legal entity: %{full_name}"
+      edit: "Modifier la personne morale\_: %{full_name}"
+      index: "Personnes morales"
+      new: "Nouvelle personne morale"
+      show: "Personne morale: %{full_name}"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -370,16 +365,6 @@ fra:
       new: "Nouvelle matière"
       picture: "Visuel" #?
       show: "Matière\_: %{name}"
-    backend/medicines:  #?
-      edit: "Modifier le médicaments\_: %{name}" #?
-      index: "Médicaments" #?
-      new: "Nouveau médicaments" #?
-      show: "Médicament\_: %{name}" #?
-    backend/mineral_matters:  #?
-      edit: "Modifier la matière minérale\_: %{name}" #?
-      index: "Matières minérales" #?
-      new: "Nouvelle matière minérale" #?
-      show: "Matière minérale\_: %{name}" #?
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mes informations"
@@ -398,20 +383,11 @@ fra:
       new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
-    backend/organic_matters:  #?
-      edit: "Modifier la matière organique\_: %{name}" #?
-      index: "Matières organiques" #?
-      new: "Nouvelle matière organique" #?
-      show: "Matière organique\_: %{name}" #?
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
       new: "Nouvelle livraison sortante"
       show: "Livraison sortante\_: %{number}"
-    backend/outgoing_delivery_modes:  #?
-      edit: "Modifier le mode de livraison\_: %{name}" #?
-      index: "Modes de livraison" #?
-      new: "Nouveau mode de livraison" #?
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -423,19 +399,13 @@ fra:
       show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
       edit: "Modifier la personne\_: %{full_name}"
-      # export: "Export people"
-      # import: "Import people"
       index: "Personnes"
-      # merge: "Merge person: %{full_name}"
       new: "Nouvelle personne"
       show: "Personne\_: %{full_name}"
     backend/plant_fertilizers:
       index: "Engrais"
     backend/plant_medicines:
-      edit: "Modifier le produit phytosanitaire\_: %{name}" #?
       index: "Produits phytosanitaires"
-      new: "Nouveau produit phytosanitaire" #?
-      show: "Produit phytosanitaire\_: %{name}" #?
     backend/plant_products:
       index: "Produits végétaux"
     backend/plant_seedlings:
@@ -496,9 +466,7 @@ fra:
       show: "%{nature}\_: %{name}"
     backend/purchase_items:
       edit: "Modifier une ligne de la commande"
-      # index: "Purchase items"
       new: "Nouveau produit à la commande"
-      # show: "Purchase item: %{name}"
     backend/purchase_natures:
       edit: "Modifier le type d’achat\_: %{name}"
       index: "Type d’achats"
@@ -514,20 +482,19 @@ fra:
       invoice: "Réception de la facture"
       new: "Nouvel achat"
       propose: "Commande soumise au fournisseur"
+      propose_and_invoice: "Facturer directement"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
     backend/roles:
       edit: "Modifier le rôle\_: %{name}"
       index: "Rôles"
       new: "Nouveau rôle"
-      # pick: "Pick role: %{name}"
-      # show: "Role: %{name}"
+      pick: "Piocher un rôle\_"
+      show: "Rôle\_: %{name}"
     backend/sale_items:
-      detail: "Détailler une ligne de la vente"
+      detail: "Détailler une ligne de la vente" #?
       edit: "Modifier une ligne de la vente"
-      # index: "Sale items"
       new: "Nouveau produit à la vente"
-      # show: "Sale item: %{name}"
     backend/sale_natures:
       edit: "Modifier le type de vente\_: %{name}"
       index: "Types de ventes"
@@ -565,8 +532,7 @@ fra:
       index: "Installations"
       new: "Nouvelle installation"
       show: "Installation\_: %{name}"
-    backend/snippets:
-      # toggle: "Toggle snippet: %{name}"
+    backend/snippets: #?
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnements"
@@ -616,112 +582,13 @@ fra:
       index: "Équipiers"
       new: "Nouvel équipier"
       show: "Équipier %{name}"
-    devise/confirmations:
-      # new: "New confirmation"
-      # show: "Confirmation: %{name}"
-    devise/passwords:
-      # edit: "Edit password: %{name}"
-      # new: "New password"
-    devise/registrations:
-      # cancel: "Cancel registration: %{name}"
-      # edit: "Edit registration: %{name}"
-      # new: "New registration"
-    devise/sessions:
-      # new: "New session"
-    devise/unlocks:
-      # new: "New unlock"
-      # show: "Unlock: %{name}"
+    devise/confirmations: #?
+    devise/passwords: #?
+    devise/registrations: #?
+    devise/sessions: #?
+    devise/unlocks: #?
     public:
       index: "Accueil"
-  controllers:  #?
-    authentication/sessions: "Sessions" #?
-    backend/accounts: "Plan de comptes" #?
-    backend/activities: "Activités" #?
-    backend/affairs: "Affaires" #?
-    backend/aggregators: "Agrégateurs" #?
-    backend/analyses: "Analyses" #?
-    backend/animal_foods: "Aliments pour animaux" #?
-    backend/animal_groups: "Groupes d’animaux" #?
-    backend/animal_products: "Produits animaux" #?
-    backend/animals: "Animaux" #?
-    backend/bank_statements: "Relevés de compte bancaire" #?
-    backend/buildings: "Bâtiments" #?
-    backend/campaigns: "Campagnes" #?
-    backend/cash_transfers: "Virements internes" #?
-    backend/cashes: "Trésoreries" #?
-    backend/custom_field_choices: "Choix de champs personnalisés" #?
-    backend/custom_fields: "Champs personnalisés" #?
-    backend/dashboards: "Tableaux de bord" #?
-    backend/deposits: "Remises en banque" #?
-    backend/districts: "Zones administratives" #?
-    backend/document_templates: "Modèles de document" #?
-    backend/documents: "Documents" #?
-    backend/entities: "Personnes" #?
-    backend/entity_addresses: "Adresses" #?
-    backend/entity_links: "Liens entre personnes" #?
-    backend/equipments: "Équipements" #?
-    backend/establishments: "Établissements" #?
-    backend/financial_assets: "Immobilisations" #?
-    backend/financial_years: "Exercices comptables" #?
-    backend/incoming_deliveries: "Livraisons entrantes" #?
-    backend/incoming_delivery_items: "Lignes de livraison entrante" #?
-    backend/incoming_delivery_modes: "Modes de réception d’arrivage" #?
-    backend/incoming_payment_modes: "Modes d’encaissement" #?
-    backend/incoming_payments: "Encaissements" #?
-    backend/intervention_casts: "Acteurs d’intervention" #?
-    backend/interventions: "Interventions" #?
-    backend/inventories: "Inventaires" #?
-    backend/inventory_items: "Lignes d’inventaires" #?
-    backend/issues: "Incidents" #?
-    backend/journal_entries: "Écritures comptables" #?
-    backend/journal_entry_items: "Lignes d’écritures comptables" #?
-    backend/journals: "Journaux" #?
-    backend/land_parcels: "Îlots" #?
-    backend/listing_node_items: "Élement de nœuds d’extractions" #?
-    backend/listing_nodes: "Nœuds d’extractions" #?
-    backend/listings: "Exportations et mailings" #?
-    backend/matters: "Matières" #?
-    backend/medicines: "Médicaments" #?
-    backend/mineral_matters: "Matières minérales" #?
-    backend/myselves: "Mon compte" #?
-    backend/observations: "Observations" #?
-    backend/operations: "Travaux" #?
-    backend/organic_matters: "Matières organiques" #?
-    backend/outgoing_deliveries: "Livraisons sortantes" #?
-    backend/outgoing_delivery_items: "Lignes de livraisons sortantes" #?
-    backend/outgoing_delivery_modes: "Modes de livraisons sortantes" #?
-    backend/outgoing_payment_modes: "Modes de décaissement" #?
-    backend/outgoing_payments: "Décaissements" #?
-    backend/people: "Personnes" #?
-    backend/plant_medicines: "Produits phytosanitaires" #?
-    backend/plants: "Cultures" #?
-    backend/postal_zones: "Zones postales" #?
-    backend/prescriptions: "Prescriptions" #?
-    backend/product_groups: "Groupes de produits" #?
-    backend/product_nature_categories: "Catégories de types de produit" #?
-    backend/product_nature_variants: "Variantes de produits" #?
-    backend/product_natures: "Types de produits" #?
-    backend/production_supports: "Supports de production" #?
-    backend/productions: "Productions" #?
-    backend/products: "Produits" #?
-    backend/purchase_items: "Lignes d’achat" #?
-    backend/purchase_natures: "Types d’achat" #?
-    backend/purchases: "Achats" #?
-    backend/roles: "Rôles" #?
-    backend/sale_items: "Lignes de vente" #?
-    backend/sale_natures: "Types de ventes" #?
-    backend/sales: "Ventes" #?
-    backend/sequences: "Séquences" #?
-    backend/settings: "Paramètres" #?
-    backend/subscription_natures: "Types d’abonnements" #?
-    backend/subscriptions: "Abonnements" #?
-    backend/taxes: "Taxes" #?
-    backend/teams: "Équipes" #?
-    backend/transfers: "Transferts" #?
-    backend/transformed_products: "Produits transformés" #?
-    backend/transports: "Transports" #?
-    backend/users: "Utilisateurs" #?
-    backend/workers: "Travailleurs" #?
   errors:
     messages:
       already_confirmed: "a déjà été validé(e)"
@@ -839,19 +706,17 @@ fra:
     archived_at: "Archivé à" #?
     archives: "Archives"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
-    are_you_sure_you_want_to:  #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
-      abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?" #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
-      close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?" #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
-      reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?" #? String excepted (Hash:{:abort_issue=>"Êtes-vous sûr(e) de vouloir abandonner cet incident ?", :close_issue=>"Êtes-vous sûr(e) de vouloir clore cet incident ?", :reopen_issue=>"Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"})
+    are_you_sure_you_want_to:
+      abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
+      close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
+      reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
     area_measure: "Superficie" #?
-    # area_x: "%{name} (%{postcode})"
     assessable_operations: "Opérations imposables (H.T)" #?
-    # assets: "Assets management"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
@@ -862,16 +727,6 @@ fra:
     back: "Revenir à la page précédente"
     backup: "Sauvegarder"
     backups: "Sauvegardes"
-    bad_browser:  #?
-      explanation: "Cette version de navigateur n’est pas supportée par Ekylibre. En utilisant ce navigateur, les pages ne seraient pas affichées correctement et des fonctionnalités seraient manquantes." #?
-      proposal: "S’il vous plait, envisagez de vous mettre à jour avec l’un de ces navigateurs récents\_:" #?
-      title: "Il semblerai que vous utilisiez un navigateur obsolète" #?
-      wb: #?
-        chrome: "Chrome" #?
-        firefox: "Firefox" #?
-        ie: "Internet Explorer" #?
-        opera: "Opéra" #?
-        safari: "Safari" #?
     balance: "Solde"
     bban: "Relevé d’identité bancaire (RIB)"
     beginning: "Début" #?
@@ -986,7 +841,7 @@ fra:
     debit: "Débit"
     decimal_case: "Options pour un décimal"
     decimal_options: "Indicateur de type décimal" #?
-    # decision_making: "Decision-making"
+    decision_making: "Décision"
     default_subject: "[%{company}]"
     delay: "Délai"
     delays: "Délais"
@@ -1032,15 +887,11 @@ fra:
     email: "Email:"
     employee_name: "Employé"
     end: "au"
-    entities_export: "Tout exporter au format CSV" #?
-    entities_import: "Importer un fichier CSV" #?
-    entities_merge: "Fusionner des fiches" #?
     entity: "Personne"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
-    equipment_evaluated_cost: "Coût équipements" #?
     equipments: "Équipements"
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
     error_sale_already_paid: "La vente a déjà été payée en totalité"
@@ -1143,17 +994,12 @@ fra:
     inel_index: "Index génétique INEL" #?
     info: "Information\_: %{value}"
     infos: "Information générales"
-    inhibitors_presence: "Présence de résidus d’inhibiteurs" #?
     input_cost: "Coût d’intrant"
     input_cost_per_hectare: "Coût des intrants par hectare"
     insert_actual_password: "Saisissez votre mot de passe actuel"
     insert_password: "Saisissez votre nouveau mot de passe"
-    international_normal_vat_collected: "Taux normal à 8,5%" #?
-    international_reduce_vat_collected: "Taux réduit à 2,1%" #?
-    international_vat_collected: "Opérations réalisées dans les DOM" #?
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
-    intervention_casts: "Actions dans les interventions" #?
     interventions_count: "Nombre d’interventions"
     inventories: "Inventaires"
     inventory: "Inventaire"
@@ -1287,10 +1133,6 @@ fra:
     my_self: "Saisissez les informations vous concernant"
     n: "Non" #?
     name: "Nom"
-    national_deliveries: "Livraisons intracommunautaires" #?
-    national_normal_vat_collected: "Taux normal à 19,6%" #?
-    national_reduce_vat_collected: "Taux réduit à 5,5%" #?
-    national_vat_collected: "Opérations réalisées en France métropolitaine" #?
     nature: "Type"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
@@ -2038,7 +1880,7 @@ fra:
       run: "Éxécuter"
       select: "Selectionner"
       set: "Définir"
-      # ship: "Ship"
+      ship: "Expédier"
       show: "Afficher"
       sort: "Trier"
       toggle: "Basculer"

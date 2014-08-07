@@ -677,7 +677,7 @@ fra:
     entries: "Écritures"
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
-    # entry_number: "Entry number"
+    entry_number: "N° Écriture"
     establishment: "Établissement"
     event: "Évènement"
     # event_participation: "Event participation"

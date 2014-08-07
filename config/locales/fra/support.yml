@@ -81,7 +81,7 @@ fra:
         negative_format: "-%n\_%u"
         precision: 2
         separator: ","
-        # unit: "⁈"
+        unit: "⁈"
     format:
       delimiter: " "
       precision: 3
