@@ -392,7 +392,7 @@ load_data :demo_interventions do |loader|
                           read_at: read_at + record.attributes['id'].to_i * 15,
                           user_id: user.id
                           )
-            w.check_point
+            #w.check_point
           end
         end
       end
