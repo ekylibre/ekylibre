@@ -144,21 +144,13 @@ module Procedo
 
     # Returns the fixed time for a procedure
     def minimal_duration
-      total_duration = []
-      self.operations.each do |id, operation|
-        total_duration << operation.duration
-      end
-      return total_duration.compact.sum
+      return self.operations.values.map(&:duration).compact.sum
     end
     alias :fixed_duration :minimal_duration
 
     # Returns the spread duration for operation with unknown duration
     def spread_time(duration)
-      is_durations = []
-      self.operations.each do |id, operation|
-        is_durations << operation.no_duration?
-      end
-      return (duration - self.fixed_duration).to_d / is_durations.size
+      return (duration - self.fixed_duration).to_d / self.operations.values.select(&:no_duration?).count
     end
 
     # Returns only variables which must be built during runnning process
