@@ -9,7 +9,7 @@
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="excrement"          variety="excrement" derivative-of="animal" roles="animal_housing_cleaning-output" new="produced-by: animal_housing" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+      <variable name="excrement"          variety="excrement" derivative-of="animal" roles="animal_housing_cleaning-output" new="produced-by: animal_housing" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"             to="population"
                  forward="value / self..net_mass(ton)"
@@ -40,7 +40,8 @@
       <operation id="200" duration="4 minutes">
         <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
         <task do="[tractor] moves at [cleaner]"/>
-        <operation id="300" duration="7 minutes">
+      </operation>
+      <operation id="300" duration="7 minutes">
         <!-- le chauffeur attache la charrue au tracteur -->
         <task do="[tractor] catches [cleaner]"/>
       </operation>
@@ -64,7 +65,6 @@
       </operation>
       <operation id="900" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
-      </operation>
       </operation>
     </operations>
   </procedure>

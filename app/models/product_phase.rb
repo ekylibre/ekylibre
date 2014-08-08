@@ -63,11 +63,7 @@ class ProductPhase < Ekylibre::Record::Base
   # Updates product
   after_save do
     if self.last_for_now?
-      product = self.product
-      product.variant  = self.variant
-      product.nature   = self.nature
-      product.category = self.category
-      product.save!
+      self.product.update_columns(variant_id: self.variant_id, nature_id: self.nature_id, category_id: self.category_id)
     end
   end
 
@@ -75,11 +71,7 @@ class ProductPhase < Ekylibre::Record::Base
   before_destroy do
     if self.last_for_now?
       if previous = self.previous
-        product = self.product
-        product.variant  = previous.variant
-        product.nature   = previous.nature
-        product.category = previous.category
-        product.save!
+        self.product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
       else
         raise "Cannot destroy this product phase"
       end

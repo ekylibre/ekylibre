@@ -12,7 +12,7 @@ module Procedo
       end
       if element.has_attribute?('duration')
         expr = element.attr('duration').to_s.strip.split(/\s+/)
-        @duration = expr.first.to_d.send(expr.second)
+        @duration = expr.first.to_f.send(expr.second)
       end
       @tasks = HashWithIndifferentAccess.new
       element.xpath('xmlns:task').each_with_index do |task, index|

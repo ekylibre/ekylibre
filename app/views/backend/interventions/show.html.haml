@@ -86,6 +86,6 @@
           %span.title= Intervention.human_attribute_name(:description)
           %span.value= resource.description
 
-  -# if resource.operations.any?
+  - if resource.operations.any?
     - b.cell(:operations) do
       = list(:operations)
