@@ -267,12 +267,12 @@ eng:
       items:
         accountancy: "Accountancy"                         #< exploitation
         animal_farming: "Animal farming"
-        # arboriculture: "Arboriculture"                   #< vegetal_crops
+        arboriculture: "Arboriculture"                     #< vegetal_crops
         aromatic_and_medicinal_plants: "Aromatic and medicinal plants" #< vegetal_crops
         beekeeping: "Beekeeping"                           #< animal_farming
         beet_crops: "Beet crops"                           #< field_crops
         cattle_farming: "Cattle farming"                   #< animal_farming
-        # cereal_crops: "Cereal crops"                     #< field_crops
+        cereal_crops: "Cereal crops"                       #< field_crops
         exploitation: "Exploitation"
         fallow_land: "Fallow land"                         #< field_crops
         field_crops: "Field crops"                         #< vegetal_crops
@@ -284,7 +284,7 @@ eng:
         market_garden_crops: "Market garden crops"         #< vegetal_crops
         meadow: "Meadow"                                   #< field_crops
         oilseed_crops: "Oilseed crops"                     #< field_crops
-        # orchard_crops: "Orchard crops"                   #< arboriculture
+        orchard_crops: "Orchard crops"                     #< arboriculture
         palmiped_farming: "Palmiped farming"               #< animal_farming
         pig_farming: "Pig farming"                         #< animal_farming
         potato_crops: "Potato crops"                       #< field_crops
@@ -299,7 +299,7 @@ eng:
         stocks: "Stocks"                                   #< exploitation
         straw_cereal_crops: "Straw cereal crops"           #< cereal_crops
         vegetal_crops: "Vegetal crops"
-        # vines: "Vines"                                   #< arboriculture
+        vines: "Vines"                                     #< arboriculture
         wine: "Wine"                                       #< processing
     administrative_area_natures:
       name: "Administrative area natures"
@@ -1902,6 +1902,7 @@ eng:
         consummables_addition: "Consummables addition"     #< maintenance
         cultipacking: "Cultipacking"                       #< tillage
         cultivation_protection: "Cultivation protection"
+        cutting: "Cutting"
         fermentation: "Fermentation"                       #< transformation
         filtration: "Filtration"                           #< transformation
         food_supply: "Food supply"                         #< animal_feeding
@@ -2147,6 +2148,7 @@ eng:
         cattle_manure: "Cattle manure"
         cattle_slurry: "Cattle slurry"
         cereals_feed_bag_25: "Cereals feed bag 25"
+        chainsaw: "Chainsaw"
         chandler_walnut: "Chandler walnut"
         chemical_fertilizer_division: "Chemical fertilizer division"
         complete_herbicide: "Complete herbicide"
@@ -2324,6 +2326,7 @@ eng:
         hazel_reaper: "Hazel reaper"
         hazel_seedling: "Hazel seedling"
         hazelnut: "Hazelnut"
+        hedge_cutter: "Hedge cutter"
         helianthus_herbicide: "Helianthus herbicide"
         hen_compost: "Hen compost"
         hen_guano: "Hen guano"
@@ -2537,6 +2540,7 @@ eng:
         calf: "Calf"
         cattle_herd: "Cattle herd"
         cereal_crop: "Cereal crop"
+        chainsaw: "Chainsaw"
         chemical_fertilizer: "Chemical fertilizer"
         clarification_solution: "Clarification solution"
         complete_sower: "Complete sower"
@@ -2586,6 +2590,7 @@ eng:
         hay_rake: "Hay rake"
         hazel_seedling: "Hazel seedling"
         hazelnut: "Hazelnut"
+        hedge_cutter: "Hedge cutter"
         hen_band: "Hen band"
         herbicide: "Herbicide"
         hoe: "Hoe"

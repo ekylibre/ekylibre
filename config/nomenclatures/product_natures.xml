@@ -1094,6 +1094,22 @@
             variable_indicators=""
             frozen_indicators="population"
             />
+      <item name="chainsaw"
+            category="equipment"
+            variety="equipment"
+            population_counting="unitary"
+            abilities="cut"
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+       <item name="hedge_cutter"
+            category="equipment"
+            variety="equipment"
+            population_counting="unitary"
+            abilities="cut"
+            variable_indicators=""
+            frozen_indicators="population"
+            />
       <!-- WORKERS -->
       <item name="technician"
             category="worker"

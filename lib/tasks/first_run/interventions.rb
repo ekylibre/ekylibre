@@ -310,8 +310,6 @@ load_data :interventions do |loader|
       # 25 "unite produit";"materiel";"temps materiel";"nom et prenom main d oeuvre";"temps main d oeuvre";"motivation";"commentaire motivation";"commentaire 1";"commentaire 2"
       #
 
-      # TODO refactor method according file structure because one intervention is on 4 or 5 lines
-      # need to group and merge csv row before
       buffer = []
       current_intervention = nil
 
@@ -543,6 +541,17 @@ load_data :interventions do |loader|
                                   i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
+
+                  elsif procedures_transcode[r.procedure_name] == :cutting and plant
+
+                                intervention = Ekylibre::FirstRun::Booker.force(:cutting, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
+                                  i.add_cast(reference_name: 'cutter',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "cut") : i.find(Equipment, can: "cut")))
+                                  i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
+                                  i.add_cast(reference_name: 'cultivation', actor: plant)
+                                end
+
+
 
                   end
 

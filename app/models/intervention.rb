@@ -273,10 +273,8 @@ class Intervention < Ekylibre::Record::Base
         produced.save!
       end
       # Load operations
-      puts reference.operations.count.inspect.blue
       rep = reference.spread_time(duration)
       for name, operation in reference.operations
-        puts name.inspect.green
         d = operation.duration || rep
         self.operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
         started_at += d

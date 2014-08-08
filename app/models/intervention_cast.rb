@@ -200,9 +200,6 @@ class InterventionCast < Ekylibre::Record::Base
         activity: self.activity.name
       }.with_indifferent_access
       if produced = self.actor
-        puts self.actor.inspect.red
-        puts self.actor.start_way.inspect.yellow
-        puts self.actor.start_junction.inspect.red
         words[:variant]     = produced.variant_name
         words[:variety]     = Nomen::Varieties[produced.variety].human_name
         words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety].human_name : nil)

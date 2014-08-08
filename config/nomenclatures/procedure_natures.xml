@@ -26,6 +26,7 @@
       <item name="implantation" roles="input, target, output, doer, tool, input_origin"/>
       <item name="pruning" roles="doer, target"/>
       <item name="grinding" roles="doer, tool, target"/>
+      <item name="cutting" roles="doer, tool, target"/>
       <item name="growth_control" roles="target"/>
       <item name="maintenance" roles="target"/>
     </items>

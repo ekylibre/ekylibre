@@ -1849,6 +1849,18 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
       />
+      <item name="chainsaw"
+            nature="chainsaw"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+      <item name="hedge_cutter"
+            nature="hedge_cutter"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+
+
 
 
 
