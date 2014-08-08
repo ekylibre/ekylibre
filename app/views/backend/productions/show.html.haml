@@ -2,14 +2,31 @@
   - t.edit resource
 
 = beehive do |b|
+  -# b.hbox do
+    -# b.cell do
+      = attributes_list do |l|
+        - l.attribute :name
+        - l.attribute :variant
+        - l.attribute :started_at
+        - l.attribute :state
+        - l.attribute :campaign
+        - l.attribute :activity
   - b.cell do
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :variant
-      - l.attribute :started_at
-      - l.attribute :state
-      - l.attribute :campaign
-      - l.attribute :activity
+    .big-infos.costs
+      .big-info.cost.important
+        - $total = 0
+        - for type in [:input, :tool, :doer]
+          - cost = (resource.cost(type) || 0.0).round.to_i
+          - $total += cost
+        %span.title= "total_cost".tl
+        %span.value= $total.l(currency: Preference[:currency])
+      - if resource.net_surface_area.to_d(:hectare) > 0.0
+        .big-info.cost.important
+          %span.title= "total_cost_per_area".tl
+          %span.value
+            %i.picto{class: "picto-land-parcels"}
+            = ($total / (resource.net_surface_area.to_d(:hectare))).round(2).l(currency: Preference[:currency]) + " / Ha"
+
 
   - b.hbox do
     - if Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:milk])
@@ -58,5 +75,7 @@
   - b.hbox do
     - b.cell(:interventions) do
       = list(:interventions)
-    -#  b.cell(:markers) do
+    
+    
+    -#b.cell(:markers) do
       = list(:markers)

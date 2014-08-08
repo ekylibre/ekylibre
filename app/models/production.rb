@@ -169,6 +169,18 @@ class Production < Ekylibre::Record::Base
     end
   end
 
+  def cost(role = :input)
+    if interventions = self.interventions
+      cost_array = []
+      for intervention in interventions
+        cost_array << intervention.cost(role)
+      end
+      return cost_array.compact.sum
+    else
+      return 0
+    end
+  end
+
   def active?
     if self.activity.fallow_land?
       return false

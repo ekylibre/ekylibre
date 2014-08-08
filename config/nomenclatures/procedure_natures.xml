@@ -28,7 +28,8 @@
       <item name="grinding" roles="doer, tool, target"/>
       <item name="cutting" roles="doer, tool, target"/>
       <item name="growth_control" roles="target"/>
-      <item name="maintenance" roles="target"/>
+      <item name="maintenance" roles="doer"/>
+      <item name="administrative" roles="doer"/>
     </items>
   </nomenclature>
 
@@ -43,6 +44,13 @@
     <items>
       <item name="consummables_addition" roles="target, doer, input"/>
       <item name="piece_replacement" roles="target, doer, input"/>
+      <item name="maintenance_task" roles="doer"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="procedure_natures-administrative">
+    <items>
+      <item name="administrative_task" roles="doer"/>
     </items>
   </nomenclature>
 

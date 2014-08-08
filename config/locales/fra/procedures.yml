@@ -158,6 +158,7 @@ fra:
     wine_to_pack: "Vin à embouteiller"
     wine_to_treat: "Vin à traiter"
   procedures:
+    base-administrative_task: "Tâche administrative générale"
     base-all_in_one_sowing: "Semis «\_tout-en-un\_»"
     base-animal_artificial_insemination: "Insémination articielle animale"
     base-animal_birth: "Naissance d’un animal"
@@ -185,6 +186,7 @@ fra:
     base-implanting: "Plantation"
     base-indirect_silage: "Ensilage indirect"
     base-item_replacement: "Remplacement de pièce"
+    base-maintenance_task: "Tâche de maintenance générale"
     base-mammal_herd_milking: "Traite d’un troupeau"
     base-mammal_milking: "Traite d’un animal"
     base-manual_vine_harvest: "Vendange manuelle" #?

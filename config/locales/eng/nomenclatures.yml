@@ -1886,6 +1886,8 @@ eng:
         roles: "Roles"
       items:
         addition: "Addition"                               #< transformation
+        # administrative: "Administrative"
+        # administrative_task: "Administrative task"       #< administrative
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_fecondation: "Animal fecondation"
         animal_feeding: "Animal feeding"
@@ -1914,6 +1916,7 @@ eng:
         implantation: "Implantation"
         implanting: "Implanting"                           #< implantation
         maintenance: "Maintenance"
+        # maintenance_task: "Maintenance task"             #< maintenance
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
         oviparous_birth: "Oviparous birth"

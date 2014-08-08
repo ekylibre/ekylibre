@@ -1522,6 +1522,7 @@ spa:
     total: "Total"
     total_amount: "Total importe HT"
     # total_cost: "Total cost"
+    # total_cost_per_area: "Total cost per area"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total importe facturado"
     # total_paid_amount: "Total paid amount"

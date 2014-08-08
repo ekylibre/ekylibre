@@ -4293,6 +4293,7 @@ eng:
         free_carrier: "Free carrier"
     intervention:
       reference_name:
+        base-administrative_task: "Administrative task"
         base-all_in_one_sowing: "«all-in-one» sowing"
         base-animal_artificial_insemination: "Animal artificial insemination"
         base-animal_birth: "Animal birth"
@@ -4320,6 +4321,7 @@ eng:
         base-implanting: "Plantation"
         base-indirect_silage: "Indirect silage"
         base-item_replacement: "Item replacement"
+        base-maintenance_task: "Maintenance task"
         base-mammal_herd_milking: "Herd milking"
         base-mammal_milking: "Milking"
         base-mineral_fertilizing: "Mineral fertilizing"

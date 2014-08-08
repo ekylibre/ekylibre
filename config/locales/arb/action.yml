@@ -1789,6 +1789,7 @@ arb:
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
     # total_cost: "Total cost"
+    # total_cost_per_area: "Total cost per area"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي"
     # total_paid_amount: "Total paid amount"

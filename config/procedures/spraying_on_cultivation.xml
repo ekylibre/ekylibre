@@ -15,9 +15,9 @@
                  backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
                  /> <!-- l / ha -->
       </variable>
-      <variable name="tractor" variety="equipment" abilities="move, catch(sprayer)" roles="plant_illness_treatment-tool"/>
+      <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/>
       <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
-      <variable name="driver"  abilities="move, drive(tractor), drive(sprayer)" roles="plant_illness_treatment-doer"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="plant_illness_treatment-doer"/>
       <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>

@@ -1231,6 +1231,7 @@ jpn:
     # total: "Total"
     # total_amount: "Total amount"
     # total_cost: "Total cost"
+    # total_cost_per_area: "Total cost per area"
     # total_in_currency: "Total (%{currency})"
     # total_invoiced_amount: "Total invoiced amount"
     # total_paid_amount: "Total paid amount"

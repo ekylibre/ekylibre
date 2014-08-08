@@ -1504,6 +1504,7 @@ fra:
     total_amount: "Montant total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
+    total_cost_per_area: "Coût total par unité de surface"
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé"
     total_paid_amount: "Montant total payé"
