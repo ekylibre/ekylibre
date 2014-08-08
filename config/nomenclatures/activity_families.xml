@@ -40,8 +40,7 @@
 
   <nomenclature name="activity_families-field_crops">
     <items>
-      <item name="straw_cereal_crops"/>
-      <item name="maize_crops"/>
+      <item name="cereal_crops"/>
       <item name="oilseed_crops"/>
       <item name="protein_crops"/>
       <item name="potato_crops"/>
@@ -49,6 +48,14 @@
       <item name="fallow_land"/>
       <item name="fodder_crops"/>
       <item name="meadow"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-cereal_crops">
+    <items>
+      <item name="straw_cereal_crops"/>
+      <item name="maize_crops"/>
+      <!-- <item name="rice_crops"/> -->
     </items>
   </nomenclature>
 
