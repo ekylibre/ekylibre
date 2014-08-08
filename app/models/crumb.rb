@@ -63,8 +63,8 @@ class Crumb < Ekylibre::Record::Base
   # ==== Parameters
   #     - crumbs: an array of crumbs
   # ==== Options
-  #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns
-  #       accepts the same parameters as ProductionSupport.of_campaign
+  #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns.
+  #       Accepts the same parameters as ProductionSupport.of_campaign since it actually calls this method.
   scope :production_supports, lambda {|crumbs = [], options = {}|
     options[:campaigns] ||= Campaign.currents
     ProductionSupport.of_campaign(options[:campaigns]).distinct.
@@ -72,11 +72,16 @@ class Crumb < Ekylibre::Record::Base
       where("products.id IN (#{Crumb.products(crumbs).pluck(:id).join(', ')})")
   }
 
-  # returns all crumbs, sorted by intervention, for a given user.
+  # returns all crumbs for a given day. Default: the current day
+  scope :of_date, lambda{|start_date = Time.now.midnight|
+    where(read_at: start_date.midnight..start_date.end_of_day)
+  }
+
+  # returns all crumbs, grouped by intervention, for a given user.
   # The result is an array of interventions.
   # An intervention is an array of crumbs, for a user, ordered by read_at,
   # between a start crumb and a stop crumb.
-  scope :interventions, lambda {|user|
+  def self.interventions(user)
     buffer = []
     result = []
     Crumb.where(user_id: user.id).order(read_at: :asc).each do |crumb|
@@ -88,6 +93,11 @@ class Crumb < Ekylibre::Record::Base
     end
     result << buffer if buffer.present?
     result
-  }
+  end
+
+  # returns all the dates for which a given user has pushed crumbs
+  def self.interventions_dates(user)
+    Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map{|date| date.midnight}.uniq
+  end
 
 end

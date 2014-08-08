@@ -3,6 +3,8 @@ class Backend::CrumbsController < BackendController
   @actors = []
 
   def index
+    # days
+
     # array of crumbs ready to be managed by VisualizationHelper
     @interventions_crumbs = []
 
