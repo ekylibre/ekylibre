@@ -1,6 +1,7 @@
+-# raise Nomen::Varieties.all(params[:target_type].underscore).inspect
 =field_set do
   =f.input :name
-  =f.input :nature
+  =f.input :nature, collection: Nomen::IssueNatures.list.select{|i| i.target and (i.target.map(&:to_sym) & Nomen::Varieties.all(params[:target_type].underscore).map(&:to_sym)).any?}.collect{|i| [i.human_name, i.name]}.sort{|a,b| a.first.ascii <=> b.first.ascii}
   =f.input :observed_at
   =f.input :target_id, as: :hidden
   =f.input :target_type, as: :hidden

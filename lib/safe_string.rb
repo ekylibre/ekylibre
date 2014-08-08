@@ -1,11 +1,11 @@
 # coding: utf-8
 
 class ::String
-  MAJUSCULES = ['Á','À','Â','Ä','Å','Ã','Æ','É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Û','Ü','Ù','Ç']
-  MINUSCULES = ['á','à','â','ä','å','ã','æ','é','è','ê','ë','ì','ï','î','ò','ô','ö','û','ü','ù','ç']
-  MOLUSCULES = ['a','a','a','a','a','a','a','é','é','é','é','i','i','i','o','o','o','u','u','u','ss'] # Phonétique
-  MEJUSCULES = ['A','A','A','A','A','A','A','E','E','E','E','I','I','I','O','O','O','U','U','U','C']  # Simplification "lisible"
-  MENUSCULES = ['a','a','a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
+  MAJUSCULES = ['Á','À','Â','Ä','Å','Ã','Æ', 'É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Œ', 'Û','Ü','Ù','Ç']
+  MINUSCULES = ['á','à','â','ä','å','ã','æ', 'é','è','ê','ë','ì','ï','î','ò','ô','ö','œ', 'û','ü','ù','ç']
+  MOLUSCULES = ['a','a','a','a','a','a','ae','é','é','é','é','i','i','i','o','o','o','oe','u','u','u','ss'] # Phonétique
+  MEJUSCULES = ['A','A','A','A','A','A','AE','E','E','E','E','I','I','I','O','O','O','OE','U','U','U','C']  # Simplification "lisible"
+  MENUSCULES = ['a','a','a','a','a','a','ae','e','e','e','e','i','i','i','o','o','o','oe','u','u','u','c']  # Simplification "lisible"
 
 
   def dig(depth = 1)
