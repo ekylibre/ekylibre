@@ -127,6 +127,15 @@ class InterventionCast < Ekylibre::Record::Base
     return nil
   end
 
+  def earn
+    if self.actor and price = self.evaluated_price
+      if self.output?
+        return price * (self.population || 0.0)
+      end
+    end
+    return nil
+  end
+
   def reference
     self.intervention.reference.variables[self.reference_name]
   end

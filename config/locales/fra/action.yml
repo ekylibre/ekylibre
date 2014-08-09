@@ -809,6 +809,7 @@ fra:
     cost_income_statement: "Charges"
     cost_per_net_surface_area: "Coût par surface"
     cost_sum: "Total charges d’exploitation"
+    costs: "Coûts"
     country: "Pays" #?
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
@@ -881,6 +882,7 @@ fra:
     duplicate: "Dupliquer"
     duration: "Durée"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
+    earns: "Gains"
     edit: "Modifier"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité" #?
@@ -948,6 +950,8 @@ fra:
     general_ledger: "Grand livre"
     generate: "Générer"
     give_discount: "Octroyer une remise"
+    global_margin: "Marge brute"
+    global_margin_per_area: "Marge brute par unité de surface"
     go: "Valider"
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques"
@@ -1085,6 +1089,7 @@ fra:
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
     manual_period: "du %{start} au %{finish}"
     map: "Carte"
+    margins: "Marges"
     markers: "Objectifs" #?
     mass: "Masse"
     maximal_temperature: "Température maximale"
@@ -1505,6 +1510,8 @@ fra:
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
     total_cost_per_area: "Coût total par unité de surface"
+    total_earn: "Gain total"
+    total_earn_per_area: "Gain total par unité de surface"
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé"
     total_paid_amount: "Montant total payé"

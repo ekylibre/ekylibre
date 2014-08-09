@@ -192,6 +192,14 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  def earn
+    if self.casts.of_role(:output).any?
+      self.casts.of_role(:output).where.not(actor_id: nil).map(&:earn).compact.sum
+    else
+      return nil
+    end
+  end
+
   def working_area(unit = :hectare)
     if self.casts.of_role(:target).any?
       if target = self.casts.of_role(:target).where.not(actor_id: nil).first

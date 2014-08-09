@@ -11,21 +11,52 @@
         - l.attribute :state
         - l.attribute :campaign
         - l.attribute :activity
-  - b.cell do
+        
+  -# TODO need to be renovate but the idea is here
+  - $area_value = (resource.net_surface_area.to_d(:hectare))
+        
+  - b.cell(:costs) do
     .big-infos.costs
       .big-info.cost.important
-        - $total = 0
+        - $total_cost = 0
         - for type in [:input, :tool, :doer]
           - cost = (resource.cost(type) || 0.0).round.to_i
-          - $total += cost
+          - $total_cost += cost
         %span.title= "total_cost".tl
-        %span.value= $total.l(currency: Preference[:currency])
+        %span.value= $total_cost.l(currency: Preference[:currency])
       - if resource.net_surface_area.to_d(:hectare) > 0.0
         .big-info.cost.important
           %span.title= "total_cost_per_area".tl
           %span.value
             %i.picto{class: "picto-land-parcels"}
-            = ($total / (resource.net_surface_area.to_d(:hectare))).round(2).l(currency: Preference[:currency]) + " / Ha"
+            = ($total_cost / $area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
+  - if resource.earn > 0.0
+    - b.cell(:earns) do
+      .big-infos.costs
+        .big-info.cost.important
+          - $total_earn = (resource.earn || 0.0).round.to_i
+          %span.title= "total_earn".tl
+          %span.value= $total_earn.l(currency: Preference[:currency])
+        - if resource.net_surface_area.to_d(:hectare) > 0.0
+          .big-info.cost.important
+            %span.title= "total_earn_per_area".tl
+            %span.value
+              %i.picto{class: "picto-land-parcels"}
+              = ($total_earn / $area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
+
+  - if $total_earn > 0.0 and $total_cost > 0.0
+    - b.cell(:margins) do
+      .big-infos.costs
+        .big-info.cost.important
+          - $global_margin = (($total_earn - $total_cost) || 0.0).round.to_i
+          %span.title= "global_margin".tl
+          %span.value= $global_margin.l(currency: Preference[:currency])
+        - if resource.net_surface_area.to_d(:hectare) > 0.0
+          .big-info.cost.important
+            %span.title= "global_margin_per_area".tl
+            %span.value
+              %i.picto{class: "picto-land-parcels"}
+              = ($global_margin / $area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
 
 
   - b.hbox do
@@ -75,7 +106,18 @@
   - b.hbox do
     - b.cell(:interventions) do
       = list(:interventions)
-    
-    
+    - b.cell(:costs) do
+      .big-infos.costs
+        - total = 0
+        - for type in [:input, :tool, :doer]
+          - cost = (resource.cost(type) || 0.0).round.to_i
+          - total += cost
+          .big-info.cost
+            %span.title= "evaluated_#{type}_cost".tl
+            %span.value
+              %i.picto{class: "picto-#{type}"}
+              = cost.l(currency: Preference[:currency])
+
+
     -#b.cell(:markers) do
       = list(:markers)

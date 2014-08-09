@@ -181,6 +181,19 @@ class Production < Ekylibre::Record::Base
     end
   end
 
+  def earn
+    if interventions = self.interventions
+      earn_array = []
+      for intervention in interventions
+        earn_array << intervention.earn
+      end
+      return earn_array.compact.sum
+    else
+      return 0
+    end
+  end
+
+
   def active?
     if self.activity.fallow_land?
       return false
