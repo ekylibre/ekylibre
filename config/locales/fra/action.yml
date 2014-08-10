@@ -798,6 +798,7 @@ fra:
     consult: "Consulter"
     contact: "à l’adresse"
     contained_products: "Produits contenus" #?
+    container: "Emplacement"
     contains: "Contient"
     content_products: "Produits contenus"
     contextual_help: "Aide contextuelle"
@@ -836,6 +837,7 @@ fra:
     current: "En cours"
     current_letter: "Lettre en cours\_: %{letter}"
     current_stocks_by_variety: "État des stocks" #?
+    daily_nitrogen_production: "Excretion d'azote journalière"
     data_to_export: "Données à exporter"
     data_to_extract: "Données à extraire"
     dates: "Saisissez les dates de début et de fin de la période"
@@ -1100,6 +1102,7 @@ fra:
     meeting: "Rencontre"
     meetings: "Évènements"
     members: "Membres"
+    members_count: "Nombre de membres"
     menus:
       accountancy: "Comptabilité"
       archives: "Archives"

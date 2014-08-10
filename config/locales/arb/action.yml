@@ -1055,6 +1055,7 @@ arb:
     consult: "استشارة"
     contact: "العنوان"
     contact_create: "اضافة مشترك جديد" #?
+    # container: "Container"
     # contains: "Contains"
     # content_products: "Content products"
     # contextual_help: "Help on current page"
@@ -1092,6 +1093,7 @@ arb:
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?
     custom_field_update: "تعديل الحقل المخصص" #?
     custom_fields: "الحقول المخصصة" #?
+    # daily_nitrogen_production: "Daily nitrogen production"
     data_to_export: "تصدير البيانات"
     data_to_extract: "استخراج البيانات"
     dates: "ادخل تواريخ بداية ونهاية المدة"
@@ -1360,6 +1362,7 @@ arb:
     meeting: "المقابلة(X)مكان"
     # meetings: "Meetings"
     # members: "Members"
+    # members_count: "Members count"
     menu:  #?
       accountancy_tasks: "أعمال المحاسبة" #?
       bank_statements: "بيانات الحساب" #?

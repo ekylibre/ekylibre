@@ -5,8 +5,8 @@
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
   -# t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 -# main_dropdown_button do |b|
-  
-    
+
+
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
@@ -19,39 +19,39 @@
           %span.value
             %i.picto{class: "picto-#{sex_icon}"}
             = resource.work_number
-        
+
       - if resource.born_at
         .big-info
           %span.title= Animal.human_attribute_name(:age)
           %span.value
             %i.picto{class: "picto-clock-o"}
             = human_age(resource.age, display: :short)
-            
+
         .big-info.important
           %span.title= Intervention.human_attribute_name(:state)
           %span.value= lights(resource.status)
-            
+
     - b.cell do
       - if resource.mother
-        .big-info 
+        .big-info
           %span.title= Animal.human_attribute_name(:mother)
           %span.value
             %i.picto{class: "picto-venus"}
             = link_to(resource.mother.name, {action: :show, id: resource.mother.id})
-            
+
       - if resource.father
         .big-info
           %span.title= Animal.human_attribute_name(:father)
           %span.value
             %i.picto{class: "picto-mars"}
             = link_to(resource.father.name, {action: :show, id: resource.father.id})
-            
+
         .big-info
           %span.title= Animal.human_attribute_name(:identification_number)
           %span.value
             %i.picto{class: "picto-barcode"}
             = resource.identification_number
-        
+
   - b.hbox do
     - if resource.analyses.count > 0
       - b.cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
@@ -74,7 +74,7 @@
             # data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
             series << {name: indicator.human_name, data: data, step: 'left'}
           end
-  
+
         = spline_chart(series, legend: true, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
     -# b.cell :indicators_evolutions do
@@ -142,7 +142,7 @@
         - l.attribute :father, url: true
         - l.attribute :identification_number
         - l.attribute :description
-        
+
     - b.cell(:children) do
       = list(:children)
 
@@ -174,6 +174,6 @@
       = list(:issues)
     - b.cell(tl(:x_intervention_casts, count: resource.intervention_casts.count)) do
       = list(:intervention_casts)
-      
+
     -# b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

@@ -29,7 +29,7 @@ load_data :demo_interventions do |loader|
                 if area = land_parcel.shape_area
                   coeff = (area.to_s.to_f / 10000.0) / 6.0
                   # 7.99 -> 20.11 -> 40.21
-                  
+
                   # Organic Fertilizing  01-09-N-1 -> 30-09-N-1
                   Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, year - 1, 9, 1, 0.96 * coeff, support: support) do |i|
                     i.add_cast(reference_name: 'manure',      actor: i.find(Product, variety: :excrement, can: "fertilize"))
@@ -39,7 +39,7 @@ load_data :demo_interventions do |loader|
                     i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "tow(spreader)"))
                     i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
                   end
-                  
+
                   # Plowing 15-09-N -> 15-10-N
                   Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support, parameters: {readings: {"base-plowing-0-500-1" => "plowed"}}) do |i|
                     i.add_cast(reference_name: 'driver',  actor: i.find(Worker))
@@ -47,7 +47,7 @@ load_data :demo_interventions do |loader|
                     i.add_cast(reference_name: 'plow',    actor: i.find(Product, can: "plow"))
                     i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
                   end
-                  
+
                   # Sowing 15-10-N -> 30-10-N
                   int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-sowing-0-750-2" => 2000000 + rand(250000)}}) do |i|
                     i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety, can: "grow"))

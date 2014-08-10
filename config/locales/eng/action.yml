@@ -765,6 +765,7 @@ eng:
     connect: "Login" #?
     consult: "Consult" #?
     contact: "At" #?
+    container: "Container"
     contains: "Contains" #?
     content_products: "Content products" #?
     contextual_help: "Help on current page" #?
@@ -796,6 +797,7 @@ eng:
     currency_with_code: "%{name} (%{code})" #?
     current: "Current" #?
     current_letter: "Current letter: %{letter}" #?
+    daily_nitrogen_production: "Daily nitrogen production"
     data_to_export: "Data to export" #?
     data_to_extract: "Data to extract" #?
     dates: "Select period start date and Period end date" #?
@@ -911,7 +913,7 @@ eng:
     import: "Import"
     import_backup: "Import backup" #?
     importation_explanation: "Importation explanation" #?
-    incident: "Incident"
+    incident: "Incident" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
     incoming_payment_conditions: "Conditions of payment" #?
@@ -996,7 +998,8 @@ eng:
     maximal_temperature: "Maximal temperature"
     meeting: "Meeting" #?
     meetings: "Meetings" #?
-    members: "Members" #?
+    members: "Members"
+    members_count: "Members count" #?
     menus:
       accountancy: "Accountancy"
       archives: "Archives"

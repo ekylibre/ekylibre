@@ -1,1 +1,48 @@
-= list
+:ruby
+  data = AnimalGroup.all.collect do |a|
+    next unless a.container.shape
+
+    popup_content = []
+    
+    if a.members_at.count > 0
+      popup_content << {label: :members_count.tl, value: a.members_at.count }
+    end
+    
+    if container = a.container
+      popup_content << {label: :container.tl, value: link_to(container.name, backend_product_path(container)) }
+    end
+
+    if issues = Issue.where(target_id: a.id, target_type: a.class.name ).reorder(:observed_at)
+      popup_content << {label: :issues_count.tl, value: issues.count }
+    end
+
+    if issues.count > 0 and last_issue = issues.last
+      popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
+    end
+
+    popup_content << render('popup', animal_group: a)
+
+    {name: a.name, shape: a.container.shape, members_count: a.members_at.count, issues_count: issues.count, popup: {header: true, content: popup_content} }
+  end
+
+= kujaku
+
+- main_toolbar do |t|
+  - t.new
+
+= beehive do |b|
+  - b.cell :animals_group_map do
+    = visualization do |v|
+      - v.serie :main, data
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - v.choropleth :members_count, :main
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+
+  - b.cell :list do
+    = list

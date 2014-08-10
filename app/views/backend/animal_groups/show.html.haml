@@ -1,13 +1,50 @@
 - main_toolbar do |t|
-  - t.edit @animal_group
-  - t.destroy(@animal_group, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal_group.destroyable?
+  - t.edit resource
+  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :name
+  - b.hbox do
+    - b.cell :general do
+      .big-info.general.important
+        - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
+        %span.title= resource.name
+        %span.value
+          %i.picto{class: "picto-#{sex_icon}"}
+          = resource.work_number
+      - if resource.members_at.count > 0
+        .big-info.general
+          %san.title= :members.tl
+          %span.value
+            %i.picto{class: "picto-group"}
+            = resource.members_at.count
+          %span.title= :daily_nitrogen_production.tl
+          %span.value
+            %i.picto{class: "picto-trash-o"}
+            = resource.daily_nitrogen_production.round(2).l
+
+
+
+
   - b.hbox do
     - b.cell(:animals) do
       = list(:animals)
-    - b.cell(:places) do
-      = list(:places)
+    - count = 0
+    - map = visualization do |v|
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - if resource.container
+        - shape = resource.container.shape
+        - if shape
+          - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
+          - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
+          - count += 1
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+    - if count > 0
+      - b.cell :container do
+        = map

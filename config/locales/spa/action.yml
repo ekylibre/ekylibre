@@ -899,6 +899,7 @@ spa:
     connect: "Entrar"
     # consult: "Consult"
     # contact: "At"
+    # container: "Container"
     # contains: "Contains"
     # content_products: "Content products"
     # contextual_help: "Help on current page"
@@ -931,6 +932,7 @@ spa:
     # currency_with_code: "%{name} (%{code})"
     # current: "Current"
     current_letter: "Carta en curso : %{carta}"
+    # daily_nitrogen_production: "Daily nitrogen production"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"
@@ -1168,6 +1170,7 @@ spa:
     # meeting: "Meeting"
     # meetings: "Meetings"
     # members: "Members"
+    # members_count: "Members count"
     menu: #?
     menus:
       # accountancy: "Accountancy"
