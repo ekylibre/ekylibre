@@ -1,68 +1,81 @@
 - main_toolbar do |t|
   - t.export do |e|
     - e.animal_sheet resource.identification_number, resource
-  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, label: :incident.tl, icon: :bug)
   - t.edit resource
+  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
   -# t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 -# main_dropdown_button do |b|
-  - for = resource.variables.inspect
-  - b.
-
+  
+    
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
       - if resource.picture.exists?
         .picture= image_tag(resource.picture.url(:identity))
-      .info
-        %span.title= Animal.human_attribute_name(:work_number)
-        %span.value= resource.work_number
-      .info
-        %span.title= Animal.human_attribute_name(:sex)
-        %span.value= resource.sex
+      .big-infos
+        .big-info
+          - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
+          %span.title= resource.name
+          %span.value
+            %i.picto{class: "picto-#{sex_icon}"}
+            = resource.work_number
+        
       - if resource.born_at
-        .info
+        .big-info
           %span.title= Animal.human_attribute_name(:age)
-          %span.value= human_age(resource.age)
+          %span.value
+            %i.picto{class: "picto-clock-o"}
+            = human_age(resource.age, display: :short)
+            
+        .big-info.important
+          %span.title= Intervention.human_attribute_name(:state)
+          %span.value= lights(resource.status)
+            
+    - b.cell do
       - if resource.mother
-        .info
+        .big-info 
           %span.title= Animal.human_attribute_name(:mother)
-          %span.value= link_to(resource.mother.name, {action: :show, id: resource.mother.id})
+          %span.value
+            %i.picto{class: "picto-venus"}
+            = link_to(resource.mother.name, {action: :show, id: resource.mother.id})
+            
       - if resource.father
-        .info
+        .big-info
           %span.title= Animal.human_attribute_name(:father)
-          %span.value= link_to(resource.father.name, {action: :show, id: resource.father.id})
-      .info
-        %span.title= Animal.human_attribute_name(:current_net_mass)
-        %span.value= resource.net_mass
-      .info
-        %span.title= Animal.human_attribute_name(:current_healthy)
-        %span.value= resource.healthy
-      - if container = resource.container
-        .info
-          %span.title= Animal.human_attribute_name(:container)
-          %span.value= link_to(container.name, backend_product_path(container))
-    - b.cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
-    - b.cell(:variable_indicators) do
-      :ruby
-        indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
-        series = []
-        now, window = Time.now, 1.year
-        min = (resource.born_at ? resource.born_at : now - window)
-        min = now - window if (now - min) < window
-        for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
-          items = ProductReading.where(indicator_name: indicator.name, product: resource).where("? < read_at AND read_at < ?", min, now).order(:read_at)
-          next unless items.any?
-          data = []
-          data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-          data += items.inject({}) do |hash, pair|
-            hash[pair.read_at.to_usec] = pair.value.to_d
-            hash
-          end.collect{|k,v| [k, v.to_s.to_f] }
-          # data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
-          series << {name: indicator.human_name, data: data, step: 'left'}
-        end
-
-      = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+          %span.value
+            %i.picto{class: "picto-mars"}
+            = link_to(resource.father.name, {action: :show, id: resource.father.id})
+            
+        .big-info
+          %span.title= Animal.human_attribute_name(:identification_number)
+          %span.value
+            %i.picto{class: "picto-barcode"}
+            = resource.identification_number
+        
+  - b.hbox do
+    - if resource.analyses.count > 0
+      - b.cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
+    - if indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
+      - b.cell(:variable_indicators) do
+        :ruby
+          series = []
+          now, window = Time.now, 1.year
+          min = (resource.born_at ? resource.born_at : now - window)
+          min = now - window if (now - min) < window
+          for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
+            items = ProductReading.where(indicator_name: indicator.name, product: resource).where("? < read_at AND read_at < ?", min, now).order(:read_at)
+            next unless items.any?
+            data = []
+            data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
+            data += items.inject({}) do |hash, pair|
+              hash[pair.read_at.to_usec] = pair.value.to_d
+              hash
+            end.collect{|k,v| [k, v.to_s.to_f] }
+            # data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
+            series << {name: indicator.human_name, data: data, step: 'left'}
+          end
+  
+        = spline_chart(series, legend: true, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
     -# b.cell :indicators_evolutions do
       - if resource.born_at
@@ -118,7 +131,7 @@
 
   - b.hbox do
 
-    - b.cell :details do
+    -# b.cell :details do
       = attributes_list do |l| # liste des champs à afficher
         - l.attribute :name
         - l.attribute :variety, url: true
@@ -129,23 +142,38 @@
         - l.attribute :father, url: true
         - l.attribute :identification_number
         - l.attribute :description
+        
     - b.cell(:children) do
       = list(:children)
 
   - b.hbox do
-    - b.cell(:places) do
-      = list(:places)
-    - b.cell(:groups) do
-      = list(:groups)
+    - count = 0
+    - map = visualization do |v|
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - if resource.container
+        - shape = resource.container.shape
+        - if shape
+          - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
+          - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
+          - count += 1
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+    - if count > 0
+      - b.cell :container do
+        = map
 
   - b.hbox do
     - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
+        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
       = list(:issues)
     - b.cell(tl(:x_intervention_casts, count: resource.intervention_casts.count)) do
-      = toolbar do |t|
-        - t.new(params: {controller: :interventions, :target_id => resource.id})
       = list(:intervention_casts)
-    - b.cell(tl(:x_readings, count: resource.readings.count)) do
+      
+    -# b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

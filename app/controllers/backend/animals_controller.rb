@@ -53,7 +53,6 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :name, through: :product, url: true
     t.column :born_at, through: :product
     t.column :sex, through: :product
-    t.column :description, through: :product
   end
 
   # Show one animal with params_id

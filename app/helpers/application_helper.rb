@@ -116,9 +116,11 @@ module ApplicationHelper
       vals << :x_months.tl(count: (seconds/1.month).floor)
       seconds -= 1.month * (seconds/1.month).floor
     end
-    if (seconds/1.day).floor > 0
-      vals << :x_days.tl(count: (seconds/1.day).floor)
-      seconds -= 1.day * (seconds/1.day).floor
+    if !options[:display] == :short
+      if (seconds/1.day).floor > 0
+        vals << :x_days.tl(count: (seconds/1.day).floor)
+        seconds -= 1.day * (seconds/1.day).floor
+      end
     end
     return vals.to_sentence
   end

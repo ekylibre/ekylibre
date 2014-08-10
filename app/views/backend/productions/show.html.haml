@@ -44,7 +44,7 @@
               %i.picto{class: "picto-land-parcels"}
               = ($total_earn / $area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
 
-  - if $total_earn > 0.0 and $total_cost > 0.0
+  - if $total_earn and $total_earn > 0.0 and $total_cost > 0.0
     - b.cell(:margins) do
       .big-infos.costs
         .big-info.cost.important

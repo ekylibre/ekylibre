@@ -82,6 +82,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :person
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
+  has_many :analyses, class_name: "Analysis"
   has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
   has_many :content_localizations, class_name: "ProductLocalization", foreign_key: :container_id
   has_many :contents, class_name: "Product", through: :content_localizations, source: :product
