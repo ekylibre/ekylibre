@@ -3,11 +3,11 @@
     next unless a.container.shape
 
     popup_content = []
-    
+
     if a.members_at.count > 0
       popup_content << {label: :members_count.tl, value: a.members_at.count }
     end
-    
+
     if container = a.container
       popup_content << {label: :container.tl, value: link_to(container.name, backend_product_path(container)) }
     end

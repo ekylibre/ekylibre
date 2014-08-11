@@ -999,7 +999,7 @@ eng:
     meeting: "Meeting" #?
     meetings: "Meetings" #?
     members: "Members"
-    members_count: "Members count" #?
+    members_count: "Members count"
     menus:
       accountancy: "Accountancy"
       archives: "Archives"
