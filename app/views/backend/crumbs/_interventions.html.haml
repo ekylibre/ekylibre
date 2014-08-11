@@ -1,7 +1,5 @@
 :ruby
-  cursors = []
-  data.inject(0){|index, item| cursors << index if ['stop'].include? item[:nature]; index += 1}
-  cursors.pop
+  cursors = [0]
   config = {}
   config[:crumbs] = data
   config[:cursors] = cursors
