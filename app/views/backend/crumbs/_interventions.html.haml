@@ -6,4 +6,6 @@
   config[:crumbs] = data
   config[:cursors] = cursors
 
+= select_tag :intervention_date, options_for_select(@interventions_dates.collect {|d|[d.to_formatted_s(:long), d]})
+
 = content_tag(:div, nil, data: {slider: config.to_json})

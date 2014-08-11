@@ -4,13 +4,15 @@ class Backend::CrumbsController < BackendController
 
   def index
     # days
+    @interventions_dates = Crumb.interventions_dates(current_user)
+    date = crumb_params[:intervention_date] || @interventions_dates.first
 
     # array of crumbs ready to be managed by VisualizationHelper
     @interventions_crumbs = []
 
     crumb_ids = []
 
-    interventions = Crumb.interventions(current_user)
+    interventions = Crumb.of_date(date.to_date).interventions(current_user)
     @production_supports = Crumb.production_supports(interventions.flatten)
     interventions.each do |intervention|
       name = interventions.index(intervention)
@@ -46,7 +48,7 @@ class Backend::CrumbsController < BackendController
 
   private
     def crumb_params
-      params.permit(:nature, :previous_crumb_id)
+      params.permit(:nature, :previous_crumb_id, :intervention_date)
     end
 
 end

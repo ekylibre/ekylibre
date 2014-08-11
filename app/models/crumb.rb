@@ -48,11 +48,10 @@ class Crumb < Ekylibre::Record::Base
   # returns all products whose shape contains the given crumbs
   scope :products, lambda {|*crumbs|
     crumbs.flatten!
-    if crumbs.present?
-      condition = "crumbs.id in (#{crumbs.map(&:id).join(', ')})"
-    else
-      condition = "crumbs.id IS NOT NULL"
-    end
+
+    condition = crumbs.present? ? "crumbs.id IN (#{crumbs.map(&:id).join(', ')})" :
+                                  "crumbs.id IS NOT NULL"
+
     Product.distinct.
       joins("INNER JOIN product_readings ON products.id = product_readings.product_id").
       joins("INNER JOIN crumbs ON product_readings.geometry_value ~ crumbs.geolocation").
@@ -81,15 +80,19 @@ class Crumb < Ekylibre::Record::Base
   # The result is an array of interventions.
   # An intervention is an array of crumbs, for a user, ordered by read_at,
   # between a start crumb and a stop crumb.
+  # if data is inconsistent (e.g. no "stop" crumb corresponding to a "start" crumb)
+  # the buffer stores crumbs until the next "start" crumb in the chronological order,
+  # and the result receives what is found, whatever the crumbs table content, since the user may always
+  # requalify crumbs manually.
   def self.interventions(user)
     buffer = []
     result = []
     Crumb.where(user_id: user.id).order(read_at: :asc).each do |crumb|
-      buffer << crumb
-      if crumb.nature == 'stop'
+      if buffer.present? && crumb.nature == 'start'
         result << buffer
         buffer = []
       end
+      buffer << crumb
     end
     result << buffer if buffer.present?
     result
@@ -97,7 +100,7 @@ class Crumb < Ekylibre::Record::Base
 
   # returns all the dates for which a given user has pushed crumbs
   def self.interventions_dates(user)
-    Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map{|date| date.midnight}.uniq
+    Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
   end
 
 end
