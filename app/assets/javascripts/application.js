@@ -14,6 +14,7 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/dialog
 //= require jquery-ui/slider
+//= require jquery-ui/accordion
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks

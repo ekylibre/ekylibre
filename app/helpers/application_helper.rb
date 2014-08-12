@@ -108,19 +108,17 @@ module ApplicationHelper
   def human_age(seconds, options = {})
     return options[:default] || "&ndash;".html_safe if seconds.nil?
     vals = []
-    if (seconds/1.year).floor > 0
+    if (seconds.to_f/1.year).floor > 0.0 and (!options[:display] or vals.size < options[:display])
       vals << :x_years.tl(count: (seconds/1.year).floor)
       seconds -= 1.year * (seconds/1.year).floor
     end
-    if (seconds/1.month).floor > 0
+    if (seconds.to_f/1.month).floor > 0.0 and (!options[:display] or vals.size < options[:display])
       vals << :x_months.tl(count: (seconds/1.month).floor)
       seconds -= 1.month * (seconds/1.month).floor
     end
-    if !options[:display] == :short
-      if (seconds/1.day).floor > 0
-        vals << :x_days.tl(count: (seconds/1.day).floor)
-        seconds -= 1.day * (seconds/1.day).floor
-      end
+    if (seconds.to_f/1.day).floor > 0.0 and (!options[:display] or vals.size < options[:display])
+      vals << :x_days.tl(count: (seconds/1.day).floor)
+      seconds -= 1.day * (seconds/1.day).floor
     end
     return vals.to_sentence
   end

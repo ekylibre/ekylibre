@@ -672,10 +672,13 @@ form.search {
   }
   .value {
     white-space: nowrap;
+    @include ellipsis;
     display: block;
-    font-size: $fs-awesome;
-    line-height: $lh-awesome;
-    @include text-align(center);
+    &, * {
+      font-size: $fs-awesome;
+      line-height: $lh-awesome;
+      @include text-align(center);
+    }
     .picto {
       color: #AAA;
     }
@@ -1887,8 +1890,23 @@ ul.tree {
   padding: $default-gap;
   text-align: center;
   .btn {
-    min-width: 38ex;
-    margin: $default-gap * 0.6;
+    // min-width: 38ex;
+    $margin: round($default-gap * 0.6);
+    @include ellipsis;
+    margin: $margin;
+    width: 100%;
+    @include calc(width, "#{100%} - #{3 * $margin}");
+    @include box-sizing(border-box);
+    height: 2 * $fs-normal;
+    @include text-align(center);
+    @include respond-to-bigger-than(medium) {
+      width: 33.33%;
+      @include calc(width, "#{33.33%} - #{3 * $margin}");
+    }
+    @include respond-to-bigger-than(normal) {
+      width: 20%;
+      @include calc(width, "#{20%} - #{3 * $margin}");
+    }
     text-align: center;
     &.btn-important {
       &, * {
@@ -2198,6 +2216,39 @@ svg.map {
   }
 }
 
+
+
+*[data-collapse="accordion"] {
+  h3 {
+    font-weight: bold;
+    padding: $default-gap;
+    border-top: $menu-border;
+    @include background(white);
+    @include transition(background 0.2s, color 0.2s);
+    &:hover {
+      background: mix(white, $menu-border-color, 80%);
+      text-decoration: none;
+      @include transition(background 0.2s linear);
+    }
+    &.active, &.ui-state-active {
+      @include background-active-gradient;
+      &, * {
+        color: white;
+      }
+      border-top: none;
+    }
+    & > i {
+      @include is-icon;
+      @include use-icon(cog);
+    }
+    &.others > i {
+      @include use-icon(cogs);
+    }
+  }
+  div {
+    padding: $default-gap;
+  }
+}
 
 .lights {
   $light-size: 2 * round($fs-normal * 0.35);

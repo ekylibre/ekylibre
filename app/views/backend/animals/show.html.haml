@@ -13,44 +13,46 @@
       - if resource.picture.exists?
         .picture= image_tag(resource.picture.url(:identity))
       .big-infos
-        .big-info
+        .big-info.important
           - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
-          %span.title= resource.name
+          %span.title= Animal.human_attribute_name(:work_number)
           %span.value
             %i.picto{class: "picto-#{sex_icon}"}
             = resource.work_number
 
-      - if resource.born_at
+        .big-info.important
+          %span.title= Animal.human_attribute_name(:state)
+          %span.value= lights(resource.status)
+
+
+      - if resource.born_at and resource.age >= 1.day
         .big-info
           %span.title= Animal.human_attribute_name(:age)
           %span.value
             %i.picto{class: "picto-clock-o"}
-            = human_age(resource.age, display: :short)
-
-        .big-info.important
-          %span.title= Intervention.human_attribute_name(:state)
-          %span.value= lights(resource.status)
+            = human_age(resource.age, display: 2)
 
     - b.cell do
-      - if resource.mother
-        .big-info
-          %span.title= Animal.human_attribute_name(:mother)
-          %span.value
-            %i.picto{class: "picto-venus"}
-            = link_to(resource.mother.name, {action: :show, id: resource.mother.id})
+      .big-infos
+        - if resource.mother
+          .big-info
+            %span.title= Animal.human_attribute_name(:mother)
+            %span.value
+              %i.picto{class: "picto-venus"}
+              = link_to(resource.mother.name, {action: :show, id: resource.mother.id})
 
-      - if resource.father
-        .big-info
-          %span.title= Animal.human_attribute_name(:father)
-          %span.value
-            %i.picto{class: "picto-mars"}
-            = link_to(resource.father.name, {action: :show, id: resource.father.id})
+        - if resource.father
+          .big-info
+            %span.title= Animal.human_attribute_name(:father)
+            %span.value
+              %i.picto{class: "picto-mars"}
+              = link_to(resource.father.name, {action: :show, id: resource.father.id})
 
-        .big-info
-          %span.title= Animal.human_attribute_name(:identification_number)
-          %span.value
-            %i.picto{class: "picto-barcode"}
-            = resource.identification_number
+      .big-info
+        %span.title= Animal.human_attribute_name(:identification_number)
+        %span.value
+          %i.picto{class: "picto-barcode"}
+          = resource.identification_number
 
   - b.hbox do
     - if resource.analyses.count > 0

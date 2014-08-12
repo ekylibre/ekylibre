@@ -6,24 +6,24 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
-      .big-info.general.important
-        - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
-        %span.title= resource.name
-        %span.value
-          %i.picto{class: "picto-#{sex_icon}"}
-          = resource.work_number
-      - if resource.members_at.count > 0
-        .big-info.general
-          %san.title= :members.tl
+      .big-infos
+        .big-info.important
+          - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
+          %span.title= resource.name
           %span.value
-            %i.picto{class: "picto-group"}
-            = resource.members_at.count
-          %span.title= :daily_nitrogen_production.tl
-          %span.value
-            %i.picto{class: "picto-trash-o"}
-            = resource.daily_nitrogen_production.round(2).l
-
-
+            %i.picto{class: "picto-#{sex_icon}"}
+            = resource.work_number
+        - if resource.members_at.count > 0
+          .big-info
+            %san.title= :members.tl
+            %span.value
+              %i.picto{class: "picto-group"}
+              = resource.members_at.count
+          .big-info
+            %span.title= :daily_nitrogen_production.tl
+            %span.value
+              %i.picto{class: "picto-trash-o"}
+              = resource.daily_nitrogen_production.round(2).l
 
 
   - b.hbox do
