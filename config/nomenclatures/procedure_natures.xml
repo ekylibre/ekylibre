@@ -29,8 +29,8 @@
       <item name="grinding"             roles="doer, tool, target"              activity_families="vegetal_crops"/>
       <item name="cutting"              roles="doer, tool, target"              activity_families="vegetal_crops"/>
       <item name="growth_control"       roles="target"                          activity_families="vegetal_crops"/>
-      <item name="maintenance"          roles="target"                          activity_families="exploitation"/>
-      <item name="administrative"       roles="doer"                            activity_families="exploitation"/>
+      <item name="maintenance_task"     roles="target, doer"                    activity_families="exploitation"/>
+      <item name="administrative_task"  roles="doer"                            activity_families="exploitation"/>
     </items>
   </nomenclature>
 
@@ -41,17 +41,10 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-maintenance">
+  <nomenclature name="procedure_natures-maintenance_task">
     <items>
       <item name="consummables_addition" roles="target, doer, input"            activity_families="exploitation"/>
       <item name="piece_replacement"    roles="target, doer, input"             activity_families="exploitation"/>
-      <item name="maintenance_task"     roles="doer"                            activity_families="exploitation"/>
-    </items>
-  </nomenclature>
-
-  <nomenclature name="procedure_natures-administrative">
-    <items>
-      <item name="administrative_task" roles="doer"                            activity_families="exploitation"/>
     </items>
   </nomenclature>
 

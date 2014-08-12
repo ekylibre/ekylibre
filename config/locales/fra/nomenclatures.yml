@@ -1888,6 +1888,7 @@ fra:
     procedure_natures:
       items:
         addition: "Ajout de produits"
+        administrative_task: "Tâche administrative"
         animal_curative_medicine_admission: "Traitement curatif des maladies animales"
         animal_fecondation: "Fécondation animale"
         animal_feeding: "Alimentation des animaux"
@@ -1917,7 +1918,8 @@ fra:
         hoeing: "Binage"
         implantation: "Implantation d’une culture"
         implanting: "Plantation"
-        maintenance: "Maintenance"
+        maintenance: "Maintenance" #?
+        maintenance_task: "Maintenance"
         milk_production: "Production laitière"
         mixing: "Mélange"
         oviparous_birth: "Reproduction (ovipare)"

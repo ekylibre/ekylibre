@@ -1905,6 +1905,7 @@ arb:
     procedure_natures:
       items:
         # addition: "Addition"
+        # administrative_task: "Administrative task"
         # animal_curative_medicine_admission: "Animal curative medicine admission"
         # animal_fecondation: "Animal fecondation"
         # animal_feeding: "Animal feeding"
@@ -1932,7 +1933,7 @@ arb:
         # hoeing: "Hoeing"
         # implantation: "Implantation"
         # implanting: "Implanting"
-        # maintenance: "Maintenance"
+        # maintenance_task: "Maintenance task"
         # milk_production: "Milk production"
         # mixing: "Mixing"
         # oviparous_birth: "Oviparous birth"

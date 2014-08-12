@@ -1887,8 +1887,7 @@ eng:
         roles: "Roles"
       items:
         addition: "Addition"                               #< transformation
-        # administrative: "Administrative"
-        # administrative_task: "Administrative task"       #< administrative
+        administrative_task: "Administrative task"
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_fecondation: "Animal fecondation"
         animal_feeding: "Animal feeding"
@@ -1902,7 +1901,7 @@ eng:
         animal_production: "Animal production"
         blending: "Blending"                               #< transformation
         bottling: "Bottling"                               #< transformation
-        consummables_addition: "Consummables addition"     #< maintenance
+        consummables_addition: "Consummables addition"     #< maintenance_task
         cultipacking: "Cultipacking"                       #< tillage
         cultivation_protection: "Cultivation protection"
         cutting: "Cutting"
@@ -1916,13 +1915,12 @@ eng:
         hoeing: "Hoeing"                                   #< tillage
         implantation: "Implantation"
         implanting: "Implanting"                           #< implantation
-        maintenance: "Maintenance"
-        # maintenance_task: "Maintenance task"             #< maintenance
+        maintenance_task: "Maintenance task"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_feeding
-        piece_replacement: "Piece replacement"             #< maintenance
+        piece_replacement: "Piece replacement"             #< maintenance_task
         plant_chemical_weed: "Plant chemical weed"         #< cultivation_protection
         plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
         plant_illness_treatment: "Plant illness treatment" #< cultivation_protection

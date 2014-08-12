@@ -4,6 +4,7 @@
   <procedure name="maintenance_task" natures="maintenance_task" version="0" status="frozen">
     <variables>
       <variable name="worker" variety="worker" roles="maintenance_task-doer"/>
+      <variable name="maintained" roles="maintenance_task-target"/>
     </variables>
     <operations>
       <operation id="100">
