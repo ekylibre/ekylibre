@@ -155,6 +155,7 @@ eng:
     backend/cells/working_sets_stocks_cells:
       # show: "Working sets stocks cell: %{name}"
     backend/crumbs:
+      # convert: "Convert crumb: %{name}"
       index: "Crumbs"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
@@ -1578,6 +1579,7 @@ eng:
       compute_balances: "Compute balances"
       confirm: "Confirm"
       # contacts: "Contacts"
+      # convert: "Convert"
       correct: "Correct"
       create: "Create"
       decrement: "Decrement"

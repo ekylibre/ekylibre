@@ -56,6 +56,10 @@ class Backend::CrumbsController < BackendController
     redirect_to backend_crumbs_path
   end
 
+  def convert
+    redirect_to backend_crumbs_path
+  end
+
   private
     def crumb_params
       params.permit(:nature, :previous_crumb_id, :intervention_date)

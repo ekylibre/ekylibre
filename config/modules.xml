@@ -1744,6 +1744,7 @@
   <untreated-actions>
     <group>
       <item name="crumbs">
+        <page to="backend/crumbs#convert"/>
         <page to="backend/crumbs#destroy"/>
       </item>
     </group>
