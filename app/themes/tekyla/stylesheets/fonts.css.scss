@@ -16,3 +16,22 @@ $font-faces: (Light 300) (Regular 400) (Semibold 600) (Bold 700) (ExtraBold 800)
     src: local('Open Sans #{nth($font-face, 1)}Italic'), local('OpenSans-#{nth($font-face, 1)}Italic'), font-url('themes/tekyla/OpenSans-#{nth($font-face, 1)}Italic.woff') format('woff');
   }
 }
+
+$condensed-font-faces: (Light 300 1) (Bold 700 0);
+
+@each $font-face in $condensed-font-faces {
+  @font-face {
+    font-family: 'Open Sans Condensed';
+    font-style: normal;
+    font-weight: nth($font-face, 2);
+    src: local('Open Sans Condensed #{nth($font-face, 1)}'), local('OpenSans-Cond#{nth($font-face, 1)}'), font-url('themes/tekyla/OpenSans-Cond#{nth($font-face, 1)}.woff') format('woff');
+  }
+  @if nth($font-face, 3) == 1 {
+    @font-face {
+      font-family: 'Open Sans Condensed';
+      font-style: italic;
+      font-weight: nth($font-face, 2);
+      src: local('Open Sans Condensed #{nth($font-face, 1)}Italic'), local('OpenSans-Cond#{nth($font-face, 1)}Italic'), font-url('themes/tekyla/OpenSans-Cond#{nth($font-face, 1)}Italic.woff') format('woff');
+    }
+  }
+}

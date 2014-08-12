@@ -675,11 +675,13 @@ form.search {
     @include ellipsis;
     display: block;
     &, * {
+      font-family: $awesome-font-family;
       font-size: $fs-awesome;
       line-height: $lh-awesome;
       @include text-align(center);
     }
     .picto {
+      @include is-icon(64px);
       color: #AAA;
     }
   }
