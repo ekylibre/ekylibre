@@ -313,8 +313,14 @@ class Intervention < Ekylibre::Record::Base
   end
 
   # match
-  # @params: actors, an array of actors identified for a given procedure
-  # @options: - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
+  # returns an array of procedures matching the given actors ordered by relevance
+  # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
+  # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
+  # matched in the procedure
+  # ==== parameters:
+  #           - actors, an array of actors identified for a given procedure
+  # ==== options:
+  #           - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
   # is expected. Default value: 0.
   #           - limit: sets the number of wanted results. By default all results are returned
   #           - history: sets the use of actors history to calculate relevance. A boolean is expected.
@@ -322,10 +328,7 @@ class Intervention < Ekylibre::Record::Base
   #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
   # Default: false, since it's slower
   #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false
-  # @returns: matching_procedures, an array of procedures matching the given actors, ordered by relevance,
-  # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
-  # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
-  # matched in the procedure
+
   def self.match(actors, options = {})
     actors = [actors].flatten
     limit = options[:limit].to_i - 1
@@ -338,7 +341,7 @@ class Intervention < Ekylibre::Record::Base
     provisional = []
     actors_id = []
     if options[:history] || options[:provisional]
-      actors.each {|actor| actors_id << actor.id}
+      actors_id = actors.map(&:id)
     end
 
     # select interventions from all actors history
