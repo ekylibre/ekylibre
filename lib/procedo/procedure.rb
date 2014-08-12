@@ -104,6 +104,20 @@ module Procedo
       (self.natures & natures).any?
     end
 
+    def of_activity_family?(*families)
+      (self.activity_families & families).any?
+    end
+
+    # Returns activity families of the procedure
+    def activity_families
+      @activity_families ||= self.natures.map do |n|
+        Nomen::ProcedureNatures[n].activity_families.map do |f|
+          Nomen::ActivityFamilies.all(f)
+        end
+      end.flatten.uniq.map(&:to_sym)
+    end
+
+
     def not_so_short_name
       namespace.to_s + NAMESPACE_SEPARATOR + short_name.to_s
     end

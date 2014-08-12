@@ -69,6 +69,13 @@ module Procedo
       end
     end
 
+    # Returns direct procedures of nature
+    def procedures_of_activity_family(*families)
+      list.values.select do |p|
+        p.of_activity_family?(*families)
+      end.uniq
+    end
+
     # Returns procedures of nature and sub natures
     def procedures_of_nature_and_its_children(nature, options = {})
       procedures_of_nature(*Nomen::ProcedureNatures.all(nature).map(&:to_sym), options = {})

@@ -77,6 +77,11 @@ class Production < Ekylibre::Record::Base
     end
     where(activity_id: activities.map(&:id))
   }
+  scope :actives, -> {
+    at = Time.now
+    where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lteq(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))))
+  }
+
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
 

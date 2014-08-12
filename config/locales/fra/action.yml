@@ -1216,7 +1216,7 @@ fra:
     other_not_assessable_operations: "Autres opérations non imposables" #?
     other_results: "Autres résultats…"
     other_services: "Autres biens et services" #?
-    others: "Autre TVA à déduire" #?
+    others: "Autres" #?
     out_vat_amount: "Base hors taxe" #?
     outgoing_payments_states:
       all: "Tous"

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grape_transport" natures="transport" version="0" status="frozen">
+  <procedure name="grape_transport" natures="grape_transport" version="0" status="frozen">
     <variables>
-      <variable name="grape" variety="grape" roles="transport-input_origin"/>
-      <variable name="grape_to_deliver" new="parted-from: grape" roles="transport-input" default-population=":grape" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="grape" variety="grape" roles="grape_transport-input_origin"/>
+      <variable name="grape_to_deliver" new="parted-from: grape" roles="grape_transport-input" default-population=":grape" default-name="{{variant}} {{birth_year}} ({{container}})">
      <handler indicator="population" />
      <handler indicator="net_mass"   unit="kilogram"   to="population"
                  forward="(value / self..net_mass(kilogram))"
@@ -14,10 +14,10 @@
                  backward="(value * self..net_mass(ton))"
                  /> <!-- t -->
       </variable>
-      <variable name="trailer" variety="trailer" abilities="store(grape)" roles="transport-tool"/>
-      <variable name="driver"  abilities="drive(tractor)" roles="transport-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="transport-tool"/>
-      <variable name="silo"    abilities="store(grape)" roles="transport-target"/>
+      <variable name="trailer" variety="trailer" abilities="store(grape)" roles="grape_transport-tool"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="grape_transport-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="grape_transport-tool"/>
+      <variable name="silo"    abilities="store(grape)" roles="grape_transport-target"/>
     </variables>
     <operations>
 

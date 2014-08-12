@@ -1908,6 +1908,9 @@ eng:
         fermentation: "Fermentation"                       #< transformation
         filtration: "Filtration"                           #< transformation
         food_supply: "Food supply"                         #< animal_feeding
+        grain_transport: "Grain transport"                 #< transport
+        grape_harvest: "Grape harvest"                     #< harvest
+        grape_transport: "Grape transport"                 #< transport
         grinding: "Grinding"
         growth_control: "Growth control"
         harvest: "Harvest"
@@ -1932,6 +1935,7 @@ eng:
         pruning: "Pruning"
         raking: "Raking"                                   #< tillage
         remontage: "Remontage"                             #< transformation
+        silage: "Silage"                                   #< harvest
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"
         sowing: "Sowing"                                   #< implantation

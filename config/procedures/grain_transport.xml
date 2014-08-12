@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grain_transport" natures="transport" version="0" status="frozen">
+  <procedure name="grain_transport" natures="grain_transport" version="0" status="frozen">
     <variables>
-      <variable name="grain" variety="grain" roles="transport-input_origin"/>
-      <variable name="grain_to_deliver" new="parted-from: grain" roles="transport-input" default-population=":grain" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="grain" variety="grain" roles="grain_transport-input_origin"/>
+      <variable name="grain_to_deliver" new="parted-from: grain" roles="grain_transport-input" default-population=":grain" default-name="{{variant}} {{birth_year}} ({{container}})">
      <handler indicator="population" />
      <handler indicator="net_mass"   unit="ton"   to="population"
                  forward="(value / self..net_mass(ton))"
                  backward="(value * self..net_mass(ton))"
                  /> <!-- t -->
       </variable>
-      <variable name="trailer" variety="trailer" abilities="store(grain)" roles="transport-tool"/>
-      <variable name="driver"  abilities="drive(tractor)" roles="transport-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="transport-tool"/>
-      <variable name="silo"    abilities="store(grain)" roles="transport-target"/>
+      <variable name="trailer" variety="trailer" abilities="store(grain)" roles="grain_transport-tool"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="grain_transport-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="grain_transport-tool"/>
+      <variable name="silo"    abilities="store(grain)" roles="grain_transport-target"/>
     </variables>
     <operations>
 

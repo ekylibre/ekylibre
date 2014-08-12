@@ -50,6 +50,7 @@ class Activity < Ekylibre::Record::Base
   validates_inclusion_of :family, in: self.family.values, allow_nil: true
 
   scope :main, -> { where(nature: "main") }
+  scope :actives, -> { where(id: Production.actives.pluck(:activity_id)) }
   # scope :main_activity, -> { where(nature: "main") }
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!

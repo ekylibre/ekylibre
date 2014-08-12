@@ -62,7 +62,26 @@
 
 
 - else # Root Procedure Natures
-  :ruby
+  - proposed = []
+  - default_params = {action: :new}
+  - for family in Activity.actives.pluck(:family).collect{|f| Nomen::ActivityFamilies[f]}.compact.uniq.sort{|a,b| a.human_name <=> b.human_name }
+    - procedures = Procedo.procedures_of_activity_family(family.name.to_sym)
+    - if procedures.any?
+      - proposed += procedures
+      %h3= family.human_name
+      .proposal-list
+        - for procedure in procedures.sort{|a,b| a.human_name <=> b.human_name }
+          = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name), class: "btn")
+  - remainings = Procedo.list.values - proposed
+  - if remainings.any?
+    %h3= :others.tl
+    .proposal-list
+      - for procedure in remainings.sort{|a,b| a.human_name <=> b.human_name }
+        = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name), class: "btn")
+
+
+
+  -#:ruby
     natures = []
     nature = Nomen::ProcedureNatures[params[:procedure_nature]]
     natures += (nature ? nature.children : Nomen::ProcedureNatures.roots)
@@ -96,7 +115,7 @@
     links.sort!{|a,b| a.first <=> b.first }
 
   - f.clear_actions!
-  - if links.any?
+  -# if links.any?
     .proposal-list
       - for link in links
         = link_to(*link)

@@ -1085,6 +1085,7 @@ eng:
     order_amount_with_taxes: "Order amount with taxes" #?
     order_print: "Print order" #?
     other_results: "Other results…" #?
+    # others: "Others"
     outgoing_payments_states:  #?
       all: "All" #?
       undelivered: "Undelivered" #?

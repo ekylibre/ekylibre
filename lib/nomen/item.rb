@@ -37,7 +37,7 @@ module Nomen
 
     # Returns direct parents from the closest to the farthest
     def parents
-      return (self.parent.nil? ? [] : [self.parent] + self.parent.parents)
+      @parents ||= (self.parent.nil? ? [] : [self.parent] + self.parent.parents)
     end
 
     def self_and_children
