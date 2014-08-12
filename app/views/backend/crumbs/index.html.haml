@@ -21,6 +21,6 @@
   - b.cell :interventions do
     = render 'interventions', data: crumbs
   - interventions.each do |name, intervention|
-    - b.cell intervention.first[:started_at] do
+    - b.cell intervention.first[:started_at].to_formatted_s(:long) do
       = render 'intervention', data: intervention
   

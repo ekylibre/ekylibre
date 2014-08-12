@@ -10,8 +10,10 @@ class Backend::CrumbsController < BackendController
 
     crumb_ids = []
 
-    interventions = Crumb.of_date(date.to_date).interventions(current_user)
-    @production_supports = Crumb.production_supports(interventions.flatten)
+    interventions = []
+    interventions = Crumb.of_date(date.to_date).interventions(current_user) if date.present?
+    @production_supports = []
+    @production_supports = Crumb.production_supports(interventions.flatten) if interventions.present?
     interventions.each do |intervention|
       name = interventions.index(intervention)
       started_at = intervention.first.read_at
