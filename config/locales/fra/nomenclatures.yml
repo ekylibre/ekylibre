@@ -453,7 +453,7 @@ fra:
         cow_milk_analysis: "Analyse de lait de vache"
         soil_analysis: "Analyse de sol"
         unitary_cow_milk_analysis: "Analyse d’un contrôle laitier"
-        water_analysis: "Analyse d'eau"
+        water_analysis: "Analyse d’eau"
       name: "Types d’analyses"
       property_natures:
         items: "Éléments analysés"
@@ -1489,7 +1489,7 @@ fra:
         height: "Hauteur"
         horizontal_rotation: "Rotation horizontale"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
-        impurity_concentration: "Taux d'impuretés"
+        impurity_concentration: "Taux d’impuretés"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
         iron_concentration: "Teneur en Fer"
         irrigation_water_input_area_density: "Densité surfacique d’apport en eau d’irrigation"
@@ -1607,7 +1607,7 @@ fra:
         fungus_disease: "Maladie cryptogamique"
         grapevine_yellows: "Flavescence dorée"
         husk_fly: "Mouche du brou"
-        insecta_disease: "Présence d'insecte"
+        insecta_disease: "Présence d’insecte"
         issue: "Incident"
         limping: "Boîterie"
         longhorn_beetle: "Longicorne"
@@ -1819,9 +1819,9 @@ fra:
     nmp_france_abacus_cultivation_yield:
       name: "Références de rendement par produit et par département"
     nmp_france_abacus_maximum_nitrogen_input_per_cultivation:
-      name: "Référence des doses afond d'apport en azote par produit et département"
+      name: "Référence des doses afond d’apport en azote par produit et département"
     nmp_france_abacus_nitrogen_animal_production:
-      name: "Normes d'excrétion d'azote par espèce animale"
+      name: "Normes d’excrétion d’azote par espèce animale"
     nmp_methods:
       items:
         france: "France"
@@ -1891,13 +1891,13 @@ fra:
         animal_curative_medicine_admission: "Traitement curatif des maladies animales"
         animal_fecondation: "Fécondation animale"
         animal_feeding: "Alimentation des animaux"
-        animal_group_changing: "Changement de groupe d'animaux"
+        animal_group_changing: "Changement de groupe d’animaux"
         animal_health: "Hygiène des animaux"
         animal_housing_cleaning: "Nettoyage des bâtiments d’élevage"
         animal_housing_maintenance: "Maintenance des bâtiments d’élevage" #?
         animal_housing_treatment: "Hygiène des bâtiments d’élevage"
         animal_illness_treatment: "Soins médicaux des animaux"
-        animal_moving: "Mouvement d'animaux"
+        animal_moving: "Mouvement d’animaux"
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales"
         animal_production: "Productions animales"
         blending: "Mélange"
@@ -1944,6 +1944,7 @@ fra:
         viviparous_birth: "Reproduction (vivipare)"
       name: "Types de procédures"
       property_natures:
+        activity_families: "Familles d’activités"
         roles: "Rôles"
     procedure_roles:
       items:
@@ -2658,7 +2659,7 @@ fra:
         vial: "Paillette de reproduction"
         walnut: "Noix"
         walnut_crop: "Culture de noyer"
-        water_spreader: "Matériel d'irrigation"
+        water_spreader: "Matériel d’irrigation"
         wine: "Vin"
         wine_acidifying: "Acidifiant (vin)"
         wine_alkalinizing: "Alcalinisant (vin)"
@@ -2771,8 +2772,8 @@ fra:
         accountant: "Comptable"
         agricultural_advisor: "Conseiller agricole"
         cooperative_advisor: "Agent technico-commercial"
-        farm_manager: "Responsable de l'exploitation"
-        farm_worker: "Salarié de l'exploitation"
+        farm_manager: "Responsable de l’exploitation"
+        farm_worker: "Salarié de l’exploitation"
         veterinary: "Vétérinaire"
       name: "Rôles"
       property_natures:
@@ -2780,15 +2781,15 @@ fra:
     running_costs:
       choices:
         origin:
-          french_cooperation_scale: "Barême d'entraide français"
+          french_cooperation_scale: "Barême d’entraide français"
       items:
         2014_small_tractor_56_to_64_fhp: "Petit tracteur 2014 de 56 à 64 CV"
         2014_small_tractor_66_to_75_fhp: "Petit tracteur 2014 de 66 à 75 CV"
         2014_small_tractor_75_to_85_fhp: "Petit tracteur 2014 de 75 à 85 CV"
         2014_small_tractor_85_to_95_fhp: "Petit tracteur 2014 de 85 à 95 CV"
-      name: "Coûts d'utilisation"
+      name: "Coûts d’utilisation"
       property_natures:
-        average_purchase_price: "Prix d'achat moyen"
+        average_purchase_price: "Prix d’achat moyen"
         currency: "Monnaie"
         hourly_cost: "Coût horaire"
         maximum_power: "Puissance maximale"
@@ -2829,7 +2830,7 @@ fra:
         silt_soil: "Sol limoneux"
         silty_clay_loam_soil: "Sol limono-argileux"
         silty_clay_soil: "Sol argilo-limoneux"
-        stony_alluvium_soil: "Sol d'alluvions caillouteux"
+        stony_alluvium_soil: "Sol d’alluvions caillouteux"
         swamp_peaty_soil: "Terre de marais tourbeux"
         touyas_soil: "Sol de Touyas"
         valley_terrace_soil: "Sol de terrasse de vallée"

@@ -1961,6 +1961,7 @@ jpn:
         # viviparous_birth: "Viviparous birth"
       # name: "Name"
       property_natures:
+        # activity_families: "Activity families"
         # roles: "Roles"
     procedure_roles:
       items:

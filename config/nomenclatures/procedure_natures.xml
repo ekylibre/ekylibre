@@ -4,126 +4,126 @@
   <nomenclature name="procedure_natures" hierarchical="true">
     <property-natures>
       <property-nature name="roles" type="list" nomenclature="procedure_roles" required="false"/>
+      <property-nature name="activity_families" type="list" nomenclature="activity_families" required="true"/>
     </property-natures>
     <items>
-      <item name="animal_feeding" roles="input, target, doer, tool"/>
-      <item name="animal_health" roles="input, target, doer"/>
-      <item name="animal_fecondation" roles="input_origin, input, target, doer"/>
-      <item name="animal_moving" roles="input, target, doer"/>
-      <item name="animal_group_changing" roles="input, target"/>
-      <item name="animal_production" roles="target, output, doer"/>
-      <item name="viviparous_birth" roles="target, output"/>
-      <item name="oviparous_birth" roles="target, output"/>
-      <item name="harvest" roles="target, output, doer, tool"/>
-      <item name="haymaking" roles="target, output, doer, tool"/>
-      <item name="transformation" roles="input, output, doer, tool"/>
-      <item name="transport" roles="input, doer, input_origin, tool, target"/>
-      <item name="tillage" roles="target"/>
-      <item name="plant_nutrition" roles="input, target"/>
-      <item name="cultivation_protection" roles="tool, target, doer"/>
-      <item name="soil_enrichment" roles="input, target, tool, doer, input_origin"/>
-      <item name="soil_cleaning" roles="target"/>
-      <item name="implantation" roles="input, target, output, doer, tool, input_origin"/>
-      <item name="pruning" roles="doer, target"/>
-      <item name="grinding" roles="doer, tool, target"/>
-      <item name="cutting" roles="doer, tool, target"/>
-      <item name="growth_control" roles="target"/>
-      <item name="maintenance" roles="doer"/>
-      <item name="administrative" roles="doer"/>
+      <item name="animal_feeding"       roles="input, target, doer, tool"       activity_families="animal_farming"/>
+      <item name="animal_health"        roles="input, target, doer"             activity_families="animal_farming"/>
+      <item name="animal_fecondation"   roles="input_origin, input, target, doer" activity_families="animal_farming"/>
+      <item name="animal_moving"        roles="input, target, doer"             activity_families="animal_farming"/>
+      <item name="animal_group_changing" roles="input, target"                  activity_families="animal_farming"/>
+      <item name="animal_production"    roles="target, output, doer"            activity_families="animal_farming"/>
+      <item name="viviparous_birth"     roles="target, output"                  activity_families="animal_farming"/>
+      <item name="oviparous_birth"      roles="target, output"                  activity_families="animal_farming"/>
+      <item name="harvest"              roles="target, output, doer, tool"      activity_families="vegetal_crops"/>
+      <item name="haymaking"            roles="target, output, doer, tool"      activity_families="vegetal_crops"/>
+      <item name="transformation"       roles="input, output, doer, tool"       activity_families="processing"/>
+      <item name="transport"            roles="input, doer, input_origin, tool, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
+      <item name="tillage"              roles="target"                          activity_families="vegetal_crops"/>
+      <item name="plant_nutrition"      roles="input, target"                   activity_families="vegetal_crops"/>
+      <item name="cultivation_protection" roles="tool, target, doer"            activity_families="vegetal_crops"/>
+      <item name="soil_enrichment"      roles="input, target, tool, doer, input_origin" activity_families="vegetal_crops"/>
+      <item name="soil_cleaning"        roles="target"                          activity_families="animal_farming"/>
+      <item name="implantation"         roles="input, target, output, doer, tool, input_origin" activity_families="vegetal_crops"/>
+      <item name="pruning"              roles="doer, target"                    activity_families="vegetal_crops"/>
+      <item name="grinding"             roles="doer, tool, target"              activity_families="vegetal_crops"/>
+      <item name="cutting"              roles="doer, tool, target"              activity_families="vegetal_crops"/>
+      <item name="growth_control"       roles="target"                          activity_families="vegetal_crops"/>
+      <item name="maintenance"          roles="target"                          activity_families="exploitation"/>
+      <item name="administrative"       roles="doer"                            activity_families="exploitation"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-implantation">
     <items>
-      <item name="sowing" roles="input, target, output, doer, tool, input_origin"/>
-      <item name="implanting" roles="input, target, output, doer, tool, input_origin"/>
+      <item name="sowing"               roles="input, target, output, doer, tool, input_origin" activity_families="vegetal_crops"/>
+      <item name="implanting"           roles="input, target, output, doer, tool, input_origin" activity_families="vegetal_crops"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-maintenance">
     <items>
-      <item name="consummables_addition" roles="target, doer, input"/>
-      <item name="piece_replacement" roles="target, doer, input"/>
-      <item name="maintenance_task" roles="doer"/>
+      <item name="consummables_addition" roles="target, doer, input"            activity_families="exploitation"/>
+      <item name="piece_replacement"    roles="target, doer, input"             activity_families="exploitation"/>
+      <item name="maintenance_task"     roles="doer"                            activity_families="exploitation"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-administrative">
     <items>
-      <item name="administrative_task" roles="doer"/>
+      <item name="administrative_task" roles="doer"                            activity_families="exploitation"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-transformation">
     <items>
-      <item name="transfer"     roles="input, target, doer"/>
-      <item name="fermentation" roles="input, target, output, doer, tool"/>
-      <item name="pressing"     roles="input, target, output, doer, tool"/>
-      <item name="blending"     roles="input, target, output, doer"/>
-      <item name="addition"     roles="input, target, doer"/>
-      <item name="filtration"   roles="input, target, output, doer, tool"/>
-      <item name="bottling"     roles="target, input, output, doer, tool"/>
-      <item name="mixing"       roles="input, output, doer"/>
-      <item name="remontage"    roles="target, doer"/>
+      <item name="transfer"             roles="input, target, doer"             activity_families="processing"/>
+      <item name="fermentation"         roles="input, target, output, doer, tool" activity_families="processing"/>
+      <item name="pressing"             roles="input, target, output, doer, tool" activity_families="processing"/>
+      <item name="blending"             roles="input, target, output, doer"     activity_families="processing"/>
+      <item name="addition"             roles="input, target, doer"             activity_families="processing"/>
+      <item name="filtration"           roles="input, target, output, doer, tool" activity_families="processing"/>
+      <item name="bottling"             roles="target, input, output, doer, tool" activity_families="processing"/>
+      <item name="mixing"               roles="input, output, doer"             activity_families="processing"/>
+      <item name="remontage"            roles="target, doer"                    activity_families="processing"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-addition">
-    <!-- <items> -->
-    <!--   <item name="wine_addition" roles="input, target, doer"/> -->
-    <!-- </items> -->
-  </nomenclature>
+  <!-- <nomenclature name="procedure_natures-addition"> -->
+  <!--   <items> -->
+  <!--     <item name="wine_addition" roles="input, target, doer"/> -->
+  <!--   </items> -->
+  <!-- </nomenclature> -->
 
   <nomenclature name="procedure_natures-tillage">
     <items>
-      <item name="plowing" roles="target, doer, tool"/>
-      <item name="raking" roles="target, doer, tool"/>
-      <item name="hoeing" roles="target, doer, tool"/>
-      <item name="cultipacking" roles="target, doer, tool"/>
+      <item name="plowing"              roles="target, doer, tool"              activity_families="vegetal_crops"/>
+      <item name="raking"               roles="target, doer, tool"              activity_families="vegetal_crops"/>
+      <item name="hoeing"               roles="target, doer, tool"              activity_families="vegetal_crops"/>
+      <item name="cultipacking"         roles="target, doer, tool"              activity_families="vegetal_crops"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-animal_health">
     <items>
-      <item name="animal_illness_treatment" roles="input, target, doer, input_origin"/>
-      <item name="animal_housing_treatment" roles="input, target, doer, tool"/>
-      <item name="animal_housing_cleaning" roles="output, target, doer, tool"/>
+      <item name="animal_illness_treatment" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
+      <item name="animal_housing_treatment" roles="input, target, doer, tool"   activity_families="animal_farming"/>
+      <item name="animal_housing_cleaning" roles="output, target, doer, tool"   activity_families="animal_farming"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-animal_illness_treatment">
     <items>
-      <item name="animal_curative_medicine_admission" roles="input, target, doer, input_origin"/>
-      <item name="animal_preventive_medicine_admission" roles="input, target, doer, input_origin"/>
+      <item name="animal_curative_medicine_admission" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
+      <item name="animal_preventive_medicine_admission" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-animal_production">
     <items>
-      <item name="milk_production" roles="output, target, doer"/>
+      <item name="milk_production"      roles="output, target, doer"            activity_families="animal_farming"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-animal_feeding">
     <items>
-      <item name="food_supply" roles="input, target, doer, tool"/>
-      <item name="pasturing" roles="input, target, doer"/>
+      <item name="food_supply"          roles="input, target, doer, tool"       activity_families="animal_farming"/>
+      <item name="pasturing"            roles="input, target, doer"             activity_families="animal_farming"/>
     </items>
   </nomenclature>
 
-
   <nomenclature name="procedure_natures-cultivation_protection">
     <items>
-      <item name="plant_illness_treatment" roles="input, target, doer, tool, input_origin"/>
-      <item name="plant_physical_weed" roles="target, doer, tool"/>
-      <item name="plant_chemical_weed" roles="input, target, doer, tool, input_origin"/>
+      <item name="plant_illness_treatment" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops"/>
+      <item name="plant_physical_weed" roles="target, doer, tool" activity_families="vegetal_crops"/>
+      <item name="plant_chemical_weed" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops"/>
       </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-plant_nutrition">
     <items>
-      <item name="plant_irrigation" roles="input, target"/>
-      <item name="plant_fertilisation" roles="input, target, doer"/>
+      <item name="plant_irrigation" roles="input, target" activity_families="vegetal_crops"/>
+      <item name="plant_fertilisation" roles="input, target, doer" activity_families="vegetal_crops"/>
     </items>
   </nomenclature>
 

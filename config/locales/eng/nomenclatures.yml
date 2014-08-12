@@ -1883,6 +1883,7 @@ eng:
     procedure_natures:
       name: "Name"
       property_natures:
+        activity_families: "Activity families"
         roles: "Roles"
       items:
         addition: "Addition"                               #< transformation
