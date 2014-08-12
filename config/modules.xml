@@ -1742,6 +1742,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="crumbs">
+        <page to="backend/crumbs#destroy"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

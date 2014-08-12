@@ -46,6 +46,7 @@
 #     - "backend/cells/rss_cells#show"
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
+#     - "backend/crumbs#destroy"
 #     - "backend/crumbs#index"
 #     - "backend/crumbs#update"
 #     - "backend/dashboards#accountancy"

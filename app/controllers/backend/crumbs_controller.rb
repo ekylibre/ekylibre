@@ -1,7 +1,5 @@
 class Backend::CrumbsController < BackendController
 
-  @actors = []
-
   def index
     # days
     @interventions_dates = Crumb.interventions_dates(current_user)
@@ -43,6 +41,16 @@ class Backend::CrumbsController < BackendController
       previous.update(nature: 'stop')
     end
     crumb.update(nature: crumb_params[:nature])
+    redirect_to backend_crumbs_path
+  end
+
+  def destroy
+    crumb = Crumb.find(params[:id])
+    if crumb.nature == 'start'
+     crumb.intervention.map(&:destroy)
+    else
+      crumb.destroy
+    end
     redirect_to backend_crumbs_path
   end
 

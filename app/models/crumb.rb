@@ -103,4 +103,15 @@ class Crumb < Ekylibre::Record::Base
     Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
   end
 
+  # returns all the crumbs corresponding to the same intervention as the current crumb
+  def intervention
+    if nature == 'start'
+      start_read_at = read_at
+    else
+      start_read_at = Crumb.where(user_id: user_id).where(nature: :start).where("read_at <= TIMESTAMP '#{read_at.utc}'").order(read_at: :desc).first.read_at
+    end
+    stop_read_at  = Crumb.where(user_id: user_id).where(nature: :stop).where("read_at >= TIMESTAMP '#{read_at.utc}'").order(read_at: :asc).first.read_at
+    Crumb.where(user_id: user_id).where(read_at: start_read_at..stop_read_at)
+  end
+
 end
