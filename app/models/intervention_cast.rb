@@ -46,6 +46,7 @@ class InterventionCast < Ekylibre::Record::Base
   belongs_to :event_participation, dependent: :destroy
   belongs_to :intervention, inverse_of: :casts
   belongs_to :variant, class_name: "ProductNatureVariant"
+  has_many :crumbs, dependent: :destroy
   has_one :product_nature, through: :variant, source: :nature
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention

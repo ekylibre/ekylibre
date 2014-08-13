@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806082909) do
+ActiveRecord::Schema.define(version: 20140813215326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -348,21 +348,23 @@ ActiveRecord::Schema.define(version: 20140806082909) do
   add_index "catalogs", ["updater_id"], :name => "index_catalogs_on_updater_id"
 
   create_table "crumbs", force: true do |t|
-    t.integer  "user_id",                                                        null: false
-    t.datetime "read_at",                                                        null: false
-    t.decimal  "accuracy",                                                       null: false
-    t.string   "nature",                                                         null: false
+    t.integer  "user_id"
+    t.datetime "read_at",                                                                                         null: false
+    t.decimal  "accuracy",                                                   precision: 19, scale: 4,             null: false
+    t.string   "nature",                                                                                          null: false
     t.text     "metadata"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.datetime "created_at",                                                                                      null: false
+    t.datetime "updated_at",                                                                                      null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                       default: 0, null: false
-    t.spatial  "geolocation",  limit: {:srid=>4326, :type=>"point"},             null: false
+    t.integer  "lock_version",                                                                        default: 0, null: false
+    t.spatial  "geolocation",          limit: {:srid=>4326, :type=>"point"},                                      null: false
+    t.integer  "intervention_cast_id"
   end
 
   add_index "crumbs", ["created_at"], :name => "index_crumbs_on_created_at"
   add_index "crumbs", ["creator_id"], :name => "index_crumbs_on_creator_id"
+  add_index "crumbs", ["intervention_cast_id"], :name => "index_crumbs_on_intervention_cast_id"
   add_index "crumbs", ["nature"], :name => "index_crumbs_on_nature"
   add_index "crumbs", ["read_at"], :name => "index_crumbs_on_read_at"
   add_index "crumbs", ["updated_at"], :name => "index_crumbs_on_updated_at"

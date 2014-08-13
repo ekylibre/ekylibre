@@ -235,18 +235,19 @@ catalogs:
   usage: {type: string, limit: 20, required: true}
 
 crumbs:
-  accuracy: {type: decimal, required: true}
+  accuracy: {type: decimal, precision: 19, scale: 4, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   geolocation: {type: spatial, required: true}
   id: {type: integer, required: true}
+  intervention_cast_id: {type: integer, references: intervention_cast}
   lock_version: {type: integer, required: true, default: 0}
   metadata: {type: text}
   nature: {type: string, required: true}
   read_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-  user_id: {type: integer, references: user, required: true}
+  user_id: {type: integer, references: user}
 
 cultivable_zone_memberships:
   created_at: {type: datetime, required: true}

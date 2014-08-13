@@ -21,18 +21,19 @@
 #
 # == Table: crumbs
 #
-#  accuracy     :decimal(, )      not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  geolocation  :spatial({:srid=> not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  metadata     :text
-#  nature       :string(255)      not null
-#  read_at      :datetime         not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#  user_id      :integer          not null
+#  accuracy             :decimal(19, 4)   not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  geolocation          :spatial({:srid=> not null
+#  id                   :integer          not null, primary key
+#  intervention_cast_id :integer
+#  lock_version         :integer          default(0), not null
+#  metadata             :text
+#  nature               :string(255)      not null
+#  read_at              :datetime         not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  user_id              :integer
 #
 require 'test_helper'
 

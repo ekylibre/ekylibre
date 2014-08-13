@@ -21,42 +21,44 @@
 #
 # == Table: crumbs
 #
-#  accuracy     :decimal(, )      not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  geolocation  :spatial({:srid=> not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  metadata     :text
-#  nature       :string(255)      not null
-#  read_at      :datetime         not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#  user_id      :integer          not null
+#  accuracy             :decimal(19, 4)   not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  geolocation          :spatial({:srid=> not null
+#  id                   :integer          not null, primary key
+#  intervention_cast_id :integer
+#  lock_version         :integer          default(0), not null
+#  metadata             :text
+#  nature               :string(255)      not null
+#  read_at              :datetime         not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  user_id              :integer
 #
 
 class Crumb < Ekylibre::Record::Base
   enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop]
   belongs_to :user
+  belongs_to :intervention_cast
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :accuracy, allow_nil: true
   validates_length_of :nature, allow_nil: true, maximum: 255
-  validates_presence_of :accuracy, :geolocation, :nature, :read_at, :user
+  validates_presence_of :accuracy, :geolocation, :nature, :read_at
   #]VALIDATORS]
   serialize :metadata
 
-  # returns all products whose shape contains the given crumbs
-  scope :products, lambda {|*crumbs|
-    crumbs.flatten!
-
-    condition = crumbs.present? ? "crumbs.id IN (#{crumbs.map(&:id).join(', ')})" :
-                                  "crumbs.id IS NOT NULL"
-
-    Product.distinct.
-      joins("INNER JOIN product_readings ON products.id = product_readings.product_id").
-      joins("INNER JOIN crumbs ON product_readings.geometry_value ~ crumbs.geolocation").
-      where(condition)
+  # returns all crumbs for a given day. Default: the current day
+  scope :of_date, lambda{|start_date = Time.now.midnight|
+    where(read_at: start_date.midnight..start_date.end_of_day)
   }
+
+  # returns all products whose shape contains the given crumbs
+  def products(*crumbs)
+    crumbs.flatten!
+    Product.distinct.joins(:readings)
+      .joins("INNER JOIN crumbs ON product_readings.geometry_value ~ crumbs.geolocation")
+      .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
+  end
 
   # returns all production supports whose storage shape contains the given crumbs
   # ==== Parameters
@@ -64,17 +66,12 @@ class Crumb < Ekylibre::Record::Base
   # ==== Options
   #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns.
   #       Accepts the same parameters as ProductionSupport.of_campaign since it actually calls this method.
-  scope :production_supports, lambda {|crumbs = [], options = {}|
+  def production_supports(crumbs = [], options = {})
     options[:campaigns] ||= Campaign.currents
-    ProductionSupport.of_campaign(options[:campaigns]).distinct.
-      joins(:storage).
-      where("products.id IN (#{Crumb.products(crumbs).pluck(:id).join(', ')})")
-  }
-
-  # returns all crumbs for a given day. Default: the current day
-  scope :of_date, lambda{|start_date = Time.now.midnight|
-    where(read_at: start_date.midnight..start_date.end_of_day)
-  }
+    ProductionSupport.of_campaign(options[:campaigns]).distinct
+      .joins(:storage)
+      .where("products.id IN (?)", Crumb.products(crumbs).pluck(:id))
+  end
 
   # returns all crumbs, grouped by intervention, for a given user.
   # The result is an array of interventions.
