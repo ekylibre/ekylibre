@@ -144,7 +144,7 @@ class Crumb < Ekylibre::Record::Base
   #         to Intervention#match.
   #       - relevance, limit, history, provisional, max_arity: see Intervention#match documentation.
   def convert(options = {})
-    res = "foo"
+    res = nil
     Ekylibre::Record::Base.transaction do
       options[:actors_ids] ||= []
       actors = Crumb.products(intervention).concat(Product.find(options[:actors_ids])).compact.uniq
@@ -163,11 +163,17 @@ class Crumb < Ekylibre::Record::Base
       res = Intervention.create!(attributes)
 
       # creates casts
+      # adds actors
       procedure.matching_variables_for(actors).each do |variable, actor|
         attributes = {}
         attributes[:actor] = actor
         attributes[:reference_name] = variable.name
         res.add_cast!(attributes)
+      end
+      # adds empty casts for unknown actors
+      procedure.variables.values.each do |variable|
+        res.add_cast!(reference_name: variable.name) unless res.casts.map(&:reference_name).include? variable.name.to_s
+        puts res.casts.map(&:reference_name).to_sentence.red
       end
     end
     res
