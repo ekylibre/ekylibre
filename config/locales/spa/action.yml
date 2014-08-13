@@ -780,7 +780,7 @@ spa:
     # add_phone: "Add phone number"
     # add_production: "Add production"
     # add_purchase_taxation: "Add purchase taxation"
-    # add_quickly_a_line: "Add quickly a line of product"
+    # add_quickly_an_item: "Add quickly a line of product"
     # add_reading: "Add a value for an indicator"
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
@@ -1058,7 +1058,7 @@ spa:
     hour_duration:
       # one: "Total used time: 1 hour"
       # other: "Total used time: 1 hour: %{count} hours"
-      # zero: "No Time used"
+      # zero: "No time used"
     iban: "Numero de cuento bancario internacional (IBAN)"
     # identification: "Identification"
     # illness: "Illness"
@@ -1161,6 +1161,7 @@ spa:
       one: "1 correro electronico"
       other: "%{count} correos electronicos"
       zero: "Ningun correo electronico"
+    # main_settings: "Main settings"
     management: "Administración comercial" #?
     manual_period: "del %{empezo} al %{termino}"
     # map: "Map"

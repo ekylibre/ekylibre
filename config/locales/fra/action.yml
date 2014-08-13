@@ -661,11 +661,10 @@ fra:
     add_posology: "Ajouter une posologie" #?
     add_product: "Ajouter un produit" #?
     add_production: "Ajouter une production"
-    # add_purchase_taxation: "Add purchase taxation"
-    # add_quickly_a_line: "Add quickly a line of product"
-    add_quickly_an_item: "Ajouter rapidement une ligne de produit" #?
+    add_purchase_taxation: "Ajouter une taxe d'achat"
+    add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
-    # add_sale_taxation: "Add sale taxation"
+    add_sale_taxation: "Ajouter une taxe de vente"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production" #?
     add_treatment: "Ajouter un traitement" #?
@@ -971,7 +970,7 @@ fra:
     hour_duration:
       one: "Temps d’utilisation total\_: %{count} heure"
       other: "Temps d’utilisation total\_: %{count} heures"
-      # zero: "No Time used"
+      zero: "Aucune durée d’utilisation"
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     illness: "Maladies"
@@ -1082,6 +1081,7 @@ fra:
       one: "%{count} courriel"
       other: "%{count} courriels"
       zero: "Aucun courriels"
+    main_settings: "Principaux paramètres"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
     management: "Gestion commerciale" #?
@@ -1345,10 +1345,9 @@ fra:
     related_people: "En lien avec"
     relationship: "Gestion des relations clients/fournisseurs"
     remove: "Supprimer"
-    remove_diagnostic: "Supprimer un diagnostic" #?
-    remove_item: "Supprimer un item"
-    remove_reading: "Supprimer une mesure pour un indicateur" #?
-    # remove_subscription: "Remove subscription"
+    remove_item: "Supprimer un élément"
+    remove_reading: "Supprimer un relevé d'indicateur" #?
+    remove_subscription: "Supprimer l'abonnement"
     remove_treatment: "Supprimer un traitement" #?
     remove_watching: "Supprimer un produit de référence" #?
     reopen: "Déclôturer" #?
@@ -1358,7 +1357,7 @@ fra:
     reproductor: "Reproducteur" #?
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
-    # reset: "Reset"
+    reset: "Réinitialiser"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest_to_pay: "Reste à payer"
@@ -1521,9 +1520,8 @@ fra:
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé"
     totals: "Totaux (pièces validées et brouillard)"
-    tp_index: "Index génétique Taux protéïque" #?
     tracking: "Lot"
-    # trade: "Trade"
+    trade: "Commerce"
     transfer: "Effectuer les transferts"
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?
@@ -1548,7 +1546,7 @@ fra:
     unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue"
     unlock: "Déverrouiller"
-    # unmark: "Unmark"
+    unmark: "Délettrer"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer"
     unpaid_days: "À payer depuis (jours)"
@@ -1570,7 +1568,7 @@ fra:
     usage_duration: "Durée d’utilisation" #?
     use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "Sélectionnez un journal pour reporter les à nouveaux"
-    # used_accounts: "Used accounts only"
+    used_accounts: "Comptes utilisés seulement"
     user_name: "Nom d’utilisateur"
     users: "Compte utilisateur" #?
     uses: "Matériel" #?
@@ -1737,8 +1735,8 @@ fra:
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
       bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
       cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
-      # cannot_find_deal_to_attach: "Cannot find deal to attach"
-      # cannot_find_deal_to_detach: "Cannot find deal to detach"
+      cannot_find_deal_to_attach: "Impossible de trouver la transaction à rattacher"
+      cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"

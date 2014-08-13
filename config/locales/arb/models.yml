@@ -1329,13 +1329,6 @@ arb:
     # faxes: "Faxes"
     # fifth_producer: "Fifth producer"
     # fifth_producer_way: "Fifth producer way"
-    # file_content_text: "File content text"
-    # file_content_type: "File content type"
-    # file_file_name: "File file name"
-    # file_file_size: "File file size"
-    # file_fingerprint: "File fingerprint"
-    # file_pages_count: "File pages count"
-    # file_updated_at: "File updated at"
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     # filtered_columns: "Filtered columns"
@@ -1697,7 +1690,6 @@ arb:
     # product_deaths: "Product deaths"
     # product_divisions: "Product divisions"
     # product_enjoyments: "Product enjoyments"
-    # product_events: "Product events"
     product_id: "المنتج" #?
     # product_linkages: "Product linkages"
     # product_localization: "Product localization"
@@ -1789,10 +1781,6 @@ arb:
     reductions: "طرق الخصومات"
     # reference_name: "Reference name"
     # reference_number: "Reference number"
-    # reference_source_content_type: "Reference source content type"
-    # reference_source_file_name: "Reference source file name"
-    # reference_source_file_size: "Reference source file size"
-    # reference_source_updated_at: "Reference source updated at"
     # reference_tax: "Reference tax"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
     reflected: "انعكاس التغييرات"
