@@ -321,10 +321,10 @@ class Intervention < Ekylibre::Record::Base
   #           - actors, an array of actors identified for a given procedure
   # ==== options:
   #           - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
-  # is expected. Default value: 0.
+  #             is expected. Default value: 0.
   #           - limit: sets the number of wanted results. By default all results are returned
   #           - history: sets the use of actors history to calculate relevance. A boolean is expected.
-  # Default: false,since checking through history is slower
+  #             Default: false,since checking through history is slower
   #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
   # Default: false, since it's slower
   #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false

@@ -148,18 +148,27 @@ class Crumb < Ekylibre::Record::Base
     Ekylibre::Record::Base.transaction do
       options[:actors_ids] ||= []
       actors = Crumb.products(intervention).concat(Product.find(options[:actors_ids])).compact.uniq
-      puts actors.map(&:name).join(', ').yellow
       options[:support_id] ||= Crumb.production_supports(intervention.where(nature: :hard_start)).pluck(:id).first
-      puts options[:support_id].to_s.yellow
+      support = ProductionSupport.find(options[:support_id])
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
-      puts options[:procedure_name].to_s.yellow
       procedure = Procedo[options[:procedure_name]]
+
+      # preparing attributes for Intervention#create!
       attributes = {}
       attributes[:started_at] = intervention.where(nature: :start).pluck(:read_at).first
       attributes[:stopped_at] = intervention.where(nature: :stop).pluck(:read_at).first
       attributes[:reference_name] = procedure.name
-      attributes[:production] = ProductionSupport.find(options[:support_id]).production
+      attributes[:production] = support.production
+      attributes[:production_support] = support
       res = Intervention.create!(attributes)
+
+      # creates casts
+      procedure.matching_variables_for(actors).each do |variable, actor|
+        attributes = {}
+        attributes[:actor] = actor
+        attributes[:reference_name] = variable.name
+        res.add_cast!(attributes)
+      end
     end
     res
   end
