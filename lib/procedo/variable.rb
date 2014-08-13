@@ -292,24 +292,25 @@ module Procedo
       return result || false
     end
 
-    # match actors to variable
-    # @params: actors, a list of actors to check
-    # @returns: result, an array of actors fulfilling variable
+    # match actors to variable. Returns an array of actors fulfilling variable
+    # ==== Parameters: 
+    #       - actors, a list of actors to check
     def possible_matching_for(*actors)
       actors.flatten!
       result = []
       actors.each do |actor|
-        result << actor.name.to_sym if fulfilled_by?(actor)
+        result << actor if fulfilled_by?(actor)
       end
       return result
     end
 
     private
-    # compare two _Nomen::Varieties items
-    # @params:  - variable_item, current variable own variety or derivative_of
-    #           - actor_item, the actor's variety or derivative_of to compare
-    # @returns: true if actor's item is the same as variable's one or if
+    # compare two Nomen::Varieties items
+    # returns true if actor's item is the same as variable's one or if
     # actor's item is a child of variable's variety, false otherwise
+    # ==== Parameters:
+    #           - variable_item, current variable own variety or derivative_of
+    #           - actor_item, the actor's variety or derivative_of to compare
     def same_items?(variable_item, actor_item)
       # if possible it is better to squeeze nomenclature items comparison since it's quite slow
       if actor_item == variable_item

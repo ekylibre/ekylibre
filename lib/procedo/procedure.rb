@@ -593,10 +593,9 @@ module Procedo
       return after
     end
 
-    # generate a hash associating one actor to each procedure variable whenever possible
-    # @params: actors, a list of actors possibly matching procedure variables
-    # @return:   - result, a hash associating one actor to one variable
-    #               key: variable, value: actor
+    # generates a hash associating one actor (as the hash value) to each procedure variable (as the hash key) whenever possible
+    # ==== Parameters: 
+    #         - actors, a list of actors possibly matching procedure variables
     def matching_variables_for(*actors)
       actors.flatten!
       result = {}
@@ -604,24 +603,24 @@ module Procedo
       # and variables matching each actor
       actors_for_each_variable = Hash.new
       @variables.values.each do |variable|
-        actors_for_each_variable[variable.name.to_sym] = variable.possible_matching_for(actors)
+        actors_for_each_variable[variable] = variable.possible_matching_for(actors)
       end
 
-      variables_for_each_actor = actors_for_each_variable.inject({}) do |res, (variable_key, actors_ary)|
+      variables_for_each_actor = actors_for_each_variable.inject({}) do |res, (variable, actors_ary)|
         unless actors_ary.blank?
           actors_ary.each do |actor|
             res[actor] ||= []
-            res[actor] << variable_key
+            res[actor] << variable
           end
         end
         res
       end
 
       # cleaning variables with no actor
-      actors_for_each_variable.each do |variable_key, actors_ary|
+      actors_for_each_variable.each do |variable, actors_ary|
         if actors_ary.empty?
-          result[variable_key] = nil
-          actors_for_each_variable.delete(variable_key)
+          result[variable] = nil
+          actors_for_each_variable.delete(variable)
         end
       end
 

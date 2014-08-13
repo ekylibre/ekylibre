@@ -107,16 +107,60 @@ class Crumb < Ekylibre::Record::Base
   # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
   def intervention
     if nature == 'start'
-      start_read_at = read_at
+      start_read_at = read_at.utc
     else
-      start_read_at = Crumb.where(user_id: user_id).where(nature: :start).where("read_at <= TIMESTAMP '#{read_at.utc}'").order(read_at: :desc).first.read_at
+      start_read_at = Crumb.where(user_id: user_id).where(nature: :start).
+                            where("read_at <= TIMESTAMP '#{read_at.utc}'").
+                            order(read_at: :desc).
+                            pluck(:read_at).
+                            first.utc
     end
-    stop_read_at  = Crumb.where(user_id: user_id).where(nature: :stop).where("read_at >= TIMESTAMP '#{read_at.utc}'").order(read_at: :asc).first.read_at
+    if nature == 'stop'
+      stop_read_at = read_at.utc
+    else
+      stop_read_at  = Crumb.where(user_id: user_id).
+                            where(nature: :stop).
+                            where("read_at >= TIMESTAMP '#{read_at.utc}'").
+                            order(read_at: :asc).
+                            pluck(:read_at).
+                            first.utc
+    end
     Crumb.where(user_id: user_id).where(read_at: start_read_at..stop_read_at)
   end
 
-  def convert
-
+  # turns a crumb into an actual intervention and returns the created intervention if any
+  # ==== Options :
+  #   * General options: 
+  #       - support_id: the production support id for which the user wants to register an intervention. 
+  #         Default: the first production support matched for the hard start crumbs of the same intervention
+  #         as the current crumb
+  #       - procedure_name: the name of the procedure for which the user wants to register an intervention.
+  #         Default: the first result matched by Intervention#match for the actors found from the crumbs of the
+  #         same intervention as the current crumb.
+  #   * Intervention#match related options:
+  #       - actors_ids: an array of ids corresponding to products that #products method might not match
+  #         but that belong to the current intervention. This array is converted into an array of products
+  #         and merged with products found by Crumb#products for the current intervention before being passed
+  #         to Intervention#match.
+  #       - relevance, limit, history, provisional, max_arity: see Intervention#match documentation.
+  def convert(options = {})
+    res = "foo"
+    Ekylibre::Record::Base.transaction do
+      options[:actors_ids] ||= []
+      actors = Crumb.products(intervention).concat(Product.find(options[:actors_ids])).compact.uniq
+      puts actors.map(&:name).join(', ').yellow
+      options[:support_id] ||= Crumb.production_supports(intervention.where(nature: :hard_start)).pluck(:id).first
+      puts options[:support_id].to_s.yellow
+      options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
+      puts options[:procedure_name].to_s.yellow
+      procedure = Procedo[options[:procedure_name]]
+      attributes = {}
+      attributes[:started_at] = intervention.where(nature: :start).pluck(:read_at).first
+      attributes[:stopped_at] = intervention.where(nature: :stop).pluck(:read_at).first
+      attributes[:reference_name] = procedure.name 
+      res = Intervention.create!(attributes)
+    end
+    res
   end
 
 end
