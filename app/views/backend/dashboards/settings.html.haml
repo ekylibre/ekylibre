@@ -1,13 +1,20 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :main_settings do
-      %dl.big
-        %dt= :currency.t(scope: 'preferences')
-        %dd= Nomen::Currencies[Preference[:currency]].human_name
-        %dt= :country.t(scope: 'preferences')
-        %dd= Nomen::Countries[Preference[:country]].human_name
-        %dt= :language.t(scope: 'preferences')
-        %dd= Nomen::Languages[Preference[:language]].human_name
+      .big-infos
+        .big-info
+          %span.title= :currency.t(scope: 'preferences')
+          %span.value= Nomen::Currencies[Preference[:currency]].human_name rescue "?"
+        .big-info
+          %span.title= :country.t(scope: 'preferences')
+          %span.value= Nomen::Countries[Preference[:country]].human_name rescue "?"
+        .big-info
+          %span.title= :language.t(scope: 'preferences')
+          %span.value= Nomen::Languages[Preference[:language]].human_name rescue "?"
+        .big-info
+          %span.title= :chart_of_account.t(scope: 'preferences')
+          -# %span.value= Nomen::ChartsOfAccounts[Preference[:chart_of_account]].human_name
+          %span.value= Preference[:chart_of_account].mb_chars.upcase.gsub('_', '-') rescue "?"
 
     - b.cell :statistics do
       %ul.desc-list

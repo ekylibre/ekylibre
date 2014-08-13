@@ -1,6 +1,8 @@
-#about-us
-  =link_to(image_tag("ekylibre.png"), "http://www.ekylibre.org", class: :logo)
-  %dl
-    -for p in @properties
-      %dt=p[0]
-      %dd=p[1]
+= beehive do |b|
+  - b.cell :ekylibre do
+    #about-us= link_to(image_tag("ekylibre.svg"), "http://www.ekylibre.org", class: :logo)
+    .big-infos
+      - for p in @properties
+        .big-info
+          %span.title= p[0]
+          %span.value= p[1]
