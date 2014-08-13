@@ -56,13 +56,16 @@ class Backend::CrumbsController < BackendController
     redirect_to backend_crumbs_path
   end
 
+  # creates an intervention from crumb and redirects to an edit form for
+  # the newly created intervention.
   def convert
-    redirect_to backend_crumbs_path
+    @crumb = Crumb.find(params[:id])
+    redirect_to edit_backend_intervention_path(@crumb.convert(crumb_params))
   end
 
   private
     def crumb_params
-      params.permit(:nature, :previous_crumb_id, :intervention_date)
+      params.permit!
     end
 
 end

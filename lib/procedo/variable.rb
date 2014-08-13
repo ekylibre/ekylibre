@@ -293,7 +293,7 @@ module Procedo
     end
 
     # match actors to variable. Returns an array of actors fulfilling variable
-    # ==== Parameters: 
+    # ==== Parameters:
     #       - actors, a list of actors to check
     def possible_matching_for(*actors)
       actors.flatten!

@@ -594,7 +594,7 @@ module Procedo
     end
 
     # generates a hash associating one actor (as the hash value) to each procedure variable (as the hash key) whenever possible
-    # ==== Parameters: 
+    # ==== Parameters:
     #         - actors, a list of actors possibly matching procedure variables
     def matching_variables_for(*actors)
       actors.flatten!

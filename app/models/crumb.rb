@@ -130,8 +130,8 @@ class Crumb < Ekylibre::Record::Base
 
   # turns a crumb into an actual intervention and returns the created intervention if any
   # ==== Options :
-  #   * General options: 
-  #       - support_id: the production support id for which the user wants to register an intervention. 
+  #   * General options:
+  #       - support_id: the production support id for which the user wants to register an intervention.
   #         Default: the first production support matched for the hard start crumbs of the same intervention
   #         as the current crumb
   #       - procedure_name: the name of the procedure for which the user wants to register an intervention.
@@ -157,7 +157,8 @@ class Crumb < Ekylibre::Record::Base
       attributes = {}
       attributes[:started_at] = intervention.where(nature: :start).pluck(:read_at).first
       attributes[:stopped_at] = intervention.where(nature: :stop).pluck(:read_at).first
-      attributes[:reference_name] = procedure.name 
+      attributes[:reference_name] = procedure.name
+      attributes[:production] = ProductionSupport.find(options[:support_id]).production
       res = Intervention.create!(attributes)
     end
     res
