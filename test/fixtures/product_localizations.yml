@@ -63,3 +63,11 @@ product_localizations_002:
   started_at: 2009-07-19 19:13:59.000000000 +02:00
   stopped_at: 2009-07-19 19:13:59.000000000 +02:00
   updater: users_001
+
+product_localizations_003:
+  container: building_divisions_001
+  creator: users_001
+  nature: interior
+  product: equipments_003
+  started_at: 2001-07-19 19:13:59.000000000 +02:00
+  updater: users_001
