@@ -36,8 +36,7 @@
       - v.background "Thunderforest.Landscape"
       - v.background "Esri.WorldImagery"
       - if resource.container
-        - shape = resource.container.shape
-        - if shape
+        - if shape = resource.container.shape
           - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
           - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
           - count += 1

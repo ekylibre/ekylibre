@@ -1,28 +1,28 @@
 :ruby
-  data = AnimalGroup.all.collect do |a|
-    next unless a.container.shape
+  data = AnimalGroup.all.collect do |group|
+    next unless group.container and group.container.shape
 
     popup_content = []
 
-    if a.members_at.count > 0
-      popup_content << {label: :members_count.tl, value: a.members_at.count }
+    if group.members_at.any?
+      popup_content << {label: AnimalGroup.human_attribute_name(:members_count), value: group.members_at.count }
     end
 
-    if container = a.container
-      popup_content << {label: :container.tl, value: link_to(container.name, backend_product_path(container)) }
+    if container = group.container
+      popup_content << {label: AnimalGroup.human_attribute_name(:container), value: link_to(container.name, backend_product_path(container)) }
     end
 
-    if issues = Issue.where(target_id: a.id, target_type: a.class.name ).reorder(:observed_at)
-      popup_content << {label: :issues_count.tl, value: issues.count }
+    if issues = Issue.where(target_id: group.id, target_type: group.class.name ).reorder(:observed_at)
+      popup_content << {label: AnimalGroup.human_attribute_name(:issues_count), value: issues.count }
     end
 
-    if issues.count > 0 and last_issue = issues.last
-      popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
+    if issues.any? and last_issue = issues.last
+      popup_content << {label: AnimalGroup.human_attribute_name(:last_issue), value: link_to( last_issue.name, backend_issue_path(last_issue)) }
     end
 
-    popup_content << render('popup', animal_group: a)
+    popup_content << render('popup', animal_group: group)
 
-    {name: a.name, shape: a.container.shape, members_count: a.members_at.count, issues_count: issues.count, popup: {header: true, content: popup_content} }
+    {name: group.name, shape: group.container.shape, members_count: group.members_at.count, issues_count: issues.count, popup: {header: true, content: popup_content} }
   end
 
 = kujaku
@@ -31,18 +31,19 @@
   - t.new
 
 = beehive do |b|
-  - b.cell :animals_group_map do
-    = visualization do |v|
-      - v.serie :main, data
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - v.choropleth :members_count, :main
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
+  - b.hbox do
+    - b.cell :map do
+      = visualization do |v|
+        - v.serie :main, data
+        - v.background "OpenStreetMap.HOT"
+        - v.background "OpenStreetMap.Mapnik"
+        - v.background "Thunderforest.Landscape"
+        - v.background "Esri.WorldImagery"
+        - v.choropleth :members_count, :main
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector
 
-  - b.cell :list do
-    = list
+    - b.cell :list do
+      = list
