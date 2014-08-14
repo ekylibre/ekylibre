@@ -106,7 +106,8 @@ load_data :equipments do |loader|
                            born_at: (row[6].blank? ? Date.civil(1980, 2, 2) : Date.new(*(row[6].split('-').map(&:to_i)))).to_datetime,
                            notes: row[7].to_s,
                            unit_price: row[8].blank? ? nil : row[8].to_d,
-                           price_indicator: row[9].blank? ? nil : row[9].to_sym
+                           price_indicator: row[9].blank? ? nil : row[9].to_sym,
+                           email: row[10]
                            )
 
         # Find or import from variant reference_name the correct ProductNatureVariant
@@ -124,6 +125,17 @@ load_data :equipments do |loader|
         unless person = Person.find_by(first_name: r.first_name, last_name: r.last_name)
           person = Person.create!(first_name: r.first_name, last_name: r.last_name, born_at: r.born_at)
         end
+
+        # create the user
+        if person and r.email.present? and !person.user
+          unless user = User.find_by(email: email)
+            password = User.generate_password(100, :hard)
+            user = User.create!(first_name: r.first_name, last_name: r.last_name, email: email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)
+          end
+          user.person = person
+          user.save!
+        end
+
 
         owner = Entity.of_company
 

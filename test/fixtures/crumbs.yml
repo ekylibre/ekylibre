@@ -71,3 +71,14 @@ crumbs_002:
   read_at: 2013-10-26 18:34:04 +02:00
   updater: users_001
   user: users_001
+
+crumbs_003:
+  accuracy: 0
+  creator: users_001
+  geolocation: !wgs84.geo.ekylibre.org,2014/point
+  - -0.78002729687592
+  - 45.692752372908732
+  nature: "stop"
+  read_at: 2013-10-26 18:34:04 +02:00
+  updater: users_001
+  user: users_001

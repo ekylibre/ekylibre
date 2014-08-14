@@ -40,6 +40,7 @@ class Crumb < Ekylibre::Record::Base
   enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop]
   belongs_to :user
   belongs_to :intervention_cast
+  has_one :worker, through: :user
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :accuracy, allow_nil: true
   validates_length_of :nature, allow_nil: true, maximum: 255
@@ -111,25 +112,25 @@ class Crumb < Ekylibre::Record::Base
   # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
     if nature == 'start'
-      start_read_at = read_at.utc
+      start_read_at = self.read_at.utc
     else
-      start_read_at = Crumb.where(user_id: user_id).where(nature: :start).
-                            where("read_at <= TIMESTAMP '#{read_at.utc}'").
+      start_read_at = Crumb.where(user_id: self.user_id).where(nature: :start).
+                            where("read_at <= ?", self.read_at.utc).
                             order(read_at: :desc).
                             pluck(:read_at).
                             first.utc
     end
     if nature == 'stop'
-      stop_read_at = read_at.utc
+      stop_read_at = self.read_at.utc
     else
-      stop_read_at  = Crumb.where(user_id: user_id).
+      stop_read_at  = Crumb.where(user_id: self.user_id).
                             where(nature: :stop).
-                            where("read_at >= TIMESTAMP '#{read_at.utc}'").
+                            where("read_at >= TIMESTAMP '#{self.read_at.utc}'").
                             order(read_at: :asc).
                             pluck(:read_at).
                             first.utc
     end
-    Crumb.where(user_id: user_id).where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
+    Crumb.where(user_id: self.user_id).where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
   end
 
   # turns a crumb into an actual intervention and returns the created intervention if any
@@ -151,9 +152,11 @@ class Crumb < Ekylibre::Record::Base
     intervention = nil
     Ekylibre::Record::Base.transaction do
       options[:actors_ids] ||= []
-      options[:actors_ids] << User.find(user_id).worker.id unless User.find(user_id).worker.nil?
+      options[:actors_ids] << self.worker.id unless self.worker.nil?
       actors = Crumb.products(intervention_path).concat(Product.find(options[:actors_ids])).compact.uniq
-      options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
+      unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
+        raise StandardError, "Need a production support"
+      end
       support = ProductionSupport.find(options[:support_id])
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
       procedure = Procedo[options[:procedure_name]]
@@ -174,10 +177,11 @@ class Crumb < Ekylibre::Record::Base
         attributes[:actor] = actor
         attributes[:reference_name] = variable.name
         cast = intervention.add_cast!(attributes)
-        if actor == User.find(user_id).worker
-          intervention_path.update_column(:intervention_cast_id, cast.id)
+        if self.worker and actor == self.worker
+          intervention_path.update_all(intervention_cast_id: cast.id)
         end
       end
+
       # adds empty casts for unknown actors
       procedure.variables.values.each do |variable|
         intervention.add_cast!(reference_name: variable.name) unless intervention.casts.map(&:reference_name).include? variable.name.to_s

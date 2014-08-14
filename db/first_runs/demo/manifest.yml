@@ -1,9 +1,11 @@
+# Manifest with french comments
+# Manifeste avec commentaires en français
 currency: EUR                                    # Code monnaie
 country: fr                                      # Code pays
 language: fra                                    # Code langue
 map_measure_srid: 2154                           # Code référentiel spatial
 demo: true                                       # Mode démo (oui/non)
-create_activities_from_telepac: false		 # Création des activités uniquement à partir des fichiers TELEPAC
+create_activities_from_telepac: false            # Création des activités uniquement à partir des fichiers TELEPAC
 company:
   last_name: GAEC DUPONT                         # Nom
   addresses:
@@ -17,12 +19,12 @@ users:
     last_name: DUPONT                            # Nom de famille
     password: 12345678                           # Mot de passe
     employed: true
-  veto@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
-    first_name: Christian                        # Prénom
-    last_name: MARTIN                            # Nom de famille
+  veto@ekylibre.org:                             # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Jean-Yves                        # Prénom
+    last_name: BRASLONG                          # Nom de famille
     password: 12345678                           # Mot de passe
-  comptable@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
-    first_name: Christian                        # Prénom
+  comptable@ekylibre.org:                        # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Michel                           # Prénom
     last_name: DURAND                            # Nom de famille
     password: 12345678                           # Mot de passe
 chart_of_account: fr_pcga                        # Code plan comptable

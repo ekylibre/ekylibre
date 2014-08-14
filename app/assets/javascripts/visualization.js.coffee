@@ -85,6 +85,13 @@
           opacity: 0.2
           fill: true
           fillOpacity: 1
+        path:
+          stroke: true
+          color: "#333333"
+          weight: 2
+          opacity: 0.2
+          fill: true
+          fillOpacity: 1
 
       map:
         maxZoom: 18
@@ -320,6 +327,21 @@
       legend = legendControl.getContainer()
       legend.innerHTML += paths.buildLegend()
       return layerGroup
+
+    _addPathLayer: (layer, legendControl)->
+      data = this._getSerieData(layer.serie)
+      options = $.extend true, {}, @options.layerDefaults.path, layer
+      path = new visualization.Path(layer, data, options)
+      return false unless path.valid()
+
+      layerGroup = path.buildLayerGroup(this, options)
+      console.log("Path layer added")
+
+      # Add legend
+      legend = legendControl.getContainer()
+      legend.innerHTML += path.buildLegend()
+      return layerGroup
+
 
     # Build a popup from given parameters. For now it only uses popup attribute of
     # a zone. After it will use a global template for all zone by default which can be

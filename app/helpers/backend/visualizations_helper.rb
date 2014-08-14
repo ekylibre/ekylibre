@@ -54,6 +54,10 @@ module Backend::VisualizationsHelper
       layer(name, serie, options.merge(type: :paths))
     end
 
+    def path(name, serie, options = {})
+      layer(name, serie, options.merge(type: :path))
+    end
+
     # Add a serie of geo data
     def serie(name, data)
       unless data.is_a? Array

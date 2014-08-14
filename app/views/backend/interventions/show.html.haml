@@ -20,6 +20,11 @@
           - v.serie cast.id, [{name: cast.name, shape: shape}]
           - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
           - count += 1
+      - for cast in resource.casts    
+        - if cast.crumbs.any?
+          - v.serie "path_#{cast.id}", cast.crumbs.collect{|c| {name: cast.name, shape: c.geolocation}}
+          - v.path (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
+          - count += 1
       - v.control :zoom
       - v.control :scale
       - v.control :fullscreen

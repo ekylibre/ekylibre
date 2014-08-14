@@ -381,7 +381,7 @@ load_data :demo_interventions do |loader|
       loader.count :trip_simulation do |w|
         #############################################################################
         read_at = Time.new(2014, 5, 5, 10, 0, 0, "+00:00")
-        user = User.first
+        user = User.where(person_id: Worker.pluck(:person_id).compact).first
         RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
           file.each do |record|
             Crumb.create!(accuracy: 1,

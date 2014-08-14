@@ -1,5 +1,5 @@
 class Backend::CrumbsController < BackendController
-  manage_restfully only: [:index, :update, :destroy]
+  # manage_restfully
 
   def index
     # days
@@ -60,8 +60,8 @@ class Backend::CrumbsController < BackendController
   # creates an intervention from crumb and redirects to an edit form for
   # the newly created intervention.
   def convert
-    crumb = params[:id].present? ? Crumb.find(params[:id]) : nil
-    intervention = crumb.present? ? crumb.convert(crumb_params) : nil
+    return unless crumb = find_and_check
+    intervention = crumb.convert(crumb_params)
     if intervention.present?
       redirect_to edit_backend_intervention_path(intervention)
     else
