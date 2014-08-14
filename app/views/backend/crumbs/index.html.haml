@@ -1,10 +1,10 @@
 :ruby
   crumbs = @interventions_crumbs
-  interventions = {}
+  interventions_paths = {}
   previous_crumb = nil
   crumbs.each do |item|
-    interventions[item[:name]] ||= []
-    interventions[item[:name]] << item
+    interventions_paths[item[:name]] ||= []
+    interventions_paths[item[:name]] << item
     popup_content = []
     popup_content << {label: :nature, value: item[:nature] }
     popup_content << {label: :date, value: Crumb.find(item[:crumb_id]).read_at}
@@ -17,10 +17,10 @@
 
 = beehive do |b|
   -b.cell :map do
-    = render 'map', legend: :started_at, data: crumbs, production_supports: production_supports
-  - b.cell :interventions do
-    = render 'interventions', data: crumbs
-  - interventions.each do |name, intervention|
-    - b.cell intervention.first[:started_at].to_formatted_s(:long) do
-      = render 'intervention', data: intervention
+    = render 'map', legend: :started_at, crumbs: crumbs, production_supports: production_supports
+  - b.cell :interventions_paths do
+    = render 'interventions', crumbs: crumbs
+  - interventions_paths.each do |name, intervention_path|
+    - b.cell intervention_path.first[:started_at].to_formatted_s(:long) do
+      = render 'intervention', path: intervention_path
   

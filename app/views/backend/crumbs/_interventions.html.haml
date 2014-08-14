@@ -1,12 +1,14 @@
 :ruby
   cursors = [0]
   config = {}
-  config[:crumbs] = data
+  config[:crumbs] = crumbs
   config[:cursors] = cursors
 
-- if data.present?
-  = select_tag :intervention_date, options_for_select(@interventions_dates.collect {|d|[d.to_formatted_s(:long), d]})
-  = content_tag(:div, nil, data: {slider: config.to_json})
+- if crumbs.present?
+  = form_for :backend_crumbs_path, method: :get do |f|
+    = select_tag :intervention_date, options_for_select(@interventions_dates.collect {|d|[d.to_formatted_s(:long), d]})
+    = f.submit 'go!'
+  -#= content_tag(:div, nil, data: {slider: config.to_json})
 - else
   %p
     Nothing to do. Have a nice day!

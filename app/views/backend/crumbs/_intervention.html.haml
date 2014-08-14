@@ -1,4 +1,8 @@
-- start_crumb = Crumb.where(read_at: data.first[:started_at]).first
-= form_for [:convert_backend, start_crumb], method: :post, action: :convert do |f|
-  = link_to 'delete!', backend_crumb_path(start_crumb), action: :destroy, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-link"
-  = f.submit 'convert'
+- start_crumb = Crumb.where(read_at: path.first[:started_at]).where(nature: 'start').first
+
+= link_to 'delete!', backend_crumb_path(start_crumb), action: :destroy, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-link"
+- if start_crumb.intervention_cast_id.present?
+  = link_to 'show', backend_intervention_path(start_crumb.intervention_cast_id), class: "btn"
+- else
+  = form_for [:convert_backend, start_crumb], method: :post, action: :convert do |f|
+    = f.submit 'convert'

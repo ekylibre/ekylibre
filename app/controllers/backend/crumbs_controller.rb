@@ -10,17 +10,17 @@ class Backend::CrumbsController < BackendController
 
     crumb_ids = []
 
-    interventions = []
-    interventions = Crumb.of_date(date.to_date).interventions(current_user) if date.present?
+    interventions_paths = []
+    interventions_paths = Crumb.of_date(date.to_date).interventions_paths(current_user) if date.present?
     @production_supports = []
-    @production_supports = Crumb.production_supports(interventions.flatten) if interventions.present?
-    interventions.each do |intervention|
-      name = interventions.index(intervention)
-      started_at = intervention.first.read_at
-      stopped_at = intervention.last.read_at
-      doer = User.find(intervention.first.user_id)
+    @production_supports = Crumb.production_supports(interventions_paths.flatten) if interventions_paths.present?
+    interventions_paths.each do |intervention_path|
+      name = interventions_paths.index(intervention_path)
+      started_at = intervention_path.first.read_at
+      stopped_at = intervention_path.last.read_at
+      doer = User.find(intervention_path.first.user_id)
 
-      intervention.each do |crumb|
+      intervention_path.each do |crumb|
         item =  {
                   name:         name,
                   read_at:      crumb.read_at,
@@ -49,7 +49,7 @@ class Backend::CrumbsController < BackendController
   def destroy
     crumb = Crumb.find(params[:id])
     if crumb.nature == 'start'
-     crumb.intervention.map(&:destroy)
+     crumb.intervention_path.map(&:destroy)
     else
       crumb.destroy
     end
@@ -59,8 +59,8 @@ class Backend::CrumbsController < BackendController
   # creates an intervention from crumb and redirects to an edit form for
   # the newly created intervention.
   def convert
-    crumb = Crumb.find(params[:id])
-    intervention = crumb.convert(crumb_params)
+    crumb = params[:id].present? ? Crumb.find(params[:id]) : nil
+    intervention = crumb.present? ? crumb.convert(crumb_params) : nil
     if intervention.present?
       redirect_to edit_backend_intervention_path(intervention)
     else
