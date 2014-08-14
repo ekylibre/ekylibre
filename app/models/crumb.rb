@@ -48,17 +48,21 @@ class Crumb < Ekylibre::Record::Base
   serialize :metadata
 
   # returns all crumbs for a given day. Default: the current day
+  # TODO: remove this and replace by something like #start_day_between…
   scope :of_date, lambda{|start_date = Time.now.midnight|
     where(read_at: start_date.midnight..start_date.end_of_day)
   }
 
   # returns all products whose shape contains the given crumbs or any crumb if no crumb is given
+  # options:  no_content: excludes contents. Default: false
   # TODO: when refactoring, move this method to Product model, as Product#of_crumbs(*crumbs)
   def self.products(*crumbs)
     crumbs.flatten!
-    Product.distinct.joins(:readings)
-      .joins("INNER JOIN crumbs ON ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation)")
-      .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
+    raw_products = Product.distinct.joins(:readings)
+          .joins("INNER JOIN crumbs ON ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation)")
+          .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
+    contents = raw_products.map(&:contents)
+    raw_products.concat(contents).flatten.uniq
   end
 
   # returns all production supports whose storage shape contains the given crumbs
@@ -72,7 +76,7 @@ class Crumb < Ekylibre::Record::Base
     options[:campaigns] ||= Campaign.currents
     ProductionSupport.of_campaign(options[:campaigns]).distinct
       .joins(:storage)
-      .where("products.id IN (?)", Crumb.products(crumbs).pluck(:id))
+      .where("products.id IN (?)", Crumb.products(crumbs).map(&:id))
   end
 
   # returns all crumbs, grouped by interventions paths, for a given user.
@@ -180,6 +184,12 @@ class Crumb < Ekylibre::Record::Base
       end
     end
     intervention
+  end
+
+  # returns possible procedures matching a crumb and its corresponding intervention path
+  # Options: the same as Intervention#match
+  def possible_procedures_matching(options = {})
+    Intervention.match(Crumb.products(intervention_path), options).map{|procedure, *| procedure}
   end
 
 end
