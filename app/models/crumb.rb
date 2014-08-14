@@ -57,7 +57,7 @@ class Crumb < Ekylibre::Record::Base
   def self.products(*crumbs)
     crumbs.flatten!
     Product.distinct.joins(:readings)
-      .joins("INNER JOIN crumbs ON product_readings.geometry_value ~ crumbs.geolocation")
+      .joins("INNER JOIN crumbs ON ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation)")
       .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
   end
 
