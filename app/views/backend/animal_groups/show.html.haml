@@ -9,18 +9,18 @@
       .big-infos
         .big-info.important
           - sex_icon = (resource.sex == 'male' ? 'mars' : (resource.sex == 'female' ? 'venus' : 'sex'))
-          %span.title= resource.name
+          %span.title= resource.class.human_attribute_name(:work_number)
           %span.value
             %i.picto{class: "picto-#{sex_icon}"}
             = resource.work_number
-        - if resource.members_at.count > 0
+        .big-info
+          %san.title= resource.class.human_attribute_name(:members)
+          %span.value
+            %i.picto{class: "picto-group"}
+            = resource.members_at.count
+        - if 1 or resource.members_at.any?
           .big-info
-            %san.title= :members.tl
-            %span.value
-              %i.picto{class: "picto-group"}
-              = resource.members_at.count
-          .big-info
-            %span.title= :daily_nitrogen_production.tl
+            %span.title= resource.class.human_attribute_name(:daily_nitrogen_production)
             %span.value
               %i.picto{class: "picto-trash-o"}
               = resource.daily_nitrogen_production.round(2).l

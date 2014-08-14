@@ -732,12 +732,23 @@ form.search {
 }
 
 .attributes-list {
-  @include columns(2em 3);
-  @include respond-to(small) {
-    @include column-count(1);
+  @include column-count(1);
+  .box-1-cells & {
+    @include columns(2em 3);
+    @include respond-to(medium) {
+      @include columns(1.5em 2);
+    }
   }
-  @include respond-to(medium) {
+  .box-2-cells & {
     @include columns(1.5em 2);
+    @include respond-to(medium) {
+      @include column-count(1);
+    }
+  }
+  &, .box-1-cells &, .box-2-cells & {
+    @include respond-to(small) {
+      @include column-count(1);
+    }
   }
   //  @include respond-to(large) {
     //    @include column-count(4);

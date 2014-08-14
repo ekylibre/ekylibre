@@ -56,6 +56,7 @@ class Cash < Ekylibre::Record::Base
   belongs_to :journal
   has_many :bank_statements
   has_many :deposits
+  has_many :journal_entry_items, through: :account
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_one :last_bank_statement, -> { order("stopped_at DESC") }, class_name: "BankStatement"
@@ -163,6 +164,15 @@ class Cash < Ekylibre::Record::Base
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
     end
+  end
+
+
+  # Returns cash balance in the global currency
+  def balance(at = Time.now)
+    if item = self.journal_entry_items.order(printed_at: :desc).where("printed_at <= ?", at).first
+      return item.cumulated_absolute_balance
+    end
+    return 0.0
   end
 
 end

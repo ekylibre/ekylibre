@@ -1,7 +1,7 @@
 // General mixin for buttons
 @import "compass/css3/images";
 
-@mixin button ($background-color: $neutral-background, $color: false, $focus-background-color: $base-color, $focus-color: false, $is-input: false) {
+@mixin button ($background-color: $neutral-background, $color: false, $focus-background-color: $base-color, $focus-color: false, $input: false) {
   @if $color == false {
     $color: visible-color($background-color);
   }
@@ -83,12 +83,12 @@ $button-height: round($fs-normal*0.20) * 2 + round(1.4 * $fs-normal) + $menu-bor
 
 
 input[type="submit"], input[type="button"], input[type="reset"] {
-  @include button($is-input: true);
+  @include button($input: true);
   &.primary {
-    @include button($background-color: $base-color, $is-input: true);
+    @include button($background-color: $base-color, $input: true);
   }
   &.important {
-    @include button($background-color: $important-color, $is-input: true);
+    @include button($background-color: $important-color, $input: true);
   }
 }
 

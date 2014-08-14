@@ -3,11 +3,11 @@
 .nested-fields
   = link_to_remove_association('labels.remove_subscription'.t, f, 'data-no-turbolink' => true, class: 'nested-remove remove-subscription')
   #address-field.control-group.selector.optional
-    %label.control-label.optional{:for => 'subscription-address-input'}
+    %label.control-label.optional{:for => 'subscription_address_id'}
       = Subscription.human_attribute_name('address')
     .controls
       %span.input
-        = selector(:subscription, :address, {controller: "entity_addresses", action: :unroll}, {:object => subscription}, id: 'subscription-address-input', class: 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :entity_addresses, action: :new}, 'data-new-item' => 'subscription-address-input', class: 'btn btn-new')
+        = selector(:subscription, :address, {controller: "entity_addresses", action: :unroll}, {:object => subscription}, id: 'subscription_address_id', class: 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :entity_addresses, action: :new}, 'data-new-item' => 'subscription_address_id', class: 'btn btn-new')
       - for error in subscription.errors['address']
         %span.help-inline= error
   = f.input(:started_at, wrapper_html: {id: 'started-on-field'})

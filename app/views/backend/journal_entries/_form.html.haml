@@ -1,5 +1,6 @@
 = field_set do
-  = f.referenced_association :journal, :readonly => true
+  = f.referenced_association :journal, readonly: true, input_html: {data: {dependents: "#exchange-rate"}}
   = f.input :number
-  = f.input :printed_at
-  = render :partial => "exchange_rate_form", :depend_at => [:printed_at, :journal], :refresh_url => new_backend_journal_entry_path
+  = f.input :printed_at, input_html: {data: {dependents: "#exchange-rate"}}
+  #exchange-rate{data: {refresh_url: new_backend_journal_entry_path}}
+    = render partial: "exchange_rate_form"

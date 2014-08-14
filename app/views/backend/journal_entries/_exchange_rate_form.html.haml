@@ -1,33 +1,35 @@
--@financial_year = FinancialYear.at(@journal_entry.printed_at)
--if @financial_year
-  -if @journal.currency != @financial_year.currency
-    =field_set :exchange_rate do
-      =field :exchange_rate_from_x_to_y.tl(:x => @journal.currency.to_currency.name, :y => @financial_year.currency.to_currency.name), text_field(:journal_entry, :real_currency_rate)
+- @financial_year = FinancialYear.at(@journal_entry.printed_at)
+- if @financial_year
+  - if @journal.currency != @financial_year.currency
+    = field_set :exchange_rate do
+      = field :exchange_rate_from_x_to_y.tl(x: @journal.currency, y: @financial_year.currency), text_field(:journal_entry, :real_currency_rate)
 
 - main_toolbar do |t|
-  -t.new(params: {controller: :journal_entry_items, :printed_at => @journal_entry.printed_at, :journal_id => @journal.id}, :remote => true, "data-update" => "#items", "data-update-at" => :bottom, "data-type" => :html, method: :get)
+  - t.new(params: {controller: :journal_entry_items, printed_at: @journal_entry.printed_at, journal_id: @journal.id}, remote: true, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
 .active-list
   %table.list
+
     %thead
       %tr
-        %th=JournalEntryItem.human_attribute_name("name")
-        %th=JournalEntryItem.human_attribute_name("account")
-        %th{"colspan" => 2}=JournalEntryItem.human_attribute_name("debit")
-        %th{"colspan" => 2}=JournalEntryItem.human_attribute_name("credit")
+        %th= JournalEntryItem.human_attribute_name("name")
+        %th= JournalEntryItem.human_attribute_name("account")
+        %th{colspan: 2}= JournalEntryItem.human_attribute_name("debit")
+        %th{colspan: 2}= JournalEntryItem.human_attribute_name("credit")
         %th.act
-    %tfoot
-      %tr#total.total{"data-valid-if-equality-between" => "#entry-original-debit, #entry-original-credit"}
-        %th{"colspan" => 2}=tl(:total_in_currency, :currency => @journal.currency.to_currency.name)
-        %td#entry-original-debit.decimal{"colspan" => 2, "data-use" => "input.original-debit"}=@journal_entry.real_debit
-        %td#entry-original-credit.decimal{"colspan" => 2, "data-use" => "input.original-credit"}=@journal_entry.real_credit
 
-      -if @financial_year and @journal.currency != @financial_year.currency
-        %tr.subtotal{"data-valid-if-equality-between" => "#entry-debit, #entry-credit"}
-          %th{"colspan" => 2}=tl(:total_in_currency, :currency => @financial_year.currency.to_currency.name)
-          %td#entry-debit.decimal{"colspan" => 2, "data-use" => "td.debit"}=@journal_entry.debit
-          %td#entry-credit.decimal{"colspan" => 2, "data-use" => "td.credit"}=@journal_entry.credit
+    %tfoot
+      %tr#total.total{data: {valid_if_equality_between: "#entry-original-debit, #entry-original-credit"}}
+        %th{colspan: 2}= :total_in_currency.tl(currency: @journal.currency)
+        %td#entry-original-debit.decimal{colspan: 2, data: {use: "input.original-debit"}}= @journal_entry.real_debit
+        %td#entry-original-credit.decimal{colspan: 2, data: {use: "input.original-credit"}}= @journal_entry.real_credit
+
+      - if @financial_year and @journal.currency != @financial_year.currency
+        %tr.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit"}}
+          %th{colspan: 2}= :total_in_currency.tl(currency: @financial_year.currency)
+          %td#entry-debit.decimal{colspan: 2, data: {use: "td.debit"}}= @journal_entry.debit
+          %td#entry-credit.decimal{colspan: 2, data: {use: "td.credit"}}= @journal_entry.credit
 
     %tbody#items.items
-      -items = @journal_entry_items || @journal_entry.items
-      =render :partial => "backend/journal_entry_items/row_form", :collection => items
-      =render :partial => "backend/journal_entry_items/row_form", :object => @journal_entry.items.new if items.empty?
+      - items = @journal_entry_items || @journal_entry.items
+      = render partial: "backend/journal_entry_items/row_form", collection: items
+      = render partial: "backend/journal_entry_items/row_form", object: @journal_entry.items.new if items.empty?

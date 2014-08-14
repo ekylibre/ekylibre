@@ -45,7 +45,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     new_url[:action] ||= :new
 
     model = @object.class
-    input_id = model.name.underscore + "-" + association.to_s + "-input"
+    input_id = model.name.underscore + "_" + reflection.foreign_key.to_s
 
     html_options = options.delete(:input_html) || {}
 
@@ -74,7 +74,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     new_url[:action] ||= :new
 
     model = @object.class
-    input_id = model.name.underscore + "-" + association.to_s + "-input"
+    input_id = model.name.underscore + "_" + reflection.foreign_key.to_s + "_id"
 
     html_options = options.delete(:input_html) || {}
 

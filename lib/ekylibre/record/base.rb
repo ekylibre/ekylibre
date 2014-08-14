@@ -61,6 +61,10 @@ module Ekylibre::Record
       updateable?
     end
 
+    def human_attribute_name(*args)
+      self.class.human_attribute_name(*args)
+    end
+
     # Returns a relation for all other records
     def others
       self.class.where.not(id: (self.id || -1))

@@ -263,6 +263,7 @@ eng:
       zone: "Zone"
       zone_property_title: "Zone property title"
   attributes:
+    daily_nitrogen_production: "Daily nitrogen production"
     abilities_list: "Abilities list"
     absolute_credit: "Absolute credit"
     absolute_currency: "Absolute currency"

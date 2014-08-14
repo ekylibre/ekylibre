@@ -798,7 +798,6 @@ eng:
     currency_with_code: "%{name} (%{code})" #?
     current: "Current" #?
     current_letter: "Current letter: %{letter}" #?
-    daily_nitrogen_production: "Daily nitrogen production"
     data_to_export: "Data to export" #?
     data_to_extract: "Data to extract" #?
     dates: "Select period start date and Period end date" #?
