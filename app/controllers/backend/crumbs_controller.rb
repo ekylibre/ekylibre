@@ -1,4 +1,5 @@
 class Backend::CrumbsController < BackendController
+  manage_restfully
 
   def index
     # days
