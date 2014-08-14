@@ -73,6 +73,7 @@ class User < Ekylibre::Record::Base
   has_many :sales, foreign_key: :responsible_id
   has_many :transports, foreign_key: :responsible_id
   has_many :unpaid_sales, -> { order(:created_at).where(state: ['order', 'invoice']).where(lost: false).where("paid_amount < amount") }, class_name: "Sale", foreign_key: :responsible_id
+  has_one :worker, through: :person
 
   scope :employees, -> { where(employed: true) }
   scope :administrators, -> { where(administrator: true) }

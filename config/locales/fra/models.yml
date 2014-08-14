@@ -1207,6 +1207,7 @@ fra:
     with_deposit: "Utiliser les remises en banque"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
+    # worker: "Worker"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:

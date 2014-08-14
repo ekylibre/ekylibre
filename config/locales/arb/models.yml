@@ -2009,6 +2009,7 @@ arb:
     with_tracking: "مع التتبع" #?
     # with_transport: "With transport"
     # work_number: "Work number"
+    # worker: "Worker"
     # zone_memberships: "Zone memberships"
     # zones: "Zones"
   models:
