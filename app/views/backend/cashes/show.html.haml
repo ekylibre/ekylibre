@@ -5,7 +5,7 @@
   - b.hbox do
     - b.cell :general do
       .big-info
-        %span.title= resource.human_attribute_name(:balance) 
+        %span.title= resource.human_attribute_name(:balance)
         %span.value= resource.balance.l(currency: Preference[:currency])
     - b.cell do
       = attributes_list do |l|

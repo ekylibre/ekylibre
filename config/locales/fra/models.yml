@@ -582,11 +582,12 @@ fra:
     current_ownership: "Current ownership"
     current_phase: "Current phase"
     current_sign_in_at: "Connecté actuellement le"
-    current_sign_in_ip: "Connecté actuellement depuis l’IP"
+    current_sign_in_ip: "Connecté actuellement depuis l’adresse IP"
     custom_field: "Champ complémentaire"
     custom_fields: "Champs complémentaires"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
+    daily_nitrogen_production: "Excrétion d’azote journalière"
     data: "Données complémentaires"
     dead_at: "Date de décès"
     deal_type: "Type de transaction" #?
@@ -783,6 +784,7 @@ fra:
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     issue: "Incident"
     issues: "Incidents"
+    issues_count: "Nombre d’incidents"
     item: "Élément"
     item_changes: "Changement de l’élément"
     item_listing: "Nœud de l’extraction"
@@ -863,6 +865,7 @@ fra:
     meeting_origin: "Origine de la rencontre"
     member: "Membre"
     members: "Membres"
+    members_count: "Nombre de membres"
     memberships: "Membres du groupe"
     metadata: "Méta-données"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
@@ -1207,7 +1210,7 @@ fra:
     with_deposit: "Utiliser les remises en banque"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
-    # worker: "Worker"
+    worker: "Travailleur"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:

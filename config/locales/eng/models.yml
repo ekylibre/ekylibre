@@ -263,7 +263,6 @@ eng:
       zone: "Zone"
       zone_property_title: "Zone property title"
   attributes:
-    daily_nitrogen_production: "Daily nitrogen production"
     abilities_list: "Abilities list"
     absolute_credit: "Absolute credit"
     absolute_currency: "Absolute currency"
@@ -420,6 +419,7 @@ eng:
     custom_field: "Custom field"
     custom_fields: "Custom fields"
     customized_type: "Customized type"
+    daily_nitrogen_production: "Daily nitrogen production"
     data: "Data"
     dead_at: "Dead on"
     deals_count: "Deals count"
@@ -600,6 +600,7 @@ eng:
     irrigation_water_nitrogen: "Irrigation water nitrogen"
     issue: "Issue"
     issues: "Issues"
+    issues_count: "Issues count" #?
     item: "Item"
     item_changes: "Item changes"
     item_listing: "Item listing"
@@ -677,6 +678,7 @@ eng:
     meeting_origin: "Meeting origin"
     member: "Member"
     members: "Members"
+    members_count: "Members count" #?
     memberships: "Memberships"
     metadata: "Metadata"
     mineral_nitrogen_at_opening: "Mineral nitrogen at opening"

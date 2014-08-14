@@ -766,7 +766,7 @@ eng:
     connect: "Login" #?
     consult: "Consult" #?
     contact: "At" #?
-    container: "Container"
+    container: "Container" #?
     contains: "Contains" #?
     content_products: "Content products" #?
     contextual_help: "Help on current page" #?
@@ -944,7 +944,7 @@ eng:
     is: "Is" #?
     issue: "Issue"
     issues: "Issues"
-    issues_count: "Issues count"
+    # issues_count: "Issues count"
     journal: "Journal" #?
     journal_detail: "Closing on %{closed_at}" #?
     journal_entries: "Journal's entries" #?
@@ -999,8 +999,7 @@ eng:
     maximal_temperature: "Maximal temperature"
     meeting: "Meeting" #?
     meetings: "Meetings" #?
-    members: "Members"
-    members_count: "Members count"
+    members: "Members" #?
     menus:
       accountancy: "Accountancy"
       archives: "Archives"
@@ -1301,7 +1300,7 @@ eng:
     total_cost_per_area: "Total cost per area"
     total_earn: "Total earn"
     total_earn_per_area: "Total earn per area"
-    total_in_currency: "Total (%{currency})" #?
+    total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total invoiced amount" #?
     total_paid_amount: "Total paid amount" #?
     total_quantity: "Total quantity" #?

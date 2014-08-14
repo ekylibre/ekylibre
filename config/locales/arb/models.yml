@@ -1173,6 +1173,7 @@ arb:
     custom_field_id: "حقول اضافية" #?
     custom_fields: "الحقول الاضافية"
     # customized_type: "Customized type"
+    # daily_nitrogen_production: "Daily nitrogen production"
     data: "بيانات اضافية"
     date_value: "قيمة التاريخ" #?
     datetime_value: "قيمة التاريخ/الساعة" #?
@@ -1431,6 +1432,7 @@ arb:
     is_debit: "مدين" #?
     # issue: "Issue"
     # issues: "Issues"
+    # issues_count: "Issues count"
     # item: "Item"
     # item_changes: "Item changes"
     item_listing: "عقد الاستخراج"
@@ -1532,6 +1534,7 @@ arb:
     # meeting_origin: "Meeting origin"
     # member: "Member"
     # members: "Members"
+    # members_count: "Members count"
     # memberships: "Memberships"
     # metadata: "Metadata"
     min_duration: "(دقيقة (دقائق" #?

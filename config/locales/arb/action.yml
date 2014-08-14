@@ -1093,7 +1093,6 @@ arb:
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?
     custom_field_update: "تعديل الحقل المخصص" #?
     custom_fields: "الحقول المخصصة" #?
-    # daily_nitrogen_production: "Daily nitrogen production"
     data_to_export: "تصدير البيانات"
     data_to_extract: "استخراج البيانات"
     dates: "ادخل تواريخ بداية ونهاية المدة"
@@ -1287,7 +1286,6 @@ arb:
     # is: "Is"
     # issue: "Issue"
     # issues: "Issues"
-    # issues_count: "Issues count"
     journal: "دفتراليومية"
     journal_detail: "اغلق في %{closed_at}"
     journal_entries: "المدخالات"
@@ -1363,7 +1361,6 @@ arb:
     meeting: "المقابلة(X)مكان"
     # meetings: "Meetings"
     # members: "Members"
-    # members_count: "Members count"
     menu:  #?
       accountancy_tasks: "أعمال المحاسبة" #?
       bank_statements: "بيانات الحساب" #?
