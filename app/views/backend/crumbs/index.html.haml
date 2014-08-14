@@ -7,7 +7,7 @@
     interventions_paths[item[:name]] << item
     popup_content = []
     popup_content << {label: :nature, value: item[:nature] }
-    popup_content << {label: :date, value: Crumb.find(item[:crumb_id]).read_at}
+    popup_content << {label: :date, value: Crumb.find(item[:crumb_id]).read_at.to_formatted_s(:long)}
     popup_content << render('form', crumb: item[:crumb_id], previous: previous_crumb)
     item[:popup] = {content: popup_content}
     previous_crumb = item[:crumb_id]

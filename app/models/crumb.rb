@@ -146,7 +146,8 @@ class Crumb < Ekylibre::Record::Base
   def convert(options = {})
     intervention = nil
     Ekylibre::Record::Base.transaction do
-      options[:actors_ids] ||= [User.find(user_id)] #[User.find(user_id).worker.id]
+      options[:actors_ids] ||= []
+      options[:actors_ids] << User.find(user_id).worker.id unless User.find(user_id).worker.nil?
       actors = Crumb.products(intervention_path).concat(Product.find(options[:actors_ids])).compact.uniq
       options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
       support = ProductionSupport.find(options[:support_id])
