@@ -5,10 +5,6 @@
   config[:cursors] = cursors
 
 - if crumbs.present?
-  = form_for :backend_crumbs_path, method: :get do |f|
-    = select_tag :intervention_date, options_for_select(@interventions_dates.collect {|d|[d.to_formatted_s(:long), d]})
-    = f.submit 'go!'
-  -#= content_tag(:div, nil, data: {slider: config.to_json})
+  = content_tag(:div, nil, data: {slider: config.to_json}) # TODO: implement slider
 - else
-  %p
-    Nothing to do. Have a nice day!
+  = no_data

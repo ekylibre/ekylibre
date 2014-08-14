@@ -16,9 +16,11 @@
   production_supports = @production_supports
 
 = beehive do |b|
-  -b.cell :map do
+  - b.cell :working_day do
+    = render 'working_day'
+  - b.cell :map do
     = render 'map', legend: :started_at, crumbs: crumbs, production_supports: production_supports
-  - b.cell :interventions_paths do
+  -# b.cell :interventions_paths do # TODO: implement slider
     = render 'interventions', crumbs: crumbs
   - interventions_paths.each do |name, intervention_path|
     - b.cell intervention_path.first[:started_at].to_formatted_s(:long) do

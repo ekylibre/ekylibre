@@ -156,7 +156,10 @@ eng:
       # show: "Working sets stocks cell: %{name}"
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
+      # edit: "Edit crumb: %{name}"
       index: "Crumbs"
+      # new: "New crumb"
+      # show: "Crumb: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"
@@ -770,6 +773,7 @@ eng:
     contains: "Contains" #?
     content_products: "Content products" #?
     contextual_help: "Help on current page" #?
+    # convert: "Convert"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
     coordinates: "Coordinates" #?
@@ -893,7 +897,7 @@ eng:
     give_discount: "Give discount" #?
     global_margin: "Global margin"
     global_margin_per_area: "Global margin per area"
-    go: "Go" #?
+    go: "Go"
     graph_statistics: "Graph statistics" #?
     group: "Group" #?
     groups: "Groups" #?
@@ -1251,7 +1255,7 @@ eng:
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     ship: "Ship" #?
-    show: "Show" #?
+    show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     source: "Source" #?
