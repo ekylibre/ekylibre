@@ -1744,13 +1744,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="crumbs">
-        <page to="backend/crumbs#create"/>
-        <page to="backend/crumbs#edit"/>
-        <page to="backend/crumbs#new"/>
-        <page to="backend/crumbs#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>
