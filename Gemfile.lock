@@ -355,7 +355,6 @@ DEPENDENCIES
   code_string
   coffee-rails (~> 4.0.1)
   colored
-  compass
   compass-rails
   coveralls (>= 0.6)
   database_cleaner

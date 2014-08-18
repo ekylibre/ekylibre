@@ -133,7 +133,6 @@ gem 'feedjira'
 gem 'colored'
 
 # Compass
-gem 'compass'
 gem 'compass-rails'
 gem 'bootstrap-sass', '~> 3.1'
 gem 'oily_png'
