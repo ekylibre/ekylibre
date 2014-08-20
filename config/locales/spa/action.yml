@@ -16,13 +16,13 @@ spa:
       general_ledger: "Grande libro" #?
       index: "Contabilidad general" #?
     backend/accounts:
-      edit: "Modificar el cuento : %{number} - %{name}"
+      edit: "Modificar el cuento\_: %{number} - %{name}"
       index: "Plan de cuento"
       # load: "Load a plan of accounts"
-      mark: "Marcar con lettra el cuento N°%{number} del %{empezo} al %{fin}"
+      mark: "Marcar con lettra el cuento N°%{number}"
       new: "Créar un nuevo cuento"
       reconciliation: "Marcar con letra los cuentos"
-      show: "Compte : %{number} - %{name}"
+      show: "Cuento\_: %{number} - %{name}"
       # unmark: "Unmark account"
     backend/activities:
       # edit: "Edit activity: %{name}"
@@ -75,7 +75,7 @@ spa:
       edit: "Modificar el leventar N°%{number}"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
-      point: "Despuntar el leventar N°%{number} du %{contado}"
+      point: "Despuntar el leventar N°%{number}"
       show: "Leventard de cuento N°%{number}"
     backend/base: #?
     backend/building_divisions:
@@ -87,7 +87,7 @@ spa:
       edit: "Modificacion de un lugar de deposito"
       index: "Lugar de deposito"
       new: "Añadir un lugar de deposito"
-      show: "Detaile del lugar de deposito : %{name}"
+      show: "Detaile del lugar de deposito\_: %{name}"
     backend/calculators:
       # index: "Calculators"
     backend/calculators/manure_management_plans: #?
@@ -105,10 +105,10 @@ spa:
       # new: "New cash transfer"
       # show: "Cash transfer: %{number}"
     backend/cashes:
-      edit: "Modificar la tresoreria : %{name}"
+      edit: "Modificar la tresoreria\_: %{name}"
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
-      show: "%{nature_label} : %{name}"
+      show: "%{nature}\_: %{name}"
     backend/catalog_prices:
       # edit: "Edit catalog price: %{name}"
       # index: "Catalog prices"
@@ -207,19 +207,19 @@ spa:
     backend/data_view/manure_management_plans: #?
     backend/data_view/veterinary_booklets: #?
     backend/delays:  #?
-      edit: "Modificacion del plazo : %{name}" #?
+      edit: "Modificacion del plazo\_: %{name}" #?
       index: "plazos" #?
       new: "Añadir un plazo" #?
-      show: "plazo : %{name}" #?
+      show: "plazo\_: %{name}" #?
     backend/departments:  #?
-      edit: "Modificar el servicio : %{name}" #?
+      edit: "Modificar el servicio\_: %{name}" #?
       index: "Servicios" #?
       new: "Añadido de nuevo servicio" #?
     backend/deposit_lines: #?
     backend/deposits:
       edit: "Modificacion del aposto en banco del %{created_at}"
       index: "Aposto en banco"
-      new: "Crear un aposto : %{mode}"
+      new: "Crear un aposto\_: %{mode}"
       show: "Aposto en banco %{number} del %{created_at}"
       # unvalidateds: "Unvalidated deposits"
     backend/diagnostics: #?
@@ -231,7 +231,7 @@ spa:
     backend/document_archives:
       # show: "Document archive: %{name}"
     backend/document_templates:
-      edit: "Modificacion del modelo de documento : %{name}"
+      edit: "Modificacion del modelo de documento\_: %{name}"
       index: "Modelos de documento"
       load: "Cargar los modelos de documento por defecto"
       new: "Créacion de un modelo de documento"
@@ -264,7 +264,7 @@ spa:
       # new: "New equipment"
       # show: "Equipment: %{name}"
     backend/establishments:
-      edit: "Modificacion del establecimiento : %{name}"
+      edit: "Modificacion del establecimiento\_: %{name}"
       index: "Establecimientos"
       new: "Añadido de un nuevo establecimiento"
     backend/event_natures: #?
@@ -359,9 +359,9 @@ spa:
       # reopen: "Reopen issue: %{name}"
       # show: "Issue: %{name}"
     backend/journal_entries:
-      edit: "Modificar la pieza N°%{numro} du %{fecha de creacion}"
+      edit: "Modificar la pieza N°%{number}"
       new: "Añadir una pieza"
-      show: "Pieza contable N°%{number} del %{fecha de creacion}"
+      show: "Pieza contable N°%{number}"
     backend/journal_entry_items:
       # new: "New entry item"
     backend/journal_entry_lines: #?
@@ -370,13 +370,13 @@ spa:
       bookkeep: "Bascula contable"
       close: "Cierre del %{name}"
       draft: "Niebla"
-      edit: "Modicicar el periodico : %{name}"
+      edit: "Modicicar el periodico\_: %{name}"
       general_ledger: "Grande libro"
       # import: "Import accounting data"
       index: "Periodicos"
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
-      show: "Periodico : %{name} (%{code})"
+      show: "Periodico\_: %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
       # edit: "Edit land parcel cluster : %{name}"
@@ -404,7 +404,7 @@ spa:
       # edit: "Edit listing node"
       # new: "New listing node"
     backend/listings:
-      edit: "Modificacion de la extraccion : %{name}"
+      edit: "Modificacion de la extraccion\_: %{name}"
       # extract: "Extract listing: %{name}"
       index: "Exportacion y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
@@ -455,7 +455,7 @@ spa:
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_lines: #?
     backend/outgoing_delivery_modes:  #?
-      edit: "Modificacion del modo de entrega : %{name}" #?
+      edit: "Modificacion del modo de entrega\_: %{name}" #?
       index: "Modos de entrega" #?
       new: "Añadir un nuevo modo de entrega" #?
     backend/outgoing_payment_modes:
@@ -597,7 +597,7 @@ spa:
       # refuse: "Refused order"
       # show: "Purchase: %{number} - %{state}"
     backend/roles:
-      edit: "Modificacion del papel : %{name}"
+      edit: "Modificacion del papel\_: %{name}"
       index: "Papeles"
       new: "Añadir un papel"
       # pick: "Pick role: %{name}"
@@ -626,7 +626,7 @@ spa:
       # refuse: "Estimate refused"
       # show: "Sale: %{label} for %{client}"
     backend/sequences:
-      edit: "Modificacion de la sequencia : %{name}"
+      edit: "Modificacion de la sequencia\_: %{name}"
       index: "Sequencias"
       # load: "Load missing sequences"
       new: "Creacion de une nueva sequencia"
@@ -656,13 +656,8 @@ spa:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       # index: "Subscriptions"
       # new: "New subscription"
-    backend/tax_declarations:  #?
-      edit: "Crear una declaracion" #?
-      index: "Declaracion de TVA" #?
-      new: "Crear una declaracion" #?
-      show: "%{nature} para el periodo %{fecha de empezo} al %{fecha de termino}" #?
     backend/taxes:
-      edit: "Modificar la tasa : %{name}"
+      edit: "Modificar la tasa\_: %{name}"
       index: "Tasas"
       new: "Añadir nueva tarifa"
     backend/teams:
@@ -685,16 +680,12 @@ spa:
       # index: "Transports"
       # new: "New transport"
       # show: "Transport: %{number}"
-    backend/units:  #?
-      edit: "Modificacion de la unidad : %{label}" #?
-      index: "Unidad de medida" #?
-      new: "Añadir una nueva unidad de medida" #?
     backend/users:
       edit: "Modificction del utilizador"
       index: "Utilizador"
       # lock: "Lock user"
       new: "Creacion de nuevo utilizador"
-      show: "Utilizador : %{first_name} %{last_name} (%{name})"
+      show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
       statistics: "Mis estadisticas" #?
       # unlock: "Unlock user"
     backend/vegetals: #?
@@ -821,13 +812,13 @@ spa:
     # attach_deal: "Add a deal"
     attachment: "Pieza juntada"
     # attorney: "Attorney"
-    available_columns: "Campos disponibles : %{columns}"
+    available_columns: "Campos disponibles\_: %{columns}"
     # back: "Back to the previous page"
     backup: "Salvaguardiar"
     backups: "Salvaguardias"
     bad_browser:  #?
       explanation: "esta version del navegante no es compatible con Ekylibre. Utilizando este navegante, la paginas no pueden fijarse correctamente y varios funccionalidades puenden flatar." #?
-      proposal: "Por favor, tenga previsto ponerse a día  con unos de estos navegantes recientes :" #?
+      proposal: "Por favor, tenga previsto ponerse a día  con unos de estos navegantes recientes\_:" #?
       title: "Parece que utilisa un navegante obsoleto" #?
       wb: #?
         chrome: "Cromo" #?
@@ -931,7 +922,7 @@ spa:
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # currency_with_code: "%{name} (%{code})"
     # current: "Current"
-    current_letter: "Carta en curso : %{carta}"
+    current_letter: "Carta en curso\_: %{letter}"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"
@@ -952,9 +943,9 @@ spa:
     departments: "Servicios"
     deposit: "Aposto en banco del"
     deposit_create:  #?
-      one: "Hacer un aposto : %{mode} (1 encajonamiento)" #?
-      other: "Hacer un aposto : %{mode} (%{count} encajonamientos)" #?
-      zero: "Hacer un aposto : %{mode} (Ningun encajonamiento)" #?
+      one: "Hacer un aposto\_: %{mode} (1 encajonamiento)" #?
+      other: "Hacer un aposto\_: %{mode} (%{count} encajonamientos)" #?
+      zero: "Hacer un aposto\_: %{mode} (Ningun encajonamiento)" #?
     deposit_update: "Modifiar el aposto en banco" #?
     # depreciation: "Depreciation"
     description: "Descripción general"
@@ -1101,7 +1092,6 @@ spa:
     # issue: "Issue"
     # issues: "Issues"
     journal: "Periodico"
-    journal_detail: "Cerrado al %{fecha de cerrado}"
     journal_entries: "Escrituras"
     # journal_entries_states: "States of entries"
     journal_entry_lines_states: "Estado de las escrituras utilizadas" #?
@@ -1161,7 +1151,7 @@ spa:
       zero: "Ningun correo electronico"
     # main_settings: "Main settings"
     management: "Administración comercial" #?
-    manual_period: "del %{empezo} al %{termino}"
+    manual_period: "del %{start} al %{finish}"
     # map: "Map"
     # margins: "Margins"
     # mass: "Mass"
@@ -1395,7 +1385,7 @@ spa:
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     # reset: "Reset"
-    resource: "Consultar la pieza de origen : %{resource} %{number}"
+    resource: "Consultar la pieza de origen\_: %{resource} %{number}"
     resources: "Administración de los recursos humanos"
     # rest_to_pay: "Rest to pay"
     restore: "Restaurar"
@@ -1648,7 +1638,7 @@ spa:
     x_items_remain_on_y: #?
     x_journal_entries:
       one: "La escritura"
-      other: "%{cuento} escrituras"
+      other: "%{count} escrituras"
       zero: "Ninguna escrituras" #?
     x_mandates:
       # one: "%{count} mandate"
@@ -1731,7 +1721,7 @@ spa:
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
-      bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para : %{list}."
+      bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para\_: %{list}."
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
@@ -1745,7 +1735,7 @@ spa:
       # dashboard_is_being_developed: "Dashboard is under heavy development"
       draft_entries_are_validated:  #?
         one: "La pieza ha sido validada y es sacada de la niebla" #?
-        other: "Las %{cuentos} han sido validadas y son sacadas de la niebla" #?
+        other: "Las %{count} han sido validadas y son sacadas de la niebla" #?
         zero: "Ninguna pieza ha sido validada" #?
       draft_entry_items_are_validated:
         # one: "One entry has been validated"
@@ -1753,9 +1743,9 @@ spa:
         # zero: "No entries has been validated"
       draft_entry_lines_are_validated: #?
       entity_columns_are_needed: "se debe especifiar a lo menos une columna para la persona y particularmente sur nombre."
-      exception_raised: "Un error sobrevino durante el tratamiento : %{mensaje}"
+      exception_raised: "Un error sobrevino durante el tratamiento\_: %{message}"
       expired_session: "sesion espirada. por favor reconectese." #?
-      fails_to_extract_listing: "La extracción no ha podido hacerse : %{mensaje}"
+      fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
       # implemented_with_dummy_data: "Implemented with dummy data"
       import_succeeded: "Sus datos han sido correctamente importados" #?
       importation_cancelled: "Sus datos no han sido importados. La importación ha sido anulada" #?
@@ -1765,13 +1755,13 @@ spa:
       impossible_to_add_lines: "No se puede añadir productos a su venta, el presupuesto esta en encargo" #?
       impossible_to_add_lines_to_purchase: "No se puede añadir productos a su compra" #?
       invalid_file_nature: "Tipo de fichero invalido"
-      journal_closed_at: "El %{periodico} ha sido cerrado al %{fecha de cerre} correctamente."
+      journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente."
       # journal_entry_already_validated: "The record has already been validated and can not be changed"
       # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_record_already_validated: "La pieza ya ha sido validada y ya no puede ser modificada" #?
       journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
-      journal_reopened_at: "El %{periodico} ha sido cerrado %{fecha de cerre} correctamente."
+      journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente."
       mails_are_sent: "Los correos electronicos han sido enviados"
       need_balanced_journal_to_tax_declaration: "Todos sur periodicos deben de ser cerrados y equilibrados a esta fecha." #?
       need_building_to_create_purchase_line: "Se debe crear un lugar de almacenamiento para hacer una compra" #?

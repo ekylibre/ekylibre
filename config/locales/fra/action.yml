@@ -1018,7 +1018,7 @@ fra:
     isu_index: "Index génétique ISU" #?
     items: "Éléments" #?
     journal: "Journal"
-    journal_detail: "Cloturé au %{closed_at}"
+    journal_detail: "Cloturé au %{closed_at}" #?
     journal_entries: "Écritures"
     journal_entries_states: "États des écritures utilisées"
     journal_name: "%{name}"

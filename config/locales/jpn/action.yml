@@ -876,7 +876,6 @@ jpn:
     # issue: "Issue"
     # issues: "Issues"
     # journal: "Journal"
-    # journal_detail: "Closing on %{closed_at}"
     # journal_entries: "Journal's entries"
     # journal_entries_states: "States of entries"
     # journal_name: "%{name}"

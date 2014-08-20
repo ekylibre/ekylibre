@@ -1287,7 +1287,7 @@ arb:
     # issue: "Issue"
     # issues: "Issues"
     journal: "دفتراليومية"
-    journal_detail: "اغلق في %{closed_at}"
+    journal_detail: "اغلق في %{closed_at}" #?
     journal_entries: "المدخالات"
     # journal_entries_states: "States of entries"
     journal_entry_lines_states: "بيان المدخلات المستخدمة" #?
