@@ -165,9 +165,9 @@ ActiveRecord::Schema.define(version: 20140813215326) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
-    t.integer  "product_reading_id"
     t.spatial  "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
     t.spatial  "point_value",                  limit: {:srid=>4326, :type=>"point"}
+    t.integer  "product_reading_id"
   end
 
   add_index "analysis_items", ["analysis_id"], :name => "index_analysis_items_on_analysis_id"
@@ -969,8 +969,8 @@ ActiveRecord::Schema.define(version: 20140813215326) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                       default: 0, null: false
-    t.decimal  "net_mass",                                                  precision: 19, scale: 4
     t.spatial  "shape",            limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "net_mass",                                                  precision: 19, scale: 4
   end
 
   add_index "incoming_delivery_items", ["container_id"], :name => "index_incoming_delivery_items_on_container_id"
@@ -1067,9 +1067,9 @@ ActiveRecord::Schema.define(version: 20140813215326) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                             default: 0, null: false
+    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "event_participation_id"
     t.string   "nature",                                                                                               null: false
-    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
@@ -1532,9 +1532,9 @@ ActiveRecord::Schema.define(version: 20140813215326) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                   default: 0, null: false
+    t.spatial  "shape",        limit: {:srid=>4326, :type=>"geometry"}
     t.decimal  "net_mass",                                              precision: 19, scale: 4
     t.integer  "container_id"
-    t.spatial  "shape",        limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "outgoing_delivery_items", ["container_id"], :name => "index_outgoing_delivery_items_on_container_id"
@@ -2257,8 +2257,8 @@ ActiveRecord::Schema.define(version: 20140813215326) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                            default: 0,     null: false
-    t.integer  "person_id"
     t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "person_id"
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
