@@ -12,26 +12,26 @@
     .big-infos
       .big-info
         %span.title= Sale.human_attribute_name(:pretax_amount)
-        %span.value= current_user.sales.sum(:pretax_amount).l(currency: Preference[:currency])
+        %span.value= current_user.sales.sum(:pretax_amount).l(currency: Preference[:currency]) rescue "?"
       .big-info
         %span.title= Sale.human_attribute_name(:amount)
         %span.value
           - invoiced_amount = current_user.sales.where(conditions[:invoiced_at]).sum(:amount)
-          = invoiced_amount.l(currency: Preference[:currency])
+          = invoiced_amount.l(currency: Preference[:currency]) rescue "?"
       .big-info.important
         %span.title= tc(:total_paid_amount)
         %span.value
           - paid_amount = current_user.sales.where(conditions[:invoiced_at]).sum(:downpayment_amount)
-          = paid_amount.l(currency: Preference[:currency])
+          = paid_amount.l(currency: Preference[:currency]) rescue "?"
       .big-info
         %span.title= tc(:total_unpaid_amount)
-        %span.value= (invoiced_amount - paid_amount).l(currency: Preference[:currency])
+        %span.value= (invoiced_amount - paid_amount).l(currency: Preference[:currency]) rescue "?"
       - if invoiced_amount > 0
         .big-info
           %span.title= tc(:profitability)
-          %span.value= number_to_percentage 100*(paid_amount/invoiced_amount)
-  - started_at, stopped_at = params[:started_at].beginning_of_day, params[:stopped_at].end_of_day
-  - cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
+          %span.value= number_to_percentage 100*(paid_amount/invoiced_amount) rescue "?"
+  -# started_at, stopped_at = params[:started_at].beginning_of_day, params[:stopped_at].end_of_day
+  -# cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
   -# b.cell :x_events, count: current_user.events.where(cond).count do
     %ul
       - for event_nature in Nomen::EventNatures.all
