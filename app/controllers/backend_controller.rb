@@ -29,8 +29,6 @@ class BackendController < BaseController
   layout :dialog_or_not
 
   include Userstamp
-  # include ExceptionNotifiable
-  # local_addresses.clear
 
   protected
 

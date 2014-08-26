@@ -193,7 +193,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :animal_medicines, concerns: :products
+    resources :animal_medicines
 
     resources :animal_products, only: [:index], concerns: [:list]
 
@@ -522,7 +522,7 @@ Ekylibre::Application.routes.draw do
 
     resources :plant_fertilizers, only: [:index], concerns: [:list]
 
-    resources :plant_medicines, concerns: :products
+    resources :plant_medicines, only: [:index], concerns: [:list]
 
     resources :plant_products, only: [:index], concerns: [:list]
 
