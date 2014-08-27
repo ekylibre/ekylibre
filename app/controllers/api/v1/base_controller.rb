@@ -28,10 +28,11 @@ class Api::V1::BaseController < ActionController::Base
 
   hide_action :check_format!
   def check_format!
-    if request.format != :json
-      render status: :not_acceptable, json: {message: "The request must be JSON"}
-      return false
-    end
+    # All data is sent and received as JSON.    
+    # if request.format != :json
+    #   render status: :not_acceptable, json: {message: "The request must be JSON"}
+    #   return false
+    # end
   end
 
 end

@@ -20,15 +20,11 @@
 class Api::V1::CrumbsController < Api::V1::BaseController
 
   def index
-    respond_to do |format|
-      format.json { render status: :success, json: {} }
-    end
+    render status: :ok, json: {}
   end
 
   def create
-    respond_to do |format|
-      format.json { render status: :success, json: {} }
-    end
+    render status: :ok, json: {id: 123}
   end
 
 end
