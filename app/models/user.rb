@@ -93,7 +93,6 @@ class User < Ekylibre::Record::Base
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
-  acts_as_token_authenticatable
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
@@ -120,6 +119,12 @@ class User < Ekylibre::Record::Base
       if self.person_id != old_record.person_id
         errors.add(:person_id, :readonly)
       end
+    end
+  end
+
+  before_save do
+    if authentication_token.blank?
+      self.authentication_token = self.class.generate_authentication_token
     end
   end
 
@@ -209,6 +214,13 @@ class User < Ekylibre::Record::Base
     end
     list &= self.resource_actions
     return list.any?
+  end
+
+  def self.generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless exists?(authentication_token: token)
+    end
   end
 
   # Used for generic password creation

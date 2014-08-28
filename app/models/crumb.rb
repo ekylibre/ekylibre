@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -46,7 +47,7 @@ class Crumb < Ekylibre::Record::Base
   validates_length_of :nature, allow_nil: true, maximum: 255
   validates_presence_of :accuracy, :geolocation, :nature, :read_at
   #]VALIDATORS]
-  serialize :metadata
+  serialize :metadata, Hash
 
   # returns all crumbs for a given day. Default: the current day
   # TODO: remove this and replace by something like #start_day_between…
@@ -124,16 +125,16 @@ class Crumb < Ekylibre::Record::Base
       stop_read_at = self.read_at.utc
     else
       stop_read_at  = Crumb.where(user_id: self.user_id).
-                            where(nature: :stop).
-                            where("read_at >= TIMESTAMP '#{self.read_at.utc}'").
-                            order(read_at: :asc).
+                            where(nature: [:point, :stop]).
+                            where("read_at >= ?", self.read_at.utc).
+                            order(nature: :desc, read_at: :asc).
                             pluck(:read_at).
                             first.utc
     end
     Crumb.where(user_id: self.user_id).where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
   end
 
-  # turns a crumb into an actual intervention and returns the created intervention if any
+  # Turns a crumb into an actual intervention and returns the created intervention if any
   # ==== Options :
   #   * General options:
   #       - support_id: the production support id for which the user wants to register an intervention.
@@ -190,7 +191,7 @@ class Crumb < Ekylibre::Record::Base
     intervention
   end
 
-  # returns possible procedures matching a crumb and its corresponding intervention path
+  # Returns possible procedures matching a crumb and its corresponding intervention path
   # Options: the same as Intervention#match
   def possible_procedures_matching(options = {})
     Intervention.match(Crumb.products(intervention_path), options).map{|procedure, *| procedure}

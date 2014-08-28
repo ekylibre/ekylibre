@@ -40,6 +40,7 @@ gem 'formize', '~> 2.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
+# gem 'rails-api'
 
 # Freeze time for demo and/or tests
 gem 'timecop'
@@ -79,7 +80,7 @@ gem 'enumerize'
 # Authentication & Authorization
 gem 'devise'
 gem 'devise-i18n-views'
-gem 'simple_token_authentication'
+# gem 'simple_token_authentication'
 # gem 'doorkeeper'
 # gem 'rack-cors', require: 'rack/cors'
 

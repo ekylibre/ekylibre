@@ -92,7 +92,7 @@ GEM
     coffee-script (2.3.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.7.1)
+    coffee-script-source (1.8.0)
     colored (1.2)
     compass (0.12.7)
       chunky_png (~> 1.2)
@@ -111,7 +111,7 @@ GEM
     database_cleaner (1.3.0)
     dbf (2.0.7)
       fastercsv (~> 1.5.4)
-    devise (3.2.4)
+    devise (3.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -280,10 +280,6 @@ GEM
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    simple_token_authentication (1.5.0)
-      actionmailer (>= 3.2.6, < 5)
-      activerecord (>= 3.2.6, < 5)
-      devise (~> 3.2.0)
     simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
@@ -400,7 +396,6 @@ DEPENDENCIES
   shoulda-context
   simple_calendar (~> 0.1)
   simple_form (~> 3.0.0)
-  simple_token_authentication
   state_machine
   therubyracer
   thin

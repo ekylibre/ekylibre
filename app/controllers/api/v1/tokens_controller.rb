@@ -18,9 +18,7 @@
 #
 
 class Api::V1::TokensController < Api::V1::BaseController
-  skip_before_action :authenticate_entity_from_token!, :authenticate_entity!
-
-  respond_to :json
+  skip_before_action :authenticate_api_user!
 
   def create
     puts "???".green
@@ -38,9 +36,9 @@ class Api::V1::TokensController < Api::V1::BaseController
       return
     end
 
-    @user.save!
-
     if @user.valid_password?(password)
+      @user.authentication_token = User.generate_authentication_token
+      @user.save!
       render json: {token: @user.authentication_token}
     else
       puts "???".blue

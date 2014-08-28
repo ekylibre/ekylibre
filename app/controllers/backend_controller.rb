@@ -21,10 +21,10 @@ class BackendController < BaseController
   include Unrollable, RestfullyManageable
   protect_from_forgery
 
-  before_filter :authenticate_user!
-  before_filter :authorize_user!
-  before_filter :set_versioner
-  before_filter :themize
+  before_action :authenticate_user!
+  before_action :authorize_user!
+  before_action :set_versioner
+  before_action :themize
 
   layout :dialog_or_not
 
