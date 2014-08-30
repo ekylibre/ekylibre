@@ -364,7 +364,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   def resize_window(width, height)
     driver = Capybara.current_driver
     if driver == :webkit
-      page.driver.resize_window(width, height)
+      page.window.resize_to(width, height)
     elsif driver == :selenium
       page.driver.browser.manage.window.resize_to(width, height)
     else
