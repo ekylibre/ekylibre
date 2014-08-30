@@ -4,10 +4,10 @@
     <variables>
       <variable name="tank" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
       <variable name="wine" variety="wine" default-actor="first-localized-in: tank" read-only="true"/>
-      <variable name="wine_to_move" new="parted-from: wine" roles="transfer-input" default-population=":wine" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="wine_to_move" new="parted-from: wine" roles="transfer-target" default-population=":wine" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population" />
       </variable>
-      <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-target"/>
+      <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-container"/>
       <variable name="wine_man" variety="worker" abilities="move" roles="transfer-doer"/>
     </variables>
     <operations>

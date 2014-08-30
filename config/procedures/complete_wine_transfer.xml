@@ -3,8 +3,8 @@
   <procedure name="complete_wine_transfer" natures="transfer" version="0" status="frozen">
     <variables>
       <variable name="tank" variety="equipment" abilities="store(wine), store_liquid" default-actor="storage"/>
-      <variable name="wine" variety="wine" default-actor="first-localized-in: tank" read-only="true" roles="transfer-input"/>
-      <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-target"/>
+      <variable name="wine" variety="wine" default-actor="first-localized-in: tank" read-only="true" roles="transfer-target"/>
+      <variable name="destination_tank" variety="equipment" abilities="store(wine), store_liquid" roles="transfer-container"/>
       <variable name="wine_man" variety="worker" abilities="move" roles="transfer-doer"/>
     </variables>
     <operations>

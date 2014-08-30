@@ -64,10 +64,10 @@
 
   <nomenclature name="procedure_natures-transformation">
     <items>
-      <item name="transfer"             roles="input, target, doer"             activity_families="processing"/>
+      <item name="transfer"             roles="container, target, doer"             activity_families="processing"/>
       <item name="fermentation"         roles="input, target, output, doer, tool" activity_families="processing"/>
       <item name="pressing"             roles="input, target, output, doer, tool" activity_families="processing"/>
-      <item name="blending"             roles="input, target, output, doer"     activity_families="processing"/>
+      <item name="blending"             roles="input, output, doer, container"     activity_families="processing"/>
       <item name="addition"             roles="input, target, doer"             activity_families="processing"/>
       <item name="filtration"           roles="input, target, output, doer, tool" activity_families="processing"/>
       <item name="bottling"             roles="target, input, output, doer, tool" activity_families="processing"/>

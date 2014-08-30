@@ -1947,6 +1947,7 @@ eng:
     procedure_roles:
       name: "Procedure roles"
       items:
+        # container: "Container"
         doer: "Doer"
         input: "Input"
         input_origin: "Input origin"

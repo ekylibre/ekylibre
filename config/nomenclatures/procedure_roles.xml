@@ -8,6 +8,7 @@
       <item name="output"/>
       <item name="doer"/>
       <item name="input_origin"/>
+      <item name="container"/>
     </items>
   </nomenclature>
 </nomenclatures>
