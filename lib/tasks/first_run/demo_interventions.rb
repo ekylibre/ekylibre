@@ -2,18 +2,18 @@
 load_data :demo_interventions do |loader|
 
   if loader.manifest[:demo]
-  # interventions for all poaceae
-  autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
-    Nomen::Varieties[n]
-  end
+    # interventions for all poaceae
+    autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
+      Nomen::Varieties[n]
+    end
 
-  spring_sowables = [:hordeum_vernum, :pisum_vernum, :helianthus].collect do |n|
-    Nomen::Varieties[n]
-  end
+    spring_sowables = [:hordeum_vernum, :pisum_vernum, :helianthus].collect do |n|
+      Nomen::Varieties[n]
+    end
 
-  later_spring_sowables = [:zea].collect do |n|
-    Nomen::Varieties[n]
-  end
+    later_spring_sowables = [:zea].collect do |n|
+      Nomen::Varieties[n]
+    end
 
 
     loader.count :cultural_interventions do |w|
@@ -175,39 +175,39 @@ load_data :demo_interventions do |loader|
     end
 
 
-  loader.count :irrigation_interventions do |w|
+    loader.count :irrigation_interventions do |w|
       a = Activity.of_families(:maize_crops)
       for production in Production.of_activities(a)
         if production.active?
           variety = production.variant.variety
-            year = production.campaign.name.to_i
-            Ekylibre::FirstRun::Booker.production = production
-            for support in production.supports
-              # for active and irrigated support only
-              if support.active? and support.irrigated?
-                land_parcel = support.storage
-                if area = land_parcel.shape_area
-                  coeff = (area.to_s.to_f / 10000.0) / 6.0
+          year = production.campaign.name.to_i
+          Ekylibre::FirstRun::Booker.production = production
+          for support in production.supports
+            # for active and irrigated support only
+            if support.active? and support.irrigated?
+              land_parcel = support.storage
+              if area = land_parcel.shape_area
+                coeff = (area.to_s.to_f / 10000.0) / 6.0
 
-                  if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
+                if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
 
-                    cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
+                  cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
 
-                    # Watering  15-05-M -> 31-08-M
-                    Ekylibre::FirstRun::Booker.intervene(:watering, year, 7, 15, 0.96 * coeff, support: support) do |i|
-                      i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
-                      i.add_cast(reference_name: 'water_to_spread', population: 200 * coeff)
-                      i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(water)"))
-                      i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
-                      i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-                      i.add_cast(reference_name: 'cultivation', actor: cultivation)
-                    end
+                  # Watering  15-05-M -> 31-08-M
+                  Ekylibre::FirstRun::Booker.intervene(:watering, year, 7, 15, 0.96 * coeff, support: support) do |i|
+                    i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
+                    i.add_cast(reference_name: 'water_to_spread', population: 200 * coeff)
+                    i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(water)"))
+                    i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
+                    i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+                    i.add_cast(reference_name: 'cultivation', actor: cultivation)
                   end
-
                 end
+
               end
-              w.check_point
             end
+            w.check_point
+          end
         end
       end
     end
@@ -384,14 +384,18 @@ load_data :demo_interventions do |loader|
         user = User.where(person_id: Worker.pluck(:person_id).compact).first
         RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
           file.each do |record|
+            metadata = record.attributes['metadata'].blank? ? {} : record.attributes['metadata'].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+              h[i.first.strip.downcase.to_sym] = i.second
+              h
+            }
             Crumb.create!(accuracy: 1,
                           geolocation: record.geometry,
-                          metadata: record.attributes['metadata'],
+                          metadata: metadata,
                           nature: record.attributes['nature'].to_sym,
                           read_at: read_at + record.attributes['id'].to_i * 15,
                           user_id: user.id
                           )
-            #w.check_point
+            # w.check_point
           end
         end
       end

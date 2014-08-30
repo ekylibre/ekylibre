@@ -161,7 +161,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-scrollto-rails (1.4.3)
       railties (> 3.1, < 5.0)
-    jquery-turbolinks (2.0.2)
+    jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
     jquery-ui-rails (5.0.0)
@@ -243,7 +243,7 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rgeo (0.3.20)
-    rgeo-activerecord (1.1.0)
+    rgeo-activerecord (1.2.0)
       activerecord (~> 4.0)
       rgeo (~> 0.3)
     rgeo-geojson (0.3.1)
