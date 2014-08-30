@@ -37,7 +37,8 @@ class Api::V1::TokensController < Api::V1::BaseController
     end
 
     if @user.valid_password?(password)
-      @user.authentication_token = User.generate_authentication_token
+      # This following line forbids simultaneous connections:
+      # @user.authentication_token = User.generate_authentication_token
       @user.save!
       render json: {token: @user.authentication_token}
     else

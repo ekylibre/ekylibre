@@ -1895,7 +1895,6 @@ fra:
         animal_group_changing: "Changement de groupe d’animaux"
         animal_health: "Hygiène des animaux"
         animal_housing_cleaning: "Nettoyage des bâtiments d’élevage"
-        animal_housing_maintenance: "Maintenance des bâtiments d’élevage" #?
         animal_housing_treatment: "Hygiène des bâtiments d’élevage"
         animal_illness_treatment: "Soins médicaux des animaux"
         animal_moving: "Mouvement d’animaux"
@@ -1903,7 +1902,6 @@ fra:
         animal_production: "Productions animales"
         blending: "Mélange"
         bottling: "Embouteillage"
-        cleaning: "Nettoyage" #?
         consummables_addition: "Mise à niveau"
         cultipacking: "Cultipacking"
         cultivation_protection: "Protection des cultures"
@@ -1921,7 +1919,6 @@ fra:
         hoeing: "Binage"
         implantation: "Implantation d’une culture"
         implanting: "Plantation"
-        maintenance: "Maintenance" #?
         maintenance_task: "Maintenance"
         milk_production: "Production laitière"
         mixing: "Mélange"
