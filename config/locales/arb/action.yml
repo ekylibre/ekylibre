@@ -1277,6 +1277,7 @@ arb:
     international_vat_collected: "مجموع ضريبة القيمة المضافة الدولية" #?
     interval: "المدة الزمنية المخصصة"
     # intervention: "Intervention"
+    # intervention_at: "%{intervention} at %{at}"
     # interventions_count: "Interventions count"
     # inventories: "Inventories"
     inventory: "عدل الجرد"

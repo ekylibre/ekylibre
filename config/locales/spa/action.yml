@@ -1082,6 +1082,7 @@ spa:
     international_vat_collected: "Operación realisada en los DOM" #?
     interval: "Intervalo personalisado"
     # intervention: "Intervention"
+    # intervention_at: "%{intervention} at %{at}"
     # interventions_count: "Interventions count"
     # inventories: "Inventories"
     inventory: "Completar el inventario"

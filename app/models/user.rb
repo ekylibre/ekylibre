@@ -230,7 +230,7 @@ class User < Ekylibre::Record::Base
   def interventions_paths(options = {})
     crumbs = self.crumbs.unconverted.where(nature: :start)
     if options[:on]
-      crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day) 
+      crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
     end
     return crumbs.order(read_at: :asc).map(&:intervention_path)
   end

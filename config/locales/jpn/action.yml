@@ -867,6 +867,7 @@ jpn:
     # insert_password: "Enter your new password"
     # interval: "Personalized Interval"
     # intervention: "Intervention"
+    # intervention_at: "%{intervention} at %{at}"
     # interventions_count: "Interventions count"
     # inventories: "Inventories"
     # inventory: "Inventory"

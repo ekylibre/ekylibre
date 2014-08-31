@@ -643,7 +643,6 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
-    intervention_at: "%{intervention} at %{at}"
     account_name: "Account name" #?
     account_number: "Account number" #?
     accountancy: "Accountancy"
@@ -937,6 +936,7 @@ eng:
     insert_password: "Enter your new password" #?
     interval: "Personalized Interval" #?
     intervention: "Intervention"
+    intervention_at: "%{intervention} at %{at}"
     interventions_count: "Interventions count"
     inventories: "Inventories"
     inventory: "Inventory" #?
