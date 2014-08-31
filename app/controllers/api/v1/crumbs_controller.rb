@@ -36,7 +36,7 @@ class Api::V1::CrumbsController < Api::V1::BaseController
   protected
 
   def permitted_params
-    params.permit(:nature, :geolocation, :read_at, :metadata, :accuracy)
+    params.permit(:nature, :geolocation, :read_at, :metadata, :accuracy, :device_uid)
   end
 
 end

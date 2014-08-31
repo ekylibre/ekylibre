@@ -1880,6 +1880,7 @@ arb:
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
+    # worked_on: "Worked on"
     # working_zone: "Working zone"
     x_cashes:
       one: "حساب بنكي واحد"
@@ -2197,6 +2198,7 @@ arb:
       # compute: "Compute"
       # compute_balances: "Compute balances"
       # confirm: "Confirm"
+      # convert: "Convert"
       # correct: "Correct"
       # create: "Create"
       # decrement: "Decrement"

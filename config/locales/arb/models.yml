@@ -1146,6 +1146,7 @@ arb:
     credited_quantity: "كمية الائتمان "
     credits: "الائتمانات"
     critic_quantity_min: "الكمية المنتفدة كحد ادنى" #?
+    # crumbs: "Crumbs"
     crypt_key: "مفتاح التشفير" #?
     crypt_mode: "طؤيقة التشفير" #?
     # cultivable_zone: "Cultivable zone"
@@ -1235,6 +1236,7 @@ arb:
     dest_contact: "عنوان التسليم" #?
     dest_contact_id: "عنوان التسليم" #?
     # detail_payments: "Detail payments"
+    # device_uid: "Device UID"
     diff_less: "حقوق الازالة" #?
     diff_more: "حقوق الاضافة" #?
     direct_links: "روابط مباشرة"

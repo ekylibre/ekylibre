@@ -24,6 +24,7 @@
 #  accuracy             :decimal(19, 4)   not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  device_uid           :string(255)      not null
 #  geolocation          :spatial({:srid=> not null
 #  id                   :integer          not null, primary key
 #  intervention_cast_id :integer
@@ -41,6 +42,7 @@
 # crumbs_001:
 #   accuracy: 0
 #   creator: users_001
+#   device_uid: "Lorem ipsum"
 #   geolocation: "Lorem ipsum"
 #   nature: "Lorem ipsum"
 #   read_at: 2013-10-26 18:34:04 +02:00
@@ -50,6 +52,7 @@
 crumbs_001:
   accuracy: 0
   creator: users_001
+  device_uid: "zoltsd:846384534"
   geolocation: !wgs84.geo.ekylibre.org,2014/point
   - -0.66741943359371
   - 45.619800720955041
@@ -64,6 +67,7 @@ crumbs_001:
 crumbs_002:
   accuracy: 0
   creator: users_001
+  device_uid: "zoltsd:846384534"
   geolocation: !wgs84.geo.ekylibre.org,2014/point
   - -0.78002929687592
   - 45.692751372908732
@@ -75,6 +79,7 @@ crumbs_002:
 crumbs_003:
   accuracy: 0
   creator: users_001
+  device_uid: "zoltsd:846384534"
   geolocation: !wgs84.geo.ekylibre.org,2014/point
   - -0.78002729687592
   - 45.692752372908732

@@ -643,7 +643,6 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
-    worked_on: "Worked on"
     account_name: "Account name" #?
     account_number: "Account number" #?
     accountancy: "Accountancy"
@@ -771,7 +770,6 @@ eng:
     contains: "Contains" #?
     content_products: "Content products" #?
     contextual_help: "Help on current page" #?
-    # convert: "Convert"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
     coordinates: "Coordinates" #?
@@ -895,7 +893,7 @@ eng:
     give_discount: "Give discount" #?
     global_margin: "Global margin"
     global_margin_per_area: "Global margin per area"
-    go: "Go"
+    go: "Go" #?
     graph_statistics: "Graph statistics" #?
     group: "Group" #?
     groups: "Groups" #?
@@ -1055,6 +1053,7 @@ eng:
     nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_commercial: "No commercial" #?
     no_contacts: "No address defined for %{name}" #?
+    # no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deliveries: "No deliveries" #?
     no_deliveries_for_this_sale: "No deliveries for this sale" #?
@@ -1081,6 +1080,7 @@ eng:
     one_condition: "One condition" #?
     operation_items: "Incoming and outgoing products" #?
     operations: "Operations" #?
+    # options: "Options"
     order: "Order" #?
     order_amount_with_taxes: "Order amount with taxes" #?
     order_print: "Print order" #?
@@ -1252,7 +1252,7 @@ eng:
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     ship: "Ship" #?
-    show: "Show"
+    show: "Show" #?
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     source: "Source" #?
@@ -1364,6 +1364,7 @@ eng:
     wind_speed: "Wind speed"
     with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases…)" #?
+    worked_on: "Worked on" #?
     working_zone: "Working zone" #?
     x_cashes:
       one: "%{count} cash"

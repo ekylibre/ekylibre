@@ -1590,6 +1590,7 @@ spa:
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
+    # worked_on: "Worked on"
     # working_zone: "Working zone"
     x_cashes:
       # one: "%{count} cash"
@@ -1853,6 +1854,7 @@ spa:
       # compute: "Compute"
       # compute_balances: "Compute balances"
       # confirm: "Confirm"
+      # convert: "Convert"
       # correct: "Correct"
       # create: "Create"
       # decrement: "Decrement"

@@ -25,6 +25,7 @@
 #  accuracy             :decimal(19, 4)   not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  device_uid           :string(255)      not null
 #  geolocation          :spatial({:srid=> not null
 #  id                   :integer          not null, primary key
 #  intervention_cast_id :integer
@@ -44,8 +45,8 @@ class Crumb < Ekylibre::Record::Base
   has_one :worker, through: :user
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :accuracy, allow_nil: true
-  validates_length_of :nature, allow_nil: true, maximum: 255
-  validates_presence_of :accuracy, :geolocation, :nature, :read_at
+  validates_length_of :device_uid, :nature, allow_nil: true, maximum: 255
+  validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
   #]VALIDATORS]
   serialize :metadata, Hash
 
@@ -86,7 +87,7 @@ class Crumb < Ekylibre::Record::Base
 
   # Returns siblings of the crumbs (same user, same device)
   def siblings
-    Crumb.where(user_id: self.user_id).order(read_at: :asc)
+    Crumb.where(user_id: self.user_id, device_uid: self.device_uid).order(read_at: :asc)
   end
 
   # Returns all products whose shape contains the given crumbs or any crumb if no crumb is given
@@ -115,7 +116,7 @@ class Crumb < Ekylibre::Record::Base
       .where("products.id IN (?)", Crumb.products(crumbs).map(&:id))
   end
 
-  # returns all crumbs, grouped by interventions paths, for a given user.
+  # Returns all crumbs, grouped by interventions paths, for a given user.
   # The result is an array of interventions paths.
   # An intervention path is an array of crumbs, for a user, ordered by read_at,
   # between a start crumb and a stop crumb.
@@ -125,45 +126,41 @@ class Crumb < Ekylibre::Record::Base
   # requalify crumbs manually.
   # TODO : put this into User model
   def self.interventions_paths(user)
-    buffer = []
-    result = []
-    Crumb.where(user_id: user.id).order(read_at: :asc).each do |crumb|
-      if buffer.present? && crumb.nature == 'start'
-        result << buffer
-        buffer = []
+    paths = []
+    for device_uid in user.crumbs.unconverted.pluck(:device_uid).uniq
+      Crumb.where(user_id: user.id, device_uid: device_uid).order(read_at: :asc).each do |crumb|
+        paths << [] if !paths.last or (paths.last.any? and crumb.start?)
+        paths[-1] << crumb
       end
-      buffer << crumb
     end
-    result << buffer if buffer.present?
-    result
+    return paths
   end
 
-  # returns all the dates for which a given user has pushed crumbs
-  def self.interventions_dates(user)
-    Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
-  end
+  # # returns all the dates for which a given user has pushed crumbs
+  # def self.interventions_dates(user)
+  #   Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
+  # end
 
   # returns all the crumbs corresponding to the same intervention as the current crumb, i.e. the nearest start crumb including itself,
   # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
-    if nature == 'start'
+    if start?
       start_read_at = self.read_at.utc
     else
-      start_read_at = Crumb.where(user_id: self.user_id).where(nature: :start).
-                            where("read_at <= ?", self.read_at.utc).
-                            order(read_at: :desc).
-                            pluck(:read_at).
-                            first.utc
+      start_read_at = self.siblings.where(nature: :start)
+        .where("read_at <= ?", self.read_at.utc)
+        .order(read_at: :desc)
+        .pluck(:read_at)
+        .first.utc
     end
-    if nature == 'stop'
+    if stop?
       stop_read_at = self.read_at.utc
     else
-      stop_read_at  = Crumb.where(user_id: self.user_id).
-                            where(nature: [:point, :stop]).
-                            where("read_at >= ?", self.read_at.utc).
-                            order(nature: :desc, read_at: :asc).
-                            pluck(:read_at).
-                            first.utc
+      stop_read_at  = self.siblings.where(nature: [:point, :stop])
+        .where("read_at >= ?", self.read_at.utc)
+        .order(nature: :desc, read_at: :asc)
+        .pluck(:read_at)
+        .first.utc
     end
     self.siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
   end

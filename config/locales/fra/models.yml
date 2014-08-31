@@ -564,6 +564,7 @@ fra:
     credited_item: "Élément annulé"
     credited_quantity: "Quantité déjà passée en avoir"
     credits: "Avoirs"
+    crumbs: "Miettes"
     cultivable_zone: "Zone cultivable"
     cultivable_zones: "Zones cultivables"
     cultivation_variety: "Variété de la culture"
@@ -634,6 +635,7 @@ fra:
     derivatives_list: "Liste des dérivés"
     description: "Description"
     detail_payments: "Détailler les paiements"
+    device_uid: "ID unique de l’appareil"
     diff_less: "Droits enlevés" #?
     diff_more: "Droits rajoutés" #?
     direct_links: "Liens directs"

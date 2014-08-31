@@ -222,7 +222,7 @@ class User < Ekylibre::Record::Base
   def unconverted_crumb_days
     self.crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
   end
-  
+
 
   def self.generate_authentication_token
     loop do

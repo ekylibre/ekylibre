@@ -3,7 +3,7 @@
   'use strict'
 
   # Work like $.isArray, $.isFunction...
-  $.isBlank = (obj) -> 
+  $.isBlank = (obj) ->
     return (!obj? or $.trim(obj) == "")
 
   true

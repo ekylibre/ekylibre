@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813215326) do
+ActiveRecord::Schema.define(version: 20140831135204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -360,6 +360,7 @@ ActiveRecord::Schema.define(version: 20140813215326) do
     t.integer  "lock_version",                                                                        default: 0, null: false
     t.spatial  "geolocation",          limit: {:srid=>4326, :type=>"point"},                                      null: false
     t.integer  "intervention_cast_id"
+    t.string   "device_uid",                                                                                      null: false
   end
 
   add_index "crumbs", ["created_at"], :name => "index_crumbs_on_created_at"

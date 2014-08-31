@@ -605,7 +605,6 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
-    worked_on: "Travaillé le"
     abilities: "Compétences" #?
     account_accruals: "Comptes de régularisation" #?
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
@@ -1595,6 +1594,7 @@ fra:
     wine_tanks: "Cuverie" #?
     with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)"
+    worked_on: "Travaillé le"
     working_zone: "Zone travaillée"
     x_cashes:
       one: "1 compte bancaire"
@@ -1850,11 +1850,11 @@ fra:
       attach: "Attacher"
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
-      convert: "Convertir"
       close: "Fermer"
       compute: "Calculer"
       compute_balances: "Calculer la balance"
       confirm: "Confirmer"
+      convert: "Convertir"
       correct: "Corriger"
       create: "Créer"
       decrement: "Décrementer"

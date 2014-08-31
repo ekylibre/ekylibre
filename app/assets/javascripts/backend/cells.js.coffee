@@ -13,7 +13,7 @@
           element.removeClass("loading")
           if $.isBlank(data)
             element.removeClass("loading")
-            element.addClass("blank")          
+            element.addClass("blank")
             element.trigger('cell:empty')
           else
             element.html(data)

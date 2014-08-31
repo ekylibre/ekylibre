@@ -2,7 +2,7 @@
   :ruby
     # array of crumbs ready to be managed by VisualizationHelper
     crumbs = []
-  
+
     interventions_paths = Crumb.of_date(@worked_on).interventions_paths(current_user)
     production_supports = []
     production_supports = Crumb.production_supports(interventions_paths.flatten) if interventions_paths.present?
@@ -11,7 +11,7 @@
       started_at = intervention_path.first.read_at
       stopped_at = intervention_path.last.read_at
       doer = intervention_path.first.user
-  
+
       intervention_path.each do |crumb|
         item =  {
           name:         name,
@@ -26,7 +26,7 @@
         crumbs << item
       end
     end
-    
+
     interventions_paths = {}
     previous_crumb = nil
     crumbs.each do |item|
@@ -39,14 +39,14 @@
       item[:popup] = {content: popup_content}
       previous_crumb = item[:crumb_id]
     end
-  
+
     supports = production_supports.collect do |support|
       {activity: support.activity_name, shape: (support.shape ? support.shape_to_ewkt : nil)}
     end
-  
+
   = kujaku do |k|
     - k.select current_user.unconverted_crumb_days.collect{|d| [d.l, d]}, name: :worked_on, selected: @worked_on
-  
+
   = beehive do |b|
     - b.cell :map do
       = visualization do |v|
@@ -62,11 +62,11 @@
         - v.control :scale
         - v.control :fullscreen
         - v.control :layer_selector
-  
+
     -# b.cell :interventions_paths do # TODO: implement slider
       = render 'time_slider', crumbs: crumbs
     - interventions_paths.each do |name, intervention_path|
       - b.cell intervention_path.first[:started_at].l do
-        = render 'intervention', path: intervention_path  
+        = render 'intervention', path: intervention_path
 - else
   = :no_crumbs_to_check.tl

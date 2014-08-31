@@ -24,6 +24,7 @@
 #  accuracy             :decimal(19, 4)   not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  device_uid           :string(255)      not null
 #  geolocation          :spatial({:srid=> not null
 #  id                   :integer          not null, primary key
 #  intervention_cast_id :integer
