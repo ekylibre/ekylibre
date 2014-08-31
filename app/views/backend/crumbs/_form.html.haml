@@ -1,5 +1,4 @@
-- if !previous.nil? && !(['start','stop'].include? Crumb.find(crumb).nature)
+- unless crumb.start? or crumb.stop?
   = form_for Crumb.find(crumb), action: :update, url: backend_crumb_path(crumb), method: :patch do |f|
-    = hidden_field_tag :previous_crumb_id, previous
     = hidden_field_tag :nature, 'start'
     = f.submit "start new intervention here"

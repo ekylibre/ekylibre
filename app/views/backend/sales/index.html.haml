@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.radio :all, :current, :unpaid
+  - k.radio_buttons :all, :current, :unpaid
   - k.criterion do
     %label= Sale.human_attribute_name(:responsible)
     = select_tag(:responsible_id, options_for_select([[]] + Entity.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))

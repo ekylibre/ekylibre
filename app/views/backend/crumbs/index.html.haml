@@ -3,75 +3,59 @@
     # array of crumbs ready to be managed by VisualizationHelper
     crumbs = []
 
-    interventions_paths = Crumb.of_date(@worked_on).interventions_paths(current_user)
-    production_supports = []
-    production_supports = Crumb.production_supports(interventions_paths.flatten) if interventions_paths.present?
-    interventions_paths.each do |intervention_path|
-      name = interventions_paths.index(intervention_path)
-      started_at = intervention_path.first.read_at
-      stopped_at = intervention_path.last.read_at
-      doer = intervention_path.first.user
-      if intervention_path.first.metadata[:procedure_nature]
-        procedure_nature = intervention_path.first.metadata[:procedure_nature]
-        procedure = Nomen::ProcedureNatures.find(procedure_nature.to_sym)
-      end
+    interventions_paths = current_user.interventions_paths(on: @worked_on)
 
+    for intervention_path in interventions_paths.each
+      name = intervention_path.human_name
       intervention_path.each do |crumb|
-        item =  {
+        popup_content = []
+        popup_content << {label: Crumb.human_attribute_name(:nature), value: crumb.nature }
+        popup_content << {label: Crumb.human_attribute_name(:read_at), value: crumb.read_at.l }
+        popup_content << render('form', crumb: crumb)
+        crumbs << {
           name:         name,
+          shape:        crumb.geolocation,
+          popup:        {content: popup_content},
           read_at:      crumb.read_at,
           nature:       crumb.nature,
-          shape:        crumb.geolocation,
-          started_at:   started_at,
-          stopped_at:   stopped_at,
-          doer_id:      doer.id,
-          crumb_procedure_nature: (procedure ? procedure.human_name : nil),
+          started_at:   intervention_path.started_at,
+          stopped_at:   intervention_path.stopped_at,
           crumb_id:     crumb.id
         }
-        crumbs << item
       end
     end
 
-    interventions_paths = {}
-    previous_crumb = nil
-    crumbs.each do |item|
-      interventions_paths[item[:name]] ||= []
-      interventions_paths[item[:name]] << item
-      popup_content = []
-      popup_content << {label: :nature, value: item[:nature] }
-      popup_content << {label: :date, value: Crumb.find(item[:crumb_id]).read_at.to_formatted_s(:long)}
-      popup_content << render('form', crumb: item[:crumb_id], previous: previous_crumb)
-      item[:popup] = {content: popup_content}
-      previous_crumb = item[:crumb_id]
-    end
-
-    supports = production_supports.collect do |support|
-      {activity: support.activity_name, shape: (support.shape ? support.shape_to_ewkt : nil)}
+    supports = []
+    if interventions_paths.any?
+      supports = Crumb.production_supports(interventions_paths.map(&:to_a).flatten).collect do |support|
+        {activity: support.activity_name, shape: (support.shape ? support.shape_to_ewkt : nil)}
+      end
     end
 
   = kujaku do |k|
     - k.select current_user.unconverted_crumb_days.collect{|d| [d.l, d]}, name: :worked_on, selected: @worked_on
 
-  = beehive do |b|
-    - b.cell :map do
-      = visualization do |v|
-        - if supports.any?
-          - v.serie :production_supports, supports
-          - v.categories :activity, :production_supports
-        - v.serie :interventions, crumbs
-        - v.paths :crumb_procedure_nature, :interventions
-        - v.background 'OpenStreetMap.HOT'
-        - v.background 'Thunderforest.Transport'
-        - v.background 'Thunderforest.Outdoors'
-        - v.control :zoom
-        - v.control :scale
-        - v.control :fullscreen
-        - v.control :layer_selector
+  - if crumbs.any?
+    = beehive do |b|
+      - b.cell :map do
+        = visualization do |v|
+          - if supports.any?
+            - v.serie :production_supports, supports
+            - v.categories :activity, :production_supports
+          - v.serie :crumbs, crumbs
+          - v.paths :name, :crumbs, label: Intervention.model_name.human
+          - v.background 'OpenStreetMap.HOT'
+          - v.background 'Thunderforest.Transport'
+          - v.background 'Thunderforest.Outdoors'
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
 
-    -# b.cell :interventions_paths do # TODO: implement slider
-      = render 'time_slider', crumbs: crumbs
-    - interventions_paths.each do |name, intervention_path|
-      - b.cell intervention_path.first[:started_at].l do
-        = render 'intervention', path: intervention_path
+      -# b.cell :interventions_paths do # TODO: implement slider
+        = render 'time_slider', crumbs: crumbs
+      - for intervention_path in interventions_paths
+        - b.cell intervention_path.human_name do
+          = render 'intervention', path: intervention_path
 - else
   = :no_crumbs_to_check.tl

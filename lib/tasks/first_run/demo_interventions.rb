@@ -385,7 +385,7 @@ load_data :demo_interventions do |loader|
         RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
           file.each do |record|
             metadata = record.attributes['metadata'].blank? ? {} : record.attributes['metadata'].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-              h[i.first.strip.downcase.to_sym] = i.second
+              h[i.first.strip.downcase.to_s] = i.second.to_s
               h
             }
             Crumb.create!(accuracy: 1,

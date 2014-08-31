@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.radio :all, :active, :inactive
+  - k.radio_buttons :all, :active, :inactive
   -# k.criterion do
     %label= tl(:category)
     = select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.to_a.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))

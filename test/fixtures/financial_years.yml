@@ -255,3 +255,12 @@ financial_years_023:
   started_at: 2013-09-01
   stopped_at: 2014-08-31
   updater: users_001
+
+financial_years_024:
+  closed: false
+  code: EX2014-15
+  creator: users_001
+  currency: EUR
+  started_at: 2014-09-01
+  stopped_at: 2015-08-31
+  updater: users_001

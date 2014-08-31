@@ -96,7 +96,7 @@ class Crumb < Ekylibre::Record::Base
   def self.products(*crumbs)
     crumbs.flatten!
     raw_products = Product.distinct.joins(:readings)
-          .joins("INNER JOIN crumbs ON ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation)")
+          .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation))")
           .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
     contents = raw_products.map(&:contents)
     raw_products.concat(contents).flatten.uniq
@@ -109,11 +109,12 @@ class Crumb < Ekylibre::Record::Base
   #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns.
   #       Accepts the same parameters as ProductionSupport.of_campaign since it actually calls this method.
   # TODO: when refactoring, move this method to ProductionSupport model, as ProductionSupport#of_crumbs(crumbs = [], options = {})
-  def self.production_supports(crumbs = [], options = {})
+  def self.production_supports(*crumbs)
+    options = crumbs.extract_options!
     options[:campaigns] ||= Campaign.currents
     ProductionSupport.of_campaign(options[:campaigns]).distinct
       .joins(:storage)
-      .where("products.id IN (?)", Crumb.products(crumbs).map(&:id))
+      .where("products.id IN (?)", Crumb.products(*crumbs).map(&:id))
   end
 
   # Returns all crumbs, grouped by interventions paths, for a given user.
@@ -126,14 +127,8 @@ class Crumb < Ekylibre::Record::Base
   # requalify crumbs manually.
   # TODO : put this into User model
   def self.interventions_paths(user)
-    paths = []
-    for device_uid in user.crumbs.unconverted.pluck(:device_uid).uniq
-      Crumb.where(user_id: user.id, device_uid: device_uid).order(read_at: :asc).each do |crumb|
-        paths << [] if !paths.last or (paths.last.any? and crumb.start?)
-        paths[-1] << crumb
-      end
-    end
-    return paths
+    ActiveSupport::Deprecation.warn("Use User#interventions_paths instead")
+    return user.interventions_paths
   end
 
   # # returns all the dates for which a given user has pushed crumbs
@@ -144,25 +139,21 @@ class Crumb < Ekylibre::Record::Base
   # returns all the crumbs corresponding to the same intervention as the current crumb, i.e. the nearest start crumb including itself,
   # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
-    if start?
-      start_read_at = self.read_at.utc
-    else
+    start_read_at = self.read_at.utc
+    unless start?
       start_read_at = self.siblings.where(nature: :start)
-        .where("read_at <= ?", self.read_at.utc)
+        .where("read_at <= ?", start_read_at)
         .order(read_at: :desc)
-        .pluck(:read_at)
-        .first.utc
+        .first.read_at.utc
     end
-    if stop?
-      stop_read_at = self.read_at.utc
-    else
-      stop_read_at  = self.siblings.where(nature: [:point, :stop])
-        .where("read_at >= ?", self.read_at.utc)
+    stop_read_at = self.read_at.utc
+    unless stop?
+      stop_read_at  = self.siblings.where(nature: :stop)
+        .where("read_at >= ?", stop_read_at)
         .order(nature: :desc, read_at: :asc)
-        .pluck(:read_at)
-        .first.utc
+        .first.read_at.utc
     end
-    self.siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
+    return CrumbSet.new(self.siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
   end
 
   # Turns a crumb into an actual intervention and returns the created intervention if any
@@ -195,8 +186,8 @@ class Crumb < Ekylibre::Record::Base
 
       # preparing attributes for Intervention#create!
       attributes = {}
-      attributes[:started_at] = intervention_path.where(nature: :start).pluck(:read_at).first
-      attributes[:stopped_at] = intervention_path.where(nature: :stop).pluck(:read_at).first
+      attributes[:started_at] = intervention_path.pluck(:read_at).first
+      attributes[:stopped_at] = intervention_path.pluck(:read_at).last
       attributes[:reference_name] = procedure.name
       attributes[:production] = support.production
       attributes[:production_support] = support
@@ -225,7 +216,7 @@ class Crumb < Ekylibre::Record::Base
   # Returns possible procedures matching a crumb and its corresponding intervention path
   # Options: the same as Intervention#match
   def possible_procedures_matching(options = {})
-    Intervention.match(Crumb.products(intervention_path), options).map{|procedure, *| procedure}
+    Intervention.match(Crumb.products(intervention_path.to_a), options).map{|procedure, *| procedure}
   end
 
 end

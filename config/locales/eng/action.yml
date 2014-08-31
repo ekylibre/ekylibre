@@ -643,6 +643,7 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
+    intervention_at: "%{intervention} at %{at}"
     account_name: "Account name" #?
     account_number: "Account number" #?
     accountancy: "Accountancy"

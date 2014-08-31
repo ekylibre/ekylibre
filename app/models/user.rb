@@ -223,6 +223,21 @@ class User < Ekylibre::Record::Base
     self.crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
   end
 
+  # Returns all crumbs, grouped by interventions paths, for the current user.
+  # The result is an array of interventions paths.
+  # An intervention path is an array of crumbs, for a user, ordered by read_at,
+  # between a start crumb and a stop crumb.
+  def interventions_paths(options = {})
+    crumbs = self.crumbs.unconverted.where(nature: :start)
+    if options[:on]
+      crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day) 
+    end
+    return crumbs.order(read_at: :asc).map(&:intervention_path)
+  end
+
+
+
+
 
   def self.generate_authentication_token
     loop do

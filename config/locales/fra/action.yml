@@ -605,6 +605,7 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    intervention_at: "%{intervention} du %{at}"
     abilities: "Compétences" #?
     account_accruals: "Comptes de régularisation" #?
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
