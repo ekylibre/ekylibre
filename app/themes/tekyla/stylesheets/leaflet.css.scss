@@ -312,7 +312,7 @@ $map-button-size: round(2 * $fs-normal);
   .leaflet-control-layers-toggle {
     color: $link-color;
     @include is-icon;
-    @include use-icon(database);
+    @include use-icon(layers);
     @include text-align(center);
     width: $map-button-size;
     height: $map-button-size;

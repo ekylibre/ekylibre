@@ -37,11 +37,11 @@ GEM
       tzinfo (~> 1.1)
     acts_as_list (0.4.0)
       activerecord (>= 3.0)
-    agric (2.3.0)
+    agric (2.4.1)
       railties (>= 3.2, < 5.0)
       sass-rails
     arel (5.0.1.20140414130214)
-    awesome_nested_set (3.0.0)
+    awesome_nested_set (3.0.1)
       activerecord (>= 4.0.0, < 5)
     awesome_print (1.2.0)
     bcrypt (3.1.7)

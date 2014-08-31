@@ -19,8 +19,10 @@
 
 module Backend::CellsHelper
 
+  # No data permit to mark cell as empty
   def no_data
-    content_tag(:strong, :no_data.tl, :class => "no-data")
+    # return content_tag(:strong, :no_data.tl, :class => "no-data")
+    return nil
   end
 
 end

@@ -1,6 +1,9 @@
-%ul.desc-list.events
-  - for event in @events
-    %li
-      = link_to(backend_event_path(event), class: "event") do
-        %h3= event.started_at.l(format: "%H:%M") + " " + event.name
-        %p= event.casting
+- if @events.any?
+  %ul.desc-list.events
+    - for event in @events
+      %li
+        = link_to(backend_event_path(event), class: "event") do
+          %h3= event.started_at.l(format: "%H:%M") + " " + event.name
+          %p= event.casting
+- else
+  = no_data

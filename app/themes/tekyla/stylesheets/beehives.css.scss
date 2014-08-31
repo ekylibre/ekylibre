@@ -1,219 +1,229 @@
 
 @include keyframes(cell-rotate) {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+   0% {
+      transform: rotate(0);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
 }
 
 .beehive {
-  .box {
-    $min-width: round($mini-screen * 0.3);
-    $min-height: 200px;
-    $cell-border-width: 1px;
-    $cell-border: $cell-border-width solid #DDD;
-    $cell-title-vertical-padding: round($default-gap*1);
-    $cell-title-horizontal-padding: round($default-gap*2);
+   .box {
+      $min-width: round($mini-screen * 0.3);
+      $min-height: 200px;
+      $cell-border-width: 1px;
+      $cell-border: $cell-border-width solid #DDD;
+      $cell-title-vertical-padding: round($default-gap*1);
+      $cell-title-horizontal-padding: round($default-gap*2);
     // padding: 0 $cell-border-width;
-    margin-top: $default-gap;
-    &:first-child { margin-top: 0; }
+      margin-top: $default-gap;
+      &:first-child { margin-top: 0; }
     // @include clearfix;
 
-    .cell-titles {
-      display: none;
-      li.error {
-        a.cell-title {
-          &, i {
-            color: $invalid-color;
-          }
-        }
+      .cell-titles {
+         display: none;
+         li.error {
+            a.cell-title {
+               &, i {
+                  color: $invalid-color;
+               }
+            }
+         }
       }
-    }
 
-    .cell-title {
-      color: $active-color;
-      font-weight: bold;
-      padding: $cell-title-vertical-padding $cell-title-vertical-padding; //$cell-title-horizontal-padding;
-      background: #FFF;
-      @include text-align(left);
-      border-top: 2px solid $active-color;
-      @include ellipsis;
-      i {
-        color: $active-color;
-        @include is-icon($fs-normal);
-        @include use-icon(bookmark);
+      .cell-title {
+         color: $active-color;
+         font-weight: bold;
+         padding: $cell-title-vertical-padding $cell-title-vertical-padding; //$cell-title-horizontal-padding;
+         background: #FFF;
+         @include text-align(left);
+         border-top: 2px solid $active-color;
+         @include ellipsis;
+         i {
+            color: $active-color;
+            @include is-icon($fs-normal);
+            @include use-icon(bookmark);
+         }
       }
-    }
 
-    .cell {
-      &:first-child { margin-top: 0; }
+      .cell {
+         &:first-child { margin-top: 0; }
 
 
-      .cell-content {
-        padding: $cell-title-vertical-padding $cell-title-vertical-padding; /*$cell-title-horizontal-padding;*/
-        background: #FFFFFF;
-        height: auto;
+         .cell-content {
+            padding: $cell-title-vertical-padding $cell-title-vertical-padding; /*$cell-title-horizontal-padding;*/
+            background: #FFFFFF;
+            height: auto;
 
-        > .cell-indicator {
-          color: $neutral-color;
-          @include is-icon(4 * $fs-normal);
-          @include inline-block;
-        }
+            > .cell-indicator {
+               color: $neutral-color;
+               @include is-icon(6 * $fs-normal);
+               @include inline-block;
+            }
 
-        &.loading {
-          text-align: center;
-          padding: 4 * $fs-normal;
-          > .cell-indicator {
+            &.loading, &.errored, &.blank {
+               text-align: center;
+               padding: 3 * $fs-normal;
+               cursor: default;
+            }
+
+            &.loading {
+               > .cell-indicator {
+                  opacity: 0.8;
             // @include use-icon(spinner);
                   // @include animation(cell-rotate 1s infinite steps(8));
                   @include use-icon(circle-o-notch);
                   @include animation(cell-rotate 2s infinite linear);
-          }
-        }
-
-        &.errored {
-          text-align: center;
-          padding: 4 * $fs-normal;
-          > .cell-indicator {
-            color: $invalid-color;
-            @include use-icon(meh-o);
-          }
-        }
-
-        > .toolbar {
-          @include margin-left($default-gap);
-        }
-
-      }
-
-      .cell-bottom {
-        clear: both;
-      }
-    }
-
-    @for $i from 1 through 30 {
-      &.box-#{ $i }-cells {
-        @media screen and (min-width: round($i*$min-width) + 1px) {
-          &.box-h {
-            .cells {
-              .cells-bottom {
-                clear: both;
-              }
-              .cell {
-                $space: 1%;
-                width: (100% - (($i - 1) * $space)) / $i;
-                @include float(left);
-                margin-top: 0;
-                @include margin-left($space);
-                &:first-child {
-                  @include margin-left(0);
-                }
-                @if $i > 1 {
-                  .cell-title {
-                    border-left: $cell-border;
-                    border-right: $cell-border;
-                  }
-                  &:first-child .cell-title { border-left: none }
-                  &:last-child  .cell-title { border-right: none }
-
-                  .cell-content {
-                    border: $cell-border;
-                    border-top: none;
-                    .rss-feed {
-                      max-height: 20em;
-                      overflow: auto;
-                    }
-
-                  }
-                  &:first-child .cell-content { border-left: none }
-                  &:last-child  .cell-content { border-right: none }
-                }
-              }
-            }
-          }
-        }
-        @media screen and (min-width: round($i*$min-width*0.8) + 1px) {
-          &.box-tab {
-            ul.cell-titles {
-              display: block;
-              li {
-                @include inline-block;
-                padding: 0;
-                width: 100% / $i;
-                opacity: 0.4;
-                &:hover { opacity: 0.8 }
-                .cell-title {
-                  text-decoration: none;
-                  display: block;
-                  border-color: mix($active-color, white, 10%);
-                  &:focus {
-                    outline: none;
-                  }
-                }
-                &.active {
-                  opacity: 1;
-                  a {
-                    border: $cell-border;
-                    border-top:  2px solid $active-color;
-                    border-bottom: none;
-                    padding-bottom: $cell-title-vertical-padding + $cell-border-width;
-                  }
-                  &:first-child a { border-left: none }
-                  &:last-child  a { border-right: none }
-                  margin-bottom: (-1 * $cell-border-width);
-                  &.error {
-                    a {
-                      border-top-color: $invalid-color;
-                    }
-                  }
-                }
-              }
-
-
-            }
-            .cells {
-              border-top: $cell-border;
-              .cell {
-                display: none;
-                width: 100%;
-                margin-top : 0;
-                &.active {
-                  display: block;
-                }
-                .cell-inner {
-                  margin-left : 0;
-                  .cell-title { display: none; }
-                  .cell-content {
-                    @if $i > 1 {
-                      padding-left: 0;
-                      padding-right: 0;
-                    }
-                    border-bottom: $cell-border;
-                    border-top: none;
-                    .rss-feed {
-                      max-height: 20em;
-                      overflow: auto;
-                    }
-
-
-                  }
-                }
-              }
+               }
             }
 
-          }
-        }
+            &.errored {
+               > .cell-indicator {
+                  color: $invalid-color;
+                  @include use-icon(meh-o);
+               }
+            }
+
+            &.blank {
+               > .cell-indicator {
+                  color: $caution-color;
+                  @include use-icon(empty-o);
+               }
+            }
+
+            > .toolbar {
+               @include margin-left($default-gap);
+            }
+
+         }
+
+         .cell-bottom {
+            clear: both;
+         }
       }
-    }
+
+      @for $i from 1 through 30 {
+         &.box-#{ $i }-cells {
+            @media screen and (min-width: round($i*$min-width) + 1px) {
+               &.box-h {
+                  .cells {
+                     .cells-bottom {
+                        clear: both;
+                     }
+                     .cell {
+                        $space: 1%;
+                        width: (100% - (($i - 1) * $space)) / $i;
+                        @include float(left);
+                        margin-top: 0;
+                        @include margin-left($space);
+                        &:first-child {
+                           @include margin-left(0);
+                        }
+                        @if $i > 1 {
+                           .cell-title {
+                              border-left: $cell-border;
+                              border-right: $cell-border;
+                           }
+                           &:first-child .cell-title { border-left: none }
+                           &:last-child  .cell-title { border-right: none }
+
+                           .cell-content {
+                              border: $cell-border;
+                              border-top: none;
+                              .rss-feed {
+                                 max-height: 20em;
+                                 overflow: auto;
+                              }
+
+                           }
+                           &:first-child .cell-content { border-left: none }
+                           &:last-child  .cell-content { border-right: none }
+                        }
+                     }
+                  }
+               }
+            }
+            @media screen and (min-width: round($i*$min-width*0.8) + 1px) {
+               &.box-tab {
+                  ul.cell-titles {
+                     display: block;
+                     li {
+                        @include inline-block;
+                        padding: 0;
+                        width: 100% / $i;
+                        opacity: 0.4;
+                        &:hover { opacity: 0.8 }
+                        .cell-title {
+                           text-decoration: none;
+                           display: block;
+                           border-color: mix($active-color, white, 10%);
+                           &:focus {
+                              outline: none;
+                           }
+                        }
+                        &.active {
+                           opacity: 1;
+                           a {
+                              border: $cell-border;
+                              border-top:  2px solid $active-color;
+                              border-bottom: none;
+                              padding-bottom: $cell-title-vertical-padding + $cell-border-width;
+                           }
+                           &:first-child a { border-left: none }
+                           &:last-child  a { border-right: none }
+                           margin-bottom: (-1 * $cell-border-width);
+                           &.error {
+                              a {
+                                 border-top-color: $invalid-color;
+                              }
+                           }
+                        }
+                     }
+
+
+                  }
+                  .cells {
+                     border-top: $cell-border;
+                     .cell {
+                        display: none;
+                        width: 100%;
+                        margin-top : 0;
+                        &.active {
+                           display: block;
+                        }
+                        .cell-inner {
+                           margin-left : 0;
+                           .cell-title { display: none; }
+                           .cell-content {
+                              @if $i > 1 {
+                                 padding-left: 0;
+                                 padding-right: 0;
+                              }
+                              border-bottom: $cell-border;
+                              border-top: none;
+                              .rss-feed {
+                                 max-height: 20em;
+                                 overflow: auto;
+                              }
+
+
+                           }
+                        }
+                     }
+                  }
+
+               }
+            }
+         }
+      }
 
 
 
-  }
+   }
 
-  .beehive-bottom {
-    clear: both;
-  }
+   .beehive-bottom {
+      clear: both;
+   }
 
 }
