@@ -11,7 +11,10 @@
       started_at = intervention_path.first.read_at
       stopped_at = intervention_path.last.read_at
       doer = intervention_path.first.user
-      procedure_nature = intervention_path.first.metadata['procedure_nature']
+      if intervention_path.first.metadata[:procedure_nature]
+        procedure_nature = intervention_path.first.metadata[:procedure_nature]
+        procedure = Nomen::ProcedureNatures.find(procedure_nature.to_sym)
+      end
 
       intervention_path.each do |crumb|
         item =  {
@@ -22,7 +25,7 @@
           started_at:   started_at,
           stopped_at:   stopped_at,
           doer_id:      doer.id,
-          crumb_procedure_nature: procedure_nature,
+          crumb_procedure_nature: (procedure ? procedure.human_name : nil),
           crumb_id:     crumb.id
         }
         crumbs << item

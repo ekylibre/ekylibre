@@ -722,6 +722,7 @@ jpn:
       # unconfirmed: "Unconfirmed"
     # critic_stock_min: "Critic stock min"
     # critic_stocks: "Stocks below critical threshold"
+    # crumb_procedure_nature: "Crumb procedure nature"
     # csv_statistics: "CSV statistics"
     # cultivable_zone: "Cultivable zone"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"

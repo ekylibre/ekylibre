@@ -828,6 +828,7 @@ fra:
     cropping_plan: "Assolement" #?
     cropping_plan_chart: "Assolement" #?
     cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)" #?
+    crumb_procedure_nature: "Type de procedure"
     csv_statistics: "Statistiques à exporter au format CSV"
     cultivable_zone: "Zone cultivable"
     cumul: "Cumul du total et du solde précédent N°%{number}"
