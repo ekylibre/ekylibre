@@ -167,7 +167,7 @@ module RestfullyManageable
           code << "  notify_success(:record_has_been_correctly_removed)\n"
         end
         # code << "  redirect_to #{after_destroy_url ? after_destroy_url : model.name.underscore.pluralize+'_url'}\n"
-        code << "  " + (after_destroy_url ? 'redirect_to(' + after_destroy_url.inspect.gsub(/RECORD/, "@#{record_name}") + ')' : 'redirect_to(action: :index)') + "\n"
+        code << "  " + (after_destroy_url ? 'redirect_to(' + after_destroy_url.inspect.gsub(/RECORD/, "@#{record_name}") + ')' : 'redirect_to(params[:redirect] || {action: :index})') + "\n"
         code << "end\n"
       end
 

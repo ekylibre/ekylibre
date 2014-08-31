@@ -605,6 +605,7 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    worked_on: "Travaillé le"
     abilities: "Compétences" #?
     account_accruals: "Comptes de régularisation" #?
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —" #?
@@ -1849,6 +1850,7 @@ fra:
       attach: "Attacher"
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
+      convert: "Convertir"
       close: "Fermer"
       compute: "Calculer"
       compute_balances: "Calculer la balance"

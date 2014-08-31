@@ -68,6 +68,7 @@ class User < Ekylibre::Record::Base
   belongs_to :establishment
   belongs_to :person
   belongs_to :role
+  has_many :crumbs
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
   has_many :sales_invoices, -> { where(state: "invoice") }, foreign_key: :responsible_id, class_name: "Sale"
   has_many :sales, foreign_key: :responsible_id
@@ -215,6 +216,13 @@ class User < Ekylibre::Record::Base
     list &= self.resource_actions
     return list.any?
   end
+
+
+  # Returns the days where the user has crumbs present
+  def unconverted_crumb_days
+    self.crumbs.unconverted.pluck(:read_at).map(&:to_date).uniq.sort
+  end
+  
 
   def self.generate_authentication_token
     loop do

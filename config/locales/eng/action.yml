@@ -643,6 +643,7 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
+    worked_on: "Worked on"
     account_name: "Account name" #?
     account_number: "Account number" #?
     accountancy: "Accountancy"
@@ -1579,7 +1580,7 @@ eng:
       compute_balances: "Compute balances"
       confirm: "Confirm"
       # contacts: "Contacts"
-      # convert: "Convert"
+      convert: "Convert"
       correct: "Correct"
       create: "Create"
       decrement: "Decrement"

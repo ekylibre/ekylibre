@@ -1,8 +1,11 @@
-- if start_crumb = Crumb.where(read_at: path.first[:started_at]).where(nature: 'start').first
-  = link_to :destroy.tl, backend_crumb_path(start_crumb), action: :destroy, method: :delete, data: {confirm: :are_you_sure.tl}, class: "btn btn-destroy"
-  - if start_crumb.intervention_cast_id.present?
-    = link_to :show.tl, backend_intervention_path(start_crumb.intervention_cast_id), class: "btn"
-  - else
-    = form_for [:convert_backend, start_crumb], method: :post, action: :convert do |f|
-      = select_tag :procedure_name, options_for_select(start_crumb.possible_procedures_matching.collect{|procedure|[procedure.human_name, procedure.name]})
-      = f.submit :convert.tl
+= form_actions do
+  - if start_crumb = Crumb.where(read_at: path.first[:started_at]).where(nature: 'start').first
+    - if start_crumb.intervention_cast_id.present?
+      = link_to "rest.actions.show".t, backend_intervention_path(start_crumb.intervention_cast_id), class: "btn"
+    - else
+      = form_tag({action: :convert, id: start_crumb.id, worked_on: @worked_on}, method: :post, class: "inline-form") do
+        = select_tag :procedure_name, options_for_select(start_crumb.possible_procedures_matching.collect{|procedure| [procedure.human_name, procedure.name]})
+        = submit_tag "rest.actions.convert".t, name: nil
+    = link_to(backend_crumb_path(start_crumb, redirect: url_for(worked_on: @worked_on)), action: :destroy, method: :delete, data: {confirm: :are_you_sure.tl}, class: "btn btn-destroy") do
+      %i
+      = "rest.actions.destroy".t

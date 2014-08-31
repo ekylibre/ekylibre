@@ -1246,6 +1246,10 @@ span.rad, label.radio {
 }
 
 
+.inline-form {
+   @include inline-block;
+}
+
 $form-actions-height: 48px;
 .form-actions {
   @include button-group;

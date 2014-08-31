@@ -73,7 +73,7 @@ module BackendHelper
       kontroller = (url.is_a?(Hash) ? url[:controller] : nil) || controller_name
       options[:title] ||= ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => ["labels.#{name}".to_sym]}.merge(options.delete(:i18n)||{}))
       if icon = options.delete(:icon)
-        item[:title] = content_tag(:i, '', :class => "icon-" + icon.to_s) + ' '.html_safe + h(item[:title])
+        item[:title] = content_tag(:i, '', class: "icon-" + icon.to_s) + ' '.html_safe + h(item[:title])
       end
       if name != :back
         url[:action] ||= name if url.is_a?(Hash)
@@ -163,17 +163,19 @@ module BackendHelper
           radio  = radio_button_tag(name, mode, params[name] == mode.to_s)
           radio << " "
           radio << content_tag(:label, ::I18n.translate("#{i18n_root}#{mode}"), :for => "#{name}_#{mode}")
-          code << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
+          code << " ".html_safe << content_tag(:span, radio.html_safe, class: :rad)
         end
-      elsif c[:type] == :radio
+
+      elsif c[:type] == :radio_buttons
         code = content_tag(:label, opts[:label]||tg(:state))
         params[c[:name]] ||= c[:states][0].to_s
         i18n_root = opts[:i18n_root]||"labels.#{controller_name}_states."
         for state in c[:states]
           radio  = radio_button_tag(c[:name], state, params[c[:name]] == state.to_s)
           radio << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for => "#{c[:name]}_#{state}")
-          code  << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
+          code  << " ".html_safe << content_tag(:span, radio.html_safe, class: :rad)
         end
+
       elsif c[:type] == :check_boxes
         code = content_tag(:label, opts[:label] || tg(:selection))
         params[c[:name]] ||= []
@@ -181,8 +183,14 @@ module BackendHelper
         for selection in c[:selections]
           check_box  = check_box_tag("#{c[:name]}[]", selection, params[c[:name]].include?(selection.to_s))
           check_box << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{selection}"), :for => "#{c[:name]}_#{selection}")
-          code  << " ".html_safe << content_tag(:span, check_box.html_safe, :class => :chk)
+          code  << " ".html_safe << content_tag(:span, check_box.html_safe, class: :chk)
         end
+
+      elsif c[:type] == :select
+        code = content_tag(:label, opts[:label] || c[:name].tl(default: "labels.options".to_sym))
+        params[c[:name]] ||= c[:selection].first.second if c[:selection] and c[:selection].first
+        code << " ".html_safe << content_tag(:span, select_tag(c[:name], options_for_select(c[:selection], opts[:selected] || params[c[:name]])), class: :slc)
+
       elsif c[:type] == :text
         code = content_tag(:label, opts[:label]||tg(:search))
         name = c[:name]||:q
@@ -190,30 +198,34 @@ module BackendHelper
         params[name] ||= p.value
         p.set!(params[name])
         code << " ".html_safe << text_field_tag(name, params[name])
+
       elsif c[:type] == :date
         code = content_tag(:label, opts[:label]||tg(:select_date))
         name = c[:name]||:d
         code << " ".html_safe << date_field_tag(name, params[name])
+
       elsif c[:type] == :crit
         code << send("#{c[:name]}_crit", *c[:args])
+
       elsif c[:type] == :criterion
         code << capture(&c[:block])
       end
-      html_options = (c[:html_options]||{}).merge(:class => "crit crit-#{c[:type]}")
+
+      html_options = (c[:html_options]||{}).merge(class: "crit crit-#{c[:type]}")
       if index.zero?
         html_options[:class] << " crit-main"
         code = link_to(content_tag(:i), toggle_backend_kujaku_url(id), 'data-toggle' => 'kujaku') + code.html_safe if k.criteria.size > 1
-        code << button_tag(content_tag(:i) + h(tl(:filter)), 'data-disable' => true, :name => nil, :class => "filter")
+        code << button_tag(content_tag(:i) + h(tl(:filter)), 'data-disable' => true, :name => nil, class: "filter")
       else
         html_options[:class] << " crit-other"
       end
       crits << content_tag(:div, code.html_safe, html_options)
     end
-    tag = content_tag(:div, crits, :class => :crits)
+    tag = content_tag(:div, crits, class: :crits)
     tag = form_tag(url_options, :method => :get) { tag } unless options[:form].is_a?(FalseClass)
 
 
-    return content_tag(:div, tag.to_s.html_safe, :class => "kujaku" + (current_user.preference("interface.kujakus.#{id}.collapsed", (options.has_key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value ? " collapsed" : ""), :id => id)
+    return content_tag(:div, tag.to_s.html_safe, class: "kujaku" + (current_user.preference("interface.kujakus.#{id}.collapsed", (options.has_key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value ? " collapsed" : ""), :id => id)
   end
 
   class Kujaku
@@ -226,37 +238,45 @@ module BackendHelper
     # def mode(*modes)
     #   options = modes.delete_at(-1) if modes[-1].is_a? Hash
     #   options = {} unless options.is_a? Hash
-    #   @criteria << {:type => :mode, :modes => modes, :options => options}
+    #   @criteria << {:type => :mode, :modes => modes, options: options}
     # end
 
     def radio(*states)
+      ActiveSupport::Deprecation.warn("Use radio_buttons instead of radio.")
       return radio_buttons(*states)
     end
 
     def radio_buttons(*states)
       options = states.extract_options!
       name = options.delete(:name) || :s
-      add_criterion :radio, :name => name, :states => states, :options => options
+      add_criterion :radio_buttons, name: name, :states => states, options: options
     end
 
     def check_boxes(*selections)
       options = selections.extract_options!
       name = options.delete(:name) || :c
-      add_criterion :check_boxes, :name => name, :selections => selections, :options => options
+      add_criterion :check_boxes, name: name, :selections => selections, options: options
+    end
+
+    def select(*args)
+      options = args.extract_options!
+      selection = args.last.is_a?(Array) ? args.delete_at(-1) : []
+      name = args.shift || options.delete(:name) || :o
+      add_criterion :select, name: name, :selection => selection, options: options
     end
 
     def text(name=nil, options={})
       name ||= :q
-      add_criterion :text, :name => name, :options => options
+      add_criterion :text, name: name, options: options
     end
 
     def date(name=nil, options={})
       name ||= :d
-      add_criterion :date, :name => name, :options => options
+      add_criterion :date, name: name, options: options
     end
 
     def crit(name=nil, *args)
-      add_criterion :crit, :name => name, :args => args
+      add_criterion :crit, name: name, :args => args
     end
 
     def criterion(html_options={}, &block)
@@ -321,9 +341,9 @@ module BackendHelper
     end
     return content_tag(:span, html_options) do
       content_tag(:span, nil, class: "go") +
-        content_tag(:span, nil, class: "caution") +
-        content_tag(:span, nil, class: "stop")
-    end
-  end
+                  content_tag(:span, nil, class: "caution") +
+                              content_tag(:span, nil, class: "stop")
+                                        end
+                            end
 
-end
+                end

@@ -277,8 +277,8 @@
         return false;
     });
 
-    // Adds parameters
-    $(document).behave("ajax:before confirm", "*[data-with]", function () {
+    // Adds parameters to link
+    $(document).on("ajax:before confirm", "*[data-with]", function () {
         var element = $(this), params = $.unparam(element.data("params"));
         $(element.data("with")).each(function () {
             var paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id");
@@ -291,7 +291,7 @@
     });
 
     // Adds a HTML
-    $(document).behave("focusout", "input[data-add-line-unless]", function () {
+    $(document).on("focusout", "input[data-add-line-unless]", function () {
         var element = $(this);
         if (element.numericalValue() !== 0 && !$(element.data("add-line-unless")).hasClass("valid")) {
             if (element.data("with")) {

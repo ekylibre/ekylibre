@@ -183,7 +183,7 @@ class Intervention < Ekylibre::Record::Base
     return (self.stopped_at - self.started_at)
   end
 
-  # sum all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
+  # Sums all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
   def cost(role = :input)
     if self.casts.of_role(role).any?
       self.casts.of_role(role).where.not(actor_id: nil).map(&:cost).compact.sum
@@ -313,7 +313,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   # match
-  # returns an array of procedures matching the given actors ordered by relevance
+  # Returns an array of procedures matching the given actors ordered by relevance
   # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
   # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
   # matched in the procedure
@@ -328,14 +328,13 @@ class Intervention < Ekylibre::Record::Base
   #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
   # Default: false, since it's slower
   #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false
-
   def self.match(actors, options = {})
     actors = [actors].flatten
     limit = options[:limit].to_i - 1
     relevance_threshold = options[:relevance].to_f
     maximum_arity = 0
 
-    # creating coefficients for relevance calculation for each procedure
+    # Creating coefficients for relevance calculation for each procedure
     # coefficients depend on provisional, actors history and actors presence in procedures
     history = Hash.new(0)
     provisional = []
@@ -344,13 +343,13 @@ class Intervention < Ekylibre::Record::Base
       actors_id = actors.map(&:id)
     end
 
-    # select interventions from all actors history
+    # Select interventions from all actors history
     if options[:history]
       history.merge!(Intervention.joins(:casts).
           where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
           where(started_at: (Time.now.midnight - 1.year)..(Time.now)). # history is considered relevant on 1 year
-          group(:'interventions.reference_name').
-          count(:'interventions.reference_name'))
+          group('interventions.reference_name').
+          count('interventions.reference_name'))
     end
 
     if options[:provisional]
