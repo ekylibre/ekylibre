@@ -2,10 +2,8 @@
   :ruby
     # array of crumbs ready to be managed by VisualizationHelper
     crumbs = []
-
     interventions_paths = current_user.interventions_paths(on: @worked_on)
-
-    for intervention_path in interventions_paths.each
+    for intervention_path in interventions_paths
       name = intervention_path.human_name
       intervention_path.each do |crumb|
         popup_content = []
