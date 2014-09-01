@@ -24,6 +24,7 @@ class CrumbSet
   attr_reader :crumbs, :start, :started_at, :stopped_at, :user, :device_uid, :intervention_cast, :procedure_nature
 
   delegate :possible_procedures_matching, to: :start
+  delegate :each, :to_a, :where, :order, :update_all, to: :crumbs
 
   def initialize(crumbs)
     @crumbs = crumbs
@@ -42,14 +43,6 @@ class CrumbSet
 
   def id
     "set_#{start.id}"
-  end
-
-  def each(*args, &block)
-    @crumbs.each(*args, &block)
-  end
-
-  def to_a
-    @crumbs.to_a
   end
 
   def casted?

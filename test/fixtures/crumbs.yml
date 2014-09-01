@@ -58,6 +58,7 @@ crumbs_001:
   - 45.619800720955041
   metadata:
     name: "Intervention #1"
+    procedure_nature: sowing
     thing: "Foo"
   nature: "start"
   read_at: 2013-10-26 18:34:04 +02:00

@@ -176,7 +176,7 @@ class Crumb < Ekylibre::Record::Base
     Ekylibre::Record::Base.transaction do
       options[:actors_ids] ||= []
       options[:actors_ids] << self.worker.id unless self.worker.nil?
-      actors = Crumb.products(intervention_path).concat(Product.find(options[:actors_ids])).compact.uniq
+      actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
         raise StandardError, "Need a production support"
       end
@@ -186,10 +186,10 @@ class Crumb < Ekylibre::Record::Base
 
       # preparing attributes for Intervention#create!
       attributes = {}
-      attributes[:started_at] = intervention_path.pluck(:read_at).first
-      attributes[:stopped_at] = intervention_path.pluck(:read_at).last
+      attributes[:started_at] = intervention_path.started_at
+      attributes[:stopped_at] = intervention_path.stopped_at
       attributes[:reference_name] = procedure.name
-      attributes[:production] = support.production
+      # attributes[:production] = support.production
       attributes[:production_support] = support
       intervention = Intervention.create!(attributes)
 
