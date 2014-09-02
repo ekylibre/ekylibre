@@ -685,18 +685,31 @@ form.search {
       color: #AAA;
     }
   }
-  &.important {
+  &.important, &.negative, &.positive, &.caution {
     .title {
-      font-weight: bold;
+      &, * {
+        font-weight: bold;
+      }
     }
     .value {
-      font-weight: bold;
-      color: $success-color;
+      &, * {
+        font-weight: bold;
+      }
       .picto {
         color: #AAA;
       }
     }
   }
+  &.positive .value {
+    color: $success-color;
+  }
+  &.negative .value {
+    color: $invalid-color;
+  }
+  &.caution .value {
+    color: $caution-color;
+  }
+
 }
 
 

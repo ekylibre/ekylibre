@@ -17,11 +17,16 @@
     .info
       %span.title= Intervention.human_attribute_name(:state)
       %span.value= @intervention.state.text
+    - total = 0
     - for type in [:input, :tool, :doer]
-      - cost = @intervention.cost(type) || 0.0
+      - cost = (@intervention.cost(type) || 0.0).round
+      - total += cost
       .info
         %span.title= "evaluated_#{type}_cost".tl
-        %span.value= cost.round(2).l(currency: Preference[:currency])
+        %span.value= cost.l(currency: Preference[:currency])
+    .big-info.important
+      %span.title= :total_cost.tl
+      %span.value= cost.l(currency: Preference[:currency])
 
 - else
   = no_data

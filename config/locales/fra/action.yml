@@ -622,10 +622,6 @@ fra:
     account_other_assets: "Divers" #?
     account_provision: "Provisions pour risques et charges" #?
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —" #?
-    account_tabbox:  #?
-      children: "Sous-comptes" #?
-      entities: "Personnes" #?
-      journal_entry_items: "Écritures" #?
     account_tangible_fixed_assets: "Immobilisations corporelles" #?
     account_untangible_fixed_assets: "Immobilisations incorporelles" #?
     account_value_current: "Brut" #?
@@ -690,16 +686,10 @@ fra:
     analytics: "Analytiques"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
-    animal_group_tabbox:  #?
-      animals: "Animaux du lot" #?
-      cares: "Soins réalisés sur le lot" #?
     animal_identification: "Identification animale" #?
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_pie: "Animaux par lot" #?
     animal_productions: "Productions animales"
-    animal_tabbox:  #?
-      cares: "Soins" #?
-      childrens: "Enfants" #?
     animals: "Animaux" #?
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
@@ -733,9 +723,6 @@ fra:
     body: "Corps du message"
     building: "Lieu de stockage"
     building_name: "Sortie de"
-    building_tabbox:  #?
-      stock_moves: "Mouvements de stock" #?
-      stocks: "Stocks" #?
     buildings: "Voir la liste des lieux de stockage"
     calculate: "Calculer"
     calendar: "Calendrier"
@@ -745,10 +732,7 @@ fra:
     cancelled: "Passées en avoir"
     care: "soins" #?
     cash: "Compte bancaire"
-    cash_balances: "Évolution du solde des comptes de trésorerie"
-    cash_tabbox:  #?
-      bank_statements: "Relevés de compte" #?
-      deposits: "Remises en banque" #?
+    cash_balances: "Soldes des comptes de trésorerie"
     casts: "Intervenants" #?
     catalog: "Description pour catalogue"
     category: "Catégorie"
@@ -829,6 +813,7 @@ fra:
     cropping_plan_chart: "Assolement" #?
     cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)" #?
     crumb_procedure_nature: "Type de procedure"
+    crumbs: "Miettes"
     csv_statistics: "Statistiques à exporter au format CSV"
     cultivable_zone: "Zone cultivable"
     cumul: "Cumul du total et du solde précédent N°%{number}"
@@ -1238,6 +1223,7 @@ fra:
     passive_stock_sum: "Total provisions" #?
     passive_sum: "Total passifs" #?
     password: "Mot de passe"
+    paths_to_convert: "Chemins à convertir"
     payable_taxes: "TVA déductibles / collectées" #?
     payback: "Remboursement demandée"
     payment_amount: "Montant de l’encaissement"
@@ -1302,7 +1288,6 @@ fra:
     product_name: "Produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
-    product_tabbox: #?
     production: "Production"
     production_cost: "Coût de production"
     production_support: "Support de production"

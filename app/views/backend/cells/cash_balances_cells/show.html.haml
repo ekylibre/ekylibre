@@ -16,9 +16,11 @@
       items = cash.account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_at)
 
       data = []
+      last = 0.0
       for name, period in periods
         item = items.where(printed_at: period).last
-        data << (item ? item.cumulated_absolute_balance.to_f : 0.0)
+        last = (item ? item.cumulated_absolute_balance.to_f : last)
+        data << last
       end
       series << {name: cash.name, data: data }
     end

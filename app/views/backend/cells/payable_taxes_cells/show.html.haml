@@ -17,10 +17,13 @@
       deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_at)
 
       data = []
+      last = {collect: 0.0, deduction: 0.0}
       for name, period in periods
         collect = collect_items.where(printed_at: period).last
         deduction = deduction_items.where(printed_at: period).last
-        data << - ((collect ? collect.cumulated_absolute_balance.to_f : 0.0) + (deduction ? deduction.cumulated_absolute_balance.to_f : 0.0))
+        last[:collect] = (collect ? collect.cumulated_absolute_balance.to_f : last[:collect])
+        last[:deduction] = (deduction ? deduction.cumulated_absolute_balance.to_f : last[:deduction])
+        data << - (last[:collect] + last[:deduction])
       end
       series << {name: tax.name, data: data }
     end

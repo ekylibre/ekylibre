@@ -1083,6 +1083,7 @@ arb:
     critic_stock_min: "الحد الادنى لانتقاد الاسهم"
     critic_stocks: "الاسهم على حافة الخطر"
     # crumb_procedure_nature: "Crumb procedure nature"
+    # crumbs: "Crumbs"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
     # cultivable_zone: "Cultivable zone"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
@@ -1520,6 +1521,7 @@ arb:
     passive_stock_sum: "مجموع الاحتياطات" #?
     passive_sum: "مجموع المطلوبات" #?
     password: "كلمة المرور"
+    # paths_to_convert: "Paths to convert"
     payback: "طلب الاستحقاق"
     # payment_amount: "Amount of payment"
     payment_at: "سدد في"
