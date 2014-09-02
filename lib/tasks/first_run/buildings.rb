@@ -46,7 +46,7 @@ load_data :buildings do |loader|
         file.each do |record|
           if zone = Product.find_by_work_number(record.attributes['work_numbe'])
             zone.read!(:shape, record.geometry, at: born_at, force: true)
-            zone.read!(:net_surface_area, zone.shape_area, at: born_at)
+            zone.read!(:net_surface_area, zone.shape_area, at: born_at, force: true)
           end
           w.check_point
         end
