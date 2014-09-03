@@ -138,7 +138,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    self.state = self.class.state_machine.initial_state(self)
+    self.state ||= self.class.state_machine.initial_state(self)
     self.currency = self.nature.currency if self.nature
     self.created_at = Time.now
   end
