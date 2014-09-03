@@ -69,7 +69,18 @@ load_data :equipments do |loader|
 
         w.check_point
       end
-
+      
+      # attach picture if exist for each equipment
+      for equipment in Equipment.all
+        picture_path = loader.path("alamano", "equipments_pictures", "#{equipment.work_number}.jpg")
+        f = (picture_path.exist? ? File.open(picture_path) : nil)
+        if f
+          equipment.picture = f
+          equipment.save!
+          f.close
+        end
+      end
+      
     end
   end
 
