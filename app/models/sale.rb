@@ -120,8 +120,7 @@ class Sale < Ekylibre::Record::Base
     event :correct do
       transition :estimate => :draft
       transition :refused => :draft
-      # @TODO define a method to replace paid_amount in Affair
-      transition :order => :draft#, if: Proc.new{|so| so.paid_amount <= 0}
+      transition :order => :draft, if: lambda{|sale| !sale.partially_closed?}
     end
     event :refuse do
       transition :estimate => :refused, if: :has_content?
@@ -131,16 +130,15 @@ class Sale < Ekylibre::Record::Base
     end
     event :invoice do
       transition :order => :invoice, if: :has_content?
-      transition :estimate => :invoice, if: :has_content_not_deliverable?
+      transition :estimate => :invoice, if: :has_content?
     end
     event :abort do
-      # transition [:draft, :estimate] => :aborted # , :order
-      transition :draft => :aborted # , :order
+      transition :draft => :aborted
     end
   end
 
   before_validation(on: :create) do
-    self.state ||= self.class.state_machine.initial_state(self)
+    self.state = self.class.state_machine.initial_state(self)
     self.currency = self.nature.currency if self.nature
     self.created_at = Time.now
   end
@@ -208,7 +206,7 @@ class Sale < Ekylibre::Record::Base
 
   # Gives the amount to use for affair bookkeeping
   def deal_amount
-    return (self.credit? ? -self.amount : self.amount)
+    return ((self.aborted? or self.refused?) ? 0 : self.credit? ? -self.amount : self.amount)
   end
 
   # Globalizes taxes into an array of hash
@@ -222,6 +220,10 @@ class Sale < Ekylibre::Record::Base
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
     return taxes.values
+  end
+
+  def partially_closed?
+    !self.affair.debit.zero? and !self.affair.credit.zero?
   end
 
   def supplier
@@ -244,16 +246,7 @@ class Sale < Ekylibre::Record::Base
 
   # Test if there is some items in the sale.
   def has_content?
-    self.items.count > 0
-  end
-
-  def has_content_not_deliverable?
-    return false unless self.has_content?
-    deliverable = false
-    for item in self.items
-      deliverable = true if item.variant.deliverable?
-    end
-    return !deliverable
+    self.items.any?
   end
 
   # Returns if the sale has been validated and so if it can be
@@ -262,8 +255,7 @@ class Sale < Ekylibre::Record::Base
     return (self.order? or self.invoice?)
   end
 
-
-  # Remove.all bad dependencies and return at draft state with no deliveries
+  # Remove all bad dependencies and return at draft state with no deliveries
   def correct(*args)
     return false unless self.can_correct?
     self.deliveries.clear
@@ -271,61 +263,32 @@ class Sale < Ekylibre::Record::Base
   end
 
   # Confirm the sale order. This permits to define deliveries and assert validity of sale
-  def confirm(validated_at=Time.now, *args)
+  def confirm(confirmed_at = Time.now, *args)
     return false unless self.can_confirm?
-    self.reload.update_attributes!(:confirmed_at => validated_at||Time.now)
+    self.update_column(:confirmed_at, confirmed_at || Time.now)
     return super
   end
 
-
-  # # Create the last delivery with undelivered products if necessary.
-  # # The sale order is confirmed if it hasn't be done.
-  # def deliver
-  #   # TODO A sale cannot be delivered anymore...
-  #   ActiveSupport::Deprecation.warn "A sale cannot be delivered. Use deliveries to deliver product instead."
-  #   return false
-  #   return false unless self.order?
-  #   items = []
-  #   for item in self.items.not_reduction
-  #     quantity = item.undelivered_quantity
-  #     if quantity > 0 and item.deliverable?
-  #       items << {:sale_item_id => item.id, :quantity => quantity}
-  #     end
-  #   end
-  #   if items.count > 0
-  #     delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_at => Time.now, :moved_at => Time.now, :address_id => self.delivery_address_id)
-  #     for item in items
-  #       delivery.items.create! item
-  #     end
-  #     self.refresh
-  #   end
-  #   self
-  # end
-
-
-  # Invoices.all the products creating the delivery if necessary.
+  # Invoices all the products creating the delivery if necessary.
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(*args)
     return false unless self.can_invoice?
-    self.confirm
     ActiveRecord::Base.transaction do
       # Set values for invoice
       self.invoiced_at = Time.now
       self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
       self.initial_number = self.number
       if sequence = Sequence.of(:sales_invoices)
-        self.number = sequence.next_value
+        loop do
+          self.number = sequence.next_value
+          break unless self.class.find_by(number: self.number, state: "invoice")
+        end
       end
-      self.save
+      self.save!
       self.client.add_event(:sales_invoice_creation, self.updater.person) if self.updater
       return super
     end
     return false
-  end
-
-  # Delivers.all undelivered products and sales invoice the order after. This operation cleans the order.
-  def deliver_and_invoice
-    self.deliver.invoice
   end
 
   # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions

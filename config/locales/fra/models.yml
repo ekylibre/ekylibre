@@ -1181,7 +1181,7 @@ fra:
     undelivered_quantity: "Reste à livrer"
     unit: "Unité" #?
     unit_name: "Unité"
-    unit_price_amount: "Unit price amount"
+    unit_price_amount: "Prix unitaire"
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"

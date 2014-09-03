@@ -1834,7 +1834,7 @@ fra:
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
   rest:
     actions:
-      abort: "Stopper"
+      abort: "Annuler"
       about: "À propos"
       attach: "Attacher"
       bookkeep: "Comptabiliser"

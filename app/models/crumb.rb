@@ -50,7 +50,6 @@ class Crumb < Ekylibre::Record::Base
   #]VALIDATORS]
   serialize :metadata, Hash
 
-  # scope :at,      lambda { |at| where(arel_table[:started_at].lteq(at).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at)))) }
   scope :after,   lambda { |at| where(arel_table[:read_at].gt(at)) }
   scope :before,  lambda { |at| where(arel_table[:read_at].lt(at)) }
   scope :unconverted, -> { where(intervention_cast_id: nil) }
@@ -208,7 +207,7 @@ class Crumb < Ekylibre::Record::Base
       # adds empty casts for unknown actors
       for variable in procedure.variables.values
         unless intervention.casts.map(&:reference_name).include? variable.name.to_s
-          intervention.add_cast!(reference_name: variable.name) 
+          intervention.add_cast!(reference_name: variable.name)
         end
       end
     end
