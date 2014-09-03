@@ -85,6 +85,10 @@ class Operation < Ekylibre::Record::Base
     end
     joins(intervention: :production).merge(Production.of_activities(activities))
   }
+  
+  scope :with_cast, lambda { |role, object|
+    joins(:intervention).merge(Intervention.with_cast(role, object))
+  }
 
   calculable period: :month, at: :started_at, column: :duration
 

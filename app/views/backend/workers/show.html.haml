@@ -44,8 +44,8 @@
      
     - if campaign and Operation.of_campaign(campaign).any?
       :ruby
-        started_at = Operation.of_campaign(campaign).with_cast(:tool, resource).reorder(:started_at).first.started_at.to_date
-        stopped_at = Operation.of_campaign(campaign).with_cast(:tool, resource).reorder(:started_at).last.stopped_at.to_date
+        started_at = Operation.of_campaign(campaign).with_cast(:doer, resource).reorder(:started_at).first.started_at.to_date
+        stopped_at = Operation.of_campaign(campaign).with_cast(:doer, resource).reorder(:started_at).last.stopped_at.to_date
     
         unit = Nomen::Units[:hour]
     
@@ -61,7 +61,7 @@
     
         # data for bar chart times by activities and by month
         Activity.of_campaign(campaign).find_each do |activity|
-          operations = Operation.of_activities(activity).of_campaign(campaign).with_cast(:tool, resource).order(:started_at)
+          operations = Operation.of_activities(activity).of_campaign(campaign).with_cast(:doer, resource).order(:started_at)
           if operations.any?
             sums = operations.sums_of_periods.sort.inject({}) do |hash, period|
               hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f

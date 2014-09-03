@@ -4,14 +4,41 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
-      - if resource.shape
-        = mini_map(resource)
-      = attributes_list do |l|
-        - l.attribute :name
-        - l.attribute :variant, url: true
-        - l.attribute :nature, url: true
-        - l.attribute :work_number
-
+      - if resource.picture.exists?
+        .picture= image_tag(resource.picture.url(:identity))
+      .big-info.important
+        - icon = resource.category.pictogram
+        %span.title= Matter.human_attribute_name(:variant)
+        %span.value
+          %i.picto{class: "picto-#{icon}"}
+          = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
+      - if resource.born_at and resource.age >= 1.day
+        .big-info
+          %span.title= Matter.human_attribute_name(:work_number)
+          %span.value
+            %i.picto{class: "picto-barcode"}
+            = resource.work_number
+  - b.hbox do
+    - count = 0
+    - map = visualization do |v|
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - if resource.container
+        - shape = resource.shape
+        - if shape
+          - v.serie resource.id, [{name: resource.name, shape: shape}]
+          - v.simple resource.name , resource.id, fill_color: cycle(theme_colors)
+          - count += 1
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+    - if count > 0
+      - b.cell :shape do
+        = map
+  
   - b.hbox do
     - b.cell(:contained_products) do
       = list(:contained_products)

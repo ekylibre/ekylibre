@@ -4,14 +4,21 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell :details do
+    - b.cell :general do
       - if resource.picture.exists?
-        .picture= image_tag(resource.picture.url(:thumb))
-      = attributes_list do |l| # liste des champs à afficher
-        - l.attribute :name
-        - l.attribute :variety, url: true
-        - l.attribute :identification_number
-        - l.attribute :description
+        .picture= image_tag(resource.picture.url(:identity))
+      .big-info.important
+        - icon = resource.category.pictogram
+        %span.title= Matter.human_attribute_name(:variant)
+        %span.value
+          %i.picto{class: "picto-#{icon}"}
+          = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
+      - if resource.born_at and resource.age >= 1.day
+        .big-info
+          %span.title= Matter.human_attribute_name(:age)
+          %span.value
+            %i.picto{class: "picto-clock-o"}
+            = human_age(resource.age, display: 2)
       - if resource.is_a?(ProductGroup)
         - b.cell(:members) do
           = list(:members)
@@ -21,15 +28,30 @@
   - b.hbox do
     - b.cell(:variable_indicators) do
       = variable_readings(resource)
-    - b.cell(tl(:x_readings, count: resource.readings.count)) do
+    -# b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)
 
 
   - b.hbox do
-    - b.cell(:contained_products) do
-      = list(:contained_products)
-    - b.cell(:places) do
-      = list(:places)
+    - count = 0
+    - map = visualization do |v|
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - if resource.container
+        - shape = resource.container.shape
+        - if shape
+          - v.serie resource.container.id, [{name: resource.container.name, shape: shape}]
+          - v.simple resource.container.name , resource.container.id, fill_color: cycle(theme_colors)
+          - count += 1
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+    - if count > 0
+      - b.cell :container do
+        = map
 
   - b.hbox do
     - b.cell(:intervention_casts) do
