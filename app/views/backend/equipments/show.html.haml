@@ -38,27 +38,27 @@
     - if count > 0
       - b.cell :container do
         = map
-  
+
   - b.hbox do
     - campaign = Campaign.order(harvest_year: :desc).first
-     
+
     - if campaign and Operation.of_campaign(campaign).any?
       :ruby
         started_at = Operation.of_campaign(campaign).with_cast(:tool, resource).reorder(:started_at).first.started_at.to_date
         stopped_at = Operation.of_campaign(campaign).with_cast(:tool, resource).reorder(:started_at).last.stopped_at.to_date
-    
+
         unit = Nomen::Units[:hour]
-    
+
         series = []
         categories = {}
-    
+
         date = started_at
         stopped_at = started_at + 1 if started_at >= stopped_at
         while date < stopped_at
           categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
           date = date >> 1
         end
-    
+
         # data for bar chart times by activities and by month
         Activity.of_campaign(campaign).find_each do |activity|
           operations = Operation.of_activities(activity).of_campaign(campaign).with_cast(:tool, resource).order(:started_at)
@@ -70,7 +70,7 @@
             series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }}
           end
         end
-    
+
       = column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
     - else
       = no_data
@@ -81,7 +81,7 @@
   - b.hbox do
     - b.cell(:intervention_casts) do
       = list(:intervention_casts)
-      
+
   - b.hbox do
     - b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)
