@@ -471,9 +471,6 @@ div[data-deck] > div#default {
       @include is-icon;
       @include use-icon(book);
     }
-    &.special a i {
-      color: $base-color;
-    }
   }
 }
 
