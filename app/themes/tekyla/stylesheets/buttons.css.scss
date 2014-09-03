@@ -87,8 +87,8 @@ input[type="submit"], input[type="button"], input[type="reset"] {
   &.primary {
     @include button($background-color: $base-color, $input: true);
   }
-  &.important {
-    @include button($background-color: $important-color, $input: true);
+  &.important, &.caution {
+    @include button($background-color: $caution-color, $input: true);
   }
 }
 
@@ -100,8 +100,8 @@ a.btn, button {
   &.primary {
     @include button($background-color: $base-color);
   }
-  &.important {
-    @include button($background-color: $important-color);
+  &.important, &.caution {
+    @include button($background-color: $caution-color);
   }
 
   // Defines default names

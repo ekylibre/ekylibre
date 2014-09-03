@@ -472,7 +472,7 @@ div[data-deck] > div#default {
       @include use-icon(book);
     }
     &.special a i {
-      color: $important-color;
+      color: $base-color;
     }
   }
 }
@@ -620,7 +620,7 @@ form.search {
 
 .add {
   padding: $default-gap;
-  @include background(transparentize($important-color, 0.25));
+  @include background(transparentize($base-color, 0.25));
   text-align: center !important;
   margin-bottom: $default-gap;
 }
@@ -628,7 +628,7 @@ form.search {
 .subforms {
   .subform {
     .subform-title {
-      @include background(transparentize($important-color, 0.4));
+      @include background(transparentize($base-color, 0.4));
       padding: $default-gap;
       .remove {
         i {
@@ -639,7 +639,7 @@ form.search {
     }
     .subform-fields {
       padding-top: $default-gap;
-      @include background(transparentize($important-color, 0.95));
+      @include background(transparentize($base-color, 0.95));
     }
   }
 }
