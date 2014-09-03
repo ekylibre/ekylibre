@@ -1,6 +1,15 @@
-= beehive(:trade) do
-  - hbox do
-    - cell :revenues_by_product_nature
-  - hbox do
-    - cell :last_sales
-    - cell :last_purchases
+= beehive do |b|
+  - b.hbox do
+    - b.cell :revenues_by_product_nature
+  - b.hbox do
+    - b.cell :numbers do
+      .big-infos
+        .big-info
+          %span.title= :incoming_payments_to_deposit.tl
+          %span.value= link_to(IncomingPayment.depositables.count.l, backend_incoming_payments_path(s: "undeposited"))
+        .big-info.important
+          %span.title= :unpaid_sales.tl
+          %span.value= link_to(Sale.unpaid.count.l, backend_sales_path(s: "unpaid"))
+  - b.hbox do
+    - b.cell :last_sales
+    - b.cell :last_purchases

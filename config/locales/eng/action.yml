@@ -926,6 +926,7 @@ eng:
       unparted: "Unused" #?
       unreceived: "Unreceived" #?
       waiting: "To deposit later" #?
+    incoming_payments_to_deposit: "Incoming payments to deposit"
     indicator: "Indicators"
     indicator_value: "Indicator value"
     indicators: "Indicators" #?
@@ -1336,7 +1337,7 @@ eng:
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #?
     unpaid_days: "Unpaid since (in days)" #?
-    unpaid_sales: "Unpaid sale" #?
+    unpaid_sales: "Unpaid sale"
     unpaid_sales_export: "Export unpaid sales in CSV" #?
     unparted: "Unparted" #?
     unreceived: "Unreceived" #?

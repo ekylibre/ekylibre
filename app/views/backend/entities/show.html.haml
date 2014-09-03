@@ -5,7 +5,7 @@
 
 = beehive do |b|
   - b.hbox do
-    - if resource.addresses.count > 0 or resource.picture
+    - if resource.addresses.any? or resource.picture.file?
       - b.cell :coordinates do
         - if resource.picture.file?
           .picture= image_tag(resource.picture.url(:identity))
@@ -31,12 +31,13 @@
     - b.cell(tl(:x_observations, count: resource.observations.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :observations, entity_id: resource.id})
-      = list(:observations)
+      - if resource.observations.any?
+        = list(:observations)
 
   - b.hbox do
 
     - b.cell :details do
-      = attributes_list(resource) do |l|
+      = attributes_list(resource, without_stamps: true) do |l|
         - l.attribute :last_name
         - l.attribute :first_name unless resource.first_name.blank?
         - l.attribute :nature if resource.nature
@@ -70,7 +71,8 @@
     - b.cell(tl(:x_entity_links, count: EntityLink.of_entity(resource).count)) do
       = toolbar do |t|
         - t.new(params: {controller: :entity_links, entity_id: resource.id})
-      = list(:links)
+      - if EntityLink.of_entity(resource).any?
+        = list(:links)
 
   - b.hbox do
 
@@ -79,10 +81,11 @@
         - t.new(params: {controller: :subscriptions, entity_id: resource.id})
       = list(:subscriptions)
 
-    - b.cell(tl(:x_events, count: resource.participations.count)) do
-      -#=toolbar do |t|
-        - t.new(params: {controller: :events, entity_id: resource.id})
-      = list(:event_participations)
+    - if resource.participations.any?
+      - b.cell(tl(:x_events, count: resource.participations.count)) do
+        -#=toolbar do |t|
+          - t.new(params: {controller: :events, entity_id: resource.id})
+        = list(:event_participations)
 
     - if File.exist?(Pathname.new(__FILE__).dirname.join("_extra.html.haml"))
       - b.cell("Extra") do
@@ -92,20 +95,24 @@
     - b.cell(tl(:x_sales, count: resource.sales.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :sales, :client_id => resource.id})
-      = list(:sales)
+      - if resource.sales.any?
+        = list(:sales)
 
     - b.cell(tl(:x_incoming_payments, count: resource.incoming_payments.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
-      = list(:incoming_payments)
+      - if resource.incoming_payments.any?
+        = list(:incoming_payments)
 
   - b.hbox do
     - b.cell(tl(:x_purchases, count: resource.purchases.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :purchases, :supplier_id => resource.id})
-      = list(:purchases)
+      - if resource.purchases.any?
+        = list(:purchases)
 
     - b.cell(tl(:x_outgoing_payments, count: resource.outgoing_payments.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :outgoing_payments, :payee_id => resource.id})
-      = list(:outgoing_payments)
+      - if resource.outgoing_payments.any?
+        = list(:outgoing_payments)

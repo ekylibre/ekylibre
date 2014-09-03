@@ -399,7 +399,7 @@ module ApplicationHelper
     yield l
     minimum = 0
     if args[1].nil?
-      return nil unless l.links.size > 0
+      return nil unless l.links.any?
       minimum = 1
       args = l.links.first.args
     end

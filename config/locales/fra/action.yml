@@ -977,6 +977,7 @@ fra:
       unparted: "Non affectés"
       unreceived: "Non reçus"
       waiting: "À encaisser plus tard"
+    incoming_payments_to_deposit: "Encaissements à déposer"
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
     indicator_with_unit: "%{indicator} (%{unit})" #?

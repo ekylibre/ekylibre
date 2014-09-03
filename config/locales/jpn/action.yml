@@ -857,6 +857,7 @@ jpn:
       # unparted: "Unused"
       # unreceived: "Unreceived"
       # waiting: "To deposit later"
+    # incoming_payments_to_deposit: "Incoming payments to deposit"
     # indicator: "Indicators"
     # indicator_value: "Indicator value"
     # indicators: "Indicators"

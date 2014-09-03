@@ -1244,6 +1244,30 @@
         <page to="backend/taxes#unroll"/>
         <page to="backend/taxes#update"/>
       </item>
+    </group>
+    <group name="trade" icon="bar-chart">
+      <item name="sale_natures">
+        <page to="backend/sale_natures#index"/>
+        <page to="backend/sale_natures#create"/>
+        <page to="backend/sale_natures#destroy"/>
+        <page to="backend/sale_natures#edit"/>
+        <page to="backend/sale_natures#list"/>
+        <page to="backend/sale_natures#new"/>
+        <page to="backend/sale_natures#show"/>
+        <page to="backend/sale_natures#unroll"/>
+        <page to="backend/sale_natures#update"/>
+      </item>
+      <item name="purchase_natures">
+        <page to="backend/purchase_natures#index"/>
+        <page to="backend/purchase_natures#create"/>
+        <page to="backend/purchase_natures#destroy"/>
+        <page to="backend/purchase_natures#edit"/>
+        <page to="backend/purchase_natures#list"/>
+        <page to="backend/purchase_natures#new"/>
+        <page to="backend/purchase_natures#show"/>
+        <page to="backend/purchase_natures#update"/>
+        <page to="backend/purchase_natures#unroll"/>
+      </item>
       <item name="incoming_payment_modes">
         <page to="backend/incoming_payment_modes#index"/>
         <page to="backend/incoming_payment_modes#create"/>
@@ -1269,30 +1293,6 @@
         <page to="backend/outgoing_payment_modes#unroll"/>
         <page to="backend/outgoing_payment_modes#up"/>
         <page to="backend/outgoing_payment_modes#update"/>
-      </item>
-    </group>
-    <group name="trade" icon="bar-chart">
-      <item name="sale_natures">
-        <page to="backend/sale_natures#index"/>
-        <page to="backend/sale_natures#create"/>
-        <page to="backend/sale_natures#destroy"/>
-        <page to="backend/sale_natures#edit"/>
-        <page to="backend/sale_natures#list"/>
-        <page to="backend/sale_natures#new"/>
-        <page to="backend/sale_natures#show"/>
-        <page to="backend/sale_natures#unroll"/>
-        <page to="backend/sale_natures#update"/>
-      </item>
-      <item name="purchase_natures">
-        <page to="backend/purchase_natures#index"/>
-        <page to="backend/purchase_natures#create"/>
-        <page to="backend/purchase_natures#destroy"/>
-        <page to="backend/purchase_natures#edit"/>
-        <page to="backend/purchase_natures#list"/>
-        <page to="backend/purchase_natures#new"/>
-        <page to="backend/purchase_natures#show"/>
-        <page to="backend/purchase_natures#update"/>
-        <page to="backend/purchase_natures#unroll"/>
       </item>
     </group>
     <group name="product" icon="wheat">

@@ -128,12 +128,14 @@ load_data :equipments do |loader|
 
         # create the user
         if person and r.email.present? and !person.user
-          unless user = User.find_by(email: email)
+          unless user = User.find_by(email: r.email)
             password = User.generate_password(100, :hard)
             user = User.create!(first_name: r.first_name, last_name: r.last_name, email: email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)
           end
-          user.person = person
-          user.save!
+          unless user.person
+            user.person = person
+            user.save!
+          end
         end
 
 

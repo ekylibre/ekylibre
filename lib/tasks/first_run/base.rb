@@ -122,7 +122,13 @@ load_data :base do |loader|
   # Load incoming payment modes
   if loader.can_load_default?(:incoming_payment_modes)
     loader.manifest[:incoming_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
-      hash[nature] = {name: "models.incoming_payment_mode.default.#{nature}.name".t, with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)}
+      hash[nature] = {name: "models.incoming_payment_mode.default.#{nature}.name".t, with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account), with_deposit: (nature == "check" ? true : false)}
+      if hash[nature][:with_deposit] and journal = Journal.find_by(nature: "bank")
+        hash[nature][:depositables_journal] = journal
+        hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)
+      else
+        hash[nature][:with_deposit] = false
+      end
       hash
     end
   end
