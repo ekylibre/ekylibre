@@ -206,8 +206,10 @@ class Crumb < Ekylibre::Record::Base
       end
 
       # adds empty casts for unknown actors
-      procedure.variables.values.each do |variable|
-        intervention.add_cast!(reference_name: variable.name) unless intervention.casts.map(&:reference_name).include? variable.name.to_s
+      for variable in procedure.variables.values
+        unless intervention.casts.map(&:reference_name).include? variable.name.to_s
+          intervention.add_cast!(reference_name: variable.name) 
+        end
       end
     end
     return intervention

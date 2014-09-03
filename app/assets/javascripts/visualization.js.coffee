@@ -94,7 +94,7 @@
           fillOpacity: 1
 
       map:
-        maxZoom: 18
+        maxZoom: 25
         minZoom:2
         zoomControl: false
         attributionControl: false
