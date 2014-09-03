@@ -84,12 +84,6 @@ load_data :base do |loader|
       end
     end
     attributes[:password_confirmation] = attributes[:password]
-    for format in %w(jpg jpeg png)
-      if path = loader.path("alamano", "entities_pictures", "#{attributes[:email]}.#{format}") and path.exist?
-        attributes[:picture] = File.open(path)
-        break
-      end
-    end
     User.create!(attributes)
   end
 
