@@ -5,7 +5,7 @@ load_data :entities do |loader|
   if file.exist?
     loader.count :entities do |w|
 
-      picture_undefined = loader.path("alamano", "entities", "pictures", "portrait-undefined.png")
+      picture_undefined = loader.path("alamano", "entities_pictures", "portrait-undefined.png")
       en_org = "legal_entity"
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
