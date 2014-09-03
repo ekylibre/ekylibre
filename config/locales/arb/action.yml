@@ -2065,6 +2065,7 @@ arb:
       levels: #?
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       messages: #?
+      # need_a_production_support: "Need a production support"
       need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ" #?
       need_building_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
       need_building_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?

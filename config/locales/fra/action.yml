@@ -1758,6 +1758,7 @@ fra:
       levels: #?
       mails_are_sent: "Les courriels ont été envoyés"
       messages: #?
+      need_a_production_support: "Nécessite un support de production"
       need_balanced_journal_to_tax_declaration: "Tous vos journaux doivent être clôturés et équilibrés à cette date." #?
       need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat" #?
       need_building_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente" #?

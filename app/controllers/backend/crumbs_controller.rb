@@ -33,19 +33,24 @@ class Backend::CrumbsController < BackendController
   # the newly created intervention.
   def convert
     return unless crumb = find_and_check
-    if intervention = crumb.convert!(params.slice(:procedure_name, :support_id, :actors_ids, :relevance, :limit, :history, :provisional, :max_arity))
-      redirect_to edit_backend_intervention_path(intervention)
-    elsif current_user.unconverted_crumb_days.any?
-      redirect_to backend_crumbs_path(worked_on: params[:worked_on])
-    else
-      redirect_to backend_interventions_path
+    begin
+      if intervention = crumb.convert!(params.slice(:procedure_name, :support_id, :actors_ids, :relevance, :limit, :history, :provisional, :max_arity))
+        redirect_to edit_backend_intervention_path(intervention)
+      elsif current_user.unconverted_crumb_days.any?
+        redirect_to backend_crumbs_path(worked_on: params[:worked_on])
+      else
+        redirect_to backend_interventions_path
+      end
+    rescue Exception => e
+      notify_error(e.message)
+      redirect_to backend_crumbs_path
     end
   end
 
-  private
+  # private
 
-  def crumb_params
-    params.permit!
-  end
+  # def crumb_params
+  #   params.permit!
+  # end
 
 end

@@ -1525,6 +1525,7 @@ eng:
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_at: "The journal “%{journal}” has been re-opened on %{closed_at}."
       mails_are_sent: "The emails were sent"
+      need_a_production_support: "Need a production support" #?
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
       need_entries_to_point: "No entry was found for the period of the bank statement."

@@ -29,7 +29,7 @@ class BaseController < ApplicationController
     notistore = (mode==:now ? flash.now : flash)
     notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
     notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
-    notistore[:notifications][nature] << message.to_s.t(options)
+    notistore[:notifications][nature] << (message.is_a?(String) ? message : message.to_s.t(options))
   end
   def notify_error(message, options={});   notify(message, options, :error); end
   def notify_warning(message, options={}); notify(message, options, :warning); end
@@ -43,10 +43,10 @@ class BaseController < ApplicationController
     return false unless flash[:notifications].is_a? Hash
     if nature.nil?
       for nature, messages in flash[:notifications]
-        return true if messages.size > 0
+        return true if messages.any?
       end
     elsif flash[:notifications][nature].is_a?(Array)
-      return true if flash[:notifications][nature].size > 0
+      return true if flash[:notifications][nature].any?
     end
     return false
   end

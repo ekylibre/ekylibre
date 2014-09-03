@@ -178,7 +178,7 @@ class Crumb < Ekylibre::Record::Base
       options[:actors_ids] << self.worker.id unless self.worker.nil?
       actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
-        raise StandardError, "Need a production support"
+        raise StandardError, "notifications.messages.need_a_production_support".t
       end
       support = ProductionSupport.find(options[:support_id])
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
