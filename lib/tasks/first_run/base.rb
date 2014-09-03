@@ -18,8 +18,13 @@ load_data :base do |loader|
   end
 
   # Company entity
-  company_picture = loader.path("alamano", "logo.jpeg")
-  f = company_picture.exist? ? File.open(company_picture) : nil
+  f = nil
+  for format in %w(jpg jpeg png)
+    if company_picture = loader.path("alamano", "logo.#{format}") and company_picture.exist?
+      f = File.open(company_picture)
+      break
+    end
+  end
   attributes = {language: language, currency: currency, nature: "company", last_name: "Ekylibre"}.merge(loader.manifest[:company].select{|k,v| ![:addresses].include?(k) }).merge(of_company: true, picture: f)
   company = LegalEntity.create!(attributes)
   f.close if f
@@ -79,7 +84,7 @@ load_data :base do |loader|
       end
     end
     attributes[:password_confirmation] = attributes[:password]
-    for format in %(jpg jpeg png)
+    for format in %w(jpg jpeg png)
       if path = loader.path("alamano", "entities_pictures", "#{attributes[:email]}.#{format}") and path.exist?
         attributes[:picture] = File.open(path)
         break
