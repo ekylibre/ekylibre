@@ -70,7 +70,7 @@ class Backend::DashboardsController < BackendController
     end
 
     pertinence = "1"
-    if words.count > 0
+    if words.any?
       # max is the maximal points count that can be obtained for a key word
       # here it's equivalent to find 5 times the sole word.
       max = 4 * 5
