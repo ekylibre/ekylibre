@@ -53,27 +53,49 @@ class visualization.Paths
   # Build layer as wanted
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
+    # defining styles
+    strokeWidth = 4
+    crumbStyle =
+      radius: strokeWidth
+      stroke: true
+      weight: strokeWidth/2
+      color: "#000000"
+      fillColor: "#FFFFFF"
+      opacity: 1
+    lineStyle =
+      weight: strokeWidth
+      stroke: true
+      color: this.itemFor(@data[0][@layer.reference]).fillColor
+      fillColor: "rgba(0,0,0,0)"
+      opacity: 1
+      
+    # drawing line
+    points = []
+    current_name = @data[0].name
+    current_color = this.itemFor(@data[0][@layer.reference]).fillColor
     for crumb in @data
-      crumbStyle =
-        radius: 2
-        stroke: true
-        fillColor: this.itemFor(crumb[@layer.reference]).fillColor
-        color: this.itemFor(crumb[@layer.reference]).fillColor
-        opacity: opacity
+      if crumb.name != current_name
+        lineStyle.color = current_color
+        lineLayer = new L.polyline(points, $.extend(true, {}, globalStyle, lineStyle))
+        group.push(lineLayer)
+        points = []
+        current_name = crumb.name
+        current_color = this.itemFor(crumb[@layer.reference]).fillColor
+      points.push(new L.geoJson(crumb.shape).getBounds().getCenter())
+    if points.length > 0
+      lineStyle.color = current_color
+      lineLayer = new L.polyline(points, $.extend(true, {}, globalStyle, lineStyle))
+      group.push(lineLayer)
+    # drawing circles
+    for crumb in @data
+      crumbStyle.color= this.itemFor(crumb[@layer.reference]).fillColor
+      if crumb.nature == 'hard_start'
+        crumbStyle.fillColor = "#000000"
+      if crumb.nature == 'hard_stop'
+        crumbStyle.fillColor = "#FFFFFF"
       crumbLayer = new L.circleMarker(new L.geoJson(crumb.shape).getBounds().getCenter(), $.extend(true, {}, globalStyle, crumbStyle))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
-      previous_crumb = @data[@data.indexOf(crumb) - 1]
-      if previous_crumb
-        points = []
-        points.push(new L.geoJson(previous_crumb.shape).getBounds().getCenter())
-        points.push(new L.geoJson(crumb.shape).getBounds().getCenter())
-        crumbLayer = new L.polyline(points, $.extend(true, {}, globalStyle, crumbStyle))
-        if crumb.nature == 'hard_start'
-          opacity = 1
-        if crumb.nature == 'hard_stop'
-          opacity = 0.2
-        group.push(crumbLayer)
     group
 
   # Build HTML legend for given paths computed layer
