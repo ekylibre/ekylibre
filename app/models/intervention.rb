@@ -148,6 +148,9 @@ class Intervention < Ekylibre::Record::Base
   end
 
   before_save do
+    if self.duration < self.reference.fixed_duration
+      self.stopped_at += self.reference.fixed_duration
+    end
     columns = {name: self.name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention}
     if self.event
       # self.event.update_columns(columns)
