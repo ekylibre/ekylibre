@@ -54,14 +54,13 @@ class visualization.Paths
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
     for crumb in @data
-      radius = 1.0
-      if crumb.nature != 'point'
-        radius = 2.5
       crumbStyle =
+        radius: 2
+        stroke: true
         fillColor: this.itemFor(crumb[@layer.reference]).fillColor
         color: this.itemFor(crumb[@layer.reference]).fillColor
         opacity: opacity
-      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), radius, $.extend(true, {}, globalStyle, crumbStyle))
+      crumbLayer = new L.circleMarker(new L.geoJson(crumb.shape).getBounds().getCenter(), $.extend(true, {}, globalStyle, crumbStyle))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
       previous_crumb = @data[@data.indexOf(crumb) - 1]
