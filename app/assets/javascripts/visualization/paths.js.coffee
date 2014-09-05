@@ -68,7 +68,7 @@ class visualization.Paths
       color: this.itemFor(@data[0][@layer.reference]).fillColor
       fillColor: "rgba(0,0,0,0)"
       opacity: 1
-      
+
     # drawing line
     points = []
     current_name = @data[0].name
