@@ -93,11 +93,13 @@ class Crumb < Ekylibre::Record::Base
   # options:  no_content: excludes contents. Default: false
   # TODO: when refactoring, move this method to Product model, as Product#of_crumbs(*crumbs)
   def self.products(*crumbs)
+    options = crumbs.extract_options!
     crumbs.flatten!
     raw_products = Product.distinct.joins(:readings)
           .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation))")
           .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
-    contents = raw_products.map(&:contents)
+    contents = []
+    contents = raw_products.map(&:contents) unless options[:no_contents]
     raw_products.concat(contents).flatten.uniq
   end
 
@@ -113,7 +115,7 @@ class Crumb < Ekylibre::Record::Base
     options[:campaigns] ||= Campaign.currents
     ProductionSupport.of_campaign(options[:campaigns]).distinct
       .joins(:storage)
-      .where("products.id IN (?)", Crumb.products(*crumbs).map(&:id))
+      .where("products.id IN (?)", Crumb.products(*crumbs, no_contents: true).map(&:id))
   end
 
   # Returns all crumbs, grouped by interventions paths, for a given user.
@@ -176,10 +178,14 @@ class Crumb < Ekylibre::Record::Base
       options[:actors_ids] ||= []
       options[:actors_ids] << self.worker.id unless self.worker.nil?
       actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
+      puts "guessing production support".yellow
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
         raise StandardError, "notifications.messages.need_a_production_support".t
       end
+      puts options[:support_id].to_s.yellow
+      puts "fetching production support".yellow
       support = ProductionSupport.find(options[:support_id])
+      puts support.name.yellow
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name
       procedure = Procedo[options[:procedure_name]]
 
