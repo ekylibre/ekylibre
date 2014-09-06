@@ -203,6 +203,7 @@ class Affair < Ekylibre::Record::Base
   # Returns heterogen list of deals of the affair
   def self.generate_deals_method
     code  = "def deals\n"
+    # code << "  puts 'deals()'.red + caller.join(\"\\n\").yellow\n"
     array = AFFAIRABLE_TYPES.collect do |class_name|
       "#{class_name}.where(affair_id: self.id).to_a"
     end.join(" + ")
@@ -220,6 +221,14 @@ class Affair < Ekylibre::Record::Base
   def deals_of(third)
     return deals.select do |deal|
       deal.deal_third == third
+    end
+  end
+
+  def deals_of_type(klass)
+    if klass.is_a?(Class)
+      klass.where(affair_id: self.id)
+    else
+      klass.constantize.where(affair_id: self.id)
     end
   end
 

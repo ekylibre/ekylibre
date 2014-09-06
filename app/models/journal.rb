@@ -86,7 +86,6 @@ class Journal < Ekylibre::Record::Base
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    # TODO: Removes default value for closed_at
     self.code = self.nature.text.codeize if self.code.blank?
     self.code = self.code[0..3]
   end

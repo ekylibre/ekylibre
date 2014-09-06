@@ -74,17 +74,19 @@ module Ekylibre::Record
 
 
           # Refresh after each save
-          code << "def deal_with!(affair)\n"
+          code << "def deal_with!(affair, dones = [])\n"
           code << "  return self if self.#{affair_id} == affair.id\n"
+          code << "  dones << self\n"
           code << "  if affair.currency != self.currency\n"
           code << "    raise ArgumentError, \"The currency (\#{self.currency}) is different of the affair currency(\#{affair.currency})\"\n"
           code << "  end\n"
           code << "  Ekylibre::Record::Base.transaction do\n"
           code << "    if old_affair = self.#{affair}\n"
           code << "      for deal in self.other_deals\n"
-          code << "        deal.deal_with!(affair)\n"
+          code << "        deal.deal_with!(affair, dones) unless dones.include?(deal)\n"
           code << "      end\n"
-          code << "      old_affair.destroy!\n"
+          # code << "      old_affair.destroy!\n"
+          code << "      Affair.destroy(old_affair.id) if Affair.find_by(id: old_affair.id)\n"
           code << "    end\n"
           code << "    self.update_column(:#{affair_id}, affair.id)\n"
           code << "    affair.refresh!\n"
@@ -94,8 +96,8 @@ module Ekylibre::Record
 
           code << "def undeal!(affair = nil)\n"
           code << "  if affair and affair.id != self.#{affair_id}\n"
-          code << "    puts self.inspect.red\n"
-          code << "    puts affair.inspect.blue\n"
+          # code << "    puts self.inspect.red\n"
+          # code << "    puts affair.inspect.blue\n"
           code << "    raise ArgumentError, 'Cannot undeal from this unknown affair'\n"
           code << "  end\n"
           code << "  Ekylibre::Record::Base.transaction do\n"
@@ -211,6 +213,11 @@ module Ekylibre::Record
           code << "  return self.#{affair}.deals.delete_if{|x| x == self}\n"
           code << "end\n"
 
+          # Returns other deals
+          code << "def other_deals_of_same_type\n"
+          code << "  return self.#{affair}.deals.delete_if{|x| x == self or !x.is_a?(self.class)}\n"
+          code << "end\n"
+
           code << "def self.deal_third\n"
           code << "  return self.reflections[:#{options[:third]}]\n"
           code << "end\n"
@@ -236,7 +243,7 @@ module Ekylibre::Record
           end
           code << "end\n"
 
-          # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
+          # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4).white + ": " + x.blue)}
 
           class_eval(code)
         end
