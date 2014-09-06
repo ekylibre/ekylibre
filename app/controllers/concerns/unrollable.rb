@@ -126,6 +126,10 @@ module Unrollable
       code << "    end\n"
       code << "  end\n"
 
+      code << "  if excluded = params[:exclude]\n"
+      code << "    items = items.where.not(id: params[:exclude])\n"
+      code << "  end\n"
+
       code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
       code << "  if params[:id]\n"
       code << "    items = items.where(id: params[:id])\n"
