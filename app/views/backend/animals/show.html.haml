@@ -145,10 +145,10 @@
         - l.attribute :identification_number
         - l.attribute :description
 
+  - b.hbox do
     - b.cell(:children) do
       = list(:children)
 
-  - b.hbox do
     - count = 0
     - map = visualization do |v|
       - v.background "OpenStreetMap.HOT"
