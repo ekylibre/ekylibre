@@ -587,10 +587,11 @@ load_data :interventions do |loader|
                                   i.add_cast(reference_name: 'worker',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                 end
 
-                  elsif procedures_transcode[r.procedure_name] == :maintenance_task
+                  elsif procedures_transcode[r.procedure_name] == :maintenance_task and plant
 
                                 intervention = Ekylibre::FirstRun::Booker.force(:maintenance_task, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.15 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'worker',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'maintained', actor: plant)
                                 end
 
 
