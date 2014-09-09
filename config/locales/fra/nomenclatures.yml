@@ -1193,6 +1193,7 @@ fra:
         income_statement: "Compte de résultat"
         incoming_delivery_docket: "Bon de réception"
         intervention_registry: "Registre des interventions"
+        intervention_sheet: "Fiche intervention"
         inventory_sheet: "Inventaire"
         journal: "Journal"
         land_parcel_registry: "Cahier de tracabilité - Parcelles"

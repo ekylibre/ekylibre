@@ -43,6 +43,7 @@
       <item name="land_parcel_registry" category="land_parcel_management"/>
       <item name="vine_phytosanitary_registry" category="land_parcel_management"/>
       <item name="activity_cost" category="management"/>
+      <item name="intervention_sheet" category="management"/>
       <item name="intervention_registry" category="management"/>
 
       <item name="wine_detention_registry" category="vinification"/>

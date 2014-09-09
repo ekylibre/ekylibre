@@ -17,7 +17,9 @@
 #
 class Backend::InterventionsController < BackendController
   manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
-
+  
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+  
   unroll
 
   def self.interventions_conditions
@@ -76,6 +78,17 @@ class Backend::InterventionsController < BackendController
     t.column :stopped_at
     t.column :duration
   end
+
+  # Show one intervention with params_id
+  def show
+    return unless @intervention = find_and_check
+    t3e @intervention, procedure_name: @intervention.name
+    respond_with(@intervention, :methods => [:cost, :earn, :status, :name, :duration],
+                :include => [:casts, :storage],
+                procs: Proc.new{|options| options[:builder].tag!(:url, backend_intervention_url(@intervention))}
+                )
+  end
+
 
   def set
     return unless @intervention = find_and_check

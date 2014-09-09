@@ -343,7 +343,7 @@ spa:
       # new: "New intervention"
       # run: "Run intervention: %{procedure_name} #%{number}"
       # set: "Set intervention: %{procedure_name} #%{number}"
-      # show: "Intervention: %{procedure_name} #%{number}"
+      # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"
