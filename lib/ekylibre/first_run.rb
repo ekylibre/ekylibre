@@ -34,21 +34,27 @@ module Ekylibre
         end
       end
 
+      # def last_loader_file
+      #   Rails.join("tmp", "frll-#{}"
+      # end
+
       # Get the last completed loader from preferences
       def last_loader
-        if preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
-          return preference.value
-        end
+        # if last_loader_file.exist? and preference = File.read(last_loader_file)
+        # end
+        # if preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
+        #   return preference.value
+        # end
         return nil
       end
 
       # Set the last loader in preferences for next run
       def last_loader=(value)
-        unless preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
-          preference = Preference.new(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE, nature: :string)
-        end
-        preference.value = value
-        preference.save!
+        # unless preference = Preference.find_by(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE)
+        #   preference = Preference.new(name: Ekylibre::FirstRun::LAST_LOADER_PREFERENCE, nature: :string)
+        # end
+        # preference.value = value
+        # preference.save!
       end
 
     end

@@ -7,6 +7,9 @@ gem 'rails', '4.1.5'
 gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter'
 
+# Multi-tenancy
+gem 'apartment'
+
 # Code manipulation
 gem 'code_string'
 

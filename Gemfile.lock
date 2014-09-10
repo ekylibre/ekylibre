@@ -40,6 +40,9 @@ GEM
     agric (2.5.0)
       railties (>= 3.2, < 5.0)
       sass-rails
+    apartment (0.25.2)
+      activerecord (>= 3.1.2, < 4.2)
+      rack (>= 1.3.6)
     arel (5.0.1.20140414130214)
     awesome_nested_set (3.0.1)
       activerecord (>= 4.0.0, < 5)
@@ -337,6 +340,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   acts_as_list
   agric
+  apartment
   awesome_nested_set (~> 3.0.0.rc3)
   awesome_print
   beardley

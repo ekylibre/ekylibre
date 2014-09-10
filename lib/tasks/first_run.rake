@@ -9,8 +9,17 @@ def load_data(name, &block)
     folder = ENV["folder"]
     folder = "default" if Ekylibre::FirstRun.path.join("default").exist?
     folder ||= "demo"
+
+    loader = Ekylibre::FirstRun::Loader.new(folder)
+
+    # (Create and) Switch to tenant
+    unless Ekylibre::Tenant.exist?(loader.folder)
+      Ekylibre::Tenant.create(loader.folder)
+    end
+    Ekylibre::Tenant.switch(loader.folder)
+
     Ekylibre::FirstRun.transaction quiet: true do
-      yield Ekylibre::FirstRun::Loader.new(folder)
+      yield loader
       Ekylibre::FirstRun.last_loader = name
     end
   end

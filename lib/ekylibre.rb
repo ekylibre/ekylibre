@@ -7,6 +7,7 @@ module Ekylibre
   autoload :Reporting, 'ekylibre/reporting'
   autoload :Schema,    'ekylibre/schema'
   autoload :Support,   'ekylibre/support'
+  autoload :Tenant,    'ekylibre/tenant'
   autoload :VERSION,   'ekylibre/version'
 
   def self.migrating?
