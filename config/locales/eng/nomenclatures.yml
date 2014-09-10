@@ -1910,6 +1910,7 @@ eng:
         filtration: "Filtration"                           #< transformation
         food_supply: "Food supply"                         #< animal_feeding
         grain_transport: "Grain transport"                 #< transport
+        # grains_harvest: "Grains harvest"                 #< harvest
         grape_harvest: "Grape harvest"                     #< harvest
         grape_transport: "Grape transport"                 #< transport
         grinding: "Grinding"
@@ -1922,6 +1923,7 @@ eng:
         maintenance_task: "Maintenance task"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
+        # nuts_harvest: "Nuts harvest"                     #< harvest
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_feeding
         piece_replacement: "Piece replacement"             #< maintenance_task

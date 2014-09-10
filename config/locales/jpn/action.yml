@@ -112,6 +112,7 @@ jpn:
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
+    backend/cells/data_transmissions_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/events_cells: #?
     backend/cells/guide_evolution_cells: #?
@@ -1288,6 +1289,7 @@ jpn:
     # update_params: "Update params"
     # updated_at_by: "Updated at %{at} by %{by}:"
     # upload: "Upload"
+    # uploading_unicoque_traceability: "Uploading unicoque traceability"
     # usage: "Usage"
     # use_incoming_payment: "Add incoming payment %{payment}"
     # use_renew: "Select the journal to carry over"

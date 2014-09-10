@@ -1744,6 +1744,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="data_transmissions_cells">
+        <page to="backend/cells/data_transmissions_cells#show"/>
+        <page to="backend/cells/data_transmissions_cells#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

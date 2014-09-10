@@ -114,6 +114,7 @@ fra:
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
+    backend/cells/data_transmissions_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/events_cells: #?
     backend/cells/guide_evolution_cells: #?
@@ -1551,6 +1552,7 @@ fra:
     update_params: "Modifier la recherche"
     updated_at_by: "Mis à jour le %{at} par %{by}\_:"
     upload: "Téléversement"
+    uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque"
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation" #?

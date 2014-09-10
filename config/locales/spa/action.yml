@@ -128,6 +128,7 @@ spa:
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
+    backend/cells/data_transmissions_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -1574,6 +1575,7 @@ spa:
     # update_params: "Update params"
     # updated_at_by: "Updated at %{at} by %{by}:"
     upload: "Séleccionar el fichero de salvaguardia a cargar"
+    # uploading_unicoque_traceability: "Uploading unicoque traceability"
     # usage: "Usage"
     # use_incoming_payment: "Add incoming payment %{payment}"
     use_renew: "Seleccionar un periodico para los aplazamientos de nuevo"

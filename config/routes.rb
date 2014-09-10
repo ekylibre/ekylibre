@@ -119,6 +119,7 @@ Ekylibre::Application.routes.draw do
     namespace :cells do
       resource :cash_balances_cell, only: :show, concerns: :list
       resource :calendar_cell, only: :show, concerns: :list
+      resource :data_transmissions_cell, only: [:show, :update]
       resource :payable_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
@@ -137,7 +138,7 @@ Ekylibre::Application.routes.draw do
       resource :last_products_cell, only: :show, concerns: :list
       resource :last_purchases_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
-      resource :map_cell, only: [:show, :update]
+      resource :map_cell, only: :show
       resource :weather_cell, only: :show
       resource :placeholder_cell, only: :show
       resource :product_bar_cell, only: :show

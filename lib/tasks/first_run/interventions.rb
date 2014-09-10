@@ -728,7 +728,7 @@ load_data :interventions do |loader|
                                 i.add_cast(reference_name: 'forager_driver', actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                 i.add_cast(reference_name: 'cultivation',    actor: plant)
                                 i.add_cast(reference_name: 'silage',         population: extrant[:global_extrant_value], variant: extrant[:extrant_variant])
-                                  end
+                                end
 
 
 
@@ -744,9 +744,32 @@ load_data :interventions do |loader|
                                 i.add_cast(reference_name: 'cultivation',    actor: plant)
                                 i.add_cast(reference_name: 'grains',         population: extrant[:global_extrant_value], variant: extrant[:extrant_variant])
                                 i.add_cast(reference_name: 'straws',         population: extrant[:global_extrant_value] / 10, variant: straw_variant)
+                                end
+
+
+                    elsif procedures_transcode[r.procedure_name] == :harvest and plant and extrant[:extrant_variant]
+                      variety_plant = Nomen::Varieties.find(plant.variety)
+                      if variety_plant
+                        if variety_plant <= :corylus
+                                  # Hazelnuts harvest
+                                  intervention = Ekylibre::FirstRun::Booker.force(:hazelnuts_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
+                                  i.add_cast(reference_name: 'nuts_harvester',        actor: i.find(Product, can: "harvest(hazelnut)"))
+                                  i.add_cast(reference_name: 'driver',                actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'cultivation',           actor: plant)
+                                  i.add_cast(reference_name: 'hazelnuts',             population: extrant[:global_extrant_value], variant: extrant[:extrant_variant])
                                   end
 
+                        elsif variety_plant <= :juglans
+                                  # Walnuts harvest
+                                  intervention = Ekylibre::FirstRun::Booker.force(:walnuts_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
+                                  i.add_cast(reference_name: 'nuts_harvester',        actor: i.find(Product, can: "harvest(walnut)"))
+                                  i.add_cast(reference_name: 'driver',                actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
+                                  i.add_cast(reference_name: 'cultivation',           actor: plant)
+                                  i.add_cast(reference_name: 'walnuts',             population: extrant[:global_extrant_value], variant: extrant[:extrant_variant])
+                                  end
 
+                        end
+                      end
 
 
                     end

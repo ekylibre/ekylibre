@@ -1034,7 +1034,7 @@
             category="equipment"
             variety="reaper"
             population_counting="unitary"
-            abilities="harvest(vitis), consume(oil), consume(fuel)"
+            abilities="harvest(grape), consume(oil), consume(fuel)"
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
@@ -1042,7 +1042,7 @@
             category="equipment"
             variety="reaper"
             population_counting="unitary"
-            abilities="harvest(prunus), harvest(corylus), consume(oil), consume(fuel)"
+            abilities="harvest(walnut), harvest(hazelnut), consume(oil), consume(fuel)"
             variable_indicators="application_width"
             frozen_indicators="population"
             />

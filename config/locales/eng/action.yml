@@ -112,6 +112,8 @@ eng:
       # show: "Cropping plan on cultivable zones cell: %{name}"
     backend/cells/current_stocks_by_variety_cells:
       # show: "Current stocks by variety cell: %{name}"
+    backend/cells/data_transmissions_cells:
+      # show: "Data transmissions cell: %{name}"
     backend/cells/elapsed_interventions_times_by_activities_cells:
       # show: "Elapsed interventions times by activities cell: %{name}"
     backend/cells/events_cells:
@@ -1190,7 +1192,7 @@ eng:
     record_has_not_been_removed: "The record has not been removed" #?
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
-    refresh: "Refresh" #?
+    refresh: "Refresh"
     related_people: "Related people"
     relationship: "Relationship management"
     remove: "Remove"
@@ -1350,6 +1352,7 @@ eng:
     update_params: "Update params" #?
     updated_at_by: "Updated at %{at} by %{by}:" #?
     upload: "Upload" #?
+    uploading_unicoque_traceability: "Uploading unicoque traceability"
     usage: "Usage" #?
     use_incoming_payment: "Add incoming payment %{payment}" #?
     use_renew: "Select the journal to carry over" #?

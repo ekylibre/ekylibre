@@ -17,9 +17,9 @@
 #
 class Backend::InterventionsController < BackendController
   manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
-  
+
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
-  
+
   unroll
 
   def self.interventions_conditions

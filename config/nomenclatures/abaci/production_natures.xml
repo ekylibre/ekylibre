@@ -293,7 +293,7 @@
             />
       <item name="plum"
             production_code="5500"
-            activity="fruits_crops"
+            activity="orchard_crops"
             telepac_crop_code="PU"
             variant_support="plum_crop"
             />
@@ -311,13 +311,13 @@
             />
       <item name="walnut"
             production_code="5750"
-            activity="fruits_crops"
+            activity="orchard_crops"
             telepac_crop_code="NC"
             variant_support="walnut_crop"
             />
       <item name="hazel"
             production_code="5760"
-            activity="fruits_crops"
+            activity="orchard_crops"
             telepac_crop_code="NS"
             variant_support="hazel_crop"
             />

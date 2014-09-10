@@ -3,7 +3,7 @@
   <procedure name="vine_harvest" natures="grape_harvest" version="0" status="frozen">
     <variables>
       <variable name="grape_reaper_driver" abilities="drive(reaper)" roles="grape_harvest-doer"/>
-      <variable name="grape_reaper"        variety="reaper" abilities="harvest(vitis)" roles="grape_harvest-tool"/>
+      <variable name="grape_reaper"        variety="reaper" abilities="harvest(grape)" roles="grape_harvest-tool"/>
       <variable name="cultivation"         variety="vitis_vinifera" abilities="produce(fruit)" roles="grape_harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
