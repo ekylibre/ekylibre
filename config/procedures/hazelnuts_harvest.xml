@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="hazelnuts_harvest" natures="nuts_harvest" version="0" status="frozen">
+    <variables>
+      <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
+      <variable name="driver" abilities="drive(reaper)" roles="nuts_harvest-doer"/>
+      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
+      <variable name="nuts_harvester" variety="reaper" abilities="harvest(hazelnut)" roles="nuts_harvest-tool"/>
+      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
+      <variable name="cultivation" variety="plant" abilities="produce(hazelnut)" roles="nuts_harvest-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation" >
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+      <variable name="hazelnuts" variety="hazelnut" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="nuts_harvest-output" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass"            unit="quintal"               to="population"
+                 forward="value / self..net_mass(quintal)"
+                 backward="value * self..net_mass(quintal)"
+                 /> <!-- qt    -->
+        <handler indicator="net_mass"            unit="ton"               to="population"
+                 forward="value / self..net_mass(ton)"
+                 backward="value * self..net_mass(ton)"
+                 /> <!-- t    -->
+        <handler indicator="mass_area_density"   unit="quintal_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(quintal)"
+                 backward="(value * self..net_mass(quintal)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- qt/ha -->
+      </variable>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[cropper_driver] moves in [cropper]"/>
+      </operation>
+      <operation id="200" duration="18 minutes">
+        <task do="[cropper] moves at [cultivation]"/>
+      </operation>
+      <operation id="300">
+        <task do="[cultivation] produces [hazelnuts]"/>
+        <task do="[hazelnuts] is at [cultivation]"/>
+      </operation>
+      <operation id="400" duration="18 minutes">
+        <task do="[cropper] moves in default storage"/>
+      </operation>
+      <operation id="500" duration="4 minutes">
+        <task do="[cropper_driver] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

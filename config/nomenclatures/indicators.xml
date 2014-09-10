@@ -103,7 +103,7 @@
       <item name="magnesium_concentration"          datatype="measure" unit="mass_percent"/>
       <item name="sulfur_concentration"             datatype="measure" unit="mass_percent"/>
       <item name="sulfur_dioxide_concentration"     datatype="measure" unit="mass_percent"/>
-
+      <item name="sulfur_trioxide_concentration"    datatype="measure" unit="mass_percent"/>
       <!-- oligo-element -->
       <item name="boron_concentration"      datatype="measure" unit="parts_per_million"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>

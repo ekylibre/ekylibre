@@ -494,7 +494,7 @@
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
+            frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration, sulfur_concentration, sulfur_trioxide_concentration"
             />
       <item name="mixed_chemical_fertilizer"
             category="fertilizer"
@@ -1043,6 +1043,14 @@
             variety="reaper"
             population_counting="unitary"
             abilities="harvest(walnut), harvest(hazelnut), consume(oil), consume(fuel)"
+            variable_indicators="application_width"
+            frozen_indicators="population"
+            />
+      <item name="plum_reaper"
+            category="equipment"
+            variety="reaper"
+            population_counting="unitary"
+            abilities="harvest(plum), consume(oil), consume(fuel)"
             variable_indicators="application_width"
             frozen_indicators="population"
             />

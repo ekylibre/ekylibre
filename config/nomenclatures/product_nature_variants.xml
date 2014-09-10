@@ -1011,6 +1011,7 @@
             />
       <!-- PLANT INTRANT -->
       <!-- MINERAL FERTILIZER -->
+
       <item name="bulk_fertilizer_15_15_15"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -1035,6 +1036,11 @@
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 21percent, phosphorus_concentration: 53percent"
+            />
+      <item name="bulk_ammo_phosphorus_sulfur_20_23_0"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 20percent, phosphorus_concentration: 23percent, sulfur_trioxide_concentration: 30percent"
             />
       <item name="bulk_fertilizer_0_24_05"
             nature="chemical_fertilizer"
@@ -1823,6 +1829,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="plum_reaper"
+            nature="plum_reaper"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="equipment"
             nature="equipment"
             unit_name="equipment"
@@ -2326,6 +2337,11 @@
       <item name="coop:fongistop_fl_5_l"
             nature="fungicide"
             unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:microthiol_sp_disp"
+            nature="fungicide"
+            unit_name="kilogram"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
       <item name="coop:prosaro_5_l"
