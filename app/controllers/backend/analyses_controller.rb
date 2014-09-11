@@ -34,8 +34,8 @@ class Backend::AnalysesController < BackendController
   end
 
   list :items, model: :analysis_items, conditions: {analysis_id: 'params[:id]'.c} do |t|
-    t.column :indicator_name
-    t.column :value
+    t.column :indicator, datatype: :item
+    t.column :value, datatype: :measure
     t.column :annotation
   end
 

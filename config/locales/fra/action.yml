@@ -684,6 +684,7 @@ fra:
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
     amounts_in_currency: "Montants (%{currency})"
+    analysis: "Analyse"
     analytics: "Analytiques"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
@@ -1166,6 +1167,7 @@ fra:
     nitrogen_input_real: "Apport réalisé en azote" #?
     no_commercial: "— Sans commercial —"
     no_contacts: "Aucune adresse définie pour %{name}"
+    no_crumbs_to_check: "Pas de miettes à qualifier"
     no_data: "Aucune donnée"
     no_deliveries: "Aucune livraison en attente"
     no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison"
@@ -1201,6 +1203,7 @@ fra:
     order: "Commande"
     order_amount_with_taxes: "Montant de la commande"
     order_print: "Imprimer la commande"
+    organic_matter_concentration: "Teneur en matière organique"
     other_assessable_operations: "Autres opérations imposables" #?
     other_not_assessable_operations: "Autres opérations non imposables" #?
     other_results: "Autres résultats…"
@@ -1263,6 +1266,7 @@ fra:
     postal_zone_x: "%{name} (%{postal_code})" #?
     potassium_concentration: "Teneur en potassium (K)"
     potassium_concentration_per_hectare: "Teneur en potassium par hectare"
+    potential_hydrogen: "Potentiel hydrogène (pH)"
     precipitation: "Précipitations"
     preferences: "Préférences"
     prescription: "Prescription"

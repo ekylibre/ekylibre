@@ -692,6 +692,7 @@ eng:
     amount_to_reduce: "Total to reduce" #?
     amount_with_taxes: "Amount with taxes" #?
     amounts_in_currency: "Amounts (%{currency})"
+    analysis: "Analysis"
     analytics: "Analytics"
     animal_productions: "Animal productions"
     archives: "Archives"
@@ -1059,7 +1060,7 @@ eng:
     nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_commercial: "No commercial" #?
     no_contacts: "No address defined for %{name}" #?
-    # no_crumbs_to_check: "No crumbs to check"
+    no_crumbs_to_check: "No crumbs to check"
     no_data: "No data"
     no_deliveries: "No deliveries" #?
     no_deliveries_for_this_sale: "No deliveries for this sale" #?
@@ -1090,6 +1091,7 @@ eng:
     order: "Order" #?
     order_amount_with_taxes: "Order amount with taxes" #?
     order_print: "Print order" #?
+    organic_matter_concentration: "Organic matter concentration" #?
     other_results: "Other results…" #?
     # others: "Others"
     outgoing_payments_states:  #?
@@ -1136,6 +1138,7 @@ eng:
     population: "Population"
     potassium_concentration: "Potassium concentration" #?
     potassium_concentration_per_hectare: "Potassium concentration per hectare"
+    potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences" #?
     prescription: "Prescription" #?

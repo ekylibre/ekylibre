@@ -952,6 +952,7 @@ arb:
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
     # amounts_in_currency: "Amounts (%{currency})"
+    # analysis: "Analysis"
     # analytics: "Analytics"
     animal_group_tabbox: #?
     # animal_productions: "Animal productions"
@@ -1457,6 +1458,7 @@ arb:
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_commercial: "-- دون تداول --"
     # no_contacts: "No address defined for %{name}"
+    # no_crumbs_to_check: "No crumbs to check"
     # no_data: "No data"
     no_deliveries: "ليس هناك من تسليم بالانتظار"
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع"
@@ -1493,6 +1495,7 @@ arb:
     # order: "Order"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب"
     order_print: "طباعة الطلب"
+    # organic_matter_concentration: "Organic matter concentration"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
     other_results: "...نتائج اخرى"
@@ -1555,6 +1558,7 @@ arb:
     # population: "Population"
     # potassium_concentration: "Potassium concentration"
     # potassium_concentration_per_hectare: "Potassium concentration per hectare"
+    # potential_hydrogen: "Potential hydrogen"
     # precipitation: "Precipitation"
     # preferences: "Preferences"
     # prescription: "Prescription"
