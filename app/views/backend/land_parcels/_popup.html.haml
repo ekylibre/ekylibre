@@ -1,0 +1,3 @@
+= toolbar do
+  = tool_to( :issue.tl, {action: :new, controller: :issues, :target_id => landparcel.id, :target_type => landparcel.class.name}, tool: 'new-issue')
+  = tool_to( :analysis.tl, {action: :new, controller: :analyses, :product_id => landparcel.id, :nature => :soil_analysis}, tool: 'new-analysis') 
