@@ -38,7 +38,7 @@
 #  updater_id   :integer
 #
 
-# Sources are stored in private/document_templates/:id/content.xml
+# Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
   enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], default: :none, predicates: {prefix: true}
   enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
@@ -201,7 +201,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Returns the root directory for the document templates's sources
   def self.sources_root
-    Ekylibre.private_directory.join("reporting")
+    Ekylibre::Tenant.private_directory.join("reporting")
   end
 
   # Loads in DB all default document templates

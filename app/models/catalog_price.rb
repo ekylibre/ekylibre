@@ -146,7 +146,7 @@ class CatalogPrice < Ekylibre::Record::Base
     # request return no prices, we create a price
     if prices.count.zero?
       # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
-      # .alling private method for creating a price for given product (Product or ProductNatureVariant) with given options
+      # calling private method for creating a price for given product (Product or ProductNatureVariant) with given options
       prices = new_price(product, options)
       return prices
     end

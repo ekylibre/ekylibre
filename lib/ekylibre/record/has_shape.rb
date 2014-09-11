@@ -32,10 +32,6 @@ module Ekylibre::Record
 
           # code << "before_update :update_#{indicator}_images\n"
 
-          # code << "def #{indicator}_dir\n"
-          # code << "  Ekylibre.private_directory.join('#{indicator.to_s.pluralize}', '#{self.name.underscore.pluralize}', '#{indicator}', self.id.to_s)\n"
-          # code << "end\n"
-
           code << "def self.#{indicator}_view_box(options = {})\n"
           code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.srid(options[:srid])})\" : '#{column}')\n"
           code << "  ids = ProductReading.of_products(self, :#{indicator}, options[:at]).pluck(:id)\n"
@@ -79,10 +75,6 @@ module Ekylibre::Record
           code << "  return [self.#{indicator}_x_min(options), -self.#{indicator}_y_max(options), self.#{indicator}_width(options), self.#{indicator}_height(options)]\n"
           code << "end\n"
 
-          # code << "def #{indicator}_path(format = :original)\n"
-          # code << "  return self.#{indicator}_dir.join(format.to_s + '.' + (format == :original ? 'svg' : 'png'))\n"
-          # code << "end\n"
-
           for attr in [:x_min, :x_max, :y_min, :y_max, :area, :to_svg, :to_svg_path, :to_gml, :to_kml, :to_geojson, :to_text, :to_binary, :to_ewkt, :centroid, :point_on_surface]
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
             code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
@@ -118,31 +110,6 @@ module Ekylibre::Record
           code << "  return (self.#{indicator}_y_max(options) - self.#{indicator}_y_min(options))\n"
           code << "end\n"
 
-          # code << "def create_#{indicator}_images\n"
-          # code << "  FileUtils.mkdir_p(self.#{indicator}_dir)\n"
-          # code << "  source = self.#{indicator}_dir.join('original.svg')\n"
-          # # Create SVG
-          # code << "  File.open(source, 'wb') do |f|\n"
-          # code << "    f.write(self.#{indicator}_svg)\n"
-          # code << "  end\n"
-
-          # for format, convert_options in options[:formats]
-          #   # Convert to PNG
-          #   code <<  "  export = self.#{indicator}_dir.join('#{format}.png')\n"
-          #   code <<  "  system('inkscape --export-png=' + Shellwords.escape(export.to_s)"
-          #   for name, value in convert_options
-          #     code <<  " + ' --export-#{name.to_s.dasherize}=' + Shellwords.escape(#{value.to_s.inspect})"
-          #   end
-          #   code <<  "+ ' ' + source.to_s)\n"
-          # end if options[:formats]
-          # code << "end\n"
-
-          # code << "def update_#{indicator}_images\n"
-          # code << "  old = self.class.find(self.id) \n"
-          # code << "  if old.#{indicator} != self.#{indicator}\n"
-          # code << "    self.create_#{indicator}_images\n"
-          # code << "  end\n"
-          # code << "end\n"
 
         end
 

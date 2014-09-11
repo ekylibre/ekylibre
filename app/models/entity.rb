@@ -112,7 +112,7 @@ class Entity < Ekylibre::Record::Base
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
-    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
+    :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
     :styles => {
       :thumb => ["64x64#", :jpg],
       :identity => ["180x180#", :jpg]

@@ -46,7 +46,7 @@ class Guide < Ekylibre::Record::Base
   enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none], default: :none
   enumerize :reference_name, in: []
 
-  has_attached_file :reference_source, path: ':rails_root/private/guides/:id/source.xml'
+  has_attached_file :reference_source, path: ':tenant/:class/:id/source.xml'
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :reference_source_file_size, allow_nil: true, only_integer: true

@@ -39,15 +39,10 @@
 #  updater_id        :integer
 #
 class DocumentArchive < Ekylibre::Record::Base
-  # Returns the private directory for the archives
-  def self.private_directory
-    Ekylibre.private_directory.join('document-archives')
-  end
-
   belongs_to :document, counter_cache: :archives_count, inverse_of: :archives
   belongs_to :template, class_name: "DocumentTemplate"
   has_attached_file :file, {
-    path: self.private_directory.join(':id_partition', ':style.:extension').to_s,
+    path: ':tenant/:id_partition/:style.:extension',
     styles: {
       default:   {format: :pdf, processors: [:reader, :counter, :freezer], clean: true},
       thumbnail: {format: :jpg, processors: [:sketcher]}

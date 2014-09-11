@@ -1,40 +1,61 @@
 module Ekylibre
 
+  class TenantError < StandardError
+  end
+
   class Tenant
 
     class << self
 
+      # Tests existence of a tenant
       def exist?(name)
         list.include?(name)
       end
 
+      # Returns the current tenant
+      def current
+        unless name = Apartment::Tenant.current
+          raise TenantError, "No current tenant"
+        end
+        return name
+      end
+
+      # Returns the private directory of the current tenant
+      def private_directory
+        Ekylibre.root.join("private", Tenant.current)
+      end
+
+      # Create a new tenant
       def create(name)
         name = name.to_s
         if exist?(name)
-          raise StandardError, "Already existing tenant"
+          raise TenantError, "Already existing tenant"
         end
         Apartment::Tenant.create(name)
         @list << name
         write
       end
 
+      # Drop tenant
       def drop(name)
         name = name.to_s
         unless exist?(name)
-          raise StandardError, "Unexistent tenant: #{name}"
+          raise TenantError, "Unexistent tenant: #{name}"
         end
         Apartment::Tenant.drop(name)
         @list.delete(name)
         write
       end
 
+
       def switch(name)
         Apartment::Tenant.switch(name)
       end
+      alias :current= :switch
 
       def switch_default!
         if list.empty?
-          raise StandardError, "No default tenant"
+          raise TenantError, "No default tenant"
         else
           Apartment::Tenant.switch(list.first)
         end
