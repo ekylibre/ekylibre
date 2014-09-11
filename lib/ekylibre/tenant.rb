@@ -5,6 +5,9 @@ module Ekylibre
 
   class Tenant
 
+    AGGREGATION_NAME = "__all__"
+
+
     class << self
 
       # Tests existence of a tenant
@@ -74,12 +77,16 @@ module Ekylibre
         return @list
       end
 
-
-      def build_aggregated_schema!(name = "__all__")
-        build_aggregated_views_schema!(name)
+      def drop_aggregation_schema!
+        ActiveRecord::Base.connection.execute("CREATE SCHEMA IF NOT EXISTS #{AGGREGATION_NAME};")
       end
 
-      def build_aggregated_views_schema!(name)
+      def create_aggregation_schema!
+        create_aggregation_views_schema!
+      end
+
+      def create_aggregation_views_schema!
+        name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
         for table in Ekylibre::Schema.tables.keys

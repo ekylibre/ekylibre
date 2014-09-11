@@ -31,7 +31,7 @@ module Ekylibre
 
     def self.call_loader(name, base)
       unless base.is_a?(Ekylibre::FirstRun::Base)
-        raise "Invalid first run. Need a Ekylibre::FirstRun::Base" 
+        raise "Invalid first run. Need a Ekylibre::FirstRun::Base"
       end
       @@loaders[name].call(base)
     end
