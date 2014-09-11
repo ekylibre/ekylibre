@@ -4,18 +4,23 @@ module Ekylibre
     class Counter
       attr_reader :count
 
-      def initialize(max = -1)
+      class CountExceeded < StandardError
+      end
+
+      def initialize(maximum = 0, &block)
         @count = 0
-        @max = max
+        @maximum = maximum
+        @block = block if block_given?
       end
 
       def check_point(increment = 1)
         @count += increment
-        print "." if (@count - increment).to_i != @count.to_i
-        if @max > 0
-          raise CountExceeded if @count >= @max
+        @block.call(@count, increment) if @block
+        if @maximum > 0
+          raise CountExceeded if @count >= @maximum
         end
       end
+
     end
 
   end

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-load_data :entities do |loader|
+Ekylibre::FirstRun.add_loader :entities do |first_run|
 
-  file = loader.path("istea", "general_ledger.txt")
+  file = first_run.path("istea", "general_ledger.txt")
   if file.exist?
-    loader.count :entities do |w|
+    first_run.count :entities do |w|
 
-      picture_undefined = loader.path("alamano", "entities_pictures", "portrait-undefined.png")
+      picture_undefined = first_run.path("alamano", "entities_pictures", "portrait-undefined.png")
       en_org = "legal_entity"
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
@@ -57,9 +57,9 @@ load_data :entities do |loader|
 
 
 
-  file = loader.path("alamano", "entities.csv")
+  file = first_run.path("alamano", "entities.csv")
   if file.exist?
-    loader.count :associates do |w|
+    first_run.count :associates do |w|
 
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", headers: true) do |row|
       r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
@@ -104,7 +104,7 @@ load_data :entities do |loader|
       if r.link_nature
         person.is_linked_to!(Entity.of_company, as: r.link_nature)
       end
-      if r.file_code_prefix and picture = loader.path("alamano", "entities_pictures", r.file_code_prefix + ".gif")
+      if r.file_code_prefix and picture = first_run.path("alamano", "entities_pictures", r.file_code_prefix + ".gif")
         f = File.open(picture) rescue nil
         person.picture = f
         person.save!

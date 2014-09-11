@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-load_data :equipments do |loader|
+Ekylibre::FirstRun.add_loader :equipments do |first_run|
 
   unless building_division = BuildingDivision.first
     raise "Need a BuildingDivision"
   end
 
 
-  path = loader.path("alamano", "equipments.csv")
+  path = first_run.path("alamano", "equipments.csv")
   if path.exist?
-    loader.count :equipments do |w|
+    first_run.count :equipments do |w|
       #############################################################################
 
       CSV.foreach(path, headers: true) do |row|
@@ -72,7 +72,7 @@ load_data :equipments do |loader|
 
       # attach picture if exist for each equipment
       for equipment in Equipment.all
-        picture_path = loader.path("alamano", "equipments_pictures", "#{equipment.work_number}.jpg")
+        picture_path = first_run.path("alamano", "equipments_pictures", "#{equipment.work_number}.jpg")
         f = (picture_path.exist? ? File.open(picture_path) : nil)
         if f
           equipment.picture = f
@@ -84,9 +84,9 @@ load_data :equipments do |loader|
     end
   end
 
-  path = loader.path("alamano", "zones", "equipments.shp")
+  path = first_run.path("alamano", "zones", "equipments.shp")
   if path.exist?
-    loader.count :equipments_shapes do |w|
+    first_run.count :equipments_shapes do |w|
       #############################################################################
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
         # puts "File contains #{file.num_records} records."
@@ -101,9 +101,9 @@ load_data :equipments do |loader|
   end
 
 
-  path = loader.path("alamano", "workers.csv")
+  path = first_run.path("alamano", "workers.csv")
   if path.exist?
-    loader.count :workers do |w|
+    first_run.count :workers do |w|
       #############################################################################
 
       CSV.foreach(path, headers: true) do |row|
@@ -165,9 +165,9 @@ load_data :equipments do |loader|
     end
   end
 
-  path = loader.path("alamano", "zones", "initial_geolocations.shp")
+  path = first_run.path("alamano", "zones", "initial_geolocations.shp")
   if path.exist?
-    loader.count :initial_geolocations do |w|
+    first_run.count :initial_geolocations do |w|
       #############################################################################
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
         # puts "File contains #{file.num_records} records."

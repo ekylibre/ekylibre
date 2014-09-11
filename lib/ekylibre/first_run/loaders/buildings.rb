@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-load_data :buildings do |loader|
+Ekylibre::FirstRun.add_loader :buildings do |first_run|
 
   # create base land parcel
   land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
   LandParcel.create!(:variant_id => land_parcel_variant.id, :work_number => "LP00",
                      :name => "Parcelle par défault", :initial_born_at => Time.new(1995, 1, 1, 10, 0, 0, "+00:00"), :initial_owner => Entity.of_company, :default_storage => nil)
 
-  path = loader.path("alamano", "zones.csv")
+  path = first_run.path("alamano", "zones.csv")
   if path.exist?
     # Zones, BuildingDivisions...
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
     default_place = LandParcel.first
-    loader.count :zone_groups do |w|
+    first_run.count :zone_groups do |w|
       CSV.foreach(path, headers: true) do |row|
         r = OpenStruct.new(name: row[0].to_s,
                            nature: (row[1].blank? ? nil : row[1].to_sym),
@@ -36,9 +36,9 @@ load_data :buildings do |loader|
     end
   end
 
-  path = loader.path("alamano", "zones", "zones.shp")
+  path = first_run.path("alamano", "zones", "zones.shp")
   if path.exist?
-    loader.count :zones_shapes do |w|
+    first_run.count :zones_shapes do |w|
       #############################################################################
       born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|

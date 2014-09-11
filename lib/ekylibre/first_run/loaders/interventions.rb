@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-load_data :interventions do |loader|
+Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
 
   # load interventions from viniteca
@@ -8,7 +8,7 @@ load_data :interventions do |loader|
   #
   variants_transcode = {}.with_indifferent_access
 
-  path = loader.path("viniteca", "variants_transcode.csv")
+  path = first_run.path("viniteca", "variants_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       variants_transcode[row[0]] = row[1].to_sym
@@ -19,7 +19,7 @@ load_data :interventions do |loader|
   #
   issue_natures_transcode = {}.with_indifferent_access
 
-  path = loader.path("viniteca", "issue_natures_transcode.csv")
+  path = first_run.path("viniteca", "issue_natures_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       issue_natures_transcode[row[0]] = row[1].to_sym
@@ -30,7 +30,7 @@ load_data :interventions do |loader|
   #
   procedures_transcode = {}.with_indifferent_access
 
-  path = loader.path("viniteca", "procedures_transcode.csv")
+  path = first_run.path("viniteca", "procedures_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       procedures_transcode[row[0]] = row[1].to_sym
@@ -38,9 +38,9 @@ load_data :interventions do |loader|
   end
 
 
-  path = loader.path("viniteca", "interventions.csv")
+  path = first_run.path("viniteca", "interventions.csv")
   if path.exist?
-    loader.count :viniteca_intervention_import do |w|
+    first_run.count :viniteca_intervention_import do |w|
 
     information_import_context = "Import from viniteca on #{Time.now.l}"
 
@@ -234,7 +234,7 @@ load_data :interventions do |loader|
 
   procedures_transcode = {}.with_indifferent_access
 
-  path = loader.path("isaculture", "procedures_transcode.csv")
+  path = first_run.path("isaculture", "procedures_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       procedures_transcode[row[0]] = row[1].to_sym
@@ -243,7 +243,7 @@ load_data :interventions do |loader|
 
   cultivable_zones_transcode = {}.with_indifferent_access
 
-  path = loader.path("isaculture", "cultivable_zones_transcode.csv")
+  path = first_run.path("isaculture", "cultivable_zones_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       cultivable_zones_transcode[row[0]] = row[1]
@@ -252,7 +252,7 @@ load_data :interventions do |loader|
 
   variants_transcode = {}.with_indifferent_access
 
-  path = loader.path("isaculture", "variants_transcode.csv")
+  path = first_run.path("isaculture", "variants_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       variants_transcode[row[0]] = row[1].to_sym
@@ -261,7 +261,7 @@ load_data :interventions do |loader|
 
   units_transcode = {}.with_indifferent_access
 
-  path = loader.path("isaculture", "units_transcode.csv")
+  path = first_run.path("isaculture", "units_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       units_transcode[row[0]] = row[1].to_sym
@@ -271,7 +271,7 @@ load_data :interventions do |loader|
 
   workers_transcode = {}.with_indifferent_access
 
-  path = loader.path("isaculture", "workers_transcode.csv")
+  path = first_run.path("isaculture", "workers_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       workers_transcode[row[0]] = row[1]
@@ -280,7 +280,7 @@ load_data :interventions do |loader|
 
   equipments_transcode = {}.with_indifferent_access
 
-  path = loader.path("isaculture", "equipments_transcode.csv")
+  path = first_run.path("isaculture", "equipments_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       equipments_transcode[row[0]] = row[1]
@@ -288,9 +288,9 @@ load_data :interventions do |loader|
   end
 
 
-  path = loader.path("isaculture", "interventions.csv")
+  path = first_run.path("isaculture", "interventions.csv")
   if path.exist?
-    loader.count :isaculture_intervention_import do |w|
+    first_run.count :isaculture_intervention_import do |w|
 
 
       # 0 "numero intervention"

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-load_data :products do |loader|
+Ekylibre::FirstRun.add_loader :products do |first_run|
 
   unless building_division = BuildingDivision.first
     raise "Need a BuildingDivision"
   end
 
 
-  path = loader.path("alamano", "matters.csv")
+  path = first_run.path("alamano", "matters.csv")
   if path.exist?
 
-    loader.count :matters do |w|
+    first_run.count :matters do |w|
       #############################################################################
 
       CSV.foreach(path, headers: true) do |row|

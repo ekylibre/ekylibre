@@ -2,15 +2,23 @@
 module Ekylibre
   module FirstRun
 
-    class Loader
+    class Base
 
-      attr_reader :folder
-
-      def initialize(folder, options = {})
-        @folder = folder.to_s
+      def initialize(options = {})
+        @mode = options[:mode].to_s.downcase 
+        @mode = "normal" if @mode.blank?
+        @mode = @mode.to_sym
+        @name = (options[:name] || "demo").to_s
+        @folder = options[:folder] || @name
         @folder_path = Ekylibre::FirstRun.path.join(@folder)
-        @max = (options[:max] || ENV["max"]).to_i
-        @max = COUNTER_MAX if @max.zero?
+        file = path("manifest.yml")
+        @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
+        @manifest[:company]      ||= {}
+        @manifest[:net_services] ||= {}
+        @manifest[:identifiers]  ||= {}
+        @manifest[:language]     ||= I18n.default_locale
+        ::I18n.locale = @manifest[:language]
+        @max = options[:max].to_i
         @records = {}.with_indifferent_access
       end
 
@@ -78,7 +86,9 @@ module Ekylibre
 
       def count(name, options = {}, &block)
         STDOUT.sync = true
-        f = Counter.new(@max)
+        f = Counter.new(@max) do |count, increment|
+          print "."
+        end
         start = Time.now
         label_size = options[:label_size] || 21
         label = name.to_s.humanize.rjust(label_size)
@@ -87,15 +97,55 @@ module Ekylibre
           first = ((label_size - ellipsis.size).to_f / 2).round
           label = label[0..(first-1)] + ellipsis + label[-(label_size - first - ellipsis.size)..-1]
         end
-        print "[#{@folder.green}] #{label.blue}: "
+        print "[#{@name.green}] #{label.blue}: "
         begin
           yield(f)
-          print " " * (@max - f.count) if @max != COUNTER_MAX and f.count < @max
+          print " " * (@max - f.count) if 0 < @max and @max > f.count
           print "  "
-        rescue CountExceeded => e
+        rescue Counter::CountExceeded => e
           print "! "
         end
         puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
+      end
+
+      def hard?
+        @mode == :hard
+      end
+
+      # Launch the execution of the loaders
+      def launch
+        unless Ekylibre::Tenant.exist?(@name)
+          Ekylibre::Tenant.create(@name)
+        end
+        Ekylibre::Tenant.switch(@name)
+
+        if hard? or Rails.env.production?
+          puts "No global transaction".red unless options[:quiet]
+          execute
+        else
+          ActiveRecord::Base.transaction do
+            execute
+          end
+        end
+      end
+
+      private
+
+      # Execute a suite of loaders in the given order
+      def execute(*loaders)
+        loaders = Ekylibre::FirstRun.loaders if loaders.empty?
+
+        for loader in loaders
+          execute_loader(loader)
+        end
+      end
+
+      # Execute a loader in transactionnal mode
+      def execute_loader(name)
+        ActiveRecord::Base.transaction do
+          puts "Load #{name.to_s.red}:"
+          Ekylibre::FirstRun.call_loader(name, self)
+        end
       end
 
     end

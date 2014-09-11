@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-load_data :deliveries do |loader|
+Ekylibre::FirstRun.add_loader :deliveries do |first_run|
 
   #############################################################################
   # import Coop Order to make automatic purchase
@@ -14,7 +14,7 @@ load_data :deliveries do |loader|
 
   variants_transcode = {}.with_indifferent_access
 
-  file = loader.path("charentes_alliance", "variants_transcode.csv")
+  file = first_run.path("charentes_alliance", "variants_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       variants_transcode[row[0]] = row[1].to_sym
@@ -22,12 +22,12 @@ load_data :deliveries do |loader|
   end
 
   # @TODO refactorize to make import for n entities
-  file = loader.path("charentes_alliance", "appros.csv")
+  file = first_run.path("charentes_alliance", "appros.csv")
   if file.exist?
 
     cooperative = Entity.find_by_last_name("Charentes Alliance")
 
-    loader.count :cooperative_incoming_deliveries do |w|
+    first_run.count :cooperative_incoming_deliveries do |w|
       # map sub_family to product_nature_variant XML Nomenclature
 
       # add Coop incoming deliveries
@@ -94,9 +94,9 @@ load_data :deliveries do |loader|
   ## Demo data for document                                                   ##
   ##############################################################################
   # @FIXME : not working on my xubuntu 13.10 x64
-  #file = loader.path("alamano", "documents", "releve_apports.pdf")
+  #file = first_run.path("alamano", "documents", "releve_apports.pdf")
   #if file.exist?
-  #  loader.count :numerize_outgoing_deliveries do |w|
+  #  first_run.count :numerize_outgoing_deliveries do |w|
       # import an outgoing_deliveries_journal in PDF
       # bug in demo server for instance
   #    document = Document.create!(key: "20130724_outgoing_001", name: "apport-20130724", nature: "outgoing_deliveries_journal")
@@ -107,7 +107,7 @@ load_data :deliveries do |loader|
   #end
 
 
-  # loader.count :cooperative_outgoing_deliveries do |w|
+  # first_run.count :cooperative_outgoing_deliveries do |w|
   #   # #############################################################################
   #   # # import Coop Deliveries to make automatic sales
   #   # # @TODO finish with two level (sales and sales_lines)
@@ -124,7 +124,7 @@ load_data :deliveries do |loader|
   #   # sale_account_nature_coop = Account.find_by_number("701")
   #   # stock_account_nature_coop = Account.find_by_number("321")
 
-  #   # file = loader.path("coop-apport.csv")
+  #   # file = first_run.path("coop-apport.csv")
   #   # CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => false, :quote_char => "'") do |row|
   #   #   r = OpenStruct.new(:delivery_number => row[0],
   #   #                      :delivered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
@@ -178,7 +178,7 @@ load_data :deliveries do |loader|
 
   varieties_transcode = {}.with_indifferent_access
 
-  path = loader.path("unicoque", "varieties_transcode.csv")
+  path = first_run.path("unicoque", "varieties_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       varieties_transcode[row[0]] = row[1].to_sym
@@ -186,7 +186,7 @@ load_data :deliveries do |loader|
   end
 
 
-  path = loader.path("unicoque", "recolte.csv")
+  path = first_run.path("unicoque", "recolte.csv")
   if path.exist?
 
     # create entity corresponding to the cooperative
@@ -211,7 +211,7 @@ load_data :deliveries do |loader|
                                        })
       end
 
-    loader.count :unicoque_harvest do |w|
+    first_run.count :unicoque_harvest do |w|
       CSV.foreach(path, headers: true, col_sep: ";") do |row|
         next if row[0].blank?
         r = OpenStruct.new(year: row[0].to_i,

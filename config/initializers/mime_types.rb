@@ -25,3 +25,5 @@ Mime::Type.register("application/vnd.openxmlformats-officedocument.presentationm
 Mime::Type.register("application/vnd.openxmlformats-officedocument.wordprocessingml.template", :dotx) unless defined? Mime::DOTX
 Mime::Type.register("application/vnd.openxmlformats-officedocument.spreadsheetml.template", :xltx) unless defined? Mime::XLTX
 Mime::Type.register("application/vnd.openxmlformats-officedocument.presentationml.template", :potx) unless defined? Mime::POTX
+# First-Run Archive
+Mime::Type.register("application/vnd.ekylibre.first-run.archive", :fra) unless defined? Mime::FRA

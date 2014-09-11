@@ -74,6 +74,25 @@ module Ekylibre
         return @list
       end
 
+
+      def build_aggregated_schema!(name = "__all__")
+        build_aggregated_views_schema!(name)
+      end
+
+      def build_aggregated_views_schema!(name)
+        connection = ActiveRecord::Base.connection
+        connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
+        for table in Ekylibre::Schema.tables.keys
+          connection.execute "DROP VIEW IF EXISTS #{name}.#{table}"
+          columns = Ekylibre::Schema.columns(table)
+          queries = list.collect do |tenant|
+            "SELECT '#{tenant}' AS tenant_name, " + columns.collect{|c| c[:name] }.join(", ") + " FROM #{tenant}.#{table}"
+          end
+          query = "CREATE VIEW #{name}.#{table} AS " + queries.join(" UNION ALL ")
+          connection.execute(query)
+        end
+      end
+
       private
 
       def config_file

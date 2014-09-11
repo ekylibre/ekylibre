@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-load_data :demo_interventions do |loader|
+Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
-  if loader.manifest[:demo]
+  if first_run.manifest[:demo]
     # interventions for all poaceae
     autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
       Nomen::Varieties[n]
@@ -16,7 +16,7 @@ load_data :demo_interventions do |loader|
     end
 
 
-    loader.count :cultural_interventions do |w|
+    first_run.count :cultural_interventions do |w|
       for production in Production.all
         if production.active?
           variety = production.variant.variety
@@ -93,7 +93,7 @@ load_data :demo_interventions do |loader|
     end
 
 
-    loader.count :zea_cultural_interventions do |w|
+    first_run.count :zea_cultural_interventions do |w|
       for production in Production.all
         if production.active?
           variety = production.variant.variety
@@ -175,7 +175,7 @@ load_data :demo_interventions do |loader|
     end
 
 
-    loader.count :irrigation_interventions do |w|
+    first_run.count :irrigation_interventions do |w|
       a = Activity.of_families(:maize_crops)
       for production in Production.of_activities(a)
         if production.active?
@@ -213,7 +213,7 @@ load_data :demo_interventions do |loader|
     end
 
     # interventions for grass
-    loader.count :grass_interventions do |w|
+    first_run.count :grass_interventions do |w|
       for production in Production.all
         if production.active?
           variety = production.variant.variety
@@ -257,7 +257,7 @@ load_data :demo_interventions do |loader|
     end
 
     # interventions for cereals
-    loader.count :cereals_interventions do |w|
+    first_run.count :cereals_interventions do |w|
       for production in Production.all
         if production.active?
           variety = production.variant.variety
@@ -289,7 +289,7 @@ load_data :demo_interventions do |loader|
       end
     end
 
-    loader.count :animal_interventions do |w|
+    first_run.count :animal_interventions do |w|
       for production in Production.all
         variety = production.variant.variety
         if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos])
@@ -312,7 +312,7 @@ load_data :demo_interventions do |loader|
       end
     end
 
-    loader.count :wine_interventions do |w|
+    first_run.count :wine_interventions do |w|
       for production in Production.all
         variety = production.variant.variety
         if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:wine])
@@ -333,9 +333,9 @@ load_data :demo_interventions do |loader|
       end
     end
 
-    file = loader.path("documents", "prescription_1.jpg")
+    file = first_run.path("documents", "prescription_1.jpg")
     if file.exist?
-      loader.count :animal_prescriptions do |w|
+      first_run.count :animal_prescriptions do |w|
 
         # import veterinary prescription in PDF
         document = Document.create!(key: "2100000303_prescription_001", name: "prescription-2100000303", nature: "prescription")
@@ -376,9 +376,9 @@ load_data :demo_interventions do |loader|
 
 
     # populate crumbs
-    path = loader.path("alamano", "trips", "trip_simulation.shp")
+    path = first_run.path("alamano", "trips", "trip_simulation.shp")
     if path.exist?
-      loader.count :trip_simulation do |w|
+      first_run.count :trip_simulation do |w|
         #############################################################################
         read_at = Time.new(2014, 5, 5, 10, 0, 0, "+00:00")
         user = User.where(person_id: Worker.pluck(:person_id).compact).first

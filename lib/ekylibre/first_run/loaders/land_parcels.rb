@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-load_data :land_parcels do |loader|
+Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
 
   shapes = {}.with_indifferent_access
 
-  path = loader.path("telepac", "ilot.shp")
+  path = first_run.path("telepac", "ilot.shp")
   if path.exist?
-    loader.count :telepac_shape_file_import do |w|
+    first_run.count :telepac_shape_file_import do |w|
       #############################################################################
       # Import shapefile
 
@@ -39,9 +39,9 @@ load_data :land_parcels do |loader|
 
   end
 
-  path = loader.path("telepac", "parcelle.shp")
+  path = first_run.path("telepac", "parcelle.shp")
   if path.exist?
-    loader.count :telepac_landparcel_shape_file_import do |w|
+    first_run.count :telepac_landparcel_shape_file_import do |w|
       #############################################################################
       # Import landparcel_shapefile from TELEPAC
       # -- field_name
@@ -87,7 +87,7 @@ load_data :land_parcels do |loader|
 
 
           # create activities if option true
-          if loader.manifest[:create_activities_from_telepac]
+          if first_run.manifest[:create_activities_from_telepac]
             # create a cultivable zone for each entries
             cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
             cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
@@ -161,9 +161,9 @@ load_data :land_parcels do |loader|
 
 
 
-  path = loader.path("alamano", "zones", "cultivable_zones.shp")
+  path = first_run.path("alamano", "zones", "cultivable_zones.shp")
   if path.exist?
-    loader.count :cultivable_zones_shapes do |w|
+    first_run.count :cultivable_zones_shapes do |w|
       #############################################################################
       born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
@@ -179,10 +179,10 @@ load_data :land_parcels do |loader|
   end
 
 
-  path = loader.path("alamano", "land_parcels.csv")
+  path = first_run.path("alamano", "land_parcels.csv")
   if path.exist?
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-    loader.count :land_parcels do |w|
+    first_run.count :land_parcels do |w|
       CSV.foreach(path, headers: true) do |row|
         r = OpenStruct.new(name: row[0].to_s,
                            nature: (row[1].blank? ? nil : row[1].to_sym),
@@ -229,10 +229,10 @@ load_data :land_parcels do |loader|
 
 
 
-  path = loader.path("alamano", "cultivable_zones.csv")
+  path = first_run.path("alamano", "cultivable_zones.csv")
   if path.exist?
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-    loader.count :cultivable_zones do |w|
+    first_run.count :cultivable_zones do |w|
       CSV.foreach(path, headers: true) do |row|
         next if row[0].blank?
         r = OpenStruct.new(name: row[0].to_s,
@@ -287,10 +287,10 @@ load_data :land_parcels do |loader|
 
   end
 
-  path = loader.path("alamano", "cultivations.csv")
+  path = first_run.path("alamano", "cultivations.csv")
   if path.exist?
 
-    loader.count :cultivations do |w|
+    first_run.count :cultivations do |w|
       CSV.foreach(path, headers: true) do |row|
         next if row[0].blank?
         r = OpenStruct.new(name: row[0].to_s,
@@ -343,21 +343,21 @@ load_data :land_parcels do |loader|
 
   # For Viniteca sofware
 
-  path = loader.path("viniteca", "varieties_transcode.csv")
+  path = first_run.path("viniteca", "varieties_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       varieties_transcode[row[0]] = row[1].to_sym
     end
   end
 
-  path = loader.path("viniteca", "certifications_transcode.csv")
+  path = first_run.path("viniteca", "certifications_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       certifications_transcode[row[0]] = row[1].to_sym
     end
   end
 
-  path = loader.path("viniteca", "cultivable_zones_transcode.csv")
+  path = first_run.path("viniteca", "cultivable_zones_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       cultivable_zones_transcode[row[0]] = row[1].to_s
@@ -366,9 +366,9 @@ load_data :land_parcels do |loader|
 
   # load data files from Viniteca software
 
-  path = loader.path("viniteca", "plant.shp")
+  path = first_run.path("viniteca", "plant.shp")
   if path.exist?
-    loader.count :plant_shapes do |w|
+    first_run.count :plant_shapes do |w|
       #############################################################################
       # File structuration
       # INFO Take care of 10 characters truncature because of RGEO
@@ -443,7 +443,7 @@ load_data :land_parcels do |loader|
 
   # For Unicoque data
 
-  path = loader.path("unicoque", "varieties_transcode.csv")
+  path = first_run.path("unicoque", "varieties_transcode.csv")
   if path.exist?
     CSV.foreach(path, headers: true) do |row|
       varieties_transcode[row[0]] = row[1].to_sym
@@ -453,9 +453,9 @@ load_data :land_parcels do |loader|
    # orchard shape
 
 
-  path = loader.path("unicoque", "plantation", "plantation.shp")
+  path = first_run.path("unicoque", "plantation", "plantation.shp")
   if path.exist?
-    loader.count :cultivable_zones_shapes do |w|
+    first_run.count :cultivable_zones_shapes do |w|
       #############################################################################
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
@@ -471,9 +471,9 @@ load_data :land_parcels do |loader|
 
   # orchard inventory
 
-  path = loader.path("unicoque", "inventaire_verger.csv")
+  path = first_run.path("unicoque", "inventaire_verger.csv")
   if path.exist?
-    loader.count :unicoque_orchard do |w|
+    first_run.count :unicoque_orchard do |w|
       CSV.foreach(path, headers: true, col_sep: ";") do |row|
         next if row[0].blank?
         r = OpenStruct.new(name: row[34].to_s + " - [" + row[19].to_s.capitalize! + "]",

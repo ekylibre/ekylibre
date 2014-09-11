@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-load_data :animals do |loader|
+Ekylibre::FirstRun.add_loader :animals do |first_run|
 
   groups = []
 
-  file = loader.path("alamano", "animal_groups.csv")
+  file = first_run.path("alamano", "animal_groups.csv")
   if file.exist?
     # find animals credentials in preferences
     cattling_root_number = Identifier.find_by_nature(:cattling_root_number).value
 
 
-    file = loader.path("alamano", "animal_groups.csv")
+    file = first_run.path("alamano", "animal_groups.csv")
     if file.exist?
-      loader.count :animal_groups do |w|
+      first_run.count :animal_groups do |w|
         CSV.foreach(file, headers: true) do |row|
           r = OpenStruct.new(name: row[0],
                              nature: row[1].to_sym,
@@ -55,9 +55,9 @@ load_data :animals do |loader|
     female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
     place   = BuildingDivision.last # find_by_work_number("B07_D2")
 
-    file = loader.path("alamano", "liste_males_reproducteurs.txt")
+    file = first_run.path("alamano", "liste_males_reproducteurs.txt")
     if file.exist?
-      loader.count :upra_reproductor_list_import do |w|
+      first_run.count :upra_reproductor_list_import do |w|
         now = Time.now - 2.months
         CSV.foreach(file, encoding: "CP1252", col_sep: "\t", headers: true) do |row|
           next if row[4].blank?
@@ -87,7 +87,7 @@ load_data :animals do |loader|
 
     # attach picture if exist for each group
     for group in AnimalGroup.all
-      picture_path = loader.path("alamano", "animal_groups_pictures", "#{group.work_number}.jpg")
+      picture_path = first_run.path("alamano", "animal_groups_pictures", "#{group.work_number}.jpg")
       f = (picture_path.exist? ? File.open(picture_path) : nil)
       if f
         group.picture = f
@@ -97,9 +97,9 @@ load_data :animals do |loader|
     end
 
     # build name of synel animals file
-    if loader.manifest[:net_services][:synel]
-      synel_first_part = loader.manifest[:net_services][:synel][:synel_username].to_s
-      synel_second_part = loader.manifest[:identifiers][:cattling_number].to_s
+    if first_run.manifest[:net_services][:synel]
+      synel_first_part = first_run.manifest[:net_services][:synel][:synel_username].to_s
+      synel_second_part = first_run.manifest[:identifiers][:cattling_number].to_s
       synel_last_part = "IP"
       synel_file_extension = ".csv"
       if synel_first_part and synel_second_part
@@ -108,10 +108,10 @@ load_data :animals do |loader|
     else synel_file_name = "animaux.csv"
     end
 
-    file = loader.path("synel", synel_file_name.to_s)
+    file = first_run.path("synel", synel_file_name.to_s)
     if file.exist?
       now = Time.now
-      loader.count :synel_animal_import do |w|
+      first_run.count :synel_animal_import do |w|
         #############################################################################
 
         CSV.foreach(file, encoding: "CP1252", col_sep: ";", headers: true) do |row|
@@ -157,7 +157,7 @@ load_data :animals do |loader|
           animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
 
           # load demo data weight and state
-          if loader.manifest[:demo]
+          if first_run.manifest[:demo]
             weighted_at = r.born_at
             if weighted_at and weighted_at < Time.now
               variation = 0.02
@@ -182,9 +182,9 @@ load_data :animals do |loader|
       end
     end
 
-    file = loader.path("synel", "inventaire.csv")
+    file = first_run.path("synel", "inventaire.csv")
     if file.exist?
-      loader.count :assign_parents_with_inventory do |w|
+      first_run.count :assign_parents_with_inventory do |w|
 
         CSV.foreach(file, encoding: "UTF-8", col_sep: "\t", headers: false) do |row|
 
@@ -259,7 +259,7 @@ load_data :animals do |loader|
 
     # attach picture if exist for each animal
     for animal in Animal.all
-      picture_path = loader.path("alamano", "animals_pictures", "#{animal.work_number}.jpg")
+      picture_path = first_run.path("alamano", "animals_pictures", "#{animal.work_number}.jpg")
       f = (picture_path.exist? ? File.open(picture_path) : nil)
       if f
         animal.picture = f

@@ -44,11 +44,11 @@ module Ekylibre::FirstRun
 
 end
 
-load_data :sales do |loader|
+Ekylibre::FirstRun.add_loader :sales do |first_run|
 
-  if loader.manifest[:demo]
+  if first_run.manifest[:demo]
 
-    loader.count :variant_import do |w|
+    first_run.count :variant_import do |w|
       # Create product_nature for crop plant product
       wheat_crop  = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
       barley_crop = ProductNatureVariant.import_from_nomenclature(:winter_barley_crop)
@@ -72,7 +72,7 @@ load_data :sales do |loader|
       w.check_point
     end
 
-    loader.count :wheat_sales do |w|
+    first_run.count :wheat_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
         cooperative = LegalEntity.create!(last_name: "Kazeni",
@@ -132,7 +132,7 @@ load_data :sales do |loader|
       end
     end
 
-    loader.count :calf_sales do |w|
+    first_run.count :calf_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
         cooperative = LegalEntity.create!(last_name: "Caroli",
@@ -192,7 +192,7 @@ load_data :sales do |loader|
       end
     end
 
-    loader.count :milk_sales do |w|
+    first_run.count :milk_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
         cooperative = LegalEntity.create!(last_name: "TerriLacti",
@@ -246,7 +246,7 @@ load_data :sales do |loader|
     end
 
 
-    loader.count :bottle_wine_sales do |w|
+    first_run.count :bottle_wine_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
         cooperative = LegalEntity.create!(last_name: "Vitis",
@@ -306,7 +306,7 @@ load_data :sales do |loader|
       end
     end
 
-    loader.count :bulk_wine_sales do |w|
+    first_run.count :bulk_wine_sales do |w|
 
       unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
         cooperative = LegalEntity.create!(last_name: "Vitis",

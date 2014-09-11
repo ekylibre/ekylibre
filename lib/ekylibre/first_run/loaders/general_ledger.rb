@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-load_data :general_ledger do |loader|
+Ekylibre::FirstRun.add_loader :general_ledger do |first_run|
 
-  file = loader.path("istea", "general_ledger.txt")
+  file = first_run.path("istea", "general_ledger.txt")
   if file.exist?
-    loader.count :general_ledger do |w|
+    first_run.count :general_ledger do |w|
       #############################################################################
       # Import accountancy
       journals = {}
-      journals_file = loader.path("istea", "journals.yml")
+      journals_file = first_run.path("istea", "journals.yml")
       if journals_file.exist?
         journals = YAML.load_file(journals_file).stringify_keys.with_indifferent_access
       end

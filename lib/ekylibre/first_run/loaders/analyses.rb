@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-load_data :analyses do |loader|
+Ekylibre::FirstRun.add_loader :analyses do |first_run|
 
   # Collect activity family matchings
   landparcels_transcode = {}.with_indifferent_access
 
-  file = loader.path("charentes_alliance", "landparcels_transcode.csv")
+  file = first_run.path("charentes_alliance", "landparcels_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       landparcels_transcode[row[0]] = row[1].to_s
@@ -13,7 +13,7 @@ load_data :analyses do |loader|
 
   soil_natures_transcode = {}.with_indifferent_access
 
-  file = loader.path("charentes_alliance", "soil_natures_transcode.csv")
+  file = first_run.path("charentes_alliance", "soil_natures_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       soil_natures_transcode[row[0]] = row[1].to_sym
@@ -21,9 +21,9 @@ load_data :analyses do |loader|
   end
 
 
-  file = loader.path("charentes_alliance", "analyses_sol.txt")
+  file = first_run.path("charentes_alliance", "analyses_sol.txt")
   if file.exist?
-    loader.count :soil_analyses_import do |w|
+    first_run.count :soil_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%AGRO-Systèmes%".mb_chars.downcase).first
         analyser = LegalEntity.create!(last_name: "AGRO-Systèmes",
@@ -106,9 +106,9 @@ load_data :analyses do |loader|
     end
   end
 
-  file = loader.path("charentes_alliance", "analyses_eau.txt")
+  file = first_run.path("charentes_alliance", "analyses_eau.txt")
   if file.exist?
-    loader.count :water_analyses_import do |w|
+    first_run.count :water_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%AGRO-Systèmes%".mb_chars.downcase).first
         analyser = LegalEntity.create!(last_name: "AGRO-Systèmes",
@@ -164,9 +164,9 @@ load_data :analyses do |loader|
   end
 
 
-  file = loader.path("lilco", "HistoIP_V.csv")
+  file = first_run.path("lilco", "HistoIP_V.csv")
   if file.exist?
-    loader.count :milk_analyses_import do |w|
+    first_run.count :milk_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%Lilco%".mb_chars.downcase).first
         analyser = LegalEntity.create!(last_name: "Lilco",
@@ -252,11 +252,11 @@ load_data :analyses do |loader|
     end
   end
 
-  # @TODO need a method for each file in a folder like loader.glob('lca/*.csv') do |file|
+  # @TODO need a method for each file in a folder like first_run.glob('lca/*.csv') do |file|
 
-  file = loader.path("galactea3", "cl_all.csv")
+  file = first_run.path("galactea3", "cl_all.csv")
   if file.exist?
-    loader.count :milk_unitary_control_analyses_import do |w|
+    first_run.count :milk_unitary_control_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%Atlantic Conseil Elevage%".mb_chars.downcase).first
         analyser = LegalEntity.create!(last_name: "Atlantic Conseil Elevage",
@@ -338,9 +338,9 @@ load_data :analyses do |loader|
     end
   end
 
-  file = loader.path("bovins_croissance", "perf.csv")
+  file = first_run.path("bovins_croissance", "perf.csv")
   if file.exist?
-    loader.count :weight_unitary_control_analyses_import do |w|
+    first_run.count :weight_unitary_control_analyses_import do |w|
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
         r = OpenStruct.new(:animal_weight_at_birth => (row[13].blank? ? nil : row[13].to_d).in_kilogram,

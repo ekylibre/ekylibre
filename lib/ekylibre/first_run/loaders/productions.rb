@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-load_data :productions do |loader|
+Ekylibre::FirstRun.add_loader :productions do |first_run|
 
   #############################################################################
-  if loader.manifest[:create_activities_from_telepac] == false
+  if first_run.manifest[:create_activities_from_telepac] == false
   #
-  file = loader.path("alamano", "activities.csv")
+  file = first_run.path("alamano", "activities.csv")
   if file.exist?
-    loader.count :activities_import do |w|
+    first_run.count :activities_import do |w|
       # Load file
       CSV.foreach(file, headers: true) do |row|
         next if row[0].blank?

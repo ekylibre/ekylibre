@@ -1,8 +1,8 @@
-load_data :guides do |loader|
+Ekylibre::FirstRun.add_loader :guides do |first_run|
 
-  file = loader.path("alamano", "guides.csv")
+  file = first_run.path("alamano", "guides.csv")
   if file.exist?
-    loader.count :guides do |w|
+    first_run.count :guides do |w|
       CSV.foreach(file, headers: true) do |row|
         unless guide = Guide.find_by(name: row[0])
           guide = Guide.create!(name: row[0], nature: row[1], active: true)
