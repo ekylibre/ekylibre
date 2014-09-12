@@ -88,10 +88,12 @@ class FinancialAsset < Ekylibre::Record::Base
       end
     elsif self.depreciation_method_simplified_linear?
       self.depreciation_percentage ||= 20
-      years = (100.0 / self.depreciation_percentage)
+      years = (100.0 / self.depreciation_percentage.to_f)
+      # raise years.inspect
+      # TODO fix bigdecimal interpretation
       months = (years - years.floor)*12.0
       days = (months - months.floor)*30.0
-      self.stopped_at = (self.started_at >> (12 * years.floor + months.floor)) + days.floor - 1
+      self.stopped_at = self.started_at + (12 * years.floor + months.floor).months + days.floor - 1
     end
     # self.currency = self.journal.currency
     true
@@ -241,7 +243,7 @@ class FinancialAsset < Ekylibre::Record::Base
         cursor = start.end_of_month + 1
       end
       while (cursor < stopp.beginning_of_month)
-        cursor = cursor >> 1
+        cursor = cursor + 1.month
         days += 30
       end
       if cursor < stopp
