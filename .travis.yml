@@ -1,12 +1,8 @@
 language: ruby
 bundler_args: --without development doc
 rvm:
-  - 1.9.3
   - 2.0.0
   - 2.1.0
 before_install: test/ci/before_install
 before_script:  test/ci/before_script
 script: xvfb-run bundle exec rake test:run_all DRIVER=webkit
-matrix:
-  allow_failures:
-    - rvm: 1.9.3
