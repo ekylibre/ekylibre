@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,32 +17,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SettingsController < BackendController
+class Backend::ImportsController < BackendController
 
-  def edit
+  def index
+    @supported_files = [["EBP.EDI", :ebp_edi]]
   end
 
-  def update
-    saved = true
-    ActiveRecord::Base.transaction do
-      for key, data in params[:preferences]
-        if preference = Preference.get(key)
-          preference.value = data[:value]
-          preference.save
-        else
-          saved = false
-        end
+  def ask
+  end
+
+  def run
+    @supported_files = [["EBP.EDI", :ebp_edi]]
+    if request.post?
+      data = params[:upload]
+      file = Rails.root.join("tmp", "uploads", "#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
+      FileUtils.mkdir_p(file.dirname)
+      File.open(file, "wb:ASCII-8BIT") do |f|
+        f.write data.read
+      end
+      if params[:nature] == "ebp_edi"
+        Exchanges::EbpEdi.import(file)
+      else
+        notify_error_now(:invalid_file_nature)
       end
     end
-    redirect_to_back and return if saved
-    render :edit
-  end
 
-
-  def about
-    @properties = []
-    @properties.insert(0, ["Ekylibre version", Ekylibre.version])
-    @properties << ["Database version", ActiveRecord::Migrator.current_version]
   end
 
 end

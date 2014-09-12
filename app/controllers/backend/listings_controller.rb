@@ -31,6 +31,7 @@ class Backend::ListingsController < BackendController
     t.action :duplicate, method: :post
     t.action :edit
     t.action :destroy
+    t.action :new, on: :none
   end
 
   # Displays the main page with the list of listings

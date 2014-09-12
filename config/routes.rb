@@ -119,7 +119,6 @@ Ekylibre::Application.routes.draw do
     namespace :cells do
       resource :cash_balances_cell, only: :show, concerns: :list
       resource :calendar_cell, only: :show, concerns: :list
-      resource :data_transmissions_cell, only: [:show, :update]
       resource :payable_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
@@ -331,6 +330,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :exports
+
     resources :financial_assets, concerns: [:list, :unroll] do
       member do
         get  :cede
@@ -374,6 +375,8 @@ Ekylibre::Application.routes.draw do
     end
 
     resources :identifiers, concerns: [:list, :unroll]
+
+    resources :imports
 
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
@@ -689,6 +692,8 @@ Ekylibre::Application.routes.draw do
         get :message
       end
     end
+
+    resources :synchronizations
 
     resources :taxes, concerns: [:list, :unroll]
 

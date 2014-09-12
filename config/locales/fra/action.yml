@@ -29,9 +29,6 @@ fra:
       index: "Affaires"
       select: "Ajouter une transaction"
       show: "Affaire N°%{number}"
-    backend/aggregators:
-      index: "Agrégateurs"
-      show: "%{name}"
     backend/analyses:
       edit: "Modifier l’analyse N°%{number}"
       index: "Analyses"
@@ -221,6 +218,9 @@ fra:
       index: "Évènements"
       new: "Nouvel évènement"
       show: "Évènement\_: %{name}"
+    backend/exports:
+      index: "Exports"
+      show: "Export: %{name}"
     backend/financial_assets:
       cede: "Céder l’immobilisation" #?
       depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
@@ -261,6 +261,8 @@ fra:
       index: "Identifiants"
       new: "Nouvel identifiant"
       show: "Identifiant\_: %{name}"
+    backend/imports:
+      index: "Imports"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
       edit: "Modifier l’approvisionnement: %{number}"
@@ -352,7 +354,7 @@ fra:
     backend/listings:
       edit: "Modifier l’extraction\_: %{name}"
       extract: "Extraire les données de\_: %{name}"
-      index: "Exportations et mailings"
+      index: "Extractions"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Nouvelle extraction"
     backend/manure_management_plans:
@@ -544,6 +546,9 @@ fra:
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Nouvel abonnement"
+    backend/synchronizations:
+      index: "Synchronisations"
+      show: "Synchronisation: %{name}"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -1098,7 +1103,7 @@ fra:
       archives: "Archives"
       decision_making: "Aide à la décision" #?
       documents: "GED" #?
-      exchange: "Échange de données"
+      exchange: "Échanges de données"
       finances: "Finances"
       general: "Général"
       home: "Accueil"

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AggregatorsController < BackendController
+class Backend::ExportsController < BackendController
   # layout false
 
   respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv

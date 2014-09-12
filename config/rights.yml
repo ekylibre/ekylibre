@@ -15,8 +15,6 @@
 #     - "backend/cells/cropping_plan_cells#show"
 #     - "backend/cells/cropping_plan_on_cultivable_zones_cells#show"
 #     - "backend/cells/current_stocks_by_variety_cells#show"
-#     - "backend/cells/data_transmissions_cells#show"
-#     - "backend/cells/data_transmissions_cells#update"
 #     - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
 #     - "backend/cells/events_cells#show"
 #     - "backend/cells/guide_evolution_cells#show"
@@ -64,8 +62,13 @@
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
+#     - "backend/imports#ask"
+#     - "backend/imports#index"
+#     - "backend/imports#run"
 #     - "backend/kujakus#toggle"
 #     - "backend/snippets#toggle"
+#     - "backend/synchronizations#index"
+#     - "backend/synchronizations#update"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
@@ -147,8 +150,8 @@ affairs:
 aggregators:
   read:
     actions:
-    - "backend/aggregators#index"
-    - "backend/aggregators#show"
+    - "backend/exports#index"
+    - "backend/exports#show"
 
 analyses:
   read:
@@ -1756,7 +1759,6 @@ settings:
     depend-on:
     - read-settings
     actions:
-    - "backend/settings#import"
     - "backend/settings#update"
 
 settlements:

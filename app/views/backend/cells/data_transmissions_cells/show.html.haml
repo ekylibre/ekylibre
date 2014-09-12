@@ -1,7 +1,0 @@
-- if @campaigns
-  - id = 92586255
-  = toolbar do
-    = tool_to( :uploading_unicoque_traceability.tl, {action: :update, method: :patch, remote: :true}, tool: 'upload')
-    = link_to(:refresh.tl, {action: :update}, method: :patch, remote: true, 'data-update' => "##{id}", 'data-update-at' => 'replace', class: "btn")
-- else
-  = no_data

@@ -27,9 +27,6 @@ eng:
       index: "Affairs"
       select: "Select for affair %{number}"
       show: "Affair: %{number}"
-    backend/aggregators:
-      index: "Aggregators"
-      show: "Aggregator: %{name}"
     backend/analyses:
       edit: "Edit analysis #%{number}"
       index: "Analyses"
@@ -112,8 +109,6 @@ eng:
       # show: "Cropping plan on cultivable zones cell: %{name}"
     backend/cells/current_stocks_by_variety_cells:
       # show: "Current stocks by variety cell: %{name}"
-    backend/cells/data_transmissions_cells:
-      # show: "Data transmissions cell: %{name}"
     backend/cells/elapsed_interventions_times_by_activities_cells:
       # show: "Elapsed interventions times by activities cell: %{name}"
     backend/cells/events_cells:
@@ -244,6 +239,9 @@ eng:
       index: "Events"
       new: "New event"
       show: "Event: %{name}"
+    backend/exports:
+      index: "Exports"
+      show: "Export: %{name}"
     backend/financial_assets:
       edit: "Edit financial asset: %{name}"
       index: "Financial assets"
@@ -282,6 +280,10 @@ eng:
       index: "Identifiers"
       new: "New identifier"
       show: "Identifier: %{name}"
+    backend/imports:
+      # ask: "Ask import: %{name}"
+      index: "Imports"
+      # run: "Run import: %{name}"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit incoming delivery: %{number} (%{reference_number})"
@@ -559,7 +561,7 @@ eng:
     backend/settings:
       about: "About Ekylibre"
       edit: "Configuration"
-      import: "Import data"
+      import: "Import data" #?
     backend/settlements:
       edit: "Edit settlement: %{name}"
       index: "Settlement"
@@ -576,6 +578,9 @@ eng:
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Subscriptions"
       new: "New subscription"
+    backend/synchronizations:
+      index: "Synchronizations"
+      show: "Synchronization: %{name}" #?
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -1552,13 +1557,13 @@ eng:
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
-      restoration_finished: "Restoring the backup has completed (in %{value} seconds)."
+      restoration_finished: "Restoring the backup has completed (in %{value} seconds)." #?
       sale_already_invoiced: "The sale has already been invoiced: you can not define delivery" #?
       sale_cannot_be_updated: "The estimate is no longer editable."
       sale_cant_be_deleted: "The sale can not be deleted."
       select_entry_items_to_mark_together: "Select entry items to mark together"
       unavailable_model: "Inexistent %{model} (%{id})"
-      unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
+      unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software" #?
       update_is_done: "The update has been made"
       x_unpointed_journal_entry_items:
         one: "There is one entry to point"
@@ -1580,6 +1585,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # ask: "Ask"
       attach: "Attach"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"

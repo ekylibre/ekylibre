@@ -29,9 +29,7 @@ jpn:
       # index: "Affairs"
       # select: "Select for affair %{number}"
       # show: "Affair: %{number}"
-    backend/aggregators:
-      # index: "Aggregators"
-      # show: "Aggregator: %{name}"
+    backend/aggregators: #?
     backend/analyses:
       # edit: "Edit analysis #%{number}"
       # index: "Analyses"
@@ -211,6 +209,9 @@ jpn:
       # index: "Events"
       # new: "New event"
       # show: "Event: %{name}"
+    backend/exports:
+      # index: "Exports"
+      # show: "Export: %{name}"
     backend/financial_assets:
       # edit: "Edit financial asset: %{name}"
       # index: "Financial assets"
@@ -249,6 +250,8 @@ jpn:
       # index: "Identifiers"
       # new: "New identifier"
       # show: "Identifier: %{name}"
+    backend/imports:
+      # index: "Imports"
     backend/incoming_deliveries:
       # confirm: "Confirm incoming delivery"
       # edit: "Edit incoming delivery: %{number} (%{reference_number})"
@@ -512,6 +515,9 @@ jpn:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       # index: "Subscriptions"
       # new: "New subscription"
+    backend/synchronizations:
+      # index: "Synchronizations"
+      # show: "Synchronization: %{name}"
     backend/taxes:
       # edit: "Edit tax: %{name}"
       # index: "Taxes"

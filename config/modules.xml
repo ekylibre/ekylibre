@@ -940,11 +940,6 @@
         <page to="backend/document_archives#show"/>
         <page to="backend/documents#list_archives"/>
       </item>
-      <!-- <item name="backups"> -->
-      <!--   <page to="backend/settings#backups"/> -->
-      <!--   <page to="backend/settings#backup"/> -->
-      <!--   <page to="backend/settings#restore"/> -->
-      <!-- </item> -->
     </group>
     <group name="decision_making" icon="compass">
       <!--
@@ -955,10 +950,6 @@
         <page to="backend/calculators/nitrogen_inputs#update"/>
       </item>
       -->
-      <item name="aggregators">
-        <page to="backend/aggregators#index"/>
-        <page to="backend/aggregators#show"/>
-      </item>
       <!--
       <item name="guides">
         <page to="backend/guides#index"/>
@@ -975,7 +966,7 @@
         <page to="backend/guide_analyses#show"/>
         <page to="backend/guide_analyses#list_points"/>
       </item>
--->
+      -->
     </group>
     <group name="issues" icon="bug">
       <item name="issues">
@@ -1014,8 +1005,19 @@
         <page to="backend/listings#unroll"/>
         <page to="backend/listings#update"/>
       </item>
-      <item name="import">
-        <page to="backend/settings#import"/>
+      <item name="exports">
+        <page to="backend/exports#index"/>
+        <page to="backend/exports#show"/>
+      </item>
+      <item name="imports">
+        <page to="backend/imports#index"/>
+        <page to="backend/imports#ask"/>
+        <page to="backend/imports#run"/>
+      </item>
+      <item name="synchronizations">
+        <page to="backend/synchronizations#index"/>
+        <page to="backend/synchronizations#show"/>
+        <page to="backend/synchronizations#update"/>
       </item>
     </group>
     <!--
@@ -1744,11 +1746,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="data_transmissions_cells">
-        <page to="backend/cells/data_transmissions_cells#show"/>
-        <page to="backend/cells/data_transmissions_cells#update"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>
