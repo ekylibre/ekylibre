@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831135204) do
+ActiveRecord::Schema.define(version: 20140912131515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -934,6 +934,29 @@ ActiveRecord::Schema.define(version: 20140831135204) do
   add_index "identifiers", ["net_service_id"], :name => "index_identifiers_on_net_service_id"
   add_index "identifiers", ["updated_at"], :name => "index_identifiers_on_updated_at"
   add_index "identifiers", ["updater_id"], :name => "index_identifiers_on_updater_id"
+
+  create_table "imports", force: true do |t|
+    t.string   "state",                                                       null: false
+    t.string   "nature",                                                      null: false
+    t.string   "archive_file_name"
+    t.string   "archive_content_type"
+    t.integer  "archive_file_size"
+    t.datetime "archive_updated_at"
+    t.integer  "importer_id"
+    t.datetime "imported_at"
+    t.decimal  "progression_percentage", precision: 19, scale: 4
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                    default: 0, null: false
+  end
+
+  add_index "imports", ["created_at"], :name => "index_imports_on_created_at"
+  add_index "imports", ["creator_id"], :name => "index_imports_on_creator_id"
+  add_index "imports", ["imported_at"], :name => "index_imports_on_imported_at"
+  add_index "imports", ["updated_at"], :name => "index_imports_on_updated_at"
+  add_index "imports", ["updater_id"], :name => "index_imports_on_updater_id"
 
   create_table "incoming_deliveries", force: true do |t|
     t.string   "number",                                                null: false

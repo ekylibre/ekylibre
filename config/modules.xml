@@ -1011,6 +1011,13 @@
         <page to="backend/imports#index"/>
         <page to="backend/imports#ask"/>
         <page to="backend/imports#run"/>
+        <page to="backend/imports#create"/>
+        <page to="backend/imports#destroy"/>
+        <page to="backend/imports#edit"/>
+        <page to="backend/imports#list"/>
+        <page to="backend/imports#new"/>
+        <page to="backend/imports#show"/>
+        <page to="backend/imports#update"/>
       </item>
       <item name="synchronizations">
         <page to="backend/synchronizations#index"/>

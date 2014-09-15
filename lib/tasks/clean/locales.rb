@@ -103,7 +103,7 @@ task :locales => :environment do
   locale = ::I18n.locale = ::I18n.default_locale
   locale_dir = Rails.root.join("config", "locales", locale.to_s)
   FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-  for directory in ["help", "prints"] # , "profiles"
+  for directory in ["help", "reporting"] # , "profiles"
     FileUtils.makedirs(locale_dir.join(directory)) unless File.exist?(locale_dir.join(directory))
   end
   log.write("Locale #{::I18n.locale_label}:\n")

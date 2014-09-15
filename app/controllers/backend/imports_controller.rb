@@ -18,30 +18,24 @@
 #
 
 class Backend::ImportsController < BackendController
+  manage_restfully
 
-  def index
-    @supported_files = [["EBP.EDI", :ebp_edi]]
-  end
-
-  def ask
+  list do |t|
+    t.column :nature
+    t.column :created_at
+    t.column :imported_at
+    t.column :importer
+    t.action :new, on: :none
+    t.action :run, method: :post
+    t.action :edit
+    t.action :destroy
   end
 
   def run
-    @supported_files = [["EBP.EDI", :ebp_edi]]
-    if request.post?
-      data = params[:upload]
-      file = Rails.root.join("tmp", "uploads", "#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
-      FileUtils.mkdir_p(file.dirname)
-      File.open(file, "wb:ASCII-8BIT") do |f|
-        f.write data.read
-      end
-      if params[:nature] == "ebp_edi"
-        Exchanges::EbpEdi.import(file)
-      else
-        notify_error_now(:invalid_file_nature)
-      end
-    end
-
+    return unless import = find_and_check
+    Import.find(import.id).run
+    # ImportJob.enqueue(import.id)
+    redirect_to action: :index
   end
 
 end

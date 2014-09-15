@@ -263,6 +263,7 @@ fra:
       show: "Identifiant\_: %{name}"
     backend/imports:
       index: "Imports"
+      new: "Nouvel import"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
       edit: "Modifier l’approvisionnement: %{number}"

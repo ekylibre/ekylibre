@@ -1,6 +1,9 @@
 # encoding: UTF-8
 module Exchanges
 
+  @@exporters = {}
+  @@importers = {}
+
   class NotSupportedFormatError < StandardError
   end
 
@@ -9,6 +12,46 @@ module Exchanges
 
   class ImcompatibleDataError < ArgumentError
   end
+
+  def self.add_exporter(nature, &block)
+    unless Nomen::ExchangeNatures[nature]
+      raise "Unknown exchange nature: #{nature}"
+    end
+    @@exporters[nature.to_sym] = block
+  end
+
+  def self.add_importer(nature, &block)
+    unless Nomen::ExchangeNatures[nature]
+      raise "Unknown exchange nature: #{nature}"
+    end
+    @@importers[nature.to_sym] = block
+  end
+
+  class << self
+
+    def import(nature, file)
+      unless @@importers[nature]
+        raise "Unable to find importer #{nature}"
+      end
+      @@importers[nature].call(file)
+      # ActiveRecord::Base.transaction do
+      #   if format == :ebp_edi
+      #     Exchanges::EbpEdi.import(company, file, options)
+      #   elsif format == :isa_compta
+      #     Exchanges::IsaCompta.import(company, file, options)
+      #   else
+      #     raise NotSupportedFormat.new("Format #{format.inspect} is not supported for import")
+      #   end
+      # end
+    end
+
+
+    def export(company, format, file, options={})
+      raise NotSupportedFormat.new("Format #{format.inspect} is not supported for import")
+    end
+
+  end
+
 
   class Exchanger
     @@verbose = false
@@ -68,23 +111,6 @@ module Exchanges
       return status
     end
 
-  end
-
-  def self.import(company, format, file, options={})
-    ActiveRecord::Base.transaction do
-      if format == :ebp_edi
-        Exchanges::EbpEdi.import(company, file, options)
-      elsif format == :isa_compta
-        Exchanges::IsaCompta.import(company, file, options)
-      else
-        raise NotSupportedFormat.new("Format #{format.inspect} is not supported for import")
-      end
-    end
-  end
-
-
-  def self.export(company, format, file, options={})
-    raise NotSupportedFormat.new("Format #{format.inspect} is not supported for import")
   end
 
 

@@ -1401,6 +1401,15 @@ arb:
       # name: "Event natures"
       property_natures:
         # default_duration: "Default duration"
+    exchange_natures:
+      items:
+        # bovins_croissance_cattle_performance_controls: "Bovins croissance cattle performance controls"
+        # charentes_alliance_soil_analyses: "Charentes Alliance soil analyses"
+        # charentes_alliance_water_analyses: "Charentes Alliance water analyses"
+        # ebp_edi: "EBP EDI"
+        # galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
+        # lilco_milk_analyses: "Lilco milk analyses"
+      # name: "Exchange types"
     figures:
       items:
         # biped: "Biped"

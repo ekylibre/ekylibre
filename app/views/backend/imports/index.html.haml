@@ -1,4 +1,6 @@
-= form_tag(nil, {:multipart => true}) do
+= list
+
+-#= form_tag(nil, {:multipart => true}) do
   = field_set :import do
     = field tc("file_to_import"), file_field_tag(:upload)
     = field tc("file_nature"), select_tag(:nature, options_for_select(@supported_files))

@@ -250,6 +250,7 @@ jpn:
       # show: "Identifier: %{name}"
     backend/imports:
       # index: "Imports"
+      # new: "New import"
     backend/incoming_deliveries:
       # confirm: "Confirm incoming delivery"
       # edit: "Edit incoming delivery: %{number} (%{reference_number})"

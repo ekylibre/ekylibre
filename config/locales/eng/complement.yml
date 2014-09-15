@@ -4287,6 +4287,14 @@ eng:
         zeuzera_pyrina: "Zeuzera pyrina"
         zone: "Zone"
         zone_property_title: "Zone property title"
+    import:
+      nature:
+        bovins_croissance_cattle_performance_controls: "Bovins croissance cattle performance controls"
+        charentes_alliance_soil_analyses: "Charentes Alliance soil analyses"
+        charentes_alliance_water_analyses: "Charentes Alliance water analyses"
+        ebp_edi: "EBP EDI"
+        galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
+        lilco_milk_analyses: "Lilco milk analyses"
     incoming_delivery:
       mode:
         delivered_at_place: "Delivered at place"

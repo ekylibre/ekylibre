@@ -278,9 +278,11 @@ eng:
       new: "New identifier"
       show: "Identifier: %{name}"
     backend/imports:
-      # ask: "Ask import: %{name}"
+      # edit: "Edit import: %{name}"
       index: "Imports"
+      new: "New import"
       # run: "Run import: %{name}"
+      # show: "Import: %{name}"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit incoming delivery: %{number} (%{reference_number})"
@@ -1526,7 +1528,7 @@ eng:
       importation_finished: "The import is complete."
       impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
       impossible_to_add_items_to_purchase: "You can not add products to your purchase"
-      invalid_file_nature: "Invalid file type"
+      invalid_file_nature: "Invalid file type" #?
       journal_closed_at: "The journal “%{journal}” was closed on %{closed_at}."
       journal_entry_already_validated: "The record has already been validated and can not be changed"
       journal_entry_has_been_saved: "The record %{number} has been successfully saved"
@@ -1582,7 +1584,6 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      # ask: "Ask"
       attach: "Attach"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"

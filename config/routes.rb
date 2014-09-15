@@ -376,7 +376,11 @@ Ekylibre::Application.routes.draw do
 
     resources :identifiers, concerns: [:list, :unroll]
 
-    resources :imports
+    resources :imports, concerns: [:list] do
+      member do
+        post :run
+      end
+    end
 
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do

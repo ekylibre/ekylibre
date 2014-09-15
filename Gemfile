@@ -48,6 +48,9 @@ gem 'jbuilder'
 # Freeze time for demo and/or tests
 gem 'timecop'
 
+# Background jobs
+gem 'sidekiq'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

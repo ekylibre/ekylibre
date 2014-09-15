@@ -4,7 +4,8 @@
 # == License
 #
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
@@ -83,15 +84,13 @@ class DocumentTemplate < Ekylibre::Record::Base
           config.noblanks.nonet.strict
         end
         if document.root and document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
-          # raise document.root.inspect if self.nature == "sales_invoice"
           if template = document.root.xpath('xmlns:template').first
             logger.info "NOTICE: Update <template> for document template #{self.nature}"
             template.children.remove
-            style_file = Ekylibre::Tenant.private_directory.join("corporate-identity", "reports-style.xml")
+            style_file = Ekylibre::Tenant.private_directory.join("corporate_identity", "reporting_style.xml")
             unless style_file.exist?
-              style_file = Rails.root.join("config", "corporate-identity", "reports-style.xml")
+              style_file = Rails.root.join("config", "corporate_identity", "reporting_style.xml")
             end
-
             template.add_child(Nokogiri::XML::CDATA.new(document, style_file.to_s.inspect)) # .relative_path_from(self.source_path.dirname)
           else
             logger.info "WARNING: Cannot find and update <template> in document template #{self.nature}"
@@ -215,7 +214,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     Ekylibre::Record::Base.transaction do
       manageds = self.where(:managed => true).pluck(:id)
       for nature in self.nature.values
-        source = Rails.root.join("config", "locales", locale, "prints", "#{nature}.xml")
+        source = Rails.root.join("config", "locales", locale, "reporting", "#{nature}.xml")
         if source.exist?
           File.open(source, "rb:UTF-8") do |f|
             unless template = self.where(:nature => nature, :managed => true).first

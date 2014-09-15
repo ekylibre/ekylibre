@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="226"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
+	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="state" mode="Opaque">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{state} == "done"]]></conditionExpression>

@@ -643,6 +643,23 @@ identifiers:
   updater_id: {type: integer, references: user}
   value: {type: string, required: true}
 
+imports:
+  archive_content_type: {type: string}
+  archive_file_name: {type: string}
+  archive_file_size: {type: integer}
+  archive_updated_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  imported_at: {type: datetime}
+  importer_id: {type: integer, references: user}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  progression_percentage: {type: decimal, precision: 19, scale: 4}
+  state: {type: string, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 incoming_deliveries:
   address_id: {type: integer, references: entity_address}
   created_at: {type: datetime, required: true}
