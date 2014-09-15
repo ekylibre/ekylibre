@@ -338,6 +338,7 @@ Ekylibre::Application.routes.draw do
         get  :sell
         post :depreciate
         get  :list_depreciations
+        get  :list_products
       end
     end
 

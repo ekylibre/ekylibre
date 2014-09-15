@@ -7,6 +7,8 @@
 - else
   = f.referenced_association(:initial_owner)
 
+= f.referenced_association(:financial_asset)
+
 - if f.object.indicators_list.include? :population
   = f.input(:initial_population, wrapper: :append, class: :inline, label: Product.human_attribute_name(:population)) do
     = f.input_field(:initial_population)

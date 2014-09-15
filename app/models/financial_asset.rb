@@ -136,12 +136,13 @@ class FinancialAsset < Ekylibre::Record::Base
 
   def depreciate!
     self.planned_depreciations.clear
-
+    puts self.name.inspect.red
     # Computes periods
     starts = [self.started_at, self.stopped_at + 1]
     for depreciation in self.depreciations
       starts << depreciation.started_at
     end
+    puts starts.inspect.green
     last = FinancialYear.at(self.stopped_at)
     FinancialYear.find_each do |financial_year|
       start = financial_year.started_at
@@ -149,7 +150,9 @@ class FinancialAsset < Ekylibre::Record::Base
         starts << start
       end
     end
+    puts starts.inspect.green
     starts = starts.uniq.sort
+    puts starts.inspect.green
     self.send("depreciate_with_#{self.depreciation_method}_method", starts)
     return self
   end
