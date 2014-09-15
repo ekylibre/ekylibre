@@ -75,9 +75,7 @@ jpn:
       # show: "Building: %{name}"
     backend/calculators:
       # index: "Calculators"
-    backend/calculators/nitrogen_inputs:
-      # edit: "Edit nitrogen input: %{name}"
-      # show: "Nitrogen input: %{name}"
+    backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
       # index: "Campagains"

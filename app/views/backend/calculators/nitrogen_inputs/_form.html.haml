@@ -1,6 +1,0 @@
-- if @campaign
-  = render "zones"
-- else
-  .proposal-list
-    - for campaign in Campaign.currents
-      = link_to(campaign.name, {campaign_id: campaign.id}, class: "btn")

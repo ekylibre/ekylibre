@@ -111,7 +111,6 @@ Ekylibre::Application.routes.draw do
     end
 
     namespace :calculators do
-      resource :nitrogen_inputs, only: [:show, :edit, :update]
     end
 
     resources :calculators, only: :index

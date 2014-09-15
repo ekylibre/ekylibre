@@ -76,9 +76,9 @@ fra:
       show: "Détail du bâtiment\_: %{name}"
     backend/calculators:
       index: "Calculateurs"
-    backend/calculators/nitrogen_inputs:
-      edit: "Calcul des apports d’azote"
-      show: "Calcul des apports d’azote"
+    backend/calculators/nitrogen_inputs:  #?
+      edit: "Calcul des apports d’azote" #?
+      show: "Calcul des apports d’azote" #?
     backend/campaigns:
       edit: "Campagne\_: %{name}"
       index: "Campagnes"

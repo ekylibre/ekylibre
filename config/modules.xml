@@ -202,6 +202,7 @@
         <page to="backend/financial_assets#edit"/>
         <page to="backend/financial_assets#list"/>
         <page to="backend/financial_assets#list_depreciations"/>
+        <page to="backend/financial_assets#list_products"/>
         <page to="backend/financial_assets#new"/>
         <page to="backend/financial_assets#show"/>
         <page to="backend/financial_assets#unroll"/>
@@ -945,9 +946,6 @@
       <!--
       <item name="calculators">
         <page to="backend/calculators#index"/>
-        <page to="backend/calculators/nitrogen_inputs#show"/>
-        <page to="backend/calculators/nitrogen_inputs#edit"/>
-        <page to="backend/calculators/nitrogen_inputs#update"/>
       </item>
       -->
       <!--
@@ -1731,11 +1729,6 @@
       <item name="calculators">
         <page to="backend/calculators#index"/>
       </item>
-      <item name="nitrogen_inputs">
-        <page to="backend/calculators/nitrogen_inputs#edit"/>
-        <page to="backend/calculators/nitrogen_inputs#show"/>
-        <page to="backend/calculators/nitrogen_inputs#update"/>
-      </item>
     </group>
     <group>
       <item name="helps">
@@ -1746,5 +1739,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
+    <group/>
   </untreated-actions>
 </modules>

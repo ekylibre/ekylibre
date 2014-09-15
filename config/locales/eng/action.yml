@@ -69,9 +69,6 @@ eng:
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
-    backend/calculators/nitrogen_inputs:
-      edit: "Edit nitrogen input: %{name}"
-      show: "Nitrogen input: %{name}"
     backend/calculators:
       index: "Calculators"
     backend/campaigns:
@@ -726,7 +723,7 @@ eng:
     building: "Building" #?
     building_name: "Building name" #?
     buildings: "Buildings" #?
-    calculate: "Calculate"
+    calculate: "Calculate" #?
     calendar: "Calendar" #?
     campaign: "Campaign"
     canals: "Canals" #?
@@ -1028,7 +1025,7 @@ eng:
       stocks: "Stocks"
       trade: "Trade"
     merge: "Merge" #?
-    method: "Method"
+    method: "Method" #?
     minimal_temperature: "Minimal temperature"
     missing_help: "Missing page" #?
     mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity" #?
@@ -1546,7 +1543,7 @@ eng:
       need_to_create_productions: "Need to create productions"
       need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
       new_actual_number: "The new number is being %{actual_number}"
-      new_values_are_calculated: "New values are calculated"
+      new_values_are_calculated: "New values are calculated" #?
       no_authenticated: "You could not be identified. The user_name or password must be incorrect."
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
