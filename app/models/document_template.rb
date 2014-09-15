@@ -87,7 +87,12 @@ class DocumentTemplate < Ekylibre::Record::Base
           if template = document.root.xpath('xmlns:template').first
             logger.info "NOTICE: Update <template> for document template #{self.nature}"
             template.children.remove
-            template.add_child(Nokogiri::XML::CDATA.new(document, Rails.root.join("config", "corporate-identity", "reports-style.xml").to_s.inspect)) # .relative_path_from(self.source_path.dirname)
+            style_file = Ekylibre::Tenant.private_directory.join("corporate-identity", "reports-style.xml")
+            unless style_file.exist?
+              style_file = Rails.root.join("config", "corporate-identity", "reports-style.xml")
+            end
+
+            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.to_s.inspect)) # .relative_path_from(self.source_path.dirname)
           else
             logger.info "WARNING: Cannot find and update <template> in document template #{self.nature}"
           end
