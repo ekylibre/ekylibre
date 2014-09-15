@@ -59,6 +59,7 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/financial_assets#list_products"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"

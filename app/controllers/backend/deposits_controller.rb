@@ -20,6 +20,8 @@
 class Backend::DepositsController < BackendController
   manage_restfully only: :destroy
 
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
   unroll
 
   list(order: {created_at: :desc}) do |t|
@@ -57,12 +59,9 @@ class Backend::DepositsController < BackendController
   # Displays details of one deposit selected with +params[:id]+
   def show
     return unless @deposit = find_and_check
-    respond_to do |format|
-      format.html do
-        t3e @deposit.attributes
-      end
-      format.pdf { render_print_deposit(@deposit) }
-    end
+    t3e @deposit
+    respond_with(@deposit, :include => [:responsible, :journal_entry, :mode, :cash,
+                                                                  {:payments => {:include => :payer}}])
   end
 
 

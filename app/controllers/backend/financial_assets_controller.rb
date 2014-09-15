@@ -42,7 +42,7 @@ class Backend::FinancialAssetsController < BackendController
     t.column :journal_entry, label_method: :number, url: true
     # t.action :edit, if: "RECORD.journal_entry.nil?".c
   end
-  
+
   list(:products, model: :products, conditions: {financial_asset_id: 'params[:id]'.c}, order: :initial_born_at) do |t|
     t.column :name, url: true
     t.column :initial_born_at
