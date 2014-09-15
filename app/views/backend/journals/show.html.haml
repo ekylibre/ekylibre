@@ -7,7 +7,7 @@
 
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell Journal.human_attribute_name(:entry_items) do
       = kujaku(popover: false) do |k|
         - k.text

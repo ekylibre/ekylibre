@@ -9,7 +9,7 @@
       - l.attribute :nature
       - l.attribute :family
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:productions) do
       = toolbar do |t|
         - t.new(params: {controller: :productions, activity_id: resource.id})

@@ -536,18 +536,6 @@ div[data-deck] > div#default {
       }
     }
   }
-  @each $icon in $symbolic-icons {
-    $icon: nth($icon, 1);
-    &.snippet-#{$icon} > .snippet-title > h3 > i {
-      @include use-icon($icon);
-    }
-  }
-  // Adds synonyms
-  @each $renaming in $all-aliases {
-    &.snippet-#{nth($renaming, 1)} > .snippet-title > h3 > i {
-      @include use-icon(nth($renaming, 2));
-    }
-  }
 
 
   margin-top: $default-gap;
@@ -899,20 +887,8 @@ form.search {
   .icon {
     @include is-icon;
     @include use-icon(cog);
-    @each $symbolic-icon in $symbolic-icons {
-      $symbol-name: nth($symbolic-icon, 1);
-      $symbol-code: nth($symbolic-icon, 2);
-      &.icon-#{$symbol-name} {
-        @include icon($symbol-code);
-      }
-    }
-    // Adds synonyms
-    @each $renaming in $all-aliases {
-      &.icon-#{nth($renaming, 1)} {
-        @include use-icon(nth($renaming, 2));
-      }
-    }
   }
+
 }
 
 
@@ -1047,11 +1023,6 @@ form.search {
       @include transition(color 0.2s linear);
     }
   }
-  @each $field_set in (delay times), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (indicators dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options circle-o), (choice_options list), (products wheat), (identification barcode), (animal_identification barcode), (productions cog), (nature wrench), (variant sitemap), (subscriptions stack-exchange), (casting bullhorn){ //asset,
-    &.#{ nth($field_set, 1) }.fieldset .fieldset-legend .title i {
-      @include use-icon(nth($field_set, 2));
-    }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
   .fieldset-fields {
     // border-top: $fieldset-border;
     border-top: 2px solid $active-color;
@@ -2009,22 +1980,6 @@ ul.casts {
   @include is-icon(64px);
   @include text-align(center);
   min-width: 64px;
-
-  // Defines default names
-  @each $symbolic-icon in $symbolic-icons {
-    $symbol-name: nth($symbolic-icon, 1);
-    $symbol-code: nth($symbolic-icon, 2);
-    &.picto-#{$symbol-name} {
-      @include icon($symbol-code);
-    }
-  }
-
-  // Adds synonyms
-  @each $renaming in $all-aliases {
-    &.picto-#{nth($renaming, 1)} {
-      @include use-icon(nth($renaming, 2));
-    }
-  }
 
 }
 

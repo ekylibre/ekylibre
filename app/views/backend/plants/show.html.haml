@@ -18,7 +18,7 @@
       - #- l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
       - l.attribute :description
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:intervention_casts) do
       = list(:intervention_casts)
     - b.cell(:issues) do

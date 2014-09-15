@@ -104,25 +104,6 @@ a.btn, button {
     @include button($background-color: $caution-color);
   }
 
-  // Defines default names
-  @each $symbolic-icon in $symbolic-icons {
-    $symbol-name: nth($symbolic-icon, 1);
-    $symbol-code: nth($symbolic-icon, 2);
-    &.btn.#{$symbol-name}, &.btn-#{$symbol-name} {
-      .icon, i {
-        @include icon($symbol-code);
-      }
-    }
-  }
-
-  // Adds synonyms
-  @each $renaming in $all-aliases {
-    &.btn-#{nth($renaming, 1)} {
-      .icon, i {
-        @include use-icon(nth($renaming, 2));
-      }
-    }
-  }
   &.btn-dropdown {
     .icon, i {
       font-size: $fs-normal;

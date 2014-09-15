@@ -45,18 +45,6 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
             @include is-icon(18px);
             @include use-icon(cog);
           }
-          @each $symbolic-icon in $symbolic-icons {
-            $symbol-name: nth($symbolic-icon, 1);
-            $symbol-code: nth($symbolic-icon, 2);
-            &[data-list-column="#{$symbol-name}"] i {
-              @include icon($symbol-code);
-            }
-          }
-          @each $renaming in $all-aliases {
-            &[data-list-column="#{nth($renaming, 1)}"] i {
-              @include use-icon(nth($renaming, 2));
-            }
-          }
         }
       }
     }
@@ -328,18 +316,6 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
         }
         margin: 0 auto;
         border: none;
-        @each $symbolic-icon in $symbolic-icons {
-          $symbol-name: nth($symbolic-icon, 1);
-          $symbol-code: nth($symbolic-icon, 2);
-          &.#{$symbol-name} i {
-            @include icon($symbol-code);
-          }
-        }
-        @each $renaming in $all-aliases {
-          &.#{nth($renaming, 1)} i {
-            @include use-icon(nth($renaming, 2));
-          }
-        }
       }
 
     }

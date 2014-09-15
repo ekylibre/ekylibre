@@ -1,0 +1,31 @@
+@mixin iconics($symbol-name) {
+  // buttons
+  a.btn.btn-#{$symbol-name} i,
+  button.btn-#{$symbol-name} i,
+  // tables
+  table.list tr > td.act > a#{$symbol-name} i,
+  table.list tr > td.act[data-list-column="#{$symbol-name}"] i,
+  // snippets
+  .snippet.snippet-#{$symbol-name} > .snippet-title > h3 > i,
+  // fieldset icon
+  .fieldset.#{$symbol-name} .fieldset-legend .title i,
+  // help content
+  .content .icon.icon-#{$symbol-name},
+  // picto
+  .picto.picto-#{$symbol-name} {
+    @content;
+  }
+}
+
+@each $icon in $symbolic-icons {
+  @include iconics(nth($icon, 1)) {
+    @include icon(nth($icon, 2));
+  }
+}
+
+// Adds synonyms
+@each $alias in $all-aliases {
+  @include iconics(nth($alias, 1)) {
+    @include use-icon(nth($alias, 2));
+  }
+}

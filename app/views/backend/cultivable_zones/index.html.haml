@@ -6,6 +6,6 @@
     - b.cell :map do
       = map(CultivableZone.all)
     - b.cell :cropping_plan_on_cultivable_zones, params: {campaign: Campaign.currents.first}
-  - b.tabbox do
+  - b.hbox do
     - b.cell :list do
       = list

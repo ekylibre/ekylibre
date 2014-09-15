@@ -1,5 +1,5 @@
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell do
       = f.referenced_association :client # , :source => :clients
       = f.subset :addresses, :depend_at => :client

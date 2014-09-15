@@ -94,6 +94,7 @@ module Backend::BeehiveHelper
     end
 
     def tabbox(&block)
+      raise "#tabbox can not be used anymore. Please use #hbox instead."
       return box(:tab, &block)
     end
 

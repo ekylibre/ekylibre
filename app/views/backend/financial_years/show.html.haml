@@ -19,7 +19,7 @@
       - l.attribute :code
       - l.attribute :last_journal_entry, url: true
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(@financial_year.closed ? :balance : :last_computed_balance) do
       = list :account_balances
 

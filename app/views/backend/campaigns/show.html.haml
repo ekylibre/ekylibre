@@ -10,7 +10,7 @@
       - l.attribute :number
       - l.attribute :description
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:productions) do
       = toolbar do |t|
         - t.new(params: {controller: :productions, :campaign_id => @campaign.id})

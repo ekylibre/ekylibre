@@ -12,19 +12,19 @@
     - if @product_group.picture.exists?
       = image_tag(@product_group.picture.url(:thumb))
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:members) do
       = list(:members)
     - b.cell(:groups) do
       = list(:groups)
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:contained_products) do
       = list(:contained_products)
     - b.cell(:places) do
       = list(:places)
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:issues) do
       = toolbar do |t|
         - t.new(params: {controller: :issues, :target_id => @product_group.id, :target_type => @product_group.class.name})

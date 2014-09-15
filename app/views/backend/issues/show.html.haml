@@ -22,7 +22,7 @@
       - b.cell do
         .picture= image_tag(@issue.picture.url(:identity))
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|
         - t.new(params: {controller: :interventions, :issue_id => @issue.id})

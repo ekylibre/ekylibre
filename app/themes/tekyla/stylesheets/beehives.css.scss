@@ -103,7 +103,7 @@
          }
       }
 
-      @for $i from 1 through 30 {
+      @for $i from 1 through 10 {
          &.box-#{ $i }-cells {
             @media screen and (min-width: round($i*$min-width) + 1px) {
                &.box-h {
@@ -142,77 +142,6 @@
                         }
                      }
                   }
-               }
-            }
-            @media screen and (min-width: round($i*$min-width*0.8) + 1px) {
-               &.box-tab {
-                  ul.cell-titles {
-                     display: block;
-                     li {
-                        @include inline-block;
-                        padding: 0;
-                        width: 100% / $i;
-                        opacity: 0.4;
-                        &:hover { opacity: 0.8 }
-                        .cell-title {
-                           text-decoration: none;
-                           display: block;
-                           border-color: mix($active-color, white, 10%);
-                           &:focus {
-                              outline: none;
-                           }
-                        }
-                        &.active {
-                           opacity: 1;
-                           a {
-                              border: $cell-border;
-                              border-top:  2px solid $active-color;
-                              border-bottom: none;
-                              padding-bottom: $cell-title-vertical-padding + $cell-border-width;
-                           }
-                           &:first-child a { border-left: none }
-                           &:last-child  a { border-right: none }
-                           margin-bottom: (-1 * $cell-border-width);
-                           &.error {
-                              a {
-                                 border-top-color: $invalid-color;
-                              }
-                           }
-                        }
-                     }
-
-
-                  }
-                  .cells {
-                     border-top: $cell-border;
-                     .cell {
-                        display: none;
-                        width: 100%;
-                        margin-top : 0;
-                        &.active {
-                           display: block;
-                        }
-                        .cell-inner {
-                           margin-left : 0;
-                           .cell-title { display: none; }
-                           .cell-content {
-                              @if $i > 1 {
-                                 padding-left: 0;
-                                 padding-right: 0;
-                              }
-                              border-bottom: $cell-border;
-                              border-top: none;
-                              .rss-feed {
-                                 max-height: 20em;
-                                 overflow: auto;
-                              }
-
-
-                           }
-                        }
-                     }
-                  }
-
                }
             }
          }
