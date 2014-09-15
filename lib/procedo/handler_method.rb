@@ -14,7 +14,7 @@ module Procedo
       if node_cache[:expression].has_key?(index)
         cached = node_cache[:expression][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:expression][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -23,14 +23,17 @@ module Procedo
       i0 = index
       r1 = _nt_conditive
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_additive
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           r3 = _nt_primary
           if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
             @index = i0
@@ -63,7 +66,7 @@ module Procedo
       if node_cache[:conditive].has_key?(index)
         cached = node_cache[:conditive][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:conditive][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -81,9 +84,9 @@ module Procedo
         end
         s0 << r2
         if r2
-          if has_terminal?(" ? ", false, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
-            @index += 3
+          if (match_len = has_terminal?(" ? ", false, index))
+            r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+            @index += match_len
           else
             terminal_parse_failure(" ? ")
             r4 = nil
@@ -109,9 +112,9 @@ module Procedo
                 end
                 s0 << r8
                 if r8
-                  if has_terminal?(" : ", false, index)
-                    r10 = instantiate_node(SyntaxNode,input, index...(index + 3))
-                    @index += 3
+                  if (match_len = has_terminal?(" : ", false, index))
+                    r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure(" : ")
                     r10 = nil
@@ -129,10 +132,12 @@ module Procedo
                       i13 = index
                       r14 = _nt_argument
                       if r14
+                        r14 = SyntaxNode.new(input, (index-1)...index) if r14 == true
                         r13 = r14
                       else
                         r15 = _nt_conditive
                         if r15
+                          r15 = SyntaxNode.new(input, (index-1)...index) if r15 == true
                           r13 = r15
                         else
                           @index = i13
@@ -186,7 +191,7 @@ module Procedo
       if node_cache[:multitive].has_key?(index)
         cached = node_cache[:multitive][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:multitive][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -205,9 +210,9 @@ module Procedo
         end
         s1 << r3
         if r3
-          if has_terminal?("*", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("*", false, index))
+            r5 = true
+            @index += match_len
           else
             terminal_parse_failure("*")
             r5 = nil
@@ -236,6 +241,7 @@ module Procedo
         r1 = nil
       end
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         i9, s9 = index, []
@@ -250,9 +256,9 @@ module Procedo
           end
           s9 << r11
           if r11
-            if has_terminal?("/", false, index)
-              r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("/", false, index))
+              r13 = true
+              @index += match_len
             else
               terminal_parse_failure("/")
               r13 = nil
@@ -281,10 +287,12 @@ module Procedo
           r9 = nil
         end
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           r17 = _nt_primary
           if r17
+            r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
             r0 = r17
           else
             @index = i0
@@ -323,7 +331,7 @@ module Procedo
       if node_cache[:additive].has_key?(index)
         cached = node_cache[:additive][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:additive][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -342,9 +350,9 @@ module Procedo
         end
         s1 << r3
         if r3
-          if has_terminal?("+", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("+", false, index))
+            r5 = true
+            @index += match_len
           else
             terminal_parse_failure("+")
             r5 = nil
@@ -373,6 +381,7 @@ module Procedo
         r1 = nil
       end
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         i9, s9 = index, []
@@ -387,9 +396,9 @@ module Procedo
           end
           s9 << r11
           if r11
-            if has_terminal?("-", false, index)
-              r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("-", false, index))
+              r13 = true
+              @index += match_len
             else
               terminal_parse_failure("-")
               r13 = nil
@@ -418,10 +427,12 @@ module Procedo
           r9 = nil
         end
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           r17 = _nt_multitive
           if r17
+            r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
             r0 = r17
           else
             @index = i0
@@ -447,7 +458,7 @@ module Procedo
       if node_cache[:primary].has_key?(index)
         cached = node_cache[:primary][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:primary][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -456,24 +467,28 @@ module Procedo
       i0 = index
       r1 = _nt_value
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_numeric
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           r3 = _nt_function_call
           if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
             r4 = _nt_reading
             if r4
+              r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
               i5, s5 = index, []
-              if has_terminal?("(", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
+              if (match_len = has_terminal?("(", false, index))
+                r6 = true
+                @index += match_len
               else
                 terminal_parse_failure("(")
                 r6 = nil
@@ -499,9 +514,9 @@ module Procedo
                     end
                     s5 << r10
                     if r10
-                      if has_terminal?(")", false, index)
-                        r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                        @index += 1
+                      if (match_len = has_terminal?(")", false, index))
+                        r12 = true
+                        @index += match_len
                       else
                         terminal_parse_failure(")")
                         r12 = nil
@@ -519,6 +534,7 @@ module Procedo
                 r5 = nil
               end
               if r5
+                r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
                 @index = i0
@@ -539,7 +555,7 @@ module Procedo
       if node_cache[:argument].has_key?(index)
         cached = node_cache[:argument][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:argument][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -548,22 +564,27 @@ module Procedo
       i0 = index
       r1 = _nt_value
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_numeric
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           r3 = _nt_function_call
           if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
             r4 = _nt_reading
             if r4
+              r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
               r5 = _nt_expression
               if r5
+                r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
                 @index = i0
@@ -594,7 +615,7 @@ module Procedo
       if node_cache[:access].has_key?(index)
         cached = node_cache[:access][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:access][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -604,9 +625,9 @@ module Procedo
       r1 = _nt_actor
       s0 << r1
       if r1
-        if has_terminal?(":", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?(":", false, index))
+          r2 = true
+          @index += match_len
         else
           terminal_parse_failure(":")
           r2 = nil
@@ -635,7 +656,7 @@ module Procedo
       if node_cache[:reading].has_key?(index)
         cached = node_cache[:reading][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:reading][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -644,10 +665,12 @@ module Procedo
       i0 = index
       r1 = _nt_individual_reading
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_whole_reading
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           @index = i0
@@ -686,7 +709,7 @@ module Procedo
       if node_cache[:individual_reading].has_key?(index)
         cached = node_cache[:individual_reading][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:individual_reading][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -696,9 +719,9 @@ module Procedo
       r1 = _nt_actor
       s0 << r1
       if r1
-        if has_terminal?("..", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
+        if (match_len = has_terminal?("..", false, index))
+          r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+          @index += match_len
         else
           terminal_parse_failure("..")
           r2 = nil
@@ -709,9 +732,9 @@ module Procedo
           s0 << r3
           if r3
             i5, s5 = index, []
-            if has_terminal?("(", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("(", false, index))
+              r6 = true
+              @index += match_len
             else
               terminal_parse_failure("(")
               r6 = nil
@@ -721,9 +744,9 @@ module Procedo
               r7 = _nt_unit
               s5 << r7
               if r7
-                if has_terminal?(")", false, index)
-                  r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
+                if (match_len = has_terminal?(")", false, index))
+                  r8 = true
+                  @index += match_len
                 else
                   terminal_parse_failure(")")
                   r8 = nil
@@ -786,7 +809,7 @@ module Procedo
       if node_cache[:whole_reading].has_key?(index)
         cached = node_cache[:whole_reading][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:whole_reading][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -796,9 +819,9 @@ module Procedo
       r1 = _nt_actor
       s0 << r1
       if r1
-        if has_terminal?(".", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?(".", false, index))
+          r2 = true
+          @index += match_len
         else
           terminal_parse_failure(".")
           r2 = nil
@@ -809,9 +832,9 @@ module Procedo
           s0 << r3
           if r3
             i5, s5 = index, []
-            if has_terminal?("(", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("(", false, index))
+              r6 = true
+              @index += match_len
             else
               terminal_parse_failure("(")
               r6 = nil
@@ -821,9 +844,9 @@ module Procedo
               r7 = _nt_unit
               s5 << r7
               if r7
-                if has_terminal?(")", false, index)
-                  r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
+                if (match_len = has_terminal?(")", false, index))
+                  r8 = true
+                  @index += match_len
                 else
                   terminal_parse_failure(")")
                   r8 = nil
@@ -865,7 +888,7 @@ module Procedo
       if node_cache[:actor].has_key?(index)
         cached = node_cache[:actor][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:actor][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -874,10 +897,12 @@ module Procedo
       i0 = index
       r1 = _nt_self
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_variable
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           @index = i0
@@ -895,15 +920,15 @@ module Procedo
       if node_cache[:accessor].has_key?(index)
         cached = node_cache[:accessor][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:accessor][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
-      if has_terminal?("contents-count", false, index)
-        r0 = instantiate_node(Accessor,input, index...(index + 14))
-        @index += 14
+      if (match_len = has_terminal?("contents-count", false, index))
+        r0 = instantiate_node(Accessor,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("contents-count")
         r0 = nil
@@ -925,27 +950,29 @@ module Procedo
       if node_cache[:variable].has_key?(index)
         cached = node_cache[:variable][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:variable][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
       i0, s0 = index, []
-      if has_terminal?('\G[a-z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[a-z]')
         r1 = nil
       end
       s0 << r1
       if r1
         s2, i2 = [], index
         loop do
-          if has_terminal?('\G[a-z0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
             r3 = true
             @index += 1
           else
+            terminal_parse_failure('[a-z0-9]')
             r3 = nil
           end
           if r3
@@ -960,9 +987,9 @@ module Procedo
           s4, i4 = [], index
           loop do
             i5, s5 = index, []
-            if has_terminal?("_", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("_", false, index))
+              r6 = true
+              @index += match_len
             else
               terminal_parse_failure("_")
               r6 = nil
@@ -971,10 +998,11 @@ module Procedo
             if r6
               s7, i7 = [], index
               loop do
-                if has_terminal?('\G[a-z0-9]', true, index)
+                if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
                   r8 = true
                   @index += 1
                 else
+                  terminal_parse_failure('[a-z0-9]')
                   r8 = nil
                 end
                 if r8
@@ -1032,27 +1060,29 @@ module Procedo
       if node_cache[:indicator].has_key?(index)
         cached = node_cache[:indicator][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:indicator][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
       i0, s0 = index, []
-      if has_terminal?('\G[a-z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[a-z]')
         r1 = nil
       end
       s0 << r1
       if r1
         s2, i2 = [], index
         loop do
-          if has_terminal?('\G[a-z0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
             r3 = true
             @index += 1
           else
+            terminal_parse_failure('[a-z0-9]')
             r3 = nil
           end
           if r3
@@ -1067,9 +1097,9 @@ module Procedo
           s4, i4 = [], index
           loop do
             i5, s5 = index, []
-            if has_terminal?("_", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("_", false, index))
+              r6 = true
+              @index += match_len
             else
               terminal_parse_failure("_")
               r6 = nil
@@ -1078,10 +1108,11 @@ module Procedo
             if r6
               s7, i7 = [], index
               loop do
-                if has_terminal?('\G[a-z0-9]', true, index)
+                if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
                   r8 = true
                   @index += 1
                 else
+                  terminal_parse_failure('[a-z0-9]')
                   r8 = nil
                 end
                 if r8
@@ -1139,27 +1170,29 @@ module Procedo
       if node_cache[:unit].has_key?(index)
         cached = node_cache[:unit][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:unit][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
       i0, s0 = index, []
-      if has_terminal?('\G[a-z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[a-z]')
         r1 = nil
       end
       s0 << r1
       if r1
         s2, i2 = [], index
         loop do
-          if has_terminal?('\G[a-z0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
             r3 = true
             @index += 1
           else
+            terminal_parse_failure('[a-z0-9]')
             r3 = nil
           end
           if r3
@@ -1174,9 +1207,9 @@ module Procedo
           s4, i4 = [], index
           loop do
             i5, s5 = index, []
-            if has_terminal?("_", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("_", false, index))
+              r6 = true
+              @index += match_len
             else
               terminal_parse_failure("_")
               r6 = nil
@@ -1185,10 +1218,11 @@ module Procedo
             if r6
               s7, i7 = [], index
               loop do
-                if has_terminal?('\G[a-z0-9]', true, index)
+                if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
                   r8 = true
                   @index += 1
                 else
+                  terminal_parse_failure('[a-z0-9]')
                   r8 = nil
                 end
                 if r8
@@ -1249,7 +1283,7 @@ module Procedo
       if node_cache[:numeric].has_key?(index)
         cached = node_cache[:numeric][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:numeric][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1258,20 +1292,22 @@ module Procedo
       i0, s0 = index, []
       i1 = index
       i2, s2 = index, []
-      if has_terminal?('\G[1-9]', true, index)
+      if has_terminal?(@regexps[gr = '\A[1-9]'] ||= Regexp.new(gr), :regexp, index)
         r3 = true
         @index += 1
       else
+        terminal_parse_failure('[1-9]')
         r3 = nil
       end
       s2 << r3
       if r3
         s4, i4 = [], index
         loop do
-          if has_terminal?('\G[0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[0-9]'] ||= Regexp.new(gr), :regexp, index)
             r5 = true
             @index += 1
           else
+            terminal_parse_failure('[0-9]')
             r5 = nil
           end
           if r5
@@ -1291,16 +1327,18 @@ module Procedo
         r2 = nil
       end
       if r2
+        r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
         r1 = r2
       else
-        if has_terminal?("0", false, index)
-          r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("0", false, index))
+          r6 = true
+          @index += match_len
         else
           terminal_parse_failure("0")
           r6 = nil
         end
         if r6
+          r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
           r1 = r6
         else
           @index = i1
@@ -1310,9 +1348,9 @@ module Procedo
       s0 << r1
       if r1
         i8, s8 = index, []
-        if has_terminal?(".", false, index)
-          r9 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?(".", false, index))
+          r9 = true
+          @index += match_len
         else
           terminal_parse_failure(".")
           r9 = nil
@@ -1321,10 +1359,11 @@ module Procedo
         if r9
           s10, i10 = [], index
           loop do
-            if has_terminal?('\G[0-9]', true, index)
+            if has_terminal?(@regexps[gr = '\A[0-9]'] ||= Regexp.new(gr), :regexp, index)
               r11 = true
               @index += 1
             else
+              terminal_parse_failure('[0-9]')
               r11 = nil
             end
             if r11
@@ -1373,7 +1412,7 @@ module Procedo
       if node_cache[:function_argument].has_key?(index)
         cached = node_cache[:function_argument][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:function_argument][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1382,26 +1421,32 @@ module Procedo
       i0 = index
       r1 = _nt_value
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_numeric
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           r3 = _nt_function_call
           if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
             r4 = _nt_reading
             if r4
+              r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
               r5 = _nt_actor
               if r5
+                r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
                 r6 = _nt_expression
                 if r6
+                  r6 = SyntaxNode.new(input, (index-1)...index) if r6 == true
                   r0 = r6
                 else
                   @index = i0
@@ -1450,7 +1495,7 @@ module Procedo
       if node_cache[:function_call].has_key?(index)
         cached = node_cache[:function_call][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:function_call][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1460,9 +1505,9 @@ module Procedo
       r1 = _nt_function_name
       s0 << r1
       if r1
-        if has_terminal?("(", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("(", false, index))
+          r2 = true
+          @index += match_len
         else
           terminal_parse_failure("(")
           r2 = nil
@@ -1492,9 +1537,9 @@ module Procedo
                 end
                 s9 << r10
                 if r10
-                  if has_terminal?(",", false, index)
-                    r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                    @index += 1
+                  if (match_len = has_terminal?(",", false, index))
+                    r12 = true
+                    @index += match_len
                   else
                     terminal_parse_failure(",")
                     r12 = nil
@@ -1552,9 +1597,9 @@ module Procedo
               end
               s0 << r16
               if r16
-                if has_terminal?(")", false, index)
-                  r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
+                if (match_len = has_terminal?(")", false, index))
+                  r18 = true
+                  @index += match_len
                 else
                   terminal_parse_failure(")")
                   r18 = nil
@@ -1589,27 +1634,29 @@ module Procedo
       if node_cache[:function_name].has_key?(index)
         cached = node_cache[:function_name][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:function_name][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
       i0, s0 = index, []
-      if has_terminal?('\G[a-z]', true, index)
+      if has_terminal?(@regexps[gr = '\A[a-z]'] ||= Regexp.new(gr), :regexp, index)
         r1 = true
         @index += 1
       else
+        terminal_parse_failure('[a-z]')
         r1 = nil
       end
       s0 << r1
       if r1
         s2, i2 = [], index
         loop do
-          if has_terminal?('\G[a-z0-9]', true, index)
+          if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
             r3 = true
             @index += 1
           else
+            terminal_parse_failure('[a-z0-9]')
             r3 = nil
           end
           if r3
@@ -1624,9 +1671,9 @@ module Procedo
           s4, i4 = [], index
           loop do
             i5, s5 = index, []
-            if has_terminal?("_", false, index)
-              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("_", false, index))
+              r6 = true
+              @index += match_len
             else
               terminal_parse_failure("_")
               r6 = nil
@@ -1635,10 +1682,11 @@ module Procedo
             if r6
               s7, i7 = [], index
               loop do
-                if has_terminal?('\G[a-z0-9]', true, index)
+                if has_terminal?(@regexps[gr = '\A[a-z0-9]'] ||= Regexp.new(gr), :regexp, index)
                   r8 = true
                   @index += 1
                 else
+                  terminal_parse_failure('[a-z0-9]')
                   r8 = nil
                 end
                 if r8
@@ -1690,7 +1738,7 @@ module Procedo
       if node_cache[:space].has_key?(index)
         cached = node_cache[:space][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:space][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1698,10 +1746,11 @@ module Procedo
 
       s0, i0 = [], index
       loop do
-        if has_terminal?('\G[\\s\\n]', true, index)
+        if has_terminal?(@regexps[gr = '\A[\\s\\n]'] ||= Regexp.new(gr), :regexp, index)
           r1 = true
           @index += 1
         else
+          terminal_parse_failure('[\\s\\n]')
           r1 = nil
         end
         if r1
@@ -1722,15 +1771,15 @@ module Procedo
       if node_cache[:self].has_key?(index)
         cached = node_cache[:self][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:self][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
-      if has_terminal?("self", false, index)
-        r0 = instantiate_node(Self,input, index...(index + 4))
-        @index += 4
+      if (match_len = has_terminal?("self", false, index))
+        r0 = instantiate_node(Self,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("self")
         r0 = nil
@@ -1746,15 +1795,15 @@ module Procedo
       if node_cache[:value].has_key?(index)
         cached = node_cache[:value][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:value][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
-      if has_terminal?("value", false, index)
-        r0 = instantiate_node(Value,input, index...(index + 5))
-        @index += 5
+      if (match_len = has_terminal?("value", false, index))
+        r0 = instantiate_node(Value,input, index...(index + match_len))
+        @index += match_len
       else
         terminal_parse_failure("value")
         r0 = nil
@@ -1770,7 +1819,7 @@ module Procedo
       if node_cache[:boolean_expression].has_key?(index)
         cached = node_cache[:boolean_expression][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:boolean_expression][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1779,10 +1828,12 @@ module Procedo
       i0 = index
       r1 = _nt_disjunctive
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_test
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           @index = i0
@@ -1820,7 +1871,7 @@ module Procedo
       if node_cache[:conjonctive].has_key?(index)
         cached = node_cache[:conjonctive][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:conjonctive][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1839,9 +1890,9 @@ module Procedo
         end
         s1 << r3
         if r3
-          if has_terminal?("&", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("&", false, index))
+            r5 = true
+            @index += match_len
           else
             terminal_parse_failure("&")
             r5 = nil
@@ -1870,6 +1921,7 @@ module Procedo
         r1 = nil
       end
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         i9, s9 = index, []
@@ -1884,9 +1936,9 @@ module Procedo
           end
           s9 << r11
           if r11
-            if has_terminal?("||", false, index)
-              r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
-              @index += 2
+            if (match_len = has_terminal?("||", false, index))
+              r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+              @index += match_len
             else
               terminal_parse_failure("||")
               r13 = nil
@@ -1915,10 +1967,12 @@ module Procedo
           r9 = nil
         end
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           r17 = _nt_test
           if r17
+            r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
             r0 = r17
           else
             @index = i0
@@ -1947,7 +2001,7 @@ module Procedo
       if node_cache[:disjunctive].has_key?(index)
         cached = node_cache[:disjunctive][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:disjunctive][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -1966,9 +2020,9 @@ module Procedo
         end
         s1 << r3
         if r3
-          if has_terminal?("|", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("|", false, index))
+            r5 = true
+            @index += match_len
           else
             terminal_parse_failure("|")
             r5 = nil
@@ -1997,10 +2051,12 @@ module Procedo
         r1 = nil
       end
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r9 = _nt_conjonctive
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           @index = i0
@@ -2025,7 +2081,7 @@ module Procedo
       if node_cache[:test].has_key?(index)
         cached = node_cache[:test][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:test][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -2034,24 +2090,28 @@ module Procedo
       i0 = index
       r1 = _nt_negative
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_comparative
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           r3 = _nt_indicative
           if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
             r4 = _nt_active
             if r4
+              r4 = SyntaxNode.new(input, (index-1)...index) if r4 == true
               r0 = r4
             else
               i5, s5 = index, []
-              if has_terminal?("(", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
+              if (match_len = has_terminal?("(", false, index))
+                r6 = true
+                @index += match_len
               else
                 terminal_parse_failure("(")
                 r6 = nil
@@ -2061,9 +2121,9 @@ module Procedo
                 r7 = _nt_boolean_expression
                 s5 << r7
                 if r7
-                  if has_terminal?(")", false, index)
-                    r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                    @index += 1
+                  if (match_len = has_terminal?(")", false, index))
+                    r8 = true
+                    @index += match_len
                   else
                     terminal_parse_failure(")")
                     r8 = nil
@@ -2079,6 +2139,7 @@ module Procedo
                 r5 = nil
               end
               if r5
+                r5 = SyntaxNode.new(input, (index-1)...index) if r5 == true
                 r0 = r5
               else
                 @index = i0
@@ -2183,7 +2244,7 @@ module Procedo
       if node_cache[:comparative].has_key?(index)
         cached = node_cache[:comparative][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:comparative][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -2202,9 +2263,9 @@ module Procedo
         end
         s1 << r3
         if r3
-          if has_terminal?(">", false, index)
-            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?(">", false, index))
+            r5 = true
+            @index += match_len
           else
             terminal_parse_failure(">")
             r5 = nil
@@ -2233,6 +2294,7 @@ module Procedo
         r1 = nil
       end
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         i9, s9 = index, []
@@ -2247,9 +2309,9 @@ module Procedo
           end
           s9 << r11
           if r11
-            if has_terminal?("<", false, index)
-              r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("<", false, index))
+              r13 = true
+              @index += match_len
             else
               terminal_parse_failure("<")
               r13 = nil
@@ -2278,6 +2340,7 @@ module Procedo
           r9 = nil
         end
         if r9
+          r9 = SyntaxNode.new(input, (index-1)...index) if r9 == true
           r0 = r9
         else
           i17, s17 = index, []
@@ -2292,9 +2355,9 @@ module Procedo
             end
             s17 << r19
             if r19
-              if has_terminal?(">=", false, index)
-                r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                @index += 2
+              if (match_len = has_terminal?(">=", false, index))
+                r21 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                @index += match_len
               else
                 terminal_parse_failure(">=")
                 r21 = nil
@@ -2323,6 +2386,7 @@ module Procedo
             r17 = nil
           end
           if r17
+            r17 = SyntaxNode.new(input, (index-1)...index) if r17 == true
             r0 = r17
           else
             i25, s25 = index, []
@@ -2337,9 +2401,9 @@ module Procedo
               end
               s25 << r27
               if r27
-                if has_terminal?("<=", false, index)
-                  r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                  @index += 2
+                if (match_len = has_terminal?("<=", false, index))
+                  r29 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                  @index += match_len
                 else
                   terminal_parse_failure("<=")
                   r29 = nil
@@ -2368,6 +2432,7 @@ module Procedo
               r25 = nil
             end
             if r25
+              r25 = SyntaxNode.new(input, (index-1)...index) if r25 == true
               r0 = r25
             else
               i33, s33 = index, []
@@ -2382,9 +2447,9 @@ module Procedo
                 end
                 s33 << r35
                 if r35
-                  if has_terminal?("==", false, index)
-                    r37 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                    @index += 2
+                  if (match_len = has_terminal?("==", false, index))
+                    r37 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                    @index += match_len
                   else
                     terminal_parse_failure("==")
                     r37 = nil
@@ -2413,6 +2478,7 @@ module Procedo
                 r33 = nil
               end
               if r33
+                r33 = SyntaxNode.new(input, (index-1)...index) if r33 == true
                 r0 = r33
               else
                 i41, s41 = index, []
@@ -2427,9 +2493,9 @@ module Procedo
                   end
                   s41 << r43
                   if r43
-                    if has_terminal?("!=", false, index)
-                      r45 = instantiate_node(SyntaxNode,input, index...(index + 2))
-                      @index += 2
+                    if (match_len = has_terminal?("!=", false, index))
+                      r45 = instantiate_node(SyntaxNode,input, index...(index + match_len))
+                      @index += match_len
                     else
                       terminal_parse_failure("!=")
                       r45 = nil
@@ -2458,6 +2524,7 @@ module Procedo
                   r41 = nil
                 end
                 if r41
+                  r41 = SyntaxNode.new(input, (index-1)...index) if r41 == true
                   r0 = r41
                 else
                   @index = i0
@@ -2486,7 +2553,7 @@ module Procedo
       if node_cache[:active].has_key?(index)
         cached = node_cache[:active][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:active][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -2496,9 +2563,9 @@ module Procedo
       r1 = _nt_actor
       s0 << r1
       if r1
-        if has_terminal?("?", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?("?", false, index))
+          r2 = true
+          @index += match_len
         else
           terminal_parse_failure("?")
           r2 = nil
@@ -2534,7 +2601,7 @@ module Procedo
       if node_cache[:indicative].has_key?(index)
         cached = node_cache[:indicative][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:indicative][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -2544,9 +2611,9 @@ module Procedo
       r1 = _nt_actor
       s0 << r1
       if r1
-        if has_terminal?(".", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
+        if (match_len = has_terminal?(".", false, index))
+          r2 = true
+          @index += match_len
         else
           terminal_parse_failure(".")
           r2 = nil
@@ -2556,9 +2623,9 @@ module Procedo
           r3 = _nt_indicator
           s0 << r3
           if r3
-            if has_terminal?("?", false, index)
-              r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
+            if (match_len = has_terminal?("?", false, index))
+              r4 = true
+              @index += match_len
             else
               terminal_parse_failure("?")
               r4 = nil
@@ -2591,16 +2658,16 @@ module Procedo
       if node_cache[:negative].has_key?(index)
         cached = node_cache[:negative][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:negative][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
       end
 
       i0, s0 = index, []
-      if has_terminal?("!", false, index)
-        r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
-        @index += 1
+      if (match_len = has_terminal?("!", false, index))
+        r1 = true
+        @index += match_len
       else
         terminal_parse_failure("!")
         r1 = nil
@@ -2635,7 +2702,7 @@ module Procedo
       if node_cache[:negated_test].has_key?(index)
         cached = node_cache[:negated_test][index]
         if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          node_cache[:negated_test][index] = cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
           @index = cached.interval.end
         end
         return cached
@@ -2644,16 +2711,18 @@ module Procedo
       i0 = index
       r1 = _nt_indicative
       if r1
+        r1 = SyntaxNode.new(input, (index-1)...index) if r1 == true
         r0 = r1
       else
         r2 = _nt_active
         if r2
+          r2 = SyntaxNode.new(input, (index-1)...index) if r2 == true
           r0 = r2
         else
           i3, s3 = index, []
-          if has_terminal?("(", false, index)
-            r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
+          if (match_len = has_terminal?("(", false, index))
+            r4 = true
+            @index += match_len
           else
             terminal_parse_failure("(")
             r4 = nil
@@ -2663,9 +2732,9 @@ module Procedo
             r5 = _nt_boolean_expression
             s3 << r5
             if r5
-              if has_terminal?(")", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
+              if (match_len = has_terminal?(")", false, index))
+                r6 = true
+                @index += match_len
               else
                 terminal_parse_failure(")")
                 r6 = nil
@@ -2681,6 +2750,7 @@ module Procedo
             r3 = nil
           end
           if r3
+            r3 = SyntaxNode.new(input, (index-1)...index) if r3 == true
             r0 = r3
           else
             @index = i0
