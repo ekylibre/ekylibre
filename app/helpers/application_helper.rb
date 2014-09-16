@@ -681,7 +681,7 @@ module ApplicationHelper
             end.join.html_safe
           end
           html << beehive do |b|
-            b.tabbox do
+            b.hbox do
               if document = Document.of(nature.name, key)
                 b.cell :archives, :counter => document.archives_count do
                   # list(:archives, :controller => :documents, :id => document.id)
