@@ -23,8 +23,8 @@ Apartment.configure do |config|
   # use raw SQL dumps for creating postgres schemas? (only appies with use_schemas set to true)
   #config.use_sql = true
 
-  # configure persistent schemas (E.g. hstore )
-  config.persistent_schemas = %w{ postgis }
+  # Postgis default Schema can be "public" or "postgis"
+  config.persistent_schemas = %w{ postgis public }
 
   # add the Rails environment to database names?
   #config.prepend_environment = false
@@ -39,22 +39,3 @@ end
 # }
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'
 Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
-
-
-# Apartment.configure do |config|
-
-#   config.default_schema = 'public'
-#   # config.persistent_schemas = ['public']
-#   config.use_schemas = true
-
-#   config.prepend_environment = false
-
-#   config.tenant_names = Ekylibre::Tenant.list
-
-#   # if Rails.env.production?
-#   # else
-#   #   config.tenant_names = ["farm"]
-#   #   # Apartment::Tenant.switch("farm")
-#   # end
-
-# end
