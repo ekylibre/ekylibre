@@ -63,20 +63,25 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.started_at = self.started_at.beginning_of_day if self.started_at
-    self.stopped_at = self.stopped_at.end_of_day if self.stopped_at
+    # self.started_at = self.started_at.beginning_of_day if self.started_at
+    # self.stopped_at = self.stopped_at.end_of_day if self.stopped_at
     self.depreciated_amount = self.financial_asset.depreciations.where("stopped_at < ?", self.started_at).sum(:amount) + self.amount
     self.depreciable_amount = self.financial_asset.depreciable_amount - self.depreciated_amount
   end
 
   validate do
     # A start day must be the depreciation start or a financial year start
-    if self.financial_asset
-      unless self.started_at == self.financial_asset.started_at or self.started_at.beginning_of_month == self.started_at
+    if self.financial_asset and self.financial_year
+      # raise [self.started_at, self.financial_asset.started_at, self.started_at.beginning_of_month, self.financial_year.started_at].inspect
+      unless self.started_at == self.financial_asset.started_at or self.started_at.beginning_of_month == self.started_at or self.started_at = self.financial_year.started_at
         errors.add(:started_at, :invalid_date, start: self.financial_asset.started_at)
       end
     end
   end
 
+  # Returns the duration of the depreciation
+  def duration
+    return FinancialAsset.duration(self.started_at, self.stopped_at, mode: self.financial_asset.depreciation_method)
+  end
 
 end

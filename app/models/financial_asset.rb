@@ -79,21 +79,18 @@ class FinancialAsset < Ekylibre::Record::Base
   end
 
   before_validation do
-    # self.depreciable_amount ||= self.purchase_amount
-    # self.started_at ||= self.purchased_at
     self.purchase_amount ||= self.depreciable_amount
     self.purchased_at ||= self.started_at
     if self.depreciation_method_linear?
       if self.stopped_at and self.started_at
-        self.depreciation_percentage = (100.0*365.25/(self.stopped_at == self.started_at ? 1 : (self.stopped_at - self.started_at))).to_f
+        self.depreciation_percentage = 100.0 * 365.25 / self.duration
       end
     elsif self.depreciation_method_simplified_linear?
       self.depreciation_percentage ||= 20
       years = (100.0 / self.depreciation_percentage.to_f)
-      # raise years.inspect
       # TODO fix bigdecimal interpretation
-      months = (years - years.floor)*12.0
-      days = (months - months.floor)*30.0
+      months = (years - years.floor) * 12.0
+      days = (months - months.floor) * 30.0
       self.stopped_at = self.started_at + (12 * years.floor + months.floor).months + days.floor - 1
     end
     # self.currency = self.journal.currency
@@ -105,14 +102,14 @@ class FinancialAsset < Ekylibre::Record::Base
       errors.add(:currency, :invalid) if self.currency != self.journal.currency
     end
     if self.started_at
-      if fy = FinancialYear.reorder("started_at").first
+      if fy = FinancialYear.reorder(:started_at).first
         unless fy.started_at <= self.started_at
-          errors.add(:started_at, :greater_than_or_equal_to, :count => fy.started_at.l)
+          errors.add(:started_at, :greater_than_or_equal_to, count: fy.started_at.l)
         end
       end
       if self.stopped_at
         unless self.stopped_at >= self.started_at
-          errors.add(:started_at, :less_than_or_equal_to, :count => self.stopped_at.l)
+          errors.add(:started_at, :less_than_or_equal_to, count: self.stopped_at.l)
         end
       end
     end
@@ -137,23 +134,19 @@ class FinancialAsset < Ekylibre::Record::Base
 
   def depreciate!
     self.planned_depreciations.clear
-    puts self.name.inspect.red
     # Computes periods
     starts = [self.started_at, self.stopped_at + 1]
     for depreciation in self.depreciations
       starts << depreciation.started_at
     end
-    puts starts.inspect.green
     last = FinancialYear.at(self.stopped_at)
-    FinancialYear.find_each do |financial_year|
+    for financial_year in FinancialYear.where(started_at: self.started_at..self.stopped_at).reorder(:started_at)
       start = financial_year.started_at
       if self.started_at <= start and start <= self.stopped_at
         starts << start
       end
     end
-    puts starts.inspect.green
     starts = starts.uniq.sort
-    puts starts.inspect.green
     self.send("depreciate_with_#{self.depreciation_method}_method", starts)
     return self
   end
@@ -161,33 +154,34 @@ class FinancialAsset < Ekylibre::Record::Base
 
   # Depreciate using linear method
   def depreciate_with_linear_method(starts)
-    depreciable_days = ((self.stopped_at - self.started_at) + 1).to_d(2)
+    depreciable_days = self.duration.round(2)
     depreciable_amount = self.depreciable_amount
     for depreciation in self.depreciations
-      depreciable_days -= ((depreciation.stopped_at - depreciation.started_at) + 1).to_d(2)
+      depreciable_days   -= depreciation.duration.round(2)
       depreciable_amount -= depreciation.amount
     end
 
     # Create it if not exists?
     remaining_amount = depreciable_amount.to_d
     position = 1
+    puts starts.inspect.yellow
     starts.each_with_index do |start, index|
+      puts "START: #{start.inspect}"
       unless starts[index + 1].nil? # Last
-        depreciation = self.depreciations.where(:started_at => start).first
-        if depreciation
-
-        else
-          depreciation = self.depreciations.new(:started_at => start, :stopped_at => (starts[index+1]-1))
-          duration = ((depreciation.stopped_at - depreciation.started_at) + 1).to_d(2)
+        puts "START: #{start.inspect}".red
+        unless depreciation = self.depreciations.find_by(started_at: start)
+          depreciation = self.depreciations.new(started_at: start, stopped_at: starts[index+1])
+          duration = depreciation.duration.round(2)
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end
-        fy = FinancialYear.where("started_at <= ? AND ? <= stopped_at", depreciation.started_at, depreciation.stopped_at).first
-        depreciation.financial_year = fy if fy
+        depreciation.financial_year = FinancialYear.at(depreciation.started_at)
 
         depreciation.position = position
         position += 1
-        depreciation.save!
+        unless depreciation.save
+          raise "AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr" + depreciation.errors.inspect
+        end
       end
     end
 
@@ -199,7 +193,7 @@ class FinancialAsset < Ekylibre::Record::Base
     depreciable_days = self.duration
     depreciable_amount = self.depreciable_amount
     for depreciation in self.reload.depreciations
-      depreciable_days -= self.duration(depreciation.started_at, depreciation.stopped_at)
+      depreciable_days   -= depreciation.duration
       depreciable_amount -= depreciation.amount
     end
 
@@ -208,16 +202,14 @@ class FinancialAsset < Ekylibre::Record::Base
     position = 1
     starts.each_with_index do |start, index|
       unless starts[index + 1].nil? # Last
-        depreciation = self.depreciations.where(:started_at => start).first
+        depreciation = self.depreciations.find_by(started_at: start)
         unless depreciation
-          depreciation = self.depreciations.new(:started_at => start, :stopped_at => (starts[index+1]-1))
-          duration = self.duration(depreciation.started_at, depreciation.stopped_at)
+          depreciation = self.depreciations.new(started_at: start, stopped_at: starts[index+1])
+          duration = depreciation.duration
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end
-
-        fy = FinancialYear.where("started_at <= ? AND ? <= stopped_at", depreciation.started_at, depreciation.stopped_at).first
-        depreciation.financial_year = fy if fy
+        depreciation.financial_year = FinancialYear.at(depreciation.started_at)
 
         depreciation.position = position
         position += 1
@@ -228,35 +220,41 @@ class FinancialAsset < Ekylibre::Record::Base
   end
 
 
-  def duration(start=nil, stopp=nil)
-    start ||= self.started_at
-    stopp ||= self.stopped_at
+  # Returns the duration in days of all the depreciations
+  def duration
+    return self.class.duration(self.started_at, self.stopped_at, mode: self.depreciation_method.to_sym)
+  end
+
+  # Returns the duration in days between to 2 times
+  def self.duration(started_at, stopped_at, options = {})
     days = 0
-    if self.depreciation_method == 'simplified_linear'
-      sa = ((start.day >= 30 || (start.end_of_month == start)) ? 30 : start.day)
-      so = ((stopp.day >= 30 || (stopp.end_of_month == stopp)) ? 30 : stopp.day)
-      cursor = start
-      if start == start.end_of_month or start.day >= 30
+    if options[:mode] == :simplified_linear
+      started_on = started_at.to_date
+      stopped_on = stopped_at.to_date
+      sa = ((started_on.day >= 30 || (started_on.end_of_month == started_on)) ? 30 : started_on.day)
+      so = ((stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on)) ? 30 : stopped_on.day)
+      cursor = started_on.to_date
+      if started_on == started_on.end_of_month or started_on.day >= 30
         days += 1
-        cursor = start.end_of_month + 1
-      elsif start.month == stopp.month and start.year == stopp.year
+        cursor = (started_on.end_of_month + 1.day).beginning_of_day
+      elsif started_on.month == stopped_on.month and started_on.year == stopped_on.year
         days += (so - sa).to_i + 1
-        cursor = stopp
-      elsif start != start.beginning_of_month
+        cursor = stopped_on
+      elsif started_on != started_on.beginning_of_month
         days += (30 - sa).to_i + 1
-        cursor = start.end_of_month + 1
+        cursor = started_on.end_of_month + 1
       end
-      while (cursor < stopp.beginning_of_month)
+      while (cursor < stopped_on.beginning_of_month)
         cursor = cursor + 1.month
         days += 30
       end
-      if cursor < stopp
+      if cursor < stopped_on
         days += [30, (so - cursor.day + 1)].min
       end
     else
-      days = (stopp - start).to_i
+      days = ((stopped_at - started_at) / (24 * 3600)).ceil
     end
-    return days.to_d
+    return days.to_f
   end
 
 end
