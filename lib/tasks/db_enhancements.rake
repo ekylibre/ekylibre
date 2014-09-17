@@ -8,7 +8,6 @@
 # BEFORE db:migrate.                             #
 ##################################################
 
-
 namespace :db do
   desc 'Also create shared extensions schemas'
   task :extensions => :environment do
@@ -19,6 +18,7 @@ namespace :db do
       ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
     end
   end
+
 end
 
 Rake::Task["db:create"].enhance do
@@ -26,7 +26,9 @@ Rake::Task["db:create"].enhance do
 end
 
 Rake::Task["db:drop"].enhance do
-  Ekylibre::Tenant.clear!
+  # TODO: Fix tenant:clear invocation
+  # Rake::Task["tenant:clear"].invoke
+  FileUtils.rm_rf(Rails.root.join("config", "tenants.yml"))
 end
 
 Rake::Task["db:test:purge"].enhance do

@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
-require 'ostruct'
-require 'pathname'
-require 'ekylibre'
-
+# First-runs tasks
 namespace :first_run do
 
   desc "Build a First-Run package"

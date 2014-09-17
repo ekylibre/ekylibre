@@ -1437,7 +1437,7 @@ fra:
         cash_transfers: "VI[year|4][number|4]"
         deposits: "B[year|4][number|4]"
         entities: "[number|8]"
-        financial_assets: "I[number|7]"
+        financial_assets: "IM[number|7]"
         incoming_deliveries: "BR[year|4][number|4]"
         incoming_payments: "R[year|4][number|6]"
         interventions: "[number]"

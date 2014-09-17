@@ -25,4 +25,8 @@ namespace :tenant do
     end
   end
 
+  task :clear => :environment do
+    Ekylibre::Tenant.clear!
+  end
+
 end

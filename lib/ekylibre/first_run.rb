@@ -7,6 +7,8 @@ module Ekylibre
     autoload :Booker,  'ekylibre/first_run/booker'
     autoload :Base,    'ekylibre/first_run/base'
 
+    @@loaders = {}
+
     def self.launch(options = {})
       Base.new(options).launch
     end
@@ -20,7 +22,6 @@ module Ekylibre
     end
 
     def self.add_loader(name, &block)
-      @@loaders ||= {}
       @@loaders[name.to_sym] = block
     end
 
@@ -38,4 +39,5 @@ module Ekylibre
   end
 end
 
+# Add loaders
 require 'ekylibre/first_run/loaders'
