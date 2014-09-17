@@ -1,5 +1,4 @@
 require 'zip'
-require 'ekylibre/first_run/loaders'
 
 module Ekylibre
   module FirstRun
@@ -38,3 +37,5 @@ module Ekylibre
 
   end
 end
+
+require 'ekylibre/first_run/loaders'

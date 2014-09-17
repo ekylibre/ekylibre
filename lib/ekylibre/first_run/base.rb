@@ -120,7 +120,7 @@ module Ekylibre
         Ekylibre::Tenant.switch(@name)
 
         if hard? or Rails.env.production?
-          puts "No global transaction".red unless options[:quiet]
+          puts "No global transaction".red
           execute
         else
           ActiveRecord::Base.transaction do
