@@ -135,11 +135,10 @@ class FinancialAsset < Ekylibre::Record::Base
   def depreciate!
     self.planned_depreciations.clear
     # Computes periods
-    starts = [self.started_at, self.stopped_at + 1]
-    for depreciation in self.depreciations
-      starts << depreciation.started_at
-    end
-    last = FinancialYear.at(self.stopped_at)
+    starts = [self.started_at, self.stopped_at]
+    starts += self.depreciations.pluck(:started_at)
+
+    FinancialYear.at(self.stopped_at)
     for financial_year in FinancialYear.where(started_at: self.started_at..self.stopped_at).reorder(:started_at)
       start = financial_year.started_at
       if self.started_at <= start and start <= self.stopped_at
@@ -147,6 +146,8 @@ class FinancialAsset < Ekylibre::Record::Base
       end
     end
     starts = starts.uniq.sort
+    puts "*" * 80
+    puts starts.map(&:l).to_sentence.green
     self.send("depreciate_with_#{self.depreciation_method}_method", starts)
     return self
   end
@@ -202,10 +203,10 @@ class FinancialAsset < Ekylibre::Record::Base
     position = 1
     starts.each_with_index do |start, index|
       unless starts[index + 1].nil? # Last
-        depreciation = self.depreciations.find_by(started_at: start)
-        unless depreciation
-          depreciation = self.depreciations.new(started_at: start, stopped_at: starts[index+1])
+        unless depreciation = self.depreciations.find_by(started_at: start)
+          depreciation = self.depreciations.new(started_at: start, stopped_at: starts[index + 1])
           duration = depreciation.duration
+          puts duration.inspect.red
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end
@@ -228,6 +229,7 @@ class FinancialAsset < Ekylibre::Record::Base
   # Returns the duration in days between to 2 times
   def self.duration(started_at, stopped_at, options = {})
     days = 0
+    options[:mode] ||= :linear
     if options[:mode] == :simplified_linear
       started_on = started_at.to_date
       stopped_on = stopped_at.to_date
@@ -236,23 +238,25 @@ class FinancialAsset < Ekylibre::Record::Base
       cursor = started_on.to_date
       if started_on == started_on.end_of_month or started_on.day >= 30
         days += 1
-        cursor = (started_on.end_of_month + 1.day).beginning_of_day
+        cursor = started_on.end_of_month + 1
       elsif started_on.month == stopped_on.month and started_on.year == stopped_on.year
-        days += (so - sa).to_i + 1
+        days += so - sa + 1
         cursor = stopped_on
       elsif started_on != started_on.beginning_of_month
-        days += (30 - sa).to_i + 1
+        days += 30 - sa + 1
         cursor = started_on.end_of_month + 1
       end
       while (cursor < stopped_on.beginning_of_month)
-        cursor = cursor + 1.month
+        cursor = cursor >> 1
         days += 30
       end
       if cursor < stopped_on
         days += [30, (so - cursor.day + 1)].min
       end
-    else
+    elsif options[:mode] == :linear
       days = ((stopped_at - started_at) / (24 * 3600)).ceil
+    else
+      raise "What ? #{options[:mode].inspect}"
     end
     return days.to_f
   end

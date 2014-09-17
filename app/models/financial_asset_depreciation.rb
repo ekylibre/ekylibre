@@ -81,7 +81,7 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
 
   # Returns the duration of the depreciation
   def duration
-    return FinancialAsset.duration(self.started_at, self.stopped_at, mode: self.financial_asset.depreciation_method)
+    return FinancialAsset.duration(self.started_at, self.stopped_at, mode: self.financial_asset.depreciation_method.to_sym)
   end
 
 end

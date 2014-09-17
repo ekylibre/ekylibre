@@ -13,7 +13,7 @@ namespace :db do
   task :extensions => :environment do
     # Create PostGIS extension
     # Rake::Task["db:gis:setup"].invoke
-    if Rails.env.development?
+    unless Rails.env.production?
       ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
       ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
     end

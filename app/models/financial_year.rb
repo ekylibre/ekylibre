@@ -64,14 +64,14 @@ class FinancialYear < Ekylibre::Record::Base
       # First
       unless first = self.reorder(:started_at).first
         started_at = Time.now
-        first = self.create!(started_at: started_at, stopped_at: (started_at >> 12).end_of_month)
+        first = self.create!(started_at: started_at, stopped_at: (started_at >> 11).end_of_month)
       end
       return nil if first.started_at > searched_at
 
       # Next years
       other = first
       while searched_at > other.stopped_at
-        other = other.find_or_create_next
+        other = other.find_or_create_next!
       end
       return other
     end
@@ -88,9 +88,9 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    self.started_at = self.started_at.beginning_of_day if self.started_at
+    # self.started_at = self.started_at.beginning_of_day if self.started_at
     self.stopped_at = self.started_at + 1.year if self.stopped_at.blank? and self.started_at
-    self.stopped_at = self.stopped_at.end_of_month unless self.stopped_at.blank?
+    # self.stopped_at = self.stopped_at.end_of_month unless self.stopped_at.blank?
     if self.started_at and self.stopped_at and code.blank?
       self.code = self.default_code
     end
@@ -102,13 +102,12 @@ class FinancialYear < Ekylibre::Record::Base
 
   validate do
     unless self.stopped_at.blank? or self.started_at.blank?
-      errors.add(:stopped_at, :end_of_month) unless self.stopped_at == self.stopped_at.end_of_month
-      errors.add(:stopped_at, :posterior, to: ::I18n.localize(self.started_at)) unless self.started_at < self.stopped_at
+      errors.add(:stopped_at, :end_of_month) unless self.stopped_at.to_date == self.stopped_at.to_date.end_of_month
+      errors.add(:stopped_at, :posterior, to: self.started_at.l) unless self.started_at < self.stopped_at
       # If some financial years are already present
-      id = self.id || 0
-      if self.class.where.not(id: id).any?
-        errors.add(:started_at, :overlap) if self.class.where("id != ? AND ? BETWEEN started_at AND stopped_at", id, self.started_at).first
-        errors.add(:stopped_at, :overlap) if self.class.where("id != ? AND ? BETWEEN started_at AND stopped_at", id, self.stopped_at).first
+      if self.others.any?
+        errors.add(:started_at, :overlap) if self.others.where("? BETWEEN started_at AND stopped_at", self.started_at).any?
+        errors.add(:stopped_at, :overlap) if self.others.where("? BETWEEN started_at AND stopped_at", self.stopped_at).any?
       end
     end
   end
@@ -204,17 +203,17 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   # this method returns the previous financial_year by default.
-  def previous(n=1)
-    return self.class.where(stopped_at: self.started_at-n).first
+  def previous
+    return self.class.where("? BETWEEN started_at AND stopped_at", self.started_at - 1.day).first
   end
 
   # this method returns the next financial_year by default.
-  def next(n=1)
-    return self.class.where(started_at: self.stopped_at+n).first
+  def next
+    return self.class.where("? BETWEEN started_at AND stopped_at", self.stopped_at + 1.day).first
   end
 
   # Find or create the next financial year based on the date of the current
-  def find_or_create_next
+  def find_or_create_next!
     unless year = self.next
       months = 12
       if self.class.count != 1
@@ -225,7 +224,7 @@ class FinancialYear < Ekylibre::Record::Base
           x = x + 1.month
         end
       end
-      year = self.class.create(started_at: (self.stopped_at + 1), stopped_at: (self.stopped_at + months.months), currency: self.currency)
+      year = self.class.create!(started_at: self.stopped_at + 0.00001, stopped_at: self.stopped_at + 1.year, currency: self.currency)
     end
     return year
   end
@@ -307,7 +306,7 @@ class FinancialYear < Ekylibre::Record::Base
   # Generate last journal entry with financial assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry
-      self.create_last_journal_entry!(printed_at: self.stopped_at, :journal_id => options[:journal_id])
+      self.create_last_journal_entry!(printed_at: self.stopped_at, journal_id: options[:journal_id])
     end
 
     # Empty journal entry
