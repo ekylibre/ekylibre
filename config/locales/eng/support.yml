@@ -50,29 +50,6 @@ eng:
         one: "1 seconde"
   form:
     new: "New…"
-  list:
-    columns: "Columns"
-    export:
-      false_value: "FALSE"
-      formats:
-        csv: "CSV"
-        ods: "Spreadsheet ODF"
-        xcsv: "Excel CSV"
-      title: "Export"
-      true_value: "TRUE"
-    export_as: "Export as %{exported}..."
-    items_per_page: "Items per page"
-    menu: "Menu"
-    no_records: "No records"
-    pagination:
-      first: "First page"
-      last: "Last page"
-      next: "Next page"
-      previous: "Previous page"
-      showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
-    x_per_page:
-      one: "%{count} per page"
-      other: "%{count} per page"
   number:
     currency:
       format:
@@ -109,5 +86,3 @@ eng:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: "pm"
-  will_paginate:
-    page_gap: "…"

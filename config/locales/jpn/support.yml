@@ -50,29 +50,6 @@ jpn:
         one: "%{count}秒間"
   form:
     # new: "New…"
-  list:
-    columns: "列"
-    export:
-      false_value: "偽"
-      formats:
-        csv: "CSV"
-        # ods: "Spreadsheet ODF"
-        xcsv: "ExcelのCSV"
-      # title: "Export"
-      true_value: "真"
-    # export_as: "Export as %{exported}..."
-    # items_per_page: "Items per page"
-    menu: "メニュー"
-    no_records: "空"
-    pagination:
-      # first: "First page"
-      # last: "Last page"
-      next: "次へ"
-      previous: "前へ"
-      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
-    x_per_page:
-      one: "ページあたり%{count}行"
-      other: "ページあたり%{count}行"
   number:
     currency:
       format:
@@ -112,5 +89,3 @@ jpn:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: "pm"
-  will_paginate:
-    page_gap: "⋯"

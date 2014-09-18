@@ -50,29 +50,6 @@ fra:
         one: "1 seconde"
   form:
     new: "Nouveau…"
-  list:
-    columns: "Colonnes"
-    export:
-      false_value: "FAUX"
-      formats:
-        csv: "CSV"
-        ods: "Classeur ODF"
-        xcsv: "CSV Excel"
-      title: "Exporter"
-      true_value: "VRAI"
-    export_as: "Exporter en %{exported}"
-    items_per_page: "Éléments par page"
-    menu: "Menu"
-    no_records: "Aucun enregistrement"
-    pagination:
-      first: "Début"
-      last: "Fin"
-      next: "Suivant"
-      previous: "Précédent"
-      showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
-    x_per_page:
-      one: "%{count} par page"
-      other: "%{count} par page"
   number:
     currency:
       format:
@@ -109,5 +86,3 @@ fra:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: "pm"
-  will_paginate:
-    page_gap: "…"

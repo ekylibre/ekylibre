@@ -50,31 +50,6 @@ arb:
         one: "ثانية واحدة"
   form:
     # new: "New…"
-  list:
-    # columns: "Columns"
-    export:
-      false_value: "زائف"
-      formats:
-        csv: "CSV"
-        # ods: "Spreadsheet ODF"
-        xcsv: "Excel CSV"
-      title: "تصدير"
-      true_value: "صحيح"
-    # export_as: "Export as %{exported}..."
-    # items_per_page: "Items per page"
-    # menu: "Menu"
-    next: "التالي" #?
-    no_records: "ولا اية سجل"
-    pagination:
-      # first: "First page"
-      # last: "Last page"
-      # next: "Next page"
-      # previous: "Previous page"
-      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
-    previous: "السابق" #?
-    x_per_page:
-      # one: "%{count} per page"
-      # other: "%{count} per page"
   number:
     currency:
       format:
@@ -111,5 +86,3 @@ arb:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: "مساءا"
-  will_paginate:
-    page_gap: "…"

@@ -164,7 +164,7 @@ jpn:
             started_at:
               # consecutive: "The financial years must be consecutives. It must start after the end of the previous."
             stopped_at:
-              # end_of_month: "%{attribute} must be an en of month"
+              # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
         incoming_delivery_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
