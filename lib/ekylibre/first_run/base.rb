@@ -8,7 +8,7 @@ module Ekylibre
         @mode = options[:mode].to_s.downcase
         @mode = "normal" if @mode.blank?
         @mode = @mode.to_sym
-        @name = (options[:name] || "demo").to_s
+        @name = (options[:name] || options[:folder] || "demo").to_s
         @folder = options[:folder] || @name
         @folder_path = Ekylibre::FirstRun.path.join(@folder)
         file = path("manifest.yml")
