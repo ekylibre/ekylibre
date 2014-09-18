@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class SchemaTest < ActiveSupport::TestCase
+class Ekylibre::SchemaTest < ActiveSupport::TestCase
 
   # Checks the validity of references files for models
   def test_ekylibre_tables

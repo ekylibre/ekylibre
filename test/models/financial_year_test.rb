@@ -47,7 +47,7 @@ class FinancialYearTest < ActiveSupport::TestCase
       assert record.valid?, "Record ##{record.name} is invalid. #{record.errors.full_messages.to_sentence}"
     end
   end
-    
+
   def test_chronology
     first_year = financial_years(:financial_years_001)
     assert_not_nil first_year
