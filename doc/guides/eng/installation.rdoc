@@ -40,7 +40,7 @@ This a short explanation on installation steps for developers:
 == 2. Ruby
 
 * Install Ruby 2.0 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RbEnv}[https://github.com/sstephenson/rbenv] to install the good version, else:
-    sudo apt-get install ruby2.0 ruby2.0-dev
+    sudo apt-get install ruby2.0 ruby2.0-dev ruby-dev
 
   Or compile it from source. In one line:
     wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz && tar xzvf ruby-2.0.0-p353.tar.gz && cd ruby-2.0.0-p353 && ./configure && make && sudo make install
@@ -56,6 +56,22 @@ This a short explanation on installation steps for developers:
 * Move to Ekylibre directory root and install gems with bundler:
     cd /path/to/ekylibre
     JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
+
+* Create database.yml in /config
+
+    default: &default
+      adapter: postgis
+      encoding: unicode
+      pool: 5
+      postgis_extension: []
+      schema_search_path: public,postgis
+      username: ekylibre
+      password: ekylibre
+      host: 127.0.0.1
+
+    development:
+      <<: *default
+      database: ekylibre_development
 
 * Create and migrate database:
     rake db:create db:migrate
