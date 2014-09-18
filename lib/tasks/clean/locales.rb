@@ -87,6 +87,7 @@ end
 
 desc "Update and sort translation files"
 task :locales => :environment do
+  Clean::Support.set_search_path!
 
   # needed_labels = Clean::Support.look_for_labels("{app,lib}/**/*.{rb,yml,haml,erb}", "tmp/code/**/*{rb,yml,haml,erb}")
   # puts needed_labels.to_sentence.yellow

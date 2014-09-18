@@ -50,6 +50,7 @@ end
 desc "Adds default validations in models based on the schema"
 task :validations => :environment do
   log = File.open(Rails.root.join("log", "clean-validations.log"), "wb")
+  Clean::Support.set_search_path!
 
   print " - Validations: "
 
@@ -103,6 +104,7 @@ end
 
 desc "Removes the validators contained betweens the tags"
 task :empty_validations do
+  Clean::Support.set_search_path!
   errors = []
   Dir[Rails.root.join("app", "models", "*.rb")].sort.each do |file|
     class_name = file.split(/\/\\/)[-1].sub(/\.rb$/,'').camelize

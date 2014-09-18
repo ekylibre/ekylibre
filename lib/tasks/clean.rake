@@ -8,7 +8,6 @@ end
 
 desc "Clean files -- also available " + cleaners.collect{|c| "clean:#{c}"}.to_sentence
 task clean: :environment do
-  Ekylibre::Tenant.switch_default!
   for cleaner in cleaners
     Rake::Task["clean:#{cleaner}"].invoke
   end

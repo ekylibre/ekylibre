@@ -52,6 +52,7 @@ end
 
 desc "Analyze test files and report"
 task :tests => :environment do
+  Clean::Support.set_search_path!
   verbose = !ENV["VERBOSE"].to_i.zero?
   log = File.open(Rails.root.join("log", "clean-tests.log"), "wb")
   log.write(">> Init\n") if verbose

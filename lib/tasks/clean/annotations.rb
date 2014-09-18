@@ -177,6 +177,8 @@ module AnnotateModels
   # then pas it to the associated block
 
   def self.do_annotations
+    Clean::Support.set_search_path!
+
     print " - Annotations: "
 
     header = PREFIX.dup
@@ -217,5 +219,5 @@ end
 
 desc "Add schema information (as comments) to model files"
 task :annotations => :environment do
-   AnnotateModels.do_annotations
+  AnnotateModels.do_annotations
 end
