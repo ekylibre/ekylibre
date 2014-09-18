@@ -28,7 +28,7 @@ end
 Rake::Task["db:drop"].enhance do
   # TODO: Fix tenant:clear invocation
   # Rake::Task["tenant:clear"].invoke
-  FileUtils.rm_rf(Rails.root.join("config", "tenants.yml"))
+  FileUtils.rm_rf(Rails.root.join("config", "tenants", "*.yml"))
 end
 
 Rake::Task["db:test:purge"].enhance do

@@ -103,10 +103,11 @@ module Ekylibre
       private
 
       def config_file
-        Rails.root.join("config", "tenants.yml")
+        Rails.root.join("config", "tenants", "#{Rails.env}.yml")
       end
 
       def write
+        FileUtils.mkdir_p(config_file.dirname)
         File.write(config_file, @list.sort.to_yaml)
       end
 

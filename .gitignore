@@ -44,7 +44,7 @@ public/system/*
 /config/database.yml
 /config/api.yml
 /config/tools.xml
-/config/tenants.yml
+/config/tenants/
 
 # Ignore compass sprites
 app/themes/tekyla/images/common-s*.png
