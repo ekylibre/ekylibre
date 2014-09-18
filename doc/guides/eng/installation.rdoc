@@ -1,6 +1,6 @@
 = Installation for developers
 
-This a short explanation on installation steps for developers:
+This a short explanation on installation steps for developers.
 
 == 1. Dependencies
 
@@ -43,11 +43,11 @@ This a short explanation on installation steps for developers:
     sudo apt-get install ruby2.0 ruby2.0-dev ruby-dev
 
   Or compile it from source. In one line:
-    wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p353.tar.gz && tar xzvf ruby-2.0.0-p353.tar.gz && cd ruby-2.0.0-p353 && ./configure && make && sudo make install
+    wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz && tar xzvf ruby-2.0.0-p481.tar.gz && cd ruby-2.0.0-p481 && ./configure && make && sudo make install
 
 == 3. Configuration
 
-* Configure a DB superuser as default user in your config/database.yml.
+* Configure a DB superuser as default user in your +config/database.yml+.
   In production mode, you'll need to use a normal user without SUPERUSER not CREATEDB right.
 
 * Install bundler with rubygems:
@@ -57,12 +57,12 @@ This a short explanation on installation steps for developers:
     cd /path/to/ekylibre
     JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
     
-or create .bash_profile in your home directory and add the following lines according to your JAVA installation path
+  Or you can add the following lines in your +~/.bash_profile+ in your home directory and run +bundle install+ after:
     
     export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
     export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 
-* Create database.yml in /config
+* Create your +database.yml+ in +config/+
 
     default: &default
       adapter: postgis
@@ -81,10 +81,10 @@ or create .bash_profile in your home directory and add the following lines accor
 * Create and migrate database:
     rake db:create db:migrate
 
-* Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm, just replace instance by _demo_:
+* Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm, just replace +instance+ by +demo+:
     rake first_run max=50 name=instance
 
-* Add in /etc/hosts a line to configure a factive subdomain corresponding to your instance:
+* Add in +/etc/hosts+ a line to configure a factive subdomain corresponding to your instance:
      127.0.0.1 instance.ekylibre.lan
 
 * Launch server:
