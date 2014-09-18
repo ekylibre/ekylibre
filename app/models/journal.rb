@@ -75,8 +75,8 @@ class Journal < Ekylibre::Record::Base
   scope :banks_or_cashes, -> { where(nature: "cashes").or.where(nature: "bank") }
 
   before_validation(on: :create) do
-    if year = FinancialYear.reorder(:started_at).first
-      self.closed_at ||= (year.started_at - 1).end_of_day
+    if year = FinancialYear.first_of_all
+      self.closed_at ||= (year.started_on - 1).end_of_day
     end
     self.closed_at ||= Time.new(1899, 12, 31).end_of_month
   end
@@ -94,7 +94,7 @@ class Journal < Ekylibre::Record::Base
   validate do
     valid = false
     FinancialYear.find_each do |financial_year|
-      valid = true if self.closed_at == (financial_year.started_at-1).end_of_day
+      valid = true if self.closed_at == (financial_year.started_on-1).end_of_day
     end
     unless valid
       errors.add(:closed_at, :end_of_month, :closed_at => ::I18n.localize(self.closed_at)) if self.closed_at.to_date != self.closed_at.end_of_month.to_date

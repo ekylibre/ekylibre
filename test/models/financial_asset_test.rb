@@ -24,7 +24,7 @@
 #
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
-#  ceded_at                :datetime
+#  ceded_on                :date
 #  charges_account_id      :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
@@ -43,11 +43,11 @@
 #  purchase_amount         :decimal(19, 4)
 #  purchase_id             :integer
 #  purchase_item_id        :integer
-#  purchased_at            :datetime
+#  purchased_on            :date
 #  sale_id                 :integer
 #  sale_item_id            :integer
-#  started_at              :datetime         not null
-#  stopped_at              :datetime         not null
+#  started_on              :date             not null
+#  stopped_on              :date             not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #

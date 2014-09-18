@@ -31,8 +31,8 @@
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
-#  started_at            :datetime         not null
-#  stopped_at            :datetime         not null
+#  started_on            :date             not null
+#  stopped_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -44,8 +44,8 @@
 #   code: "Lorem ipsum"
 #   creator: users_001
 #   currency: "Lorem ipsum"
-#   started_at: 2013-10-26 18:34:04 +02:00
-#   stopped_at: 2013-10-26 18:34:04 +02:00
+#   started_on: 2013-10-26
+#   stopped_on: 2013-10-26
 #   updater: users_001
 #
 
@@ -54,8 +54,8 @@ financial_years_001:
   code: EX1992-93
   creator: users_001
   currency: FRF
-  started_at: 1992-11-17 00:00:00.000000 +02:00
-  stopped_at: 1993-08-31 23:59:59.999999 +02:00
+  started_on: 1992-11-17
+  stopped_on: 1993-08-31
   updater: users_001
 
 financial_years_002:
@@ -63,8 +63,8 @@ financial_years_002:
   code: Loremum2
   creator: users_001
   currency: FRF
-  started_at: 2050-09-01 00:00:00.000000 +02:00
-  stopped_at: 2051-08-31 23:59:59.999999 +02:00
+  started_on: 2050-09-01
+  stopped_on: 2051-08-31
   updater: users_001
 
 financial_years_003:
@@ -72,8 +72,8 @@ financial_years_003:
   code: EX1993-94
   creator: users_001
   currency: FRF
-  started_at: 1993-09-01 00:00:00.000000 +02:00
-  stopped_at: 1994-08-31 23:59:59.999999 +02:00
+  started_on: 1993-09-01
+  stopped_on: 1994-08-31
   updater: users_001
 
 financial_years_004:
@@ -81,8 +81,8 @@ financial_years_004:
   code: EX1994-95
   creator: users_001
   currency: FRF
-  started_at: 1994-09-01 00:00:00.000000 +02:00
-  stopped_at: 1995-08-31 23:59:59.999999 +02:00
+  started_on: 1994-09-01
+  stopped_on: 1995-08-31
   updater: users_001
 
 financial_years_005:
@@ -90,8 +90,8 @@ financial_years_005:
   code: EX1995-96
   creator: users_001
   currency: FRF
-  started_at: 1995-09-01 00:00:00.000000 +02:00
-  stopped_at: 1996-08-31 23:59:59.999999 +02:00
+  started_on: 1995-09-01
+  stopped_on: 1996-08-31
   updater: users_001
 
 financial_years_006:
@@ -99,8 +99,8 @@ financial_years_006:
   code: EX1996-97
   creator: users_001
   currency: FRF
-  started_at: 1996-09-01 00:00:00.000000 +02:00
-  stopped_at: 1997-08-31 23:59:59.999999 +02:00
+  started_on: 1996-09-01
+  stopped_on: 1997-08-31
   updater: users_001
 
 # Used by EBP.EDI test
@@ -109,8 +109,8 @@ financial_years_007:
   code: EX1997-98
   creator: users_001
   currency: FRF
-  started_at: 1997-09-01 00:00:00.000000 +02:00
-  stopped_at: 1998-08-31 23:59:59.999999 +02:00
+  started_on: 1997-09-01
+  stopped_on: 1998-08-31
   updater: users_001
 
 financial_years_008:
@@ -118,8 +118,8 @@ financial_years_008:
   code: EX1998-99
   creator: users_001
   currency: FRF
-  started_at: 1998-09-01 00:00:00.000000 +02:00
-  stopped_at: 1999-08-31 23:59:59.999999 +02:00
+  started_on: 1998-09-01
+  stopped_on: 1999-08-31
   updater: users_001
 
 financial_years_009:
@@ -127,8 +127,8 @@ financial_years_009:
   code: EX1999-00
   creator: users_001
   currency: FRF
-  started_at: 1999-09-01 00:00:00.000000 +02:00
-  stopped_at: 2000-08-31 23:59:59.999999 +02:00
+  started_on: 1999-09-01
+  stopped_on: 2000-08-31
   updater: users_001
 
 financial_years_010:
@@ -136,8 +136,8 @@ financial_years_010:
   code: EX2000-01
   creator: users_001
   currency: FRF
-  started_at: 2000-09-01 00:00:00.000000 +02:00
-  stopped_at: 2001-08-31 23:59:59.999999 +02:00
+  started_on: 2000-09-01
+  stopped_on: 2001-08-31
   updater: users_001
 
 financial_years_011:
@@ -145,8 +145,8 @@ financial_years_011:
   code: EX2001-02
   creator: users_001
   currency: EUR
-  started_at: 2001-09-01 00:00:00.000000 +02:00
-  stopped_at: 2002-08-31 23:59:59.999999 +02:00
+  started_on: 2001-09-01
+  stopped_on: 2002-08-31
   updater: users_001
 
 financial_years_012:
@@ -154,8 +154,8 @@ financial_years_012:
   code: EX2002-03
   creator: users_001
   currency: EUR
-  started_at: 2002-09-01 00:00:00.000000 +02:00
-  stopped_at: 2003-08-31 23:59:59.999999 +02:00
+  started_on: 2002-09-01
+  stopped_on: 2003-08-31
   updater: users_001
 
 financial_years_013:
@@ -163,8 +163,8 @@ financial_years_013:
   code: EX2003-04
   creator: users_001
   currency: EUR
-  started_at: 2003-09-01 00:00:00.000000 +02:00
-  stopped_at: 2004-08-31 23:59:59.999999 +02:00
+  started_on: 2003-09-01
+  stopped_on: 2004-08-31
   updater: users_001
 
 financial_years_014:
@@ -172,8 +172,8 @@ financial_years_014:
   code: EX2004-05
   creator: users_001
   currency: EUR
-  started_at: 2004-09-01 00:00:00.000000 +02:00
-  stopped_at: 2005-08-31 23:59:59.999999 +02:00
+  started_on: 2004-09-01
+  stopped_on: 2005-08-31
   updater: users_001
 
 financial_years_015:
@@ -181,8 +181,8 @@ financial_years_015:
   code: EX2005-06
   creator: users_001
   currency: EUR
-  started_at: 2005-09-01 00:00:00.000000 +02:00
-  stopped_at: 2006-08-31 23:59:59.999999 +02:00
+  started_on: 2005-09-01
+  stopped_on: 2006-08-31
   updater: users_001
 
 financial_years_016:
@@ -190,8 +190,8 @@ financial_years_016:
   code: EX2006-07
   creator: users_001
   currency: EUR
-  started_at: 2006-09-01 00:00:00.000000 +02:00
-  stopped_at: 2007-08-31 23:59:59.999999 +02:00
+  started_on: 2006-09-01
+  stopped_on: 2007-08-31
   updater: users_001
 
 financial_years_017:
@@ -199,8 +199,8 @@ financial_years_017:
   code: EX2007-08
   creator: users_001
   currency: EUR
-  started_at: 2007-09-01 00:00:00.000000 +02:00
-  stopped_at: 2008-08-31 23:59:59.999999 +02:00
+  started_on: 2007-09-01
+  stopped_on: 2008-08-31
   updater: users_001
 
 financial_years_018:
@@ -208,8 +208,8 @@ financial_years_018:
   code: EX2008-09
   creator: users_001
   currency: EUR
-  started_at: 2008-09-01 00:00:00.000000 +02:00
-  stopped_at: 2009-08-31 23:59:59.999999 +02:00
+  started_on: 2008-09-01
+  stopped_on: 2009-08-31
   updater: users_001
 
 financial_years_019:
@@ -217,8 +217,8 @@ financial_years_019:
   code: EX2009-10
   creator: users_001
   currency: EUR
-  started_at: 2009-09-01 00:00:00.000000 +02:00
-  stopped_at: 2010-08-31 23:59:59.999999 +02:00
+  started_on: 2009-09-01
+  stopped_on: 2010-08-31
   updater: users_001
 
 financial_years_020:
@@ -226,8 +226,8 @@ financial_years_020:
   code: EX2010-11
   creator: users_001
   currency: EUR
-  started_at: 2010-09-01 00:00:00.000000 +02:00
-  stopped_at: 2011-08-31 23:59:59.999999 +02:00
+  started_on: 2010-09-01
+  stopped_on: 2011-08-31
   updater: users_001
 
 financial_years_021:
@@ -235,8 +235,8 @@ financial_years_021:
   code: EX2011-12
   creator: users_001
   currency: EUR
-  started_at: 2011-09-01 00:00:00.000000 +02:00
-  stopped_at: 2012-08-31 23:59:59.999999 +02:00
+  started_on: 2011-09-01
+  stopped_on: 2012-08-31
   updater: users_001
 
 financial_years_022:
@@ -244,8 +244,8 @@ financial_years_022:
   code: EX2012-13
   creator: users_001
   currency: EUR
-  started_at: 2012-09-01 00:00:00.000000 +02:00
-  stopped_at: 2013-08-31 23:59:59.999999 +02:00
+  started_on: 2012-09-01
+  stopped_on: 2013-08-31
   updater: users_001
 
 financial_years_023:
@@ -253,8 +253,8 @@ financial_years_023:
   code: EX2013-14
   creator: users_001
   currency: EUR
-  started_at: 2013-09-01 00:00:00.000000 +02:00
-  stopped_at: 2014-08-31 23:59:59.999999 +02:00
+  started_on: 2013-09-01
+  stopped_on: 2014-08-31
   updater: users_001
 
 financial_years_024:
@@ -262,6 +262,6 @@ financial_years_024:
   code: EX2014-15
   creator: users_001
   currency: EUR
-  started_at: 2014-09-01 00:00:00.000000 +02:00
-  stopped_at: 2015-08-31 23:59:59.999999 +02:00
+  started_on: 2014-09-01
+  stopped_on: 2015-08-31
   updater: users_001

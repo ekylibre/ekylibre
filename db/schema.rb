@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912131515) do
+ActiveRecord::Schema.define(version: 20140918155113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -721,8 +721,8 @@ ActiveRecord::Schema.define(version: 20140912131515) do
     t.integer  "journal_entry_id"
     t.boolean  "accountable",                                 default: false, null: false
     t.datetime "accounted_at"
-    t.datetime "started_at",                                                  null: false
-    t.datetime "stopped_at",                                                  null: false
+    t.date     "started_on",                                                  null: false
+    t.date     "stopped_on",                                                  null: false
     t.decimal  "amount",             precision: 19, scale: 4,                 null: false
     t.integer  "position"
     t.boolean  "locked",                                      default: false, null: false
@@ -750,16 +750,16 @@ ActiveRecord::Schema.define(version: 20140912131515) do
     t.string   "name",                                                                   null: false
     t.string   "number",                                                                 null: false
     t.text     "description"
-    t.datetime "purchased_at"
+    t.date     "purchased_on"
     t.integer  "purchase_id"
     t.integer  "purchase_item_id"
     t.boolean  "ceded"
-    t.datetime "ceded_at"
+    t.date     "ceded_on"
     t.integer  "sale_id"
     t.integer  "sale_item_id"
     t.decimal  "purchase_amount",                   precision: 19, scale: 4
-    t.datetime "started_at",                                                             null: false
-    t.datetime "stopped_at",                                                             null: false
+    t.date     "started_on",                                                             null: false
+    t.date     "stopped_on",                                                             null: false
     t.decimal  "depreciable_amount",                precision: 19, scale: 4,             null: false
     t.decimal  "depreciated_amount",                precision: 19, scale: 4,             null: false
     t.string   "depreciation_method",                                                    null: false
@@ -789,8 +789,8 @@ ActiveRecord::Schema.define(version: 20140912131515) do
   create_table "financial_years", force: true do |t|
     t.string   "code",                  limit: 20,                 null: false
     t.boolean  "closed",                           default: false, null: false
-    t.datetime "started_at",                                       null: false
-    t.datetime "stopped_at",                                       null: false
+    t.date     "started_on",                                       null: false
+    t.date     "stopped_on",                                       null: false
     t.string   "currency",              limit: 3,                  null: false
     t.integer  "currency_precision"
     t.integer  "last_journal_entry_id"

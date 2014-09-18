@@ -31,8 +31,8 @@
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
-#  started_at            :datetime         not null
-#  stopped_at            :datetime         not null
+#  started_on            :date             not null
+#  stopped_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -48,34 +48,39 @@ class FinancialYear < Ekylibre::Record::Base
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, allow_nil: true, maximum: 20
   validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :code, :currency, :started_at, :stopped_at
+  validates_presence_of :code, :currency, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_presence_of :currency
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  scope :currents,  -> { where(closed: false).reorder(:started_at) }
-  scope :closables, -> { where(closed: false).where("stopped_at < ?", Time.now).reorder(:started_at).limit(1) }
+  scope :currents,  -> { where(closed: false).reorder(:started_on) }
+  scope :closables, -> { where(closed: false).where("stopped_on < ?", Time.now).reorder(:started_on).limit(1) }
 
   # Find or create if possible the requested financial year for the searched date
   def self.at(searched_at = Time.now)
-    unless year = self.where("? BETWEEN started_at AND stopped_at", searched_at).order(started_at: :desc).first
+    searched_on = searched_at.to_date
+    unless year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order(started_on: :desc).first
       # First
-      unless first = self.reorder(:started_at).first
-        started_at = Time.now
-        first = self.create!(started_at: started_at, stopped_at: (started_at >> 11).end_of_month)
+      unless first = self.first_of_all
+        started_on = Time.now
+        first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
       end
-      return nil if first.started_at > searched_at
+      return nil if first.started_on > searched_on
 
       # Next years
       other = first
-      while searched_at > other.stopped_at
+      while searched_on > other.stopped_on
         other = other.find_or_create_next!
       end
       return other
     end
     return year
+  end
+
+  def self.first_of_all
+    self.reorder(:started_on).first
   end
 
   def self.current
@@ -88,10 +93,10 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
-    # self.started_at = self.started_at.beginning_of_day if self.started_at
-    self.stopped_at = self.started_at + 1.year if self.stopped_at.blank? and self.started_at
-    # self.stopped_at = self.stopped_at.end_of_month unless self.stopped_at.blank?
-    if self.started_at and self.stopped_at and code.blank?
+    # self.started_on = self.started_on.beginning_of_day if self.started_on
+    self.stopped_on = self.started_on + 1.year if self.stopped_on.blank? and self.started_on
+    # self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
+    if self.started_on and self.stopped_on and code.blank?
       self.code = self.default_code
     end
     self.code.upper!
@@ -101,19 +106,19 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   validate do
-    unless self.stopped_at.blank? or self.started_at.blank?
-      errors.add(:stopped_at, :end_of_month) unless self.stopped_at.to_date == self.stopped_at.to_date.end_of_month
-      errors.add(:stopped_at, :posterior, to: self.started_at.l) unless self.started_at < self.stopped_at
+    unless self.stopped_on.blank? or self.started_on.blank?
+      errors.add(:stopped_on, :end_of_month) unless self.stopped_on == self.stopped_on.end_of_month
+      errors.add(:stopped_on, :posterior, to: self.started_on.l) unless self.started_on < self.stopped_on
       # If some financial years are already present
       if self.others.any?
-        errors.add(:started_at, :overlap) if self.others.where("? BETWEEN started_at AND stopped_at", self.started_at).any?
-        errors.add(:stopped_at, :overlap) if self.others.where("? BETWEEN started_at AND stopped_at", self.stopped_at).any?
+        errors.add(:started_on, :overlap) if self.others.where("? BETWEEN started_on AND stopped_on", self.started_on).any?
+        errors.add(:stopped_on, :overlap) if self.others.where("? BETWEEN started_on AND stopped_on", self.stopped_on).any?
       end
     end
   end
 
   def journal_entries(conditions=nil)
-    JournalEntry.where(printed_at: self.started_at..self.stopped_at).where(conditions.nil? ? true : conditions)
+    JournalEntry.where(printed_at: self.started_on..self.stopped_on).where(conditions.nil? ? true : conditions)
   end
 
   def name
@@ -121,51 +126,51 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def default_code
-    tc("code." + (self.started_at.year != self.stopped_at.year ? "double" : "single"), first_year: self.started_at.year, second_year: self.stopped_at.year)
+    tc("code." + (self.started_on.year != self.stopped_on.year ? "double" : "single"), first_year: self.started_on.year, second_year: self.stopped_on.year)
   end
 
   # tests if the financial_year can be closed.
-  def closable?(noticed_at=nil)
-    noticed_at ||= Date.today
+  def closable?(noticed_on=nil)
+    noticed_on ||= Date.today
     return false if self.closed
     if previous = self.previous
       return false if self.previous.closable?
     end
     return false unless self.journal_entries("debit != credit").empty?
-    return (self.stopped_at < noticed_at)
+    return (self.stopped_on < noticed_on)
   end
 
 
-  def closures(noticed_at=nil)
-    noticed_at ||= Date.today
-    array, first_year = [], self.class.order("started_at").first
+  def closures(noticed_on=nil)
+    noticed_on ||= Date.today
+    array, first_year = [], self.class.order("started_on").first
     if (first_year.nil? or first_year == self) and self.class.count <= 1
-      date = self.started_at.end_of_month
-      while date < noticed_at
+      date = self.started_on.end_of_month
+      while date < noticed_on
         array << date
         date = (date+1).end_of_month
       end
     else
-      array << self.stopped_at
+      array << self.stopped_on
     end
     return array
   end
 
 
   # When a financial year is closed,.all the matching journals are closed too.
-  def close(to_close_at=nil, options={})
+  def close(to_close_on=nil, options={})
     return false unless self.closable?
 
-    to_close_at ||= self.stopped_at
+    to_close_on ||= self.stopped_on
 
     ActiveRecord::Base.transaction do
       # Close.all journals to the
-      for journal in Journal.where("closed_at < ?", to_close_at)
-        raise false unless journal.close(to_close_at)
+      for journal in Journal.where("closed_on < ?", to_close_on)
+        raise false unless journal.close(to_close_on)
       end
 
       # Close year
-      self.update_attributes(:stopped_at => to_close_at, :closed => true)
+      self.update_attributes(:stopped_on => to_close_on, :closed => true)
 
       # Compute balance of closed year
       self.compute_balances!
@@ -174,7 +179,7 @@ class FinancialYear < Ekylibre::Record::Base
       if renew_journal = Journal.find_by_id(options[:renew_id].to_i)
 
         if self.account_balances.size > 0
-          entry = renew_journal.entries.create!(printed_at: to_close_at+1, :currency_id => renew_journal.currency_id)
+          entry = renew_journal.entries.create!(printed_at: to_close_on+1, :currency_id => renew_journal.currency_id)
           result   = 0
           gains    = Account.find_in_chart(:financial_year_profit)
           losses   = Account.find_in_chart(:financial_year_loss)
@@ -204,27 +209,18 @@ class FinancialYear < Ekylibre::Record::Base
 
   # this method returns the previous financial_year by default.
   def previous
-    return self.class.where("? BETWEEN started_at AND stopped_at", self.started_at - 1.day).first
+    return self.class.find_by(stopped_on: self.started_on - 1)
   end
 
   # this method returns the next financial_year by default.
   def next
-    return self.class.where("? BETWEEN started_at AND stopped_at", self.stopped_at + 1.day).first
+    return self.class.find_by(started_on: self.stopped_on + 1)
   end
 
   # Find or create the next financial year based on the date of the current
   def find_or_create_next!
     unless year = self.next
-      months = 12
-      if self.class.count != 1
-        months = 0
-        x = self.started_at
-        while x <= self.stopped_at.beginning_of_month
-          months += 1
-          x = x + 1.month
-        end
-      end
-      year = self.class.create!(started_at: self.stopped_at + 0.00001, stopped_at: self.stopped_at + 1.year, currency: self.currency)
+      year = self.class.create!(started_on: self.stopped_on + 1, stopped_on: self.stopped_on >> 12, currency: self.currency)
     end
     return year
   end
@@ -295,7 +291,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # Re-create.all account_balances record for the financial year
   def compute_balances!
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_at BETWEEN #{self.class.connection.quote(self.started_at)} AND #{self.class.connection.quote(self.stopped_at)} GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_at BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)} GROUP BY account_id")
     self.account_balances.clear
     for result in results
       self.account_balances.create!(:account_id => result["account_id"].to_i, :local_count => result["count"].to_i, :local_credit => result["credit"].to_f, :local_debit => result["debit"].to_f)
@@ -306,7 +302,7 @@ class FinancialYear < Ekylibre::Record::Base
   # Generate last journal entry with financial assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry
-      self.create_last_journal_entry!(printed_at: self.stopped_at, journal_id: options[:journal_id])
+      self.create_last_journal_entry!(printed_at: self.stopped_on, journal_id: options[:journal_id])
     end
 
     # Empty journal entry

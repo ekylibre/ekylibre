@@ -30,8 +30,8 @@ users:
 chart_of_account: fr_pcga                        # Code plan comptable
 financial_years:
   EX1998:                                        # Code d'un exercice comptable
-    started_at: 1998-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
-    stopped_at: 1998-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
+    started_on: 1998-01-01                       # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_on: 1998-12-31                       # Fin d'un exercice comptable (format AAAA-MM-JJ)
 catalogs:
   VENTE:                                         # Code d'un catalogue de prix
     name: Prix de vente                          # Nom d'un catalogue de prix

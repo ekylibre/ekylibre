@@ -36,8 +36,8 @@
 #  lock_version       :integer          default(0), not null
 #  locked             :boolean          not null
 #  position           :integer
-#  started_at         :datetime         not null
-#  stopped_at         :datetime         not null
+#  started_on         :date             not null
+#  stopped_on         :date             not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
@@ -49,7 +49,7 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :depreciable_amount, :depreciated_amount, allow_nil: true
   validates_inclusion_of :accountable, :locked, in: [true, false]
-  validates_presence_of :amount, :financial_asset, :started_at, :stopped_at
+  validates_presence_of :amount, :financial_asset, :started_on, :stopped_on
   #]VALIDATORS]
   validates_presence_of :financial_year
   delegate :currency, to: :financial_asset
@@ -63,25 +63,22 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   end
 
   before_validation do
-    # self.started_at = self.started_at.beginning_of_day if self.started_at
-    # self.stopped_at = self.stopped_at.end_of_day if self.stopped_at
-    self.depreciated_amount = self.financial_asset.depreciations.where("stopped_at < ?", self.started_at).sum(:amount) + self.amount
+    self.depreciated_amount = self.financial_asset.depreciations.where("stopped_on < ?", self.started_on).sum(:amount) + self.amount
     self.depreciable_amount = self.financial_asset.depreciable_amount - self.depreciated_amount
   end
 
   validate do
     # A start day must be the depreciation start or a financial year start
     if self.financial_asset and self.financial_year
-      # raise [self.started_at, self.financial_asset.started_at, self.started_at.beginning_of_month, self.financial_year.started_at].inspect
-      unless self.started_at == self.financial_asset.started_at or self.started_at.beginning_of_month == self.started_at or self.started_at = self.financial_year.started_at
-        errors.add(:started_at, :invalid_date, start: self.financial_asset.started_at)
+      unless self.started_on == self.financial_asset.started_on or self.started_on.beginning_of_month == self.started_on or self.started_on == self.financial_year.started_on
+        errors.add(:started_on, :invalid_date, start: self.financial_asset.started_on)
       end
     end
   end
 
   # Returns the duration of the depreciation
   def duration
-    return FinancialAsset.duration(self.started_at, self.stopped_at, mode: self.financial_asset.depreciation_method.to_sym)
+    return FinancialAsset.duration(self.started_on, self.stopped_on, mode: self.financial_asset.depreciation_method.to_sym)
   end
 
 end

@@ -1875,6 +1875,7 @@ arb:
     # start_junction: "Start junction"
     # start_way: "Start way"
     started_at: "ابتدأ يوم"
+    started_on: "ابتدأ يوم"
     started_sec: "(التاريخ والوقت (بالثواني" #?
     state: "الحالة"
     state_label: "حالة النص"
@@ -1890,6 +1891,7 @@ arb:
     stocks: "اسهم الانتاج" #?
     # stocks_categories: "Stocks categories"
     stopped_at: "توقف يوم"
+    stopped_on: "توقف يوم"
     # storable: "Storable"
     # storage: "Storage"
     # storages: "Storages"

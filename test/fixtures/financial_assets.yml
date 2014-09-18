@@ -24,7 +24,7 @@
 #
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
-#  ceded_at                :datetime
+#  ceded_on                :date
 #  charges_account_id      :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
@@ -43,11 +43,11 @@
 #  purchase_amount         :decimal(19, 4)
 #  purchase_id             :integer
 #  purchase_item_id        :integer
-#  purchased_at            :datetime
+#  purchased_on            :date
 #  sale_id                 :integer
 #  sale_item_id            :integer
-#  started_at              :datetime         not null
-#  stopped_at              :datetime         not null
+#  started_on              :date             not null
+#  stopped_on              :date             not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
@@ -64,8 +64,8 @@
 #   journal: journals_001
 #   name: "Lorem ipsum"
 #   number: "Lorem ipsum"
-#   started_at: 2013-10-26 18:34:04 +02:00
-#   stopped_at: 2013-10-26 18:34:04 +02:00
+#   started_on: 2013-10-26
+#   stopped_on: 2013-10-26
 #   updater: users_001
 #
 ---
@@ -82,8 +82,8 @@ financial_assets_001:
   number: A09001
   purchase_amount: 150
   purchased_at: 2009-07-19
-  started_at: 1995-07-19
-  stopped_at: 2015-08-31
+  started_on: 1995-07-19
+  stopped_on: 2015-08-31
   updater: users_001
 financial_assets_002:
   allocation_account: accounts_001
@@ -98,6 +98,6 @@ financial_assets_002:
   number: A09002
   purchase_amount: 0
   purchased_at: 2009-07-19
-  started_at: 1995-07-19
-  stopped_at: 2015-08-31
+  started_on: 1995-07-19
+  stopped_on: 2015-08-31
   updater: users_001

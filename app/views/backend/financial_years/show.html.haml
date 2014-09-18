@@ -13,8 +13,8 @@
 = beehive do |b|
   - b.cell :details do
     = attributes_list do |l|
-      - l.attribute :started_at
-      - l.attribute :stopped_at
+      - l.attribute :started_on
+      - l.attribute :stopped_on
       - l.attribute :closed
       - l.attribute :code
       - l.attribute :last_journal_entry, url: true

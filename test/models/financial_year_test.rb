@@ -31,8 +31,8 @@
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
-#  started_at            :datetime         not null
-#  stopped_at            :datetime         not null
+#  started_on            :date             not null
+#  stopped_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #

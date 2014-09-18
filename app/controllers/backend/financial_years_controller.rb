@@ -22,11 +22,11 @@ class Backend::FinancialYearsController < BackendController
 
   unroll
 
-  list(order: {started_at: :desc}) do |t|
+  list(order: {started_on: :desc}) do |t|
     t.column :code, url: true
     t.column :closed
-    t.column :started_at, url: true
-    t.column :stopped_at, url: true
+    t.column :started_on, url: true
+    t.column :stopped_on, url: true
     t.column :currency
     # t.column :currency_precision
     # t.action :close, if: '!RECORD.closed and RECORD.closable?'
@@ -44,8 +44,8 @@ class Backend::FinancialYearsController < BackendController
 
   list(:financial_asset_depreciations, conditions: {financial_year_id: 'params[:id]'.c}) do |t|
     t.column :financial_asset, url: true
-    t.column :started_at
-    t.column :stopped_at
+    t.column :started_on
+    t.column :stopped_on
     t.column :amount, currency: true
   end
 
@@ -81,7 +81,7 @@ class Backend::FinancialYearsController < BackendController
     return unless @financial_year = find_and_check
     if request.post?
       params[:journal_id] = Journal.create!(:nature => "renew").id if params[:journal_id]=="0"
-      if @financial_year.close(params[:financial_year][:stopped_at].to_date, :renew_id => params[:journal_id])
+      if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id => params[:journal_id])
         notify_success(:closed_financial_years)
         redirect_to(action: :index)
       end
@@ -95,9 +95,9 @@ class Backend::FinancialYearsController < BackendController
   def new
     @financial_year = FinancialYear.new
     f = FinancialYear.last
-    @financial_year.started_at = f.stopped_at+1.day unless f.nil?
-    @financial_year.started_at ||= Date.today
-    @financial_year.stopped_at = (@financial_year.started_at+1.year-1.day).end_of_month
+    @financial_year.started_on = f.stopped_on + 1 unless f.nil?
+    @financial_year.started_on ||= Date.today
+    @financial_year.stopped_on = ((@financial_year.started_on - 1) >> 12).end_of_month
     @financial_year.code = @financial_year.default_code
     @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
     @financial_year.currency ||= Entity.of_company.currency
