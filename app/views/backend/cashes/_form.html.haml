@@ -1,24 +1,24 @@
-=field_set do
-  =f.input :name
-  =f.input :currency, :collection => currencies
-  =f.input :nature, :show => {:bank_account => :bank_account_options}
+= field_set do
+  = f.input :name
+  = f.input :currency, :collection => currencies
+  = f.input :nature, :show => {:bank_account => :bank_account_options}, as: :radio_buttons
 
-=field_set(:bank_account, :in => :bank_account_options) do
-  =f.input :bank_name
-  =f.input :bank_agency_address, :field => :text
-  =f.input :mode, :show => {}
+= field_set(:bank_account, :in => :bank_account_options) do
+  = f.input :bank_name
+  = f.input :bank_agency_address, :field => :text
+  = f.input :mode, :show => {}, as: :radio_buttons
 
-=field_set(:bban, :in => :bank_account_options) do
-  =f.input :country, :collection => countries, :field => :hidden
-  =f.input :bank_code
-  =f.input :bank_agency_code
-  =f.input :bank_account_number
-  =f.input :bank_account_key
+= field_set(:bban, :in => :bank_account_options) do
+  = f.input :country, :collection => countries, :field => :hidden
+  = f.input :bank_code
+  = f.input :bank_agency_code
+  = f.input :bank_account_number
+  = f.input :bank_account_key
 
-=field_set(:accountancy) do
-  =f.referenced_association :account, :source => :banks_or_cashes
-  =f.referenced_association :journal, :source => {:nature => :banks_or_cashes}
+= field_set(:accountancy) do
+  = f.referenced_association :account, :source => :banks_or_cashes
+  = f.referenced_association :journal, :source => {:nature => :banks_or_cashes}
 
-=field_set(:iban, :in => :bank_account_options) do
-  =f.input :iban
-  =f.input :bank_identifier_code
+= field_set(:iban, :in => :bank_account_options) do
+  = f.input :iban
+  = f.input :bank_identifier_code

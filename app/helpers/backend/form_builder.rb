@@ -447,6 +447,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       return "##{targets}"
     elsif targets.is_a?(Array)
       return targets.collect{|t| clean_targets(t)}.join(", ")
+    else
+      return targets.to_json
     end
     return targets
   end
