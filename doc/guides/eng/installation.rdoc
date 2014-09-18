@@ -56,6 +56,12 @@ This a short explanation on installation steps for developers:
 * Move to Ekylibre directory root and install gems with bundler:
     cd /path/to/ekylibre
     JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
+    
+    or
+    create .bash_profile in your home directory and add the following lines according to your JAVA installation path
+    
+    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
+    export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 
 * Create database.yml in /config
 
