@@ -48,12 +48,14 @@
 #   updater: users_001
 #
 
+imports_001:
+  creator: users_001
+  nature: "charentes_alliance_soil_analyses"
+  state: undone
+  updater: users_001
 
-# # Empty samples of imports
-# imports_001:
-#   id: 1
-#   name: 'Import 1'
-
-# imports_002:
-#   id: 2
-#   name: 'Import 2'
+imports_002:
+  creator: users_001
+  nature: "ebp_edi"
+  state: undone
+  updater: users_001

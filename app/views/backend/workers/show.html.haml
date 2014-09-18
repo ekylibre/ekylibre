@@ -42,7 +42,7 @@
   - b.hbox do
     - campaign = Campaign.order(harvest_year: :desc).first
 
-    - if campaign and Operation.of_campaign(campaign).any?
+    - if campaign and Operation.of_campaign(campaign).with_cast(:doer, resource).any?
       :ruby
         started_at = Operation.of_campaign(campaign).with_cast(:doer, resource).reorder(:started_at).first.started_at.to_date
         stopped_at = Operation.of_campaign(campaign).with_cast(:doer, resource).reorder(:started_at).last.stopped_at.to_date

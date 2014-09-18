@@ -168,7 +168,7 @@ class Journal < Ekylibre::Record::Base
   def reopenings
     year = FinancialYear.current
     return [] if year.nil?
-    array, date = [], year.started_at-1
+    array, date = [], year.started_on-1
     while date < self.closed_at
       array << date
       date = (date+1).end_of_month

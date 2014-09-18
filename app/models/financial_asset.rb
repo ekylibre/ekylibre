@@ -134,21 +134,16 @@ class FinancialAsset < Ekylibre::Record::Base
     self.planned_depreciations.clear
     # Computes periods
     starts = [self.started_on, self.stopped_on + 1]
-    puts starts.uniq.sort.map(&:l).to_sentence.green
     starts += self.depreciations.pluck(:started_on)
-    puts starts.uniq.sort.map(&:l).to_sentence.green
 
     FinancialYear.at(self.stopped_on)
     for financial_year in FinancialYear.where(started_on: self.started_on..self.stopped_on).reorder(:started_on)
       start = financial_year.started_on
       if self.started_on <= start and start <= self.stopped_on
         starts << start
-        puts starts.uniq.sort.map(&:l).to_sentence.green
       end
     end
     starts = starts.uniq.sort
-    puts "*" * 80
-    puts starts.uniq.sort.map(&:l).to_sentence.green
     self.send("depreciate_with_#{self.depreciation_method}_method", starts)
     return self
   end
@@ -166,11 +161,8 @@ class FinancialAsset < Ekylibre::Record::Base
     # Create it if not exists?
     remaining_amount = depreciable_amount.to_d
     position = 1
-    puts starts.inspect.yellow
     starts.each_with_index do |start, index|
-      puts "START: #{start.inspect}"
       unless starts[index + 1].nil? # Last
-        puts "START: #{start.inspect}".red
         unless depreciation = self.depreciations.find_by(started_on: start)
           depreciation = self.depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
           duration = depreciation.duration.round(2)
@@ -207,7 +199,6 @@ class FinancialAsset < Ekylibre::Record::Base
         unless depreciation = self.depreciations.find_by(started_on: start)
           depreciation = self.depreciations.new(started_on: start, stopped_on: starts[index + 1] - 1)
           duration = depreciation.duration
-          puts duration.inspect.red
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end

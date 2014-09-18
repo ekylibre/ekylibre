@@ -19,10 +19,5 @@
 
 require 'test_helper'
 class Backend::SettingsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :edit=>:index, :except=>[:backups, :backup, :restore, :update]
-
-  test "import EBP.EDI" do
-    post :import, {nature: "ebp_edi", upload: fixture_file_upload('files/EBP.EDI')}
-  end
-
+  test_restfully_all_actions edit: :index, except: [:update]
 end

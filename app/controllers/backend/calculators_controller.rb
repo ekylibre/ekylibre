@@ -18,7 +18,7 @@
 class Backend::CalculatorsController < BackendController
 
   LIST = {
-    nitrogen_inputs: {controller: "backend/calculators/nitrogen_inputs", action: :show},
+    # nitrogen_inputs: {controller: "backend/calculators/nitrogen_inputs", action: :show},
     manure_management_plans: {controller: "backend/manure_management_plans", action: :index}
   }
 

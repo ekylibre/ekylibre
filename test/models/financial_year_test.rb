@@ -54,7 +54,7 @@ class FinancialYearTest < ActiveSupport::TestCase
 
     assert_nil first_year.previous, "No previous financial year expected"
 
-    assert_not_nil first_year.next, "No next financial year found... #{first_year.stopped_at}"
+    assert_not_nil first_year.next, "No next financial year found... #{first_year.attributes.inspect}"
 
     assert_not_nil first_year.next.previous
     assert_equal first_year, first_year.next.previous
