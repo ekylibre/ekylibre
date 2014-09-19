@@ -213,8 +213,8 @@ arb:
       financial_year:
         account_balances: "رصائد الحسابات" #?
         journal_records: "السجلات المحاسبية" #?
-        started_at: "بدأ ب" #?
-        stopped_at: "تاريخ الاغلاق"
+        started_on: "بدأ ب" #?
+        stopped_on: "تاريخ الاغلاق"
       incoming_payment:  #?
         accounted_at: "تمت محاسبته في" #?
         amount: "القيمة" #?
@@ -691,13 +691,13 @@ arb:
           nature_do_not_allow_a_first_name: "«%{nature}» لا يسمح النوع المختار بمعرفة الاسم الاول"
         financial_asset:
           attributes:
-            started_at:
+            started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         financial_year:
           attributes:
-            started_at:
+            started_on:
               consecutive: "يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق"
-            stopped_at:
+            stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
         incoming_delivery_item:

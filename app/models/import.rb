@@ -69,4 +69,19 @@ class Import < Ekylibre::Record::Base
     end
   end
 
+
+  # Create an import and run it in background
+  def self.launch(nature, file)
+    import = self.create!(nature: nature, archive: file)
+    ImportJob.enqueue(import.id)
+    return import
+  end
+
+  # Create an import and run it directly
+  def self.launch!(nature, file, &block)
+    import = self.create!(nature: nature, archive: file)
+    import.run(&block)
+    return import
+  end
+
 end

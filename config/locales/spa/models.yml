@@ -34,7 +34,7 @@ spa:
       financial_asset_depreciation:
         # asset_amount: "Accountable value"
       financial_year:
-        # stopped_at: "Date of closure"
+        # stopped_on: "Date of closure"
       incoming_payment: #?
       incoming_payment_use: #?
       intervention: #?
@@ -157,13 +157,13 @@ spa:
           # nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_asset:
           attributes:
-            started_at:
+            started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         financial_year:
           attributes:
-            started_at:
+            started_on:
               # consecutive: "The financial years must be consecutives. It must start after the end of the previous."
-            stopped_at:
+            stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
         incoming_delivery_item:

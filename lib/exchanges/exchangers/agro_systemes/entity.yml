@@ -1,0 +1,24 @@
+---
+last_name: AGRO Systèmes
+nature: legal_entity
+siren: 395345283
+supplier: true
+client: false
+phones_attributes:
+  0:
+    canal: phone
+    coordinate:  "+33247874787"
+mails_attributes:
+  0:
+    canal: mail
+    mail_line_4: Route de Saint Roch
+    mail_line_6: 37390 La Membrolle Choisille
+    mail_country: fr
+emails_attributes:
+  0:
+    canal: email
+    coordinate: contact@agro-systemes.com
+websites_attributes:
+  0:
+    canal: website
+    coordinate: "http://www.agro-systemes.com"

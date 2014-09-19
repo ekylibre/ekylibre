@@ -45,7 +45,8 @@ fra:
         depreciable_amount: "Valeur nette comptable (VNC)" #?
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
-        stopped_at: "Date de clôture"
+        stopped_on: "Date de clôture" #?
+        # stopped_on: "Date of closure"
       incoming_payment:  #?
         to_bank_at: "À encaisser le" #?
       intervention:  #?

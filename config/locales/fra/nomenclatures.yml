@@ -1391,8 +1391,8 @@ fra:
         default_duration: "Durée par défaut"
     exchange_natures:
       items:
+        agro_systemes_soil_analyses: "Analyses de sol AGRO Systèmes"
         bovins_croissance_cattle_performance_controls: "Contrôles de performance de Bovins Croissance"
-        charentes_alliance_soil_analyses: "Analyses de sol Charentes Alliance"
         charentes_alliance_water_analyses: "Analyses d’eau Charentes Alliance"
         ebp_edi: "EBP EDI"
         galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal Galactea 3"

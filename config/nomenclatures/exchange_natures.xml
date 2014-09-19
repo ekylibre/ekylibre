@@ -4,7 +4,7 @@
   <nomenclature name="exchange_natures">
     <items>
       <item name="ebp_edi"/>
-      <item name="charentes_alliance_soil_analyses"/>
+      <item name="agro_systemes_soil_analyses"/>
       <item name="charentes_alliance_water_analyses"/>
       <item name="lilco_milk_analyses"/>
       <item name="galactea3_monthly_unitary_milk_analyses"/>

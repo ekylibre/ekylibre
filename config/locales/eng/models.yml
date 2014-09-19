@@ -16,7 +16,7 @@ eng:
       financial_asset_depreciation:
         asset_amount: "Accountable value"
       financial_year:
-        stopped_at: "Date of closure"
+        stopped_on: "Date of closure"
       land_parcel:
         born_at: "Created at"
       land_parcel_group:

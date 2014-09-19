@@ -72,9 +72,9 @@ module Ekylibre
 
       def list
         unless @list
-          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {env => []})
         end
-        return @list
+        return @list[env]
       end
 
       def drop_aggregation_schema!

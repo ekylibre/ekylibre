@@ -106,17 +106,6 @@ lines:
       - extra_unit_quantity_count_6: float-8.2
       - extra_unit_quantity_count_7: float-8.2
       - extra_unit_quantity_count_8: float-8.2
-      # - extra_blabla: string-15
-      # - extra_thing_0: float-8.2
-      # - extra_thing_1: float-8.2
-      # - extra_thing_2: float-8.2
-      # - extra_thing_3: float-8.2
-      # - extra_thing_4: float-8.2
-      # - extra_thing_5: float-8.2
-      # - extra_thing_6: float-8.2
-      # - extra_thing_7: float-8.2
-      # - extra_thing_8: float-8.2
-      # - extra_thing_9: float-8.2
     children:
       - distributions: analytic_distributions-+
 
