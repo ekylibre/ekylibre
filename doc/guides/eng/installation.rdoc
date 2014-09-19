@@ -83,11 +83,11 @@ This a short explanation on installation steps for developers.
 * Create and migrate database:
     rake db:create db:migrate
 
-* Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm, just replace +instance+ by +demo+:
-    rake first_run max=50 name=instance
+* Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm, just replace <<instance>> by 'demo':
+    rake first_run max=50 name=<<instance>>
 
 * Add in +/etc/hosts+ a line to configure a factive subdomain corresponding to your instance:
-     127.0.0.1 instance.ekylibre.lan
+     127.0.0.1 <<instance>>.ekylibre.lan
 
 * Launch server:
     rails server
