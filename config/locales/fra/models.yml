@@ -210,13 +210,13 @@ fra:
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
         financial_asset:
           attributes:
-            started_at:
+            started_on:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         financial_year:
           attributes:
-            started_at:
+            started_on:
               consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
-            stopped_at:
+            stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
         incoming_delivery_item:

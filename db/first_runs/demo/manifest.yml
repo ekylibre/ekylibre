@@ -86,9 +86,5 @@ identifiers:                                     # Identifiants
   husbandry_owner_number: FR01700006989
   cattling_root_number: 173513
   cattling_number: FR17387001
-  cartodb_subdomain: demo-ekylibre
-  cartodb_api_key: af332cc00cc6960c23ea8b38bdaba71e1a7c99a1
-  cartodb_visualization_default: a9306586-b419-11e3-91f7-0e230854a1cb
-  cartodb_visualization_nitrogen_footprint: a45b818e-b41a-11e3-91f7-0e230854a1cb
   cooperative_cartodb_account: coop
   cooperative_cartodb_key: 644b0c1e22d3993b62b189e2d64389ad1e516002
