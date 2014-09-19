@@ -23,8 +23,8 @@ Apartment.configure do |config|
   # use raw SQL dumps for creating postgres schemas? (only appies with use_schemas set to true)
   #config.use_sql = true
 
-  # Postgis default Schema can be "public" or "postgis"
-  config.persistent_schemas = %w{ postgis public }
+  # Postgis default Schema must be "postgis"  
+  config.persistent_schemas = %w{ postgis }
 
   # add the Rails environment to database names?
   #config.prepend_environment = false
