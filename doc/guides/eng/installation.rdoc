@@ -92,4 +92,4 @@ This a short explanation on installation steps for developers.
 * Launch server:
     rails server
 
-* Open your web browser and go to http://<<instance>>.ekylibre.lan:3000
+* Open your web browser and go to 'http://<<instance>>.ekylibre.lan:3000'
