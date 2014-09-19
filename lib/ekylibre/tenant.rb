@@ -7,7 +7,6 @@ module Ekylibre
 
     AGGREGATION_NAME = "__all__"
 
-
     class << self
 
       # Tests existence of a tenant
@@ -35,7 +34,8 @@ module Ekylibre
           raise TenantError, "Already existing tenant"
         end
         Apartment::Tenant.create(name)
-        @list << name
+        @list[env] ||= []
+        @list[env] << name
         write
       end
 
@@ -46,7 +46,7 @@ module Ekylibre
           raise TenantError, "Unexistent tenant: #{name}"
         end
         Apartment::Tenant.drop(name)
-        @list.delete(name)
+        @list[env].delete(name)
         write
       end
 
@@ -72,7 +72,7 @@ module Ekylibre
 
       def list
         unless @list
-          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : [])
+          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
         end
         return @list
       end
@@ -103,12 +103,17 @@ module Ekylibre
       private
 
       def config_file
-        Rails.root.join("config", "tenants", "#{Rails.env}.yml")
+        Rails.root.join("config", "tenants.yml")
+      end
+
+      # Return the env
+      def env
+        Rails.env.to_s
       end
 
       def write
         FileUtils.mkdir_p(config_file.dirname)
-        File.write(config_file, @list.sort.to_yaml)
+        File.write(config_file, @list.to_yaml)
       end
 
     end
