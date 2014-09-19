@@ -58,28 +58,30 @@ class Import < Ekylibre::Record::Base
   def run(&block)
     self.update_columns(state: :in_progress, progression_percentage: 0)
     Ekylibre::Record::Base.transaction do
-      Exchanges.import(self.nature, self.archive) do |importer|
-        self.update_column(progression_percentage: importer.progression)
-        yield importer if block_given?
+      Exchanges.import(self.nature.to_sym, self.archive.path) do |progression, count|
+        self.update_columns(progression_percentage: progression)
+        yield(progression, count) if block_given?
       end
-      self.update_column(state: :finished, progression_percentage: 100)
+      self.update_columns(state: :finished, progression_percentage: 100)
     end
     if self.in_progress?
-      self.update_column(state: :errored, progression_percentage: 0)
+      self.update_columns(state: :errored, progression_percentage: 0)
     end
   end
 
 
   # Create an import and run it in background
   def self.launch(nature, file)
-    import = self.create!(nature: nature, archive: file)
+    f = File.open(file)
+    import = self.create!(nature: nature, archive: f)
     ImportJob.enqueue(import.id)
     return import
   end
 
   # Create an import and run it directly
   def self.launch!(nature, file, &block)
-    import = self.create!(nature: nature, archive: file)
+    f = File.open(file)
+    import = self.create!(nature: nature, archive: f)
     import.run(&block)
     return import
   end

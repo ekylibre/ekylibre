@@ -3,6 +3,9 @@
 
   <nomenclature name="exchange_natures">
     <items>
+      <item name="bordeaux_sciences_agro_istea_journals"/>
+      <item name="bordeaux_sciences_agro_istea_general_ledger"/>
+      <item name="isagri_isacompta_export"/>
       <item name="ebp_edi"/>
       <item name="agro_systemes_soil_analyses"/>
       <item name="charentes_alliance_water_analyses"/>

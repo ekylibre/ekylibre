@@ -13,6 +13,8 @@ module Exchanges
   class ImcompatibleDataError < ArgumentError
   end
 
+  autoload :Jauge, 'exchanges/jauge'
+
   class << self
 
     def add_importer(nature, &block)

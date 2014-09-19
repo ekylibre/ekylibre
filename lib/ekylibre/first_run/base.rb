@@ -92,11 +92,12 @@ module Ekylibre
         start = Time.now
         label_size = options[:label_size] || 21
         label = name.to_s.humanize.rjust(label_size)
-        ellipsis = "…"
-        if label.size > label_size
-          first = ((label_size - ellipsis.size).to_f / 2).round
-          label = label[0..(first-1)] + ellipsis + label[-(label_size - first - ellipsis.size)..-1]
-        end
+        label = self.class.ellipse(label, label_size)
+        # ellipsis = "…"
+        # if label.size > label_size
+        #   first = ((label_size - ellipsis.size).to_f / 2).round
+        #   label = label[0..(first-1)] + ellipsis + label[-(label_size - first - ellipsis.size)..-1]
+        # end
         print "[#{@name.green}] #{label.blue}: "
         begin
           yield(f)
@@ -110,6 +111,45 @@ module Ekylibre
 
       def hard?
         @mode == :hard
+      end
+
+      # Import a given file
+      def import(nature, file)
+        last = ""
+        start = Time.now
+        length = %x{stty size}.split[1].to_i
+        basename = self.class.ellipse(nature.to_s.humanize, length*0.25) # Pathname.new(file).basename.to_s
+        total = 0
+        Import.launch!(nature, file) do |progress, count|
+          status = [basename]
+          status << ": "
+          status << " #{progress.to_i}%"
+          if progress > 0
+            remaining = (100 - progress) * (Time.now - start) / progress
+            status << " #{remaining.round.to_i}s "
+          end
+          l = length - status.join.length
+          done = (l * progress / 100.0).round.to_i
+          done = l if done > l
+          status.insert(2, ("\u2588" * done).green + "\u2591" * (l - done))
+          status[0] = status[0].yellow
+          status[3] = status[3].yellow
+          print "\r" * last.size + status.join
+          last = status
+          total = count
+          break if @max and count >= @max
+        end
+        stop = Time.now
+        status = [basename]
+        status << ": "
+        status << total.to_s
+        status << " done in "
+        status << "#{(stop - start).to_i}s "
+        status.insert(2, " " * (length - status.join.size))
+        status[0] = status[0].yellow
+        status[3] = status[3].yellow
+        status[5] = status[5].yellow
+        puts "\r" * last.size + status.join
       end
 
       # Launch the execution of the loaders
@@ -146,6 +186,15 @@ module Ekylibre
           puts "Load #{name.to_s.red}:"
           Ekylibre::FirstRun.call_loader(name, self)
         end
+      end
+
+      def self.ellipse(text, size = 32)
+        ellipsis = "\u2026"
+        if text.size > size
+          first = ((size - ellipsis.size).to_f / 2).round
+          return text[0..(first-1)] + ellipsis + text[-(size - first - ellipsis.size)..-1]
+        end
+        return text
       end
 
     end

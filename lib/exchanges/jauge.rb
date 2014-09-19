@@ -9,6 +9,7 @@ module Exchanges
         end
         @block = block
       end
+      @max = ENV["max"].to_i
       @count = nil
       @cursor = 0
     end
@@ -16,6 +17,7 @@ module Exchanges
     def count=(value)
       raise "Need a positive value" unless value > 0
       @count = value
+      @count = @max if @max > 0 and @count > @max
     end
 
     def check_point(new_cursor = nil)
@@ -28,12 +30,12 @@ module Exchanges
         @cursor += 1
       end
       if @block
-        value = (100*(@cursor / @count)).to_i
+        value = (100.0*(@cursor.to_f / @count.to_f)).to_i
         if value != @last_value
           if @block.arity == 1
             @block.call(value)
           elsif @block.arity == 2
-            @block.call(value, cursor)
+            @block.call(value, @cursor)
           end
           @last_value = value
         end

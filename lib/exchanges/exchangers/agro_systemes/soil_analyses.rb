@@ -8,7 +8,7 @@ Exchanges.add_importer(:agro_systemes_soil_analyses) do |file, w|
   rows = CSV.read(file, encoding: "CP1252", col_sep: "\t", headers: true)
   w.count = rows.size
 
-  rows.each_with_index do |row, index|
+  rows.each do |row|
     r = OpenStruct.new(:code_distri => (row[0].blank? ? nil : row[0].to_s),
                        :reference_number => row[6].to_s,
                        :at => (row[7].blank? ? nil : Date.civil(*row[7].to_s.split(/\//).reverse.map(&:to_i))),
