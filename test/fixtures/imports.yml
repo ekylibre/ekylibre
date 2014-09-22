@@ -50,7 +50,7 @@
 
 imports_001:
   creator: users_001
-  nature: "charentes_alliance_soil_analyses"
+  nature: "agro_systemes_soil_analyses"
   state: undone
   updater: users_001
 
