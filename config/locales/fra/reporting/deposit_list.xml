@@ -8,7 +8,7 @@
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
+	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reports-style.jrtx"]]></template>
 	<queryString language="xPath">
 		<![CDATA[/deposit/payments/payment]]>
 	</queryString>
@@ -71,6 +71,9 @@
 	</field>
 	<field name="payment_payer_description" class="java.lang.String">
 		<fieldDescription><![CDATA[payer/description]]></fieldDescription>
+	</field>
+	<field name="payment_payer_full_name" class="java.lang.String">
+		<fieldDescription><![CDATA[payer/full-name]]></fieldDescription>
 	</field>
 	<sortField name="payment_to_bank_at"/>
 	<variable name="nb_reglement" class="java.lang.Integer" calculation="DistinctCount">
@@ -173,10 +176,10 @@
 	</columnHeader>
 	<detail>
 		<band height="16" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="80" y="0" width="83" height="16" uuid="286dab6f-135c-4253-b8a3-ad98ad912bd6"/>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{payment_number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{payment_bank_check_number}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement x="487" y="0" width="68" height="16" uuid="379db343-1e5c-44ec-81db-86b849f50eba"/>
@@ -185,14 +188,14 @@
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="421" y="0" width="68" height="16" uuid="50053d04-9f88-4be1-94e1-d50608c79e73"/>
-				<textFieldExpression><![CDATA[$F{payment_bank_check_number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{payment_number}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="163" y="0" width="258" height="16" uuid="260ed8b1-d54d-4643-abff-6c5ef1d8f12b"/>
 				<textElement>
 					<paragraph leftIndent="20"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{payment_payer_description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{payment_payer_full_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="8" y="0" width="72" height="16" uuid="df9063a8-36df-4b82-9f30-5c52081b71e9"/>
