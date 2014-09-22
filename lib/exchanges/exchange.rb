@@ -1,6 +1,6 @@
 module Exchanges
 
-  class Jauge
+  class Exchange
 
     def initialize(&block)
       if block_given?
@@ -44,6 +44,13 @@ module Exchanges
 
     def reset!
       @cursor = 0
+    end
+
+    def tmp_dir(*subdirs)
+      number = (1000 * Time.now.to_f).to_i.to_s(36) + 3.times.collect{ rand(1679616) }.sum.to_s(36)
+      dir = Rails.root.join("tmp", "exchanges", number, *subdirs)
+      FileUtils.mkdir_p(dir)
+      return dir
     end
 
   end

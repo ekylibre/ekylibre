@@ -13,7 +13,7 @@ module Exchanges
   class ImcompatibleDataError < ArgumentError
   end
 
-  autoload :Jauge, 'exchanges/jauge'
+  autoload :Exchange, 'exchanges/exchange'
 
   class << self
 
@@ -54,8 +54,8 @@ module Exchanges
     end
 
     def execute(callable, *args, &block)
-      jauge = Jauge.new(&block)
-      callable.call(*args, jauge)
+      exchange = Exchange.new(&block)
+      callable.call(*args, exchange)
     end
 
   end

@@ -3,15 +3,18 @@
 
   <nomenclature name="exchange_natures">
     <items>
+      <item name="agro_systemes_soil_analyses"/>
       <item name="bordeaux_sciences_agro_istea_journals"/>
       <item name="bordeaux_sciences_agro_istea_general_ledger"/>
-      <item name="isagri_isacompta_export"/>
-      <item name="ebp_edi"/>
-      <item name="agro_systemes_soil_analyses"/>
-      <item name="charentes_alliance_water_analyses"/>
-      <item name="lilco_milk_analyses"/>
-      <item name="galactea3_monthly_unitary_milk_analyses"/>
       <item name="bovins_croissance_cattle_performance_controls"/>
+      <item name="charentes_alliance_water_analyses"/>
+      <item name="ebp_edi"/>
+      <item name="ekylibre_erp_entities"/>
+      <item name="galactea3_monthly_unitary_milk_analyses"/>
+      <item name="isagri_isacompta_export"/>
+      <item name="lilco_milk_analyses"/>
+      <item name="telepac_cap_land_parcels"/>
+      <item name="telepac_land_parcels"/>
     </items>
   </nomenclature>
 

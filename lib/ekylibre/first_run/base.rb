@@ -113,17 +113,55 @@ module Ekylibre
         @mode == :hard
       end
 
+      
+      # Check that archive exist if not try to build one if existing file
+      # Given files must exist
+      def check_archive(target, *files)
+        files.flatten!
+        options = files.extract_options!
+        working_path = @folder_path.join(options[:in] ? options[:in] : ".")
+        target_path = working_path.join(target)
+        list = files.collect{|f| working_path.join(f)}
+        if target_path.exist?
+          expected = files.map(&:to_s)
+          Zip::File.open(target_path) do |zile|
+            zile.each do |entry|
+              expected.delete(entry.name)
+            end
+          end
+          if expected.any?
+            raise "Missing files in archive #{target}: #{expected.to_sentence}"
+          end
+        else
+          expected = files.select{|f| !working_path.join(f).exist?}
+          if expected.any?
+            if expected.size != files.size
+              raise "Missing files to build #{target} archive: #{expected.to_sentence}"
+            end
+          else
+            Zip::File.open(target_path, Zip::File::CREATE) do |zile|
+              list.each do |path|
+                zile.add(path.relative_path_from(working_path), path)
+              end
+            end
+          end
+        end
+        return target_path
+      end
+
+
       # Import a given file
       def import(nature, file)
         last = ""
         start = Time.now
         length = %x{stty size}.split[1].to_i
-        basename = self.class.ellipse(nature.to_s.humanize, length*0.25) # Pathname.new(file).basename.to_s
+        basename_length = (length*0.20).to_i
+        basename = self.class.ellipse(nature.to_s.humanize, basename_length).rjust(basename_length) # Pathname.new(file).basename.to_s
         total = 0
         Import.launch!(nature, file) do |progress, count|
           status = [basename]
           status << ": "
-          status << " #{progress.to_i}%"
+          status << " #{progress.to_i.to_s.rjust(2)}%"
           if progress > 0
             remaining = (100 - progress) * (Time.now - start) / progress
             status << " #{remaining.round.to_i}s "
@@ -132,8 +170,8 @@ module Ekylibre
           done = (l * progress / 100.0).round.to_i
           done = l if done > l
           status.insert(2, ("\u2588" * done).green + "\u2591" * (l - done))
-          status[0] = status[0].yellow
-          status[3] = status[3].yellow
+          status[0] = status[0].blue
+          status[3] = status[3].blue
           print "\r" * last.size + status.join
           last = status
           total = count
@@ -146,9 +184,9 @@ module Ekylibre
         status << " done in "
         status << "#{(stop - start).to_i}s "
         status.insert(2, " " * (length - status.join.size))
-        status[0] = status[0].yellow
-        status[3] = status[3].yellow
-        status[5] = status[5].yellow
+        status[0] = status[0].blue
+        status[3] = status[3].blue
+        status[5] = status[5].blue
         puts "\r" * last.size + status.join
       end
 
