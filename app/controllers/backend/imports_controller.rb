@@ -22,6 +22,7 @@ class Backend::ImportsController < BackendController
 
   list do |t|
     t.column :nature
+    t.column :state
     t.column :created_at
     t.column :imported_at
     t.column :importer
