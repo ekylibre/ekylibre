@@ -26,7 +26,7 @@ class Backend::ImportsController < BackendController
     t.column :imported_at
     t.column :importer
     t.action :new, on: :none
-    t.action :run, method: :post
+    t.action :run, method: :post, if: :runnable?
     t.action :edit
     t.action :destroy
   end

@@ -60,13 +60,19 @@ class Import < Ekylibre::Record::Base
     Ekylibre::Record::Base.transaction do
       Exchanges.import(self.nature.to_sym, self.archive.path) do |progression, count|
         self.update_columns(progression_percentage: progression)
-        yield(progression, count) if block_given?
+        if block_given?
+          break unless yield(progression, count) 
+        end
       end
-      self.update_columns(state: :finished, progression_percentage: 100)
+      self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper ? User.stamper.id : 0))
     end
     if self.in_progress?
       self.update_columns(state: :errored, progression_percentage: 0)
     end
+  end
+
+  def runnable?
+    !self.finished?
   end
 
 
