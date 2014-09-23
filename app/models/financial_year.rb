@@ -309,7 +309,7 @@ class FinancialYear < Ekylibre::Record::Base
     self.last_journal_entry.items.clear
 
     if options[:financial_assets_depreciations]
-      for depreciation in self.financial_asset_depreciations.include(:financial_asset)
+      for depreciation in self.financial_asset_depreciations.includes(:financial_asset)
         name = tc(:bookkeep, resource: FinancialAsset.model_name.human, number: depreciation.financial_asset.number, name: depreciation.financial_asset.name, position: depreciation.position, total: depreciation.financial_asset.depreciations.count)
         # Charges
         self.last_journal_entry.add_debit(name, depreciation.financial_asset.charges_account, depreciation.amount)

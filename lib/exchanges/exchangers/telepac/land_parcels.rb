@@ -28,7 +28,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
 
 
 
-  RGeo::Shapefile::Reader.open(dir.join("parcelle.dbf").to_s, srid: 2154) do |file|
+  RGeo::Shapefile::Reader.open(dir.join("parcelle.shp").to_s, srid: 2154) do |file|
     # Set number of shapes
     w.count = file.size
     

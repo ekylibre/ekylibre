@@ -9,7 +9,6 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
   end
 
   file = first_run.check_archive("parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", "parcelle.prj", in: "telepac")
-  path = first_run.path("telepac", "parcelle.shp")
   if file.exist?
     first_run.import(:telepac_land_parcels, file)
   end

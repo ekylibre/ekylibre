@@ -111,7 +111,7 @@ class Backend::FinancialYearsController < BackendController
     elsif request.post?
       # TODO: Defines journal to save the entry
       @financial_year.generate_last_journal_entry(params)
-      redirect_to journal_entry_url(@financial_year.last_journal_entry)
+      redirect_to backend_journal_entry_url(@financial_year.last_journal_entry)
     end
     t3e @financial_year.attributes
   end
