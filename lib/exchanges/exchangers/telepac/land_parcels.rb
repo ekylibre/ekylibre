@@ -1,13 +1,13 @@
 Exchanges.add_importer :telepac_land_parcels do |file, w|
-  
+
   # Unzip file
   dir = w.tmp_dir
   Zip::File.open(file) do |zile|
     zile.each do |entry|
       entry.extract(dir.join(entry.name))
-    end    
+    end
   end
-  
+
 
   #############################################################################
   # Import landparcel_shapefile from TELEPAC
@@ -31,7 +31,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
   RGeo::Shapefile::Reader.open(dir.join("parcelle.shp").to_s, srid: 2154) do |file|
     # Set number of shapes
     w.count = file.size
-    
+
     # Find good variant
     land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
     cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
@@ -83,8 +83,8 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
 
           # Link cultivable zone and land parcel
           attributes = {
-            group_id: cultivable_zone.id, 
-            member_id: land_parcel.id, 
+            group_id: cultivable_zone.id,
+            member_id: land_parcel.id,
             started_at: cultivable_zone.born_at,
             shape: record.geometry,
             population: land_parcel.population
@@ -119,13 +119,13 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
         unless activity = Activity.find_by(attributes.slice(:family, :nature))
           activity = Activity.create!(attributes)
         end
-        
-        
+
+
         # Create a production if not exist
         if product_nature_variant = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
           attributes = {
-            campaign_id: campaign.id, 
-            activity_id: activity.id, 
+            campaign_id: campaign.id,
+            activity_id: activity.id,
             variant_id: product_nature_variant.id,
             state: :validated
           }

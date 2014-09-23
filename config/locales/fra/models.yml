@@ -45,8 +45,7 @@ fra:
         depreciable_amount: "Valeur nette comptable (VNC)" #?
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
-        stopped_on: "Date de clôture" #?
-        # stopped_on: "Date of closure"
+        stopped_on: "Date de clôture"
       incoming_payment:  #?
         to_bank_at: "À encaisser le" #?
       intervention:  #?
@@ -296,11 +295,13 @@ fra:
       fungus: "Champignon"
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
+      georeading: "Relevé topographique"
       guide: "Référentiel"
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
       identifier: "Identifiant"
       immatter: "Immatériel"
+      import: "Import"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
       incoming_delivery_mode: "Mode d’approvisionnement" #?
@@ -749,6 +750,8 @@ fra:
     identification_number: "Numéro d’identification"
     identifiers: "Identifiants"
     importance: "Importance"
+    imported_at: "Importé le"
+    importer: "Importateur"
     in_cash: "En espèce" #?
     included: "Incluse"
     incoming_deliveries: "Approvisionnements"

@@ -1,0 +1,87 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: georeadings
+#
+#  content      :spatial({:srid=> not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  nature       :string(255)      not null
+#  number       :string(255)
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#
+#
+# == Fixture: georeadings
+#
+# georeadings_001:
+#   content: "Lorem ipsum"
+#   creator: users_001
+#   name: "Lorem ipsum"
+#   nature: "Lorem ipsum"
+#   updater: users_001
+#
+
+
+georeadings_001:
+  content: !wgs84.geo.ekylibre.org,2014/polygon
+  -
+    - [-0.66741943359371, 45.619800720955041]
+    - [-0.78002929687592, 45.692751372908732]
+    - [-0.87341308593753, 45.633246139812343]
+    - [-0.74157714843754, 45.560217957150514]
+    - [-0.66467285156255, 45.569832358492825]
+    - [-0.66741943359371, 45.619800720955041]
+  creator: users_001
+  name: "Polygon #1"
+  nature: "polygon"
+  updater: users_001
+
+georeadings_002:
+  content: !wgs84.geo.ekylibre.org,2014/polygon
+  -
+    - [-0.66741943359371, 45.619800720955041]
+    - [-0.78002929687592, 45.692751372908732]
+    - [-0.87341308593753, 45.633246139812343]
+    - [-0.74157714843754, 45.560217957150514]
+    - [-0.66467285156255, 45.569832358492825]
+    - [-0.66741943359371, 45.619800720955041]
+  creator: users_001
+  name: "Polygon #1 bis"
+  nature: "polygon"
+  updater: users_001
+
+georeadings_003:
+  content: !wgs84.geo.ekylibre.org,2014/linestring
+  - [-0.66741943359371, 45.619800720955041]
+  - [-0.78002929687592, 45.692751372908732]
+  - [-0.87341308593753, 45.633246139812343]
+  - [-0.74157714843754, 45.560217957150514]
+  - [-0.66467285156255, 45.569832358492825]
+  creator: users_001
+  name: "Line #1"
+  nature: "linestring"
+  updater: users_001

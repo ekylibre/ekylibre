@@ -231,6 +231,11 @@ jpn:
     backend/gaps:
       # index: "Gaps"
       # show: "Gap: %{number}"
+    backend/georeadings:
+      # edit: "Edit georeading: %{name}"
+      # index: "Georeadings"
+      # new: "New georeading"
+      # show: "Georeading: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:

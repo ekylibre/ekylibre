@@ -113,7 +113,7 @@ module Ekylibre
         @mode == :hard
       end
 
-      
+
       # Check that archive exist if not try to build one if existing file
       # Given files must exist
       def check_archive(target, *files)

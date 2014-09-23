@@ -68,7 +68,7 @@ module Ekylibre
       end
 
       def clear!
-        list unless @list 
+        list unless @list
         @list[env] = []
         write
       end

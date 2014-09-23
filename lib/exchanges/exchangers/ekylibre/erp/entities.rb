@@ -14,12 +14,12 @@ Exchanges.add_importer :ekylibre_erp_entities do |file, w|
                        :address => row[6].to_s,
                        :postal_code => row[7].blank? ? nil : row[7].to_s,
                        :city => row[8].blank? ? nil : row[8].to_s,
-                       country: "fr", 
+                       country: "fr",
                        :phone_number => row[9].blank? ? nil : row[9].to_s,
                        :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
                        :code => row[11].blank? ? nil : row[11].to_s.downcase
                        )
-    
+
     klass = r.nature.camelcase.constantize
     unless person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name, r.last_name).first
       person = klass.new(first_name: r.first_name, last_name: r.last_name, nature: r.nature)
@@ -29,7 +29,7 @@ Exchanges.add_importer :ekylibre_erp_entities do |file, w|
     person.supplier = true
     person.supplier_account = Account.get(r.supplier_account_number, name: person.full_name)
     person.save!
-    
+
     # Add mail address if given
     line_6 = r.postal_code + " " + r.city
     unless r.postal_code.blank? or r.city.blank? or person.mails.where("mail_line_6 ILIKE ?",  line_6).where(mail_country: r.country).any?
@@ -40,7 +40,7 @@ Exchanges.add_importer :ekylibre_erp_entities do |file, w|
     unless r.phone_number.blank? or person.phones.where(coordinate: r.phone_number).any?
       person.phones.create!(coordinate: r.phone_number)
     end
-    
+
     # Update account name
     if r.link_nature
       if r.link_nature.to_s.downcase == "management"

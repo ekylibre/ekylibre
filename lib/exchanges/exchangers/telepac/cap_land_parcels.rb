@@ -1,11 +1,11 @@
 Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
-  
+
   # Unzip file
   dir = w.tmp_dir
   Zip::File.open(file) do |zile|
     zile.each do |entry|
       entry.extract(dir.join(entry.name))
-    end    
+    end
   end
 
 
@@ -28,7 +28,7 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
         initial_owner: Entity.of_company,
         identification_number: record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s
       }
-      
+
       # Find or create land_parcel_cluster
       unless land_parcel_cluster = LandParcelCluster.find_by(attributes.slice(:work_number, :variety, :identification_number))
         land_parcel_cluster = LandParcelCluster.create!(attributes)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918155113) do
+ActiveRecord::Schema.define(version: 20140923153017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -855,6 +855,27 @@ ActiveRecord::Schema.define(version: 20140918155113) do
   add_index "gaps", ["number"], :name => "index_gaps_on_number"
   add_index "gaps", ["updated_at"], :name => "index_gaps_on_updated_at"
   add_index "gaps", ["updater_id"], :name => "index_gaps_on_updater_id"
+
+  create_table "georeadings", force: true do |t|
+    t.string   "name",                                                              null: false
+    t.string   "nature",                                                            null: false
+    t.string   "number"
+    t.text     "description"
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                          default: 0, null: false
+    t.spatial  "content",      limit: {:srid=>4326, :type=>"geometry"},             null: false
+  end
+
+  add_index "georeadings", ["created_at"], :name => "index_georeadings_on_created_at"
+  add_index "georeadings", ["creator_id"], :name => "index_georeadings_on_creator_id"
+  add_index "georeadings", ["name"], :name => "index_georeadings_on_name"
+  add_index "georeadings", ["nature"], :name => "index_georeadings_on_nature"
+  add_index "georeadings", ["number"], :name => "index_georeadings_on_number"
+  add_index "georeadings", ["updated_at"], :name => "index_georeadings_on_updated_at"
+  add_index "georeadings", ["updater_id"], :name => "index_georeadings_on_updater_id"
 
   create_table "guide_analyses", force: true do |t|
     t.integer  "guide_id",                          null: false

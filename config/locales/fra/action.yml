@@ -244,6 +244,11 @@ fra:
     backend/gaps:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
+    backend/georeadings:
+      edit: "Modifier le relevé topographique: %{name}"
+      index: "Relevés topographiques"
+      new: "Nouveau relevé topographique"
+      show: "Relevé topographique: %{name}"
     backend/guide_analyses:
       show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:

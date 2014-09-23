@@ -822,11 +822,13 @@ arb:
       # fungus: "Fungus"
       # gap: "Gap"
       # gap_item: "Gap item"
+      # georeading: "Georeading"
       # guide: "Guide"
       # guide_analysis: "Guide analysis"
       # guide_analysis_point: "Guide analysis point"
       # identifier: "Identifier"
       # immatter: "Immatter"
+      # import: "Import"
       # incoming_delivery: "Incoming delivery"
       # incoming_delivery_item: "Incoming delivery item"
       incoming_payment: "الدفعة"
@@ -1391,6 +1393,8 @@ arb:
     # identifiers: "Identifiers"
     immobilizations_account_id: "الحساب الساكن" #?
     importance: "ذو شأن"
+    # imported_at: "Imported at"
+    # importer: "Importer"
     in_name: "الاختصارات تشمل اسم الملف" #?
     included: "تضمنت"
     # incoming_deliveries: "Incoming deliveries"

@@ -3,7 +3,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
   rows = CSV.read(file, encoding: "CP1252", col_sep: ";")
   w.count = rows.size
-    
+
   rows.each do |row|
     r = OpenStruct.new(:account => Account.get(row[0]),
                        :journal => Journal.find_by(code: row[1]) || Journal.create!(name: "Journal #{row[1]}", code: row[1], currency: "EUR"),

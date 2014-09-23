@@ -361,6 +361,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :georeadings, concerns: [:list, :unroll]
+
     resources :guide_analyses, concerns: [:list, :unroll] do
       member do
         get  :list_points

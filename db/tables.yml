@@ -588,6 +588,19 @@ gaps:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+georeadings:
+  content: {type: spatial, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  number: {type: string}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 guide_analyses:
   acceptance_status: {type: string, required: true}
   created_at: {type: datetime, required: true}

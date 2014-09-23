@@ -94,7 +94,7 @@ task :validations => :environment do
       end
     rescue StandardError => e
       errors << e
-      log.write("Unable to adds validations on #{class_name}: #{e.message}\n" + e.backtrace.join("\n"))
+      log.write("Unable to adds validations on #{model.name}: #{e.message}\n" + e.backtrace.join("\n"))
     end
   end
   print "#{errors.size.to_s.rjust(3)} errors\n"

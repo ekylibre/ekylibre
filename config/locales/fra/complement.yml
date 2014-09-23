@@ -4294,8 +4294,8 @@ fra:
         zone_property_title: "Titre de propriété terrienne"
     import:
       nature:
+        agro_systemes_soil_analyses: "Analyses de sol AGRO Systèmes"
         bovins_croissance_cattle_performance_controls: "Contrôles de performance de Bovins Croissance"
-        charentes_alliance_soil_analyses: "Analyses de sol Charentes Alliance"
         charentes_alliance_water_analyses: "Analyses d’eau Charentes Alliance"
         ebp_edi: "EBP EDI"
         galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal Galactea 3"
@@ -5512,11 +5512,13 @@ fra:
         fungus: "Champignon"
         gap: "Perte ou profit"
         gap_item: "Élément de perte ou profit"
+        georeading: "Relevé topographique"
         guide: "Référentiel"
         guide_analysis: "Analyse d’un référentiel"
         guide_analysis_point: "Point d’analyse d’un référentiel"
         identifier: "Identifiant"
         immatter: "Immatériel"
+        import: "Import"
         incoming_delivery: "Approvisionnement"
         incoming_delivery_item: "Élément d’approvisionnement"
         incoming_delivery_mode: "Mode d’approvisionnement"

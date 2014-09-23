@@ -1003,6 +1003,17 @@
         <page to="backend/listings#unroll"/>
         <page to="backend/listings#update"/>
       </item>
+      <item name="georeadings">
+        <page to="backend/georeadings#index"/>
+        <page to="backend/georeadings#create"/>
+        <page to="backend/georeadings#destroy"/>
+        <page to="backend/georeadings#edit"/>
+        <page to="backend/georeadings#list"/>
+        <page to="backend/georeadings#new"/>
+        <page to="backend/georeadings#show"/>
+        <page to="backend/georeadings#unroll"/>
+        <page to="backend/georeadings#update"/>
+      </item>
       <item name="exports">
         <page to="backend/exports#index"/>
         <page to="backend/exports#show"/>
