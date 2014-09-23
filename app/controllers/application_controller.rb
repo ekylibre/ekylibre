@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
     else
       session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
     end
-    session[:locale] ||= Preferences[:language] || I18n.default_locale
+    session[:locale] ||= Preference[:language] || I18n.default_locale
     I18n.locale = session[:locale]
   end
 
