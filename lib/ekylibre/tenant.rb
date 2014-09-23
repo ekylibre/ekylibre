@@ -72,9 +72,9 @@ module Ekylibre
 
       def list
         unless @list
-          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {env => []})
+          @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+          @list[env] ||= []
         end
-        @list ||= { env => [] } # Needed if YAML is empty
         return @list[env]
       end
 
