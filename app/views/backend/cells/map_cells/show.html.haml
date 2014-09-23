@@ -25,15 +25,15 @@
 
       if params[:visualization] == "nitrogen_footprint"
 
-        if nitrogen_concentration = support.nitrogen_balance and nitrogen_concentration.to_d != 0.0
+        if nitrogen_concentration = support.nitrogen_balance #and nitrogen_concentration.to_d != 0.0
           popup_content << {label: :nitrogen_concentration_per_hectare.tl, value: nitrogen_concentration.to_s.to_f.round(2)}
         end
 
-        if phosphorus_concentration = support.phosphorus_balance and phosphorus_concentration.to_d != 0.0
+        if phosphorus_concentration = support.phosphorus_balance #and phosphorus_concentration.to_d != 0.0
           popup_content << {label: :phosphorus_concentration_per_hectare.tl, value: phosphorus_concentration.to_s.to_f.round(2)}
         end
 
-        if potassium_concentration = support.potassium_balance and potassium_concentration.to_d != 0.0
+        if potassium_concentration = support.potassium_balance #and potassium_concentration.to_d != 0.0
           popup_content << {label: :potassium_concentration_per_hectare.tl, value: potassium_concentration.to_s.to_f.round(2)}
         end
 
@@ -60,9 +60,9 @@
         activity:   support.production.activity.name,
         production: support.production.name,
         variant:    support.production.variant.name,
-        tool_cost:  support_tool_cost.to_s.to_f.round(2),
-        input_cost: support_input_cost.to_s.to_f.round(2),
-        time_cost:  support_time_cost.to_s.to_f.round(2),
+        tool_cost:  support.tool_cost.to_s.to_f.round(2),
+        input_cost: support.input_cost.to_s.to_f.round(2),
+        time_cost:  support.time_cost.to_s.to_f.round(2),
         nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
         phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
         potassium_concentration:  potassium_concentration.to_s.to_f.round(2),

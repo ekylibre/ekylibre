@@ -71,7 +71,7 @@ class InterventionCast < Ekylibre::Record::Base
     #   raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     # end
     # where("roles ~ E?", "\\\\m#{role}\\\\M")
-    where("roles ~ E?", "-#{role}(,|$)")
+    where("roles ~ E?", (role =~ /\-/  ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
   }
 
   scope :with_cast, lambda { |role, object|

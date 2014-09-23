@@ -8,6 +8,65 @@
     %label= Production.human_attribute_name(:variant)
     = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:variant_id]))
 
+:ruby
+  data = []
+  unless campaign_id = params[:campaign_id]
+    campaign_id = Campaign.reorder(:harvest_year).last.id
+  end
+  ProductionSupport.of_campaign(Campaign.find(campaign_id)).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+
+    popup_content = []
+
+    # for support
+
+    popup_content << {label: :campaign.tl, value: support.production.campaign.name}
+    popup_content << {label: :activity.tl, value: support.production.activity.name}
+    popup_content << {label: :production.tl, value: link_to(support.production.name, backend_production_path(support.production))}
+    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+
+    if support.storage
+      popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
+    end
+
+    if interventions = Intervention.where(production_support: support).reorder(:started_at)
+      popup_content << {label: :interventions_count.tl, value: interventions.count }
+    end
+
+    if interventions.count > 0 and last_intervention = interventions.last
+      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+    end
+
+    popup_content << render('popup', support: support)
+
+    item = {
+      name:       support.name,
+      shape:      support.shape,
+      campaign:   support.production.campaign.name,
+      activity:   support.production.activity.name,
+      production: support.production.name,
+      variant:    support.production.variant.name,
+      interventions_count: interventions.count,
+      popup: {header: true, content: popup_content}
+    }
+    data << item
+  end
+
 - main_toolbar do |t|
   - t.new
-= list
+= beehive do |b|
+  - b.cell :map do
+    = visualization do |v|
+      - v.serie :main, data
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - v.choropleth :interventions_count, :main
+      - v.categories :activity, :main
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
+
+  - b.cell :list do
+    = list

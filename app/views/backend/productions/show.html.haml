@@ -1,3 +1,23 @@
+:ruby
+  data = []
+  ProductionSupport.of_productions(resource).find_each do |support|
+    item = {
+            name:       support.name,
+            shape:      support.shape,
+            campaign:   support.production.campaign.name,
+            activity:   support.production.activity.name,
+            production: support.production.name,
+            tool_cost:  support.tool_cost.to_s.to_f.round(2),
+            input_cost: support.input_cost.to_s.to_f.round(2),
+            time_cost:  support.time_cost.to_s.to_f.round(2),
+            nitrogen_concentration:   support.nitrogen_balance.to_s.to_f.round(2),
+            phosphorus_concentration: support.phosphorus_balance.to_s.to_f.round(2),
+            potassium_concentration:  support.potassium_balance.to_s.to_f.round(2),
+            interventions_count: support.interventions.count
+          }
+          data << item
+  end
+
 - main_toolbar do |t|
   - t.edit resource
 
@@ -60,28 +80,29 @@
 
 
   - b.hbox do
-    - if Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:milk])
-      - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
-    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:equipment])
-      - b.cell(:supports) do
-        = list(:supports)
-    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:organic_matter])
-      - b.cell :map do
-        = map(BuildingDivision.of_production(resource))
-      - b.cell :map do
-        = map(Equipment.of_production(resource))
+    - if Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:equipment])
       - b.cell(:supports) do
         = list(:supports)
     - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:animal])
-      - b.cell :map do
-        = map(BuildingDivision.of_production(resource))
-      - b.cell :map do
-        = map(CultivableZone.of_production(resource))
+      - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
       - b.cell(:supports) do
         = list(:supports)
     - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
       - b.cell :map do
-        = map(CultivableZone.of_production(resource))
+        - visualization do |v|
+          - v.serie :main, data
+          - v.background "OpenStreetMap.HOT"
+          - v.background "OpenStreetMap.Mapnik"
+          - v.background "Thunderforest.Landscape"
+          - v.background "Esri.WorldImagery"
+          - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
+          - v.choropleth :input_cost, :main, stop_color: "#1122DD"
+          - v.choropleth :time_cost, :main, stop_color: "#E77000"
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
+
       - b.cell :cropping_plan_chart do
         - if resource.supports.any?
           :ruby
@@ -100,8 +121,21 @@
           = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
         - else
           = no_data
-      - b.cell(:supports) do
-        = list(:supports)
+
+      - b.cell :map do
+        - visualization do |v|
+          - v.serie :main, data
+          - v.background "OpenStreetMap.HOT"
+          - v.background "OpenStreetMap.Mapnik"
+          - v.background "Thunderforest.Landscape"
+          - v.background "Esri.WorldImagery"
+          - v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
+          - v.choropleth :phosphorus_concentration, :main, stop_color: "#11BB99"
+          - v.choropleth :potassium_concentration, :main, stop_color: "#AA00AA"
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
 
   - b.hbox do
     - b.cell(:interventions) do
