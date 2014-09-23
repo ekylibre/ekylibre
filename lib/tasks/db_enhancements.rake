@@ -9,6 +9,7 @@
 ##################################################
 
 namespace :db do
+
   desc 'Also create shared extensions schemas'
   task :extensions => :environment do
     # Create PostGIS extension
@@ -24,8 +25,7 @@ Rake::Task["db:create"].enhance do
 end
 
 Rake::Task["db:drop"].enhance do
-  require 'ekylibre/tenant'
-  Ekylibre::Tenant.clear!
+  Rake::Task["tenant:clear"].invoke
 end
 
 Rake::Task["db:test:purge"].enhance do

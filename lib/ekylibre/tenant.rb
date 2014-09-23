@@ -1,3 +1,6 @@
+require 'apartment'
+require 'ekylibre/schema'
+
 module Ekylibre
 
   class TenantError < StandardError
@@ -24,7 +27,7 @@ module Ekylibre
 
       # Returns the private directory of the current tenant
       def private_directory
-        Ekylibre.root.join("private", Tenant.current)
+        Ekylibre.root.join("private", current)
       end
 
       # Create a new tenant
@@ -87,6 +90,9 @@ module Ekylibre
       end
 
       def create_aggregation_views_schema!
+        if list.empty?
+          raise "No tenant to build an aggregation schema"
+        end
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")
