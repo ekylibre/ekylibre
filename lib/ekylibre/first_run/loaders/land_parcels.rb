@@ -13,73 +13,15 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
     first_run.import(:telepac_land_parcels, file)
   end
 
-
-  path = first_run.path("alamano", "zones", "cultivable_zones.shp")
-  if path.exist?
-    first_run.count :cultivable_zones_shapes do |w|
-      #############################################################################
-      born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
-        # puts "File contains #{file.num_records} records."
-        file.each do |record|
-          if record.geometry
-            shapes[record.attributes['number']] = Charta::Geometry.new(record.geometry)
-          end
-          w.check_point
-        end
-      end
-    end
+  file = first_run.check_archive("cultivable_zones.zip", "cultivable_zones.shp", "cultivable_zones.dbf", "cultivable_zones.shx", "cultivable_zones.prj", in: "alamano/zones")
+  if file.exist?
+    first_run.import(:ekylibre_erp_georeadings, file)
   end
-
 
   path = first_run.path("alamano", "land_parcels.csv")
   if path.exist?
-    born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-    first_run.count :land_parcels do |w|
-      CSV.foreach(path, headers: true) do |row|
-        r = OpenStruct.new(name: row[0].to_s,
-                           nature: (row[1].blank? ? nil : row[1].to_sym),
-                           code: (row[2].blank? ? nil : row[2].to_s),
-                           shape_number: (row[3].blank? ? nil : row[3].to_s),
-                           ilot_code: (row[4].blank? ? nil : row[4].to_s),
-                           place_code: (row[5].blank? ? nil : row[5].to_s),
-                           soil_nature: (row[6].blank? ? nil : row[6].to_s),
-                           available_water_capacity: (row[7].blank? ? nil : row[7].to_d),
-                           soil_depth: (row[8].blank? ? nil : row[8].to_d)
-                           )
-
-        if zone = LandParcel.find_by(work_number: r.code)
-          zone.update_attributes(name: r.name)
-          zone.save!
-        else
-          zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
-          pmodel = zone_variant.nature.matching_model
-          zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
-        end
-        if container = Product.find_by_work_number(r.place_code)
-          # container.add(zone, born_at)
-          zone.update_attributes(initial_container: container)
-          zone.save!
-        end
-        # link a land parcel to a land parcel cluster
-        if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.ilot_code)
-          land_parcel_cluster.add(zone)
-        end
-        if r.soil_nature
-          zone.read!(:soil_nature, r.soil_nature, at: born_at, force: true)
-        end
-        if r.soil_depth
-          zone.read!(:soil_depth, r.soil_depth.in_centimeter, at: born_at, force: true)
-        end
-        if r.available_water_capacity_per_area
-          zone.read!(:available_water_capacity_per_area, r.available_water_capacity_per_area.in_liter_per_square_meter, at: born_at, force: true)
-        end
-        w.check_point
-      end
-    end
+    first_run.import(:ekylibre_erp_land_parcels, path)
   end
-
 
 
   path = first_run.path("alamano", "cultivable_zones.csv")

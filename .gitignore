@@ -18,8 +18,7 @@
 /db/first_runs/*
 !/db/first_runs/demo
 # generated files
-/db/first_runs/demo/telepac/ilot.zip
-
+/db/first_runs/demo/**/*.zip
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

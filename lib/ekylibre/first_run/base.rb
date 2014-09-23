@@ -16,7 +16,7 @@ module Ekylibre
         @manifest[:company]      ||= {}
         @manifest[:net_services] ||= {}
         @manifest[:identifiers]  ||= {}
-        @manifest[:language]     ||= I18n.default_locale
+        @manifest[:language]     ||= ::I18n.default_locale
         ::I18n.locale = @manifest[:language]
         @max = options[:max].to_i
         @records = {}.with_indifferent_access
@@ -164,7 +164,7 @@ module Ekylibre
           status << " #{progress.to_i.to_s.rjust(2)}%"
           if progress > 0
             remaining = (100 - progress) * (Time.now - start) / progress
-            status << " #{remaining.round.to_i}s "
+            status << " #{remaining.round.to_i.to_s.rjust(2)}s"
           end
           l = length - status.join.length
           done = (l * progress / 100.0).round.to_i
@@ -182,7 +182,7 @@ module Ekylibre
         status << ": "
         status << total.to_s
         status << " done in "
-        status << "#{(stop - start).to_i}s "
+        status << "#{(stop - start).to_i.to_s.rjust(2)}s"
         status.insert(2, " " * (length - status.join.size))
         status[0] = status[0].blue
         status[3] = status[3].blue

@@ -1395,6 +1395,8 @@ eng:
         charentes_alliance_water_analyses: "Charentes Alliance water analyses"
         ebp_edi: "EBP EDI"
         # ekylibre_erp_entities: "Ekylibre erp entities"
+        # ekylibre_erp_georeadings: "Ekylibre erp georeadings"
+        # ekylibre_erp_land_parcels: "Ekylibre erp land parcels"
         galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
         # isagri_isacompta_export: "Isagri isacompta export"
         lilco_milk_analyses: "Lilco milk analyses"
