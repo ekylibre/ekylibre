@@ -65,9 +65,9 @@ module Ekylibre
       end
 
       def clear!
-        if File.exist?(config_file)
-          FileUtils.rm(config_file)
-        end
+        list unless @list 
+        @list[env] = []
+        write
       end
 
       def list
