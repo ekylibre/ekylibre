@@ -7,13 +7,14 @@ Assuming we have a project dealing with animals husbandry
 
 === Introduction
 
-In the beginning, we just want a view to create / read /update  and delete (CRUD) an animal
+In the beginning, we just want a view to create,read, update and delete (CRUD) an animal,
 so we are going to create our models base on this http://yuml.me/edit/3f50e6c6
 
 In this diagram class, we haven't mentionned primary key like id or other key like company_id or animal_group_id
 this is rails conventions. Rails are going to create table as a magic.
->primary key for a table is *id*
->strangers keys finished by *_id*
+
+* primary key for a table is *id*
+* strangers keys finished by *_id*
 
 === Migration
 
@@ -23,30 +24,28 @@ So let's begin to write our first migration
 in our case 20121013140801_create_animals.rb in db/migrate
 we make strangers keys with belongs_to
 
-```ruby
-# db/migrate/20121013140801_create_animals.rb
-class CreateAnimals < ActiveRecord::Migration
-  def change
-    create_table :animals do |t|
-      t.string     :name,                  null: false
-      t.string     :identification_number, null: false
-      t.date       :born_on,               null: false
-      t.string     :sex,                   null: false
-      t.date       :purchased_on,          null: false
-      t.date       :ceded_on
-      t.stamps
-      t.index :name
-    end    
+  # db/migrate/20121013140801_create_animals.rb
+  class CreateAnimals < ActiveRecord::Migration
+    def change
+      create_table :animals do |t|
+        t.string     :name,                  null: false
+        t.string     :identification_number, null: false
+        t.date       :born_on,               null: false
+        t.string     :sex,                   null: false
+        t.date       :purchased_on,          null: false
+        t.date       :ceded_on
+        t.stamps
+        t.index :name
+      end    
+    end
   end
-end
-```
 
 This migration will create two tables with indexes (animals and animal_groups) in your database
 in order to commit this migration, just passed in a command line:
 
   rake db:migrate
 
-After that you could see that `db/schema.rb` has been updates with our modifications.
+After that you could see that +db/schema.rb+ has been updates with our modifications.
 
 If something is still wrong because you forgot a column for example, you could canceled with this command
 
@@ -55,18 +54,16 @@ If something is still wrong because you forgot a column for example, you could c
 And modify your migration and commit by rake db:migrate etc...
 
 ==== Notes
-* `t.stamps` generates created_at, update_at, creator_id, updater_id, lock_version, and all the indexes fr these columns.
-* [Migrations](http://guides.rubyonrails.org/migrations.html)
+* +t.stamps+ generates created_at, update_at, creator_id, updater_id, lock_version, and all the indexes fr these columns.
+* {Migrations}[http://guides.rubyonrails.org/migrations.html]
 
 === The model
 
 After having our tables, we are going to make our class.
 
-```ruby
-# app/models/animal.rb
-class Animal < Ekylibre::Record::Base
-end
-```
+  # app/models/animal.rb
+  class Animal < Ekylibre::Record::Base
+  end
 
 and with the following command line:
 
@@ -74,32 +71,28 @@ and with the following command line:
 
 you will obtain
 
-```ruby
-# app/models/animal.rb
-class Animal < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :sex, :allow_nil => true, :maximum => 1
-  validates_length_of :identification_number, :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :born_on, :company, :identification_number, :in_on, :name, :out_on, :purchased_on, :sexe
-  #]VALIDATORS]
-end
-```
+  # app/models/animal.rb
+  class Animal < Ekylibre::Record::Base
+    #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+    validates_length_of :sex, :allow_nil => true, :maximum => 1
+    validates_length_of :identification_number, :name, :allow_nil => true, :maximum => 255
+    validates_presence_of :born_on, :company, :identification_number, :in_on, :name, :out_on, :purchased_on, :sexe
+    #]VALIDATORS]
+  end
 
 so we just have to add relationship and other validations (we want a unique name and identification_number for our animal)
 and we want company_id be just readable. Take care to NOT MODIFY OR ADDING DIRECTLY FROM #[VALIDATORS TO VALIDATORS]
 
-```ruby
-# app/models/animal.rb
-class Animal < Ekylibre::Record::Base
-  belongs_to :animal_group
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :sexe, :allow_nil => true, :maximum => 1
-  validates_length_of :identification_number, :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :animal_group, :born_on, :company, :identification_number, :in_on, :name, :out_on, :purchased_on, :sex
-  #]VALIDATORS]
-  validates_uniqueness_of :name, :identification_number
-end
-```
+  # app/models/animal.rb
+  class Animal < Ekylibre::Record::Base
+    belongs_to :animal_group
+    #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+    validates_length_of :sexe, :allow_nil => true, :maximum => 1
+    validates_length_of :identification_number, :name, :allow_nil => true, :maximum => 255
+    validates_presence_of :animal_group, :born_on, :company, :identification_number, :in_on, :name, :out_on, :purchased_on, :sex
+    #]VALIDATORS]
+    validates_uniqueness_of :name, :identification_number
+  end
 
 
 == Controller and Views
@@ -108,24 +101,21 @@ end
 
   rails g backend_scaffold Animal
 
-```
-# app/controllers/backend/animals_controller.rb
-
-class Backend::AnimalsController < BackendController
-  manage_restfully
-
-  unroll
+  # app/controllers/backend/animals_controller.rb
+  class Backend::AnimalsController < BackendController
+    manage_restfully
   
-  list do |t|
-    t.column :identification_number, url: true
-    t.column :name
-    t.column :sex
-    t.action :edit
-    t.action :destroy
+    unroll
+    
+    list do |t|
+      t.column :identification_number, url: true
+      t.column :name
+      t.column :sex
+      t.action :edit
+      t.action :destroy
+    end
+    
   end
-  
-end
-```
 
 `manage_restfully` will managed all our actions magically (index, show, new, create, edit, update, and destroy).
 We just have to write the list parameters.
@@ -152,25 +142,23 @@ Translations are stored in YAML files in `config/locales/<locale>`. Locale codes
 
 === Title pages
 
-Ekylibre is looking for `fra.actions.<controller>.<action>`
-So I add `index: "Gestion des animaux"` to set a title for a controller "backend/animals".
+Ekylibre is looking for +fra.actions.<controller>.<action>+.
+So I add +index: "Gestion des animaux"+ to set a title for a controller "backend/animals".
 
-```ruby
-# config/locales/fra/actions.yml
-fra:
-  actions:
-    backend/accounts:
-      edit: "Modifier le compte\_: %{number} - %{name}"
-      index: "Plan de comptes"
-      load: "Charger un plan de compte"
-      mark: "Lettrage du compte\_: %{number} - %{name}"
-      new: "Créer un nouveau compte"
-      reconciliation: "Lettrage de comptes"
-      show: "Compte\_: %{number} - %{name}"
-      unmark: "Délettrer un compte"
-    backend/animals:
-      index: "Gestion des animaux"
-```
+  # config/locales/fra/actions.yml
+  fra:
+    actions:
+      backend/accounts:
+        edit: "Modifier le compte\_: %{number} - %{name}"
+        index: "Plan de comptes"
+        load: "Charger un plan de compte"
+        mark: "Lettrage du compte\_: %{number} - %{name}"
+        new: "Créer un nouveau compte"
+        reconciliation: "Lettrage de comptes"
+        show: "Compte\_: %{number} - %{name}"
+        unmark: "Délettrer un compte"
+      backend/animals:
+        index: "Gestion des animaux"
 
 === Label of attributes
 
@@ -179,39 +167,33 @@ Take care, you have to put in in alphabetical order.
 
 ex: for my animal's list
 
-```ruby
-# config/locales/fra/models.yml
-fra:
-  attributes:
-    identication_number: "Numéro d'identification"
-```
+  # config/locales/fra/models.yml
+  fra:
+    attributes:
+      identication_number: "Numéro d'identification"
 
 == Adding routes
 
-the route permit to match a request to a controller.
+The route permit to match a request to a controller.
 
-```ruby
-#config/routes.rb
-  ...
-  resources :animals, concern: [:list, :unroll]
-  ...
-```ruby
+  #config/routes.rb
+    ...
+    resources :animals, concern: [:list, :unroll]
+    ...
 
 == Adding right
 
-The resource must be defined in nomenclature **Enterprise Resource**.
+The resource must be defined in nomenclature *Enterprise Resource*.
 
-```ruby
-# config/rights.rb
-animals:
-  read:
-  - "backend/animals#new"
-  - "backend/animals#list"
-```
+  # config/rights.rb
+  animals:
+    read:
+    - "backend/animals#new"
+    - "backend/animals#list"
 
-== Official Documentation
+=== Official Documentation
 
-* [Associations](http://guides.rubyonrails.org/association_basics.html)
-* [Validations](http://guides.rubyonrails.org/active_record_validations_callbacks.html)
+* {Associations}[http://guides.rubyonrails.org/association_basics.html]
+* {Validations}[http://guides.rubyonrails.org/active_record_validations_callbacks.html]
 
 Copyright (C) 2012-2014 David JOULIN, Brice TEXIER
