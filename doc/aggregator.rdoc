@@ -1,7 +1,7 @@
 = Aggregator
 
 Introduces concept of aggregators in Ekylibre. Aggregator defines a structure 
-of heterogeneous data extracted from many models of Ekylibre.	  
+of heterogeneous data extracted from many models of Ekylibre.   
 
 Rules:
 
@@ -128,18 +128,18 @@ Then through JasperReports (and a report), it gives: PDF, ODS, ODT, XLSX, DOCX, 
       <table class="inputs">
         <thead>
           <tr>
-	    <th class="role-label">Role label</th> <!-- How to translate properly? -->
-	    <th class="indicator-label">Indicator label</th> <!-- How to translate properly? -->
+            <th class="role-label">Role label</th> <!-- How to translate properly? -->
+            <th class="indicator-label">Indicator label</th> <!-- How to translate properly? -->
           </tr>
         </thead>
         <tbody>
           <tr class="input" data-api-id="1" data-api-indicator="net_surface_area">
-	    <td class="role-label">Input</td>
-	    <td class="indicator-label"></td>
+            <td class="role-label">Input</td>
+            <td class="indicator-label"></td>
           </tr>
           <tr class="input" data-api-id="2" data-api-indicator="net_weight">
-	    <td class="role-label">Input</td>
-	    <td class="indicator-label">Net weight</td>
+            <td class="role-label">Input</td>
+            <td class="indicator-label">Net weight</td>
           </tr>
         </tbody>
       </table>
@@ -149,14 +149,14 @@ Then through JasperReports (and a report), it gives: PDF, ODS, ODT, XLSX, DOCX, 
       <table class="inputs">
         <thead>
           <tr>
-	    <th class="role-label">Role label</th> <!-- How to translate properly? -->
-	    <th class="indicator-label">Indicator label</th> <!-- How to translate properly? -->
+            <th class="role-label">Role label</th> <!-- How to translate properly? -->
+            <th class="indicator-label">Indicator label</th> <!-- How to translate properly? -->
           </tr>
         </thead>
         <tbody>
           <tr class="input" data-api-id="7" data-api-indicator="net_surface_area">
-	    <td class="role-label">Input</td>
-	    <td class="indicator-label">Net volume</td>
+            <td class="role-label">Input</td>
+            <td class="indicator-label">Net volume</td>
           </tr>
         </tbody>
       </table>

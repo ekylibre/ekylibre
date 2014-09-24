@@ -1,49 +1,49 @@
 = Procedures
 
-Procedures permits to define how things are done.
+Procedures permits to make evolve states of products (localization, phase, ownership, enjoyment, memberships, readings, and linkages).
 
 == Tasks
 
 These are many types of task depending on what we want to do.
 
   * Localization:
-    * [product-1] moves-to [product-2]
-    * [product-1] moves-in [product-2]
-    * [product-1] moves-in-default-storage
-    * [product-1] moves-in-default-storage-of [product-2]
+    * [product_1] moves to [product_2]
+    * [product_1] moves in [product_2]
+    * [product_1] moves in default storage
+    * [product_1] moves in default storage of [product_2]
 
   * Production/comsumption:
-    * [product-1] produces [product-2]*
-    * [product-1] consumes [product-2]
-    * [product-1] dies
+    * [product_1] produces [product_2]*
+    * [product_1] consumes [product_2]
+    * [product_1] dies
 
   * Physical links:
-    * [product-1] catches  [product-2]
-    * [product-1] releases [product-2]
+    * [product_1] catches  [product_2]
+    * [product_1] releases [product_2]
 
   * Memberships/groups:
-    * [product-1] goes-into [product-2]
-    * [product-1] goes-out  [product-2]
+    * [product_1] goes into [product_2]
+    * [product_1] goes out  [product_2]
 
   * Ownership:
-    * [product-1] is-owned-by [entity]
+    * [product_1] is owned by [entity]
 
   * Merge/split:
-    * [product-1] merges-with [product-2]*
-    * [product-1] parts-with  [product-2]
+    * [product_1] merges with [product_2]*
+    * [product_1] parts with  [product_2]
 
   * Measures:
-    * [product-1] is-measured-at [indicator]
+    * [product_1] is measured at [indicator]
 
   * Deliveries:
-    * [product-1] is-delivered
-    * [product-1] is-delivered-to  [client]
-    * [product-1] is-received
-    * [product-1] is-received-from [supplier]
+    * [product_1] is delivered
+    * [product_1] is delivered to  [client]
+    * [product_1] is received
+    * [product_1] is received from [supplier]
 
 
 === Not decided
 
-  * [product-1] acts-on  [product-2]: To declare sub-actions
-  * [product-1] modifies [product-2]: Updates
-  * [product-1] drives   [product-2] as [role]
+  * [product_1] acts on  [product_2]: To declare sub-actions
+  * [product_1] modifies [product_2]: Updates
+  * [product_1] drives   [product_2] as [role]

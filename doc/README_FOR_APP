@@ -1,5 +1,18 @@
-= Ekylibre
+= Ekylibre ERP
 
-Ekylibre is a simple enterprise management web application written using Ruby on Rails framework.
+== Models
 
-More details can be found at in the doc directory or on the official website http://www.ekylibre.org
+=== "Offline" table description
+
+Table descriptions are accessible without connection through Ekylibre::Schema.
+
+== Technical modules
+
+=== Authentication
+
+=== Backend
+
+=== API
+
+==== V1
+
