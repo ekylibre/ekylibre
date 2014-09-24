@@ -1399,6 +1399,7 @@ eng:
         # ekylibre_erp_georeadings: "Ekylibre erp georeadings"
         # ekylibre_erp_land_parcels: "Ekylibre erp land parcels"
         # ekylibre_erp_plants: "Ekylibre erp plants"
+        # ekylibre_erp_settings: "Ekylibre erp settings"
         galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
         # isagri_isacompta_export: "Isagri isacompta export"
         lilco_milk_analyses: "Lilco milk analyses"

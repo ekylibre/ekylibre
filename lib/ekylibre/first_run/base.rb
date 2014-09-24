@@ -162,12 +162,13 @@ module Ekylibre
 
 
       # Import a given file
-      def import(nature, file)
+      def import(nature, file, options = {})
         last = ""
         start = Time.now
         length = %x{stty size}.split[1].to_i
         basename = nature.to_s.humanize+ " (" + Pathname.new(file).basename.to_s + ") "
         total = 0
+        max = options[:max] || @max
         Import.launch!(nature, file) do |progress, count|
           status = [basename]
           status << " #{progress.to_i}%"
@@ -187,7 +188,7 @@ module Ekylibre
           print "\r" * last.size + line[0..done].green + (done == length ? "" : line[(done+1)..-1])
           last = line
           total = count
-          @max <= 0 or count <= @max
+          max <= 0 or count < max
         end
         stop = Time.now
         status = [basename]
@@ -240,7 +241,7 @@ module Ekylibre
       # Execute a loader in transactionnal mode
       def execute_loader(name)
         ActiveRecord::Base.transaction do
-          puts "Load #{name.to_s.red}:"
+          # puts "Load #{name.to_s.red}:"
           Ekylibre::FirstRun.call_loader(name, self)
         end
       end
