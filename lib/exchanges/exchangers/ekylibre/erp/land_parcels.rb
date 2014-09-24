@@ -17,14 +17,16 @@ Exchanges.add_importer :ekylibre_erp_land_parcels do |file, w|
                        soil_depth: (row[8].blank? ? nil : row[8].to_d)
                        )
 
+    # if landparcel already exist update it
     if zone = LandParcel.find_by(work_number: r.code)
       zone.update_attributes(name: r.name)
       zone.save!
-    else
+    # else if landparcel shape already exist in georeadding then create it with shape
+    elsif georeading = Georeading.find_by(number: r.shape_number)
       zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
       pmodel = zone_variant.nature.matching_model
       zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                            :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
+        :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: georeading.content)
     end
     if container = Product.find_by_work_number(r.place_code)
       # container.add(zone, zone.born_at)
@@ -36,13 +38,13 @@ Exchanges.add_importer :ekylibre_erp_land_parcels do |file, w|
       land_parcel_cluster.add(zone)
     end
     if r.soil_nature
-      zone.read!(:soil_nature, r.soil_nature, at: zone.born_at, force: true)
+      zone.read!(:soil_nature, r.soil_nature, at: born_at, force: true)
     end
     if r.soil_depth
-      zone.read!(:soil_depth, r.soil_depth.in_centimeter, at: zone.born_at, force: true)
+      zone.read!(:soil_depth, r.soil_depth.in_centimeter, at: born_at, force: true)
     end
     if r.available_water_capacity_per_area
-      zone.read!(:available_water_capacity_per_area, r.available_water_capacity_per_area.in_liter_per_square_meter, at: zone.born_at, force: true)
+      zone.read!(:available_water_capacity_per_area, r.available_water_capacity_per_area.in_liter_per_square_meter, at: born_at, force: true)
     end
 
     w.check_point

@@ -41,10 +41,10 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
           zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
           pmodel = zone_variant.nature.matching_model
           zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
+                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company)
         end
-        if geometry = shapes[r.shape_number]
-          zone.read!(:shape, geometry, at: born_at, force: true)
+        if georeading = Georeading.find_by(number: r.shape_number)
+          zone.read!(:shape, georeading.content, at: born_at, force: true)
           zone.read!(:population, (zone.shape_area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
           # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
         end
