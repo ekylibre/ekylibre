@@ -17,6 +17,17 @@ module Ekylibre
         list.include?(name)
       end
 
+
+      # Tests existence of a tenant in DB
+      # and removes it if not exist
+      def check!(name)
+        if list.include?(name)
+          unless Apartment.connection.schema_exists? name
+            @list[env].delete(name)
+          end
+        end
+      end
+
       # Returns the current tenant
       def current
         unless name = Apartment::Tenant.current
@@ -33,6 +44,7 @@ module Ekylibre
       # Create a new tenant
       def create(name)
         name = name.to_s
+        check!(name)
         if exist?(name)
           raise TenantError, "Already existing tenant"
         end

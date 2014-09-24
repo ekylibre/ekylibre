@@ -119,11 +119,15 @@ module Ekylibre
       def check_archive(target, *files)
         files.flatten!
         options = files.extract_options!
-        working_path = @folder_path.join(options[:in] ? options[:in] : ".")
+        working_path = @folder_path.join(options[:in] ? options.delete(:in) : ".")
         target_path = working_path.join(target)
-        list = files.collect{|f| working_path.join(f)}
+        map = options
+        files.each { |file| map[file] = file }
+        map.each do |dest, source|
+          map[dest] = working_path.join(source)
+        end
         if target_path.exist?
-          expected = files.map(&:to_s)
+          expected = map.keys.map(&:to_s)
           Zip::File.open(target_path) do |zile|
             zile.each do |entry|
               expected.delete(entry.name)
@@ -133,15 +137,15 @@ module Ekylibre
             raise "Missing files in archive #{target}: #{expected.to_sentence}"
           end
         else
-          expected = files.select{|f| !working_path.join(f).exist?}
+          expected = map.values.select{|source| !source.exist?}
           if expected.any?
-            if expected.size != files.size
+            if expected.size != map.values.size
               raise "Missing files to build #{target} archive: #{expected.to_sentence}"
             end
           else
             Zip::File.open(target_path, Zip::File::CREATE) do |zile|
-              list.each do |path|
-                zile.add(path.relative_path_from(working_path), path)
+              map.each do |dest, source|
+                zile.add(dest, source)
               end
             end
           end
@@ -192,11 +196,6 @@ module Ekylibre
 
       # Launch the execution of the loaders
       def launch
-        unless Ekylibre::Tenant.exist?(@name)
-          Ekylibre::Tenant.create(@name)
-        end
-        Ekylibre::Tenant.switch(@name)
-
         if hard? or Rails.env.production?
           puts "No global transaction".red
           execute
@@ -211,6 +210,12 @@ module Ekylibre
 
       # Execute a suite of loaders in the given order
       def execute(*loaders)
+        Ekylibre::Tenant.check!(@name)
+        unless Ekylibre::Tenant.exist?(@name)
+          Ekylibre::Tenant.create(@name)
+        end
+        Ekylibre::Tenant.switch(@name)
+
         loaders = Ekylibre::FirstRun.loaders if loaders.empty?
 
         for loader in loaders

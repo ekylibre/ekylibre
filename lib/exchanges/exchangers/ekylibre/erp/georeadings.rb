@@ -8,8 +8,10 @@ Exchanges.add_importer :ekylibre_erp_georeadings do |file, w|
     end
   end
 
+  mimetype = File.read(dir.join('mimetype')).to_s.strip
+  nature = mimetype.split(".").last
 
-  RGeo::Shapefile::Reader.open(dir.join("cultivable_zones.shp").to_s, srid: 4326) do |file|
+  RGeo::Shapefile::Reader.open(dir.join("georeading.shp").to_s, srid: 4326) do |file|
     # Set number of shapes
     w.count = file.size
 
@@ -18,14 +20,14 @@ Exchanges.add_importer :ekylibre_erp_georeadings do |file, w|
         attributes = {
           name: record.attributes['name'] || record.attributes['number'],
           number: record.attributes['number'],
-          nature: record.attributes['type'] || record.attributes['nature'] || 'polygon',
-          content: record.geometry
+          nature: nature
         }
         # puts attributes.inspect.red
         unless georeading = Georeading.find_by(attributes.slice(:number))
-          georeading = Georeading.create!(attributes)
+          georeading = Georeading.new(attributes)
         end
-        # georeading.inspect.yellow
+        georeading.content = record.geometry
+        georeading.save!
       end
       w.check_point
     end

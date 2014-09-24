@@ -13,10 +13,33 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
     first_run.import(:telepac_land_parcels, file)
   end
 
-  file = first_run.check_archive("cultivable_zones.zip", "cultivable_zones.shp", "cultivable_zones.dbf", "cultivable_zones.shx", "cultivable_zones.prj", in: "alamano/zones")
-  if file.exist?
-    first_run.import(:ekylibre_erp_georeadings, file)
+  # TODO: Removes zones and initial_geolocations
+  for name, nature in {equipments: :polygon, cultivable_zones: :polygon, geolocations: :point, initial_geolocations: :point, building_divisions: :polygon, buildings: :polygon, zones: :polygon, roads: :linestring, hedges: :linestring, water: :polygon}
+
+    dir = first_run.path.join("alamano/zones")
+    if dir.join("#{name}.shp").exist?
+
+      mimefile = dir.join("#{name}.mimetype")
+      File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
+
+      file = first_run.check_archive("#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/zones") # , "georeading.prj" => "#{name}.prj"
+
+      FileUtils.rm_rf(mimefile)
+
+      if file.exist?
+        first_run.import(:ekylibre_erp_georeadings, file)
+      end
+
+    end
+
   end
+
+  # file = first_run.check_archive("cultivable_zones.zip", "cultivable_zones.shp", "cultivable_zones.dbf", "cultivable_zones.shx", "cultivable_zones.prj", in: "alamano/zones")
+  # if file.exist?
+  #   first_run.import(:ekylibre_erp_georeadings, file)
+  # end
+
+  
 
   path = first_run.path("alamano", "land_parcels.csv")
   if path.exist?
