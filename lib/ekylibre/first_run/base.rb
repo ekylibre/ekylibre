@@ -166,38 +166,45 @@ module Ekylibre
         last = ""
         start = Time.now
         length = %x{stty size}.split[1].to_i
-        basename_length = (length*0.20).to_i
-        basename = self.class.ellipse(nature.to_s.humanize, basename_length).rjust(basename_length) # Pathname.new(file).basename.to_s
+        basename = nature.to_s.humanize+ " (" + Pathname.new(file).basename.to_s + ") "
         total = 0
         Import.launch!(nature, file) do |progress, count|
           status = [basename]
-          status << ": "
-          status << " #{progress.to_i.to_s.rjust(2)}%"
+          status << " #{progress.to_i}%"
           if progress > 0
             remaining = (100 - progress) * (Time.now - start) / progress
-            status << " #{remaining.round.to_i.to_s.rjust(2)}s"
+            status << " #{remaining.round.to_i}s"
           end
           l = length - status.join.length
-          done = (l * progress / 100.0).round.to_i
-          done = l if done > l
-          status.insert(2, ("\u2588" * done).green + "\u2591" * (l - done))
-          status[0] = status[0].blue
-          status[3] = status[3].blue
-          print "\r" * last.size + status.join
-          last = status
+          if l > 0
+            status.insert(1, "|" * l)
+          elsif l < 0
+            status[0] = basename[0..(l - 4)] + "..."
+          end
+          line = status.join
+          done = (progress * length / 100.0).round.to_i
+          done = length if done > length
+          print "\r" * last.size + line[0..done].green + (done == length ? "" : line[(done+1)..-1])
+          last = line
           total = count
           @max <= 0 or count <= @max
         end
         stop = Time.now
         status = [basename]
-        status << ": "
-        status << total.to_s
+        status << " " + total.to_s
         status << " done in "
-        status << "#{(stop - start).to_i.to_s.rjust(2)}s"
-        status.insert(2, " " * (length - status.join.size))
+        status << "#{(stop - start).to_i}s"
+        l = length - status.join.length
+        if l > 0
+          status.insert(1, " " * l)
+          status[2] = status[2].blue
+          status[4] = status[4].blue
+        elsif l < 0
+          status[0] = basename[0..(l - 4)] + "..."
+          status[1] = status[1].blue
+          status[3] = status[3].blue
+        end
         status[0] = status[0].blue
-        status[3] = status[3].blue
-        status[5] = status[5].blue
         puts "\r" * last.size + status.join
       end
 
@@ -239,7 +246,7 @@ module Ekylibre
       end
 
       def self.ellipse(text, size = 32)
-        ellipsis = "\u2026"
+        ellipsis = "..."
         if text.size > size
           first = ((size - ellipsis.size).to_f / 2).round
           return text[0..(first-1)] + ellipsis + text[-(size - first - ellipsis.size)..-1]
