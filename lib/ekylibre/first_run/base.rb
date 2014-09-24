@@ -143,10 +143,17 @@ module Ekylibre
               raise "Missing files to build #{target} archive: #{expected.to_sentence}"
             end
           else
-            Zip::File.open(target_path, Zip::File::CREATE) do |zile|
-              map.each do |dest, source|
-                zile.add(dest, source)
+            begin
+              Zip::File.open(target_path, Zip::File::CREATE) do |zile|
+                map.each do |dest, source|
+                  zile.add(dest, source)
+                end
               end
+            # Zip Library can throw an us-ascii string error with utf-8 inside
+            rescue Exception => e
+              puts "Cannot create #{target_path}".red
+              puts "Caused by: #{e.to_s.force_encoding('utf-8')}".blue
+              System.exit 1
             end
           end
         end
