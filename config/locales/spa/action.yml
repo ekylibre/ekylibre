@@ -933,6 +933,7 @@ spa:
     # crumbs: "Crumbs"
     csv_statistics: "Statisticas a exportar al formato CSV"
     # cultivable_zone: "Cultivable zone"
+    # cultivable_zone_abbreviation: "CZ"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # currency_with_code: "%{name} (%{code})"
     # current: "Current"
@@ -1121,6 +1122,7 @@ spa:
       mixed: "Piezas y Escrituras"
       records: "Piezas" #?
     journals: "Periodico general"
+    # land_parcel_abbreviation: "LP"
     # land_parcel_name: "Land parcel name"
     # land_parcels: "Land parcels"
     # last_analyses: "Last milk analysis"

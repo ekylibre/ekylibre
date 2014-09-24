@@ -1098,6 +1098,7 @@ arb:
     # crumbs: "Crumbs"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
     # cultivable_zone: "Cultivable zone"
+    # cultivable_zone_abbreviation: "CZ"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     # currency_with_code: "%{name} (%{code})"
     current: "الحالية"
@@ -1318,6 +1319,7 @@ arb:
       mixed: "دمج السجلات"
     journals: "الدفاتر اليومية"
     kame: "" #?
+    # land_parcel_abbreviation: "LP"
     land_parcel_create: "انشاء نظام جديد" #?
     land_parcel_name: "نظام"
     land_parcel_update: "تعديل النظام" #?

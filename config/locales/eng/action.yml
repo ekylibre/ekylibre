@@ -808,7 +808,7 @@ eng:
     crumbs: "Crumbs"
     csv_statistics: "CSV statistics" #?
     cultivable_zone: "Cultivable zone"
-    # cultivable_zone_abbreviation: "Cultivable zone abbreviation"
+    cultivable_zone_abbreviation: "CZ"
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     currency_with_code: "%{name} (%{code})" #?
     current: "Current" #?
@@ -971,7 +971,7 @@ eng:
       items: "Items of entries"
       mixed: "Entries and items"
     journals: "Journals"
-    # land_parcel_abbreviation: "Land parcel abbreviation"
+    land_parcel_abbreviation: "LP"
     land_parcel_name: "Land parcel name" #?
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis" #?

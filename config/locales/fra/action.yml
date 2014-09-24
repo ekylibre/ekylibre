@@ -829,6 +829,7 @@ fra:
     crumbs: "Miettes"
     csv_statistics: "Statistiques à exporter au format CSV"
     cultivable_zone: "Zone cultivable"
+    cultivable_zone_abbreviation: "ZC"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
     currency_with_code: "%{code} - %{name}"
@@ -1028,6 +1029,7 @@ fra:
       items: "Lignes d’écritures"
       mixed: "Écritures et lignes"
     journals: "Journaux"
+    land_parcel_abbreviation: "P"
     land_parcel_name: "Parcelle"
     land_parcels: "Parcelles"
     language: "Langue" #?

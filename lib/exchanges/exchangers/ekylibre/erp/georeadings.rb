@@ -21,11 +21,11 @@ Exchanges.add_importer :ekylibre_erp_georeadings do |file, w|
           nature: record.attributes['type'] || record.attributes['nature'] || 'polygon',
           content: record.geometry
         }
-        puts attributes.inspect.red
+        # puts attributes.inspect.red
         unless georeading = Georeading.find_by(attributes.slice(:number))
-          georeading = Georeading.create(attributes)
+          georeading = Georeading.create!(attributes)
         end
-        georeading.inspect.yellow
+        # georeading.inspect.yellow
       end
       w.check_point
     end
