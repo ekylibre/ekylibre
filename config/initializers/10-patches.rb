@@ -68,6 +68,11 @@ class ::Hash
     end
   end
 
+  # Build a struct from the hash
+  def to_struct
+    return OpenStruct.new(self)
+  end
+
 end
 
 

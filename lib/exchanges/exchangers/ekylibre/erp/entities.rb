@@ -1,24 +1,25 @@
-# Create or updates journals from the Istea codes
+# Create or updates entities
 Exchanges.add_importer :ekylibre_erp_entities do |file, w|
 
   rows = CSV.read(file, headers: true)
   w.count = rows.size
 
   rows.each do |row|
-    r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
-                       :last_name => row[1].blank? ? "" : row[1].to_s,
-                       :nature => row[2].to_s.downcase,
-                       :client_account_number => row[3].to_s,
-                       :supplier_account_number => row[4].to_s,
-                       :usages => row[5].to_s,
-                       :address => row[6].to_s,
-                       :postal_code => row[7].blank? ? nil : row[7].to_s,
-                       :city => row[8].blank? ? nil : row[8].to_s,
-                       country: "fr",
-                       :phone_number => row[9].blank? ? nil : row[9].to_s,
-                       :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
-                       :code => row[11].blank? ? nil : row[11].to_s.downcase
-                       )
+    r = {
+      :first_name => row[0].blank? ? "" : row[0].to_s,
+      :last_name => row[1].blank? ? "" : row[1].to_s,
+      :nature => row[2].to_s.downcase,
+      :client_account_number => row[3].to_s,
+      :supplier_account_number => row[4].to_s,
+      :usages => row[5].to_s,
+      :address => row[6].to_s,
+      :postal_code => row[7].blank? ? nil : row[7].to_s,
+      :city => row[8].blank? ? nil : row[8].to_s,
+      country: "fr",
+      :phone_number => row[9].blank? ? nil : row[9].to_s,
+      :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
+      :code => row[11].blank? ? nil : row[11].to_s.downcase
+    }.to_struct
 
     klass = r.nature.camelcase.constantize
     unless person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name, r.last_name).first

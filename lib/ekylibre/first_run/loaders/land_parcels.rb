@@ -13,141 +13,46 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
     first_run.import(:telepac_land_parcels, file)
   end
 
-  # TODO: Removes zones and initial_geolocations
-  for name, nature in {equipments: :polygon, cultivable_zones: :polygon, geolocations: :point, initial_geolocations: :point, building_divisions: :polygon, buildings: :polygon, zones: :polygon, roads: :linestring, hedges: :linestring, water: :polygon}
+  # TODO: Removes zones level, zones and initial_geolocations
+  for level in [:georeadings, :zones]
+    for name, nature in {equipments: :polygon, cultivable_zones: :polygon, geolocations: :point, initial_geolocations: :point, building_divisions: :polygon, buildings: :polygon, zones: :polygon, roads: :linestring, hedges: :linestring, water: :polygon}
+      dir = first_run.path.join("alamano/#{level}")
+      if dir.join("#{name}.shp").exist?
 
-    dir = first_run.path.join("alamano/zones")
-    if dir.join("#{name}.shp").exist?
+        mimefile = dir.join("#{name}.mimetype")
+        File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
 
-      mimefile = dir.join("#{name}.mimetype")
-      File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
+        file = first_run.check_archive("#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/#{level}") # , "georeading.prj" => "#{name}.prj"
 
-      file = first_run.check_archive("#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/zones") # , "georeading.prj" => "#{name}.prj"
+        FileUtils.rm_rf(mimefile)
 
-      FileUtils.rm_rf(mimefile)
-
-      if file.exist?
-        first_run.import(:ekylibre_erp_georeadings, file)
+        if file.exist?
+          first_run.import(:ekylibre_erp_georeadings, file)
+        end
       end
-
     end
-
   end
-
-  # file = first_run.check_archive("cultivable_zones.zip", "cultivable_zones.shp", "cultivable_zones.dbf", "cultivable_zones.shx", "cultivable_zones.prj", in: "alamano/zones")
-  # if file.exist?
-  #   first_run.import(:ekylibre_erp_georeadings, file)
-  # end
-
-  
 
   path = first_run.path("alamano", "land_parcels.csv")
   if path.exist?
     first_run.import(:ekylibre_erp_land_parcels, path)
   end
 
-
   path = first_run.path("alamano", "cultivable_zones.csv")
   if path.exist?
-    born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-    first_run.count :cultivable_zones do |w|
-      CSV.foreach(path, headers: true) do |row|
-        next if row[0].blank?
-        r = OpenStruct.new(name: row[0].to_s,
-                           nature: (row[1].blank? ? nil : row[1].to_sym),
-                           code: (row[2].blank? ? nil : row[2].to_s),
-                           shape_number: (row[3].blank? ? nil : row[3].to_s)
-                           #members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
-                           )
-
-        unless zone = CultivableZone.find_by_work_number(r.code)
-          zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
-          pmodel = zone_variant.nature.matching_model
-          zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company)
-        end
-        if georeading = Georeading.find_by(number: r.shape_number)
-          zone.read!(:shape, georeading.content, at: born_at, force: true)
-          zone.read!(:population, (zone.shape_area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
-          # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
-        end
-
-        # link cultivable zone and land parcel for each entries
-        #
-        if zone.shape
-          zone_shape = Charta::Geometry.new(zone.shape)
-          if products_around = zone_shape.actors_matching(nature: LandParcel)
-            for land_parcel in products_around
-              if land_parcel.shape
-                cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
-                cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
-                                                                                 :member => land_parcel,
-                                                                                 :shape => land_parcel.shape,
-                                                                                 :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
-                                                                                 )
-              end
-            end
-          end
-        end
-
-
-        # # Add available_water_capacity indicator
-        # if r.land_parcel_available_water_capacity
-        #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
-        # end
-
-        # # Add land_parcel in land_parcel_cluster group
-        # land_parcel_cluster.add(land_parcel)
-
-        w.check_point
-      end
-    end
-
+    first_run.import(:ekylibre_erp_cultivable_zones, path)
   end
 
+  # TODO: Remove this file. Use plants instead.
   path = first_run.path("alamano", "cultivations.csv")
   if path.exist?
-
-    first_run.count :cultivations do |w|
-      CSV.foreach(path, headers: true) do |row|
-        next if row[0].blank?
-        r = OpenStruct.new(name: row[0].to_s,
-                           work_number: row[1].to_s,
-                           variant: (row[2].blank? ? nil : row[2].to_sym),
-                           cultivable_zone_code: (row[3].blank? ? nil : row[3].to_s),
-                           born_at: (row[4].blank? ? nil : row[4].to_datetime),
-                           variety: (row[5].blank? ? nil : row[5].to_s),
-                           indicators: row[6].blank? ? {} : row[6].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-                             h[i.first.strip.downcase.to_sym] = i.second
-                             h
-                           }
-                           )
-        # find or import from variant reference_nameclature the correct ProductNatureVariant
-        variant = ProductNatureVariant.find_by(:reference_name => r.variant) || ProductNatureVariant.import_from_nomenclature(r.variant)
-        pmodel = variant.nature.matching_model
-        # find the container
-        unless container = Product.find_by_work_number(r.cultivable_zone_code)
-          raise "No container for cultivation!"
-        end
-
-        # create the plant
-        product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
-                                 :name => r.name, :initial_born_at => r.born_at, :initial_owner => Entity.of_company, :variety => r.variety, :initial_container => container)
-
-        # create indicators linked to equipment
-        for indicator, value in r.indicators
-          product.read!(indicator, value, at: r.born_at, force: true)
-        end
-        if geometry = shapes[r.cultivable_zone_code]
-          product.read!(:shape, geometry, at: born_at, force: true)
-        end
-
-        w.check_point
-      end
-    end
-
+    first_run.import(:ekylibre_erp_plants, path)
   end
 
+  path = first_run.path("alamano", "plants.csv")
+  if path.exist?
+    first_run.import(:ekylibre_erp_plants, path)
+  end
 
 
 

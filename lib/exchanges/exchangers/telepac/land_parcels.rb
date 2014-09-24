@@ -49,6 +49,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
       }
 
       # Find or create land parcel
+      # TODO: Use a find_by_shape_similarity to determine existence of the land parcel
       unless land_parcel = LandParcel.find_by(attributes.slice(:worke_number, :variety, :identification_number))
         land_parcel = LandParcel.create!(attributes)
       end

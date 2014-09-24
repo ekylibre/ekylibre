@@ -91,7 +91,7 @@ module Indicateable
     options = args.extract_options!
     cast_or_time = args.shift || options[:cast] || options[:at] || Time.now
     value = nil
-    if cast_or_time.is_a?(Time)
+    if cast_or_time.is_a?(Time) or cast_or_time.is_a?(DateTime)
       # Find value
       if options[:interpolate]
         if [:measure, :decimal, :integer].include?(indicator.datatype)

@@ -30,6 +30,7 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
       }
 
       # Find or create land_parcel_cluster
+      # TODO: Use a find_by_shape_similarity to determine existence of the land parcel
       unless land_parcel_cluster = LandParcelCluster.find_by(attributes.slice(:work_number, :variety, :identification_number))
         land_parcel_cluster = LandParcelCluster.create!(attributes)
       end

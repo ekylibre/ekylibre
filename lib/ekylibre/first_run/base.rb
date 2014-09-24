@@ -186,7 +186,7 @@ module Ekylibre
           print "\r" * last.size + status.join
           last = status
           total = count
-          not (@max and count >= @max)
+          @max <= 0 or count <= @max
         end
         stop = Time.now
         status = [basename]
