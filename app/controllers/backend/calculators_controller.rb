@@ -1,5 +1,5 @@
 # == License
-# Ekylibre - Simple agricultural ERP
+# Ekylibre ERP - Simple agricultural ERP
 # Copyright (C) 2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify

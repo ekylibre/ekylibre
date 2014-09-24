@@ -1,5 +1,5 @@
 # == License
-# Ekylibre - Simple agricultural ERP
+# Ekylibre ERP - Simple agricultural ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify

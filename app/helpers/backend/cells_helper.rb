@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # == License
-# Ekylibre - Simple agricultural ERP
+# Ekylibre ERP - Simple agricultural ERP
 # Copyright (C) 2014 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
