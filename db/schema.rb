@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925091652) do
+ActiveRecord::Schema.define(version: 20140925220644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,9 +165,9 @@ ActiveRecord::Schema.define(version: 20140925091652) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.integer  "product_reading_id"
     t.spatial  "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
     t.spatial  "point_value",                  limit: {:srid=>4326, :type=>"point"}
-    t.integer  "product_reading_id"
   end
 
   add_index "analysis_items", ["analysis_id"], :name => "index_analysis_items_on_analysis_id"
@@ -358,9 +358,9 @@ ActiveRecord::Schema.define(version: 20140925091652) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                        default: 0, null: false
-    t.spatial  "geolocation",          limit: {:srid=>4326, :type=>"point"},                                      null: false
     t.integer  "intervention_cast_id"
     t.string   "device_uid",                                                                                      null: false
+    t.spatial  "geolocation",          limit: {:srid=>4326, :type=>"point"},                                      null: false
   end
 
   add_index "crumbs", ["created_at"], :name => "index_crumbs_on_created_at"
@@ -1014,8 +1014,8 @@ ActiveRecord::Schema.define(version: 20140925091652) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                       default: 0, null: false
-    t.spatial  "shape",            limit: {:srid=>4326, :type=>"geometry"}
     t.decimal  "net_mass",                                                  precision: 19, scale: 4
+    t.spatial  "shape",            limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "incoming_delivery_items", ["container_id"], :name => "index_incoming_delivery_items_on_container_id"
@@ -1112,9 +1112,9 @@ ActiveRecord::Schema.define(version: 20140925091652) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                             default: 0, null: false
-    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "event_participation_id"
     t.string   "nature",                                                                                               null: false
+    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
@@ -1577,9 +1577,9 @@ ActiveRecord::Schema.define(version: 20140925091652) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                   default: 0, null: false
-    t.spatial  "shape",        limit: {:srid=>4326, :type=>"geometry"}
     t.decimal  "net_mass",                                              precision: 19, scale: 4
     t.integer  "container_id"
+    t.spatial  "shape",        limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "outgoing_delivery_items", ["container_id"], :name => "index_outgoing_delivery_items_on_container_id"
@@ -1667,7 +1667,7 @@ ActiveRecord::Schema.define(version: 20140925091652) do
 
   create_table "preferences", force: true do |t|
     t.string   "name",                                                              null: false
-    t.string   "nature",            limit: 10,                                      null: false
+    t.string   "nature",            limit: 60,                                      null: false
     t.text     "string_value"
     t.boolean  "boolean_value"
     t.integer  "integer_value"
@@ -2302,8 +2302,8 @@ ActiveRecord::Schema.define(version: 20140925091652) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                            default: 0,     null: false
-    t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "person_id"
+    t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"

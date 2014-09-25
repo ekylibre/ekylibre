@@ -60,9 +60,12 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   Preference.get(:language).set!(language)
   Preference.get(:currency).set!(currency)
   Preference.get(:country).set!(country)
-  if srid = manifest[:map_measure_srid]
-    Preference.get(:map_measure_srid).set!(srid.to_i)
+  if srs = manifest[:map_measure_srs]
+    Preference.get(:map_measure_srs).set!(srs)
+  elsif srid = manifest[:map_measure_srid]
+    Preference.get(:map_measure_srs).set!(Nomen::SpatialReferenceSystems.find_by(srid: srid.to_i).name)
   end
+
   w.check_point
 
   # Sequences
@@ -151,8 +154,8 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   w.check_point
 
   # Load chart of account
-  if manifest[:chart_of_account]
-    Account.chart = manifest[:chart_of_account]
+  if chart = manifest[:chart_of_accounts] || manifest[:chart_of_account]
+    Account.chart = chart
     Account.load
   end
   w.check_point

@@ -12,9 +12,9 @@
           %span.title= :language.t(scope: 'preferences')
           %span.value= Nomen::Languages[Preference[:language]].human_name rescue "?"
         .big-info
-          %span.title= :chart_of_account.t(scope: 'preferences')
+          %span.title= :chart_of_accounts.t(scope: 'preferences')
           -# %span.value= Nomen::ChartsOfAccounts[Preference[:chart_of_account]].human_name
-          %span.value= Preference[:chart_of_account].mb_chars.upcase.gsub('_', '-') rescue "?"
+          %span.value= Preference[:chart_of_accounts].mb_chars.upcase.gsub('_', '-') rescue "?"
 
     - b.cell :statistics do
       %ul.desc-list

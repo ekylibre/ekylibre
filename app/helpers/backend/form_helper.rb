@@ -38,6 +38,10 @@ module Backend::FormHelper
     elsif datatype == :choice
       choices = options[:choices] || []
       select_tag(name, options_for_select(choices, value))
+    elsif datatype == :chart_of_accounts
+      select_tag(name, options_for_select(Nomen::ChartsOfAccounts.selection, value))
+    elsif nomenclature = Nomen[datatype.to_s.pluralize]
+      select_tag(name, options_for_select(nomenclature.selection, value))
     else
       return "[EmptyField #{name.inspect}]"
     end

@@ -30,7 +30,7 @@
 #  integer_value     :integer
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
-#  nature            :string(10)       not null
+#  nature            :string(60)       not null
 #  record_value_id   :integer
 #  record_value_type :string(255)
 #  string_value      :text
@@ -42,7 +42,7 @@
 
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
-  enumerize :nature, in: [:boolean, :decimal, :integer, :record, :string], default: :string, predicates: true
+  enumerize :nature, in: [:chart_of_accounts, :country, :currency, :boolean, :decimal, :language, :integer, :record, :spatial_reference_system, :string], default: :string, predicates: true
   @@natures = self.nature.values
   @@conversions = {float: :decimal, true_class: :boolean, false_class: :boolean, fixnum: :integer}
   cattr_reader :reference
@@ -53,21 +53,27 @@ class Preference < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :decimal_value, allow_nil: true
-  validates_length_of :nature, allow_nil: true, maximum: 10
+  validates_length_of :nature, allow_nil: true, maximum: 60
   validates_length_of :name, :record_value_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, in: @@natures
   validates_uniqueness_of :name, :scope => [:user_id]
 
+  alias_attribute :chart_of_accounts_value, :string_value
+  alias_attribute :country_value, :string_value
+  alias_attribute :currency_value, :string_value
+  alias_attribute :language_value, :string_value
+  alias_attribute :spatial_reference_system_value, :string_value
+
   scope :global, -> { where(name: @@reference.keys.map(&:to_s), user_id: nil) }
 
-  def self.prefer(name, nature, default_value)
+  def self.prefer(name, nature, default_value = nil)
     @@reference ||= HashWithIndifferentAccess.new
     unless self.nature.values.include?(nature.to_s)
       raise ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
     end
-    @@reference[name] = {:name => :name, :nature => nature.to_sym, default: default_value}
+    @@reference[name] = {name: :name, nature: nature.to_sym, default: default_value}
   end
 
   prefer :bookkeep_automatically, :boolean, true
@@ -75,15 +81,18 @@ class Preference < Ekylibre::Record::Base
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ""
-  prefer :chart_of_account, :string, Nomen::ChartsOfAccounts.default
-  prefer :language, :string, "fra"
-  prefer :country,  :string, "fr"
-  prefer :currency, :string, "EUR"
-  prefer :map_measure_srid, :integer, 0
+  prefer :chart_of_accounts, :chart_of_accounts, Nomen::ChartsOfAccounts.default
+  prefer :language, :language, Nomen::Languages.default
+  prefer :country,  :country, Nomen::Countries.default
+  prefer :currency, :currency, Nomen::Currencies.default
+  # prefer :map_measure_srid, :integer, 0
+  prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystems.default
 
-  def self.type_to_nature(klass)
-    klass = klass.to_s
-    if  ['String', 'Symbol'].include? klass
+  def self.type_to_nature(object)
+    klass = object.class.to_s
+    if object.is_a?(Nomen::Item) and nature = object.nomenclature.name.to_s.singularize.to_sym and nature.values.include?(nature)
+      nature
+    elsif ['String', 'Symbol'].include? klass
       :string
     elsif ['Integer', 'Fixnum', 'Bignum'].include? klass
       :integer
@@ -125,8 +134,10 @@ class Preference < Ekylibre::Record::Base
 #       self.nature = @@reference[self.name][:nature]
 #       self.record_value_type = @@reference[self.name][:model].name if @@reference[self.name][:model]
 #     end
-    self.nature ||= self.class.type_to_nature(object.class)
-    raise ArgumentError.new("Object to define as preference is an unknown type #{object.class.name}:#{self.nature}") unless @@natures.include? self.nature
+    self.nature ||= self.class.type_to_nature(object)
+    unless @@natures.include? self.nature
+      raise ArgumentError, "Object to define as preference is an unknown type #{object.class.name}:#{self.nature}"
+    end
     if self.nature == 'record' and object.class.name != self.record_value_type
       begin
         self.send(self.nature.to_s+'_value=', self.record_value_type.constantize.find(object.to_i))
@@ -148,9 +159,10 @@ class Preference < Ekylibre::Record::Base
     self.save!
   end
 
-  def label(locale=nil)
-    ::I18n.t("preferences." + self.name.to_s, :locale => locale)
+  def human_name(locale=nil)
+    "preferences.#{self.name}".t(locale: locale)
   end
+  alias :label :human_name
 
   def record?
     self.nature == 'record'

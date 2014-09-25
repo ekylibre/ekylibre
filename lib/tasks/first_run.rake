@@ -13,7 +13,7 @@ desc "Execute first run in one transaction"
 task :first_run => :environment do
   Ekylibre::FirstRun.launch ENV.to_hash.symbolize_keys.slice(:folder, :name, :max, :mode)
 
-  # Workaround for public schema tables disappearance  
+  # Workaround for public schema tables disappearance
   Ekylibre::Tenant.reset_search_path!
   Rake::Task["db:schema:load"].invoke
 end

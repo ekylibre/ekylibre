@@ -1844,7 +1844,7 @@ fra:
   preferences:
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
-    chart_of_account: "Plan comptable"
+    chart_of_accounts: "Plan comptable"
     country: "Pays"
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"

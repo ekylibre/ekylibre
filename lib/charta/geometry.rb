@@ -101,7 +101,7 @@ module Charta
 
     # Returns area in square meter
     def area
-      if srid = find_srid(Preference[:map_measure_srid])
+      if srid = find_srid(Preference[:map_measure_srs])
         value = select_value("SELECT ST_Area(ST_Transform(#{self.geom}, #{srid}))")
       else
         value = select_value("SELECT ST_Area(#{self.geom}::geography)")
@@ -229,12 +229,12 @@ module Charta
         ActiveRecord::Base.connection.select_rows(query).first
       end
 
-      # Check and returns the SRID matching with name or SRID.
-      def find_srid(name_or_srid)
-        if name_or_srid.is_a?(Symbol)
-          item = systems.items[name_or_srid]
+      # Check and returns the SRID matching with srname or SRID.
+      def find_srid(srname_or_srid)
+        if srname_or_srid.is_a?(Symbol) or srname_or_srid.is_a?(String)
+          item = systems.items[srname_or_srid]
         else
-          item = systems.where(srid: name_or_srid).first
+          item = systems.find_by(srid: srname_or_srid)
         end
         return (item ? item.srid : nil)
       end

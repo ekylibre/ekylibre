@@ -1152,7 +1152,7 @@ preferences:
   integer_value: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
-  nature: {type: string, limit: 10, required: true}
+  nature: {type: string, limit: 60, required: true}
   record_value_id: {type: integer, references: ~record_value_type}
   record_value_type: {type: string}
   string_value: {type: text}

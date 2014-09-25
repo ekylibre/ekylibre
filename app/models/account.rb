@@ -208,7 +208,7 @@ class Account < Ekylibre::Record::Base
     # Returns the name of the used chart of accounts
     # It takes the information in preferences
     def chart
-      return Preference[:chart_of_account]
+      return Preference[:chart_of_accounts]
     end
     alias :chart_of_accounts :chart
 
@@ -218,7 +218,7 @@ class Account < Ekylibre::Record::Base
       unless item = Nomen::ChartsOfAccounts[name]
         raise ArgumentError.new("The chart of accounts #{name.inspect} is unknown.")
       end
-      return Preference.get(:chart_of_account).value = item.name
+      return Preference.get(:chart_of_accounts).value = item.name
     end
     alias :chart_of_accounts= :chart=
 
