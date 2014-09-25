@@ -56,6 +56,7 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
+#     - "backend/documents#unroll"
 #     - "backend/financial_assets#list_products"
 #     - "backend/georeadings#create"
 #     - "backend/georeadings#destroy"

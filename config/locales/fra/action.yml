@@ -1849,7 +1849,7 @@ fra:
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     language: "Langue"
-    map_measure_srid: "SRID de mesure cartographique"
+    map_measure_srs: "SRS de mesure cartographique"
     sales_conditions: "Conditions de vente"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
   rest:

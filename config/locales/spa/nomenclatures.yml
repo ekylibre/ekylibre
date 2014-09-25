@@ -471,13 +471,13 @@ spa:
       # name: "Cation exchange capacity analysis methods"
     certification_labels:
       items:
-        # aoc: "Aoc"
-        # aop: "Aop"
-        # aor: "Aor"
+        # aoc: "AOC"
+        # aop: "AOP"
+        # aor: "AOR"
         # bio: "Bio"
-        # ig: "Ig"
-        # igp: "Igp"
-        # label_rouge: "Label rouge"
+        # ig: "IG"
+        # igp: "IGP"
+        # label_rouge: "Label Rouge"
       # name: "Certification labels"
     certifications:
       choices: #?
@@ -486,12 +486,12 @@ spa:
         # bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
         # bordeaux_clairet: "Bordeaux clairet"
         # bordeaux_claret: "Bordeaux claret"
-        # bordeaux_haut_benauge: "Bordeaux haut benauge"
-        # bordeaux_haut_benauge_avec_sucres: "Bordeaux haut benauge avec sucres"
+        # bordeaux_haut_benauge: "Bordeaux Haut-Benauge"
+        # bordeaux_haut_benauge_avec_sucres: "Bordeaux Haut-Benauge avec sucres"
         # bordeaux_rose: "Bordeaux rose"
         # bordeaux_rouge: "Bordeaux rouge"
-        # bordeaux_superieur_blanc: "Bordeaux superieur blanc"
-        # bordeaux_superieur_rouge: "Bordeaux superieur rouge"
+        # bordeaux_superieur_blanc: "Bordeaux supérieur blanc"
+        # bordeaux_superieur_rouge: "Bordeaux supérieur rouge"
         # cognac: "Cognac"
         # eau_de_vie_de_cognac: "Eau de vie de cognac"
         # eau_de_vie_des_charentes: "Eau de vie des charentes"
@@ -501,9 +501,9 @@ spa:
         # land: "Land"
     charts_of_accounts:
       items:
-        # fr_pcg82: "Fr pcg82"
-        # fr_pcga: "Fr pcga"
-        # ifrs: "Ifrs"
+        # fr_pcg82: "French PCG 1982"
+        # fr_pcga: "French PCGA"
+        # ifrs: "IFRS"
       # name: "Charts of accounts"
     chemical_elements:
       items:

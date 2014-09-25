@@ -1580,14 +1580,12 @@ eng:
   preferences:
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    chart_of_accounts: "Chart of accounts" #?
-    # chart_of_accounts: "Chart of accounts"
+    chart_of_accounts: "Chart of accounts"
     country: "Country"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     language: "Language"
-    map_measure_srid: "Map measure SRID" #?
-    # map_measure_srs: "Map measure srs"
+    map_measure_srs: "Map measure SRS"
     sales_conditions: "Sales conditions"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
   rest:

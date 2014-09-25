@@ -2186,7 +2186,7 @@ arb:
         various: "الاجراءات اليومية المختلفة افتراضيا" #?
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    # chart_of_account: "Chart of account"
+    # chart_of_accounts: "Chart of accounts"
     # country: "Country"
     # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
@@ -2208,7 +2208,7 @@ arb:
         numeration: "احصاء الفواتير" #?
       subscriptions: #?
         numeration: "احصاء الاشتراكات" #?
-    # map_measure_srid: "Map measure SRID"
+    # map_measure_srs: "Map measure SRS"
     relations:  #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
