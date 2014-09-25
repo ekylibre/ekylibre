@@ -37,9 +37,9 @@ class Backend::JournalEntryItemsController < BackendController
         @journal_entry_item.account = @journal.cashes.first.account
       end
     end
-    params[:printed_at] = params[:printed_at].to_date rescue nil
-    if params[:printed_at]
-      @financial_year = FinancialYear.at(params[:printed_at])
+    params[:printed_on] = params[:printed_on].to_date rescue nil
+    if params[:printed_on]
+      @financial_year = FinancialYear.at(params[:printed_on])
     end
     if request.xhr?
       render partial: "backend/journal_entry_items/row_form", object: @journal_entry_item

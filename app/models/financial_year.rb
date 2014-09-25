@@ -118,7 +118,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def journal_entries(conditions=nil)
-    JournalEntry.where(printed_at: self.started_on..self.stopped_on).where(conditions.nil? ? true : conditions)
+    JournalEntry.where(printed_on: self.started_on..self.stopped_on).where(conditions.nil? ? true : conditions)
   end
 
   def name
@@ -179,7 +179,7 @@ class FinancialYear < Ekylibre::Record::Base
       if renew_journal = Journal.find_by_id(options[:renew_id].to_i)
 
         if self.account_balances.size > 0
-          entry = renew_journal.entries.create!(printed_at: to_close_on+1, :currency_id => renew_journal.currency_id)
+          entry = renew_journal.entries.create!(printed_on: to_close_on+1, :currency_id => renew_journal.currency_id)
           result   = 0
           gains    = Account.find_in_chart(:financial_year_profit)
           losses   = Account.find_in_chart(:financial_year_loss)
@@ -291,7 +291,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # Re-create.all account_balances record for the financial year
   def compute_balances!
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_at BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)} GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)} GROUP BY account_id")
     self.account_balances.clear
     for result in results
       self.account_balances.create!(:account_id => result["account_id"].to_i, :local_count => result["count"].to_i, :local_credit => result["credit"].to_f, :local_debit => result["debit"].to_f)
@@ -302,7 +302,7 @@ class FinancialYear < Ekylibre::Record::Base
   # Generate last journal entry with financial assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry
-      self.create_last_journal_entry!(printed_at: self.stopped_on, journal_id: options[:journal_id])
+      self.create_last_journal_entry!(printed_on: self.stopped_on, journal_id: options[:journal_id])
     end
 
     # Empty journal entry

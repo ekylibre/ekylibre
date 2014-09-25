@@ -45,7 +45,7 @@
 #  lock_version              :integer          default(0), not null
 #  name                      :string(255)      not null
 #  position                  :integer
-#  printed_at                :datetime         not null
+#  printed_on                :date             not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string(3)        not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
@@ -76,7 +76,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates_length_of :letter, allow_nil: true, maximum: 10
   validates_length_of :state, allow_nil: true, maximum: 30
   validates_length_of :entry_number, :name, allow_nil: true, maximum: 255
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_at, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account
@@ -92,7 +92,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   after_update  :update_entry
 
   scope :between, lambda { |started_at, stopped_at|
-    where(printed_at: started_at..stopped_at)
+    where(printed_on: started_at..stopped_at)
   }
   state_machine :state, :initial => :draft do
     state :draft
@@ -109,7 +109,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.real_credit ||= 0
     if self.entry
       self.entry_number = self.entry.number
-      for replicated in [:financial_year_id, :printed_at, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
+      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
         self.send("#{replicated}=", self.entry.send(replicated))
       end
       unless self.closed?
@@ -169,7 +169,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Cancel old values if specific columns have been updated
   def uncumulate
     old = self.old_record
-    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_at != old.printed_at
+    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
       # self.cumulated_absolute_debit  -= old.absolute_debit
       # self.cumulated_absolute_credit -= old.absolute_credit
       old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
@@ -185,9 +185,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns the previous item
   def previous
     if self.new_record?
-      self.account.journal_entry_items.order("printed_at, id").where("printed_at <= ?", self.printed_at).last
+      self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
     else
-      self.account.journal_entry_items.order("printed_at, id").where("(printed_at = ? AND id < ?) OR printed_at <= ?", self.printed_at, self.id, self.printed_at).last
+      self.account.journal_entry_items.order("printed_on, id").where("(printed_on = ? AND id < ?) OR printed_on <= ?", self.printed_on, self.id, self.printed_on).last
     end
   end
 
@@ -195,9 +195,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns following items
   def followings
     if self.new_record?
-      self.account.journal_entry_items.where("printed_at > ?", self.printed_at)
+      self.account.journal_entry_items.where("printed_on > ?", self.printed_on)
     else
-      self.account.journal_entry_items.where("(printed_at = ? AND id > ?) OR printed_at > ?", self.printed_at, self.id, self.printed_at)
+      self.account.journal_entry_items.where("(printed_on = ? AND id > ?) OR printed_on > ?", self.printed_on, self.id, self.printed_on)
     end
   end
 

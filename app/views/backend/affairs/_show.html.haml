@@ -16,7 +16,7 @@
             - third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
 
             %span.btn-group<
-              - for model in (Affair::AFFAIRABLE_MODELS - %w(gap transfer))
+              - for model in (Affair::AFFAIRABLE_MODELS - %w(gap))
                 = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, :redirect => request.path}, class: "btn btn-link") do
                   %i
                   = "activerecord.models.#{model}".t

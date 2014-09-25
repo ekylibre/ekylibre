@@ -1,6 +1,6 @@
 =form_tag do
   =field_set :select_closure_date, @journal do
-    =field :closed_at, :source => @journal.reopenings.collect{|d| [::I18n.l(d), d]}
+    =field :closed_on, :source => @journal.reopenings.collect{|d| [::I18n.l(d), d]}
   =form_actions do
     =submit_tag(tc(:reopen_journal))
     =link_to_back(:label => :cancel)

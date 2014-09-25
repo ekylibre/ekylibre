@@ -75,7 +75,7 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def eligible_items
-    JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_at, self.stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_at DESC, #{JournalEntryItem.table_name}.position")
+    JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_at, self.stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
   end
 
   def point(ids)

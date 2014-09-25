@@ -865,7 +865,7 @@ journal_entries:
   journal_id: {type: integer, references: journal, required: true}
   lock_version: {type: integer, required: true, default: 0}
   number: {type: string, required: true}
-  printed_at: {type: datetime, required: true}
+  printed_on: {type: date, required: true}
   real_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   real_currency: {type: string, limit: 3, required: true}
   real_currency_rate: {type: decimal, precision: 19, scale: 10, required: true, default: 0.0}
@@ -900,7 +900,7 @@ journal_entry_items:
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
   position: {type: integer}
-  printed_at: {type: datetime, required: true}
+  printed_on: {type: date, required: true}
   real_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   real_currency: {type: string, limit: 3, required: true}
   real_currency_rate: {type: decimal, precision: 19, scale: 10, required: true, default: 0.0}
@@ -910,7 +910,7 @@ journal_entry_items:
   updater_id: {type: integer, references: user}
 
 journals:
-  closed_at: {type: datetime, required: true}
+  closed_on: {type: date, required: true}
   code: {type: string, limit: 4, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -1839,24 +1839,6 @@ trackings:
   producer_id: {type: integer, references: entity}
   product_id: {type: integer, references: product}
   serial: {type: string}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
-transfers:
-  accounted_at: {type: datetime}
-  affair_id: {type: integer, references: affair}
-  amount: {type: decimal, precision: 19, scale: 4, required: true}
-  client_id: {type: integer, references: entity, required: true}
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  currency: {type: string, limit: 3, required: true}
-  description: {type: string}
-  id: {type: integer, required: true}
-  journal_entry_id: {type: integer, references: journal_entry}
-  label: {type: string}
-  lock_version: {type: integer, required: true, default: 0}
-  number: {type: string}
-  printed_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

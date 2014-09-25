@@ -31,9 +31,9 @@ module Ekylibre::Record  #:nodoc:
         attributes = options
         attributes[:resource]   ||= @resource
         # attributes[:state]      ||= @state
-        attributes[:printed_at] ||= @resource.created_at if @resource.respond_to? :created_at
-        unless attributes[:printed_at].is_a?(Time)
-          raise ArgumentError, "Time of journal_entry (printed_at) must be given. Time expected, got #{attributes[:printed_at].class.name} (#{attributes[:printed_at].inspect})"
+        attributes[:printed_on] ||= @resource.created_at.to_date if @resource.respond_to? :created_at
+        unless attributes[:printed_on].is_a?(Date)
+          raise ArgumentError, "Date of journal_entry (printed_on) must be given. Date expected, got #{attributes[:printed_on].class.name} (#{attributes[:printed_on].inspect})"
         end
         if condition
           unless journal.is_a? Journal

@@ -223,11 +223,11 @@ fra:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
           attributes:
-            closed_at:
-              draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_at}" #?
-              end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_at})"
+            closed_on:
+              draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}" #?
+              end_of_month: "%{attribute} doit correspondre à une date de fin de mois (%{closed_on})"
         journal_entry:
-          closed_journal: "Le journal est clôturé au %{closed_at} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
+          closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
           out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           unbalanced: "La pièce n’est pas équilibrée"
         journal_entry_item:
@@ -514,6 +514,7 @@ fra:
     closable_financial_year: "Exercice clôturable" #?
     closed: "Clôturé"
     closed_at: "Date de clôture"
+    closed_on: "Clôturé le"
     clusters_work_number: "Ilôts PAC"
     code: "Code"
     coefficient: "Coefficient"
@@ -974,7 +975,7 @@ fra:
     price: "Prix"
     price_templates: "Modèles de prix" #?
     prices: "Prix"
-    printed_at: "Datée du"
+    printed_on: "Datée du"
     priority: "Priorité"
     procedures: "Procédures" #?
     process: "Process" #?

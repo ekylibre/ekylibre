@@ -343,7 +343,7 @@ eng:
       draft: "Draft"
       edit: "Edit journal: %{name}"
       general_ledger: "General ledger"
-      import: "Import accounting data"
+      import: "Import accounting data" #?
       index: "Journals"
       new: "New journal"
       reopen: "Reopen journal : %{name}"
@@ -1537,11 +1537,11 @@ eng:
       impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
       impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       invalid_file_nature: "Invalid file type" #?
-      journal_closed_at: "The journal “%{journal}” was closed on %{closed_at}."
+      journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "The record has already been validated and can not be changed"
       journal_entry_has_been_saved: "The record %{number} has been successfully saved"
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      journal_reopened_at: "The journal “%{journal}” has been re-opened on %{closed_at}."
+      journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"
       need_a_production_support: "Need a production support" #?
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."

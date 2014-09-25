@@ -22,7 +22,7 @@
 #
 # == Table: journals
 #
-#  closed_at        :datetime         not null
+#  closed_on        :date             not null
 #  code             :string(4)        not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
@@ -40,7 +40,7 @@
 # == Fixture: journals
 #
 # journals_001:
-#   closed_at: 2013-10-26 18:34:04 +02:00
+#   closed_on: 2013-10-26
 #   code: "Lorem ipsum"
 #   creator: users_001
 #   currency: "Lorem ipsum"
@@ -52,7 +52,7 @@
 #
 
 journals_001:
-  closed_at: 2007-06-30
+  closed_on: 2007-06-30
   code: VOP
   creator: users_001
   currency: EUR
@@ -63,7 +63,7 @@ journals_001:
   used_for_gaps: true
 
 journals_002:
-  closed_at: 2009-07-19
+  closed_on: 2009-07-19
   code: BNK
   creator: users_001
   currency: EUR
@@ -72,7 +72,7 @@ journals_002:
   updater: users_001
 
 journals_003:
-  closed_at: 2007-06-30
+  closed_on: 2007-06-30
   code: SAL
   creator: users_001
   currency: EUR

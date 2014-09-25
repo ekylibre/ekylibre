@@ -81,11 +81,11 @@ class CashTransfer < Ekylibre::Record::Base
   bookkeep do |b|
     transfer_account = Account.find_in_chart(:internal_transfers)
     label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, description: self.description, emission: self.emission_cash.name, reception: self.reception_cash.name)
-    b.journal_entry(self.emission_cash.journal, printed_at: self.transfered_at, column: :emission_journal_entry_id) do |entry|
+    b.journal_entry(self.emission_cash.journal, printed_on: self.transfered_at.to_date, column: :emission_journal_entry_id) do |entry|
       entry.add_debit( label, transfer_account.id, self.emission_amount)
       entry.add_credit(label, self.emission_cash.account_id, self.emission_amount)
     end
-    b.journal_entry(self.reception_cash.journal, printed_at: self.transfered_at, column: :reception_journal_entry_id) do |entry|
+    b.journal_entry(self.reception_cash.journal, printed_on: self.transfered_at.to_date, column: :reception_journal_entry_id) do |entry|
       entry.add_debit( label, self.reception_cash.account_id, self.reception_amount)
       entry.add_credit(label, transfer_account.id, self.reception_amount)
     end

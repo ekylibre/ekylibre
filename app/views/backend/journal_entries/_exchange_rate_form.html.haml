@@ -1,11 +1,11 @@
-- @financial_year = FinancialYear.at(@journal_entry.printed_at)
+- @financial_year = FinancialYear.at(@journal_entry.printed_on)
 - if @financial_year
   - if @journal.currency != @financial_year.currency
     = field_set :exchange_rate do
       = field :exchange_rate_from_x_to_y.tl(x: @journal.currency, y: @financial_year.currency), text_field(:journal_entry, :real_currency_rate)
 
 - main_toolbar do |t|
-  - t.new(params: {controller: :journal_entry_items, printed_at: @journal_entry.printed_at, journal_id: @journal.id}, remote: true, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
+  - t.new(params: {controller: :journal_entry_items, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
 .active-list
   %table.list
 

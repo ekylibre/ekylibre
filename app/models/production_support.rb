@@ -196,12 +196,12 @@ class ProductionSupport < Ekylibre::Record::Base
         balance <<  m * n
       end
     end
-    puts balance.inspect.green
+    # puts balance.inspect.green
     # if net_surface_area, make the division
     if surface_area = self.storage_net_surface_area(self.started_at)
       phosphorus_unity_per_hectare = (balance.compact.sum / surface_area.to_f(:hectare))
     end
-    puts phosphorus_unity_per_hectare.inspect.red
+    # puts phosphorus_unity_per_hectare.inspect.red
     return phosphorus_unity_per_hectare
   end
 

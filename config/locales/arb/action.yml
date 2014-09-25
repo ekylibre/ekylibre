@@ -2076,11 +2076,13 @@ arb:
       impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
       impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
       invalid_file_nature: "نوع الملف غير صحيح"
-      journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح."
+      journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح." #?
+      # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
       journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
       # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-      journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح."
+      journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح." #?
+      # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       levels: #?
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       messages: #?

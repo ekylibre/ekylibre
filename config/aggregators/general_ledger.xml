@@ -18,7 +18,7 @@
           <matrix name="items" for="item" in="account.journal_entry_items.between(started_on, stopped_on)">
             <cell name="id" of="item" level="api"/>
             <cell name="name" of="item"/>
-            <cell name="printed_on" value="item.printed_at" type="datetime"/>
+            <cell name="printed_on" value="item.printed_on" type="datetime"/>
             <cell name="number" of="item.entry" of-type="record"/>
             <cell name="name" of="item.journal" of-type="record"/>
             <cell name="debit" of="item" type="number"/>

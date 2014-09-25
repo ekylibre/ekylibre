@@ -45,7 +45,7 @@
 #  lock_version              :integer          default(0), not null
 #  name                      :string(255)      not null
 #  position                  :integer
-#  printed_at                :datetime         not null
+#  printed_on                :date             not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string(3)        not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null

@@ -118,13 +118,13 @@ class IncomingPayment < Ekylibre::Record::Base
     mode = self.mode
     label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, printed_at: self.to_bank_at, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_at: self.to_bank_at, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?

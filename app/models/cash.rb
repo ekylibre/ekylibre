@@ -161,7 +161,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   def monthly_sums(started_at, stopped_at, expr = "debit - credit")
-    self.account.journal_entry_items.between(started_at, stopped_at).group("EXTRACT(YEAR FROM printed_at)*100 + EXTRACT(MONTH FROM printed_at)").sum(expr).sort.inject({}) do |hash, pair|
+    self.account.journal_entry_items.between(started_at, stopped_at).group("EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)").sum(expr).sort.inject({}) do |hash, pair|
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
     end
@@ -170,7 +170,7 @@ class Cash < Ekylibre::Record::Base
 
   # Returns cash balance in the global currency
   def balance(at = Time.now)
-    if item = self.journal_entry_items.order(printed_at: :desc).where("printed_at <= ?", at).first
+    if item = self.journal_entry_items.order(printed_on: :desc).where("printed_on <= ?", at).first
       return item.cumulated_absolute_balance
     end
     return 0.0

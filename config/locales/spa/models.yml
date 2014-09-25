@@ -171,10 +171,11 @@ spa:
         incoming_delivery_line: #?
         journal:
           attributes:
-            closed_at:
-              # end_of_month: "%{attribute} must be an end of month (%{closed_at})"
+            closed_at: #?
+            closed_on:
+              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
-          # closed_journal: "The journal %{journal} is closed on %{closed_at}. No updates are possible until this date."
+          # closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
           # out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
           # unbalanced: "The journal entry is unbalanced"
         journal_entry_item:
@@ -444,7 +445,8 @@ spa:
     # client_account: "Client account"
     # clients: "Clients"
     # closed: "Closed"
-    # closed_at: "Closed on"
+    # closed_at: "Closed at"
+    # closed_on: "Closed on"
     # clusters_work_number: "Clusters work number"
     # code: "Code"
     # coefficient: "Coefficient"
@@ -849,7 +851,7 @@ spa:
     # previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     # price: "Price"
     # prices: "Prices"
-    # printed_at: "Printed on"
+    # printed_on: "Printed on"
     # priority: "Priority"
     # producer: "Producer"
     # producer_way: "Producer way"

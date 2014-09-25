@@ -82,7 +82,7 @@ class OutgoingPayment < Ekylibre::Record::Base
     # attorney_amount = self.attorney_amount
     supplier_amount = self.amount #  - attorney_amount
     label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payee => self.payee.full_name, :mode => self.mode.name, :check_number => self.bank_check_number) # , :expenses => self.uses.collect{|p| p.expense.number}.to_sentence
-    b.journal_entry(self.mode.cash.journal, printed_at: self.to_bank_at, :unless => (!self.mode.with_accounting? or !self.delivered)) do |entry|
+    b.journal_entry(self.mode.cash.journal, printed_on: self.to_bank_at.to_date, :unless => (!self.mode.with_accounting? or !self.delivered)) do |entry|
       entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
       # entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       entry.add_credit(label, self.mode.cash.account_id, self.amount)

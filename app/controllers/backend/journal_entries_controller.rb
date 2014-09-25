@@ -24,7 +24,7 @@ class Backend::JournalEntriesController < BackendController
 
   list(:children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
-    t.column :printed_at, :datatype => :date, :children => false
+    t.column :printed_on, :datatype => :date, :children => false
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
@@ -57,7 +57,7 @@ class Backend::JournalEntriesController < BackendController
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build
-    @journal_entry.printed_at = params[:printed_at]||Date.today
+    @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
     @journal_entry_items = []
     if request.xhr?

@@ -22,7 +22,7 @@
           %tr
             %th=JournalEntryItem.human_attribute_name("letter")
             %th.act
-            %th=JournalEntry.human_attribute_name("printed_at")
+            %th=JournalEntry.human_attribute_name("printed_on")
             %th=Journal.model_name.human
             %th=JournalEntry.model_name.human
             %th=JournalEntryItem.human_attribute_name("name")
@@ -40,7 +40,7 @@
                 -else
                   =item.letter
               %td.act=link_to("labels.unmark".t, {action: :unmark, id: @account.id, :letter => item.letter}, class: "unmark", method: :post, "data-confirm" => tg(:are_you_sure)) unless item.letter.blank? or item.closed?
-              %td.dat{conf}=I18n.localize(item.entry.printed_at)
+              %td.dat{conf}=I18n.localize(item.entry.printed_on)
               %td{conf}=link_to(item.journal.name, {action: :show, controller: :journals, id: item.journal_id}, :keep => true)
               %td.code{conf}=link_to(item.entry.number, {action: :show, controller: :journal_entries, id: item.entry_id}, :keep => true)
               %td{conf}=item.name

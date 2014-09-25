@@ -1,6 +1,6 @@
 = Procedures
 
-Procedures permits to make evolve states of products (localization, phase, ownership, enjoyment, memberships, readings, and linkages).
+Procedures permits to make evolve states of products (localization, phase, ownership, enjoyment, memberships, readings, links, and linkages).
 
 == Tasks
 

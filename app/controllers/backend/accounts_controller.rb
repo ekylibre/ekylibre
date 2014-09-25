@@ -63,7 +63,7 @@ class Backend::AccountsController < BackendController
   list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_at, :datatype => :date, :label => :column
+    t.column :printed_on, :datatype => :date, :label => :column
     t.column :name
     t.column :state_label
     t.column :letter
@@ -91,7 +91,7 @@ class Backend::AccountsController < BackendController
     return code.c
   end
 
-  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_at") do |t|
+  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_on") do |t|
     t.column :account_number, through: :account, label_method: :number, url: {action: :mark}
     t.column :account_name, through: :account, label_method: :name, url: {action: :mark}
     t.column :entry_number

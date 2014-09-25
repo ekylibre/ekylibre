@@ -982,6 +982,7 @@ journal_entries:
 journals:
   read:
     actions:
+    - "backend/journals#general_ledger"
     - "backend/journals#index"
     - "backend/journals#list"
     - "backend/journals#list_draft_items"
@@ -997,48 +998,22 @@ journals:
     actions:
     - "backend/journals#balance"
     - "backend/journals#bookkeep"
-    - "backend/journals#close"
     - "backend/journals#create"
     - "backend/journals#destroy"
     - "backend/journals#draft"
     - "backend/journals#edit"
-    - "backend/journals#general_ledger"
-    - "backend/journals#import"
     - "backend/journals#new"
-    - "backend/journals#reopen"
     - "backend/journals#update"
   close:
     depend-on:
     - read-journals
     actions:
-    - "backend/journals#balance"
-    - "backend/journals#bookkeep"
     - "backend/journals#close"
-    - "backend/journals#create"
-    - "backend/journals#destroy"
-    - "backend/journals#draft"
-    - "backend/journals#edit"
-    - "backend/journals#general_ledger"
-    - "backend/journals#import"
-    - "backend/journals#new"
-    - "backend/journals#reopen"
-    - "backend/journals#update"
   reopen:
     depend-on:
     - read-journals
     actions:
-    - "backend/journals#balance"
-    - "backend/journals#bookkeep"
-    - "backend/journals#close"
-    - "backend/journals#create"
-    - "backend/journals#destroy"
-    - "backend/journals#draft"
-    - "backend/journals#edit"
-    - "backend/journals#general_ledger"
-    - "backend/journals#import"
-    - "backend/journals#new"
     - "backend/journals#reopen"
-    - "backend/journals#update"
 
 land_parcel_clusters:
   read:

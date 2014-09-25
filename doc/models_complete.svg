@@ -236,7 +236,7 @@
 <text text-anchor="start" x="2583.86" y="-8227.4" font-family="Times Roman,serif" font-size="14.00">crypt_key :binary</text>
 <text text-anchor="start" x="2583.86" y="-8209.4" font-family="Times Roman,serif" font-size="14.00">crypt_mode :string</text>
 <text text-anchor="start" x="2583.86" y="-8191.4" font-family="Times Roman,serif" font-size="14.00">sha256 :string</text>
-<text text-anchor="start" x="2583.86" y="-8173.4" font-family="Times Roman,serif" font-size="14.00">printed_at :datetime</text>
+<text text-anchor="start" x="2583.86" y="-8173.4" font-family="Times Roman,serif" font-size="14.00">printed_on :datetime</text>
 <text text-anchor="start" x="2583.86" y="-8155.4" font-family="Times Roman,serif" font-size="14.00">created_at :datetime</text>
 <text text-anchor="start" x="2583.86" y="-8137.4" font-family="Times Roman,serif" font-size="14.00">updated_at :datetime</text>
 <text text-anchor="start" x="2583.86" y="-8119.4" font-family="Times Roman,serif" font-size="14.00">creator_id :integer</text>

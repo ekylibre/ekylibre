@@ -36,7 +36,7 @@
 #  journal_id         :integer          not null
 #  lock_version       :integer          default(0), not null
 #  number             :string(255)      not null
-#  printed_at         :datetime         not null
+#  printed_on         :date             not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
 #  real_currency      :string(3)        not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
@@ -56,10 +56,10 @@ class JournalEntryTest < ActiveSupport::TestCase
   test "a journal forbids to write records before its closure date" do
     @journal = journals(:journals_001)
     assert_raise ActiveRecord::RecordInvalid do
-      record = @journal.entries.create!(printed_at: @journal.closed_at - 10.days)
+      record = @journal.entries.create!(printed_on: @journal.closed_on - 10)
     end
     assert_nothing_raised do
-      record = @journal.entries.create!(printed_at: @journal.closed_at + 1.day)
+      record = @journal.entries.create!(printed_on: @journal.closed_on + 1)
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923153017) do
+ActiveRecord::Schema.define(version: 20140925091652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1250,7 +1250,7 @@ ActiveRecord::Schema.define(version: 20140923153017) do
     t.integer  "resource_id"
     t.string   "resource_type"
     t.string   "state",              limit: 30,                                         null: false
-    t.datetime "printed_at",                                                            null: false
+    t.date     "printed_on",                                                            null: false
     t.decimal  "real_debit",                    precision: 19, scale: 4,  default: 0.0, null: false
     t.decimal  "real_credit",                   precision: 19, scale: 4,  default: 0.0, null: false
     t.string   "real_currency",      limit: 3,                                          null: false
@@ -1284,7 +1284,7 @@ ActiveRecord::Schema.define(version: 20140923153017) do
     t.integer  "bank_statement_id"
     t.integer  "financial_year_id",                                                            null: false
     t.string   "state",                     limit: 30,                                         null: false
-    t.datetime "printed_at",                                                                   null: false
+    t.date     "printed_on",                                                                   null: false
     t.string   "entry_number",                                                                 null: false
     t.string   "letter",                    limit: 10
     t.integer  "position"
@@ -1327,7 +1327,7 @@ ActiveRecord::Schema.define(version: 20140923153017) do
     t.string   "nature",           limit: 30,                 null: false
     t.string   "name",                                        null: false
     t.string   "code",             limit: 4,                  null: false
-    t.datetime "closed_at",                                   null: false
+    t.date     "closed_on",                                   null: false
     t.string   "currency",         limit: 3,                  null: false
     t.boolean  "used_for_affairs",            default: false, null: false
     t.boolean  "used_for_gaps",               default: false, null: false
@@ -2703,33 +2703,6 @@ ActiveRecord::Schema.define(version: 20140923153017) do
   add_index "trackings", ["product_id"], :name => "index_trackings_on_product_id"
   add_index "trackings", ["updated_at"], :name => "index_trackings_on_updated_at"
   add_index "trackings", ["updater_id"], :name => "index_trackings_on_updater_id"
-
-  create_table "transfers", force: true do |t|
-    t.decimal  "amount",                     precision: 19, scale: 4,             null: false
-    t.string   "currency",         limit: 3,                                      null: false
-    t.integer  "client_id",                                                       null: false
-    t.string   "label"
-    t.string   "number"
-    t.string   "description"
-    t.datetime "printed_at"
-    t.datetime "accounted_at"
-    t.integer  "journal_entry_id"
-    t.integer  "affair_id"
-    t.datetime "created_at",                                                      null: false
-    t.datetime "updated_at",                                                      null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                        default: 0, null: false
-  end
-
-  add_index "transfers", ["accounted_at"], :name => "index_transfers_on_accounted_at"
-  add_index "transfers", ["affair_id"], :name => "index_transfers_on_affair_id"
-  add_index "transfers", ["client_id"], :name => "index_transfers_on_client_id"
-  add_index "transfers", ["created_at"], :name => "index_transfers_on_created_at"
-  add_index "transfers", ["creator_id"], :name => "index_transfers_on_creator_id"
-  add_index "transfers", ["journal_entry_id"], :name => "index_transfers_on_journal_entry_id"
-  add_index "transfers", ["updated_at"], :name => "index_transfers_on_updated_at"
-  add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 
   create_table "transports", force: true do |t|
     t.integer  "transporter_id",                                               null: false

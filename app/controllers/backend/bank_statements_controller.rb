@@ -48,7 +48,7 @@ class Backend::BankStatementsController < BackendController
   list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: :entry_id) do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_at
+    t.column :printed_on
     t.column :name
     t.column :account, url: true
     t.column :debit, currency: true

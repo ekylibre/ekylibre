@@ -704,8 +704,10 @@ arb:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
         journal:
           attributes:
-            closed_at:
-              end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_at})"
+            closed_at:  #?
+              end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_at})" #?
+            closed_on:
+              # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
           # out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
@@ -1086,6 +1088,7 @@ arb:
     clients: "العملاء"
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
+    # closed_on: "Closed on"
     # clusters_work_number: "Clusters work number"
     code: "الرمز"
     code2: "الرمز الثاني" #?
@@ -1682,7 +1685,7 @@ arb:
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
     prices: "الاسعار"
-    printed_at: "طبع يوم"
+    printed_on: "طبع يوم"
     # priority: "Priority"
     producer: "المنتج"
     producer_id: "المنتج" #?

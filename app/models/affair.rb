@@ -52,10 +52,9 @@
 # IncomingPayment |    X    |         |
 # LossGap         |    X    |         |
 # ProfitGap       |         |    X    |
-# Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
-  AFFAIRABLE_TYPES = %w(Gap Sale Purchase IncomingPayment OutgoingPayment Transfer).freeze
+  AFFAIRABLE_TYPES = %w(Gap Sale Purchase IncomingPayment OutgoingPayment).freeze
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
   # enumerize :third_role, in: [:client, :supplier], predicates: true
   belongs_to :third, class_name: "Entity"
@@ -66,7 +65,6 @@ class Affair < Ekylibre::Record::Base
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
-  has_many :transfers,         inverse_of: :affair, dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
@@ -116,7 +114,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    b.journal_entry(Journal.used_for_affairs, printed_at: (all_deals.last ? all_deals.last.dealt_at : Time.now), if: (self.balanced? and thirds.size > 1)) do |entry|
+    b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_at : Time.now).to_date, if: (self.balanced? and thirds.size > 1)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end

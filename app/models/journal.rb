@@ -22,7 +22,7 @@
 #
 # == Table: journals
 #
-#  closed_at        :datetime         not null
+#  closed_on        :date             not null
 #  code             :string(4)        not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
@@ -50,7 +50,7 @@ class Journal < Ekylibre::Record::Base
   validates_length_of :nature, allow_nil: true, maximum: 30
   validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :used_for_affairs, :used_for_gaps, in: [true, false]
-  validates_presence_of :closed_at, :code, :currency, :name, :nature
+  validates_presence_of :closed_on, :code, :currency, :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_uniqueness_of :name
@@ -63,8 +63,8 @@ class Journal < Ekylibre::Record::Base
     end
     where(nature: nature.to_s)
   }
-  scope :opened_at, lambda { |at|
-    where(arel_table[:closed_at].lteq(at))
+  scope :opened_on, lambda { |at|
+    where(arel_table[:closed_on].lteq(at))
   }
   scope :sales,     -> { where(nature: "sales") }
   scope :purchases, -> { where(nature: "purchases") }
@@ -76,9 +76,9 @@ class Journal < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     if year = FinancialYear.first_of_all
-      self.closed_at ||= (year.started_on - 1).end_of_day
+      self.closed_on ||= (year.started_on - 1).end_of_day
     end
-    self.closed_at ||= Time.new(1899, 12, 31).end_of_month
+    self.closed_on ||= Time.new(1899, 12, 31).end_of_month
   end
 
   # this method is .alled before creation or validation method.
@@ -94,10 +94,10 @@ class Journal < Ekylibre::Record::Base
   validate do
     valid = false
     FinancialYear.find_each do |financial_year|
-      valid = true if self.closed_at == (financial_year.started_on-1).end_of_day
+      valid = true if self.closed_on == (financial_year.started_on-1).end_of_day
     end
     unless valid
-      errors.add(:closed_at, :end_of_month, :closed_at => ::I18n.localize(self.closed_at)) if self.closed_at.to_date != self.closed_at.end_of_month.to_date
+      errors.add(:closed_on, :end_of_month, :closed_on => ::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
     if self.code.to_s.size > 0
       errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).count > 0
@@ -127,18 +127,18 @@ class Journal < Ekylibre::Record::Base
 
 
   #
-  def closable?(closed_at=nil)
-    closed_at ||= Date.today
-    self.class.where(:id => self.id).update_all(:closed_at => Date.civil(1900, 12, 31)) if self.closed_at.nil?
+  def closable?(closed_on=nil)
+    closed_on ||= Date.today
+    self.class.where(:id => self.id).update_all(:closed_on => Date.civil(1900, 12, 31)) if self.closed_on.nil?
     self.reload
-    return false unless (closed_at << 1).end_of_month > self.closed_at
+    return false unless (closed_on << 1).end_of_month > self.closed_on
     return true
   end
 
-  def closures(noticed_at=nil)
-    noticed_at ||= Date.today
-    array, date = [], (self.closed_at+1).end_of_month
-    while date < noticed_at
+  def closures(noticed_on=nil)
+    noticed_on ||= Date.today
+    array, date = [], (self.closed_on+1).end_of_month
+    while date < noticed_on
       array << date
       date = (date+1).end_of_month
     end
@@ -146,15 +146,15 @@ class Journal < Ekylibre::Record::Base
   end
 
   # this method closes a journal.
-  def close(closed_at)
-    errors.add(:closed_at, :end_of_month) if self.closed_at != self.closed_at.end_of_month
-    errors.add(:closed_at, :draft_entry_items, :closed_at => closed_at.l) if self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(:state => :draft).where(printed_at: (self.closed_at+1)..closed_at).any?
+  def close(closed_on)
+    errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
+    errors.add(:closed_on, :draft_entry_items, :closed_on => closed_on.l) if self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(:state => :draft).where(printed_on: (self.closed_on+1)..closed_on).any?
     return false unless errors.empty?
     ActiveRecord::Base.transaction do
-      self.entries.where(printed_at: (self.closed_at+1)..closed_at).find_each do |entry|
+      self.entries.where(printed_on: (self.closed_on+1)..closed_on).find_each do |entry|
         entry.close
       end
-      self.update_column(:closed_at, closed_at)
+      self.update_column(:closed_on, closed_on)
     end
     return true
   end
@@ -169,19 +169,19 @@ class Journal < Ekylibre::Record::Base
     year = FinancialYear.current
     return [] if year.nil?
     array, date = [], year.started_on-1
-    while date < self.closed_at
+    while date < self.closed_on
       array << date
       date = (date+1).end_of_month
     end
     return array
   end
 
-  def reopen(closed_at)
+  def reopen(closed_on)
     ActiveRecord::Base.transaction do
-      for entry in self.entries.where(printed_at: (closed_at+1)..self.closed_at)
+      for entry in self.entries.where(printed_on: (closed_on+1)..self.closed_on)
         entry.reopen
       end
-      self.update_column(:closed_at, closed_at)
+      self.update_column(:closed_on, closed_on)
     end
     return true
   end
@@ -200,19 +200,19 @@ class Journal < Ekylibre::Record::Base
   end
 
 
-  def entry_items_between(started_at, stopped_at)
-    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_at: started_at..stopped_at).order("printed_at, journal_entries.id, journal_entry_items.id")
+  def entry_items_between(started_on, stopped_on)
+    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_on..stopped_on).order("printed_on, journal_entries.id, journal_entry_items.id")
   end
 
-  def entry_items_calculate(column, started_at, stopped_at, operation=:sum)
+  def entry_items_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_at: started_at..stopped_at).calculate(operation, column)
+    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_on: started_on..stopped_on).calculate(operation, column)
   end
 
 
   # Compute a balance with many options
-  # * :started_at Use journal entries printed on after started_at
-  # * :stopped_at Use journal entries printed on before stopped_at
+  # * :started_on Use journal entries printed on after started_on
+  # * :stopped_on Use journal entries printed on before stopped_on
   # * :draft      Use draft journal entry_items
   # * :confirmed  Use confirmed journal entry_items
   # * :closed     Use closed journal entry_items
@@ -233,7 +233,7 @@ class Journal < Ekylibre::Record::Base
     centralized = centralize.collect{|c| "#{accounts}.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")
 
     from_where  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    from_where += " WHERE "+JournalEntry.period_condition(options[:period], options[:started_at], options[:stopped_at], journal_entries)
+    from_where += " WHERE "+JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
 
     # Total
     items = []

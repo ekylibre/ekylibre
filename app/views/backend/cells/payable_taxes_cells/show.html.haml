@@ -13,14 +13,14 @@
     end
 
     for tax in taxes
-      collect_items   =   tax.collect_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_at)
-      deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_at)
+      collect_items   =   tax.collect_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
+      deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
 
       data = []
       last = {collect: 0.0, deduction: 0.0}
       for name, period in periods
-        collect = collect_items.where(printed_at: period).last
-        deduction = deduction_items.where(printed_at: period).last
+        collect = collect_items.where(printed_on: period).last
+        deduction = deduction_items.where(printed_on: period).last
         last[:collect] = (collect ? collect.cumulated_absolute_balance.to_f : last[:collect])
         last[:deduction] = (deduction ? deduction.cumulated_absolute_balance.to_f : last[:deduction])
         data << - (last[:collect] + last[:deduction])

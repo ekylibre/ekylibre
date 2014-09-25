@@ -59,7 +59,7 @@ class Backend::JournalsController < BackendController
 
   list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :entry_number, url: true
-    t.column :printed_at, through: :entry, :datatype => :date
+    t.column :printed_on, through: :entry, :datatype => :date
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -75,7 +75,7 @@ class Backend::JournalsController < BackendController
 
   list(:entries, model: :journal_entries, conditions: journal_entries_conditions, order: {created_at: :desc}) do |t|
     t.column :number, url: true
-    t.column :printed_at
+    t.column :printed_on
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
@@ -90,7 +90,7 @@ class Backend::JournalsController < BackendController
   # FIXME RECORD.real_currency does not exist
   list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
-    t.column :printed_at, :datatype => :date, :children => false
+    t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, url: {action: :account}
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
@@ -109,7 +109,7 @@ class Backend::JournalsController < BackendController
     t.column :code, url: true
     t.column :nature
     #t.column :currency
-    t.column :closed_at
+    t.column :closed_on
     # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
     t.action :close, if: 'RECORD.closable?(Date.today)'.c, image: :unlock
     t.action :reopen, if: :reopenable?, image: :lock
@@ -138,8 +138,8 @@ class Backend::JournalsController < BackendController
       return
     end
     if request.post?
-      if @journal.close(params[:journal][:closed_at].to_date)
-        notify_success(:journal_closed_at, :closed_at => ::I18n.l(@journal.closed_at), :journal => @journal.name)
+      if @journal.close(params[:journal][:closed_on].to_date)
+        notify_success(:journal_closed_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
         redirect_to_back
       end
     end
@@ -154,8 +154,8 @@ class Backend::JournalsController < BackendController
       return
     end
     if request.post?
-      if @journal.reopen(params[:journal][:closed_at].to_date)
-        notify_success(:journal_reopened_at, :closed_at => ::I18n.l(@journal.closed_at), :journal => @journal.name)
+      if @journal.reopen(params[:journal][:closed_on].to_date)
+        notify_success(:journal_reopened_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
         redirect_to_back
       end
     end
@@ -171,7 +171,7 @@ class Backend::JournalsController < BackendController
   list(:draft_items, model: :journal_entry_items, conditions: journal_entries_conditions(:with_journals => true, :state => :draft), joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_at, :datatype => :date
+    t.column :printed_on, :datatype => :date
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -205,8 +205,8 @@ class Backend::JournalsController < BackendController
 
 
   def bookkeep
-    params[:stopped_at] = params[:stopped_at].to_date rescue Date.today
-    params[:started_at] = params[:started_at].to_date rescue (params[:stopped_at] - 1.year).beginning_of_month
+    params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
+    params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
     @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment, :cash_transfer, :affair] # , transfer
 
     if request.get?
@@ -219,11 +219,11 @@ class Backend::JournalsController < BackendController
     end
 
     if @step >= 2
-      session[:stopped_at] = params[:stopped_at]
-      session[:started_at] = params[:started_at]
+      session[:stopped_on] = params[:stopped_on]
+      session[:started_on] = params[:started_on]
       @records = {}
       for nature in @natures
-        conditions = ["created_at BETWEEN ? AND ?", session[:started_at].to_time.beginning_of_day, session[:stopped_at].to_time.end_of_day]
+        conditions = ["created_at BETWEEN ? AND ?", session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
         @records[nature] = nature.to_s.classify.constantize.where(conditions)
       end
 
@@ -267,7 +267,7 @@ class Backend::JournalsController < BackendController
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
     t.column :entry_number, url: true
-    t.column :printed_at
+    t.column :printed_on
     t.column :name
     t.column :real_debit,  currency: :real_currency, hidden: true
     t.column :real_credit, currency: :real_currency, hidden: true
@@ -281,72 +281,5 @@ class Backend::JournalsController < BackendController
 
   def general_ledger
   end
-
-  # TODO: Removes totally this old action in next buug cleaning
-  # def reports()
-  #   # redirect_to action: :index
-  #   @document_templates = DocumentTemplate.where(:family => "accountancy", :nature => ["journal", "general_journal", "general_ledger"]).order(:name)
-  #   @document_template = DocumentTemplate.find_by_family_and_code("accountancy", params[:code])
-  #   if request.xhr?
-  #     render :partial => 'options'
-  #     return
-  #   end
-  #   if params[:export] == "balance"
-  #     query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_items.debit, 0)), sum(COALESCE(journal_entry_items.credit, 0)), sum(COALESCE(journal_entry_items.debit, 0)) - sum(COALESCE(journal_entry_items.credit, 0))"
-  #     query += " FROM #{JournalEntryItem.table_name} AS journal_entry_items JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
-  #     query += " WHERE printed_at BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_at].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_at].to_date)}"
-  #     query += " GROUP BY accounts.name, accounts.number"
-  #     query += " ORDER BY accounts.number"
-  #     begin
-  #       result = ActiveRecord::Base.connection.select_rows(query)
-  #       result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
-  #       result.insert(0, ["Balance du #{params[:started_at]} au #{params[:stopped_at]}"])
-  #       csv_string = Ekylibre::CSV.generate do |csv|
-  #         for item in result
-  #           csv << item
-  #         end
-  #       end
-  #       send_data(csv_string, :filename => 'export.csv', :type => Mime::CSV)
-  #     rescue Exception => e
-  #       notify_error_now(:exception_raised, :message => e.message)
-  #     end
-  #   elsif params[:export] == "isaquare"
-  #     path = Ekylibre::Export::AccountancySpreadsheet.generate(params[:started_at].to_date, params[:stopped_at].to_date, Entity.of_company.full_name.simpleize+".ECC")
-  #     send_file(path, :filename => path.basename, :type => Mime::ZIP)
-  #   elsif params[:template]
-  #     template = DocumentTemplate.find_by_code(params[:template])
-  #     nature = template.nature.to_sym
-  #     if [:balance_sheet, :income_statement].include?(nature)
-  #       send("render_print_#{nature}", FinancialYear.find_by_id(params[:financial_year_id]))
-  #     elsif [:general_journal, :general_ledger].include?(nature)
-  #       send("render_print_#{nature}", params[:started_at], params[:stopped_at])
-  #     elsif [:journal].include?(nature)
-  #       send("render_print_#{nature}", Journal.find_by_id(params[:journal_id]), params[:started_at], params[:stopped_at])
-  #     end
-  #   end
-  #   @document_template ||= @document_templates[0]
-  # end
-
-
-
-
-
-  def import
-    @supported_files = [["COTFW.ISA", :isa_compta]]
-    if request.post?
-      data = params[:upload]
-      file = Rails.root.join("tmp", "upload-#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
-      File.open(file, "wb") {|f| f.write(data.read)}
-      nature = params[:nature].to_sym rescue nil
-      logger.silence do
-        Exchanges.import(nature, file)
-        begin
-        rescue Exception => e
-          notify_error_now(:exception_raised, :message => e.message)
-        end
-      end
-    end
-  end
-
 
 end
