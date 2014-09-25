@@ -1,6 +1,15 @@
 %h2= t('.sign_in', :default => "Sign in")
 
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+
+  .field.secondary
+    = label_tag :time_zone.tl
+    = select_tag :time_zone, options_for_select(ActiveSupport::TimeZone.all.map{|z| [z.to_s, z.tzinfo.identifier] }), "data-auto-timezone" => true
+
+  .field.secondary
+    = label_tag :locale.tl
+    = locale_selector_tag
+
   .field
     = f.label :email
     = f.email_field :email
@@ -8,14 +17,6 @@
   .field
     = f.label :password
     = f.password_field :password
-
-  .field
-    = label_tag :time_zone.tl
-    = select_tag :time_zone, options_for_select(ActiveSupport::TimeZone.all.map{|z| [z.to_s, z.tzinfo.identifier] }), "data-auto-timezone" => true
-
-  .field
-    = label_tag :locale.tl
-    = locale_selector_tag
 
   - if devise_mapping.rememberable?
     .field.field-remember-me

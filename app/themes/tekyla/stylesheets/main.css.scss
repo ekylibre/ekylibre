@@ -339,11 +339,11 @@ html.authentication {
     #wrap {
       width: 100% !important;
       background: transparent;
-      border-top: 2px solid $active-color;
+      // border-top: 2px solid $active-color;
       #main {
         background: transparent;
         margin: 60px auto;
-        width: 40%;
+        width: 360px;
         @include respond-to(small) {
           margin: auto;
           width: 100%;
@@ -351,15 +351,16 @@ html.authentication {
         #content {
           background: #FFF;
           @include incrust-shadow;
-          padding: 20px;
+          padding: 2em;
           .logo {
             text-align: center;
+            margin-bottom: 1em;
             img {
               max-width: 100%;
             }
           }
           form {
-            max-width: 320px;
+            max-width: 100%;
             margin: $fs-large auto;
           }
           h2 {
@@ -2367,4 +2368,11 @@ svg.map {
   }
 
 
+}
+
+.secondary {
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
 }
