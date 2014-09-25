@@ -4,7 +4,7 @@ module Clean
     class << self
 
       def set_search_path!
-        ActiveRecord::Base.connection.schema_search_path = Ekylibre::Application.config.database_configuration[::Rails.env]["schema_search_path"]
+        Ekylibre::Tenant.reset_search_path!
       end
 
       def exp(hash, *keys)

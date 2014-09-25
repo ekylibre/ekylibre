@@ -64,7 +64,7 @@ module Ekylibre
         if Apartment.connection.schema_exists? name
           Apartment::Tenant.drop(name)
         end
-        FileUtils.rm_rf(Apartment::Tenant.private_directory(name))
+        FileUtils.rm_rf private_directory(name)
         @list[env].delete(name)
         write
       end
@@ -132,6 +132,10 @@ module Ekylibre
           query = "CREATE VIEW #{name}.#{table} AS " + queries.join(" UNION ALL ")
           connection.execute(query)
         end
+      end
+
+      def reset_search_path!
+        ActiveRecord::Base.connection.schema_search_path = Ekylibre::Application.config.database_configuration[::Rails.env]["schema_search_path"]
       end
 
       private
