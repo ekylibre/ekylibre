@@ -744,6 +744,7 @@ fra:
     cancel: "Annuler"
     cancelled: "Passées en avoir"
     care: "soins" #?
+    cartography: "Cartographie"
     cash: "Compte bancaire"
     cash_balances: "Soldes des comptes de trésorerie"
     casts: "Intervenants" #?

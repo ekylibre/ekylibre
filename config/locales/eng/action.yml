@@ -736,6 +736,7 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelled: "Cancelled" #?
+    cartography: "Cartography"
     cash: "Cash"
     cash_balances: "Bank chart" #?
     catalog: "Catalog" #?

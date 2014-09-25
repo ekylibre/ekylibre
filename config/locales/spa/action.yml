@@ -855,6 +855,7 @@ spa:
     # canals: "Canals"
     # cancel: "Cancel"
     cancelled: "Pasar en activos"
+    # cartography: "Cartography"
     # cash: "Cash"
     # cash_balances: "Bank chart"
     cash_tabbox:  #?

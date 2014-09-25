@@ -65,7 +65,7 @@ module Ekylibre
         write
       end
 
-      
+
       def rename(old, new)
         check!(old)
         unless exist?(old)
