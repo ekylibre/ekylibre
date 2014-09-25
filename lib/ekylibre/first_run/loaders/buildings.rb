@@ -25,33 +25,24 @@ Ekylibre::FirstRun.add_loader :buildings do |first_run|
           unless zone_variant = ProductNatureVariant.find_by(reference_name: r.nature)
             zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
           end
-          zone_variant.matching_model.create!(variant: zone_variant, work_number: r.code,
+          zone = zone_variant.matching_model.create!(variant: zone_variant, work_number: r.code,
                                               name: r.name,
                                               initial_born_at: born_at,
                                               initial_owner: Entity.of_company,
                                               initial_container: Product.find_by_work_number(r.place_code))
         end
+
+        if zone
+          if georeading = Georeading.find_by(number: r.code)
+            zone.read!(:shape, georeading.content, at: born_at, force: true)
+            zone.read!(:net_surface_area, zone.shape_area, at: born_at, force: true)
+          end
+        end
+
         w.check_point
       end
     end
   end
 
-  path = first_run.path("alamano", "zones", "zones.shp")
-  if path.exist?
-    first_run.count :zones_shapes do |w|
-      #############################################################################
-      born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
-        # puts "File contains #{file.num_records} records."
-        file.each do |record|
-          if zone = Product.find_by_work_number(record.attributes['work_numbe'])
-            zone.read!(:shape, record.geometry, at: born_at, force: true)
-            zone.read!(:net_surface_area, zone.shape_area, at: born_at, force: true)
-          end
-          w.check_point
-        end
-      end
-    end
-  end
 
 end

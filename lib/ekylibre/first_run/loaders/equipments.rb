@@ -67,6 +67,13 @@ Ekylibre::FirstRun.add_loader :equipments do |first_run|
           equipment.save!
         end
 
+        # attach georeading if exist for equipment
+        if equipment
+          if georeading = Georeading.find_by(number: r.work_number)
+            equipment.read!(:shape, georeading.content, at: r.born_at, force: true)
+          end
+        end
+
         w.check_point
       end
 

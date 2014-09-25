@@ -2,15 +2,27 @@
   - t.edit resource
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :number
-      - l.attribute :reference_number
-      - l.attribute :product, url: true
-      - l.attribute :sampler, url: true
-      - l.attribute :sampled_at
-      - l.attribute :analyser, url: true
-      - l.attribute :analysed_at
+  - b.hbox do
+    - b.cell do
+      = attributes_list do |l|
+        - l.attribute :number
+        - l.attribute :reference_number
+        - l.attribute :product, url: true
+        - l.attribute :sampler, url: true
+        - l.attribute :sampled_at
+        - l.attribute :analyser, url: true
+        - l.attribute :analysed_at
+    - if resource.geolocation
+      - b.cell do
+        = visualization do |v|
+          - v.background 'OpenStreetMap.HOT'
+          - v.background "Esri.WorldImagery"
+          - v.serie :data, [{name: resource.number, shape: resource.geolocation}]
+          - v.path "#{resource.number}", :data
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
 
   - b.cell :items do
     = list :items

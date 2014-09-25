@@ -5,7 +5,7 @@
         item =  {
                   name:         equipment.name,
                   nature:       equipment.nature_name,
-                  shape:        equipment.geolocation
+                  shape:        equipment.shape
                 }
         equipments_geolocation << item
   end
@@ -17,7 +17,7 @@
   -b.cell :map do
     = visualization do |v|
       - v.serie :locations, equipments_geolocation
-      - v.paths :nature, :locations
+      - v.categories :nature, :locations
       - v.background 'OpenStreetMap.HOT'
       - v.background 'Thunderforest.Transport'
       - v.background 'Thunderforest.Outdoors'
