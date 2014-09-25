@@ -65,7 +65,18 @@ module Ekylibre
         write
       end
 
+      
+      def rename(old, new)
+        check!(old)
+        unless exist?(old)
+          raise TenantError, "Unexistent tenant: #{name}"
+        end
+        ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
+        @list[env].delete(old.to_s)
+        @list[env] << new.to_s
+      end
 
+      # Change current tenant
       def switch(name)
         Apartment::Tenant.switch(name)
       end

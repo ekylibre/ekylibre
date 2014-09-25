@@ -27,6 +27,17 @@ namespace :tenant do
     end
   end
 
+  desc "Rename a tenant (with OLD/NEW variables)"
+  task :rename  => :environment do
+    old = ENV["OLD"] || ENV["name"]
+    new = ENV["NEW"]
+    if Ekylibre::Tenant.exist?(old)
+      Ekylibre::Tenant.rename(old, new)
+    else
+      puts "Unknown tenant: #{old.inspect.red}"
+    end
+  end
+
   task :clear do
     require 'ekylibre/tenant'
     Ekylibre::Tenant.clear!
