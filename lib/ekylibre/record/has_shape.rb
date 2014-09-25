@@ -57,6 +57,7 @@ module Ekylibre::Record
 
           # Return SVG as String
           code << "def #{indicator}_svg(options = {})\n"
+          code << "  options[:srid] ||= 2154\n"
           code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
           code << "  geom = Charta::Geometry.new(self.#{indicator})\n"
           code << "  geom = geom.transform(options[:srid]) if options[:srid]\n"

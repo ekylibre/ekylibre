@@ -84,7 +84,7 @@ class Backend::InterventionsController < BackendController
     return unless @intervention = find_and_check
     t3e @intervention, procedure_name: @intervention.name
     respond_with(@intervention, :methods => [:cost, :earn, :status, :name, :duration],
-                :include => [:casts, :storage],
+                :include => [{:casts => {:methods => [:variable_name, :default_name], :include => {:actor => {:methods => [:picture_path, :nature_name, :unit_name]}}}}, {:storage => {:methods => :shape_svg}}, :recommender, :prescription],
                 procs: Proc.new{|options| options[:builder].tag!(:url, backend_intervention_url(@intervention))}
                 )
   end
