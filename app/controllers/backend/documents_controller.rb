@@ -18,6 +18,8 @@
 #
 
 class Backend::DocumentsController < BackendController
+  unroll
+
   manage_restfully
 
   respond_to :html, :json, :xml
