@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="360"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="state" mode="Opaque">
 		<conditionalStyle>
@@ -93,7 +93,7 @@
 	<title>
 		<band height="380" splitType="Stretch">
 			<textField>
-				<reportElement style="title" x="35" y="0" width="436" height="33" forecolor="#7C9DDD" uuid="662de52c-0c71-4d48-aa52-88a284773ba8"/>
+				<reportElement style="title" x="35" y="0" width="436" height="77" forecolor="#7C9DDD" uuid="662de52c-0c71-4d48-aa52-88a284773ba8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="16" isBold="false"/>
 				</textElement>
@@ -153,10 +153,10 @@
 				<textFieldExpression><![CDATA[$F{stopped-at}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="10">
-				<reportElement style="state" x="7" y="6" width="20" height="20" uuid="d751c512-fa19-4e6b-a71d-547b96c264bb"/>
+				<reportElement style="state" x="7" y="28" width="20" height="20" uuid="d751c512-fa19-4e6b-a71d-547b96c264bb"/>
 			</rectangle>
 			<textField pattern="###0.00 H" isBlankWhenNull="true">
-				<reportElement style="strong" x="424" y="33" width="47" height="34" uuid="0878d4e5-4b68-46da-b649-80260abd0d57"/>
+				<reportElement style="strong" x="102" y="122" width="47" height="22" uuid="0878d4e5-4b68-46da-b649-80260abd0d57"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{duration} / 3600]]></textFieldExpression>
 			</textField>
@@ -169,7 +169,7 @@
 				</textElement>
 				<text><![CDATA[Prescripteur]]></text>
 			</staticText>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement style="strong" x="0" y="338" width="128" height="39" uuid="a6011e1f-76c2-448b-b9e4-e5f8c4427b6d"/>
 				<textFieldExpression><![CDATA[$F{recommender_full_name}]]></textFieldExpression>
 			</textField>
@@ -192,35 +192,8 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{prescription_delivered_at}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement style="success" mode="Transparent" x="306" y="33" width="120" height="34" uuid="4bf0bd79-60ae-465a-b55f-515fb8c58eca">
-					<printWhenExpression><![CDATA[$F{state} == "done" && $F{status} == "go"]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="24" isBold="true"/>
-				</textElement>
-				<text><![CDATA[REALISEE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="warning" mode="Transparent" x="186" y="33" width="120" height="34" uuid="531c659e-5662-463e-a9c1-84d43c1abfcc">
-					<printWhenExpression><![CDATA[$F{state} == "undone" && $F{status} == "caution"]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="24" isBold="true"/>
-				</textElement>
-				<text><![CDATA[PREVUE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="error" mode="Transparent" x="1" y="33" width="185" height="34" uuid="444821e6-af4f-4198-9612-61e9f2b62943">
-					<printWhenExpression><![CDATA[$F{state} == "undone" && $F{status} == "stop"]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="24" isBold="true"/>
-				</textElement>
-				<text><![CDATA[EN ATTENTE]]></text>
-			</staticText>
 			<image onErrorType="Blank">
-				<reportElement x="261" y="122" width="293" height="255" isPrintWhenDetailOverflows="true" uuid="b5e34b8b-240a-4560-8e47-d254f5198679"/>
+				<reportElement x="261" y="122" width="89" height="83" isPrintWhenDetailOverflows="true" uuid="b5e34b8b-240a-4560-8e47-d254f5198679"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{storage_shape_svg})]]></imageExpression>
 			</image>
 			<staticText>
@@ -250,9 +223,9 @@
 		<band height="12" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="58" splitType="Stretch">
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="0" y="28" width="555" height="2" backcolor="#7C9DDD" uuid="50cdfb71-4302-415d-a0f8-4c2ef407bc85"/>
+				<reportElement style="strong" mode="Opaque" x="0" y="56" width="555" height="2" backcolor="#7C9DDD" uuid="50cdfb71-4302-415d-a0f8-4c2ef407bc85"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
@@ -264,6 +237,33 @@
 					<font fontName="Open Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Acteurs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="success" mode="Transparent" x="400" y="28" width="154" height="28" uuid="4bf0bd79-60ae-465a-b55f-515fb8c58eca">
+					<printWhenExpression><![CDATA[$F{state} == "done" && $F{status} == "go"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UTILISES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="warning" mode="Transparent" x="220" y="28" width="180" height="28" uuid="531c659e-5662-463e-a9c1-84d43c1abfcc">
+					<printWhenExpression><![CDATA[$F{state} == "undone" && $F{status} == "caution"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PREVUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="error" mode="Transparent" x="1" y="28" width="219" height="28" uuid="444821e6-af4f-4198-9612-61e9f2b62943">
+					<printWhenExpression><![CDATA[$F{state} == "undone" && $F{status} == "stop"]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EN ATTENTE]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -286,12 +286,12 @@
 				<textFieldExpression><![CDATA[$F{cast_actor_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="emphasis" x="430" y="20" width="100" height="20" uuid="bfacb250-6829-4a0c-b992-edac61f46119"/>
+				<reportElement style="emphasis" x="455" y="5" width="100" height="20" uuid="bfacb250-6829-4a0c-b992-edac61f46119"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cast_actor_unit_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="emphasis" x="331" y="20" width="100" height="20" uuid="511a8bab-1fd9-4479-8213-fe9b68cd0287"/>
+				<reportElement style="emphasis" x="356" y="5" width="99" height="20" uuid="511a8bab-1fd9-4479-8213-fe9b68cd0287"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="10"/>
 				</textElement>
