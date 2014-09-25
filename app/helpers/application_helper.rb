@@ -528,7 +528,7 @@ module ApplicationHelper
   def title_tag
     r = [] # reverse_menus
     title = if current_user
-              code = URI::parse(request.url).host # .split(".")[-3].to_s
+              code = request.url.split(/(\:\/\/|\.)/).third
               if r.empty?
                 tc(:page_title_special, :company_code => code, :action => controller.human_action_name)
               else

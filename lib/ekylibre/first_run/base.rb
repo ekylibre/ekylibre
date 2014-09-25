@@ -236,6 +236,8 @@ module Ekylibre
         for loader in loaders
           execute_loader(loader)
         end
+      ensure
+        Ekylibre::Tenant.check!(@name)
       end
 
       # Execute a loader in transactionnal mode
