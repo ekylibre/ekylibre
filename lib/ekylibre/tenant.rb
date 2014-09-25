@@ -23,7 +23,7 @@ module Ekylibre
       def check!(name)
         if list.include?(name)
           unless Apartment.connection.schema_exists? name
-            @list[env].delete(name)
+            drop(name)
           end
         end
       end
@@ -37,8 +37,9 @@ module Ekylibre
       end
 
       # Returns the private directory of the current tenant
-      def private_directory
-        Ekylibre.root.join("private", current)
+      # If tenant name given, it returns its private_directory
+      def private_directory(name = nil)
+        Ekylibre.root.join("private", name || current)
       end
 
       # Create a new tenant
@@ -60,7 +61,10 @@ module Ekylibre
         unless exist?(name)
           raise TenantError, "Unexistent tenant: #{name}"
         end
-        Apartment::Tenant.drop(name)
+        if Apartment.connection.schema_exists? name
+          Apartment::Tenant.drop(name)
+        end
+        FileUtils.rm_rf(Apartment::Tenant.private_directory(name))
         @list[env].delete(name)
         write
       end
