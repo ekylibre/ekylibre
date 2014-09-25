@@ -180,7 +180,7 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Loads journals
   if manifest.can_load_default?(:journals)
     manifest[:journals] = Journal.nature.values.inject({}) do |hash, nature|
-      hash[nature] = {name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_at: Time.new(1899, 12, 31).end_of_month}
+      hash[nature] = {name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month}
       hash
     end
   end
