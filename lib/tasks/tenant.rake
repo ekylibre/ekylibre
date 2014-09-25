@@ -19,7 +19,7 @@ namespace :tenant do
 
   desc "Drop a tenant (with TENANT variable)"
   task :drop  => :environment do
-    name = ENV["TENANT"]
+    name = ENV["TENANT"] || ENV["name"]
     if Ekylibre::Tenant.exist?(name)
       Ekylibre::Tenant.drop(name)
     else
