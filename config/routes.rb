@@ -736,6 +736,10 @@ Ekylibre::Application.routes.draw do
 
     resources :versions, concerns: [:list, :unroll]
 
+    resources :visuals, only: [] do
+      match "picture(/:style)", via: :get, action: :picture, as: :picture
+    end
+
     resources :wine_tanks, only: [:index], concerns: [:list]
 
     resources :wine_transformers, only: [:index], concerns: [:list]

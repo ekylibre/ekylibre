@@ -1,14 +1,15 @@
 module Ekylibre
-  autoload :Access,    'ekylibre/access'
-  autoload :Export,    'ekylibre/export'
-  autoload :FirstRun,  'ekylibre/first_run'
-  autoload :Modules,   'ekylibre/modules'
-  autoload :Record,    'ekylibre/record'
-  autoload :Reporting, 'ekylibre/reporting'
-  autoload :Schema,    'ekylibre/schema'
-  autoload :Support,   'ekylibre/support'
-  autoload :Tenant,    'ekylibre/tenant'
-  autoload :VERSION,   'ekylibre/version'
+  autoload :Access,            'ekylibre/access'
+  autoload :CorporateIdentity, 'ekylibre/corporate_identity'
+  autoload :Export,            'ekylibre/export'
+  autoload :FirstRun,          'ekylibre/first_run'
+  autoload :Modules,           'ekylibre/modules'
+  autoload :Record,            'ekylibre/record'
+  autoload :Reporting,         'ekylibre/reporting'
+  autoload :Schema,            'ekylibre/schema'
+  autoload :Support,           'ekylibre/support'
+  autoload :Tenant,            'ekylibre/tenant'
+  autoload :VERSION,           'ekylibre/version'
 
   CSV = ::CSV.freeze
 

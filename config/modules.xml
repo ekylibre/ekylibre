@@ -1758,6 +1758,11 @@
         <page to="backend/helps#toggle"/>
       </item>
     </group>
+    <group>
+      <item name="visuals">
+        <page to="backend/visuals#picture"/>
+      </item>
+    </group>
   </inaccessible-actions>
   <untreated-actions>
     <group/>
