@@ -80,6 +80,7 @@
 #     - "backend/imports#show"
 #     - "backend/imports#update"
 #     - "backend/kujakus#toggle"
+#     - "backend/product_nature_categories#list_taxations"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#update"

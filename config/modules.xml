@@ -1326,6 +1326,7 @@
         <page to="backend/product_nature_categories#list"/>
         <page to="backend/product_nature_categories#list_products"/>
         <page to="backend/product_nature_categories#list_product_natures"/>
+        <page to="backend/product_nature_categories#list_taxations"/>
         <page to="backend/product_nature_categories#new"/>
         <page to="backend/product_nature_categories#pick"/>
         <page to="backend/product_nature_categories#show"/>

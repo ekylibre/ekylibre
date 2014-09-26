@@ -578,6 +578,7 @@ Ekylibre::Application.routes.draw do
       member do
         get :list_products
         get :list_product_natures
+        get :list_taxations
       end
     end
 

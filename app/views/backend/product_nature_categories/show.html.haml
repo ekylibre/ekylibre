@@ -1,7 +1,38 @@
 - main_toolbar do |t|
-  - t.edit @product_nature_category
+  - t.edit resource
 
 = beehive do |b|
   - b.cell do
     = attributes_list do |l|
-      - l.attribute :name
+      - l.attribute :number
+      - l.attribute :active
+      - l.attribute :description if resource.description?
+      - l.attribute :pictogram
+      - l.attribute :reductible
+
+      - l.attribute :purchasable
+      - if resource.purchasable
+        - l.attribute :charge_account, url: true
+
+      - l.attribute :depreciable
+      - if resource.depreciable
+        - l.attribute :financial_asset_account, url: true
+
+      - l.attribute :saleable
+      - if resource.saleable
+        - l.attribute :product_account, url: true
+
+      - l.attribute :storable
+      - if resource.storable
+        - l.attribute :stock_account, url: true
+
+      - l.attribute :subscribing
+      - if resource.subscribing
+        - l.attribute :subscription_duration
+        - l.attribute :subscription_nature, url: true
+
+  - b.cell :taxations do
+    = list :taxations
+
+  - b.cell :product_natures do
+    = list :product_natures

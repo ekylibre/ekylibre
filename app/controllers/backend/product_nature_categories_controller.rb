@@ -52,4 +52,9 @@ class Backend::ProductNatureCategoriesController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
+  list(:taxations, model: :product_nature_category_taxations, conditions: {product_nature_category_id: 'params[:id]'.c}, order: :id) do |t|
+    t.column :tax, url: true
+    t.column :usage
+  end
+
 end
