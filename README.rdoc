@@ -48,9 +48,8 @@ Some additional tools are needed to manipulate some images of the project:
 == See also
 
 * {Forum}[https://ekylibre.org/forum]
-* {MindMeister}[http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013]
 * {Documentation}[https://github.com/ekylibre/erp-doc]
-* {Demo}[https://demo.ergolis.com]
+* {Demo}[https://demo.ekylibre.com]
 
 == Follow us
 
