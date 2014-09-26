@@ -58,7 +58,7 @@ class Backend::ListingNodesController < BackendController
         end
       end
     else
-      ln = @listing_node.children.new(:nature => desc[0], :attribute_name => desc[1], :label => @listing_node.model.human_attribute_name(desc[1]))
+      ln = @listing_node.children.new(nature: desc[0], attribute_name: desc[1], label: @listing_node.model.human_attribute_name(desc[1]))
       ln.save!
     end
 
