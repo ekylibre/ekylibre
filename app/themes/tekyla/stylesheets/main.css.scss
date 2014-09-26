@@ -1251,9 +1251,8 @@ $form-actions-height: 48px;
 
 
 
-
-
 .ui-dialog {
+  z-index: 5;   
   .ui-dialog-content {
     & > form {
       margin: 0;
