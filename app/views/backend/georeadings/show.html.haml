@@ -7,3 +7,19 @@
       - l.attribute :name
       - l.attribute :number
       - l.attribute :description
+  - b.cell :map do
+    = visualization do |v|
+      - v.background "OpenStreetMap.HOT"
+      - v.background "OpenStreetMap.Mapnik"
+      - v.background "Thunderforest.Landscape"
+      - v.background "Esri.WorldImagery"
+      - if resource.nature == "point"
+        - v.serie resource.id, [{name: resource.number, shape: resource.content}]
+        - v.path resource.number , resource.id, fill_color: cycle(theme_colors)
+      - if resource.nature == "polygon"
+        - v.serie resource.id, [{name: resource.number, shape: resource.content}]
+        - v.simple resource.number , resource.id, fill_color: cycle(theme_colors)
+      - v.control :zoom
+      - v.control :scale
+      - v.control :fullscreen
+      - v.control :layer_selector
