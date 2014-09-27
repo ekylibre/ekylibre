@@ -347,7 +347,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_list (~> 6.2.4)
+  active_list (= 6.2.4)
   activerecord-postgis-adapter
   acts_as_list
   agric
