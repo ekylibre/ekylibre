@@ -176,7 +176,7 @@ class Product < Ekylibre::Record::Base
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_zone"]) }
-  scope :supporters,  -> { of_variety(:cultivable_zone) }
+  scope :supporters,  -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

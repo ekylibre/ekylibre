@@ -724,7 +724,7 @@
             variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
-      <item name="fertilizer_division"
+      <item name="preparation_division"
             category="building_division"
             variety="building_division"
             population_counting="unitary"

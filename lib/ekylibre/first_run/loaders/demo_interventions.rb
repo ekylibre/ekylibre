@@ -289,7 +289,9 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       end
     end
 
-    first_run.count :animal_interventions do |w|
+
+    # intervention for animal treatment
+    first_run.count :animal_treatment_interventions do |w|
       for production in Production.all
         variety = production.variant.variety
         if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos])
@@ -303,6 +305,30 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
                   i.add_cast(reference_name: 'caregiver',        actor: i.find(Worker))
                   i.add_cast(reference_name: 'animal_medicine',         actor: i.find(Product, variety: :preparation, can: "care(bos)"))
                   i.add_cast(reference_name: 'animal_medicine_to_give', population: 1 + rand(3))
+                end
+              end
+              w.check_point
+            end
+          end
+        end
+      end
+    end
+
+    # intervention for animal insemination
+    first_run.count :animal_insemination_interventions do |w|
+      for production in Production.all
+        variety = production.variant.variety
+        if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos]) and (production.variant.reference_name == "female_adult_cow" or production.variant.reference_name == "female_young_cow")
+          year = production.campaign.name.to_i
+          Ekylibre::FirstRun::Booker.production = production
+          for support in production.supports
+            if support.storage.is_a?(AnimalGroup)
+              for animal in support.storage.members_at()
+                Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: {readings: {"base-animal_artificial_insemination-0-400-0" => "heat", "base-animal_artificial_insemination-0-400-1" => "true", "base-animal_artificial_insemination-0-400-2" => "false"}}) do |i|
+                  i.add_cast(reference_name: 'animal',           actor: animal)
+                  i.add_cast(reference_name: 'inseminator',        actor: i.find(Worker, can: "administer_inseminate(animal)"))
+                  i.add_cast(reference_name: 'vial',         actor: i.find(Product, variety: :vial, can: "inseminate(animal)"))
+                  i.add_cast(reference_name: 'vial_to_give', population: 1)
                 end
               end
               w.check_point
@@ -333,7 +359,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       end
     end
 
-    file = first_run.path("documents", "prescription_1.jpg")
+    file = first_run.path("alamano", "documents", "prescription_1.jpg")
     if file.exist?
       first_run.count :animal_prescriptions do |w|
 

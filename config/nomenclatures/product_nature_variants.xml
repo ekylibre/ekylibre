@@ -1588,10 +1588,15 @@
             frozen_indicators_values="population: 1"
             />
       <item name="chemical_fertilizer_division"
-            nature="fertilizer_division"
+            nature="preparation_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
+      <item name="preparation_division"
+            nature="preparation_division"
+            unit_name="room"
+            frozen_indicators_values="population: 1"
+              />
       <item name="office_building_division"
             nature="administrative_division"
             unit_name="room"

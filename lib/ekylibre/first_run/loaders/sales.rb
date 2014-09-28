@@ -222,13 +222,13 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
 
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
-      240.times do |i|
+      120.times do |i|
         # Sale
         d = Time.now - i.months
         sale = Sale.create!(created_at: d, client: cooperative, nature: sale_nature)
         # Sale items
-        price = catalog.prices.find_by(variant: milk, amount: rand(0.04) + 0.340)
-        price ||= catalog.prices.create!(:amount => rand(0.04)+0.340,
+        price = catalog.prices.find_by(variant: milk, amount: rand(0.04) + 0.300)
+        price ||= catalog.prices.create!(:amount => rand(0.04)+0.300,
                                          :started_at => d.to_time,
                                          :currency => "EUR",
                                          :indicator_name => :population,
@@ -240,7 +240,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
                            :price => price,
                            :tax_id => milk_price_template_taxes.id
                            )
-        Ekylibre::FirstRun.generate_sale_cycle(sale, d, factor: 3.6)
+        Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
       end
     end
