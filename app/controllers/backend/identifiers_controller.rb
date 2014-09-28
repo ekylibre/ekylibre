@@ -20,8 +20,6 @@
 class Backend::IdentifiersController < BackendController
   manage_restfully t3e: {name: :nature}
 
-  unroll
-
   list conditions: {net_service_id: nil} do |t|
     t.column :net_service, label_method: :name, url: true
     t.column :nature
