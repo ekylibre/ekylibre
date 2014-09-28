@@ -35,7 +35,7 @@
 #  updater_id   :integer
 #
 class Georeading < Ekylibre::Record::Base
-  enumerize :nature, in: [:point, :linestring, :polygon]
+  enumerize :nature, in: [:point, :linestring, :polygon], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :nature, :number, allow_nil: true, maximum: 255
   validates_presence_of :content, :name, :nature
