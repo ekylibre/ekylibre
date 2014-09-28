@@ -109,11 +109,7 @@ class BackendController < BaseController
       arg = arg.attributes if arg.respond_to?(:attributes)
       raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}") unless arg.is_a? Hash
       arg.each do |k,v|
-        @title[k.to_sym] = if v.respond_to?(:strftime) or v.is_a?(Numeric)
-                             ::I18n.localize(v)
-                           else
-                             v.to_s
-                           end
+        @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)
       end
     end
   end
