@@ -3,7 +3,7 @@
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
   <procedure name="silage_unload" natures="food_supply" version="0" status="frozen">
     <variables>
-      <variable name="herd"             variety="animal_group" derivative-of="bos" roles="food_supply-target" default-actor="variant-localized-in-storage"/>
+      <variable name="herd"             variety="animal_group" derivative-of="bos" roles="food_supply-target" default-actor="storage"/>
       <variable name="silage"           variety="preparation" abilities="feed(bos)"/>
       <variable name="silage_to_give"   new="parted-from: silage" roles="food_supply-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population" />
@@ -11,10 +11,10 @@
                  forward="value / self..net_mass(ton)"
                  backward="value * self..net_mass(ton)"
                  /> <!-- t -->
-        <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal"             to="population" if="members_count(herd) > 0 &amp; silage.net_mass?"
+        <handler indicator="net_mass"            unit="kilogram"  name="food_mass_per_animal" to="population" if="members_count(herd) > 0 &amp; silage.net_mass?"
                  forward="value * (members_count(herd) / self..net_mass(kilogram))"
                  backward="value * (self..net_mass(kilogram) / members_count(herd))"
-                 />
+                 /> <!-- kg / animal -->
         <handler indicator="net_volume"            unit="cubic_meter"   to="population" if="silage.net_volume?"
                  forward="value / self..net_volume(cubic_meter)"
                  backward="value * self..net_volume(cubic_meter)"

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="360"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="state" mode="Opaque">
 		<conditionalStyle>
@@ -80,9 +80,6 @@
 	</field>
 	<field name="cast_actor_name" class="java.lang.String">
 		<fieldDescription><![CDATA[actor/name]]></fieldDescription>
-	</field>
-	<field name="storage_shape_svg" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/storage/shape-svg]]></fieldDescription>
 	</field>
 	<field name="cast_actor_unit_name" class="java.lang.String">
 		<fieldDescription><![CDATA[actor/unit-name]]></fieldDescription>
@@ -192,10 +189,6 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{prescription_delivered_at}]]></textFieldExpression>
 			</textField>
-			<image onErrorType="Blank">
-				<reportElement x="261" y="122" width="89" height="83" isPrintWhenDetailOverflows="true" uuid="b5e34b8b-240a-4560-8e47-d254f5198679"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{storage_shape_svg})]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="254" y="122" width="2" height="255" backcolor="#7C9DDD" uuid="5446f02e-b1ba-4370-89d9-104c834bdfc0"/>
 				<textElement verticalAlignment="Top" rotation="Right">
