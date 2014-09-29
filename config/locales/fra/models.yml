@@ -352,7 +352,8 @@ fra:
       product_group: "Groupe de produit"
       product_junction: "Jonction de vie de produits"
       product_junction_way: "Accès à une jonction de vie de produits"
-      product_linkage: "Lien entre produits"
+      product_link: "Lien entre produits"
+      product_linkage: "Lien d’attache entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
       product_merging: "Fusion de produits"
@@ -389,7 +390,6 @@ fra:
       tax: "Taxe"
       team: "Service"
       tracking: "Lot traçable"
-      transfer: "Transfert"
       transport: "Transport"
       user: "Utilisateur"
       version: "Version"
@@ -495,7 +495,7 @@ fra:
     catalog_name: "Nom pour le catalogue" #?
     category: "Catégorie"
     ceded: "Cédé"
-    ceded_at: "Cédé le"
+    ceded_on: "Cédé le"
     charge_account: "Compte d’achat"
     charges_account: "Comptes de charge"
     charges_accounts: "Comptes de charge" #?
@@ -779,7 +779,8 @@ fra:
     integer_value: "Valeur entière"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
     intervention: "Intervention"
-    intervention_casts: "Intervention casts"
+    intervention_cast: "Cast"
+    intervention_casts: "Casting"
     interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
@@ -975,7 +976,8 @@ fra:
     price: "Prix"
     price_templates: "Modèles de prix" #?
     prices: "Prix"
-    printed_on: "Datée du"
+    printed_at: "Daté du"
+    printed_on: "Daté du"
     priority: "Priorité"
     procedures: "Procédures" #?
     process: "Process" #?
@@ -1017,6 +1019,7 @@ fra:
     productions: "Productions"
     products: "Produits"
     products_categories: "Catégories de produits avec produit"
+    progression_percentage: "Progression (%)"
     proposer: "Parrain"
     prospect: "Prospect"
     provisional: "Prévisionnel"
@@ -1030,7 +1033,7 @@ fra:
     purchase_items: "Lignes d’achat"
     purchase_taxations: "Taxations d’achat"
     purchase_taxes: "Taxes à l’achat"
-    purchased_at: "Acheté le"
+    purchased_on: "Acheté le"
     purchases: "Achats"
     quantity: "Quantité"
     query: "Requête"

@@ -73,7 +73,7 @@ eng:
       index: "Calculators"
     backend/campaigns:
       edit: "Edit campaign: %{name}"
-      index: "Campagains"
+      index: "Campaigns"
       new: "New campaign"
       show: "Campaign %{name}"
     backend/cash_transfers:
@@ -346,12 +346,12 @@ eng:
       import: "Import accounting data" #?
       index: "Journals"
       new: "New journal"
-      reopen: "Reopen journal : %{name}"
+      reopen: "Reopen journal: %{name}"
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
     backend/land_parcel_clusters:
-      edit: "Edit land parcel cluster : %{name}"
+      edit: "Edit land parcel cluster: %{name}"
       index: "Land parcel clusters"
       new: "New land parcel cluster"
       show: "Land parcel cluster %{name}"
@@ -1099,13 +1099,13 @@ eng:
     one_condition: "One condition" #?
     operation_items: "Incoming and outgoing products" #?
     operations: "Operations" #?
-    # options: "Options"
+    options: "Options"
     order: "Order" #?
     order_amount_with_taxes: "Order amount with taxes" #?
     order_print: "Print order" #?
     organic_matter_concentration: "Organic matter concentration" #?
     other_results: "Other results…" #?
-    # others: "Others"
+    others: "Others"
     outgoing_payments_states:  #?
       all: "All" #?
       undelivered: "Undelivered" #?

@@ -28,7 +28,7 @@ spa:
       entity_event: #?
       entity_event_nature: #?
       equipment:
-        # born_at: "putting into service at"
+        # born_at: "Put in service at"
       event: #?
       event_nature: #?
       financial_asset_depreciation:
@@ -138,7 +138,7 @@ spa:
         # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         # odd: "%{attribute} must be odd"
         # posterior: "The date %{attribute} must be posterior to %{to}"
-        # record_invalid: "Validations failed : %{errors}"
+        # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -306,6 +306,7 @@ spa:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
+      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
@@ -343,7 +344,6 @@ spa:
       # tax: "Tax"
       # team: "Team"
       # tracking: "Tracking"
-      # transfer: "Transfer"
       # transport: "Transport"
       # user: "User"
       # version: "Version"
@@ -431,7 +431,7 @@ spa:
     # catalog: "Catalog"
     # category: "Category"
     # ceded: "Ceded"
-    # ceded_at: "Ceded on"
+    # ceded_on: "Ceded on"
     # charge_account: "Charge account"
     # charges_account: "Charges account"
     # charges_categories: "Charges categories"
@@ -677,6 +677,7 @@ spa:
     # integer_value: "Integer value"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # intervention: "Intervention"
+    # intervention_cast: "Intervention cast"
     # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     # introduction: "Introduction"
@@ -851,6 +852,7 @@ spa:
     # previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     # price: "Price"
     # prices: "Prices"
+    # printed_at: "Printed at"
     # printed_on: "Printed on"
     # priority: "Priority"
     # producer: "Producer"
@@ -889,6 +891,7 @@ spa:
     # productions: "Productions"
     # products: "Products"
     # products_categories: "Products categories"
+    # progression_percentage: "Progression (%)"
     # proposer: "Proposer"
     # prospect: "Prospect"
     # provisional: "Provisional"
@@ -901,7 +904,7 @@ spa:
     # purchase_items: "Purchase items"
     # purchase_taxations: "Purchase taxations"
     # purchase_taxes: "Purchase taxes"
-    # purchased_at: "Purchased on"
+    # purchased_on: "Purchased on"
     # purchases: "Purchase orders"
     # quantity: "Quantity"
     # query: "Query"

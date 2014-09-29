@@ -93,7 +93,7 @@ arb:
     backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
-      # index: "Campagains"
+      # index: "Campaigns"
       # new: "New campaign"
       # show: "Campaign %{name}"
     backend/cash_transfers:
@@ -409,7 +409,7 @@ arb:
       show: "الدفتر اليومي : %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
-      # edit: "Edit land parcel cluster : %{name}"
+      # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
       # new: "New land parcel cluster"
       # show: "Land parcel cluster %{name}"
@@ -1505,6 +1505,7 @@ arb:
     operation_update: "تعديل العمل" #?
     operation_use_create: "اضافة مادة" #?
     # operations: "Operations"
+    # options: "Options"
     # order: "Order"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب"
     order_print: "طباعة الطلب"
@@ -1513,7 +1514,7 @@ arb:
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
     other_results: "...نتائج اخرى"
     other_services: "احتياجات وخدمات اخرى" #?
-    others: "اقتطاع القيم الضريبية المضافة الاخرى" #?
+    others: "اقتطاع القيم الضريبية المضافة الاخرى"
     out_line_create: "اضافة منتج صادر" #?
     out_vat_amount: "مبلغ الضريبة على القيمة المضافة" #?
     outgoing_delivery: "التسليم" #?

@@ -1214,16 +1214,13 @@ fra:
     one_condition: "au moins une condition"
     operation_items: "Intrants et sortants"
     operations: "Travaux"
+    options: "Options"
     order: "Commande"
     order_amount_with_taxes: "Montant de la commande"
     order_print: "Imprimer la commande"
     organic_matter_concentration: "Teneur en matière organique"
-    other_assessable_operations: "Autres opérations imposables" #?
-    other_not_assessable_operations: "Autres opérations non imposables" #?
     other_results: "Autres résultats…"
-    other_services: "Autres biens et services" #?
-    others: "Autres" #?
-    out_vat_amount: "Base hors taxe" #?
+    others: "Autres"
     outgoing_payments_states:
       all: "Tous"
       undelivered: "Non délivrés"

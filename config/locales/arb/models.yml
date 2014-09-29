@@ -189,7 +189,7 @@ arb:
       entity_nature:  #?
         description: "المواصفات" #?
       equipment:
-        # born_at: "putting into service at"
+        # born_at: "Put in service at"
         consumption: "(الاستهلاك (لتر / ساعة " #?
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات" #?
@@ -888,6 +888,7 @@ arb:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
+      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
@@ -942,7 +943,7 @@ arb:
       team: "الخجمة"
       tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
-      transfer: "التحويل"
+      transfer: "التحويل" #?
       transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
@@ -1066,7 +1067,7 @@ arb:
     category: "الفئة"
     category_id: "الفئة" #?
     # ceded: "Ceded"
-    # ceded_at: "Ceded on"
+    # ceded_on: "Ceded on"
     # charge_account: "Charge account"
     # charges_account: "Charges account"
     charges_accounts: "حسابات الحمولة" #?
@@ -1424,6 +1425,7 @@ arb:
     integer_value: "قيمة العدد الصحيح"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # intervention: "Intervention"
+    # intervention_cast: "Intervention cast"
     # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     introduction: "المقدمة"
@@ -1685,6 +1687,7 @@ arb:
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
     prices: "الاسعار"
+    # printed_at: "Printed at"
     printed_on: "طبع يوم"
     # priority: "Priority"
     producer: "المنتج"
@@ -1734,6 +1737,7 @@ arb:
     profession: "المهنة" #?
     profession_id: "مهنة" #?
     professions: "مهن" #?
+    # progression_percentage: "Progression (%)"
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
@@ -1749,7 +1753,7 @@ arb:
     purchase_items: "طرق طلب الشراء"
     # purchase_taxations: "Purchase taxations"
     # purchase_taxes: "Purchase taxes"
-    # purchased_at: "Purchased on"
+    # purchased_on: "Purchased on"
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
