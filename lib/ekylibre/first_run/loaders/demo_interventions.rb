@@ -325,9 +325,9 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
             if support.storage.is_a?(AnimalGroup)
               for animal in support.storage.members_at()
                 Ekylibre::FirstRun::Booker.intervene(:animal_artificial_insemination, year - 1, 9, 15, 0.5, support: support, parameters: {readings: {"base-animal_artificial_insemination-0-400-0" => "heat", "base-animal_artificial_insemination-0-400-1" => "true", "base-animal_artificial_insemination-0-400-2" => "false"}}) do |i|
-                  i.add_cast(reference_name: 'animal',           actor: animal)
-                  i.add_cast(reference_name: 'inseminator',        actor: i.find(Worker, can: "administer_inseminate(animal)"))
-                  i.add_cast(reference_name: 'vial',         actor: i.find(Product, variety: :vial, can: "inseminate(animal)"))
+                  i.add_cast(reference_name: 'animal',       actor: animal)
+                  i.add_cast(reference_name: 'inseminator',  actor: i.find(Worker, can: "administer_inseminate(animal)"))
+                  i.add_cast(reference_name: 'vial',         actor: i.find(Product, variety: :vial, derivative_of: animal.variety, can: "inseminate(animal)"))
                   i.add_cast(reference_name: 'vial_to_give', population: 1)
                 end
               end
