@@ -12,10 +12,7 @@ namespace :db do
 
   desc 'Also create shared extensions schemas'
   task :extensions => :environment do
-    # Create PostGIS extension
-    # Rake::Task["db:gis:setup"].invoke
-    ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
-    ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+    Ekylibre::Schema.setup_extensions
   end
 
 end

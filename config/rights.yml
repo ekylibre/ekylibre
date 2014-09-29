@@ -824,7 +824,6 @@ identifiers:
     - "backend/identifiers#index"
     - "backend/identifiers#list"
     - "backend/identifiers#show"
-    - "backend/identifiers#unroll" #?
   write:
     depend-on:
     - read-identifiers
@@ -1235,7 +1234,6 @@ net_services:
     - "backend/net_services#list"
     - "backend/net_services#list_identifiers"
     - "backend/net_services#show"
-    - "backend/net_services#unroll" #?
   write:
     depend-on:
     - read-net_services
@@ -1532,7 +1530,6 @@ productions:
     - "backend/production_support_markers#index"
     - "backend/production_support_markers#list"
     - "backend/production_support_markers#show"
-    - "backend/production_support_markers#unroll" #?
     - "backend/production_supports#index"
     - "backend/production_supports#list"
     - "backend/production_supports#list_interventions"

@@ -4,4 +4,4 @@ test:
   database: ekylibre_test
   schema_search_path: public,postgis
   username: postgres
-  postgis_extension: true
+  postgis_extension: []

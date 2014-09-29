@@ -4,6 +4,11 @@ module Ekylibre
 
     class << self
 
+      def setup_extensions
+        ActiveRecord::Base.connection.execute 'CREATE SCHEMA IF NOT EXISTS postgis;'
+        ActiveRecord::Base.connection.execute 'CREATE EXTENSION IF NOT EXISTS postgis SCHEMA postgis;'
+      end
+
       def root
         Rails.root.join("db")
       end
