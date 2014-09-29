@@ -75,6 +75,11 @@
 
       - if resource.production_support
         .info
+          %span.title= :production_support.tl
+          %span.value= link_to(resource.production_support.name, {controller: :production_supports, action: :show, id: resource.production_support})
+
+      - if resource.storage
+        .info
           %span.title= Intervention.human_attribute_name(:storage)
           %span.value= link_to(resource.storage.name, {controller: :products, action: :show, id: resource.storage})
 
