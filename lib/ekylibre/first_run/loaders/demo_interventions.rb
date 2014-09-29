@@ -384,7 +384,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         # create an issue for all interventions on animals and update them with prescription and recommender
         for intervention in Intervention.of_nature(:animal_illness_treatment)
           # create an issue
-          animal = intervention.casts.of_role(:'animal_illness_treatment-target').first.actor
+          animal = intervention.casts.of_role('animal_illness_treatment-target').first.actor
           started_at = (intervention.started_at - 1.day) || Time.now
           nature = [:mammite, :edema, :limping, :fever, :cough, :diarrhea].sample
           issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: Nomen::IssueNatures[nature].human_name, nature: nature, state: ["opened", "closed", "aborted"].sample)

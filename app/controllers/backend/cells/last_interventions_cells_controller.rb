@@ -3,7 +3,7 @@ class Backend::Cells::LastInterventionsCellsController < Backend::CellsControlle
   def show
     if @intervention = Intervention.last
       production = Production.find(@intervention.production_id)
-      target = @intervention.casts.of_role(:target) || @intervention.casts.of_role(:input)
+      target = @intervention.casts.of_generic_role(:target) || @intervention.casts.of_generic_role(:input)
       if target.first
         actor = target.first.actor
         if actor

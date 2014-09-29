@@ -71,11 +71,24 @@ class InterventionCast < Ekylibre::Record::Base
     #   raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     # end
     # where("roles ~ E?", "\\\\m#{role}\\\\M")
+    unless role =~ /\-/
+      raise ArgumentError, "Need a valid role: <procedure_nature>-<role>"
+    end
+    # where("roles ~ E?", (role =~ /\-/  ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
+    nature, role = role.split('-')[0..1]
+    where("roles ~ E?", "\\\\m(" + Nomen::ProcedureNatures.all(nature).sort.join("|") + ")-#{role}\\\\M")
+  }
+
+  scope :of_generic_role, lambda { |role|
+    # for nature in natures
+    #   raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
+    # end
+    # where("roles ~ E?", "\\\\m#{role}\\\\M")
     where("roles ~ E?", (role =~ /\-/  ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
   }
 
   scope :with_cast, lambda { |role, object|
-    self.of_role(role).where(actor_id: object.id)
+    self.of_generic_role(role).where(actor_id: object.id)
   }
 
   before_validation do

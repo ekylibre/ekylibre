@@ -19,7 +19,22 @@
 
 class Backend::AnimalsController < Backend::MattersController
 
-  list do |t|
+  # params:
+  #   :q Text search
+  #   :s State search
+  #   :variant_id
+  def self.animals_conditions
+    code = ""
+    code = search_conditions(:product_nature_variants => [:name]) + " ||= []\n"
+    code << "  if params[:variant_id].to_i > 0\n"
+    code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
+    code << "    c << params[:variant_id].to_i\n"
+    code << "  end\n"
+    code << "c\n "
+    return code.c
+  end
+
+  list(conditions: animals_conditions, joins: :variant) do |t|
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at
