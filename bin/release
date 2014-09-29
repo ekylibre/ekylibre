@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'colored'
+
+
+class Releaser
+
+  def self.run!
+    # TODO: Check cleaning
+    # TODO: Check nomenclatures changes
+    # TODO: Check VERSION
+    # TODO: Check Travis results (or test locally ?)
+
+    desc "Precompile assets"
+    exec "rm -fr #{File.dirname(File.expand_path(__FILE__))}/../public/assets"
+    exec "RAILS_ENV=production rake assets:precompile"
+
+    desc "Create and load schema"
+    exec "RAILS_ENV=production rake db:drop db:create db:schema:load"
+
+    # TODO: Check schema and table presences
+
+    desc "Execute demo first run"
+    exec "RAILS_ENV=production rake first_run max=50 folder=demo"
+
+    # TODO: Check schema and table presences
+    # TODO: Check data presence
+
+    desc "Run console"
+    exec "RAILS_ENV=production ./bin/rails c"
+
+    # TODO: Kill console after 40 seconds ?
+
+    desc "Run server"
+    pid = fork { exec "RAILS_ENV=production ./bin/rails s" }
+    sleep 40
+
+    desc "Get default page"
+    exec "wget demo.ekylibre.lan:3000 -O tmp/index.html"
+    # TODO: Navigate with mechanize
+
+    desc "Stop server"
+    Process.kill("SIGINT", pid)
+    Process.wait
+  end
+
+  def self.exec(command)
+    puts command.blue
+    system(command)
+  end
+
+  def self.desc(text)
+    text = " * " + text.to_s
+    puts text.red
+  end
+    
+end
+
+Releaser.run!
