@@ -6,7 +6,6 @@
       for item in analysis.items
         data[item.indicator.name] ||= []
         data[item.indicator.name] << [at, item.value.to_s.to_f]
-        puts item.value.to_s.inspect.red
       end
     end
     series = []
@@ -24,7 +23,6 @@
       for item in analysis.items
         data[item.indicator.name] ||= []
         data[item.indicator.name] << [at, item.value.to_s.to_f]
-        puts item.value.to_s.inspect.red
       end
     end
     series = []
