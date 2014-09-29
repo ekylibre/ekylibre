@@ -1373,6 +1373,7 @@ arb:
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
     manual_period: "من %{start} الى %{finish}"
+    # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
     # margins: "Margins"
     mass: "الوزن"

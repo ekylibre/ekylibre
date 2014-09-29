@@ -1094,6 +1094,7 @@ fra:
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs" #?
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
     manual_period: "du %{start} au %{finish}"
+    manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
     margins: "Marges"
     markers: "Objectifs" #?

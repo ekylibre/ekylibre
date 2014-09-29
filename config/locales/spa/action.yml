@@ -1171,6 +1171,7 @@ spa:
     # main_settings: "Main settings"
     management: "Administración comercial" #?
     manual_period: "del %{start} al %{finish}"
+    # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
     # margins: "Margins"
     # mass: "Mass"

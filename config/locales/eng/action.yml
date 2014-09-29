@@ -1011,6 +1011,7 @@ eng:
       zero: "No emails" #?
     main_settings: "Main settings" #?
     manual_period: "from %{start} to %{finish}" #?
+    manure_management_plan_chart: "Manure management plan chart" #?
     map: "Map" #?
     margins: "Margins" #?
     mass: "Mass" #?
