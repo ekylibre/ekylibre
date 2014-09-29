@@ -6,10 +6,10 @@ More details can be found on the official website http://ekylibre.org.
 
 == Code status
 
-{<img src="https://api.travis-ci.org/ekylibre/erp.png?branch=master"/>}[https://travis-ci.org/ekylibre/erp]
+{<img src="https://api.travis-ci.org/ekylibre/erp.png?branch=1-0-stable"/>}[https://travis-ci.org/ekylibre/erp]
 {<img src="https://gemnasium.com/ekylibre/erp.png"/>}[https://gemnasium.com/ekylibre/erp]
 {<img src="https://codeclimate.com/github/ekylibre/erp.png" />}[https://codeclimate.com/github/ekylibre/erp]
-{<img src="https://coveralls.io/repos/ekylibre/erp/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/erp]
+{<img src="https://coveralls.io/repos/ekylibre/erp/badge.png?branch=1-0-stable" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/erp]
 
 == Guides
 
@@ -19,13 +19,13 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 == Screenshot
 
-{<img src="https://raw.github.com/ekylibre/erp/master/doc/screenshots/screens.jpg" />}[https://raw.github.com/ekylibre/erp/master/doc/screenshots/screens.png]
+{<img src="https://raw.github.com/ekylibre/erp/1-0-stable/doc/screenshots/screens.jpg" />}[https://raw.github.com/ekylibre/erp/1-0-stable/doc/screenshots/screens.png]
 
 == Installation
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* {English}[https://github.com/ekylibre/erp/blob/master/doc/guides/eng/installation.rdoc]
+* {English}[https://github.com/ekylibre/erp/blob/1-0-stable/doc/guides/eng/installation.rdoc]
 * {Français}[https://github.com/ekylibre/erp/wiki/Jour-3-2-Ruby,-Rails-et-dépendances]
 
 == Contributing
@@ -47,8 +47,8 @@ Some additional tools are needed to manipulate some images of the project:
 
 == See also
 
-* {Forum}[https://ekylibre.org/forum]
-* {Documentation}[https://github.com/ekylibre/erp-doc]
+* {Forum}[https://forum.ekylibre.org/forum]
+* {Documentation}[https://github.com/ekylibre/erp/wiki]
 * {Demo}[https://demo.ekylibre.com]
 
 == Follow us
