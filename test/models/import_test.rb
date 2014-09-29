@@ -42,8 +42,8 @@ require 'test_helper'
 
 class ImportTest < ActiveSupport::TestCase
 
-  test "presence of fixtures" do
-    # assert_equal 2, Import.count
+  test "EBP.EDI import" do
+    # TODO Write import test
   end
 
 end
