@@ -57,6 +57,7 @@ georeadings_001:
     - [-0.66741943359371, 45.619800720955041]
   creator: users_001
   name: "Polygon #1"
+  number: "Polygon1"
   nature: "polygon"
   updater: users_001
 
@@ -71,6 +72,7 @@ georeadings_002:
     - [-0.66741943359371, 45.619800720955041]
   creator: users_001
   name: "Polygon #1 bis"
+  number: "Polygon1bis"
   nature: "polygon"
   updater: users_001
 
@@ -83,5 +85,6 @@ georeadings_003:
   - [-0.66467285156255, 45.569832358492825]
   creator: users_001
   name: "Line #1"
+  number: "Line1"
   nature: "linestring"
   updater: users_001
