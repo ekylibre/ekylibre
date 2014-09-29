@@ -47,7 +47,7 @@ Some additional tools are needed to manipulate some images of the project:
 
 == See also
 
-* {Forum}[https://forum.ekylibre.org/forum]
+* {Forum}[https://forum.ekylibre.org]
 * {Documentation}[https://github.com/ekylibre/erp/wiki]
 * {Demo}[https://demo.ekylibre.com]
 
