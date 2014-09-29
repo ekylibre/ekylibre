@@ -72,6 +72,7 @@ intervention_casts_002:
   reference_name: grinded
   roles: grinding-output, soil_enrichment-input
   updater: users_001
+  variant: product_nature_variants_005
 
 intervention_casts_003:
   actor: plants_001

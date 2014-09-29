@@ -187,9 +187,9 @@ class ProductionSupport < Ekylibre::Record::Base
     # m = net_mass of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      puts "I#{intervention.id}".red
+      # puts "I#{intervention.id}".red
       for input in intervention.casts.of_role('soil_enrichment-input')
-        puts "C#{input.id}".yellow
+        # puts "C#{input.id}".yellow
         m = (input.actor ? input.actor.net_mass(input).to_f(:kilogram) : 0.0)
         # TODO for method phosphorus_concentration(input)
         n = (input.actor ? input.actor.phosphorus_concentration.to_f(:unity) : 0.0)

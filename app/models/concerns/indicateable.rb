@@ -119,8 +119,8 @@ module Indicateable
       if cast_or_time.actor and cast_or_time.actor.whole_indicators_list.include?(indicator.name.to_sym)
         value = cast_or_time.send(indicator.name)
       elsif cast_or_time.reference.new?
-        unless variant = cast_or_time.variant || cast_or_time.reference.variant(cast.intervention)
-          raise StandardError, "Need variant to know how to read it"
+        unless variant = cast_or_time.variant || cast_or_time.reference.variant(cast_or_time.intervention)
+          raise StandardError, "Need variant to know how to read it (#{cast_or_time.intervention.reference_name}##{cast_or_time.reference_name})"
         end
         if variant.frozen_indicators.include?(indicator)
           value = variant.get(indicator)
