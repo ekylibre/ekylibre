@@ -26,7 +26,7 @@ You can learn how to contribute in Ekylibre by following our official guide:
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
 * {English}[https://github.com/ekylibre/erp/blob/master/doc/guides/eng/installation.rdoc]
-* {Français}[https://github.com/ekylibre/erp/wiki/Jour-3-2-Ruby,-Rails-et-dépendances]
+* {Français}[https://github.com/ekylibre/erp/wiki/Installation-Ekylibre]
 
 == Contributing
 
