@@ -50,17 +50,25 @@ class Document < Ekylibre::Record::Base
   acts_as_numbered
 
   # Create an archive with the given data
-  def archive(data, format, options = {})
-    tmp_dir = Rails.root.join('tmp', 'archiving')
-    FileUtils.mkdir_p(tmp_dir)
-    path = tmp_dir.join("#{self.id}.#{format}")
-    File.open(path, "wb:#{data.encoding}") do |f|
-      f.write data
+  def archive(data_or_path, format, options = {})
+    record = nil
+    if data_or_path.is_a?(Pathname)
+      File.open(data_or_path, 'rb') do |f|
+        record = self.archives.create!(file: f, template_id: options[:template_id])
+      end
+    else
+      tmp_dir = Rails.root.join('tmp', 'archiving')
+      FileUtils.mkdir_p(tmp_dir)
+      path = tmp_dir.join("#{self.id}.#{format}")
+      File.open(path, "wb:#{data_or_path.encoding}") do |f|
+        f.write data_or_path
+      end
+      File.open(path, 'rb') do |f|
+        record = self.archives.create!(file: f, template_id: options[:template_id])
+      end
+      FileUtils.rm_f(path)
     end
-    File.open(path, 'rb') do |f|
-      self.archives.create!(file: f, template_id: options[:template_id])
-    end
-    FileUtils.rm_f(path)
+    return record
   end
 
   # Returns the matching unique document for the given nature and key

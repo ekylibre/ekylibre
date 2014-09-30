@@ -114,7 +114,7 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-gem 'beardley'
+gem 'beardley', '~> 1.1.0'
 gem 'beardley-barcode'
 gem 'beardley-batik'
 gem 'beardley-charts'

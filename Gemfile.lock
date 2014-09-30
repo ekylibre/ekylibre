@@ -48,7 +48,7 @@ GEM
       activerecord (>= 4.0.0, < 5)
     awesome_print (1.2.0)
     bcrypt (3.1.7)
-    beardley (1.0.2)
+    beardley (1.1.1)
       rjb (>= 1.4.8)
       rjb-loader (>= 0.0.2)
     beardley-barcode (1.0.0)
@@ -354,7 +354,7 @@ DEPENDENCIES
   apartment
   awesome_nested_set (~> 3.0.0.rc3)
   awesome_print
-  beardley
+  beardley (~> 1.1.0)
   beardley-barcode
   beardley-batik
   beardley-charts

@@ -164,6 +164,26 @@ class DocumentTemplate < Ekylibre::Record::Base
     return data
   end
 
+
+  # Print a document with the given datasource
+  # Store if needed by template
+  # @param datasource XML representation of data used by the template
+  def export(datasource, key, format = :pdf, options = {})
+    # Load the report
+    report = Beardley::Report.new(self.source_path)
+    # Call it with datasource
+    path = Pathname.new(report.to_file(format, datasource))
+    # Archive the document according to archiving method. See #archive method.
+    if archive = self.archive(path, key, format, options)
+      FileUtils.rm_rf(path)
+      path = archive.file.path(:original)
+    end
+    # Returns only the data (without filename)
+    return path
+  end
+
+
+
   # Returns the list of formats of the templates
   def formats
     (self["formats"].blank? ? Ekylibre::Reporting.formats : self["formats"].strip.split(/[\s\,]+/))
@@ -174,13 +194,14 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
   # Archive the document using the given archiving method
-  def archive(data, key, format, options = {})
-    document = nil
+  def archive(data_or_path, key, format, options = {})
+    document_archive = nil
     unless self.archiving_none? or self.archiving_none_of_template?
       # Find exisiting document
-      document = Document.where(:nature => self.nature, :key => key).first
-      # Create document if not exist
-      document ||= Document.create!(:nature => self.nature, :key => key, :name => (options[:name] || tc('document_name', :nature => self.nature.text, :key => key))) # }, :without_protection => true)
+      unless document = Document.where(nature: self.nature, key: key).first
+        # Create document if not exist
+        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.text, key: key))) # }, :without_protection => true)
+      end
 
       # Removes old archives if only keepping last archive
       if self.archiving_last? or self.archiving_last_of_template?
@@ -193,13 +214,13 @@ class DocumentTemplate < Ekylibre::Record::Base
       end
 
       # Adds the new archive if expected
-      if (self.archiving_first? and document.archives.where("template_id IS NOT NULL").count.zero?) or
-          (self.archiving_first_of_template? and document.archives.where(:template_id => self.id).count.zero?) or
+      if (self.archiving_first? and document.archives.where("template_id IS NOT NULL").empty?) or
+          (self.archiving_first_of_template? and document.archives.where(template_id: self.id).empty?) or
           self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
-        document.archive(data, format, options.merge(:template_id => self.id))
+        document_archive = document.archive(data_or_path, format, options.merge(template_id: self.id))
       end
     end
-    return document
+    return document_archive
   end
 
 
