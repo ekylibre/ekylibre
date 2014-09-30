@@ -1,5 +1,13 @@
 @import "compass/css3/columns";
 
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+input[type="date"]::-webkit-input-placeholder { 
+    visibility: hidden !important;
+}
+
 #top {
   margin-bottom: 0;
   @include background-active-gradient;

@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require modernizr
 //= require jquery
 //= require jquery-ui/datepicker
 //= require jquery-ui/dialog
@@ -30,7 +31,6 @@
 //= require cocoon
 //= require support
 //= require selector
-//= require modernizr.mq
 //= require ui
 //= require jstz
 //= require wicket

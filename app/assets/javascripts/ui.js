@@ -1,4 +1,4 @@
-/* -*- mode: javascript; indent-tabs-mode: nil; -*- */
+/* -*- mode: javascript; indent-tabs-mode: 2; -*- */
 //= require bootstrap/dropdown
 //= require bootstrap/datetimepicker
 //= require bootstrap/datetimepicker-i18n
@@ -63,18 +63,18 @@
 
     // Set auto resizing
     /*$.resizeLayout = function () {
-        $.layoutResizing.resize($('#body.resizable'), $(window).width(), $(window).height());
-        $("input[type='text']:first").select();
-        $("input[type='text']:first").focus();
-    };
-    $.resizeLayoutProperly = function () {
-        $.resizeLayout();
-        window.setTimeout($.resizeLayout, 300);
-    };
-    $(document).ready($.resizeLayoutProperly);
-    $(window).resize($.resizeLayoutProperly);
-    $(window).bind("layout:change", $.resizeLayoutProperly);
-	*/
+      $.layoutResizing.resize($('#body.resizable'), $(window).width(), $(window).height());
+      $("input[type='text']:first").select();
+      $("input[type='text']:first").focus();
+      };
+      $.resizeLayoutProperly = function () {
+      $.resizeLayout();
+      window.setTimeout($.resizeLayout, 300);
+      };
+      $(document).ready($.resizeLayoutProperly);
+      $(window).resize($.resizeLayoutProperly);
+      $(window).bind("layout:change", $.resizeLayoutProperly);
+	  */
 
 
     $.fn.raiseContentErrorToFieldSet = function () {
@@ -667,7 +667,7 @@
             // Check for dependents
             if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
                 if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
-	            hidden.attr('data-observe', '1000');
+	                  hidden.attr('data-observe', '1000');
                 }
             }
             element.datepicker(options);
@@ -699,7 +699,7 @@
             // Check for dependents
             if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
                 if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
-	            hidden.attr('data-observe', '1000');
+	                  hidden.attr('data-observe', '1000');
                 }
             }
             element.datepicker(options);
@@ -709,46 +709,22 @@
     });
 
     // Initializes datetime fields
-    $(document).on("focusin click keyup change", 'input[type="datetime"]', function (event) {
-        var element = $(this), locale, options = {}, name, hidden;
-        if (element.attr("autocomplete") !== "off") {
-            locale = element.attr("lang");
-            // // if ($.datetimepicker.regional[locale] === null || $.datetimepicker.regional[locale] === undefined) {
-            // //     locale = "en";
-            // // }
-            // // $.timepicker.setDefaults( $.datetimepicker.regional[locale] );
-            // name = element.attr("name");
-            // element.removeAttr("name");
-            // hidden = $("<input type='hidden' name='" + name + "'/>");
-            // hidden.val(element.val());
-            // element.before(hidden);
-            // element.val(element.data('human-value'));
-
-            // options['dateFormat']  = element.data("format");
-            // options['altFieldTimeOnly']  = false;
-            // options['altField']    = hidden;
-            // options['altFormat']   = 'yy-mm-dd';
-            // options['altTimeFormat'] = 'HH:mm';
-            // options['isRTL'] = !!($("html").attr("dir") === "rtl");
-            // options['stepMinute'] = 5;
-
-            // // Check for dependents
-            // if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
-            //     if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
-	    //         hidden.attr('data-observe', '1000');
-            //     }
-            // }
-            element.datetimepicker({format: 'yyyy-mm-dd hh:ii', language: locale, autoclose: true, minuteStep: 5, todayBtn: true}); // options);
-            element.attr("autocomplete", "off");
-        }
-    });
-
-
+    if (!Modernizr.touch || !Modernizr.inputtypes.date) {
+        $(document).on("focusin click keyup change", 'input[type="datetime"]', function (event) {
+            var element = $(this), locale, options = {}, name, hidden;
+            if (element.attr("autocomplete") !== "off") {
+                locale = element.attr("lang");
+                element.datetimepicker({format: 'yyyy-mm-dd hh:ii', language: locale, autoclose: true, minuteStep: 5, todayBtn: true}); // options);
+                element.attr("autocomplete", "off");
+            }
+        });
+    }
 
 
 
     $.initializeDateSelectors = function() {
-        $('input[type="date"], input[type="datetime"]').trigger('change');
+        // $('input[type="date"], input[type="datetime"]').trigger('change');
+        $('input[type="date"]').trigger('change');
     };
     $(document).ready($.initializeDateSelectors);
     $(document).on("page:load cocoon:after-insert", $.initializeDateSelectors);

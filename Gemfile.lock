@@ -380,7 +380,7 @@ DEPENDENCIES
   fastercsv
   feedjira
   ffaker
-  formize (~> 2.0)
+  formize (~> 2.1.0)
   haml
   http_accept_language
   i18n-complements

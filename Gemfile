@@ -38,7 +38,7 @@ gem 'jquery-ui-rails'
 gem "jquery-scrollto-rails"
 
 # Forms helper
-gem 'formize', '~> 2.0'
+gem 'formize', '~> 2.1.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
