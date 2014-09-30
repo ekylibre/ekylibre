@@ -32,13 +32,14 @@ class Releaser
     # TODO: Kill console after 40 seconds ?
 
     desc "Run server"
-    pid = fork { exec "RAILS_ENV=production ./bin/rails s" }
-    sleep 40
+    pid = fork { exec "RAILS_ENV=production ./bin/rails s -p 3456" }
+    sleep 30
 
     desc "Get default page"
-    exec "wget demo.ekylibre.lan:3000 -O tmp/index.html"
+    exec "wget demo.ekylibre.lan:3456 -O tmp/index.html"
     # TODO: Navigate with mechanize
 
+    sleep 10
     desc "Stop server"
     Process.kill("SIGINT", pid)
     Process.wait
