@@ -53,8 +53,8 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
       unless land_parcel = LandParcel.find_by(attributes.slice(:worke_number, :variety, :identification_number))
         land_parcel = LandParcel.create!(attributes)
       end
-      land_parcel.read!(:shape, record.geometry, at: born_at)
-      land_parcel.read!(:population, land_parcel.shape_area.in_hectare, at: born_at)
+      land_parcel.read!(:shape, record.geometry, at: land_parcel.born_at)
+      land_parcel.read!(:population, land_parcel.shape_area.in_hectare, at: land_parcel.born_at )
       # if record.geometry
       #   shapes["LP" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
       # end
@@ -77,20 +77,19 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
           cultivable_zone = CultivableZone.create!(attributes)
         end
 
-        if record.geometry
+        if record.geometry and geom = Charta::Geometry.new(record.geometry).transform(4326)
           # Add readings
-          cultivable_zone.read!(:shape, record.geometry, at: land_parcel.born_at)
+          cultivable_zone.read!(:shape, geom, at: land_parcel.born_at)
           cultivable_zone.read!(:population, cultivable_zone.shape_area.in_hectare, at: land_parcel.born_at)
 
           # Link cultivable zone and land parcel
           attributes = {
             group_id: cultivable_zone.id,
             member_id: land_parcel.id,
-            started_at: cultivable_zone.born_at,
-            shape: record.geometry,
+            shape: geom,
             population: land_parcel.population
           }
-          unless CultivableZoneMembership.find_by(attributes.slice(:group, :member, :started_at))
+          unless CultivableZoneMembership.find_by(attributes.slice(:group, :member))
             CultivableZoneMembership.create!(attributes)
           end
 
