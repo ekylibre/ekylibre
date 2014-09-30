@@ -127,36 +127,38 @@ module Ekylibre
           map[dest] = working_path.join(source)
         end
         if target_path.exist?
-          expected = map.keys.map(&:to_s)
-          Zip::File.open(target_path) do |zile|
-            zile.each do |entry|
-              expected.delete(entry.name)
-            end
-          end
-          if expected.any?
-            raise "Missing files in archive #{target}: #{expected.to_sentence}"
+          FileUtils.rm_rf(target_path)
+        end
+        # expected = map.keys.map(&:to_s)
+        # Zip::File.open(target_path) do |zile|
+        #   zile.each do |entry|
+        #     expected.delete(entry.name)
+        #   end
+        # end
+        # if expected.any?
+        #   raise "Missing files in archive #{target}: #{expected.to_sentence}"
+        # end
+        # else
+        expected = map.values.select{|source| !source.exist?}
+        if expected.any?
+          if expected.size != map.values.size
+            raise "Missing files to build #{target} archive: #{expected.to_sentence}"
           end
         else
-          expected = map.values.select{|source| !source.exist?}
-          if expected.any?
-            if expected.size != map.values.size
-              raise "Missing files to build #{target} archive: #{expected.to_sentence}"
-            end
-          else
-            begin
-              Zip::File.open(target_path, Zip::File::CREATE) do |zile|
-                map.each do |dest, source|
-                  zile.add(dest, source)
-                end
+          begin
+            Zip::File.open(target_path, Zip::File::CREATE) do |zile|
+              map.each do |dest, source|
+                zile.add(dest, source)
               end
-            # Zip Library can throw an us-ascii string error with utf-8 inside
-            rescue Exception => e
-              puts "Cannot create #{target_path}".red
-              puts "Caused by: #{e.to_s.force_encoding('utf-8')}".blue
-              System.exit 1
             end
+            # Zip Library can throw an us-ascii string error with utf-8 inside
+          rescue Exception => e
+            puts "Cannot create #{target_path}".red
+            puts "Caused by: #{e.to_s.force_encoding('utf-8')}".blue
+            System.exit 1
           end
         end
+        # end
         return target_path
       end
 
