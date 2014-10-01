@@ -84,7 +84,7 @@ class Purchase < CompanyRecord
       transition :draft => :estimate, :if=>:has_content?
     end
     event :correct do
-      transition [:estimate, :refused, :order] => :draft
+      transition [:invoice, :estimate, :refused, :order] => :draft
     end
     event :refuse do
       transition :estimate => :refused, :if=>:has_content?
