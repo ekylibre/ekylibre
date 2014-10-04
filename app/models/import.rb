@@ -64,7 +64,7 @@ class Import < Ekylibre::Record::Base
           break unless yield(progression, count)
         end
       end
-      self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper ? User.stamper.id : 0))
+      self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper ? User.stamper : 0))
     end
     if self.in_progress?
       self.update_columns(state: :errored, progression_percentage: 0)
