@@ -563,7 +563,7 @@ eng:
       load: "Load missing sequences"
       new: "New sequence"
     backend/settings:
-      about: "About Ekylibre"
+      about: "About Ekylibre ERP"
       edit: "Configuration"
       import: "Import data" #?
     backend/settlements:
@@ -1026,7 +1026,7 @@ eng:
       finances: "Finances"
       general: "General"
       home: "Home"
-      index: "Ekylibre"
+      index: "Ekylibre ERP"
       mandates: "Responsibilities"
       production: "Production"
       purchases: "Purchases"
@@ -1079,7 +1079,7 @@ eng:
     no_deliveries_for_this_sale: "No deliveries for this sale" #?
     no_deposits: "No deposits" #?
     no_filters: "— No filters —" #?
-    no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre." #?
+    no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre ERP." #?
     no_origin: "No origin" #?
     no_products: "No products" #?
     no_proposer: "No proposer" #?
@@ -1113,9 +1113,9 @@ eng:
       unparted: "Unused" #?
       waiting: "To deposit later" #?
     overflow: "Overflow" #?
-    page_title: "%{company_code} - %{menu} - %{action}" #?
-    page_title_by_default: "Ekylibre - %{action}" #?
-    page_title_special: "%{company_code} - %{action}" #?
+    page_title: "%{company_code} · %{menu} · %{action}" #?
+    page_title_by_default: "Ekylibre ERP · %{action}" #?
+    page_title_special: "%{company_code} · %{action}" #?
     paid_amount: "Paid amount" #?
     paid_at: "Paid on" #?
     parameters: "Parameters"

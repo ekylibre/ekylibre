@@ -161,7 +161,6 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
-      welcome: "Bienvenue dans Ekylibre" #?
     backend/deposits:
       edit: "Modifier la remise en banque n°%{number} du %{created_at}"
       index: "Remises en banque"
@@ -1117,7 +1116,7 @@ fra:
       finances: "Finances"
       general: "Général"
       home: "Accueil"
-      index: "Ekylibre"
+      index: "Ekylibre ERP"
       mandates: "Responsabilités"
       production: "Production"
       purchases: "Achats"
@@ -1229,7 +1228,7 @@ fra:
       waiting: "À décaisser plus tard"
     overflow: "CREDIT OU EXCEDENT"
     page_title: "%{company_code} · %{menu} · %{action}"
-    page_title_by_default: "Ekylibre · %{action}"
+    page_title_by_default: "Ekylibre ERP · %{action}"
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"

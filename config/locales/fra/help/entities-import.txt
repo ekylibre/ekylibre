@@ -10,7 +10,7 @@ Avant de sélectionner votre fichier, pensez bien à utiliser le bon format :
 !!! Le format CSV doit être un format //propre//. Pour cette raison, il est recommandé d'utiliser //OpenOffice// qui permet de produire ce type de document.
 
 ===== Correspondance des colonnes =====
-Cette étape permet de faire correspondre chaque colonne du tableau importé à une donnée dans //Ekylibre//.
+Cette étape permet de faire correspondre chaque colonne du tableau importé à une donnée dans //Ekylibre ERP//.
 
 ===== Validation et importation =====
 Une fois la correspondance effectuée, l'intégralité du fichier est testé avant d'être importé. À la suite un rapport est émis en cas d'erreur. Suivant les problèmes, vous serez amené à les corriger dans votre fichier et à recommencer la procédure.

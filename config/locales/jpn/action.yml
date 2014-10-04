@@ -501,7 +501,7 @@ jpn:
       # load: "Load missing sequences"
       # new: "New sequence"
     backend/settings:
-      # about: "About Ekylibre"
+      # about: "About Ekylibre ERP"
       # edit: "Configuration"
       # import: "Import data"
     backend/settlements:
@@ -961,7 +961,7 @@ jpn:
       # finances: "Finances"
       # general: "General"
       # home: "Home"
-      # index: "Ekylibre"
+      # index: "Ekylibre ERP"
       # mandates: "Responsibilities"
       # production: "Production"
       # purchases: "Purchases"
@@ -1018,7 +1018,7 @@ jpn:
     # no_deliveries_for_this_sale: "No deliveries for this sale"
     # no_deposits: "No deposits"
     # no_filters: "— No filters —"
-    # no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre."
+    # no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre ERP."
     # no_origin: "No origin"
     # no_products: "No products"
     # no_proposer: "No proposer"
