@@ -118,11 +118,12 @@ class Intervention < Ekylibre::Record::Base
   scope :provisional, -> { where(provisional: true) }
   scope :real, -> { where(provisional: false) }
 
-  # scope :with_variable, lambda { |role, object|
-  #    where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
-  # }
   scope :with_cast, lambda { |role, object|
-     where(id: InterventionCast.with_cast(role, object).pluck(:intervention_id))
+    where(id: InterventionCast.of_role(role).of_actor(object).pluck(:intervention_id))
+  }
+
+  scope :with_generic_cast, lambda { |role, object|
+     where(id: InterventionCast.of_generic_role(role).of_actor(object).pluck(:intervention_id))
   }
 
   before_validation do

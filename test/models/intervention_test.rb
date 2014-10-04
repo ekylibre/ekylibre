@@ -52,8 +52,27 @@ require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
 
-  test "presence of fixtures" do
-    # assert_equal 2, Procedure.count
+  test "scopes" do
+    cast = intervention_casts(:intervention_casts_001)
+    actor = cast.actor
+    assert_nothing_raised do
+      Intervention.with_generic_cast(:tool, actor)
+    end
+    assert_nothing_raised do
+      Intervention.with_generic_cast("tool", actor)
+    end
+    assert_nothing_raised do
+      Intervention.with_cast(:'grinding-tool', actor)
+    end
+    assert_nothing_raised do
+      Intervention.with_cast('grinding-tool', actor)
+    end
+    assert_raise ArgumentError do
+      Intervention.with_cast("tool", actor)
+    end
+    assert_raise ArgumentError do
+      Intervention.with_cast(:tool, actor)
+    end
   end
 
 end

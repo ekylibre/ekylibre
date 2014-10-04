@@ -91,6 +91,10 @@ class Operation < Ekylibre::Record::Base
     joins(:intervention).merge(Intervention.with_cast(role, object))
   }
 
+  scope :with_generic_cast, lambda { |role, object|
+    joins(:intervention).merge(Intervention.with_generic_cast(role, object))
+  }
+
   calculable period: :month, at: :started_at, column: :duration
 
   before_validation(on: :create) do
