@@ -8,9 +8,13 @@ module Ekylibre
         @mode = options[:mode].to_s.downcase
         @mode = "normal" if @mode.blank?
         @mode = @mode.to_sym
-        @name = (options[:name] || options[:folder] || "demo").to_s
+        @name = options[:name] || options[:folder]
+        @name ||= "demo" if Ekylibre::FirstRun.path.join("demo").exist?
         @folder = options[:folder] || @name
         @folder_path = Ekylibre::FirstRun.path.join(@folder)
+        unless @folder_path.exist?
+          raise ArgumentError, "Need a valid folder path. #{@folder_path} doesn't exist."
+        end
         file = path("manifest.yml")
         @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
         @manifest[:company]      ||= {}
