@@ -73,7 +73,7 @@ module Backend::HelpsHelper
   end
 
   def help_shown?
-    !current_user.preference("interface.helps.collapsed", false, :boolean).value
+    !current_user.preference("interface.helps.collapsed", true, :boolean).value
   end
 
 

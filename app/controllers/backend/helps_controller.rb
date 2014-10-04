@@ -23,7 +23,7 @@ class Backend::HelpsController < BackendController
   # Save the shown/hidden state of the help
   def toggle
     collapsed = !params[:collapsed].to_i.zero?
-    p = current_user.preference("interface.helps.collapsed", false, :boolean)
+    p = current_user.preference("interface.helps.collapsed", true, :boolean)
     p.set!(collapsed)
     head :ok
   end
