@@ -787,8 +787,6 @@ spa:
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_website: "Add website"
-    # address: "Address"
-    # affair: "Affair"
     # affairs: "Affairs"
     # all: "All"
     # all_accounts: "All accounts"
@@ -801,7 +799,6 @@ spa:
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_with_taxes: "Total de la entrega TTC"
     # amounts_in_currency: "Amounts (%{currency})"
-    # analysis: "Analysis"
     # analytics: "Analytics"
     animal_group_tabbox: #?
     # animal_productions: "Animal productions"
@@ -843,12 +840,11 @@ spa:
     bank_statement_update: "Modificar el leventar" #?
     # bban: "Basic Bank Account Number (BBAN)"
     body: "Cuerpo del mensaje"
-    # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
     # building_name: "Building name"
     building_tabbox: #?
     building_update: "Modifiar el lugar de deposito" #?
-    buildings: "Ver la lista de los lugares de deposito"
+    buildings: "Ver la lista de los lugares de deposito" #?
     # calculate: "Calculate"
     # calendar: "Calendar"
     # campaign: "Campaign"
@@ -1573,6 +1569,7 @@ spa:
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Cargar las unidades de base que falten" #?
+    # unknown: "Unknown"
     # unknown_condition: "Unknown condition"
     # unknown_user: "Unknown user"
     # unknown_variant: "Unknown variant"

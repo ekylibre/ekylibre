@@ -680,8 +680,8 @@ fra:
     add_website: "Ajouter un site Web"
     add_x: "Ajouter «\_%{x}\_»" #?
     add_x_html: "Ajouter «\_%{x}\_»" #?
-    address: "Adresse"
-    affair: "Affaire"
+    address: "Adresse" #?
+    affair: "Affaire" #?
     affairs: "Affaires"
     all: "Tous"
     all_accounts: "Tous les comptes"
@@ -694,7 +694,7 @@ fra:
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
     amounts_in_currency: "Montants (%{currency})"
-    analysis: "Analyse"
+    analysis: "Analyse" #?
     analytics: "Analytiques"
     animal: "Animal" #?
     animal_bar: "Animaux par lot" #?
@@ -733,9 +733,9 @@ fra:
     beginning: "Début" #?
     begins: "Commence par" #?
     body: "Corps du message"
-    building: "Lieu de stockage"
+    building: "Lieu de stockage" #?
     building_name: "Sortie de"
-    buildings: "Voir la liste des lieux de stockage"
+    buildings: "Voir la liste des lieux de stockage" #?
     calculate: "Calculer"
     calendar: "Calendrier"
     campaign: "Campagne"
@@ -1546,6 +1546,7 @@ fra:
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Charger les unités de base manquantes" #?
+    unknown: "Inconnu"
     unknown_condition: "Type de condition inconnue"
     unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue"

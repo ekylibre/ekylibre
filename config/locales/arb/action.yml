@@ -948,8 +948,7 @@ arb:
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_website: "Add website"
-    address: "العنوان"
-    # affair: "Affair"
+    address: "العنوان" #?
     # affairs: "Affairs"
     all: "جميع الاسعار"
     # all_accounts: "All accounts"
@@ -962,7 +961,6 @@ arb:
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
     # amounts_in_currency: "Amounts (%{currency})"
-    # analysis: "Analysis"
     # analytics: "Analytics"
     animal_group_tabbox: #?
     # animal_productions: "Animal productions"
@@ -1008,12 +1006,12 @@ arb:
     bank_statement_update: "تعديل الكشف المصرفي" #?
     # bban: "Basic Bank Account Number (BBAN)"
     body: "هيكل الرسالة"
-    building: "مكان التخزين"
+    building: "مكان التخزين" #?
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج"
     building_tabbox: #?
     building_update: "تعديل موقع التخزين" #?
-    buildings: "النظر بقائمة مواقع التخزين"
+    buildings: "النظر بقائمة مواقع التخزين" #?
     # calculate: "Calculate"
     # calendar: "Calendar"
     # campaign: "Campaign"
@@ -1856,6 +1854,7 @@ arb:
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "تحميل الوحدات الاساسية المفقودة" #?
+    # unknown: "Unknown"
     unknown_condition: "غير معروف نوع الشرط"
     # unknown_user: "Unknown user"
     # unknown_variant: "Unknown variant"

@@ -422,7 +422,7 @@ land_parcels_001:
   born_at: 1959-03-02 10:00:00.000000000 +01:00
   category: product_nature_categories_001
   creator: users_001
-  name: ! 'LandParcel #1'
+  name: 'LandParcel Ⅰ'
   nature: product_natures_001
   number: '40001'
   type: LandParcel
@@ -433,9 +433,20 @@ land_parcels_002:
   born_at: 1959-07-02 10:00:00.000000000 +01:00
   category: product_nature_categories_001
   creator: users_001
-  name: ! 'LandParcel #2'
+  name: 'LandParcel Ⅱ'
   nature: product_natures_001
   number: '40002'
+  type: LandParcel
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel
+land_parcels_003:
+  born_at: 1959-03-02 10:00:00.000000000 +01:00
+  category: product_nature_categories_001
+  creator: users_001
+  name: 'LandParcel Ⅲ'
+  nature: product_natures_001
+  number: '40003'
   type: LandParcel
   updater: users_001
   variant: product_nature_variants_001

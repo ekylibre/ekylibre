@@ -19,10 +19,10 @@
 
     # for support
 
-    popup_content << {label: :campaign.tl, value: support.production.campaign.name}
-    popup_content << {label: :activity.tl, value: support.production.activity.name}
-    popup_content << {label: :production.tl, value: link_to(support.production.name, backend_production_path(support.production))}
-    popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+    popup_content << {label: Campaign.model_name.human, value: support.production.campaign.name}
+    popup_content << {label: Activity.model_name.human, value: support.production.activity.name}
+    popup_content << {label: Production.model_name.human, value: link_to(support.production.name, backend_production_path(support.production))}
+    popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.name, backend_production_support_path(support))}
 
     if support.storage
       popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}

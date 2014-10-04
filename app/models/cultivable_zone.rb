@@ -118,11 +118,11 @@ class CultivableZone < Zone
 
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
   def clusters_work_number(viewed_at = nil)
-    lp = self.members_at(viewed_at)
+    land_parcels = self.members_at(viewed_at)
     numbers = []
-    if lp.count > 0
-      for landparcel in lp
-        groups = landparcel.groups
+    if land_parcels.any?
+      for land_parcel in land_parcels
+        groups = land_parcel.groups
         for group in groups
           if group.is_a?(LandParcelCluster)
             numbers << group.work_number
@@ -136,11 +136,11 @@ class CultivableZone < Zone
 
   # return the variety of all land_parcel members of the cultivable land parcel
   def soil_varieties(viewed_at = nil)
-    lp = self.members_at(viewed_at)
+    land_parcels = self.members_at(viewed_at)
     varieties = []
-    if lp.count > 0
-      for landparcel in lp
-        varieties << landparcel.soil_nature if landparcel.soil_nature
+    if land_parcels.any?
+      for land_parcel in land_parcels
+        varieties << land_parcel.soil_nature if land_parcel.soil_nature
       end
       return varieties.to_sentence
     else
