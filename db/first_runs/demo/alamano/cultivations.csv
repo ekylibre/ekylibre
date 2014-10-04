@@ -1,6 +1,0 @@
-nom de la culture,code culture,code variant culture,code support,date implantation,Espèce/Variété,Indicateurs
-,PLANTATION,,,,,
-Vigne Jeune B,PLANT_ZC01,vine_grape_crop,ZC16,2011-07-30,vitis_vinifera_colombar_blanc,Population : 2.336 ; plants_count : 4500 ; woodstock_variety : vitis_cinerea_x_vitis_rupestris_99R ; certification : cognac
-Vigne Vieille B,PLANT_ZC02,vine_grape_crop,ZC18,1982-10-25,vitis_vinifera_ugni_blanc,Population : 6.00 ; plants_count : 4875 ; woodstock_variety : vitis_cinerea_x_vitis_rupestris_99R ; certification : cognac
-Vigne Poussé N,PLANT_ZC03,vine_grape_crop,ZC21,2010-07-30,vitis_vinifera_ugni_blanc,Population : 0.421 ; plants_count : 4875 ; woodstock_variety : vitis_cinerea_x_vitis_rupestris_99R ; certification : cognac
-Poirier plant Williams,PLANT_ZC011_1,pear_crop,ZC11,2012-10-15,pyrus_communis_william,Population : 0.62 ; plants_count : 400

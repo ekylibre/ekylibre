@@ -16,9 +16,6 @@
 
 # Ignore the default first run files
 /db/first_runs/*
-!/db/first_runs/demo
-# generated files
-/db/first_runs/demo/**/*.zip
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
