@@ -1581,7 +1581,7 @@ spa:
     # unpaid: "Unpaid"
     # unpaid_amount: "Unpaid amount"
     # unpaid_days: "Unpaid since (in days)"
-    # unpaid_sales: "Unpaid sale"
+    # unpaid_sales: "Unpaid sales"
     # unpaid_sales_export: "Export unpaid sales in CSV"
     # unparted: "Unparted"
     # unreceived: "Unreceived"

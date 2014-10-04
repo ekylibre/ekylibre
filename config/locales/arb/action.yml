@@ -1864,7 +1864,7 @@ arb:
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"
     # unpaid_days: "Unpaid since (in days)"
-    # unpaid_sales: "Unpaid sale"
+    # unpaid_sales: "Unpaid sales"
     unpaid_sales_export: "csv لم يتم تسديد قائمة البيع الصادرة ضمن"
     unparted: "غير متضرر"
     unreceived: "غير مقبوضة"
