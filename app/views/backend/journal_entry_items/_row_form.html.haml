@@ -7,7 +7,7 @@
   %tr.inline-errors{id: id+'-errors'}
     %td{colspan: 5}= error_messages(item)
 %tr{id: id}
-  %td= text_field_tag("items[#{id}][name]", item.name, id: "items_#{id}_name", data: {parameter_name: "name", autofocus: (controller.controller_name.to_s == "journal_entries" ? "false" : "true")})
+  %td= text_field_tag("items[#{id}][name]", item.name, id: "items_#{id}_name", data: {parameter_name: "name", autofocus: (controller_name.to_s == "journal_entries" ? "false" : "true")})
   %td= selector_tag "items[#{id}][account_id]", {controller: :accounts, action: :unroll}, value: item.account
   %td.dec= text_field_tag "items[#{id}][real_debit]", (item.real_debit||0.0), size: 10, id: "items_#{id}_real_debit", class: "original-debit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-original-debit,#entry-original-credit,#journal_id,#journal_entry_printed_on", exclusive_nullify: "#items_#{id}_real_credit"}
   %td= @journal.currency

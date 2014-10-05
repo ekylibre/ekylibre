@@ -15,6 +15,7 @@
       @dropDownButton = $ "<a>",
           href: "##{@element.attr('id')}"
           rel: 'dropdown'
+          tabindex: -1
           class: 'selector-dropdown'
         .append $("<i>")
         .insertAfter @element

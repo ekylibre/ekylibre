@@ -11,10 +11,10 @@
 
     %thead
       %tr
-        %th= JournalEntryItem.human_attribute_name("name")
-        %th= JournalEntryItem.human_attribute_name("account")
-        %th{colspan: 2}= JournalEntryItem.human_attribute_name("debit")
-        %th{colspan: 2}= JournalEntryItem.human_attribute_name("credit")
+        %th= JournalEntryItem.human_attribute_name(:name)
+        %th= JournalEntryItem.human_attribute_name(:account)
+        %th{colspan: 2}= JournalEntryItem.human_attribute_name(:debit)
+        %th{colspan: 2}= JournalEntryItem.human_attribute_name(:credit)
         %th.act
 
     %tfoot

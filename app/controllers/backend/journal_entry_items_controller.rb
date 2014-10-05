@@ -19,8 +19,6 @@
 
 class Backend::JournalEntryItemsController < BackendController
 
-  unroll
-
   def new
     @journal_entry_item = JournalEntryItem.new
     @journal_entry_item.name = params[:name] if params[:name]
@@ -32,8 +30,8 @@ class Backend::JournalEntryItemsController < BackendController
         @journal_entry_item.real_debit  = credit - debit
       end
     end
-    if params[:journal_id] and @journal = Journal.find_by_id(params[:journal_id])
-      if @journal.cashes.size == 1
+    if params[:journal_id] and @journal = Journal.find_by(id: params[:journal_id])
+      if @journal.cashes.count == 1
         @journal_entry_item.account = @journal.cashes.first.account
       end
     end

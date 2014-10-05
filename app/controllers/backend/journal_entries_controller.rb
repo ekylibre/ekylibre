@@ -18,7 +18,7 @@
 #
 
 class Backend::JournalEntriesController < BackendController
-  manage_restfully only: [:index, :show]
+  manage_restfully only: [:index, :show, :destroy]
 
   unroll
 
@@ -112,20 +112,6 @@ class Backend::JournalEntriesController < BackendController
     end
     t3e @journal_entry.attributes
     # render_restfully_form
-  end
-
-  def destroy
-    return unless @journal_entry = find_and_check
-    unless @journal_entry.destroyable?
-      notify_error(:journal_entry_already_validated)
-      redirect_to_back
-      return
-    end
-    if request.delete?
-      @journal_entry.destroy
-      notify_success(:record_has_been_correctly_removed)
-    end
-    redirect_to_current
   end
 
 end
