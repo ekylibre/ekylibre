@@ -134,14 +134,12 @@
     <group name="journals" icon="book">
       <item name="journals">
         <page to="backend/journals#index"/>
-        <page to="backend/journals#balance"/>
         <page to="backend/journals#bookkeep"/>
         <page to="backend/journals#close"/>
         <page to="backend/journals#create"/>
         <page to="backend/journals#destroy"/>
         <page to="backend/journals#draft"/>
         <page to="backend/journals#edit"/>
-        <page to="backend/journals#general_ledger"/>
         <page to="backend/journals#import"/>
         <page to="backend/journals#list"/>
         <page to="backend/journals#list_draft_items"/>
@@ -167,6 +165,12 @@
         <page to="backend/journal_entry_items#new"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
+      </item>
+      <item name="balance">
+        <page to="backend/journals#balance"/>
+      </item>
+      <item name="general_ledger">
+        <page to="backend/journals#general_ledger"/>
       </item>
     </group>
     <group name="analytics" icon="tasks">

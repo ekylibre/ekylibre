@@ -654,8 +654,8 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
-    account_name: "Account name" #?
-    account_number: "Account number" #?
+    account_name: "Account name"
+    account_number: "Account number"
     accountancy: "Accountancy"
     accounting_balance: "Accounting balance" #?
     accounts: "Accounts" #?
@@ -737,8 +737,8 @@ eng:
     catalog: "Catalog" #?
     category: "Category" #?
     category_name: "Category" #?
-    centralize: "Centralize account" #?
-    centralized_account: "Centralized account %{name}" #?
+    centralize: "Centralize account"
+    centralized_account: "Centralized account %{name}"
     change_price: "Change price" #?
     check: "Check" #?
     check_fields: "You have to check at least one box in order to update" #?
@@ -1290,8 +1290,8 @@ eng:
     subscription_nature: "Subscription type" #?
     subscriptions: "Subscriptions"
     subtitle: "General parameters" #?
-    subtotal: "Sub-total %{name}" #?
-    subtotals_at_level: "Sub-total at level" #?
+    subtotal: "Sub-total %{name}"
+    subtotals_at_level: "Sub-total at level"
     supplier: "Purchase prices of the supplier" #?
     supplier_code: "Supplier code" #?
     supplier_informations: "Supplier informations " #?
