@@ -33,10 +33,8 @@
 //= require selector
 //= require ui
 //= require jstz
-//= require wicket
 //= require leaflet
 //= require leaflet/draw
-//= require leaflet/wicket
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require_self
