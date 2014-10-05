@@ -54,14 +54,15 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def new
-    return unless @journal = find_and_check(:journal, params[:journal_id])
+    params[:journal_entry] ||= {}
+    return unless @journal = find_and_check(:journal, params[:journal_entry][:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build
     @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
     @journal_entry_items = []
     if request.xhr?
-      render(:partial => 'journal_entries/exchange_rate_form')
+      render(partial: 'backend/journal_entries/exchange_rate_form')
     else
       t3e @journal.attributes
       # render_restfully_form
@@ -69,7 +70,8 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def create
-    return unless @journal = find_and_check(:journal, params[:journal_id])
+    params[:journal_entry] ||= {}
+    return unless @journal = find_and_check(:journal, params[:journal_entry][:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(permitted_params)
     @journal_entry_items = (params[:items]||{}).values

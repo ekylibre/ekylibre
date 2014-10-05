@@ -50,7 +50,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     html_options = options.delete(:input_html) || {}
 
     return input(reflection.foreign_key, options.merge(wrapper: :append, reflection: reflection)) do
-      self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url)}))
+      self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url), value_parameter_name: options[:value_parameter_name] || reflection.foreign_key}))
     end
   end
 
@@ -461,22 +461,22 @@ class SimpleForm::Inputs::DateTimeInput
 
   def input_html_options
     value = object.send(attribute_name)
-    format = @options[:format] || :default
-    unless format.is_a?(Symbol)
-      raise ArgumentError, "Option :format must be a Symbol referencing a translation 'date.formats.<format>'"
-    end
-    if localized_value = value
-      localized_value = localized_value.l(format: format)
-    end
-    format = I18n.translate("#{input_type == :datetime ? :time : input_type}.formats.#{format}")
-    # format = I18n.translate("time.formats.#{format}")
-    Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
-    Formize::TIME_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
+    # format = @options[:format] || :default
+    # unless format.is_a?(Symbol)
+    #   raise ArgumentError, "Option :format must be a Symbol referencing a translation 'date.formats.<format>'"
+    # end
+    # if localized_value = value
+    #   localized_value = localized_value.l(format: format)
+    # end
+    # format = I18n.translate("#{input_type == :datetime ? :time : input_type}.formats.#{format}")
+    # # format = I18n.translate("time.formats.#{format}")
+    # Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
+    # Formize::TIME_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
     options = {
-      data: {
-        format: format,
-        human_value: localized_value
-      },
+      # data: {
+      #   format: format,
+      #   human_value: localized_value
+      # },
       lang: "i18n.iso2".t,
       value: value.blank? ? nil : value.l(format: "%Y-%m-%d#{' %H:%M' if input_type == :datetime}"),
       type: input_type,

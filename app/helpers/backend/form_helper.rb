@@ -18,6 +18,15 @@
 
 module Backend::FormHelper
 
+  # Date field tag override default formize date_field_tag helper to
+  # simplify use for now
+  def date_field_tag(name, value = nil, html_options = {})
+    html_options[:value] = value
+    html_options[:size] ||= 10
+    html_options[:type] = :date
+    tag(:input, html_options)
+  end
+
   def field_tag(*args)
     options = args.extract_options!
     name = args.shift || options[:name]

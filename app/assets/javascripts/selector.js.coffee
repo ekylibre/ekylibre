@@ -27,7 +27,10 @@
       if @element.data("valueField")?
         @valueField = $ @element.data("valueField")
       else
-        @valueField = $ "<input type='hidden' name='#{@element.attr('name')}'/>"
+        @valueField = $ "<input>",
+          type: "hidden"
+          name: @element.attr('name')
+          'data-parameter-name': @element.attr('data-value-parameter-name')
         @element.after @valueField
       @element.removeAttr "name"
       if @element.attr("required") is "true"
