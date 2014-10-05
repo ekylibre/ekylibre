@@ -103,25 +103,12 @@
         zoom : 13
 
     _create: ->
-      console.log "1"
       $.extend(true, @options, @element.data("visualization"))
-
-      console.log "2"
       @mapElement = $("<div>", class: "map").insertAfter(@element)
-
-      console.log "3"
       @map = L.map(@mapElement[0], @options.map)
-
-      console.log "4"
       this._resize()
-
-      console.log "5"
       this._refreshView()
-
-      console.log "8"
       this._refreshControls()
-
-      console.log "9"
 
     _destroy: ->
       @mapElement.remove()
