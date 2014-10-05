@@ -1,6 +1,4 @@
--#= calendar @events, :start_day => :monday do |event|
-  = link_to event.started_at.l(format: "%H:%M") + " " + event.name, backend_event_path(event), class: "event #{event.state}", title: event.casting
-= calendar @events, start_day: :monday do |event|
+= calendar @events, start_day: :monday, params: {controller: controller_path, action: :show} do |event|
   = link_to backend_event_path(event), class: "event", title: event.description.to_s.strip do
     -# FIXME Not internationalized
     %h3= event.started_at.l(format: "%H:%M") + " " + event.name
