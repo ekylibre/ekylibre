@@ -189,7 +189,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
               if area = land_parcel.shape_area
                 coeff = (area.to_s.to_f / 10000.0) / 6.0
 
-                if sowing_intervention = support.interventions.of_nature(:atomic_sowing).reorder(:started_at).last
+                if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
 
                   cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
 
