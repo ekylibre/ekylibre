@@ -1,13 +1,5 @@
 @import "compass/css3/columns";
 
-input::-webkit-calendar-picker-indicator {
-    display: none;
-}
-
-input[type="date"]::-webkit-input-placeholder {
-    visibility: hidden !important;
-}
-
 #top {
   margin-bottom: 0;
   @include background-active-gradient;
@@ -1260,7 +1252,7 @@ $form-actions-height: 48px;
 
 
 .ui-dialog {
-  z-index: 5;
+  z-index: 10;
   .ui-dialog-content {
     & > form {
       margin: 0;
@@ -1373,15 +1365,16 @@ $form-actions-height: 48px;
       @include is-icon;
       @include use-icon(times);
       color: $text-color;
-      @include opacity(0.3);
-      margin-top: 3px;
+      background: transparent;
+      @include opacity(0.6);
       height: 16px;
       width: 16px;
-      span.ui-icon {
+      padding: 2px;
+      .ui-icon, .ui-button-text {
         display: none;
       }
       &:focus, &:active, &:hover {
-        @include opacity(0.5);
+        @include opacity(0.8);
       }
     }
   }
