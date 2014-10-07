@@ -67,7 +67,7 @@
                   <cell name="id" of="input" level="api"/>
                   <cell name="name" of="input"/>
                   <cell name="actor_name" value="input.actor.name"/>
-                  <cell name="nature_name" of="input"/>
+                  <cell name="product_nature_name" of="input"/>
                   <cell name="population" of="input"/>
                   <cell name="unit_name" of="input.actor"/>
                   <cell name="quantity" value="input.actor.net_mass(input)" type="measure"/>
