@@ -219,7 +219,7 @@ fra:
       show: "Évènement\_: %{name}"
     backend/exports:
       index: "Exports"
-      show: "Export: %{name}"
+      show: "Export\_: %{name}"
     backend/financial_assets:
       cede: "Céder l’immobilisation" #?
       depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?

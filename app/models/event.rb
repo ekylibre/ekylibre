@@ -60,10 +60,10 @@ class Event < Ekylibre::Record::Base
   scope :after,   lambda { |at| where(arel_table[:started_at].gt(at)) }
   scope :before,  lambda { |at| where(arel_table[:started_at].lt(at)) }
   scope :without_restrictions_for, lambda { |*entities|
-    where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.map(&:id))
+    where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.flatten.map(&:id))
   }
   scope :with_participant, lambda { |*entities|
-    where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.map(&:id))
+    where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.flatten.map(&:id))
   }
 
   before_validation do

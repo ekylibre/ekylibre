@@ -32,7 +32,9 @@ module RestfullyManageable
           after_save_url = named_url if instance_methods(true).include?(named_url.to_sym)
         end
       elsif after_save_url.is_a?(CodeString)
-        after_save_url.gsub!(/RECORD/, '@' + record_name)
+        after_save_url.gsub!(/RECORD/, "@#{record_name}")
+      elsif after_save_url.is_a?(Hash)
+        after_save_url = after_save_url.inspect.gsub(/RECORD/, "@#{record_name}")
       end
 
 

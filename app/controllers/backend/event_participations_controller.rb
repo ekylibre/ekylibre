@@ -18,5 +18,5 @@
 #
 
 class Backend::EventParticipationsController < BackendController
-  manage_restfully except: [:index, :show]
+  manage_restfully except: [:index, :show], redirect_to: {controller: :events, action: :show, id: 'RECORD.event_id'.c}, destroy_to: {controller: :events, action: :show, id: 'RECORD.event_id'.c}
 end
