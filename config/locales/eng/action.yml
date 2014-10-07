@@ -992,7 +992,7 @@ eng:
     listing_extract: "Extract" #?
     listing_mail: "Send email" #?
     listings: "Extract data" #?
-    load: "Load" #?
+    load: "Load"
     load_demo_data: "Load demo data" #?
     locale: "Language"
     localization: "Localization" #?

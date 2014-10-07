@@ -216,9 +216,9 @@ class Account < Ekylibre::Record::Base
     # It takes the information in preferences
     def chart=(name)
       unless item = Nomen::ChartsOfAccounts[name]
-        raise ArgumentError.new("The chart of accounts #{name.inspect} is unknown.")
+        raise ArgumentError, "The chart of accounts #{name.inspect} is unknown."
       end
-      return Preference.get(:chart_of_accounts).value = item.name
+      Preference.get(:chart_of_accounts).set!(item.name)
     end
     alias :chart_of_accounts= :chart=
 
@@ -234,14 +234,17 @@ class Account < Ekylibre::Record::Base
 
     # Load a chart of account
     def load # (name, options = {})
-      name = chart
-      unless item = Nomen::ChartsOfAccounts[name]
-        raise ArgumentError.new("Chart of accounts #{name.inspect} is unknown")
+      self.transaction do
+        # Destroy unused existing accounts
+        find_each do |account|
+          account.destroy if account.destroyable?
+        end
+
+        for item in Nomen::Accounts.all
+          find_or_create_in_chart(item)
+        end
       end
-      for item in Nomen::Accounts.all
-        find_or_create_in_chart(item)
-      end
-      return false
+      return true
     end
 
     # Clean ranges of accounts

@@ -132,9 +132,11 @@ class Backend::AccountsController < BackendController
 
   def load
     if request.post?
-      if Account.load_chart(params[:chart])
-        redirect_to_back
+      Account.chart = params[:chart]
+      if Nomen::Accounts.property_natures.keys.include?(Account.chart.to_s)
+        Account.load
       end
+      redirect_to action: :index
     end
   end
 
