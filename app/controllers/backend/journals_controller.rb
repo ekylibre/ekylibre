@@ -18,7 +18,7 @@
 #
 
 class Backend::JournalsController < BackendController
-  manage_restfully :nature => "params[:nature]".c, :currency => "Preference[:currency]".c
+  manage_restfully nature: "params[:nature]".c, currency: "Preference[:currency]".c
 
   unroll
 
@@ -87,7 +87,6 @@ class Backend::JournalsController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  # FIXME RECORD.real_currency does not exist
   list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
@@ -127,7 +126,7 @@ class Backend::JournalsController < BackendController
       journal_view.save
     end
     @journal_view = journal_view.value
-    t3e @journal.attributes
+    t3e @journal
   end
 
   def close
@@ -138,12 +137,12 @@ class Backend::JournalsController < BackendController
       return
     end
     if request.post?
-      if @journal.close(params[:journal][:closed_on].to_date)
-        notify_success(:journal_closed_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
-        redirect_to_back
+      if @journal.close(params[:closed_on].to_date)
+        notify_success(:journal_closed_on, closed_on: @journal.closed_on.l, journal: @journal.name)
+        redirect_to action: :index
       end
     end
-    t3e @journal.attributes
+    t3e @journal
   end
 
   def reopen
@@ -154,12 +153,12 @@ class Backend::JournalsController < BackendController
       return
     end
     if request.post?
-      if @journal.reopen(params[:journal][:closed_on].to_date)
-        notify_success(:journal_reopened_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
-        redirect_to_back
+      if @journal.reopen(params[:closed_on].to_date)
+        notify_success(:journal_reopened_on, closed_on: @journal.closed_on.l, journal: @journal.name)
+        redirect action: :index
       end
     end
-    t3e @journal.attributes
+    t3e @journal
   end
 
   # Displays the main page with the list of journals

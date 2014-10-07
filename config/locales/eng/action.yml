@@ -755,7 +755,7 @@ eng:
     client_phone: "Phone" #?
     close: "Close" #?
     close_financial_year: "Close financial year" #?
-    close_journal: "Close the journal" #?
+    close_journal: "Close the journal"
     closed: "Closed" #?
     column: "Column"
     column_family: "Family" #?

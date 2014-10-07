@@ -1,5 +1,5 @@
 (($) ->
-  
+
   # This method scope css selection inside a form or the value of data-scoper attribute
   $.fn.extend
     formScopedSelect: (selection) ->
