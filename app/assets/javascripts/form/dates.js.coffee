@@ -1,5 +1,5 @@
 (($) ->
-  
+
   # // Initializes date fields
   # $(document).behave("focusin click keyup change", 'input[data-date]', function (event) {
   #   var element = $(this), locale, options = {}, name, hidden;
@@ -14,12 +14,12 @@
   #     hidden = $("<input type='hidden' name='" + name + "'/>");
   #     hidden.val(element.data("date-iso"));
   #     element.before(hidden);
-  
+
   #     options['dateFormat']  = element.data("date");
   #     options['altField']    = hidden;
   #     options['altFormat']   = 'yy-mm-dd';
   #     options['defaultDate'] = element.val();
-  
+
   #     // Check for dependents
   #     if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
   #       if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
@@ -31,7 +31,7 @@
   #   }
   # });
   if not Modernizr.touch or not Modernizr.inputtypes.date
-    
+
     # Initializes date fields
     $(document).on "focusin click keyup change", "input[type=\"date\"]", (event) ->
       element = $(this)
@@ -41,7 +41,7 @@
       hidden = undefined
       if element.attr("autocomplete") isnt "off"
         locale = element.attr("lang")
-        
+
         # if ($.datepicker.regional[locale] === null || $.datepicker.regional[locale] === undefined) {
         # 	locale = "en";
         # }
@@ -51,11 +51,11 @@
         # hidden = $("<input type='hidden' name='" + name + "'/>");
         # hidden.val(element.val());
         # element.before(hidden);
-        
+
         # options['dateFormat']  = element.data("format");
         # options['altField']    = hidden;
         # options['altFormat']   = 'yy-mm-dd';
-        
+
         # // Check for dependents
         # if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
         # 	if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
@@ -64,12 +64,12 @@
         # }
         $.extend options, $.datepicker.regional[locale],
           dateFormat: "yy-mm-dd"
-  
+
         element.datepicker options
         element.attr "autocomplete", "off"
       return
-  
-    
+
+
     # Initializes datetime fields
     $(document).on "focusin click keyup change", "input[type=\"datetime\"]", (event) ->
       element = $(this)
@@ -85,11 +85,11 @@
           autoclose: true
           minuteStep: 5
           todayBtn: true
-  
+
         element.attr "autocomplete", "off"
       return
-  
-  
+
+
   # $.initializeDateSelectors = function() {
   #   // $('input[type="date"], input[type="datetime"]').trigger('change');
   #   $('input[type="date"]').trigger('change');

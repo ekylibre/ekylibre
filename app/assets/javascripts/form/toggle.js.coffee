@@ -2,6 +2,7 @@
   $.toggleCheckboxes = ->
     checkable = $(this)
     if checkable.prop("checked")
+      #checkable.form_scoped_select(checkable:data("show")).slideDown() etc.
       $(checkable.attr("data-show")).slideDown()
       $(checkable.attr("data-hide")).slideUp()
     else
@@ -13,7 +14,7 @@
     $("input[type='radio'][data-show], input[type='radio'][data-hide]").each $.toggleCheckboxes
     return
 
-  
+
   # Hide/show blocks depending on check boxes
   $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
   $(document).behave "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
