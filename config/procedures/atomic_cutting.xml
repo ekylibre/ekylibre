@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="atomic_cutting" natures="cutting" version="0" status="frozen">
+    <variables>
+      <variable name="tractor"     abilities="catch(equipment)" roles="cutting-tool"/>
+      <variable name="cutter"      abilities="cut" roles="cutting-tool"/>
+      <variable name="cultivation" variety="plant" roles="cutting-target"/>
+      <variable name="driver"      abilities="drive(tractor)" roles="cutting-doer"/>
+    </variables>
+    <operations>
+      <operation id="400" duration="18 minutes">
+        <task do="[tractor] moves at [cultivation]"/>
+      </operation>
+      <operation id="500">
+        <task do="[tractor] acts on [cultivation]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

@@ -312,15 +312,27 @@
       <item name="walnut"
             production_code="5750"
             activity="orchard_crops"
-            telepac_crop_code="NC"
+            telepac_crop_code="NX"
             variant_support="walnut_crop"
             />
+      <item name="marketable_walnut"
+            production_code="5750"
+            activity="orchard_crops"
+            telepac_crop_code="NC"
+            variant_support="walnut_crop"
+              />
       <item name="hazel"
             production_code="5760"
             activity="orchard_crops"
             telepac_crop_code="NS"
             variant_support="hazel_crop"
             />
+      <item name="marketable_hazel"
+            production_code="5760"
+            activity="orchard_crops"
+            telepac_crop_code="NO"
+            variant_support="hazel_crop"
+              />
       <!-- 6 - VINE CROP AND WINE -->
       <item name="vine"
             production_code="6000"

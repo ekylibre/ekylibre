@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0" status="frozen">
+  <procedure name="atomic_plant_grinding" natures="grinding, soil_enrichment" version="0" status="frozen">
     <variables>
       <variable name="cultivation" variety="plant" roles="soil_enrichment-input_origin" default-actor="variant-localized-in-storage"/>
       <variable name="tractor"     abilities="tow(equipment)"/>
@@ -10,18 +10,6 @@
       <variable name="driver"      abilities="drive(tractor)" roles="grinding-doer, soil_enrichment-doer"/>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[driver] moves in [tractor]"/>
-        <!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
-      </operation>
-      <operation id="200" duration="7 minutes">
-        <task do="[tractor] moves at [grinder]"/>
-        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue -->
-      </operation>
-      <operation id="300" duration="7 minutes">
-        <task do="[tractor] catches [grinder]"/>
-        <!-- le chauffeur attache la charrue au tracteur -->
-      </operation>
       <operation id="400" duration="18 minutes">
         <task do="[tractor] moves in [land_parcel]"/>
         <!-- le chauffeur + son tracteur et sa charrue se déplace vers la parcelle et rentre dedant (?) -->
@@ -33,18 +21,6 @@
         <task do="[grinder] produces [grinded]"/>
         <task do="[grinded] moves in [land_parcel]"/>
         <task do="[land_parcel] consumes [grinded]"/>
-      </operation>
-      <operation id="600" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [grinder]"/>
-      </operation>
-      <operation id="700" duration="4 minutes">
-        <task do="[tractor] releases [grinder]"/>
-      </operation>
-      <operation id="800" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="900" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

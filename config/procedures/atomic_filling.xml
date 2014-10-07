@@ -10,7 +10,7 @@
       <variable name="doer"         abilities="move" roles="filling-doer"/>
     </variables>
     <operations>
-      <operation id="100" >
+      <operation id="100">
         <task do="[items] moves at [tank]"/>
       </operation>
       <operation id="200">

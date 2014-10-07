@@ -108,7 +108,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
         # Create an activity if not exist with production_code
         item = Nomen::ProductionNatures.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
         unless item and activity_family = Nomen::ActivityFamilies[item.activity]
-          raise "No activity family found. (#{record.attributes['TYPE']}/#{item.name.inspect})"
+          raise "No activity family found. (#{record.attributes['TYPE']})"
         end
 
         attributes = {

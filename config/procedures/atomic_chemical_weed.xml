@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="chemical_weed" natures="plant_chemical_weed" version="0" status="frozen">
+  <procedure name="atomic_chemical_weed" natures="plant_chemical_weed" version="0" status="frozen">
     <variables>
       <variable name="weedkilling"     variety="preparation" abilities="kill(plant)" roles="plant_chemical_weed-input_origin"/>
       <variable name="weedkilling_to_spray" new="parted-from: weedkilling" roles="plant_chemical_weed-input" default-population=":weedkilling" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">
@@ -28,43 +28,14 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200" duration="7 minutes">
-        <task do="[tractor] moves at [sprayer]"/>
-      </operation>
-      <operation id="300" duration="4 minutes">
-        <task do="[tractor] catches [sprayer]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
-        <task do="[tractor] moves at [weedkilling]"/>
-      </operation>
-      <operation id="500" duration="1 minutes">
-        <task do="[weedkilling] parts with [weedkilling_to_spray]"/>
-      </operation>
-      <operation id="600" duration="4 minutes">
-        <task do="[weedkilling_to_spray] moves in [sprayer]"/>
-      </operation>
       <operation id="700" duration="18 minutes">
         <task do="[tractor] moves in [land_parcel]"/>
       </operation>
       <operation id="800">
+        <task do="[weedkilling] parts with [weedkilling_to_spray]"/>
         <task do="[weedkilling_to_spray] moves in [land_parcel]"/>
         <task do="land_parcel|soil_cultural_state is measured"/>
         <task do="[land_parcel] consumes [weedkilling_to_spray]"/>
-      </operation>
-      <operation id="900" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [sprayer]"/>
-      </operation>
-      <operation id="1000" duration="4 minutes">
-        <task do="[tractor] releases [sprayer]"/>
-      </operation>
-      <operation id="1100" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1200" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

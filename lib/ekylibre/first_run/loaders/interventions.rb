@@ -146,9 +146,9 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
           #
           # create intervention
           #
-            if procedures_transcode[r.procedure_name] == :mineral_fertilizing
+            if procedures_transcode[r.procedure_name] == :atomic_mineral_fertilizing
                         # Mineral fertilizing
-                        intervention = Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
+                        intervention = Ekylibre::FirstRun::Booker.intervene(:atomic_mineral_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
                           i.add_cast(reference_name: 'fertilizer',  actor: intrant)
                           i.add_cast(reference_name: 'fertilizer_to_spread', population: r.product_input_population)
                           i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
@@ -157,10 +157,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                           i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                         end
 
-            elsif procedures_transcode[r.procedure_name] == :organic_fertilizing
+            elsif procedures_transcode[r.procedure_name] == :atomic_organic_fertilizing
 
                       # Organic fertilizing
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:atomic_organic_fertilizing, intervention_year, intervention_month, intervention_day, 0.96 * coeff, support: support) do |i|
                         i.add_cast(reference_name: 'manure',      actor: intrant)
                         i.add_cast(reference_name: 'manure_to_spread', population: r.product_input_population)
                         i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(preparation)"))
@@ -169,10 +169,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                         i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                       end
 
-            elsif procedures_transcode[r.procedure_name] == :chemical_weed
+            elsif procedures_transcode[r.procedure_name] == :atomic_chemical_weed
 
                       # Chemical weed
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: {readings: {"base-chemical_weed-0-800-1" => "covered"}}) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:atomic_chemical_weed, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support, parameters: {readings: {"base-atomic_chemical_weed-0-800-2" => "covered"}}) do |i|
                         i.add_cast(reference_name: 'weedkilling',      actor: intrant)
                         i.add_cast(reference_name: 'weedkilling_to_spray', population: r.product_input_population)
                         i.add_cast(reference_name: 'sprayer',    actor: i.find(Product, can: "spray"))
@@ -182,10 +182,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                       end
 
 
-            elsif procedures_transcode[r.procedure_name] == :spraying_on_cultivation
+            elsif procedures_transcode[r.procedure_name] == :atomic_spraying_on_cultivation
 
                       # Spraying on cultivation
-                      intervention = Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support) do |i|
+                      intervention = Ekylibre::FirstRun::Booker.intervene(:atomic_spraying_on_cultivation, intervention_year, intervention_month, intervention_day, 1.07 * coeff, support: support) do |i|
                           i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                           i.add_cast(reference_name: 'plant_medicine_to_spray', population: r.product_input_population)
                           i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
@@ -553,28 +553,28 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                   #
 
 
-                  if procedures_transcode[r.procedure_name] == :raking
+                  if procedures_transcode[r.procedure_name] == :atomic_raking
                                 # Raking
 
-                                intervention = Ekylibre::FirstRun::Booker.force(:raking, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support, parameters: {readings: {"base-raking-0-500-1" => 'plowed'}}) do |i|
+                                intervention = Ekylibre::FirstRun::Booker.force(:atomic_raking, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support, parameters: {readings: {"base-atomic_raking-0-500-1" => 'plowed'}}) do |i|
                                   i.add_cast(reference_name: 'harrow',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "plow_superficially") : i.find(Equipment, can: "plow_superficially")))
                                   i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
 
-                  elsif procedures_transcode[r.procedure_name] == :grinding
+                  elsif procedures_transcode[r.procedure_name] == :atomic_grinding
 
-                                intervention = Ekylibre::FirstRun::Booker.force(:grinding, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
+                                intervention = Ekylibre::FirstRun::Booker.force(:atomic_grinding, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'grinder',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "grind(plant)") : i.find(Equipment, can: "grind(plant)")))
                                   i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
 
-                  elsif procedures_transcode[r.procedure_name] == :cutting and plant
+                  elsif procedures_transcode[r.procedure_name] == :atomic_cutting and plant
 
-                                intervention = Ekylibre::FirstRun::Booker.force(:cutting, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
+                                intervention = Ekylibre::FirstRun::Booker.force(:atomic_cutting, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (2.96 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'cutter',      actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "cut") : i.find(Equipment, can: "cut")))
                                   i.add_cast(reference_name: 'driver',      actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'tractor',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
@@ -608,11 +608,11 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                   for intrant in intrants
 
 
-                    if (procedures_transcode[r.procedure_name] == :mineral_fertilizing || procedures_transcode[r.procedure_name] == :sowing) and intrant and intrant.able_to?("fertilize")
+                    if (procedures_transcode[r.procedure_name] == :atomic_mineral_fertilizing || procedures_transcode[r.procedure_name] == :atomic_sowing) and intrant and intrant.able_to?("fertilize")
                                 # Mineral fertilizing
 
 
-                                intervention = Ekylibre::FirstRun::Booker.force(:mineral_fertilizing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.96 * coeff.to_f)), support: support) do |i|
+                                intervention = Ekylibre::FirstRun::Booker.force(:atomic_mineral_fertilizing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.96 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'fertilizer',  actor: intrant)
                                   i.add_cast(reference_name: 'fertilizer_to_spread', population: intrant.population)
                                   i.add_cast(reference_name: 'spreader',    actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "spread(preparation)") : i.find(Equipment, can: "spread(preparation)")))
@@ -621,10 +621,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
 
-                    elsif procedures_transcode[r.procedure_name] == :organic_fertilizing and intrant
+                    elsif procedures_transcode[r.procedure_name] == :atomic_organic_fertilizing and intrant
 
                               # Organic fertilizing
-                              intervention = Ekylibre::FirstRun::Booker.force(:organic_fertilizing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.96 * coeff.to_f)), support: support) do |i|
+                              intervention = Ekylibre::FirstRun::Booker.force(:atomic_organic_fertilizing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (0.96 * coeff.to_f)), support: support) do |i|
                                 i.add_cast(reference_name: 'manure',      actor: intrant)
                                 i.add_cast(reference_name: 'manure_to_spread', population: intrant.population)
                                 i.add_cast(reference_name: 'spreader',    actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "spread(preparation)") : i.find(Equipment, can: "spread(preparation)")))
@@ -633,10 +633,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                                 i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                               end
 
-                    elsif procedures_transcode[r.procedure_name] == :chemical_weed and intrant
+                    elsif procedures_transcode[r.procedure_name] == :atomic_chemical_weed and intrant
 
                               # Chemical weed
-                              intervention = Ekylibre::FirstRun::Booker.force(:chemical_weed, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: {readings: {"base-chemical_weed-0-800-1" => "nude"}}) do |i|
+                              intervention = Ekylibre::FirstRun::Booker.force(:atomic_chemical_weed, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: {readings: {"base-atomic_chemical_weed-0-800-2" => "nude"}}) do |i|
                                 i.add_cast(reference_name: 'weedkilling',      actor: intrant)
                                 i.add_cast(reference_name: 'weedkilling_to_spray', population: intrant.population)
                                 i.add_cast(reference_name: 'sprayer',     actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "spray") : i.find(Equipment, can: "spray")))
@@ -646,12 +646,12 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                               end
 
 
-                    elsif procedures_transcode[r.procedure_name] == :spraying_on_cultivation and intrant and plant
+                    elsif procedures_transcode[r.procedure_name] == :atomic_spraying_on_cultivation and intrant and plant
 
                               # Spraying on cultivation
                               #puts plant.container.inspect.red
 
-                              intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_cultivation, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
+                              intervention = Ekylibre::FirstRun::Booker.force(:atomic_spraying_on_cultivation, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                                   i.add_cast(reference_name: 'plant_medicine_to_spray', population: intrant.population)
                                   i.add_cast(reference_name: 'sprayer',  actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "spray") : i.find(Equipment, can: "spray")))
@@ -660,10 +660,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                                   i.add_cast(reference_name: 'cultivation', actor: plant)
                                 end
 
-                    elsif procedures_transcode[r.procedure_name] == :spraying_on_land_parcel and intrant
+                    elsif procedures_transcode[r.procedure_name] == :atomic_spraying_on_land_parcel and intrant
 
                               # Spraying on cultivation
-                              intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_land_parcel, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
+                              intervention = Ekylibre::FirstRun::Booker.force(:atomic_spraying_on_land_parcel, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'plant_medicine', actor: intrant)
                                   i.add_cast(reference_name: 'plant_medicine_to_spray', population: intrant.population)
                                   i.add_cast(reference_name: 'sprayer',  actor: (equipments_work_number.count > 0 ? i.find(Equipment, work_number: equipments_work_number, can: "spray") : i.find(Equipment, can: "spray")))
@@ -672,10 +672,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                                 end
 
-                    elsif procedures_transcode[r.procedure_name] == :sowing and intrant and plant_variant and intrant.able_to?("grow")
+                    elsif procedures_transcode[r.procedure_name] == :atomic_sowing and intrant and plant_variant and intrant.able_to?("grow")
 
                               # Spraying on cultivation
-                              intervention = Ekylibre::FirstRun::Booker.force(:sowing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: {readings: {"base-sowing-0-750-2" => global_intrant_value.to_i}}) do |i|
+                              intervention = Ekylibre::FirstRun::Booker.force(:atomic_sowing, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support, parameters: {readings: {"base-atomic_sowing-0-750-2" => global_intrant_value.to_i}}) do |i|
 
                                   i.add_cast(reference_name: 'seeds',        actor: intrant)
                                   i.add_cast(reference_name: 'seeds_to_sow', population: intrant.population)
@@ -691,10 +691,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
 
 
-                    elsif procedures_transcode[r.procedure_name] == :watering and plant and intrant and intrant.variety == 'water'
+                    elsif procedures_transcode[r.procedure_name] == :atomic_watering and plant and intrant and intrant.variety == 'water'
 
                               # Watering
-                              intervention = Ekylibre::FirstRun::Booker.force(:watering, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
+                              intervention = Ekylibre::FirstRun::Booker.force(:atomic_watering, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
 
                                   i.add_cast(reference_name: 'water',           actor: intrant)
                                   i.add_cast(reference_name: 'water_to_spread', population: intrant.population)
@@ -720,10 +720,10 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
 
                   for extrant in extrants
-                    if procedures_transcode[r.procedure_name] == :grains_harvest and extrant[:extrant_variant] and extrant[:extrant_variant].variety == "silage" and plant
+                    if procedures_transcode[r.procedure_name] == :atomic_grains_harvest and extrant[:extrant_variant] and extrant[:extrant_variant].variety == "silage" and plant
 
                                 # Silage
-                                intervention = Ekylibre::FirstRun::Booker.force(:direct_silage, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
+                                intervention = Ekylibre::FirstRun::Booker.force(:atomic_direct_silage, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
                                 i.add_cast(reference_name: 'forager',        actor: i.find(Product, can: "harvest(plant)"))
                                 i.add_cast(reference_name: 'forager_driver', actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                 i.add_cast(reference_name: 'cultivation',    actor: plant)
@@ -732,13 +732,13 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
 
 
-                    elsif procedures_transcode[r.procedure_name] == :grains_harvest and extrant[:extrant_variant] and plant
+                    elsif procedures_transcode[r.procedure_name] == :atomic_grains_harvest and extrant[:extrant_variant] and plant
 
                                 straw_variant = ProductNatureVariant.find_or_import!(:straw, derivative_of: plant.variety).first
                                 straw_variant ||= ProductNatureVariant.import_from_nomenclature(:crop_residue)
 
                                 # Grain harvest
-                                intervention = Ekylibre::FirstRun::Booker.force(:grains_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
+                                intervention = Ekylibre::FirstRun::Booker.force(:atomic_grains_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
                                 i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: "harvest(poaceae)"))
                                 i.add_cast(reference_name: 'cropper_driver', actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                 i.add_cast(reference_name: 'cultivation',    actor: plant)
@@ -747,12 +747,12 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                                 end
 
 
-                    elsif procedures_transcode[r.procedure_name] == :harvest and plant and extrant[:extrant_variant]
+                    elsif procedures_transcode[r.procedure_name] == :atomic_harvest and plant and extrant[:extrant_variant]
                       variety_plant = Nomen::Varieties.find(plant.variety)
                       if variety_plant
                         if variety_plant <= :corylus
                                   # Hazelnuts harvest
-                                  intervention = Ekylibre::FirstRun::Booker.force(:hazelnuts_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
+                                  intervention = Ekylibre::FirstRun::Booker.force(:atomic_hazelnuts_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'nuts_harvester',        actor: i.find(Product, can: "harvest(hazelnut)"))
                                   i.add_cast(reference_name: 'driver',                actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'cultivation',           actor: plant)
@@ -761,7 +761,7 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
                         elsif variety_plant <= :juglans
                                   # Walnuts harvest
-                                  intervention = Ekylibre::FirstRun::Booker.force(:walnuts_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
+                                  intervention = Ekylibre::FirstRun::Booker.force(:atomic_walnuts_harvest, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (3.13 * coeff.to_f)), support: support) do |i|
                                   i.add_cast(reference_name: 'nuts_harvester',        actor: i.find(Product, can: "harvest(walnut)"))
                                   i.add_cast(reference_name: 'driver',                actor: (workers_work_number.count > 0 ? i.find(Worker, work_number: workers_work_number) : i.find(Worker)))
                                   i.add_cast(reference_name: 'cultivation',           actor: plant)

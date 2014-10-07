@@ -1925,10 +1925,12 @@ eng:
         blending: "Blending"                               #< transformation
         bottling: "Bottling"                               #< transformation
         consummables_addition: "Consummables addition"     #< maintenance_task
+        # coupling: "Coupling"
         cultipacking: "Cultipacking"                       #< tillage
         cultivation_protection: "Cultivation protection"
         cutting: "Cutting"
         fermentation: "Fermentation"                       #< transformation
+        # filling: "Filling"
         filtration: "Filtration"                           #< transformation
         food_supply: "Food supply"                         #< animal_feeding
         grain_transport: "Grain transport"                 #< transport
@@ -1945,6 +1947,7 @@ eng:
         maintenance_task: "Maintenance task"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
+        # moving: "Moving"
         nuts_harvest: "Nuts harvest"                       #< harvest
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_feeding
@@ -2734,6 +2737,8 @@ eng:
         maintenance: "Maintenance"
         market_gardening: "Market gardening"
         market_gardening_under_greenhouse: "Market gardening under greenhouse"
+        # marketable_hazel: "Marketable hazel"
+        # marketable_walnut: "Marketable walnut"
         melon: "Melon"
         milk_bull_calf: "Milk bull calf"
         milk_cattle: "Milk cattle"

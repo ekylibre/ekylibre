@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="all_in_one_sowing" natures="sowing,soil_enrichment,plant_illness_treatment" version="0" status="frozen">
+  <procedure name="atomic_all_in_one_sowing" natures="sowing,soil_enrichment,plant_illness_treatment" version="0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">
@@ -102,62 +102,20 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
-        <task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
-        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
-        <task do="[tractor] moves at [sower]"/>
-      </operation>
-      <operation id="300" duration="7 minutes">
-        <!-- le chauffeur attache la charrue au tracteur -->
-        <task do="[tractor] catches [sower]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
-        <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
-        <task do="[tractor] moves at [seeds]"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
-        <task do="[seeds] parts with [seeds_to_sow]"/>
-        <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
-        <task do="[seeds_to_sow] moves in [sower]"/>
-      </operation>
-      <operation id="600" duration="4 minutes">
-        <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
-        <task do="[tractor] moves at [fertilizer]"/>
-      </operation>
-      <operation id="700" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
-        <task do="[fertilizer] parts with [fertilizer_to_spread]"/>
-        <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
-        <task do="[fertilizer_to_spread] moves in [sower]"/>
-      </operation>
-      <operation id="800" duration="4 minutes">
-        <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
-        <task do="[tractor] moves at [insecticide]"/>
-        <task do="[tractor] moves at [molluscicide]"/>
-      </operation>
-      <operation id="900" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
-        <task do="[insecticide] parts with [insecticide_to_input]"/>
-        <task do="[molluscicide] parts with [molluscicide_to_input]"/>
-        <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
-        <task do="[insecticide_to_input] moves in [sower]"/>
-        <task do="[molluscicide_to_input] moves in [sower]"/>
-      </operation>
-
       <operation id="1000" duration="18 minutes">
         <task do="[tractor] moves in [land_parcel]"/>
         <!-- le chauffeur + son tracteur et son semoir chargé de semences se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="1100">
         <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le semoir sème) les task tournent -->
+        <task do="[seeds] parts with [seeds_to_sow]"/>
         <task do="[seeds_to_sow] moves in [land_parcel]"/>
         <!-- les semences tombe par terre car le semoir tourne  -->
+        <task do="[fertilizer] parts with [fertilizer_to_spread]"/>
         <task do="[fertilizer_to_spread] moves in [land_parcel]"/>
+        <task do="[insecticide] parts with [insecticide_to_input]"/>
         <task do="[insecticide_to_input] moves in [land_parcel]"/>
+        <task do="[molluscicide] parts with [molluscicide_to_input]"/>
         <task do="[molluscicide_to_input] moves in [land_parcel]"/>
         <!-- l'engrais et les produits phyto tombent par terre car le semoir tourne  -->
         <task do="[land_parcel] consumes [seeds_to_sow]"/>
@@ -177,18 +135,6 @@
         <task do="cultivation|population|superficial_count:cultivation is measured"/>
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
         <task do="cultivation|plants_count is measured"/>
-      </operation>
-      <operation id="1300" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [sower]"/>
-      </operation>
-      <operation id="1400" duration="4 minutes">
-        <task do="[tractor] releases [sower]"/>
-      </operation>
-      <operation id="1500" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1600" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

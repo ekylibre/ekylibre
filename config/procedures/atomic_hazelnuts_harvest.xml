@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="hazelnuts_harvest" natures="nuts_harvest" version="0" status="frozen">
+  <procedure name="atomic_hazelnuts_harvest" natures="nuts_harvest" version="0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
       <variable name="driver" abilities="drive(reaper)" roles="nuts_harvest-doer"/>
@@ -39,12 +39,6 @@
       <operation id="300">
         <task do="[cultivation] produces [hazelnuts]"/>
         <task do="[hazelnuts] is at [cultivation]"/>
-      </operation>
-      <operation id="400" duration="18 minutes">
-        <task do="[cropper] moves in default storage"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[cropper_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

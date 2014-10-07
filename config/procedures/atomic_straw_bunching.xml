@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="atomic_straw_bunching" natures="transformation" version="0" status="frozen">
+    <variables>
+      <variable name="tractor"        variety="equipment" />
+      <variable name="baler_driver"                       abilities="move, drive(tractor), drive(baler)" roles="transformation-doer"/>
+      <variable name="baler"          variety="equipment" abilities="bunch" roles="transformation-tool"/>
+      <variable name="straw_to_bunch" variety="straw" roles="transformation-input" />
+      <variable name="straw_bales"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" need="population" roles="transformation-output" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" />
+    </variables>
+    <operations>
+      <operation id="500">
+        <task do="[baler] consumes [straw_to_bunch]"/>
+        <task do="[baler] produces [straw_bales]"/>
+        <task do="[straw_bales] is at [baler]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
