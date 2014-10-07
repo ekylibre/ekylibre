@@ -23,6 +23,7 @@
 //= require formize/behave
 //= require formize/dialog
 //= require formize/observe
+//= require form/scope
 //= require form/dependents
 //= require form/toggle
 //= require form/dates

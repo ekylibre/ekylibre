@@ -2,12 +2,11 @@
   $.toggleCheckboxes = ->
     checkable = $(this)
     if checkable.prop("checked")
-      #checkable.form_scoped_select(checkable:data("show")).slideDown() etc.
-      $(checkable.attr("data-show")).slideDown()
-      $(checkable.attr("data-hide")).slideUp()
+      checkable.formScopedSelect(checkable.data("show")).slideDown()
+      checkable.formScopedSelect(checkable.data("hide")).slideUp()
     else
-      $(checkable.attr("data-show")).slideUp()
-      $(checkable.attr("data-hide")).slideDown()
+      checkable.formScopedSelect(checkable.data("show")).slideUp()
+      checkable.formScopedSelect(checkable.data("hide")).slideDown()
     return
 
   $.toggleRadios = ->
@@ -17,8 +16,9 @@
 
   # Hide/show blocks depending on check boxes
   $(document).behave "load", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
-  $(document).behave "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
+  $(document).on   "change", "input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", $.toggleCheckboxes
   $(document).behave "load", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleCheckboxes
-  $(document).behave "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
+  $(document).on   "change", "input[type='radio'][data-show], input[type='radio'][data-hide]", $.toggleRadios
+
   return
 ) jQuery
