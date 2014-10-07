@@ -22,10 +22,10 @@
 //= require active_list.jquery
 //= require formize/behave
 //= require formize/dialog
-//= require formize/unroll
 //= require formize/observe
-//= require dependents
-//= require formize/toggle
+//= require form/dependents
+//= require form/toggle
+//= require form/dates
 //= require formize/autocomplete
 //= require formize/popover-form
 //= require cocoon

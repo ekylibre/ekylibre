@@ -1,6 +1,7 @@
 (($) ->
   "use strict"
 
+  # Check or uncheck accesses recursively if needed
   $.fn.checkAccesses = () ->
     $(this).each ->
       element = $(this)
@@ -15,6 +16,7 @@
           $("*[data-need-accesses~=#{element.data('access')}]").removeClass("active").checkAccesses()
     return $(this)
 
+  # Check accesses on click/change events
   $(document).on "click change", "*[data-access]", ->
     $(this).toggleClass("active").checkAccesses()
     return false
