@@ -1042,15 +1042,15 @@ fra:
     reading_tasks: "Relevé de valeur"
     readings: "Relevés"
     real_credit: "Crédit réel"
-    real_currency: "Débit réel"
-    real_currency_rate: "Real currency rate"
-    real_debit: "Real debit"
+    real_currency: "Monnaie réelle"
+    real_currency_rate: "Taux de change réel"
+    real_debit: "Débit réel"
     receipt: "Reçu électronique"
     received: "Reçu"
     received_at: "Reçu le"
     reception_amount: "Montant reçu"
-    reception_cash: "Trésorerie réceptrice"
-    reception_currency: "Reception currency"
+    reception_cash: "Trésorie réceptrice"
+    reception_currency: "Monnaie de réception"
     reception_journal_entry: "Écriture de la réception"
     recipient: "Destinataire"
     recommended: "Prescrit"
@@ -1061,7 +1061,6 @@ fra:
     reduced_item: "Élément réduit"
     reductible: "Soumis à réduction"
     reduction: "Ligne de réduction"
-    reduction_origin: "Ligne soumise à réduction" #?
     reduction_percentage: "Pourcentage de réduction"
     reductions: "Lignes de réductions"
     reference: "Référence" #?
@@ -1072,14 +1071,11 @@ fra:
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflections"
-    remaining_duration: "Durée d’utilisation prévue (heures)" #?
     remember_created_at: "Se souvenir de moi à"
-    remember_me: "Se souvenir de moi" #?
+    remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
-    repeatable: "Répétable" #?
     reporter: "Rapporteur"
     required: "Obligatoire"
-    reservoir: "Réservoir" #?
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
     resource: "Origine"

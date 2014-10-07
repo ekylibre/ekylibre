@@ -1083,6 +1083,7 @@ eng:
     no_results: "No results" #?
     no_tracking: "No tracking" #?
     no_transfers: "No transfers" #?
+    # none: "None"
     normal: "Normal" #?
     notifications:  #?
       error: "Error" #?

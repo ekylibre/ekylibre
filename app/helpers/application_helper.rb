@@ -224,7 +224,7 @@ module ApplicationHelper
   end
 
   def nomenclature_as_options(nomenclature)
-    [[]] + nomenclature.items.values.collect{|l| [l.human_name, l.name.to_s]}
+    [[]] + nomenclature.selection
   end
 
 

@@ -1,11 +1,7 @@
-- @financial_year = FinancialYear.at(@journal_entry.printed_on)
-- if @financial_year
+- if @financial_year = FinancialYear.at(@journal_entry.printed_on)
   - if @journal.currency != @financial_year.currency
-    = field_set :exchange_rate do
-      = field :exchange_rate_from_x_to_y.tl(x: @journal.currency, y: @financial_year.currency), text_field(:journal_entry, :real_currency_rate)
+    = field :exchange_rate_from_x_to_y.tl(x: @journal.currency, y: @financial_year.currency), text_field(:journal_entry, :real_currency_rate)
 
-- main_toolbar do |t|
-  - t.new(params: {controller: :journal_entry_items, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
 .active-list
   %table.list
 
@@ -18,6 +14,11 @@
         %th.act
 
     %tfoot
+      %tr
+        %td{colspan: 7}
+          = toolbar do |t|
+            - t.new(params: {controller: :journal_entry_items, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
+
       %tr#total.total{data: {valid_if_equality_between: "#entry-original-debit, #entry-original-credit"}}
         %th{colspan: 2}= :total_in_currency.tl(currency: @journal.currency)
         %td#entry-original-debit.decimal{colspan: 2, data: {use: "input.original-debit"}}= @journal_entry.real_debit
@@ -26,8 +27,8 @@
       - if @financial_year and @journal.currency != @financial_year.currency
         %tr.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit"}}
           %th{colspan: 2}= :total_in_currency.tl(currency: @financial_year.currency)
-          %td#entry-debit.decimal{colspan: 2, data: {use: "td.debit"}}= @journal_entry.debit
-          %td#entry-credit.decimal{colspan: 2, data: {use: "td.credit"}}= @journal_entry.credit
+          %td#entry-debit.decimal{colspan: 2, data: {use: "td.debit", calculate_round: Nomen::Currencies[@financial_year.currency].precision}}= @journal_entry.debit
+          %td#entry-credit.decimal{colspan: 2, data: {use: "td.credit", calculate_round: Nomen::Currencies[@financial_year.currency].precision}}= @journal_entry.credit
 
     %tbody#items.items
       - items = @journal_entry_items || @journal_entry.items

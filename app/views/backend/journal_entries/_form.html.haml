@@ -1,6 +1,7 @@
 = field_set do
-  = f.referenced_association :journal, readonly: true, input_html: {data: {dependents: "#exchange-rate"}}
+  = hidden_field_tag :journal_id, (resource.new_record? ? params[:journal_id] : resource.journal_id)
+  -# = f.referenced_association :journal, readonly: true, input_html: {data: {dependents: "#items-form"}}
   = f.input :number
-  = f.input :printed_on, input_html: {data: {dependents: "#exchange-rate", parameter_name: "printed_on"}}
-  #exchange-rate{data: {refresh_url: new_backend_journal_entry_path}}
-    = render partial: "exchange_rate_form"
+  = f.input :printed_on, input_html: {data: {dependents: "#items-form", parameter_name: "printed_on"}}
+  #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: "#journal_id"}}
+    = render partial: "items_form"

@@ -52,7 +52,7 @@
 # corresponds to the 3 currency we always add in accountancy:
 #  - *          in journal currency
 #  - real_*     in financial year currency
-#  - absolute_* in global currency (the same as current financial year's)
+#  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
   attr_readonly :journal_id
   belongs_to :financial_year
@@ -90,9 +90,9 @@ class JournalEntry < Ekylibre::Record::Base
     event :close do
       transition :confirmed => :closed, if: :balanced?
     end
-#     event :reopen do
-#       transition :closed => :confirmed
-#     end
+    #     event :reopen do
+    #       transition :closed => :confirmed
+    #     end
   end
 
   # Build an SQL condition based on options which should contains acceptable states
@@ -155,7 +155,9 @@ class JournalEntry < Ekylibre::Record::Base
       else
         # TODO: Find a better way to manage currency rates!
         # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        self.real_currency_rate = I18n.currency_rate(self.real_currency, self.currency)
+        if self.real_currency_rate.blank? or self.real_currency_rate.zero?
+          self.real_currency_rate = I18n.currency_rate(self.real_currency, self.currency)
+        end
       end
     else
       self.real_currency_rate = 1
@@ -264,10 +266,10 @@ class JournalEntry < Ekylibre::Record::Base
 
 
 
-#   #this method tests if.all the entry_items matching to the entry does not edited in draft mode.
-#   def normalized
-#     return (not self.items.exists?(:draft => true))
-#   end
+  #   #this method tests if.all the entry_items matching to the entry does not edited in draft mode.
+  #   def normalized
+  #     return (not self.items.exists?(:draft => true))
+  #   end
 
   # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".
   # If the amount is negative, the amount is put in the other column (debit or credit). Example:

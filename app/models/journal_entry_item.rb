@@ -59,7 +59,7 @@
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-#   * cumulated_absolute_(credit|debit)are in currency of the company too
+#   * cumulated_absolute_(credit|debit) are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
@@ -68,7 +68,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
   belongs_to :bank_statement
   has_many :distributions, class_name: "AnalyticDistribution", foreign_key: :journal_entry_item_id
-  # delegate :real_currency, to: :entry
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
@@ -184,6 +183,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Returns the previous item
   def previous
+    return self.class.none unless self.account
     if self.new_record?
       self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
     else
@@ -194,6 +194,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Returns following items
   def followings
+    return self.class.none unless self.account
     if self.new_record?
       self.account.journal_entry_items.where("printed_on > ?", self.printed_on)
     else
@@ -207,14 +208,14 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
 
-#   # this method allows to lock the entry_item.
-#   def close
-#     self.update_column(:closed, true)
-#   end
+  #   # this method allows to lock the entry_item.
+  #   def close
+  #     self.update_column(:closed, true)
+  #   end
 
-#   def reopen
-#     self.update_column(:closed, false)
-#   end
+  #   def reopen
+  #     self.update_column(:closed, false)
+  #   end
 
   # Check if the current letter is balanced with all entry items with the same letter
   def balanced_letter?
@@ -222,10 +223,10 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.account.balanced_letter?(letter)
   end
 
-  #this method allows to fix a display color if the entry_item is in draft mode.
+  # this method allows to fix a display color if the entry_item is in draft mode.
   def mode
-    mode=""
-    mode+="warning" if self.draft?
+    mode = ""
+    mode += "warning" if self.draft?
     mode
   end
 
@@ -234,7 +235,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     if self.entry
       return self.entry.resource_type
     else
-      'rien'
+      :none.tl
     end
   end
 
@@ -243,7 +244,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     if self.entry
       return self.entry.journal.name
     else
-      'rien'
+      :none.tl
     end
   end
 

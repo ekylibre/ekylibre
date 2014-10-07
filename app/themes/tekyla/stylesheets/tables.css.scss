@@ -263,14 +263,12 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 
 .active-list[data-list-source] table.list, .active-list table.list, table.list {
   width: 100%;
-  tr.total {
+  tr.total, tr.subtotal {
     td, th {
       border: $menu-border;
-      font-size: $fs-large;
       font-weight: bold;
       padding: 2px;
-      html[dir="ltr"] & { text-align:right; }
-      html[dir="rtl"] & { text-align:left; }
+      @include text-align(right);
     }
     th {
       padding: 4px 6px;
@@ -282,6 +280,9 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
       @include background-image(linear-gradient(lighten($desktop-background, 4%), darken($desktop-background, 4%)));
     }
     &.invalid td { color: #D20; }
+  }
+  tr.total {
+    font-size: $fs-large;
   }
   tbody {
     tr.empty {

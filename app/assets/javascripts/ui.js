@@ -153,7 +153,7 @@
 
 
   // Old system adaptation to jQuery
-  $(document).behave("click", "a[data-new-item]", function () {
+  $(document).on("click", "a[data-new-item]", function () {
     var element = $(this), list_id, list;
     list_id = '#'+element.data('new-item');
     list = $(list_id);
@@ -203,9 +203,9 @@
   });
 
   // Use element to compute a calculation
-  $(document).behave("click", "*[data-close-dialog]", function () {
+  $(document).on("click", "*[data-close-dialog]", function () {
     var element = $(this), frame;
-    frame = $('#'+element.data("close-dialog"));
+    frame = $('#' + element.data("close-dialog"));
     frame.dialog("close");
     return false;
   });
@@ -308,21 +308,21 @@
   });
 
   // Nullify inputs if it filled
-  $(document).behave("keyup", "input[data-exclusive-nullify]", function () {
+  $(document).on("keyup", "input[data-exclusive-nullify]", function () {
     var element = $(this);
     if (element.numericalValue() !== 0) {
       $(element.data("exclusive-nullify")).val('');
     }
   });
 
-  $(document).behave("click", "*[data-click]", function () {
+  $(document).on("click", "*[data-click]", function () {
     $($(this).data("click")).each(function () {
       $(this).trigger("click");
     });
     return false;
   });
 
-  $(document).behave("change", "input:checkbox[data-add-class-to]", function () {
+  $(document).on("change", "input:checkbox[data-add-class-to]", function () {
     var element = $(this), classes = element.data("add-class") || element.attr("class");
     if (element.prop("checked")) {
       $(element.data("add-class-to")).addClass(classes);
@@ -332,7 +332,7 @@
   });
 
 
-  $(document).behave("click", "*[data-toggle-class]", function () {
+  $(document).on("click", "*[data-toggle-class]", function () {
     var element = $(this), classes = element.data("toggle-class"), classesArray = classes.split(/\s+/g), gotClasses=true;
     for (var i=0; i < classesArray.length; i += 1) {
       if (!element.hasClass(classesArray[i])) {
@@ -463,7 +463,7 @@
   });
 
   // Toggle side menu
-  $(document).behave("click", "a[data-toggle-view-mode]", function () {
+  $(document).on("click", "a[data-toggle-view-mode]", function () {
     var element = $(this);
     element.attr("href");
     $.ajax(element.data("toggle-view-mode"), {
@@ -476,7 +476,7 @@
 
 
   // Toggle side menu
-  $(document).behave("click", "a[data-toggle-module]", function () {
+  $(document).on("click", "a[data-toggle-module]", function () {
     var element = $(this), module = element.closest(".sd-module"), target = module.find(".sd-content"), shown;
     if (element.hasClass("show")) {
       element.removeClass("show");
@@ -643,36 +643,36 @@
   });
 
 
-  // Initializes date fields
-  $(document).behave("focusin click keyup change", 'input[data-date]', function (event) {
-    var element = $(this), locale, options = {}, name, hidden;
-    if (element.prop("datepickerLoaded") !== "Yes!") {
-      locale = element.data("date-locale");
-      if ($.datepicker.regional[locale] === null || $.datepicker.regional[locale] === undefined) {
-        locale = "en";
-      }
-      $.datepicker.setDefaults( $.datepicker.regional[locale] );
-      name = element.attr("name");
-      element.removeAttr("name");
-      hidden = $("<input type='hidden' name='" + name + "'/>");
-      hidden.val(element.data("date-iso"));
-      element.before(hidden);
+  // // Initializes date fields
+  // $(document).behave("focusin click keyup change", 'input[data-date]', function (event) {
+  //   var element = $(this), locale, options = {}, name, hidden;
+  //   if (element.prop("datepickerLoaded") !== "Yes!") {
+  //     locale = element.data("date-locale");
+  //     if ($.datepicker.regional[locale] === null || $.datepicker.regional[locale] === undefined) {
+  //       locale = "en";
+  //     }
+  //     $.datepicker.setDefaults( $.datepicker.regional[locale] );
+  //     name = element.attr("name");
+  //     element.removeAttr("name");
+  //     hidden = $("<input type='hidden' name='" + name + "'/>");
+  //     hidden.val(element.data("date-iso"));
+  //     element.before(hidden);
 
-      options['dateFormat']  = element.data("date");
-      options['altField']    = hidden;
-      options['altFormat']   = 'yy-mm-dd';
-      options['defaultDate'] = element.val();
+  //     options['dateFormat']  = element.data("date");
+  //     options['altField']    = hidden;
+  //     options['altFormat']   = 'yy-mm-dd';
+  //     options['defaultDate'] = element.val();
 
-      // Check for dependents
-      if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
-        if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
-	        hidden.attr('data-observe', '1000');
-        }
-      }
-      element.datepicker(options);
-      element.prop("datepickerLoaded", "Yes!");
-    }
-  });
+  //     // Check for dependents
+  //     if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
+  //       if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
+	//         hidden.attr('data-observe', '1000');
+  //       }
+  //     }
+  //     element.datepicker(options);
+  //     element.prop("datepickerLoaded", "Yes!");
+  //   }
+  // });
 
 
   if (!Modernizr.touch || !Modernizr.inputtypes.date) {
@@ -721,12 +721,12 @@
 
 
 
-  $.initializeDateSelectors = function() {
-    // $('input[type="date"], input[type="datetime"]').trigger('change');
-    $('input[type="date"]').trigger('change');
-  };
-  $(document).ready($.initializeDateSelectors);
-  $(document).on("page:load cocoon:after-insert", $.initializeDateSelectors);
+  // $.initializeDateSelectors = function() {
+  //   // $('input[type="date"], input[type="datetime"]').trigger('change');
+  //   $('input[type="date"]').trigger('change');
+  // };
+  // $(document).ready($.initializeDateSelectors);
+  // $(document).on("page:load cocoon:after-insert", $.initializeDateSelectors);
 
 
 
@@ -776,4 +776,4 @@
 
   });
 
-})( jQuery );
+})( jQuery);

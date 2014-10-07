@@ -162,8 +162,8 @@
       <item name="UAH" precision="2" active="true" countries="ua" number="980"/>
       <item name="UGX" precision="2" active="true" countries="ug" number="800"/>
       <item name="USD" precision="2" active="true" countries="as, ec, fm, gu, ht, io, mh, mp, nl, pa, pr, pw, sv, tc, tl, um, us, vg, vi" number="840" cash="0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10, 20, 50, 100" symbol="$"/>
-      <item name="USN" precision="2" active="true" countries="us" number="997"/>
-      <item name="USS" precision="2" active="true" countries="us" number="998"/>
+      <item name="USN" precision="2" active="false" countries="us" number="997"/>
+      <item name="USS" precision="2" active="false" countries="us" number="998"/>
       <item name="UYI" precision="0" active="true" countries="uy" number="940"/>
       <item name="UYU" precision="2" active="true" countries="uy" number="858"/>
       <item name="UZS" precision="2" active="true" countries="uz" number="860"/>

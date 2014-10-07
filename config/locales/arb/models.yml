@@ -1805,6 +1805,7 @@ arb:
     # reflections: "Reflections"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
     # remember_created_at: "Remember created at"
+    # remember_me: "Remember me"
     # reminder_submissive: "Reminder submissive"
     # reporter: "Reporter"
     required: "الزامي"
