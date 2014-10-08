@@ -6855,7 +6855,7 @@ fra:
         merging: "%{absorber} fusionne avec %{product}"
         movement: "%{product} va à l’emplacement de %{localizable}"
         outgoing_delivery: "%{product} est expédié"
-        owner_change: "%{product} change de propriétaire pout %{owner}"
+        owner_change: "%{product} change de propriétaire pour %{owner}"
         ownership_loss: "%{product} perd son propriétaire"
         reading_task: "%{reporter} mesure %{indicator}"
         simple_attachment: "On attèle %{carrier} et %{carried}"
