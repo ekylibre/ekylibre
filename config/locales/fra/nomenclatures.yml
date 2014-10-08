@@ -504,7 +504,7 @@ fra:
       items:
         fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
-        ifrs: "Normes internationales d’information financière (IFRS)"
+        ifrs: "Normes internationales d’information financière (IFRS)" #?
       name: "Plans de comptes"
     chemical_elements:
       items:
