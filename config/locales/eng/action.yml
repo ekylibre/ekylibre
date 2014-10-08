@@ -766,7 +766,7 @@ eng:
     complement_sort: "Complement sort" #?
     complements: "Complements" #?
     components: "Components" #?
-    conditions:  #?
+    conditions: #?
       filter_on_attribute_of_class: "Filter on attribute of class" #?
       special-subscriber: "Special-subscriber" #?
     confirmed: "Confirmed" #?
@@ -794,7 +794,7 @@ eng:
     created_between: "Created between %{started_at} and %{stopped_at}" #?
     credit: "Credit" #?
     credits: "Credits" #?
-    criterion_modes:  #?
+    criterion_modes: #?
       all: "All" #?
       confirmed: "Confirmed" #?
       unconfirmed: "Unconfirmed" #?
@@ -889,7 +889,7 @@ eng:
     finished_sum: "Total Income" #?
     finishes: "Finishes with" #?
     first_contact: "Principal address" #?
-    format_date:  #?
+    format_date: #?
       iso: "(YYYY-MM-DD)" #?
     free_purchases: "Free purchases" #?
     from: "From" #?
@@ -913,7 +913,7 @@ eng:
     help_center: "Help center"
     hint: "Hint: %{value}" #?
     home: "Home"
-    hour_duration:  #?
+    hour_duration: #?
       one: "Total used time: 1 hour" #?
       other: "Total used time: 1 hour: %{count} hours" #?
       zero: "No time used" #?
@@ -929,7 +929,7 @@ eng:
     income_statement: "Income Statement" #?
     incoming_payment_conditions: "Conditions of payment" #?
     incoming_payments: "Incoming payments" #?
-    incoming_payments_states:  #?
+    incoming_payments_states: #?
       all: "All" #?
       undeposited: "Undeposited" #?
       unparted: "Unused" #?
@@ -1000,7 +1000,7 @@ eng:
     logout: "Logout" #?
     mail: "Send an email" #?
     mailing: "Mailing" #?
-    mails:  #?
+    mails: #?
       one: "One email" #?
       other: "%{count} emails" #?
       zero: "No emails" #?
@@ -1051,7 +1051,7 @@ eng:
     nature: "Type" #?
     net_mass: "Net mass"
     new: "New"
-    new_deposit:  #?
+    new_deposit: #?
       one: "Make a deposit %{mode}: 1 available payment" #?
       other: "Make a deposit %{mode}: %{count} available payments" #?
       zero: "Make a deposit %{mode}: no available payments" #?
@@ -1085,7 +1085,7 @@ eng:
     no_transfers: "No transfers" #?
     # none: "None"
     normal: "Normal" #?
-    notifications:  #?
+    notifications: #?
       error: "Error" #?
       information: "Information" #?
       success: "Success" #?
@@ -1103,7 +1103,7 @@ eng:
     organic_matter_concentration: "Organic matter concentration" #?
     other_results: "Other results…" #?
     others: "Others"
-    outgoing_payments_states:  #?
+    outgoing_payments_states: #?
       all: "All" #?
       undelivered: "Undelivered" #?
       unparted: "Unused" #?
@@ -1172,21 +1172,21 @@ eng:
     production_cost: "Production cost"
     production_support: "Production support"
     productions: "Productions" #?
-    productions_states:  #?
+    productions_states: #?
       aborted: "Aborted" #?
       all: "All" #?
       draft: "Draft" #?
       started: "Started" #?
       validated: "Validated" #?
     products: "Products" #?
-    products_states:  #?
+    products_states: #?
       active: "Active" #?
       all: "All" #?
       inactive: "Inactive" #?
     profitability: "Profitability" #?
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
-    purchase_steps:  #?
+    purchase_steps: #?
       deliveries: "Incoming deliveries" #?
       products: "Purchase" #?
       summary: "Disbursements" #?
@@ -1218,7 +1218,7 @@ eng:
     rest_to_pay: "Rest to pay" #?
     restore: "Restore" #?
     result: "Result" #?
-    results:  #?
+    results: #?
       one: "1 result" #?
       other: "%{count} results" #?
       zero: "No results" #?
@@ -1233,12 +1233,12 @@ eng:
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
     sales_invoice_number: "Sales invoice" #?
-    sales_invoices_states:  #?
+    sales_invoices_states: #?
       all: "All" #?
       cancelled: "Cancelled" #?
       credits: "Credits" #?
     sales_invoices_total: "Sales invoices total" #?
-    sales_states:  #?
+    sales_states: #?
       all: "All" #?
       current: "Current" #?
       unpaid: "Unpaid" #?
@@ -1332,7 +1332,7 @@ eng:
     transformations: "Transformations"
     transport: "Transport" #?
     transport_deliveries: "Deliveries" #?
-    transport_states:  #?
+    transport_states: #?
       all: "All" #?
       making: "Making" #?
       ready: "Ready" #?
@@ -1376,7 +1376,7 @@ eng:
     validate_selected_entries: "Validate selected entries" #?
     values: "Values" #?
     view: "View" #?
-    view_modes:  #?
+    view_modes: #?
       printable: "Printable mode" #?
       resized: "Resized mode" #?
     virtual_quantity: "Virtual quantity" #?

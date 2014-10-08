@@ -182,8 +182,8 @@ task :locales => :environment do
       untranslated += 1
       line << missing_prompt
     end
-    line << "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-    line.gsub!(/$/, " #?") if unknown_labels.include?(key)
+    line << "#{key}:" + (trans.is_a?(Hash) ? "" : " ") + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+    line.gsub!(/\ *$/, " #?") if unknown_labels.include?(key)
     translation << line + "\n"
   end
   warnings << "#{unknown_labels.size} unknown labels" if unknown_labels.any?
@@ -211,8 +211,8 @@ task :locales => :environment do
       untranslated += 1
       line += missing_prompt
     end
-    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
-    line.gsub!(/$/, " #?") if unknown_notifications.include?(key)
+    line += "#{key}:" + (trans.is_a?(Hash) ? "" : " ") + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
+    line.gsub!(/\ *$/, " #?") if unknown_notifications.include?(key)
     translation << line+"\n"
   end
   warnings << "#{unknown_notifications.size} unknown notifications" if unknown_notifications.any?
@@ -366,7 +366,7 @@ task :locales => :environment do
     untranslated += 1 if v[1]==:undefined
   end
 
-  translation  = locale.to_s+":\n"
+  translation  = "#{locale}:\n"
   translation << "  activerecord:\n"
   to_translate += Clean::Support.hash_count(::I18n.translate("activerecord.attributes"))
   translation << "    attributes:" + Clean::Support.hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
@@ -413,7 +413,7 @@ task :locales => :environment do
   file = locale_dir.join("nomenclatures.yml")
   ref = Clean::Support.yaml_to_hash(file)[locale][:nomenclatures] rescue nil
   ref ||= {}
-  translation  = locale.to_s+":\n"
+  translation  = "#{locale}:\n"
   translation << "  nomenclatures:\n"
   for name in Nomen.names.sort{|a,b| a.to_s <=> b.to_s}
     nomenclature = Nomen[name]
@@ -474,14 +474,86 @@ task :locales => :environment do
   end
 
 
-  # count = Clean::Support.sort_yaml_file :nomenclatures, log
-  # atotal += count
-  # acount += count
 
   # Procedures
-  count = Clean::Support.sort_yaml_file :procedures, log
-  atotal += count
-  acount += count
+  file = locale_dir.join("procedures.yml")
+  ref = Clean::Support.yaml_to_hash(file)[locale] rescue {}
+  to_translate = 0
+  untranslated = 0
+
+  translation  = "#{locale}:\n"
+  translation << "  procedo:\n"
+  translation << "    actions:\n"
+  ref[:procedo] ||= {}
+  ref[:procedo][:actions] ||= {}
+  for type, parameters in Procedo::Action::TYPES.sort{|a,b| a.first <=> b.first }
+    to_translate += 1
+    if name = ref[:procedo][:actions][type]
+      translation << "      #{type}: " + Clean::Support.yaml_value(name) + "\n"
+    else
+      translation << "      #{missing_prompt}#{type}: " + Clean::Support.yaml_value("#{type.to_s.humanize} of " + parameters.keys.collect{|p| "%{#{p}}"}.to_sentence(locale: locale)) + "\n"
+      untranslated += 1
+    end
+  end
+
+  translation << "  procedure_handlers:\n"
+  handlers = []
+  Procedo.each_variable do |variable|
+    handlers += variable.handlers.map(&:name)
+  end
+  handlers.uniq!
+  ref[:procedure_handlers] ||= {}
+  for handler in handlers.sort
+    to_translate += 1
+    if name = ref[:procedure_handlers][handler]
+      translation << "    #{handler}: " + Clean::Support.yaml_value(name) + "\n"
+    elsif Nomen::Indicators[handler] # Facultative translation
+      translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
+    else
+      translation << "    #{missing_prompt}#{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
+      untranslated += 1
+    end
+  end
+
+  translation << "  procedure_variables:\n"
+  variables = []
+  Procedo.each_variable do |variable|
+    variables << variable.name
+  end
+  variables.uniq!
+  ref[:procedure_variables] ||= {}
+  for variable in variables.sort
+    to_translate += 1
+    if name = ref[:procedure_variables][variable]
+      translation << "    #{variable}: " + Clean::Support.yaml_value(name) + "\n"
+    else
+      translation << "    #{missing_prompt}#{variable}: " + Clean::Support.yaml_value(variable.to_s.humanize) + "\n"
+      untranslated += 1
+    end
+  end
+
+  translation << "  procedures:\n"
+  procedures = Procedo.list.values.map(&:not_so_short_name).uniq.map(&:to_sym)
+  ref[:procedures] ||= {}
+  for procedure in procedures.sort
+    to_translate += 1
+    if name = ref[:procedures][procedure]
+      translation << "    #{procedure}: " + Clean::Support.yaml_value(name) + "\n"
+    else
+      translation << "    #{missing_prompt}#{procedure}: " + Clean::Support.yaml_value(procedure.to_s.split("-").second.humanize) + "\n"
+      untranslated += 1
+    end
+  end
+
+  # Finishing...
+  File.open(file, "wb") do |file|
+    file.write(translation)
+  end
+
+  total = to_translate
+  log.write "  - #{'procedures.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+  atotal += to_translate
+  acount += to_translate - untranslated
 
   # Support
   count = Clean::Support.sort_yaml_file :support, log
