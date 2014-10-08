@@ -42,6 +42,8 @@ class EventParticipation < Ekylibre::Record::Base
   validates_presence_of :event, :participant
   #]VALIDATORS]
 
+  delegate :name, to: :participant, prefix: true
+
   def status
     {waiting: :caution, accepted: :go, refused: :stop, informative: :undefined}.with_indifferent_access[self.state]
   end

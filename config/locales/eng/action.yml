@@ -227,7 +227,7 @@ eng:
       index: "Establishments"
       new: "New establishment"
     backend/event_participations:
-      # edit: "Edit event participation: %{name}"
+      edit: "Edit participation: %{participant_name}"
       # new: "New event participation"
     backend/events:
       # autocomplete_for_place: "Autocomplete for place event: %{name}"

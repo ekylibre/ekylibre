@@ -286,7 +286,8 @@ arb:
       edit: "تعديل نوع الحدث: %{name}" #?
       index: "انواع الاحداث" #?
       new: "اضافة نوع الحدث" #?
-    backend/event_participations: #?
+    backend/event_participations:
+      # edit: "Edit participation: %{participant_name}"
     backend/events:
       edit: "تعديل الحدث"
       index: "الاحداث"
