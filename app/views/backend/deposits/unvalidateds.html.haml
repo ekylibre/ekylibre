@@ -1,9 +1,9 @@
-- if @deposits.size > 0
-  =form_tag do
-    =list :unvalidateds
-    .actions
-      =link_to tg(:previous), action: :index
-      =submit_tag(tc('validate'))
+- if @deposits.any?
+  = form_tag do
+    = list :unvalidateds
+    = form_actions do
+      = link_to :previous.tl, action: :index
+      = submit_tag :validate.tl
 - else
-  %p{:style => 'text-align:center'}= tc('no_deposits')
+  %p{:style => 'text-align:center'}= :no_deposits.tl
 

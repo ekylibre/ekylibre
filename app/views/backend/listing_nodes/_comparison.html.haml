@@ -7,5 +7,5 @@
     = date_field_tag("comparison_value", date)
   - elsif listing_node.sql_type.to_s != "boolean"
     = text_field_tag("comparison_value", listing_node.condition_value||listing_node.default_comparison_value, :size => 15)
-  = link_to(tg(:validate), {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "comparison"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_comparator", "data-type" => :html, "data-with" => "##{listing_node.key}-comparator-form select, ##{listing_node.key}-comparator-form input", class: "btn")
+  = link_to(:validate.tl, {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "comparison"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_comparator", "data-type" => :html, "data-with" => "##{listing_node.key}-comparator-form select, ##{listing_node.key}-comparator-form input", class: "btn")
 

@@ -399,12 +399,12 @@ fra:
   attributes:
     abilities: "Compétences" #?
     abilities_list: "Liste des compétences"
-    absolute_credit: "Absolute credit"
-    absolute_currency: "Absolute currency"
-    absolute_debit: "Absolute debit"
-    absolute_measure_value: "Absolute measure value"
-    absolute_measure_value_unit: "Absolute measure value unit"
-    absolute_measure_value_value: "Absolute measure value value"
+    absolute_credit: "Crédit (absolu)"
+    absolute_currency: "Monnaie (absolu)"
+    absolute_debit: "Débit (absolu)"
+    absolute_measure_value: "Mesure absolue"
+    absolute_measure_value_unit: "Unité de la mesure absolue"
+    absolute_measure_value_value: "Valeur de lamesure absolute"
     absorbed_nitrogen_at_opening: "Azote absorbé à l’ouverture du bilan (Pi)"
     absorber: "Absorbeur"
     absorber_way: "Voie de l’absorbeur"

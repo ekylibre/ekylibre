@@ -156,6 +156,11 @@ module Clean
               exp.gsub!(/\#\{[^\}]+\}/, '*')
               list << exp
             end
+            source.gsub(/(tg|tl|field_set|cell)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)\s*(\)|\,|\z|\s+do)/) do |exp|
+              exp = exp.split(/[\s\(\)\:\'\"\,]+/)[1]
+              exp.gsub!(/\#\{[^\}]+\}/, '*')
+              list << exp
+            end
           end
         end
         list += Ekylibre::Modules.hash.values.collect{|m| m.keys if m.is_a?(Hash)}.flatten.compact.map(&:to_s)
@@ -163,6 +168,18 @@ module Clean
 
         # list += actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
         return list.delete_if{|l| l == "*" or l.underscore != l }.uniq.sort
+      end
+
+
+      def text_found?(text, *paths)
+        exp = /(#{text}|#{text.to_s.gsub('_', '.*')})/
+        for path in paths
+          for file in Dir.glob(path)
+            source = File.read(file)
+            return true if source =~ exp
+          end
+        end
+        return false
       end
 
 

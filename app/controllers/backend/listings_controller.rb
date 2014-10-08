@@ -157,12 +157,6 @@ class Backend::ListingsController < BackendController
           Mailman.mailing(params[:from], result[listing_coordinate_column.label], ts[0], ts[1], attachment).deliver
         end
         notify_success_now(:mails_are_sent)
-	# nature = EventNature.where(:usage => "mailing").first
-        # nature = EventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
-        # #raise StandardError.new nature.inspect
-	# EntityAddress.emails.where(:coordinate => @mails).find_each do |address|
-        #   Event.create!(:entity_id => address.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
-        # end
         session[:listing_coordinate_column] = nil
       end
     end

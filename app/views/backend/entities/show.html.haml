@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   - t.export :entity, resource
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
 = beehive do |b|
   - b.hbox do

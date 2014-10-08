@@ -156,7 +156,8 @@ task :locales => :environment do
   translation << "  labels:\n"
   labels = ::I18n.t("labels")
   # , "tmp/code/**/*{rb,yml,haml,erb}"
-  needed_labels = Clean::Support.look_for_labels("{app,config,db,lib,test}/**/*.{rb,haml,erb}").inject({}) do |hash, string|
+  watched_files = "{app,config,db,lib,test}/**/*.{rb,haml,erb}"
+  needed_labels = Clean::Support.look_for_labels(watched_files).inject({}) do |hash, string|
     hash[Regexp.new('\A' + string.split('.').first.gsub('*', '([\w\_]+)') + '\z')] = string.split('.').first
     hash
   end
@@ -183,7 +184,13 @@ task :locales => :environment do
       line << missing_prompt
     end
     line << "#{key}:" + (trans.is_a?(Hash) ? "" : " ") + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-    line.gsub!(/\ *$/, " #?") if unknown_labels.include?(key)
+    if unknown_labels.include?(key)
+      if Clean::Support.text_found?(key, watched_files)
+        line.gsub!(/\ *$/, " #?")
+      else
+        line.gsub!(/\ *$/, " #?!")
+      end
+    end
     translation << line + "\n"
   end
   warnings << "#{unknown_labels.size} unknown labels" if unknown_labels.any?
@@ -508,6 +515,7 @@ task :locales => :environment do
     if name = ref[:procedure_handlers][handler]
       translation << "    #{handler}: " + Clean::Support.yaml_value(name) + "\n"
     elsif Nomen::Indicators[handler] # Facultative translation
+      to_translate -= 1
       translation << "    #~ #{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"
     else
       translation << "    #{missing_prompt}#{handler}: " + Clean::Support.yaml_value(handler.to_s.humanize) + "\n"

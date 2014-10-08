@@ -1,8 +1,1 @@
 = list
-
--#= form_tag(nil, {:multipart => true}) do
-  = field_set :import do
-    = field tc("file_to_import"), file_field_tag(:upload)
-    = field tc("file_nature"), select_tag(:nature, options_for_select(@supported_files))
-  = form_actions do
-    = submit_tag tg(:import), "data-confirm" => tg(:are_you_sure)

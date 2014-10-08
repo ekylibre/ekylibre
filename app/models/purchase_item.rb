@@ -104,16 +104,6 @@ class PurchaseItem < Ekylibre::Record::Base
     # errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
-  # def name
-  #   options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, currency: self.price.currency.name} # , :unit => self.unit.name
-  #   if self.tracking
-  #     options[:tracking] = self.tracking.name
-  #     tc(:name_with_tracking, options)
-  #   else
-  #     tc(:name, options)
-  #   end
-  # end
-
   def product_name
     self.variant.name
   end

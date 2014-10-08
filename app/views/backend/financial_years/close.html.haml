@@ -1,9 +1,9 @@
 = form_tag do
   = field_set @financial_year do
     = field FinancialYear.model_name.human, @financial_year.code
-    = field :stopped_on, :source => @financial_year.closures.collect{|d| [I18n.localize(d), d]}
+    = field :stopped_on, :source => @financial_year.closures.collect{|d| [d.l, d]}
   = field_set :use_renew do
-    = field tc(:select_renew_journal), select_tag("journal_id", options_for_select([[tc("dont_use_journal"), ""], [tc("create_journal"), 0]] + Journal.all.collect{|j| [j.name, j.id]}, :selected => params[:journal_id]))
+    = field :select_renew_journal.tl, select_tag("journal_id", options_for_select([[:dont_use_journal.tl, ""], [:create_journal.tl, 0]] + Journal.all.collect{|j| [j.name, j.id]}, :selected => params[:journal_id]))
   = form_actions do
-    = submit_tag(tc(:close_financial_year), "data-confirm" => tg(:are_you_sure))
+    = submit_tag(:close_financial_year.tl, "data-confirm" => :are_you_sure.tl)
     = link_to_back

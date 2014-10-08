@@ -1,11 +1,11 @@
-=field_set do
-  =f.referenced_association :payee
-  =f.input :amount
-  =f.input :to_bank_at
-  =f.input :delivered
-  =f.referenced_association :mode
+= field_set do
+  = f.referenced_association :payee
+  = f.input :amount
+  = f.input :to_bank_at
+  = f.input :delivered
+  = f.referenced_association :mode
 
-=field_set(:depositable_options) do
-  =f.referenced_association :responsible, :source => :employees
-  =f.input :paid_at
-  =f.input :bank_check_number
+= field_set(:depositable_options) do
+  = f.referenced_association :responsible, :source => :employees
+  = f.input :paid_at
+  = f.input :bank_check_number

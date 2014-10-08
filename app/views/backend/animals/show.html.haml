@@ -3,7 +3,7 @@
     - e.animal_sheet resource.identification_number, resource
   - t.edit resource
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
-  -# t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
+  -# t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 -# main_dropdown_button do |b|
 
 

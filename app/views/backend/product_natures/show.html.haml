@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  - t.edit @product_nature
+  - t.edit resource
 
 = beehive do |b|
   - b.cell :details do
@@ -10,17 +10,4 @@
       - l.attribute :number
       - l.attribute :active
       - l.attribute :category, url: true
-      -# l.attribute :catalog_name
-      -# l.attribute :catalog_description
       - l.attribute :description
-      -# l.attribute :description
-      -# l.attribute :stockable
-
-  -b.hbox do
-    -#b.cell :stocks do
-      =toolbar do |t|
-        -t.new controller: :stocks, :product_nature_id => @product_nature.id
-      =list(:stocks)
-
-    -#b.cell :stock_moves do
-      =list(:stock_moves)

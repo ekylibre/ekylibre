@@ -1,12 +1,12 @@
 - main_toolbar do |t|
-  - t.edit @incoming_payment
+  - t.edit resource
 
 = beehive do |b|
   - b.cell do
     = attributes_list do |l|
       - l.attribute :number
       - l.attribute :amount, currency: true
-      - l.attribute :payer, :label => :full_name, url: true
+      - l.attribute :payer, label: :full_name, url: true
       - l.attribute :responsible, :label => :label
       - l.attribute :deposit, url: true
       - l.attribute :mode
@@ -21,7 +21,7 @@
       - l.attribute :bank_check_number
       - l.attribute :journal_entry, url: true
 
-  - b.cell tc(:affair) do
-    = affair_of(@incoming_payment)
+  - b.cell :affair do
+    = affair_of(resource)
 
-    
+

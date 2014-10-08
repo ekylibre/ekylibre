@@ -237,7 +237,7 @@ module ApplicationHelper
   end
 
   def link_to_back(options={})
-    link_to(tg(options[:label]||'back'), back_url)
+    link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl(default: :back.tl), back_url)
   end
 
   #
@@ -310,7 +310,7 @@ module ApplicationHelper
       hours = (duration/3600).floor.to_i
       minutes = (duration/60-60*hours).floor.to_i
       seconds = (duration - 60*minutes - 3600*hours).round.to_i
-      value = tg(:duration_in_hours_and_minutes, :hours => hours, :minutes => minutes, :seconds => seconds)
+      value = :duration_in_hours_and_minutes.tl(hours: hours, minutes: minutes, seconds: seconds)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.is_a? String
       classes = []
@@ -530,12 +530,12 @@ module ApplicationHelper
     title = if current_user
               code = request.url.split(/(\:\/\/|\.)/).third
               if r.empty?
-                tc(:page_title_special, :company_code => code, :action => controller.human_action_name)
+                :page_title_special.tl(company_code: code, action: controller.human_action_name)
               else
-                tc(:page_title, :company_code => code, :action => controller.human_action_name, :menu => tl("menus.#{r[0]}"))
+                :page_title.tl(company_code: code, action: controller.human_action_name, menu: "menus.#{r[0]}".tl)
               end
             else
-              tc(:page_title_by_default, :action => controller.human_action_name)
+              :page_title_by_default.tl(action: controller.human_action_name)
             end
     return ("<title>" << h(title) << "</title>").html_safe
   end
@@ -738,7 +738,7 @@ module ApplicationHelper
     # variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
     variants ||= {action.to_s.t(scope: 'rest.actions') => url} if authorized?(url)
     return dropdown_button do |l|
-      for name, url_options in variants || []
+      for name, url_options in variants || {}
         variant_url = url.merge(url_options)
         l.link_to(name, variant_url, options) if authorized?(variant_url)
       end
@@ -909,24 +909,6 @@ module ApplicationHelper
                                    :class => "fieldset-legend") +
                        content_tag(:div, capture(&block), :class => options[:fields_class]), :class => class_names, :id => name) # "#{name}-fieldset"
   end
-
-
-  # def steps_tag(record, steps, options={})
-  #   name = options[:name] || record.class.name.underscore
-  #   state_method = options[:state_method] || :state
-  #   state = record.send(state_method).to_s
-  #   code = ''
-  #   for step in steps
-  #     title = tc("#{name}_steps.#{step[:name]}")
-  #     classes  = "step"
-  #     classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
-  #     classes << " disabled" unless step[:states].include?(state)
-  #     title = link_to(title, (record.id ? step[:actions][0].merge(:id => record.id) : "#"))
-  #     code << content_tag(:div, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
-  #     code << content_tag(:div, title, :class => classes)
-  #   end
-  #   return content_tag(:div, code.html_safe, :class => "stepper stepper-#{steps.count}-steps")
-  # end
 
 
 

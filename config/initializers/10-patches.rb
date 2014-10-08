@@ -81,31 +81,29 @@ module Ekylibre
 
     module ContextualModelHelpers
 
-      def tl(*args)
-        args[0] = 'models.'+self.name.underscore+'.'+args[0].to_s
+      def tc(*args)
+        args[0] = 'models.' + self.name.underscore + '.' + args[0].to_s
         ::I18n.translate(*args)
       end
-      alias :tc :tl
 
-      def tg(*args)
-        args[0] = 'labels.'+args[0].to_s
-        ::I18n.translate(*args)
-      end
+      # def tg(*args)
+      #   args[0] = 'labels.'+args[0].to_s
+      #   ::I18n.translate(*args)
+      # end
 
     end
 
     module ContextualModelInstanceHelpers
 
-      def tl(*args)
-        args[0] = 'models.'+self.class.name.underscore+'.'+args[0].to_s
+      def tc(*args)
+        args[0] = 'models.' + self.class.name.underscore + '.' + args[0].to_s
         ::I18n.translate(*args)
       end
-      alias :tc :tl
 
-      def tg(*args)
-        args[0] = 'labels.'+args[0].to_s
-        ::I18n.translate(*args)
-      end
+      # def tg(*args)
+      #   args[0] = 'labels.'+args[0].to_s
+      #   ::I18n.translate(*args)
+      # end
 
     end
 
@@ -128,8 +126,8 @@ module Ekylibre
         args[0] = 'labels.'+args[0].to_s
         ::I18n.translate(*args)
       end
-      alias :tc :tl
-      alias :tg :tl
+      # alias :tc :tl
+      # alias :tg :tl
 
       private
 

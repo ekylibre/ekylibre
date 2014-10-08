@@ -2,4 +2,4 @@
 =link_to(listing_node.label, "#", "data-toggle-with" => "##{listing_node.key}-label-form", class: "name")
 %span{id: "#{listing_node.key}-label-form", :style => "display: none;"}
   =text_field_tag("label", listing_node.label, :size => (listing_node.label.size*1.2).round)
-  =link_to(tg(:validate), {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "column_label"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_label", "data-type" => :html, "data-with" => "##{listing_node.key}-label-form input", class: "btn")
+  =link_to(:validate.tl, {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "column_label"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_label", "data-type" => :html, "data-with" => "##{listing_node.key}-label-form input", class: "btn")

@@ -155,7 +155,7 @@ module BackendHelper
     k.criteria.each_with_index do |c, index|
       code, opts = "", c[:options]||{}
       if c[:type] == :mode
-        code = content_tag(:label, opts[:label]||tg(:mode))
+        code = content_tag(:label, opts[:label] || :mode.tl)
         name = c[:name]||:mode
         params[name] ||= c[:modes][0].to_s
         i18n_root = opts[:i18n_root]||'labels.criterion_modes.'
@@ -167,7 +167,7 @@ module BackendHelper
         end
 
       elsif c[:type] == :radio_buttons
-        code = content_tag(:label, opts[:label]||tg(:state))
+        code = content_tag(:label, opts[:label] || :state.tl)
         params[c[:name]] ||= c[:states][0].to_s
         i18n_root = opts[:i18n_root]||"labels.#{controller_name}_states."
         for state in c[:states]
@@ -177,7 +177,7 @@ module BackendHelper
         end
 
       elsif c[:type] == :check_boxes
-        code = content_tag(:label, opts[:label] || tg(:selection))
+        code = content_tag(:label, opts[:label] || :selection.tl)
         params[c[:name]] ||= []
         i18n_root = opts[:i18n_root]||"labels.#{controller_name}_selections."
         for selection in c[:selections]
@@ -192,7 +192,7 @@ module BackendHelper
         code << " ".html_safe << content_tag(:span, select_tag(c[:name], options_for_select(c[:selection], opts[:selected] || params[c[:name]])), class: :slc)
 
       elsif c[:type] == :text
-        code = content_tag(:label, opts[:label]||tg(:search))
+        code = content_tag(:label, opts[:label] || :search.tl)
         name = c[:name]||:q
         p = current_user.pref("kujaku.criteria.#{c[:uid]}.default", params[name])
         params[name] ||= p.value
@@ -200,7 +200,7 @@ module BackendHelper
         code << " ".html_safe << text_field_tag(name, params[name])
 
       elsif c[:type] == :date
-        code = content_tag(:label, opts[:label]||tg(:select_date))
+        code = content_tag(:label, opts[:label] || :select_date.tl)
         name = c[:name]||:d
         code << " ".html_safe << date_field_tag(name, params[name])
 

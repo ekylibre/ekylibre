@@ -1,4 +1,4 @@
 - unless crumb.start? or crumb.stop?
   = form_for Crumb.find(crumb), action: :update, url: backend_crumb_path(crumb), method: :patch do |f|
     = hidden_field_tag :nature, 'start'
-    = f.submit "start new intervention here"
+    = f.submit :start_new_intervention_here.tl

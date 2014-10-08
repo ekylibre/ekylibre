@@ -9,7 +9,7 @@
   -# for event in @issue.state_paths.events
     - if @issue.send("can_#{event}?")
       - t.send(event, @issue, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
-  - t.destroy(@issue, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @issue.destroyable?
+  - t.destroy(@issue, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if @issue.destroyable?
 
 = beehive do |b|
   - b.hbox do

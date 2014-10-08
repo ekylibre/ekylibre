@@ -1,55 +1,55 @@
 .search
-  =form_tag({}, method: :get) do
+  = form_tag({}, method: :get) do
     %table
       %tr
-        %td.crit=journal_period_crit
-        %td.submit=submit_tag(tg(:display), :name => nil)
+        %td.crit= journal_period_crit
+        %td.submit= submit_tag(:display.tl, :name => nil)
 
-=attributes_list(@account, :without_stamp => true) do |l|
-  -l.attribute :name, url: true
-  -l.attribute :number, url: true
-  -l.attribute :description
+= attributes_list(@account, :without_stamp => true) do |l|
+  - l.attribute :name, url: true
+  - l.attribute :number, url: true
+  - l.attribute :description
 
-=error_messages "account"
+= error_messages "account"
 
-=form_tag() do
+= form_tag() do
   .fields
-    -for x in [:period, :started_at, :stopped_at]
-      =hidden_field_tag(x, params[x])
+    - for x in [:period, :started_at, :stopped_at]
+      = hidden_field_tag(x, params[x])
     .active-list
       %table.list
         %thead
           %tr
-            %th=JournalEntryItem.human_attribute_name("letter")
+            %th= JournalEntryItem.human_attribute_name("letter")
             %th.act
-            %th=JournalEntry.human_attribute_name("printed_on")
-            %th=Journal.model_name.human
-            %th=JournalEntry.model_name.human
-            %th=JournalEntryItem.human_attribute_name("name")
-            %th=JournalEntryItem.human_attribute_name("debit")
-            %th=JournalEntryItem.human_attribute_name("credit")
+            %th= JournalEntry.human_attribute_name("printed_on")
+            %th= Journal.model_name.human
+            %th= JournalEntry.model_name.human
+            %th= JournalEntryItem.human_attribute_name("name")
+            %th= JournalEntryItem.human_attribute_name("debit")
+            %th= JournalEntryItem.human_attribute_name("credit")
         %tbody
-          -for item in @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
-            -checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
-            -trid, conf = "e#{item.id}", {}
+          - for item in @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
+            - checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
+            - trid, conf = "e#{item.id}", {}
             %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
               %td.chk
-                -if item.letter.blank? and not item.closed?
-                  =check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", "data-add-class" => "notice", "data-add-class-to" => "##{trid}")
-                  -conf = {"data-click" => "#journal_entry_item_#{item.id}_to_mark"}
-                -else
-                  =item.letter
-              %td.act=link_to("labels.unmark".t, {action: :unmark, id: @account.id, :letter => item.letter}, class: "unmark", method: :post, "data-confirm" => tg(:are_you_sure)) unless item.letter.blank? or item.closed?
-              %td.dat{conf}=I18n.localize(item.entry.printed_on)
-              %td{conf}=link_to(item.journal.name, {action: :show, controller: :journals, id: item.journal_id}, :keep => true)
-              %td.code{conf}=link_to(item.entry.number, {action: :show, controller: :journal_entries, id: item.entry_id}, :keep => true)
-              %td{conf}=item.name
-              %td.dec.debit{conf}=number_to_accountancy(item.debit)
-              %td.dec.credit{conf}=number_to_accountancy(item.credit)
+                - if item.letter.blank? and not item.closed?
+                  = check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", "data-add-class" => "notice", "data-add-class-to" => "##{trid}")
+                  - conf = {"data-click" => "#journal_entry_item_#{item.id}_to_mark"}
+                - else
+                  = item.letter
+              %td.act= link_to("labels.unmark".t, {action: :unmark, id: @account.id, :letter => item.letter}, class: "unmark", method: :post, "data-confirm" => :are_you_sure.tl) unless item.letter.blank? or item.closed?
+              %td.dat{conf}= item.entry.printed_on.l
+              %td{conf}= link_to(item.journal.name, {action: :show, controller: :journals, id: item.journal_id}, :keep => true)
+              %td.code{conf}= link_to(item.entry.number, {action: :show, controller: :journal_entries, id: item.entry_id}, :keep => true)
+              %td{conf}= item.name
+              %td.dec.debit{conf}= number_to_accountancy(item.debit)
+              %td.dec.credit{conf}= number_to_accountancy(item.credit)
           %tr#total.total{"data-valid-if-equality-between" => "#total-debit, #total-credit"}
-            %th{:colspan => 6}=tg(:total)
-            %td#total-debit{"data-use" => "tr.notice .debit"}=0
-            %td#total-credit{"data-use" => "tr.notice .credit"}=0
+            %th{:colspan => 6}= :total.tl
+            %td#total-debit{"data-use" => "tr.notice .debit"}= 0
+            %td#total-credit{"data-use" => "tr.notice .credit"}= 0
     .end
-  .actions=submit_tag tg(:save)
+  .actions= submit_tag :save.tl
 

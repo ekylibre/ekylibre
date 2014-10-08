@@ -1,23 +1,22 @@
+- if @step == 1
+  = form_tag({}, method: :put) do
+    = field_set :period do
+      = field :from.tl, date_field_tag(:started_at, params[:started_at])
+      = field :to.tl,   date_field_tag(:stopped_at, params[:stopped_at])
+    = form_actions do
+      = submit_tag :validate.tl
 
--if @step == 1
-  =form_tag({}, method: :put) do
-    =field_set :period do
-      =field tc(:from), date_field_tag(:started_at, params[:started_at])
-      =field tc(:to),   date_field_tag(:stopped_at, params[:stopped_at])
-    =form_actions do
-      =submit_tag(tg(:validate))
 
-
--if @step == 2
-  =form_tag({}, method: :post) do
-    =field_set :preferences do
-      =field tc(:from), ::I18n.localize(params[:started_at])
-      =field tc(:select_date_generation), ::I18n.localize(params[:stopped_at])
-      =field tc(:save_in_draft), check_box_tag("save_in_draft", "1", @current_company.prefer_bookkeep_in_draft?)
-    =field_set :counts_by_nature do
-      -for nature in @natures
-        =field nature.to_s.classify.constantize.model_name.human, @records[nature].size
-    =form_actions do
-      =submit_tag(tg(:save))
-      =link_to tg(:back), action: :bookkeep, :finish_bookkeeping_at => params[:finish_bookkeeping_at]
+- if @step == 2
+  = form_tag({}, method: :post) do
+    = field_set :preferences do
+      = field :from.tl, params[:started_at].l
+      = field :select_date_generation.tl, params[:stopped_at].l
+      = field :save_in_draft.tl, check_box_tag("save_in_draft", "1", Preferences[:bookkeep_in_draft])
+    = field_set :counts_by_nature do
+      - for nature in @natures
+        = field nature.to_s.classify.constantize.model_name.human, @records[nature].size
+    = form_actions do
+      = submit_tag :save.tl
+      = link_to :back.tl, action: :bookkeep, :finish_bookkeeping_at => params[:finish_bookkeeping_at]
 

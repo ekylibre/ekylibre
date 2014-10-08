@@ -39,7 +39,7 @@
             <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
             <property name="grains_yield" if="support.grains_yield(:quintal)" value="support.grains_yield(:quintal).round(2)" type="measure"/>
             <property name="vine_yield" if="support.vine_yield(:hectoliter)" value="support.vine_yield(:hectoliter).round(2)" type="measure"/>
-            <property name="provisionnal_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
+            <property name="provisional_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
 
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">

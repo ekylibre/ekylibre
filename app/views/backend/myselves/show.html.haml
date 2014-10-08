@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.criterion do
-    = tc(:manual_period, start: date_field_tag(:started_at, params[:started_at], size: 8), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 8)).html_safe
+    = :manual_period.tl(start: date_field_tag(:started_at, params[:started_at], size: 8), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 8)).html_safe
 
 
 :ruby
@@ -19,16 +19,16 @@
           - invoiced_amount = current_user.sales.where(conditions[:invoiced_at]).sum(:amount)
           = invoiced_amount.l(currency: Preference[:currency]) rescue "?"
       .big-info.important
-        %span.title= tc(:total_paid_amount)
+        %span.title= :total_paid_amount.tl
         %span.value
           - paid_amount = current_user.sales.where(conditions[:invoiced_at]).sum(:downpayment_amount)
           = paid_amount.l(currency: Preference[:currency]) rescue "?"
       .big-info
-        %span.title= tc(:total_unpaid_amount)
+        %span.title= :total_unpaid_amount.tl
         %span.value= (invoiced_amount - paid_amount).l(currency: Preference[:currency]) rescue "?"
       - if invoiced_amount > 0
         .big-info
-          %span.title= tc(:profitability)
+          %span.title= :profitability.tl
           %span.value= number_to_percentage 100*(paid_amount/invoiced_amount) rescue "?"
   -# started_at, stopped_at = params[:started_at].beginning_of_day, params[:stopped_at].end_of_day
   -# cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
@@ -36,4 +36,4 @@
     %ul
       - for event_nature in Nomen::EventNatures.all
         - cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
-        %li= tc(:x_events_of_nature_y, count: current_user.events.where(cond).count.to_i, nature: event_nature.name, duration: current_user.events.where(cond).sum(:duration).to_i)
+        %li= :x_events_of_nature_y.tl(count: current_user.events.where(cond).count.to_i, nature: event_nature.name, duration: current_user.events.where(cond).sum(:duration).to_i)

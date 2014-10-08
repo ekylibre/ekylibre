@@ -1,11 +1,11 @@
 - main_toolbar do |t|
-  - t.edit @bank_statement
+  - t.edit resource
 = attributes_list do |l|
   - l.attribute(:number)
   - l.attribute(:started_at)
   - l.attribute(:stopped_at)
 
-%h2= tc(:entries_to_point)
+%h2= :entries_to_point.tl
 = form_tag do
   .active-list
     %table.list
@@ -19,25 +19,25 @@
           %th= JournalEntryItem.human_attribute_name("credit")
       %tfoot
         %tr.total
-          %th{:colspan => 4}= tg(:total)
-          %td#total-debit{"data-use" => "tr.notice .debit"}= @bank_statement.debit || 0
-          %td#total-credit{"data-use" => "tr.notice .credit"}= @bank_statement.credit || 0
-        - if previous = @bank_statement.previous
+          %th{:colspan => 4}= :total.tl
+          %td#total-debit{"data-use" => "tr.notice .debit"}= resource.debit || 0
+          %td#total-credit{"data-use" => "tr.notice .credit"}= resource.credit || 0
+        - if previous = resource.previous
           %tr.total
-            %th{:colspan => 4}= tc(:previous_bank_statement, :number => previous.number, :started_at => previous.started_at, :stopped_at => previous.stopped_at)
+            %th{:colspan => 4}= :previous_bank_statement.tl(:number => previous.number, :started_at => previous.started_at, :stopped_at => previous.stopped_at)
             %td#previous-debit= previous.balance_debit || 0
             %td#previous-credit= previous.balance_credit || 0
           %tr.total
-            %th{:colspan => 4}= tc(:cumul, :number => previous.number, :started_at => previous.started_at, :stopped_at => previous.stopped_at)
+            %th{:colspan => 4}= :cumul.tl(:number => previous.number, :started_at => previous.started_at, :stopped_at => previous.stopped_at)
             %td#cumul-debit{"data-use" => "#total-debit, #previous-debit"}= previous.balance_debit || 0
             %td#cumul-credit{"data-use" => "#total-credit, #previous-credit"}= previous.balance_credit || 0
           %tr.total
-            %th{:colspan => 4}= tc(:balance)
+            %th{:colspan => 4}= :balance.tl
             %td#balance-debit{"data-balance" => "#cumul-debit - #cumul-credit"}= previous.balance_debit || 0
             %td#balance-credit{"data-balance" => "#cumul-credit - #cumul-debit"}= previous.balance_credit || 0
       %tbody
         - for @journal_entry_item in @journal_entry_items
-          - checked = (@journal_entry_item.bank_statement_id==@bank_statement.id)
+          - checked = (@journal_entry_item.bank_statement_id == resource.id)
           - trid, conf = "e#{@journal_entry_item.id}", {}
           %tr{id: trid, class: (checked ? "notice " : "")+cycle("even", "odd")}
             %td.chk
@@ -47,8 +47,8 @@
               - else
                 = link_to(@journal_entry_item.bank_statement.number, action: :show, id: @journal_entry_item.bank_statement.id)
             %td{conf}= link_to(@journal_entry_item.entry.number, action: :show, controller: :journal_entries, id: @journal_entry_item.entry_id)
-            %td.date{conf}= I18n.localize(@journal_entry_item.entry.printed_on)
+            %td.date{conf}= @journal_entry_item.entry.printed_on.l
             %td{conf}= @journal_entry_item.name
             %td.dec.debit{conf}= number_to_accountancy(@journal_entry_item.debit)
             %td.dec.credit{conf}= number_to_accountancy(@journal_entry_item.credit)
-  .actions= submit_tag(tg(:save))
+  .actions= submit_tag :save.tl

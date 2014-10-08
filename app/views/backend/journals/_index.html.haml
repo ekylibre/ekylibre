@@ -1,7 +1,7 @@
 %dl#journals-nav
   %dt= Backend::JournalsController.human_action_name(:index)
   - if JournalEntryItem.find_by_state("draft")
-    - name = tc("draft").html_safe
+    - name = :draft.tl.html_safe
     - activeness = (action_name == "draft" ? {class: "active"} : {})
     %dd.special{activeness}
       = link_to(params.merge(controller: :journals, action: :draft)) do

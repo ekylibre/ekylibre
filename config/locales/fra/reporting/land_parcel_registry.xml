@@ -126,8 +126,8 @@
 	<field name="grains_yield" class="java.lang.Double">
 		<fieldDescription><![CDATA[ancestor::support/@grains-yield]]></fieldDescription>
 	</field>
-	<field name="provisionnal_yield" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::support/@provisionnal-yield]]></fieldDescription>
+	<field name="provisional_yield" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::support/@provisional-yield]]></fieldDescription>
 	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
@@ -360,7 +360,7 @@
 				<textField pattern="" isBlankWhenNull="true">
 					<reportElement x="515" y="73" width="72" height="24" uuid="e722d8b1-af3d-49f8-8f74-3e212ff128bc"/>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{provisionnal_yield}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{provisional_yield}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

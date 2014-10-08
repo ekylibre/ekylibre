@@ -1,5 +1,0 @@
-=unagi do |u|
-  -u.cell :indicator do
-    %ul
-      =li_link_to tc('x_depositable_payments', count: IncomingPayment.depositables.count), action: :index, controller: :deposits
-      =li_link_to tc('x_deposits_to_validate', count: Deposit.unvalidateds.count), action: :unvalidateds, controller: :deposits

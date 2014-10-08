@@ -25,7 +25,7 @@ module Backend::JournalsHelper
 
   # Show the 3 modes of view for a journal
   def journal_view_tag
-    code = content_tag(:dt, tg(:view))
+    code = content_tag(:dt, :view.tl)
     for mode in controller.journal_views
       code << content_tag(:dd, link_to(h("journal_view.#{mode}".tl(:default => ["labels.#{mode}".to_sym, mode.to_s.humanize])), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil)) # content_tag(:i) + " " +
     end
@@ -41,20 +41,20 @@ module Backend::JournalsHelper
     configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
     value ||= params[name] || options[:default]
     list = []
-    list << [tc(:all_periods), "all"]
+    list << [:all_periods.tl, "all"]
     for year in FinancialYear.reorder(started_on: :desc)
       list << [year.code, year.started_on.to_s << "_" << year.stopped_on.to_s]
       list2 = []
       date = year.started_on
       while date < year.stopped_on and date < Date.today
         date2 = date.end_of_month
-        list2 << [tc(:month_period, :year => date.year, :month => t("date.month_names")[date.month], :code => year.code), date.to_s << "_" << date2.to_s]
+        list2 << [:month_period.tl(year: date.year, month: "date.month_names".t[date.month], code: year.code), date.to_s << "_" << date2.to_s]
         date = date2 + 1
       end
       list += list2.reverse
     end
     code = ""
-    code << content_tag(:label, options[:label] || tc(:period), :for => configuration[:id]) + " "
+    code << content_tag(:label, options[:label] || :period.tl, :for => configuration[:id]) + " "
     fy = FinancialYear.current
     params[:period] = value = value || :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
     custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
@@ -63,7 +63,7 @@ module Backend::JournalsHelper
       params[:started_at] = params[:started_at].to_date rescue (fy ? fy.started_on : Date.today)
       params[:stopped_at] = params[:stopped_at].to_date rescue (fy ? fy.stopped_on : Date.today)
       params[:stopped_at] = params[:started_at] if params[:started_at] > params[:stopped_at]
-      list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
+      list.insert(0, [configuration[:custom].tl, configuration[:custom]])
     end
 
     if replacement = options.delete(:include_blank)
@@ -73,7 +73,7 @@ module Backend::JournalsHelper
     code << select_tag(name, options_for_select(list, value), :id => configuration[:id], "data-show-value" => "##{configuration[:id]}_")
 
     if configuration[:custom]
-      code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_at, params[:started_at], :size => 10), :finish => date_field_tag(:stopped_at, params[:stopped_at], :size => 10)).html_safe, :id => custom_id)
+      code << " " << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_at, params[:started_at], size: 10), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 10)).html_safe, :id => custom_id)
     end
     return code.html_safe
   end
@@ -81,7 +81,7 @@ module Backend::JournalsHelper
   # Create a widget to select states of entries (and entry items)
   def journal_entries_states_crit
     code = ""
-    code << content_tag(:label, tc(:journal_entries_states))
+    code << content_tag(:label, :journal_entries_states.tl)
     states = JournalEntry.states
     params[:states] = {} unless params[:states].is_a? Hash
     no_state = !states.detect{|x| params[:states].has_key?(x)}

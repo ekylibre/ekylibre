@@ -74,7 +74,7 @@ class Backend::DepositsController < BackendController
     t.column :paid_at
     t.column :responsible
     t.column :amount, currency: true
-    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: tc(:to_deposit), form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
+    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: :to_deposit.tl, form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
   end
 
   def new

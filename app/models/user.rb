@@ -187,11 +187,11 @@ class User < Ekylibre::Record::Base
     rights_list = self.rights_array if rights_list.blank?
     message = nil
     if self.class.rights[controller_name.to_sym].nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
+      message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
+      message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.administrator?
-      message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
+      message = :no_right_defined_for_this_part_of_the_application_and_this_user.tl
     end
     return message
   end

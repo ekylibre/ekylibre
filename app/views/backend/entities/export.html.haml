@@ -3,7 +3,7 @@
     .form-column.aside
       - params[:columns] ||= {}
       - index = 0
-      %p.hint=tc(:select_columns)
+      %p.hint= :select_columns.tl
       %table.formalize
         - for klass in [Entity, EntityAddress, PostalZone, District]
           %tr.title
@@ -36,11 +36,11 @@
       .end
     .form-column
       = field_set :add_conditions do
-        = field tc('check'), {:choices => [[tc(:all_conditions), :and], [tc(:one_condition), :or]], :datatype => :radio, :name => :check, :value => params[:check]||:and}
+        = field :check.tl, {:choices => [[:all_conditions.tl, :and], [:one_condition.tl, :or]], :datatype => :radio, :name => :check, :value => params[:check]||:and}
       .fastadd
         = select_tag("condition", options_for_select(@conditions.collect{|x| [condition_label(x), x]}.sort{|a,b| a[0] <=> b[0]}))
-        = link_to(tc(:add_condition), {action: :export}, :remote => true, "data-update" => "#conditions", "data-update-at" => :bottom, "data-type" => :html, "data-with" => "#condition")
+        = link_to(:add_condition.tl, {action: :export}, :remote => true, "data-update" => "#conditions", "data-update-at" => :bottom, "data-type" => :html, "data-with" => "#condition")
       #conditions
       .end
   = form_actions do
-    = submit_tag(tg(:export))
+    = submit_tag :export.tl

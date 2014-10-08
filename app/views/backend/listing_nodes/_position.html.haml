@@ -2,4 +2,4 @@
 =tool_to(listing_node.position.to_s, "#", "data-toggle-with" => "##{listing_node.key}-position-form", :tool => "sort")
 %span{id: "#{listing_node.key}-position-form", :style => "display: none;"}
   =text_field_tag("position", listing_node.position, :size => 2)
-  =link_to(tg(:validate), {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "position"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_position", "data-type" => :html, "data-with" => "##{listing_node.key}-position-form input", class: "btn")
+  =link_to(:validate.tl, {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "position"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_position", "data-type" => :html, "data-with" => "##{listing_node.key}-position-form input", class: "btn")

@@ -267,9 +267,9 @@ class Backend::SalesController < BackendController
     @sale.responsible_id = current_user.id
     @sale.client_id = session[:current_entity_id]
     @sale.letter_format = false
-    @sale.function_title = tg('letter_function_title')
-    @sale.introduction = tg('letter_introduction')
-    # @sale.conclusion = tg('letter_conclusion')
+    @sale.function_title = :default_letter_function_title.tl
+    @sale.introduction = :default_letter_introduction.tl
+    @sale.conclusion = :default_letter_conclusion.tl
   end
 
   def create

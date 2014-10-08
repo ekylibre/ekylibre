@@ -1,36 +1,36 @@
-=form_tag({id: @step}, :multipart => true, :style => 'overflow:none') do
+= form_tag({id: @step}, :multipart => true, :style => 'overflow:none') do
   .form-fields
-    -if @step == :upload
-      =field_set(:select_file_to_upload) do
-        =field tc(:file_to_upload), file_field_tag(:upload)
-        =field tc('first_line_as_title'), check_box_tag(:first_line_as_title)
-        =field tc('file_nature'), select_tag(:nature, options_for_select(@formats))
-    -elsif @step == :columns
-      -params[:columns] ||= {}
-      =field_set(:columns) do
-        -@columns.each_index do |index|
-          =field(@columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], class: :note))
-    -elsif @step == :validate
+    - if @step == :upload
+      = field_set(:select_file_to_upload) do
+        = field :file_to_upload.tl, file_field_tag(:upload)
+        = field :first_line_as_title.tl, check_box_tag(:first_line_as_title)
+        = field :file_nature.tl, select_tag(:nature, options_for_select(@formats))
+    - elsif @step == :columns
+      - params[:columns] ||= {}
+      = field_set(:columns) do
+        - @columns.each_index do |index|
+          = field(@columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], class: :note))
+    - elsif @step == :validate
       .flash.information
-        %h3=tg('notifications.information')
-        %p=tc(:importation_explanation)
-      -if @report[:errors].keys.size > 0
+        %h3= 'notifications.levels.information'.t
+        %p= :importation_explanation.tl
+      - if @report[:errors].keys.any?
         .flash.warning
-          %h3=tg('notifications.warning')
-          %p=tc(:errors_explanation)
+          %h3= 'notifications.levels.warning'.t
+          %p= :errors_explanation.tl
           %ul
-            -for index, errors in @report[:errors].sort{|a,b| a[0].to_i <=> b[0].to_i}
+            - for index, errors in @report[:errors].sort{|a,b| a[0].to_i <=> b[0].to_i}
               %li
-                %span=tc(:line, :index => index)
+                %span= :line_number.tl(number: index)
                 %ul
-                  -for error in errors
-                    %li=error
+                  - for error in errors
+                    %li= error
     .end
-  =form_actions do
-    -if @step == :validate
-      =link_to(tg(:previous), action: :import, id: :columns)
-      =submit_tag(tg(:import))
-    -else
-      =link_to(tg(:previous), action: :import, id: :upload) if @step == :columns
-      =submit_tag(tg(:next))
+  = form_actions do
+    - if @step == :validate
+      = link_to(:previous.tl, action: :import, id: :columns)
+      = submit_tag(:import.tl)
+    - else
+      = link_to(:previous.tl, action: :import, id: :upload) if @step == :columns
+      = submit_tag(:next.tl)
 
