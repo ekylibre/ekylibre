@@ -13,9 +13,7 @@
     = f.input_field(:unit_price_amount, class: "item-pta item-wta")
   %td.decimal
     = f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "item-wta")
-  -# %td.decimal.pta{'data-use' => ".item-pta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul', 'data-calculate-round' => Nomen::Currencies[@sale.currency].precision}=item.pretax_amount
   %td.decimal.pta{data: {use: ".item-pta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[@sale.currency].precision}"}}=item.pretax_amount
-  -# %td.decimal.wta{'data-use' => ".item-wta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul', 'data-calculate-round' => Nomen::Currencies[@sale.currency].precision}=item.amount
   %td.decimal.wta{data: {use: ".item-wta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[@sale.currency].precision}"}}=item.amount
   %td.currency= f.object.sale_currency
   %td.action

@@ -378,10 +378,11 @@ function toCurrency(value) {
                 result = result + $.calculate.call(this);
             });
         }
-
+        //*
         if (!(isNaN(round))) {
-			result = result.toFixed(round);
+			result = parseFloat(result.toFixed(round));
 		}
+		//*/
 
         if (element.numericalValue() !== result) {
             element.numericalValue(result);

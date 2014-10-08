@@ -11,9 +11,8 @@
     = f.input_field(:unit_price_amount, class: "item-pta item-wta")
   %td.decimal
     = f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "item-wta")
-  -# %td.decimal.pta{'data-use' => ".item-pta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}= item.pretax_amount
+  -# TODO: replace calculate_round value with the actual currency precision
   %td.decimal.pta{data: {use: ".item-pta", use_closest: "tr", calculate: "mul", calculate_round: "2"}}= item.pretax_amount
-  -# %td.decimal.wta{'data-use' => ".item-wta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}= item.amount
   %td.decimal.wta{data: {use: ".item-wta", use_closest: "tr", calculate: "mul", calculate_round: "2"}}= item.amount
   %td.currency= @purchase.currency
   %td.action
