@@ -358,7 +358,6 @@ function toCurrency(value) {
 
     // Calculate result base on markup
     $.calculate = function () {
-		console.log("calling calculate");
         var element = $(this), calculation = element.data("calculate"), use = element.data("use"), result = null, closest = element.data("use-closest"), round = parseInt(element.data("calculate-round"));
         if (use === null || use === undefined) {
             return element.numericalValue();
@@ -382,7 +381,6 @@ function toCurrency(value) {
 
         if (!(isNaN(round))) {
 			result = result.toFixed(round);
-			console.log(result);
 		}
 
         if (element.numericalValue() !== result) {
