@@ -17,6 +17,10 @@ class ::Symbol
     ::I18n.translate('labels.' + self.to_s, *args)
   end
 
+  def ta(*args)
+    ::I18n.translate('rest.actions.' + self.to_s, *args)
+  end
+
   def th(*args)
     args.each_with_index do |arg, index|
       if arg.is_a?(Hash)

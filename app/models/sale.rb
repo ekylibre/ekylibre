@@ -98,7 +98,7 @@ class Sale < Ekylibre::Record::Base
 
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
-  accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   delegate :closed, to: :affair, prefix: true
 

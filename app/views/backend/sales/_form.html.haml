@@ -34,7 +34,7 @@
             %th
         %tbody#items
           = f.simple_fields_for :items, @sale.items do |item|
-            = render 'item_fields', :f => item
+            = render 'item_fields', f: item
         %tfoot
           %tr.total
             %th= link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
