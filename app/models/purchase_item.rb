@@ -80,13 +80,15 @@ class PurchaseItem < Ekylibre::Record::Base
       self.currency  ||= Preference.get(:currency).value
       self.indicator_name ||= :population.to_s
     end
-    amount = self.quantity * self.unit_price_amount
-    if self.tax
-      tax_amount = self.tax.compute(amount, false)
-      self.pretax_amount = amount
-      self.amount = (self.pretax_amount + tax_amount).round(2)
-    else
-      self.amount = self.pretax_amount = amount
+    if self.quantity and self.unit_price_amount
+      amount = self.quantity * self.unit_price_amount
+      if self.tax
+        tax_amount = self.tax.compute(amount, false)
+        self.pretax_amount = amount
+        self.amount = (self.pretax_amount + tax_amount).round(2)
+      else
+        self.amount = self.pretax_amount = amount
+      end
     end
   end
 

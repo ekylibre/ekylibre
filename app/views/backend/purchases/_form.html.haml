@@ -24,7 +24,7 @@
         = render 'item_fields', f: item
     %tfoot
       %tr.total
-        %td= link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
+        %td= link_to_add_association :add_item.tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
         %th{:colspan => 3}= "total".tl
         -# TODO: replace calculate_round value with the actual currency precision
         %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: "2"}}= @purchase.pretax_amount
