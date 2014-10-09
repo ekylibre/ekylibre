@@ -18,9 +18,8 @@
 #                                               # :name being the @layer parameter the constructor requires.
 #
 #           nature:       crumb.nature,         # proper to the crumb. May be one of the natures enumerated in Crumb model.
-#                                               # this option is used to display particular points bigger and to change the
-#                                               # path opacity for parts that correspond to actual works (points between a hard_start)
-#                                               # and a hard_stop crumb
+#                                               # this option is used to display particular points differently. Crumbs between 
+#                                               # 'hard_start' and 'hard_stop' appear in black instead of white.
 #
 #           shape:        crumb.geolocation,    # proper to the crumb. contains the actual crumb location as a Charta::Geometry object.
 #                                               # This is what is used to draw the crumb on the map
