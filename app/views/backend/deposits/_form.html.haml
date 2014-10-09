@@ -3,7 +3,7 @@
 = field_set do
   = f.referenced_association :mode, as: :hidden
   = f.referenced_association :responsible # , source: :employees
-  = f.input :created_at
+  -# = f.input :created_at
   = f.input :description
 
   -# = f.association :payments, as: :check_boxes, label_method: :number
