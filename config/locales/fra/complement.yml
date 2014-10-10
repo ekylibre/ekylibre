@@ -4333,7 +4333,7 @@ fra:
         base-calving_one: "Vêlage unique"
         base-calving_twin: "Vêlage jumeaux"
         base-chaptalization: "Chaptalisation"
-        base-chemical_weed: "Désherbage chimique"
+        base-chemical_weed_killing: "Désherbage chimique"
         base-complete_wine_transfer: "Transfert de vin (Complet)"
         base-cutting: "Taille"
         base-detach: "Détellage"

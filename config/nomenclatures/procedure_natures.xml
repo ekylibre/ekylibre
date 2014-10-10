@@ -7,8 +7,8 @@
       <property-nature name="activity_families" type="list" nomenclature="activity_families" required="true"/>
     </property-natures>
     <items>
-      <item name="animal_feeding"       roles="input, target, doer, tool"       activity_families="animal_farming"/>
-      <item name="animal_health"        roles="input, target, doer"             activity_families="animal_farming"/>
+      <item name="animal_nutrition"     roles="input, target, doer, tool"       activity_families="animal_farming"/>
+      <item name="animal_care"          roles="input, target, doer"             activity_families="animal_farming"/>
       <item name="animal_fecondation"   roles="input_origin, input, target, doer" activity_families="animal_farming"/>
       <item name="animal_moving"        roles="input, target, doer"             activity_families="animal_farming"/>
       <item name="animal_group_changing" roles="input, target"                  activity_families="animal_farming"/>
@@ -24,10 +24,11 @@
       <item name="transport"            roles="input, doer, input_origin, tool, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
       <item name="tillage"              roles="target"                          activity_families="vegetal_crops"/>
       <item name="plant_nutrition"      roles="input, target"                   activity_families="vegetal_crops"/>
-      <item name="cultivation_protection" roles="tool, target, doer"            activity_families="vegetal_crops"/>
+      <item name="plant_care"           roles="tool, target, doer"            activity_families="vegetal_crops"/>
       <item name="soil_enrichment"      roles="input, target, tool, doer, input_origin" activity_families="vegetal_crops"/>
       <item name="soil_cleaning"        roles="target"                          activity_families="animal_farming"/>
       <item name="implantation"         roles="input, target, output, doer, tool, input_origin" activity_families="vegetal_crops"/>
+      <item name="weed_killing"         roles="doer, target"                    activity_families="vegetal_crops"/>
       <item name="pruning"              roles="doer, target"                    activity_families="vegetal_crops"/>
       <item name="grinding"             roles="doer, tool, target"              activity_families="vegetal_crops"/>
       <item name="cutting"              roles="doer, tool, target"              activity_families="arboriculture"/>
@@ -96,7 +97,7 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-animal_health">
+  <nomenclature name="procedure_natures-animal_care">
     <items>
       <item name="animal_illness_treatment" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
       <item name="animal_housing_treatment" roles="input, target, doer, tool"   activity_families="animal_farming"/>
@@ -117,19 +118,25 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-animal_feeding">
+  <nomenclature name="procedure_natures-animal_nutrition">
     <items>
       <item name="food_supply"          roles="input, target, doer, tool"       activity_families="animal_farming"/>
       <item name="pasturing"            roles="input, target, doer"             activity_families="animal_farming"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-cultivation_protection">
+  <nomenclature name="procedure_natures-plant_care">
     <items>
       <item name="plant_illness_treatment" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops"/>
-      <item name="plant_physical_weed" roles="target, doer, tool" activity_families="vegetal_crops"/>
-      <item name="plant_chemical_weed" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops"/>
-      </items>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="procedure_natures-weed_killing">
+    <items>
+      <item name="chemical_weed_killing" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops, exploitation"/>
+      <item name="physical_weed_killing" roles="target, doer, tool" activity_families="vegetal_crops, exploitation"/>
+      <item name="thermal_weed_killing" roles="target, doer, tool" activity_families="vegetal_crops, exploitation"/>
+    </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-plant_nutrition">

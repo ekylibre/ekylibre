@@ -1910,28 +1910,28 @@ eng:
       items:
         addition: "Addition"                               #< transformation
         administrative_task: "Administrative task"
+        animal_care: "Animal care"
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_fecondation: "Animal fecondation"
-        animal_feeding: "Animal feeding"
         animal_group_changing: "Animal group changing"
-        animal_health: "Animal health"
-        animal_housing_cleaning: "Animal housing cleaning" #< animal_health
-        animal_housing_treatment: "Animal housing treatment" #< animal_health
-        animal_illness_treatment: "Animal illness treatment" #< animal_health
+        animal_housing_cleaning: "Animal housing cleaning" #< animal_care
+        animal_housing_treatment: "Animal housing treatment" #< animal_care
+        animal_illness_treatment: "Animal illness treatment" #< animal_care
         animal_moving: "Animal moving"
+        animal_nutrition: "Animal nutrition"
         animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
         blending: "Blending"                               #< transformation
         bottling: "Bottling"                               #< transformation
+        chemical_weed_killing: "Chemical weed killing"     #< weed_killing
         consummables_addition: "Consummables addition"     #< maintenance_task
-        # coupling: "Coupling"
+        coupling: "Coupling"
         cultipacking: "Cultipacking"                       #< tillage
-        cultivation_protection: "Cultivation protection"
         cutting: "Cutting"
         fermentation: "Fermentation"                       #< transformation
-        # filling: "Filling"
+        filling: "Filling"
         filtration: "Filtration"                           #< transformation
-        food_supply: "Food supply"                         #< animal_feeding
+        food_supply: "Food supply"                         #< animal_nutrition
         grain_transport: "Grain transport"                 #< transport
         grains_harvest: "Grains harvest"                   #< harvest
         grape_harvest: "Grape harvest"                     #< harvest
@@ -1946,17 +1946,17 @@ eng:
         maintenance_task: "Maintenance task"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
-        # moving: "Moving"
+        moving: "Moving"
         nuts_harvest: "Nuts harvest"                       #< harvest
         oviparous_birth: "Oviparous birth"
-        pasturing: "Pasturing"                             #< animal_feeding
+        pasturing: "Pasturing"                             #< animal_nutrition
+        physical_weed_killing: "Physical weed killing"     #< weed_killing
         piece_replacement: "Piece replacement"             #< maintenance_task
-        plant_chemical_weed: "Plant chemical weed"         #< cultivation_protection
+        plant_care: "Plant care"
         plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
-        plant_illness_treatment: "Plant illness treatment" #< cultivation_protection
+        plant_illness_treatment: "Plant illness treatment" #< plant_care
         plant_irrigation: "Plant irrigation"               #< plant_nutrition
         plant_nutrition: "Plant nutrition"
-        plant_physical_weed: "Plant physical weed"         #< cultivation_protection
         plowing: "Plowing"                                 #< tillage
         pressing: "Pressing"                               #< transformation
         pruning: "Pruning"
@@ -1966,11 +1966,13 @@ eng:
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"
         sowing: "Sowing"                                   #< implantation
+        thermal_weed_killing: "Thermal weed killing"       #< weed_killing
         tillage: "Tillage"
         transfer: "Transfer"                               #< transformation
         transformation: "Transformation"
         transport: "Transport"
         viviparous_birth: "Viviparous birth"
+        weed_killing: "Weed killing"
     procedure_roles:
       name: "Procedure roles"
       items:
