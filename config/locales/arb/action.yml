@@ -2086,6 +2086,7 @@ arb:
       cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة" #?
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
+      # cannot_finish_affair: "Cannot finish affair"
       # cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
@@ -2114,7 +2115,8 @@ arb:
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
       impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
-      invalid_file_nature: "نوع الملف غير صحيح"
+      invalid_file_nature: "نوع الملف غير صحيح" #?
+      # invalid_reference_name: "Invalid reference name"
       journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
@@ -2126,6 +2128,7 @@ arb:
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       messages: #?
       # need_a_production_support: "Need a production support"
+      # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
       need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ" #?
       need_building_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
       need_building_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
@@ -2143,7 +2146,6 @@ arb:
       # need_to_create_productions: "Need to create productions"
       need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
       new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
-      # new_values_are_calculated: "New values are calculated"
       no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
       no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
       no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك" #?
@@ -2164,12 +2166,13 @@ arb:
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
       # purchase_already_invoiced: "Purchase already invoiced"
+      # record_already_imported: "Record already imported"
       record_cannot_be_removed: "لا يمكن حذف السجل"
       record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
       # record_has_been_imported: "Record has been imported"
       record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح" #?
-      restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}"
-      sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم"
+      restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}" #?
+      sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
       sale_cannot_be_updated: "الطلب غير قابل للتعديل"
       sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع"
       select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
@@ -2179,7 +2182,7 @@ arb:
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})"
       unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
       unknown_company: "شركة غير معروفة" #?
-      unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي"
+      unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?
       update_is_done: "قد انجز اعداد التحديث"
       validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
       x_unpointed_journal_entry_items:

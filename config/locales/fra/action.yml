@@ -1774,6 +1774,7 @@ fra:
       cannot_find_deal_to_attach: "Impossible de trouver la transaction à rattacher"
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
+      cannot_finish_affair: "Impossible de terminer l’affaire"
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
@@ -1796,16 +1797,16 @@ fra:
       importation_finished: "L’importation est terminée."
       impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
       impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
-      invalid_file_nature: "Type de fichier invalide"
+      invalid_file_nature: "Type de fichier invalide" #?
+      invalid_reference_name: "Référence invalide"
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."
       journal_entry_already_validated: "La pièce a déjà été validée et ne peut plus être modifiée"
       journal_entry_has_been_saved: "La pièce N°%{number} a été enregistrée correctement"
       journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
-      levels: #?
       mails_are_sent: "Les courriels ont été envoyés"
-      messages: #?
       need_a_production_support: "Nécessite un support de production"
+      need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"
       need_balanced_journal_to_tax_declaration: "Tous vos journaux doivent être clôturés et équilibrés à cette date." #?
       need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat" #?
       need_building_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente" #?
@@ -1823,7 +1824,7 @@ fra:
       need_to_create_productions: "Vous devez créer des productions"
       need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
       new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
-      new_values_are_calculated: "De nouvelles valeurs ont été calculées"
+      new_values_are_calculated: "De nouvelles valeurs ont été calculées" #?
       no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
       no_balance_template: "Pas de modèle de document pour la balance" #?
       no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
@@ -1844,12 +1845,13 @@ fra:
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
       purchase_already_invoiced: "Achat déjà facturé"
+      record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
       record_has_been_imported: "L’enregistrement a été importé"
       record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
-      restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
-      sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"
+      restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
+      sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "Le devis n’est plus modifiable."
       sale_cant_be_deleted: "La vente ne peut plus être supprimée"
       select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
@@ -1858,7 +1860,7 @@ fra:
       unavailable_model: "%{model} indisponible ou inexistante (%{id})"
       unknown_action: "La page demandée est indisponible (%{url})" #?
       unknown_company: "Société inconnue" #?
-      unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel"
+      unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel" #?
       update_is_done: "La mise à jour a été effectuée"
       validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
       x_unpointed_journal_entry_items:

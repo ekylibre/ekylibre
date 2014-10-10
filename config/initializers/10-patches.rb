@@ -21,6 +21,10 @@ class ::Symbol
     ::I18n.translate('rest.actions.' + self.to_s, *args)
   end
 
+  def tn(*args)
+    ::I18n.translate('notifications.messages.' + self.to_s, *args)
+  end
+
   def th(*args)
     args.each_with_index do |arg, index|
       if arg.is_a?(Hash)

@@ -7,7 +7,7 @@
   =f.referenced_association :address
   =f.input :description
 
-=field_set :interval, :depend_at => :nature do
+=field_set :interval, :depend_on => :nature do
   =f.input :started_at, :if => :period?
   =f.input :stopped_at, :if => :period?
   =f.input :first_number, :if => :quantity?

@@ -202,8 +202,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   # Load a partial
   def subset(name, options = {}, &block)
     options[:id] ||= name
-    if options[:depend_at]
-      options['data-depend-on'] = options.delete(:depend_at)
+    if options[:depend_on]
+      options['data-depend-on'] = options.delete(:depend_on)
     end
     if block_given?
       return @template.content_tag(:div, capture(&block), options)

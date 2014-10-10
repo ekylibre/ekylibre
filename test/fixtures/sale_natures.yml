@@ -61,9 +61,10 @@
 #   updater: users_001
 #   with_accounting: true
 #
----
+
 sale_natures_001:
   active: true
+  by_default: true
   catalog: catalogs_001
   creator: users_001
   currency: EUR
@@ -75,6 +76,7 @@ sale_natures_001:
   name: Lorem ipsum
   payment_delay: 12 days, eom, 1 week ago
   updater: users_001
+
 sale_natures_002:
   active: true
   catalog: catalogs_001

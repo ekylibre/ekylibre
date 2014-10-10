@@ -5,6 +5,6 @@
   =f.input :quantity
   =f.input :annotation
 
--#=field_set :stocks, :depend_at => :product, :if => :stockable? do
+-#=field_set :stocks, :depend_on => :product, :if => :stockable? do
   =f.referenced_association :building
   =f.input :tracking_serial, :if => :trackable?

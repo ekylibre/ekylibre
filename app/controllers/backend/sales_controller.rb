@@ -254,13 +254,17 @@ class Backend::SalesController < BackendController
   end
 
   def new
-    nature = SaleNature.where(id: params[:nature_id]).first
-    nature ||= SaleNature.by_default
-    @sale = Sale.new(:nature => nature)
+    unless nature = SaleNature.find_by(id: params[:nature_id]) || SaleNature.by_default
+      notify_error :need_a_valid_sale_nature_to_start_new_sale
+      redirect_to :index
+      return
+    end
+    @sale = Sale.new(nature: nature)
+    @sale.currency = @sale.nature.currency
     if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
       if client.default_mail_address
         cid = client.default_mail_address.id
-        @sale.attributes = {:address_id => cid, :delivery_address_id => cid, :invoice_address_id => cid}
+        @sale.attributes = {address_id: cid, delivery_address_id: cid, invoice_address_id: cid}
       end
     end
     session[:current_entity_id] = (client ? client.id : nil)

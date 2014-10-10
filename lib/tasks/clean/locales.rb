@@ -101,6 +101,8 @@ task :locales => :environment do
 
   missing_prompt = "# "
 
+  watched_files = "{app,config,db,lib,test}/**/*.{rb,haml,erb}"
+
   locale = ::I18n.locale = ::I18n.default_locale
   locale_dir = Rails.root.join("config", "locales", locale.to_s)
   FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
@@ -156,7 +158,6 @@ task :locales => :environment do
   translation << "  labels:\n"
   labels = ::I18n.t("labels")
   # , "tmp/code/**/*{rb,yml,haml,erb}"
-  watched_files = "{app,config,db,lib,test}/**/*.{rb,haml,erb}"
   needed_labels = Clean::Support.look_for_labels(watched_files).inject({}) do |hash, string|
     hash[Regexp.new('\A' + string.split('.').first.gsub('*', '([\w\_]+)') + '\z')] = string.split('.').first
     hash
@@ -202,14 +203,9 @@ task :locales => :environment do
   translation << "    messages:\n"
   notifications = ::I18n.t("notifications.messages")
   unknown_notifications = ::I18n.t("notifications.messages").keys
-  for controller in Dir[Rails.root.join("app", "controllers", "**", "*.rb")]
-    File.open(controller, "rb").each_line do |line|
-      if line.match(/([\s\W]+|^)notify(_error|_warning|_success)?(_now)?\(\s*\:\w+/)
-        key = line.split(/notify\w*\(\s*\:/)[1].split(/\W/)[0]
-        unknown_notifications.delete(key.to_sym)
-        notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or (notifications[key.to_sym].is_a? String and notifications[key.to_sym].match(/\(\(\(/))
-      end
-    end
+  for key in Clean::Support.look_for_notifications(watched_files)
+    unknown_notifications.delete(key)
+    notifications[key] = "" if notifications[key].blank?
   end
   to_translate += Clean::Support.hash_count(notifications)
   for key, trans in notifications.sort{|a,b| a[0].to_s <=> b[0].to_s}

@@ -4,7 +4,7 @@
   %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
   %td= f.input(:unit_price_amount, wrapper: :nested, input_html: {class: "amount item-pta item-wta"})
   %td.decimal= f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "item-wta tax")
-  %td.decimal.pta{data: {use: ".item-pta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[@sale.currency].precision}"}}= item.pretax_amount
-  %td.decimal.wta{data: {use: ".item-wta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[@sale.currency].precision}"}}= item.amount
+  %td.decimal.pta{data: {use: ".item-pta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.pretax_amount
+  %td.decimal.wta{data: {use: ".item-wta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.amount
   %td.currency= f.object.sale_currency
   %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

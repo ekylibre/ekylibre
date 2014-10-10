@@ -139,7 +139,7 @@ module Clean
 
       def look_for_labels(*paths)
         list = []
-        for path in paths
+        for path in paths.flatten
           for file in Dir.glob(path)
             source = File.read(file)
             source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.tl/) do |exp|
@@ -171,6 +171,28 @@ module Clean
       end
 
 
+      def look_for_rest_actions
+        actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
+      end
+
+
+      def look_for_notifications(*paths)
+        list = []
+        for path in paths.flatten
+          for file in Dir.glob(path)
+            source = File.read(file)
+            source.gsub(/notify(_error|_warning|_success)?(_now)?(\(\s*|\s+)\:\w+/) do |exp|
+              list << exp.split(/\:/)[1].to_sym
+            end
+            source.gsub(/\:\w+\.tn/) do |exp|
+              list << exp[1..-4].to_sym
+            end
+          end
+        end
+        return list.sort
+      end
+
+
       def text_found?(text, *paths)
         exp = /(#{text}|#{text.to_s.gsub('_', '.*')})/
         for path in paths
@@ -180,11 +202,6 @@ module Clean
           end
         end
         return false
-      end
-
-
-      def look_for_rest_actions
-        actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
       end
 
 
