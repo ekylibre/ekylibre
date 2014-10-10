@@ -41,11 +41,11 @@
         focusout: "_focusOut"
         # blur: "_focusOut"
       this._on @dropDownButton,
-        click: "_unrollClick"
+        click: "_buttonClick"
         focusout: "_focusOut"
         # blur: "_focusOut"
       this._on @dropDownMenu,
-        "click ul li.item": "_menuClick"
+        "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
         # "hover ul li.item": "_menuMouseEnter"
       this.sourceURL = @element.data("selector")
@@ -90,6 +90,7 @@
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       if triggerEvents is true
+        @valueField.trigger "selector:change"
         @element.trigger "selector:change"
       this
 
@@ -213,14 +214,14 @@
       , 300
       true
 
-    _unrollClick: (event) ->
+    _buttonClick: (event) ->
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       else
         this._openMenu()
       false
 
-    _menuClick: (event) ->
+    _menuItemClick: (event) ->
       # console.log "menuclick"
       # console.log event.target
       this._choose()
