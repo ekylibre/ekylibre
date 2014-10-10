@@ -237,7 +237,8 @@ module ApplicationHelper
   end
 
   def link_to_back(options={})
-    link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl(default: :back.tl), back_url)
+    options[:label] ||= :back
+    link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl, back_url)
   end
 
   #
