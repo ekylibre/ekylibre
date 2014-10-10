@@ -57,7 +57,7 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
                                product_input_population: row[8].gsub(",",".").to_d,
                                product_input_population_per_hectare: row[9].gsub(",",".").to_d,
                                product_input_dose_per_hectare: (row[10].blank? ? nil : row[10].gsub(",",".").to_d), # for legal quantity ?
-                               incident_name: (row[11].blank? ? nil : row[11].to_s.downcase), # to transcode
+                               issue_description: (row[11].blank? ? nil : row[11].to_s), # to transcode
                                dar: (row[12].blank? ? nil : row[12].to_i), # indicator on product for delay_before_harvest in day
                                product_input_approved_dose_per_hectare: (row[13].blank? ? nil : row[13].gsub(",",".").to_d) # legal quantity in liter per hectare
 
@@ -210,8 +210,8 @@ Ekylibre::FirstRun.add_loader :interventions do |first_run|
             end
 
             # create an issue if mentionned
-            if r.incident_name and nature = issue_natures_transcode[r.incident_name]
-              issue = Issue.create!(target_type: plant.class.name, target_id: plant.id, priority: 3, observed_at: intervention_started_at, name: r.incident_name, nature: nature, state: "closed")
+            if r.issue_description and nature = issue_natures_transcode[r.issue_description.downcase]
+              issue = Issue.create!(target_type: plant.class.name, target_id: plant.id, priority: 3, observed_at: intervention_started_at, description: r.issue_description, nature: nature, state: "closed")
               if intervention and issue
                 intervention.issue = issue
                 intervention.save!

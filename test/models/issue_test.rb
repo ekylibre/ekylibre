@@ -28,7 +28,6 @@
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
 #  nature               :string(255)      not null
 #  observed_at          :datetime         not null
 #  picture_content_type :string(255)

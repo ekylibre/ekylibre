@@ -20,7 +20,7 @@
 # -*- coding: utf-8 -*-
 class Backend::IssuesController < BackendController
 
-  manage_restfully
+  manage_restfully t3e: {name: :name}
   manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

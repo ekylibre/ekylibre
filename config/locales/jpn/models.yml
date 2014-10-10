@@ -1147,9 +1147,11 @@ jpn:
     incoming_payment_use: #?
     intervention:
       # name: "%{intervention} #%{number}"
-    inventory_item:
-      # inventory: "Inventory"
+    inventory_item: #?
     inventory_line: #?
+    issue:
+      # name_with_target: "%{nature} on %{target}"
+      # name_without_target: "%{nature}"
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       states:

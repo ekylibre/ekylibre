@@ -2331,9 +2331,12 @@ arb:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     intervention:
       # name: "%{intervention} #%{number}"
-    inventory_item:
-      inventory: "عملية الجرد"
+    inventory_item:  #?
+      inventory: "عملية الجرد" #?
     inventory_line: #?
+    issue:
+      # name_with_target: "%{nature} on %{target}"
+      # name_without_target: "%{nature}"
     journal:  #?
       natures: #?
         bank: "البنك" #?

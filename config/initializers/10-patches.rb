@@ -90,7 +90,7 @@ module Ekylibre
     module ContextualModelHelpers
 
       def tc(*args)
-        args[0] = 'models.' + self.name.underscore + '.' + args[0].to_s
+        args[0] = 'models.' + self.model_name.singular + '.' + args[0].to_s
         ::I18n.translate(*args)
       end
 
@@ -104,7 +104,7 @@ module Ekylibre
     module ContextualModelInstanceHelpers
 
       def tc(*args)
-        args[0] = 'models.' + self.class.name.underscore + '.' + args[0].to_s
+        args[0] = 'models.' + self.class.model_name.singular + '.' + args[0].to_s
         ::I18n.translate(*args)
       end
 

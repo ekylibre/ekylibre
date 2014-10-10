@@ -197,7 +197,7 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Load incoming payment modes
   if manifest.can_load_default?(:incoming_payment_modes)
     manifest[:incoming_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
-      hash[nature] = {name: "models.incoming_payment_mode.default.#{nature}.name".t, with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account), with_deposit: (nature == "check" ? true : false)}
+      hash[nature] = {name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account), with_deposit: (nature == "check" ? true : false)}
       if hash[nature][:with_deposit] and journal = Journal.find_by(nature: "bank")
         hash[nature][:depositables_journal] = journal
         hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)

@@ -265,12 +265,6 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
 
-
-  #   #this method tests if.all the entry_items matching to the entry does not edited in draft mode.
-  #   def normalized
-  #     return (not self.items.exists?(:draft => true))
-  #   end
-
   # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".
   # If the amount is negative, the amount is put in the other column (debit or credit). Example:
   #   entry.add_debit("blabla", account, -65) # will put +65 in +credit+ column
