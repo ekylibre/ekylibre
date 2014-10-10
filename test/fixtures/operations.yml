@@ -50,21 +50,21 @@ operations_001:
   creator: users_001
   duration: 11000
   intervention: interventions_002
-  reference_name: '100'
+  reference_name: '500'
   started_at: 2009-05-03 09:13:59.000000000 +02:00
   stopped_at: 2009-05-03 12:17:23.000000000 +02:00
   updater: users_001
 operations_002:
   creator: users_001
   intervention: interventions_002
-  reference_name: '100'
+  reference_name: '500'
   started_at: 2009-07-19 19:13:59.000000000 +02:00
   stopped_at: 2009-07-19 21:13:59.000000000 +02:00
   updater: users_001
 operations_003:
   creator: users_001
   intervention: interventions_002
-  reference_name: '100'
+  reference_name: '500'
   started_at: 2009-07-19 19:13:59.000000000 +02:00
   stopped_at: 2009-07-19 21:07:11.000000000 +02:00
   updater: users_001
