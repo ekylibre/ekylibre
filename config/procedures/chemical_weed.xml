@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_chemical_weed" natures="plant_chemical_weed" version="0" status="frozen">
+  <procedure name="chemical_weed" natures="plant_chemical_weed" version="0" status="frozen">
     <variables>
       <variable name="weedkilling"     variety="preparation" abilities="kill(plant)" roles="plant_chemical_weed-input_origin"/>
       <variable name="weedkilling_to_spray" new="parted-from: weedkilling" roles="plant_chemical_weed-input" default-population=":weedkilling" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">

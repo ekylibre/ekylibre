@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<procedures xmlns="http://www.ekylibre.org/XML/2014/procedures">
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="sowing" natures="sowing" version="0" status="frozen">
     <variables>
-      <variable name="seeds"        localized-in="sower" variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
+      <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}] - [{{derivative_of}}] ">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
@@ -37,77 +37,31 @@
         </handler>
       </variable>
     </variables>
-
     <operations>
-
-      <if test="driver not in tractor">
-        <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
-        <operation id="100" default-duration="4 minutes" nature="movement">
-          <movement product="driver" localizable="tractor"/>
-        </operation>
-      </if>
-
-      <if test="sower not attached to tractor">
-
-				<if test="tractor not at sower">
-					<!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
-					<operation id="200" default-duration="4 minutes" nature="movement">
-						<movement product="tractor" localizable="sower"/>
-					</operation>
-				</if>
-
-        <!-- le chauffeur attache la charrue au tracteur -->
-        <operation id="300" default-duration="7 minutes" nature="attachment">
-          <simple-attachment carrier="tractor" carried="sower"/>
-        </operation>
-      </if>
-
-
-      <if test="tractor not in land_parcel">
+      <operation id="600" duration="18 minutes">
+        <task do="[tractor] moves in [land_parcel]"/>
         <!-- le chauffeur + son tracteur et son semoir chargé de semences se déplace vers la parcelle et rentre dedant (?) -->
-        <operation id="600" default-duration="18 minutes" nature="transport">
-          <direct-movement product="tractor" localizable="land_parcel"/>
-        </operation>
-      </if>
-
-      <operation id="700" nature="sowing" master="true">
-        <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne, le conducteur roule, le semoir sème) les task tournent -->
-        <entering product="seeds_to_sow" localization="land_parcel"/>
+      </operation>
+      <operation id="700">
+        <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le semoir sème) les task tournent -->
+        <task do="[seeds] parts with [seeds_to_sow]"/>
+        <task do="[seeds_to_sow] moves in [land_parcel]"/>
         <!-- les semences tombe par terre car le semoir tourne  -->
-        <consumption absorber="land_parcel" product="seeds_to_sow"/>
+        <task do="[land_parcel] consumes [seeds_to_sow]"/>
         <!-- la parcelle consomme les semences épandues -->
-        <production producer="land_parcel" product="cultivation"/>
+        <task do="[land_parcel] produces [cultivation]"/>
         <!-- les semences tombées sur le sol produise une sole de blé -->
-        <direct-entering product="cultivation" localization="land_parcel"/>
+        <task do="cultivation is in land_parcel"/>
         <!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->
         <!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
         <!-- et je retourne charger des semences sur le tas global-->
         <!-- <task do="cultivation|shape|:land_parcel is measured"/> -->
       </operation>
-
-      <operation id="750" nature="reading" default-duration="1 minute">
-        <simple-reading product="cultivation" indicator="population" value="superficial_count:cultivation"/>
-        <simple-reading product="land_parcel" indicator="soil_cultural_state" value="covered"/>
-        <simple-reading product="cultivation" indicator="plants_count"/>
+      <operation id="750">
+        <task do="cultivation|population|superficial_count:cultivation is measured"/>
+        <task do="land_parcel|soil_cultural_state|covered is measured"/>
+        <task do="cultivation|plants_count is measured"/>
       </operation>
-
-			<choose prompt="where_does_the_tractor_go">
-				<when value="home">
-          <operation id="800" default-duration="18 minutes" nature="movement">
-            <given-home-coming product="tractor" localizable="sower"/>
-          </operation>
-				</when>
-				<when value="somewhere-else">
-          <operation id="800" default-duration="18 minutes" nature="movement">
-            <movement product="tractor" localizable="PROMPT"/>
-          </operation>
-				</when>
-				<otherwise>
-					<!-- NOP -->
-				</otherwise>
-			</choose>
-
     </operations>
-
   </procedure>
 </procedures>

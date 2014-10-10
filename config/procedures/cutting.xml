@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_cutting" natures="cutting" version="0" status="frozen">
+  <procedure name="cutting" natures="cutting" version="0" status="frozen">
     <variables>
       <variable name="tractor"     abilities="catch(equipment)" roles="cutting-tool"/>
       <variable name="cutter"      abilities="cut" roles="cutting-tool"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_moving" natures="moving" version="0" status="frozen">
+  <procedure name="moving" natures="moving" version="0" status="frozen">
     <!-- Déplacement d'un tracteur dans une cible (zone cultivable, zone,...) -->
     <variables>
       <variable name="driver"      abilities="drive(tractor)" roles="moving-doer"/>

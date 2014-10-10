@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_direct_silage" natures="silage" version="0" status="frozen">
+  <procedure name="direct_silage" natures="silage" version="0" status="frozen">
     <variables>
       <variable name="forager"        abilities="harvest(plant)" roles="silage-tool"/>
       <variable name="forager_driver" abilities="move,drive(forager)" roles="silage-doer"/>

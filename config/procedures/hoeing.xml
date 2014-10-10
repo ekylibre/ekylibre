@@ -1,17 +1,20 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_raking" natures="raking" version="0" status="frozen">
-    <!-- Hersage d'une zone cultivable -->
+  <procedure name="hoeing" natures="raking,plant_physical_weed" version="0" status="frozen">
+    <!-- Binage d'une parcelle -->
     <variables>
-      <variable name="driver"  abilities="drive(tractor)" roles="raking-doer"/>
-      <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="raking-tool"/>
-      <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+
+      <variable name="land_parcel" variety="cultivable_zone" roles="raking-target,plant_physical_weed-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="harrow" abilities="plow_superficially" roles="raking-tool"/>
+
+      <variable name="driver" abilities="move, drive(tractor)" roles="raking-doer,plant_physical_weed-doer"/>
+      <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="raking-tool,plant_physical_weed-tool"/>
+      <variable name="cultivator"    variety="equipment" abilities="hoe" roles="raking-tool,plant_physical_weed-tool"/>
+
     </variables>
     <operations>
       <operation id="400" duration="18 minutes">

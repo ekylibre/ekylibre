@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
+  <procedure name="spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
     <variables>
       <variable name="plant_medicine"          variety="preparation" abilities="care(plant)" roles="plant_illness_treatment-input_origin"/>
       <variable name="plant_medicine_to_spray" new="parted-from: plant_medicine" roles="plant_illness_treatment-input" default-population=":plant_medicine" default-name="{{variant}} - [{{birth_day}}/{{birth_month}}/{{birth_year}}]">

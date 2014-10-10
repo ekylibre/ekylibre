@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_plant_grinding" natures="grinding, soil_enrichment" version="0" status="frozen">
+  <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0" status="frozen">
     <variables>
       <variable name="cultivation" variety="plant" roles="soil_enrichment-input_origin" default-actor="variant-localized-in-storage"/>
       <variable name="tractor"     abilities="tow(equipment)"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_grains_harvest" natures="grains_harvest" version="0" status="frozen">
+  <procedure name="grains_harvest" natures="grains_harvest" version="0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
       <variable name="cropper_driver" abilities="drive(reaper)" roles="grains_harvest-doer"/>

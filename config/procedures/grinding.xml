@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_grinding" natures="grinding" version="0" status="frozen">
+  <procedure name="grinding" natures="grinding" version="0" status="frozen">
     <variables>
       <variable name="tractor"     abilities="catch(equipment)" roles="grinding-tool"/>
       <variable name="grinder"     abilities="grind(plant)" roles="grinding-tool"/>

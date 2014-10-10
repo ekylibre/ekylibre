@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_straw_bunching" natures="transformation" version="0" status="frozen">
+  <procedure name="straw_bunching" natures="transformation" version="0" status="frozen">
     <variables>
       <variable name="tractor"        variety="equipment" />
       <variable name="baler_driver"                       abilities="move, drive(tractor), drive(baler)" roles="transformation-doer"/>

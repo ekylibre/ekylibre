@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ############################## EPANDRE DU FUMIER ######################################## -->
   <!-- name avec namespace séparé par ; natures appelle les noms de procedure fichier procedure-nature-->
-  <procedure name="atomic_organic_fertilizing" version="0" status="frozen" natures="soil_enrichment">
+  <procedure name="organic_fertilizing" version="0" status="frozen" natures="soil_enrichment">
     <!-- les variables non transmises seront obligatoirement demandées lors de l'utilisation de la procédure-->
     <!-- parameter = false , alors la variable ne sera pas demandée et peut servir de variable interne -->
     <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->

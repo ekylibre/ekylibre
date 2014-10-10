@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="atomic_mineral_fertilizing" natures="soil_enrichment" version="0" status="frozen">
+  <procedure name="mineral_fertilizing" natures="soil_enrichment" version="0" status="frozen">
     <variables>
       <variable name="fertilizer" variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
