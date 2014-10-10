@@ -18,7 +18,7 @@
 #                                               # :name being the @layer parameter the constructor requires.
 #
 #           nature:       crumb.nature,         # proper to the crumb. May be one of the natures enumerated in Crumb model.
-#                                               # this option is used to display particular points differently. Crumbs between 
+#                                               # this option is used to display particular points differently. Crumbs between
 #                                               # 'hard_start' and 'hard_stop' appear in black instead of white.
 #
 #           shape:        crumb.geolocation,    # proper to the crumb. contains the actual crumb location as a Charta::Geometry object.
