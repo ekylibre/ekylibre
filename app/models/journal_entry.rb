@@ -177,7 +177,7 @@ class JournalEntry < Ekylibre::Record::Base
       self.absolute_credit = self.real_credit
     else
       # FIXME We need to do something better when currencies don't match
-      raise "You create an entry in a currency which is not the real or the absolute one"
+      raise "You create an entry where the absolute currency (#{self.absolute_currency.inspect}) is not the real (#{self.real_currency.inspect}) or current one (#{self.currency.inspect})"
     end
     if self.journal and not self.number
       self.number ||= self.journal.next_number

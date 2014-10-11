@@ -47,7 +47,7 @@
 #   nature: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 preferences_001:
   boolean_value: true
   creator: users_001
@@ -61,5 +61,29 @@ preferences_002:
   creator: users_001
   name: interface.helps.shown
   nature: boolean
+  updater: users_001
+  user: users_001
+
+preferences_003:
+  creator: users_001
+  name: currency
+  nature: currency
+  string_value: EUR
+  updater: users_001
+  user: users_001
+
+preferences_004:
+  creator: users_001
+  name: language
+  nature: language
+  string_value: fra
+  updater: users_001
+  user: users_001
+
+preferences_005:
+  creator: users_001
+  name: country
+  nature: country
+  string_value: fr
   updater: users_001
   user: users_001

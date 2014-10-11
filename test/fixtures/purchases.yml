@@ -58,7 +58,7 @@
 #   supplier: suppliers_001
 #   updater: users_001
 #
----
+
 purchases_001:
   affair: affairs_001
   amount: 0
@@ -71,6 +71,7 @@ purchases_001:
   state: draft
   supplier: legal_entities_003
   updater: users_001
+
 purchases_002:
   affair: affairs_002
   amount: 0
@@ -82,6 +83,7 @@ purchases_002:
   state: draft
   supplier: legal_entities_003
   updater: users_001
+
 purchases_003:
   affair: affairs_003
   amount: 0
@@ -93,24 +95,26 @@ purchases_003:
   state: order
   supplier: legal_entities_003
   updater: users_001
+
 purchases_004:
   affair: affairs_004
   amount: 0
   creator: users_001
   currency: USD
-  nature: purchase_natures_001
+  nature: purchase_natures_003
   number: P000004
   planned_at: 2009-08-20
   pretax_amount: 0
   state: order
   supplier: legal_entities_003
   updater: users_001
+
 purchases_005:
   affair: affairs_005
   amount: 0
   creator: users_001
   currency: USD
-  nature: purchase_natures_001
+  nature: purchase_natures_003
   number: P000005
   planned_at: 2009-08-20
   pretax_amount: 0

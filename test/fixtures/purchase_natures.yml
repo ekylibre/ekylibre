@@ -47,19 +47,30 @@
 #   updater: users_001
 #   with_accounting: true
 #
----
+
 purchase_natures_001:
   active: true
   creator: users_001
   currency: EUR
-  journal: journals_001
+  journal: journals_004
   name: Lorex
   updater: users_001
   with_accounting: true
+
 purchase_natures_002:
   active: true
   creator: users_001
   currency: EUR
+  journal: journals_004
   name: Lorem
+  updater: users_001
+  with_accounting: true
+
+purchase_natures_003:
+  active: true
+  creator: users_001
+  currency: EUR
+  journal: journals_005
+  name: Lorex USD
   updater: users_001
   with_accounting: true

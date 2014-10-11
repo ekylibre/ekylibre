@@ -79,3 +79,21 @@ journals_003:
   name: Sales
   nature: sales
   updater: users_001
+
+journals_004:
+  closed_on: 2007-06-30
+  code: PUR
+  creator: users_001
+  currency: EUR
+  name: Purchases
+  nature: purchases
+  updater: users_001
+
+journals_005:
+  closed_on: 2007-06-30
+  code: PUD
+  creator: users_001
+  currency: USD
+  name: Purchases USD
+  nature: purchases
+  updater: users_001
