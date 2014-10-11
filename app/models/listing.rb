@@ -62,7 +62,7 @@ class Listing < Ekylibre::Record::Base
   end
 
   def root_model_name
-    # ::I18n.t("activerecord.models."+self.root_model.underscore)
+    # Ekylibre::Record.human_name(self.root_model.underscore)
     self.root_model.classify.constantize.model_name.human rescue '???'
   end
 

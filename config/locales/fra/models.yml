@@ -893,7 +893,7 @@ fra:
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
     net_mass: "Masse nette"
-    net_service: "Service Web"
+    net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
     nic: "NIC (Numéro Interne de Classement)" #?

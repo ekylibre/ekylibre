@@ -116,7 +116,7 @@ class IncomingDelivery < Ekylibre::Record::Base
         unless journal = Journal.purchases.opened_at(planned_at).first
           raise "No purchase journal"
         end
-        nature = PurchaseNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: 'models.purchase_nature.default.name'.t(default: PurchaseNature.model_name.human))
+        nature = PurchaseNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human))
       end
       purchase = Purchase.create!(supplier: Entity.find(senders.first),
                                   nature: nature,

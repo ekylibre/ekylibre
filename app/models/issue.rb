@@ -119,7 +119,7 @@ class Issue < Ekylibre::Record::Base
   end
 
   def name
-    (target ? tc(:name_with_target, nature: self.nature.text, target: target.name) :  tc(:name_without_target, nature: self.nature.text))
+    (target ? tc(:name_with_target, nature: self.nature.l, target: target.name) : tc(:name_without_target, nature: self.nature.l))
   end
 
   def status

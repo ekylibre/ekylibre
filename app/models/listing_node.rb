@@ -167,7 +167,7 @@ class ListingNode < Ekylibre::Record::Base
   def comparators
     #raise StandardError.new self.sql_type.inspect
     #return @@comparators[self.sql_type.to_sym] if self.sql_type
-    @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_node.comparators.'+x),x]} if self.sql_type
+    @@comparators[self.sql_type.to_sym].collect{|x| [tc('comparators.'+x),x]} if self.sql_type
   end
 
   def sql_format_comparator

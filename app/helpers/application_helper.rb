@@ -227,34 +227,13 @@ module ApplicationHelper
     [[]] + nomenclature.selection
   end
 
-
   def back_url
-    # if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
-    #   return session[:history][0][:url]
-    # else
     return :back
-    # end
   end
 
   def link_to_back(options={})
     options[:label] ||= :back
     link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl, back_url)
-  end
-
-  #
-
-  #
-  def evalue(object, attribute, options={})
-    label, value = attribute_item(object, attribute, options={})
-    if options[:orient] == :vertical
-      code  = content_tag(:tr, content_tag(:td, label.to_s, :class => :label))
-      code << content_tag(:tr, content_tag(:td, value.to_s, :class => :value))
-      return content_tag(:table, code, :class => "evalue verti")
-    else
-      code  = content_tag(:td, label.to_s, :class => :label)
-      code << content_tag(:td, value.to_s, :class => :value)
-      return content_tag(:table, content_tag(:tr, code), :class => "evalue hori")
-    end
   end
 
 
@@ -273,7 +252,7 @@ module ApplicationHelper
       default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
       default << "attributes.#{attribute.to_s}".to_sym
       default << "attributes.#{attribute.to_s}_id".to_sym
-      label = ::I18n.translate("activerecord.attributes.#{model_name}.#{attribute.to_s}".to_sym, :default => default)
+      label = "activerecord.attributes.#{model_name}.#{attribute.to_s}".t(default: default)
       if value.is_a? ActiveRecord::Base
         record = value
         value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
@@ -302,7 +281,7 @@ module ApplicationHelper
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.respond_to?(:strftime) or value.is_a?(Numeric)
-      value = ::I18n.localize(value)
+      value = value.l
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
       duration = value
@@ -329,7 +308,9 @@ module ApplicationHelper
     record = args.shift || instance_variable_get("@#{controller_name.singularize}")
     columns = options[:columns] || 3
     attribute_list = AttributesList.new(record)
-    raise ArgumentError.new("One parameter needed") unless block.arity == 1
+    unless block.arity == 1
+      raise ArgumentError, "One parameter needed for attribute_list block"
+    end
     yield attribute_list if block_given?
     unless options[:without_custom_fields]
       unless attribute_list.items.detect{|item| item[0] == :custom_fields}
@@ -345,8 +326,7 @@ module ApplicationHelper
     end
     code = ""
     items = attribute_list.items.delete_if{|x| x[0] == :custom_fields}
-    size = items.size
-    if size > 0
+    if items.any?
       for item in items
         label, value = if item[0] == :custom
                          attribute_item(*item[1])
@@ -355,7 +335,7 @@ module ApplicationHelper
                        end
         code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
       end
-      code = content_tag(:div, code.html_safe, :class => "attributes-list")
+      code = content_tag(:div, code.html_safe, class: "attributes-list")
     end
     return code.html_safe
   end
@@ -482,8 +462,8 @@ module ApplicationHelper
 
   def icon_tags(options = {})
     # Favicon
-    html  = tag(:link, :rel => "icon", :type => "image/png", :href => image_path("icon/favicon.png"), "data-turbolinks-track" => true)
-    html << "\n".html_safe + tag(:link, :rel => "shortcut icon", :href => image_path("icon/favicon.ico"), "data-turbolinks-track" => true)
+    html  = tag(:link, rel: "icon", type: "image/png", href: image_path("icon/favicon.png"), "data-turbolinks-track" => true)
+    html << "\n".html_safe + tag(:link, rel: "shortcut icon", href: image_path("icon/favicon.ico"), "data-turbolinks-track" => true)
     # Apple touch icon
     icon_sizes = {iphone: "57x57", ipad: "72x72", "iphone-retina" => "114x114", "ipad-retina" => "144x144"}
     unless options[:app].is_a?(FalseClass)

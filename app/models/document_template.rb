@@ -200,7 +200,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       # Find exisiting document
       unless document = Document.where(nature: self.nature, key: key).first
         # Create document if not exist
-        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.text, key: key))) # }, :without_protection => true)
+        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key))) # }, :without_protection => true)
       end
 
       # Removes old archives if only keepping last archive
@@ -243,7 +243,7 @@ class DocumentTemplate < Ekylibre::Record::Base
             end
             manageds.delete(template.id)
             template.attributes = {:source => f, :language => locale}
-            template.name ||= template.nature.text
+            template.name ||= template.nature.l
             template.save!
           end
           logger.info "NOTICE: Load a default document template #{nature}"

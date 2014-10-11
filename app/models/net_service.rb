@@ -40,7 +40,7 @@ class NetService < Ekylibre::Record::Base
   validates_uniqueness_of :reference_name
 
   def name
-    self.reference_name.text
+    self.reference_name.l
   end
 
   def reference

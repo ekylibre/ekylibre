@@ -19,7 +19,7 @@
               - for model in (Affair::AFFAIRABLE_MODELS - %w(gap))
                 = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, :redirect => request.path}, class: "btn btn-link") do
                   %i
-                  = "activerecord.models.#{model}".t
+                  = Ekylibre::Record.human_name(model)
         %td.total
           - if affair.closed?
             = :balance.tl

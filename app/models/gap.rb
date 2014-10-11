@@ -67,7 +67,7 @@ class Gap < Ekylibre::Record::Base
 
   bookkeep do |b|
     b.journal_entry(Journal.used_for_gaps, printed_on: self.printed_at.to_date, :unless => self.amount.zero?) do |entry|
-      label = tc(:bookkeep, resource: self.direction.text, number: self.number, entity: self.entity.full_name)
+      label = tc(:bookkeep, resource: self.direction.l, number: self.number, entity: self.entity.full_name)
       if self.profit?
         entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)
         for item in self.items

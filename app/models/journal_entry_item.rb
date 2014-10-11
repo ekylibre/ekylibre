@@ -156,7 +156,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    ::I18n.t('models.journal_entry.states.'+self.state.to_s)
+    JournalEntry.tc("states.#{self.state}")
   end
 
   # Updates the amounts to the debit and the credit

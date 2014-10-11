@@ -188,7 +188,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
         unless journal = Journal.sales.opened_at(planned_at).first
           raise "No sale journal"
         end
-        nature = SaleNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: 'models.sale_nature.default.name'.t(default: SaleNature.model_name.human))
+        nature = SaleNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: SaleNature.tc('default.name', default: SaleNature.model_name.human))
       end
       sale = Sale.create!(client: Entity.find(recipients.first),
                           nature: nature,

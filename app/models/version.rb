@@ -39,6 +39,25 @@ class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
     self.version.item.class.human_attribute_name(self.attribute)
   end
 
+  def human_old_value
+    human_value(old_value)
+  end
+
+  def human_new_value
+    human_value(new_value)
+  end
+
+  private
+
+  def model
+    version.item.class
+  end
+
+  def human_value(value)
+    attr = model.enumerized_attributes[attribute]
+    (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
+  end
+
 end
 
 

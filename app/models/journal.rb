@@ -83,11 +83,11 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = self.nature.text if self.name.blank? and self.nature
+    self.name = self.nature.l if self.name.blank? and self.nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.text.codeize if self.code.blank?
+    self.code = self.nature.l.codeize if self.code.blank?
     self.code = self.code[0..3]
   end
 
@@ -97,10 +97,10 @@ class Journal < Ekylibre::Record::Base
       valid = true if self.closed_on == (financial_year.started_on-1).end_of_day
     end
     unless valid
-      errors.add(:closed_on, :end_of_month, :closed_on => ::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
+      errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l) if self.closed_on and self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
     if self.code.to_s.size > 0
-      errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).count > 0
+      errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).any?
     end
   end
 

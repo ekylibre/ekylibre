@@ -11,7 +11,7 @@
           .picture= image_tag(resource.picture.url(:identity))
         - for address in resource.addresses.order(:canal, :by_default)
           .info
-            %span.title{class: "canal-"+address.canal.to_s}= address.canal.text
+            %span.title{class: "canal-#{address.canal}"}= address.canal.l
             %span.value
               - if address.email?
                 = mail_to(address.coordinate, address.coordinate)
@@ -43,7 +43,7 @@
         - l.attribute :nature if resource.nature
         - l.attribute :number
         - l.attribute :active
-        - l.custom Entity.human_attribute_name("country"), image_tag("countries/"+resource.country+".png")+" "+t("countries."+resource.country) unless resource.country.blank?
+        - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
         - l.attribute :siren unless resource.siren.blank?
         - l.attribute :activity_code unless resource.activity_code.blank?
         - l.attribute :vat_number unless resource.vat_number.blank?

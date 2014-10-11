@@ -16,7 +16,7 @@
       %span.value= @intervention.duration.in_second.convert(:hour).round(2).l
     .info
       %span.title= Intervention.human_attribute_name(:state)
-      %span.value= @intervention.state.text
+      %span.value= @intervention.state.l
     - total = 0
     - for type in [:input, :tool, :doer]
       - cost = (@intervention.cost(type) || 0.0).round

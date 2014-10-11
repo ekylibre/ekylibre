@@ -680,7 +680,7 @@ fra:
     add_treatment: "Ajouter un traitement" #?
     add_variant: "Ajouter une variante" #?
     add_watching: "Ajouter un produit de référence" #?
-    add_website: "Ajouter un site Web"
+    add_website: "Ajouter un site web"
     add_x: "Ajouter «\_%{x}\_»" #?
     add_x_html: "Ajouter «\_%{x}\_»" #?
     address: "Adresse" #?

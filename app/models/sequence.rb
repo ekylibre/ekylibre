@@ -90,8 +90,8 @@ class Sequence < Ekylibre::Record::Base
     for usage in self.usage.values
       unless sequence = self.find_by_usage(usage)
         sequence = self.new(usage: usage)
-        sequence.name = sequence.usage.text
-        sequence.number_format = "models.sequence.default.#{usage}".t(default: sequence.usage.to_s.split(/\_/).map{|w| w[0..0]}.join.upcase + "[number|12]")
+        sequence.name = sequence.usage.l
+        sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map{|w| w[0..0]}.join.upcase + "[number|12]")
         sequence.period = best_period_for(sequence.number_format)
         sequence.save
       end
