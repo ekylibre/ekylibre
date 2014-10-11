@@ -1,18 +1,19 @@
 - main_toolbar do |t|
   - t.export do |e|
-    - e.balance_sheet    @financial_year.code, @financial_year
-    - e.income_statement @financial_year.code, @financial_year
-    - e.trial_balance    @financial_year.code, @financial_year
-  - t.compute_balances @financial_year, method: :post
+    - e.balance_sheet    resource.code, resource
+    - e.income_statement resource.code, resource
+    - e.trial_balance    resource.code, resource
+  - t.compute_balances resource, method: :post
   - attrs = {}
-  - attrs["data-confirm"] = "labels.are_you_sure".t if @financial_year.last_journal_entry
-  - t.generate_last_journal_entry @financial_year, attrs
-  - if @financial_year == FinancialYear.closable
-    - t.close @financial_year
+  - attrs["data-confirm"] = :are_you_sure.tl if resource.last_journal_entry
+  - t.generate_last_journal_entry resource, attrs
+  - if resource == FinancialYear.closable
+    - t.close resource
 
 = beehive do |b|
   - b.cell :details do
     = attributes_list do |l|
+      - l.attribute :currency
       - l.attribute :started_on
       - l.attribute :stopped_on
       - l.attribute :closed
@@ -20,7 +21,7 @@
       - l.attribute :last_journal_entry, url: true
 
   - b.hbox do
-    - b.cell(@financial_year.closed ? :balance : :last_computed_balance) do
+    - b.cell(resource.closed ? :balance : :last_computed_balance) do
       = list :account_balances
 
     - b.cell(:financial_asset_depreciations) do

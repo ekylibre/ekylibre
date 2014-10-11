@@ -107,7 +107,7 @@ class Backend::JournalsController < BackendController
     t.column :name, url: true
     t.column :code, url: true
     t.column :nature
-    #t.column :currency
+    t.column :currency
     t.column :closed_on
     # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
     t.action :close, if: 'RECORD.closable?(Date.today)'.c, image: :unlock
