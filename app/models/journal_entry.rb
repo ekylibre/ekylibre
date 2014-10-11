@@ -77,6 +77,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates_presence_of :real_currency
   validates_format_of :number, :with => /\A[\dA-Z]+\z/
   validates_numericality_of :real_currency_rate, greater_than: 0
+  validates_uniqueness_of :number, scope: :financial_year_id
 
   accepts_nested_attributes_for :items
 
@@ -167,10 +168,16 @@ class JournalEntry < Ekylibre::Record::Base
     self.debit  = self.items.sum(:debit)
     self.credit = self.items.sum(:credit)
     self.balance = self.debit - self.credit
-    self.absolute_currency ||= self.currency
+    self.absolute_currency = Preference[:currency]
     if self.absolute_currency == self.currency
+      self.absolute_debit = self.debit
+      self.absolute_credit = self.credit
+    elsif self.absolute_currency == self.real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
+    else
+      # FIXME We need to do something better when currencies don't match
+      raise "You create an entry in a currency which is not the real or the absolute one"
     end
     if self.journal and not self.number
       self.number ||= self.journal.next_number

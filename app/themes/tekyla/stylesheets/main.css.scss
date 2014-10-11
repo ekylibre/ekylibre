@@ -2376,3 +2376,11 @@ svg.map {
     opacity: 1;
   }
 }
+
+#items-form {
+  #total {
+    a {
+      @include float(left);
+    }
+  }
+}

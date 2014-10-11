@@ -36,7 +36,7 @@ class Backend::JournalEntriesController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:items, model: :journal_entry_items, conditions: {:entry_id => 'params[:id]'.c}, order: "entry_id DESC, position") do |t|
+  list(:items, model: :journal_entry_items, conditions: {:entry_id => 'params[:id]'.c}, order: :position) do |t|
     t.column :name
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
@@ -54,14 +54,14 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def new
-    # params[:journal_entry] ||= {}
-    # return unless @journal = find_and_check(:journal, params[:journal_entry][:journal_id])
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build
     @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
+    @journal_entry.real_currency_rate = params[:exchange_rate].to_f
     @journal_entry_items = []
+
     if request.xhr?
       render(partial: 'backend/journal_entries/items_form')
     else
@@ -70,16 +70,14 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def create
-    # params[:journal_entry] ||= {}
-    # return unless @journal = find_and_check(:journal, params[:journal_entry][:journal_id])
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(permitted_params)
     @journal_entry_items = (params[:items]||{}).values
     # raise @journal_entry_items.inspect
     if @journal_entry.save_with_items(@journal_entry_items)
-      notify_success(:journal_entry_has_been_saved, :number => @journal_entry.number)
-      redirect_to controller: :journal_entries, action: :new, :journal_id => @journal.id # , :draft_mode => (1 if @journal_entry.draft_mode)
+      notify_success(:journal_entry_has_been_saved, number: @journal_entry.number)
+      redirect_to controller: :journal_entries, action: :new, journal_id: @journal.id, exchange_rate: @journal_entry.real_currency_rate, printed_on: @journal_entry.printed_on # , :draft_mode => (1 if @journal_entry.draft_mode)
       return
     end
     t3e @journal.attributes
@@ -93,7 +91,6 @@ class Backend::JournalEntriesController < BackendController
       return
     end
     @journal = @journal_entry.journal
-    @journal_entry_items = @journal_entry.items
     t3e @journal_entry.attributes
   end
 
@@ -108,7 +105,7 @@ class Backend::JournalEntriesController < BackendController
     @journal_entry.attributes = permitted_params
     @journal_entry_items = (params[:items]||{}).values
     if @journal_entry.save_with_items(@journal_entry_items)
-      redirect_to_back
+      redirect_to params[:redirect] || {action: :show, id: @journal_entry.id}
       return
     end
     t3e @journal_entry.attributes

@@ -64,7 +64,7 @@ module Unrollable
       fill_in = fill_in.to_sym unless fill_in.nil?
 
       if !fill_in.nil? and !columns.detect{|c| c[:name] == fill_in }
-        raise StandardError.new("Label (#{label}, #{columns.inspect}) of unroll must include the primary column: #{fill_in.inspect}")
+        raise StandardError, "Label (#{label}, #{columns.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
 
       haml  = ""
@@ -80,15 +80,16 @@ module Unrollable
       haml << "  - if items.count > #{(max*1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
-      haml << "- else\n"
+      haml << "- elsif params[:insert].to_i > 0\n"
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
         haml << "    - unless search.blank?\n"
         haml << "      %li.item.special{'data-new-item' => search, 'data-new-item-parameter' => '#{fill_in}'}= I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
       end
       haml << "    %li.item.special{'data-new-item' => ''}= I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
-      # haml << "  %span.items-status.items-status-empty\n"
-      # haml << "    =I18n.t('labels.no_results')\n"
+      haml << "- else\n"
+      haml << "  %span.items-status.items-status-empty\n"
+      haml << "    = :no_results.tl\n"
 
       # Write haml in cache
       path = self.controller_path.split('/')

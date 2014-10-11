@@ -38,8 +38,11 @@ module ApplicationHelper
 
   def selector_tag(name, choices = nil, options = {}, html_options = {})
     choices ||= :unroll
-    choices = {:action => choices} if choices.is_a?(Symbol)
-    return text_field_tag(name, nil, html_options.merge('data-selector' => url_for(choices)))
+    choices = {action: choices} if choices.is_a?(Symbol)
+    html_options[:data] ||= {}
+    html_options[:data][:selector] = url_for(choices)
+    html_options[:data][:selector_new_item] = url_for(options[:new]) if options[:new]
+    return text_field_tag(name, options[:value], html_options)
   end
 
 
@@ -47,9 +50,11 @@ module ApplicationHelper
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflections[association.to_sym]
-      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}")
+      raise ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
     end
-    raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
+    if reflection.macro != :belongs_to
+      raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+    end
     return text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
 

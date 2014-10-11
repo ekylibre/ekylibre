@@ -269,6 +269,9 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
       font-weight: bold;
       padding: 2px;
       @include text-align(right);
+      &.txt {
+        @include text-align(left);
+      }
     }
     th {
       padding: 4px 6px;
@@ -282,7 +285,11 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
     &.invalid td { color: #D20; }
   }
   tr.total {
-    font-size: $fs-large;
+    td, th {
+      &, span {
+        font-size: $fs-large;
+      }
+    }
   }
   tbody {
     tr.empty {

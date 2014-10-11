@@ -6,16 +6,16 @@
 
 - if item.errors.any?
   %tr.inline-errors{id: "#{id}-errors", class: "#{id}-item"}
-    %td{colspan: 5}= error_messages(item)
+    %td{colspan: 7}= error_messages(item)
 
 %tr{id: id, class: "#{id}-item"}
-  %td= text_field_tag("items[#{id}][name]", item.name, id: "items_#{id}_name", data: {parameter_name: "name", autofocus: (controller_name.to_s == "journal_entries" ? "false" : "true")})
-  %td= selector_tag "items[#{id}][account_id]", {controller: :accounts, action: :unroll}, value: item.account
-  %td.dec= text_field_tag "items[#{id}][real_debit]", (item.real_debit||0.0), size: 10, id: "items_#{id}_real_debit", class: "original-debit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-original-debit,#entry-original-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_credit"}
+  %td= text_field_tag("items[#{id}][name]", item.name, id: "items_#{id}_name", data: {parameter_name: "name", autofocus: (controller_name.to_s == "backend/journal_entries" ? "false" : "true")})
+  %td= selector_tag "items[#{id}][account_id]", {controller: :accounts, action: :unroll}, value: item.account_id, new: {controller: :accounts, action: :new}
+  %td.dec= text_field_tag "items[#{id}][real_debit]", (item.real_debit||0.0), size: 10, id: "items_#{id}_real_debit", class: "real-debit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_credit"}
   %td= @journal.currency
-  %td.dec= text_field_tag "items[#{id}][real_credit]", (item.real_credit||0.0), size: 10, id: "items_#{id}_real_credit", class: "original-credit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-original-debit,#entry-original-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_debit"}
+  %td.dec= text_field_tag "items[#{id}][real_credit]", (item.real_credit||0.0), size: 10, id: "items_#{id}_real_credit", class: "real-credit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_debit"}
   %td= @journal.currency
-  %td.act= link_to(:destroy.tl, "#", data: {remove: ".#{id}-item"}, class: "destroy")
+  %td.act= link_to(:destroy.ta, "#", data: {remove: ".#{id}-item"}, class: "destroy")
 
 - if @financial_year and @journal and @journal.currency != @financial_year.currency
   %tr{id: "#{id}-real-values", class: "#{id}-item"}

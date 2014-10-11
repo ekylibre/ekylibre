@@ -117,10 +117,16 @@ class JournalEntryItem < Ekylibre::Record::Base
       end
     end
 
-    self.absolute_currency ||= self.currency
+    self.absolute_currency = Preference[:currency]
     if self.absolute_currency == self.currency
+      self.absolute_debit = self.debit
+      self.absolute_credit = self.credit
+    elsif self.absolute_currency == self.real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
+    else
+      # FIXME We need to do something better when currencies don't match
+      raise "You create an entry in a currency which is not the real or the absolute one"
     end
     self.cumulated_absolute_debit  = self.absolute_debit
     self.cumulated_absolute_credit = self.absolute_credit
@@ -183,7 +189,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Returns the previous item
   def previous
-    return self.class.none unless self.account
+    return nil unless self.account
     if self.new_record?
       self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
     else

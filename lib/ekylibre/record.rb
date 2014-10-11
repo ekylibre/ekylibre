@@ -3,7 +3,7 @@ module Ekylibre
     autoload :Base, 'ekylibre/record/base'
 
 
-    def human_name(model)
+    def self.human_name(model)
       ::I18n.t("activerecord.models.#{model}")
     end
 

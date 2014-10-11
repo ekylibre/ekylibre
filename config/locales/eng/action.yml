@@ -1038,7 +1038,7 @@ eng:
     no_origin: "No origin" #?
     no_products: "No products"
     no_records: "No records" #?
-    no_results: "No results" #?
+    no_results: "No results"
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     no_tracking: "No tracking" #?

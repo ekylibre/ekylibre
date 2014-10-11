@@ -21,6 +21,7 @@
   @include box-sizing(content-box);
   padding: round($fs-normal*0.20) round($fs-normal*0.35);
   height: round(1.4 * $fs-normal);
+  font-weight: normal;
   line-height: round(1.4 * $fs-normal);
   cursor: pointer;
   text-decoration: none;

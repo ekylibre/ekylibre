@@ -12,6 +12,8 @@
 
     _create: ->
       @element.attr "autocomplete", "off"
+
+      # Create drop down button
       @dropDownButton = $ "<a>",
           href: "##{@element.attr('id')}"
           rel: 'dropdown'
@@ -20,10 +22,14 @@
         .append $("<i>")
         .insertAfter @element
       @lastSearch = @element.val()
+
+      # Create drop down menu
       @dropDownMenu = $ "<div>",
           class: "items-menu"
         .hide()
         .insertAfter(@element)
+
+      # Create value field if it doesn't exist
       if @element.data("valueField")?
         @valueField = $ @element.data("valueField")
       else
@@ -39,15 +45,12 @@
         keypress: "_keypress"
         keyup: "_keyup"
         focusout: "_focusOut"
-        # blur: "_focusOut"
       this._on @dropDownButton,
         click: "_buttonClick"
         focusout: "_focusOut"
-        # blur: "_focusOut"
       this._on @dropDownMenu,
         "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
-        # "hover ul li.item": "_menuMouseEnter"
       this.sourceURL = @element.data("selector")
       if @valueField.val()? and @valueField.val().length > 0
         this._set @valueField.val()
@@ -99,6 +102,8 @@
       data = {}
       if search?
         data.q = search
+      if @element.data("selector-new-item")
+        data.insert = 1
       if @element.data("with")
         $(@element.data("with")).each ->
           paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id")

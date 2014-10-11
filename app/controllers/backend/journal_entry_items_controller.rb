@@ -22,8 +22,8 @@ class Backend::JournalEntryItemsController < BackendController
   def new
     @journal_entry_item = JournalEntryItem.new
     @journal_entry_item.name = params[:name] if params[:name]
-    if params["entry-original-debit"] and params["entry-original-credit"]
-      debit, credit = params["entry-original-debit"].to_f, params["entry-original-credit"].to_f
+    if params["entry-real-debit"] and params["entry-real-credit"]
+      debit, credit = params["entry-real-debit"].to_f, params["entry-real-credit"].to_f
       if debit > credit
         @journal_entry_item.real_credit = debit - credit
       else
