@@ -20,7 +20,7 @@
 class Backend::DepositsController < BackendController
   manage_restfully only: :destroy
 
-  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :ods, :xlsx
 
   unroll
 
