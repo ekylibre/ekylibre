@@ -104,14 +104,11 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
-    backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/cash_balances_cells: #?
-    backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
-    backend/cells/data_transmissions_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/events_cells: #?
     backend/cells/guide_evolution_cells: #?
