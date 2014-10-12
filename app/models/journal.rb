@@ -189,9 +189,14 @@ class Journal < Ekylibre::Record::Base
   # Takes the very last created entry in the journal to generate the entry number
   def next_number
     entry = self.entries.order(id: :desc).first
-    code = entry ? entry.number : self.code.to_s + "000000"
-    code.gsub!(/(9+)$/, '0\1') if code.match(/[^\d]9+$/)
-    return code.succ
+    number = entry ? entry.number : self.code.to_s + "000000"
+    number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
+    number.succ!
+    while self.entries.where(number: number).any?
+      number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
+      number.succ!
+    end
+    return number
   end
 
   # this method searches the last entries according to a number.
