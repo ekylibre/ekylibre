@@ -77,7 +77,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates_presence_of :real_currency
   validates_format_of :number, :with => /\A[\dA-Z]+\z/
   validates_numericality_of :real_currency_rate, greater_than: 0
-  validates_uniqueness_of :number, scope: :financial_year_id
+  validates_uniqueness_of :number, scope: [:journal_id, :financial_year_id]
 
   accepts_nested_attributes_for :items
 
