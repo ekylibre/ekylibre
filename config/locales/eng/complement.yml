@@ -5742,7 +5742,7 @@ eng:
         campaign: "Campaign"
         cash: "Cash"
         cash_transfer: "Cash transfer"
-        catalog: "Person category"
+        catalog: "Catalog"
         catalog_price: "Catalog price"
         crumb: "Crumb"
         cultivable_zone: "Cultivable zone"

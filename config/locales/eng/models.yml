@@ -142,7 +142,7 @@ eng:
       campaign: "Campaign"
       cash: "Cash"
       cash_transfer: "Cash transfer"
-      catalog: "Person category"
+      catalog: "Catalog"
       catalog_price: "Catalog price"
       crumb: "Crumb"
       cultivable_zone: "Cultivable zone"
@@ -1023,7 +1023,7 @@ eng:
       sale:
         name: "Sales prices catalog"
     catalog_price:
-      label: "%{variant} %{amount}/%{unit}"
+      name: "%{variant} %{amount}/%{unit}"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"

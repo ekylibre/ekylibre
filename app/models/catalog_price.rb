@@ -71,7 +71,7 @@ class CatalogPrice < Ekylibre::Record::Base
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
   scope :of_variant, lambda { |variant|
-    where(:variant_id => variant.id)
+    where(variant_id: variant.id)
   }
 
   scope :of_usage, lambda { |usage|
@@ -79,23 +79,18 @@ class CatalogPrice < Ekylibre::Record::Base
   }
 
   before_validation do
+    self.amount = self.amount.round(4)
     self.currency = "EUR" if self.currency.blank?
     self.indicator_name = :population if self.indicator_name.blank?
     if self.started_at.nil?
       self.started_at = Time.now
     end
-    if self.name.blank?
-      self.name = self.label
-    end
+    self.name = self.label
   end
-
-  # def label_name
-  #   self.variant.name.to_s + ' ' + self.amount.to_s + ' ' + self.currency.to_s + '/' + self.variant.unit_name.to_s
-  # end
 
   # Compute name with given elements
   def label
-    tc(:label, variant: self.variant_name, amount: self.amount.l(currency: self.currency), unit: self.unit_name)
+    tc(:name, variant: self.variant_name, amount: self.amount.l(currency: self.currency), currency: self.currency, unit: self.unit_name)
   end
 
   def update

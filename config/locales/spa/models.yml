@@ -228,7 +228,7 @@ spa:
       # campaign: "Campaign"
       # cash: "Cash"
       # cash_transfer: "Cash transfer"
-      # catalog: "Person category"
+      # catalog: "Catalog"
       # catalog_price: "Catalog price"
       company: "Compañía" #?
       # crumb: "Crumb"
@@ -1097,7 +1097,7 @@ spa:
       sale:
         # name: "Sales prices catalog"
     catalog_price:
-      # label: "%{variant} %{amount}/%{unit}"
+      # name: "%{variant} %{amount}/%{unit}"
     company: #?
     contact: #?
     delay: #?

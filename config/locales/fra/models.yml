@@ -1236,7 +1236,7 @@ fra:
       sale:
         name: "Catalogue de vente"
     catalog_price:
-      label: "%{variant} %{amount}/%{unit}"
+      name: "%{variant} %{amount}/%{unit}"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"

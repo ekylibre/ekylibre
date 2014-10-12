@@ -2062,7 +2062,9 @@ arb:
       sale:
         # name: "Sales prices catalog"
     catalog_price:
-      # label: "%{variant} %{amount}/%{unit}"
+      name: "%{product} / %{amount} %{currency}"
+      no_range: "ليس هناك من فترة استراحة" #?
+      range: "من %{min} الى %{max}" #?
     company:  #?
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة" #?
       default: #?
@@ -2430,10 +2432,6 @@ arb:
           # name: "Transfer"
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})" #?
-    price:  #?
-      label: "%{product} / %{amount} %{currency}" #?
-      no_range: "ليس هناك من فترة استراحة" #?
-      range: "من %{min} الى %{max}" #?
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
