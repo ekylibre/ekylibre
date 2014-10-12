@@ -8,53 +8,53 @@
     </parameters>
     <section name="animal_husbandry_registry">
       <section name="enterprise">
-          <variable name="company" value="Entity.of_company"/>
-          <property name="entity_name" value="company.full_name"/>
-          <property name="address" if="company.default_mail_address" value="company.default_mail_address.coordinate"/>
-          <property name="ede_cattling_number" if="Identifier.find_by_nature(:cattling_number)" value="Identifier.find_by_nature(:cattling_number).value" />
-          <property name="ede_owner_number" if="Identifier.find_by_nature(:husbandry_owner_number)" value="Identifier.find_by_nature(:husbandry_owner_number).value" />
+        <variable name="company" value="Entity.of_company"/>
+        <property name="entity_name" value="company.full_name"/>
+        <property name="address" if="company.default_mail_address" value="company.default_mail_address.coordinate"/>
+        <property name="ede_cattling_number" if="Identifier.find_by_nature(:cattling_number)" value="Identifier.find_by_nature(:cattling_number).value" />
+        <property name="ede_owner_number" if="Identifier.find_by_nature(:husbandry_owner_number)" value="Identifier.find_by_nature(:husbandry_owner_number).value" />
       </section>
       <sections for="campaign" in="campaigns">
-      <property name="name" of="campaign"/>
-      <section name="plan">
-        <variable name="animal_building_division" value="ProductNature.find_by_reference_name(:animal_building_division)"/>
-        <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).shape_svg(srid: 2154)" type="svg" level="api"/>
-        <sections for="building_division" in="BuildingDivision.of_nature(animal_building_division)" of-type="record">
-          <title name="name" of="building_division"/>
-          <property name="work_number" of="building_division"/>
-          <property name="area" of="building_division" type="measure"/>
-          <property name="area_in_square_meter" value="building_division.area(:square_meter)" type="measure" level="api"/>
-          <property name="id" of="building_division" level="api"/>
-          <property name="shape_svg" value="building_division.shape_svg(srid: 2154)" type="svg" level="api"/>
-        </sections>
-      </section>
-      <section name="animal_productions">
-         <variable name="animal_activities" value="Activity.of_families(:animal_farming)"/>
-         <sections for="production" in="Production.of_activities(animal_activities).of_campaign(campaign)" of-type="record">
-          <title name="name" of="production"/>
-          <property name="started_at" of="production" type="datetime"/>
-          <property name="stopped_at" of="production" type="datetime"/>
-          <property name="variant_name" value="production.variant.name"/>
-          <variable name="variant_nature" value="production.variant.nature"/>
-          <sections for="animal" in="Animal.of_nature(variant_nature)" of-type="record">
-            <title name="name" of="animal"/>
-            <property name="born_at" of="animal" if="animal.born_at" type="datetime"/>
-            <property name="dead_at" of="animal" if="animal.dead_at" type="datetime"/>
-            <property name="work_number" of="animal"/>
-            <property name="sex" of="animal"/>
-            <property name="variety" of="animal"/>
-            <property name="identification_number" of="animal"/>
-            <matrix name="animal_localizations" for="localization" in="animal.localizations">
-              <cell name="id" of="localization" level="api"/>
-              <cell name="container_name" if="localization.container" value="localization.container.name"/>
-              <!--
-		   <cell name="arrival_cause" of="localization"/>
-		   <cell name="departure_cause" of="localization"/>
-	      -->
-              <cell name="started_at" of="localization" if="localization.started_at" type="datetime"/>
-              <cell name="stopped_at" of="localization" if="localization.stopped_at" type="datetime"/>
-            </matrix>
-            <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_nature(:animal_illness_treatment).with_cast(:'animal_illness_treatment-target', animal)">
+        <property name="name" of="campaign"/>
+        <section name="plan">
+          <variable name="animal_building_division" value="ProductNature.find_by_reference_name(:animal_building_division)"/>
+          <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).shape_svg(srid: 2154)" type="svg" level="api"/>
+          <sections for="building_division" in="BuildingDivision.of_nature(animal_building_division)" of-type="record">
+            <title name="name" of="building_division"/>
+            <property name="work_number" of="building_division"/>
+            <property name="area" of="building_division" type="measure"/>
+            <property name="area_in_square_meter" value="building_division.area(:square_meter)" type="measure" level="api"/>
+            <property name="id" of="building_division" level="api"/>
+            <property name="shape_svg" value="building_division.shape_svg(srid: 2154)" type="svg" level="api"/>
+          </sections>
+        </section>
+        <section name="animal_productions">
+          <variable name="animal_activities" value="Activity.of_families(:animal_farming)"/>
+          <sections for="production" in="Production.of_activities(animal_activities).of_campaign(campaign)" of-type="record">
+            <title name="name" of="production"/>
+            <property name="started_at" of="production" type="datetime"/>
+            <property name="stopped_at" of="production" type="datetime"/>
+            <property name="variant_name" value="production.variant.name"/>
+            <variable name="variant_nature" value="production.variant.nature"/>
+            <sections for="animal" in="Animal.of_nature(variant_nature)" of-type="record">
+              <title name="name" of="animal"/>
+              <property name="born_at" of="animal" if="animal.born_at" type="datetime"/>
+              <property name="dead_at" of="animal" if="animal.dead_at" type="datetime"/>
+              <property name="work_number" of="animal"/>
+              <property name="sex" of="animal"/>
+              <property name="variety" of="animal"/>
+              <property name="identification_number" of="animal"/>
+              <matrix name="animal_localizations" for="localization" in="animal.localizations">
+                <cell name="id" of="localization" level="api"/>
+                <cell name="container_name" if="localization.container" value="localization.container.name"/>
+                <!--
+		                <cell name="arrival_cause" of="localization"/>
+		                <cell name="departure_cause" of="localization"/>
+	              -->
+                <cell name="started_at" of="localization" if="localization.started_at" type="datetime"/>
+                <cell name="stopped_at" of="localization" if="localization.stopped_at" type="datetime"/>
+              </matrix>
+              <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_nature(:animal_illness_treatment).with_cast(:'animal_illness_treatment-target', animal)">
                 <cell name="id" of="intervention" level="api"/>
                 <section name="prescription" of="intervention.prescription">
                   <property name="id" level="api"/>
@@ -80,10 +80,10 @@
                     <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_time" type="datetime"/>
                   </matrix>
                 </matrix>
-            </matrix>
+              </matrix>
+            </sections>
           </sections>
-        </sections>
-      </section>
+        </section>
       </sections>
     </section>
   </aggregator>

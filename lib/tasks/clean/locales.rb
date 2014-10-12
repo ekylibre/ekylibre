@@ -140,16 +140,6 @@ task :locales => :environment do
     end
   end
 
-  # Controllers
-  # translation << "  controllers:\n"
-  # for controller_path, actions in Clean::Support.actions_hash
-  #   controller_name = controller_path.split("/").last
-  #   name = ::I18n.hardtranslate("controllers.#{controller_path}")
-  #   untranslated += 1 if name.blank?
-  #   to_translate += 1
-  #   translation << "    #{missing_prompt if name.blank?}#{controller_path}: " + Clean::Support.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
-  # end
-
   # Errors
   to_translate += Clean::Support.hash_count(::I18n.translate("errors"))
   translation << "  errors:"+Clean::Support.hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
@@ -157,7 +147,6 @@ task :locales => :environment do
   # Labels
   translation << "  labels:\n"
   labels = ::I18n.t("labels")
-  # , "tmp/code/**/*{rb,yml,haml,erb}"
   needed_labels = Clean::Support.look_for_labels(watched_files).inject({}) do |hash, string|
     hash[Regexp.new('\A' + string.split('.').first.gsub('*', '([\w\_]+)') + '\z')] = string.split('.').first
     hash
@@ -272,8 +261,6 @@ task :locales => :environment do
   end
   warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
 
-
-
   # Unroll
   translation << "  unrolls:\n"
   unrolls = ::I18n.t("unrolls")
@@ -304,9 +291,89 @@ task :locales => :environment do
 
 
   # Aggregators
-  count = Clean::Support.sort_yaml_file :aggregators, log
-  atotal += count
-  acount += count
+  file = locale_dir.join("aggregators.yml")
+  ref = Clean::Support.yaml_to_hash(file)[locale] rescue {}
+  to_translate = 0
+  untranslated = 0
+
+  translation  = "#{locale}:\n"
+
+  # Parameters
+  translation << "  aggregator_parameters:\n"
+  ref[:aggregator_parameters] ||= {}
+  all_parameters = []
+  Aggeratio.each do |aggregator|
+    all_parameters += aggregator.parameters.map(&:name).map(&:to_sym)
+  end
+  all_parameters.uniq!.sort!
+  all_parameters.each do |param_name|
+    to_translate = 1
+    if name = ref[:aggregator_parameters][param_name] and name.present?
+      translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
+    elsif name = I18n.hardtranslate("labels.#{param_name}") || I18n.hardtranslate("attributes.#{param_name}")
+      to_translate -= 1
+      translation << "    #~ #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
+    else
+      translation << "    #{missing_prompt}#{param_name}: " + Clean::Support.yaml_value(param_name.to_s.humanize) + "\n"
+      untranslated += 1
+    end
+  end
+
+  # Properties, title...
+  translation << "  aggregator_properties:\n"
+  ref[:aggregator_properties] ||= {}
+  all_properties = []
+  Aggeratio.each_xml_aggregator do |element|
+    all_properties += Aggeratio::Base.new(element).properties.select{|e| e.attr("level").to_s != "api"}.collect{|e| e.attr("name").to_sym }
+  end
+  all_properties.uniq!.sort!
+  all_properties.each do |property_name|
+    to_translate = 1
+    if name = ref[:aggregator_properties][property_name] and name.present?
+      translation << "    #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
+    elsif property_name.to_s.underscore != property_name.to_s
+      to_translate -= 1
+      translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(property_name.to_s.underscore.humanize) + "\n"
+    elsif name = I18n.hardtranslate("attributes.#{property_name}") || I18n.hardtranslate("labels.#{property_name}") || I18n.hardtranslate("activerecord.models.#{property_name}")
+      to_translate -= 1
+      translation << "    #~ #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
+    else
+      translation << "    #{missing_prompt}#{property_name}: " + Clean::Support.yaml_value(property_name.to_s.humanize) + "\n"
+      untranslated += 1
+    end
+  end
+
+  # Agrgegators
+  translation << "  aggregators:\n"
+  ref[:aggregators] ||= {}
+  Aggeratio.each do |aggregator|
+    to_translate += 1
+    agg_name = aggregator.aggregator_name.to_sym
+    if name = ref[:aggregators][agg_name] and name.present?
+      translation << "    #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(name) + "\n"
+    elsif item = Nomen::DocumentNatures[agg_name]
+      to_translate -= 1
+      translation << "    #~ #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(item.human_name) + "\n"
+    else
+      translation << "    #{missing_prompt}#{aggregator.aggregator_name}: " + Clean::Support.yaml_value(agg_name.to_s.humanize) + "\n"
+      untranslated += 1
+    end
+  end
+
+  # Finishing...
+  File.open(file, "wb") do |file|
+    file.write(translation)
+  end
+
+  total = to_translate
+  if to_translate > 0
+    log.write "  - #{'procedures.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+  end
+  atotal += to_translate
+  acount += to_translate - untranslated
+  # count = Clean::Support.sort_yaml_file :aggregators, log
+  # atotal += count
+  # acount += count
 
   # Devise
   count = Clean::Support.sort_yaml_file :devise, log

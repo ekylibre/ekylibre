@@ -22,7 +22,7 @@ class Aggregator
 
     def human_name
       name = self.aggregator_name
-      return ::I18n.t("aggregators.names.#{name}", :default => [:"nomenclatures.document_natures.items.#{name}", :"labels.#{name}", name.to_s.humanize])
+      return ::I18n.t("aggregators.#{name}.name", :default => [:"nomenclatures.document_natures.items.#{name}", :"labels.#{name}", name.to_s.humanize])
     end
 
   end

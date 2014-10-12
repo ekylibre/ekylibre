@@ -24,7 +24,7 @@ module Aggeratio
     end
 
     def human_name
-      return ::I18n.t("aggregators.parameters.#{name}", :default => [:"labels.#{name}", name.to_s.humanize])
+      return ::I18n.t("aggregator_parameters.#{name}", :default => [:"labels.#{name}", :"attributes.#{name}", name.to_s.humanize])
     end
 
     for type in TYPES

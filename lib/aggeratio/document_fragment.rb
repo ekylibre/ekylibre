@@ -70,7 +70,7 @@ module Aggeratio
           code << human_value_of(title, :h1).dig
         else
           code << "  xml.h1 do\n"
-          code << "    xml.span(:#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']))\n"
+          code << "    xml.span('aggregator_properties.#{type}'.t(default: [:'attributes.#{type}', :'labels.#{type}', :'activerecord.models.#{type}', '#{type.humanize}']))\n"
           code << "    xml.text(' ')\n"
           # code << "    xml.em(#{human_value_of(title)})\n"
           code << human_value_of(title, :em).dig(2)

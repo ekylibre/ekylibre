@@ -21,7 +21,7 @@
           <property name="born_at" of="product" type="datetime"/>
           <property name="received_at" if="product.incoming_delivery_item" value="product.incoming_delivery_item.delivery.received_at" type="datetime"/>
           <property name="sender" if="product.incoming_delivery_item" value="product.incoming_delivery_item.delivery.sender.name"/>
-          <property name="sender_adress" if="product.incoming_delivery_item" value="product.incoming_delivery_item.delivery.sender.default_mail_address.coordinate"/>
+          <property name="sender_address" if="product.incoming_delivery_item" value="product.incoming_delivery_item.delivery.sender.default_mail_address.coordinate"/>
           <property name="incoming_quantity" if="product.incoming_delivery_item" value="product.incoming_delivery_item.population"/>
           <matrix name="interventions" for="intervention" in="Intervention.with_cast('addition-input', product).of_campaign(campaign).order(:started_at)">
           <cell name="name" of="intervention"/>

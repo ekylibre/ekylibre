@@ -17,6 +17,15 @@ module Aggeratio
   @@categories = HashWithIndifferentAccess.new
 
   class << self
+
+    def each(&block)
+      if block.arity == 2
+        @@list.each(&block)
+      else
+        @@list.values.each(&block)
+      end
+    end
+
     # Returns the names of the aggregators
     def names
       @@list.keys
@@ -27,31 +36,35 @@ module Aggeratio
       @@list[name]
     end
 
-    # Load all files
+    # Load all aggregator and build Aggregator children
     def load
-      # Inventory aggregators
+      each_xml_aggregator do |element|
+        aggregator = build(element)
+        @@list[aggregator.aggregator_name] = aggregator
+        cat = aggregator.category
+        @@categories[cat] ||= []
+        @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
+      end
+      return true
+    end
+
+    # Browse all aggregator elements in XML files
+    def each_xml_aggregator(&block)
       for path in Dir.glob(root.join("*.xml")).sort
         f = File.open(path, "rb")
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
         end
         f.close
-        # Add a better syntax check
+        # TODO: Add a better syntax check
         if document.root.namespace.href.to_s == XMLNS
           document.root.xpath('xmlns:aggregator').each do |element|
-            # aggregator = Aggregator.new(element)
-            # @@list[aggregator.name] = aggregator
-            aggregator = build(element)
-            @@list[aggregator.aggregator_name] = aggregator
-            cat = aggregator.category
-            @@categories[cat] ||= []
-            @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
+            yield element
           end
         else
           Rails.logger.info("File #{path} is not a aggregator as defined by #{XMLNS}")
         end
       end
-      return true
     end
 
     # Returns the root of the aggregators
