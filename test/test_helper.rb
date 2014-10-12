@@ -70,6 +70,7 @@ class ActionController::TestCase
         attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if{|c|
           [:depth, :lft, :rgt].include?(c)
         }
+        attributes += options.delete(:other_attributes) || []
         attributes = ("{" + attributes.collect do |a|
                         if file_columns[a.to_sym]
                           "#{a}: fixture_file_upload('files/sample_image.png')"
