@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL VIAL -->
@@ -113,6 +113,29 @@
             unit_name="head"
             frozen_indicators_values="population: 1, livestock_unit: 0.09, reproductor: false"
             />
+      <!-- PIG -->
+      <item name="male_adult_pig"
+            nature="male_adult_pig"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: false, livestock_unit: 0.3"
+              />
+      <item name="female_adult_pig"
+            nature="female_adult_pig"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.5"
+              />
+      <item name="female_pig_band"
+            nature="pig_band"
+            derivative_of="sus"
+            unit_name="band"
+            frozen_indicators_values="sex: female, reproductor: true"
+              />
+      <item name="male_pig_band"
+            nature="pig_band"
+            derivative_of="sus"
+            unit_name="band"
+            frozen_indicators_values="sex: male, reproductor: false"
+              />
       <!-- MILK -->
       <item name="cow_milk"
             nature="milk"
@@ -133,14 +156,20 @@
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.037kilogram"
             />
       <!-- HEN -->
+      <item name="hen_herd"
+            nature="hen_herd"
+            derivative_of="gallus"
+            unit_name="group"
+            frozen_indicators_values=""
+              />
       <item name="female_hen_band"
             nature="hen_band"
-            unit_name="band"
+            unit_name="subject"
             frozen_indicators_values="sex: female, reproductor: true"
             />
       <item name="male_hen_band"
             nature="hen_band"
-            unit_name="band"
+            unit_name="subject"
             frozen_indicators_values="sex: male, reproductor: false"
             />
       <!-- DUCK -->
@@ -151,18 +180,18 @@
             />
       <item name="duck_band"
             nature="duck_band"
-            unit_name="band"
+            unit_name="subject"
             frozen_indicators_values=""
             />
       <!-- FISH -->
       <item name="salmon_band"
             nature="salmon_band"
-            unit_name="band"
+            unit_name="subject"
             frozen_indicators_values=""
             />
       <item name="oyster_band"
             nature="oyster_band"
-            unit_name="band"
+            unit_name="subject"
             frozen_indicators_values=""
             />
       <!-- CROP -->
@@ -1213,6 +1242,13 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.82percent"
             />
+      <item name="horse_compost"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="equus"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1percent"
+              />
       <item name="mud"
             nature="organic_fertilizer"
             variety="slurry"

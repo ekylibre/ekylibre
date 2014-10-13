@@ -114,14 +114,15 @@
 
   <nomenclature name="procedure_natures-animal_production">
     <items>
-      <item name="milk_production"      roles="output, target, doer"            activity_families="animal_farming"/>
+      <item name="milk_production"      roles="output, target, doer"            activity_families="cattle_farming"/>
+      <item name="egg_production"       roles="output, target, doer"            activity_families="poultry_farming"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-animal_nutrition">
     <items>
       <item name="food_supply"          roles="input, target, doer, tool"       activity_families="animal_farming"/>
-      <item name="pasturing"            roles="input, target, doer"             activity_families="animal_farming"/>
+      <item name="pasturing"            roles="input, target, doer"             activity_families="cattle_farming"/>
     </items>
   </nomenclature>
 

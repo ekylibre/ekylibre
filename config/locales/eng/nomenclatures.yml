@@ -1928,6 +1928,7 @@ eng:
         coupling: "Coupling"
         cultipacking: "Cultipacking"                       #< tillage
         cutting: "Cutting"
+        egg_production: "Egg production"                   #< animal_production
         fermentation: "Fermentation"                       #< transformation
         filling: "Filling"
         filtration: "Filtration"                           #< transformation
@@ -2041,10 +2042,12 @@ eng:
         cattle_herd: "Cattle herd"
         crop: "Crop"
         cultivable_zone: "Cultivable zone"
+        egg: "Egg"
         electricity: "Electricity"
         equipment: "Equipment"
         equipment_rent: "Equipment rent"
         female_adult_cow: "Female adult cow"
+        female_adult_pig: "Female adult pig"
         female_young_cow: "Female young cow"
         fertilizer: "Fertilizer"
         fish_band: "Fish band"
@@ -2058,12 +2061,14 @@ eng:
         land_parcel: "Land parcel"
         land_parcel_cluster: "Land parcel cluster"
         male_adult_cow: "Male adult cow"
+        male_adult_pig: "Male adult pig"
         male_young_cow: "Male young cow"
         milk: "Milk"
         natural_water: "Natural water"
         oenological_product: "Oenological product"
         other_consumable: "Other consumable"
         oyster_band: "Oyster band"
+        pig_band: "Pig band"
         plant: "Plant"
         plant_medicine: "Plant medicine"
         running_water: "Running water"
@@ -2111,6 +2116,7 @@ eng:
           dose: "Dose"
           equipment: "Equipment"
           gram: "Gram"
+          group: "Group"
           head: "Head"
           hectare: "Hectare"
           hectoliter: "Hectoliter"
@@ -2124,6 +2130,7 @@ eng:
           round_bale: "Round bale"
           small_rectangular_bale: "Small rectangular bale"
           square_meter: "Square meter"
+          subject: "Subject"
           ton: "Ton"
           unit: "Unit"
       items:
@@ -2314,9 +2321,11 @@ eng:
         female_adult_cow: "Female adult cow"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
+        female_adult_pig: "Female adult pig"
         female_adult_sheep: "Female adult sheep"
         female_adult_sheep_herd: "Female adult sheep herd"
         female_hen_band: "Female hen band"
+        female_pig_band: "Female pig band"
         female_young_cow: "Female young cow"
         fercoril_corabel_hazelnut: "Fercoril corabel hazelnut"
         feriale_hazelnut: "Feriale hazelnut"
@@ -2368,10 +2377,12 @@ eng:
         helianthus_herbicide: "Helianthus herbicide"
         hen_compost: "Hen compost"
         hen_guano: "Hen guano"
+        hen_herd: "Hen herd"
         hen_manure: "Hen manure"
         hen_slurry: "Hen slurry"
         herbicide: "Herbicide"
         hoe: "Hoe"
+        horse_compost: "Horse compost"
         horse_manure: "Horse manure"
         horsebean_crop: "Horsebean crop"
         howard_walnut: "Howard walnut"
@@ -2397,8 +2408,10 @@ eng:
         lucerne_seed: "Lucerne seed"
         male_adult_cow: "Male adult cow"
         male_adult_goat: "Male adult goat"
+        male_adult_pig: "Male adult pig"
         male_adult_sheep: "Male adult sheep"
         male_hen_band: "Male hen band"
+        male_pig_band: "Male pig band"
         male_young_cow: "Male young cow"
         malic_acid_25kg: "Malic acid 25kg"
         manager: "Manager"
@@ -2591,6 +2604,7 @@ eng:
         cultivable_zone: "Cultivable zone"
         duck_band: "Duck band"
         duck_herd: "Duck herd"
+        egg: "Egg"
         electricity: "Electricity"
         equipment: "Equipment"
         equipment_building_division: "Equipment building division"
@@ -2598,6 +2612,7 @@ eng:
         female_adult_cow: "Female adult cow"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
+        female_adult_pig: "Female adult pig"
         female_adult_sheep: "Female adult sheep"
         female_adult_sheep_herd: "Female adult sheep herd"
         female_young_cow: "Female young cow"
@@ -2631,6 +2646,7 @@ eng:
         hazelnut: "Hazelnut"
         hedge_cutter: "Hedge cutter"
         hen_band: "Hen band"
+        hen_herd: "Hen herd"
         herbicide: "Herbicide"
         hoe: "Hoe"
         hydraulic_oil: "Hydraulic oil"
@@ -2643,6 +2659,7 @@ eng:
         land_parcel_cluster: "Land parcel cluster"
         male_adult_cow: "Male adult cow"
         male_adult_goat: "Male adult goat"
+        male_adult_pig: "Male adult pig"
         male_adult_sheep: "Male adult sheep"
         male_young_cow: "Male young cow"
         manager: "Manager"
@@ -2662,6 +2679,7 @@ eng:
         organic_fertilizer: "Organic fertilizer"
         oyster_band: "Oyster band"
         packaged_process_food: "Packaged process food"
+        pig_band: "Pig band"
         plant_medicine_tank: "Plant medicine tank"
         plow: "Plow"
         plum_reaper: "Plum reaper"
@@ -2729,6 +2747,7 @@ eng:
         fixed_frost_fallow_land: "Fixed frost fallow land"
         fruit_processing: "Fruit processing"
         garlic: "Garlic"
+        goat: "Goat"
         gooseberry: "Gooseberry"
         grain_corn: "Grain corn"
         green_fallow_land: "Green fallow land"
@@ -2751,6 +2770,7 @@ eng:
         peach: "Peach"
         pear: "Pear"
         permanent_meadow: "Permanent meadow"
+        pig: "Pig"
         plum: "Plum"
         potato: "Potato"
         raspberry: "Raspberry"
@@ -3142,6 +3162,8 @@ eng:
         fuel: "Fuel"                                       #< raw_matter
         fungus: "Fungus"                                   #< bioproduct
         gallus: "Gallus"                                   #< aves
+        gallus_gallus_domesticus: "Domesticated chicken"   #< gallus
+        gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay" #< gallus_gallus_domesticus
         gas: "Gas"                                         #< raw_matter
         glycine: "Glycine"                                 #< fabaceae
         glycine_max: "Soy bean"                            #< glycine
@@ -3346,6 +3368,7 @@ eng:
         sub_zone: "Sub zone"                               #< zone
         sugar: "Sugar"                                     #< raw_matter
         sus: "Sus"                                         #< mammalia
+        sus_scrofa: "Domestic pig"                         #< sus
         tank: "Tank"                                       #< equipment
         tractor: "Tractor"                                 #< equipment
         trailer: "Trailer"                                 #< equipment

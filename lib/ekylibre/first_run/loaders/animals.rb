@@ -15,7 +15,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
         CSV.foreach(file, headers: true) do |row|
           r = OpenStruct.new(name: row[0],
                              nature: row[1].to_sym,
-                             member_nature: row[2].to_sym,
+                             member_nature: (row[2].blank? ? nil : row[2].to_sym),
                              code: row[3],
                              minimum_age: (row[4].blank? ? nil : row[4].to_i),
                              maximum_age: (row[5].blank? ? nil : row[5].to_i),
@@ -50,6 +50,52 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
         end
       end
     end
+
+    #
+    file = first_run.path("alamano", "animals.csv")
+    if file.exist?
+      first_run.count :animals do |w|
+        CSV.foreach(file, headers: true) do |row|
+          next if row[0].blank?
+          r = OpenStruct.new(name: row[0],
+                             nature: row[1].to_sym,
+                             code: row[2].to_sym,
+                             place: (row[3].blank? ? nil : row[3].to_s),
+                             born_at: (row[4].blank? ? (Date.today) : row[4]).to_datetime,
+                             variety: (row[5].blank? ? nil : row[5].to_sym),
+                             initial_owner: (row[6].blank? ? nil : row[6].to_s),
+                             indicators: row[7].blank? ? {} : row[7].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                               h[i.first.strip.downcase.to_sym] = i.second
+                               h
+                             },
+                             record: nil
+          )
+
+
+          unless r.record = Animal.find_by_work_number(r.code)
+            r.record = Animal.create!(name: r.name,
+                                           work_number: r.code,
+                                           identification_number: r.code,
+                                           initial_born_at: r.born_at,
+                                           variant: ProductNatureVariant.import_from_nomenclature(r.nature),
+                                           default_storage: BuildingDivision.find_by(work_number: r.place)
+            )
+            # create indicators linked to animal
+            for indicator, value in r.indicators
+              r.record.read!(indicator, value, at: r.born_at, force: true)
+            end
+            r.record.initial_population = r.record.population
+            r.record.variety = r.variety if r.variety
+            r.record.initial_owner = r.initial_owner if r.initial_owner
+            r.record.save!
+          end
+
+          w.check_point
+        end
+      end
+    end
+
+
 
     male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
     female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)

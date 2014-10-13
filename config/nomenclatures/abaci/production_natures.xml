@@ -403,6 +403,16 @@
             activity="cattle_farming"
             variant_support="calf"
             />
+      <item name="goat"
+            production_code="8300"
+            activity="cattle_farming"
+            variant_support="female_adult_goat"
+              />
+      <item name="pig"
+            production_code="8400"
+            activity="cattle_farming"
+            variant_support="female_adult_pig"
+              />
       <!-- 9 - OTHER ANIMALS -->
       <item name="laying_hen"
             production_code="9020"
