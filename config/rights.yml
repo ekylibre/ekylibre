@@ -81,6 +81,7 @@
 #     - "backend/imports#update"
 #     - "backend/kujakus#toggle"
 #     - "backend/product_nature_categories#list_taxations"
+#     - "backend/product_nature_variants#last_purchase_item"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#update"

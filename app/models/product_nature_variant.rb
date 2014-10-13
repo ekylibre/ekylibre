@@ -50,9 +50,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
   belongs_to :category, class_name: "ProductNatureCategory", inverse_of: :variants
-  has_many :products, foreign_key: :variant_id
-  has_many :readings, class_name: "ProductNatureVariantReading", foreign_key: :variant_id, inverse_of: :variant
   has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
+  has_many :products, foreign_key: :variant_id
+  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
+  has_many :readings, class_name: "ProductNatureVariantReading", foreign_key: :variant_id, inverse_of: :variant
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
@@ -207,6 +208,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
     return product_model.create!(:variant => self, :name => product_name + " " + born_at.l, :initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => default_storage)
   end
 
+  # Returns last purchase item for the variant
+  # and a given supplier if any, or nil if there's
+  # no purchase item matching criterias
+  def last_purchase_item_for(supplier = nil)
+    return purchase_items.last unless supplier.present?
+    purchase_items.
+      joins(:purchase).
+      where("purchases.supplier_id = ?", Entity.find(supplier).id).
+      last
+  end
 
   class << self
 

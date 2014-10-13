@@ -48,7 +48,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
   # belongs_to :price, class_name: "CatalogPrice"
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

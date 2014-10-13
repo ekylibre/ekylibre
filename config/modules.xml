@@ -1770,6 +1770,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#last_purchase_item"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

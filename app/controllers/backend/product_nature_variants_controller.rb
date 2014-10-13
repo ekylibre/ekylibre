@@ -49,4 +49,16 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :population
   end
 
+  def last_purchase_item
+    variant = ProductNatureVariant.find(params[:id])
+    begin
+      last_purchase_item = variant.last_purchase_item_for(params[:supplier_id])
+      puts last_purchase_item.inspect.red
+      render json: last_purchase_item
+    rescue
+      notify_error :record_not_found
+      redirect_to_back
+    end
+  end
+
 end

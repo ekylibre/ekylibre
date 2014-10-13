@@ -588,6 +588,7 @@ Ekylibre::Application.routes.draw do
       member do
         get :list_products
         get :list_prices
+        get :last_purchase_item
       end
     end
 
