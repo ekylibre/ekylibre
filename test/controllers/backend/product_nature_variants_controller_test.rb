@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Backend::ProductNatureVariantsControllerTest < ActionController::TestCase
 
-  test_restfully_all_actions
+  test_restfully_all_actions last_purchase_item: :show
 
 end
 

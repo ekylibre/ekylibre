@@ -315,6 +315,7 @@
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
         <page to="backend/purchase_items#index"/>
+        <page to="backend/product_nature_variants#last_purchase_item"/>
         <page to="backend/purchase_items#show"/>
         <page to="backend/purchase_items#create"/>
         <page to="backend/purchase_items#destroy"/>
@@ -1770,10 +1771,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="product_nature_variants">
-        <page to="backend/product_nature_variants#last_purchase_item"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

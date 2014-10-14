@@ -50,9 +50,9 @@ class Backend::ProductNatureVariantsController < BackendController
   end
 
   def last_purchase_item
-    variant = ProductNatureVariant.find(params[:id])
+    return unless @product_nature_variant = find_and_check
     begin
-      last_purchase_item = variant.last_purchase_item_for(params[:supplier_id])
+      last_purchase_item = @product_nature_variant.last_purchase_item_for(params[:supplier_id])
       render json: last_purchase_item
     rescue
       notify_error :record_not_found
