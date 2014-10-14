@@ -23,7 +23,7 @@
           console.log("Error while retrieving price and tax fields content: #{error}")
 
   # Manage fields filling in purchases
-  $(document).on "click selector:change", "*[data-priced-variant]", ->
+  $(document).on "click selector:change emulated:change", "*[data-priced-variant]", ->
     # Get json info on priced variant
     element = $(this)
     options = element.data("priced-variant")
@@ -42,6 +42,10 @@
             row.find(options.tax or ".tax").val(data.tax_id)
         error: (request, status, error) ->
           console.log("Error while retrieving price and tax fields content: #{error}")
+
+  # trigger to update fields when changing supplier
+  $(document).on "selector:change", "*[data-parameter-name='supplier_id']", ->
+    $("*[data-priced-variant]").trigger("emulated:change")
 
   return
 ) jQuery
