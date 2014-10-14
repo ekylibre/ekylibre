@@ -28,12 +28,12 @@
     element = $(this)
     options = element.data("priced-variant")
     variant_id = element.selector('value')
-    # supplier_id = $("#purchase_supplier_id")[0].selector('value')
+    supplier_id = $("*[data-parameter-name='supplier_id']").val()
     reg = new RegExp("\\bVARIANT_ID\\b", "g")
     if variant_id?
       $.ajax options.url.replace(reg, variant_id),
         dataType: "json"
-        # data: "{supplier_id: #{supplier_id}}"
+        data: {supplier_id: "#{supplier_id}"}
         success: (data, status, request) ->
           # Update fields
           row = element.closest(options.scope or "body")
