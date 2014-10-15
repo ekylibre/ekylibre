@@ -103,6 +103,7 @@ module Ekylibre
       def list
         unless @list
           @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+          @list ||= {}
           @list[env] ||= []
         end
         return @list[env]
