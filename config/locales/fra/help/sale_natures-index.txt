@@ -3,7 +3,7 @@
 Les types de vente permettent de **définir des caractéristiques des vente**, telles que~: le délai d'expiration, le délai de paiement, les accomptes...
 
 Vous pouvez :
-  * **créer** un type de vente
+  * **créer** {{icon:new|créer}} un type de vente
   * le **modifier** :  {{icon:edit|modifier}}
   * le **supprimer** : {{icon:destroy|supprimer}}
 
