@@ -4,7 +4,7 @@
 L'exercice comptable est une période de temps délimitée au cours de laquelle une entreprise enregistre tous les faits économiques qui concourent à l'élaboration de sa comptabilité. Un exercice comptable se caractérise par un code (indiquant en général la période de cet exercice), une date de commencement et une date de fin d'exercice (ici mentionnée comme date de clôture).
 
 ===== Gestion d'un exercice comptable =====
-Pour utiliser un exercice comptable (nécéssaire pour toutes les opérations d'enregistrements d'écritures et d'élaboration des documents comptables), commencer par le [[>backend/financial_years#new|créer]]. L'exercice comptable créé apparaîtra dans le tableau des exercices comptables. Par la suite, il vous sera possible de le modifier {{icon:edit|modifier}}, le supprimer {{icon:destroy|supprimer}}, sous réserve qu'il n'existe aucun journal (ou période d'enregistrement) relatif à cet exercice comptable.
+Pour utiliser un exercice comptable (nécéssaire pour toutes les opérations d'enregistrements d'écritures et d'élaboration des documents comptables), commencer par le [[>backend/financial_years#new|créer]]. L'exercice comptable créé apparaîtra dans le tableau des exercices comptables. Par la suite, il vous sera possible de le modifier {{icon:edit|modifier}} ou le supprimer {{icon:destroy|supprimer}}, sous réserve qu'il n'existe aucun journal (ou période d'enregistrement) relatif à cet exercice comptable.
 Dans le cas où vous souhaitez clore l'exercice, l'opération ne sera possible que si les conditions suivantes sont réunies :
   * les **journaux** sont clos à des dates **antérieures** à la date choisie pour la clôture de l'exercice.
   * les **journaux** sont **équilibrés**.
