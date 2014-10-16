@@ -1,4 +1,4 @@
 ====== Options des listes déroulantes ======
 Pour renseigner un choix, un nom et un valeur sont demandées~: le nom est utilisé dans le logiciel alors que la valeur est utilisée pour l'[[>backend/entities#export|exportation de fiches]].
 
-Dans le cadre de notre exemple sur la distance, le nom de notre première option serait donc : //0 à 50 kms// (valeur : //PROCHE//).
+Dans le cadre de notre exemple sur la distance, le nom de notre première option serait donc : //0 à 50km// (valeur : //PROCHE//).
