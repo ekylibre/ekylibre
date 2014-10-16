@@ -2,10 +2,10 @@
 
 ===== Fiche animal =====
 
-**Type** = Type de l'animal (Vache laitière, Veau, Volaille de chair...).
+**Type** = Type de l'animal (Vache laitière, Veau, Volaille de chair…).
 Le type porte notament les codes comptables, le prix par défault, la race de base.
 
-**Race** = la race de l'animal est automatiquement conditionné par son type.
+**Race** = la race de l'animal est automatiquement conditionnée par son type.
 
 **Numéro de travail** = numéro de boucle
 >>> Ex : Bovins : 4 chiffres
