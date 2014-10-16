@@ -1,11 +1,11 @@
 ====== Trésorerie ======
 
-La trésorerie concerne toutes les dépôts/réserves d'argent, c'est à dire les comptes bancaires et les caisses.
+La trésorerie concerne tous les dépôts/réserves d'argent, c'est à dire les comptes bancaires et les caisses.
 Vous pouvez en définir autant que nécessaire. Ils sont aussi appelés **comptes de trésorerie**.
 
 ===== Gestion des comptes de trésorerie =====
-Le type de compte est défini **à la création**. Vous ne pourrez pas le modifier une fois créé. 
-S'il n'a pas servi vous pourrez toujours le supprimer.
+Le type de compte est défini **à la création**. Vous ne pouvez pas le modifier une fois créé. 
+S'il n'a pas servi vous pouvez toujours le supprimer.
 
 ===== Comptes bancaires =====
 Un compte bancaire est d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques... 
@@ -18,10 +18,10 @@ Pour renseigner vos informations concernant vos compte bancaires, il vous suffit
 
 ==== Gestion d'un compte bancaire ====
 
-Les comptes sont modifiables à volonté et supprimables tant qu'aucun relevés de compte bancaire n'a été pointé pour ce dernier.
+Les comptes sont modifiables à volonté et supprimables tant qu'aucun relevé de compte bancaire n'a été pointé pour ce dernier.
 
-Vous pouvez décrire le compte bancaire et notamment la banque qui le gére. Ces informations pourront être affichées sur des documents tels que des remises en banque.
+Vous pouvez décrire le compte bancaire et notamment la banque qui le gère. Ces informations pourront être affichées sur des documents tels que des remises en banque.
 
 ===== Caisses =====
-Une caisse est une //banque personnelle//. Elle vous permet d'encaisser des règlements en espèces et/ou à encaisser à la banque (comme les chèques).
+Une caisse est une //banque personnelle//. Elle vous permet d'encaisser des règlements en espèces et/ou d'encaisser à la banque (comme les chèques).
 Elle ne nécessite aucune information comme les RIB.
