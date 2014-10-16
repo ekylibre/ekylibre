@@ -10,4 +10,4 @@ Cette notion fondamentale permet de déterminer exactement à quoi sert le docum
 
 ===== Archives de document =====
 
-Pour un document donné, il est possible d'avoir plus archives différentes en fonction de la méthode d'archivage choisie ou des téléversements effectués. Pour cette raison, vous devez vous rendre directement sur la page du document pour accéder aux fichiers.
+Pour un document donné, il est possible d'avoir plusieurs archives différentes en fonction de la méthode d'archivage choisie ou des téléversements effectués. Pour cette raison, vous devez vous rendre directement sur la page du document pour accéder aux fichiers.
