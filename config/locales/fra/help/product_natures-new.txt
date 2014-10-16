@@ -16,5 +16,5 @@
 **Variantes** = permet d'ajouter une ou plusieurs variantes lié au type de produit
 
 >>> Ex : type de produit : **Engrais**
->>>     //variante 1// = Sac d'engrais (achat avec l'indicateur "quantité" en unité)
->>>     //variante 2// = Engrais en vrac (achat avec l'indicateur "poids net" en tonne)
+>>> //variante 1// = Sac d'engrais (achat avec l'indicateur "quantité" en unité)
+>>> //variante 2// = Engrais en vrac (achat avec l'indicateur "poids net" en tonne)

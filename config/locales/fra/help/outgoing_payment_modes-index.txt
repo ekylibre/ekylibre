@@ -1,4 +1,4 @@
-===== Modes de décaissement =====
+====== Modes de décaissement ======
 
 Les moyens paiements effectués auprès des fournisseurs sont relativement simples car il n'y a pas de remise en banque et de commission à gérer.
 
