@@ -1,6 +1,6 @@
 ====== Modes d'encaissement ======
 
-Utiliser les modes d'encaissement vous permet de suivre précisément vos encaissements et de basculer automatiquement et proprement vos encaissmeent en comptabilité.
+Utiliser les modes d'encaissement vous permet de suivre précisément vos encaissements et de basculer automatiquement et proprement vos encaissement en comptabilité.
 De plus, c'est ici que vous pouvez paramétrer les règlements à remettre en banque.
 
 ===== Comptabilité =====
