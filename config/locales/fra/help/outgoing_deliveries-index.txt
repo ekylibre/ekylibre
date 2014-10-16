@@ -1,0 +1,15 @@
+====== Livraisons sortantes ======
+
+Cette page recense les livraisons à effectuer. 
+
+===== Facturation =====
+
+  * Sélectionnez les livraisons à facturer en cochant la case en face de chaque ligne.
+  * Cliquez sur {{icon:invoice|facturer}}**Facturer**
+Vous êtes redirigé vers la page correspondant à la vente.
+
+===== Expédition =====
+
+  * Sélectionnez les livraisons à expédier en cochant la case en face de chaque ligne.
+  * Cliquez sur {{icon:ship|expédier}}**Expédier**
+Un transport est créé. Celui-ci apparaît alors sur la page de gestion des [[>backend/transports|transports]]

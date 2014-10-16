@@ -1,0 +1,17 @@
+====== Gestion des relations clients fournisseurs ======
+
+===== Calendrier =====
+
+Ce module affiche le calendrier des évènements. 
+
+===== Derniers tiers =====
+
+Ce module affiche la liste des dernières personnes tierces à l'entreprise (fournisseurs, clients, prospects, etc.) enregistrées dans le programme.
+
+===== Futurs évènements =====
+
+Ce module affiche les évènements à venir.
+
+===== Derniers évènements =====
+
+Ce module affiche les évènements passés, du plus récent au plus ancien.
