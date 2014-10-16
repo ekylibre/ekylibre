@@ -17,10 +17,10 @@ Elle peut être active ou inactive (clôturée).
 !!! Et donc utiliser des intrants (semences...) pour la campagne 2014 alors que je suis sur un exercice fiscal 2013 (01/01/2013 au 31/12/2013).
 !!! cf. Avances aux cultures
 
-!!! Une intervention peut créer un objet vivant qui vie sur plusieurs campagnes (cultures pérennes, productions animales)
+!!! Une intervention peut créer un objet vivant, qui vit sur plusieurs campagnes (cultures pérennes, productions animales)
 !!! cf. Immobilisations
 
-===== Quand est ce que les campagnes interviennent ? =====
+===== Quand est-ce que les campagnes interviennent ? =====
 
 Elles interviennent :
 
