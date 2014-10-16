@@ -2,8 +2,8 @@
 
 Vous avez accès au récapitulatif de tous les incidents déclarés sur votre exploitation.
 
-Un incident correspond à un problème identifié sur votre exploitation, il se déclare via la fiche d'un produit (animal, equipement, sole, batiment,..)
+Un incident correspond à un problème identifié sur votre exploitation, il se déclare via la fiche d'un produit (animal, équipement, sol, bâtiment, etc.)
 
 !!! Un incident peut être rattaché à une [[>backend/interventions|intervention]].
 
->>> Ex : mammite, précipitation de grêle sur une parcelle, rupture d'une canalisation, disfonctionnement d'un tank à lait...
+>>> Ex : mammite, précipitation de grêle sur une parcelle, rupture d'une canalisation, disfonctionnement d'un tank à lait, etc.
