@@ -2,4 +2,4 @@
 
 Ici, vous pouvez [[>backend/manure_management_plans#new|créer]], modifier et visualiser vos plans de fumure.
 
-!!! Vous devez avoir au préalable valider vos productions et leurs indicateurs pour la campagne.
+!!! Vous devez avoir au préalable validé vos productions et leurs indicateurs pour la campagne.

@@ -5,7 +5,6 @@
 Une matière représente un produit matériel au sens large.
 
 >>> Ex 1 : Engrais, produits phytosanitaires
-
 >>> Ex 2 : Grains de blé, paille, lait de vache.
 
 Ici, vous pouvez [[>backend/products#new|créer]] {{icon:new|ajouter}} , modifier {{icon:edit|modifier}} et supprimer {{icon:destroy|supprimer}} des matières.

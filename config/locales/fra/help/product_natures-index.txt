@@ -2,11 +2,7 @@
 
 ===== Qu'est-ce qu'un type de produit~? =====
 
-Un type de produit possède un ou plusieurs produits via une ou plusieurs variantes~:
-
-produit {{icon:resize-horizontal}} variante {{icon:resize-horizontal}} type de produit
+Un type de produit possède un ou plusieurs produits via une ou plusieurs variantes~: produit, variante, type de produit
 
 Le type de produit porte les informations de gestion comptable, de gestion de stocks, de variété racine des produits qu'il peut contenir.
 
-
-{{icon:warning-sign}}

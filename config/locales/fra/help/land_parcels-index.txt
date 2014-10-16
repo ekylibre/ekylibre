@@ -1,7 +1,6 @@
 ====== Parcelles ======
 
-Vous avez accès au récapitulatifs de toutes les parcelles que vous avez enregistrés ou importés.
+Vous avez accès au récapitulatif de toutes les parcelles que vous avez enregistrées ou importées.
 
-!!! Une parcelle n'est pas une culture, ni un acte de propriété,ni un ilôt.
-!!! C'est la surface physique sur laquelle s'implante une culture.
+!!! Une parcelle n'est pas une culture, ni un acte de propriété,ni un îlot. C'est la surface physique sur laquelle s'implante une culture.
 
