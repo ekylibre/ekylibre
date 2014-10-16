@@ -2,34 +2,34 @@
 
 ===== Qu'est ce qu'une activité ? =====
 
-Une activité regroupe des ensembles de produits, de services qui concourent à l'achevement de ses procédures et procéssus métiers.
-Une acticité est établie pour plusieurs années et correspond à un choix organisationnel.
+Une activité regroupe des ensembles de produits, de services qui concourent à l'achèvement de ses procédures et processus métiers.
+Une activité est établie pour plusieurs années et correspond à un choix organisationnel.
 Elle peut être active ou inactive (clôturée).
 
 Une activité se caractérise par un nom, un code analytique, un type de centre analytique et une famille.
 
 Une activité peut posséder une activité parente (parfois appellé ATELIER).
 
->>> Ex: L'activité BLE regroupe les activités BLE TENDRE & BLE DUR
+>>> Ex: L'activité BLÉ regroupe les activités BLÉ TENDRE & BLÉ DUR
 
 Une activité peut présenter un type de centre dit PRINCIPAL (processus productif) ou AUXILIAIRE (processus support) selon son objectif premier.
 
->>> Ex: L'activité BLE possede un type de centre PRINCIPAL car son objectif premier est de produire.
->>> Ex: L'activité MECANISATION est AUXILIAIRE car son objectif premier est d'aider les autres activités.
->>> l'activité BLE se verra donc affecter des charges dites indirectes provenant de l'activité MECANISATION selon la sollicitation de l'une vers l'autre.
+>>> Ex: L'activité BLÉ possede un type de centre PRINCIPAL car son objectif premier est de produire.
+>>> Ex: L'activité MÉCANISATION est AUXILIAIRE car son objectif premier est d'aider les autres activités.
+>>> l'activité BLÉ se verra donc affecter des charges dites indirectes provenant de l'activité MÉCANISATION selon la sollicitation de l'une vers l'autre.
 
-===== Quand est ce que les activités interviennent ? =====
+===== Quand est-ce que les activités interviennent ? =====
 
 Elles interviennent :
 
   * lors de la saisie des opérations et procédures
-  * lors de la [[>backend/journals#draft|saisie comptables]] si vous n'utilisez pas les opérations
+  * lors de la [[>backend/journals#draft|saisie comptable]] si vous n'utilisez pas les opérations
 
 ===== Comment lier des produits aux activités et répartir les charges ? =====
 
 Chaque activité peut être liée à une ou plusieurs [[>backend/productions#index|productions]].
 
->>> Ex: L'activité BLE TENDRE est lié à la production Grain de BLE TENDRE Campagne 2013 sur la parcelle "Les Palets"
->>> Un côut de production et un prix de revient pourra être calculé pour chaque unité de Grain de BLE TENDRE produite sur une période donnée.
+>>> Ex: L'activité BLÉ TENDRE est lié à la production Grain de BLÉ TENDRE Campagne 2013 sur la parcelle "Les Palets"
+>>> Un coût de production et un prix de revient pourront être calculés pour chaque unité de grain de BLÉ TENDRE produite sur une période donnée.
 
 Chaque ligne comptable peut être liée à une ou plusieurs productions.
