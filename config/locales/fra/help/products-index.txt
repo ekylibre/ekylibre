@@ -4,7 +4,7 @@
 
 Un produit est un objet réel (produit) ou virtuel (service) de l'entreprise.
 
-Les produits sont gérés via leur type ([[>backend/animals|animal]], [[>backend/plants|végétal]], [[>backend/matters|matière]], [[>backend/equipments|équipement]], [[>backend/land_parcels|parcelle]], [[>backend/buildings|installation]], travailleurs).
+Les produits sont gérés via leur type ([[>backend/animals|animal]], [[>backend/plants|végétal]], [[>backend/matters|matière]], [[>backend/equipments|équipement]], [[>backend/land_parcels|parcelle]], [[>backend/buildings|installation]], [[>backend/workers|travailleurs]]).
 
 >>> Ex 1 : Engrais, produits phytosanitaires
 
