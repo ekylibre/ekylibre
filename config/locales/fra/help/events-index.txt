@@ -5,7 +5,7 @@
 Certains évènements peuvent s'enregistrer automatiquement en fonction de leur type. Cela permet de faire un suivi complet dans la liste des évènements de chaque client.
 
 ===== Gestion des évènements =====
-Il est possible de créer {{icon:new|créer}}, modifier {{icon:edit|modifier}} ou même supprimer {{icon:destroy|supprimer}}.
+Il est possible d'en créer {{icon:new|créer}}, modifier {{icon:edit|modifier}} ou même supprimer {{icon:destroy|supprimer}}.
 
 Les évènements ne sont jamais //verrouillés// et peuvent être modifiés et/ou supprimés à tout moment.
 
