@@ -18,7 +18,7 @@ Elle peut être active ou inactive (clôturée).
 !!! cf. Avances aux cultures
 
 !!! Une intervention peut créer un objet vivant, qui vit sur plusieurs campagnes (cultures pérennes, productions animales)
-!!! cf. Immobilisations
+!!! cf. [[>backend/financial_assets|Immobilisations]]
 
 ===== Quand est-ce que les campagnes interviennent ? =====
 

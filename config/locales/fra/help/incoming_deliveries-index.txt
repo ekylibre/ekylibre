@@ -6,6 +6,4 @@ Pour chaque produit, définissez la quantité de produit à livrer pour l'approv
 
 Un approvisionnement permet de **définir quand, où** (sélection de l'adresse de livraison parmi les contacts de toutes vos fiches) et **en quelles proportions** seront livrés vos produits. Un approvisionnement peut donc être associée à un destinatiare différent du client de la vente.
 
-La création d'un approvisionnement entraîne la création d'un rappel automatique, les **livraisons en attente** auxquelles vous avez accès depuis le **tableau de bord** (Index de l'application et Index de la Gestion Commerciale) vous permettant ainsi de veiller à ce que celles-ci soient bien effectuées. Ceci vous permet de **mettre à jour la gestion des stocks de manière cohérente**.
-
 
