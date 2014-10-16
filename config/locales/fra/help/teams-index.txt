@@ -2,6 +2,6 @@
 
 ===== Qu'est-ce qu'une équipe ? =====
 
-Une équipe représente un ensemble de personne ou un atelier fonctionnel de l'entreprise.
+Une équipe représente un ensemble de personnes ou un atelier fonctionnel de l'entreprise.
 
 

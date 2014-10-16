@@ -1,4 +1,0 @@
-====== Importer des données ======
-
-Vous pouvez importer des données provenant de votre ancienne comptabilité. Pour l'instant le seul format pris en compte est le format EDI du logiciel de comptabilité EBP.
-

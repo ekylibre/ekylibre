@@ -2,4 +2,4 @@
 
 Vous avez le récapitulatif des installations que vous avez enregistré.
 
-!!! Une installation est une emprise primaire et physique sur le sol (route, béton, dallage...)
+!!! Une installation est une emprise primaire et physique sur le sol (route, béton, dallage,…)

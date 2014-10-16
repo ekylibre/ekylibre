@@ -4,7 +4,7 @@
     = text_field_tag(:nb_years, params[:nb_years]||2, :size => 5)
   - k.radio_buttons :quantity, :pretax_amount, :amount, :name => :mode, :i18n_root => "attributes."
   - k.criterion do
-    %label= :state.tc
+    %label= Sale.human_attribute_name(:state)
     - for x in Sale.state_machine.states
       = check_box_tag "states[#{x.name}]", "1", !params[:states][x.name].to_i.zero?, id: "states_#{x.name}"
       %label{:for => "states_#{x.name}"}= Sale.state_label(x.name)

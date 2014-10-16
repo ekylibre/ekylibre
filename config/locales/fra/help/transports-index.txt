@@ -9,7 +9,7 @@ Vous pouvez définir vos transporteurs de la même manière qu'un client, en vei
 
 ===== Gestion des transports =====
 
-Pour définir votre transport vous devez regrouper toutes livraisons qui doient partir avec le même transporteur.
+Pour définir votre transport vous devez regrouper toutes les livraisons qui doivent partir avec le même transporteur, depuis [[>backend/outgoing_deliveries|la page de gestion des livraisons sortantes]].
 Vous pouvez rechercher une livraison par sa date ainsi que par l'adresse de livraison.
 Le bouton "Valider" permet de modifier les caractéristiques du transport.
 Si votre livraison est correctement définie, validez en cliquant sur "Valider et revenir à la liste des transports".
