@@ -1,7 +1,0 @@
-====== Statistiques ======
-
-Les taux de vente d'un produit pour un nombre d'années peuvent être représentés graphiquement, chaque année étant matérialisée **sous forme d'une courbe**.
-
-Pour obtenir le schéma souhaité, remplissez le formulaire de recherche. Dans le cas où le nombre d'années dans l'historique n'est pas précisé, seule la courbe correspondant à **l'année en cours** sera représentée. 
- 
-

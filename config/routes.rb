@@ -649,7 +649,6 @@ Ekylibre::Application.routes.draw do
     resources :sales, concerns: [:list, :unroll] do
       resources :items, only: [:new, :create], controller: :sale_items
       collection do
-        get :statistics
         get :contacts
       end
       member do
