@@ -149,7 +149,7 @@ class Backend::DashboardsController < BackendController
         end
       end
       if columns.any?
-        query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+        query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? "CASE WHEN LENGTH(TRIM(type)) > 0 THEN type ELSE '#{model.table_name.to_s.classify}' END" : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
         queries << query
       end
     end
