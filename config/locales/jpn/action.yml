@@ -1457,10 +1457,12 @@ jpn:
       # record_cannot_be_removed: "The record can not be deleted"
       # record_has_been_correctly_removed: "The record has been removed successfully"
       # record_has_been_imported: "Record has been imported"
+      # record_not_found: "Record not found"
       # sale_cannot_be_updated: "The estimate is no longer editable."
       # sale_cant_be_deleted: "The sale can not be deleted."
       # select_entry_items_to_mark_together: "Select entry items to mark together"
-      # unavailable_model: "Inexistent %{model} (%{id})"
+      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unexpected_resource_type: "Unexpected resource type: %{type}"
       # update_is_done: "The update has been made"
       x_unpointed_journal_entry_items:
         # one: "There is one entry to point"

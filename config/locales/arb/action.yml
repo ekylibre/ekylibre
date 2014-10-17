@@ -2171,6 +2171,7 @@ arb:
       record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
       # record_has_been_imported: "Record has been imported"
       record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح" #?
+      # record_not_found: "Record not found"
       restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}" #?
       sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
       sale_cannot_be_updated: "الطلب غير قابل للتعديل"
@@ -2179,7 +2180,9 @@ arb:
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
-      unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})"
+      unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
+      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
       unknown_company: "شركة غير معروفة" #?
       unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي" #?

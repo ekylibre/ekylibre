@@ -62,13 +62,23 @@ class BackendController < BaseController
     options = args.extract_options!
     model = args.shift || options[:model] || self.controller_name.singularize
     id    = args.shift || options[:id] || params[:id]
+    klass = nil
     begin
-      return model.to_s.camelize.constantize.find(id)
+      klass = model.to_s.camelize.constantize
     rescue
-      notify_error(:unavailable_model, model: model.inspect, id: id)
+      notify_error(:unexpected_resource_type, type: model.inspect)
+      return false
+    end
+    unless klass < Ekylibre::Record::Base
+      notify_error(:unexpected_resource_type, type: klass.model_name)
+      return false
+    end
+    unless record = klass.find_by(id: id)
+      notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
       redirect_to_current
       return false
     end
+    return record
   end
 
   def save_and_redirect(record, options={}, &block)

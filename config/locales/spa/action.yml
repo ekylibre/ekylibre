@@ -1827,6 +1827,7 @@ spa:
       record_has_been_correctly_removed: "El registro ha sido suprimido correctamente"
       # record_has_been_imported: "Record has been imported"
       record_has_not_been_removed: "El registro no puede ser suprimido" #?
+      # record_not_found: "Record not found"
       restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}" #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
       sale_cannot_be_updated: "El presupuesto ya no esta modificable."
@@ -1835,7 +1836,9 @@ spa:
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
-      unavailable_model: "%{model} indisponible o inexistente (%{id})"
+      unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
+      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "La pagina que quiere esta indisponible (%{url})" #?
       unknown_company: "Sociedad desconocida" #?
       unvalid_version_for_restore: "La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software" #?
