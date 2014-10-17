@@ -2071,7 +2071,7 @@ arb:
       # zero: "0 years"
     y: "نعم" #?
     yearly: "Annuelle" #?
-    years_count_in_historic: "عدد السنوات عامة"
+    years_count_in_historic: "عدد السنوات عامة" #?
     # zones: "Zones"
   notifications:
     levels:

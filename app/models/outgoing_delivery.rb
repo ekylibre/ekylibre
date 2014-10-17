@@ -199,8 +199,14 @@ class OutgoingDelivery < Ekylibre::Record::Base
       for delivery in deliveries
         for item in delivery.items
           next unless item.population > 0
+          unless price = item.variant.prices.first
+            unless catalog = Catalog.of_usage(:sale).first
+              catalog = Catalog.create!(name: Catalog.enumerized_attributes[:usage].human_value_name(:sales), usage: :sales)
+            end
+            price = catalog.prices.create!(amount: 0, variant: item.variant)
+          end
           item.sale_item = sale.items.create!(variant: item.variant,
-                                              price: item.variant.prices.first,
+                                              price: price,
                                               tax: item.variant.category.sale_taxes.first || Tax.first,
                                               indicator_name: "population",
                                               quantity: item.population)

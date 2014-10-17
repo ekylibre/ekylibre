@@ -1395,7 +1395,6 @@ jpn:
       # one: "1 year"
       # other: "%{count} years"
       # zero: "0 years"
-    # years_count_in_historic: "Years count in historic"
     # zones: "Zones"
   notifications:
     levels:

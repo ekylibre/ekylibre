@@ -1754,7 +1754,7 @@ fra:
       zero: "0"
     y: "Oui" #?
     yearly: "Annuelle" #?
-    years_count_in_historic: "Nombre d’années dans l’historique"
+    years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement" #?
     zones: "Zones"
   notifications:

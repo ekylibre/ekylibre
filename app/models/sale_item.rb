@@ -109,6 +109,8 @@ class SaleItem < Ekylibre::Record::Base
     self.pretax_amount ||= 0
     self.amount ||= 0
 
+
+
     if self.price
       self.variant ||= self.price.variant
       self.indicator_name = self.price.indicator_name
@@ -127,30 +129,8 @@ class SaleItem < Ekylibre::Record::Base
       else
         self.amount = self.pretax_amount = amount
       end
-
-      # if self.reduced_item.nil?
-      #   amount = self.quantity * self.unit_price_amount
-      #   if self.price.all_taxes_included?
-      #     self.amount = amount
-      #     self.pretax_amount = self.price.(self.amount / ()).round(2)
-      #   if self.quantity
-      #     self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
-      #     self.amount = (self.price.amount*self.quantity).round(2)
-      #   elsif self.pretax_amount
-      #     q = self.pretax_amount/self.price.pretax_amount
-      #     self.quantity = q.round(2)
-      #     self.amount = (q*self.price.amount).round(2)
-      #   elsif self.amount
-      #     q = self.amount/self.price.amount
-      #     self.quantity = q.round(2)
-      #     self.pretax_amount = (q*self.price.pretax_amount).round(2)
-      #   end
-      # else
-      #   self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
-      #   self.amount = (self.price.amount * self.quantity).round(2)
-      # end
-      # self.price_amount ||= self.price.pretax_amount
-      # self.tax ||= self.price.tax
+    elsif self.sale
+      self.currency = self.sale.currency
     end
 
     if self.variant

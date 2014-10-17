@@ -1726,7 +1726,7 @@ spa:
       # other: "%{count} years"
       # zero: "0 years"
     yearly: "Anual" #?
-    years_count_in_historic: "Nombre de años en el historico"
+    years_count_in_historic: "Nombre de años en el historico" #?
     # zones: "Zones"
   notifications:
     levels:
