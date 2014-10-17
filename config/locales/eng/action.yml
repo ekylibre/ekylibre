@@ -1096,7 +1096,6 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    planned_at: "Planned on" #?
     plant: "Plant" #?
     plant_productions: "Plant productions"
     plantation_density: "Plantation density" #?

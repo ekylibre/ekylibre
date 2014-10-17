@@ -1275,7 +1275,7 @@ fra:
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
-    planned_at: "Date prévisionnelle"
+    planned_at: "Date prévisionnelle" #?
     plant: "Culture"
     plant_productions: "Productions végétales"
     plantation_density: "Densité de plantation"

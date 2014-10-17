@@ -1594,7 +1594,7 @@ arb:
     # picture: "Picture"
     # placeholder: "Placeholder"
     # places: "Places"
-    planned_at: "قرر يوم"
+    planned_at: "قرر يوم" #?
     # plant: "Plant"
     # plant_productions: "Plant productions"
     # plantation_density: "Plantation density"

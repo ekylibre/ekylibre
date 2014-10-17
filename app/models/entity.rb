@@ -110,7 +110,7 @@ class Entity < Ekylibre::Record::Base
   has_many :transports, foreign_key: :transporter_id
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
-  has_many :waiting_deliveries, -> { where("moved_at IS NULL AND planned_at <= CURRENT_DATE") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
+  has_many :waiting_deliveries, -> { where("sent_at IS NULL") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -123,7 +123,7 @@ class Entity < Ekylibre::Record::Base
   }
 
   # # default_scope order(:last_name, :first_name)
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (sent_at IS NULL AND planned_at <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
