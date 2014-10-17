@@ -1,3 +1,4 @@
 fra:
   exceptions:
+    active_record/record_invalid: "Enregistrement invalide" #?
     pg/undefined_table: "Table indéfinie"

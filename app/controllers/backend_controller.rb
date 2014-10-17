@@ -21,12 +21,11 @@ class BackendController < BaseController
   include Unrollable, RestfullyManageable
   protect_from_forgery
 
+  layout :dialog_or_not
+
   before_action :authenticate_user!
   before_action :authorize_user!
   before_action :set_versioner
-  before_action :themize
-
-  layout :dialog_or_not
 
   include Userstamp
 
@@ -142,18 +141,11 @@ class BackendController < BaseController
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
   end
 
-  # # Load current user
-  # def identify
-  #   # Load current_user if connected
-  #   @current_user = nil
-  #   @current_user = User.find_by(id: session[:user_id]).readonly if session[:user_id]
-  # end
-
   def set_versioner
     Version.current_user = current_user
   end
 
-  def themize
+  def set_theme
     # TODO: Dynamic theme choosing
     if current_user
       if %w(margarita tekyla tekyla-sunrise).include?(params[:theme])
@@ -187,20 +179,6 @@ class BackendController < BaseController
     end
     return true
   end
-
-
-
-  # # Fill the history array
-  # def historize
-  #   if @current_user and request.get? and not request.xhr? and params[:format].blank?
-  #     session[:history] = [] unless session[:history].is_a? Array
-  #     session[:history].delete_if { |h| h[:path] == request.path }
-  #     session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url => request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
-  #     session[:history].delete_at(30)
-  #   end
-  # end
-
-
 
   def search_article(article = nil)
     # session[:help_history] = [] unless session[:help_history].is_a? [].class

@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_time_zone
 
-  rescue_from 'PG::UndefinedTable', with: :configure_application
+  rescue_from PG::UndefinedTable, Apartment::SchemaNotFound, with: :configure_application
 
   hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
 
@@ -85,12 +85,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_theme()
+  def set_theme
     @current_theme = 'tekyla'
   end
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
-  def set_locale()
+  def set_locale
     session[:locale] = params[:locale] if params[:locale]
     if session[:locale].blank?
       if locale = http_accept_language.compatible_language_from(Ekylibre::HTTP_LANGUAGES.keys)
@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Change the time zone from the given params or reuse session variable
-  def set_time_zone()
+  def set_time_zone
     if params[:time_zone]
       session[:time_zone] = params[:time_zone]
     end
