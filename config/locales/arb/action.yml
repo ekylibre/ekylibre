@@ -1200,6 +1200,7 @@ arb:
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
     # equipments: "Equipments"
+    # error: "Sorry..."
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
     errors_explanation: "هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد"
     establish_capital_goods: "تشكل الممتلكات رأس المال" #?
@@ -2198,6 +2199,7 @@ arb:
         zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة" #?
       you_must_have_an_email_column: "يجب ان يكون لديك عمود خاص بالبريد الالكتروني"
       you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد" #?
+      # you_need_to_review_your_application_configuration: "You need to review your application configuration"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
   preferences:
     accountancy:  #?

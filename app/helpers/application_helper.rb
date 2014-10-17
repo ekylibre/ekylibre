@@ -488,18 +488,21 @@ module ApplicationHelper
   # Permits to use themes for Ekylibre
   #  stylesheet_link_tag 'application', 'list', 'list-colors'
   #  stylesheet_link_tag 'print', :media => 'print'
-  def theme_link_tag()
+  def theme_link_tag(theme = nil)
+    theme ||= current_theme
+    return nil unless theme
     html = ""
-    html << stylesheet_link_tag(theme_path("all.css"), :media => :all, "data-turbolinks-track" => true)
+    html << stylesheet_link_tag(theme_path("all.css", theme), media: :all, "data-turbolinks-track" => true)
     return html.html_safe
   end
 
-  def theme_button(name, theme='tekyla')
-    image_path(theme_path("buttons/#{name}.png"))
+  def theme_button(name, theme = nil)
+    image_path(theme_path("buttons/#{name}.png", theme))
   end
 
-  def theme_path(name)
-    "themes/#{current_theme}/#{name}"
+  def theme_path(name, theme = nil)
+    theme ||= current_theme
+    "themes/#{theme}/#{name}"
   end
 
 

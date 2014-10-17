@@ -1002,6 +1002,7 @@ spa:
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
     # equipments: "Equipments"
+    # error: "Sorry..."
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
     # errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     establish_capital_goods: "Bienes que  constituyen inmobilizaciones" #?
@@ -1855,6 +1856,7 @@ spa:
       x_unpointed_journal_entry_lines: #?
       you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?
+      # you_need_to_review_your_application_configuration: "You need to review your application configuration"
       you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?" #?
   preferences:
     # bookkeep_automatically: "Activate the automatic bookkeeping"

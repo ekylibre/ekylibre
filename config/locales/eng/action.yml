@@ -843,6 +843,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
     equipments: "Equipments"
+    error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     evaluated_doer_cost: "Evaluated labor cost"
@@ -1521,6 +1522,7 @@ eng:
         other: "There are %{count} entries to point"
         zero: "There are no entries to point at the moment"
       you_must_have_an_email_column: "You must have an email address in your extraction"
+      you_need_to_review_your_application_configuration: "You need to review your application configuration"
   preferences:
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"

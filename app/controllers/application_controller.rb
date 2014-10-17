@@ -22,9 +22,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :set_theme
-  before_filter :set_locale
-  before_filter :set_time_zone
+  before_action :set_theme
+  before_action :set_locale
+  before_action :set_time_zone
+
+  rescue_from 'PG::UndefinedTable', with: :configure_application
 
   hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
 
@@ -111,6 +113,12 @@ class ApplicationController < ActionController::Base
     end
     session[:time_zone] ||= "UTC"
     Time.zone = session[:time_zone]
+  end
+
+
+  def configure_application(exception)
+    title = exception.class.name.underscore.t(scope: "exceptions")
+    render "/public/configure_application", layout: "exception", locals: {title: title, message: exception.message, class_name: exception.class.name}, status: 500
   end
 
 end

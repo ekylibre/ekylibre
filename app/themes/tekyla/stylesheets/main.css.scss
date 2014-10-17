@@ -329,7 +329,7 @@ html.backend {
 }
 
 
-html.authentication {
+html.authentication, html.exception {
   background: #F7F7F7;
   @include background(radial-gradient(top, #FFF, #F7F7F7, #C2C2C2));
   height: 100%;
@@ -399,6 +399,23 @@ html.authentication {
 
         }
       }
+    }
+  }
+}
+
+html.exception {
+  background: #F7F7F7;
+  @include background(radial-gradient(top, #F7F7F7, $invalid-color));
+  h1, h2, h3 {
+    font-weight: bold;
+  }
+  #header {
+    background: $invalid-color;
+    @include background(linear-gradient(top, lighten($invalid-color, $default-lightness-variation), $invalid-color, darken($invalid-color, $default-lightness-variation)));
+    padding: 2em;
+    h1 {
+      color: #F7F7F7;
+      font-size: $fs-huge;
     }
   }
 }
