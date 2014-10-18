@@ -893,7 +893,7 @@ module ApplicationHelper
     class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
     return content_tag(:div,
                        content_tag(:div,
-                                   link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
+                                   link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').tl(default: ["form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
                                    content_tag(:span, buttons.join.html_safe, :class => :buttons),
                                    :class => "fieldset-legend") +
                        content_tag(:div, capture(&block), :class => options[:fields_class]), :class => class_names, :id => name) # "#{name}-fieldset"
