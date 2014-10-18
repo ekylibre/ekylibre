@@ -37,7 +37,7 @@ class Backend::ProductionSupportsController < BackendController
   list(:interventions, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
     t.column :name, url: true
     t.status
-    t.column :issue, url: true
+    t.column :issue, label_method: :nature, url: true
     t.column :started_at
     t.column :stopped_at, hidden: true
     # t.column :provisional

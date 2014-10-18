@@ -836,7 +836,6 @@ issues:
   gravity: {type: integer}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
   nature: {type: string, required: true}
   observed_at: {type: datetime, required: true}
   picture_content_type: {type: string}
