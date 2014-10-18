@@ -35,7 +35,7 @@
           </section>
           <section name="issue" of="intervention.issue" of-type="record">
             <property name="id" level="api"/>
-            <title name="name"/>
+            <title name="nature"/>
             <property name="observed_at" type="datetime"/>
             <property name="state" level="api"/>
             <property name="interventions_count" level="api"/>
@@ -56,6 +56,7 @@
             <cell name="variant_name" value="input.actor.variant_name"/>
             <cell name="population" of="input"/>
             <cell name="variety" value="input.actor.variety" level="api"/>
+            <cell name="unit_name" value="input.actor.unit_name" level="api"/>
             <matrix name="withdrawal_periods">
               <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
               <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>

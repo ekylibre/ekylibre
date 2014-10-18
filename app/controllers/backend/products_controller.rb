@@ -110,8 +110,7 @@ class Backend::ProductsController < BackendController
 
   # Lists issues of the current product
   list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
-    t.column :name, url: true
-    t.column :nature
+    t.column :nature, url: true
     t.column :observed_at
     t.status
     t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}

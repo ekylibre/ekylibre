@@ -20,7 +20,7 @@
 # -*- coding: utf-8 -*-
 class Backend::IssuesController < BackendController
 
-  manage_restfully t3e: {name: :name}
+  manage_restfully t3e: {name: :target_name}
   manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -28,10 +28,9 @@ class Backend::IssuesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, url: true
+    t.column :target_name, url: true
     t.column :nature
     t.column :observed_at
-    t.column :target_name
     t.status
     t.column :gravity,  hidden: true
     t.column :priority, hidden: true
