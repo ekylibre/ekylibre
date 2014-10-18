@@ -66,6 +66,7 @@ GEM
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
+    burisu-docsplit (0.7.7)
     calendar_helper (0.2.6)
       open4
     capybara (2.4.3)
@@ -125,7 +126,6 @@ GEM
       warden (~> 1.2.3)
     devise-i18n-views (0.3.1)
     docile (1.1.5)
-    docsplit (0.7.5)
     enumerize (0.8.0)
       activesupport (>= 3.2)
     erubis (2.7.0)
@@ -198,8 +198,8 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    paperclip-document (0.0.7)
-      docsplit (>= 0.7.5)
+    paperclip-document (0.0.8)
+      burisu-docsplit (>= 0.7.7)
       paperclip (>= 3.1, < 5)
     pg (0.17.1)
     polyglot (0.3.5)
@@ -393,7 +393,7 @@ DEPENDENCIES
   ofx-parser
   oily_png
   paperclip
-  paperclip-document (~> 0.0)
+  paperclip-document (>= 0.0.8)
   pg
   pry
   quiet_assets

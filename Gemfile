@@ -92,7 +92,7 @@ gem 'devise-i18n-views'
 
 # Attachments
 gem 'paperclip'
-gem 'paperclip-document', '~> 0.0'
+gem 'paperclip-document', '>= 0.0.8'
 
 # Forms
 gem 'simple_form', '~> 3.0.0'

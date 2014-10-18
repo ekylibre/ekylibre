@@ -198,7 +198,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     document_archive = nil
     unless self.archiving_none? or self.archiving_none_of_template?
       # Find exisiting document
-      unless document = Document.where(nature: self.nature, key: key).first
+      unless document = Document.find_by(nature: self.nature, key: key)
         # Create document if not exist
         document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key))) # }, :without_protection => true)
       end
