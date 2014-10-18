@@ -2250,6 +2250,12 @@ svg.map {
   }
 }
 
+*[data-click] {
+  &, * {
+    cursor: pointer;
+  }
+}
+
 .lights {
   $light-size: 2 * round($fs-normal * 0.35);
   $light-darken: 6%;

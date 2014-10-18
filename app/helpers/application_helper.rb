@@ -322,7 +322,7 @@ module ApplicationHelper
         attribute_list.custom_fields
       end
     end
-    unless options[:without_stamp] or options[:without_stamps]
+    unless options[:without_stamp] or options[:without_stamps] or options[:stamps].is_a?(FalseClass)
       attribute_list.attribute :creator, :label => :full_name
       attribute_list.attribute :created_at
       attribute_list.attribute :updater, :label => :full_name

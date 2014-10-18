@@ -18,7 +18,7 @@
 #
 
 class Backend::BankStatementsController < BackendController
-  manage_restfully :started_at => "Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Date.today-1.month-2.days)".c, :stopped_at => "Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Date.today-2.days)".c, :redirect_to => '{action: :point, :id => "id"}'.c
+  manage_restfully :started_at => "Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Date.today-1.month-2.days)".c, :stopped_at => "Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Date.today-2.days)".c, :redirect_to => '{action: :point, id: "id"}'.c
 
   unroll
 
@@ -37,7 +37,7 @@ class Backend::BankStatementsController < BackendController
   # Displays the main page with the list of bank statements
   def index
     cashes = Cash.bank_accounts
-    unless cashes.count > 0
+    unless cashes.any?
       notify(:need_cash_to_record_statements)
       redirect_to new_cash_url
       return
