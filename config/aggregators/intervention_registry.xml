@@ -57,7 +57,7 @@
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
               <section name="issue" of="intervention.issue">
                 <property name="id" level="api"/>
-                <property name="name"/>
+                <property name="nature"/>
                 <property name="observed_at"/>
                 <property name="state" level="api"/>
                 <property name="description"/>
