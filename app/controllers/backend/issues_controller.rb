@@ -28,10 +28,9 @@ class Backend::IssuesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, url: true
+    t.column :target_name, url: true
     t.column :nature
     t.column :observed_at
-    t.column :target_name
     t.status
     t.column :gravity,  hidden: true
     t.column :priority, hidden: true
