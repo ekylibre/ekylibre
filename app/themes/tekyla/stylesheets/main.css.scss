@@ -921,20 +921,20 @@ form.search {
     text-shadow: 1px 1px 0 rgba(#000, 0.3);
   }
   .icon {
-    font-size: $fs-normal;
-    line-height: round(1.4*$fs-normal);
-    @include is-icon($fs-normal + 2px);
+    @include is-icon($lh-normal);
     display: inline;
     vertical-align: middle;
     @include margin-right($default-gap);
-    @include float(left);
   }
   .message {
     display: inline;
+    &, * {
+      vertical-align: middle;
+    }
     h3 {
       display: none;
       font-size: $fs-normal;
-      line-height: round(1.4*$fs-normal);
+      line-height: $lh-normal;
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
       padding: 0 0 $gap;
@@ -943,11 +943,11 @@ form.search {
     p {
       display: inline;
       font-size: $fs-normal;
-      line-height: round(1.4*$fs-normal);
+      line-height: $lh-normal;
       font-weight: bold;
     }
     ul {
-      padding: round($fs-normal/4);
+      padding: round($fs-normal * 0.25);
       @include padding-left(round(1.2*$fs-normal));
       li { list-style-type: square; }
     }
@@ -1043,7 +1043,7 @@ form.search {
   }
   .fieldset-fields {
     // border-top: $fieldset-border;
-    border-top: 2px solid $active-color;
+    border-top: (2 * $menu-border-width) solid $active-color;
     margin: 0 $default-gap $vertical-gap;
     padding: 0;
 
@@ -1290,8 +1290,10 @@ $form-actions-height: 48px;
 .kujaku {
   $color: #580;
   $background-color: #CE8;
+  $color: $text-color;
+  $background-color: lighten($active-color, 20%);
   color: $color;
-  margin: 0;
+  margin: 0 0 $default-gap;
   padding: $default-gap;
   background: $background-color; // mix(white, #CE0, 80%);
   @include clearfix;
@@ -1299,7 +1301,7 @@ $form-actions-height: 48px;
   .crits {
     padding: 0;
     .crit {
-      border-top: $menu-border-width solid darken($background-color, 20%);
+      border-top: (2 * $menu-border-width) solid darken($background-color, 5%);
       // padding: round($fs-normal/6) round($fs-normal/4);
       padding: round($default-gap * 0.6) 0 0;
       margin-top: round($default-gap * 0.6);

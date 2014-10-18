@@ -172,6 +172,12 @@
       <item name="general_ledger">
         <page to="backend/journals#general_ledger"/>
       </item>
+      <item name="accounts">
+        <page to="backend/accounts#reconciliation"/>
+        <page to="backend/accounts#list_reconciliation"/>
+        <page to="backend/accounts#mark"/>
+        <page to="backend/accounts#unmark"/>
+      </item>
     </group>
     <group name="analytics" icon="tasks">
       <item name="activities">
@@ -1234,13 +1240,9 @@
         <page to="backend/accounts#list"/>
         <page to="backend/accounts#list_entities"/>
         <page to="backend/accounts#list_journal_entry_items"/>
-        <page to="backend/accounts#list_reconciliation"/>
         <page to="backend/accounts#load"/>
-        <page to="backend/accounts#mark"/>
         <page to="backend/accounts#new"/>
-        <page to="backend/accounts#reconciliation"/>
         <page to="backend/accounts#show"/>
-        <page to="backend/accounts#unmark"/>
         <page to="backend/accounts#unroll"/>
         <page to="backend/accounts#update"/>
       </item>

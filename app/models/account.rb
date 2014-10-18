@@ -371,7 +371,8 @@ class Account < Ekylibre::Record::Base
 
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).order("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
+    # self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
+    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder("letter DESC, je.printed_on")
   end
 
   def new_letter

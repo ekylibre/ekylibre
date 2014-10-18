@@ -1107,7 +1107,6 @@ arb:
     # cultivable_zone: "Cultivable zone"
     # cultivable_zone_abbreviation: "CZ"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
-    # currency_with_code: "%{name} (%{code})"
     current: "الحالية"
     current_letter: "البيانات الحالية : %{letter}"
     # current_stocks_by_variety: "Current stocks by variety"
@@ -1279,7 +1278,6 @@ arb:
     # illness: "Illness"
     # implanted_at: "Implanted at"
     import: "استيراد"
-    # import_backup: "Import backup"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
     # incident: "Incident"
@@ -1323,7 +1321,6 @@ arb:
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد" #?
     invoiced_amount: "قيمة الفاتورة"
-    # invoices_only: "Use only invoices"
     # is: "Is"
     # issue: "Issue"
     # issues: "Issues"
@@ -1485,7 +1482,7 @@ arb:
     new_organization: "منظمة جديدة" #?
     new_payment: "تسجيل دفعة جديدة" #?
     new_sale: "بيعة جديدة" #?
-    new_title: "عنوان جديد"
+    new_title: "عنوان جديد" #?
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
       # other: "New transport (%{count} deliveries)"
@@ -1572,7 +1569,8 @@ arb:
     passive_sum: "مجموع المطلوبات" #?
     password: "كلمة المرور"
     # paths_to_convert: "Paths to convert"
-    payback: "طلب الاستحقاق"
+    # payable_taxes: "Payable taxes"
+    payback: "طلب الاستحقاق" #?
     # payment_amount: "Amount of payment"
     payment_at: "سدد في"
     # payment_conditions: "Payment conditions"
@@ -1659,10 +1657,9 @@ arb:
     purchase_lines: "تعديل تصميم الشراء" #?
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
-    purchase_steps:
-      # deliveries: "Incoming deliveries"
-      products: "انشاء الصفقة"
-      summary: "النفقات"
+    purchase_steps:  #?
+      products: "انشاء الصفقة" #?
+      summary: "النفقات" #?
     purchase_update: "تعديل معلومات الطلب" #?
     purchases: "المشتريات"
     purchases_number: "" #?
@@ -1768,20 +1765,19 @@ arb:
     search_sales: "البحث عن طلبات البيع"
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
-    select_account_client: "كتابة حسابات"
-    select_account_supplier: "كتابة حسابات"
+    select_account_client: "كتابة حسابات" #?
+    select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?
     select_building: "اختر مكان التخزين" #?
     select_closure_date: "اختيار تاريخ الاغلاق"
     select_columns: "ضع علامة على العمود الذي ترغب باظهاره في الجدول"
     select_date: "ادخل تاريخ"
     select_date_generation: "تاريخ نهاية الدمج"
-    # select_document: "Select document"
-    select_existing_payment: "ختيار الدفعة الموجودة"
+    select_existing_payment: "ختيار الدفعة الموجودة" #?
     # select_file_to_upload: "Select file to upload"
-    select_financial_year: "ممارسة"
+    select_financial_year: "ممارسة" #?
     select_number: "ادخل رقم"
-    select_number_or_date: "ادخل رقم او تاريخ"
+    select_number_or_date: "ادخل رقم او تاريخ" #?
     select_organization: "منظمة" #?
     select_renew_journal: "استخدام الدفاتر اليومية لتقارير جديدة"
     # selection: "Selection"
@@ -1814,7 +1810,7 @@ arb:
     stocks: "ادارة الاسهم"
     stop: "لغاية"
     # storage: "Storage"
-    string_case: "خيارات للنص"
+    string_case: "خيارات للنص" #?
     # string_options: "Text options"
     subject: "الموضوع"
     submit: "ارسال"
@@ -1836,7 +1832,6 @@ arb:
     # supports: "Supports"
     synthesis: "تجميع الوثائق" #?
     # target: "Target"
-    # target_zone: "Target zone"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
     # taxations: "Taxations"
@@ -1862,7 +1857,7 @@ arb:
     # total_earn: "Total earn"
     # total_earn_per_area: "Total earn per area"
     # total_in_currency: "Total (%{currency})"
-    total_invoiced_amount: "فواتير المبلغ الاجمالي"
+    total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     # total_paid_amount: "Total paid amount"
     total_quantity: "مجموع الكمية"
     # total_unpaid_amount: "Total unpaid amount"
@@ -1909,7 +1904,6 @@ arb:
     unreceived: "غير مقبوضة"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
     unused_payment: "دفعات غير مستخدمة" #?
-    # unvalid_date: "Invalid date"
     unvalidated_operations: "عمل غير صحيح" #?
     up: "يرتفع"
     update: "تعديل"

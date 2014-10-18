@@ -930,7 +930,6 @@ spa:
     # cultivable_zone: "Cultivable zone"
     # cultivable_zone_abbreviation: "CZ"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
-    # currency_with_code: "%{name} (%{code})"
     # current: "Current"
     current_letter: "Carta en curso\_: %{letter}"
     # current_stocks_by_variety: "Current stocks by variety"
@@ -1069,7 +1068,6 @@ spa:
     # illness: "Illness"
     # implanted_at: "Implanted at"
     import: "Importación de un  fichero de salvaguardia"
-    # import_backup: "Import backup"
     # importation_explanation: "Importation explanation"
     # incident: "Incident"
     # include_blank: "Include blank"
@@ -1108,7 +1106,6 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     # invoiced_amount: "Sales invoiced amount"
-    # invoices_only: "Use only invoices"
     # is: "Is"
     # issue: "Issue"
     # issues: "Issues"
@@ -1232,7 +1229,6 @@ spa:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
-    # new_title: "New title"
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
       # other: "New transport (%{count} deliveries)"
@@ -1290,7 +1286,7 @@ spa:
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
     # paid_amount: "Paid amount"
-    # paid_at: "Paid on"
+    # paid_at: "Paid at"
     parameters: "Parametros"
     # participants: "Participants"
     # participations: "Participations"
@@ -1301,7 +1297,8 @@ spa:
     passive_sum: "Total pasivos" #?
     password: "Contraseña"
     # paths_to_convert: "Paths to convert"
-    payback: "Reembolso pedido"
+    # payable_taxes: "Payable taxes"
+    payback: "Reembolso pedido" #?
     # payment_amount: "Amount of payment"
     # payment_at: "Payment on"
     # payment_conditions: "Payment conditions"
@@ -1370,10 +1367,9 @@ spa:
     # profitability: "Profitability"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
-    purchase_steps:
-      # deliveries: "Incoming deliveries"
-      products: "Creación de la compra"
-      summary: "Desembolsos"
+    purchase_steps:  #?
+      products: "Creación de la compra" #?
+      summary: "Desembolsos" #?
     # purchases: "Purchases"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
@@ -1460,19 +1456,16 @@ spa:
     # search_placeholder: "Search…"
     # search_sales: "Search sales"
     # section_x: "Section %{x}"
-    select_account_client: "Cuentos a marcar con letras"
-    select_account_supplier: "Cuento a marcar con letra"
+    select_account_client: "Cuentos a marcar con letras" #?
+    select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?
     select_closure_date: "Escoger la fecha de cierre"
     # select_columns: "Select columns"
     # select_date: "Select date"
     select_date_generation: "Fecha limita de integración"
-    # select_document: "Select document"
-    # select_existing_payment: "Select existing payment"
     # select_file_to_upload: "Select file to upload"
-    select_financial_year: "Ejercicio"
+    select_financial_year: "Ejercicio" #?
     # select_number: "Select number"
-    # select_number_or_date: "Select number or date"
     select_renew_journal: "Periodico utilizado para los aplazamientos de nuevo"
     # selection: "Selection"
     send: "Enviar un correro electronico" #?
@@ -1502,7 +1495,6 @@ spa:
     # stocks: "Stocks"
     # stop: "Stop"
     # storage: "Storage"
-    # string_case: "String case"
     # string_options: "Text options"
     subject: "Tema"
     # submit: "Submit"
@@ -1520,7 +1512,6 @@ spa:
     # supports: "Supports"
     synthesis: "Documentos de sintesis" #?
     # target: "Target"
-    # target_zone: "Target zone"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
     # taxations: "Taxations"
@@ -1542,7 +1533,7 @@ spa:
     # total_earn: "Total earn"
     # total_earn_per_area: "Total earn per area"
     # total_in_currency: "Total (%{currency})"
-    total_invoiced_amount: "Total importe facturado"
+    total_invoiced_amount: "Total importe facturado" #?
     # total_paid_amount: "Total paid amount"
     total_quantity: "Quantidad total"
     # total_unpaid_amount: "Total unpaid amount"
@@ -1580,7 +1571,6 @@ spa:
     # unpaid_sales: "Unpaid sales"
     # unreceived: "Unreceived"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
-    # unvalid_date: "Invalid date"
     # up: "Up"
     # update: "Update"
     # update_params: "Update params"

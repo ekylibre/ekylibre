@@ -788,7 +788,6 @@ eng:
     cultivable_zone: "Cultivable zone"
     cultivable_zone_abbreviation: "CZ"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
-    currency_with_code: "%{name} (%{code})" #?!
     current: "Current" #?
     current_letter: "Current letter: %{letter}" #?
     current_stocks_by_variety: "Current stocks by variety"
@@ -814,7 +813,7 @@ eng:
     destroy: "Destroy"
     details: "Details"
     discount: "Discount (%)" #?
-    display: "Display"
+    display: "Display" #?
     divide: "Divide"
     division: "Division"
     divisions: "Divisions"
@@ -900,7 +899,6 @@ eng:
     illness: "Illness"
     implanted_at: "Implanted at"
     import: "Import"
-    import_backup: "Import backup" #?!
     importation_explanation: "Importation explanation"
     incident: "Incident" #?
     include_blank: "Include blank" #?
@@ -932,7 +930,6 @@ eng:
     inventories: "Inventories"
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?
-    invoices_only: "Use only invoices" #?!
     is: "Is" #?
     issue: "Issue"
     issues: "Issues"
@@ -1022,7 +1019,6 @@ eng:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
-    new_title: "New title" #?!
     new_transport_of_x_deliveries:
       one: "New transport (%{count} delivery)"
       other: "New transport (%{count} deliveries)"
@@ -1072,13 +1068,13 @@ eng:
     page_title_by_default: "Ekylibre ERP · %{action}"
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Paid amount" #?
-    paid_at: "Paid on" #?
+    paid_at: "Paid at" #?
     parameters: "Parameters"
     participants: "Participants"
     participations: "Participations"
     password: "Password" #?
     paths_to_convert: "Paths to convert"
-    payback: "Payback" #?!
+    payable_taxes: "Payable taxes" #?
     payment_amount: "Amount of payment" #?
     payment_at: "Payment on" #?
     payment_conditions: "Payment conditions"
@@ -1144,10 +1140,6 @@ eng:
     profitability: "Profitability"
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
-    purchase_steps: #?!
-      deliveries: "Incoming deliveries" #?!
-      products: "Purchase" #?!
-      summary: "Disbursements" #?!
     purchases: "Purchases"
     quantity: "Quantity"
     quantity_rest: "Remaining quantity"
@@ -1207,18 +1199,12 @@ eng:
     search_placeholder: "Search…"
     search_sales: "Search sales" #?
     section_x: "Section %{x}"
-    select_account_client: "Customer Account for lettering" #?!
-    select_account_supplier: "Supplier Account for lettering" #?!
     select_closure_date: "Choose closing date"
     select_columns: "Select columns"
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
-    select_document: "Select document" #?!
-    select_existing_payment: "Select existing payment" #?!
     select_file_to_upload: "Select file to upload"
-    select_financial_year: "Financial year" #?!
     select_number: "Select number"
-    select_number_or_date: "Select number or date" #?!
     select_renew_journal: "Selected Journal to renew"
     selection: "Selection"
     send_mail: "Send mail"
@@ -1241,7 +1227,6 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     storage: "Storage" #?
-    string_case: "String case" #?!
     string_options: "Text options"
     subject: "Subject"
     submit: "Submit" #?
@@ -1257,7 +1242,6 @@ eng:
     support: "Support"
     supports: "Supports"
     target: "Target" #?
-    target_zone: "Target zone" #?!
     taxations: "Taxations"
     taxes: "Taxes"
     time_cost: "Time cost" #?
@@ -1276,7 +1260,6 @@ eng:
     total_earn: "Total earn"
     total_earn_per_area: "Total earn per area"
     total_in_currency: "Total (%{currency})"
-    total_invoiced_amount: "Total invoiced amount" #?!
     total_paid_amount: "Total paid amount"
     total_quantity: "Total quantity"
     total_unpaid_amount: "Total unpaid amount"
@@ -1303,14 +1286,13 @@ eng:
     unknown_user: "Unknown user"
     unknown_variant: "Unknown variant"
     unlock: "Unlock" #?
-    unmark: "Unmark"
+    unmark: "Unmark" #?
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #?
     unpaid_days: "Unpaid since (in days)" #?
     unpaid_sales: "Unpaid sales"
     unreceived: "Unreceived" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
-    unvalid_date: "Invalid date" #?!
     up: "Up" #?
     update: "Update"
     update_params: "Update params" #?

@@ -84,9 +84,9 @@ class Backend::AccountsController < BackendController
   end
 
   def self.account_reconciliation_conditions
-    code  = search_conditions(:accounts => [:name, :number, :description], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code  = search_conditions(accounts: [:name, :number, :description], journal_entries: [:number], JournalEntryItem.table_name => [:name, :debit, :credit]) + "[0] += ' AND accounts.reconcilable = ?'\n"
     code << "c << true\n"
-    code << "c[0] += ' AND LENGTH(TRIM(letter)) = 0'\n"
+    code << "c[0] += ' AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)'\n"
     code << "c"
     return code.c
   end

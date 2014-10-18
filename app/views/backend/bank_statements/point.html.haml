@@ -48,21 +48,21 @@
               %th
 
         %tbody
-          - for journal_entry_item in @journal_entry_items
-            - checked = (journal_entry_item.bank_statement_id == resource.id)
-            - trid, conf = "e#{journal_entry_item.id}", {}
+          - for item in @journal_entry_items
+            - checked = (item.bank_statement_id == resource.id)
+            - trid, conf = "e#{item.id}", {}
             %tr{id: trid, class: (checked ? "selected " : "") + cycle("even", "odd")}
               %td.chk
-                - if journal_entry_item.bank_statement_id.nil? or checked
-                  = check_box_tag("journal_entry_item[#{journal_entry_item.id}][checked]", "1", checked, id: "journal_entry_item_#{journal_entry_item.id}_checked", data: {add_class: "selected", add_class_to: "##{trid}"})
-                  - conf = {data: {click: "#journal_entry_item_#{journal_entry_item.id}_checked"}}
+                - if item.bank_statement_id.nil? or checked
+                  = check_box_tag("item[#{item.id}][checked]", "1", checked, id: "item_#{item.id}_checked", data: {add_class: "selected", add_class_to: "##{trid}"})
+                  - conf = {data: {click: "#item_#{item.id}_checked"}}
                 - else
-                  = link_to(journal_entry_item.bank_statement.number, action: :show, id: journal_entry_item.bank_statement.id)
-              %td.date{conf}= journal_entry_item.entry.printed_on.l
-              %td{conf}= journal_entry_item.name
-              %td.dec.debit{conf}=  number_to_accountancy(journal_entry_item.debit)
-              %td.dec.credit{conf}= number_to_accountancy(journal_entry_item.credit)
-              %td= link_to(journal_entry_item.entry.number, action: :show, controller: :journal_entries, id: journal_entry_item.entry_id)
+                  = link_to(item.bank_statement.number, action: :show, id: item.bank_statement.id)
+              %td.date{conf}= item.entry.printed_on.l
+              %td{conf}= item.name
+              %td.dec.debit{conf}=  number_to_accountancy(item.debit)
+              %td.dec.credit{conf}= number_to_accountancy(item.credit)
+              %td= link_to(item.entry.number, action: :show, controller: :journal_entries, id: item.entry_id)
 
   = form_actions do
     = submit_tag :save.tl

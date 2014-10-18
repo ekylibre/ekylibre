@@ -260,14 +260,31 @@
     var element  = $(this);
     var selector = element.data("valid-if-equality-between");
     $(document).behave("load keyup change emulated:change remove", selector, function () {
-      var value = null, equality = true;
+      var value = null, equality = true, oldEquality;
+      oldEquality = element.hasClass("valid");
       $(selector).each(function () {
         if (value === null) { value = $(this).numericalValue(); }
         if (value !== $(this).numericalValue()) { equality = false; }
       });
-      element.toggleClass("valid", equality);
-      element.toggleClass("invalid", !equality);
+      if (element.hasClass("valid") && !equality) {
+        element.removeClass("valid");
+        element.addClass("invalid");
+        element.trigger("change");
+      } else if (element.hasClass("invalid") && equality) {
+        element.removeClass("invalid");
+        element.addClass("valid");
+        element.trigger("change");
+      }
     });
+  });
+
+  $(document).on("change", "*[data-valid-if-equality-between]", function () {
+    var element = $(this), form;
+    if (element.hasClass("valid")) {
+      form = element.closest("form");
+      if (form)
+        form.submit();
+    }
   });
 
   // Removes DOM Element defined by the selector

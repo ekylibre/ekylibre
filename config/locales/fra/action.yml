@@ -840,7 +840,7 @@ fra:
     cultivable_zone_abbreviation: "ZC"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
-    currency_with_code: "%{code} - %{name}"
+    currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
     current_letter: "Lettre en cours\_: %{letter}"
     current_stocks_by_variety: "État des stocks"
@@ -913,7 +913,7 @@ fra:
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
     equipments: "Équipements"
-    # error: "Sorry..."
+    error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
     error_sale_already_paid: "La vente a déjà été payée en totalité" #?
     errors_explanation: "Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation"
@@ -998,7 +998,7 @@ fra:
     immunoglobulins_concentration: "Concentration en immunoglobulines Gamma" #?
     implanted_at: "Implantée le"
     import: "Importer"
-    import_backup: "Import de fichier de sauvegarde"
+    import_backup: "Import de fichier de sauvegarde" #?
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
     incident: "Incident"
@@ -1036,7 +1036,7 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invoiced_amount: "Montant facturé"
-    invoices_only: "Utiliser seulement les factures"
+    invoices_only: "Utiliser seulement les factures" #?
     is: "Est"
     issue: "Incident"
     issues: "Incidents"
@@ -1187,7 +1187,7 @@ fra:
     new_reservoir: "Ajouter un réservoir" #?
     new_sale: "Nouvelle vente" #?
     new_sales_price: "Ajouter un prix de vente" #?
-    new_title: "Nouveau titre"
+    new_title: "Nouveau titre" #?
     new_transport_of_x_deliveries:
       one: "Nouveau transport (%{count} livraison)"
       other: "Nouveau transport (%{count} livraisons)"
@@ -1257,7 +1257,8 @@ fra:
     participations: "Participations"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir"
-    payback: "Remboursement demandée"
+    payable_taxes: "Taxes payables"
+    payback: "Remboursement demandée" #?
     payment_amount: "Montant de l’encaissement"
     payment_at: "Payé le"
     payment_conditions: "Conditions de règlement"
@@ -1341,10 +1342,10 @@ fra:
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
-    purchase_steps:
-      deliveries: "Livraisons"
-      products: "Création de l’achat"
-      summary: "Décaissements"
+    purchase_steps:  #?
+      deliveries: "Livraisons" #?
+      products: "Création de l’achat" #?
+      summary: "Décaissements" #?
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
@@ -1448,20 +1449,20 @@ fra:
     second_building_name: "Entrée de" #?
     second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
-    select_account_client: "Compte à lettrer"
-    select_account_supplier: "Compte à lettrer"
+    select_account_client: "Compte à lettrer" #?
+    select_account_supplier: "Compte à lettrer" #?
     select_area: "Zone postale" #?
     select_building: "Sélectionnez un lieu de stockage" #?
     select_closure_date: "Choisissez la date de clôture"
     select_columns: "Cochez les colonnes que vous voulez voir apparaitre dans le tableau."
     select_date: "Entrez une date"
     select_date_generation: "Date limite d’intégration"
-    select_document: "Sélectionnez un document"
-    select_existing_payment: "Sélectionner un encaissement existant"
+    select_document: "Sélectionnez un document" #?
+    select_existing_payment: "Sélectionner un encaissement existant" #?
     select_file_to_upload: "Sélectionnez le fichier à importer"
-    select_financial_year: "Exercice"
+    select_financial_year: "Exercice" #?
     select_number: "Entrez un numéro"
-    select_number_or_date: "Entrez un numéro ou une date"
+    select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
     select_renew_journal: "Journal utilisé pour les reports à nouveaux"
     selection: "Sélection"
@@ -1494,7 +1495,7 @@ fra:
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     storage: "Support"
-    string_case: "Options pour le texte"
+    string_case: "Options pour le texte" #?
     string_options: "Indicateur de type Texte"
     subject: "Sujet"
     submit: "Envoyer"
@@ -1516,7 +1517,7 @@ fra:
     synthesis: "Documents de synthèse" #?
     target: "Cible"
     target_name: "Nom de la cible" #?
-    target_zone: "Zone cible"
+    target_zone: "Zone cible" #?
     taxations: "Taxations"
     taxes: "Taxes"
     temperature: "Température" #?
@@ -1543,7 +1544,7 @@ fra:
     total_earn: "Gain total"
     total_earn_per_area: "Gain total par unité de surface"
     total_in_currency: "Total (%{currency})"
-    total_invoiced_amount: "Total montant facturé"
+    total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé"
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé"
@@ -1585,7 +1586,7 @@ fra:
     unreceived: "Non reçus"
     unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
     unused_payment: "Encaissement à utiliser" #?
-    unvalid_date: "Date incorrecte"
+    unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
     up: "Monter"
     update: "Modifier"
@@ -1869,7 +1870,7 @@ fra:
         zero: "Il n’y a pas d’écritures à pointer pour l’instant"
       you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
-      # you_need_to_review_your_application_configuration: "You need to review your application configuration"
+      you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
   preferences:
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
