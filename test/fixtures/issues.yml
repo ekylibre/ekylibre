@@ -28,6 +28,7 @@
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
+#  name                 :string(255)      not null
 #  nature               :string(255)      not null
 #  observed_at          :datetime         not null
 #  picture_content_type :string(255)
@@ -46,6 +47,7 @@
 #
 # issues_001:
 #   creator: users_001
+#   name: "Lorem ipsum"
 #   nature: "Lorem ipsum"
 #   observed_at: 2013-10-26 18:34:04 +02:00
 #   target: targets_001 (Model)
@@ -55,18 +57,20 @@
 
 issues_001:
   creator: users_001
+  name: "Mammite on Marguerite"
   nature: mammite
   observed_at: 2009-07-19 19:13:59.000000000 +02:00
   priority: 2
   state: opened
-  target: animals_001 (Animal)
+  target: animals_004 (Animal)
   updater: users_001
 
 issues_002:
   creator: users_001
+  name: "Mammite on Marguerite"
   nature: mammite
   observed_at: 2009-07-19 19:13:59.000000000 +02:00
   priority: 2
   state: opened
-  target: animals_001 (Animal)
+  target: animals_004 (Animal)
   updater: users_001
