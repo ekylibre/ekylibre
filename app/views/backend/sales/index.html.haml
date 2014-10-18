@@ -6,8 +6,6 @@
     = select_tag(:responsible_id, options_for_select([[]] + Entity.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
 - main_toolbar do |t|
-  - t.new :variants => SaleNature.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {:nature_id => n.id}; h}
-  -# t.new
-  -# t.print_sales Date.today.to_s, action: :index, controller: :sales
+  - t.new variants: SaleNature.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
 
 = list

@@ -1254,11 +1254,7 @@ spa:
     # none: "None"
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
-    notifications:
-      # error: "Error"
-      # information: "Information"
-      # success: "Success"
-      # warning: "Warning!"
+    notifications: #?
     # number: "Number"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
@@ -1775,6 +1771,7 @@ spa:
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "Los correos electronicos han sido enviados"
       # need_a_production_support: "Need a production support"
+      # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
       # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
       need_balanced_journal_to_tax_declaration: "Todos sur periodicos deben de ser cerrados y equilibrados a esta fecha." #?
       need_building_to_create_purchase_line: "Se debe crear un lugar de almacenamiento para hacer una compra" #?
@@ -1801,7 +1798,6 @@ spa:
       no_depositable_payments: "No hay pago para entregar en banco"
       no_existing_mandates: "No hay responsabilidades registradas por el momento" #?
       no_financial_year: "Ningun ejercicio registrado" #?
-      # no_items_found: "No product has been added to the order"
       no_lines_found: "Ningun producto ha sido añadido al encargo" #?
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
       no_reopenable_journal: "nos se puede cerrar este periodico."
@@ -1812,7 +1808,6 @@ spa:
       password_successfully_changed: "Su contraseña ha sido puesta a día con éxito" #?
       prices_import_succeeded: "Sus datos han sido importados correctamente" #?
       print_failure: "Imposible de imprimir. Intenta recargar los modelos de documentos para corrgir el problema. %{error} (%{class})." #?
-      # purchase_already_invoiced: "Purchase already invoiced"
       # record_already_imported: "Record already imported"
       record_cannot_be_removed: "El registro no puede ser suprimido"
       record_has_been_correctly_removed: "El registro ha sido suprimido correctamente"
@@ -1821,8 +1816,8 @@ spa:
       # record_not_found: "Record not found"
       restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}" #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
-      sale_cannot_be_updated: "El presupuesto ya no esta modificable."
-      sale_cant_be_deleted: "La venta no puede ser suprimida"
+      sale_cannot_be_updated: "El presupuesto ya no esta modificable." #?
+      sale_cant_be_deleted: "La venta no puede ser suprimida" #?
       select_entries_to_letter_together: "Escroge escroturas para latrarlas juntas" #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?

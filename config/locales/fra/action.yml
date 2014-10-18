@@ -1223,11 +1223,11 @@ fra:
     not_contains: "Ne contient pas" #?
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
-    notifications:
-      error: "Erreur"
-      information: "Information"
-      success: "Opération réalisée avec succès"
-      warning: "Attention!"
+    notifications:  #?
+      error: "Erreur" #?
+      information: "Information" #?
+      success: "Opération réalisée avec succès" #?
+      warning: "Attention!" #?
     number: "Numéro"
     number_options: "Options de numérotations"
     numbers: "Numéros"
@@ -1805,6 +1805,7 @@ fra:
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"
       need_a_production_support: "Nécessite un support de production"
+      need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
       need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"
       need_balanced_journal_to_tax_declaration: "Tous vos journaux doivent être clôturés et équilibrés à cette date." #?
       need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat" #?
@@ -1832,7 +1833,7 @@ fra:
       no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
       no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
       no_financial_year: "Aucun exercice enregistré" #?
-      no_items_found: "Aucun pruduit n’a été ajouté à la commande "
+      no_items_found: "Aucun pruduit n’a été ajouté à la commande " #?
       no_payment_to_deposit: "Aucun règlement à encaisser"
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
@@ -1843,7 +1844,7 @@ fra:
       password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
       prices_import_succeeded: "Vos données ont été correctement importées" #?
       print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
-      purchase_already_invoiced: "Achat déjà facturé"
+      purchase_already_invoiced: "Achat déjà facturé" #?
       record_already_imported: "Enregistrement déjà importé"
       record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
       record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
@@ -1852,8 +1853,8 @@ fra:
       record_not_found: "Enregistrement introuvable"
       restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)." #?
       sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
-      sale_cannot_be_updated: "Le devis n’est plus modifiable."
-      sale_cant_be_deleted: "La vente ne peut plus être supprimée"
+      sale_cannot_be_updated: "Le devis n’est plus modifiable." #?
+      sale_cant_be_deleted: "La vente ne peut plus être supprimée" #?
       select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?

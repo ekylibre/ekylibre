@@ -1513,11 +1513,11 @@ arb:
     # none: "None"
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
-    notifications:
-      error: "خطأ"
-      information: "معلومة"
-      success: "استكملت العملية بنجاح"
-      warning: "!تحذير"
+    notifications:  #?
+      error: "خطأ" #?
+      information: "معلومة" #?
+      success: "استكملت العملية بنجاح" #?
+      warning: "!تحذير" #?
     number: "رقم"
     # number_options: "Options Numbers"
     # numbers: "Numbers"
@@ -2123,6 +2123,7 @@ arb:
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
       messages: #?
       # need_a_production_support: "Need a production support"
+      # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
       # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
       need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ" #?
       need_building_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
@@ -2149,7 +2150,6 @@ arb:
       no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
       no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر" #?
       no_financial_year: "لم يتم تسجيل اي سنة مالية" #?
-      # no_items_found: "No product has been added to the order"
       no_lines_found: "لم يتم اضافة اي منتج الى الطلب" #?
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
@@ -2160,7 +2160,6 @@ arb:
       password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
       prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
       print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
-      # purchase_already_invoiced: "Purchase already invoiced"
       # record_already_imported: "Record already imported"
       record_cannot_be_removed: "لا يمكن حذف السجل"
       record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
@@ -2169,8 +2168,8 @@ arb:
       # record_not_found: "Record not found"
       restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}" #?
       sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم" #?
-      sale_cannot_be_updated: "الطلب غير قابل للتعديل"
-      sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع"
+      sale_cannot_be_updated: "الطلب غير قابل للتعديل" #?
+      sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع" #?
       select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?

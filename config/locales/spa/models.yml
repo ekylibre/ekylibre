@@ -314,9 +314,9 @@ spa:
       # product_mixing: "Product mixing"
       # product_nature: "Product"
       # product_nature_category: "Product category"
-      # product_nature_category_taxation: "Product nature category taxation"
-      # product_nature_variant: "Product nature variant"
-      # product_nature_variant_reading: "Product nature variant reading"
+      # product_nature_category_taxation: "Product type category taxation"
+      # product_nature_variant: "Product type variant"
+      # product_nature_variant_reading: "Product type variant reading"
       # product_ownership: "Product ownership"
       # product_phase: "Product phase"
       # product_quadruple_mixing: "Product quadruple mixing"
@@ -330,7 +330,7 @@ spa:
       # property_title: "Property title"
       # purchase: "Purchase"
       # purchase_item: "Purchase item"
-      # purchase_nature: "Purchase nature"
+      # purchase_nature: "Purchase type"
       # role: "Role"
       # sale: "Sale"
       # sale_item: "Sale item"
@@ -775,9 +775,9 @@ spa:
     # mode: "Mode"
     # mother: "Mother"
     name: "Nombre"
-    # nature: "Nature"
-    # nature_name: "Nature name"
-    # natures: "Natures"
+    # nature: "Type"
+    # nature_name: "Type name"
+    # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
     # nitrogen_at_closing: "Nitrogen at closing"
@@ -871,10 +871,10 @@ spa:
     # product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     # product_mixings: "Product mixings"
-    # product_nature: "Product nature"
-    # product_nature_categories: "Product nature categories"
-    # product_nature_category: "Product nature category"
-    # product_nature_category_taxations: "Product nature category taxations"
+    # product_nature: "Product type"
+    # product_nature_categories: "Product type categories"
+    # product_nature_category: "Product type category"
+    # product_nature_category_taxations: "Product type category taxations"
     # product_ownerships: "Product ownerships"
     # product_phases: "Product phases"
     # product_quadruple_mixings: "Product quadruple mixings"
@@ -985,7 +985,7 @@ spa:
     # shape: "Shape"
     # sign_in_count: "Sign in count"
     # siren: "SIREN"
-    # soil_nature: "Soil nature"
+    # soil_nature: "Soil type"
     # soil_production: "Soil production"
     # source: "Source"
     # spaced_iban: "Spaced IBAN"
@@ -1276,7 +1276,7 @@ spa:
     purchase_line: #?
     purchase_nature:
       default:
-        # name: "Standard"
+        # name: "Standard purchase"
     role:
       default:
         # administrator: "Administrator"
@@ -1315,7 +1315,7 @@ spa:
     sale_line: #?
     sale_nature:
       default:
-        # name: "Standard"
+        # name: "Standard sale"
     sequence:
       default:
         # animals: "ANI[year|4][number|4]"

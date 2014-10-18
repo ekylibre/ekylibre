@@ -71,6 +71,8 @@ class Person < Entity
   has_one :worker
   has_one :user
 
+  scope :users, -> { where(id: User.all) }
+
   scope :employees, -> { joins(:direct_links).merge(EntityLink.of_nature(:work)) }
 
   scope :employees_of, lambda { |boss|

@@ -897,11 +897,11 @@ arb:
       product_move: "حركة السهم" #?
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
-      # product_nature_category_taxation: "Product nature category taxation"
+      # product_nature_category_taxation: "Product type category taxation"
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
-      # product_nature_variant: "Product nature variant"
-      # product_nature_variant_reading: "Product nature variant reading"
+      # product_nature_variant: "Product type variant"
+      # product_nature_variant_reading: "Product type variant reading"
       # product_ownership: "Product ownership"
       # product_phase: "Product phase"
       product_price_listing: "فئة الفرد" #?
@@ -922,7 +922,7 @@ arb:
       # property_title: "Property title"
       purchase: "الشراء"
       purchase_item: "طريقة طلب الشراء"
-      # purchase_nature: "Purchase nature"
+      # purchase_nature: "Purchase type"
       role: "الدور"
       sale: "البيع"
       sale_item: "طريقة طلب البيع"
@@ -1565,8 +1565,8 @@ arb:
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
-    # nature_name: "Nature name"
-    # natures: "Natures"
+    # nature_name: "Type name"
+    # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
     nic: "واجهة بطاقة الشبكة" #?
@@ -1712,10 +1712,10 @@ arb:
     # product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     # product_mixings: "Product mixings"
-    # product_nature: "Product nature"
-    # product_nature_categories: "Product nature categories"
-    # product_nature_category: "Product nature category"
-    # product_nature_category_taxations: "Product nature category taxations"
+    # product_nature: "Product type"
+    # product_nature_categories: "Product type categories"
+    # product_nature_category: "Product type category"
+    # product_nature_category_taxations: "Product type category taxations"
     # product_ownerships: "Product ownerships"
     # product_phases: "Product phases"
     # product_quadruple_mixings: "Product quadruple mixings"
@@ -1877,7 +1877,7 @@ arb:
     # sign_in_count: "Sign in count"
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم" #?
-    # soil_nature: "Soil nature"
+    # soil_nature: "Soil type"
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
@@ -2550,7 +2550,7 @@ arb:
     purchase_line: #?
     purchase_nature:
       default:
-        # name: "Standard"
+        # name: "Standard purchase"
     role:
       default:
         # administrator: "Administrator"
@@ -2597,7 +2597,7 @@ arb:
     sale_line: #?
     sale_nature:
       default:
-        # name: "Standard"
+        # name: "Standard sale"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?

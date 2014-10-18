@@ -1395,7 +1395,7 @@ fra:
       tracking: "N°Lot\_: %{serial}"
     purchase_nature:
       default:
-        name: "Standard"
+        name: "Achat standard"
     role:
       default:
         administrator: "Gérant"

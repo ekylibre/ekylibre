@@ -18,7 +18,7 @@
 #
 
 class Backend::SalesController < BackendController
-  manage_restfully only: []
+  manage_restfully except: [:index, :show, :new], redirect_to: '{action: :show, id: "id"}'.c
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -95,18 +95,6 @@ class Backend::SalesController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  # list(:payment_uses, model: :incoming_payment_uses, conditions: ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", 'params[:id]'.c, 'Sale']) do |t|
-  #   t.column :number, through: :payment, url: true
-  #   t.column :amount, currency: true, through: :payment, :label => "payment_amount", url: true
-  #   t.column :amount, currency: true
-  #   t.column :payment_way
-  #   t.column :scheduled, through: :payment, :datatype => :boolean, :label => :column
-  #   t.column :downpayment
-  #   # t.column :paid_at, through: :payment, :label => :column, :datatype => :date
-  #   t.column :to_bank_at, through: :payment, :label => :column, :datatype => :date
-  #   t.action :destroy
-  # end
-
   list(:subscriptions, conditions: {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number
     t.column :nature
@@ -159,30 +147,47 @@ class Backend::SalesController < BackendController
       format.html do
         t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
       end
-      # format.json { render :json => @sale, :include => {:items => {:include => :variant}} }
-      # format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :variant}} }
-      # format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :variant}} }
-      # format.odt  { render  :odt => @sale, :include => {:items => {:include => :variant}} }
-      # format.docx { render :docx => @sale, :include => {:items => {:include => :variant}} }
-      # # format.pdf do
-      # #   if @sale.invoice?
-      # #     render_print_sales_invoice(@sale)
-      # #   else
-      # #     render_print_sales_order(@sale)
-      # #   end
-      # # end
     end
 
   end
 
-  def abort
+  def new
+    unless nature = SaleNature.find_by(id: params[:nature_id]) || SaleNature.by_default
+      notify_error :need_a_valid_sale_nature_to_start_new_sale
+      redirect_to :index
+      return
+    end
+    @sale = Sale.new(nature: nature)
+    @sale.currency = @sale.nature.currency
+    if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
+      if client.default_mail_address
+        cid = client.default_mail_address.id
+        @sale.attributes = {address_id: cid, delivery_address_id: cid, invoice_address_id: cid}
+      end
+    end
+    session[:current_entity_id] = (client ? client.id : nil)
+    @sale.responsible = current_user.person
+    @sale.client_id = session[:current_entity_id]
+    @sale.letter_format = false
+    @sale.function_title = :default_letter_function_title.tl
+    @sale.introduction = :default_letter_introduction.tl
+    @sale.conclusion = :default_letter_conclusion.tl
+  end
+
+  def duplicate
     return unless @sale = find_and_check
-    if request.post?
-      @sale.abort
+    copy = nil
+    begin
+      copy = @sale.duplicate(responsible: current_user.person)
+    rescue Exception => e
+      notify_error(:exception_raised, message: e.message)
     end
-    redirect_to action: :show, id: @sale.id
+    if copy
+      redirect_to action: :show, id: copy.id
+      return
+    end
+    redirect_to_current
   end
-
 
   list(:creditable_items, model: :sale_items, conditions: ["sale_id=? AND reduced_item_id IS NULL", 'params[:id]'.c]) do |t|
     t.column :label
@@ -245,94 +250,16 @@ class Backend::SalesController < BackendController
     end
   end
 
-  def correct
+  def abort
     return unless @sale = find_and_check
-    if request.post?
-      @sale.correct
-    end
+    @sale.abort
     redirect_to action: :show, id: @sale.id
   end
 
-  def new
-    unless nature = SaleNature.find_by(id: params[:nature_id]) || SaleNature.by_default
-      notify_error :need_a_valid_sale_nature_to_start_new_sale
-      redirect_to :index
-      return
-    end
-    @sale = Sale.new(nature: nature)
-    @sale.currency = @sale.nature.currency
-    if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
-      if client.default_mail_address
-        cid = client.default_mail_address.id
-        @sale.attributes = {address_id: cid, delivery_address_id: cid, invoice_address_id: cid}
-      end
-    end
-    session[:current_entity_id] = (client ? client.id : nil)
-    @sale.responsible_id = current_user.id
-    @sale.client_id = session[:current_entity_id]
-    @sale.letter_format = false
-    @sale.function_title = :default_letter_function_title.tl
-    @sale.introduction = :default_letter_introduction.tl
-    @sale.conclusion = :default_letter_conclusion.tl
-  end
-
-  def create
-    @sale = Sale.new permitted_params
-    @sale.number = ''
-    return if save_and_redirect(@sale, url: {action: :show, id: "id"})
-  end
-
-  def edit
+  def correct
     return unless @sale = find_and_check
-    unless @sale.draft?
-      notify_error(:sale_cannot_be_updated)
-      redirect_to action: :show, id: @sale.id
-      return
-    end
-    t3e @sale.attributes
-    # render_restfully_form
-  end
-
-  def update
-    return unless @sale = find_and_check
-    unless @sale.draft?
-      notify_error(:sale_cannot_be_updated)
-      redirect_to action: :show, id: @sale.id
-      return
-    end
-    if @sale.update_attributes(permitted_params)
-      redirect_to action: :show, id: @sale.id
-      return
-    end
-    t3e @sale.attributes
-    # render_restfully_form
-  end
-
-  def destroy
-    return unless @sale = find_and_check
-    if request.post? or request.delete?
-      if @sale.aborted?
-        @sale.destroy
-      else
-        notify_error(:sale_cant_be_deleted)
-      end
-    end
-    redirect_to_current
-  end
-
-  def duplicate
-    return unless sale = find_and_check
-    copy = nil
-    begin
-      copy = sale.duplicate(:responsible_id => current_user.id)
-    rescue Exception => e
-      notify_error(:exception_raised, :message => e.message)
-    end
-    if copy
-      redirect_to action: :show, id: copy.id
-      return
-    end
-    redirect_to_current
+    @sale.correct
+    redirect_to action: :show, id: @sale.id
   end
 
   def invoice
@@ -365,6 +292,5 @@ class Backend::SalesController < BackendController
     @sale.refuse
     redirect_to action: :show, id: @sale.id
   end
-
 
 end
