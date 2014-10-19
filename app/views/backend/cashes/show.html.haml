@@ -24,11 +24,14 @@
             - l.attribute :bank_account_number
             - l.attribute :bank_account_key
 
-  - if resource.bank_account?
-    - b.hbox do
+  - b.hbox do
+
+    - if resource.incoming_payment_modes.with_deposit.any?
       - b.cell(Cash.human_attribute_name(:deposits)) do
         = list(:deposits)
+
+    - if resource.bank_account?
       - b.cell(Cash.human_attribute_name(:bank_statements)) do
         = toolbar do |t|
-          - t.new(controller: :bank_statements, cash_id: resource.id)
+          - t.new(params: {controller: :bank_statements, cash_id: resource.id})
         = list(:bank_statements)

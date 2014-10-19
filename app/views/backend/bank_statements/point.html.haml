@@ -54,8 +54,8 @@
             %tr{id: trid, class: (checked ? "selected " : "") + cycle("even", "odd")}
               %td.chk
                 - if item.bank_statement_id.nil? or checked
-                  = check_box_tag("item[#{item.id}][checked]", "1", checked, id: "item_#{item.id}_checked", data: {add_class: "selected", add_class_to: "##{trid}"})
-                  - conf = {data: {click: "#item_#{item.id}_checked"}}
+                  = check_box_tag("journal_entry_items[#{item.id}][checked]", "1", checked, id: "#{trid}-checked", data: {add_class: "selected", add_class_to: "##{trid}"})
+                  - conf = {data: {click: "##{trid}-checked"}}
                 - else
                   = link_to(item.bank_statement.number, action: :show, id: item.bank_statement.id)
               %td.date{conf}= item.entry.printed_on.l

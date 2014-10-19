@@ -48,9 +48,11 @@ class BankStatement < Ekylibre::Record::Base
   validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
   #]VALIDATORS]
 
+  delegate :name, :currency, to: :cash, prefix: true
+
   before_validation do
     if self.cash
-      self.currency = self.cash.currency
+      self.currency = self.cash_currency
     end
     self.debit  = self.items.sum(:real_debit)
     self.credit = self.items.sum(:real_credit)

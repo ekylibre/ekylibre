@@ -70,7 +70,8 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   delegate :currency, to: :cash
   delegate :journal, to: :cash, prefix: true
 
-  scope :depositers, -> { where(with_deposit: true).order(:name) }
+  scope :depositers, -> { with_deposit.order(:name) }
+  scope :with_deposit, -> { where(with_deposit: true) }
 
   before_validation do
     if self.cash and self.cash.cash_box?
