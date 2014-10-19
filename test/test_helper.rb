@@ -270,10 +270,37 @@ class ActionController::TestCase
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
         elsif mode == :unroll
-          test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
-          test_code << "xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
-          test_code << "xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
-          # TODO test all scopes
+          test_code << "assert_nothing_raised do\n"
+          test_code << "  xhr :get, :#{action}, #{sanitized_params[]}\n"
+          test_code << "end\n"
+          test_code << "assert_nothing_raised do\n"
+          test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
+          test_code << "end\n"
+          test_code << "assert_nothing_raised do\n"
+          test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
+          test_code << "end\n"
+          if model
+            test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+            test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+            test_code << "assert_nothing_raised do\n"
+            test_code << "  xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            test_code << "end\n"
+            for scope in model.simple_scopes
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name]}\n"
+              test_code << "end\n"
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :json]}\n"
+              test_code << "end\n"
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :xml]}\n"
+              test_code << "end\n"
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}\n"
+              test_code << "end\n"
+            end
+            # TODO test complex scopes
+          end
         elsif mode == :get
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{show_notification}\n"

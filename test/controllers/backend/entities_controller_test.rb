@@ -20,11 +20,4 @@
 require 'test_helper'
 class Backend::EntitiesControllerTest < ActionController::TestCase
   test_restfully_all_actions
-
-  test 'should not raise exception when unrolling' do
-    assert_nothing_raised do
-      get :unroll, { :scope => 'necessary_transporters', :id => '1' }
-    end
-  end
-
 end

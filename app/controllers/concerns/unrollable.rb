@@ -110,10 +110,8 @@ module Unrollable
         code << ".references(#{options[:includes].inspect})"
       end
       code <<  ".order(#{order.inspect})\n"
-      # code << "  items = #{model.name}.unscoped\n"
-      # code << "  raise params[:scope].inspect\n"
       code << "  if scopes = params[:scope]\n"
-      code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String)\n"
+      code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String) or scopes.is_a?(Symbol)\n"
       code << "    for scope, parameters in scopes.symbolize_keys\n"
       code << "      if (parameters.is_a?(TrueClass) or parameters == 'true') and klass.simple_scopes.map(&:name).include?(scope)\n"
       code << "        items = items.send(scope)\n"
@@ -135,8 +133,8 @@ module Unrollable
       code << "  if params[:id]\n"
       code << "    items = items.where(id: params[:id])\n"
       searchable_columns = columns.delete_if{ |c| c[:type] == :boolean }
-      if searchable_columns.size > 0
-        code << "  elsif keys.size > 0\n"
+      if searchable_columns.any?
+        code << "  elsif keys.any?\n"
         code << "    conditions = ['(']\n"
         code << "    keys.each_with_index do |key, index|\n"
         code << "      conditions[0] << ') AND (' if index > 0\n"
