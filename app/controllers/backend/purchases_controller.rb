@@ -93,7 +93,7 @@ class Backend::PurchasesController < BackendController
   def new
     unless nature = PurchaseNature.find_by(id: params[:nature_id]) || PurchaseNature.by_default
       notify_error :need_a_valid_purchase_nature_to_start_new_purchase
-      redirect_to :index
+      redirect_to action: :index
       return
     end
     @purchase = Purchase.new(nature: nature)

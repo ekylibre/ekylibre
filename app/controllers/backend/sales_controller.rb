@@ -154,7 +154,7 @@ class Backend::SalesController < BackendController
   def new
     unless nature = SaleNature.find_by(id: params[:nature_id]) || SaleNature.by_default
       notify_error :need_a_valid_sale_nature_to_start_new_sale
-      redirect_to :index
+      redirect_to action: :index
       return
     end
     @sale = Sale.new(nature: nature)
