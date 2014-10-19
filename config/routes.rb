@@ -3,7 +3,7 @@ Ekylibre::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: "authentication" #, :module => :authentication
+  devise_for :users, path: "authentication", module: :authentication
 
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
