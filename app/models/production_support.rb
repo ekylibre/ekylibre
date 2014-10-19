@@ -40,14 +40,17 @@
 class ProductionSupport < Ekylibre::Record::Base
   enumerize :nature, in: [:main, :secondary, :nitrate_trap], default: :main
   enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
-  belongs_to :storage, class_name: "Product", inverse_of: :supports
+
   belongs_to :production, inverse_of: :supports
+  belongs_to :storage, class_name: "Product", inverse_of: :supports
   has_many :interventions
   has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
-  has_one :selected_manure_management_plan_zone, -> { selected }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
   has_one :activity, through: :production
   has_one :campaign, through: :production
+  has_one :selected_manure_management_plan_zone, -> { selected }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_one :variant, through: :production
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :production_usage, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
@@ -59,8 +62,10 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, :variant, to: :production, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :storage
   delegate :name, to: :activity, prefix: true
+  delegate :name, to: :campaign, prefix: true
+  delegate :name, to: :variant,  prefix: true
 
-  accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :markers, reject_if: :all_blank, allow_destroy: true
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
