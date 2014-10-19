@@ -26,7 +26,7 @@
 
   - b.hbox do
 
-    - if resource.incoming_payment_modes.with_deposit.any?
+    - if resource.incoming_payment_modes.depositers.any?
       - b.cell(Cash.human_attribute_name(:deposits)) do
         = list(:deposits)
 
