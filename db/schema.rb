@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141010163643) do
+ActiveRecord::Schema.define(version: 20140925220644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1222,6 +1222,7 @@ ActiveRecord::Schema.define(version: 20141010163643) do
     t.integer  "priority"
     t.integer  "gravity"
     t.string   "state"
+    t.string   "name",                             null: false
     t.text     "description"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
@@ -1236,6 +1237,7 @@ ActiveRecord::Schema.define(version: 20141010163643) do
 
   add_index "issues", ["created_at"], :name => "index_issues_on_created_at"
   add_index "issues", ["creator_id"], :name => "index_issues_on_creator_id"
+  add_index "issues", ["name"], :name => "index_issues_on_name"
   add_index "issues", ["nature"], :name => "index_issues_on_nature"
   add_index "issues", ["target_id", "target_type"], :name => "index_issues_on_target_id_and_target_type"
   add_index "issues", ["updated_at"], :name => "index_issues_on_updated_at"
