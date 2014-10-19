@@ -50,6 +50,7 @@
 
 purchase_natures_001:
   active: true
+  by_default: true
   creator: users_001
   currency: EUR
   journal: journals_004
