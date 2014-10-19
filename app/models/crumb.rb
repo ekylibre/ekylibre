@@ -56,10 +56,22 @@ class Crumb < Ekylibre::Record::Base
   scope :unconverted, -> { where(intervention_cast_id: nil) }
 
   # returns all crumbs for a given day. Default: the current day
-  # TODO: remove this and replace by something like #start_day_betwee or #at
+  # TODO: remove this and replace by something like #start_day_between or #at
   scope :of_date, lambda{|start_date = Time.now.midnight|
     where(read_at: start_date.midnight..start_date.end_of_day)
   }
+
+  before_validation do
+    if self.start?
+      if self.previous and original = self.previous.siblings.where(nature: :start).first
+        self.metadata ||= original.metadata
+        self.metadata["procedure_nature"] ||= original.metadata["procedure_nature"]
+      else
+        self.metadata ||= {}
+        self.metadata["procedure_nature"] ||= "administrative_task"
+      end
+    end
+  end
 
   after_destroy do
     if self.start?
@@ -67,7 +79,7 @@ class Crumb < Ekylibre::Record::Base
     end
   end
 
-  before_update do
+  after_update do
     if self.start? and previous = self.previous
       unless previous.stop?
         previous.update_column(:nature, :stop)

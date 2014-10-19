@@ -229,7 +229,7 @@ class User < Ekylibre::Record::Base
   # An intervention path is an array of crumbs, for a user, ordered by read_at,
   # between a start crumb and a stop crumb.
   def interventions_paths(options = {})
-    crumbs = self.crumbs.unconverted.where(nature: :start)
+    crumbs = self.reload.crumbs.unconverted.where(nature: :start)
     if options[:on]
       crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
     end

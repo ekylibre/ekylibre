@@ -28,26 +28,6 @@ class Backend::CrumbsController < BackendController
     end
   end
 
-  # def update
-  #   crumb = Crumb.find(params[:id])
-  #   if crumb_params[:previous_crumb_id]
-  #     previous = Crumb.find(crumb_params[:previous_crumb_id])
-  #     previous.update(nature: 'stop')
-  #   end
-  #   crumb.update(nature: crumb_params[:nature])
-  #   redirect_to backend_crumbs_path
-  # end
-
-  # def destroy
-  #   crumb = Crumb.find(params[:id])
-  #   if crumb.nature == 'start'
-  #    crumb.intervention_path.map(&:destroy)
-  #   else
-  #     crumb.destroy
-  #   end
-  #   redirect_to backend_crumbs_path
-  # end
-
   # Creates an intervention from crumb and redirects to an edit form for
   # the newly created intervention.
   def convert
@@ -65,11 +45,5 @@ class Backend::CrumbsController < BackendController
       redirect_to backend_crumbs_path
     end
   end
-
-  # private
-
-  # def crumb_params
-  #   params.permit!
-  # end
 
 end
