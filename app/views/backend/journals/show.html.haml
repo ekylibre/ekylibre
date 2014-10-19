@@ -16,7 +16,7 @@
 
       = journal_view_tag
 
-      :ruby
+      -#:ruby
         conditions = eval(controller.class.journal_entries_conditions)
         totals = {}
         totals[:debit]  = JournalEntry.where(conditions).sum(:real_debit)
@@ -25,7 +25,8 @@
         totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
       .tab-content
-        = list(@journal_view.to_sym) do
+        = list(@journal_view.to_sym)
+        -# TODO Find a way to known shown columns or to compute sums in activelist
           - colspans = (@journal_view == "items" ? [6, 1] : [3, 3])
           %tr.important.total
             %th{colspan: colspans[0]}= :total.tl

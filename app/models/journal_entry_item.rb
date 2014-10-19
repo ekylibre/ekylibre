@@ -81,6 +81,8 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}
 
+  delegate :balanced?, to: :entry, prefix: true
+
   acts_as_list :scope => :entry
 
   before_update  :uncumulate

@@ -1,10 +1,15 @@
 
 Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
-  rows = CSV.read(file, encoding: "CP1252", col_sep: ";")
-  w.count = rows.size
+  rows = CSV.read(file, encoding: "CP1252", col_sep: ";").collect do |row|
+    row << FinancialYear.at(Date.civil(*row[3].split(/\-/).map(&:to_i))).code
+  end
 
-  rows.each do |row|
+  w.count = rows.collect{|a| a[13] + a[3] + a[4].to_s}.uniq.size
+
+  entry = nil
+  old = nil
+  rows.sort{|a,b| a[13] + a[3] + a[4].to_s <=> b[13] + b[3] + b[4].to_s}.each_with_index do |row, index|
     r = {
       :account => Account.get(row[0]),
       :journal => Journal.find_by(code: row[1]) || Journal.create!(name: "Journal #{row[1]}", code: row[1], currency: "EUR"),
@@ -18,19 +23,46 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
       :vat => row[9],
       :comment => row[10],
       :letter => row[11],
-      :what_on => row[12]
+      :what_on => row[12],
+      financial_year_code: row[13]
     }.to_struct
 
-    # Adds the journal entry item with the dependencies
-    fy = FinancialYear.at(r.printed_on)
-    number = r.entry_number
-    number = r.journal.code + (10_000_000_000 + rand(10_000_000_000)).to_s(36) if number.blank?
-    number = number.mb_chars.upcase
-    unless entry = JournalEntry.find_by(journal_id: r.journal.id, number: number, financial_year_id: fy.id)
-      entry = JournalEntry.create!(journal_id: r.journal.id, printed_on: r.printed_on, number: number, financial_year_id: fy.id)
+    if old.present? and (old.entry_number != r.entry_number or old.printed_on != r.printed_on or old.journal != r.journal)
+      if entry and entry[:items_attributes]
+        if items = entry[:items_attributes].values
+          debit = items.map{|v| v[:real_debit]}.sum
+          credit = items.map{|v| v[:real_credit]}.sum
+          if debit != credit
+            Rails.logger.warn "Error on JournalEntry ##{entry[:number]} (D: #{debit}, C: #{credit}, B: #{debit - credit})".red
+          end
+        end
+        JournalEntry.create!(entry)
+        entry = nil
+        w.check_point
+      else
+        raise "What ???"
+      end
     end
-    column = (r.debit.zero? ? :credit : :debit)
-    entry.send("add_#{column}", r.entry_name, r.account, r.send(column))
+
+    # Adds the journal entry item with the dependencies
+    unless entry
+      fy = FinancialYear.at(r.printed_on)
+      number = r.entry_number
+      number = r.journal.code + (10_000_000_000 + rand(10_000_000_000)).to_s(36) if number.blank?
+      number = number.mb_chars.upcase
+      while JournalEntry.where(number: number).any?
+        number.succ!
+      end
+      entry = {
+        printed_on: r.printed_on,
+        journal: r.journal,
+        number: number,
+        financial_year: fy
+      }
+    end
+
+    entry[:items_attributes] ||= {}
+    entry[:items_attributes][index.to_s] = {real_debit: r.debit, real_credit: r.credit, account: r.account, name: r.entry_name}
 
     # Adds a real entity with known information
     if r.account.number.match(/^4(0|1)\d/)
@@ -52,7 +84,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
       entity.save
     end
 
-    w.check_point
+    old = r
   end
 
 end

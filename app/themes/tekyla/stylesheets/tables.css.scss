@@ -77,6 +77,11 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
             width: 3ex;
           }
         }
+        &.first-item {
+          td {
+            border-top-color: $invalid-color;
+          }
+        }
         &.squeezed, &.aborted, &.refused {
           td {
             &, * {

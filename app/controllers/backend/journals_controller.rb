@@ -57,7 +57,7 @@ class Backend::JournalsController < BackendController
     return code.gsub(/\s*\n\s*/, ";").c
   end
 
-  list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :entry_number, url: true
     t.column :printed_on, through: :entry, :datatype => :date
     t.column :account, url: true
@@ -73,7 +73,7 @@ class Backend::JournalsController < BackendController
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
-  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, order: {created_at: :desc}) do |t|
+  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}) do |t|
     t.column :number, url: true
     t.column :printed_on
     t.column :state_label
@@ -87,7 +87,7 @@ class Backend::JournalsController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
+  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, children: :items, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}, per_page: 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, url: {action: :account}
