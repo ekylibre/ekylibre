@@ -34,10 +34,11 @@
 
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">
-              <variable name="target" value="intervention.casts.of_generic_role(:'target').first.actor"/>
+              <variable name="target_cast" value="intervention.casts.of_generic_role(:target).first"/>
+              <variable name="target" value="target_cast.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
-              <property name="url" value="url_for(controller: '/backend/interventions',action: :show, id: intervention.id)" level="api"/>
+              <property name="url" value="&quot;/backend/interventions/#{intervention.id}&quot;" level="api"/>
               <property name="status" of="intervention"/>
               <property name="casting" of="intervention" level="api"/>
               <title name="target_name" value="target.name"/>
@@ -51,7 +52,7 @@
                 <property name="state" level="api"/>
                 <property name="description"/>
               </section>
-              <matrix name="inputs" for="input" in="intervention.casts.of_generic_role(:'input')">
+              <matrix name="inputs" for="input" in="intervention.casts.of_generic_role(:input)">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
                   <cell name="name"/>

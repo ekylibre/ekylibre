@@ -45,16 +45,27 @@
 #   number: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 campaigns_001:
-  closed: true
+  closed: false
   creator: users_001
-  name: '2012'
-  number: '2012'
+  harvest_year: 2013
+  name: '2013'
+  number: '2013'
   updater: users_001
+
 campaigns_002:
   closed: false
   creator: users_001
-  name: '2013'
-  number: '2013'
+  harvest_year: 2999
+  name: '2999'
+  number: '2999'
+  updater: users_001
+
+campaigns_003:
+  closed: true
+  creator: users_001
+  harvest_year: 2014
+  name: '2014'
+  number: '2014'
   updater: users_001

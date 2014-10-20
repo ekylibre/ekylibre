@@ -16,8 +16,8 @@
         <sections for="activity" in="Activity.of_campaign(campaign).where(nature: :main)" of-type="record">
           <title name="name" of="activity"/>
           <property name="family" of="activity"/>
-          <property name="area_in_hectare" value="activity.area(campaign).in_hectare.round(2)" type="measure"/>
-          <property name="area_value_in_hectare" value="activity.area(campaign).in_hectare.round(2).value" level="api"/>
+          <property name="area_in_hectare" value="activity.net_surface_area(campaign).in_hectare.round(2)" type="measure"/>
+          <property name="area_value_in_hectare" value="activity.net_surface_area(campaign).in_hectare.round(2).value" level="api"/>
           <property name="id" of="activity" level="api"/>
           <property name="intervention_durations" value="activity.interventions_duration(campaign).in_second.convert(:hour).round(2)" type="measure" />
 
@@ -26,7 +26,7 @@
             <cell name="id" of="intervention" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
             <cell name="production_support" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.name" of-type="record"/>
-            <cell name="production_support_area_value_in_hectare" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.area.round(2)" level="api"/>
+            <cell name="production_support_area_value_in_hectare" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.net_surface_area.round(2)" level="api"/>
             <cell name="started_at" of="intervention" type="datetime"/>
             <cell name="stopped_at" of="intervention" type="datetime"/>
             <cell name="casting" of="intervention" level="api"/>

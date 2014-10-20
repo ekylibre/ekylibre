@@ -64,14 +64,15 @@
 
 interventions_001:
   creator: users_001
+  issue: issues_001
   natures: grinding, soil_enrichment
   number: "1"
   production: productions_001
-  production_support: production_supports_001
+  production_support: production_supports_003
   provisional: false
   reference_name: 'base-plant_grinding-0'
   started_at: 2009-05-03 09:13:59.000000000 +02:00
-  state: undone
+  state: done
   stopped_at: 2009-05-03 12:17:23.000000000 +02:00
   updater: users_001
 
@@ -84,6 +85,6 @@ interventions_002:
   provisional: false
   reference_name: 'base-plant_grinding-0'
   started_at: 2009-06-03 09:13:59.000000000 +02:00
-  state: done
+  state: undone
   stopped_at: 2009-06-03 12:17:23.000000000 +02:00
   updater: users_001

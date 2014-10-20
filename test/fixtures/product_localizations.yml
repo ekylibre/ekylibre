@@ -72,3 +72,27 @@ product_localizations_003:
   product: equipments_003
   started_at: 2001-07-19 19:13:59.000000000 +02:00
   updater: users_001
+
+product_localizations_004:
+  container: cultivable_zones_001
+  creator: users_001
+  nature: interior
+  product: plants_001
+  started_at: 2000-07-19 19:13:59.000000000 +02:00
+  updater: users_001
+
+product_localizations_005:
+  container: cultivable_zones_002
+  creator: users_001
+  nature: interior
+  product: plants_002
+  started_at: 2000-07-19 19:13:59.000000000 +02:00
+  updater: users_001
+
+product_localizations_006:
+  container: cultivable_zones_003
+  creator: users_001
+  nature: interior
+  product: plants_003
+  started_at: 2000-07-19 19:13:59.000000000 +02:00
+  updater: users_001

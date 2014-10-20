@@ -20,7 +20,7 @@
           <sections for="production" in="activity.productions.of_campaign(campaign).order(:name)" of-type="record">
            <title name="name" of="production"/>
            <property name="id" of="production"/>
-           <property name="url" value="url_for(controller: '/backend/productions',action: :show, id: production.id)" level="api"/>
+           <property name="url" value="&quot;/backend/productions/#{production.id}&quot;" level="api"/>
            <property name="variant" of="production"/>
            <property name="state" of="production"/>
           <property name="cultivable_zone_svg" if="CultivableZone.of_productions(production)" value="CultivableZone.of_productions(production).shape_svg(srid: 2154)" type="svg" level="api"/>
@@ -47,11 +47,11 @@
               <variable name="target" if="target_cast" value="target_cast.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
-              <property name="url" value="url_for(controller: '/backend/interventions',action: :show, id: intervention.id)" level="api"/>
+              <property name="url" value="&quot;/backend/interventions/#{intervention.id}&quot;" level="api"/>
               <property name="status" of="intervention"/>
               <property name="casting" of="intervention" level="api"/>
               <property name="target_name" if="target" value="target.name"/>
-              <property name="shape_svg" type="svg" if="target_cast.shape" value="target_cast.shape_svg(srid: 2154)" level="api"/>
+              <property name="shape_svg" type="svg" if="target_cast and target_cast.shape" value="target_cast.shape_svg(srid: 2154)" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
               <property name="stopped_at" of="intervention" type="datetime"/>
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>

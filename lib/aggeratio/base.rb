@@ -87,7 +87,7 @@ module Aggeratio
       code = if type == :date or type == :datetime or type == :measure
                "xml.text(#{value}.l) unless #{value}.nil?"
              elsif type == :url
-               "xml.a(#{value}, :href => #{value}) unless #{value}.blank?"
+               "xml.a(#{value}, href: #{value}) unless #{value}.blank?"
              else
                "xml.text(#{value})"
              end

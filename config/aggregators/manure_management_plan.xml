@@ -64,27 +64,27 @@
               </section>
               <matrix name="inputs" for="input" in="intervention.casts.of_role(:'soil_enrichment-input')">
                 <variable name="input_in_kilogram_per_hectare" value="(input.actor.net_mass(input).to_d(:kilogram) / enrichment_working_area )"/>
-                  <cell name="id" of="input" level="api"/>
-                  <cell name="name" of="input"/>
-                  <cell name="actor_name" value="input.actor.name"/>
-                  <cell name="product_nature_name" of="input"/>
-                  <cell name="population" of="input"/>
-                  <cell name="unit_name" of="input.actor"/>
-                  <cell name="quantity" value="input.actor.net_mass(input)" type="measure"/>
-                  <cell name="quantity_in_kilogram" value="input.actor.net_mass(input).to_d(:kilogram)" level="api"/>
-                  <cell name="quantity_in_kilogram_per_hectare" value="input_in_kilogram_per_hectare" level="api"/>
-                  <!-- Nitrogen -->
-                  <cell name="nitrogen_concentration" if="input.actor.nitrogen_concentration" value="input.actor.nitrogen_concentration" type="measure"/>
-                  <cell name="nitrogen_concentration_in_unity" if="input.actor.nitrogen_concentration" value="input.actor.nitrogen_concentration.to_d(:unity)" type="measure" level="api"/>
-                  <cell name="nitrogen_input_quantity_per_hectare" if="input.actor.nitrogen_concentration" value="input_in_kilogram_per_hectare * input.actor.nitrogen_concentration.to_d(:unity)" level="api"/>
-                  <!-- Phosphorus -->
-                  <cell name="phosphorus_concentration" if="input.actor.phosphorus_concentration" value="input.actor.phosphorus_concentration" type="measure"/>
-                  <cell name="phosphorus_concentration_in_unity" if="input.actor.phosphorus_concentration" value="input.actor.phosphorus_concentration.to_d(:unity)" type="measure" level="api"/>
-                  <cell name="phosphorus_input_quantity_per_hectare" if="input.actor.phosphorus_concentration" value="input_in_kilogram_per_hectare * input.actor.phosphorus_concentration.to_d(:unity)" level="api"/>
-                  <!-- Potassium -->
-                  <cell name="potassium_concentration" if="input.actor.potassium_concentration" value="input.actor.potassium_concentration" type="measure"/>
-                  <cell name="potassium_concentration_in_unity" if="input.actor.potassium_concentration" value="input.actor.potassium_concentration.to_d(:unity)" type="measure" level="api"/>
-                  <cell name="potassium_input_quantity_per_hectare" if="input.actor.potassium_concentration" value="input_in_kilogram_per_hectare * input.actor.potassium_concentration.to_d(:unity)" level="api"/>
+                <cell name="id" of="input" level="api"/>
+                <cell name="name" of="input"/>
+                <cell name="actor_name" value="input.actor.name"/>
+                <cell name="product_nature_name" of="input"/>
+                <cell name="population" of="input"/>
+                <cell name="unit_name" of="input.actor"/>
+                <cell name="quantity" value="input.actor.net_mass(input)" type="measure"/>
+                <cell name="quantity_in_kilogram" value="input.actor.net_mass(input).to_d(:kilogram)" level="api"/>
+                <cell name="quantity_in_kilogram_per_hectare" value="input_in_kilogram_per_hectare" level="api"/>
+                <!-- Nitrogen -->
+                <cell name="nitrogen_concentration" if="input.actor.nitrogen_concentration" value="input.actor.nitrogen_concentration" type="measure"/>
+                <cell name="nitrogen_concentration_in_unity" if="input.actor.nitrogen_concentration" value="input.actor.nitrogen_concentration.to_d(:unity)" type="measure" level="api"/>
+                <cell name="nitrogen_input_quantity_per_hectare" if="input.actor.nitrogen_concentration" value="input_in_kilogram_per_hectare * input.actor.nitrogen_concentration.to_d(:unity)" level="api"/>
+                <!-- Phosphorus -->
+                <cell name="phosphorus_concentration" if="input.actor.phosphorus_concentration" value="input.actor.phosphorus_concentration" type="measure"/>
+                <cell name="phosphorus_concentration_in_unity" if="input.actor.phosphorus_concentration" value="input.actor.phosphorus_concentration.to_d(:unity)" type="measure" level="api"/>
+                <cell name="phosphorus_input_quantity_per_hectare" if="input.actor.phosphorus_concentration" value="input_in_kilogram_per_hectare * input.actor.phosphorus_concentration.to_d(:unity)" level="api"/>
+                <!-- Potassium -->
+                <cell name="potassium_concentration" if="input.actor.potassium_concentration" value="input.actor.potassium_concentration" type="measure"/>
+                <cell name="potassium_concentration_in_unity" if="input.actor.potassium_concentration" value="input.actor.potassium_concentration.to_d(:unity)" type="measure" level="api"/>
+                <cell name="potassium_input_quantity_per_hectare" if="input.actor.potassium_concentration" value="input_in_kilogram_per_hectare * input.actor.potassium_concentration.to_d(:unity)" level="api"/>
               </matrix>
             </sections>
             <sections for="pasturing" in="support.interventions.real.of_nature(:pasturing).reorder(:started_at)" of-type="record">

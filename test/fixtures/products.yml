@@ -511,6 +511,7 @@ matters_006:
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
+
 plants_001:
   category: product_nature_categories_001
   creator: users_001
@@ -522,6 +523,7 @@ plants_001:
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
+
 plants_002:
   category: product_nature_categories_001
   creator: users_001
@@ -533,6 +535,7 @@ plants_002:
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
+
 plants_003:
   category: product_nature_categories_001
   creator: users_001
@@ -544,6 +547,7 @@ plants_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
+
 product_groups_001:
   category: product_nature_categories_001
   creator: users_001

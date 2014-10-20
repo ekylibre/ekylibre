@@ -50,7 +50,7 @@
 #   static_support: true
 #   updater: users_001
 #
----
+
 productions_001:
   activity: activities_001
   campaign: campaigns_001
@@ -60,11 +60,12 @@ productions_001:
   static_support: true
   updater: users_001
   variant: product_nature_variants_001
+
 productions_002:
   activity: activities_002
-  campaign: campaigns_001
+  campaign: campaigns_002
   creator: users_001
-  name: Wheat 2014
+  name: Wheat 1999
   state: draft
   static_support: false
   updater: users_001

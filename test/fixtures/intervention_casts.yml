@@ -83,6 +83,15 @@ intervention_casts_003:
   position: 1
   reference_name: cultivation
   roles: grinding-input
+  shape: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   updater: users_001
 
 intervention_casts_004:
@@ -116,6 +125,15 @@ intervention_casts_006:
   position: 1
   reference_name: land_parcel
   roles: soil_enrichment-target
+  shape: !wgs84.geo.ekylibre.org,2014/multipolygon
+  -
+    -
+      - [-0.66741943359371, 45.619800720955041]
+      - [-0.78002929687592, 45.692751372908732]
+      - [-0.87341308593753, 45.633246139812343]
+      - [-0.74157714843754, 45.560217957150514]
+      - [-0.66467285156255, 45.569832358492825]
+      - [-0.66741943359371, 45.619800720955041]
   updater: users_001
 
 intervention_casts_007:

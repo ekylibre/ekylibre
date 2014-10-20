@@ -46,13 +46,14 @@
 #   nature: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 activities_001:
   creator: users_001
   family: vegetal
   name: BLE
   nature: main
   updater: users_001
+
 activities_002:
   creator: users_001
   family: animal

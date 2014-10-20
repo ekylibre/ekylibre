@@ -23,7 +23,7 @@
             <title name="name" of="building_division"/>
             <property name="work_number" of="building_division"/>
             <property name="area" of="building_division" type="measure"/>
-            <property name="area_in_square_meter" value="building_division.area(:square_meter)" type="measure" level="api"/>
+            <property name="area_in_square_meter" value="building_division.net_surface_area(:square_meter)" type="measure" level="api"/>
             <property name="id" of="building_division" level="api"/>
             <property name="shape_svg" value="building_division.shape_svg(srid: 2154)" type="svg" level="api"/>
           </sections>

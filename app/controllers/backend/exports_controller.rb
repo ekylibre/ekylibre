@@ -33,9 +33,8 @@ class Backend::ExportsController < BackendController
       head :not_found
       return
     end
-    # raise params.inspect
-    @aggregator = klass.new(self, params)
-    t3e :name => klass.human_name
+    @aggregator = klass.new(params)
+    t3e name: klass.human_name
     respond_with @aggregator
   end
 

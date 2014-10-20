@@ -208,7 +208,7 @@ class Intervention < Ekylibre::Record::Base
   def working_area(unit = :hectare)
     if self.casts.of_generic_role(:target).any?
       if target = self.casts.of_generic_role(:target).where.not(actor_id: nil).first
-        return target.actor.area.round(2)
+        return target.actor.net_surface_area.round(2)
       else
         return nil
       end

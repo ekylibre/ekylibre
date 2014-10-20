@@ -14,7 +14,6 @@ class ExchangesTest < ActiveSupport::TestCase
 
   test "Ekylibre ERP importers" do
     dir = Rails.root.join("test", "fixtures", "files", "first_run")
-
     Exchanges.import(:ekylibre_erp_settings, dir.join("manifest"))
   end
 
