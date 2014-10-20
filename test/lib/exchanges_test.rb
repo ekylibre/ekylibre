@@ -3,6 +3,13 @@ require 'test_helper'
 
 class ExchangesTest < ActiveSupport::TestCase
 
+  FIRST_RUN = Rails.root.join("test", "fixtures", "files", "first_run")
+
+  IMPORTS = {
+    ekylibre_erp_settings: FIRST_RUN.join("manifest"),
+    ekylibre_erp_visuals: FIRST_RUN.dirname.join("sample_image.png")
+  }
+
   setup do
     Ekylibre::Tenant.create(:sekindovall)
     Ekylibre::Tenant.switch(:sekindovall)
@@ -12,9 +19,10 @@ class ExchangesTest < ActiveSupport::TestCase
     Ekylibre::Tenant.drop(:sekindovall)
   end
 
-  test "Ekylibre ERP importers" do
-    dir = Rails.root.join("test", "fixtures", "files", "first_run")
-    Exchanges.import(:ekylibre_erp_settings, dir.join("manifest"))
+  for importer, path in IMPORTS
+    test "import of a #{importer} file" do
+      Exchanges.import(importer, path)
+    end
   end
 
 end
