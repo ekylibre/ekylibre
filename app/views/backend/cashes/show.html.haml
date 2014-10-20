@@ -28,10 +28,16 @@
 
     - if resource.incoming_payment_modes.depositers.any?
       - b.cell(Cash.human_attribute_name(:deposits)) do
+        = toolbar do |t|
+          :ruby
+            variants = IncomingPaymentMode.depositers.where(cash_id: resource.id).inject({}) do |hash, mode|
+              count = mode.depositable_payments.count
+              hash[:new_deposit.tl(count: count, mode: mode.name)] = {action: :new, mode_id: mode.id}
+              hash
+            end
+          - t.new variants: variants, params: {controller: :deposits}
         = list(:deposits)
 
     - if resource.bank_account?
       - b.cell(Cash.human_attribute_name(:bank_statements)) do
-        = toolbar do |t|
-          - t.new(params: {controller: :bank_statements, cash_id: resource.id})
         = list(:bank_statements)

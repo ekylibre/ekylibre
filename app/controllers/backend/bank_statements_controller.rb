@@ -39,10 +39,12 @@ class Backend::BankStatementsController < BackendController
     cashes = Cash.bank_accounts
     unless cashes.any?
       notify(:need_cash_to_record_statements)
-      redirect_to new_cash_url
+      redirect_to new_backend_cash_url(nature: :bank_account)
       return
     end
-    notify_now(:x_unpointed_journal_entry_items, count: JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
+    if count = JournalEntryItem.where(bank_statement_id: nil, account_id: cashes.pluck(:account_id)).count and count > 0
+      notify_now(:x_unpointed_journal_entry_items, count: count)
+    end
   end
 
   list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: :entry_id) do |t|

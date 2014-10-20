@@ -29,6 +29,7 @@ class Backend::CashesController < BackendController
     t.column :country
     t.column :account, url: true
     t.column :journal, url: true
+    t.action :new, on: :none
     t.action :edit
     t.action :destroy
   end
@@ -37,8 +38,12 @@ class Backend::CashesController < BackendController
     t.column :number, url: true
     t.column :started_at
     t.column :stopped_at
-    t.column :credit, currency: true
     t.column :debit, currency: true
+    t.column :credit, currency: true
+    t.action :point
+    t.action :edit
+    t.action :destroy
+    t.action :new, on: :none, url: {cash_id: 'params[:id]'.c}
   end
 
   list(:deposits, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
