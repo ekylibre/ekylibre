@@ -183,6 +183,12 @@
             unit_name="subject"
             frozen_indicators_values=""
             />
+      <item name="chicken_egg"
+            nature="egg"
+            derivative_of="gallus"
+            unit_name="unit"
+            frozen_indicators_values="net_volume: 80milliliter, net_mass: 53gram"
+            />
       <!-- FISH -->
       <item name="salmon_band"
             nature="salmon_band"
