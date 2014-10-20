@@ -38,6 +38,7 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :started_at
     t.column :stopped_at
     t.column :catalog, url: true
+    t.action :destroy, if: :destroyable?
   end
 
   list(:products, conditions: {variant_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|

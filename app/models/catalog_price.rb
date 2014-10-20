@@ -51,7 +51,7 @@ class CatalogPrice < Ekylibre::Record::Base
   belongs_to :catalog
   has_many :incoming_delivery_items, foreign_key: :price_id
   has_many :outgoing_delivery_items, foreign_key: :price_id
-  has_many :purchase_items, foreign_key: :price_id
+  # has_many :purchase_items, foreign_key: :price_id
   has_many :sale_items, foreign_key: :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
@@ -77,7 +77,11 @@ class CatalogPrice < Ekylibre::Record::Base
   scope :of_usage, lambda { |usage|
     joins(:catalog).merge(Catalog.of_usage(usage))
   }
-
+  
+  protect(on: :destroy) do
+    self.sale_items.any?
+  end
+  
   before_validation do
     self.amount = self.amount.round(4)
     self.currency = "EUR" if self.currency.blank?
