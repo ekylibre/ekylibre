@@ -164,6 +164,10 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  # prevents from deleting an intervention that was executed
+  protect on: :destroy do
+    self.done?
+  end
 
   # Main reference
   def reference
