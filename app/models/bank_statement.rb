@@ -76,11 +76,11 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def previous
-    self.class.where(:stopped_at => self.started_at-1).first
+    self.class.where("stopped_at <= ?", self.started_at).reorder(stopped_at: :desc).first
   end
 
   def next
-    self.class.where(:started_at => self.stopped_at+1).first
+    self.class.where("started_at >= ?", self.stopped_at).reorder(started_at: :asc).first
   end
 
   def eligible_items
