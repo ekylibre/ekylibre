@@ -46,7 +46,7 @@ end
 
 Ekylibre::FirstRun.add_loader :sales do |first_run|
 
-  if first_run.manifest[:demo]
+  if Preference.get!(:demo, false, :boolean).value
 
     first_run.count :variant_import do |w|
       # Create product_nature for crop plant product

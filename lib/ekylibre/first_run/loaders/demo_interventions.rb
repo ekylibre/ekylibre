@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
-  if first_run.manifest[:demo]
+  if Preference.get!(:demo, false, :boolean).value
     # interventions for all poaceae
     autumn_sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
       Nomen::Varieties[n]

@@ -60,8 +60,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
       # end
 
       # Create activities if option true
-      if true # first_run.manifest[:create_activities_from_telepac]
-
+      if Preference.get!(:create_activities_from_telepac, false, :boolean).value
 
         # Create a cultivable zone
         attributes = {

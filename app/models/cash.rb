@@ -100,7 +100,7 @@ class Cash < Ekylibre::Record::Base
   # IBAN have to be checked before saved.
   validate do
     if self.journal
-      errors.add(:journal, :currency_does_not_match) unless self.currency == self.journal.currency
+      errors.add(:journal, :currency_does_not_match, journal: self.journal.name) unless self.currency == self.journal.currency
     end
     if self.bank_account?
       if self.mode_bban?
@@ -128,7 +128,7 @@ class Cash < Ekylibre::Record::Base
              options["bank_account_number"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*3)
       return (options["bank_account_key"].to_i + ban.modulo(97) - 97).zero?
     else
-      raise ArgumentError.new("Unknown country code #{country_code.inspect}")
+      raise ArgumentError, "Unknown country code #{country_code.inspect}"
     end
   end
 

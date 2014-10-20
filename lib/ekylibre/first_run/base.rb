@@ -15,73 +15,74 @@ module Ekylibre
         unless @folder_path.exist?
           raise ArgumentError, "Need a valid folder path. #{@folder_path} doesn't exist."
         end
-        file = path("manifest.yml")
-        @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
-        @manifest[:company]      ||= {}
-        @manifest[:net_services] ||= {}
-        @manifest[:identifiers]  ||= {}
-        @manifest[:language]     ||= ::I18n.default_locale
-        ::I18n.locale = @manifest[:language]
+        # file = path("manifest.yml")
+        # @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
+        # @manifest[:company]      ||= {}
+        # @manifest[:net_services] ||= {}
+        # @manifest[:identifiers]  ||= {}
+        # @manifest[:language]     ||= ::I18n.default_locale
+        # @records = {}.with_indifferent_access
+        # ::I18n.locale = @manifest[:language]
+        ::I18n.locale = Preference[:language]
         @max = options[:max].to_i
-        @records = {}.with_indifferent_access
       end
 
-      def [](key)
-        @manifest[key]
-      end
+      # def [](key)
+      #   @manifest[key]
+      # end
 
-      def []=(key, value)
-        @manifest[key] = value
-      end
+      # def []=(key, value)
+      #   @manifest[key] = value
+      # end
 
-      def manifest
-        unless @manifest
-          file = path("manifest.yml")
-          @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
-          @manifest[:company] ||= {}
-          @manifest[:net_services] ||= {}
-          @manifest[:identifiers] ||= {}
-        end
-        return @manifest
-      end
+      # def manifest
+      #   unless @manifest
+      #     file = path("manifest.yml")
+      #     @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
+      #     @manifest[:company] ||= {}
+      #     @manifest[:net_services] ||= {}
+      #     @manifest[:identifiers] ||= {}
+      #   end
+      #   return @manifest
+      # end
 
-      def can_load?(key)
-        !@manifest[key].is_a?(FalseClass)
-      end
+      # def can_load?(key)
+      #   !@manifest[key].is_a?(FalseClass)
+      # end
 
-      def can_load_default?(key)
-        can_load?(key) and !@manifest[key].is_a?(Hash)
-      end
+      # def can_load_default?(key)
+      #   can_load?(key) and !@manifest[key].is_a?(Hash)
+      # end
 
-      def create_from_manifest(records, *args)
-        options = args.extract_options!
-        main_column = args.shift || :name
-        model = records.to_s.classify.constantize
-        if data = @manifest[records]
-          @records[records] ||= {}.with_indifferent_access
-          unless data.is_a?(Hash)
-            raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
-          end
-          for identifier, attributes in data
-            attributes = attributes.with_indifferent_access
-            attributes[main_column] ||= identifier.to_s
-            for reflection in model.reflections.values
-              if attributes[reflection.name] and not attributes[reflection.name].class < ActiveRecord::Base
-                attributes[reflection.name] = get(reflection.class_name.tableize, attributes[reflection.name].to_s)
-              end
-            end
-            @records[records][identifier] = model.create!(attributes)
-          end
-        end
-      end
+      # def create_from_manifest(records, *args)
+      #   options = args.extract_options!
+      #   main_column = args.shift || :name
+      #   model = records.to_s.classify.constantize
+      #   if data = @manifest[records]
+      #     @records[records] ||= {}.with_indifferent_access
+      #     unless data.is_a?(Hash)
+      #       raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
+      #     end
+      #     for identifier, attributes in data
+      #       attributes = attributes.with_indifferent_access
+      #       attributes[main_column] ||= identifier.to_s
+      #       for reflection in model.reflections.values
+      #         if attributes[reflection.name] and not attributes[reflection.name].class < ActiveRecord::Base
+      #           attributes[reflection.name] = get(reflection.class_name.tableize, attributes[reflection.name].to_s)
+      #         end
+      #       end
+      #       @records[records][identifier] = model.create!(attributes)
+      #     end
+      #   end
+      # end
 
-      # Returns the record corresponding to the identifier
-      def get(records, identifier)
-        if @records[records]
-          return @records[records][identifier]
-        end
-        return nil
-      end
+      # # Returns the record corresponding to the identifier
+      # def get(records, identifier)
+      #   if @records[records]
+      #     return @records[records][identifier]
+      #   end
+      #   return nil
+      # end
 
       # Compute a path for first run directory
       def path(*args)

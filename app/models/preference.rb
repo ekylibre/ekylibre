@@ -48,7 +48,7 @@ class Preference < Ekylibre::Record::Base
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
   belongs_to :user, class_name: "Entity"
-  belongs_to :record_value, :polymorphic => true
+  belongs_to :record_value, polymorphic: true
   # cattr_reader :reference
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
@@ -122,6 +122,34 @@ class Preference < Ekylibre::Record::Base
     elsif preference.nil?
       raise ArgumentError, "Undefined preference: #{name}"
     end
+    return preference
+  end
+
+  def self.get!(name, default_value = nil, nature = :string)
+    name = name.to_s
+    preference = Preference.find_by(name: name)
+    if preference.nil? and self.reference.has_key?(name)
+      preference = self.new name: name, nature: self.reference[name][:nature]
+      preference.value = default_value || self.reference[name][:default]
+      preference.save!
+    elsif preference.nil?
+      preference = self.new name: name, nature: nature
+      preference.value = default_value
+      preference.save!
+    end
+    return preference
+  end
+
+  def self.set!(name, value, nature = :string)
+    name = name.to_s
+    preference = Preference.find_by(name: name)
+    if preference.nil? and self.reference.has_key?(name)
+      preference = self.new name: name, nature: self.reference[name][:nature]
+    elsif preference.nil?
+      preference = self.new name: name, nature: nature
+    end
+    preference.value = value
+    preference.save!
     return preference
   end
 

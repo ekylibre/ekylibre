@@ -148,9 +148,9 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
     end
 
     # build name of synel animals file
-    if first_run.manifest[:net_services][:synel]
-      synel_first_part = first_run.manifest[:net_services][:synel][:synel_username].to_s
-      synel_second_part = first_run.manifest[:identifiers][:cattling_number].to_s
+    if service = NetService.find_by(reference_name: :synel)
+      synel_first_part = service.identifiers.find_by(nature: :synel_username).value.to_s
+      synel_second_part = Identifier.find_by(nature: :cattling_number).value.to_s
       synel_last_part = "IP"
       synel_file_extension = ".csv"
       if synel_first_part and synel_second_part
@@ -208,7 +208,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
           animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
 
           # load demo data weight and state
-          if first_run.manifest[:demo]
+          if Preference.get!(:demo, false, :boolean).value
             weighted_at = r.born_at
             if weighted_at and weighted_at < Time.now
               variation = 0.02

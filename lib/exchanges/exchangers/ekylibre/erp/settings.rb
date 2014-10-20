@@ -57,14 +57,17 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   language = I18n.locale = manifest[:language]
   currency = manifest[:currency] || 'EUR'
   country  = manifest[:country]  || 'fr'
-  Preference.get(:language).set!(language)
-  Preference.get(:currency).set!(currency)
-  Preference.get(:country).set!(country)
+  Preference.set!(:language, language)
+  Preference.set!(:currency, currency)
+  Preference.set!(:country, country)
   if srs = manifest[:map_measure_srs]
-    Preference.get(:map_measure_srs).set!(srs)
+    Preference.set!(:map_measure_srs, srs)
   elsif srid = manifest[:map_measure_srid]
-    Preference.get(:map_measure_srs).set!(Nomen::SpatialReferenceSystems.find_by(srid: srid.to_i).name)
+    Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystems.find_by(srid: srid.to_i).name)
   end
+  Preference.set!(:demo, !!manifest[:demo], :boolean)
+  Preference.set!(:create_activities_from_telepac, !!manifest[:create_activities_from_telepac], :boolean)
+  ::I18n.locale = Preference[:language]
 
   w.check_point
 
