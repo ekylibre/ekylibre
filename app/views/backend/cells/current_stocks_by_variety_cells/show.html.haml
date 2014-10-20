@@ -3,7 +3,8 @@
     #
     series = []
     categories = {}
-    unit = Nomen::Units[@unit]
+    unit = @unit
+
     product_natures = ProductNature.stockables.of_variety(@variety.to_s).reorder(:id)
     method = @indicator.name.to_sym
 
