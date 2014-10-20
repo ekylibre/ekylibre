@@ -61,10 +61,11 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              nature: row[1].to_sym,
                              code: row[2].to_sym,
                              place: (row[3].blank? ? nil : row[3].to_s),
-                             born_at: (row[4].blank? ? (Date.today) : row[4]).to_datetime,
-                             variety: (row[5].blank? ? nil : row[5].to_sym),
-                             initial_owner: (row[6].blank? ? nil : row[6].to_s),
-                             indicators: row[7].blank? ? {} : row[7].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                             group: (row[4].blank? ? nil : row[4].to_s),
+                             born_at: (row[5].blank? ? (Date.today) : row[5]).to_datetime,
+                             variety: (row[6].blank? ? nil : row[6].to_sym),
+                             initial_owner: (row[7].blank? ? nil : row[7].to_s),
+                             indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                                h[i.first.strip.downcase.to_sym] = i.second
                                h
                              },
@@ -87,6 +88,10 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
             r.record.initial_population = r.record.population
             r.record.variety = r.variety if r.variety
             r.record.initial_owner = r.initial_owner if r.initial_owner
+            if r.group
+              animal_group = AnimalGroup.find_by(work_number: r.group)
+              animal_group.add(r.record, r.born_at) if animal_group
+            end
             r.record.save!
           end
 

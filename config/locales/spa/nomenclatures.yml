@@ -3175,6 +3175,7 @@ spa:
         # fungus: "Fungus"
         # gallus: "Gallus"
         # gallus_gallus_domesticus: "Domesticated chicken"
+        # gallus_gallus_domesticus_babcock: "Domesticated chicken Babcock"
         # gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay"
         # gas: "Gas"
         # glycine: "Glycine"

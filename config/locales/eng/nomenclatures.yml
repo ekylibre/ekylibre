@@ -3163,6 +3163,7 @@ eng:
         fungus: "Fungus"                                   #< bioproduct
         gallus: "Gallus"                                   #< aves
         gallus_gallus_domesticus: "Domesticated chicken"   #< gallus
+        gallus_gallus_domesticus_babcock: "Domesticated chicken Babcock" #< gallus_gallus_domesticus
         gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay" #< gallus_gallus_domesticus
         gas: "Gas"                                         #< raw_matter
         glycine: "Glycine"                                 #< fabaceae

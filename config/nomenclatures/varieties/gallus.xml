@@ -9,6 +9,7 @@
   <nomenclature name="varieties-gallus_gallus_domesticus" hierarchical="true">
     <items>
       <item name="gallus_gallus_domesticus_gournay" />
+      <item name="gallus_gallus_domesticus_babcock" />
     </items>
   </nomenclature>
 </nomenclatures>

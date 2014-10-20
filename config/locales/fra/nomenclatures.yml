@@ -3173,6 +3173,7 @@ fra:
         fungus: "Champignon"
         gallus: "Galinacée"
         gallus_gallus_domesticus: "Poule domestique"
+        gallus_gallus_domesticus_babcock: "Poule domestique Babcock"
         gallus_gallus_domesticus_gournay: "Poule domestique Gournay"
         gas: "Essence"
         glycine: "Glycine"
