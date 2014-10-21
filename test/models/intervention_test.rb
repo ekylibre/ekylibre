@@ -74,5 +74,12 @@ class InterventionTest < ActiveSupport::TestCase
       Intervention.with_cast(:tool, actor)
     end
   end
+  
+  test "protect on destroy" do
+    # It should not be possible to destroy an intervention marked as done
+    assert_raise Ekylibre::Record::RecordNotDestroyable do
+      Intervention.destroy(ActiveRecord::FixtureSet.identify(:interventions_001))
+    end 
+  end 
 
 end
