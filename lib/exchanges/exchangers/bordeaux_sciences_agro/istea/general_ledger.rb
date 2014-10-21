@@ -1,21 +1,28 @@
 
 Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
-  rows = CSV.read(file, encoding: "CP1252", col_sep: ";").collect do |row|
-    row << FinancialYear.at(Date.civil(*row[3].split(/\-/).map(&:to_i))).code
+  rows = CSV.read(file, encoding: "CP1252", col_sep: ";")
+  rows.collect!do |row|
+    row << FinancialYear.at(Date.parse(row[3])).code
   end
+  w.count = w_count = rows.size / 100
+  EMPTY = ''
+  rows.sort!{|a,b| a[13] + a[3] << (a[4] || EMPTY) <=> b[13] + b[3] << (b[4] || EMPTY) }
 
-  w.count = rows.collect{|a| a[13] + a[3] + a[4].to_s}.uniq.size
-
-  entry = nil
-  old = nil
-  rows.sort{|a,b| a[13] + a[3] + a[4].to_s <=> b[13] + b[3] + b[4].to_s}.each_with_index do |row, index|
+  count = 0
+  entry,old = nil, nil
+  accounts, journals, entities = {}, {}, {}
+  rows.each_with_index do |row, index|
+    entry_number = row[4].to_s
+    entry_number.gsub!(/[^0-9a-z]/i, '')
+    accounts[row[0]] ||= Account.get(row[0])
+    journals[row[1]] ||= Journal.find_by(code: row[1]) || Journal.create!(name: "Journal #{row[1]}", code: row[1], currency: "EUR")
     r = {
-      :account => Account.get(row[0]),
-      :journal => Journal.find_by(code: row[1]) || Journal.create!(name: "Journal #{row[1]}", code: row[1], currency: "EUR"),
+      :account => accounts[row[0]],
+      :journal => journals[row[1]],
       :page_number => row[2], # What's that ?
-      :printed_on => Date.civil(*row[3].split(/\-/).map(&:to_i)),
-      :entry_number => row[4].to_s.strip.mb_chars.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
+      :printed_on => Date.parse(row[3]),
+      :entry_number => entry_number,
       :entity_name => row[5],
       :entry_name => row[6],
       :debit => row[7].to_d,
@@ -24,21 +31,16 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
       :comment => row[10],
       :letter => row[11],
       :what_on => row[12],
-      financial_year_code: row[13]
+      :financial_year_code => row[13]
     }.to_struct
 
     if old.present? and (old.entry_number != r.entry_number or old.printed_on != r.printed_on or old.journal != r.journal)
       if entry and entry[:items_attributes]
-        if items = entry[:items_attributes].values
-          debit = items.map{|v| v[:real_debit]}.sum
-          credit = items.map{|v| v[:real_credit]}.sum
-          if debit != credit
-            Rails.logger.warn "Error on JournalEntry ##{entry[:number]} (D: #{debit}, C: #{credit}, B: #{debit - credit})".red
-          end
+        je = JournalEntry.create!(entry)
+        if je.real_debit != je.real_credit
+          Rails.logger.warn "Error on JournalEntry ##{entry[:number]} (D: #{je.debit}, C: #{je.credit}, B: #{je.debit - je.credit})".red
         end
-        JournalEntry.create!(entry)
         entry = nil
-        w.check_point
       else
         raise "What ???"
       end
@@ -46,7 +48,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
     # Adds the journal entry item with the dependencies
     unless entry
-      fy = FinancialYear.at(r.printed_on)
+      fy = FinancialYear.at(r.printed_on) 
       number = r.entry_number
       number = r.journal.code + (10_000_000_000 + rand(10_000_000_000)).to_s(36) if number.blank?
       number = number.mb_chars.upcase
@@ -67,9 +69,8 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
     # Adds a real entity with known information
     if r.account.number.match(/^4(0|1)\d/)
       last_name = r.entity_name.mb_chars.capitalize
-      unless entity = Entity.where("last_name ILIKE ?", last_name).first
-        entity = LegalEntity.create!(last_name: last_name, nature: "legal_entity", first_met_at: r.printed_on)
-      end
+      entities[last_name] ||= Entity.where("last_name ILIKE ?", last_name).first || LegalEntity.create!(last_name: last_name, nature: "legal_entity", first_met_at: r.printed_on)
+      entity = entities[last_name]
       if entity.first_met_at and r.printed_on and r.printed_on < entity.first_met_at
         entity.first_met_at = r.printed_on
       end
@@ -85,6 +86,10 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
     end
 
     old = r
+    count += 1
+    w.check_point if count % w_count
   end
+
+  GC.start
 
 end
