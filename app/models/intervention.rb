@@ -237,8 +237,9 @@ class Intervention < Ekylibre::Record::Base
     return false unless self.undone?
     valid = true
     for variable in self.reference.variables.values
-      valid = false unless cast = self.casts.find_by(reference_name: variable.name)
-      valid = false unless cast.runnable?
+      unless cast = self.casts.find_by(reference_name: variable.name) and cast.runnable?
+        valid = false
+      end
     end
     return valid
   end
