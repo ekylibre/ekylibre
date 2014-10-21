@@ -77,11 +77,11 @@ class CatalogPrice < Ekylibre::Record::Base
   scope :of_usage, lambda { |usage|
     joins(:catalog).merge(Catalog.of_usage(usage))
   }
-  
+
   protect(on: :destroy) do
     self.sale_items.any?
   end
-  
+
   before_validation do
     self.amount = self.amount.round(4)
     self.currency = "EUR" if self.currency.blank?
