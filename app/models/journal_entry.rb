@@ -75,7 +75,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_presence_of :real_currency
-  validates_format_of :number, :with => /\A[\dA-Z]+\z/
+  validates_format_of :number, with: /\A[\dA-Z]+\z/
   validates_numericality_of :real_currency_rate, greater_than: 0
   validates_uniqueness_of :number, scope: [:journal_id, :financial_year_id]
 
@@ -182,6 +182,7 @@ class JournalEntry < Ekylibre::Record::Base
     if self.journal and not self.number
       self.number ||= self.journal.next_number
     end
+    puts self.number.yellow
   end
 
   validate(on: :update) do

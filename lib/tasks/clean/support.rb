@@ -251,7 +251,7 @@ module Clean
         Dir.glob(Rails.root.join("app", "controllers", "**", "*.rb")).each { |file| require file }
         return ObjectSpace
           .each_object(Class)
-          .select { |klass| klass <= ApplicationController }
+          .select { |klass| klass < ActionController::Base }
           .sort{|a,b| a.name <=> b.name}
       end
 

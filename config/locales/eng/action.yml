@@ -1,5 +1,7 @@
 eng:
   actions:
+    api/v1/crumbs:
+      # index: "Crumbs"
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"

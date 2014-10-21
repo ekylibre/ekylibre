@@ -56,6 +56,7 @@ module Exchanges
     def execute(callable, *args, &block)
       exchange = Exchange.new(&block)
       callable.call(*args, exchange)
+      GC.start
     end
 
   end

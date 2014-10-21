@@ -1773,6 +1773,15 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="crumbs">
+        <page to="api/v1/crumbs#index"/>
+        <page to="api/v1/crumbs#create"/>
+      </item>
+      <item name="tokens">
+        <page to="api/v1/tokens#create"/>
+        <page to="api/v1/tokens#destroy"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>
