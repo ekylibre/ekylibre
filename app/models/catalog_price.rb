@@ -78,6 +78,11 @@ class CatalogPrice < Ekylibre::Record::Base
     joins(:catalog).merge(Catalog.of_usage(usage))
   }
 
+  scope :saleables, lambda {
+    joins(variant: [{nature: :category}]).
+    where(product_nature_categories: {saleable: true})
+  }
+
   protect(on: :destroy) do
     self.sale_items.any?
   end
