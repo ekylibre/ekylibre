@@ -49,7 +49,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
     # Adds the journal entry item with the dependencies
     unless entry
-      fy = FinancialYear.at(r.printed_on) 
+      fy = FinancialYear.at(r.printed_on)
       number = r.entry_number
       number = r.journal.code + (10_000_000_000 + rand(10_000_000_000)).to_s(36) if number.blank?
       number = number.mb_chars.upcase
