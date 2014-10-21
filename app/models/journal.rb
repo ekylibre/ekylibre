@@ -189,7 +189,7 @@ class Journal < Ekylibre::Record::Base
   # Takes the very last created entry in the journal to generate the entry number
   def next_number
     entry = self.entries.order(id: :desc).first
-    number = entry ? entry.number : self.code.to_s + "000000"
+    number = entry ? entry.number : self.code.to_s.upcase + "000000"
     number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
     number.succ!
     while self.entries.where(number: number).any?

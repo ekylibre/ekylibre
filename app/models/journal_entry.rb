@@ -179,10 +179,10 @@ class JournalEntry < Ekylibre::Record::Base
       # FIXME We need to do something better when currencies don't match
       raise "You create an entry where the absolute currency (#{self.absolute_currency.inspect}) is not the real (#{self.real_currency.inspect}) or current one (#{self.currency.inspect})"
     end
+    self.number.upcase! if self.number
     if self.journal and not self.number
       self.number ||= self.journal.next_number
     end
-    puts self.number.yellow
   end
 
   validate(on: :update) do
