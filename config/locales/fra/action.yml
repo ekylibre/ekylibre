@@ -1935,6 +1935,7 @@ fra:
       ship: "Expédier"
       show: "Afficher"
       sort: "Trier"
+      stop: "Arrêter"
       toggle: "Basculer"
       unlock: "Déverrouiller"
       unmark: "Dé-marquer"

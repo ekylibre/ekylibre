@@ -49,7 +49,7 @@
 #   updater: users_001
 #   usage: "Lorem ipsum"
 #
----
+
 catalogs_001:
   by_default: true
   code: DEFAULT
@@ -58,6 +58,7 @@ catalogs_001:
   name: Default
   updater: users_001
   usage: sale
+
 catalogs_002:
   by_default: false
   code: DEFTODEL

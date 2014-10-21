@@ -18,7 +18,7 @@
 #
 
 class Backend::CatalogPricesController < BackendController
-  manage_restfully
+  manage_restfully indicator_name: "params[:indicator_name] || 'population'".c, started_at: "params[:started_at] || Time.now".c
 
   unroll
 
@@ -30,8 +30,15 @@ class Backend::CatalogPricesController < BackendController
     t.column :reference_tax, url: true
     t.column :all_taxes_included
     t.column :catalog, url: true
+    t.action :stop, method: :post, confirm: true
     t.action :edit
     t.action :destroy, if: :destroyable?
+  end
+
+  def stop
+    return unless @catalog_price = find_and_check
+    @catalog_price.stop
+    redirect_to params[:redirect] || {action: :show, id: @catalog_price.id}
   end
 
 end

@@ -42,6 +42,27 @@ module Ekylibre::FirstRun
     return true
   end
 
+  def self.find_or_create_price(catalog, variant, amount, d, options = {})
+    options[:indicator_name] ||= :population
+    options[:currency] ||= Preference[:currency]
+    options[:amount]  = amount
+    options[:variant] = variant
+    options[:catalog] = catalog
+    unless price = catalog.prices.where(variant_id: variant.id, indicator_name: options[:indicator_name], amount: amount).at(d).first
+      Timecop.travel(d) do
+        if sibling = catalog.prices.where(variant_id: variant.id, indicator_name: options[:indicator_name]).where("started_at < ?", d).reorder(started_at: :desc).first
+          options[:thread] = sibling.thread
+          sibling.update_column(:stopped_at, d)
+        elsif sibling = catalog.prices.where(variant_id: variant.id, indicator_name: options[:indicator_name]).where("started_at > ?", d).reorder(started_at: :asc).first
+          options[:thread] = sibling.thread
+          options[:stopped_at] = sibling.started_at
+        end
+        price = catalog.prices.create!(options)
+      end
+    end
+    return price
+  end
+
 end
 
 Ekylibre::FirstRun.add_loader :sales do |first_run|
@@ -68,7 +89,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
 
       # Create product_nature_price for wheat product
       # wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
-      # wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
+      # wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => Preference[:currency], :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
       w.check_point
     end
 
@@ -104,28 +125,15 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
-      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
       (140 + rand(20)).times do |i|
         # Sale
         d = Time.now - (7*i - rand(4)).days
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
         # Sale items
         (rand(5) + 1).times do
-          # # find or create a price
-          # # @FIXME = waiting for a working method in ProductPrice.price
-          # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
-          price = catalog.prices.find_by(:variant_id => wheat.id, :amount => 100.0)
-          price ||= catalog.prices.create!(:currency => "EUR",
-                                           :started_at => d.to_time,
-                                           :amount => rand(60) + 180,
-                                           :indicator_name => :population,
-                                           :reference_tax => wheat_taxes.sample,
-                                           :variant_id => wheat.id
-                                           )
-
-          sale.items.create!(:quantity => rand(12.5) + 0.5,
-                             :tax => wheat_taxes.sample,
-                             :price => price)
+          price = Ekylibre::FirstRun.find_or_create_price(catalog, wheat, rand(60) + 180, d, reference_tax: wheat_taxes.sample)
+          sale.items.create!(quantity: rand(12.5) + 0.5, tax: wheat_taxes.sample, price: price)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
@@ -163,29 +171,15 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
-      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
       (140 + rand(20)).times do |i|
         # Sale
         d = Time.now - (7*i - rand(4)).days
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
         # Sale items
         (rand(5) + 1).times do
-          # # find or create a price
-          # # @FIXME = waiting for a working method in ProductPrice.price
-          # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
-          price = catalog.prices.find_by(:variant_id => cow.id, :amount => 180.00)
-          price ||= catalog.prices.create!(:amount => rand(40) + 140,
-                                           :started_at => d.to_time,
-                                           :currency => "EUR",
-                                           :indicator_name => :population,
-                                           :reference_tax_id => cow_price_template_taxes.sample.id,
-                                           :variant_id => cow.id
-                                           )
-
-          sale.items.create!(:quantity => rand(4) + 1,
-                             :price => price,
-                             :tax_id => cow_price_template_taxes.sample.id
-                             )
+          price = Ekylibre::FirstRun.find_or_create_price(catalog, cow, rand(40) + 140, d, reference_tax: cow_price_template_taxes.sample)
+          sale.items.create!(quantity: rand(4) + 1, price: price, tax: cow_price_template_taxes.sample)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
@@ -215,31 +209,19 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
                                           })
       end
       # Create milk product
-      milk = ProductNatureVariant.find_by(:reference_name => 'cow_milk')
-      milk ||= ProductNatureVariant.import_from_nomenclature(:cow_milk)
+      milk = ProductNatureVariant.import_from_nomenclature(:cow_milk)
       catalog = Catalog.find_by(:usage => 'sale')
-      milk_price_template_taxes = Tax.find_by(:reference_name => 'fr_vat_reduced')
+      milk_price_template_tax = Tax.find_by(:reference_name => 'fr_vat_reduced')
 
       sale_nature   = SaleNature.actives.first
-      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
       120.times do |i|
         # Sale
         d = Time.now - i.months
         sale = Sale.create!(created_at: d, client: cooperative, nature: sale_nature)
         # Sale items
-        price = catalog.prices.find_by(variant: milk, amount: rand(0.04) + 0.300)
-        price ||= catalog.prices.create!(:amount => rand(0.04)+0.300,
-                                         :started_at => d.to_time,
-                                         :currency => "EUR",
-                                         :indicator_name => :population,
-                                         :reference_tax_id => milk_price_template_taxes.id,
-                                         :variant_id => milk.id
-                                         )
-
-        sale.items.create!(:quantity => rand(5000) + 30000,
-                           :price => price,
-                           :tax_id => milk_price_template_taxes.id
-                           )
+        price = Ekylibre::FirstRun.find_or_create_price(catalog, milk, rand(0.04)+0.300, d, reference_tax: milk_price_template_tax)
+        sale.items.create!(quantity: rand(5000) + 30000, price: price, tax: milk_price_template_tax)
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
       end
@@ -278,28 +260,15 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
-      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
       (140 + rand(20)).times do |i|
         # Sale
         d = Time.now - (7*i - rand(4)).days
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
         # Sale items
         (rand(5) + 1).times do
-          # # find or create a price
-          # # @FIXME = waiting for a working method in ProductPrice.price
-          # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
-          price = catalog.prices.find_by(:variant_id => wine.id, :amount => 8.00)
-          price ||= catalog.prices.create!(:currency => "EUR",
-                                           :started_at => d.to_time,
-                                           :amount => rand(2.8) + 8,
-                                           :indicator_name => :population,
-                                           :reference_tax => wine_taxes.sample,
-                                           :variant_id => wine.id
-                                           )
-
-          sale.items.create!(:quantity => rand(120) + 60,
-                             :tax => wine_taxes.sample,
-                             :price => price)
+          price = Ekylibre::FirstRun.find_or_create_price(catalog, wine, rand(2.8) + 8, d, reference_tax: wine_taxes.sample)
+          sale.items.create!(quantity: rand(120) + 60, tax: wine_taxes.sample, price: price)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
@@ -338,7 +307,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
-      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
       (2 + rand(2)).times do |i|
         # Sale
         d = Time.now - (7*i - rand(4)).days
@@ -349,7 +318,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
           # # @FIXME = waiting for a working method in ProductPrice.price
           # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
           price = catalog.prices.find_by(:variant_id => wine.id, :amount => 850.00)
-          price ||= catalog.prices.create!(:currency => "EUR",
+          price ||= catalog.prices.create!(:currency => Preference[:currency],
                                            :started_at => d.to_time,
                                            :amount => rand(130) + 850,
                                            :indicator_name => :population,

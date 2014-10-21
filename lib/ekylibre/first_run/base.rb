@@ -133,21 +133,23 @@ module Ekylibre
           max <= 0 or count < max
         end
         stop = Time.now
-        status = [basename]
+        status = ["[", @name, "] ", basename]
         status << " " + total.to_s
         status << " done in "
         status << "#{(stop - start).to_i}s"
         l = length - status.join.length
+        n = 3
         if l > 0
-          status.insert(1, " " * l)
-          status[2] = status[2].blue
-          status[4] = status[4].blue
+          status.insert(1 + n, " " * l)
+          status[2 + n] = status[2 + n].blue
+          status[4 + n] = status[4 + n].blue
         elsif l < 0
-          status[0] = basename[0..(l - 4)] + "..."
-          status[1] = status[1].blue
-          status[3] = status[3].blue
+          status[0 + n] = basename[0..(l - 4)] + "..."
+          status[1 + n] = status[1 + n].blue
+          status[3 + n] = status[3 + n].blue
         end
-        status[0] = status[0].blue
+        status[1] = status[1].green
+        status[0 + n] = status[0 + n].blue
         puts "\r" * last.size + status.join
       end
 

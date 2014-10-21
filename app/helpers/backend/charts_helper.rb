@@ -62,6 +62,7 @@ module Backend::ChartsHelper
         code << "    options[:#{name}] = {enabled: true} if options[:#{name}].is_a?(TrueClass)\n"
         code << "  end\n"
       end
+      code << "  options[:#{name}][:enabled] = true if options[:#{name}].is_a?(Hash) and !options[:#{name}].has_key?(:enabled)\n"
     end
     code << "  html_options[:data] ||= {}\n"
     code << "  html_options[:data][:chart] = options.jsonize_keys.to_json\n"

@@ -243,7 +243,11 @@ Ekylibre::Application.routes.draw do
 
     resources :cash_transfers, concerns: [:list, :unroll]
 
-    resources :catalog_prices, concerns: [:list, :unroll]
+    resources :catalog_prices, concerns: [:list, :unroll] do
+      member do
+        post :stop
+      end
+    end
 
     resources :catalogs, concerns: [:list, :unroll] do
       member do

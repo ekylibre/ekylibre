@@ -1399,6 +1399,7 @@
         <page to="backend/catalog_prices#edit"/>
         <page to="backend/catalog_prices#export"/>
         <page to="backend/catalog_prices#find"/>
+        <page to="backend/catalog_prices#stop"/>
         <page to="backend/catalog_prices#import"/>
         <page to="backend/catalog_prices#list"/>
         <page to="backend/catalog_prices#new"/>

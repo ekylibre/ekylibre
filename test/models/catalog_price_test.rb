@@ -35,7 +35,7 @@
 #  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
-#  thread             :string(20)
+#  thread             :string(120)      not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer          not null

@@ -35,7 +35,7 @@
 #  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
-#  thread             :string(20)
+#  thread             :string(120)      not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer          not null
@@ -56,19 +56,21 @@ class CatalogPrice < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :thread, allow_nil: true, maximum: 20
-  validates_length_of :indicator_name, allow_nil: true, maximum: 120
+  validates_length_of :indicator_name, :thread, allow_nil: true, maximum: 120
   validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :all_taxes_included, in: [true, false]
-  validates_presence_of :amount, :catalog, :currency, :indicator_name, :name, :variant
+  validates_presence_of :amount, :catalog, :currency, :indicator_name, :name, :thread, :variant
   #]VALIDATORS]
   validates_presence_of :started_at
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true
   delegate :unit_name, to: :variant
+  delegate :usage, to: :catalog
 
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+
+  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
   scope :of_variant, lambda { |variant|
     where(variant_id: variant.id)
@@ -79,21 +81,30 @@ class CatalogPrice < Ekylibre::Record::Base
   }
 
   scope :saleables, lambda {
-    joins(variant: [{nature: :category}]).
-    where(product_nature_categories: {saleable: true})
+    joins(variant: :category).where(product_nature_categories: {saleable: true})
   }
+
+  scope :of_thread, lambda { |thread| where(thread: thread) }
 
   protect(on: :destroy) do
     self.sale_items.any?
   end
 
-  before_validation do
-    self.amount = self.amount.round(4)
-    self.currency = "EUR" if self.currency.blank?
+  before_validation on: :create do
+    self.currency = Preference[:currency] if self.currency.blank?
     self.indicator_name = :population if self.indicator_name.blank?
-    if self.started_at.nil?
-      self.started_at = Time.now
+    self.started_at ||= Time.now
+    if self.usage and self.indicator_name and self.thread.blank?
+      self.thread = new_thread
+      # Altough there is one chance on 8e+24 every second...
+      while self.class.where(thread: self.thread).any?
+        self.thread = new_thread
+      end
     end
+  end
+
+  before_validation do
+    self.amount = self.amount.round(4) if self.amount
     self.name = self.label
   end
 
@@ -102,19 +113,21 @@ class CatalogPrice < Ekylibre::Record::Base
     tc(:name, variant: self.variant_name, amount: self.amount.l(currency: self.currency), currency: self.currency, unit: self.unit_name)
   end
 
-  def update
-    current_time = Time.now
+  def save
+    super if new_record?
+    puts "Update #{self.id.to_s.red}"
+    now = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id).delete_if{|k,v| k.to_s == "id"})
-    self.class.where(:id => self.id).update_all(:stopped_at => current_time)
+    nc = self.class.create!(self.attributes.merge(thread: old_record.thread, variant_id: old_record.variant_id, catalog_id: old_record.catalog_id, indicator_name: old_record.indicator_name, started_at: now, created_at: now, updated_at: now, creator_id: stamper_id, updater_id: stamper_id).delete_if{|k,v| k.to_s == "id"})
+    self.class.where(id: self.id).update_all(stopped_at: now)
     # nc.ensure_by_default_uniqueness
     return nc
   end
 
-  def destroy
+  def stop
     unless self.new_record?
-      current_time = Time.now
-      self.class.where(:id => self.id).update_all(:stopped_at => current_time)
+      now = Time.now
+      self.class.where(id: self.id).update_all(stopped_at: now)
     end
   end
 
@@ -165,6 +178,10 @@ class CatalogPrice < Ekylibre::Record::Base
   end
 
   private
+
+  def new_thread
+    self.usage + ":" + self.indicator_name.to_s + ":" + Time.now.to_i.to_s(36) + ":" + rand(36 ** 16).to_s(36)
+  end
 
   # Create a price with given parameters
   def new_price(product, options = {})

@@ -81,7 +81,6 @@ class BackendController < BaseController
   end
 
   def save_and_redirect(record, options={}, &block)
-    url = options[:url] || :back
     record.attributes = options[:attributes] if options[:attributes]
     ActiveRecord::Base.transaction do
       if record.send(:save) or options[:saved]
@@ -92,9 +91,12 @@ class BackendController < BaseController
           head :ok
         else
           # TODO: notify if success
-          if url == :back
+          if options[:url] == :back
             redirect_to_back
+          elsif params[:redirect]
+            redirect_to params[:redirect]
           else
+            url = options[:url]
             record.reload
             if url.is_a? Hash
               url0 = {}

@@ -490,9 +490,7 @@ fra:
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
     casts: "Acteurs"
-    catalog: "Catalog"
-    catalog_description: "Description pour le catalogue" #?
-    catalog_name: "Nom pour le catalogue" #?
+    catalog: "Liste de prix"
     category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"

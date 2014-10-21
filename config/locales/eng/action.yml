@@ -93,6 +93,7 @@ eng:
       index: "Catalog prices"
       new: "New catalog price"
       show: "Catalog price: %{name}"
+      # stop: "Stop catalog price: %{name}"
     backend/catalogs:
       edit: "Edit catalog: %{name}"
       index: "Catalogs"
@@ -1571,6 +1572,7 @@ eng:
       ship: "Ship"
       show: "Show"
       sort: "Sort"
+      stop: "Stop"
       toggle: "Toggle"
       unlock: "Unlock"
       unmark: "Unmark"

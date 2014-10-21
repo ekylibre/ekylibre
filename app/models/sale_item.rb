@@ -105,11 +105,8 @@ class SaleItem < Ekylibre::Record::Base
   calculable period: :month, at: "invoiced_at", column: :pretax_amount
 
   before_validation do
-
     self.pretax_amount ||= 0
     self.amount ||= 0
-
-
 
     if self.price
       self.variant ||= self.price.variant

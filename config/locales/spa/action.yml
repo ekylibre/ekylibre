@@ -1905,6 +1905,7 @@ spa:
       # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
+      # stop: "Stop"
       # toggle: "Toggle"
       # unlock: "Unlock"
       # unmark: "Unmark"

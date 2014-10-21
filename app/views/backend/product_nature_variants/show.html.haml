@@ -10,7 +10,7 @@
       - for reading in resource.readings
         .info
           %span.title= reading.indicator.human_name
-          %span.value= reading.value
+          %span.value= reading.value.l
 
       -# .info
         %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
@@ -32,8 +32,8 @@
   - b.hbox do
     - b.cell(:products) do
       = list(:products)
-    - b.cell(:stocks) do
-      - if resource.products.any?
+    - if resource.products.any?
+      - b.cell(:stocks) do
         :ruby
             dataset = resource.products
 
@@ -51,32 +51,28 @@
             end
 
         = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
-      - else
-        = no_data
 
   - b.hbox do
     - b.cell(:prices) do
       = toolbar do |t|
-        - t.new(params: {controller: :catalog_prices, :variant_id => resource.id})
+        - t.new variants: Catalog.reorder(:name).to_a.inject({}){|h,c| h[c.name] = {catalog_id: c.id}; h}, params: {controller: :catalog_prices, variant_id: resource.id, redirect: request.path}
       = list(:prices)
-    - b.cell(:prices_evolutions) do
-      - if resource.prices.count > 0
+    - if resource.prices.any?
+      - b.cell(:prices_evolutions) do
         :ruby
-            dataset = resource.prices.reorder(:started_at)
+          prices = resource.prices.reorder(:started_at)
 
-            series = []
+          series = []
+          threads = prices.pluck(:thread).uniq
 
-            for usage in [:purchase, :sale, :stock, :cost]
-              items = dataset.of_usage(usage)
-              item_h = items.sort.inject({}) do |hash, pair|
-                hash[pair.started_at.to_usec] = pair.amount.to_d
-                hash
+          for thread in threads
+            list = prices.of_thread(thread)
+            if list.any?
+              items = prices.of_thread(thread).sort.collect do |price|
+                [price.started_at.to_usec, price.amount.to_s.to_f]
               end
-              data = []
-              data = item_h.collect{|k,v| [k, v.to_s.to_f] }
-              series << {name: usage.tl ,data: data }
+              series << {name: list.first.catalog.name, data: items }
             end
+          end
 
-        = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
-      - else
-        = no_data
+        = spline_chart(series, legend: { layout: 'horizontal', align: 'center', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}, min: 0}, x_axis: {type: 'datetime', title: { text: :months.tl}})

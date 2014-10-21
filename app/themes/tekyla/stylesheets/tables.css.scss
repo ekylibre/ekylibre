@@ -83,10 +83,8 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
           }
         }
         &.squeezed, &.aborted, &.refused {
-          td {
-            &, * {
-              text-decoration: line-through;
-            }
+          td.col {
+            text-decoration: line-through;
           }
         }
         &.disabled {
