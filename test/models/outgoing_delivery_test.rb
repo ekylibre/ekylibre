@@ -46,4 +46,9 @@ require 'test_helper'
 
 class OutgoingDeliveryTest < ActiveSupport::TestCase
 
+  test "ship giving a transporter id" do
+    assert_nothing_raised do
+      OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: ActiveRecord::FixtureSet.identify(:entities_001))
+    end    
+  end
 end
