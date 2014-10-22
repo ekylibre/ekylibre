@@ -68,7 +68,7 @@
       - else
         = no_data
 
-  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
+  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety] <= :plant
     - b.cell :production_cost do
       :ruby
         # prepare an array of hash

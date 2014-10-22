@@ -80,14 +80,14 @@
 
 
   - b.hbox do
-    - if Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:equipment])
+    - if Nomen::Varieties[resource.variant.variety] <= :equipment
       - b.cell(:supports) do
         = list(:supports)
-    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:animal])
+    - elsif Nomen::Varieties[resource.variant.variety] <= :animal
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
       - b.cell(:supports) do
         = list(:supports)
-    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
+    - elsif Nomen::Varieties[resource.variant.variety] <= :plant
       - b.cell :map do
         - visualization do |v|
           - v.serie :main, data

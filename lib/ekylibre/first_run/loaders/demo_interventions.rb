@@ -19,8 +19,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     first_run.count :cultural_interventions do |w|
       for production in Production.all
         if production.active?
-          variety = production.variant.variety
-          if (Nomen::Varieties[variety].self_and_parents & autumn_sowables).any?
+          variety = Nomen::Varieties[production.variant.variety]
+          if autumn_sowables.detect{|v| variety <= v}
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production
             for support in production.supports
@@ -50,13 +50,13 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
                   # Sowing 15-10-N -> 30-10-N
                   int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-sowing-0-750-2" => 2000000 + rand(250000)}}) do |i|
-                    i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety, can: "grow"))
+                    i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: "grow"))
                     i.add_cast(reference_name: 'seeds_to_sow', population: rand(5) + 1)
                     i.add_cast(reference_name: 'sower',        actor: i.find(Product, can: "sow"))
                     i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
                     i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
                     i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-                    i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
+                    i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety.name).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
                   end
 
                   cultivation = int.casts.find_by(reference_name: 'cultivation').actor
@@ -96,8 +96,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     first_run.count :zea_cultural_interventions do |w|
       for production in Production.all
         if production.active?
-          variety = production.variant.variety
-          if (Nomen::Varieties[variety].self_and_parents & later_spring_sowables).any?
+          variety = Nomen::Varieties[production.variant.variety]
+          if later_spring_sowables.detect{|v| variety <= v}
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production
             for support in production.supports
@@ -116,7 +116,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
                   # Sowing 15-04-N -> 30-05-N
                   int = Ekylibre::FirstRun::Booker.intervene(:all_in_one_sowing, year, 5, 2, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-all_in_one_sowing-0-1200-2" => 80000 + rand(10000)}}) do |i|
-                    i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety, can: "grow"))
+                    i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety.name, can: "grow"))
                     i.add_cast(reference_name: 'seeds_to_sow', population: (rand(4) + 6) * coeff)
 
                     i.add_cast(reference_name: 'fertilizer',   actor: i.find(Product, variety: :preparation, can: "fertilize"))
@@ -129,7 +129,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
                     i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
                     i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
                     i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-                    i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
+                    i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety.name).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
                   end
 
                   cultivation = int.casts.find_by(reference_name: 'cultivation').actor
@@ -179,7 +179,6 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       a = Activity.of_families(:maize_crops)
       for production in Production.of_activities(a)
         if production.active?
-          variety = production.variant.variety
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           for support in production.supports
@@ -216,8 +215,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     first_run.count :grass_interventions do |w|
       for production in Production.all
         if production.active?
-          variety = production.variant.variety
-          if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poa])
+          variety = Nomen::Varieties[production.variant.variety]
+          if variety <= :poa
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production
             for support in production.supports
@@ -260,8 +259,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     first_run.count :cereals_interventions do |w|
       for production in Production.all
         if production.active?
-          variety = production.variant.variety
-          if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_aestivum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_durum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:zea]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:hordeum])
+          variety = Nomen::Varieties[production.variant.variety]
+          if variety <= :triticum_aestivum or variety <= :triticum_durum or variety <= :zea or variety <= :hordeum
             year = production.campaign.name.to_i
             Ekylibre::FirstRun::Booker.production = production
             for support in production.supports
@@ -293,8 +292,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     # intervention for animal treatment
     first_run.count :animal_treatment_interventions do |w|
       for production in Production.all
-        variety = production.variant.variety
-        if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos])
+        variety = Nomen::Varieties[production.variant.variety]
+        if variety <= :bos
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           for support in production.supports
@@ -317,8 +316,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     # intervention for animal insemination
     first_run.count :animal_insemination_interventions do |w|
       for production in Production.all
-        variety = production.variant.variety
-        if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos]) and (production.variant.reference_name == "female_adult_cow" or production.variant.reference_name == "female_young_cow")
+        variety = Nomen::Varieties[production.variant.variety]
+        if variety <= :bos and ["female_adult_cow", "female_young_cow"].include?(production.variant.reference_name)
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           for support in production.supports
@@ -340,8 +339,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
     first_run.count :wine_interventions do |w|
       for production in Production.all
-        variety = production.variant.variety
-        if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:wine])
+        variety = Nomen::Varieties[production.variant.variety]
+        if variety <= :wine
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           for support in production.supports

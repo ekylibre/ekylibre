@@ -97,7 +97,7 @@ class Animal < Bioproduct
       animal_age = (self.age / (3600*24*30)).to_d
     end
     # production (if a cow, get annual milk production)
-    if Nomen::Varieties[self.variety].self_and_parents.include?(Nomen::Varieties[:bos])
+    if Nomen::Varieties[self.variety] <= :bos
       if self.milk_daily_production
         animal_milk_production = (self.milk_daily_production * 365).to_d
       end
