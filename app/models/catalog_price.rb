@@ -94,7 +94,7 @@ class CatalogPrice < Ekylibre::Record::Base
     self.currency = Preference[:currency] if self.currency.blank?
     self.indicator_name = :population if self.indicator_name.blank?
     self.started_at ||= Time.now
-    if self.usage and self.indicator_name and self.thread.blank?
+    if self.catalog and self.indicator_name and self.thread.blank?
       self.thread = new_thread
       # Altough there is one chance on 8e+24 every second...
       while self.class.where(thread: self.thread).any?
@@ -115,11 +115,12 @@ class CatalogPrice < Ekylibre::Record::Base
 
   def save
     super if new_record?
-    puts "Update #{self.id.to_s.red}"
     now = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.merge(thread: old_record.thread, variant_id: old_record.variant_id, catalog_id: old_record.catalog_id, indicator_name: old_record.indicator_name, started_at: now, created_at: now, updated_at: now, creator_id: stamper_id, updater_id: stamper_id).delete_if{|k,v| k.to_s == "id"})
-    self.class.where(id: self.id).update_all(stopped_at: now)
+    if old = self.old_record
+      nc = self.class.create!(self.attributes.merge(thread: old.thread, variant_id: old.variant_id, catalog_id: old.catalog_id, indicator_name: old.indicator_name, started_at: now, created_at: now, updated_at: now, creator_id: stamper_id, updater_id: stamper_id).delete_if{|k,v| k.to_s == "id"})
+      self.class.where(id: self.id).update_all(stopped_at: now)
+    end
     # nc.ensure_by_default_uniqueness
     return nc
   end
