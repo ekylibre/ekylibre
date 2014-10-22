@@ -61,8 +61,16 @@ class Backend::OutgoingDeliveriesController < BackendController
     for id in ids = params[:id].split(',')
       return unless find_and_check(id: id)
     end
-    transport = OutgoingDelivery.ship(ids)
-    redirect_to backend_transport_url(transport)
+    if params[:transporter_id]
+      transport = OutgoingDelivery.ship(ids, params.slice(:transporter_id, :responsible_id))
+      redirect_to backend_transport_url(transport)
+    elsif OutgoingDelivery.transporters_of(ids).uniq.count == 1 && OutgoingDelivery.transporters_of(ids).uniq.first.present?
+      transport = OutgoingDelivery.ship(ids)
+      redirect_to backend_transport_url(transport)
+    else
+      # default case: render the transporter selector
+      # TODO: set a default value for the transporter, corresponding to the best choice
+    end
   end
 
 end
