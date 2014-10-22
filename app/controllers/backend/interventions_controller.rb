@@ -111,10 +111,18 @@ class Backend::InterventionsController < BackendController
       head :not_found
       return
     end
-    updates = procedure.impact(params[:casting], params[:global], params[:updater])
-    respond_to do |format|
-      format.xml  { render xml: updates.to_xml }
-      format.json { render xml: updates.to_json }
+    begin
+      updates = procedure.impact(params[:casting], params[:global], params[:updater])
+      raise Procedo::Errors::UnavailableReading, "No way to access readings for second_food_input_to_use"
+      respond_to do |format|
+        format.xml  { render xml: updates.to_xml }
+        format.json { render json: updates.to_json }
+      end
+    rescue Procedo::Error => e
+      respond_to do |format|
+        format.xml  { render xml:  {errors: e.message}, status: 500 }
+        format.json { render json: {errors: e.message}, status: 500 }
+      end
     end
   end
 

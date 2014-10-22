@@ -1,37 +1,41 @@
 module Procedo
+
+  class Error < StandardError
+  end
+
   module Errors
 
-    class MissingAttribute < StandardError
+    class MissingAttribute < Error
     end
 
-    class MissingVariable < StandardError
+    class MissingVariable < Error
     end
 
-    class MissingProcedure < StandardError
+    class MissingProcedure < Error
     end
 
-    class MissingRole < StandardError
+    class MissingRole < Error
     end
 
-    class NotUniqueIdentifier < StandardError
+    class NotUniqueIdentifier < Error
     end
 
-    class UnknownProcedureNature < StandardError
+    class UnknownProcedureNature < Error
     end
 
-    class UnknownRole < StandardError
+    class UnknownRole < Error
     end
 
-    class InvalidExpression < StandardError
+    class InvalidExpression < Error
     end
 
-    class InvalidHandler < StandardError
+    class InvalidHandler < Error
     end
 
     class AmbiguousExpression < InvalidExpression
     end
 
-    class UncomputableFormula < StandardError
+    class UncomputableFormula < Error
     end
 
     class UnavailableReading < UncomputableFormula

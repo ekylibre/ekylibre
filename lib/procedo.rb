@@ -4,6 +4,7 @@ module Procedo
   NAMESPACE_SEPARATOR = '-'
   VERSION_SEPARATOR   = NAMESPACE_SEPARATOR
 
+  autoload :Error,               'procedo/errors'
   autoload :Errors,              'procedo/errors'
   autoload :Procedure,           'procedo/procedure'
   autoload :Variable,            'procedo/variable'

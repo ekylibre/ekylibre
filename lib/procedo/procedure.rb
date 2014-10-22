@@ -255,7 +255,7 @@ module Procedo
           end
         end
         code << "      unless value\n"
-        code << "        raise Procedo::Errors::UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
+        code << "        raise Procedo::Errors::UnavailableReading, \"Nil \#{'individual ' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
         code << "      datatype = Nomen::Indicators[indicator].datatype\n"
         code << "      return (datatype == :decimal ? value.to_s.to_f : value)\n"
@@ -580,7 +580,7 @@ module Procedo
       Procedo::CompiledProcedure[self.name] = full_name.join("::").constantize
     end
 
-    # Computes what have to be updated if the a given value in
+    # Computes what have to be updated if the given value in
     # the casting is considered to be updated
     # Returns a hash with the list of updates
     def impact(casting, global, updater)
