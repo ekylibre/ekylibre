@@ -193,7 +193,7 @@ class Sale < Ekylibre::Record::Base
       label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.description.blank? ? self.items.pluck(:label).to_sentence : self.description), :sale => self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for item in self.items
-        entry.add_credit(label, (item.account||item.variant.sales_account).id, item.pretax_amount) unless item.pretax_amount.zero?
+        entry.add_credit(label, (item.account||item.variant.product_account).id, item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
     end

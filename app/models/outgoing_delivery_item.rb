@@ -44,6 +44,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :delivery, class_name: "OutgoingDelivery", inverse_of: :items
   belongs_to :product
   belongs_to :sale_item
+  has_one :category, through: :variant
   has_one :variant, through: :product
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
