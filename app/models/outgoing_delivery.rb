@@ -65,7 +65,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   validates_presence_of :sent_at, unless: :with_transport
   validates_presence_of :transporter, if: :with_transport
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, reject_if: :all_blank
 
   # autosave :transport
   acts_as_numbered
