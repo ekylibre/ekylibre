@@ -6,7 +6,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
     row << FinancialYear.at(Date.parse(row[3])).code
   end
   w.count = rows.size
-  w_count = rows.size / 100
+  w_count = (rows.size > 100 ? rows.size / 100 : 100)
   EMPTY = ''
   rows.sort!{|a,b| a[13] + a[3] << (a[4] || EMPTY) <=> b[13] + b[3] << (b[4] || EMPTY) }
 
