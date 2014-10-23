@@ -149,34 +149,28 @@ class OutgoingDelivery < Ekylibre::Record::Base
     end
   end
 
-  # ships outgoing deliveries. Returns a transport
+  # Ships outgoing deliveries. Returns a transport
   # options:
-  #   - transporter_id: the transporter id
-  #   - responsible: the responsible for the transport
+  #   - transporter_id: the transporter ID
+  #   - responsible_id: the responsible (Entity) ID for the transport
   # raises:
-  #   - "With transport only", if at least one outgoing delivery was set without transport
-  #   - "Need unique transporter" if there are different transporters for the deliveries
+  #   - "Need an obvious transporter to ship deliveries" if there is no unique transporter for the deliveries
   def self.ship(deliveries, options = {})
     transport = nil
     transaction do
-      deliveries = deliveries.flatten.collect do |d|
-        (d.is_a?(self) ? d : self.find(d))
-      end # .sort{|a,b| a.sent_at <=> b.sent_at }
+      unless Entity.find_by(id: options[:transporter_id])
+        transporter_ids = transporters_of(deliveries).uniq
+        if transporter_ids.size == 1
+          options[:transporter_id] = transporter_ids.first
+        else
+          raise StandardError, "Need an obvious transporter to ship deliveries"
+        end
+      end
 
+      transport = Transport.create!(departed_at: Time.now, transporter_id: options[:transporter_id], responsible_id: options[:responsible_id])
       deliveries.each do |delivery|
         delivery.with_transport = true
-        delivery.transporter_id = options[:transporter_id] if options[:transporter_id]
-      end
-
-      if deliveries.detect{|d| !d.with_transport }
-        raise "With transport only..."
-      end
-
-      transporter_ids = deliveries.map(&:transporter_id).uniq.compact
-      raise "Need unique transporter (#{transporter_ids.inspect})" if transporter_ids.count > 1
-
-      transport = Transport.create!(departed_at: Time.now, transporter_id: transporter_ids.first, responsible: options[:responsible_id])
-      for delivery in deliveries
+        delivery.transporter_id = options[:transporter_id]
         delivery.transport = transport
         delivery.save!
       end
@@ -186,12 +180,9 @@ class OutgoingDelivery < Ekylibre::Record::Base
     return transport
   end
 
-  # returns an array of all the transporter ids for the given deliveries
+  # Returns an array of all the transporter ids for the given deliveries
   def self.transporters_of(deliveries)
-    deliveries = deliveries.flatten.collect do |d|
-        (d.is_a?(self) ? d : self.find(d))
-      end
-    deliveries.flatten.map(&:transporter_id)
+    deliveries.map(&:transporter_id)
   end
 
 

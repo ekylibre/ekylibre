@@ -54,7 +54,7 @@ class OutgoingDeliveryTest < ActiveSupport::TestCase
 
   test "prevent empty items" do
     assert_nothing_raised do
-      od = OutgoingDelivery.new items_attributes: {"1413969917894"=>{"product_id"=>"", "_destroy"=>"false"}}
+      od = OutgoingDelivery.new items_attributes: {"123456789"=>{"product_id"=>"", "_destroy"=>"false"}}
       od.items.map(&:net_mass)
     end
   end

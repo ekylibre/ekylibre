@@ -58,18 +58,21 @@ class Backend::OutgoingDeliveriesController < BackendController
   end
 
   def ship
-    for id in ids = params[:id].split(',')
-      return unless find_and_check(id: id)
+    deliveries = []
+    for id in params[:id].split(',')
+      return unless delivery = find_and_check(id: id)
+      deliveries << delivery
     end
     if params[:transporter_id]
-      transport = OutgoingDelivery.ship(ids, params.slice(:transporter_id, :responsible_id))
+      transport = OutgoingDelivery.ship(deliveries, params.slice(:transporter_id, :responsible_id))
       redirect_to backend_transport_url(transport)
-    elsif OutgoingDelivery.transporters_of(ids).uniq.count == 1 && OutgoingDelivery.transporters_of(ids).uniq.first.present?
-      transport = OutgoingDelivery.ship(ids)
+    elsif OutgoingDelivery.transporters_of(deliveries).uniq.count == 1
+      transport = OutgoingDelivery.ship(deliveries, params.slice(:responsible_id))
       redirect_to backend_transport_url(transport)
     else
       # default case: render the transporter selector
-      @best_transporter_id_choice = OutgoingDelivery.transporters_of(ids).group_by{|transporter_id| transporter_id}.max_by{|k,v|v.count}.first
+      params[:transporter_id] = OutgoingDelivery.transporters_of(deliveries).compact.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+      params[:responsible_id] = current_user.person.id
     end
   end
 
