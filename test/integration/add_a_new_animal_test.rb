@@ -48,9 +48,9 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     shoot_screen "issues/new"
     # fill_in('issue[name]', with: "3ème mammite de l'année")
     select('Mammite', from: 'issue[nature]')
-    fill_in("issue_observed_at", with: '2013-06-01 14:50')
     choose("issue_priority_1")
     choose("issue_gravity_3")
+    fill_in("issue_observed_at", with: '2013-06-01 14:50')
     click_on(:create.tl)
     shoot_screen "issues/create"
   end
