@@ -284,7 +284,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         end
 
         # error message for indicators
-        fs << @object.errors.inspect if @object.errors.any?
+        if Rails.env.development?
+          fs << @object.errors.inspect if @object.errors.any?
+        end
 
 
         # Adds owner fields

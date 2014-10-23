@@ -70,22 +70,22 @@ module Ekylibre::Record
       for custom_field in self.custom_fields
         value = self.custom_value(custom_field)
         if value.blank?
-          errors.add(custom_field.column_name, :custom_field_is_required, :field => custom_field.name) if custom_field.required?
+          errors.add(custom_field.column_name, :blank, attribute: custom_field.name) if custom_field.required?
         else
           if custom_field.text?
             unless custom_field.maximal_length.blank? or custom_field.maximal_length <= 0
-              errors.add(custom_field.column_name, :custom_field_is_too_long, :field => custom_field.name, :count => custom_field.maximal_length) if value.length > custom_field.maximal_length
+              errors.add(custom_field.column_name, :too_long, attribute: custom_field.name, count: custom_field.maximal_length) if value.length > custom_field.maximal_length
             end
             unless custom_field.minimal_length.blank? or custom_field.minimal_length <= 0
-              errors.add(custom_field.column_name, :custom_field_is_too_short, :field => custom_field.name, :count => custom_field.maximal_length) if value.length < custom_field.minimal_length
+              errors.add(custom_field.column_name, :too_short, attribute: custom_field.name, count: custom_field.maximal_length) if value.length < custom_field.minimal_length
             end
           elsif custom_field.decimal?
             value = value.to_d unless value.is_a?(Numeric)
             unless custom_field.minimal_value.blank?
-              errors.add(custom_field.column_name, :custom_field_is_less_than, :field => custom_field.name, :count => custom_field.minimal_value) if value < custom_field.minimal_value
+              errors.add(custom_field.column_name, :greater_than, attribute: custom_field.name, count: custom_field.minimal_value) if value < custom_field.minimal_value
             end
             unless custom_field.maximal_value.blank?
-              errors.add(custom_field.column_name, :custom_field_is_greater_than, :field => custom_field.name, :count => custom_field.maximal_value) if value > custom_field.maximal_value
+              errors.add(custom_field.column_name, :less_than, attribute: custom_field.name, count: custom_field.maximal_value) if value > custom_field.maximal_value
             end
           end
         end

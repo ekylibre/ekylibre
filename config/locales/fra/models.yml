@@ -167,10 +167,6 @@ fra:
         contains_blank_line: "%{attribute} contient une ligne vide" #?
         contains_blank_page: "%{attribute} contient une page vide" #?
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
-        custom_field_is_greater_than: "%{field} est trop grand (%{maximum} maximum)" #?
-        custom_field_is_less_than: "%{field} est trop petit (%{minimum} minimum)" #?
-        custom_field_is_required: "%{field} doit être renseigné" #?
-        custom_field_is_too_long: "%{field} est trop long (%{length} caractères)" #?
         empty: "%{attribute} ne peut pas être vide"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée" #?
         equal_to: "%{attribute} doit être égal à %{count}"
