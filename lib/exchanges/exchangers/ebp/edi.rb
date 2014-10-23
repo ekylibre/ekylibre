@@ -1,11 +1,11 @@
 Exchanges.add_importer(:ebp_edi) do |file, w|
-  # def self.import(file, options={})
+
   w.count = %x{wc -l #{file}}.split.first.to_i - 6
 
   File.open(file, "rb:CP1252") do |f|
-    header = f.readline.strip
+    header = f.readline.strip rescue nil
     unless header == "EBP.EDI"
-      raise NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
+      raise Exchanges::NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
     end
     encoding = f.readline
     f.readline

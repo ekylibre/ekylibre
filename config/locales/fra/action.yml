@@ -1775,6 +1775,7 @@ fra:
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
       cannot_finish_affair: "Impossible de terminer l’affaire"
+      cannot_import_file: "Impossible d'importer le fichier (%{message})"
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."

@@ -20,7 +20,7 @@
 class Backend::ImportsController < BackendController
   manage_restfully
 
-  list do |t|
+  list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
     t.column :nature
     t.column :state
     t.column :created_at
@@ -34,7 +34,12 @@ class Backend::ImportsController < BackendController
 
   def run
     return unless import = find_and_check
-    Import.find(import.id).run
+    begin
+      Import.find(import.id).run
+    rescue Exchanges::Error => e
+      notify_error :cannot_import_file, message: e.message
+    end
+    # TODO: Activate background tasks
     # ImportJob.enqueue(import.id)
     redirect_to action: :index
   end

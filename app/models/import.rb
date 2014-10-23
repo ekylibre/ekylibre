@@ -56,20 +56,24 @@ class Import < Ekylibre::Record::Base
   # Run an import.
   # The optional code block permit have access to progression on each check point
   def run(&block)
-    self.update_columns(state: :in_progress, progression_percentage: 0)
-    Ekylibre::Record::Base.transaction do
-      Exchanges.import(self.nature.to_sym, self.archive.path) do |progression, count|
-        self.update_columns(progression_percentage: progression)
-        if block_given?
-          break unless yield(progression, count)
+    begin
+      self.update_columns(state: :in_progress, progression_percentage: 0)
+      Ekylibre::Record::Base.transaction do
+        Exchanges.import(self.nature.to_sym, self.archive.path) do |progression, count|
+          self.update_columns(progression_percentage: progression)
+          if block_given?
+            break unless yield(progression, count)
+          end
         end
       end
       self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper ? User.stamper : 0))
-    end
-    if self.in_progress?
+    rescue Exchanges::Error => e
       self.update_columns(state: :errored, progression_percentage: 0)
+      raise Exchanges::Error, e.message
     end
   end
+
+
 
   def runnable?
     !self.finished?

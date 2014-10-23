@@ -2083,6 +2083,7 @@ arb:
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
       # cannot_finish_affair: "Cannot finish affair"
+      # cannot_import_file: "Cannot import file (%{message})"
       # cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
       cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
