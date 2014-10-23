@@ -46,7 +46,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
   test "add an issue" do
     visit('/backend/issues/new?target_id=7004&target_type=Animal')
     shoot_screen "issues/new"
-    fill_in('issue[name]', with: "3ème mammite de l'année")
+    # fill_in('issue[name]', with: "3ème mammite de l'année")
     select('Mammite', from: 'issue[nature]')
     fill_in("issue_observed_at", with: '2013-06-01 14:50')
     choose("issue_priority_1")
