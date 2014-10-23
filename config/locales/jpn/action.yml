@@ -369,6 +369,7 @@ jpn:
       # edit: "Edit outgoing delivery: %{number}"
       # index: "Outgoing deliveries"
       # new: "New outgoing delivery"
+      # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_modes: #?
     backend/outgoing_payment_modes:

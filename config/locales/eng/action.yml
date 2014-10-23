@@ -413,7 +413,7 @@ eng:
       index: "Outgoing deliveries"
       # invoice: "Invoice outgoing delivery: %{name}"
       new: "New outgoing delivery"
-      # ship: "Ship outgoing delivery: %{name}"
+      ship: "Ship:"
       show: "Outgoing delivery: %{number}"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"

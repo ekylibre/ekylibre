@@ -393,6 +393,7 @@ fra:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
       new: "Nouvelle livraison sortante"
+      ship: "Expédier\_:"
       show: "Livraison sortante\_: %{number}"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"

@@ -460,6 +460,7 @@ spa:
       edit: "Modificacion de la entrega"
       # index: "Outgoing deliveries"
       new: "Añadir una entrega"
+      # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_lines: #?
     backend/outgoing_delivery_modes:  #?

@@ -493,6 +493,7 @@ arb:
       edit: "تعديل التسليم"
       # index: "Outgoing deliveries"
       new: "اضافة تسليم"
+      # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_lines: #?
     backend/outgoing_delivery_modes:  #?
