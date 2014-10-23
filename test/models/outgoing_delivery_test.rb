@@ -51,7 +51,7 @@ class OutgoingDeliveryTest < ActiveSupport::TestCase
       OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: ActiveRecord::FixtureSet.identify(:entities_001))
     end
   end
-  
+
   test "prevent empty items" do
     assert_nothing_raised do
       od = OutgoingDelivery.new items_attributes: {"1413969917894"=>{"product_id"=>"", "_destroy"=>"false"}}
