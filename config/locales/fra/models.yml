@@ -691,7 +691,7 @@ fra:
     exportable_columns: "Colonnes exportables"
     expression: "Expression" #?
     external: "Externe"
-    extjuncted: "Exjoint"
+    extjuncted: "Extjoint"
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     father: "Père"
