@@ -2607,6 +2607,7 @@ arb:
       no_product: "[لا لاي منتج]" #?
     sequence:
       default:
+        # affairs: "A[number|12]"
         # animals: "ANI[year|4][number|4]"
         assets: #?
         # campaigns: "CAMP[number|4]"
@@ -2614,6 +2615,7 @@ arb:
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
         # financial_assets: "FA[number|7]"
+        # gaps: "G[number|12]"
         # incoming_deliveries: "ID[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"
