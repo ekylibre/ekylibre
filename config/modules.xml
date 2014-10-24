@@ -1047,7 +1047,7 @@
       <item name="synchronizations">
         <page to="backend/synchronizations#index"/>
         <page to="backend/synchronizations#show"/>
-        <page to="backend/synchronizations#update"/>
+        <page to="backend/synchronizations#run"/>
       </item>
     </group>
     <!--

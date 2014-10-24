@@ -904,6 +904,7 @@ spa:
     convert_balance_into: #?
     # convert_balance_into_loss: "Convert balance into loss"
     # convert_balance_into_profit: "Convert balance into profit"
+    # cooperative_cartodb: "Cooperative CartoDB"
     # coordinates: "Coordinates"
     # copy_of: "Copy of %{source}"
     cost_income_statement: "Cargas" #?

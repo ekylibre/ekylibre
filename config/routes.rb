@@ -708,7 +708,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :synchronizations
+    resources :synchronizations do
+      member do
+        post :run
+      end
+    end
 
     resources :taxes, concerns: [:list, :unroll]
 

@@ -809,6 +809,7 @@ fra:
     contextual_help: "Aide contextuelle" #?
     convert_balance_into_loss: "Passer le solde en perte"
     convert_balance_into_profit: "Passer le solde en profit"
+    cooperative_cartodb: "CartoDB Coopérative"
     coordinates: "Coordonnées"
     copy_of: "Copie de %{source}"
     cost: "Coût" #?

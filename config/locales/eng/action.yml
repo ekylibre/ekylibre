@@ -586,6 +586,7 @@ eng:
       new: "New subscription"
     backend/synchronizations:
       index: "Synchronizations"
+      # run: "Run synchronization: %{name}"
       show: "Synchronization: %{name}" #?
     backend/taxes:
       edit: "Edit tax: %{name}"
@@ -767,6 +768,7 @@ eng:
     container: "Container"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
+    cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates"
     copy_of: "Copy of %{source}"
     cost_per_net_surface_area: "Cost per net surface area"
@@ -1149,7 +1151,7 @@ eng:
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
-    refresh: "Refresh"
+    refresh: "Refresh" #?
     related_people: "Related people"
     relationship: "Relationship management"
     remove: "Remove"
@@ -1296,7 +1298,7 @@ eng:
     update_params: "Update params" #?
     updated_at_by: "Updated at %{at} by %{by}:" #?
     upload: "Upload"
-    uploading_unicoque_traceability: "Uploading unicoque traceability"
+    uploading_unicoque_traceability: "Uploading unicoque traceability" #?!
     usage: "Usage" #?
     use_incoming_payment: "Add incoming payment %{payment}" #?
     use_renew: "Select the journal to carry over"

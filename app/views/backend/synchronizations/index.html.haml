@@ -1,7 +1,17 @@
-- if @campaigns
-  - id = 92586255
-  = toolbar do
-    -#= tool_to( :uploading_unicoque_traceability.tl, {action: :update, method: :patch, remote: :true}, tool: 'upload')
-    = link_to(:refresh.tl, {}, method: :patch, remote: true, 'data-update' => "##{id}", 'data-update-at' => 'replace', class: "btn")
-- else
-  = no_data
+.active-list
+  %table.list
+    %thead
+      %tr
+        %th.col= Ekylibre::Record::Base.human_attribute_name(:name)
+        %th.act{data: {list_column: :refresh}}
+          %i
+        %th.spe
+
+    %tbody
+      %tr
+        %td= :cooperative_cartodb.tl
+        %td.act
+          = link_to({action: :run, id: :cooperative_cartodb}, method: :post, class: "refresh") do
+            %i
+            = :run.ta
+        %td
