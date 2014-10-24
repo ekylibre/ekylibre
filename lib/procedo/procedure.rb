@@ -78,7 +78,7 @@ module Procedo
       # Check producers
       for variable in new_variables
         unless variable.producer.is_a?(Variable)
-          raise StandardError, "Unknown variable producer for #{variable.name}"
+          raise  Procedo::Errors::UnknownAspect, "Unknown variable producer for #{variable.name}"
         end
       end
 
@@ -464,14 +464,14 @@ module Procedo
             code << "        end\n"
           elsif variable.default_actor.to_s =~ /\Afirst_localized_in\:/
             unless v = self.variables[variable.default_actor.to_s.split(":").second.strip]
-              raise "Unknown variable used in #{variable.default_actor}"
+              raise Procedo::Errors::UnknownVariable, "Unknown variable used in #{variable.default_actor}"
             end
             code << "        if #{v.name}.actor and #{v.name}.actor.containeds(now!).any?\n"
             code << "          #{variable.name}.actor = #{v.name}.actor.containeds.first\n"
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
           elsif variable.default_actor != :none
-            raise "Invalid default-actor expression: #{variable.default_actor.inspect}"
+            raise Procedo::Errors::InvalidExpression, "Invalid default-actor expression: #{variable.default_actor.inspect}"
           end
         end
       end
@@ -497,15 +497,15 @@ module Procedo
             hcode << "  #{variable.name}.impact_handler_#{handler.name}!\n"
           end.join("els").dig(2)
           vcode << "    else\n"
-          vcode << "      raise \"Unknown handler \#{@__updater__.fourth} for #{variable.name}\"\n"
+          vcode << "      raise Procedo::Errors::UnknownHandler, \"Unknown handler \#{@__updater__.fourth} for #{variable.name}\"\n"
           vcode << "    end\n"
         end
         vcode << "  else\n"
-        vcode << "    raise \"Unknown aspect \#{@__updater__.third} for #{variable.name}\"\n"
+        vcode << "    raise Procedo::Errors::UnknownAspect, \"Unknown aspect \#{@__updater__.third} for #{variable.name}\"\n"
         vcode << "  end\n"
       end.join("els").dig(3)
       code << "      else\n"
-      code << "        raise \"Unknown variable \#{@__updater__.second}\"\n"
+      code << "        raise Procedo::Errors::UnknownVariable, \"Unknown variable \#{@__updater__.second}\"\n"
       code << "      end\n"
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
@@ -517,7 +517,7 @@ module Procedo
         end
       end
       code << "    else\n"
-      code << "      raise \"Unknown part \#{@__updater__.first}\"\n"
+      code << "      raise Procedo::Errors::UnknownAspect, \"Unknown part \#{@__updater__.first}\"\n"
       code << "    end\n"
       code << "  end\n\n"
 

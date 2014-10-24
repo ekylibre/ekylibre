@@ -23,7 +23,16 @@ module Procedo
     class UnknownProcedureNature < Error
     end
 
+    class UnknownAspect < Error
+    end
+
+    class UnknownHandler < Error
+    end
+
     class UnknownRole < Error
+    end
+
+    class UnknownVariable < Error
     end
 
     class InvalidExpression < Error
