@@ -56,30 +56,10 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/georeadings#create"
-#     - "backend/georeadings#destroy"
-#     - "backend/georeadings#edit"
-#     - "backend/georeadings#index"
-#     - "backend/georeadings#list"
-#     - "backend/georeadings#new"
-#     - "backend/georeadings#show"
-#     - "backend/georeadings#unroll"
-#     - "backend/georeadings#update"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/imports#create"
-#     - "backend/imports#destroy"
-#     - "backend/imports#edit"
-#     - "backend/imports#index"
-#     - "backend/imports#list"
-#     - "backend/imports#new"
-#     - "backend/imports#run"
-#     - "backend/imports#show"
-#     - "backend/imports#update"
 #     - "backend/kujakus#toggle"
-#     - "backend/product_nature_categories#list_taxations"
-#     - "backend/product_nature_variants#last_purchase_item"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#update"
@@ -161,12 +141,6 @@ affairs:
     - "backend/affairs#detach"
     - "backend/affairs#finish"
     - "backend/affairs#select"
-
-aggregators:
-  read:
-    actions:
-    - "backend/exports#index"
-    - "backend/exports#show"
 
 analyses:
   read:
@@ -695,6 +669,12 @@ events:
     - "backend/events#new"
     - "backend/events#update"
 
+exports:
+  read:
+    actions:
+    - "backend/exports#index"
+    - "backend/exports#show"
+
 financial_assets:
   read:
     actions:
@@ -791,6 +771,23 @@ gaps:
     depend-on:
     - read-gaps
 
+georeadings:
+  read:
+    actions:
+    - "backend/georeadings#index"
+    - "backend/georeadings#list"
+    - "backend/georeadings#show"
+    - "backend/georeadings#unroll"
+  write:
+    depend-on:
+    - read-georeadings
+    actions:
+    - "backend/georeadings#create"
+    - "backend/georeadings#destroy"
+    - "backend/georeadings#edit"
+    - "backend/georeadings#new"
+    - "backend/georeadings#update"
+
 guide_analyses:
   read:
     actions:
@@ -835,6 +832,27 @@ identifiers:
     - "backend/identifiers#edit"
     - "backend/identifiers#new"
     - "backend/identifiers#update"
+
+imports:
+  read:
+    actions:
+    - "backend/imports#index"
+    - "backend/imports#list"
+    - "backend/imports#show"
+  write:
+    depend-on:
+    - read-imports
+    actions:
+    - "backend/imports#create"
+    - "backend/imports#destroy"
+    - "backend/imports#edit"
+    - "backend/imports#new"
+    - "backend/imports#update"
+  execute:
+    depend-on:
+    - read-imports
+    actions:
+    - "backend/imports#run"
 
 incoming_deliveries:
   read:
@@ -1468,6 +1486,7 @@ product_nature_categories:
     - "backend/product_nature_categories#list"
     - "backend/product_nature_categories#list_product_natures"
     - "backend/product_nature_categories#list_products"
+    - "backend/product_nature_categories#list_taxations"
     - "backend/product_nature_categories#show"
     - "backend/product_nature_categories#unroll"
   write:
@@ -1486,6 +1505,7 @@ product_nature_variants:
   read:
     actions:
     - "backend/product_nature_variants#index"
+    - "backend/product_nature_variants#last_purchase_item"
     - "backend/product_nature_variants#list"
     - "backend/product_nature_variants#list_prices"
     - "backend/product_nature_variants#list_products"
@@ -1868,11 +1888,6 @@ trackings:
     - "backend/trackings#edit"
     - "backend/trackings#new"
     - "backend/trackings#update"
-
-transfers:
-  write:
-    depend-on:
-    - read-transfers
 
 transformed_products:
   read:

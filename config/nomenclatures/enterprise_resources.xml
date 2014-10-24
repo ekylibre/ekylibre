@@ -8,7 +8,6 @@
       <item name="accounts"/>
       <item name="activities"/>
       <item name="affairs"/>
-      <item name="aggregators" accesses="read"/>
       <item name="analyses"/>
       <item name="analytic_distributions"/>
       <item name="animal_foods"/>
@@ -34,13 +33,16 @@
       <item name="equipments"/>
       <item name="establishments"/>
       <item name="events"/>
+      <item name="exports" accesses="read"/>
       <item name="financial_assets"/>
       <item name="financial_years" accesses="read, write, close, reopen"/>
       <item name="fungi"/>
       <item name="gaps"/>
+      <item name="georeadings"/>
       <item name="guide_analyses" accesses="read"/>
       <item name="guides" accesses="read, write, execute"/>
       <item name="identifiers"/>
+      <item name="imports" accesses="read, write, execute"/>
       <item name="incoming_deliveries"/>
       <item name="incoming_payment_modes"/>
       <item name="incoming_payments"/>
@@ -86,7 +88,6 @@
       <item name="taxes"/>
       <item name="teams"/>
       <item name="trackings"/>
-      <item name="transfers"/>
       <item name="transformed_products" accesses="read"/>
       <item name="transports"/>
       <item name="users" accesses="read, write, lock"/>
