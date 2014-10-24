@@ -46,16 +46,19 @@ require 'test_helper'
 
 class OutgoingDeliveryTest < ActiveSupport::TestCase
 
-  test "ship giving a transporter id" do
-    assert_nothing_raised do
-      OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: ActiveRecord::FixtureSet.identify(:entities_001))
+  test "ship giving a transporter" do
+    OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: entities(:entities_001).id)
+  end
+
+  test "ship without transporter" do
+    assert_raise StandardError do
+      OutgoingDelivery.ship(OutgoingDelivery.all)
     end
   end
 
   test "prevent empty items" do
-    assert_nothing_raised do
-      od = OutgoingDelivery.new items_attributes: {"123456789"=>{"product_id"=>"", "_destroy"=>"false"}}
-      od.items.map(&:net_mass)
-    end
+    item = outgoing_delivery_items(:outgoing_delivery_items_001).attributes.slice("product_id", "population", "shape")
+    delivery = OutgoingDelivery.new items_attributes: {"123456789"=>{"product_id"=>"", "_destroy"=>"false"}, "852" => item}
+    delivery.items.map(&:net_mass)
   end
 end
