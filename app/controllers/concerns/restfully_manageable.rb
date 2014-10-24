@@ -253,7 +253,7 @@ module RestfullyManageable
       code << "     rescue ActiveRecord::RecordInvalid => e\n"
       code << "       notify_error :record_already_imported\n"
       code << "     end\n"
-      code << "     redirect_to :back and return\n"
+      code << "     redirect_to(params[:redirect] || :back) and return\n"
       code << "  else\n"
       code << "    @#{record_name} = resource_model.new(#{values})\n"
       code << "    @items = Nomen::#{controller_name.camelcase}.selection\n"

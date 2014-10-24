@@ -3,7 +3,7 @@
 
 $sort-mask: rgba(0, 18, 132, 0.05);
 
-$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress" rgba($active-color, 0.12)) ("&.disabled" rgba($neutral-color, 0.25)) ("&.success, &.finished" rgba($success-color, 0.12));
+$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress" rgba($active-color, 0.12)) ("&.disabled" rgba($neutral-color, 0.25)) ("&.success, &.finished" rgba($success-color, 0.12));
 $list-column-backgrounds:    ("&" rgba(#FFF, 0)) ("&.act" rgba($link-color, 0.04)) ("&.sor" $sort-mask);
 $list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.22));
 $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);

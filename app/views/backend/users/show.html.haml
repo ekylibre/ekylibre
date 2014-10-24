@@ -1,11 +1,22 @@
 - main_toolbar do |t|
-  - t.edit @user
+  - t.edit resource
+  - if resource != current_user
+    - if resource.locked?
+      - t.unlock resource, method: :post
+    - else
+      - t.lock resource, method: :post
 
-= attributes_list do |l|
-  - l.attribute :last_name
-  - l.attribute :first_name
-  - l.attribute :name
-  - l.attribute :commercial
-  - l.attribute :employment
-  - l.attribute :establishment, label: :name
-  - l.attribute :team, label: :name
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :last_name
+      - l.attribute :first_name
+      - l.attribute :role, url: true
+      - l.attribute :locked
+      - l.attribute :commercial
+      - l.attribute :employment
+      - l.attribute :establishment, label: :name
+      - l.attribute :team, label: :name
+
+  - b.cell :rights do
+    = access_control_list(resource.rights)

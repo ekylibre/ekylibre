@@ -25,8 +25,8 @@
           = heading_tag
         = deck(:id => :content) do
           = subheading_tag
-          = main_toolbar_tag
           = notifications_tag
+          = main_toolbar_tag
           = yield
       #help
         .inner= render(:partial => "backend/helps/search", :object => @article)

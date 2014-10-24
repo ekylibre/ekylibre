@@ -20,6 +20,8 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require active_list.jquery
+//= require_self
+//= require erp
 //= require formize/behave
 //= require formize/dialog
 //= require formize/observe
@@ -38,7 +40,8 @@
 //= require leaflet/draw
 //= require leaflet/fullscreen
 //= require leaflet/providers
-//= require_self
 //= require_tree .
 
 var visualization = {};
+var erp = {};
+

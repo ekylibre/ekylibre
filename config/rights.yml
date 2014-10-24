@@ -80,6 +80,7 @@
 #     - "backend/kujakus#toggle"
 #     - "backend/product_nature_categories#list_taxations"
 #     - "backend/product_nature_variants#last_purchase_item"
+#     - "backend/roles#list_users"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#update"
@@ -1913,21 +1914,14 @@ users:
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"
-    - "backend/users#lock"
     - "backend/users#new"
-    - "backend/users#unlock"
     - "backend/users#update"
   lock:
     depend-on:
     - read-users
     actions:
-    - "backend/users#create"
-    - "backend/users#destroy"
-    - "backend/users#edit"
     - "backend/users#lock"
-    - "backend/users#new"
     - "backend/users#unlock"
-    - "backend/users#update"
 
 wine_tanks:
   read:

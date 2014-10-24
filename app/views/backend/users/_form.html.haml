@@ -1,7 +1,7 @@
 = field_set do
   = f.input :last_name
   = f.input :first_name
-  = f.input :language, :collection => languages
+  = f.input :language, collection: languages
   = f.input :email
   - if f.object.new_record?
     = f.input :password
@@ -15,7 +15,7 @@
   = f.referenced_association :establishment
 
 = field_set(:access) do
-  = f.referenced_association :role
+  = f.referenced_association :role, input_html: {data: {refresh_access_control_list: backend_role_url("ID")}}
   -# input :reduction_percent
   -# input :free_price
   -# input :credits

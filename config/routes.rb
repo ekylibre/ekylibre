@@ -640,7 +640,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :roles, concerns: [:incorporate, :list, :unroll]
+    resources :roles, concerns: [:incorporate, :list, :unroll] do
+      member do
+        get :list_users
+      end
+    end
 
     resources :sale_items, concerns: [:list, :unroll] do
       collection do

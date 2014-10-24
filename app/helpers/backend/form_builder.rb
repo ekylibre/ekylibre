@@ -375,7 +375,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join
     html = "".html_safe
     reference = @object.send(name) || {}
-    for resource, accesses in Ekylibre::Access.list
+    for resource, accesses in Ekylibre::Access.list.sort{|a,b| Nomen::EnterpriseResources[a.first].human_name <=> Nomen::EnterpriseResources[b.first].human_name }
       resource_reference = reference[resource] || []
       html << @template.content_tag(:div, class: "control-group booleans") do
         @template.content_tag(:label, class: "control-label") do

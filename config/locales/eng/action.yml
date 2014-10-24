@@ -1168,7 +1168,7 @@ eng:
       other: "%{count} results" #?
       zero: "No results" #?
     reverse: "Reverse condition"
-    rights: "Rights" #?
+    rights: "Rights"
     role: "Role" #?
     role_name: "Fill the name and check all the needed rights" #?
     roles: "Roles" #?
@@ -1301,6 +1301,7 @@ eng:
     use_incoming_payment: "Add incoming payment %{payment}" #?
     use_renew: "Select the journal to carry over"
     used_accounts: "Used accounts only" #?
+    # users: "Users"
     valid: "Valid" #?
     validate: "Validate"
     validate_selected_entries: "Validate selected entries"

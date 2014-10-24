@@ -1,5 +1,6 @@
 (($) ->
   "use strict"
+
   $.refreshDependents = (event) ->
     element = $(this)
     params = {}
@@ -8,12 +9,18 @@
       paramName = element.data("parameter-name") or element.attr("id") or "value"
       params[paramName] = element.val()
       $(dependents).each (index, item) ->
-        #  item = $(this)
+        # item = $(this)
         console.log "Dependent: ", item
         # Replaces element
         # url = $(item).data("refresh")
-          #
-        $(item).attr "data-update", "self"
+
+        unless $(item).attr("href")?
+          if $(item).data("refresh")?
+            $(item).attr "href", $(item).data("refresh")
+          else if $(item).data("refresh-url")?
+            $(item).attr "href", $(item).data("refresh-url")
+        unless $(item).attr "data-update"
+          $(item).attr "data-update", "self"
         console.log "Dependent: ", item
         $.rails.handleRemote $(item)
 
@@ -43,7 +50,7 @@
 
 
   # Refresh dependents on changes
-  $(document).on "change emulated:change", "*[data-dependents]", $.refreshDependents
+  $(document).on "change emulated:change selector:change", "*[data-dependents]", $.refreshDependents
 
   # Compensate for changes made with keyboard
   $(document).on "keypress", "select[data-dependents]", $.refreshDependents

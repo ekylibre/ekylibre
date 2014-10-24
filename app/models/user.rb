@@ -65,6 +65,7 @@
 #
 
 class User < Ekylibre::Record::Base
+  include Rightable
   belongs_to :team
   belongs_to :establishment
   belongs_to :person
@@ -101,7 +102,6 @@ class User < Ekylibre::Record::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp.all records
   delegate :picture, :full_name, :participations, to: :person
-  serialize :rights
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
@@ -146,17 +146,6 @@ class User < Ekylibre::Record::Base
 
   def label
     self.full_name
-  end
-
-  def resource_actions
-    list = []
-    return list unless self.rights
-    for resource, actions in self.rights
-      for action in actions
-        list << "#{action}-#{resource}"
-      end
-    end
-    return list
   end
 
   # Find or create preference for given name
@@ -218,6 +207,15 @@ class User < Ekylibre::Record::Base
     return list.any?
   end
 
+  # Lock the user
+  def lock
+    update_column(:locked, true)
+  end
+
+  # Unlock the user
+  def unlock
+    update_column(:locked, false)
+  end
 
   # Returns the days where the user has crumbs present
   def unconverted_crumb_days

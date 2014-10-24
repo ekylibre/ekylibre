@@ -35,73 +35,48 @@
 
 
 class Role < Ekylibre::Record::Base
+  include Rightable
   has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
-  serialize :rights
 
   protect(on: :destroy) do
     self.users.any?
   end
 
-  before_validation do
-    self.rights = self.rights.to_hash if self.rights
+  # Impact changes and only changes on users
+  before_update do
+    new_rights_array = self.rights_array
+    old_rights_array = old_record.rights_array
+    granted_rights = new_rights_array - old_rights_array
+    revoked_rights = old_rights_array - new_rights_array
+
+    self.users.find_each do |user|
+      # Remove revoked rights
+      revoked_rights.each do |right|
+        resource, action = right.split("-")
+        if user.rights[resource]
+          user.rights[resource].delete(action)
+          user.rights.delete(resource) if user.rights[resource].blank?
+        end
+      end
+
+      # Add granted rights
+      granted_rights.each do |right|
+        resource, action = right.split("-")
+        user.rights[resource] = [] unless user.rights[resource].is_a?(Array)
+        unless user.rights[resource].include?(action)
+          user.rights[resource] << action
+        end
+      end
+
+      # Save
+      user.save!
+    end
   end
-
-  # after_save(on: :update) do
-  #   old_rights_array = []
-  #   new_rights_array = []
-  #   old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
-
-  #   for right in old_rights
-  #     old_rights_array << right.to_sym
-  #   end
-  #   for right in self.rights.split(/\s+/)
-  #     new_rights_array << right.to_sym
-  #   end
-
-  #   added_rights = new_rights_array-old_rights_array
-  #   deleted_rights = old_rights_array- new_rights_array
-
-  #   for user in User.where(role_id: self.id, administrator: false)
-  #     # puts user.rights.inspect
-  #     user_rights_array = []
-  #     for right in user.rights.split(/\s+/)
-  #       user_rights_array << right.to_sym
-  #     end
-
-  #     user_rights_array.delete_if {|r| deleted_rights.include?(r) }
-  #     for added_right in added_rights
-  #       user_rights_array << added_right unless user_rights_array.include?(added_right)
-  #     end
-
-  #     user.rights = ""
-  #       for right in user_rights_array
-  #         user.rights += right.to_s+" "
-  #       end
-  #     user.save
-  #     # puts user.rights.inspect
-  #   end
-  # end
-
-  # def rights_array
-  #   self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
-  # end
-
-  # def rights_array=(array)
-  #   self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
-  # end
-
-  # def diff_more
-  #   ''
-  # end
-
-  # def diff_less
-  #   ''
-  # end
 
   # Load a role from nomenclature
   def self.import_from_nomenclature(reference_name, force = false)
@@ -116,7 +91,7 @@ class Role < Ekylibre::Record::Base
       array << "all" if array.size < 3
       resource, action = array.second, array.third
       unless Nomen::EnterpriseResources[resource]
-        raise resource.inspect
+        raise StandardError, "Unknown enterprise resource: #{resource.inspect}"
       end
       action = Nomen::EnterpriseResources[resource].accesses if action == "all"
       hash[resource] ||= []
@@ -126,9 +101,9 @@ class Role < Ekylibre::Record::Base
 
     # build attributes
     attributes = {
-      :name => item.human_name,
-      :reference_name => item.name,
-      :rights => rights
+      name: item.human_name,
+      reference_name: item.name,
+      rights: rights
     }
 
     # create role

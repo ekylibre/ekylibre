@@ -1,4 +1,4 @@
-(($) ->
+((E, $) ->
   "use strict"
 
   # Check or uncheck accesses recursively if needed
@@ -21,4 +21,20 @@
     $(this).toggleClass("active").checkAccesses()
     return false
 
-) jQuery
+    # Through a "role" selector, it can refresh totally on access check
+  $(document).on "selector:change", "*[data-selector][data-refresh-access-control-list]", ->
+    element = $(this)
+    $.ajax element.data("refresh-access-control-list").replace(/ID/g, element.selector("value")),
+      dataType: "json"
+      success: (data, status, response) ->
+        $("*[data-access]").removeClass("active");
+        console.log data.rights
+        for resource, actions of data.rights
+          for action in actions
+            $("*[data-access='#{action}-#{resource}']").addClass("active")
+        $("*[data-access]").checkAccesses();
+      error: E.ajaxErrorHandler
+
+    return true
+
+) erp, jQuery

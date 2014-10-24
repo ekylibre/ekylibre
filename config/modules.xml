@@ -1783,6 +1783,9 @@
         <page to="api/v1/tokens#create"/>
         <page to="api/v1/tokens#destroy"/>
       </item>
+      <item name="roles">
+        <page to="backend/roles#list_users"/>
+      </item>
     </group>
   </untreated-actions>
 </modules>

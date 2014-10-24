@@ -457,6 +457,9 @@ div[data-deck] > div#default {
 #about-us {
   .logo {
     margin: 20px auto;
+    img {
+      width: 100%;
+    }
   }
   dl {
     display: block;
