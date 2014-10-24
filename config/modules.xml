@@ -1084,6 +1084,7 @@
         <page to="backend/roles#edit"/>
         <page to="backend/roles#incorporate"/>
         <page to="backend/roles#list"/>
+        <page to="backend/roles#list_users"/>
         <page to="backend/roles#pick"/>
         <page to="backend/roles#new"/>
         <page to="backend/roles#show"/>
@@ -1772,8 +1773,6 @@
         <page to="backend/visuals#picture"/>
       </item>
     </group>
-  </inaccessible-actions>
-  <untreated-actions>
     <group>
       <item name="crumbs">
         <page to="api/v1/crumbs#index"/>
@@ -1783,9 +1782,9 @@
         <page to="api/v1/tokens#create"/>
         <page to="api/v1/tokens#destroy"/>
       </item>
-      <item name="roles">
-        <page to="backend/roles#list_users"/>
-      </item>
     </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group/>
   </untreated-actions>
 </modules>

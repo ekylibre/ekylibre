@@ -80,7 +80,6 @@
 #     - "backend/kujakus#toggle"
 #     - "backend/product_nature_categories#list_taxations"
 #     - "backend/product_nature_variants#last_purchase_item"
-#     - "backend/roles#list_users"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#update"
@@ -1654,6 +1653,7 @@ roles:
     actions:
     - "backend/roles#index"
     - "backend/roles#list"
+    - "backend/roles#list_users"
     - "backend/roles#show"
     - "backend/roles#unroll"
   write:
