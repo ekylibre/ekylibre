@@ -95,7 +95,7 @@ module Ekylibre::Record
     def method_missing(method_name, *args)
       if method_name.to_s =~ /\A\_/
         unless self.class.columns.detect{|c| c.name == method_name.to_s}
-          Rails.logger.info "Reset column information"
+          Rails.logger.warn "Reset column information"
           self.class.reset_column_information
         end
       end
