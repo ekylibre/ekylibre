@@ -44,6 +44,17 @@ module BackendHelper
     path = reverse_menus
     return '' if path.nil?
     render(partial: 'layouts/side', locals: {path: path})
+    # render_snippets(:side)
+    # render('/shared/snippet', collection: Ekylibre::SnippetManager.at(:side), path: path)
+  end
+
+  def add_snippets(place, options = {})
+    puts [place, options].inspect.yellow
+    Ekylibre::Snippet.at(:side).each do |s|
+      snippet(s.name, {icon: :plug}.merge(s.options)) do
+        render(file: s.path)
+      end
+    end
   end
 
   def module_authorized?(mod)
@@ -104,6 +115,7 @@ module BackendHelper
 
 
   def snippet(name, options={}, &block)
+    puts [name, options].inspect.red
     collapsed = current_user.preference("interface.snippets.#{name}.collapsed", false, :boolean).value
     collapsed = false if collapsed and options[:title].is_a?(FalseClass)
 
@@ -118,7 +130,7 @@ module BackendHelper
     unless options[:title].is_a?(FalseClass)
       html << "<a href='#{url_for(:controller => "/backend/snippets", :action => :toggle, :id => name)}' class='snippet-title' data-toggle-snippet='true'>"
       html << "<i class='collapser'></i>"
-      html << "<h3><i></i>" + (options[:title] || tl(name)) + "</h3>"
+      html << "<h3><i></i>" + (options[:title] || "snippets.#{name}".t(default: ["labels.#{name}".to_sym])) + "</h3>"
       html << "</a>"
     end
 

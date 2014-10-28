@@ -5,10 +5,13 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
-/.project
-/.idea
+.bundle
+.rspec
 /pkg
+ 
+# Ignore IDE files
+.project
+.idea
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -38,7 +41,10 @@ config/locales/*/prints/*.pdf
 
 # Ignore compiled assets
 /public/assets
-public/system/*
+/public/system/*
+
+# Ignore plugins
+/plugins
 
 # Ignore local database config
 /config/database.yml
@@ -46,21 +52,11 @@ public/system/*
 /config/tools.xml
 /config/tenants.yml
 
-# Ignore compass sprites
-app/themes/tekyla/images/common-s*.png
-app/themes/tekyla/images/icons-s*.png
-
 # Coveralls
 coverage
 
 # Capybara screenshot test files
 capybara*.html
-
-#localeapp
-.localeapp
-
-.project
-.rspec
 
 # ignore jasper file stack
 *.jasper

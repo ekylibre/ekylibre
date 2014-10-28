@@ -49,3 +49,4 @@ require 'enumerize/xml'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
 # ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
 
+Ekylibre::Plugin.load
