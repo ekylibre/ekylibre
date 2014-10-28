@@ -1,7 +1,8 @@
 # Create or updates entities
 Exchanges.add_importer :ekylibre_erp_settings do |file, w|
 
-  manifest = YAML.load_file(file).deep_symbolize_keys
+  manifest = YAML.load_file(file) || {}
+  manifest.deep_symbolize_keys!
 
   # TODO: Find a cleaner way to manage those following methods
   def manifest.can_load?(key)
@@ -200,12 +201,14 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Load incoming payment modes
   if manifest.can_load_default?(:incoming_payment_modes)
     manifest[:incoming_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
-      hash[nature] = {name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account), with_deposit: (nature == "check" ? true : false)}
-      if hash[nature][:with_deposit] and journal = Journal.find_by(nature: "bank")
-        hash[nature][:depositables_journal] = journal
-        hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)
-      else
-        hash[nature][:with_deposit] = false
+      if cash = Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)
+        hash[nature] = {name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == "check" ? true : false)}
+        if hash[nature][:with_deposit] and journal = Journal.find_by(nature: "bank")
+          hash[nature][:depositables_journal] = journal
+          hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)
+        else
+          hash[nature][:with_deposit] = false
+        end
       end
       hash
     end
@@ -225,9 +228,10 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
 
   # Load sale natures
   if manifest.can_load_default?(:sale_natures)
-    nature = :sales
+    nature, usage = :sales, :sale
     journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
-    manifest[:sale_natures] = {default: {name: SaleNature.tc('default.name'), active: true, expiration_delay: "30 day", payment_delay: "30 day", downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, with_accounting: true, journal: journal, catalog: Catalog.of_usage(:sale).first}}
+    catalog = Catalog.of_usage(:sale).first || Catalog.create!(name: "enumerize.catalog.usage.#{usage}".t, usage: usage, currency: currency)
+    manifest[:sale_natures] = {default: {name: SaleNature.tc('default.name'), active: true, expiration_delay: "30 day", payment_delay: "30 day", downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, with_accounting: true, journal: journal, catalog: catalog}}
   end
   manifest.create_records(:sale_natures)
   w.check_point
