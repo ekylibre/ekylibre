@@ -1,6 +1,7 @@
 = field_set do
   = f.input :name
   = f.input :description, as: :text
+  =f.custom_fields
 
 = field_set(:depreciation) do
   = f.money :depreciable_amount

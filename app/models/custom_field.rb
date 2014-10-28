@@ -45,7 +45,7 @@
 class CustomField < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: Ekylibre::Schema.model_names
+  enumerize :customized_type, in: (Ekylibre::Schema.model_names - [:AccountBalance, :AnalysisItem, :Affair, :Bioproduct, :Crumb, :CultivableZoneMembership, :DocumentArchive, :Easement, :FinancialAssetDepreciation, :GapItem, :GuideAnalysisPoint, :Immatter, :IncomingDeliveryItem, :InterventionCast, :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlanZone, :Operation, :OutgoingDeliveryItem, :Preference, :ProductBirth, :ProductConsumption, :ProductCreation, :ProductDeath, :ProductDivision, :ProductEnjoyment, :ProductJunction, :ProductJunctionWay, :ProductLink, :ProductLinkage, :ProductLocalization, :ProductMembership, :ProductMerging, :ProductMixing, :ProductNatureCategoryTaxation, :ProductOwnership, :ProductPhase, :ProductQuadrupleMixing, :ProductQuintupleMixing, :ProductReading, :ProductReadingTask, :ProductTripleMixing, :PropertyTitle, :SaleItem, :Service, :SubZone, :User, :Version, :Zone, :ZonePropertyTitle])
   has_many :choices, -> { order(:position) }, class_name: "CustomFieldChoice", dependent: :delete_all, inverse_of: :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true

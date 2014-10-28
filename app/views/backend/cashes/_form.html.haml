@@ -2,6 +2,7 @@
   = f.input :name
   = f.input :currency, :collection => currencies
   = f.input :nature, :show => {:bank_account => :bank_account_options}, as: :radio_buttons
+  =f.custom_fields
 
 = field_set(:bank_account, :in => :bank_account_options) do
   = f.input :bank_name

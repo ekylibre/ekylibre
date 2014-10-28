@@ -266,7 +266,7 @@ module Procedo
         # Destinations
         for destination in variable.destinations
           code << "    def impact_destination_#{destination}!\n"
-          code << "      puts \"#{variable.name}#impact_destination_#{destination}!(\#{@destinations[:#{destination}]})\".yellow\n"
+          code << "      # puts \"#{variable.name}#impact_destination_#{destination}!(\#{@destinations[:#{destination}]})\".yellow\n"
           # Updates handlers through backward formula
           for converter in variable.backward_converters_from(destination)
             rubyist.value = "@destinations[:#{destination}]"
@@ -311,7 +311,7 @@ module Procedo
 
           # Method to impact handler's new value
           code << "    def impact_handler_#{h.name}!\n"
-          code << "      puts \"#{variable.name}#impact_handler_#{h.name}!\".yellow\n"
+          code << "      # puts \"#{variable.name}#impact_handler_#{h.name}!\".yellow\n"
           if h.check_usability?
             code << "      return unless can_use_#{h.name}?\n"
           end
@@ -588,8 +588,8 @@ module Procedo
       before = proc.casting
       proc.impact!
       after = proc.casting
-      puts before.inspect.red
-      puts after.inspect.green
+      #puts before.inspect.red
+      #puts after.inspect.green
       return after
     end
 

@@ -9,6 +9,7 @@
   = f.input :client, :show => :client_informations
   = f.input :supplier, :show => :supplier_informations
   = f.input :transporter
+  = f.custom_fields
 
 = field_set(:details) do # , :collapsed => true
   = f.input :country, :collection => countries
@@ -19,7 +20,7 @@
   = f.input :dead_at
   = f.input :picture
   -# = f.input :ean13
-  = f.custom_fields
+  -# = f.custom_fields
 
 = field_set(:client_informations) do
   = f.input :meeting_origin, :autocomplete => true

@@ -15,6 +15,7 @@
 -# = field_set :stock, :depend_on => :price, :if => :stockable? do
   = f.referenced_association :building
   = f.referenced_association :tracking, :depend_on => :building, :if => :trackable?
+  =f.custom_fields
 
 = field_set :subscriptions do
   = f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing?
