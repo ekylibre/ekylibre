@@ -91,7 +91,6 @@ GEM
     code_analyzer (0.4.5)
       sexp_processor
     code_string (0.0.0)
-    coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -179,7 +178,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
-    method_source (0.8.2)
     mime-types (2.3)
     mini_portile (0.6.0)
     minitest (5.4.1)
@@ -203,16 +201,11 @@ GEM
       paperclip (>= 3.1, < 5)
     pg (0.17.1)
     polyglot (0.3.5)
-    pry (0.10.1)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
-    railroady (1.1.2)
     rails (4.1.6)
       actionmailer (= 4.1.6)
       actionpack (= 4.1.6)
@@ -298,7 +291,6 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
-    slop (3.6.0)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -353,7 +345,6 @@ DEPENDENCIES
   agric
   apartment
   awesome_nested_set (~> 3.0.0.rc3)
-  awesome_print
   beardley (~> 1.1.0)
   beardley-barcode
   beardley-batik
@@ -395,9 +386,7 @@ DEPENDENCIES
   paperclip
   paperclip-document (>= 0.0.8)
   pg
-  pry
   quiet_assets
-  railroady
   rails (= 4.1.6)
   rails_best_practices
   rgeo-geojson

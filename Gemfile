@@ -29,7 +29,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks' # , '~> 2.2.1'
+gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
@@ -154,7 +154,7 @@ group :development do
 
   # Project management
   gem 'rails_best_practices'
-  gem 'railroady'
+  # gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
   # Webservers
@@ -170,8 +170,8 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
 
-  gem 'awesome_print'
-  gem 'pry'
+  # gem 'awesome_print'
+  # gem 'pry'
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
 end

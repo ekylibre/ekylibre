@@ -60,6 +60,7 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
+#     - "backend/net_services#unroll"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#run"

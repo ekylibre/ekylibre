@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -47,19 +48,24 @@ require 'test_helper'
 class CustomFieldTest < ActiveSupport::TestCase
 
   for model in Ekylibre::Record::Base.descendants
-    test "new custom field on #{model.name}" do
-      for nature in CustomField.nature.values
-        field = CustomField.create!(:name => "A #{nature} info", :nature => nature, :customized_type => model.name)
-        assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
+    test "manage custom field on #{model.name.underscore}" do
+      if CustomField.customized_type.values.include?(model.name)
+        assert_raise ActiveRecord::RecordInvalid, "Cannot add custom field on not customizable models like #{model.name}" do
+          CustomField.create!(name: "たてがみ", nature: :text, customized_type: model.name)
+        end
+      else
+        for nature in CustomField.nature.values
+          field = CustomField.create!(name: "#{nature.capitalize} info", nature: nature, customized_type: model.name)
+          assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
 
-        field.name = "A #{nature} info"
-        field.save
-        assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
+          field.name = "#{nature.capitalize} インフォ"
+          field.save
+          assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
 
-
-        column_name = field.column_name
-        field.destroy
-        assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s == column_name}
+          column_name = field.column_name
+          field.destroy
+          assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s == column_name}
+        end
       end
     end
   end
