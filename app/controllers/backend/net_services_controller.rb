@@ -20,7 +20,7 @@
 class Backend::NetServicesController < BackendController
   manage_restfully t3e: {name: :name}
 
-  # unroll
+  unroll
 
   list do |t|
     t.column :name, url: true
