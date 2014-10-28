@@ -5,6 +5,7 @@ class ExchangesTest < ActiveSupport::TestCase
 
   FIRST_RUN = Rails.root.join("test", "fixtures", "files", "first_run")
 
+  # TODO fix use of manifest.yml which used for fixtures...
   IMPORTS = {
     ekylibre_erp_settings: FIRST_RUN.join("manifest"),
     ekylibre_erp_visuals: FIRST_RUN.dirname.join("sample_image.png")

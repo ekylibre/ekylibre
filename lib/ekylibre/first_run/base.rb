@@ -5,13 +5,24 @@ module Ekylibre
     class Base
 
       def initialize(options = {})
+        @verbose = !options[:verbose].is_a?(FalseClass)
         @mode = options[:mode].to_s.downcase
         @mode = "normal" if @mode.blank?
         @mode = @mode.to_sym
+        if options[:path] and options[:folder]
+          raise ArgumentError, ":path and :folder options are incompatible"
+        end
         @name = options[:name] || options[:folder]
-        @name ||= "demo" if Ekylibre::FirstRun.path.join("demo").exist?
-        @folder = options[:folder] || @name
-        @folder_path = Ekylibre::FirstRun.path.join(@folder)
+        if options[:path]
+          @folder_path = Pathname.new(options[:path])
+          @folder = @folder_path.basename.to_s
+          @name ||= @folder
+        else
+          @name ||= "demo" if Ekylibre::FirstRun.path.join("demo").exist?
+          @name ||= "default" if Ekylibre::FirstRun.path.join("default").exist?
+          @folder = options[:folder] || @name
+          @folder_path = Ekylibre::FirstRun.path.join(@folder)
+        end
         unless @folder_path.exist?
           raise ArgumentError, "Need a valid folder path. #{@folder_path} doesn't exist."
         end
@@ -112,45 +123,49 @@ module Ekylibre
         total = 0
         max = options[:max] || @max
         Import.launch!(nature, file) do |progress, count|
-          status = [basename]
-          status << " #{progress.to_i}%"
-          if progress > 0
-            remaining = (100 - progress) * (Time.now - start) / progress
-            status << " #{remaining.round.to_i}s"
+          if @verbose
+            status = [basename]
+            status << " #{progress.to_i}%"
+            if progress > 0
+              remaining = (100 - progress) * (Time.now - start) / progress
+              status << " #{remaining.round.to_i}s"
+            end
+            l = length - status.join.length
+            if l > 0
+              status.insert(1, "|" * l)
+            elsif l < 0
+              status[0] = basename[0..(l - 4)] + "..."
+            end
+            line = status.join
+            done = (progress * length / 100.0).round.to_i
+            done = length if done > length
+            print "\r" * last.size + line[0..done].green + (done == length ? "" : line[(done+1)..-1])
+            last = line
+            total = count
           end
-          l = length - status.join.length
-          if l > 0
-            status.insert(1, "|" * l)
-          elsif l < 0
-            status[0] = basename[0..(l - 4)] + "..."
-          end
-          line = status.join
-          done = (progress * length / 100.0).round.to_i
-          done = length if done > length
-          print "\r" * last.size + line[0..done].green + (done == length ? "" : line[(done+1)..-1])
-          last = line
-          total = count
           max <= 0 or count < max
         end
-        stop = Time.now
-        status = ["[", @name, "] ", basename]
-        status << " " + total.to_s
-        status << " done in "
-        status << "#{(stop - start).to_i}s"
-        l = length - status.join.length
-        n = 3
-        if l > 0
-          status.insert(1 + n, " " * l)
-          status[2 + n] = status[2 + n].blue
-          status[4 + n] = status[4 + n].blue
-        elsif l < 0
-          status[0 + n] = basename[0..(l - 4)] + "..."
-          status[1 + n] = status[1 + n].blue
-          status[3 + n] = status[3 + n].blue
+        if @verbose
+          stop = Time.now
+          status = ["[", @name, "] ", basename]
+          status << " " + total.to_s
+          status << " done in "
+          status << "#{(stop - start).to_i}s"
+          l = length - status.join.length
+          n = 3
+          if l > 0
+            status.insert(1 + n, " " * l)
+            status[2 + n] = status[2 + n].blue
+            status[4 + n] = status[4 + n].blue
+          elsif l < 0
+            status[0 + n] = basename[0..(l - 4)] + "..."
+            status[1 + n] = status[1 + n].blue
+            status[3 + n] = status[3 + n].blue
+          end
+          status[1] = status[1].green
+          status[0 + n] = status[0 + n].blue
+          puts "\r" * last.size + status.join
         end
-        status[1] = status[1].green
-        status[0 + n] = status[0 + n].blue
-        puts "\r" * last.size + status.join
       end
 
       # Launch the execution of the loaders
