@@ -5,6 +5,11 @@ eng:
         auxiliary: "Auxiliary"
         main: "Main"
         none: "None"
+    analytic_distribution:
+      state:
+        closed: "Closed"
+        confirmed: "Confirmed"
+        draft: "Draft"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"

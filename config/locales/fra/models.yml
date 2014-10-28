@@ -792,7 +792,7 @@ fra:
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"
-    journal_entry_item: "Ligne d’écritures"
+    journal_entry_item: "Ligne d’écriture"
     journal_entry_items: "Lignes d’écritures"
     junction: "Jonction de vie"
     junction_ways: "Voies de jonction"

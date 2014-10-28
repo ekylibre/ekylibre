@@ -993,6 +993,7 @@ journal_entries:
     - "backend/journal_entries#show"
     - "backend/journal_entries#unroll"
     - "backend/journal_entry_items#show"
+    - "backend/journal_entry_items#unroll"
   write:
     depend-on:
     - read-journal_entries

@@ -19,6 +19,8 @@
 
 class Backend::JournalEntryItemsController < BackendController
 
+  unroll includes: [:entry, :account]
+
   def new
     @journal_entry_item = JournalEntryItem.new
     @journal_entry_item.name = params[:name] if params[:name]

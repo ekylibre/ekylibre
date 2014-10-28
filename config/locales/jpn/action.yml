@@ -1526,7 +1526,7 @@ jpn:
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
-    # backend/journal_entry_items: "{name}"
+    # backend/journal_entry_items: "{entry.number} {name} {account.number} D{real_debit} C{real_credit} {currency}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
     # backend/operations: "{nature} ({created_at})"

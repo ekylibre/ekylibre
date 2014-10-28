@@ -18,7 +18,7 @@
 #
 
 class Backend::AnalyticDistributionsController < BackendController
-  manage_restfully
+  manage_restfully state: "AnalyticDistribution.state.default_value".c
 
   unroll
 

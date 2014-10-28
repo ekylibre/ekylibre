@@ -169,7 +169,7 @@ fra:
       index: "Zones administratives"
       new: "Nouvelle zone administrative"
     backend/document_archives:
-      show: "Archive\_: %{name} "
+      show: "Archive\_: %{name}"
     backend/document_templates:
       edit: "Modifier le modèle de document\_: %{name}"
       index: "Modèles de document"
@@ -432,7 +432,7 @@ fra:
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
     backend/product_groups:
-      edit: "Modifier le groupe\_: %{name} "
+      edit: "Modifier le groupe\_: %{name}"
       index: "Groupes de produits"
       new: "Créer un groupe"
       show: "Groupe\_: %{name}"
@@ -1953,7 +1953,7 @@ fra:
     backend/catalog_prices: "{name}"
     backend/entity_links: "{started_at}"
     backend/events: "{name}"
-    backend/journal_entry_items: "{name}"
+    backend/journal_entry_items: "[{entry.number}] {name} ({account.number}) D{real_debit}/C{real_credit} {currency}"
     backend/matters: "{name} ‒ {work_number}"
     backend/observations: "{content}"
     backend/operations: "{reference_name} ({started_at})"

@@ -34,9 +34,13 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
+
 class AnalyticDistribution < Ekylibre::Record::Base
+  enumerize :state, in: [:draft, :confirmed, :closed], default: :draft
+
   belongs_to :production
   belongs_to :journal_entry_item
+
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :affectation_percentage, allow_nil: true
@@ -44,10 +48,10 @@ class AnalyticDistribution < Ekylibre::Record::Base
   validates_presence_of :affectation_percentage, :affected_at, :journal_entry_item, :production, :state
   #]VALIDATORS]
 
-  state_machine :state, :initial => :draft do
-    state :draft
-    state :confirmed
-    state :closed
-  end
+  # state_machine :state, :initial => :draft do
+  #   state :draft
+  #   state :confirmed
+  #   state :closed
+  # end
 
 end
