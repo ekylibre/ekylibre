@@ -12,7 +12,7 @@ module Ekylibre
       end
 
       def at(place)
-        @snippets[place]
+        @snippets[place] || []
       end
 
     end

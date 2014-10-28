@@ -49,7 +49,6 @@ module BackendHelper
   end
 
   def add_snippets(place, options = {})
-    puts [place, options].inspect.yellow
     Ekylibre::Snippet.at(:side).each do |s|
       snippet(s.name, {icon: :plug}.merge(s.options)) do
         render(file: s.path)
@@ -115,7 +114,6 @@ module BackendHelper
 
 
   def snippet(name, options={}, &block)
-    puts [name, options].inspect.red
     collapsed = current_user.preference("interface.snippets.#{name}.collapsed", false, :boolean).value
     collapsed = false if collapsed and options[:title].is_a?(FalseClass)
 
