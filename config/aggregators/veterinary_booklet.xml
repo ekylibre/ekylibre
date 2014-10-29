@@ -39,7 +39,7 @@
             <property name="observed_at" type="datetime"/>
             <property name="state" level="api"/>
             <property name="interventions_count" level="api"/>
-            <property name="nature" level="api"/>
+            <!-- <property name="nature" level="api"/> -->
             <property name="description"/>
             <property name="picture_path"/>
           </section>

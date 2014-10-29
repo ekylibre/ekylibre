@@ -88,3 +88,17 @@ interventions_002:
   state: undone
   stopped_at: 2009-06-03 12:17:23.000000000 +02:00
   updater: users_001
+
+interventions_003:
+  creator: users_001
+  natures: animal_curative_medicine_admission
+  number: "1"
+  prescription: prescriptions_001
+  production: productions_003
+  production_support: production_supports_003
+  provisional: false
+  reference_name: 'base-animal_treatment-0'
+  started_at: 2009-05-03 09:13:59.000000000 +02:00
+  state: done
+  stopped_at: 2009-05-03 12:17:23.000000000 +02:00
+  updater: users_001

@@ -77,3 +77,12 @@ production_supports_003:
   production_usage: grain
   storage: cultivable_zones_003
   updater: users_001
+
+production_supports_004:
+  creator: users_001
+  exclusive: false
+  nature: main
+  production: productions_003
+  production_usage: meat
+  storage: animal_groups_001
+  updater: users_001

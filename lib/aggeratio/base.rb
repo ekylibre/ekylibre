@@ -114,5 +114,35 @@ module Aggeratio
       return "'aggregator_properties.#{name}'.t(default: [:'attributes.#{name}', :'labels.#{name}', :'activerecord.models.#{name}', #{name.to_s.humanize.inspect}])"
     end
 
+    # Returns all default XPATH queries
+    def queries
+      return @root.xpath("//node()[not(node())]").collect do |leaf|
+        xpath(leaf)
+      end.compact
+    end
+
+    private
+
+    def xpath(element)
+      return nil if ["comment", "variable"].include?(element.name)
+      name = element.name.to_s.upcase
+      if ["matrix", "sections"].include?(element.name)
+        name = normalize_name(element.attr("for"))
+        if element.has_attribute?("name")
+          name = normalize_name(element.attr("name")) + "/" + name
+        end
+      elsif element.has_attribute?("name")
+        name = normalize_name(element.attr("name"))
+      end
+      prefix = (["property", "title"].include?(element.name) ? "/@" : "/")
+      if element == @root
+        return prefix + name
+      elsif element.parent and !element.parent.is_a?(Nokogiri::XML::Document)
+        return xpath(element.parent) + prefix + name rescue nil
+      else
+        return nil
+      end
+    end
+
   end
 end

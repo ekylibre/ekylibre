@@ -58,7 +58,7 @@ module Aggeratio
         # TODO: Add a better syntax check
         if document.root.namespace.href.to_s == XMLNS
           document.root.xpath('xmlns:aggregator').each do |element|
-            yield element
+            yield clean(element)
           end
         else
           Rails.logger.info("File #{path} is not a aggregator as defined by #{XMLNS}")
@@ -75,8 +75,7 @@ module Aggeratio
       return (@@categories[cat] || []).collect{|a| Aggeratio[a]}
     end
 
-
-    def build(element)
+    def clean(element)
       # Merge <within>s
       for within in element.xpath('//xmlns:within')
         name, of, of_type = within.attr('name'), within.attr('of'), within.attr('of-type')
@@ -122,12 +121,12 @@ module Aggeratio
           end
         end
       end
-
-
       # element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
+      return element
+    end
 
-      # Codes!
 
+    def build(element)
       agg = Base.new(element)
       name = agg.name
 
@@ -156,7 +155,8 @@ module Aggeratio
       code << "  end\n"
 
       params = "options"
-      code << "  def initialize(#{params} = {})\n"
+      code << "  def initialize(#{params} = nil)\n"
+      code << "    #{params} ||= {}\n"
       for p in parameters
         if p.record_list?
           # campaigns
@@ -185,11 +185,13 @@ module Aggeratio
           code << "      @#{p.name} = #{p.foreign_class.name}.#{p.default}\n"
           code << "    end\n"
         elsif p.decimal?
-          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_f : #{p.default.to_f.inspect})\n"
+          code << "    @#{p.name} = (#{params}['#{p.name}'] ? #{params}['#{name}'].to_f : #{p.default.to_f.inspect})\n"
         elsif p.integer?
-          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_i : #{p.default.to_i.inspect})\n"
+          code << "    @#{p.name} = (#{params}['#{p.name}'] ? #{params}['#{name}'].to_i : #{p.default.to_i.inspect})\n"
+        elsif p.date?
+          code << "    @#{p.name} = (#{params}['#{p.name}'] || #{p.default.to_s.inspect}).to_date\n"
         else
-          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_s : #{p.default.inspect})\n"
+          code << "    @#{p.name} = (#{params}['#{p.name}'] ? #{params}['#{name}'].to_s : #{p.default.inspect})\n"
         end
       end
       code << "  end\n"
@@ -208,7 +210,7 @@ module Aggeratio
 
       code << "end\n"
 
-      if Rails.env.development?
+      if true # Rails.env.development?
         f = Rails.root.join("tmp", "code", "aggregators", "#{agg.name}.rb")
         FileUtils.mkdir_p(f.dirname)
         File.write(f, code)

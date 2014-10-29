@@ -146,3 +146,25 @@ intervention_casts_007:
   reference_name: driver
   roles: grinding-doer, soil_enrichment-doer
   updater: users_001
+
+intervention_casts_008:
+  actor: animals_001
+  creator: users_001
+  intervention: interventions_003
+  nature: product
+  population: 1
+  position: 1
+  reference_name: animal
+  roles: animal_curative_medicine_admission-target
+  updater: users_001
+
+intervention_casts_009:
+  actor: matters_001
+  creator: users_001
+  intervention: interventions_003
+  nature: product
+  population: 1
+  position: 1
+  reference_name: animal_medicine_to_give
+  roles: animal_curative_medicine_admission-input
+  updater: users_001

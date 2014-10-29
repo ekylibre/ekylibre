@@ -87,6 +87,7 @@ eng:
     input_unit_name: "Input unit name"
     intervention_durations: "Intervention durations"
     #~ issue: "Issue"
+    #~ journal: "Journal"
     #~ label: "Label"
     loss_balance: "Loss balance"
     losses: "Losses"

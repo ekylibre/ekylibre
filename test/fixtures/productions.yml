@@ -70,3 +70,13 @@ productions_002:
   static_support: false
   updater: users_001
   variant: product_nature_variants_002
+
+productions_003:
+  activity: activities_003
+  campaign: campaigns_001
+  creator: users_001
+  name: Bovins 2013
+  state: draft
+  static_support: false
+  updater: users_001
+  variant: product_nature_variants_001

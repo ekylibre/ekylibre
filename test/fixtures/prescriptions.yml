@@ -42,11 +42,13 @@
 #   prescriptor: prescriptors_001
 #   updater: users_001
 #
----
+
 prescriptions_001:
   creator: users_001
   prescriptor: legal_entities_001
+  reference_number: "012382"
   updater: users_001
+
 prescriptions_002:
   creator: users_001
   prescriptor: legal_entities_001

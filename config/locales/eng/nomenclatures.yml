@@ -2814,6 +2814,8 @@ eng:
       items:
         fodder: "Fodder"
         grain: "Grain"
+        # meat: "Meat"
+        # milk: "Milk"
         seed: "Seed"
     residue_elimination_methods:
       name: "Residue elimination methods"

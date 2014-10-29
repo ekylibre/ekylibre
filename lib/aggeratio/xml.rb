@@ -50,7 +50,7 @@ module Aggeratio
       code  =  "for #{item} in #{element.attr("in")}\n"
       code << build_elements(element.xpath('xmlns:variable')).dig
       code << build_properties_hash(element.xpath("*[self::xmlns:property or self::xmlns:title]"), :var => "attrs").dig
-      code << "  xml.#{item}(attrs) do\n"
+      code << "  xml.send('#{normalize_name(item)}', attrs) do\n"
       code << build_children_of(element).dig(2)
       code << "  end\n"
       code << "end\n"

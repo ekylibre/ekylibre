@@ -49,14 +49,28 @@
 
 activities_001:
   creator: users_001
-  family: vegetal
-  name: BLE
+  family: vegetal_crops
+  name: Blé
   nature: main
   updater: users_001
 
 activities_002:
   creator: users_001
-  family: animal
-  name: VL
+  family: rabbit_farming
+  name: Lapins
   nature: main
+  updater: users_001
+
+activities_003:
+  creator: users_001
+  family: cattle_farming
+  name: Bovins
+  nature: main
+  updater: users_001
+
+activities_004:
+  creator: users_001
+  family: exploitation
+  name: Maintenance
+  nature: auxiliary
   updater: users_001

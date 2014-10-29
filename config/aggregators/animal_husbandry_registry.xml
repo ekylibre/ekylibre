@@ -17,13 +17,13 @@
       <sections for="campaign" in="campaigns">
         <property name="name" of="campaign"/>
         <section name="plan">
-          <variable name="animal_building_division" value="ProductNature.find_by_reference_name(:animal_building_division)"/>
+          <variable name="animal_building_division" value="ProductNature.find_by(reference_name: :animal_building_division)"/>
           <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).shape_svg(srid: 2154)" type="svg" level="api"/>
           <sections for="building_division" in="BuildingDivision.of_nature(animal_building_division)" of-type="record">
             <title name="name" of="building_division"/>
             <property name="work_number" of="building_division"/>
-            <property name="area" of="building_division" type="measure"/>
-            <property name="area_in_square_meter" value="building_division.net_surface_area(:square_meter)" type="measure" level="api"/>
+            <property name="area" value="building_division.net_surface_area" type="measure"/>
+            <property name="area_in_square_meter" value="building_division.net_surface_area.in(:square_meter)" type="measure" level="api"/>
             <property name="id" of="building_division" level="api"/>
             <property name="shape_svg" value="building_division.shape_svg(srid: 2154)" type="svg" level="api"/>
           </sections>
@@ -54,7 +54,7 @@
                 <cell name="started_at" of="localization" if="localization.started_at" type="datetime"/>
                 <cell name="stopped_at" of="localization" if="localization.stopped_at" type="datetime"/>
               </matrix>
-              <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_nature(:animal_illness_treatment).with_cast(:'animal_illness_treatment-target', animal)">
+              <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_nature(:animal_illness_treatment).with_cast('animal_illness_treatment-target', animal)">
                 <cell name="id" of="intervention" level="api"/>
                 <section name="prescription" of="intervention.prescription">
                   <property name="id" level="api"/>

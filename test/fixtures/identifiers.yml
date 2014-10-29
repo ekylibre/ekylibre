@@ -57,3 +57,15 @@ identifiers_002:
   net_service: net_services_001
   value: '123456'
   updater: users_001
+
+identifiers_003:
+  creator: users_001
+  nature: cattling_number
+  value: '172563ED'
+  updater: users_001
+
+identifiers_004:
+  creator: users_001
+  nature: husbandry_owner_number
+  value: 'HONAZER172563ED'
+  updater: users_001

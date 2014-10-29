@@ -20,7 +20,7 @@
             <cell name="name" of="item"/>
             <cell name="printed_on" value="item.printed_on" type="datetime"/>
             <cell name="number" of="item.entry" of-type="record"/>
-            <cell name="name" of="item.journal" of-type="record"/>
+            <cell name="journal" value="item.journal.name"/>
             <cell name="debit" of="item" type="number"/>
             <cell name="credit" of="item" type="number"/>
             <cell name="real_currency" of="item" level="api"/>

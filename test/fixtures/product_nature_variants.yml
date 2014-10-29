@@ -118,6 +118,18 @@ product_nature_variants_007:
   updater: users_001
   variety: bos
 
+product_nature_variants_008:
+  active: true
+  category: product_nature_categories_001
+  commercial_name: Building division
+  creator: users_001
+  name: Building division
+  nature: product_natures_005
+  number: PNV005
+  unit_name: unit
+  updater: users_001
+  variety: building
+
 product_nature_variants_029:
   active: true
   category: product_nature_categories_001

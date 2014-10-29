@@ -112,8 +112,10 @@ animal_groups_003:
   variety: animal_group
 
 animals_001:
+  born_at: 1997-01-17
   category: product_nature_categories_001
   creator: users_001
+  dead_at: 2006-09-02
   identification_number: A7001
   name: Ionosphere
   nature: product_natures_001
@@ -182,6 +184,7 @@ building_divisions_001:
   updater: users_001
   variant: product_nature_variants_001
   variety: building_division
+
 building_divisions_002:
   category: product_nature_categories_001
   creator: users_001
@@ -193,6 +196,7 @@ building_divisions_002:
   updater: users_001
   variant: product_nature_variants_001
   variety: building_division
+
 building_divisions_003:
   category: product_nature_categories_001
   creator: users_001
@@ -204,6 +208,18 @@ building_divisions_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: building_division
+
+building_divisions_004:
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'BuildingDivision #4'
+  nature: product_natures_006
+  number: '28004'
+  type: BuildingDivision
+  updater: users_001
+  variant: product_nature_variants_008
+  variety: building_division
+
 buildings_001:
   category: product_nature_categories_001
   creator: users_001
