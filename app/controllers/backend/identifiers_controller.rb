@@ -21,9 +21,9 @@ class Backend::IdentifiersController < BackendController
   manage_restfully t3e: {name: :nature}
 
   list conditions: {net_service_id: nil} do |t|
-    t.column :net_service, label_method: :name, url: true
     t.column :nature
     t.column :value
+    t.action :new, on: :none
     t.action :edit
     t.action :destroy
   end

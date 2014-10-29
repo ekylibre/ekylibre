@@ -32,12 +32,16 @@
 #
 class NetService < Ekylibre::Record::Base
   enumerize :reference_name, in: Nomen::NetServices.all
-  has_many :identifiers
+  has_many :identifiers, -> { order(:nature) }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :reference_name
   #]VALIDATORS]
   validates_uniqueness_of :reference_name
+
+  accepts_nested_attributes_for :identifiers
+
+  delegate :url, to: :reference
 
   def name
     self.reference_name.l
@@ -45,6 +49,14 @@ class NetService < Ekylibre::Record::Base
 
   def reference
     Nomen::NetServices[self.reference_name]
+  end
+
+  def each_identifier(&block)
+    if self.reference
+      self.reference.identifiers.each do |identifier|
+        yield Nomen::IdentifierNatures[identifier]
+      end
+    end
   end
 
 end

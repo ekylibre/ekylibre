@@ -149,10 +149,10 @@ a.btn, button {
     &:first-child {
       @include margin-left(0);
     }
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child, html[dir="ltr"] &:first-of-type, html[dir="rtl"] &:last-of-type {
       @include border-left-radius($buttons-radius);
     }
-    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
+    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-of-type, html[dir="rtl"] &:first-of-type {
       @include border-right-radius($buttons-radius);
     }
     &:focus, &:hover, &:active {

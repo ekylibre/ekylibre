@@ -40,10 +40,18 @@ class Identifier < Ekylibre::Record::Base
   validates_presence_of :nature, :value
   #]VALIDATORS]
 
+  delegate :reference, to: :net_service, prefix: true
+
   validate do
-    if self.net_service and self.net_service.reference
-      errors.add(:nature, :invalid) unless self.net_service.reference.identifiers.include?(self.nature.to_sym)
+    if self.net_service and self.net_service_reference
+      unless self.net_service_reference.identifiers.include?(self.nature.to_sym)
+        errors.add(:nature, :inclusion)
+      end
     end
+  end
+
+  def name
+    (self.nature ? Nomen::IdentifierNatures[self.nature].human_name : :unknown.tl)
   end
 
 end

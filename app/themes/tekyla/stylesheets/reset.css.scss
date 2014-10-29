@@ -47,6 +47,11 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
     border-color: $base-color;
     @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
   }
+  &:disabled, &[disabled] {
+    background: #EEE;
+    color: #777;
+    cursor: not-allowed;
+  }
 }
 input[type="number"] {
   @include text-align(right);

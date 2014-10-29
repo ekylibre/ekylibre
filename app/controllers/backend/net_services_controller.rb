@@ -24,15 +24,14 @@ class Backend::NetServicesController < BackendController
 
   list do |t|
     t.column :name, url: true
+    t.column :url
     t.action :edit
     t.action :destroy
   end
 
-  list(:identifiers, model: :identifiers, conditions: {:net_service_id => 'params[:id]'.c}) do |t|
+  list(:identifiers, conditions: {net_service_id: 'params[:id]'.c}) do |t|
     t.column :nature, url: true
     t.column :value
-    t.action :edit
-    t.action :destroy
   end
 
 end

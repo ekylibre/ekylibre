@@ -57,9 +57,9 @@ class CustomField < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_inclusion_of :customized_type, in: self.customized_type.values
-  validates_uniqueness_of :column_name, :scope => [:customized_type]
-  validates_format_of :column_name, :with => /\A(\_[a-z]+)+\z/
-  validates_presence_of :column_name
+  validates_uniqueness_of :column_name, scope: [:customized_type]
+  validates_format_of :column_name, with: /\A(\_[a-z]+)+\z/
+  validates_exclusion_of :column_name, in: ["_destroy"]
 
   accepts_nested_attributes_for :choices
   acts_as_list scope: 'customized_type = \'#{customized_type}\''
