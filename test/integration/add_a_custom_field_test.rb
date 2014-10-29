@@ -4,10 +4,11 @@ require 'test_helper'
 class AddACustomFieldTest < CapybaraIntegrationTest
 
   setup do
-    for field in [:custom_fields_001, :custom_fields_002]
-      record = custom_fields(field)
-      assert record.save, record.errors.inspect
-    end
+    #~ for field in [:custom_fields_001, :custom_fields_002]
+      #~ #break
+      #~ record = custom_fields(field)
+      #~ assert record.save, record.errors.inspect
+    #~ end
     visit('/authentication/sign_in')
     resize_window(1366, 768)
     login_as(users(:users_001), scope: :user)
@@ -16,16 +17,15 @@ class AddACustomFieldTest < CapybaraIntegrationTest
 
   CustomField.customized_type.values[0..-1].each do |model|
 
-    # Do not test when controller does not exists
+    # Do not test when controller does not exist
     next unless Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
-
+    
     model_name = model.underscore
     model_human_name = Ekylibre::Record.human_name(model_name)
     id = ActiveRecord::FixtureSet.identify("#{model.tableize}_001")
 
     [:text, :decimal, :boolean, :date, :datetime, :choice][2..2].each do |nature|
       nature_human_name = CustomField.nature.human_value_name(nature)
-
       test "manage #{nature} custom field on #{model_name}" do
         # creating custom field
         select model_human_name, from: "custom_field[customized_type]"

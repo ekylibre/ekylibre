@@ -65,7 +65,7 @@ custom_fields_001:
   updater: users_001
 
 custom_fields_002:
-  active: true
+  active: false
   column_name: _useless
   creator: users_001
   customized_type: Entity
