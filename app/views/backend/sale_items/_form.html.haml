@@ -1,13 +1,13 @@
--#=field_set @sale_item do
--#  =f.referenced_association :sale, :field => :hidden
--#  =f.input :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => @sale.currency} # , controller: :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
+-#= field_set @sale_item do
+-#  = f.referenced_association :sale, :field => :hidden
+-#  = f.input :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => @sale.currency} # , controller: :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
 -#  -partial(:detail, :depend_on => :price)
--##detail{"data-refresh" => url_for(controller: :sale_items, action: :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}=render :partial => "sale_items/detail_form"
+-##detail{"data-refresh" => url_for(controller: :sale_items, action: :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}= render :partial => "sale_items/detail_form"
 
 -# TODO manage.to_a new attributes
 = field_set do
   = f.referenced_association :sale, :field => :hidden
-  -# FIXME =f.referenced_association :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => "sale.currency".to_sym }
+  -# FIXME = f.referenced_association :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => "sale.currency".to_sym }
   = f.input :quantity
   -# = f.input :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
   = f.input :annotation
@@ -15,7 +15,7 @@
 -# = field_set :stock, :depend_on => :price, :if => :stockable? do
   = f.referenced_association :building
   = f.referenced_association :tracking, :depend_on => :building, :if => :trackable?
-  =f.custom_fields
+  = f.custom_fields
 
 = field_set :subscriptions do
   = f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing?

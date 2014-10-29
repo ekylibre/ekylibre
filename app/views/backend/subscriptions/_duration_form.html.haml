@@ -1,8 +1,0 @@
--if @subscription.nature
-  =formalize do |f|
-    -if @subscription.nature.period?
-      -f.field :subscription, :started_at
-      -f.field :subscription, :stopped_at
-    -else
-      -f.field :subscription, :first_number
-      -f.field :subscription, :last_number

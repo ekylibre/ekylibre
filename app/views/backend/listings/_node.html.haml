@@ -28,24 +28,24 @@
         %tr
           %td.ic
             .icon{class: (node.reflection? ? "table" : "column")}
-          -if node.reflection?
+          - if node.reflection?
             %td
-              =link_to(node.label, "#", "data-toggle-visibility" => "##{node.key}")
+              = link_to(node.label, "#", "data-toggle-visibility" => "##{node.key}")
               %span.attribute="(#{node.name})"
             %td
               =select_tag(:nature, grouped_options_for_select(node.available_nodes), id: "#{node.key}-nature")
-              =link_to(:add.tl, {controller: :listing_nodes, action: :create, :parent_id => node.id}, :remote => true, method: :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", class: "btn")
-          -else
+              = link_to(:add.tl, {controller: :listing_nodes, action: :create, :parent_id => node.id}, :remote => true, method: :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", class: "btn")
+          - else
             %td.export=check_box_tag(:exportable, "1", node.exportable, "data-remote" => true, "data-url" => url_for(action: :update, controller: :listing_nodes, id: node.id, :type => "exportable"), "data-method" => "put")
             %td.link.label{id: "#{node.key}_label"}
-              =render(:partial => "backend/listing_nodes/column_label", :object => node)
+              = render(:partial => "backend/listing_nodes/column_label", :object => node)
 
-            %td.item-tool.comparator{id: "#{node.key}_comparator"}=render(:partial => "backend/listing_nodes/comparison", :object => node)
-          -unless node.root?
-            -unless node.reflection?
-              %td.item-tool.position{id: "#{node.key}_position"}=render(:partial => "backend/listing_nodes/position", :object => node)
+            %td.item-tool.comparator{id: "#{node.key}_comparator"}= render(:partial => "backend/listing_nodes/comparison", :object => node)
+          - unless node.root?
+            - unless node.reflection?
+              %td.item-tool.position{id: "#{node.key}_position"}= render(:partial => "backend/listing_nodes/position", :object => node)
             %td.item-tool.delete
-              =tool_to("rest.actions.destroy".t, {action: :destroy, controller: :listing_nodes, id: node.id}, method: :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, class: "icon im-delete")
+              = tool_to("rest.actions.destroy".t, {action: :destroy, controller: :listing_nodes, id: node.id}, method: :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, class: "icon im-delete")
 
-  -if node.reflection?
+  - if node.reflection?
     %ul{id: node.key}= render(:partial => "backend/listings/reflection", :object => node)

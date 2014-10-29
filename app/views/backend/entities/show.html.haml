@@ -83,7 +83,7 @@
 
     - if resource.participations.any?
       - b.cell(tl(:x_events, count: resource.participations.count)) do
-        -#=toolbar do |t|
+        -#= toolbar do |t|
           - t.new(params: {controller: :events, entity_id: resource.id})
         = list(:event_participations)
 

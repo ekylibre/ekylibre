@@ -4,7 +4,7 @@
   = f.input :to_bank_at
   = f.input :delivered
   = f.referenced_association :mode
-  =f.custom_fields
+  = f.custom_fields
 
 = field_set(:depositable_options) do
   = f.referenced_association :responsible, :source => :employees

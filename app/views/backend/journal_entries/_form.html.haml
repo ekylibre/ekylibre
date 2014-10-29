@@ -5,4 +5,4 @@
   = f.input :printed_on, input_html: {data: {dependents: "#items-form", parameter_name: "printed_on"}}
   #items-form{href: new_backend_journal_entry_path, data: {refresh: new_backend_journal_entry_path, refresh_mode: :update, with: "#journal_id"}}
     = render partial: "items_form"
-  =f.custom_fields
+  = f.custom_fields

@@ -1,10 +1,10 @@
 - main_toolbar do |t|
-  -t.edit @purchase_nature
+  - t.edit @purchase_nature
 = attributes_list do |l|
   - l.attribute :name
   - l.attribute :active
   - l.attribute :currency
   - l.attribute :with_accounting
-  -if @purchase_nature.with_accounting?
+  - if @purchase_nature.with_accounting?
     - l.attribute :journal
   - l.attribute :description

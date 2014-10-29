@@ -1,9 +1,0 @@
--# =master_form(:create, options)
-=form_tag({:action => :create}, {:method => :post}.merge(params[:dialog] ? {"data-dialog" => params[:dialog]} : {})) do
-  -#=@product_nature.errors.inspect
-  -if params[:redirect]
-    =hidden_field_tag(:redirect, params[:redirect])
-  .form-fields>=render(:partial => "form")
-  =form_actions do
-    =submit_tag(options[:submit]||tl(:create), "data-disable-with" => tl(:please_wait))
-    =link_to(options[:cancel]||tl(:cancel), :back, (params[:dialog] ? {"data-close-dialog" => params[:dialog]} : {}))

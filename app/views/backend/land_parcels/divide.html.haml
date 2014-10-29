@@ -1,6 +1,6 @@
-=form_tag({}) do
-  =field_set :division do
-    -#=field LandParcel.human_attribute_name("stopped_at"), date_field(:land_parcel, :stopped_at)
+= form_tag({}) do
+  = field_set :division do
+    -#= field LandParcel.human_attribute_name("stopped_at"), date_field(:land_parcel, :stopped_at)
     %table.list
       %thead
         %tr
@@ -18,6 +18,6 @@
           %th
           %th
       %tbody#subdivisions
-        =render :partial => "backend/land_parcels/subdivision_form"
-  =form_actions do
-    =submit_tag(tl(:divide))
+        = render :partial => "backend/land_parcels/subdivision_form"
+  = form_actions do
+    = submit_tag(tl(:divide))

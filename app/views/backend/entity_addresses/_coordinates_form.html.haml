@@ -1,17 +1,17 @@
-=field_set(@contact, :address) do |f|
-  =f.input :line_2
-  =f.input :line_3
-  =f.input :line_4
-  =f.input :line_5
-  =f.input :line_6, "data-autocompletion" => url_for(action: :autocomplete_for_area_name, controller: :interfacers)
-  =f.input :country, :collection => countries
+= field_set(@contact, :address) do |f|
+  = f.input :line_2
+  = f.input :line_3
+  = f.input :line_4
+  = f.input :line_5
+  = f.input :line_6, "data-autocompletion" => url_for(action: :autocomplete_for_area_name, controller: :interfacers)
+  = f.input :country, :collection => countries
 
-=field_set(@contact, :canals) do |f|
-  =f.input :phone
-  =f.input :fax
-  =f.input :mobile
-  =f.input :email
-  =f.input :website
+= field_set(@contact, :canals) do |f|
+  = f.input :phone
+  = f.input :fax
+  = f.input :mobile
+  = f.input :email
+  = f.input :website
 
 
 

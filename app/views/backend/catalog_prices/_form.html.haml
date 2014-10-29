@@ -8,7 +8,7 @@
     = f.input :started_at
   -# = f.input :stopped_at
   = f.input :all_taxes_included, show: :taxes
-  =f.custom_fields
+  = f.custom_fields
 
 = field_set(:taxes) do
   = f.referenced_association :reference_tax

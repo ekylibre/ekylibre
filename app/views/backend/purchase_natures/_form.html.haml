@@ -1,13 +1,13 @@
-=field_set do
-  =f.input :name
-  =f.input :active
-  =f.input :currency, :collection => currencies
-  =f.input :with_accounting, :show => :accountancy
-  =f.input :description, :field => :text
-  =f.custom_fields
+= field_set do
+  = f.input :name
+  = f.input :active
+  = f.input :currency, :collection => currencies
+  = f.input :with_accounting, :show => :accountancy
+  = f.input :description, :field => :text
+  = f.custom_fields
 
-=field_set :accountancy do
-  =f.referenced_association :journal, :source => :purchases
+= field_set :accountancy do
+  = f.referenced_association :journal, :source => :purchases
 
 
 

@@ -1,10 +1,10 @@
 %fieldset.quick-add
   %legend=tc :add_quickly_an_item
-  =form_tag({controller: :sale_items, action: :create, :sale_id => @sale.id}) do
+  = form_tag({controller: :sale_items, action: :create, :sale_id => @sale.id}) do
     %table.quick
       %tr
         %td=SaleItem.human_attribute_name("product")
-        %td#detail-row{:rowspan => 2, "data-refresh" => url_for(controller: :sale_items, action: :detail, :sale_id => @sale.id, mode: :row), "data-refresh-mode" => "update"}=render :partial => "backend/sale_items/detail_row_form"
-        %td{:rowspan => 2}=submit_tag(:add.tl)
+        %td#detail-row{:rowspan => 2, "data-refresh" => url_for(controller: :sale_items, action: :detail, :sale_id => @sale.id, mode: :row), "data-refresh-mode" => "update"}= render :partial => "backend/sale_items/detail_row_form"
+        %td{:rowspan => 2}= submit_tag(:add.tl)
       %tr
         %td=selector_tag("sale_item[price_id]", {controller: :product_nature_prices, action: :unroll_availables_for_sales}, {}, "data-dependents" => "#detail-row", "data-parameter-name" => "price_id")
