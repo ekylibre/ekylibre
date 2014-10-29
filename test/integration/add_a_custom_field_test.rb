@@ -19,7 +19,7 @@ class AddACustomFieldTest < CapybaraIntegrationTest
 
     # Do not test when controller does not exist
     next unless Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
-    
+
     model_name = model.underscore
     model_human_name = Ekylibre::Record.human_name(model_name)
     id = ActiveRecord::FixtureSet.identify("#{model.tableize}_001")
