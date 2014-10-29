@@ -15,7 +15,9 @@ class AddACustomFieldTest < CapybaraIntegrationTest
     visit('/backend/custom_fields/new')
   end
 
-  CustomField.customized_type.values[0..-1].each do |model|
+  # tests 10% of models randomly
+  models = CustomField.customized_type.values
+  models.sample((models.count * 0.15).round + 6).each_with_index do |model, index|
 
     # Do not test when controller does not exist
     next unless Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
@@ -24,7 +26,9 @@ class AddACustomFieldTest < CapybaraIntegrationTest
     model_human_name = Ekylibre::Record.human_name(model_name)
     id = ActiveRecord::FixtureSet.identify("#{model.tableize}_001")
 
-    [:text, :decimal, :boolean, :date, :datetime, :choice][2..2].each do |nature|
+    # tests one random custom field nature
+    random = index % 6
+    [:text, :decimal, :date, :datetime, :choice, :boolean][random..random].each do |nature|
       nature_human_name = CustomField.nature.human_value_name(nature)
       test "manage #{nature} custom field on #{model_name}" do
         # creating custom field
@@ -52,7 +56,6 @@ class AddACustomFieldTest < CapybaraIntegrationTest
             counter += 1
           end
         end if nature == :choice
-        # shoot_screen
         click_on :create.tl
 
         # TODO: get real column name after create
@@ -60,7 +63,7 @@ class AddACustomFieldTest < CapybaraIntegrationTest
         # using custom field in model
         visit "/backend/#{model.tableize}/#{id}/edit"
         if nature == :text
-          fill_in "#{model_name}[#{column_name}]", with: 'baz'
+          fill_in "#{model_name}[#{column_name}]", with: 'foobarbaz'
         elsif nature == :decimal
           fill_in "#{model_name}[#{column_name}]", with: 3.14
         elsif nature == :boolean
@@ -70,19 +73,18 @@ class AddACustomFieldTest < CapybaraIntegrationTest
         elsif nature == :datetime
           fill_in "#{model_name}[#{column_name}]", with: '2013-06-01 14:50'
         elsif nature == :choice
-          select 'bar_0', from: "#{model_name}[#{column_name}]"
+          select 'Bar 0', from: "#{model_name}[#{column_name}]"
         else
           raise "Unknown custom field datatype"
         end
-        first("#general-informations").click # useful to prevent datetime selector from overlaping "update" button
-        # shoot_screen
+        first("#title").click # useful to prevent datetime selector from overlaping "update" button
+        Rails::logger.debug "creating custom field".green
         click_on :update.tl
 
         # checking if modification was done
         visit "/backend/#{model.tableize}/#{id}/edit"
-        # shoot_screen "model: #{model}, nature: #{nature.to_s}"
         if nature == :text
-          assert_equal('baz', find_by_id("#{model_name}_#{column_name}").value)
+          assert_equal('foobarbaz', find_field("#{model_name}[#{column_name}]").value)
         elsif nature == :date
           assert_equal("2013-06-01", find_field("#{model_name}[#{column_name}]").value)
         elsif nature == :datetime
