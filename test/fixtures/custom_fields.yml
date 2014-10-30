@@ -55,7 +55,7 @@
 #
 
 custom_fields_001:
-  active: true
+  active: false
   column_name: _favorite_color
   creator: users_001
   customized_type: Entity
