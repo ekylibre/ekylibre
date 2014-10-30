@@ -80,8 +80,9 @@ class AddACustomFieldTest < CapybaraIntegrationTest
           raise "Unknown custom field datatype"
         end
         first("#title").click # useful to prevent datetime selector from overlaping "update" button
-        Rails::logger.debug "creating custom field".green
+
         click_on :update.tl
+        refute_equal("/backend/#{model.tableize}/#{id}/edit", current_path)
 
         # checking if modification was done
         visit "/backend/#{model.tableize}/#{id}/edit"
