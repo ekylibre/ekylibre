@@ -92,7 +92,7 @@ interventions_002:
 interventions_003:
   creator: users_001
   natures: animal_curative_medicine_admission
-  number: "1"
+  number: "3"
   prescription: prescriptions_001
   production: productions_003
   production_support: production_supports_003
