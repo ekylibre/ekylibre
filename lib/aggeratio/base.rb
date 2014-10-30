@@ -115,8 +115,9 @@ module Aggeratio
     end
 
     # Returns all default XPATH queries
-    def queries
+    def queries(options = {})
       return @root.xpath("//node()[not(node())]").collect do |leaf|
+        next if options[:strict].is_a?(FalseClass) and leaf.has_attribute?("if")
         xpath(leaf)
       end.compact
     end

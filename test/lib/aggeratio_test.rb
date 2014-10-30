@@ -6,7 +6,8 @@ class AggeratioTest < ActiveSupport::TestCase
   setup do
     DocumentTemplate.load_defaults
     @parameters = {
-      exchange_accountancy_file_fr: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access
+      exchange_accountancy_file_fr: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access,
+      profit_and_loss_statement: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access,
     }.with_indifferent_access
   end
 
@@ -36,7 +37,7 @@ class AggeratioTest < ActiveSupport::TestCase
 
       # Check that test data are complete to use all item of aggregators
       doc = Nokogiri::XML(xml, nil, nil, Nokogiri::XML::ParseOptions::NOBLANKS|Nokogiri::XML::ParseOptions::STRICT|Nokogiri::XML::ParseOptions::DEFAULT_XML)
-      errors, queries = [], agg.queries
+      errors, queries = [], agg.queries(strict: false)
       queries.each do |query|
         errors << query unless doc.xpath(query).size > 0
       end

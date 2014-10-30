@@ -168,3 +168,59 @@ intervention_casts_009:
   reference_name: animal_medicine_to_give
   roles: animal_curative_medicine_admission-input
   updater: users_001
+
+intervention_casts_010:
+  actor: animal_groups_001
+  creator: users_001
+  intervention: interventions_004
+  nature: product
+  population: 1
+  position: 1
+  reference_name: herd
+  roles: harvest-tool,harvest-doer,pasturing-doer
+  updater: users_001
+
+intervention_casts_011:
+  actor: plants_001
+  creator: users_001
+  intervention: interventions_004
+  nature: product
+  population: 1
+  position: 1
+  reference_name: cultivation
+  roles: harvest-target,pasturing-target
+  updater: users_001
+
+intervention_casts_012:
+  actor: plants_001
+  creator: users_001
+  intervention: interventions_005
+  nature: product
+  population: 1
+  position: 1
+  reference_name: cultivation
+  roles: plant_illness_treatment-target
+  updater: users_001
+
+intervention_casts_013:
+  actor: workers_001
+  creator: users_001
+  intervention: interventions_005
+  nature: product
+  population: 1
+  position: 1
+  reference_name: driver
+  roles: plant_illness_treatment-doer
+  updater: users_001
+
+intervention_casts_014:
+  actor: matters_003
+  creator: users_001
+  intervention: interventions_005
+  nature: product
+  population: 1
+  position: 1
+  reference_name: plant_medicine_to_spray
+  roles: plant_illness_treatment-input
+  updater: users_001
+  variant: product_nature_variants_005

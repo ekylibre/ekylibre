@@ -216,3 +216,45 @@ journal_entry_items_006:
   real_debit: 0
   state: confirmed
   updater: users_001
+
+journal_entry_items_007:
+  absolute_credit: 0
+  absolute_currency: EUR
+  absolute_debit: 0
+  account: accounts_004
+  creator: users_001
+  credit: 0
+  currency: EUR
+  debit: 0
+  entry: journal_entries_005
+  entry_number: ABC0001
+  financial_year: financial_years_016
+  journal: journals_001
+  name: Lorem ipsum
+  printed_on: 2007-07-19
+  real_credit: 0
+  real_currency: EUR
+  real_debit: 0
+  state: closed
+  updater: users_001
+
+journal_entry_items_008:
+  absolute_credit: 0
+  absolute_currency: EUR
+  absolute_debit: 0
+  account: accounts_005
+  creator: users_001
+  credit: 0
+  currency: EUR
+  debit: 0
+  entry: journal_entries_005
+  entry_number: ABC0001
+  financial_year: financial_years_016
+  journal: journals_001
+  name: Lorem ipsum
+  printed_on: 2007-07-19
+  real_credit: 0
+  real_currency: EUR
+  real_debit: 0
+  state: closed
+  updater: users_001

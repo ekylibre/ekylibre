@@ -49,7 +49,7 @@
 #   reconcilable: true
 #   updater: users_001
 #
----
+
 accounts_001:
   creator: users_001
   debtor: true
@@ -57,6 +57,7 @@ accounts_001:
   name: Tototo
   number: '1'
   updater: users_001
+
 accounts_002:
   creator: users_001
   debtor: true
@@ -64,10 +65,27 @@ accounts_002:
   name: Tototo
   number: '12'
   updater: users_001
+
 accounts_003:
   creator: users_001
   debtor: true
   label: 681 - Tototo
   name: Tototo
   number: '681'
+  updater: users_001
+
+accounts_004:
+  creator: users_001
+  debtor: true
+  label: 707 - Products
+  name: 707
+  number: 707
+  updater: users_001
+
+accounts_005:
+  creator: users_001
+  debtor: true
+  label: 701 - Products
+  name: 701
+  number: 701
   updater: users_001

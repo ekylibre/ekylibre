@@ -102,3 +102,30 @@ interventions_003:
   state: done
   stopped_at: 2009-05-03 12:17:23.000000000 +02:00
   updater: users_001
+
+interventions_004:
+  creator: users_001
+  natures: harvest, pasturing
+  number: "4"
+  production: productions_003
+  production_support: production_supports_003
+  provisional: false
+  reference_name: 'base-pasturing-0'
+  started_at: 2009-05-13 09:13:59.000000000 +02:00
+  state: done
+  stopped_at: 2009-05-13 12:17:23.000000000 +02:00
+  updater: users_001
+
+interventions_005:
+  creator: users_001
+  issue: issues_001
+  natures: plant_illness_treatment
+  number: "5"
+  production: productions_001
+  production_support: production_supports_003
+  provisional: false
+  reference_name: 'base-spraying_on_cultivation-0'
+  started_at: 2009-04-03 09:13:59.000000000 +02:00
+  state: done
+  stopped_at: 2009-04-03 12:17:23.000000000 +02:00
+  updater: users_001

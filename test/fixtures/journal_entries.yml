@@ -79,7 +79,7 @@ journal_entries_001:
   credit: 0
   currency: EUR
   debit: 0
-  financial_year: financial_years_001
+  financial_year: financial_years_016
   journal: journals_001
   number: XYZ0001
   printed_on: 2007-07-20
@@ -100,7 +100,7 @@ journal_entries_002:
   credit: 0
   currency: EUR
   debit: 0
-  financial_year: financial_years_001
+  financial_year: financial_years_018
   journal: journals_001
   number: XYZ0002
   printed_on: 2007-07-25
@@ -120,7 +120,7 @@ journal_entries_003:
   credit: 0
   currency: EUR
   debit: 0
-  financial_year: financial_years_001
+  financial_year: financial_years_016
   journal: journals_001
   number: XYZ0003
   printed_on: 2007-05-19
@@ -140,7 +140,7 @@ journal_entries_004:
   credit: 0
   currency: EUR
   debit: 0
-  financial_year: financial_years_001
+  financial_year: financial_years_018
   journal: journals_001
   number: XYZ0004
   printed_on: 2007-01-19
@@ -160,7 +160,7 @@ journal_entries_005:
   credit: 0
   currency: EUR
   debit: 0
-  financial_year: financial_years_001
+  financial_year: financial_years_016
   journal: journals_002
   number: ABC0001
   printed_on: 2007-07-20
@@ -170,4 +170,24 @@ journal_entries_005:
   real_debit: 0
   resource: purchases_001 (Purchase)
   state: confirmed
+  updater: users_001
+
+journal_entries_006:
+  absolute_credit: 0
+  absolute_currency: EUR
+  absolute_debit: 0
+  created_at: 2007-07-22
+  creator: users_001
+  credit: 0
+  currency: EUR
+  debit: 0
+  financial_year: financial_years_016
+  journal: journals_002
+  number: ABC0002
+  printed_on: 2007-07-19
+  real_credit: 0
+  real_currency: EUR
+  real_currency_rate: 1
+  real_debit: 0
+  state: closed
   updater: users_001

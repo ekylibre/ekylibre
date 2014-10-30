@@ -10,26 +10,26 @@
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <!-- looking for all Account used in journal_entry_items in the current period (started_on, stopped_on) -->
-        <sections for="account" in="Account.used_between(started_on, stopped_on).order('number ASC')">
-          <title name="label" of="account" of-type="record"/>
-          <property name="id" of="account" level="api"/>
-          <property name="number" of="account" level="api"/>
-          <property name="name" of="account" level="api"/>
-          <matrix name="items" for="item" in="account.journal_entry_items.between(started_on, stopped_on)">
-            <cell name="id" of="item" level="api"/>
-            <cell name="name" of="item"/>
-            <cell name="printed_on" value="item.printed_on" type="datetime"/>
-            <cell name="number" of="item.entry" of-type="record"/>
-            <cell name="journal" value="item.journal.name"/>
-            <cell name="debit" of="item" type="number"/>
-            <cell name="credit" of="item" type="number"/>
-            <cell name="real_currency" of="item" level="api"/>
-            <cell name="state" of="item"/>
-            <cell name="cumulated_absolute_debit" of="item" type="number"/>
-            <cell name="cumulated_absolute_credit" of="item" type="number"/>
-            <cell name="currency" of="item" level="api"/>
-          </matrix>
-        </sections>
+      <sections for="account" in="Account.used_between(started_on, stopped_on).order('number ASC')">
+        <title name="label" of="account" of-type="record"/>
+        <property name="id" of="account" level="api"/>
+        <property name="number" of="account" level="api"/>
+        <property name="name" of="account" level="api"/>
+        <matrix name="items" for="item" in="account.journal_entry_items.between(started_on, stopped_on)">
+          <cell name="id" of="item" level="api"/>
+          <cell name="name" of="item"/>
+          <cell name="printed_on" value="item.printed_on" type="datetime"/>
+          <cell name="number" of="item.entry" of-type="record"/>
+          <cell name="journal" value="item.journal.name"/>
+          <cell name="debit" of="item" type="number"/>
+          <cell name="credit" of="item" type="number"/>
+          <cell name="real_currency" of="item" level="api"/>
+          <cell name="state" of="item"/>
+          <cell name="cumulated_absolute_debit" of="item" type="number"/>
+          <cell name="cumulated_absolute_credit" of="item" type="number"/>
+          <cell name="currency" of="item" level="api"/>
+        </matrix>
+      </sections>
     </section>
   </aggregator>
 </aggregators>
