@@ -15,10 +15,11 @@ class AddACustomFieldTest < CapybaraIntegrationTest
     visit('/backend/custom_fields/new')
   end
 
-  # tests 10% of models randomly
+  # tests 15% of models randomly. For local tests, set manually this value
+  coverage_percent = 0.15
   models = CustomField.customized_type.values
-  models.sample((models.count * 0.15).round + 6).each_with_index do |model, index|
-
+  custom_field_natures = CustomField.nature.values
+  models.sample((models.count * coverage_percent).round + custom_field_natures.count).each_with_index do |model, index|
     # Do not test when controller does not exist
     next unless Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
 
@@ -26,9 +27,10 @@ class AddACustomFieldTest < CapybaraIntegrationTest
     model_human_name = Ekylibre::Record.human_name(model_name)
     id = ActiveRecord::FixtureSet.identify("#{model.tableize}_001")
 
-    # tests one random custom field nature
-    random = index % 6
-    [:text, :decimal, :date, :datetime, :choice, :boolean][random..random].each do |nature|
+    # tests one random custom field nature. For local tests, set manually left and right range values
+    left = index % custom_field_natures.count
+    right = left
+    custom_field_natures.map(&:to_sym)[left..right].each do |nature|
       nature_human_name = CustomField.nature.human_value_name(nature)
       test "manage #{nature} custom field on #{model_name}" do
         # creating custom field
