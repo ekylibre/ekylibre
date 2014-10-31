@@ -53,7 +53,7 @@ module Fixturing
           record = {}
           for attribute, value in row.sort
             if columns[attribute]
-              unless value.nil?
+              unless value.nil? or value == ""
                 record[attribute] = convert_value(value, columns[attribute][:type].to_sym)
               end
             else
@@ -205,7 +205,7 @@ module Fixturing
               if attrs = data[foreign_model.table_name].detect{|r,a| a["id"] == fixture_id and (a["type"] || foreign_model.name) == fixture_type}
                 attributes[column.to_s.gsub(/\_id\z/, '')] = "#{attrs.first} (#{fixture_type})"
               else
-                raise "Cannot find #{fixture_type}##{fixture_id} for #{references} in #{table}##{record}"
+                raise "Cannot find #{fixture_type}##{fixture_id} for #{column} in #{table}##{record} (#{attributes['id']})"
               end
               attributes.delete(column.to_s)
               attributes.delete(type_column)

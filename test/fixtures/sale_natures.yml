@@ -77,7 +77,6 @@ sale_natures_001:
   lock_version: 1
   name: Classical sale
   payment_delay: 12 days, eom, 1 week ago
-  payment_mode_complement: ''
   updated_at: 2014-10-31 18:36:44.183917000 Z
   updater: users_001
   with_accounting: false
@@ -95,7 +94,6 @@ sale_natures_002:
   lock_version: 2
   name: Old french sale
   payment_delay: 10 weeks
-  payment_mode_complement: ''
   updated_at: 2014-10-31 18:49:55.605640000 Z
   updater: users_001
   with_accounting: false

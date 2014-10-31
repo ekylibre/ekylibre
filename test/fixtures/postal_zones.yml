@@ -65,3 +65,14 @@ postal_zones_002:
   postal_code: '33000'
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+postal_zones_003:
+  city: InTheWorld
+  city_name: InTheWorld
+  country: za
+  created_at: 2014-10-31 18:58:07.355534000 Z
+  creator: users_001
+  lock_version: 0
+  name: 12345 InTheWorld
+  postal_code: '12345'
+  updated_at: 2014-10-31 18:58:07.355534000 Z
+  updater: users_001

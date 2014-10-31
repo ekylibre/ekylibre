@@ -58,3 +58,1097 @@ versions_003:
   creator_name: Charlene
   event: destroy
   item: entities_001 (Entity)
+versions_004:
+  created_at: 2014-10-31 18:58:07.372736000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: legal_entities_001 (LegalEntity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    type: LegalEntity
+    nature: company
+    last_name: Busbest
+    first_name: Andrew
+    number: '1'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: afr
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_005:
+  created_at: 2014-10-31 18:59:01.573980000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: destroy
+  item: legal_entities_001 (LegalEntity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 2
+    type: Entity
+    nature: entity
+    last_name: Toley LTD
+    first_name:
+    number: '130'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions:
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin:
+    first_met_at:
+    activity_code:
+    vat_number:
+    siren:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_006:
+  created_at: 2014-10-31 19:04:00.181101000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: people_003 (Person)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: Person
+    nature: madam
+    last_name: "碇"
+    first_name: "ユイ"
+    number: '195'
+    active: true
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country:
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_007:
+  created_at: 2014-10-31 19:04:30.098492000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: people_003 (Person)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    country:
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: Person
+    nature: madam
+    last_name: "碇"
+    first_name: "ユイ"
+    number: '195'
+    active: true
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_008:
+  created_at: 2014-10-31 19:04:53.822748000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: people_003 (Person)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    active: true
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: Person
+    nature: madam
+    last_name: "碇"
+    first_name: "ユイ"
+    number: '195'
+    active: false
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_009:
+  created_at: 2014-10-31 19:28:25.982446000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: entities_002 (Entity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    type:
+    nature: entity
+    last_name: Gandhi
+    first_name: Mohandas Karamchand
+    number: '196'
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: hin
+    country: in
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 19:28:25.976860000 Z
+    creator_id: 1
+versions_010:
+  created_at: 2014-10-31 20:09:53.272265000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: entities_003 (Entity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    type:
+    nature: company
+    last_name: BAKTOUBI
+    first_name: ''
+    number: '197'
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: aze
+    country: az
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 20:09:53.266533000 Z
+    creator_id: 1
+versions_011:
+  created_at: 2014-10-31 20:10:25.994199000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: entities_004 (Entity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 11
+    type:
+    nature: company
+    last_name: BAKTOUBI Inc.
+    first_name: ''
+    number: '198'
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: true
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: aze
+    country: az
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 20:10:25.992209000 Z
+    creator_id: 1
+versions_012:
+  created_at: 2014-10-31 20:12:30.892952000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: buildings_004 (Building)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 59
+    type: Building
+    name: Grange
+    number: '40004'
+    variant_id: 3
+    nature_id: 4
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:12:30.889733000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_013:
+  created_at: 2014-10-31 20:15:14.784345000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: buildings_005 (Building)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 60
+    type: Building
+    name: Bâtiment d’accueil pour les animaux
+    number: '40005'
+    variant_id: 12
+    nature_id: 11
+    category_id: 6
+    extjuncted: false
+    initial_born_at: 1971-03-05 09:50:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: building
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:15:14.781851000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8317086700117210 45.5990635462548966,
+        -0.8315584663068880 45.5984855274884993, -0.8312902454053980 45.5985005410381987,
+        -0.8314619067823510 45.5991160931203012, -0.8317086700117210 45.5990635462548966)))
+versions_014:
+  created_at: 2014-10-31 20:15:42.716163000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: buildings_005 (Building)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    born_at:
+    identification_number: ''
+    work_number: ''
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 60
+    type: Building
+    name: Bâtiment d’accueil pour les animaux
+    number: '40005'
+    variant_id: 12
+    nature_id: 11
+    category_id: 6
+    extjuncted: false
+    initial_born_at: 1971-03-05 09:50:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: building
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1971-03-05 09:50:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: '1212312312313'
+    work_number: '123123'
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:15:14.781851000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8317086700117210 45.5990635462548966,
+        -0.8315584663068880 45.5984855274884993, -0.8312902454053980 45.5985005410381987,
+        -0.8314619067823510 45.5991160931203012, -0.8317086700117210 45.5990635462548966)))
+versions_015:
+  created_at: 2014-10-31 20:18:12.221051000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: building_divisions_005 (BuildingDivision)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 61
+    type: BuildingDivision
+    name: Emplacement de stockage du matériel
+    number: '40006'
+    variant_id: 13
+    nature_id: 12
+    category_id: 7
+    extjuncted: false
+    initial_born_at: 1979-03-02 05:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:18:12.218328000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8130317777613530 45.5987083844552004,
+        -0.8128802329520110 45.5986882100715007, -0.8128581047276380 45.5987590549682977,
+        -0.8130036145666960 45.5987759451291979, -0.8130317777613530 45.5987083844552004)))
+versions_016:
+  created_at: 2014-10-31 20:23:26.765355000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: building_divisions_006 (BuildingDivision)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 62
+    type: BuildingDivision
+    name: Zone de stockage des aliments et du matériels
+    number: '40007'
+    variant_id: 14
+    nature_id: 13
+    category_id: 7
+    extjuncted: false
+    initial_born_at: 1980-01-31 04:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:23:26.762717000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8368986547429810 45.5974477061239014,
+        -0.8357841968972930 45.5974289388339002, -0.8357949257333530 45.5976466390116997,
+        -0.8359976112842560 45.5976513308166034, -0.8359987736184850 45.5975565562820009,
+        -0.8365756273269650 45.5975631248192030, -0.8365742862224580 45.5976569609819009,
+        -0.8368921279907230 45.5976625911467011, -0.8368986547429810 45.5974477061239014)))
+versions_017:
+  created_at: 2014-10-31 20:23:37.031927000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_007 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 63
+    type: Matter
+    name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+    number: '40008'
+    variant_id: 10
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.7E1
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: triticum_aestivum_rubisko
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:23:37.029761000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_018:
+  created_at: 2014-10-31 20:25:41.456587000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: building_divisions_007 (BuildingDivision)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 64
+    type: BuildingDivision
+    name: Hangar central
+    number: '40009'
+    variant_id: 15
+    nature_id: 14
+    category_id: 7
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:25:41.454096000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION EMPTY
+versions_019:
+  created_at: 2014-10-31 20:26:47.174539000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: building_divisions_007 (BuildingDivision)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    born_at:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION EMPTY
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 64
+    type: BuildingDivision
+    name: Hangar central
+    number: '40009'
+    variant_id: 15
+    nature_id: 14
+    category_id: 7
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-10-31 20:25:41.475254000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:25:41.454096000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
+        -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
+        -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
+versions_020:
+  created_at: 2014-10-31 20:49:21.881366000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: building_divisions_007 (BuildingDivision)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Hangar central
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 64
+    type: BuildingDivision
+    name: Hangar prinicipal
+    number: '40009'
+    variant_id: 15
+    nature_id: 14
+    category_id: 7
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-10-31 20:25:41.475254000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:25:41.454096000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
+        -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
+        -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
+versions_021:
+  created_at: 2014-10-31 20:49:34.041488000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: building_divisions_007 (BuildingDivision)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    name: Hangar central
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 64
+    type: BuildingDivision
+    name: Hangar principal
+    number: '40009'
+    variant_id: 15
+    nature_id: 14
+    category_id: 7
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-10-31 20:25:41.475254000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:25:41.454096000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
+        -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
+        -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))

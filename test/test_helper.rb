@@ -90,20 +90,6 @@ class ActionController::TestCase
       end
 
       code  = ""
-      # code << "context 'A #{controller_name} controller' do\n"
-      # code << "\n"
-      # code << "  setup do\n"
-      # code << "    I18n.locale = I18n.default_locale\n"
-      # code << "    assert_not_nil I18n.locale\n"
-      # code << "    assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
-      # code << "    @user = users(:users_001)\n"
-      # code << "    sign_in(@user)\n"
-      # code << "    for cf in [:custom_fields_001, :custom_fields_002]\n"
-      # code << "      record = custom_fields(cf)\n"
-      # code << "      assert record.save, record.errors.inspect\n"
-      # code << "    end\n"
-      # code << "  end\n"
-      # code << "\n"
 
       code << "setup do\n"
       # Check locale
@@ -112,11 +98,6 @@ class ActionController::TestCase
       code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
       # Check document templates
       code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
-      # Check custom fields
-      code << "  for cf in [:custom_fields_001, :custom_fields_002]\n"
-      code << "    record = custom_fields(cf)\n"
-      code << "    assert record.save, record.errors.inspect\n"
-      code << "  end\n"
       # Connect user
       code << "  @user = users(:users_001)\n"
       code << "  sign_in(@user)\n"
@@ -379,6 +360,16 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
+
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_wait_time) do
+      loop until finished_all_ajax_requests?
+    end
+  end
+
+  def finished_all_ajax_requests?
+    page.evaluate_script('$.turbo.isReady') and page.evaluate_script('jQuery.active').zero?
+  end
 
   def shoot_screen(name = nil)
     name ||= current_url.split(/\:\d+\//).last

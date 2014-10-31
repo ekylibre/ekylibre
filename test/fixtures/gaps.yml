@@ -79,7 +79,7 @@ gaps_002:
   creator: users_001
   currency: EUR
   direction: loss
-  entity: entities_002
+  entity: legal_entities_001
   entity_role: client
   lock_version: 0
   number: G002

@@ -109,3 +109,14 @@ product_localizations_006:
   started_at: 2000-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+product_localizations_007:
+  container: building_divisions_006
+  created_at: 2014-10-31 20:23:37.090697000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_004 (IncomingDeliveryItem)
+  product: matters_007
+  started_at: 2014-10-31 20:09:00.000000000 Z
+  updated_at: 2014-10-31 20:23:37.090697000 Z
+  updater: users_001

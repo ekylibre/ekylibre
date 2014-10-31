@@ -4,6 +4,11 @@ spa:
     dir: "ltr"
     iso2: "es"
     name: "Español"
+  boolean:
+    formats:
+      default:
+        # false: "False"
+        # true: "True"
   date:
     abbr_day_names: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"]
     abbr_month_names: ["", "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]

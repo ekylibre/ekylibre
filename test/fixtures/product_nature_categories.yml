@@ -102,3 +102,99 @@ product_nature_categories_002:
   subscribing: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+product_nature_categories_003:
+  active: true
+  charge_account: accounts_140
+  created_at: 2014-10-31 20:11:19.871117000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Produit phytosanitaire
+  number: PNC003
+  pictogram: beaker
+  product_account: accounts_152
+  purchasable: true
+  reductible: false
+  reference_name: plant_medicine
+  saleable: true
+  stock_account: accounts_141
+  storable: true
+  subscribing: false
+  updated_at: 2014-10-31 20:11:19.871117000 Z
+  updater: users_001
+product_nature_categories_004:
+  active: true
+  created_at: 2014-10-31 20:11:30.463762000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Paille
+  number: PNC004
+  pictogram: wheat
+  product_account: accounts_005
+  purchasable: false
+  reductible: false
+  reference_name: straw
+  saleable: true
+  stock_account: accounts_139
+  storable: true
+  subscribing: false
+  updated_at: 2014-10-31 20:11:30.463762000 Z
+  updater: users_001
+product_nature_categories_005:
+  active: true
+  charge_account: accounts_154
+  created_at: 2014-10-31 20:11:42.132127000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Semence
+  number: PNC005
+  pictogram: matter
+  product_account: accounts_152
+  purchasable: true
+  reductible: false
+  reference_name: seed
+  saleable: true
+  stock_account: accounts_155
+  storable: true
+  subscribing: false
+  updated_at: 2014-10-31 20:11:42.132127000 Z
+  updater: users_001
+product_nature_categories_006:
+  active: true
+  charge_account: accounts_134
+  created_at: 2014-10-31 20:13:23.311480000 Z
+  creator: users_001
+  depreciable: true
+  financial_asset_account: accounts_028
+  lock_version: 0
+  name: Bâtiment
+  number: PNC006
+  pictogram: building
+  product_account: accounts_153
+  purchasable: true
+  reductible: false
+  reference_name: building
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2014-10-31 20:13:23.311480000 Z
+  updater: users_001
+product_nature_categories_007:
+  active: true
+  created_at: 2014-10-31 20:13:55.094715000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Pièce ou zone d’un bâtiment
+  number: PNC007
+  pictogram: barn
+  purchasable: false
+  reductible: false
+  reference_name: building_division
+  saleable: false
+  storable: false
+  subscribing: false
+  updated_at: 2014-10-31 20:13:55.094715000 Z
+  updater: users_001

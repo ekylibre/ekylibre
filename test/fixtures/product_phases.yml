@@ -80,3 +80,69 @@ product_phases_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
+product_phases_004:
+  category: product_nature_categories_001
+  created_at: 2014-10-31 20:12:30.978517000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_004
+  product: buildings_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:12:30.978517000 Z
+  updater: users_001
+  variant: product_nature_variants_003
+product_phases_005:
+  category: product_nature_categories_006
+  created_at: 2014-10-31 20:15:14.827382000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_011
+  product: buildings_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:15:14.827382000 Z
+  updater: users_001
+  variant: product_nature_variants_012
+product_phases_006:
+  category: product_nature_categories_007
+  created_at: 2014-10-31 20:18:12.264322000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_012
+  product: building_divisions_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:18:12.264322000 Z
+  updater: users_001
+  variant: product_nature_variants_013
+product_phases_007:
+  category: product_nature_categories_007
+  created_at: 2014-10-31 20:23:26.807434000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_013
+  product: building_divisions_006
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:26.807434000 Z
+  updater: users_001
+  variant: product_nature_variants_014
+product_phases_008:
+  category: product_nature_categories_005
+  created_at: 2014-10-31 20:23:37.075897000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_010
+  product: matters_007
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:37.075897000 Z
+  updater: users_001
+  variant: product_nature_variants_010
+product_phases_009:
+  category: product_nature_categories_007
+  created_at: 2014-10-31 20:25:41.493303000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_014
+  product: building_divisions_007
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:25:41.493303000 Z
+  updater: users_001
+  variant: product_nature_variants_015

@@ -83,6 +83,7 @@ class Version < ActiveRecord::Base
   serialize :item_changes, HashWithIndifferentAccess
 
   before_save do
+    self.item_type = self.item.class.name
     self.created_at ||= Time.now
     self.creator ||= Version.current_user
     if self.creator

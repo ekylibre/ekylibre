@@ -87,3 +87,79 @@ product_junction_ways_004:
   role: producer
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+product_junction_ways_005:
+  created_at: 2014-10-31 20:12:30.960076000 Z
+  creator: users_001
+  junction: product_births_003
+  lock_version: 0
+  nature: start
+  population: 0.0
+  road: buildings_004
+  role: product
+  updated_at: 2014-10-31 20:12:30.960076000 Z
+  updater: users_001
+product_junction_ways_006:
+  created_at: 2014-10-31 20:15:14.809116000 Z
+  creator: users_001
+  junction: product_births_004
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road: buildings_005
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.831708670011721 45.5990635462549,-0.831558466306888
+    45.5984855274885,-0.831290245405398 45.5985005410382,-0.831461906782351 45.5991160931203,-0.831708670011721
+    45.5990635462549)))
+  updated_at: 2014-10-31 20:15:14.809116000 Z
+  updater: users_001
+product_junction_ways_007:
+  created_at: 2014-10-31 20:18:12.246684000 Z
+  creator: users_001
+  junction: product_births_005
+  lock_version: 0
+  nature: start
+  road: building_divisions_005
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813031777761353 45.5987083844552,-0.812880232952011
+    45.5986882100715,-0.812858104727638 45.5987590549683,-0.813003614566696 45.5987759451292,-0.813031777761353
+    45.5987083844552)))
+  updated_at: 2014-10-31 20:18:12.246684000 Z
+  updater: users_001
+product_junction_ways_008:
+  created_at: 2014-10-31 20:23:26.789990000 Z
+  creator: users_001
+  junction: product_births_006
+  lock_version: 0
+  nature: start
+  road: building_divisions_006
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.836898654742981 45.5974477061239,-0.835784196897293
+    45.5974289388339,-0.835794925733353 45.5976466390117,-0.835997611284256 45.5976513308166,-0.835998773618485
+    45.597556556282,-0.836575627326965 45.5975631248192,-0.836574286222458 45.5976569609819,-0.836892127990723
+    45.5976625911467,-0.836898654742981 45.5974477061239)))
+  updated_at: 2014-10-31 20:23:26.789990000 Z
+  updater: users_001
+product_junction_ways_009:
+  created_at: 2014-10-31 20:23:37.054421000 Z
+  creator: users_001
+  junction: product_births_007
+  lock_version: 0
+  nature: start
+  population: 7.0
+  road: matters_007
+  role: product
+  updated_at: 2014-10-31 20:23:37.054421000 Z
+  updater: users_001
+product_junction_ways_010:
+  created_at: 2014-10-31 20:25:41.478132000 Z
+  creator: users_001
+  junction: product_births_008
+  lock_version: 1
+  nature: start
+  road: building_divisions_007
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813218951225281 45.5985699786537,-0.813113003969193
+    45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281
+    45.5985699786537)))
+  updated_at: 2014-10-31 20:26:47.202010000 Z
+  updater: users_001

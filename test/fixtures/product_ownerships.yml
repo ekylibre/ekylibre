@@ -65,3 +65,57 @@ product_ownerships_002:
   product: products_002
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+product_ownerships_003:
+  created_at: 2014-10-31 20:12:30.917322000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: buildings_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:12:30.917322000 Z
+  updater: users_001
+product_ownerships_004:
+  created_at: 2014-10-31 20:15:14.796213000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: buildings_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:15:14.796213000 Z
+  updater: users_001
+product_ownerships_005:
+  created_at: 2014-10-31 20:18:12.235340000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: building_divisions_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:18:12.235340000 Z
+  updater: users_001
+product_ownerships_006:
+  created_at: 2014-10-31 20:23:26.779274000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: building_divisions_006
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:26.779274000 Z
+  updater: users_001
+product_ownerships_007:
+  created_at: 2014-10-31 20:23:37.042059000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_007
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:37.042059000 Z
+  updater: users_001
+product_ownerships_008:
+  created_at: 2014-10-31 20:25:41.466962000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: building_divisions_007
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:25:41.466962000 Z
+  updater: users_001

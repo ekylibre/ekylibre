@@ -37,14 +37,14 @@ module Ekylibre::Record
 
           code << "validates :#{column}, presence: true, uniqueness: true\n"
 
-          code << "before_validation(:load_unique_predictable_#{column}, :on => :create)\n"
-          code << "after_validation(:load_unique_reliable_#{column}, :on => :create)\n"
+          code << "before_validation(:load_unique_predictable_#{column}, on: :create)\n"
+          code << "after_validation(:load_unique_reliable_#{column}, on: :create)\n"
 
           code << "def load_unique_predictable_#{column}\n"
           code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
           code << "    last = #{last}\n"
           code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-          code << "    while #{class_name}.where(#{column}: self.#{column}).any? do\n"
+          code << "    while #{class_name}.find_by(#{column}: self.#{column}) do\n"
           code << "      self.#{column}.succ!\n"
           code << "    end\n"
           code << "  end\n" if options[:force].is_a?(FalseClass)
@@ -56,12 +56,15 @@ module Ekylibre::Record
           code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
           code << "    if sequence = Sequence.of('#{sequence}')\n"
           code << "      self.#{column} = sequence.next_value\n"
-          code << "      while #{class_name}.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "      while #{class_name}.find_by(#{column}: self.#{column}) do\n"
           code << "        self.#{column} = sequence.next_value\n"
           code << "      end\n"
           code << "    else\n"
           code << "      last = #{last}\n"
           code << "      self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
+          code << "      while #{class_name}.find_by(#{column}: self.#{column}) do\n"
+          code << "        self.#{column}.succ!\n"
+          code << "      end\n"
           code << "    end\n"
           code << "  end\n" if options[:force].is_a?(FalseClass)
           code << "  return true\n"

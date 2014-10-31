@@ -54,7 +54,6 @@ purchase_natures_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
-  description: ''
   journal: journals_004
   lock_version: 1
   name: Classical purchase
@@ -79,7 +78,6 @@ purchase_natures_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: USD
-  description: ''
   journal: journals_005
   lock_version: 1
   name: USD Purchase

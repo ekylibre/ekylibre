@@ -80,3 +80,15 @@ incoming_deliveries_003:
   sender: legal_entities_001
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+incoming_deliveries_004:
+  address: entity_addresses_003
+  created_at: 2014-10-31 20:23:37.027824000 Z
+  creator: users_001
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: INDEL000004
+  received_at: 2014-10-31 20:09:00.000000000 Z
+  reference_number: '1282'
+  sender: entities_004
+  updated_at: 2014-10-31 20:23:37.027824000 Z
+  updater: users_001

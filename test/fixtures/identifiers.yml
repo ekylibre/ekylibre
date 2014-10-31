@@ -76,3 +76,21 @@ identifiers_004:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   value: HONAZER172563ED
+identifiers_005:
+  created_at: 2014-10-31 19:07:23.551178000 Z
+  creator: users_001
+  lock_version: 0
+  nature: synel_username
+  net_service: net_services_003
+  updated_at: 2014-10-31 19:07:23.551178000 Z
+  updater: users_001
+  value: 12345fgfgdfg
+identifiers_006:
+  created_at: 2014-10-31 19:07:23.552231000 Z
+  creator: users_001
+  lock_version: 0
+  nature: password
+  net_service: net_services_003
+  updated_at: 2014-10-31 19:07:23.552231000 Z
+  updater: users_001
+  value: '128543548'

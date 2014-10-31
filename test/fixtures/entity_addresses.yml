@@ -86,18 +86,19 @@ entity_addresses_002:
 entity_addresses_003:
   by_default: true
   canal: mail
-  coordinate: Mrs Jones, Somewhere, 12345 InTheWorld
+  coordinate: Andrew, Somewhere, 12345 InTheWorld, Afrique Du Sud
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   entity: legal_entities_001
-  lock_version: 0
+  lock_version: 2
   mail_auto_update: false
-  mail_line_1: Mrs Jones
+  mail_country: za
+  mail_line_1: Andrew
   mail_line_4: Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_postal_zone: postal_zones_002
+  mail_postal_zone: postal_zones_003
   thread: AAAC
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 18:58:17.604745000 Z
   updater: users_001
 entity_addresses_004:
   by_default: true
@@ -114,4 +115,16 @@ entity_addresses_004:
   mail_postal_zone: postal_zones_002
   thread: AAAC
   updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater: users_001
+entity_addresses_005:
+  by_default: true
+  canal: email
+  coordinate: yui.ikari@nerv.jp
+  created_at: 2014-10-31 19:04:00.190872000 Z
+  creator: users_001
+  entity: people_003
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAA
+  updated_at: 2014-10-31 19:04:00.190872000 Z
   updater: users_001

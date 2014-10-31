@@ -121,9 +121,6 @@ incoming_payments_004:
   accounted_at: 2014-10-31 18:51:59.239449000 Z
   affair: affairs_006
   amount: 448.98
-  bank_account_number: ''
-  bank_check_number: ''
-  bank_name: ''
   commission_amount: 0.0
   created_at: 2014-10-31 18:51:59.234679000 Z
   creator: users_001

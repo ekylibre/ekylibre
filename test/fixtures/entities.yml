@@ -110,37 +110,83 @@ entities_001:
   updater: users_001
   vat_subjected: true
 entities_002:
-  active: true
+  active: false
   client: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  country: in
+  created_at: 2014-10-31 19:28:25.976860000 Z
   creator: users_001
   currency: EUR
-  full_name: Toley LTD
-  language: fra
-  last_name: Toley LTD
+  first_name: Mohandas Karamchand
+  full_name: Gandhi Mohandas Karamchand
+  language: hin
+  last_name: Gandhi
   lock_version: 0
   locked: false
   nature: entity
-  number: '130'
+  number: '196'
   of_company: false
   prospect: false
   reminder_submissive: false
   supplier: false
   transporter: false
-  type: Entity
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 19:28:25.976860000 Z
   updater: users_001
-  vat_subjected: true
+  vat_subjected: false
+entities_003:
+  active: false
+  client: false
+  country: az
+  created_at: 2014-10-31 20:09:53.266533000 Z
+  creator: users_001
+  currency: EUR
+  full_name: BAKTOUBI
+  language: aze
+  last_name: BAKTOUBI
+  lock_version: 0
+  locked: false
+  nature: company
+  number: '197'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  updated_at: 2014-10-31 20:09:53.266533000 Z
+  updater: users_001
+  vat_subjected: false
+entities_004:
+  active: false
+  client: false
+  country: az
+  created_at: 2014-10-31 20:10:25.992209000 Z
+  creator: users_001
+  currency: EUR
+  full_name: BAKTOUBI Inc.
+  language: aze
+  last_name: BAKTOUBI Inc.
+  lock_version: 0
+  locked: false
+  nature: company
+  number: '198'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: true
+  transporter: true
+  updated_at: 2014-10-31 20:10:25.992209000 Z
+  updater: users_001
+  vat_subjected: false
 legal_entities_001:
   active: true
   client: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
-  full_name: Ferstivall LTD
-  language: eng
-  last_name: C. Ferstivall LTD
-  lock_version: 0
+  first_name: Andrew
+  full_name: Busbest Andrew
+  language: afr
+  last_name: Busbest
+  lock_version: 1
   locked: false
   nature: company
   number: '1'
@@ -150,7 +196,7 @@ legal_entities_001:
   supplier: false
   transporter: false
   type: LegalEntity
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 18:58:07.364197000 Z
   updater: users_001
   vat_subjected: true
 legal_entities_002:
@@ -245,25 +291,28 @@ people_002:
   updater: users_001
   vat_subjected: true
 people_003:
-  active: true
+  active: false
+  born_at: 1977-03-29 23:00:00.000000000 Z
   client: false
+  country: jp
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: JPY
-  first_name: Yui
-  full_name: Yui IKARI
+  dead_at: 2004-07-11 22:00:00.000000000 Z
+  first_name: "ユイ"
+  full_name: "碇 ユイ"
   language: jpn
-  last_name: IKARI
-  lock_version: 0
+  last_name: "碇"
+  lock_version: 3
   locked: false
   nature: madam
   number: '195'
-  of_company: false
+  of_company: true
   prospect: false
   reminder_submissive: false
   supplier: false
   transporter: false
   type: Person
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 19:04:53.819192000 Z
   updater: users_001
   vat_subjected: true

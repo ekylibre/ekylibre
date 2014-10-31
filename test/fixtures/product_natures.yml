@@ -130,7 +130,6 @@ product_natures_005:
   population_counting: unitary
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
-  variable_indicators_list: ''
   variety: bos
 product_natures_006:
   active: true
@@ -159,3 +158,128 @@ product_natures_007:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variety: animal_group
+product_natures_008:
+  abilities_list: care(plant), kill(fungus)
+  active: true
+  category: product_nature_categories_003
+  created_at: 2014-10-31 20:11:19.889621000 Z
+  creator: users_001
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  lock_version: 0
+  name: Fongicide
+  number: BUILDINH
+  population_counting: decimal
+  reference_name: fungicide
+  updated_at: 2014-10-31 20:11:19.889621000 Z
+  updater: users_001
+  variable_indicators_list: approved_input_dose, population, untreated_zone_length,
+    wait_before_harvest_period
+  variety: preparation
+product_natures_009:
+  abilities_list: feed(animal)
+  active: true
+  category: product_nature_categories_004
+  created_at: 2014-10-31 20:11:30.472907000 Z
+  creator: users_001
+  derivative_of: poaceae
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  lock_version: 0
+  name: Paille
+  number: BUILDINI
+  population_counting: decimal
+  reference_name: straw
+  updated_at: 2014-10-31 20:11:30.472907000 Z
+  updater: users_001
+  variable_indicators_list: population
+  variety: straw
+product_natures_010:
+  abilities_list: grow
+  active: true
+  category: product_nature_categories_005
+  created_at: 2014-10-31 20:11:42.141258000 Z
+  creator: users_001
+  derivative_of: plant
+  evolvable: false
+  frozen_indicators_list: net_mass, thousand_grains_mass
+  lock_version: 0
+  name: Semence
+  number: BUILDINJ
+  population_counting: decimal
+  reference_name: seed
+  updated_at: 2014-10-31 20:11:42.141258000 Z
+  updater: users_001
+  variable_indicators_list: population
+  variety: seed
+product_natures_011:
+  abilities_list: store(building_division)
+  active: true
+  category: product_nature_categories_006
+  created_at: 2014-10-31 20:13:23.322567000 Z
+  creator: users_001
+  evolvable: false
+  frozen_indicators_list: population
+  lock_version: 0
+  name: Bâtiment
+  number: BUILDINK
+  population_counting: unitary
+  reference_name: building
+  updated_at: 2014-10-31 20:13:23.322567000 Z
+  updater: users_001
+  variable_indicators_list: net_surface_area, shape
+  variety: building
+product_natures_012:
+  abilities_list: store(equipment)
+  active: true
+  category: product_nature_categories_007
+  created_at: 2014-10-31 20:13:55.104377000 Z
+  creator: users_001
+  evolvable: false
+  frozen_indicators_list: population
+  lock_version: 0
+  name: Zone de stockage des équipements
+  number: BUILDINL
+  population_counting: unitary
+  reference_name: equipment_building_division
+  updated_at: 2014-10-31 20:13:55.104377000 Z
+  updater: users_001
+  variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
+    shape
+  variety: building_division
+product_natures_013:
+  abilities_list: store(equipment), store(grass), store(mix), store(seed)
+  active: true
+  category: product_nature_categories_007
+  created_at: 2014-10-31 20:21:52.482591000 Z
+  creator: users_001
+  evolvable: false
+  frozen_indicators_list: population
+  lock_version: 0
+  name: Zone de stockage des équipements et des aliments
+  number: BUILDINM
+  population_counting: unitary
+  reference_name: food_equipment_division
+  updated_at: 2014-10-31 20:21:52.482591000 Z
+  updater: users_001
+  variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
+    shape
+  variety: building_division
+product_natures_014:
+  abilities_list: store(product)
+  active: true
+  category: product_nature_categories_007
+  created_at: 2014-10-31 20:25:22.969151000 Z
+  creator: users_001
+  evolvable: false
+  frozen_indicators_list: population
+  lock_version: 0
+  name: Pièce ou zone d’un bâtiment
+  number: BUILDINN
+  population_counting: unitary
+  reference_name: building_division
+  updated_at: 2014-10-31 20:25:22.969151000 Z
+  updater: users_001
+  variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
+    shape
+  variety: building_division

@@ -156,3 +156,126 @@ product_nature_variants_007:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variety: animal_group
+product_nature_variants_008:
+  active: true
+  category: product_nature_categories_003
+  commercial_name: Adexar 5 l
+  created_at: 2014-10-31 20:11:19.901366000 Z
+  creator: users_001
+  lock_version: 0
+  name: Adexar 5 l
+  nature: product_natures_008
+  number: PNV030
+  reference_name: coop:adexar_5l
+  unit_name: Litre
+  updated_at: 2014-10-31 20:11:19.901366000 Z
+  updater: users_001
+  variety: preparation
+product_nature_variants_009:
+  active: true
+  category: product_nature_categories_004
+  commercial_name: Botte de paille de blé ‒ balle ronde
+  created_at: 2014-10-31 20:11:30.483301000 Z
+  creator: users_001
+  derivative_of: triticum
+  lock_version: 0
+  name: Botte de paille de blé ‒ balle ronde
+  nature: product_natures_009
+  number: PNV031
+  reference_name: wheat_straw_round_bales
+  unit_name: Botte ronde
+  updated_at: 2014-10-31 20:11:30.483301000 Z
+  updater: users_001
+  variety: straw
+product_nature_variants_010:
+  active: true
+  category: product_nature_categories_005
+  commercial_name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  created_at: 2014-10-31 20:11:42.154937000 Z
+  creator: users_001
+  derivative_of: triticum_aestivum_rubisko
+  lock_version: 0
+  name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  nature: product_natures_010
+  number: PNV032
+  reference_name: coop:bth_s_rubisko_r1_gau___red_s25kg
+  unit_name: Sac de 25kg
+  updated_at: 2014-10-31 20:11:42.154937000 Z
+  updater: users_001
+  variety: seed
+product_nature_variants_011:
+  active: true
+  category: product_nature_categories_005
+  commercial_name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  created_at: 2014-10-31 20:11:53.428269000 Z
+  creator: users_001
+  derivative_of: avena_une_de_mai
+  lock_version: 0
+  name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  nature: product_natures_010
+  number: PNV033
+  reference_name: coop:avoine_d_hiver_une_de_mai_red_25kg
+  unit_name: Sac de 25kg
+  updated_at: 2014-10-31 20:11:53.428269000 Z
+  updater: users_001
+  variety: seed
+product_nature_variants_012:
+  active: true
+  category: product_nature_categories_006
+  commercial_name: Bâtiment d’accueil pour les animaux
+  created_at: 2014-10-31 20:13:23.333612000 Z
+  creator: users_001
+  lock_version: 0
+  name: Bâtiment d’accueil pour les animaux
+  nature: product_natures_011
+  number: PNV034
+  reference_name: animal_building
+  unit_name: Bâtiment
+  updated_at: 2014-10-31 20:13:23.333612000 Z
+  updater: users_001
+  variety: building
+product_nature_variants_013:
+  active: true
+  category: product_nature_categories_007
+  commercial_name: Emplacement de stockage du matériel
+  created_at: 2014-10-31 20:13:55.113547000 Z
+  creator: users_001
+  lock_version: 0
+  name: Emplacement de stockage du matériel
+  nature: product_natures_012
+  number: PNV035
+  reference_name: equipment_building_division
+  unit_name: Salle
+  updated_at: 2014-10-31 20:13:55.113547000 Z
+  updater: users_001
+  variety: building_division
+product_nature_variants_014:
+  active: true
+  category: product_nature_categories_007
+  commercial_name: Zone de stockage des aliments et du matériels
+  created_at: 2014-10-31 20:21:52.492960000 Z
+  creator: users_001
+  lock_version: 0
+  name: Zone de stockage des aliments et du matériels
+  nature: product_natures_013
+  number: PNV036
+  reference_name: food_equipment_division
+  unit_name: Salle
+  updated_at: 2014-10-31 20:21:52.492960000 Z
+  updater: users_001
+  variety: building_division
+product_nature_variants_015:
+  active: true
+  category: product_nature_categories_007
+  commercial_name: Pièce ou zone d’un bâtiment
+  created_at: 2014-10-31 20:25:22.980248000 Z
+  creator: users_001
+  lock_version: 0
+  name: Pièce ou zone d’un bâtiment
+  nature: product_natures_014
+  number: PNV037
+  reference_name: building_division
+  unit_name: Salle
+  updated_at: 2014-10-31 20:25:22.980248000 Z
+  updater: users_001
+  variety: building_division
