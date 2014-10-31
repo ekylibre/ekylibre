@@ -117,3 +117,26 @@ incoming_payments_003:
   to_bank_at: 2009-07-18 22:00:00.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+incoming_payments_004:
+  accounted_at: 2014-10-31 18:51:59.239449000 Z
+  affair: affairs_006
+  amount: 448.98
+  bank_account_number: ''
+  bank_check_number: ''
+  bank_name: ''
+  commission_amount: 0.0
+  created_at: 2014-10-31 18:51:59.234679000 Z
+  creator: users_001
+  currency: EUR
+  downpayment: true
+  lock_version: 0
+  mode: incoming_payment_modes_002
+  number: IP004
+  paid_at: 2014-10-30 23:00:00.000000000 Z
+  payer: legal_entities_003
+  received: false
+  responsible: users_001
+  scheduled: false
+  to_bank_at: 2014-10-30 23:00:00.000000000 Z
+  updated_at: 2014-10-31 18:51:59.234679000 Z
+  updater: users_001

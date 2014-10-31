@@ -20,6 +20,7 @@
 class Backend::SettingsController < BackendController
 
   def edit
+    Preference.check!
   end
 
   def update

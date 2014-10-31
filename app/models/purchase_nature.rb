@@ -49,6 +49,8 @@ class PurchaseNature < Ekylibre::Record::Base
   validates_presence_of :currency
   validates_uniqueness_of :name
 
+  delegate :currency, to: :journal, prefix: true
+
   selects_among_all
 
   scope :actives, -> { where(active: true) }
@@ -56,7 +58,7 @@ class PurchaseNature < Ekylibre::Record::Base
   validate do
     self.journal = nil unless self.with_accounting?
     if self.journal
-      errors.add(:journal, :currency_does_not_match) if self.currency != self.journal.currency
+      errors.add(:journal, :currency_does_not_match, currency: self.journal_currency) if self.currency != self.journal_currency
     end
   end
 

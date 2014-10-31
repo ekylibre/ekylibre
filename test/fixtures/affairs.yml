@@ -127,3 +127,19 @@ affairs_005:
   third: legal_entities_001
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+affairs_006:
+  accounted_at: 2014-10-31 18:52:01.381974000 Z
+  closed: true
+  closed_at: 2014-10-31 18:52:01.370526000 Z
+  created_at: 2014-10-31 18:51:27.932259000 Z
+  creator: users_001
+  credit: 448.98
+  currency: EUR
+  deals_count: 2
+  debit: 448.98
+  lock_version: 1
+  number: A000006
+  originator: sales_006 (Sale)
+  third: legal_entities_003
+  updated_at: 2014-10-31 18:52:01.373471000 Z
+  updater: users_001

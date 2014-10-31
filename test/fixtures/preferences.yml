@@ -98,3 +98,868 @@ preferences_005:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   user: users_001
+preferences_006:
+  created_at: 2014-10-31 18:35:39.794910000 Z
+  creator: users_001
+  lock_version: 0
+  name: theme
+  nature: string
+  string_value: tekyla
+  updated_at: 2014-10-31 18:35:39.794910000 Z
+  updater: users_001
+  user: users_001
+preferences_007:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:40.099465000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.search.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:40.099465000 Z
+  updater: users_001
+  user: users_001
+preferences_008:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:40.107779000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.user.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:40.107779000 Z
+  updater: users_001
+  user: users_001
+preferences_009:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:40.113546000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.subscription-state.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:40.113546000 Z
+  updater: users_001
+  user: users_001
+preferences_010:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:50.593740000 Z
+  creator: users_001
+  lock_version: 2
+  name: interface.snippets.archives.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:53.665263000 Z
+  updater: users_001
+  user: users_001
+preferences_011:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:50.601015000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.issues.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:50.601015000 Z
+  updater: users_001
+  user: users_001
+preferences_012:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:50.606303000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.cartography.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:50.606303000 Z
+  updater: users_001
+  user: users_001
+preferences_013:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:50.611975000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.exchange.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:50.611975000 Z
+  updater: users_001
+  user: users_001
+preferences_014:
+  created_at: 2014-10-31 18:35:50.710865000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._last_issues_cells_list_last_issues_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:35:50.710865000 Z
+  updater: users_001
+  user: users_001
+preferences_015:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.426933000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.activity.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.426933000 Z
+  updater: users_001
+  user: users_001
+preferences_016:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.434836000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.animal_productions.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.434836000 Z
+  updater: users_001
+  user: users_001
+preferences_017:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.441323000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.plant_productions.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.441323000 Z
+  updater: users_001
+  user: users_001
+preferences_018:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.447899000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.transformations.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.447899000 Z
+  updater: users_001
+  user: users_001
+preferences_019:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.454424000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.fungi.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.454424000 Z
+  updater: users_001
+  user: users_001
+preferences_020:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.459730000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.land_parcels.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.459730000 Z
+  updater: users_001
+  user: users_001
+preferences_021:
+  boolean_value: false
+  created_at: 2014-10-31 18:35:57.465917000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.equipments.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:35:57.465917000 Z
+  updater: users_001
+  user: users_001
+preferences_022:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:04.643702000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.sales.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:04.643702000 Z
+  updater: users_001
+  user: users_001
+preferences_023:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:04.651414000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.purchases.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:04.651414000 Z
+  updater: users_001
+  user: users_001
+preferences_024:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:04.658450000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.payments.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:04.658450000 Z
+  updater: users_001
+  user: users_001
+preferences_025:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:04.663565000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.affairs.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:04.663565000 Z
+  updater: users_001
+  user: users_001
+preferences_026:
+  created_at: 2014-10-31 18:36:04.886954000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._last_sales_cells_list_last_sales_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:36:04.886954000 Z
+  updater: users_001
+  user: users_001
+preferences_027:
+  created_at: 2014-10-31 18:36:04.979046000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._last_purchases_cells_list_last_purchases_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:36:04.979046000 Z
+  updater: users_001
+  user: users_001
+preferences_028:
+  created_at: 2014-10-31 18:36:06.205794000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/sales/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:36:06.205794000 Z
+  updater: users_001
+  user: users_001
+preferences_029:
+  boolean_value: true
+  created_at: 2014-10-31 18:36:06.216183000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-sales-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:06.216183000 Z
+  updater: users_001
+  user: users_001
+preferences_030:
+  created_at: 2014-10-31 18:36:06.232239000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._sales_list_sales_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:36:06.232239000 Z
+  updater: users_001
+  user: users_001
+preferences_031:
+  created_at: 2014-10-31 18:36:11.733725000 Z
+  creator: users_001
+  lock_version: 0
+  name: chart_of_accounts
+  nature: chart_of_accounts
+  string_value: fr_pcg82
+  updated_at: 2014-10-31 18:36:11.733725000 Z
+  updater: users_001
+preferences_032:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:11.782573000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.parameters.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:11.782573000 Z
+  updater: users_001
+  user: users_001
+preferences_033:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:11.789204000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.people.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:11.789204000 Z
+  updater: users_001
+  user: users_001
+preferences_034:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:11.794739000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.accountancy.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:11.794739000 Z
+  updater: users_001
+  user: users_001
+preferences_035:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:11.800229000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.trade.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:11.800229000 Z
+  updater: users_001
+  user: users_001
+preferences_036:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:11.805636000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.product.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:11.805636000 Z
+  updater: users_001
+  user: users_001
+preferences_037:
+  boolean_value: false
+  created_at: 2014-10-31 18:36:11.811700000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.production.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:36:11.811700000 Z
+  updater: users_001
+  user: users_001
+preferences_038:
+  created_at: 2014-10-31 18:36:18.597080000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._sale_natures_list_sale_natures_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:36:18.597080000 Z
+  updater: users_001
+  user: users_001
+preferences_039:
+  created_at: 2014-10-31 18:37:19.388691000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._purchase_natures_list_purchase_natures_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:37:19.388691000 Z
+  updater: users_001
+  user: users_001
+preferences_040:
+  created_at: 2014-10-31 18:40:39.894999000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._sequences_list_sequences_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:40:39.894999000 Z
+  updater: users_001
+  user: users_001
+preferences_041:
+  boolean_value: true
+  created_at: 2014-10-31 18:43:51.855938000 Z
+  creator: users_001
+  lock_version: 0
+  name: bookkeep_automatically
+  nature: boolean
+  updated_at: 2014-10-31 18:43:51.855938000 Z
+  updater: users_001
+preferences_042:
+  boolean_value: true
+  created_at: 2014-10-31 18:43:51.863193000 Z
+  creator: users_001
+  lock_version: 0
+  name: bookkeep_in_draft
+  nature: boolean
+  updated_at: 2014-10-31 18:43:51.863193000 Z
+  updater: users_001
+preferences_043:
+  boolean_value: true
+  created_at: 2014-10-31 18:43:51.867969000 Z
+  creator: users_001
+  lock_version: 0
+  name: detail_payments_in_deposit_bookkeeping
+  nature: boolean
+  updated_at: 2014-10-31 18:43:51.867969000 Z
+  updater: users_001
+preferences_044:
+  boolean_value: true
+  created_at: 2014-10-31 18:43:51.872366000 Z
+  creator: users_001
+  lock_version: 0
+  name: use_entity_codes_for_account_numbers
+  nature: boolean
+  updated_at: 2014-10-31 18:43:51.872366000 Z
+  updater: users_001
+preferences_045:
+  created_at: 2014-10-31 18:43:51.884202000 Z
+  creator: users_001
+  lock_version: 0
+  name: sales_conditions
+  nature: string
+  string_value: ''
+  updated_at: 2014-10-31 18:43:51.884202000 Z
+  updater: users_001
+preferences_046:
+  created_at: 2014-10-31 18:43:51.890713000 Z
+  creator: users_001
+  lock_version: 1
+  name: map_measure_srs
+  nature: spatial_reference_system
+  string_value: RGF93
+  updated_at: 2014-10-31 18:44:04.813584000 Z
+  updater: users_001
+preferences_047:
+  created_at: 2014-10-31 18:44:36.066302000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._net_services_list_net_services_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:44:36.066302000 Z
+  updater: users_001
+  user: users_001
+preferences_048:
+  boolean_value: true
+  created_at: 2014-10-31 18:44:37.354154000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-myselves-show-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:44:37.354154000 Z
+  updater: users_001
+  user: users_001
+preferences_049:
+  created_at: 2014-10-31 18:44:38.851987000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._roles_list_roles_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:44:38.851987000 Z
+  updater: users_001
+  user: users_001
+preferences_050:
+  boolean_value: false
+  created_at: 2014-10-31 18:44:40.520225000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.events.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:44:40.520225000 Z
+  updater: users_001
+  user: users_001
+preferences_051:
+  boolean_value: false
+  created_at: 2014-10-31 18:44:40.525979000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.subscriptions.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:44:40.525979000 Z
+  updater: users_001
+  user: users_001
+preferences_052:
+  created_at: 2014-10-31 18:44:40.682889000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._last_entities_cells_list_last_entities_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:44:40.682889000 Z
+  updater: users_001
+  user: users_001
+preferences_053:
+  boolean_value: false
+  created_at: 2014-10-31 18:45:59.470789000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.journals.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:45:59.470789000 Z
+  updater: users_001
+  user: users_001
+preferences_054:
+  boolean_value: false
+  created_at: 2014-10-31 18:45:59.478538000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.analytics.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:45:59.478538000 Z
+  updater: users_001
+  user: users_001
+preferences_055:
+  boolean_value: false
+  created_at: 2014-10-31 18:45:59.484216000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.financial_assets.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:45:59.484216000 Z
+  updater: users_001
+  user: users_001
+preferences_056:
+  boolean_value: false
+  created_at: 2014-10-31 18:45:59.489881000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.cash.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:45:59.489881000 Z
+  updater: users_001
+  user: users_001
+preferences_057:
+  created_at: 2014-10-31 18:46:10.480052000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/accounts/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:46:10.480052000 Z
+  updater: users_001
+  user: users_001
+preferences_058:
+  boolean_value: true
+  created_at: 2014-10-31 18:46:10.512807000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-accounts-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:46:10.512807000 Z
+  updater: users_001
+  user: users_001
+preferences_059:
+  created_at: 2014-10-31 18:46:10.520396000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._accounts_list_accounts_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:46:10.520396000 Z
+  updater: users_001
+  user: users_001
+preferences_060:
+  boolean_value: false
+  created_at: 2014-10-31 18:49:59.535323000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.stocks.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:49:59.535323000 Z
+  updater: users_001
+  user: users_001
+preferences_061:
+  boolean_value: false
+  created_at: 2014-10-31 18:49:59.542848000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.inventories.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:49:59.542848000 Z
+  updater: users_001
+  user: users_001
+preferences_062:
+  boolean_value: false
+  created_at: 2014-10-31 18:49:59.548531000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.snippets.movements.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:49:59.548531000 Z
+  updater: users_001
+  user: users_001
+preferences_063:
+  created_at: 2014-10-31 18:49:59.675140000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._last_outgoing_deliveries_cells_list_last_outgoing_deliveries_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:49:59.675140000 Z
+  updater: users_001
+  user: users_001
+preferences_064:
+  created_at: 2014-10-31 18:49:59.747090000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._last_incoming_deliveries_cells_list_last_incoming_deliveries_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:49:59.747090000 Z
+  updater: users_001
+  user: users_001
+preferences_065:
+  created_at: 2014-10-31 18:51:30.722086000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._sales_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:51:30.722086000 Z
+  updater: users_001
+  user: users_001
+preferences_066:
+  created_at: 2014-10-31 18:51:30.766070000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._sales_list_credits_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:51:30.766070000 Z
+  updater: users_001
+  user: users_001
+preferences_067:
+  created_at: 2014-10-31 18:52:07.039030000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/purchases/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:52:07.039030000 Z
+  updater: users_001
+  user: users_001
+preferences_068:
+  boolean_value: true
+  created_at: 2014-10-31 18:52:07.053016000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-purchases-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:52:07.053016000 Z
+  updater: users_001
+  user: users_001
+preferences_069:
+  created_at: 2014-10-31 18:52:07.064184000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._purchases_list_purchases_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:07.064184000 Z
+  updater: users_001
+  user: users_001
+preferences_070:
+  created_at: 2014-10-31 18:52:08.537225000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/incoming_payments/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:52:08.537225000 Z
+  updater: users_001
+  user: users_001
+preferences_071:
+  boolean_value: true
+  created_at: 2014-10-31 18:52:08.546991000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-incoming_payments-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:52:08.546991000 Z
+  updater: users_001
+  user: users_001
+preferences_072:
+  created_at: 2014-10-31 18:52:08.553174000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._incoming_payments_list_incoming_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:08.553174000 Z
+  updater: users_001
+  user: users_001
+preferences_073:
+  created_at: 2014-10-31 18:52:09.390540000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/outgoing_payments/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:52:09.390540000 Z
+  updater: users_001
+  user: users_001
+preferences_074:
+  boolean_value: true
+  created_at: 2014-10-31 18:52:09.399143000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-outgoing_payments-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:52:09.399143000 Z
+  updater: users_001
+  user: users_001
+preferences_075:
+  created_at: 2014-10-31 18:52:09.405124000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._outgoing_payments_list_outgoing_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:09.405124000 Z
+  updater: users_001
+  user: users_001
+preferences_076:
+  created_at: 2014-10-31 18:52:10.645270000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._deposits_list_deposits_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:10.645270000 Z
+  updater: users_001
+  user: users_001
+preferences_077:
+  created_at: 2014-10-31 18:52:13.504782000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._deposits_list_depositable_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:13.504782000 Z
+  updater: users_001
+  user: users_001
+preferences_078:
+  created_at: 2014-10-31 18:52:18.586345000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._affairs_list_affairs_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:18.586345000 Z
+  updater: users_001
+  user: users_001
+preferences_079:
+  created_at: 2014-10-31 18:52:23.092120000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._incoming_deliveries_list_incoming_deliveries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:23.092120000 Z
+  updater: users_001
+  user: users_001
+preferences_080:
+  created_at: 2014-10-31 18:52:27.088724000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._interventions_list_interventions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:27.088724000 Z
+  updater: users_001
+  user: users_001
+preferences_081:
+  created_at: 2014-10-31 18:52:56.004265000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/animal_groups/index.html.haml:28:0.default
+  nature: string
+  updated_at: 2014-10-31 18:52:56.004265000 Z
+  updater: users_001
+  user: users_001
+preferences_082:
+  boolean_value: true
+  created_at: 2014-10-31 18:52:56.012440000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-animal_groups-index-28.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:52:56.012440000 Z
+  updater: users_001
+  user: users_001
+preferences_083:
+  created_at: 2014-10-31 18:52:56.019225000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._animal_groups_list_animal_groups_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:56.019225000 Z
+  updater: users_001
+  user: users_001
+preferences_084:
+  created_at: 2014-10-31 18:52:58.487678000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._animal_groups_list_animals_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:52:58.487678000 Z
+  updater: users_001
+  user: users_001
+preferences_085:
+  boolean_value: true
+  created_at: 2014-10-31 18:53:10.189361000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-subscriptions-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:53:10.189361000 Z
+  updater: users_001
+  user: users_001
+preferences_086:
+  created_at: 2014-10-31 18:53:10.195892000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._subscriptions_list_subscriptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:53:10.195892000 Z
+  updater: users_001
+  user: users_001
+preferences_087:
+  created_at: 2014-10-31 18:53:15.076397000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/entities/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:53:15.076397000 Z
+  updater: users_001
+  user: users_001
+preferences_088:
+  boolean_value: true
+  created_at: 2014-10-31 18:53:15.085154000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-entities-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:53:15.085154000 Z
+  updater: users_001
+  user: users_001
+preferences_089:
+  created_at: 2014-10-31 18:53:15.091180000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._entities_list_entities_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:53:15.091180000 Z
+  updater: users_001
+  user: users_001
+preferences_090:
+  created_at: 2014-10-31 18:53:45.273007000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._inventories_list_inventories_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:53:45.273007000 Z
+  updater: users_001
+  user: users_001
+preferences_091:
+  created_at: 2014-10-31 18:53:46.098603000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/products/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-10-31 18:53:46.098603000 Z
+  updater: users_001
+  user: users_001
+preferences_092:
+  boolean_value: true
+  created_at: 2014-10-31 18:53:46.105747000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-products-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-10-31 18:53:46.105747000 Z
+  updater: users_001
+  user: users_001
+preferences_093:
+  created_at: 2014-10-31 18:53:46.111627000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._products_list_products_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-10-31 18:53:46.111627000 Z
+  updater: users_001
+  user: users_001

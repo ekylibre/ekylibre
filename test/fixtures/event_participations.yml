@@ -58,3 +58,48 @@ event_participations_002:
   participant: legal_entities_002
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+event_participations_003:
+  created_at: 2014-10-31 18:45:44.742755000 Z
+  creator: users_001
+  event: events_004
+  lock_version: 0
+  participant: people_001
+  state: accepted
+  updated_at: 2014-10-31 18:45:44.742755000 Z
+  updater: users_001
+event_participations_004:
+  created_at: 2014-10-31 18:45:44.743768000 Z
+  creator: users_001
+  event: events_004
+  lock_version: 0
+  participant: people_003
+  state: refused
+  updated_at: 2014-10-31 18:45:44.743768000 Z
+  updater: users_001
+event_participations_005:
+  created_at: 2014-10-31 18:45:44.744576000 Z
+  creator: users_001
+  event: events_004
+  lock_version: 0
+  participant: people_002
+  state: informative
+  updated_at: 2014-10-31 18:45:44.744576000 Z
+  updater: users_001
+event_participations_006:
+  created_at: 2014-10-31 18:51:27.912153000 Z
+  creator: users_001
+  event: events_005
+  lock_version: 0
+  participant: legal_entities_003
+  state: informative
+  updated_at: 2014-10-31 18:51:27.912153000 Z
+  updater: users_001
+event_participations_007:
+  created_at: 2014-10-31 18:51:27.913016000 Z
+  creator: users_001
+  event: events_005
+  lock_version: 0
+  participant: people_001
+  state: accepted
+  updated_at: 2014-10-31 18:51:27.913016000 Z
+  updater: users_001

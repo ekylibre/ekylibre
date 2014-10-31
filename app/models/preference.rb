@@ -88,6 +88,13 @@ class Preference < Ekylibre::Record::Base
   # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystems.default
 
+
+  def self.check!
+    reference.keys.each do |pref|
+      get(pref)
+    end
+  end
+
   def self.type_to_nature(object)
     klass = object.class.to_s
     if object.is_a?(Nomen::Item) and nature = object.nomenclature.name.to_s.singularize.to_sym and nature.values.include?(nature)

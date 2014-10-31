@@ -79,3 +79,28 @@ events_003:
   started_at: 2012-10-31 18:19:32.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+events_004:
+  created_at: 2014-10-31 18:45:44.741463000 Z
+  creator: users_001
+  duration: 7200
+  lock_version: 0
+  name: Interview
+  nature: appointment
+  place: Bordeaux
+  restricted: false
+  started_at: 2014-01-29 07:45:00.000000000 Z
+  stopped_at: 2014-01-29 09:45:00.000000000 Z
+  updated_at: 2014-10-31 18:45:44.741463000 Z
+  updater: users_001
+events_005:
+  created_at: 2014-10-31 18:51:27.910985000 Z
+  creator: users_001
+  duration: 10
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-10-31 18:51:27.900495000 Z
+  stopped_at: 2014-10-31 18:51:37.900495000 Z
+  updated_at: 2014-10-31 18:51:27.910985000 Z
+  updater: users_001

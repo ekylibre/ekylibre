@@ -158,7 +158,11 @@ class Account < Ekylibre::Record::Base
 
     # Find account with its usage among.all existing account records
     def find_in_chart(usage)
-      return self.of_usage(usage).first
+      unless account = of_usage(usage).first
+        item = Nomen::Accounts[usage]
+        account = find_by(number: item.send(chart)) if item
+      end
+      return account
     end
 
     # Find all account matching with the regexp in a String

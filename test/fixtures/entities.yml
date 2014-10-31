@@ -178,6 +178,7 @@ legal_entities_002:
 legal_entities_003:
   active: true
   client: true
+  client_account: accounts_202
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR

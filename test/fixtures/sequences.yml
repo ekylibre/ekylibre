@@ -55,13 +55,17 @@
 sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  lock_version: 0
+  last_cweek: 44
+  last_month: 10
+  last_number: 1
+  last_year: 2014
+  lock_version: 1
   name: Sales
   number_format: "[number|12]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 18:51:27.884111000 Z
   updater: users_001
   usage: sales
 sequences_002:
