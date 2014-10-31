@@ -60,26 +60,32 @@
 #
 ---
 cash_transfers_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  currency_rate: 1
+  currency_rate: 1.0
   emission_amount: 112.07
   emission_cash: cashes_003
   emission_currency: EUR
+  lock_version: 0
   number: '0001'
   reception_amount: 112.07
   reception_cash: cashes_001
   reception_currency: EUR
-  transfered_at: 2007-01-04
+  transfered_at: 2007-01-04 00:00:00.000000000 +01:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 cash_transfers_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  currency_rate: 1
+  currency_rate: 1.0
   emission_amount: 14.5
   emission_cash: cashes_001
   emission_currency: EUR
+  lock_version: 0
   number: '0002'
   reception_amount: 14.5
   reception_cash: cashes_003
   reception_currency: EUR
-  transfered_at: 2009-07-19
+  transfered_at: 2009-07-19 00:00:00.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

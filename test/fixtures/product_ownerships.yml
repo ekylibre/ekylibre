@@ -48,14 +48,20 @@
 #
 ---
 product_ownerships_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: own
   owner: legal_entities_001
   product: products_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 product_ownerships_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: own
   owner: legal_entities_001
   product: products_002
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

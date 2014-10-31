@@ -44,12 +44,18 @@
 #
 ---
 cultivable_zone_memberships_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   group: cultivable_zones_001
+  lock_version: 0
   member: land_parcels_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 cultivable_zone_memberships_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   group: cultivable_zones_001
+  lock_version: 0
   member: land_parcels_002
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

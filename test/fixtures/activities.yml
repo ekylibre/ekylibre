@@ -46,31 +46,40 @@
 #   nature: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 activities_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   family: vegetal_crops
+  lock_version: 0
   name: Blé
   nature: main
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 activities_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   family: rabbit_farming
+  lock_version: 0
   name: Lapins
   nature: main
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 activities_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   family: cattle_farming
+  lock_version: 0
   name: Bovins
   nature: main
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 activities_004:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   family: exploitation
+  lock_version: 0
   name: Maintenance
   nature: auxiliary
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

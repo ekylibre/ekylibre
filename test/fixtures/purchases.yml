@@ -58,66 +58,77 @@
 #   supplier: suppliers_001
 #   updater: users_001
 #
-
+---
 purchases_001:
   affair: affairs_001
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
+  lock_version: 0
   nature: purchase_natures_001
   number: P000001
-  planned_at: 2009-08-20
-  pretax_amount: 0
+  planned_at: 2009-08-20 00:00:00.000000000 +02:00
+  pretax_amount: 0.0
   state: draft
   supplier: legal_entities_003
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 purchases_002:
   affair: affairs_002
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
+  lock_version: 0
   nature: purchase_natures_001
   number: P000002
-  pretax_amount: 0
+  pretax_amount: 0.0
   state: draft
   supplier: legal_entities_003
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 purchases_003:
   affair: affairs_003
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
+  lock_version: 0
   nature: purchase_natures_001
   number: P000003
-  pretax_amount: 0
+  pretax_amount: 0.0
   state: order
   supplier: legal_entities_003
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 purchases_004:
   affair: affairs_004
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: USD
+  lock_version: 0
   nature: purchase_natures_003
   number: P000004
-  planned_at: 2009-08-20
-  pretax_amount: 0
+  planned_at: 2009-08-20 00:00:00.000000000 +02:00
+  pretax_amount: 0.0
   state: order
   supplier: legal_entities_003
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 purchases_005:
   affair: affairs_005
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: USD
+  lock_version: 0
   nature: purchase_natures_003
   number: P000005
-  planned_at: 2009-08-20
-  pretax_amount: 0
+  planned_at: 2009-08-20 00:00:00.000000000 +02:00
+  pretax_amount: 0.0
   state: order
   supplier: legal_entities_003
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

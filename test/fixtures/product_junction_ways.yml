@@ -46,38 +46,44 @@
 #   role: "Lorem ipsum"
 #   updater: users_001
 #
-
-
+---
 product_junction_ways_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   junction: product_births_001
-  nature: "start"
+  lock_version: 0
+  nature: start
   road: products_001
-  role: "product"
+  role: product
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 product_junction_ways_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   junction: product_births_002
-  nature: "start"
+  lock_version: 0
+  nature: start
   road: products_001
-  role: "product"
+  role: product
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 product_junction_ways_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   junction: product_creations_001
-  nature: "start"
+  lock_version: 0
+  nature: start
   road: products_002
-  role: "product"
+  role: product
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 product_junction_ways_004:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   junction: product_creations_001
-  nature: "continuity"
+  lock_version: 0
+  nature: continuity
   road: products_002
-  role: "producer"
+  role: producer
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-

@@ -47,43 +47,54 @@
 #   nature: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 preferences_001:
   boolean_value: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: interface.helps.collapsed
   nature: boolean
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   user: users_001
-
 preferences_002:
   boolean_value: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: interface.helps.shown
   nature: boolean
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   user: users_001
-
 preferences_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: currency
   nature: currency
   string_value: EUR
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   user: users_001
-
 preferences_004:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: language
   nature: language
   string_value: fra
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   user: users_001
-
 preferences_005:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: country
   nature: country
   string_value: fr
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   user: users_001

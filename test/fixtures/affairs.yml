@@ -56,80 +56,74 @@
 #   third: thirds_001
 #   updater: users_001
 #
-
+---
 affairs_001:
   closed: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
   currency: EUR
-  debit: 123
+  deals_count: 0
+  debit: 123.0
+  lock_version: 0
   number: A000001
   originator: sales_001 (Sale)
   third: legal_entities_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 affairs_002:
   closed: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   credit: 411.23
   currency: EUR
+  deals_count: 0
   debit: 411.23
+  lock_version: 0
   number: A000002
   originator: gaps_002 (Gap)
   third: legal_entities_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 affairs_003:
   closed: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 236
+  credit: 236.0
   currency: EUR
-  debit: 158
+  deals_count: 0
+  debit: 158.0
+  lock_version: 0
   number: A000003
   originator: sales_003 (Sale)
   third: legal_entities_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 affairs_004:
   closed: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 1236
+  credit: 1236.0
   currency: EUR
-  debit: 158
+  deals_count: 0
+  debit: 158.0
+  lock_version: 0
   number: A000004
   originator: incoming_payments_001 (IncomingPayment)
   third: legal_entities_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 affairs_005:
   closed: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 236
+  credit: 236.0
   currency: EUR
-  debit: 1158
+  deals_count: 0
+  debit: 1158.0
+  lock_version: 0
   number: A000005
   originator: incoming_payments_003 (IncomingPayment)
   third: legal_entities_001
-  updater: users_001
-
-affairs_006:
-  closed: false
-  creator: users_001
-  credit: 120
-  currency: EUR
-  debit: 0
-  number: A000006
-  originator: transfers_001 (Transfer)
-  third: legal_entities_001
-  updater: users_001
-
-affairs_007:
-  closed: false
-  creator: users_001
-  credit: 101
-  currency: EUR
-  debit: 0
-  number: A000007
-  originator: transfers_002 (Transfer)
-  third: legal_entities_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

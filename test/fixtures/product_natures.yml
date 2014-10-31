@@ -66,74 +66,96 @@
 product_natures_001:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   evolvable: true
   frozen_indicators_list: net_mass, net_volume
+  lock_version: 0
   name: Generic Product Type
   number: PN001
   population_counting: decimal
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: product
 product_natures_002:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_002
+  evolvable: false
+  lock_version: 0
   name: Lorem ipsum 2
   number: LI2
   population_counting: unitary
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_002
   variety: animal
 product_natures_003:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  evolvable: false
+  lock_version: 0
   name: Lorem ipsum 3
   number: LI3
   population_counting: unitary
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: plant
-
 product_natures_004:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  evolvable: false
+  lock_version: 0
   name: Building
   number: BUILDING
   population_counting: unitary
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: building
-
 product_natures_005:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   derivatives_list: meat, milk
+  evolvable: false
   frozen_indicators_list: sex, population
+  lock_version: 0
   name: Female cow
   number: FEMCOW
   population_counting: unitary
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variable_indicators_list: ''
   variety: bos
-
 product_natures_006:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  evolvable: false
+  lock_version: 0
   name: Building division
   number: BUILDIV
   population_counting: unitary
   reference_name: animal_building_division
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: building_division
-
-product_natures_029:
+product_natures_007:
   active: true
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  evolvable: false
+  lock_version: 0
   name: Herd
   number: HERD
   population_counting: unitary
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: animal_group
-

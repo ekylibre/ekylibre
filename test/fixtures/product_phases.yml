@@ -52,22 +52,31 @@
 ---
 product_phases_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: product_natures_001
   product: products_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 product_phases_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: product_natures_001
   product: products_002
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 product_phases_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: product_natures_001
-  product: products_003
+  product: products_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001

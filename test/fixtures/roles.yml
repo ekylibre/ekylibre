@@ -40,17 +40,26 @@
 #   name: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 roles_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lorem ipsum
   rights:
-    accounts: [read, write]
+    accounts:
+    - read
+    - write
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 roles_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lorem ipsum 2
   rights:
-    accounts: [read, write]
+    accounts:
+    - read
+    - write
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

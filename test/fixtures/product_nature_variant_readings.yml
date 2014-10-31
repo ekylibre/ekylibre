@@ -57,33 +57,47 @@
 ---
 product_nature_variant_readings_001:
   boolean_value: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   indicator_datatype: measure
   indicator_name: net_mass
+  lock_version: 0
   measure_value_unit: kilogram
-  measure_value_value: 1
+  measure_value_value: 1.0
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 product_nature_variant_readings_002:
   boolean_value: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   indicator_datatype: measure
   indicator_name: net_volume
+  lock_version: 0
   measure_value_unit: liter
   measure_value_value: 0.2
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 product_nature_variant_readings_003:
+  boolean_value: false
   choice_value: female
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   indicator_datatype: choice
   indicator_name: sex
+  lock_version: 0
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_007
+  variant: product_nature_variants_005
 product_nature_variant_readings_004:
+  boolean_value: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  decimal_value: 1
+  decimal_value: 1.0
   indicator_datatype: decimal
   indicator_name: population
+  lock_version: 0
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_007
+  variant: product_nature_variants_005

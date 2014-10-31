@@ -57,87 +57,102 @@
 #   updater: users_001
 #   variety: "Lorem ipsum"
 #
-
+---
 product_nature_variants_001:
   active: true
   category: product_nature_categories_001
   commercial_name: Generic Product Variant
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Generic Product Variant
   nature: product_natures_001
   number: PNV001
   unit_name: unit
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: product
-
 product_nature_variants_002:
   active: true
   category: product_nature_categories_001
   commercial_name: Lorem ipsum 2
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lorem ipsum 2
   nature: product_natures_001
   number: PNV002
   unit_name: unit
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: bos
-
-product_nature_variants_004:
+product_nature_variants_003:
   active: true
   category: product_nature_categories_001
   commercial_name: Building
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Building
   nature: product_natures_004
   number: PNV004
   unit_name: unit
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: building
-
-product_nature_variants_005:
+product_nature_variants_004:
   active: true
   category: product_nature_categories_001
   commercial_name: Dry matter
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Dry matter
   nature: product_natures_001
   number: PNV005
   unit_name: tas
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: raw_matter
-
-product_nature_variants_007:
+product_nature_variants_005:
   active: true
   category: product_nature_categories_001
   commercial_name: Cow
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Cow
   nature: product_natures_005
   number: PNV007
   unit_name: head
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: bos
-
-product_nature_variants_008:
+product_nature_variants_006:
   active: true
   category: product_nature_categories_001
   commercial_name: Building division
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Building division
   nature: product_natures_005
   number: PNV005
   unit_name: unit
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: building
-
-product_nature_variants_029:
+product_nature_variants_007:
   active: true
   category: product_nature_categories_001
   commercial_name: Herd
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Herd
-  nature: product_natures_029
+  nature: product_natures_007
   number: PNV029
   unit_name: herd
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variety: animal_group

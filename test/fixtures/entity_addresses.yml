@@ -58,47 +58,60 @@
 #   mail_auto_update: true
 #   updater: users_001
 #
-
+---
 entity_addresses_001:
   by_default: true
   canal: phone
   coordinate: 0123456789
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   entity: legal_entities_001
+  lock_version: 0
+  mail_auto_update: false
   thread: AAAA
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 entity_addresses_002:
   by_default: false
   canal: phone
-  coordinate: 1234567890
+  coordinate: '1234567890'
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   entity: legal_entities_001
+  lock_version: 0
+  mail_auto_update: false
   thread: AAAB
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 entity_addresses_003:
   by_default: true
   canal: mail
   coordinate: Mrs Jones, Somewhere, 12345 InTheWorld
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   entity: legal_entities_001
+  lock_version: 0
+  mail_auto_update: false
   mail_line_1: Mrs Jones
   mail_line_4: Somewhere
   mail_line_6: 12345 InTheWorld
   mail_postal_zone: postal_zones_002
   thread: AAAC
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 entity_addresses_004:
   by_default: true
   canal: mail
   coordinate: Mr Jones, Somewhere, 12345 InTheWorld
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   entity: people_001
+  lock_version: 0
+  mail_auto_update: false
   mail_line_1: Mr Jones
   mail_line_4: 2 Somewhere
   mail_line_6: 12345 InTheWorld
   mail_postal_zone: postal_zones_002
   thread: AAAC
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

@@ -49,43 +49,59 @@
 #   reconcilable: true
 #   updater: users_001
 #
-
+---
 accounts_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   debtor: true
   label: 1 - Tototo
+  lock_version: 0
   name: Tototo
   number: '1'
+  reconcilable: false
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 accounts_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   debtor: true
   label: 12 - Tototo
+  lock_version: 0
   name: Tototo
   number: '12'
+  reconcilable: false
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 accounts_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   debtor: true
   label: 681 - Tototo
+  lock_version: 0
   name: Tototo
   number: '681'
+  reconcilable: false
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 accounts_004:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   debtor: true
   label: 707 - Products
-  name: 707
-  number: 707
+  lock_version: 0
+  name: '707'
+  number: '707'
+  reconcilable: false
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 accounts_005:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   debtor: true
   label: 701 - Products
-  name: 701
-  number: 701
+  lock_version: 0
+  name: '701'
+  number: '701'
+  reconcilable: false
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

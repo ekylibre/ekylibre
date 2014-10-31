@@ -64,63 +64,82 @@
 #
 ---
 sale_items_001:
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   indicator_name: population
-  pretax_amount: 0
+  lock_version: 0
+  pretax_amount: 0.0
   price: catalog_prices_001
-  quantity: 1
+  quantity: 1.0
+  reduction_percentage: 0.0
   sale: sales_001
   tax: taxes_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 sale_items_002:
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   indicator_name: population
-  pretax_amount: 0
+  lock_version: 0
+  pretax_amount: 0.0
   price: catalog_prices_002
-  quantity: 2
+  quantity: 2.0
+  reduction_percentage: 0.0
   sale: sales_001
   tax: taxes_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 sale_items_003:
-  amount: 0
+  amount: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   indicator_name: population
-  pretax_amount: 0
+  lock_version: 0
+  pretax_amount: 0.0
   price: catalog_prices_003
-  quantity: 30
+  quantity: 30.0
+  reduction_percentage: 0.0
   sale: sales_002
   tax: taxes_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 sale_items_004:
-  amount: 10
+  amount: 10.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   indicator_name: population
-  pretax_amount: 10
+  lock_version: 0
+  pretax_amount: 10.0
   price: catalog_prices_004
-  quantity: 5
+  quantity: 5.0
+  reduction_percentage: 0.0
   sale: sales_003
   tax: taxes_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
 sale_items_005:
-  amount: 10
+  amount: 10.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   indicator_name: population
-  pretax_amount: 10
+  lock_version: 0
+  pretax_amount: 10.0
   price: catalog_prices_005
-  quantity: 500
-  reduction_percentage: 0
+  quantity: 500.0
+  reduction_percentage: 0.0
   sale: sales_004
   tax: taxes_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001

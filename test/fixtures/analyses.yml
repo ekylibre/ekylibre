@@ -49,24 +49,27 @@
 #   sampled_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
-
+---
 analyses_001:
-  analysed_at: 2013-10-27 18:34:04 +02:00
+  analysed_at: 2013-10-27 16:34:04.000000000 +01:00
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  geolocation: "SRID=4326;POINT(45.5000 -0.79292768)"
+  geolocation: SRID=4326;POINT(45.5 -0.79292768)
+  lock_version: 0
   nature: cow_milk_analysis
-  number: "ANL0001"
-  reference_number: "LCALEDSLAB8458964548458"
-  sampled_at: 2013-10-26 18:34:04 +02:00
+  number: ANL0001
+  reference_number: LCALEDSLAB8458964548458
+  sampled_at: 2013-10-26 16:34:04.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 analyses_002:
-  analysed_at: 2013-10-27 18:34:04 +02:00
+  analysed_at: 2013-10-27 16:34:04.000000000 +01:00
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  geolocation: "SRID=4326;POINT(45.5000 -0.79292768)"
+  geolocation: SRID=4326;POINT(45.5 -0.79292768)
+  lock_version: 0
   nature: cow_milk_analysis
-  number: "ANL0002"
-  sampled_at: 2013-10-26 18:34:04 +02:00
+  number: ANL0002
+  sampled_at: 2013-10-26 16:34:04.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-

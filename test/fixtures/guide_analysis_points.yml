@@ -43,19 +43,22 @@
 #   reference_name: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 guide_analysis_points_001:
-  acceptance_status: "passed"
+  acceptance_status: passed
   analysis: analyses_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  reference_name: "you_have_clients"
+  lock_version: 0
+  reference_name: you_have_clients
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 guide_analysis_points_002:
-  acceptance_status: "passed"
+  acceptance_status: passed
   analysis: analyses_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  reference_name: "you_have_configured_your_own_email"
+  lock_version: 0
+  reference_name: you_have_configured_your_own_email
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-

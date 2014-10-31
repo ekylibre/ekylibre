@@ -43,86 +43,102 @@
 #   creator: users_001
 #   updater: users_001
 #
-
+---
 product_births_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  type: 'ProductBirth'
+  lock_version: 0
+  type: ProductBirth
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 product_births_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  type: 'ProductBirth'
+  lock_version: 0
+  type: ProductBirth
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-
-
-product_creations_001:
-  creator: users_001
-  type: 'ProductCreation'
-  updater: users_001
-
-product_creations_002:
-  creator: users_001
-  type: 'ProductCreation'
-  updater: users_001
-
-
-
-product_divisions_001:
-  creator: users_001
-  type: 'ProductDivision'
-  updater: users_001
-
-product_divisions_002:
-  creator: users_001
-  type: 'ProductDivision'
-  updater: users_001
-
-
-
-product_deaths_001:
-  creator: users_001
-  type: 'ProductDeath'
-  updater: users_001
-
-product_deaths_002:
-  creator: users_001
-  type: 'ProductDeath'
-  updater: users_001
-
-
-
-product_mergings_001:
-  creator: users_001
-  type: 'ProductMerging'
-  updater: users_001
-
-product_mergings_002:
-  creator: users_001
-  type: 'ProductMerging'
-  updater: users_001
-
-
-
 product_consumptions_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  type: 'ProductConsumption'
+  lock_version: 0
+  type: ProductConsumption
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 product_consumptions_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  type: 'ProductConsumption'
+  lock_version: 0
+  type: ProductConsumption
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-
-
-
+product_creations_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductCreation
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_creations_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductCreation
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_deaths_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductDeath
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_deaths_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductDeath
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_divisions_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductDivision
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_divisions_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductDivision
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_mergings_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductMerging
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+product_mergings_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  lock_version: 0
+  type: ProductMerging
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
 product_mixings_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  type: 'ProductMixing'
+  lock_version: 0
+  type: ProductMixing
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 product_mixings_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  type: 'ProductMixing'
+  lock_version: 0
+  type: ProductMixing
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

@@ -77,650 +77,923 @@
 #   variety: "Lorem ipsum"
 #
 ---
-animal_groups_001:
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'AnimalGroup #1'
-  nature: product_natures_029
-  number: '29001'
-  parent: products_001
-  type: AnimalGroup
-  updater: users_001
-  variant: product_nature_variants_029
-  variety: animal_group
-animal_groups_002:
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'AnimalGroup #2'
-  nature: product_natures_029
-  number: '29002'
-  parent: products_001
-  type: AnimalGroup
-  updater: users_001
-  variant: product_nature_variants_029
-  variety: animal_group
-animal_groups_003:
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'AnimalGroup #3'
-  nature: product_natures_029
-  number: '29003'
-  parent: products_001
-  type: AnimalGroup
-  updater: users_001
-  variant: product_nature_variants_029
-  variety: animal_group
-
 animals_001:
-  born_at: 1997-01-17
+  born_at: 1997-01-17 00:00:00.000000000 +01:00
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  dead_at: 2006-09-02
+  dead_at: 2006-09-02 00:00:00.000000000 +02:00
+  extjuncted: false
   identification_number: A7001
+  initial_population: 0.0
+  lock_version: 0
   name: Ionosphere
   nature: product_natures_001
   number: '7001'
   type: Animal
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: bos
-
 animals_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
   identification_number: A7002
-  name: "Isabelle"
+  initial_population: 0.0
+  lock_version: 0
+  name: Isabelle
   nature: product_natures_005
   number: '7002'
   type: Animal
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: bos
-
 animals_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
   identification_number: A7003
+  initial_population: 0.0
+  lock_version: 0
   name: Segolene
   nature: product_natures_001
   number: '7003'
   type: Animal
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: gallus
-
 animals_004:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
   identification_number: A7004
+  initial_population: 0.0
+  lock_version: 0
   name: Marguerite
   nature: product_natures_001
   number: '7004'
   type: Animal
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_007
+  variant: product_nature_variants_005
   variety: bos
-
 animals_005:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
   identification_number: A7005
+  initial_population: 0.0
+  lock_version: 0
   name: Hélico
   nature: product_natures_001
   number: '7005'
   type: Animal
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_005
+  variety: bos
+animal_groups_001:
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'AnimalGroup #1'
+  nature: product_natures_007
+  number: '29001'
+  parent: products_001
+  type: AnimalGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_007
-  variety: bos
-
-building_divisions_001:
+  variety: animal_group
+animal_groups_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'BuildingDivision #1'
-  nature: product_natures_001
-  number: '28001'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'AnimalGroup #2'
+  nature: product_natures_007
+  number: '29002'
   parent: products_001
-  type: BuildingDivision
+  type: AnimalGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_001
-  variety: building_division
-
-building_divisions_002:
+  variant: product_nature_variants_007
+  variety: animal_group
+animal_groups_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'BuildingDivision #2'
-  nature: product_natures_001
-  number: '28002'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'AnimalGroup #3'
+  nature: product_natures_007
+  number: '29003'
   parent: products_001
-  type: BuildingDivision
+  type: AnimalGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_001
-  variety: building_division
-
-building_divisions_003:
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'BuildingDivision #3'
-  nature: product_natures_001
-  number: '28003'
-  parent: products_001
-  type: BuildingDivision
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: building_division
-
-building_divisions_004:
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'BuildingDivision #4'
-  nature: product_natures_006
-  number: '28004'
-  type: BuildingDivision
-  updater: users_001
-  variant: product_nature_variants_008
-  variety: building_division
-
+  variant: product_nature_variants_007
+  variety: animal_group
 buildings_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Dock
   nature: product_natures_004
   number: '33001'
   type: Building
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_004
+  variant: product_nature_variants_003
   variety: building
 buildings_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Cabanon
   nature: product_natures_004
   number: '33002'
   type: Building
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_004
+  variant: product_nature_variants_003
   variety: building
 buildings_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Barn/Grange
   nature: product_natures_004
   number: '33003'
   type: Building
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-  variant: product_nature_variants_004
+  variant: product_nature_variants_003
   variety: building
+building_divisions_001:
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'BuildingDivision #1'
+  nature: product_natures_001
+  number: '28001'
+  parent: products_001
+  type: BuildingDivision
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: building_division
+building_divisions_002:
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'BuildingDivision #2'
+  nature: product_natures_001
+  number: '28002'
+  parent: products_001
+  type: BuildingDivision
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: building_division
+building_divisions_003:
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'BuildingDivision #3'
+  nature: product_natures_001
+  number: '28003'
+  parent: products_001
+  type: BuildingDivision
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: building_division
+building_divisions_004:
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'BuildingDivision #4'
+  nature: product_natures_006
+  number: '28004'
+  type: BuildingDivision
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_006
+  variety: building_division
 cultivable_zones_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'CultivableZone #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'CultivableZone #1'
   nature: product_natures_001
   number: '32001'
   parent: products_001
   type: CultivableZone
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: cultivable_zone
 cultivable_zones_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'CultivableZone #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'CultivableZone #2'
   nature: product_natures_001
   number: '32002'
   parent: products_001
   type: CultivableZone
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: cultivable_zone
 cultivable_zones_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'CultivableZone #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'CultivableZone #3'
   nature: product_natures_001
   number: '32003'
   parent: products_001
   type: CultivableZone
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: cultivable_zone
 equipments_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Tractor
   nature: product_natures_001
   number: '16001'
   type: Equipment
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: equipment
 equipments_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Useless tractor
   nature: product_natures_001
   number: '16002'
   type: Equipment
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: equipment
 equipments_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Grinder
   nature: product_natures_001
   number: '16003'
   type: Equipment
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: equipment
 fungi_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Fungus #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Fungus #1'
   nature: product_natures_001
   number: '16101'
   parent: products_001
   type: Fungus
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: fungus
 fungi_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Fungus #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Fungus #2'
   nature: product_natures_001
   number: '16102'
   parent: products_001
   type: Fungus
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: fungus
 immatters_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Immatter #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Immatter #1'
   nature: product_natures_001
   number: '4001'
   parent: products_001
   type: Immatter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: immatter
 immatters_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Immatter #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Immatter #2'
   nature: product_natures_001
   number: '4002'
   parent: products_001
   type: Immatter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: immatter
 immatters_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Immatter #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Immatter #3'
   nature: product_natures_001
   number: '4003'
   parent: products_001
   type: Immatter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: immatter
+land_parcels_001:
+  born_at: 1959-03-02 09:00:00.000000000 +01:00
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: LandParcel Ⅰ
+  nature: product_natures_001
+  number: '40001'
+  type: LandParcel
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel
+land_parcels_002:
+  born_at: 1959-07-02 09:00:00.000000000 +01:00
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: LandParcel Ⅱ
+  nature: product_natures_001
+  number: '40002'
+  type: LandParcel
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel
+land_parcels_003:
+  born_at: 1959-03-02 09:00:00.000000000 +01:00
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: LandParcel Ⅲ
+  nature: product_natures_001
+  number: '40003'
+  type: LandParcel
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel
 land_parcel_clusters_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'LandParcelCluster #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'LandParcelCluster #1'
   nature: product_natures_001
   number: '31001'
   parent: products_001
   type: LandParcelCluster
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: land_parcel_cluster
 land_parcel_clusters_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'LandParcelCluster #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'LandParcelCluster #2'
   nature: product_natures_001
   number: '31002'
   parent: products_001
   type: LandParcelCluster
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: land_parcel_cluster
 land_parcel_clusters_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'LandParcelCluster #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'LandParcelCluster #3'
   nature: product_natures_001
   number: '31003'
   parent: products_001
   type: LandParcelCluster
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: land_parcel_cluster
 land_parcel_groups_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'LandParcelGroup #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'LandParcelGroup #1'
   nature: product_natures_001
   number: '30001'
   parent: products_001
   type: LandParcelGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: land_parcel_group
 land_parcel_groups_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'LandParcelGroup #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'LandParcelGroup #2'
   nature: product_natures_001
   number: '30002'
   parent: products_001
   type: LandParcelGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: land_parcel_group
 land_parcel_groups_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'LandParcelGroup #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'LandParcelGroup #3'
   nature: product_natures_001
   number: '30003'
   parent: products_001
   type: LandParcelGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: land_parcel_group
-land_parcels_001:
-  born_at: 1959-03-02 10:00:00.000000000 +01:00
-  category: product_nature_categories_001
-  creator: users_001
-  name: 'LandParcel Ⅰ'
-  nature: product_natures_001
-  number: '40001'
-  type: LandParcel
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: land_parcel
-land_parcels_002:
-  born_at: 1959-07-02 10:00:00.000000000 +01:00
-  category: product_nature_categories_001
-  creator: users_001
-  name: 'LandParcel Ⅱ'
-  nature: product_natures_001
-  number: '40002'
-  type: LandParcel
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: land_parcel
-land_parcels_003:
-  born_at: 1959-03-02 10:00:00.000000000 +01:00
-  category: product_nature_categories_001
-  creator: users_001
-  name: 'LandParcel Ⅲ'
-  nature: product_natures_001
-  number: '40003'
-  type: LandParcel
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: land_parcel
 matters_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Sand
   nature: product_natures_001
   number: '1001'
   type: Matter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
 matters_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Book
   nature: product_natures_001
   number: '1002'
   type: Matter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
 matters_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Iron grid
   nature: product_natures_001
   number: '1003'
   type: Matter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
 matters_004:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Deuterium
   nature: product_natures_001
   number: '1004'
   type: Matter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
 matters_005:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Oxygen
   nature: product_natures_001
   number: '1005'
   type: Matter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
 matters_006:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Sand II
   nature: product_natures_001
   number: '1006'
   type: Matter
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: matter
-
 plants_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Plant #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Plant #1'
   nature: product_natures_001
   number: '10001'
   parent: products_001
   type: Plant
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
-
 plants_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Plant #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Plant #2'
   nature: product_natures_001
   number: '10002'
   parent: products_001
   type: Plant
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
-
 plants_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Plant #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Plant #3'
   nature: product_natures_001
   number: '10003'
   parent: products_001
   type: Plant
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
-
+products_001:
+  born_at: 2009-07-19 00:00:00.000000000 +02:00
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Product #1'
+  nature: product_natures_001
+  number: '0001'
+  type: Product
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product
+products_002:
+  born_at: 2009-07-31 00:00:00.000000000 +02:00
+  category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Product #2'
+  nature: product_natures_001
+  number: '0002'
+  type: Product
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product
 product_groups_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Troupeau 1
   nature: product_natures_001
   number: '3001'
   parent: products_001
   type: ProductGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: product_group
 product_groups_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Troupeau 2
   nature: product_natures_001
   number: '3002'
   parent: products_001
   type: ProductGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: product_group
 product_groups_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Troupeau 3
   nature: product_natures_001
   number: '3003'
   parent: products_001
   type: ProductGroup
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: product_group
-products_001:
-  born_at: 2009-07-19
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'Product #1'
-  nature: product_natures_001
-  number: '0001'
-  type: Product
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: product
-products_002:
-  born_at: 2009-07-31
-  category: product_nature_categories_001
-  creator: users_001
-  name: ! 'Product #2'
-  nature: product_natures_001
-  number: '0002'
-  type: Product
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: product
 services_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Service #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Service #1'
   nature: product_natures_001
   number: '19001'
   parent: products_001
   type: Service
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: service
 services_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Service #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Service #2'
   nature: product_natures_001
   number: '19002'
   parent: products_001
   type: Service
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: service
 services_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Service #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Service #3'
   nature: product_natures_001
   number: '19003'
   parent: products_001
   type: Service
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: service
 settlements_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Settlement #1'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Settlement #1'
   nature: product_natures_001
   number: '20001'
   parent: products_001
   type: Settlement
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: settlement
 settlements_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Settlement #2'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Settlement #2'
   nature: product_natures_001
   number: '20002'
   parent: products_001
   type: Settlement
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: settlement
 settlements_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  name: ! 'Settlement #3'
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
+  name: 'Settlement #3'
   nature: product_natures_001
   number: '20003'
   parent: products_001
   type: Settlement
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: settlement
-
 workers_001:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Alice
   nature: product_natures_001
   number: '21001'
   parent: products_001
   person: people_001
   type: Worker
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: worker
-
 workers_002:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Bob
   nature: product_natures_001
   number: '21002'
   parent: products_001
   person: people_002
   type: Worker
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: worker
-
 workers_003:
   category: product_nature_categories_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  extjuncted: false
+  initial_population: 0.0
+  lock_version: 0
   name: Charlene
   nature: product_natures_001
   number: '21003'
   parent: products_001
   person: people_003
   type: Worker
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   variant: product_nature_variants_001
   variety: worker

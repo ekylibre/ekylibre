@@ -56,18 +56,25 @@ document_templates_001:
   active: true
   archiving: last
   by_default: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   language: fra
+  lock_version: 0
+  managed: false
   name: AN
   nature: tax_assessment
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 document_templates_002:
   active: true
   archiving: all
   by_default: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   language: fra
+  lock_version: 0
+  managed: false
   name: FA
   nature: tax_assessment
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

@@ -69,6 +69,17 @@ module Ekylibre
         write
       end
 
+      # Migrate tenant to wanted version
+      def migrate(name, options = {})
+        if options[:to] ||= options[:up_to]
+          Apartment::Migrator.run(:up, name, options[:to])
+        elsif options[:down_to]
+          Apartment::Migrator.run(:down, name, options[:down_to])
+        else
+          Apartment::Migrator.migrate(name)
+        end
+      end
+
 
       def rename(old, new)
         check!(old)
@@ -81,8 +92,8 @@ module Ekylibre
       end
 
       # Change current tenant
-      def switch(name)
-        Apartment::Tenant.switch(name)
+      def switch(name, &block)
+        Apartment::Tenant.switch(name, &block)
       end
       alias :current= :switch
 

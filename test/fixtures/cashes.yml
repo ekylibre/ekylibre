@@ -61,32 +61,41 @@
 ---
 cashes_001:
   account: accounts_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   iban: FR7611111222223333333333391
   journal: journals_001
+  lock_version: 0
   mode: iban
   name: Lorem ipsum
   nature: bank_account
   spaced_iban: FR76 1111 1222 2233 3333 3333 391
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 cashes_002:
   account: accounts_002
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   iban: FR76
   journal: journals_001
+  lock_version: 0
   mode: iban
   name: Lorem ipsum
   nature: bank_account
   spaced_iban: FR76
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 cashes_003:
   account: accounts_003
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   journal: journals_001
+  lock_version: 0
   mode: iban
   name: Lorem ipsum
   nature: cash_box
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

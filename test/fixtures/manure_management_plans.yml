@@ -51,26 +51,30 @@
 #   selected: true
 #   updater: users_001
 #
-
-
+---
 manure_management_plans_001:
   campaign: campaigns_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  default_computation_method: "external"
+  default_computation_method: external
+  lock_version: 0
   locked: false
-  name: "PPF 2013"
-  opened_at: 2013-10-26 18:34:04 +02:00
+  name: PPF 2013
+  opened_at: 2013-10-26 16:34:04.000000000 +02:00
   recommender: people_001
   selected: true
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 manure_management_plans_002:
   campaign: campaigns_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  default_computation_method: "external"
+  default_computation_method: external
+  lock_version: 0
   locked: false
-  name: "PPF 2013 bis"
-  opened_at: 2013-10-26 18:34:04 +02:00
+  name: PPF 2013 bis
+  opened_at: 2013-10-26 16:34:04.000000000 +02:00
   recommender: people_001
   selected: false
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

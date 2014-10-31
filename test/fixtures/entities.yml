@@ -87,101 +87,182 @@
 #   vat_subjected: true
 #
 ---
-legal_entities_001:
+entities_001:
+  active: true
   client: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   full_name: Ferstivall LTD
   language: eng
   last_name: C. Ferstivall LTD
-  nature: company
-  number: 1
-  of_company: true
-  type: LegalEntity
+  lock_version: 0
+  locked: false
+  nature: entity
+  number: '129'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  type: Entity
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-legal_entities_002:
+  vat_subjected: true
+entities_002:
+  active: true
   client: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   full_name: Toley LTD
   language: fra
   last_name: Toley LTD
-  nature: company
-  number: 2
-  type: LegalEntity
+  lock_version: 0
+  locked: false
+  nature: entity
+  number: '130'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  type: Entity
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
+  vat_subjected: true
+legal_entities_001:
+  active: true
+  client: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  currency: EUR
+  full_name: Ferstivall LTD
+  language: eng
+  last_name: C. Ferstivall LTD
+  lock_version: 0
+  locked: false
+  nature: company
+  number: '1'
+  of_company: true
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  type: LegalEntity
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  vat_subjected: true
+legal_entities_002:
+  active: true
+  client: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  creator: users_001
+  currency: EUR
+  full_name: Toley LTD
+  language: fra
+  last_name: Toley LTD
+  lock_version: 0
+  locked: false
+  nature: company
+  number: '2'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  type: LegalEntity
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
+  vat_subjected: true
 legal_entities_003:
+  active: true
   client: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   full_name: Yuey LTD
   language: fra
   last_name: Yuey LTD
+  lock_version: 0
+  locked: false
   nature: company
-  number: 3
-  type: LegalEntity
-  updater: users_001
-entities_001:
-  client: false
-  creator: users_001
-  currency: EUR
-  full_name: Ferstivall LTD
-  language: eng
-  last_name: C. Ferstivall LTD
-  nature: entity
-  number: 129
+  number: '3'
   of_company: false
-  type: Entity
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  type: LegalEntity
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-entities_002:
-  client: false
-  creator: users_001
-  currency: EUR
-  full_name: Toley LTD
-  language: fra
-  last_name: Toley LTD
-  nature: entity
-  number: 130
-  type: Entity
-  updater: users_001
-
+  vat_subjected: true
 people_001:
   active: true
   client: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   first_name: Gendo
   full_name: Gendo IKARI
   language: fra
   last_name: IKARI
+  lock_version: 0
+  locked: false
   nature: sir
-  number: 193
+  number: '193'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
   type: Person
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
+  vat_subjected: true
 people_002:
   active: true
   client: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
   first_name: Kozo
   full_name: Kozo FUYUTSUKI
   language: fra
   last_name: FUYUTSUKI
+  lock_version: 0
+  locked: false
   nature: sir
-  number: 194
+  number: '194'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
   type: Person
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
+  vat_subjected: true
 people_003:
   active: true
+  client: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: JPY
   first_name: Yui
   full_name: Yui IKARI
   language: jpn
   last_name: IKARI
+  lock_version: 0
+  locked: false
   nature: madam
-  number: 195
+  number: '195'
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
   type: Person
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
+  vat_subjected: true

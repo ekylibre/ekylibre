@@ -3,6 +3,7 @@ namespace :first_run do
 
   desc "Load the default first-run"
   task :default => :environment do
+    ENV["name"] ||= ENV["TENANT"]
     Ekylibre::FirstRun.launch({folder: "default"}.merge(ENV.to_hash.symbolize_keys.slice(:folder, :name, :max, :mode)))
   end
 

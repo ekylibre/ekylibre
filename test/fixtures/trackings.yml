@@ -44,19 +44,24 @@
 #   name: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 trackings_001:
   active: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lot REM 1P5UM
   producer: legal_entities_001
   product: products_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 trackings_002:
   active: true
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lot REM 1P6UM
   producer: entities_001
   product: products_002
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

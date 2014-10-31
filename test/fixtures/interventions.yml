@@ -61,71 +61,87 @@
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 interventions_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   issue: issues_001
+  lock_version: 0
   natures: grinding, soil_enrichment
-  number: "1"
+  number: '1'
   production: productions_001
   production_support: production_supports_003
   provisional: false
-  reference_name: 'base-plant_grinding-0'
-  started_at: 2009-05-03 09:13:59.000000000 +02:00
+  recommended: false
+  reference_name: base-plant_grinding-0
+  started_at: 2009-05-03 07:13:59.000000000 +02:00
   state: done
-  stopped_at: 2009-05-03 12:17:23.000000000 +02:00
+  stopped_at: 2009-05-03 10:17:23.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 interventions_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   natures: grinding, soil_enrichment
-  number: "2"
+  number: '2'
   production: productions_001
   production_support: production_supports_001
   provisional: false
-  reference_name: 'base-plant_grinding-0'
-  started_at: 2009-06-03 09:13:59.000000000 +02:00
+  recommended: false
+  reference_name: base-plant_grinding-0
+  started_at: 2009-06-03 07:13:59.000000000 +02:00
   state: undone
-  stopped_at: 2009-06-03 12:17:23.000000000 +02:00
+  stopped_at: 2009-06-03 10:17:23.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 interventions_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   natures: animal_curative_medicine_admission
-  number: "3"
+  number: '3'
   prescription: prescriptions_001
   production: productions_003
   production_support: production_supports_003
   provisional: false
-  reference_name: 'base-animal_treatment-0'
-  started_at: 2009-05-03 09:13:59.000000000 +02:00
+  recommended: false
+  reference_name: base-animal_treatment-0
+  started_at: 2009-05-03 07:13:59.000000000 +02:00
   state: done
-  stopped_at: 2009-05-03 12:17:23.000000000 +02:00
+  stopped_at: 2009-05-03 10:17:23.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 interventions_004:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   natures: harvest, pasturing
-  number: "4"
+  number: '4'
   production: productions_003
   production_support: production_supports_003
   provisional: false
-  reference_name: 'base-pasturing-0'
-  started_at: 2009-05-13 09:13:59.000000000 +02:00
+  recommended: false
+  reference_name: base-pasturing-0
+  started_at: 2009-05-13 07:13:59.000000000 +02:00
   state: done
-  stopped_at: 2009-05-13 12:17:23.000000000 +02:00
+  stopped_at: 2009-05-13 10:17:23.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 interventions_005:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   issue: issues_001
+  lock_version: 0
   natures: plant_illness_treatment
-  number: "5"
+  number: '5'
   production: productions_001
   production_support: production_supports_003
   provisional: false
-  reference_name: 'base-spraying_on_cultivation-0'
-  started_at: 2009-04-03 09:13:59.000000000 +02:00
+  recommended: false
+  reference_name: base-spraying_on_cultivation-0
+  started_at: 2009-04-03 07:13:59.000000000 +02:00
   state: done
-  stopped_at: 2009-04-03 12:17:23.000000000 +02:00
+  stopped_at: 2009-04-03 10:17:23.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

@@ -44,16 +44,23 @@
 #   updater: users_001
 #   with_accounting: true
 #
-
+---
 outgoing_payment_modes_001:
+  active: false
   cash: cashes_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lorem ipsum
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   with_accounting: true
-
 outgoing_payment_modes_002:
+  active: false
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Lorem ipsum 2
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
   with_accounting: true

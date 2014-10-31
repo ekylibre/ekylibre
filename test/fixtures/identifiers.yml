@@ -41,31 +41,38 @@
 #   updater: users_001
 #   value: "Lorem ipsum"
 #
-
-
-# # Empty samples of identifiers
+---
 identifiers_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  nature: 'pacage_number'
+  lock_version: 0
+  nature: pacage_number
   net_service: net_services_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
   value: '172563'
-  updater: users_001
-
 identifiers_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  nature: 'password'
+  lock_version: 0
+  nature: password
   net_service: net_services_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updater: users_001
   value: '123456'
-  updater: users_001
-
 identifiers_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: cattling_number
-  value: '172563ED'
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
+  value: 172563ED
 identifiers_004:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: husbandry_owner_number
-  value: 'HONAZER172563ED'
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
+  value: HONAZER172563ED

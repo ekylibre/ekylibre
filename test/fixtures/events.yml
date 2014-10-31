@@ -48,24 +48,34 @@
 #   started_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
-
+---
 events_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Nothing
   nature: meeting
-  started_at: <%=(t=Time.now-1.month).to_s(:db)%>
+  restricted: false
+  started_at: 2014-09-30 19:19:32.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 events_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Nothing too
   nature: meeting
-  started_at: <%=(t=Time.now-1.year).to_s(:db)%>
+  restricted: false
+  started_at: 2013-10-31 19:19:32.000000000 +01:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 events_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   name: Nothing too again
   nature: meeting
-  started_at: <%=(t=Time.now-2.year).to_s(:db)%>
+  restricted: false
+  started_at: 2012-10-31 19:19:32.000000000 +01:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

@@ -63,25 +63,35 @@
 ---
 outgoing_payments_001:
   affair: affairs_001
-  amount: 116
+  amount: 116.0
   cash: cashes_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
+  delivered: true
+  downpayment: true
+  lock_version: 0
   mode: outgoing_payment_modes_001
   number: OP001
   payee: legal_entities_001
   responsible: users_001
-  to_bank_at: 2009-07-19
+  to_bank_at: 2009-07-19 00:00:00.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 outgoing_payments_002:
   affair: affairs_002
-  amount: 156
+  amount: 156.0
   cash: cashes_001
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   currency: EUR
+  delivered: true
+  downpayment: true
+  lock_version: 0
   mode: outgoing_payment_modes_001
   number: OP002
   payee: legal_entities_001
   responsible: users_001
-  to_bank_at: 2009-07-19
+  to_bank_at: 2009-07-19 00:00:00.000000000 +02:00
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

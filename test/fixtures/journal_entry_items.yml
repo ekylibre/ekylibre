@@ -82,179 +82,220 @@
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 journal_entry_items_001:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_001
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_001
   entry_number: XYZ0001
   financial_year: financial_years_001
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum
   printed_on: 2007-07-20
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: draft
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 journal_entry_items_002:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_001
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_001
   entry_number: XYZ0001
   financial_year: financial_years_001
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum 2
   printed_on: 2007-07-20
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: draft
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 journal_entry_items_003:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_001
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_001
   entry_number: XYZ0001
   financial_year: financial_years_001
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum
   printed_on: 2007-07-20
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: draft
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-
-
-
-
-
-
-
-
 journal_entry_items_004:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_001
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_005
   entry_number: ABC0001
   financial_year: financial_years_001
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum
   printed_on: 2007-07-20
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: confirmed
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 journal_entry_items_005:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_001
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_005
   entry_number: ABC0001
   financial_year: financial_years_001
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum 2
   printed_on: 2007-07-20
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: confirmed
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 journal_entry_items_006:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_001
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_005
   entry_number: ABC0001
   financial_year: financial_years_001
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum
   printed_on: 2007-07-20
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: confirmed
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 journal_entry_items_007:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_004
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_005
   entry_number: ABC0001
   financial_year: financial_years_016
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum
   printed_on: 2007-07-19
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: closed
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 journal_entry_items_008:
-  absolute_credit: 0
+  absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0
+  absolute_debit: 0.0
   account: accounts_005
+  balance: 0.0
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  credit: 0
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
   currency: EUR
-  debit: 0
+  debit: 0.0
   entry: journal_entries_005
   entry_number: ABC0001
   financial_year: financial_years_016
   journal: journals_001
+  lock_version: 0
   name: Lorem ipsum
   printed_on: 2007-07-19
-  real_credit: 0
+  real_credit: 0.0
   real_currency: EUR
-  real_debit: 0
+  real_currency_rate: 0.0
+  real_debit: 0.0
   state: closed
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

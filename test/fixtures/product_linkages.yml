@@ -52,14 +52,20 @@
 product_linkages_001:
   carried: equipments_001
   carrier: equipments_002
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: occupied
   point: rear
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
 product_linkages_002:
   carried: equipments_001
   carrier: equipments_002
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
+  lock_version: 0
   nature: occupied
   point: front
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001

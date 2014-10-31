@@ -139,17 +139,23 @@ module Clean
       # on the columns and their types) and put it at the front
       # of the model and fixture source files.
 
-      def annotate(klass, header)
+      def annotate(klass, header, types = [])
         info = get_schema_info(klass, header)
 
-        model_file_name = MODELS_DIR.join(klass.name.underscore + ".rb")
-        annotate_one_file(model_file_name, info)
+        if types.include?(:models)
+          model_file_name = MODELS_DIR.join(klass.name.underscore + ".rb")
+          annotate_one_file(model_file_name, info)
+        end
 
-        fixture_file_name = FIXTURES_DIR.join(klass.table_name + ".yml")
-        annotate_one_file(fixture_file_name, info+default_fixture(klass))
+        if types.include?(:fixtures)
+          fixture_file_name = FIXTURES_DIR.join(klass.table_name + ".yml")
+          annotate_one_file(fixture_file_name, info+default_fixture(klass))
+        end
 
-        unit_file_name = MODEL_TESTS_DIR.join(klass.name.underscore + "_test.rb")
-        annotate_one_file(unit_file_name, info)
+        if types.include?(:model_tests)
+          unit_file_name = MODEL_TESTS_DIR.join(klass.name.underscore + "_test.rb")
+          annotate_one_file(unit_file_name, info)
+        end
       end
 
       # Return a list of the model files to annotate. If we have
@@ -158,13 +164,11 @@ module Clean
       # Otherwise we take all the model files in the
       # app/models directory.
       def get_model_names
-        #models = ARGV.dup
-        #models.shift
         models = []
-
         if models.empty?
           Dir.chdir(MODELS_DIR) do
             models = Dir["**/*.rb"].sort
+            models.delete_if{|m| m =~ /\Aconcerns\// }
           end
         end
         models
@@ -175,10 +179,17 @@ module Clean
       # if its a subclass of ActiveRecord::Base,
       # then pas it to the associated block
 
-      def run
+      def run(options = {})
+        if verbose = !options[:verbose].is_a?(FalseClass)
+          print " - Annotations: "
+        end
+
         Clean::Support.set_search_path!
 
-        print " - Annotations: "
+        types  = [:models, :fixtures, :model_tests]
+        types &= [options.delete(:only)].flatten if options[:only]
+        types -= [options.delete(:except)].flatten if options[:except]
+
 
         header = PREFIX.dup
 
@@ -186,9 +197,6 @@ module Clean
         header << "Ekylibre ERP - Simple agricultural ERP\nCopyright (C) 2008-2009 Brice Texier, Thibaud Merigon\nCopyright (C) 2010-2012 Brice Texier\nCopyright (C) 2012-#{Date.today.year} Brice Texier, David Joulin\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Affero General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU Affero General Public License for more details.\n\nYou should have received a copy of the GNU Affero General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
 
         version = ActiveRecord::Migrator.current_version rescue 0
-        #    if version > 0
-        #      header << "\n# Schema version: #{version}"
-        #    end
 
         errors = []
         get_model_names.each do |m|
@@ -196,20 +204,17 @@ module Clean
           begin
             klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
             if klass < ActiveRecord::Base && !klass.abstract_class?
-              # puts "Annotating #{class_name}"
-              # print "."
-              annotate(klass, header)
-            else
-              # print "S"
+              annotate(klass, header, types)
             end
           rescue Exception => e
-            # print "F"
             errors << "Unable to annotate #{class_name}: #{e.message}\n"+e.backtrace.join("\n")
           end
         end
-        print "#{errors.size.to_s.rjust(3)} errors\n"
-        for error in errors
-          puts error.gsub(/^/, "     ")
+        if verbose
+          print "#{errors.size.to_s.rjust(3)} errors\n"
+          for error in errors
+            puts error.gsub(/^/, "     ")
+          end
         end
       end
 

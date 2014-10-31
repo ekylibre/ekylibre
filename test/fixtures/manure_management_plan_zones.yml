@@ -59,19 +59,22 @@
 #   support: supports_001
 #   updater: users_001
 #
-
+---
 manure_management_plan_zones_001:
-  computation_method: "external"
+  computation_method: external
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  plan: plans_001
+  lock_version: 0
+  plan: manure_management_plans_001
   support: production_supports_001
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
 manure_management_plan_zones_002:
-  computation_method: "external"
+  computation_method: external
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
-  plan: plans_002
+  lock_version: 0
+  plan: manure_management_plans_002
   support: production_supports_002
+  updated_at: 2014-10-31 18:19:32.000000000 +01:00
   updater: users_001
-
-

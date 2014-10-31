@@ -41,23 +41,20 @@
 #
 ---
 versions_001:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   creator_name: Alice
   event: create
   item: products_001 (Product)
-  item_changes: <%= {}.with_indifferent_access.to_yaml.inspect %>
-  item_object: <%= {}.with_indifferent_access.to_yaml.inspect %>
 versions_002:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   creator_name: Bob
   event: update
   item: animals_001 (Animal)
-  item_changes: <%= {}.with_indifferent_access.to_yaml.inspect %>
-  item_object: <%= {}.with_indifferent_access.to_yaml.inspect %>
 versions_003:
+  created_at: 2014-10-31 18:19:32.000000000 +01:00
   creator: users_001
   creator_name: Charlene
   event: destroy
   item: entities_001 (Entity)
-  item_changes: <%= {}.with_indifferent_access.to_yaml.inspect %>
-  item_object: <%= {}.with_indifferent_access.to_yaml.inspect %>
