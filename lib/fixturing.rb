@@ -260,7 +260,7 @@ module Fixturing
               elsif type == :date
                 value.to_date
               elsif type == :datetime
-                value.to_time
+                value.to_time(:utc)
               elsif type == :boolean
                 (['1', 't', 'T', 'true', 'yes', 'TRUE'].include?(value) ? true : false)
               else

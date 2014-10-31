@@ -55,38 +55,38 @@ taxes_001:
   amount: 19.6
   collect_account: accounts_001
   computation_method: percentage
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   deduction_account: accounts_001
   included: false
   lock_version: 0
   name: Lorem ipsum
   reductible: true
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 taxes_002:
   amount: 0.0
   collect_account: accounts_001
   computation_method: percentage
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   deduction_account: accounts_001
   included: false
   lock_version: 0
   name: LoremIpsum2
   reductible: true
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 taxes_003:
   amount: 20.0
   collect_account: accounts_001
   computation_method: percentage
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   deduction_account: accounts_001
   included: false
   lock_version: 0
   name: 20% VAT
   reductible: true
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

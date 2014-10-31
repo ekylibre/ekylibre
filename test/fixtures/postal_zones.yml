@@ -49,19 +49,19 @@
 ---
 postal_zones_001:
   country: us
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   name: 3451-13231 LAS VEGAS
   postal_code: 3451-13231
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 postal_zones_002:
   country: fr
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   name: 33000 BORDEAUX
   postal_code: '33000'
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

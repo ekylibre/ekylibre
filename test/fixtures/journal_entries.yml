@@ -75,7 +75,7 @@ journal_entries_001:
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
-  created_at: 2007-07-22 00:00:00.000000000 +02:00
+  created_at: 2007-07-21 22:00:00.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -91,14 +91,14 @@ journal_entries_001:
   real_debit: 0.0
   resource: sales_001 (Sale)
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entries_002:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
-  created_at: 2009-07-19 00:00:00.000000000 +02:00
+  created_at: 2009-07-18 22:00:00.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -113,14 +113,14 @@ journal_entries_002:
   real_currency_rate: 1.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entries_003:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
-  created_at: 2009-07-19 00:00:00.000000000 +02:00
+  created_at: 2009-07-18 22:00:00.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -135,14 +135,14 @@ journal_entries_003:
   real_currency_rate: 1.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entries_004:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
-  created_at: 2009-07-19 00:00:00.000000000 +02:00
+  created_at: 2009-07-18 22:00:00.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -157,14 +157,14 @@ journal_entries_004:
   real_currency_rate: 1.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entries_005:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
-  created_at: 2007-07-22 00:00:00.000000000 +02:00
+  created_at: 2007-07-21 22:00:00.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -180,14 +180,14 @@ journal_entries_005:
   real_debit: 0.0
   resource: purchases_001 (Purchase)
   state: confirmed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entries_006:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
-  created_at: 2007-07-22 00:00:00.000000000 +02:00
+  created_at: 2007-07-21 22:00:00.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -202,5 +202,5 @@ journal_entries_006:
   real_currency_rate: 1.0
   real_debit: 0.0
   state: closed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

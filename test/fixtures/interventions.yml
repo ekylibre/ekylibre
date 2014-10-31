@@ -63,7 +63,7 @@
 #
 ---
 interventions_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   issue: issues_001
   lock_version: 0
@@ -74,13 +74,13 @@ interventions_001:
   provisional: false
   recommended: false
   reference_name: base-plant_grinding-0
-  started_at: 2009-05-03 07:13:59.000000000 +02:00
+  started_at: 2009-05-03 05:13:59.000000000 Z
   state: done
-  stopped_at: 2009-05-03 10:17:23.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  stopped_at: 2009-05-03 08:17:23.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 interventions_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   natures: grinding, soil_enrichment
@@ -90,13 +90,13 @@ interventions_002:
   provisional: false
   recommended: false
   reference_name: base-plant_grinding-0
-  started_at: 2009-06-03 07:13:59.000000000 +02:00
+  started_at: 2009-06-03 05:13:59.000000000 Z
   state: undone
-  stopped_at: 2009-06-03 10:17:23.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  stopped_at: 2009-06-03 08:17:23.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 interventions_003:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   natures: animal_curative_medicine_admission
@@ -107,13 +107,13 @@ interventions_003:
   provisional: false
   recommended: false
   reference_name: base-animal_treatment-0
-  started_at: 2009-05-03 07:13:59.000000000 +02:00
+  started_at: 2009-05-03 05:13:59.000000000 Z
   state: done
-  stopped_at: 2009-05-03 10:17:23.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  stopped_at: 2009-05-03 08:17:23.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 interventions_004:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   natures: harvest, pasturing
@@ -123,13 +123,13 @@ interventions_004:
   provisional: false
   recommended: false
   reference_name: base-pasturing-0
-  started_at: 2009-05-13 07:13:59.000000000 +02:00
+  started_at: 2009-05-13 05:13:59.000000000 Z
   state: done
-  stopped_at: 2009-05-13 10:17:23.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  stopped_at: 2009-05-13 08:17:23.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 interventions_005:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   issue: issues_001
   lock_version: 0
@@ -140,8 +140,8 @@ interventions_005:
   provisional: false
   recommended: false
   reference_name: base-spraying_on_cultivation-0
-  started_at: 2009-04-03 07:13:59.000000000 +02:00
+  started_at: 2009-04-03 05:13:59.000000000 Z
   state: done
-  stopped_at: 2009-04-03 10:17:23.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  stopped_at: 2009-04-03 08:17:23.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

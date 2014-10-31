@@ -48,20 +48,20 @@
 #
 ---
 product_links_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   linked: animals_005
   lock_version: 0
   nature: father
   product: animals_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 product_links_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   linked: animals_003
   lock_version: 0
   nature: mother
   product: animals_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

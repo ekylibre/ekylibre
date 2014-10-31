@@ -40,16 +40,16 @@
 #
 ---
 net_services_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   reference_name: telepac
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 net_services_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   reference_name: lilco
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

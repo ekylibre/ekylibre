@@ -55,33 +55,33 @@
 ---
 outgoing_deliveries_001:
   address: entity_addresses_003
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   mode: ex_works
   net_mass: 1200.0
   number: OUTDEL000001
   recipient: legal_entities_001
-  sent_at: 2014-10-24 19:19:32.000000000 +02:00
+  sent_at: 2014-10-24 17:19:32.000000000 Z
   transporter: legal_entities_003
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   with_transport: true
 outgoing_deliveries_002:
   address: entity_addresses_003
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   mode: ex_works
   number: OUTDEL000002
   recipient: legal_entities_001
-  sent_at: 2014-10-31 19:19:32.000000000 +01:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  sent_at: 2014-10-31 18:19:32.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   with_transport: false
 outgoing_deliveries_003:
   address: entity_addresses_003
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   mode: ex_works
@@ -89,8 +89,8 @@ outgoing_deliveries_003:
   number: OUTDEL000003
   recipient: legal_entities_001
   sale: sales_003
-  sent_at: 2014-11-07 19:19:32.000000000 +01:00
+  sent_at: 2014-11-07 18:19:32.000000000 Z
   transporter: legal_entities_003
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   with_transport: true

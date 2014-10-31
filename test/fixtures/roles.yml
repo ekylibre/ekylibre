@@ -42,7 +42,7 @@
 #
 ---
 roles_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   name: Lorem ipsum
@@ -50,10 +50,10 @@ roles_001:
     accounts:
     - read
     - write
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 roles_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   name: Lorem ipsum 2
@@ -61,5 +61,5 @@ roles_002:
     accounts:
     - read
     - write
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

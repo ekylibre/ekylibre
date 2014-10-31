@@ -51,7 +51,7 @@
 #
 ---
 entity_links_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   entity_1: legal_entities_001
   entity_1_role: employer
@@ -59,10 +59,10 @@ entity_links_001:
   entity_2_role: employee
   lock_version: 0
   nature: work
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 entity_links_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   entity_1: legal_entities_002
   entity_1_role: employer
@@ -70,10 +70,10 @@ entity_links_002:
   entity_2_role: employee
   lock_version: 0
   nature: work
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 entity_links_003:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   entity_1: legal_entities_002
   entity_1_role: entity
@@ -81,5 +81,5 @@ entity_links_003:
   entity_2_role: entity
   lock_version: 0
   nature: undefined
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

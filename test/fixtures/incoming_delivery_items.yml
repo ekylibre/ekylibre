@@ -47,32 +47,32 @@
 #
 ---
 incoming_delivery_items_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   delivery: incoming_deliveries_001
   lock_version: 0
   population: 0.0
   product: products_001
   purchase_item: purchase_items_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 incoming_delivery_items_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   delivery: incoming_deliveries_001
   lock_version: 0
   population: 0.0
   product: products_001
   purchase_item: purchase_items_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 incoming_delivery_items_003:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   delivery: incoming_deliveries_001
   lock_version: 0
   population: 0.0
   product: products_001
   purchase_item: purchase_items_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

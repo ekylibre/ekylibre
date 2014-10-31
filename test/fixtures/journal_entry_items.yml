@@ -89,7 +89,7 @@ journal_entry_items_001:
   absolute_debit: 0.0
   account: accounts_001
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -108,7 +108,7 @@ journal_entry_items_001:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_002:
   absolute_credit: 0.0
@@ -116,7 +116,7 @@ journal_entry_items_002:
   absolute_debit: 0.0
   account: accounts_001
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -135,7 +135,7 @@ journal_entry_items_002:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_003:
   absolute_credit: 0.0
@@ -143,7 +143,7 @@ journal_entry_items_003:
   absolute_debit: 0.0
   account: accounts_001
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -162,7 +162,7 @@ journal_entry_items_003:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_004:
   absolute_credit: 0.0
@@ -170,7 +170,7 @@ journal_entry_items_004:
   absolute_debit: 0.0
   account: accounts_001
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -189,7 +189,7 @@ journal_entry_items_004:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: confirmed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_005:
   absolute_credit: 0.0
@@ -197,7 +197,7 @@ journal_entry_items_005:
   absolute_debit: 0.0
   account: accounts_001
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -216,7 +216,7 @@ journal_entry_items_005:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: confirmed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_006:
   absolute_credit: 0.0
@@ -224,7 +224,7 @@ journal_entry_items_006:
   absolute_debit: 0.0
   account: accounts_001
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -243,7 +243,7 @@ journal_entry_items_006:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: confirmed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_007:
   absolute_credit: 0.0
@@ -251,7 +251,7 @@ journal_entry_items_007:
   absolute_debit: 0.0
   account: accounts_004
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -270,7 +270,7 @@ journal_entry_items_007:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: closed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 journal_entry_items_008:
   absolute_credit: 0.0
@@ -278,7 +278,7 @@ journal_entry_items_008:
   absolute_debit: 0.0
   account: accounts_005
   balance: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   cumulated_absolute_credit: 0.0
@@ -297,5 +297,5 @@ journal_entry_items_008:
   real_currency_rate: 0.0
   real_debit: 0.0
   state: closed
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

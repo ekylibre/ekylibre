@@ -61,7 +61,7 @@
 ---
 account_balances_001:
   account: accounts_001
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   financial_year: financial_years_001
@@ -74,11 +74,11 @@ account_balances_001:
   local_credit: 0.0
   local_debit: 0.0
   lock_version: 0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 account_balances_002:
   account: accounts_002
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   financial_year: financial_years_002
@@ -91,5 +91,5 @@ account_balances_002:
   local_credit: 0.0
   local_debit: 0.0
   lock_version: 0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

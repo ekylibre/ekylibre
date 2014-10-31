@@ -53,7 +53,7 @@
 #
 ---
 sequences_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   name: Sales
@@ -61,11 +61,11 @@ sequences_001:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   usage: sales
 sequences_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   lock_version: 0
   name: Lorem ipsum
@@ -73,5 +73,5 @@ sequences_002:
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

@@ -65,7 +65,7 @@
 ---
 sale_items_001:
   amount: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -76,12 +76,12 @@ sale_items_001:
   reduction_percentage: 0.0
   sale: sales_001
   tax: taxes_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 sale_items_002:
   amount: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -92,12 +92,12 @@ sale_items_002:
   reduction_percentage: 0.0
   sale: sales_001
   tax: taxes_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 sale_items_003:
   amount: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -108,12 +108,12 @@ sale_items_003:
   reduction_percentage: 0.0
   sale: sales_002
   tax: taxes_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 sale_items_004:
   amount: 10.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -124,12 +124,12 @@ sale_items_004:
   reduction_percentage: 0.0
   sale: sales_003
   tax: taxes_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 sale_items_005:
   amount: 10.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -140,6 +140,6 @@ sale_items_005:
   reduction_percentage: 0.0
   sale: sales_004
   tax: taxes_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001

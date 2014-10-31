@@ -67,7 +67,7 @@
 product_nature_categories_001:
   active: true
   charge_account: accounts_001
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   depreciable: true
   financial_asset_account: accounts_001
@@ -81,12 +81,12 @@ product_nature_categories_001:
   stock_account: accounts_001
   storable: true
   subscribing: false
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 product_nature_categories_002:
   active: true
   charge_account: accounts_001
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   depreciable: true
   financial_asset_account: accounts_001
@@ -100,5 +100,5 @@ product_nature_categories_002:
   stock_account: accounts_001
   storable: true
   subscribing: false
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

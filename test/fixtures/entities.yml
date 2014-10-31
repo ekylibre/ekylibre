@@ -90,7 +90,7 @@
 entities_001:
   active: true
   client: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   full_name: Ferstivall LTD
@@ -106,13 +106,13 @@ entities_001:
   supplier: false
   transporter: false
   type: Entity
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 entities_002:
   active: true
   client: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   full_name: Toley LTD
@@ -128,13 +128,13 @@ entities_002:
   supplier: false
   transporter: false
   type: Entity
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 legal_entities_001:
   active: true
   client: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   full_name: Ferstivall LTD
@@ -150,13 +150,13 @@ legal_entities_001:
   supplier: false
   transporter: false
   type: LegalEntity
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 legal_entities_002:
   active: true
   client: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   full_name: Toley LTD
@@ -172,13 +172,13 @@ legal_entities_002:
   supplier: false
   transporter: false
   type: LegalEntity
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 legal_entities_003:
   active: true
   client: true
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   full_name: Yuey LTD
@@ -194,13 +194,13 @@ legal_entities_003:
   supplier: false
   transporter: false
   type: LegalEntity
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 people_001:
   active: true
   client: true
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   first_name: Gendo
@@ -217,13 +217,13 @@ people_001:
   supplier: false
   transporter: false
   type: Person
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 people_002:
   active: true
   client: true
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   first_name: Kozo
@@ -240,13 +240,13 @@ people_002:
   supplier: false
   transporter: false
   type: Person
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true
 people_003:
   active: true
   client: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: JPY
   first_name: Yui
@@ -263,6 +263,6 @@ people_003:
   supplier: false
   transporter: false
   type: Person
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   vat_subjected: true

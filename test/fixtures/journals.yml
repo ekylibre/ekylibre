@@ -54,65 +54,65 @@
 journals_001:
   closed_on: 2007-06-30
   code: VOP
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   lock_version: 0
   name: Various operations
   nature: various
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   used_for_affairs: true
   used_for_gaps: true
 journals_002:
   closed_on: 2009-07-19
   code: BNK
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   lock_version: 0
   name: Bank
   nature: bank
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   used_for_affairs: false
   used_for_gaps: false
 journals_003:
   closed_on: 2007-06-30
   code: SAL
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   lock_version: 0
   name: Sales
   nature: sales
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   used_for_affairs: false
   used_for_gaps: false
 journals_004:
   closed_on: 2007-06-30
   code: PUR
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   lock_version: 0
   name: Purchases
   nature: purchases
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   used_for_affairs: false
   used_for_gaps: false
 journals_005:
   closed_on: 2007-06-30
   code: PUD
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: USD
   lock_version: 0
   name: Purchases USD
   nature: purchases
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   used_for_affairs: false
   used_for_gaps: false

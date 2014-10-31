@@ -59,7 +59,7 @@
 ---
 affairs_001:
   closed: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 0.0
   currency: EUR
@@ -69,11 +69,11 @@ affairs_001:
   number: A000001
   originator: sales_001 (Sale)
   third: legal_entities_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 affairs_002:
   closed: true
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 411.23
   currency: EUR
@@ -83,11 +83,11 @@ affairs_002:
   number: A000002
   originator: gaps_002 (Gap)
   third: legal_entities_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 affairs_003:
   closed: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 236.0
   currency: EUR
@@ -97,11 +97,11 @@ affairs_003:
   number: A000003
   originator: sales_003 (Sale)
   third: legal_entities_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 affairs_004:
   closed: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 1236.0
   currency: EUR
@@ -111,11 +111,11 @@ affairs_004:
   number: A000004
   originator: incoming_payments_001 (IncomingPayment)
   third: legal_entities_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 affairs_005:
   closed: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   credit: 236.0
   currency: EUR
@@ -125,5 +125,5 @@ affairs_005:
   number: A000005
   originator: incoming_payments_003 (IncomingPayment)
   third: legal_entities_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

@@ -60,24 +60,24 @@
 analysis_items_001:
   analysis: analyses_001
   boolean_value: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   indicator_datatype: measure
   indicator_name: nitrogen_concentration
   lock_version: 0
   measure_value_unit: percent
   measure_value_value: 33.33
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 analysis_items_002:
   analysis: analyses_001
   boolean_value: false
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   indicator_datatype: measure
   indicator_name: nitrogen_concentration
   lock_version: 0
   measure_value_unit: percent
   measure_value_value: 33.33
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

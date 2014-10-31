@@ -60,7 +60,7 @@
 gaps_001:
   affair: affairs_001
   amount: 0.53
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   direction: profit
@@ -69,13 +69,13 @@ gaps_001:
   lock_version: 0
   number: G001
   pretax_amount: 0.0
-  printed_at: 2005-07-19 08:45:01.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  printed_at: 2005-07-19 06:45:01.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 gaps_002:
   affair: affairs_002
   amount: 0.17
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   direction: loss
@@ -84,6 +84,6 @@ gaps_002:
   lock_version: 0
   number: G002
   pretax_amount: 0.0
-  printed_at: 2005-04-01 08:47:19.000000000 +02:00
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  printed_at: 2005-04-01 06:47:19.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

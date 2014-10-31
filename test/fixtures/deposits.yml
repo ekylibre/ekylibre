@@ -56,7 +56,7 @@
 deposits_001:
   amount: 0.0
   cash: cashes_001
-  created_at: 2009-07-19 00:00:00.000000000 +02:00
+  created_at: 2009-07-18 22:00:00.000000000 Z
   creator: users_001
   lock_version: 0
   locked: false
@@ -64,12 +64,12 @@ deposits_001:
   number: DEPO01
   payments_count: 0
   responsible: people_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 deposits_002:
   amount: 0.0
   cash: cashes_001
-  created_at: 2009-07-19 00:00:00.000000000 +02:00
+  created_at: 2009-07-18 22:00:00.000000000 Z
   creator: users_001
   lock_version: 0
   locked: false
@@ -77,12 +77,12 @@ deposits_002:
   number: DEPO02
   payments_count: 0
   responsible: people_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 deposits_003:
   amount: 0.0
   cash: cashes_003
-  created_at: 2009-07-19 00:00:00.000000000 +02:00
+  created_at: 2009-07-18 22:00:00.000000000 Z
   creator: users_001
   lock_version: 0
   locked: false
@@ -90,5 +90,5 @@ deposits_003:
   number: DEPO03
   payments_count: 0
   responsible: people_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

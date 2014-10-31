@@ -62,14 +62,14 @@ incoming_payment_modes_001:
   cash: cashes_001
   commission_base_amount: 0.0
   commission_percentage: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   depositables_account: accounts_001
   depositables_journal: journals_001
   detail_payments: true
   lock_version: 0
   name: In cash!
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   with_accounting: true
   with_commission: false
@@ -79,12 +79,12 @@ incoming_payment_modes_002:
   cash: cashes_001
   commission_base_amount: 0.0
   commission_percentage: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   detail_payments: false
   lock_version: 0
   name: By check
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   with_accounting: true
   with_commission: false

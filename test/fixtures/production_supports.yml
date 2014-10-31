@@ -52,7 +52,7 @@
 #
 ---
 production_supports_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   exclusive: false
   irrigated: false
@@ -61,10 +61,10 @@ production_supports_001:
   production: productions_001
   production_usage: grain
   storage: cultivable_zones_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 production_supports_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   exclusive: false
   irrigated: false
@@ -73,10 +73,10 @@ production_supports_002:
   production: productions_001
   production_usage: grain
   storage: cultivable_zones_003
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 production_supports_003:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   exclusive: false
   irrigated: false
@@ -85,10 +85,10 @@ production_supports_003:
   production: productions_001
   production_usage: grain
   storage: cultivable_zones_003
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 production_supports_004:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   exclusive: false
   irrigated: false
@@ -97,5 +97,5 @@ production_supports_004:
   production: productions_003
   production_usage: meat
   storage: animal_groups_001
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001

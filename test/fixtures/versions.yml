@@ -41,19 +41,19 @@
 #
 ---
 versions_001:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   creator_name: Alice
   event: create
   item: products_001 (Product)
 versions_002:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   creator_name: Bob
   event: update
   item: animals_001 (Animal)
 versions_003:
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   creator_name: Charlene
   event: destroy

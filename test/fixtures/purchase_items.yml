@@ -63,7 +63,7 @@
 purchase_items_001:
   account: accounts_001
   amount: 10.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -73,13 +73,13 @@ purchase_items_001:
   quantity: 1.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 purchase_items_002:
   account: accounts_001
   amount: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -89,13 +89,13 @@ purchase_items_002:
   quantity: 2.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 purchase_items_003:
   account: accounts_001
   amount: 0.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -105,13 +105,13 @@ purchase_items_003:
   quantity: 3.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 purchase_items_004:
   account: accounts_001
   amount: 10.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -121,13 +121,13 @@ purchase_items_004:
   quantity: 7.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
 purchase_items_005:
   account: accounts_001
   amount: 17.0
-  created_at: 2014-10-31 18:19:32.000000000 +01:00
+  created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
@@ -137,6 +137,6 @@ purchase_items_005:
   quantity: 9.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 18:19:32.000000000 +01:00
+  updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
