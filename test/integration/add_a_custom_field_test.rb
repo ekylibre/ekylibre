@@ -80,9 +80,11 @@ class AddACustomFieldTest < CapybaraIntegrationTest
           raise "Unknown custom field datatype"
         end
         first("#title").click # useful to prevent datetime selector from overlaping "update" button
-
+        puts (CustomField.of model).inspect.yellow
         click_on :update.tl
-        refute_equal("/backend/#{model.tableize}/#{id}/edit", current_path)
+
+        views_with_no_redirection = ['Listing']
+        refute_equal("/backend/#{model.tableize}/#{id}/edit", current_path) unless views_with_no_redirection.include? model
 
         # checking if modification was done
         visit "/backend/#{model.tableize}/#{id}/edit"
