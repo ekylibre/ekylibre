@@ -59,13 +59,13 @@ sequences_001:
   last_month: 10
   last_number: 1
   last_year: 2014
-  lock_version: 1
+  lock_version: 2
   name: Sales
-  number_format: "[number|12]"
+  number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-10-31 18:51:27.884111000 Z
+  updated_at: 2014-11-01 20:40:55.024221000 Z
   updater: users_001
   usage: sales
 sequences_002:
@@ -75,13 +75,13 @@ sequences_002:
   last_month: 11
   last_number: 1
   last_year: 2014
-  lock_version: 2
-  name: Lorem ipsum
-  number_format: EI[number|8]
+  lock_version: 4
+  name: Personnes
+  number_format: P[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 19:34:28.157524000 Z
+  updated_at: 2014-11-01 20:39:10.650383000 Z
   updater: users_001
   usage: entities
 sequences_003:
@@ -91,13 +91,13 @@ sequences_003:
   last_month: 11
   last_number: 15
   last_year: 2014
-  lock_version: 16
+  lock_version: 17
   name: products
-  number_format: EIZLEIKBWARLXP[number|11]
+  number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 20:30:35.475764000 Z
+  updated_at: 2014-11-01 20:39:33.548739000 Z
   updater: users_001
   usage: products
 sequences_004:
@@ -107,25 +107,25 @@ sequences_004:
   last_month: 11
   last_number: 8
   last_year: 2014
-  lock_version: 8
-  name: incoming_deliveries
-  number_format: YINWRRCBR[year|4][number|4]
+  lock_version: 10
+  name: Bons de réception
+  number_format: ID[year|4][number|4]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2014-11-01 20:19:35.351331000 Z
+  updated_at: 2014-11-01 20:48:14.625168000 Z
   updater: users_001
   usage: incoming_deliveries
 sequences_005:
   created_at: 2014-11-01 16:03:04.383294000 Z
   creator: users_001
-  lock_version: 1
+  lock_version: 3
   name: Analyse
-  number_format: NA[number|12]
+  number_format: A[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:27:12.385431000 Z
+  updated_at: 2014-11-01 20:38:29.848998000 Z
   updater: users_001
   usage: analyses
 sequences_006:
@@ -167,13 +167,13 @@ sequences_008:
 sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
   creator: users_001
-  lock_version: 1
+  lock_version: 2
   name: Document
-  number_format: TD[number|12]
+  number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:29:28.461326000 Z
+  updated_at: 2014-11-01 20:38:47.385993000 Z
   updater: users_001
   usage: documents
 sequences_010:
@@ -183,13 +183,13 @@ sequences_010:
   last_month: 11
   last_number: 3
   last_year: 2014
-  lock_version: 3
+  lock_version: 6
   name: Affaire
-  number_format: GUFDA[number|12]
+  number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 19:50:57.951621000 Z
+  updated_at: 2014-11-01 20:38:35.458035000 Z
   updater: users_001
   usage: affairs
 sequences_011:
@@ -223,13 +223,13 @@ sequences_013:
   last_month: 11
   last_number: 1
   last_year: 2014
-  lock_version: 1
+  lock_version: 2
   name: Perte ou profit
-  number_format: TE[number|12]
+  number_format: E[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 19:52:00.904383000 Z
+  updated_at: 2014-11-01 20:39:18.264946000 Z
   updater: users_001
   usage: gaps
 sequences_014:
@@ -251,13 +251,13 @@ sequences_015:
   last_month: 11
   last_number: 1
   last_year: 2014
-  lock_version: 1
+  lock_version: 2
   name: Intervention
-  number_format: F[number]
+  number_format: "[number]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 20:24:26.738792000 Z
+  updated_at: 2014-11-01 20:36:26.221985000 Z
   updater: users_001
   usage: interventions
 sequences_016:
@@ -372,3 +372,27 @@ sequences_024:
   updated_at: 2014-11-01 20:26:13.068075000 Z
   updater: users_001
   usage: product_nature_variants
+sequences_025:
+  created_at: 2014-11-01 20:47:16.048462000 Z
+  creator: users_001
+  lock_version: 0
+  name: Type de produit
+  number_format: PN[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 20:47:16.048462000 Z
+  updater: users_001
+  usage: product_natures
+sequences_026:
+  created_at: 2014-11-01 20:47:16.066552000 Z
+  creator: users_001
+  lock_version: 0
+  name: Catégorie de type de produit
+  number_format: PNC[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 20:47:16.066552000 Z
+  updater: users_001
+  usage: product_nature_categories

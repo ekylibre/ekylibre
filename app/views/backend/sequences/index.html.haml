@@ -1,4 +1,6 @@
 - main_toolbar do |t|
-  - t.new
-  - t.load_ "data-confirm" => :are_you_sure.tl, method: :post
-=list
+  - missings = Sequence.usage.values - Sequence.pluck(:usage)
+  - t.new variants: missings.inject({}){|h,u| h[Sequence.usage.human_value_name(u)] = {usage: u}; h }
+  - if missings.any?
+    - t.load_ "data-confirm" => :are_you_sure.tl, method: :post
+= list

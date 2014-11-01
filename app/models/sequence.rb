@@ -60,9 +60,6 @@ class Sequence < Ekylibre::Record::Base
 
   before_validation do
     self.period ||= 'number'
-    while self.class.find_by(number_format: self.number_format)
-      self.number_format = ("A".."Z").to_a.sample + self.number_format
-    end
   end
 
   protect(on: :destroy) do
@@ -76,6 +73,9 @@ class Sequence < Ekylibre::Record::Base
         sequence = self.new(usage: usage)
         sequence.name = sequence.usage.to_s.classify.constantize.model_name.human rescue sequence.usage
         sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map{|w| w[0..0]}.join.upcase + "[number|12]")
+        while find_by(number_format: sequence.number_format)
+          sequence.number_format = ("A".."Z").to_a.sample + sequence.number_format
+        end
         sequence.period = best_period_for(sequence.number_format)
         sequence.save!
       end
