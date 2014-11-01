@@ -143,6 +143,7 @@ sales_003:
   lock_version: 0
   nature: sale_natures_001
   number: SO123457
+  payment_delay: 3 months
   pretax_amount: 10.0
   state: order
   updated_at: 2014-10-31 17:19:32.000000000 Z

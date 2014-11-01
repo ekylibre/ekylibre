@@ -360,6 +360,7 @@ building_divisions_005:
   creator: users_001
   extjuncted: false
   initial_born_at: 1979-03-02 05:30:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813031777761353 45.5987083844552,-0.812880232952011
     45.5986882100715,-0.812858104727638 45.5987590549683,-0.813003614566696 45.5987759451292,-0.813031777761353
     45.5987083844552)))
@@ -379,6 +380,7 @@ building_divisions_006:
   creator: users_001
   extjuncted: false
   initial_born_at: 1980-01-31 04:45:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.836898654742981 45.5974477061239,-0.835784196897293
     45.5974289388339,-0.835794925733353 45.5976466390117,-0.835997611284256 45.5976513308166,-0.835998773618485
     45.597556556282,-0.836575627326965 45.5975631248192,-0.836574286222458 45.5976569609819,-0.836892127990723
@@ -398,6 +400,7 @@ building_divisions_007:
   created_at: 2014-10-31 20:25:41.454096000 Z
   creator: users_001
   extjuncted: false
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813218951225281 45.5985699786537,-0.813113003969193
     45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281
     45.5985699786537)))
@@ -833,6 +836,60 @@ matters_007:
   updated_at: 2014-10-31 20:23:37.029761000 Z
   updater: users_001
   variant: product_nature_variants_010
+  variety: seed
+matters_008:
+  born_at: 2014-11-01 16:00:08.176249000 Z
+  category: product_nature_categories_005
+  created_at: 2014-11-01 16:00:08.017208000 Z
+  creator: users_001
+  derivative_of: avena_une_de_mai
+  description: ''
+  extjuncted: false
+  initial_population: 20.0
+  lock_version: 0
+  name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  nature: product_natures_010
+  number: P00000000001
+  type: Matter
+  updated_at: 2014-11-01 16:00:08.017208000 Z
+  updater: users_001
+  variant: product_nature_variants_011
+  variety: seed
+matters_009:
+  born_at: 2014-11-01 16:00:08.358943000 Z
+  category: product_nature_categories_004
+  created_at: 2014-11-01 16:00:08.339341000 Z
+  creator: users_001
+  derivative_of: triticum_spelta
+  description: ''
+  extjuncted: false
+  initial_population: 20.0
+  lock_version: 0
+  name: Botte de paille de blé ‒ balle ronde
+  nature: product_natures_009
+  number: P00000000002
+  type: Matter
+  updated_at: 2014-11-01 16:00:08.339341000 Z
+  updater: users_001
+  variant: product_nature_variants_009
+  variety: straw
+matters_010:
+  born_at: 2014-11-01 16:01:24.189734000 Z
+  category: product_nature_categories_005
+  created_at: 2014-11-01 16:01:24.156172000 Z
+  creator: users_001
+  derivative_of: avena_une_de_mai
+  description: ''
+  extjuncted: false
+  initial_population: 10.0
+  lock_version: 0
+  name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg (1)
+  nature: product_natures_010
+  number: P00000000003
+  type: Matter
+  updated_at: 2014-11-01 16:01:24.156172000 Z
+  updater: users_001
+  variant: product_nature_variants_011
   variety: seed
 plants_001:
   category: product_nature_categories_001

@@ -47,7 +47,7 @@ class Issue < Ekylibre::Record::Base
   include Versionable
   enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
   has_many :interventions
-  belongs_to :target , :polymorphic => true
+  belongs_to :target , polymorphic: true
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -106,6 +106,9 @@ class Issue < Ekylibre::Record::Base
   end
 
   before_validation do
+    if self.target
+      self.target_type = self.target.class.name
+    end
     if self.nature
       self.name = (self.target ? tc(:name_with_target, nature: self.nature.l, target: target.name) : tc(:name_without_target, nature: self.nature.l))
     end

@@ -38,9 +38,8 @@
 
 
 class Observation < Ekylibre::Record::Base
-  # attr_accessible :author_id, :importance, :content, :subject_id, :subject_type
   enumerize :importance, in: [:important, :normal, :notice], default: :notice, predicates: true
-  belongs_to :subject, :polymorphic => true
+  belongs_to :subject, polymorphic: true
   belongs_to :author, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :importance, allow_nil: true, maximum: 10
@@ -49,6 +48,9 @@ class Observation < Ekylibre::Record::Base
   #]VALIDATORS]
 
   before_validation do
+    if self.subject
+      self.subject_type = self.subject.class.name
+    end
     self.importance ||= self.class.importance.default_value
   end
 

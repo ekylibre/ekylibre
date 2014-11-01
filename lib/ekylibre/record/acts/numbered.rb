@@ -14,11 +14,10 @@ module Ekylibre::Record
           options = args[-1].is_a?(Hash) ? args.delete_at(-1) : {}
           column = args.shift || :number
 
-          # Bugs with MSSQL
-          # raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_definition[column]
           unless self.columns_definition[column]
             Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{self.table_name}"
           end
+
           options = {start: '00000001'}.merge(options)
 
           main_class = self
@@ -27,7 +26,10 @@ module Ekylibre::Record
           end
           class_name = main_class.name
 
-          sequence = options[:sequence] || class_name.tableize # "#{self.name.underscore.pluralize}_sequence"
+          usage = options[:usage] || class_name.tableize
+          unless Sequence.usage.values.include?(usage)
+            raise "Usage #{usage} must be defined in Sequence usages"
+          end
 
           last  = "#{class_name}.where('#{column} IS NOT NULL').reorder('LENGTH(#{column}) DESC, #{column} DESC').first"
 
@@ -54,7 +56,7 @@ module Ekylibre::Record
 
           code << "def load_unique_reliable_#{column}\n"
           code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
-          code << "    if sequence = Sequence.of('#{sequence}')\n"
+          code << "    if sequence = Sequence.of('#{usage}')\n"
           code << "      self.#{column} = sequence.next_value\n"
           code << "      while #{class_name}.find_by(#{column}: self.#{column}) do\n"
           code << "        self.#{column} = sequence.next_value\n"

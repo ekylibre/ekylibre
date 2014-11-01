@@ -53,7 +53,7 @@ module Fixturing
           record = {}
           for attribute, value in row.sort
             if columns[attribute]
-              unless value.nil? or value == ""
+              unless value.nil?
                 record[attribute] = convert_value(value, columns[attribute][:type].to_sym)
               end
             else

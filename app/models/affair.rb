@@ -77,6 +77,9 @@ class Affair < Ekylibre::Record::Base
   acts_as_numbered
 
   before_validation do
+    if self.originator
+      self.originator_type = self.originator.class.name
+    end
     deals = self.deals
     self.debit, self.credit, self.deals_count = 0, 0, deals.count
     for deal in deals

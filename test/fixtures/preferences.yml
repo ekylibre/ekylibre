@@ -357,13 +357,13 @@ preferences_031:
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater: users_001
 preferences_032:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator: users_001
-  lock_version: 1
+  lock_version: 2
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2014-10-31 20:24:25.937963000 Z
+  updated_at: 2014-11-01 16:00:30.248289000 Z
   updater: users_001
   user: users_001
 preferences_033:

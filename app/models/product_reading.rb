@@ -73,6 +73,9 @@ class ProductReading < Ekylibre::Record::Base
   calculable period: :month, at: :read_at, column: :measure_value_value
 
   before_validation(on: :create) do
+    if self.originator
+      self.originator_type = self.originator.class.name
+    end
     if self.product and self.product.initial_born_at
       self.read_at ||= self.product.initial_born_at
     end

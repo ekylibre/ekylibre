@@ -111,6 +111,33 @@ product_births_008:
   type: ProductBirth
   updated_at: 2014-10-31 20:25:41.477048000 Z
   updater: users_001
+product_births_009:
+  created_at: 2014-11-01 16:00:08.178435000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 16:00:08.176249000 Z
+  stopped_at: 2014-11-01 16:00:08.176249000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 16:00:08.178435000 Z
+  updater: users_001
+product_births_010:
+  created_at: 2014-11-01 16:00:08.360429000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 16:00:08.358943000 Z
+  stopped_at: 2014-11-01 16:00:08.358943000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 16:00:08.360429000 Z
+  updater: users_001
+product_births_011:
+  created_at: 2014-11-01 16:01:24.192527000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 16:01:24.189734000 Z
+  stopped_at: 2014-11-01 16:01:24.189734000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 16:01:24.192527000 Z
+  updater: users_001
 product_consumptions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001

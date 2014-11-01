@@ -57,7 +57,7 @@ class JournalEntry < Ekylibre::Record::Base
   attr_readonly :journal_id
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
-  belongs_to :resource, :polymorphic => true
+  belongs_to :resource, polymorphic: true
   has_many :affairs, dependent: :nullify
   has_many :financial_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where("balance != ?", 0.0) }, foreign_key: :entry_id, class_name: "JournalEntryItem"
@@ -144,6 +144,9 @@ class JournalEntry < Ekylibre::Record::Base
 
   #
   before_validation do
+    if self.resource
+      self.resource_type = self.resource.class.name
+    end
     if self.journal
       self.real_currency = self.journal.currency
     end

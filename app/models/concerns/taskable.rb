@@ -21,6 +21,14 @@ module Taskable
     has_many :product_triple_mixings,    dependent: :destroy
 
     has_one :intervention, through: :operation
+
+    before_validation :ensure_originator_type
+  end
+
+  def ensure_originator_type
+    if self.originator
+      self.originator_type = self.originator.class.name
+    end
   end
 
 end

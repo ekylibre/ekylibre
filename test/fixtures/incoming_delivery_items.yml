@@ -86,3 +86,33 @@ incoming_delivery_items_004:
   product: matters_007
   updated_at: 2014-10-31 20:23:37.079652000 Z
   updater: users_001
+incoming_delivery_items_005:
+  container: building_divisions_006
+  created_at: 2014-11-01 16:00:08.291496000 Z
+  creator: users_001
+  delivery: incoming_deliveries_005
+  lock_version: 0
+  population: 20.0
+  product: matters_008
+  updated_at: 2014-11-01 16:00:08.291496000 Z
+  updater: users_001
+incoming_delivery_items_006:
+  container: building_divisions_006
+  created_at: 2014-11-01 16:00:08.381565000 Z
+  creator: users_001
+  delivery: incoming_deliveries_005
+  lock_version: 0
+  population: 20.0
+  product: matters_009
+  updated_at: 2014-11-01 16:00:08.381565000 Z
+  updater: users_001
+incoming_delivery_items_007:
+  container: building_divisions_007
+  created_at: 2014-11-01 16:01:24.225780000 Z
+  creator: users_001
+  delivery: incoming_deliveries_002
+  lock_version: 0
+  population: 0.0
+  product: matters_010
+  updated_at: 2014-11-01 16:01:24.225780000 Z
+  updater: users_001

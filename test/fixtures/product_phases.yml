@@ -146,3 +146,36 @@ product_phases_009:
   updated_at: 2014-10-31 20:25:41.493303000 Z
   updater: users_001
   variant: product_nature_variants_015
+product_phases_010:
+  category: product_nature_categories_005
+  created_at: 2014-11-01 16:00:08.287724000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_010
+  product: matters_008
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.287724000 Z
+  updater: users_001
+  variant: product_nature_variants_011
+product_phases_011:
+  category: product_nature_categories_004
+  created_at: 2014-11-01 16:00:08.378583000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_009
+  product: matters_009
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.378583000 Z
+  updater: users_001
+  variant: product_nature_variants_009
+product_phases_012:
+  category: product_nature_categories_005
+  created_at: 2014-11-01 16:01:24.221262000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_010
+  product: matters_010
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.221262000 Z
+  updater: users_001
+  variant: product_nature_variants_011

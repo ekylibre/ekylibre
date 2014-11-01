@@ -33,34 +33,6 @@
 #  item_type    :string(255)
 #
 
-class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
-
-  def human_attribute_name
-    self.version.item.class.human_attribute_name(self.attribute)
-  end
-
-  def human_old_value
-    human_value(old_value)
-  end
-
-  def human_new_value
-    human_value(new_value)
-  end
-
-  private
-
-  def model
-    version.item.class
-  end
-
-  def human_value(value)
-    attr = model.enumerized_attributes[attribute]
-    (attr ? attr.human_value_name(value) : value.respond_to?(:l) ? value.l : value).to_s
-  end
-
-end
-
-
 class Version < ActiveRecord::Base
   extend Enumerize
   cattr_accessor :current_user
@@ -83,7 +55,9 @@ class Version < ActiveRecord::Base
   serialize :item_changes, HashWithIndifferentAccess
 
   before_save do
-    self.item_type = self.item.class.name
+    if self.item
+      self.item_type = self.item.class.name
+    end
     self.created_at ||= Time.now
     self.creator ||= Version.current_user
     if self.creator

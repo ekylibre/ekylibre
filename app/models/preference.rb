@@ -89,6 +89,12 @@ class Preference < Ekylibre::Record::Base
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystems.default
 
 
+  before_validation do
+    if self.record?
+      self.record_value_type = self.record_value.class.name
+    end
+  end
+
   def self.check!
     reference.keys.each do |pref|
       get(pref)

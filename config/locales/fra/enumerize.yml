@@ -92,10 +92,12 @@ fra:
         year: "Année"
       usage:
         affairs: "Numérotation des affaires"
+        analyses: "Numérotation des analyses"
         animals: "Numérotation des animaux"
         campaigns: "Numérotation des campagnes de productions"
         cash_transfers: "Numérotation des virements internes"
         deposits: "Numérotation des remises en banque"
+        documents: "Numérotation des documents"
         entities: "Numérotation des personnes"
         financial_assets: "Numérotation des immobilisations"
         gaps: "Numérotation des écarts"
@@ -105,10 +107,14 @@ fra:
         outgoing_deliveries: "Numérotation des bons de livraisons"
         outgoing_payments: "Numérotation des décaissements"
         plants: "Numérotation des cultures"
+        product_nature_categories: "Numérotation des catégories de types de produits"
+        product_nature_variants: "Numérotation des variantes de types de produits"
+        product_natures: "Numérotation des types de produits"
+        products: "Numérotation des produits"
         purchases: "Numérotation des achats"
         sales: "Numérotation des ventes"
         sales_invoices: "Numérotation des factures"
-        stock_transfers: "Numérotation des transferts de stock"
+        stock_transfers: "Numérotation des transferts de stock" #?
         subscriptions: "Numérotation des abonnements"
         transports: "Numérotation des transports"
     subscription_nature:

@@ -1152,3 +1152,135 @@ versions_021:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
+versions_022:
+  created_at: 2014-11-01 16:00:08.025514000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_008 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 67
+    type: Matter
+    name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+    number: P00000000001
+    variant_id: 11
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: avena_une_de_mai
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 16:00:08.017208000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_023:
+  created_at: 2014-11-01 16:00:08.342121000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_009 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 68
+    type: Matter
+    name: Botte de paille de blé ‒ balle ronde
+    number: P00000000002
+    variant_id: 9
+    nature_id: 9
+    category_id: 4
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_father_id:
+    initial_mother_id:
+    variety: straw
+    derivative_of: triticum_spelta
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 16:00:08.339341000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_024:
+  created_at: 2014-11-01 16:01:24.159746000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_010 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 69
+    type: Matter
+    name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg (1)
+    number: P00000000003
+    variant_id: 11
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: avena_une_de_mai
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 16:01:24.156172000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:

@@ -120,3 +120,36 @@ product_localizations_007:
   started_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.090697000 Z
   updater: users_001
+product_localizations_008:
+  container: building_divisions_006
+  created_at: 2014-11-01 16:00:08.317473000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_005 (IncomingDeliveryItem)
+  product: matters_008
+  started_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.317473000 Z
+  updater: users_001
+product_localizations_009:
+  container: building_divisions_006
+  created_at: 2014-11-01 16:00:08.386096000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_006 (IncomingDeliveryItem)
+  product: matters_009
+  started_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.386096000 Z
+  updater: users_001
+product_localizations_010:
+  container: building_divisions_007
+  created_at: 2014-11-01 16:01:24.231272000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_007 (IncomingDeliveryItem)
+  product: matters_010
+  started_at: 2014-11-06 08:45:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.231272000 Z
+  updater: users_001

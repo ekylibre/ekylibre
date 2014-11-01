@@ -194,7 +194,7 @@ class Product < Ekylibre::Record::Base
     !reading["indicator_name"] != "population" and reading[ProductReading.value_column(reading["indicator_name"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
-  acts_as_numbered force: true
+  acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
   delegate :variety, :derivative_of, :name, :nature, :reference_name, to: :variant, prefix: true

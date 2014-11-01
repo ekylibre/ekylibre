@@ -119,3 +119,30 @@ product_ownerships_008:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:25:41.466962000 Z
   updater: users_001
+product_ownerships_009:
+  created_at: 2014-11-01 16:00:08.109822000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_008
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.109822000 Z
+  updater: users_001
+product_ownerships_010:
+  created_at: 2014-11-01 16:00:08.350621000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_009
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.350621000 Z
+  updater: users_001
+product_ownerships_011:
+  created_at: 2014-11-01 16:01:24.174480000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_010
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.174480000 Z
+  updater: users_001

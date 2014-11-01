@@ -441,3 +441,129 @@ product_readings_028:
   read_at: 2014-10-31 20:25:41.475254000 Z
   updated_at: 2014-10-31 20:26:47.211272000 Z
   updater: users_001
+product_readings_029:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 35.0
+  boolean_value: false
+  created_at: 2014-11-01 16:00:08.252054000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 35.0
+  product: matters_008
+  read_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.252054000 Z
+  updater: users_001
+product_readings_030:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-01 16:00:08.255966000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product: matters_008
+  read_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.255966000 Z
+  updater: users_001
+product_readings_031:
+  boolean_value: false
+  created_at: 2014-11-01 16:00:08.259139000 Z
+  creator: users_001
+  decimal_value: 20.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_008
+  read_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.259139000 Z
+  updater: users_001
+product_readings_032:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1870.0
+  boolean_value: false
+  created_at: 2014-11-01 16:00:08.365742000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 1.87
+  product: matters_009
+  read_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.365742000 Z
+  updater: users_001
+product_readings_033:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 150.0
+  boolean_value: false
+  created_at: 2014-11-01 16:00:08.368519000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 150.0
+  product: matters_009
+  read_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.368519000 Z
+  updater: users_001
+product_readings_034:
+  boolean_value: false
+  created_at: 2014-11-01 16:00:08.371608000 Z
+  creator: users_001
+  decimal_value: 20.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_009
+  read_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.371608000 Z
+  updater: users_001
+product_readings_035:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 35.0
+  boolean_value: false
+  created_at: 2014-11-01 16:01:24.203670000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 35.0
+  product: matters_010
+  read_at: 2014-11-06 08:45:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.203670000 Z
+  updater: users_001
+product_readings_036:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-01 16:01:24.209802000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product: matters_010
+  read_at: 2014-11-06 08:45:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.209802000 Z
+  updater: users_001
+product_readings_037:
+  boolean_value: false
+  created_at: 2014-11-01 16:01:24.213908000 Z
+  creator: users_001
+  decimal_value: 10.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_010
+  read_at: 2014-11-06 08:45:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.213908000 Z
+  updater: users_001
