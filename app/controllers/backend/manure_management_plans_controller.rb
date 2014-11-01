@@ -35,7 +35,7 @@ class Backend::ManureManagementPlansController < BackendController
     t.action :destroy
   end
 
-  list :zones, model: :manure_management_plan_zones do |t|
+  list :zones, model: :manure_management_plan_zones, conditions: {plan_id: "params[:id]".c} do |t|
     t.column :activity, url: true
     t.column :cultivable_zone, url: true
     t.column :nitrogen_need

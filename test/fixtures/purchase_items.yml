@@ -94,18 +94,19 @@ purchase_items_002:
   variant: product_nature_variants_001
 purchase_items_003:
   account: accounts_001
-  amount: 0.0
+  amount: 77.74
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
-  lock_version: 0
-  pretax_amount: 0.0
+  label: Generic Product Variant
+  lock_version: 1
+  pretax_amount: 65.0
   purchase: purchases_002
-  quantity: 3.0
+  quantity: 13.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 19:48:20.053949000 Z
   updater: users_001
   variant: product_nature_variants_001
 purchase_items_004:
@@ -126,17 +127,54 @@ purchase_items_004:
   variant: product_nature_variants_001
 purchase_items_005:
   account: accounts_001
-  amount: 17.0
+  amount: 53.82
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
   indicator_name: population
-  lock_version: 0
-  pretax_amount: 26.0
+  label: Adexar 5 l
+  lock_version: 1
+  pretax_amount: 45.0
   purchase: purchases_003
   quantity: 9.0
   tax: taxes_001
   unit_price_amount: 5.0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 20:01:04.602927000 Z
   updater: users_001
-  variant: product_nature_variants_001
+  variant: product_nature_variants_008
+purchase_items_006:
+  account: accounts_011
+  amount: 6458.4
+  created_at: 2014-11-01 19:44:07.661108000 Z
+  creator: users_001
+  currency: USD
+  indicator_name: population
+  label: Vache
+  lock_version: 0
+  position: 1
+  pretax_amount: 5400.0
+  purchase: purchases_005
+  quantity: 3.0
+  tax: taxes_001
+  unit_price_amount: 1800.0
+  updated_at: 2014-11-01 19:44:07.661108000 Z
+  updater: users_001
+  variant: product_nature_variants_017
+purchase_items_007:
+  account: accounts_154
+  amount: 592.02
+  created_at: 2014-11-01 19:46:24.839459000 Z
+  creator: users_001
+  currency: USD
+  indicator_name: population
+  label: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  lock_version: 0
+  position: 1
+  pretax_amount: 495.0
+  purchase: purchases_004
+  quantity: 11.0
+  tax: taxes_001
+  unit_price_amount: 45.0
+  updated_at: 2014-11-01 19:46:24.839459000 Z
+  updater: users_001
+  variant: product_nature_variants_011

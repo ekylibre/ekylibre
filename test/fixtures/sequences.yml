@@ -71,13 +71,17 @@ sequences_001:
 sequences_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  lock_version: 1
+  last_cweek: 44
+  last_month: 11
+  last_number: 1
+  last_year: 2014
+  lock_version: 2
   name: Lorem ipsum
-  number_format: I[number|8]
+  number_format: EI[number|8]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:24:52.010612000 Z
+  updated_at: 2014-11-01 19:34:28.157524000 Z
   updater: users_001
   usage: entities
 sequences_003:
@@ -85,15 +89,15 @@ sequences_003:
   creator: users_001
   last_cweek: 44
   last_month: 11
-  last_number: 3
+  last_number: 15
   last_year: 2014
-  lock_version: 4
+  lock_version: 16
   name: products
-  number_format: XP[number|11]
+  number_format: EIZLEIKBWARLXP[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:26:38.342573000 Z
+  updated_at: 2014-11-01 20:30:35.475764000 Z
   updater: users_001
   usage: products
 sequences_004:
@@ -101,15 +105,15 @@ sequences_004:
   creator: users_001
   last_cweek: 44
   last_month: 11
-  last_number: 1
+  last_number: 8
   last_year: 2014
-  lock_version: 1
+  lock_version: 8
   name: incoming_deliveries
-  number_format: BR[year|4][number|4]
+  number_format: YINWRRCBR[year|4][number|4]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2014-11-01 16:00:08.014339000 Z
+  updated_at: 2014-11-01 20:19:35.351331000 Z
   updater: users_001
   usage: incoming_deliveries
 sequences_005:
@@ -175,13 +179,17 @@ sequences_009:
 sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
   creator: users_001
-  lock_version: 0
+  last_cweek: 44
+  last_month: 11
+  last_number: 3
+  last_year: 2014
+  lock_version: 3
   name: Affaire
-  number_format: DA[number|12]
+  number_format: GUFDA[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:25:18.117267000 Z
+  updated_at: 2014-11-01 19:50:57.951621000 Z
   updater: users_001
   usage: affairs
 sequences_011:
@@ -211,13 +219,17 @@ sequences_012:
 sequences_013:
   created_at: 2014-11-01 16:25:18.214468000 Z
   creator: users_001
-  lock_version: 0
+  last_cweek: 44
+  last_month: 11
+  last_number: 1
+  last_year: 2014
+  lock_version: 1
   name: Perte ou profit
-  number_format: E[number|12]
+  number_format: TE[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:25:18.214468000 Z
+  updated_at: 2014-11-01 19:52:00.904383000 Z
   updater: users_001
   usage: gaps
 sequences_014:
@@ -235,13 +247,17 @@ sequences_014:
 sequences_015:
   created_at: 2014-11-01 16:25:18.953891000 Z
   creator: users_001
-  lock_version: 0
+  last_cweek: 44
+  last_month: 11
+  last_number: 1
+  last_year: 2014
+  lock_version: 1
   name: Intervention
-  number_format: "[number]"
+  number_format: F[number]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:25:18.953891000 Z
+  updated_at: 2014-11-01 20:24:26.738792000 Z
   updater: users_001
   usage: interventions
 sequences_016:
@@ -340,3 +356,19 @@ sequences_023:
   updated_at: 2014-11-01 16:25:19.051177000 Z
   updater: users_001
   usage: transports
+sequences_024:
+  created_at: 2014-11-01 19:06:50.057606000 Z
+  creator: users_001
+  last_cweek: 44
+  last_month: 11
+  last_number: 8
+  last_year: 2014
+  lock_version: 8
+  name: Variante de type de produit
+  number_format: GWNVKRYVPNV[number|12]
+  number_increment: 1
+  number_start: 1
+  period: number
+  updated_at: 2014-11-01 20:26:13.068075000 Z
+  updater: users_001
+  usage: product_nature_variants

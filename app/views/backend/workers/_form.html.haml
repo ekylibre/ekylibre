@@ -1,3 +1,4 @@
-= field_set do
-  = f.input :name
-  = f.custom_fields
+= f.product_form_frame do
+  = field_set do 
+    = f.input :name
+    = f.referenced_association :person

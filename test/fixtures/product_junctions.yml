@@ -138,6 +138,60 @@ product_births_011:
   type: ProductBirth
   updated_at: 2014-11-01 16:01:24.192527000 Z
   updater: users_001
+product_births_012:
+  created_at: 2014-11-01 19:29:58.255572000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2012-02-01 04:25:00.000000000 Z
+  stopped_at: 2012-02-01 04:25:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 19:29:58.255572000 Z
+  updater: users_001
+product_births_013:
+  created_at: 2014-11-01 19:35:50.400270000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2005-01-03 09:45:00.000000000 Z
+  stopped_at: 2005-01-03 09:45:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 19:35:50.400270000 Z
+  updater: users_001
+product_births_014:
+  created_at: 2014-11-01 20:19:35.425490000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 20:19:35.422952000 Z
+  stopped_at: 2014-11-01 20:19:35.422952000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 20:19:35.425490000 Z
+  updater: users_001
+product_births_015:
+  created_at: 2014-11-01 20:23:55.167526000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 20:23:55.165298000 Z
+  stopped_at: 2014-11-01 20:23:55.165298000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 20:23:55.167526000 Z
+  updater: users_001
+product_births_016:
+  created_at: 2014-11-01 20:23:55.267820000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 20:23:55.266224000 Z
+  stopped_at: 2014-11-01 20:23:55.266224000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 20:23:55.267820000 Z
+  updater: users_001
+product_births_017:
+  created_at: 2014-11-01 20:30:35.607786000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2014-11-01 20:30:35.605648000 Z
+  stopped_at: 2014-11-01 20:30:35.605648000 Z
+  type: ProductBirth
+  updated_at: 2014-11-01 20:30:35.607786000 Z
+  updater: users_001
 product_consumptions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001

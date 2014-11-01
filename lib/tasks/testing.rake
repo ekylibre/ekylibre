@@ -4,9 +4,9 @@ namespace :test do
     t.pattern = "test/lib/**/*_test.rb"
   end
 
-  task :core => ['test:units', 'test:functionals', 'test:lib']
+  task core: ['test:units', 'test:functionals', 'test:lib']
 
   # Append test for lib
-  task :run_all => ['test:units', 'test:functionals', 'test:lib', 'test:integration']
+  task run_all: ['test:units', 'test:functionals', 'test:integration', 'test:lib']
 end
 

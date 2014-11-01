@@ -283,3 +283,130 @@ product_natures_014:
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
+product_natures_015:
+  abilities_list: consume(phytosanitary), consume(water), produce(grain), produce(straw)
+  active: true
+  category: product_nature_categories_008
+  created_at: 2014-11-01 19:06:50.030010000 Z
+  creator: users_001
+  derivatives_list: grain, straw
+  evolvable: false
+  frozen_indicators_list: net_surface_area
+  linkage_points_list: ''
+  lock_version: 0
+  name: Culture de céréales
+  number: BUILDINO
+  population_counting: decimal
+  reference_name: cereal_crop
+  updated_at: 2014-11-01 19:06:50.030010000 Z
+  updater: users_001
+  variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
+    plants_count, population, shape, tiller_count
+  variety: plant
+product_natures_016:
+  abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
+    move, produce(animal), produce(excrement), produce(milk)
+  active: true
+  category: product_nature_categories_009
+  created_at: 2014-11-01 19:08:36.219671000 Z
+  creator: users_001
+  derivatives_list: meat, milk
+  evolvable: false
+  frozen_indicators_list: livestock_unit, population, reproductor, sex
+  linkage_points_list: ''
+  lock_version: 0
+  name: Vache
+  number: BUILDINP
+  population_counting: unitary
+  reference_name: female_adult_cow
+  updated_at: 2014-11-01 19:08:36.219671000 Z
+  updater: users_001
+  variable_indicators_list: animal_life_state, economical_milk_index, fat_matter_concentration_index,
+    healthy, lactating, last_birth_children_count, mammalia_birth_count, mammalia_reproduction_event_abortion,
+    mammalia_reproduction_method_embryo_transplant, mammalia_reproduction_state, milk_daily_production,
+    net_mass, protein_concentration_index, unique_synthesis_index
+  variety: bos
+product_natures_017:
+  abilities_list: feed(mammalia)
+  active: true
+  category: product_nature_categories_010
+  created_at: 2014-11-01 19:09:20.935423000 Z
+  creator: users_001
+  derivative_of: mammalia
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  linkage_points_list: ''
+  lock_version: 0
+  name: Lait
+  number: BUILDINQ
+  population_counting: decimal
+  reference_name: milk
+  updated_at: 2014-11-01 19:09:20.935423000 Z
+  updater: users_001
+  variable_indicators_list: clostridial_spores_concentration, fat_matters_concentration,
+    freezing_point_temperature, immunoglobulins_concentration, inhibitors_presence,
+    lipolysis, population, protein_matters_concentration, somatic_cell_concentration,
+    temperature, total_bacteria_concentration, urea_concentration
+  variety: milk
+product_natures_018:
+  abilities_list: feed(animal)
+  active: true
+  category: product_nature_categories_011
+  created_at: 2014-11-01 19:10:35.067432000 Z
+  creator: users_001
+  derivative_of: plant
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass
+  linkage_points_list: ''
+  lock_version: 0
+  name: Céréale
+  number: BUILDINR
+  population_counting: decimal
+  reference_name: grain
+  updated_at: 2014-11-01 19:10:35.067432000 Z
+  updater: users_001
+  variable_indicators_list: hagberg_falling_number, impurity_concentration, population,
+    protein_concentration, specific_weight, water_content_rate
+  variety: grain
+product_natures_019:
+  abilities_list: care(animal), kill(bacteria), kill(fungus), kill(virus)
+  active: true
+  category: product_nature_categories_012
+  created_at: 2014-11-01 20:20:57.132408000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: meat_withdrawal_period, milk_withdrawal_period, net_mass,
+    net_volume
+  linkage_points_list: ''
+  lock_version: 0
+  name: Produit vétérinaire
+  number: BUILDINS
+  population_counting: decimal
+  reference_name: animal_medicine
+  updated_at: 2014-11-01 20:20:57.132408000 Z
+  updater: users_001
+  variable_indicators_list: population
+  variety: preparation
+product_natures_020:
+  abilities_list: administer_care(animal), drive(equipment), milk(mammalia), move,
+    repair(equipment)
+  active: true
+  category: product_nature_categories_013
+  created_at: 2014-11-01 20:26:13.052907000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  linkage_points_list: ''
+  lock_version: 0
+  name: Technicien
+  number: BUILDINT
+  population_counting: unitary
+  reference_name: technician
+  updated_at: 2014-11-01 20:26:13.052907000 Z
+  updater: users_001
+  variable_indicators_list: geolocation
+  variety: worker

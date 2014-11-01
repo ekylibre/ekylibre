@@ -76,3 +76,14 @@ postal_zones_003:
   postal_code: '12345'
   updated_at: 2014-10-31 18:58:07.355534000 Z
   updater: users_001
+postal_zones_004:
+  city: CHAR-EN-TEUX
+  city_name: CHAR-EN-TEUX
+  country: fr
+  created_at: 2014-11-01 20:16:17.369291000 Z
+  creator: users_001
+  lock_version: 0
+  name: 17123 CHAR-EN-TEUX
+  postal_code: '17123'
+  updated_at: 2014-11-01 20:16:17.369291000 Z
+  updater: users_001

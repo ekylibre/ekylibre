@@ -116,3 +116,53 @@ incoming_delivery_items_007:
   product: matters_010
   updated_at: 2014-11-01 16:01:24.225780000 Z
   updater: users_001
+incoming_delivery_items_008:
+  container: building_divisions_007
+  created_at: 2014-11-01 19:29:58.321983000 Z
+  creator: users_001
+  delivery: incoming_deliveries_006
+  lock_version: 0
+  population: 1.0
+  product: animals_005
+  updated_at: 2014-11-01 19:29:58.321983000 Z
+  updater: users_001
+incoming_delivery_items_009:
+  container: building_divisions_007
+  created_at: 2014-11-01 19:35:50.426074000 Z
+  creator: users_001
+  delivery: incoming_deliveries_007
+  lock_version: 0
+  population: 1.0
+  product: animals_006
+  updated_at: 2014-11-01 19:35:50.426074000 Z
+  updater: users_001
+incoming_delivery_items_010:
+  container: building_divisions_007
+  created_at: 2014-11-01 20:19:35.464060000 Z
+  creator: users_001
+  delivery: incoming_deliveries_008
+  lock_version: 0
+  population: 10.0
+  product: matters_011
+  updated_at: 2014-11-01 20:19:35.464060000 Z
+  updater: users_001
+incoming_delivery_items_011:
+  container: building_divisions_007
+  created_at: 2014-11-01 20:23:55.229924000 Z
+  creator: users_001
+  delivery: incoming_deliveries_008
+  lock_version: 0
+  population: 10.0
+  product: matters_012
+  updated_at: 2014-11-01 20:23:55.229924000 Z
+  updater: users_001
+incoming_delivery_items_012:
+  container: building_divisions_007
+  created_at: 2014-11-01 20:23:55.300646000 Z
+  creator: users_001
+  delivery: incoming_deliveries_008
+  lock_version: 0
+  population: 10.0
+  product: matters_013
+  updated_at: 2014-11-01 20:23:55.300646000 Z
+  updater: users_001

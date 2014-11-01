@@ -72,32 +72,34 @@ affairs_001:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 affairs_002:
-  closed: true
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  credit: 411.23
-  currency: EUR
-  deals_count: 0
-  debit: 411.23
-  lock_version: 0
-  number: A000002
-  originator: gaps_002 (Gap)
-  third: legal_entities_001
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-affairs_003:
+  accounted_at: 2014-11-01 19:48:47.195851000 Z
   closed: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  credit: 236.0
+  credit: 156.0
   currency: EUR
-  deals_count: 0
-  debit: 158.0
-  lock_version: 0
+  deals_count: 5
+  debit: 227.57
+  lock_version: 3
+  number: A000002
+  originator: gaps_002 (Gap)
+  third: legal_entities_001
+  updated_at: 2014-11-01 19:48:47.184877000 Z
+  updater: users_001
+affairs_003:
+  accounted_at: 2014-11-01 20:01:05.062013000 Z
+  closed: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator: users_001
+  credit: 127.0
+  currency: EUR
+  deals_count: 4
+  debit: 163.82
+  lock_version: 6
   number: A000003
   originator: sales_003 (Sale)
   third: legal_entities_001
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 20:01:05.036596000 Z
   updater: users_001
 affairs_004:
   closed: false
@@ -142,4 +144,49 @@ affairs_006:
   originator: sales_006 (Sale)
   third: legal_entities_003
   updated_at: 2014-10-31 18:52:01.373471000 Z
+  updater: users_001
+affairs_007:
+  accounted_at: 2014-11-01 19:44:07.737811000 Z
+  closed: false
+  created_at: 2014-11-01 19:44:07.709263000 Z
+  creator: users_001
+  credit: 0.0
+  currency: USD
+  deals_count: 1
+  debit: 6458.4
+  lock_version: 0
+  number: FDA000000000001
+  originator: purchases_005 (Purchase)
+  third: entities_005
+  updated_at: 2014-11-01 19:44:07.709263000 Z
+  updater: users_001
+affairs_008:
+  accounted_at: 2014-11-01 19:46:24.889150000 Z
+  closed: false
+  created_at: 2014-11-01 19:46:24.859478000 Z
+  creator: users_001
+  credit: 0.0
+  currency: USD
+  deals_count: 1
+  debit: 592.02
+  lock_version: 0
+  number: UFDA000000000002
+  originator: purchases_004 (Purchase)
+  third: entities_004
+  updated_at: 2014-11-01 19:46:24.859478000 Z
+  updater: users_001
+affairs_009:
+  accounted_at: 2014-11-01 19:50:57.971530000 Z
+  closed: false
+  created_at: 2014-11-01 19:50:57.952981000 Z
+  creator: users_001
+  credit: 430.56
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  lock_version: 0
+  number: GUFDA000000000003
+  originator: sales_002 (Sale)
+  third: legal_entities_001
+  updated_at: 2014-11-01 19:50:57.952981000 Z
   updater: users_001

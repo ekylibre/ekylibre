@@ -2844,7 +2844,7 @@ fra:
         agricultural_advisor: "Conseiller agricole"
         cooperative_advisor: "Agent technico-commercial"
         farm_manager: "Responsable de l’exploitation"
-        farm_worker: "Salarié de l’exploitation"
+        farm_worker: "Ouvrier de l’exploitation"
         veterinary: "Vétérinaire"
       name: "Rôles"
       property_natures:

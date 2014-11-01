@@ -1284,3 +1284,523 @@ versions_024:
     creator_id: 1
     person_id:
     initial_shape:
+versions_025:
+  created_at: 2014-11-01 17:00:00.266880000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: entities_004 (Entity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 11
+    active: false
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    type:
+    nature: company
+    last_name: BAKTOUBI Inc.
+    first_name: ''
+    number: '198'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: true
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: aze
+    country: az
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 20:10:25.992209000 Z
+    creator_id: 1
+versions_026:
+  created_at: 2014-11-01 18:28:24.979924000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: people_002 (Person)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    type: Person
+    nature: sir
+    last_name: FUYUTSUKI
+    first_name: Kōzō
+    number: '194'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_027:
+  created_at: 2014-11-01 19:29:58.097653000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: animals_005 (Animal)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 68
+    type: Animal
+    name: Bonnemine
+    number: P00000000004
+    variant_id: 17
+    nature_id: 16
+    category_id: 9
+    extjuncted: false
+    initial_born_at: 2012-02-01 04:25:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id: 2
+    variety: bos_taurus_limousine
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: FR8746001425
+    work_number: '8746'
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 19:29:58.088036000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_028:
+  created_at: 2014-11-01 19:34:28.165842000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: entities_005 (Entity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 11
+    type:
+    nature: company
+    last_name: Taurus Plus
+    first_name: ''
+    number: EI00000001
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: true
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: ind
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-01 19:34:28.161304000 Z
+    creator_id: 1
+versions_029:
+  created_at: 2014-11-01 19:35:50.375324000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: animals_006 (Animal)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 69
+    type: Animal
+    name: Isabelle
+    number: P00000000005
+    variant_id: 17
+    nature_id: 16
+    category_id: 9
+    extjuncted: false
+    initial_born_at: 2005-01-03 09:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: bos
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: FR152600001545
+    work_number: '1526'
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 19:35:50.372083000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_030:
+  created_at: 2014-11-01 19:36:27.501722000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: issues_003 (Issue)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    target_id: 69
+    target_type: Animal
+    nature: diarrhea
+    observed_at: 2014-09-02 06:40:00.000000000 Z
+    priority: 2
+    gravity: 3
+    state: opened
+    name: Diarrhée sur Isabelle
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-01 19:36:27.498008000 Z
+    creator_id: 1
+versions_031:
+  created_at: 2014-11-01 19:47:04.286035000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: legal_entities_003 (LegalEntity)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 7
+    type: LegalEntity
+    nature: company
+    last_name: Yuey LTD
+    first_name: ''
+    number: '3'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_032:
+  created_at: 2014-11-01 20:16:17.387286000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: people_003 (Person)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    type: Person
+    nature: madam
+    last_name: "碇"
+    first_name: "ユイ"
+    number: '195'
+    active: false
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+versions_033:
+  created_at: 2014-11-01 20:19:35.359776000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_011 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 70
+    type: Matter
+    name: Microthiol sp disp
+    number: P00000000006
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: packaged_matter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:19:35.354902000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_034:
+  created_at: 2014-11-01 20:23:54.919029000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_012 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 73
+    type: Matter
+    name: Riflexine
+    number: ARLXP00000000006
+    variant_id: 22
+    nature_id: 19
+    category_id: 12
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: packaged_matter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:23:54.912213000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_035:
+  created_at: 2014-11-01 20:23:55.249770000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_013 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 74
+    type: Matter
+    name: Acetal
+    number: WARLXP00000000007
+    variant_id: 21
+    nature_id: 19
+    category_id: 12
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: packaged_matter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:23:55.247530000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_036:
+  created_at: 2014-11-01 20:30:35.484926000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: workers_004 (Worker)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 75
+    type: Worker
+    name: Gendo
+    number: EIZLEIKBWARLXP00000000015
+    variant_id: 23
+    nature_id: 20
+    category_id: 13
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: worker
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:30:35.477602000 Z
+    creator_id: 1
+    person_id: 8
+    initial_shape:

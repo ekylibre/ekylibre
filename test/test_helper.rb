@@ -97,7 +97,7 @@ class ActionController::TestCase
       code << "  assert_not_nil I18n.locale\n"
       code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
       # Check document templates
-      code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
+      # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
       # Connect user
       code << "  @user = users(:users_001)\n"
       code << "  sign_in(@user)\n"

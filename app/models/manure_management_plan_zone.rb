@@ -84,7 +84,9 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   def compute
     for name, value in Calculus::ManureManagementPlan.compute(parameters)
-      self.send("#{name}=", value.to_f(:kilogram_per_hectare))
+      if self.class.columns_hash.keys.map(&:to_s).include?(name.to_s)
+        self.send("#{name}=", value.to_f(:kilogram_per_hectare))
+      end
     end
     self.save!
   end

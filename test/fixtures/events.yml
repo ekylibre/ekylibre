@@ -104,3 +104,15 @@ events_005:
   stopped_at: 2014-10-31 18:51:37.900495000 Z
   updated_at: 2014-10-31 18:51:27.910985000 Z
   updater: users_001
+events_006:
+  created_at: 2014-11-01 20:24:26.747196000 Z
+  creator: users_001
+  duration: 3600
+  lock_version: 0
+  name: Traitement animal n°F1
+  nature: production_intervention
+  restricted: false
+  started_at: 2014-09-03 07:45:00.000000000 Z
+  stopped_at: 2014-09-03 08:45:00.000000000 Z
+  updated_at: 2014-11-01 20:24:26.747196000 Z
+  updater: users_001

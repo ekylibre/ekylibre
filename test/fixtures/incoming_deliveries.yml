@@ -106,3 +106,39 @@ incoming_deliveries_005:
   sender: entities_004
   updated_at: 2014-11-01 16:00:08.015634000 Z
   updater: users_001
+incoming_deliveries_006:
+  address: entity_addresses_003
+  created_at: 2014-11-01 19:29:58.086427000 Z
+  creator: users_001
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: RRCBR20140004
+  received_at: 2014-11-01 19:26:00.000000000 Z
+  reference_number: VD
+  sender: entities_004
+  updated_at: 2014-11-01 19:29:58.086427000 Z
+  updater: users_001
+incoming_deliveries_007:
+  address: entity_addresses_003
+  created_at: 2014-11-01 19:35:50.370591000 Z
+  creator: users_001
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: INWRRCBR20140007
+  received_at: 2014-11-01 19:33:00.000000000 Z
+  reference_number: EDSDFSF
+  sender: entities_005
+  updated_at: 2014-11-01 19:35:50.370591000 Z
+  updater: users_001
+incoming_deliveries_008:
+  address: entity_addresses_003
+  created_at: 2014-11-01 20:19:35.352913000 Z
+  creator: users_001
+  lock_version: 1
+  mode: delivered_duty_paid
+  number: YINWRRCBR20140008
+  received_at: 2013-08-01 00:50:00.000000000 Z
+  reference_number: ''
+  sender: legal_entities_003
+  updated_at: 2014-11-01 20:23:54.910311000 Z
+  updater: users_001

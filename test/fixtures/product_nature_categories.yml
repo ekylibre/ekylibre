@@ -198,3 +198,121 @@ product_nature_categories_007:
   subscribing: false
   updated_at: 2014-10-31 20:13:55.094715000 Z
   updater: users_001
+product_nature_categories_008:
+  active: true
+  created_at: 2014-11-01 19:06:50.017161000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Culture
+  number: PNC008
+  pictogram: leaf
+  product_account: accounts_005
+  purchasable: false
+  reductible: false
+  reference_name: crop
+  saleable: true
+  stock_account: accounts_160
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:06:50.017161000 Z
+  updater: users_001
+product_nature_categories_009:
+  active: true
+  charge_account: accounts_011
+  created_at: 2014-11-01 19:08:36.210197000 Z
+  creator: users_001
+  depreciable: true
+  financial_asset_account: accounts_010
+  lock_version: 0
+  name: Vache
+  number: PNC009
+  pictogram: cow
+  product_account: accounts_012
+  purchasable: true
+  reductible: false
+  reference_name: female_adult_cow
+  saleable: true
+  stock_account: accounts_099
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:08:36.210197000 Z
+  updater: users_001
+product_nature_categories_010:
+  active: true
+  charge_account: accounts_147
+  created_at: 2014-11-01 19:09:20.923402000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Lait
+  number: PNC010
+  pictogram: drop
+  product_account: accounts_015
+  purchasable: true
+  reductible: false
+  reference_name: milk
+  saleable: true
+  stock_account: accounts_014
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:09:20.923402000 Z
+  updater: users_001
+product_nature_categories_011:
+  active: true
+  created_at: 2014-11-01 19:10:35.057312000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Graine
+  number: PNC011
+  pictogram: wheat
+  product_account: accounts_005
+  purchasable: false
+  reductible: false
+  reference_name: grain
+  saleable: true
+  stock_account: accounts_139
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 19:10:35.057312000 Z
+  updater: users_001
+product_nature_categories_012:
+  active: true
+  charge_account: accounts_016
+  created_at: 2014-11-01 20:20:57.118801000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Produit vétérinaire
+  number: PNC012
+  pictogram: pill
+  product_account: accounts_152
+  purchasable: true
+  reductible: false
+  reference_name: animal_medicine
+  saleable: true
+  stock_account: accounts_017
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-01 20:20:57.118801000 Z
+  updater: users_001
+product_nature_categories_013:
+  active: true
+  charge_account: accounts_171
+  created_at: 2014-11-01 20:26:13.040696000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Responsable
+  number: PNC013
+  pictogram: male
+  product_account: accounts_152
+  purchasable: true
+  reductible: false
+  reference_name: worker
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-01 20:26:13.040696000 Z
+  updater: users_001

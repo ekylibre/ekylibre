@@ -145,3 +145,23 @@ interventions_005:
   stopped_at: 2009-04-03 08:17:23.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+interventions_006:
+  created_at: 2014-11-01 20:24:26.748976000 Z
+  creator: users_001
+  event: events_006
+  lock_version: 3
+  natures: animal_curative_medicine_admission
+  number: F1
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  prescription: prescriptions_001
+  production: productions_003
+  production_support: production_supports_004
+  provisional: false
+  recommended: true
+  recommender: entities_002
+  reference_name: base-animal_treatment-0
+  started_at: 2014-10-02 07:45:00.000000000 Z
+  state: undone
+  stopped_at: 2014-10-02 08:45:00.000000000 Z
+  updated_at: 2014-11-01 20:31:58.237758000 Z
+  updater: users_001

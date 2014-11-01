@@ -44,22 +44,21 @@
 roles_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  lock_version: 0
-  name: Lorem ipsum
+  lock_version: 1
+  name: Mini-Accountant
   rights:
     accounts:
     - read
-    - write
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 18:23:28.572714000 Z
   updater: users_001
 roles_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  lock_version: 0
-  name: Lorem ipsum 2
+  lock_version: 1
+  name: Nothing
   rights:
     accounts:
     - read
     - write
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 18:23:38.419012000 Z
   updater: users_001

@@ -192,7 +192,7 @@ module Fixturing
               if attrs = data[foreign_model.table_name].detect{|r, a| a["id"] == fixture_id}
                 attributes[column.to_s.gsub(/\_id\z/, '')] = attrs.first
               else
-                raise "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
+                raise "Cannot find #{foreign_model.name} #{fixture_id} for #{column} in #{table}##{record}"
               end
               attributes.delete(column.to_s)
             end

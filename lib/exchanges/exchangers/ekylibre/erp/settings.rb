@@ -145,7 +145,9 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
         attributes[:password] = "12345678"
       else
         attributes[:password] = User.give_password(8, :normal)
-        puts "New password for account #{attributes[:email]}: #{attributes[:password]}"
+        unless Rails.env.test?
+          puts "New password for account #{attributes[:email]}: #{attributes[:password]}"
+        end
       end
     end
     attributes[:password_confirmation] = attributes[:password]

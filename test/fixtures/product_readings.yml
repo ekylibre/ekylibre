@@ -164,7 +164,7 @@ product_readings_008:
   indicator_datatype: choice
   indicator_name: sex
   lock_version: 0
-  product: animals_004
+  product: animals_003
   read_at: 0001-01-19 17:06:23.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
@@ -176,35 +176,11 @@ product_readings_009:
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  product: animals_004
+  product: animals_003
   read_at: 0001-01-19 17:06:23.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 product_readings_010:
-  boolean_value: false
-  choice_value: female
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  indicator_datatype: choice
-  indicator_name: sex
-  lock_version: 0
-  product: animals_002
-  read_at: 0001-01-19 17:06:23.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-product_readings_011:
-  boolean_value: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  decimal_value: 1.0
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  product: animals_002
-  read_at: 0001-01-19 17:06:23.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-product_readings_012:
   boolean_value: false
   created_at: 2014-10-31 20:15:14.814746000 Z
   creator: users_001
@@ -216,7 +192,7 @@ product_readings_012:
   read_at: 1971-03-05 09:50:00.000000000 Z
   updated_at: 2014-10-31 20:15:14.814746000 Z
   updater: users_001
-product_readings_013:
+product_readings_011:
   boolean_value: false
   created_at: 2014-10-31 20:15:14.819292000 Z
   creator: users_001
@@ -230,7 +206,7 @@ product_readings_013:
   read_at: 1971-03-05 09:50:00.000000000 Z
   updated_at: 2014-10-31 20:15:14.819292000 Z
   updater: users_001
-product_readings_014:
+product_readings_012:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 56.0
   boolean_value: false
@@ -245,7 +221,7 @@ product_readings_014:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.227102000 Z
   updater: users_001
-product_readings_015:
+product_readings_013:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 50.0
   boolean_value: false
@@ -260,7 +236,7 @@ product_readings_015:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.228331000 Z
   updater: users_001
-product_readings_016:
+product_readings_014:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 150000.0
   boolean_value: false
@@ -275,7 +251,7 @@ product_readings_016:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.229240000 Z
   updater: users_001
-product_readings_017:
+product_readings_015:
   boolean_value: false
   created_at: 2014-10-31 20:18:12.251882000 Z
   creator: users_001
@@ -287,7 +263,7 @@ product_readings_017:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.251882000 Z
   updater: users_001
-product_readings_018:
+product_readings_016:
   boolean_value: false
   created_at: 2014-10-31 20:18:12.255848000 Z
   creator: users_001
@@ -301,7 +277,7 @@ product_readings_018:
   read_at: 1979-03-02 05:30:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.255848000 Z
   updater: users_001
-product_readings_019:
+product_readings_017:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 120.0
   boolean_value: false
@@ -316,7 +292,7 @@ product_readings_019:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.771015000 Z
   updater: users_001
-product_readings_020:
+product_readings_018:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 110.0
   boolean_value: false
@@ -331,7 +307,7 @@ product_readings_020:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.772068000 Z
   updater: users_001
-product_readings_021:
+product_readings_019:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 400000.0
   boolean_value: false
@@ -346,7 +322,7 @@ product_readings_021:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.773031000 Z
   updater: users_001
-product_readings_022:
+product_readings_020:
   boolean_value: false
   created_at: 2014-10-31 20:23:26.795426000 Z
   creator: users_001
@@ -358,7 +334,7 @@ product_readings_022:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.795426000 Z
   updater: users_001
-product_readings_023:
+product_readings_021:
   boolean_value: false
   created_at: 2014-10-31 20:23:26.799863000 Z
   creator: users_001
@@ -373,7 +349,7 @@ product_readings_023:
   read_at: 1980-01-31 04:45:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.799863000 Z
   updater: users_001
-product_readings_024:
+product_readings_022:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 42.0
   boolean_value: false
@@ -388,7 +364,7 @@ product_readings_024:
   read_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.059847000 Z
   updater: users_001
-product_readings_025:
+product_readings_023:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -403,7 +379,7 @@ product_readings_025:
   read_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.064202000 Z
   updater: users_001
-product_readings_026:
+product_readings_024:
   boolean_value: false
   created_at: 2014-10-31 20:23:37.067577000 Z
   creator: users_001
@@ -415,7 +391,7 @@ product_readings_026:
   read_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.067577000 Z
   updater: users_001
-product_readings_027:
+product_readings_025:
   boolean_value: false
   created_at: 2014-10-31 20:25:41.482881000 Z
   creator: users_001
@@ -427,7 +403,7 @@ product_readings_027:
   read_at: 2014-10-31 20:25:41.475254000 Z
   updated_at: 2014-10-31 20:25:41.482881000 Z
   updater: users_001
-product_readings_028:
+product_readings_026:
   boolean_value: false
   created_at: 2014-10-31 20:25:41.486554000 Z
   creator: users_001
@@ -441,7 +417,7 @@ product_readings_028:
   read_at: 2014-10-31 20:25:41.475254000 Z
   updated_at: 2014-10-31 20:26:47.211272000 Z
   updater: users_001
-product_readings_029:
+product_readings_027:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 35.0
   boolean_value: false
@@ -456,7 +432,7 @@ product_readings_029:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.252054000 Z
   updater: users_001
-product_readings_030:
+product_readings_028:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -471,7 +447,7 @@ product_readings_030:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.255966000 Z
   updater: users_001
-product_readings_031:
+product_readings_029:
   boolean_value: false
   created_at: 2014-11-01 16:00:08.259139000 Z
   creator: users_001
@@ -483,7 +459,7 @@ product_readings_031:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.259139000 Z
   updater: users_001
-product_readings_032:
+product_readings_030:
   absolute_measure_value_unit: liter
   absolute_measure_value_value: 1870.0
   boolean_value: false
@@ -498,7 +474,7 @@ product_readings_032:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.365742000 Z
   updater: users_001
-product_readings_033:
+product_readings_031:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 150.0
   boolean_value: false
@@ -513,7 +489,7 @@ product_readings_033:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.368519000 Z
   updater: users_001
-product_readings_034:
+product_readings_032:
   boolean_value: false
   created_at: 2014-11-01 16:00:08.371608000 Z
   creator: users_001
@@ -525,7 +501,7 @@ product_readings_034:
   read_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.371608000 Z
   updater: users_001
-product_readings_035:
+product_readings_033:
   absolute_measure_value_unit: gram
   absolute_measure_value_value: 35.0
   boolean_value: false
@@ -540,7 +516,7 @@ product_readings_035:
   read_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.203670000 Z
   updater: users_001
-product_readings_036:
+product_readings_034:
   absolute_measure_value_unit: kilogram
   absolute_measure_value_value: 25.0
   boolean_value: false
@@ -555,7 +531,7 @@ product_readings_036:
   read_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.209802000 Z
   updater: users_001
-product_readings_037:
+product_readings_035:
   boolean_value: false
   created_at: 2014-11-01 16:01:24.213908000 Z
   creator: users_001
@@ -566,4 +542,492 @@ product_readings_037:
   product: matters_010
   read_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.213908000 Z
+  updater: users_001
+product_readings_036:
+  boolean_value: false
+  choice_value: first_growth
+  created_at: 2014-11-01 19:29:58.119264000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: animal_life_state
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.119264000 Z
+  updater: users_001
+product_readings_037:
+  absolute_measure_value_unit: unity
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.120390000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: economical_milk_index
+  lock_version: 0
+  measure_value_unit: unity
+  measure_value_value: 1.0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.120390000 Z
+  updater: users_001
+product_readings_038:
+  absolute_measure_value_unit: unity
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.121399000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: fat_matter_concentration_index
+  lock_version: 0
+  measure_value_unit: unity
+  measure_value_value: 1.0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.121399000 Z
+  updater: users_001
+product_readings_039:
+  boolean_value: true
+  created_at: 2014-11-01 19:29:58.122266000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: healthy
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.122266000 Z
+  updater: users_001
+product_readings_040:
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.123173000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: lactating
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.123173000 Z
+  updater: users_001
+product_readings_041:
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.124075000 Z
+  creator: users_001
+  indicator_datatype: integer
+  indicator_name: last_birth_children_count
+  integer_value: 1
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.124075000 Z
+  updater: users_001
+product_readings_042:
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.124928000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: mammalia_reproduction_event_abortion
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.124928000 Z
+  updater: users_001
+product_readings_043:
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.125666000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: mammalia_reproduction_method_embryo_transplant
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.125666000 Z
+  updater: users_001
+product_readings_044:
+  boolean_value: false
+  choice_value: back_heat
+  created_at: 2014-11-01 19:29:58.126445000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: mammalia_reproduction_state
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.126445000 Z
+  updater: users_001
+product_readings_045:
+  absolute_measure_value_unit: kilogram_per_day
+  absolute_measure_value_value: 2.0
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.127240000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: milk_daily_production
+  lock_version: 0
+  measure_value_unit: kilogram_per_day
+  measure_value_value: 2.0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.127240000 Z
+  updater: users_001
+product_readings_046:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 485.0
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.128057000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 485.0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.128057000 Z
+  updater: users_001
+product_readings_047:
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.281826000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: livestock_unit
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.281826000 Z
+  updater: users_001
+product_readings_048:
+  boolean_value: true
+  created_at: 2014-11-01 19:29:58.284692000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: reproductor
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.284692000 Z
+  updater: users_001
+product_readings_049:
+  boolean_value: false
+  choice_value: female
+  created_at: 2014-11-01 19:29:58.288180000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.288180000 Z
+  updater: users_001
+product_readings_050:
+  boolean_value: false
+  created_at: 2014-11-01 19:29:58.291054000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: animals_005
+  read_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.291054000 Z
+  updater: users_001
+product_readings_051:
+  boolean_value: false
+  choice_value: senescence
+  created_at: 2014-11-01 19:35:50.380500000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: animal_life_state
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.380500000 Z
+  updater: users_001
+product_readings_052:
+  boolean_value: true
+  created_at: 2014-11-01 19:35:50.381445000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: healthy
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.381445000 Z
+  updater: users_001
+product_readings_053:
+  boolean_value: false
+  created_at: 2014-11-01 19:35:50.382216000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: lactating
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.382216000 Z
+  updater: users_001
+product_readings_054:
+  boolean_value: false
+  created_at: 2014-11-01 19:35:50.382961000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: mammalia_reproduction_event_abortion
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.382961000 Z
+  updater: users_001
+product_readings_055:
+  boolean_value: false
+  created_at: 2014-11-01 19:35:50.383737000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: mammalia_reproduction_method_embryo_transplant
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.383737000 Z
+  updater: users_001
+product_readings_056:
+  boolean_value: false
+  created_at: 2014-11-01 19:35:50.406349000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: livestock_unit
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.406349000 Z
+  updater: users_001
+product_readings_057:
+  boolean_value: true
+  created_at: 2014-11-01 19:35:50.409242000 Z
+  creator: users_001
+  indicator_datatype: boolean
+  indicator_name: reproductor
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.409242000 Z
+  updater: users_001
+product_readings_058:
+  boolean_value: false
+  choice_value: female
+  created_at: 2014-11-01 19:35:50.411928000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.411928000 Z
+  updater: users_001
+product_readings_059:
+  boolean_value: false
+  created_at: 2014-11-01 19:35:50.414586000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: animals_006
+  read_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.414586000 Z
+  updater: users_001
+product_readings_060:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:19:35.433284000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product: matters_011
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.433284000 Z
+  updater: users_001
+product_readings_061:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:19:35.436647000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product: matters_011
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.436647000 Z
+  updater: users_001
+product_readings_062:
+  boolean_value: false
+  created_at: 2014-11-01 20:19:35.440204000 Z
+  creator: users_001
+  decimal_value: 10.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_011
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.440204000 Z
+  updater: users_001
+product_readings_063:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 6.0
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.197094000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: milk_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 6.0
+  product: matters_012
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.197094000 Z
+  updater: users_001
+product_readings_064:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 5.0
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.201049000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: meat_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 5.0
+  product: matters_012
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.201049000 Z
+  updater: users_001
+product_readings_065:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.01
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.206318000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: milliliter
+  measure_value_value: 10.0
+  product: matters_012
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.206318000 Z
+  updater: users_001
+product_readings_066:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.01
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.210376000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 10.0
+  product: matters_012
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.210376000 Z
+  updater: users_001
+product_readings_067:
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.214279000 Z
+  creator: users_001
+  decimal_value: 10.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_012
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.214279000 Z
+  updater: users_001
+product_readings_068:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 0.0
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.273935000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: milk_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 0.0
+  product: matters_013
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.273935000 Z
+  updater: users_001
+product_readings_069:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 0.0
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.277802000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: meat_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 0.0
+  product: matters_013
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.277802000 Z
+  updater: users_001
+product_readings_070:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.281288000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product: matters_013
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.281288000 Z
+  updater: users_001
+product_readings_071:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.285126000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product: matters_013
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.285126000 Z
+  updater: users_001
+product_readings_072:
+  boolean_value: false
+  created_at: 2014-11-01 20:23:55.289137000 Z
+  creator: users_001
+  decimal_value: 10.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_013
+  read_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.289137000 Z
+  updater: users_001
+product_readings_073:
+  boolean_value: false
+  created_at: 2014-11-01 20:30:35.636810000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: workers_004
+  read_at: 2014-11-01 20:30:35.605648000 Z
+  updated_at: 2014-11-01 20:30:35.636810000 Z
   updater: users_001

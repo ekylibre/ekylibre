@@ -100,22 +100,6 @@ animals_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   extjuncted: false
-  identification_number: A7002
-  initial_population: 0.0
-  lock_version: 0
-  name: Isabelle
-  nature: product_natures_005
-  number: '7002'
-  type: Animal
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
-  variety: bos
-animals_003:
-  category: product_nature_categories_001
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  extjuncted: false
   identification_number: A7003
   initial_population: 0.0
   lock_version: 0
@@ -127,7 +111,7 @@ animals_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: gallus
-animals_004:
+animals_003:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
@@ -143,7 +127,7 @@ animals_004:
   updater: users_001
   variant: product_nature_variants_005
   variety: bos
-animals_005:
+animals_004:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
@@ -159,6 +143,46 @@ animals_005:
   updater: users_001
   variant: product_nature_variants_005
   variety: bos
+animals_005:
+  born_at: 2012-02-01 04:25:00.000000000 Z
+  category: product_nature_categories_009
+  created_at: 2014-11-01 19:29:58.088036000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  identification_number: FR8746001425
+  initial_born_at: 2012-02-01 04:25:00.000000000 Z
+  initial_population: 1.0
+  lock_version: 0
+  name: Bonnemine
+  nature: product_natures_016
+  number: P00000000004
+  type: Animal
+  updated_at: 2014-11-01 19:29:58.088036000 Z
+  updater: users_001
+  variant: product_nature_variants_017
+  variety: bos_taurus_limousine
+  work_number: '8746'
+animals_006:
+  born_at: 2005-01-03 09:45:00.000000000 Z
+  category: product_nature_categories_009
+  created_at: 2014-11-01 19:35:50.372083000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  identification_number: FR152600001545
+  initial_born_at: 2005-01-03 09:45:00.000000000 Z
+  initial_population: 1.0
+  lock_version: 0
+  name: Isabelle
+  nature: product_natures_016
+  number: P00000000005
+  type: Animal
+  updated_at: 2014-11-01 19:35:50.372083000 Z
+  updater: users_001
+  variant: product_nature_variants_017
+  variety: bos
+  work_number: '1526'
 animal_groups_001:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -891,6 +915,57 @@ matters_010:
   updater: users_001
   variant: product_nature_variants_011
   variety: seed
+matters_011:
+  born_at: 2014-11-01 20:19:35.422952000 Z
+  category: product_nature_categories_003
+  created_at: 2014-11-01 20:19:35.354902000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_population: 10.0
+  lock_version: 0
+  name: Microthiol sp disp
+  nature: product_natures_008
+  number: P00000000006
+  type: Matter
+  updated_at: 2014-11-01 20:19:35.354902000 Z
+  updater: users_001
+  variant: product_nature_variants_020
+  variety: packaged_matter
+matters_012:
+  born_at: 2014-11-01 20:23:55.165298000 Z
+  category: product_nature_categories_012
+  created_at: 2014-11-01 20:23:54.912213000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_population: 10.0
+  lock_version: 0
+  name: Riflexine
+  nature: product_natures_019
+  number: ARLXP00000000006
+  type: Matter
+  updated_at: 2014-11-01 20:23:54.912213000 Z
+  updater: users_001
+  variant: product_nature_variants_022
+  variety: packaged_matter
+matters_013:
+  born_at: 2014-11-01 20:23:55.266224000 Z
+  category: product_nature_categories_012
+  created_at: 2014-11-01 20:23:55.247530000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_population: 10.0
+  lock_version: 0
+  name: Acetal
+  nature: product_natures_019
+  number: WARLXP00000000007
+  type: Matter
+  updated_at: 2014-11-01 20:23:55.247530000 Z
+  updater: users_001
+  variant: product_nature_variants_021
+  variety: packaged_matter
 plants_001:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -1165,4 +1240,20 @@ workers_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
   variant: product_nature_variants_001
+  variety: worker
+workers_004:
+  born_at: 2014-11-01 20:30:35.605648000 Z
+  category: product_nature_categories_013
+  created_at: 2014-11-01 20:30:35.477602000 Z
+  creator: users_001
+  extjuncted: false
+  lock_version: 0
+  name: Gendo
+  nature: product_natures_020
+  number: EIZLEIKBWARLXP00000000015
+  person: people_001
+  type: Worker
+  updated_at: 2014-11-01 20:30:35.477602000 Z
+  updater: users_001
+  variant: product_nature_variants_023
   variety: worker

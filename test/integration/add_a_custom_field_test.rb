@@ -111,6 +111,10 @@ class AddACustomFieldTest < CapybaraIntegrationTest
           raise "Unknown custom field datatype"
         end
 
+        # Ensure custom field is removed
+        # Needed for tests
+        field.destroy
+
         # TODO: check if custom field is visible in #show view
       end
     end

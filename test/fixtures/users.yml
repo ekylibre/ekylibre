@@ -83,51 +83,94 @@
 ---
 users_001:
   administrator: true
+  authentication_token: kytP1qGY8xubaxAu7yj_
   commercial: false
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   email: gendo@nerv.jp
   employed: true
+  employment: ''
   encrypted_password: "$2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea"
   failed_attempts: 0
-  first_name: Mikawel
-  language: fra
-  last_name: Makinous
-  lock_version: 0
+  first_name: Gendo
+  language: jpn
+  last_name: IKARI
+  lock_version: 3
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person: people_001
   rights:
     accounts:
     - read
-    - write
   role: roles_001
   sign_in_count: 0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 18:25:43.674608000 Z
   updater: users_001
 users_002:
   administrator: false
+  authentication_token: J3RK5VZuKTGycL41Lk-P
   commercial: false
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  email: niknak@nanak.com
+  email: kozo.fuyutsuki@nerv.jp
   employed: true
+  employment: ''
   encrypted_password: "$2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea"
   failed_attempts: 0
-  first_name: Nikawel
+  first_name: Kōzō
   language: fra
-  last_name: Nakinous
-  lock_version: 0
+  last_name: " FUYUTSUKI"
+  lock_version: 3
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person: people_002
   rights:
+    subscriptions:
+    - read
+    - write
+    activities:
+    - read
+    - write
+    affairs:
+    - read
+    - write
+    animal_foods:
+    - read
+    - write
+    analyses:
+    - read
+    - write
+    outgoing_deliveries:
+    - read
+    incoming_deliveries:
+    - read
+    - write
+    product_nature_categories:
+    - read
+    - write
     accounts:
+    - read
+    journals:
+    - read
+    - close
+    incoming_payment_modes:
+    - read
+    - write
+    net_services:
+    - read
+    - write
+    taxes:
+    - read
+    - write
+    workers:
+    - read
+    - write
+    cashes:
     - read
     - write
   role: roles_001
   sign_in_count: 0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 18:26:38.061328000 Z
   updater: users_001

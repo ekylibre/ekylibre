@@ -279,3 +279,125 @@ product_nature_variants_015:
   updated_at: 2014-10-31 20:25:22.980248000 Z
   updater: users_001
   variety: building_division
+product_nature_variants_016:
+  active: true
+  category: product_nature_categories_008
+  commercial_name: Culture de blé
+  created_at: 2014-11-01 19:06:50.064047000 Z
+  creator: users_001
+  lock_version: 0
+  name: Culture de blé
+  nature: product_natures_015
+  number: VPNV000000000001
+  reference_name: wheat_crop
+  unit_name: Hectare
+  updated_at: 2014-11-01 19:06:50.064047000 Z
+  updater: users_001
+  variety: triticum_aestivum
+product_nature_variants_017:
+  active: true
+  category: product_nature_categories_009
+  commercial_name: Vache
+  created_at: 2014-11-01 19:08:36.236984000 Z
+  creator: users_001
+  lock_version: 0
+  name: Vache
+  nature: product_natures_016
+  number: YVPNV000000000002
+  reference_name: female_adult_cow
+  unit_name: Tête
+  updated_at: 2014-11-01 19:08:36.236984000 Z
+  updater: users_001
+  variety: bos
+product_nature_variants_018:
+  active: true
+  category: product_nature_categories_010
+  commercial_name: Lait de vache
+  created_at: 2014-11-01 19:09:20.953489000 Z
+  creator: users_001
+  derivative_of: bos
+  lock_version: 0
+  name: Lait de vache
+  nature: product_natures_017
+  number: RYVPNV000000000003
+  reference_name: cow_milk
+  unit_name: Litre
+  updated_at: 2014-11-01 19:09:20.953489000 Z
+  updater: users_001
+  variety: milk
+product_nature_variants_019:
+  active: true
+  category: product_nature_categories_011
+  commercial_name: Graine de blé
+  created_at: 2014-11-01 19:10:35.097658000 Z
+  creator: users_001
+  derivative_of: triticum_aestivum
+  lock_version: 0
+  name: Graine de blé
+  nature: product_natures_018
+  number: KRYVPNV000000000004
+  reference_name: wheat_grain
+  unit_name: Tonne
+  updated_at: 2014-11-01 19:10:35.097658000 Z
+  updater: users_001
+  variety: grain
+product_nature_variants_020:
+  active: true
+  category: product_nature_categories_003
+  commercial_name: Microthiol sp disp
+  created_at: 2014-11-01 20:17:55.024266000 Z
+  creator: users_001
+  lock_version: 0
+  name: Microthiol sp disp
+  nature: product_natures_008
+  number: VKRYVPNV000000000005
+  reference_name: coop:microthiol_sp_disp
+  unit_name: Kilogramme
+  updated_at: 2014-11-01 20:17:55.024266000 Z
+  updater: users_001
+  variety: preparation
+product_nature_variants_021:
+  active: true
+  category: product_nature_categories_012
+  commercial_name: Acetal
+  created_at: 2014-11-01 20:20:57.147222000 Z
+  creator: users_001
+  lock_version: 0
+  name: Acetal
+  nature: product_natures_019
+  number: NVKRYVPNV000000000006
+  reference_name: acetal
+  unit_name: Dose de 1l
+  updated_at: 2014-11-01 20:20:57.147222000 Z
+  updater: users_001
+  variety: preparation
+product_nature_variants_022:
+  active: true
+  category: product_nature_categories_012
+  commercial_name: Riflexine
+  created_at: 2014-11-01 20:21:07.072559000 Z
+  creator: users_001
+  lock_version: 0
+  name: Riflexine
+  nature: product_natures_019
+  number: WNVKRYVPNV000000000007
+  reference_name: riflexine
+  unit_name: Dose de 10ml
+  updated_at: 2014-11-01 20:21:07.072559000 Z
+  updater: users_001
+  variety: preparation
+product_nature_variants_023:
+  active: true
+  category: product_nature_categories_013
+  commercial_name: Employé
+  created_at: 2014-11-01 20:26:13.069661000 Z
+  creator: users_001
+  lock_version: 0
+  name: Employé
+  nature: product_natures_020
+  number: GWNVKRYVPNV000000000008
+  reference_name: employee
+  unit_name: Personne
+  updated_at: 2014-11-01 20:26:13.069661000 Z
+  updater: users_001
+  variety: worker

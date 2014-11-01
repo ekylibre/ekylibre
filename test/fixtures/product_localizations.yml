@@ -153,3 +153,58 @@ product_localizations_010:
   started_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.231272000 Z
   updater: users_001
+product_localizations_011:
+  container: building_divisions_007
+  created_at: 2014-11-01 19:29:58.583615000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_008 (IncomingDeliveryItem)
+  product: animals_005
+  started_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.583615000 Z
+  updater: users_001
+product_localizations_012:
+  container: building_divisions_007
+  created_at: 2014-11-01 19:35:50.431527000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_009 (IncomingDeliveryItem)
+  product: animals_006
+  started_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.431527000 Z
+  updater: users_001
+product_localizations_013:
+  container: building_divisions_007
+  created_at: 2014-11-01 20:19:35.475802000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_010 (IncomingDeliveryItem)
+  product: matters_011
+  started_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.475802000 Z
+  updater: users_001
+product_localizations_014:
+  container: building_divisions_007
+  created_at: 2014-11-01 20:23:55.240912000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_011 (IncomingDeliveryItem)
+  product: matters_012
+  started_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.240912000 Z
+  updater: users_001
+product_localizations_015:
+  container: building_divisions_007
+  created_at: 2014-11-01 20:23:55.306166000 Z
+  creator: users_001
+  lock_version: 0
+  nature: interior
+  originator: incoming_delivery_items_012 (IncomingDeliveryItem)
+  product: matters_013
+  started_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.306166000 Z
+  updater: users_001

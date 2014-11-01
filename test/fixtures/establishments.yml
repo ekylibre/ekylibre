@@ -42,16 +42,29 @@
 #
 ---
 establishments_001:
+  code: ''
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  lock_version: 0
-  name: Lorem ipsum
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  description: ''
+  lock_version: 2
+  name: Bordeaux
+  updated_at: 2014-11-01 18:35:19.601482000 Z
   updater: users_001
 establishments_002:
+  code: ''
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
+  description: ''
+  lock_version: 1
+  name: New-York
+  updated_at: 2014-11-01 18:35:09.998337000 Z
+  updater: users_001
+establishments_003:
+  code: ''
+  created_at: 2014-11-01 18:35:32.856651000 Z
+  creator: users_001
+  description: ''
   lock_version: 0
-  name: Lorem ipsum 2
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  name: Saint-Denis
+  updated_at: 2014-11-01 18:35:32.856651000 Z
   updater: users_001

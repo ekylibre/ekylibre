@@ -103,3 +103,12 @@ event_participations_007:
   state: accepted
   updated_at: 2014-10-31 18:51:27.913016000 Z
   updater: users_001
+event_participations_008:
+  created_at: 2014-11-01 20:30:45.153652000 Z
+  creator: users_001
+  event: events_006
+  lock_version: 0
+  participant: people_001
+  state: accepted
+  updated_at: 2014-11-01 20:30:45.153652000 Z
+  updater: users_001

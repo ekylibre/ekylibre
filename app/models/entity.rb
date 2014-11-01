@@ -161,6 +161,7 @@ class Entity < Ekylibre::Record::Base
   before_validation do
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
+    # FIXME: I18nize full name computation
     self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
     # unless self.nature.nil?
     # self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")

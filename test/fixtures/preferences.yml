@@ -357,23 +357,23 @@ preferences_031:
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater: users_001
 preferences_032:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator: users_001
-  lock_version: 2
+  lock_version: 3
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2014-11-01 16:00:30.248289000 Z
+  updated_at: 2014-11-01 19:06:17.231337000 Z
   updater: users_001
   user: users_001
 preferences_033:
   boolean_value: false
   created_at: 2014-10-31 18:36:11.789204000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 2
   name: interface.snippets.people.collapsed
   nature: boolean
-  updated_at: 2014-10-31 18:36:11.789204000 Z
+  updated_at: 2014-11-01 20:15:41.046269000 Z
   updater: users_001
   user: users_001
 preferences_034:
@@ -720,11 +720,19 @@ preferences_068:
 preferences_069:
   created_at: 2014-10-31 18:52:07.064184000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 3
   name: list._purchases_list_purchases_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 18:52:07.064184000 Z
+  string_value:
+    sort: created_at
+    dir: desc
+    only: content
+    action: list
+    controller: backend/purchases
+    hidden_columns: []
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-01 19:47:45.354939000 Z
   updater: users_001
   user: users_001
 preferences_070:
@@ -916,11 +924,22 @@ preferences_088:
 preferences_089:
   created_at: 2014-10-31 18:53:15.091180000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 4
   name: list._entities_list_entities_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 18:53:15.091180000 Z
+  string_value:
+    sort: last_name
+    dir: asc
+    only: content
+    action: list
+    controller: backend/entities
+    hidden_columns:
+    - :nature
+    page: 1
+    per_page: 50
+    visibility: hidden
+    column: nature
+  updated_at: 2014-11-01 17:02:05.979284000 Z
   updater: users_001
   user: users_001
 preferences_090:
@@ -1354,5 +1373,319 @@ preferences_133:
   nature: string
   string_value: {}
   updated_at: 2014-10-31 20:23:46.846173000 Z
+  updater: users_001
+  user: users_001
+preferences_134:
+  created_at: 2014-11-01 16:54:17.511757000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._documents_list_documents_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:17.511757000 Z
+  updater: users_001
+  user: users_001
+preferences_135:
+  created_at: 2014-11-01 16:54:40.487981000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/plants/index.html.haml:122:0.default
+  nature: string
+  updated_at: 2014-11-01 16:54:40.487981000 Z
+  updater: users_001
+  user: users_001
+preferences_136:
+  boolean_value: true
+  created_at: 2014-11-01 16:54:40.496049000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-plants-index-122.collapsed
+  nature: boolean
+  updated_at: 2014-11-01 16:54:40.496049000 Z
+  updater: users_001
+  user: users_001
+preferences_137:
+  created_at: 2014-11-01 16:54:40.504877000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._plants_list_plants_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:40.504877000 Z
+  updater: users_001
+  user: users_001
+preferences_138:
+  created_at: 2014-11-01 16:54:42.501602000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._plant_seedlings_list_plant_seedlings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:42.501602000 Z
+  updater: users_001
+  user: users_001
+preferences_139:
+  created_at: 2014-11-01 16:54:43.870413000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._plant_fertilizers_list_plant_fertilizers_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:43.870413000 Z
+  updater: users_001
+  user: users_001
+preferences_140:
+  created_at: 2014-11-01 16:54:51.291676000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._transformed_products_list_transformed_products_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:51.291676000 Z
+  updater: users_001
+  user: users_001
+preferences_141:
+  created_at: 2014-11-01 16:54:53.670621000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/matters/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-11-01 16:54:53.670621000 Z
+  updater: users_001
+  user: users_001
+preferences_142:
+  boolean_value: true
+  created_at: 2014-11-01 16:54:53.680109000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-fungi-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-11-01 16:54:53.680109000 Z
+  updater: users_001
+  user: users_001
+preferences_143:
+  created_at: 2014-11-01 16:54:53.687160000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._fungi_list_fungi_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:53.687160000 Z
+  updater: users_001
+  user: users_001
+preferences_144:
+  created_at: 2014-11-01 16:54:56.566215000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._cultivable_zones_list_cultivable_zones_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 16:54:56.566215000 Z
+  updater: users_001
+  user: users_001
+preferences_145:
+  created_at: 2014-11-01 18:21:46.897059000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._users_list_users_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 18:21:46.897059000 Z
+  updater: users_001
+  user: users_001
+preferences_146:
+  created_at: 2014-11-01 18:45:25.729424000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/productions/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-11-01 18:45:25.729424000 Z
+  updater: users_001
+  user: users_001
+preferences_147:
+  boolean_value: true
+  created_at: 2014-11-01 18:45:25.748340000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-productions-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-11-01 18:45:25.748340000 Z
+  updater: users_001
+  user: users_001
+preferences_148:
+  created_at: 2014-11-01 18:45:25.758793000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._productions_list_productions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 18:45:25.758793000 Z
+  updater: users_001
+  user: users_001
+preferences_149:
+  created_at: 2014-11-01 18:45:32.483176000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._productions_list_interventions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 18:45:32.483176000 Z
+  updater: users_001
+  user: users_001
+preferences_150:
+  created_at: 2014-11-01 18:45:35.799436000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._productions_list_supports_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 18:45:35.799436000 Z
+  updater: users_001
+  user: users_001
+preferences_151:
+  created_at: 2014-11-01 18:46:40.112074000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._manure_management_plans_list_manure_management_plans_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 18:46:40.112074000 Z
+  updater: users_001
+  user: users_001
+preferences_152:
+  created_at: 2014-11-01 18:47:54.272302000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._manure_management_plans_list_zones_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 18:47:54.272302000 Z
+  updater: users_001
+  user: users_001
+preferences_153:
+  created_at: 2014-11-01 19:25:17.240061000 Z
+  creator: users_001
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/animals/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2014-11-01 19:25:17.240061000 Z
+  updater: users_001
+  user: users_001
+preferences_154:
+  boolean_value: true
+  created_at: 2014-11-01 19:25:17.270656000 Z
+  creator: users_001
+  lock_version: 0
+  name: interface.kujakus.backend-animals-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-11-01 19:25:17.270656000 Z
+  updater: users_001
+  user: users_001
+preferences_155:
+  created_at: 2014-11-01 19:25:17.291760000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._animals_list_animals_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:25:17.291760000 Z
+  updater: users_001
+  user: users_001
+preferences_156:
+  created_at: 2014-11-01 19:25:29.115206000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._animals_list_children_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:25:29.115206000 Z
+  updater: users_001
+  user: users_001
+preferences_157:
+  created_at: 2014-11-01 19:25:29.127986000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._products_list_issues_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:25:29.127986000 Z
+  updater: users_001
+  user: users_001
+preferences_158:
+  created_at: 2014-11-01 19:25:29.137471000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._products_list_intervention_casts_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:25:29.137471000 Z
+  updater: users_001
+  user: users_001
+preferences_159:
+  created_at: 2014-11-01 19:39:20.807546000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._outgoing_deliveries_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:39:20.807546000 Z
+  updater: users_001
+  user: users_001
+preferences_160:
+  created_at: 2014-11-01 19:41:49.301591000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._sales_list_deliveries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:41:49.301591000 Z
+  updater: users_001
+  user: users_001
+preferences_161:
+  created_at: 2014-11-01 19:44:07.778580000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._purchases_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:44:07.778580000 Z
+  updater: users_001
+  user: users_001
+preferences_162:
+  created_at: 2014-11-01 19:44:07.803611000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._purchases_list_deliveries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 19:44:07.803611000 Z
+  updater: users_001
+  user: users_001
+preferences_163:
+  created_at: 2014-11-01 19:44:31.632618000 Z
+  creator: users_001
+  lock_version: 1
+  name: list._taxes_list_taxes_tag
+  nature: string
+  string_value:
+    sort: amount
+    dir: asc
+    only: content
+    action: list
+    controller: backend/taxes
+    hidden_columns: []
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-01 19:45:12.111817000 Z
+  updater: users_001
+  user: users_001
+preferences_164:
+  created_at: 2014-11-01 20:30:35.725488000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._products_list_readings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-01 20:30:35.725488000 Z
   updater: users_001
   user: users_001

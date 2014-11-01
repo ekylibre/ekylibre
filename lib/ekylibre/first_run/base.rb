@@ -188,12 +188,13 @@ module Ekylibre
         unless Ekylibre::Tenant.exist?(@name)
           Ekylibre::Tenant.create(@name)
         end
-        Ekylibre::Tenant.switch(@name)
 
         loaders = Ekylibre::FirstRun.loaders if loaders.empty?
 
-        for loader in loaders
-          execute_loader(loader)
+        Ekylibre::Tenant.switch(@name) do
+          loaders.each do |loader|
+            execute_loader(loader)
+          end
         end
       ensure
         Ekylibre::Tenant.check!(@name)

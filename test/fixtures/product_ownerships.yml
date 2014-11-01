@@ -146,3 +146,57 @@ product_ownerships_011:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.174480000 Z
   updater: users_001
+product_ownerships_012:
+  created_at: 2014-11-01 19:29:58.189055000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: animals_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.189055000 Z
+  updater: users_001
+product_ownerships_013:
+  created_at: 2014-11-01 19:35:50.390284000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: animals_006
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.390284000 Z
+  updater: users_001
+product_ownerships_014:
+  created_at: 2014-11-01 20:19:35.383374000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_011
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.383374000 Z
+  updater: users_001
+product_ownerships_015:
+  created_at: 2014-11-01 20:23:55.099381000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_012
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.099381000 Z
+  updater: users_001
+product_ownerships_016:
+  created_at: 2014-11-01 20:23:55.258045000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_013
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.258045000 Z
+  updater: users_001
+product_ownerships_017:
+  created_at: 2014-11-01 20:30:35.543589000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: workers_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:30:35.543589000 Z
+  updater: users_001

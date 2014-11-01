@@ -11,6 +11,8 @@
     = attributes_list do |l|
       - l.attribute :last_name
       - l.attribute :first_name
+      - l.attribute :administrator
+      - l.attribute :person, url: true
       - l.attribute :role, url: true
       - l.attribute :locked
       - l.attribute :commercial
@@ -18,5 +20,6 @@
       - l.attribute :establishment, label: :name
       - l.attribute :team, label: :name
 
-  - b.cell :rights do
-    = access_control_list(resource.rights)
+  - unless resource.administrator?
+    - b.cell :rights do
+      = access_control_list(resource.rights)

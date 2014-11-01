@@ -68,3 +68,25 @@ gap_items_002:
   tax: taxes_003
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+gap_items_003:
+  amount: 92.13
+  created_at: 2014-11-01 19:52:00.907532000 Z
+  creator: users_001
+  currency: EUR
+  gap: gaps_003
+  lock_version: 0
+  pretax_amount: 92.13
+  tax: taxes_002
+  updated_at: 2014-11-01 19:52:00.907532000 Z
+  updater: users_001
+gap_items_004:
+  amount: 24.87
+  created_at: 2014-11-01 19:52:00.910983000 Z
+  creator: users_001
+  currency: EUR
+  gap: gaps_003
+  lock_version: 0
+  pretax_amount: 20.79
+  tax: taxes_001
+  updated_at: 2014-11-01 19:52:00.910983000 Z
+  updater: users_001

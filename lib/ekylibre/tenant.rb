@@ -97,11 +97,11 @@ module Ekylibre
       end
       alias :current= :switch
 
-      def switch_default!
+      def switch_default!(&block)
         if list.empty?
           raise TenantError, "No default tenant"
         else
-          Apartment::Tenant.switch(list.first)
+          Apartment::Tenant.switch(list.first, &block)
         end
       end
 

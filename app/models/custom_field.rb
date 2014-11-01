@@ -82,7 +82,7 @@ class CustomField < Ekylibre::Record::Base
       if self.choice? and !self.index_exists?
         self.class.connection.add_index(self.customized_table_name, self.column_name)
       end
-      self.customized_model.reset_column_information
+      reset_schema
     end
   end
 
@@ -91,7 +91,7 @@ class CustomField < Ekylibre::Record::Base
     old = self.old_record
     if self.column_name != old.column_name and old.column_exists?
       self.class.connection.rename_column(self.customized_table_name, old.column_name, self.column_name)
-      self.customized_model.reset_column_information
+      reset_schema
     end
   end
 
@@ -102,8 +102,14 @@ class CustomField < Ekylibre::Record::Base
         self.class.connection.remove_index(self.customized_table_name, self.column_name)
       end
       self.class.connection.remove_column(self.customized_table_name, self.column_name)
-      self.customized_model.reset_column_information
+      reset_schema
     end
+  end
+
+  def reset_schema
+    self.customized_model.reset_column_information
+    # Force prepared SELECT to be deallocated
+    self.class.connection.execute "DEALLOCATE ALL"
   end
 
   def choices_count

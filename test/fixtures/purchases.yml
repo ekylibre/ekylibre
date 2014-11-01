@@ -75,60 +75,77 @@ purchases_001:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 purchases_002:
+  accounted_at: 2014-11-01 19:48:20.062713000 Z
   affair: affairs_002
-  amount: 0.0
+  amount: 77.74
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
-  lock_version: 0
+  description: ''
+  lock_version: 3
   nature: purchase_natures_001
   number: P000002
-  pretax_amount: 0.0
+  planned_at: 2014-10-31 17:19:00.000000000 Z
+  pretax_amount: 65.0
+  reference_number: ''
   state: draft
   supplier: legal_entities_003
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 19:48:20.052947000 Z
   updater: users_001
 purchases_003:
+  accounted_at: 2014-11-01 20:01:04.963338000 Z
   affair: affairs_003
-  amount: 0.0
+  amount: 63.82
+  confirmed_at: 2014-11-01 19:51:49.496925000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: EUR
-  lock_version: 0
+  description: ''
+  invoiced_at: 2014-10-31 17:19:00.000000000 Z
+  journal_entry: journal_entries_009
+  lock_version: 8
   nature: purchase_natures_001
   number: P000003
-  pretax_amount: 0.0
-  state: order
+  planned_at: 2014-10-31 17:19:00.000000000 Z
+  pretax_amount: 55.0
+  reference_number: ''
+  state: invoice
   supplier: legal_entities_003
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-01 20:01:04.601523000 Z
   updater: users_001
 purchases_004:
-  affair: affairs_004
-  amount: 0.0
+  accounted_at: 2014-11-01 19:46:24.846366000 Z
+  affair: affairs_008
+  amount: 592.02
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: USD
-  lock_version: 0
+  description: ''
+  lock_version: 1
   nature: purchase_natures_003
   number: P000004
   planned_at: 2009-08-19 22:00:00.000000000 Z
-  pretax_amount: 0.0
+  pretax_amount: 495.0
+  reference_number: ''
   state: order
-  supplier: legal_entities_003
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  supplier: entities_004
+  updated_at: 2014-11-01 19:46:24.838445000 Z
   updater: users_001
 purchases_005:
-  affair: affairs_005
-  amount: 0.0
+  accounted_at: 2014-11-01 19:44:07.681417000 Z
+  affair: affairs_007
+  amount: 6458.4
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
   currency: USD
-  lock_version: 0
+  description: ''
+  lock_version: 1
   nature: purchase_natures_003
   number: P000005
   planned_at: 2009-08-19 22:00:00.000000000 Z
-  pretax_amount: 0.0
+  pretax_amount: 5400.0
+  reference_number: ''
   state: order
-  supplier: legal_entities_003
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  supplier: entities_005
+  updated_at: 2014-11-01 19:44:07.659951000 Z
   updater: users_001

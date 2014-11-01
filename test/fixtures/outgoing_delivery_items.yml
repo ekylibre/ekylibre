@@ -56,11 +56,20 @@ outgoing_delivery_items_001:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
 outgoing_delivery_items_002:
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  created_at: 2014-11-01 19:41:23.880692000 Z
   creator: users_001
-  delivery: outgoing_deliveries_001
+  delivery: outgoing_deliveries_002
   lock_version: 0
-  population: 1.0
-  product: animals_002
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  population: 0.0
+  product: matters_003
+  updated_at: 2014-11-01 19:41:23.880692000 Z
+  updater: users_001
+outgoing_delivery_items_003:
+  created_at: 2014-11-01 19:41:40.584266000 Z
+  creator: users_001
+  delivery: outgoing_deliveries_003
+  lock_version: 0
+  population: 0.0
+  product: equipments_002
+  updated_at: 2014-11-01 19:41:40.584266000 Z
   updater: users_001

@@ -299,3 +299,451 @@ journal_entry_items_008:
   state: closed
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+journal_entry_items_009:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 150.0
+  account: accounts_001
+  balance: 0.0
+  created_at: 2014-11-01 19:48:47.144833000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 150.0
+  currency: EUR
+  debit: 150.0
+  entry: journal_entries_007
+  entry_number: XYZ0005
+  financial_year: financial_years_018
+  journal: journals_001
+  lock_version: 0
+  name: "[Encaissement IP002] In cash!  de Busbest Andrew"
+  position: 1
+  printed_on: 2009-07-19
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 150.0
+  state: draft
+  updated_at: 2014-11-01 19:48:47.144833000 Z
+  updater: users_001
+journal_entry_items_010:
+  absolute_credit: 150.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_206
+  balance: 0.0
+  created_at: 2014-11-01 19:48:47.164684000 Z
+  creator: users_001
+  credit: 150.0
+  cumulated_absolute_credit: 150.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_007
+  entry_number: XYZ0005
+  financial_year: financial_years_018
+  journal: journals_001
+  lock_version: 0
+  name: "[Encaissement IP002] In cash!  de Busbest Andrew"
+  position: 2
+  printed_on: 2009-07-19
+  real_credit: 150.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:48:47.164684000 Z
+  updater: users_001
+journal_entry_items_011:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 100.0
+  account: accounts_001
+  balance: 0.0
+  created_at: 2014-11-01 19:51:21.113180000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 250.0
+  currency: EUR
+  debit: 100.0
+  entry: journal_entries_008
+  entry_number: XYZ0006
+  financial_year: financial_years_018
+  journal: journals_001
+  lock_version: 0
+  name: "[Encaissement IP003] In cash!  de Yuey LTD"
+  position: 1
+  printed_on: 2009-07-19
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 100.0
+  state: draft
+  updated_at: 2014-11-01 19:51:21.113180000 Z
+  updater: users_001
+journal_entry_items_012:
+  absolute_credit: 100.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_202
+  balance: 0.0
+  created_at: 2014-11-01 19:51:21.137256000 Z
+  creator: users_001
+  credit: 100.0
+  cumulated_absolute_credit: 100.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_008
+  entry_number: XYZ0006
+  financial_year: financial_years_018
+  journal: journals_001
+  lock_version: 0
+  name: "[Encaissement IP003] In cash!  de Yuey LTD"
+  position: 2
+  printed_on: 2009-07-19
+  real_credit: 100.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:51:21.137256000 Z
+  updater: users_001
+journal_entry_items_013:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 117.0
+  account: accounts_202
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.001174000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 117.0
+  cumulated_absolute_debit: 117.0
+  currency: EUR
+  debit: 117.0
+  entry: journal_entries_011
+  entry_number: XYZ0008
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Profit TE000000000001] Yuey LTD"
+  position: 1
+  printed_on: 2014-11-01
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 117.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.001174000 Z
+  updater: users_001
+journal_entry_items_014:
+  absolute_credit: 92.13
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_132
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.017454000 Z
+  creator: users_001
+  credit: 92.13
+  cumulated_absolute_credit: 92.13
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_011
+  entry_number: XYZ0008
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Profit TE000000000001] Yuey LTD"
+  position: 2
+  printed_on: 2014-11-01
+  real_credit: 92.13
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.017454000 Z
+  updater: users_001
+journal_entry_items_015:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_033
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.032901000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_011
+  entry_number: XYZ0008
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Profit TE000000000001] Yuey LTD"
+  position: 3
+  printed_on: 2014-11-01
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.032901000 Z
+  updater: users_001
+journal_entry_items_016:
+  absolute_credit: 20.79
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_132
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.049892000 Z
+  creator: users_001
+  credit: 20.79
+  cumulated_absolute_credit: 112.92
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_011
+  entry_number: XYZ0008
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Profit TE000000000001] Yuey LTD"
+  position: 4
+  printed_on: 2014-11-01
+  real_credit: 20.79
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.049892000 Z
+  updater: users_001
+journal_entry_items_017:
+  absolute_credit: 4.08
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_033
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.065221000 Z
+  creator: users_001
+  credit: 4.08
+  cumulated_absolute_credit: 4.08
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_011
+  entry_number: XYZ0008
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Profit TE000000000001] Yuey LTD"
+  position: 5
+  printed_on: 2014-11-01
+  real_credit: 4.08
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.065221000 Z
+  updater: users_001
+journal_entry_items_018:
+  absolute_credit: 17.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_202
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.242841000 Z
+  creator: users_001
+  credit: 17.0
+  cumulated_absolute_credit: 134.0
+  cumulated_absolute_debit: 117.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_010
+  entry_number: XYZ0007
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 1
+  printed_on: 2014-11-01
+  real_credit: 17.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.242841000 Z
+  updater: users_001
+journal_entry_items_019:
+  absolute_credit: 10.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_206
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.256895000 Z
+  creator: users_001
+  credit: 10.0
+  cumulated_absolute_credit: 160.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_010
+  entry_number: XYZ0007
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 2
+  printed_on: 2014-11-01
+  real_credit: 10.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.256895000 Z
+  updater: users_001
+journal_entry_items_020:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 27.0
+  account: accounts_207
+  balance: 0.0
+  created_at: 2014-11-01 19:52:01.272084000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 90.82
+  cumulated_absolute_debit: 27.0
+  currency: EUR
+  debit: 27.0
+  entry: journal_entries_010
+  entry_number: XYZ0007
+  financial_year: financial_years_024
+  journal: journals_001
+  lock_version: 0
+  name: "[Affaire A000003] De Busbest Andrew"
+  position: 3
+  printed_on: 2014-11-01
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 27.0
+  state: draft
+  updated_at: 2014-11-01 19:52:01.272084000 Z
+  updater: users_001
+journal_entry_items_021:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 45.0
+  account: accounts_001
+  balance: 0.0
+  created_at: 2014-11-01 20:01:04.894802000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 295.0
+  currency: EUR
+  debit: 45.0
+  entry: journal_entries_009
+  entry_number: PUR000001
+  financial_year: financial_years_024
+  journal: journals_004
+  lock_version: 0
+  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
+  position: 1
+  printed_on: 2014-10-31
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 45.0
+  state: draft
+  updated_at: 2014-11-01 20:01:04.894802000 Z
+  updater: users_001
+journal_entry_items_022:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 8.82
+  account: accounts_039
+  balance: 0.0
+  created_at: 2014-11-01 20:01:04.913517000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 8.82
+  currency: EUR
+  debit: 8.82
+  entry: journal_entries_009
+  entry_number: PUR000001
+  financial_year: financial_years_024
+  journal: journals_004
+  lock_version: 0
+  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
+  position: 2
+  printed_on: 2014-10-31
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 8.82
+  state: draft
+  updated_at: 2014-11-01 20:01:04.913517000 Z
+  updater: users_001
+journal_entry_items_023:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 10.0
+  account: accounts_001
+  balance: 0.0
+  created_at: 2014-11-01 20:01:04.932183000 Z
+  creator: users_001
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 305.0
+  currency: EUR
+  debit: 10.0
+  entry: journal_entries_009
+  entry_number: PUR000001
+  financial_year: financial_years_024
+  journal: journals_004
+  lock_version: 0
+  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
+  position: 3
+  printed_on: 2014-10-31
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 10.0
+  state: draft
+  updated_at: 2014-11-01 20:01:04.932183000 Z
+  updater: users_001
+journal_entry_items_024:
+  absolute_credit: 63.82
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account: accounts_207
+  balance: 0.0
+  created_at: 2014-11-01 20:01:04.950735000 Z
+  creator: users_001
+  credit: 63.82
+  cumulated_absolute_credit: 63.82
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry: journal_entries_009
+  entry_number: PUR000001
+  financial_year: financial_years_024
+  journal: journals_004
+  lock_version: 0
+  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
+  position: 4
+  printed_on: 2014-10-31
+  real_credit: 63.82
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-01 20:01:04.950735000 Z
+  updater: users_001

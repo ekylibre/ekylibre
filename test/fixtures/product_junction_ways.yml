@@ -196,3 +196,68 @@ product_junction_ways_013:
   role: product
   updated_at: 2014-11-01 16:01:24.194166000 Z
   updater: users_001
+product_junction_ways_014:
+  created_at: 2014-11-01 19:29:58.256910000 Z
+  creator: users_001
+  junction: product_births_012
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road: animals_005
+  role: product
+  updated_at: 2014-11-01 19:29:58.256910000 Z
+  updater: users_001
+product_junction_ways_015:
+  created_at: 2014-11-01 19:35:50.401187000 Z
+  creator: users_001
+  junction: product_births_013
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road: animals_006
+  role: product
+  updated_at: 2014-11-01 19:35:50.401187000 Z
+  updater: users_001
+product_junction_ways_016:
+  created_at: 2014-11-01 20:19:35.427159000 Z
+  creator: users_001
+  junction: product_births_014
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road: matters_011
+  role: product
+  updated_at: 2014-11-01 20:19:35.427159000 Z
+  updater: users_001
+product_junction_ways_017:
+  created_at: 2014-11-01 20:23:55.168744000 Z
+  creator: users_001
+  junction: product_births_015
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road: matters_012
+  role: product
+  updated_at: 2014-11-01 20:23:55.168744000 Z
+  updater: users_001
+product_junction_ways_018:
+  created_at: 2014-11-01 20:23:55.268692000 Z
+  creator: users_001
+  junction: product_births_016
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road: matters_013
+  role: product
+  updated_at: 2014-11-01 20:23:55.268692000 Z
+  updater: users_001
+product_junction_ways_019:
+  created_at: 2014-11-01 20:30:35.608922000 Z
+  creator: users_001
+  junction: product_births_017
+  lock_version: 0
+  nature: start
+  road: workers_004
+  role: product
+  updated_at: 2014-11-01 20:30:35.608922000 Z
+  updater: users_001
