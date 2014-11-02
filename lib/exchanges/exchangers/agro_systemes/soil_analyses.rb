@@ -5,7 +5,11 @@ Exchanges.add_importer(:agro_systemes_soil_analyses) do |file, w|
     analyser = LegalEntity.create!(analyser_attributes)
   end
 
-  rows = CSV.read(file, encoding: "CP1252", col_sep: "\t", headers: true)
+  begin
+    rows = CSV.read(file, encoding: "CP1252", col_sep: "\t", headers: true)
+  rescue
+    raise NotWellFormedFileError
+  end
   w.count = rows.size
 
   rows.each do |row|

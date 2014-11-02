@@ -10,8 +10,12 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
   }
 
   version = nil
-  File.open(file, "rb:CP1252") do |f|
-    version = f.readline.to_s[13..16].to_i
+  begin
+    File.open(file, "rb:CP1252") do |f|
+      version = f.readline.to_s[13..16].to_i
+    end
+  rescue
+    raise NotWellFormedFileError
   end
   used_versions = [8550]
   version = used_versions.select{|x| x <= version}.sort[-1]

@@ -38,6 +38,8 @@ class Backend::ImportsController < BackendController
       Import.find(import.id).run
     rescue Exchanges::Error => e
       notify_error :cannot_import_file, message: e.message
+    rescue Exception => e
+      notify_error :exception_raised, message: e.message
     end
     # TODO: Activate background tasks
     # ImportJob.enqueue(import.id)
