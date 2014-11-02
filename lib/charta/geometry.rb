@@ -25,7 +25,7 @@ module Charta
           end
         end
       else
-        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.to_text}', #{coordinates.srid}))")
+        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.as_text}', #{coordinates.srid}))")
       end
       if @ewkt.blank?
         raise ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
@@ -51,6 +51,7 @@ module Charta
     def to_text
       return select_value("SELECT ST_AsText(#{self.geom})")
     end
+    alias :as_text :to_text
 
     def to_ewkt
       return @ewkt
