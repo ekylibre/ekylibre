@@ -113,7 +113,6 @@ class Backend::InterventionsController < BackendController
     end
     begin
       updates = procedure.impact(params[:casting], params[:global], params[:updater])
-      raise Procedo::Errors::UnavailableReading, "No way to access readings for second_food_input_to_use"
       respond_to do |format|
         format.xml  { render xml: updates.to_xml }
         format.json { render json: updates.to_json }
