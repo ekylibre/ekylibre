@@ -66,11 +66,11 @@ class CustomField < Ekylibre::Record::Base
 
   # default_scope -> { order(:customized_type, :position) }
   scope :actives, -> { where(active: true).order(:position) }
-  scope :of, lambda { |model| where(active: true, customized_type: model).order(:position) }
+  scope :of, lambda { |model| (customized_type.values.include?(model) ? where(active: true, customized_type: model).order(:position)  : none)}
 
   before_validation do
     self.column_name = ("_" + self.name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, ''))[0..62]
-    while self.class.where(:column_name => self.column_name, :customized_type => self.customized_type).where("id != ?", self.id || 0).any?
+    while self.others.where(column_name: self.column_name, customized_type: self.customized_type).any?
       self.column_name.succ!
     end
   end

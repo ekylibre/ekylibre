@@ -23,20 +23,19 @@ class Backend::HelpsController < BackendController
   # Save the shown/hidden state of the help
   def toggle
     collapsed = !params[:collapsed].to_i.zero?
-    p = current_user.preference("interface.helps.collapsed", true, :boolean)
-    p.set!(collapsed)
+    current_user.prefer!("interface.helps.collapsed", collapsed, :boolean)
     head :ok
   end
 
   def show
     file = search_article(params[:id])
     if request.xhr?
-      render :partial => 'search', :object => file
+      render partial: 'search', object: file
       return
     else
       @help = file
     end
-    t3e :title => Ekylibre.helps[file][:title]
+    t3e title: Ekylibre.helps[file][:title]
   end
 
 
@@ -44,7 +43,7 @@ class Backend::HelpsController < BackendController
   def index
     per_page = 10
     if request.xhr?
-      render :inline => "<%=article(params[:article], :url => {controller: :helps, action: :index, id: '\1'}, :update => :helpage)-%>"
+      render :inline => "<%= article(params[:article], url: {controller: :helps, action: :index, id: '\1'}, update: :helpage) -%>"
     else
       @search = {}
       page = params[:page].to_i
@@ -55,21 +54,21 @@ class Backend::HelpsController < BackendController
 
       results = Ekylibre.helps[I18n.locale].values
 
-      if key_words.size > 0
+      if key_words.any?
         @search[:words] = key_words
         reg = /(#{key_words.join("|")})/i
         results.delete_if do |details|
           file = details["file"]
           File.open(file, "rb:UTF-8") do |f|
             data = f.read
-            details.update(:count => data.scan(reg).size)
+            details.update(count: data.scan(reg).size)
           end
           details[:count].zero?
         end
 
       @search[:count] = results.size
 
-      if results.size > 0
+      if results.any?
         results.sort!{|a,b| b[:count] <=> a[:count]}
         max = results.first[:count].to_i
         results.each{|r| r[:pertinence] = (max.zero? ? 0 : (100*r[:count]/max).to_i)}
@@ -78,8 +77,8 @@ class Backend::HelpsController < BackendController
       @search[:records] = results[((page-1) * per_page)..(page * per_page - 1)]
       @search[:last_page] = (@search[:count].to_f / per_page).ceil
 
-      if @search[:records].size.zero? and page > 1
-        redirect_to(:q => params[:q], :page => 1)
+      if @search[:records].empty? and page > 1
+        redirect_to(q: params[:q], page: 1)
       end
       end
       params[:page] = page

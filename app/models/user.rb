@@ -149,12 +149,10 @@ class User < Ekylibre::Record::Base
   end
 
   # Find or create preference for given name
-  def preference(name, value = nil, nature = :string)
-    unless p = self.preferences.reorder(:id).find_by(name: name)
-      p = self.preferences.build
-      p.name   = name
-      p.nature = nature.to_s
-      p.value  = value
+  def preference(name, default_value = nil, nature = :string)
+    unless p = self.preferences.find_by(name: name)
+      p = self.preferences.build(name: name, nature: nature.to_s)
+      p.value  = default_value
       p.save!
     end
     return p
@@ -162,10 +160,8 @@ class User < Ekylibre::Record::Base
   alias :pref :preference
 
   def prefer!(name, value, nature = :string)
-    unless p = self.preferences.reorder(:id).find_by(name: name)
-      p = self.preferences.build
-      p.name   = name
-      p.nature = nature.to_s
+    unless p = self.preferences.find_by(name: name)
+      p = self.preferences.build(name: name, nature: nature.to_s)
     end
     p.value = value
     p.save!
