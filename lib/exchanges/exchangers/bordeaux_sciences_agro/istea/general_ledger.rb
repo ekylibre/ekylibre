@@ -12,7 +12,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
   count = 0
   entry,old = nil, nil
-  accounts, journals, entities = {}, {}, {}
+  used_numbers, accounts, journals, entities = {}, {}, {}, {}
   rows.each_with_index do |row, index|
     entry_number = row[4].to_s
     entry_number.gsub!(/[^0-9a-z]/i, '')
@@ -52,10 +52,11 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
       fy = FinancialYear.at(r.printed_on)
       number = r.entry_number
       number = r.journal.code + (10_000_000_000 + rand(10_000_000_000)).to_s(36) if number.blank?
-      number = number.mb_chars.upcase
-      while JournalEntry.where(number: number).any?
+      number.upcase!
+      while used_numbers[number]
         number.succ!
       end
+      used_numbers[number] = true
       entry = {
         printed_on: r.printed_on,
         journal: r.journal,
@@ -70,20 +71,25 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
     # Adds a real entity with known information
     if r.account.number.match(/^4(0|1)\d/)
       last_name = r.entity_name.mb_chars.capitalize
+      modified = false
       entities[last_name] ||= Entity.where("last_name ILIKE ?", last_name).first || LegalEntity.create!(last_name: last_name, nature: "legal_entity", first_met_at: r.printed_on)
       entity = entities[last_name]
       if entity.first_met_at and r.printed_on and r.printed_on < entity.first_met_at
         entity.first_met_at = r.printed_on
+        modified = true
       end
-      if r.account.number.match(/^401/)
+      account_number = r.account.number
+      if account_number.match(/^401/)
         entity.supplier = true
         entity.supplier_account_id = r.account.id
+        modified = true
       end
-      if r.account.number.match(/^411/)
+      if account_number.match(/^411/)
         entity.client = true
         entity.client_account_id = r.account.id
+        modified = true
       end
-      entity.save
+      entity.save if modified
     end
 
     old = r
@@ -91,6 +97,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
     w.check_point if count % w_count
   end
 
+  count, entry,old, used_numbers, accounts, journals, entities = nil
   GC.start
 
 end
