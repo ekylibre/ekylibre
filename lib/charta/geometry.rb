@@ -7,8 +7,8 @@ module Charta
     def initialize(coordinates, srs = nil)
       if coordinates.is_a?(self.class)
         @ewkt = coordinates.ewkt
-      elsif coordinates.is_a?(Hash) or (coordinates.is_a?(String) and coordinates =~ /\A\{.*\}\z/) # GeoJSON
-        srid = find_srid(srs)
+      elsif coordinates.is_a?(Hash) or (coordinates.is_a?(String) and ::Charta::GeoJSON.valid?(coordinates)) # GeoJSON
+        srid = srs ? find_srid(srs) : :WGS84
         @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{::Charta::GeoJSON.new(coordinates, srid).to_ewkt}'))")
       elsif coordinates.is_a?(String)
         if coordinates =~ /\A[A-F0-9]+\z/ # WKB
@@ -25,7 +25,7 @@ module Charta
           end
         end
       else
-        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.as_text}', #{coordinates.srid}))")
+        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.to_text}', #{coordinates.srid}))")
       end
       if @ewkt.blank?
         raise ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
