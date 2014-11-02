@@ -62,6 +62,7 @@ class Purchase < Ekylibre::Record::Base
   has_many :journal_entries, :as => :resource
   has_many :products, -> { uniq }, :through => :items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :state, allow_nil: true, maximum: 60

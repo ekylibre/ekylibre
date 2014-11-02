@@ -180,6 +180,7 @@ class Product < Ekylibre::Record::Base
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :initial_population, allow_nil: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120

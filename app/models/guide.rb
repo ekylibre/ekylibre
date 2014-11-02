@@ -50,6 +50,7 @@ class Guide < Ekylibre::Record::Base
   has_attached_file :reference_source, path: ':tenant/:class/:id/source.xml'
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :reference_source_updated_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :reference_source_file_size, allow_nil: true, only_integer: true
   validates_length_of :frequency, :name, :nature, :reference_name, :reference_source_content_type, :reference_source_file_name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :external, in: [true, false]

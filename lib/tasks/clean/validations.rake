@@ -11,7 +11,7 @@ namespace :clean do
     Clean::Support.models_in_file.each do |model|
       log.write("> #{model.name}...\n")
       begin
-        file = Rails.root.join("app", "models", model.name.underscore + ".rb")
+        file = Rails.root.join("app", "models", "#{model.name.underscore}.rb")
         if file.exist? and !model.abstract_class?
 
           # Get content

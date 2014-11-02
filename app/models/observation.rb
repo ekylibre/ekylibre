@@ -42,6 +42,7 @@ class Observation < Ekylibre::Record::Base
   belongs_to :subject, polymorphic: true
   belongs_to :author, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :observed_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :importance, allow_nil: true, maximum: 10
   validates_length_of :subject_type, allow_nil: true, maximum: 255
   validates_presence_of :author, :content, :importance, :observed_at, :subject, :subject_type

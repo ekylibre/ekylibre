@@ -43,6 +43,7 @@ class AnalyticDistribution < Ekylibre::Record::Base
 
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :affected_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :affectation_percentage, allow_nil: true
   validates_length_of :state, allow_nil: true, maximum: 255
   validates_presence_of :affectation_percentage, :affected_at, :journal_entry_item, :production, :state

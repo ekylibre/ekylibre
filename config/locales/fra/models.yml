@@ -162,6 +162,8 @@ fra:
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
+        after: "%{attribute} doit être après le %{restriction}"
+        before: "%{attribute} doit être avant le %{restriction}"
         blank: "%{attribute} ne peut pas être vide"
         confirmation: "%{attribute} est différent du champ de confirmation"
         contains_blank_line: "%{attribute} contient une ligne vide" #?
@@ -178,8 +180,12 @@ fra:
         inclusion: "%{attribute} n’est pas inclus dans la liste"
         invalid: "%{attribute} est invalide"
         invalid_at: "%{attribute} est invalide. Erreur près de %{error}"
+        invalid_date: "%{attribute} est invalide"
+        invalid_datetime: "%{attribute} est invalide"
         invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}" #?
+        invalid_time: "%{attribute} est invalide"
         invalid_token: "%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}."
+        is_at: "%{attribute} doit être le %{restriction}"
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
@@ -187,6 +193,8 @@ fra:
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
+        on_or_after: "%{attribute} doit être le ou après le %{restriction}"
+        on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "La date %{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"

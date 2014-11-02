@@ -82,6 +82,7 @@ gem 'acts_as_list'
 gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0.rc3'
 gem 'enumerize'
+gem 'validates_timeliness', '~> 3.0'
 
 # Authentication & Authorization
 gem 'devise'

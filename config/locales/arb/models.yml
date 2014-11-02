@@ -645,6 +645,8 @@ arb:
     errors:
       messages:
         accepted: "%{attribute} يجب أن تكون مقبولة"
+        # after: "%{attribute} must be after %{restriction}"
+        # before: "%{attribute} must be before %{restriction}"
         blank: "%{attribute} لا يمكن أن تكون فارغة"
         confirmation: "%{attribute} لا تطابق التثبيت"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
@@ -658,7 +660,11 @@ arb:
         inclusion: "%{attribute} ليست مدرجة بالقائمة"
         invalid: "%{attribute} غير متوفر"
         invalid_at: "%{attribute} غير_متوفر. %{error} على مقربة من الخطأ"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
         invalid_token: "%{attribute} غير متوفر.%{error} النموذج غير معروف.%{accepted} النماذج المقبولة هي"
+        # is_at: "%{attribute} must be at %{restriction}"
         less_than: "%{attribute} يجب ان يكون اقل من %{count}"
         less_than_or_equal_to: "%{attribute} يجب ان يكون اقل او يساو %{count}"
         # must_be_a_mail_address: "%{attribute} must be a mail address"
@@ -666,6 +672,8 @@ arb:
         # not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"

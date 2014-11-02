@@ -82,6 +82,7 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_length_of :language, allow_nil: true, maximum: 3

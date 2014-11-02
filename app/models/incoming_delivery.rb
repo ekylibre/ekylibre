@@ -51,6 +51,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   enumerize :mode, in: Nomen::DeliveryModes.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :received_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :net_mass, allow_nil: true
   validates_length_of :mode, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :number, :sender

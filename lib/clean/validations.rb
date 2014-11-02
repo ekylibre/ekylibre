@@ -16,28 +16,35 @@ module Clean
 
         columns = model.content_columns.delete_if{|c| !validable_column?(c)}.sort{|a,b| a.name.to_s <=> b.name.to_s}
 
+        cs = columns.select{|c| c.type == :date}
+        code << "  validates_date " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')\n" if cs.any?
+
+        cs = columns.select{|c| c.type == :datetime or c.type == :timestamp}
+        code << "  validates_datetime " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, on_or_after: Date.civil(1,1,1)\n" if cs.any?
+
         cs = columns.select{|c| c.type == :integer}
-        code << "  validates_numericality_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", allow_nil: true, only_integer: true\n" if cs.size > 0
+        code << "  validates_numericality_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, only_integer: true\n" if cs.any?
 
         cs = columns.select{|c| c.number? and c.type != :integer}
-        code << "  validates_numericality_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", allow_nil: true\n" if cs.size > 0
+        code << "  validates_numericality_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true\n" if cs.any?
 
-        limits = columns.select{|c| c.text? and c.limit}.collect{|c| c.limit}.uniq.sort
+        limits = columns.select{|c| c.text? and c.limit}.map{|c| c.limit}.uniq.sort
         for limit in limits
           cs = columns.select{|c| c.text? and c.limit == limit}
-          code << "  validates_length_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", allow_nil: true, maximum: #{limit}\n"
+          code << "  validates_length_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, maximum: #{limit}\n"
         end
 
         cs = columns.select{|c| not c.null and c.type == :boolean}
-        code << "  validates_inclusion_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", in: [true, false]\n" if cs.size > 0 # , :message => 'activerecord.errors.messages.blank'.to_sym
+        code << "  validates_inclusion_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", in: [true, false]\n" if cs.any?
 
-        needed = columns.select{|c| not c.null and c.type != :boolean}.collect{|c| ":#{c.name}"}
+        needed = columns.select{|c| not c.null and c.type != :boolean}.map{|c| ":#{c.name}"}
         needed += model.reflect_on_all_associations(:belongs_to).select do |association|
-          column = model.columns_hash[association.foreign_key.to_s]
-          raise StandardError.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
+          unless column = model.columns_hash[association.foreign_key.to_s]
+            raise StandardError, "Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'"
+          end
           !column.null and validable_column?(column)
-        end.collect{|r| ":#{r.name}"}
-        code << "  validates_presence_of "+needed.sort.join(', ')+"\n" if needed.size > 0
+        end.map{|r| ":#{r.name}"}
+        code << "  validates_presence_of "+needed.sort.join(', ')+"\n" if needed.any?
 
         return code
       end

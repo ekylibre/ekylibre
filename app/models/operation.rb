@@ -61,6 +61,7 @@ class Operation < Ekylibre::Record::Base
   has_many :product_triple_mixings,    dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :intervention, :reference_name, :started_at, :stopped_at

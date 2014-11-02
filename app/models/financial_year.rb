@@ -44,6 +44,7 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :account_balances, class_name: "AccountBalance", foreign_key: :financial_year_id, dependent: :delete_all
   has_many :financial_asset_depreciations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_date :started_on, :stopped_on, allow_nil: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, allow_nil: true, maximum: 20

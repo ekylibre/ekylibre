@@ -45,6 +45,7 @@ class ProductLinkage < Ekylibre::Record::Base
   enumerize :nature, in: [:available, :unavailable, :occupied], default: :available, predicates: true
   enumerize :point, in: [:rear, :front]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :nature, :originator_type, :point, allow_nil: true, maximum: 255
   validates_presence_of :carrier, :nature, :point
   #]VALIDATORS]
