@@ -89,15 +89,15 @@ sequences_003:
   creator: users_001
   last_cweek: 44
   last_month: 11
-  last_number: 15
+  last_number: 23
   last_year: 2014
-  lock_version: 17
+  lock_version: 25
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 20:39:33.548739000 Z
+  updated_at: 2014-11-02 18:38:47.147850000 Z
   updater: users_001
   usage: products
 sequences_004:
@@ -249,15 +249,15 @@ sequences_015:
   creator: users_001
   last_cweek: 44
   last_month: 11
-  last_number: 1
+  last_number: 7
   last_year: 2014
-  lock_version: 2
+  lock_version: 8
   name: Intervention
   number_format: "[number]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 20:36:26.221985000 Z
+  updated_at: 2014-11-02 18:37:42.467998000 Z
   updater: users_001
   usage: interventions
 sequences_016:
@@ -361,15 +361,15 @@ sequences_024:
   creator: users_001
   last_cweek: 44
   last_month: 11
-  last_number: 8
+  last_number: 14
   last_year: 2014
-  lock_version: 8
+  lock_version: 14
   name: Variante de type de produit
   number_format: GWNVKRYVPNV[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 20:26:13.068075000 Z
+  updated_at: 2014-11-02 18:36:36.380242000 Z
   updater: users_001
   usage: product_nature_variants
 sequences_025:

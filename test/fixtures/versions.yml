@@ -1804,3 +1804,703 @@ versions_036:
     creator_id: 1
     person_id: 8
     initial_shape:
+versions_037:
+  created_at: 2014-11-02 18:22:30.494390000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: equipments_004 (Equipment)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 76
+    type: Equipment
+    name: Tracteur
+    number: PR00000000016
+    variant_id: 26
+    nature_id: 21
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2002-12-14 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: tractor
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:22:30.483623000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_038:
+  created_at: 2014-11-02 18:22:39.397058000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: equipments_004 (Equipment)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 76
+    type: Equipment
+    name: Tracteur BH-845
+    number: PR00000000016
+    variant_id: 26
+    nature_id: 21
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2002-12-14 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: tractor
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2002-12-14 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:22:30.483623000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_039:
+  created_at: 2014-11-02 18:23:23.654787000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: equipments_005 (Equipment)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 77
+    type: Equipment
+    name: Broyeur
+    number: PR00000000017
+    variant_id: 25
+    nature_id: 22
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2007-08-22 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: plower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:23:23.650907000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_040:
+  created_at: 2014-11-02 18:23:36.528020000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: equipments_005 (Equipment)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 77
+    type: Equipment
+    name: Broyeur ZK8000
+    number: PR00000000017
+    variant_id: 25
+    nature_id: 22
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2007-08-22 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: plower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2007-08-22 22:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:23:23.650907000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_041:
+  created_at: 2014-11-02 18:29:41.473807000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: equipments_006 (Equipment)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 78
+    type: Equipment
+    name: Charrue T1000
+    number: PR00000000019
+    variant_id: 27
+    nature_id: 23
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2005-09-14 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: plower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:29:41.469233000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_042:
+  created_at: 2014-11-02 18:33:01.551632000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: cultivable_zones_004 (CultivableZone)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 79
+    type: CultivableZone
+    name: Zone cultivable 4
+    number: PR00000000020
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1972-04-24 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:33:01.548071000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8177894353866580 45.5943078511944009,
+        -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
+        -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
+        -0.8177894353866580 45.5943078511944009)))
+versions_043:
+  created_at: 2014-11-02 18:37:22.388480000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: equipments_007 (Equipment)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 80
+    type: Equipment
+    name: Semoir TG74
+    number: PR00000000021
+    variant_id: 29
+    nature_id: 25
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 1997-01-22 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 18
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: sower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 18
+    created_at: 2014-11-02 18:37:22.384578000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_044:
+  created_at: 2014-11-02 18:38:47.085576000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: matters_014 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 81
+    type: Matter
+    name: Semences
+    number: PR00000000022
+    variant_id: 10
+    nature_id: 10
+    category_id: 5
+    extjuncted: true
+    initial_born_at: 2014-11-02 17:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 19
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1905E1
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: triticum_aestivum_rubisko
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 19
+    created_at: 2014-11-02 18:38:47.081597000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_045:
+  created_at: 2014-11-02 18:38:47.155014000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: create
+  item: plants_004 (Plant)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 82
+    type: Plant
+    name: Culture de blé
+    number: PR00000000023
+    variant_id: 16
+    nature_id: 15
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2014-11-02 17:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.8031E0
+    initial_father_id:
+    initial_mother_id:
+    variety: triticum_aestivum
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:38:47.150196000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8177894353866580 45.5943078511944009, -0.8177626132965090
+        45.5939962959363001, -0.8178430795669560 45.5937673204872027, -0.8168962597846980
+        45.5934848535846982, -0.8162477015139300 45.5944092001223993, -0.8177894353866580
+        45.5943078511944009)))
+versions_046:
+  created_at: 2014-11-02 18:38:47.249893000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: matters_007 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 47
+    type: Matter
+    name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+    number: '40008'
+    variant_id: 10
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.7E1
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: triticum_aestivum_rubisko
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-10-31 20:23:37.051610000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:23:37.029761000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_047:
+  created_at: 2014-11-02 18:38:47.531262000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: matters_014 (Matter)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 81
+    type: Matter
+    name: Semences
+    number: PR00000000022
+    variant_id: 10
+    nature_id: 10
+    category_id: 5
+    extjuncted: true
+    initial_born_at: 2014-11-02 17:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 19
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1905E1
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: triticum_aestivum_rubisko
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-02 11:06:30.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 19
+    created_at: 2014-11-02 18:38:47.081597000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+versions_048:
+  created_at: 2014-11-02 18:38:47.548098000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: cultivable_zones_004 (CultivableZone)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 79
+    type: CultivableZone
+    name: Zone cultivable 4
+    number: PR00000000020
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1972-04-24 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1972-04-24 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:33:01.548071000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8177894353866580 45.5943078511944009,
+        -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
+        -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
+        -0.8177894353866580 45.5943078511944009)))
+versions_049:
+  created_at: 2014-11-02 18:38:47.590134000 Z
+  creator: users_001
+  creator_name: Gendo IKARI
+  event: update
+  item: cultivable_zones_004 (CultivableZone)
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 79
+    type: CultivableZone
+    name: Zone cultivable 4
+    number: PR00000000020
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1972-04-24 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1972-04-24 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:33:01.548071000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8177894353866580 45.5943078511944009,
+        -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
+        -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
+        -0.8177894353866580 45.5943078511944009)))

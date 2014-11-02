@@ -192,6 +192,51 @@ product_births_017:
   type: ProductBirth
   updated_at: 2014-11-01 20:30:35.607786000 Z
   updater: users_001
+product_births_018:
+  created_at: 2014-11-02 18:22:30.604256000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2002-12-14 23:00:00.000000000 Z
+  stopped_at: 2002-12-14 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-02 18:22:30.604256000 Z
+  updater: users_001
+product_births_019:
+  created_at: 2014-11-02 18:23:23.681225000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2007-08-22 22:00:00.000000000 Z
+  stopped_at: 2007-08-22 22:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-02 18:23:23.681225000 Z
+  updater: users_001
+product_births_020:
+  created_at: 2014-11-02 18:29:41.498152000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 2005-09-14 22:00:00.000000000 Z
+  stopped_at: 2005-09-14 22:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-02 18:29:41.498152000 Z
+  updater: users_001
+product_births_021:
+  created_at: 2014-11-02 18:33:01.579746000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 1972-04-24 23:00:00.000000000 Z
+  stopped_at: 1972-04-24 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-02 18:33:01.579746000 Z
+  updater: users_001
+product_births_022:
+  created_at: 2014-11-02 18:37:22.425817000 Z
+  creator: users_001
+  lock_version: 0
+  started_at: 1997-01-22 23:00:00.000000000 Z
+  stopped_at: 1997-01-22 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-02 18:37:22.425817000 Z
+  updater: users_001
 product_consumptions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
@@ -206,6 +251,16 @@ product_consumptions_002:
   type: ProductConsumption
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater: users_001
+product_consumptions_003:
+  created_at: 2014-11-02 18:38:47.519907000 Z
+  creator: users_001
+  lock_version: 0
+  operation: operations_007
+  started_at: 2014-11-02 04:43:00.000000000 Z
+  stopped_at: 2014-11-02 11:06:30.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-02 18:38:47.519907000 Z
+  updater: users_001
 product_creations_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
@@ -219,6 +274,16 @@ product_creations_002:
   lock_version: 0
   type: ProductCreation
   updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater: users_001
+product_creations_003:
+  created_at: 2014-11-02 18:38:47.566866000 Z
+  creator: users_001
+  lock_version: 0
+  operation: operations_007
+  started_at: 2014-11-02 04:43:00.000000000 Z
+  stopped_at: 2014-11-02 11:06:30.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-02 18:38:47.566866000 Z
   updater: users_001
 product_deaths_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -247,6 +312,16 @@ product_divisions_002:
   lock_version: 0
   type: ProductDivision
   updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater: users_001
+product_divisions_003:
+  created_at: 2014-11-02 18:38:47.219767000 Z
+  creator: users_001
+  lock_version: 0
+  operation: operations_007
+  started_at: 2014-11-02 04:43:00.000000000 Z
+  stopped_at: 2014-11-02 11:06:30.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-02 18:38:47.219767000 Z
   updater: users_001
 product_mergings_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

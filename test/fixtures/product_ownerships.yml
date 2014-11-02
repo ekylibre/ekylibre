@@ -200,3 +200,66 @@ product_ownerships_017:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:30:35.543589000 Z
   updater: users_001
+product_ownerships_018:
+  created_at: 2014-11-02 18:22:30.560437000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: equipments_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:22:30.560437000 Z
+  updater: users_001
+product_ownerships_019:
+  created_at: 2014-11-02 18:23:23.669242000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: equipments_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:23:23.669242000 Z
+  updater: users_001
+product_ownerships_020:
+  created_at: 2014-11-02 18:29:41.487256000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: equipments_006
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:29:41.487256000 Z
+  updater: users_001
+product_ownerships_021:
+  created_at: 2014-11-02 18:33:01.569080000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: cultivable_zones_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.569080000 Z
+  updater: users_001
+product_ownerships_022:
+  created_at: 2014-11-02 18:37:22.405291000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: equipments_007
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.405291000 Z
+  updater: users_001
+product_ownerships_023:
+  created_at: 2014-11-02 18:38:47.097454000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: matters_014
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.097454000 Z
+  updater: users_001
+product_ownerships_024:
+  created_at: 2014-11-02 18:38:47.169959000 Z
+  creator: users_001
+  lock_version: 0
+  nature: unknown
+  product: plants_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.169959000 Z
+  updater: users_001

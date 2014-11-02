@@ -41,6 +41,8 @@
       @element.removeAttr "name"
       if @element.attr("required") is "true"
         @valueField.attr "required", "true"
+      unless @valueField.val()? and @valueField.val() != ''
+        @valueField.attr("value", @element.val())
       this._on @element,
         keypress: "_keypress"
         keyup: "_keyup"
@@ -75,8 +77,9 @@
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
             that._select listItem.id, listItem.label, triggerEvents
+            that.element.prop("ready", true)
           else
-            console.log "JSON cannot be parsed. Get: #{request.responseText}."
+            console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
           alert "Cannot get details of item on #{this.sourceURL} (#{status}): #{error}"
       this

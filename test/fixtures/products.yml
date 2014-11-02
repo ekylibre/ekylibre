@@ -485,6 +485,27 @@ cultivable_zones_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: cultivable_zone
+cultivable_zones_004:
+  born_at: 1972-04-24 23:00:00.000000000 Z
+  category: product_nature_categories_015
+  created_at: 2014-11-02 18:33:01.548071000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_born_at: 1972-04-24 23:00:00.000000000 Z
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.817789435386658 45.5943078511944,-0.817762613296509
+    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
+    45.5944092001224,-0.817789435386658 45.5943078511944)))
+  lock_version: 0
+  name: Zone cultivable 4
+  nature: product_natures_024
+  number: PR00000000020
+  type: CultivableZone
+  updated_at: 2014-11-02 18:33:01.548071000 Z
+  updater: users_001
+  variant: product_nature_variants_028
+  variety: cultivable_zone
+  work_number: ''
 equipments_001:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -530,6 +551,78 @@ equipments_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: equipment
+equipments_004:
+  born_at: 2002-12-14 23:00:00.000000000 Z
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:22:30.483623000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_born_at: 2002-12-14 23:00:00.000000000 Z
+  lock_version: 1
+  name: Tracteur BH-845
+  nature: product_natures_021
+  number: PR00000000016
+  type: Equipment
+  updated_at: 2014-11-02 18:22:39.392745000 Z
+  updater: users_001
+  variant: product_nature_variants_026
+  variety: tractor
+equipments_005:
+  born_at: 2007-08-22 22:00:00.000000000 Z
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:23:23.650907000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_born_at: 2007-08-22 22:00:00.000000000 Z
+  initial_population: 1.0
+  lock_version: 1
+  name: Broyeur ZK8000
+  nature: product_natures_022
+  number: PR00000000017
+  type: Equipment
+  updated_at: 2014-11-02 18:23:36.524019000 Z
+  updater: users_001
+  variant: product_nature_variants_025
+  variety: plower
+equipments_006:
+  born_at: 2005-09-14 22:00:00.000000000 Z
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:29:41.469233000 Z
+  creator: users_001
+  description: ''
+  extjuncted: false
+  initial_born_at: 2005-09-14 22:00:00.000000000 Z
+  initial_population: 1.0
+  lock_version: 0
+  name: Charrue T1000
+  nature: product_natures_023
+  number: PR00000000019
+  type: Equipment
+  updated_at: 2014-11-02 18:29:41.469233000 Z
+  updater: users_001
+  variant: product_nature_variants_027
+  variety: plower
+equipments_007:
+  born_at: 1997-01-22 23:00:00.000000000 Z
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:37:22.384578000 Z
+  creator: users_001
+  default_storage: building_divisions_005
+  description: ''
+  extjuncted: false
+  initial_born_at: 1997-01-22 23:00:00.000000000 Z
+  initial_container: building_divisions_005
+  lock_version: 0
+  name: Semoir TG74
+  nature: product_natures_025
+  number: PR00000000021
+  type: Equipment
+  updated_at: 2014-11-02 18:37:22.384578000 Z
+  updater: users_001
+  variant: product_nature_variants_029
+  variety: sower
 fungi_001:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -966,6 +1059,27 @@ matters_013:
   updater: users_001
   variant: product_nature_variants_021
   variety: packaged_matter
+matters_014:
+  born_at: 2014-11-02 11:06:30.000000000 Z
+  category: product_nature_categories_005
+  created_at: 2014-11-02 18:38:47.081597000 Z
+  creator: users_001
+  dead_at: 2014-11-02 11:06:30.000000000 Z
+  default_storage: building_divisions_006
+  derivative_of: triticum_aestivum_rubisko
+  extjuncted: true
+  initial_born_at: 2014-11-02 17:30:00.000000000 Z
+  initial_container: building_divisions_006
+  initial_population: 1.905
+  lock_version: 0
+  name: 'Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg - [02/11/2014] - [Semence] '
+  nature: product_natures_010
+  number: PR00000000022
+  type: Matter
+  updated_at: 2014-11-02 18:38:47.081597000 Z
+  updater: users_001
+  variant: product_nature_variants_010
+  variety: seed
 plants_001:
   category: product_nature_categories_001
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -1014,6 +1128,26 @@ plants_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: plant
+plants_004:
+  born_at: 2014-11-02 11:06:30.000000000 Z
+  category: product_nature_categories_008
+  created_at: 2014-11-02 18:38:47.150196000 Z
+  creator: users_001
+  extjuncted: true
+  initial_born_at: 2014-11-02 17:30:00.000000000 Z
+  initial_population: 0.8031
+  initial_shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
+    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
+    45.5944092001224,-0.817789435386658 45.5943078511944)))
+  lock_version: 0
+  name: Culture de blé [nov. 2014] (Zone cultivable 4)
+  nature: product_natures_015
+  number: PR00000000023
+  type: Plant
+  updated_at: 2014-11-02 18:38:47.150196000 Z
+  updater: users_001
+  variant: product_nature_variants_016
+  variety: triticum_aestivum
 products_001:
   born_at: 2009-07-18 22:00:00.000000000 Z
   category: product_nature_categories_001

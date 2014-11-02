@@ -401,3 +401,93 @@ product_nature_variants_023:
   updated_at: 2014-11-01 20:26:13.069661000 Z
   updater: users_001
   variety: worker
+product_nature_variants_024:
+  active: true
+  category: product_nature_categories_014
+  commercial_name: Tracteur
+  created_at: 2014-11-02 18:19:37.982583000 Z
+  creator: users_001
+  lock_version: 0
+  name: Tracteur
+  nature: product_natures_021
+  number: GWNVKRYVPNV000000000009
+  reference_name: tractor
+  unit_name: "Équipement"
+  updated_at: 2014-11-02 18:19:37.982583000 Z
+  updater: users_001
+  variety: tractor
+product_nature_variants_025:
+  active: true
+  category: product_nature_categories_014
+  commercial_name: Broyeur
+  created_at: 2014-11-02 18:19:51.698049000 Z
+  creator: users_001
+  lock_version: 0
+  name: Broyeur
+  nature: product_natures_022
+  number: GWNVKRYVPNV000000000010
+  reference_name: grinder
+  unit_name: "Équipement"
+  updated_at: 2014-11-02 18:19:51.698049000 Z
+  updater: users_001
+  variety: plower
+product_nature_variants_026:
+  active: true
+  category: product_nature_categories_014
+  commercial_name: Tracteur
+  created_at: 2014-11-02 18:20:34.104515000 Z
+  creator: users_001
+  lock_version: 0
+  name: Tracteur
+  nature: product_natures_021
+  number: GWNVKRYVPNV000000000011
+  reference_name: tractor
+  unit_name: "Équipement"
+  updated_at: 2014-11-02 18:20:34.104515000 Z
+  updater: users_001
+  variety: tractor
+product_nature_variants_027:
+  active: true
+  category: product_nature_categories_014
+  commercial_name: Charrue
+  created_at: 2014-11-02 18:29:03.433574000 Z
+  creator: users_001
+  lock_version: 0
+  name: Charrue
+  nature: product_natures_023
+  number: GWNVKRYVPNV000000000012
+  reference_name: plow
+  unit_name: "Équipement"
+  updated_at: 2014-11-02 18:29:03.433574000 Z
+  updater: users_001
+  variety: plower
+product_nature_variants_028:
+  active: true
+  category: product_nature_categories_015
+  commercial_name: Zone cultivable
+  created_at: 2014-11-02 18:31:53.744596000 Z
+  creator: users_001
+  lock_version: 0
+  name: Zone cultivable
+  nature: product_natures_024
+  number: GWNVKRYVPNV000000000013
+  reference_name: cultivable_zone
+  unit_name: Hectare
+  updated_at: 2014-11-02 18:31:53.744596000 Z
+  updater: users_001
+  variety: cultivable_zone
+product_nature_variants_029:
+  active: true
+  category: product_nature_categories_014
+  commercial_name: Semoir
+  created_at: 2014-11-02 18:36:36.382111000 Z
+  creator: users_001
+  lock_version: 0
+  name: Semoir
+  nature: product_natures_025
+  number: GWNVKRYVPNV000000000014
+  reference_name: sower
+  unit_name: "Équipement"
+  updated_at: 2014-11-02 18:36:36.382111000 Z
+  updater: users_001
+  variety: sower

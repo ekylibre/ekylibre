@@ -23,7 +23,7 @@
       = list(:intervention_casts)
     - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
+        - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
       = list(:issues)
     - b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

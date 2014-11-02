@@ -1031,3 +1031,307 @@ product_readings_073:
   read_at: 2014-11-01 20:30:35.605648000 Z
   updated_at: 2014-11-01 20:30:35.636810000 Z
   updater: users_001
+product_readings_074:
+  boolean_value: false
+  created_at: 2014-11-02 18:22:30.612248000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: equipments_004
+  read_at: 2002-12-14 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:22:30.612248000 Z
+  updater: users_001
+product_readings_075:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 4.0
+  boolean_value: false
+  created_at: 2014-11-02 18:23:23.662351000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 4.0
+  product: equipments_005
+  read_at: 2007-08-22 22:00:00.000000000 Z
+  updated_at: 2014-11-02 18:23:23.662351000 Z
+  updater: users_001
+product_readings_076:
+  boolean_value: false
+  created_at: 2014-11-02 18:23:23.687049000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: equipments_005
+  read_at: 2007-08-22 22:00:00.000000000 Z
+  updated_at: 2014-11-02 18:23:23.687049000 Z
+  updater: users_001
+product_readings_077:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 6.0
+  boolean_value: false
+  created_at: 2014-11-02 18:29:41.480172000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 6.0
+  product: equipments_006
+  read_at: 2005-09-14 22:00:00.000000000 Z
+  updated_at: 2014-11-02 18:29:41.480172000 Z
+  updater: users_001
+product_readings_078:
+  boolean_value: false
+  created_at: 2014-11-02 18:29:41.504224000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: equipments_006
+  read_at: 2005-09-14 22:00:00.000000000 Z
+  updated_at: 2014-11-02 18:29:41.504224000 Z
+  updater: users_001
+product_readings_079:
+  boolean_value: false
+  choice_value: plowed
+  created_at: 2014-11-02 18:33:01.558609000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product: cultivable_zones_004
+  read_at: 1972-04-24 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.558609000 Z
+  updater: users_001
+product_readings_080:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-02 18:33:01.585150000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product: cultivable_zones_004
+  read_at: 1972-04-24 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.585150000 Z
+  updater: users_001
+product_readings_081:
+  boolean_value: false
+  created_at: 2014-11-02 18:33:01.587791000 Z
+  creator: users_001
+  decimal_value: 0.8031
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: cultivable_zones_004
+  read_at: 1972-04-24 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.587791000 Z
+  updater: users_001
+product_readings_082:
+  boolean_value: false
+  created_at: 2014-11-02 18:33:01.591912000 Z
+  creator: users_001
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
+    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
+    45.5944092001224,-0.817789435386658 45.5943078511944)))
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product: cultivable_zones_004
+  read_at: 1972-04-24 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.591912000 Z
+  updater: users_001
+product_readings_083:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-02 18:34:30.449967000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product: cultivable_zones_004
+  read_at: 2014-11-01 18:25:00.000000000 Z
+  updated_at: 2014-11-02 18:34:30.449967000 Z
+  updater: users_001
+product_readings_084:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 4.0
+  boolean_value: false
+  created_at: 2014-11-02 18:37:22.395471000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 4.0
+  product: equipments_007
+  read_at: 1997-01-22 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.395471000 Z
+  updater: users_001
+product_readings_085:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 5000.0
+  boolean_value: false
+  created_at: 2014-11-02 18:37:22.396870000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: nominal_storable_net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 5.0
+  product: equipments_007
+  read_at: 1997-01-22 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.396870000 Z
+  updater: users_001
+product_readings_086:
+  boolean_value: false
+  created_at: 2014-11-02 18:37:22.431517000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: equipments_007
+  read_at: 1997-01-22 23:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.431517000 Z
+  updater: users_001
+product_readings_087:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 42.0
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.229707000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 42.0
+  product: matters_014
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.229707000 Z
+  updater: users_001
+product_readings_088:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.234786000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product: matters_014
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.234786000 Z
+  updater: users_001
+product_readings_089:
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.239700000 Z
+  creator: users_001
+  decimal_value: 1.905
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_014
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.239700000 Z
+  updater: users_001
+product_readings_090:
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.262528000 Z
+  creator: users_001
+  decimal_value: 5.095
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: matters_007
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.262528000 Z
+  updater: users_001
+product_readings_091:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.573914000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product: plants_004
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.573914000 Z
+  updater: users_001
+product_readings_092:
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.576870000 Z
+  creator: users_001
+  decimal_value: 0.8031
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: plants_004
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.576870000 Z
+  updater: users_001
+product_readings_093:
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.580371000 Z
+  creator: users_001
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
+    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
+    45.5944092001224,-0.817789435386658 45.5943078511944)))
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product: plants_004
+  read_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.580371000 Z
+  updater: users_001
+product_readings_094:
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.623085000 Z
+  creator: users_001
+  decimal_value: 0.8031
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product: plants_004
+  read_at: 2014-11-02 17:30:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.623085000 Z
+  updater: users_001
+product_readings_095:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-02 18:38:47.632129000 Z
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product: cultivable_zones_004
+  read_at: 2014-11-02 17:30:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.632129000 Z
+  updater: users_001
+product_readings_096:
+  boolean_value: false
+  created_at: 2014-11-02 18:38:47.644606000 Z
+  creator: users_001
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 1458
+  lock_version: 0
+  product: plants_004
+  read_at: 2014-11-02 17:30:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.644606000 Z
+  updater: users_001

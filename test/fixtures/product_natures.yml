@@ -410,3 +410,99 @@ product_natures_020:
   updater: users_001
   variable_indicators_list: geolocation
   variety: worker
+product_natures_021:
+  abilities_list: catch(equipment), consume(fuel), consume(oil), move, tow(matter)
+  active: true
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:19:37.955910000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  linkage_points_list: front, rear
+  lock_version: 0
+  name: Tracteur
+  number: BUILDINU
+  population_counting: unitary
+  reference_name: tractor
+  updated_at: 2014-11-02 18:19:37.955910000 Z
+  updater: users_001
+  variable_indicators_list: geolocation, motor_power, net_surface_area
+  variety: tractor
+product_natures_022:
+  abilities_list: grind(plant)
+  active: true
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:19:51.679190000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  linkage_points_list: ''
+  lock_version: 0
+  name: Broyeur
+  number: BUILDINV
+  population_counting: unitary
+  reference_name: grinder
+  updated_at: 2014-11-02 18:19:51.679190000 Z
+  updater: users_001
+  variable_indicators_list: application_width, geolocation
+  variety: plower
+product_natures_023:
+  abilities_list: plow
+  active: true
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:29:03.417542000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  linkage_points_list: ''
+  lock_version: 0
+  name: Charrue
+  number: BUILDINW
+  population_counting: unitary
+  reference_name: plow
+  updated_at: 2014-11-02 18:29:03.417542000 Z
+  updater: users_001
+  variable_indicators_list: application_width, geolocation
+  variety: plower
+product_natures_024:
+  abilities_list: consume(seed), consume(water), produce(plant), store(animal), store(fungus),
+    store(plant)
+  active: true
+  category: product_nature_categories_015
+  created_at: 2014-11-02 18:31:53.731583000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_surface_area
+  linkage_points_list: ''
+  lock_version: 0
+  name: Zone cultivable
+  number: BUILDINX
+  population_counting: decimal
+  reference_name: cultivable_zone
+  updated_at: 2014-11-02 18:31:53.731583000 Z
+  updater: users_001
+  variable_indicators_list: population, shape, soil_cultural_state
+  variety: cultivable_zone
+product_natures_025:
+  abilities_list: sow
+  active: true
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:36:36.365485000 Z
+  creator: users_001
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  linkage_points_list: ''
+  lock_version: 0
+  name: Semoir
+  number: BUILDINY
+  population_counting: unitary
+  reference_name: sower
+  updated_at: 2014-11-02 18:36:36.365485000 Z
+  updater: users_001
+  variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
+  variety: sower

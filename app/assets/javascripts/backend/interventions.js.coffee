@@ -50,7 +50,7 @@
       casting
 
     unserialize: (procedure, casting, updater) ->
-      console.log("Unserialize data")
+      # console.log("Unserialize data")
       for variable, attributes of casting
         if attributes.actor?
           $("*[data-procedure='#{procedure}'][data-variable-actor='#{variable}']").each (index) ->

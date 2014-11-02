@@ -49,13 +49,13 @@
 #
 ---
 preferences_001:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 25
   name: interface.helps.collapsed
   nature: boolean
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-02 15:45:36.274093000 Z
   updater: users_001
   user: users_001
 preferences_002:
@@ -357,13 +357,13 @@ preferences_031:
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater: users_001
 preferences_032:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator: users_001
-  lock_version: 4
+  lock_version: 5
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2014-11-01 20:36:11.288205000 Z
+  updated_at: 2014-11-02 18:21:31.089086000 Z
   updater: users_001
   user: users_001
 preferences_033:
@@ -836,11 +836,23 @@ preferences_079:
 preferences_080:
   created_at: 2014-10-31 18:52:27.088724000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 5
   name: list._interventions_list_interventions_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 18:52:27.088724000 Z
+  string_value:
+    sort: started_at
+    dir: desc
+    only: content
+    action: list
+    controller: backend/interventions
+    hidden_columns:
+    - :production
+    - :activity
+    - :state
+    - :stopped_at
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-02 18:37:49.942882000 Z
   updater: users_001
   user: users_001
 preferences_081:
@@ -924,11 +936,11 @@ preferences_088:
 preferences_089:
   created_at: 2014-10-31 18:53:15.091180000 Z
   creator: users_001
-  lock_version: 4
+  lock_version: 5
   name: list._entities_list_entities_tag
   nature: string
   string_value:
-    sort: last_name
+    sort: mail_line_6
     dir: asc
     only: content
     action: list
@@ -939,7 +951,7 @@ preferences_089:
     per_page: 50
     visibility: hidden
     column: nature
-  updated_at: 2014-11-01 17:02:05.979284000 Z
+  updated_at: 2014-11-02 18:52:04.014198000 Z
   updater: users_001
   user: users_001
 preferences_090:
@@ -1614,11 +1626,22 @@ preferences_157:
 preferences_158:
   created_at: 2014-11-01 19:25:29.137471000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 4
   name: list._products_list_intervention_casts_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-11-01 19:25:29.137471000 Z
+  string_value:
+    sort: intervention
+    dir: desc
+    only: content
+    action: list_intervention_casts
+    controller: backend/plants
+    id: '82'
+    hidden_columns:
+    - :roles
+    - :stopped_at
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-02 18:51:51.146135000 Z
   updater: users_001
   user: users_001
 preferences_159:
@@ -1682,10 +1705,109 @@ preferences_163:
 preferences_164:
   created_at: 2014-11-01 20:30:35.725488000 Z
   creator: users_001
-  lock_version: 0
+  lock_version: 5
   name: list._products_list_readings_tag
   nature: string
+  string_value:
+    sort: read_at
+    dir: desc
+    only: content
+    action: list_readings
+    controller: backend/plants
+    id: '82'
+    hidden_columns:
+    - :value
+    page: 1
+    per_page: 20
+    visibility: hidden
+    column: value
+  updated_at: 2014-11-02 18:51:45.266301000 Z
+  updater: users_001
+  user: users_001
+preferences_165:
+  created_at: 2014-11-02 15:25:27.303658000 Z
+  creator: users_001
+  lock_version: 2
+  name: list._prescriptions_list_prescriptions_tag
+  nature: string
+  string_value:
+    sort: reference_number
+    dir: desc
+    only: content
+    action: list
+    controller: backend/prescriptions
+    hidden_columns: []
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-02 15:45:32.467091000 Z
+  updater: users_001
+  user: users_001
+preferences_166:
+  created_at: 2014-11-02 15:57:38.607154000 Z
+  creator: users_001
+  lock_version: 10
+  name: list._products_list_reading_tasks_tag
+  nature: string
+  string_value:
+    sort: reporter
+    dir: desc
+    only: content
+    action: list_reading_tasks
+    controller: backend/plants
+    id: '82'
+    hidden_columns: []
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-02 18:51:32.857563000 Z
+  updater: users_001
+  user: users_001
+preferences_167:
+  created_at: 2014-11-02 15:57:38.618930000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._products_list_places_tag
+  nature: string
   string_value: {}
-  updated_at: 2014-11-01 20:30:35.725488000 Z
+  updated_at: 2014-11-02 15:57:38.618930000 Z
+  updater: users_001
+  user: users_001
+preferences_168:
+  created_at: 2014-11-02 18:21:10.890157000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._product_nature_variants_list_products_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-02 18:21:10.890157000 Z
+  updater: users_001
+  user: users_001
+preferences_169:
+  created_at: 2014-11-02 18:21:10.908406000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._product_nature_variants_list_prices_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-02 18:21:10.908406000 Z
+  updater: users_001
+  user: users_001
+preferences_170:
+  created_at: 2014-11-02 18:33:01.646420000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._products_list_markers_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-02 18:33:01.646420000 Z
+  updater: users_001
+  user: users_001
+preferences_171:
+  created_at: 2014-11-02 18:33:01.657999000 Z
+  creator: users_001
+  lock_version: 0
+  name: list._cultivable_zones_list_productions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-02 18:33:01.657999000 Z
   updater: users_001
   user: users_001

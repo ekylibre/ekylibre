@@ -316,3 +316,40 @@ product_nature_categories_013:
   subscribing: false
   updated_at: 2014-11-01 20:26:13.040696000 Z
   updater: users_001
+product_nature_categories_014:
+  active: true
+  charge_account: accounts_047
+  created_at: 2014-11-02 18:19:37.942990000 Z
+  creator: users_001
+  depreciable: true
+  financial_asset_account: accounts_045
+  lock_version: 0
+  name: "Équipement"
+  number: PNC014
+  pictogram: tractor
+  product_account: accounts_153
+  purchasable: true
+  reductible: false
+  reference_name: equipment
+  saleable: true
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-02 18:19:37.942990000 Z
+  updater: users_001
+product_nature_categories_015:
+  active: true
+  created_at: 2014-11-02 18:31:53.721523000 Z
+  creator: users_001
+  depreciable: false
+  lock_version: 0
+  name: Zone cultivable
+  number: PNC015
+  pictogram: land_parcels
+  purchasable: false
+  reductible: false
+  reference_name: cultivable_zone
+  saleable: false
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-02 18:31:53.721523000 Z
+  updater: users_001

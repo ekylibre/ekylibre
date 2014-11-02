@@ -245,3 +245,80 @@ product_phases_018:
   updated_at: 2014-11-01 20:30:35.665259000 Z
   updater: users_001
   variant: product_nature_variants_023
+product_phases_019:
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:22:30.630624000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_021
+  product: equipments_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:22:30.630624000 Z
+  updater: users_001
+  variant: product_nature_variants_026
+product_phases_020:
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:23:23.694993000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_022
+  product: equipments_005
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:23:23.694993000 Z
+  updater: users_001
+  variant: product_nature_variants_025
+product_phases_021:
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:29:41.511924000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_023
+  product: equipments_006
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:29:41.511924000 Z
+  updater: users_001
+  variant: product_nature_variants_027
+product_phases_022:
+  category: product_nature_categories_015
+  created_at: 2014-11-02 18:33:01.599534000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_024
+  product: cultivable_zones_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.599534000 Z
+  updater: users_001
+  variant: product_nature_variants_028
+product_phases_023:
+  category: product_nature_categories_014
+  created_at: 2014-11-02 18:37:22.438911000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_025
+  product: equipments_007
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.438911000 Z
+  updater: users_001
+  variant: product_nature_variants_029
+product_phases_024:
+  category: product_nature_categories_005
+  created_at: 2014-11-02 18:38:47.118084000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_010
+  product: matters_014
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.118084000 Z
+  updater: users_001
+  variant: product_nature_variants_010
+product_phases_025:
+  category: product_nature_categories_008
+  created_at: 2014-11-02 18:38:47.180005000 Z
+  creator: users_001
+  lock_version: 0
+  nature: product_natures_015
+  product: plants_004
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.180005000 Z
+  updater: users_001
+  variant: product_nature_variants_016

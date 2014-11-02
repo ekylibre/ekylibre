@@ -507,3 +507,72 @@ product_nature_variant_readings_035:
   updated_at: 2014-11-01 20:26:13.076831000 Z
   updater: users_001
   variant: product_nature_variants_023
+product_nature_variant_readings_036:
+  boolean_value: false
+  created_at: 2014-11-02 18:19:37.989369000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:19:37.989369000 Z
+  updater: users_001
+  variant: product_nature_variants_024
+product_nature_variant_readings_037:
+  boolean_value: false
+  created_at: 2014-11-02 18:19:51.704113000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:19:51.704113000 Z
+  updater: users_001
+  variant: product_nature_variants_025
+product_nature_variant_readings_038:
+  boolean_value: false
+  created_at: 2014-11-02 18:20:34.112906000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:20:34.112906000 Z
+  updater: users_001
+  variant: product_nature_variants_026
+product_nature_variant_readings_039:
+  boolean_value: false
+  created_at: 2014-11-02 18:29:03.439857000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:29:03.439857000 Z
+  updater: users_001
+  variant: product_nature_variants_027
+product_nature_variant_readings_040:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-02 18:31:53.751099000 Z
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  updated_at: 2014-11-02 18:31:53.751099000 Z
+  updater: users_001
+  variant: product_nature_variants_028
+product_nature_variant_readings_041:
+  boolean_value: false
+  created_at: 2014-11-02 18:36:36.387922000 Z
+  creator: users_001
+  decimal_value: 1.0
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:36:36.387922000 Z
+  updater: users_001
+  variant: product_nature_variants_029
