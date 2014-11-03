@@ -53,263 +53,287 @@ financial_years_001:
   closed: false
   code: EX1992-93
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 1
   lock_version: 0
   started_on: 1992-11-17
   stopped_on: 1993-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_002:
   closed: false
   code: Loremum2
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 2
   lock_version: 0
   started_on: 2050-09-01
   stopped_on: 2051-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_003:
   closed: false
   code: EX1993-94
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 3
   lock_version: 0
   started_on: 1993-09-01
   stopped_on: 1994-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_004:
   closed: false
   code: EX1994-95
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 4
   lock_version: 0
   started_on: 1994-09-01
   stopped_on: 1995-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_005:
   closed: false
   code: EX1995-96
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 5
   lock_version: 0
   started_on: 1995-09-01
   stopped_on: 1996-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_006:
   closed: false
   code: EX1996-97
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 6
   lock_version: 0
   started_on: 1996-09-01
   stopped_on: 1997-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_007:
   closed: false
   code: EX1997-98
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 7
   lock_version: 0
   started_on: 1997-09-01
   stopped_on: 1998-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_008:
   closed: false
   code: EX1998-99
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 8
   lock_version: 0
   started_on: 1998-09-01
   stopped_on: 1999-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_009:
   closed: false
   code: EX1999-00
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 9
   lock_version: 0
   started_on: 1999-09-01
   stopped_on: 2000-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_010:
   closed: false
   code: EX2000-01
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: FRF
+  id: 10
   lock_version: 0
   started_on: 2000-09-01
   stopped_on: 2001-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_011:
   closed: false
   code: EX2001-02
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 11
   lock_version: 0
   started_on: 2001-09-01
   stopped_on: 2002-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_012:
   closed: false
   code: EX2002-03
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 12
   lock_version: 0
   started_on: 2002-09-01
   stopped_on: 2003-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_013:
   closed: false
   code: EX2003-04
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 13
   lock_version: 0
   started_on: 2003-09-01
   stopped_on: 2004-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_014:
   closed: false
   code: EX2004-05
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 14
   lock_version: 0
   started_on: 2004-09-01
   stopped_on: 2005-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_015:
   closed: false
   code: EX2005-06
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 15
   lock_version: 0
   started_on: 2005-09-01
   stopped_on: 2006-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_016:
   closed: false
   code: EX2006-07
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 16
   lock_version: 0
   started_on: 2006-09-01
   stopped_on: 2007-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_017:
   closed: false
   code: EX2007-08
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 17
   lock_version: 0
   started_on: 2007-09-01
   stopped_on: 2008-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_018:
   closed: false
   code: EX2008-09
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 18
   lock_version: 0
   started_on: 2008-09-01
   stopped_on: 2009-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_019:
   closed: false
   code: EX2009-10
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 19
   lock_version: 0
   started_on: 2009-09-01
   stopped_on: 2010-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_020:
   closed: false
   code: EX2010-11
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 20
   lock_version: 0
   started_on: 2010-09-01
   stopped_on: 2011-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_021:
   closed: false
   code: EX2011-12
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 21
   lock_version: 0
   started_on: 2011-09-01
   stopped_on: 2012-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_022:
   closed: false
   code: EX2012-13
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 22
   lock_version: 0
   started_on: 2012-09-01
   stopped_on: 2013-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_023:
   closed: false
   code: EX2013-14
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 23
   lock_version: 0
   started_on: 2013-09-01
   stopped_on: 2014-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 financial_years_024:
   closed: false
   code: EX2014-15
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 24
   lock_version: 0
   started_on: 2014-09-01
   stopped_on: 2015-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

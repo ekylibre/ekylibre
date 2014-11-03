@@ -53,61 +53,66 @@
 ---
 production_supports_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   exclusive: false
+  id: 1
   irrigated: false
   lock_version: 0
   nature: main
-  production: productions_001
+  production_id: 1
   production_usage: grain
-  storage: cultivable_zones_001
+  storage_id: 22
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 production_supports_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   exclusive: false
+  id: 2
   irrigated: false
   lock_version: 2
   nature: main
-  production: productions_001
+  production_id: 1
   production_usage: grain
-  storage: cultivable_zones_004
+  storage_id: 25
   updated_at: 2014-11-02 18:34:09.793175000 Z
-  updater: users_001
+  updater_id: 1
 production_supports_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   exclusive: false
+  id: 3
   irrigated: false
   lock_version: 0
   nature: main
-  production: productions_001
+  production_id: 1
   production_usage: grain
-  storage: cultivable_zones_003
+  storage_id: 24
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 production_supports_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   exclusive: false
+  id: 4
   irrigated: false
   lock_version: 0
   nature: main
-  production: productions_003
+  production_id: 3
   production_usage: meat
-  storage: animal_groups_001
+  storage_id: 7
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 production_supports_005:
   created_at: 2014-11-01 19:10:52.482246000 Z
-  creator: users_001
+  creator_id: 1
   exclusive: false
+  id: 5
   irrigated: false
   lock_version: 0
   nature: main
-  production: productions_002
+  production_id: 2
   production_usage: fodder
-  storage: cultivable_zones_002
+  storage_id: 23
   updated_at: 2014-11-01 19:10:52.482246000 Z
-  updater: users_001
+  updater_id: 1

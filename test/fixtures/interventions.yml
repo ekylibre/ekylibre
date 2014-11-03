@@ -64,15 +64,16 @@
 ---
 interventions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  event: events_007
-  issue: issues_001
+  creator_id: 1
+  event_id: 7
+  id: 1
+  issue_id: 1
   lock_version: 2
   natures: grinding soil_enrichment
   number: '1'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  production: productions_001
-  production_support: production_supports_003
+  production_id: 1
+  production_support_id: 3
   provisional: false
   recommended: false
   reference_name: base-plant_grinding-0
@@ -80,17 +81,18 @@ interventions_001:
   state: done
   stopped_at: 2009-05-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:24:09.441456000 Z
-  updater: users_001
+  updater_id: 1
 interventions_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  event: events_009
+  creator_id: 1
+  event_id: 9
+  id: 2
   lock_version: 1
   natures: grinding soil_enrichment
   number: '2'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  production: productions_001
-  production_support: production_supports_001
+  production_id: 1
+  production_support_id: 1
   provisional: false
   recommended: false
   reference_name: base-plant_grinding-0
@@ -98,18 +100,19 @@ interventions_002:
   state: undone
   stopped_at: 2009-06-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:25:25.070667000 Z
-  updater: users_001
+  updater_id: 1
 interventions_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  event: events_010
+  creator_id: 1
+  event_id: 10
+  id: 3
   lock_version: 1
   natures: animal_curative_medicine_admission
   number: '3'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  prescription: prescriptions_001
-  production: productions_003
-  production_support: production_supports_003
+  prescription_id: 1
+  production_id: 3
+  production_support_id: 3
   provisional: false
   recommended: false
   reference_name: base-animal_treatment-0
@@ -117,15 +120,16 @@ interventions_003:
   state: done
   stopped_at: 2009-05-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:25:43.707823000 Z
-  updater: users_001
+  updater_id: 1
 interventions_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   lock_version: 0
   natures: harvest, pasturing
   number: '4'
-  production: productions_003
-  production_support: production_supports_003
+  production_id: 3
+  production_support_id: 3
   provisional: false
   recommended: false
   reference_name: base-pasturing-0
@@ -133,18 +137,19 @@ interventions_004:
   state: done
   stopped_at: 2009-05-13 08:17:23.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 interventions_005:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  event: events_008
-  issue: issues_001
+  creator_id: 1
+  event_id: 8
+  id: 5
+  issue_id: 1
   lock_version: 1
   natures: plant_illness_treatment
   number: '5'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  production: productions_001
-  production_support: production_supports_003
+  production_id: 1
+  production_support_id: 3
   provisional: false
   recommended: false
   reference_name: base-spraying_on_cultivation-0
@@ -152,39 +157,41 @@ interventions_005:
   state: done
   stopped_at: 2009-04-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:25:05.425568000 Z
-  updater: users_001
+  updater_id: 1
 interventions_006:
   created_at: 2014-11-01 20:24:26.748976000 Z
-  creator: users_001
-  event: events_006
+  creator_id: 1
+  event_id: 6
+  id: 6
   lock_version: 7
   natures: animal_curative_medicine_admission
   number: F1
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
-  prescription: prescriptions_001
-  production: productions_003
-  production_support: production_supports_004
+  prescription_id: 1
+  production_id: 3
+  production_support_id: 4
   provisional: false
   recommended: true
-  recommender: entities_002
+  recommender_id: 2
   reference_name: base-animal_treatment-0
   started_at: 2014-10-02 07:45:00.000000000 Z
   state: undone
   stopped_at: 2014-10-02 08:45:00.000000000 Z
   updated_at: 2014-11-02 18:08:18.093008000 Z
-  updater: users_001
+  updater_id: 1
 interventions_007:
   created_at: 2014-11-02 18:30:08.200770000 Z
-  creator: users_001
-  event: events_011
+  creator_id: 1
+  event_id: 11
+  id: 7
   lock_version: 3
   natures: plowing
   number: '6'
   parameters: !ruby/hash:ActionController::Parameters
     readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       base-plowing-0-500-1: covered
-  production: productions_001
-  production_support: production_supports_002
+  production_id: 1
+  production_support_id: 2
   provisional: false
   recommended: false
   reference_name: base-plowing-0
@@ -192,19 +199,20 @@ interventions_007:
   state: done
   stopped_at: 2014-11-01 18:25:00.000000000 Z
   updated_at: 2014-11-02 18:34:30.458395000 Z
-  updater: users_001
+  updater_id: 1
 interventions_008:
   created_at: 2014-11-02 18:37:42.472609000 Z
-  creator: users_001
-  event: events_012
+  creator_id: 1
+  event_id: 12
+  id: 8
   lock_version: 3
   natures: sowing
   number: '7'
   parameters: !ruby/hash:ActionController::Parameters
     readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       base-sowing-0-750-2: '1458'
-  production: productions_001
-  production_support: production_supports_002
+  production_id: 1
+  production_support_id: 2
   provisional: false
   recommended: false
   reference_name: base-sowing-0
@@ -212,4 +220,4 @@ interventions_008:
   state: done
   stopped_at: 2014-11-02 17:30:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.652056000 Z
-  updater: users_001
+  updater_id: 1

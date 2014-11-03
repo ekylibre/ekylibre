@@ -52,38 +52,41 @@
 #
 ---
 productions_001:
-  activity: activities_001
-  campaign: campaigns_001
+  activity_id: 1
+  campaign_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 1
   name: Culture de blé/Blé 2013 (Prévue)
   state: draft
   static_support: true
   updated_at: 2014-11-01 19:07:17.733118000 Z
-  updater: users_001
-  variant: product_nature_variants_016
+  updater_id: 1
+  variant_id: 16
 productions_002:
-  activity: activities_001
-  campaign: campaigns_002
+  activity_id: 1
+  campaign_id: 2
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 2
   name: Graine de blé/Blé 2999 (Prévue)
   state: draft
   static_support: true
   updated_at: 2014-11-01 19:11:46.682961000 Z
-  updater: users_001
-  variant: product_nature_variants_019
+  updater_id: 1
+  variant_id: 19
 productions_003:
-  activity: activities_003
-  campaign: campaigns_001
+  activity_id: 3
+  campaign_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 3
   name: Vache/Bovins 2013 (Prévue)
   state: draft
   static_support: false
   updated_at: 2014-11-01 20:09:49.582916000 Z
-  updater: users_001
-  variant: product_nature_variants_017
+  updater_id: 1
+  variant_id: 17

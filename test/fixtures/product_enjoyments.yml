@@ -49,215 +49,239 @@
 ---
 product_enjoyments_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
   nature: own
-  product: equipments_001
+  product_id: 26
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 0
   nature: own
-  product: equipments_001
+  product_id: 26
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_003:
   created_at: 2014-10-31 20:12:30.934138000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
   nature: unknown
-  product: buildings_004
+  product_id: 13
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:12:30.934138000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_004:
   created_at: 2014-10-31 20:15:14.802370000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   lock_version: 1
   nature: unknown
-  product: buildings_005
+  product_id: 14
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:15:42.737197000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_005:
   created_at: 2014-10-31 20:18:12.240114000 Z
-  creator: users_001
+  creator_id: 1
+  id: 5
   lock_version: 0
   nature: unknown
-  product: building_divisions_005
+  product_id: 19
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.240114000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_006:
   created_at: 2014-10-31 20:23:26.784121000 Z
-  creator: users_001
+  creator_id: 1
+  id: 6
   lock_version: 0
   nature: unknown
-  product: building_divisions_006
+  product_id: 20
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.784121000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_007:
   created_at: 2014-10-31 20:23:37.047513000 Z
-  creator: users_001
+  creator_id: 1
+  id: 7
   lock_version: 0
   nature: unknown
-  product: matters_007
+  product_id: 53
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.047513000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_008:
   created_at: 2014-10-31 20:25:41.471356000 Z
-  creator: users_001
+  creator_id: 1
+  id: 8
   lock_version: 3
   nature: unknown
-  product: building_divisions_007
+  product_id: 21
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:49:34.059783000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_009:
   created_at: 2014-11-01 16:00:08.135011000 Z
-  creator: users_001
+  creator_id: 1
+  id: 9
   lock_version: 0
   nature: unknown
-  product: matters_008
+  product_id: 54
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.135011000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_010:
   created_at: 2014-11-01 16:00:08.355520000 Z
-  creator: users_001
+  creator_id: 1
+  id: 10
   lock_version: 0
   nature: unknown
-  product: matters_009
+  product_id: 55
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.355520000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_011:
   created_at: 2014-11-01 16:01:24.182308000 Z
-  creator: users_001
+  creator_id: 1
+  id: 11
   lock_version: 0
   nature: unknown
-  product: matters_010
+  product_id: 56
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.182308000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_012:
   created_at: 2014-11-01 19:29:58.214480000 Z
-  creator: users_001
+  creator_id: 1
+  id: 12
   lock_version: 0
   nature: unknown
-  product: animals_005
+  product_id: 5
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.214480000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_013:
   created_at: 2014-11-01 19:35:50.395444000 Z
-  creator: users_001
+  creator_id: 1
+  id: 13
   lock_version: 0
   nature: unknown
-  product: animals_006
+  product_id: 6
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.395444000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_014:
   created_at: 2014-11-01 20:19:35.399141000 Z
-  creator: users_001
+  creator_id: 1
+  id: 14
   lock_version: 0
   nature: unknown
-  product: matters_011
+  product_id: 57
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.399141000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_015:
   created_at: 2014-11-01 20:23:55.126124000 Z
-  creator: users_001
+  creator_id: 1
+  id: 15
   lock_version: 0
   nature: unknown
-  product: matters_012
+  product_id: 58
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.126124000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_016:
   created_at: 2014-11-01 20:23:55.262906000 Z
-  creator: users_001
+  creator_id: 1
+  id: 16
   lock_version: 0
   nature: unknown
-  product: matters_013
+  product_id: 59
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.262906000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_017:
   created_at: 2014-11-01 20:30:35.567815000 Z
-  creator: users_001
+  creator_id: 1
+  id: 17
   lock_version: 0
   nature: unknown
-  product: workers_004
+  product_id: 79
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:30:35.567815000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_018:
   created_at: 2014-11-02 18:22:30.576051000 Z
-  creator: users_001
+  creator_id: 1
+  id: 18
   lock_version: 1
   nature: unknown
-  product: equipments_004
+  product_id: 29
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:22:39.415270000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_019:
   created_at: 2014-11-02 18:23:23.675825000 Z
-  creator: users_001
+  creator_id: 1
+  id: 19
   lock_version: 1
   nature: unknown
-  product: equipments_005
+  product_id: 30
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:23:36.546092000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_020:
   created_at: 2014-11-02 18:29:41.493265000 Z
-  creator: users_001
+  creator_id: 1
+  id: 20
   lock_version: 0
   nature: unknown
-  product: equipments_006
+  product_id: 31
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:29:41.493265000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_021:
   created_at: 2014-11-02 18:33:01.574308000 Z
-  creator: users_001
+  creator_id: 1
+  id: 21
   lock_version: 0
   nature: unknown
-  product: cultivable_zones_004
+  product_id: 25
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:33:01.574308000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_022:
   created_at: 2014-11-02 18:37:22.410909000 Z
-  creator: users_001
+  creator_id: 1
+  id: 22
   lock_version: 0
   nature: unknown
-  product: equipments_007
+  product_id: 32
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:37:22.410909000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_023:
   created_at: 2014-11-02 18:38:47.102104000 Z
-  creator: users_001
+  creator_id: 1
+  id: 23
   lock_version: 0
   nature: unknown
-  product: matters_014
+  product_id: 60
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.102104000 Z
-  updater: users_001
+  updater_id: 1
 product_enjoyments_024:
   created_at: 2014-11-02 18:38:47.175192000 Z
-  creator: users_001
+  creator_id: 1
+  id: 24
   lock_version: 0
   nature: unknown
-  product: plants_004
+  product_id: 64
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.175192000 Z
-  updater: users_001
+  updater_id: 1

@@ -54,29 +54,31 @@
 ---
 manure_management_plans_001:
   annotation: ''
-  campaign: campaigns_001
+  campaign_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   default_computation_method: external
+  id: 1
   lock_version: 2
   locked: false
   name: PPF 2013
   opened_at: 2013-10-26 14:34:00.000000000 Z
-  recommender: people_001
+  recommender_id: 9
   selected: true
   updated_at: 2014-11-01 19:13:42.686845000 Z
-  updater: users_001
+  updater_id: 1
 manure_management_plans_002:
   annotation: ''
-  campaign: campaigns_001
+  campaign_id: 1
   created_at: 2014-11-01 18:47:51.247742000 Z
-  creator: users_001
+  creator_id: 1
   default_computation_method: poitou_charentes_2013
+  id: 2
   lock_version: 3
   locked: false
   name: PPF 2013 bis
   opened_at: 2013-02-01 08:45:00.000000000 Z
-  recommender: legal_entities_001
+  recommender_id: 6
   selected: false
   updated_at: 2014-11-01 18:49:26.837158000 Z
-  updater: users_001
+  updater_id: 1

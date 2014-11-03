@@ -52,2474 +52,2681 @@
 ---
 accounts_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   debtor: true
+  id: 1
   label: 1 - Tototo
   lock_version: 0
   name: Tototo
   number: '1'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 accounts_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   debtor: true
+  id: 2
   label: 12 - Tototo
   lock_version: 0
   name: Tototo
   number: '12'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 accounts_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   debtor: true
+  id: 3
   label: 681 - Tototo
   lock_version: 0
   name: Tototo
   number: '681'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 accounts_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   debtor: true
+  id: 4
   label: 707 - Products
   lock_version: 0
   name: '707'
   number: '707'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 accounts_005:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   debtor: true
+  id: 5
   label: 701 - Products
   lock_version: 0
   name: '701'
   number: '701'
   reconcilable: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 accounts_006:
   created_at: 2014-10-31 18:48:46.362509000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 6
   label: 518 - Intérêts courus
   lock_version: 0
   name: Intérêts courus
   number: '518'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.362509000 Z
-  updater: users_001
+  updater_id: 1
   usages: accrued_bank_interests
 accounts_007:
   created_at: 2014-10-31 18:48:46.366502000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 7
   label: 1688 - Intérêts courus
   lock_version: 0
   name: Intérêts courus
   number: '1688'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.366502000 Z
-  updater: users_001
+  updater_id: 1
   usages: accrued_interests
 accounts_008:
   created_at: 2014-10-31 18:48:46.370191000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 8
   label: 16884 - Intérêts courus auprès des établissements de crédit
   lock_version: 0
   name: Intérêts courus auprès des établissements de crédit
   number: '16884'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.370191000 Z
-  updater: users_001
+  updater_id: 1
   usages: accrued_interests_on_bank
 accounts_009:
   created_at: 2014-10-31 18:48:46.374350000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 9
   label: 2841 - Ammortissements des animaux reproducteurs
   lock_version: 0
   name: Ammortissements des animaux reproducteurs
   number: '2841'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.374350000 Z
-  updater: users_001
+  updater_id: 1
   usages: adult_animal_asset_depreciations
 accounts_010:
   created_at: 2014-10-31 18:48:46.378607000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 10
   label: 241 - Animaux reproducteurs (adulte)
   lock_version: 0
   name: Animaux reproducteurs (adulte)
   number: '241'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.378607000 Z
-  updater: users_001
+  updater_id: 1
   usages: adult_animal_assets
 accounts_011:
   created_at: 2014-10-31 18:48:46.382188000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 11
   label: 6041 - Animaux reproducteurs (adultes)
   lock_version: 0
   name: Animaux reproducteurs (adultes)
   number: '6041'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.382188000 Z
-  updater: users_001
+  updater_id: 1
   usages: adult_animal_expenses
 accounts_012:
   created_at: 2014-10-31 18:48:46.385710000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 12
   label: 7041 - Animaux reproducteurs (adultes)
   lock_version: 0
   name: Animaux reproducteurs (adultes)
   number: '7041'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.385710000 Z
-  updater: users_001
+  updater_id: 1
   usages: adult_animal_revenues
 accounts_013:
   created_at: 2014-10-31 18:48:46.389172000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 13
   label: 743 - Indémnités du fonds national de garantie des calamités agricoles
   lock_version: 0
   name: Indémnités du fonds national de garantie des calamités agricoles
   number: '743'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.389172000 Z
-  updater: users_001
+  updater_id: 1
   usages: agricultural_disasters_compensations
 accounts_014:
   created_at: 2014-10-31 18:48:46.392581000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 14
   label: 375 - Produits finis animaux
   lock_version: 0
   name: Produits finis animaux
   number: '375'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.392581000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_derivative_stock
 accounts_015:
   created_at: 2014-10-31 18:48:46.395927000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 15
   label: 702 - Vente de produits animaux
   lock_version: 0
   name: Vente de produits animaux
   number: '702'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.395927000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_derivatives_revenues
 accounts_016:
   created_at: 2014-10-31 18:48:46.400370000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 16
   label: 6015 - Produits de défense des animaux
   lock_version: 0
   name: Produits de défense des animaux
   number: '6015'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.400370000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_medicine_matter_expenses
 accounts_017:
   created_at: 2014-10-31 18:48:46.404951000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 17
   label: 3015 - Stock de produits de défense des animaux
   lock_version: 0
   name: Stock de produits de défense des animaux
   number: '3015'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.404951000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_medicine_stock
 accounts_018:
   created_at: 2014-10-31 18:48:46.409601000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 18
   label: 6016 - Produits de reproduction animale
   lock_version: 0
   name: Produits de reproduction animale
   number: '6016'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.409601000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_reproduction_matter_expenses
 accounts_019:
   created_at: 2014-10-31 18:48:46.414202000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 19
   label: 3016 - Stock de produits de reproduction animale
   lock_version: 0
   name: Stock de produits de reproduction animale
   number: '3016'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.414202000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_reproduction_stock
 accounts_020:
   created_at: 2014-10-31 18:48:46.418764000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 20
   label: 704 - Ventes d’animaux
   lock_version: 0
   name: Ventes d’animaux
   number: '704'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.418764000 Z
-  updater: users_001
+  updater_id: 1
   usages: animal_revenues
 accounts_021:
   created_at: 2014-10-31 18:48:46.423356000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 21
   label: 6054 - Achats pour productions animales
   lock_version: 0
   name: Achats pour productions animales
   number: '6054'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.423356000 Z
-  updater: users_001
+  updater_id: 1
   usages: animals_productions_expenses
 accounts_022:
   created_at: 2014-10-31 18:48:46.427967000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 22
   label: 6413 - Rémunérations (administrateurs, gérants, associés)
   lock_version: 0
   name: Rémunérations (administrateurs, gérants, associés)
   number: '6413'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.427967000 Z
-  updater: users_001
+  updater_id: 1
   usages: associates_salary
 accounts_023:
   created_at: 2014-10-31 18:48:46.432513000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 23
   label: 467 - Autres comptes débiteurs ou créditeurs
   lock_version: 0
   name: Autres comptes débiteurs ou créditeurs
   number: '467'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.432513000 Z
-  updater: users_001
+  updater_id: 1
   usages: attorneys
 accounts_024:
   created_at: 2014-10-31 18:48:46.437194000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 24
   label: 512 - Banques
   lock_version: 0
   name: Banques
   number: '512'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.437194000 Z
-  updater: users_001
+  updater_id: 1
   usages: banks
 accounts_025:
   created_at: 2014-10-31 18:48:46.441821000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 25
   label: 51 - Banques, établissements financiers et assimilés
   lock_version: 0
   name: Banques, établissements financiers et assimilés
   number: '51'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.441821000 Z
-  updater: users_001
+  updater_id: 1
   usages: banks_and_similar
 accounts_026:
   created_at: 2014-10-31 18:48:46.445398000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 26
   label: 627 - Services bancaires
   lock_version: 0
   name: Services bancaires
   number: '627'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.445398000 Z
-  updater: users_001
+  updater_id: 1
   usages: banks_services_expenses
 accounts_027:
   created_at: 2014-10-31 18:48:46.448867000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 27
   label: 284 - Ammortissements des biens vivants
   lock_version: 0
   name: Ammortissements des biens vivants
   number: '284'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.448867000 Z
-  updater: users_001
+  updater_id: 1
   usages: biocorporeal_asset_depreciations
 accounts_028:
   created_at: 2014-10-31 18:48:46.452320000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 28
   label: 2141 - Bâtiments
   lock_version: 0
   name: Bâtiments
   number: '2141'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.452320000 Z
-  updater: users_001
+  updater_id: 1
   usages: building_assets
 accounts_029:
   created_at: 2014-10-31 18:48:46.455727000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 29
   label: 6614 - Crédits des crédits bancaires de campagne
   lock_version: 0
   name: Crédits des crédits bancaires de campagne
   number: '6614'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.455727000 Z
-  updater: users_001
+  updater_id: 1
   usages: campaigns_interests
 accounts_030:
   created_at: 2014-10-31 18:48:46.459129000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 30
   label: 101 - Capital
   lock_version: 0
   name: Capital
   number: '101'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.459129000 Z
-  updater: users_001
+  updater_id: 1
   usages: capital
 accounts_031:
   created_at: 2014-10-31 18:48:46.463666000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 31
   label: 53 - Trésoreries
   lock_version: 0
   name: Trésoreries
   number: '53'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.463666000 Z
-  updater: users_001
+  updater_id: 1
   usages: cashes
 accounts_032:
   created_at: 2014-10-31 18:48:46.467135000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 32
   label: 411 - Clients
   lock_version: 0
   name: Clients
   number: '411'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.467135000 Z
-  updater: users_001
+  updater_id: 1
   usages: clients
 accounts_033:
   created_at: 2014-10-31 18:48:46.470631000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 33
   label: 44571 - Taxes sur le chiffre d’affaires collectées par l’entreprise
   lock_version: 0
   name: Taxes sur le chiffre d’affaires collectées par l’entreprise
   number: '44571'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.470631000 Z
-  updater: users_001
+  updater_id: 1
   usages: collected_vat
 accounts_034:
   created_at: 2014-10-31 18:48:46.474544000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 34
   label: 472 - Operations de compensation (conventions de compte courant)
   lock_version: 0
   name: Operations de compensation (conventions de compte courant)
   number: '472'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.474544000 Z
-  updater: users_001
+  updater_id: 1
   usages: compensation_operations
 accounts_035:
   created_at: 2014-10-31 18:48:46.478441000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 35
   label: 2621 - Sociétés coopératives agricoles (sauf CUMA)
   lock_version: 0
   name: Sociétés coopératives agricoles (sauf CUMA)
   number: '2621'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.478441000 Z
-  updater: users_001
+  updater_id: 1
   usages: cooperative_participation_assets
 accounts_036:
   created_at: 2014-10-31 18:48:46.482079000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 36
   label: 281 - Ammortissements des immobilisations corporelles
   lock_version: 0
   name: Ammortissements des immobilisations corporelles
   number: '281'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.482079000 Z
-  updater: users_001
+  updater_id: 1
   usages: corporeal_asset_depreciations
 accounts_037:
   created_at: 2014-10-31 18:48:46.485663000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 37
   label: 6811 - Dotat. aux amort. des immobilisations incorporelles et corporelles
   lock_version: 0
   name: Dotat. aux amort. des immobilisations incorporelles et corporelles
   number: '6811'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.485663000 Z
-  updater: users_001
+  updater_id: 1
   usages: corporeals_and_incorporeals_depreciations_inputations_expenses
 accounts_038:
   created_at: 2014-10-31 18:48:46.489182000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 38
   label: 409 - Fournisseurs débiteurs
   lock_version: 0
   name: Fournisseurs débiteurs
   number: '409'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.489182000 Z
-  updater: users_001
+  updater_id: 1
   usages: debtor_suppliers
 accounts_039:
   created_at: 2014-10-31 18:48:46.492659000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 39
   label: 445661 - Taxes sur le chiffre d’affaires deductibles
   lock_version: 0
   name: Taxes sur le chiffre d’affaires deductibles
   number: '445661'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.492659000 Z
-  updater: users_001
+  updater_id: 1
   usages: deductible_vat
 accounts_040:
   created_at: 2014-10-31 18:48:46.496116000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 40
   label: 68 - Dotations aux amortissements et aux provisions
   lock_version: 0
   name: Dotations aux amortissements et aux provisions
   number: '68'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.496116000 Z
-  updater: users_001
+  updater_id: 1
   usages: depreciations_inputations_expenses
 accounts_041:
   created_at: 2014-10-31 18:48:46.499591000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 41
   label: 754 - Ristournes percues des coopératives agricoles
   lock_version: 0
   name: Ristournes percues des coopératives agricoles
   number: '754'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.499591000 Z
-  updater: users_001
+  updater_id: 1
   usages: discount_from_cooperatives
 accounts_042:
   created_at: 2014-10-31 18:48:46.503035000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 42
   label: 6063 - Électricité
   lock_version: 0
   name: "Électricité"
   number: '6063'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.503035000 Z
-  updater: users_001
+  updater_id: 1
   usages: electricity_expenses
 accounts_043:
   created_at: 2014-10-31 18:48:46.506469000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 43
   label: 37 - Stock de produits finis et intermédiaires
   lock_version: 0
   name: Stock de produits finis et intermédiaires
   number: '37'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.506469000 Z
-  updater: users_001
+  updater_id: 1
   usages: end_products_stock
 accounts_044:
   created_at: 2014-10-31 18:48:46.509960000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 44
   label: 2815 - Ammortissements des installations techniques, matériels et outillage
   lock_version: 0
   name: Ammortissements des installations techniques, matériels et outillage
   number: '2815'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.509960000 Z
-  updater: users_001
+  updater_id: 1
   usages: equipment_asset_depreciations
 accounts_045:
   created_at: 2014-10-31 18:48:46.513413000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 45
   label: 2154 - Matériels
   lock_version: 0
   name: Matériels
   number: '2154'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.513413000 Z
-  updater: users_001
+  updater_id: 1
   usages: equipment_assets
 accounts_046:
   created_at: 2014-10-31 18:48:46.516891000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 46
   label: 2622 - CUMA
   lock_version: 0
   name: CUMA
   number: '2622'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.516891000 Z
-  updater: users_001
+  updater_id: 1
   usages: equipment_cooperative_participation_assets
 accounts_047:
   created_at: 2014-10-31 18:48:46.520318000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 47
   label: 6155 - Installations techniques, matériel et outillage
   lock_version: 0
   name: Installations techniques, matériel et outillage
   number: '6155'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.520318000 Z
-  updater: users_001
+  updater_id: 1
   usages: equipment_expenses
 accounts_048:
   created_at: 2014-10-31 18:48:46.523867000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 48
   label: 6132 - Location de matériel
   lock_version: 0
   name: Location de matériel
   number: '6132'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.523867000 Z
-  updater: users_001
+  updater_id: 1
   usages: equipment_rent_expenses
 accounts_049:
   created_at: 2014-10-31 18:48:46.527953000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 49
   label: 131 - Subventions d’équipement
   lock_version: 0
   name: Subventions d’équipement
   number: '131'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.527953000 Z
-  updater: users_001
+  updater_id: 1
   usages: equipment_subventions
 accounts_050:
   created_at: 2014-10-31 18:48:46.531607000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 50
   label: 6 - Comptes de charges
   lock_version: 0
   name: Comptes de charges
   number: '6'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.531607000 Z
-  updater: users_001
+  updater_id: 1
   usages: expenses
 accounts_051:
   created_at: 2014-10-31 18:48:46.535305000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 51
   label: 791 - Transferts de expenses d’exploitation
   lock_version: 0
   name: Transferts de expenses d’exploitation
   number: '791'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.535305000 Z
-  updater: users_001
+  updater_id: 1
   usages: exploitation_expenses_transfers
 accounts_052:
   created_at: 2014-10-31 18:48:46.539151000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 52
   label: 74 - Indémnités et subventions d’exploitation
   lock_version: 0
   name: Indémnités et subventions d’exploitation
   number: '74'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.539151000 Z
-  updater: users_001
+  updater_id: 1
   usages: exploitation_subsidies_and_compensations
 accounts_053:
   created_at: 2014-10-31 18:48:46.542999000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 53
   label: 621 - Personnel extérieur à l’entreprise
   lock_version: 0
   name: Personnel extérieur à l’entreprise
   number: '621'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.542999000 Z
-  updater: users_001
+  updater_id: 1
   usages: external_staff_expenses
 accounts_054:
   created_at: 2014-10-31 18:48:46.546665000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 54
   label: 6011 - Engrais et amendements
   lock_version: 0
   name: Engrais et amendements
   number: '6011'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.546665000 Z
-  updater: users_001
+  updater_id: 1
   usages: fertilizer_expenses
 accounts_055:
   created_at: 2014-10-31 18:48:46.550244000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 55
   label: 3011 - Stock d’engrais et amendements
   lock_version: 0
   name: Stock d’engrais et amendements
   number: '3011'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.550244000 Z
-  updater: users_001
+  updater_id: 1
   usages: fertilizer_stock
 accounts_056:
   created_at: 2014-10-31 18:48:46.554033000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 56
   label: 7087 - Compléments de prix et primes sur produits vendus
   lock_version: 0
   name: Compléments de prix et primes sur produits vendus
   number: '7087'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.554033000 Z
-  updater: users_001
+  updater_id: 1
   usages: fill_up_price_revenues
 accounts_057:
   created_at: 2014-10-31 18:48:46.557767000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 57
   label: 5 - Comptes financiers
   lock_version: 0
   name: Comptes financiers
   number: '5'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.557767000 Z
-  updater: users_001
+  updater_id: 1
   usages: finances
 accounts_058:
   created_at: 2014-10-31 18:48:46.561490000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 58
   label: 28 - Ammortissements
   lock_version: 0
   name: Ammortissements
   number: '28'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.561490000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_asset_depreciations
 accounts_059:
   created_at: 2014-10-31 18:48:46.565587000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 59
   label: 2 - Comptes d’immobilisations
   lock_version: 0
   name: Comptes d’immobilisations
   number: '2'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.565587000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_assets
 accounts_060:
   created_at: 2014-10-31 18:48:46.569334000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 60
   label: 404 - Fournisseurs d’immobilisations
   lock_version: 0
   name: Fournisseurs d’immobilisations
   number: '404'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.569334000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_assets_suppliers
 accounts_061:
   created_at: 2014-10-31 18:48:46.573105000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 61
   label: '675 - Valeurs comptables des élèments d’actif cédés '
   lock_version: 0
   name: 'Valeurs comptables des élèments d’actif cédés '
   number: '675'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.573105000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_assets_values
 accounts_062:
   created_at: 2014-10-31 18:48:46.578518000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 62
   label: 128 - Résultat de l’exercice (bénéfice ou perte)
   lock_version: 0
   name: Résultat de l’exercice (bénéfice ou perte)
   number: '128'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.578518000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_year_result_balance
 accounts_063:
   created_at: 2014-10-31 18:48:46.582254000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 63
   label: 129 - Résultat de l’exercice (perte)
   lock_version: 0
   name: Résultat de l’exercice (perte)
   number: '129'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.582254000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_year_result_loss
 accounts_064:
   created_at: 2014-10-31 18:48:46.586010000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 64
   label: 120 - Résultat de l’exercice (bénéfice)
   lock_version: 0
   name: Résultat de l’exercice (bénéfice)
   number: '120'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.586010000 Z
-  updater: users_001
+  updater_id: 1
   usages: financial_year_result_profit
 accounts_065:
   created_at: 2014-10-31 18:48:46.589704000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 65
   label: 76 - Produits financiers
   lock_version: 0
   name: Produits financiers
   number: '76'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.589704000 Z
-  updater: users_001
+  updater_id: 1
   usages: financials_revenues
 accounts_066:
   created_at: 2014-10-31 18:48:46.593348000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 66
   label: 6021 - Carburants et lubrifiants
   lock_version: 0
   name: Carburants et lubrifiants
   number: '6021'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.593348000 Z
-  updater: users_001
+  updater_id: 1
   usages: fuel_matter_expenses
 accounts_067:
   created_at: 2014-10-31 18:48:46.597067000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 67
   label: 3021 - Stock de carburants et lubrifiants
   lock_version: 0
   name: Stock de carburants et lubrifiants
   number: '3021'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.597067000 Z
-  updater: users_001
+  updater_id: 1
   usages: fuel_stock
 accounts_068:
   created_at: 2014-10-31 18:48:46.600767000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 68
   label: 6064 - Carburants et lubrifiants
   lock_version: 0
   name: Carburants et lubrifiants
   number: '6064'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.600767000 Z
-  updater: users_001
+  updater_id: 1
   usages: fuels_expenses
 accounts_069:
   created_at: 2014-10-31 18:48:46.604431000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 69
   label: 6062 - Gaz
   lock_version: 0
   name: Gaz
   number: '6062'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.604431000 Z
-  updater: users_001
+  updater_id: 1
   usages: gas_expenses
 accounts_070:
   created_at: 2014-10-31 18:48:46.608457000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 70
   label: 28181 - Ammortissements des installations
   lock_version: 0
   name: Ammortissements des installations
   number: '28181'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.608457000 Z
-  updater: users_001
+  updater_id: 1
   usages: general_installation_asset_depreciations
 accounts_071:
   created_at: 2014-10-31 18:48:46.612399000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 71
   label: 2145 - Installations générales. Agencements, aménagements des constructions
   lock_version: 0
   name: Installations générales. Agencements, aménagements des constructions
   number: '2145'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.612399000 Z
-  updater: users_001
+  updater_id: 1
   usages: general_installation_assets
 accounts_072:
   created_at: 2014-10-31 18:48:46.616212000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 72
   label: 726 - Production autoconsommée
   lock_version: 0
   name: Production autoconsommée
   number: '726'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.616212000 Z
-  updater: users_001
+  updater_id: 1
   usages: home_consumption_production
 accounts_073:
   created_at: 2014-10-31 18:48:46.619967000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 73
   label: 280 - Ammortissements des immobilisations incorporelles
   lock_version: 0
   name: Ammortissements des immobilisations incorporelles
   number: '280'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.619967000 Z
-  updater: users_001
+  updater_id: 1
   usages: incorporeal_asset_depreciations
 accounts_074:
   created_at: 2014-10-31 18:48:46.623938000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 74
   label: 2624 - SICA
   lock_version: 0
   name: SICA
   number: '2624'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.623938000 Z
-  updater: users_001
+  updater_id: 1
   usages: industrial_cooperative_participation_assets
 accounts_075:
   created_at: 2014-10-31 18:48:46.627790000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 75
   label: 1011 - Capital individuel initial
   lock_version: 0
   name: Capital individuel initial
   number: '1011'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.627790000 Z
-  updater: users_001
+  updater_id: 1
   usages: initial_individual_capital
 accounts_076:
   created_at: 2014-10-31 18:48:46.631477000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 76
   label: 1012 - Variation du capital individuel initial
   lock_version: 0
   name: Variation du capital individuel initial
   number: '1012'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.631477000 Z
-  updater: users_001
+  updater_id: 1
   usages: initial_individual_capital_variations
 accounts_077:
   created_at: 2014-10-31 18:48:46.635140000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 77
   label: 1015 - Capital sociétaire initial
   lock_version: 0
   name: Capital sociétaire initial
   number: '1015'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.635140000 Z
-  updater: users_001
+  updater_id: 1
   usages: initial_society_capital
 accounts_078:
   created_at: 2014-10-31 18:48:46.638767000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 78
   label: 2467 - Aménagements des plantations pérennes
   lock_version: 0
   name: Aménagements des plantations pérennes
   number: '2467'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.638767000 Z
-  updater: users_001
+  updater_id: 1
   usages: installation_sustainable_plant_assets
 accounts_079:
   created_at: 2014-10-31 18:48:46.642404000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 79
   label: 616 - Primes d’assurance
   lock_version: 0
   name: Primes d’assurance
   number: '616'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.642404000 Z
-  updater: users_001
+  updater_id: 1
   usages: insurance_expenses
 accounts_080:
   created_at: 2014-10-31 18:48:46.645966000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 80
   label: 58 - Virements internes
   lock_version: 0
   name: Virements internes
   number: '58'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.645966000 Z
-  updater: users_001
+  updater_id: 1
   usages: internal_transfers
 accounts_081:
   created_at: 2014-10-31 18:48:46.649462000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 81
   label: 71 - Variations d’inventaires
   lock_version: 0
   name: Variations d’inventaires
   number: '71'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.649462000 Z
-  updater: users_001
+  updater_id: 1
   usages: inventory_variations
 accounts_082:
   created_at: 2014-10-31 18:48:46.652950000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 82
   label: 6065 - Eau d’irrigation
   lock_version: 0
   name: Eau d’irrigation
   number: '6065'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.652950000 Z
-  updater: users_001
+  updater_id: 1
   usages: irrigation_expenses
 accounts_083:
   created_at: 2014-10-31 18:48:46.656356000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 83
   label: 1641 - Emprunts fonciers
   lock_version: 0
   name: Emprunts fonciers
   number: '1641'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.656356000 Z
-  updater: users_001
+  updater_id: 1
   usages: land_loans
 accounts_084:
   created_at: 2014-10-31 18:48:46.659753000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 84
   label: 6611 - Intérêts des emprunts fonciers
   lock_version: 0
   name: Intérêts des emprunts fonciers
   number: '6611'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.659753000 Z
-  updater: users_001
+  updater_id: 1
   usages: land_loans_interests
 accounts_085:
   created_at: 2014-10-31 18:48:46.663166000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 85
   label: 2811 - Ammortissements des terrains de gisement
   lock_version: 0
   name: Ammortissements des terrains de gisement
   number: '2811'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.663166000 Z
-  updater: users_001
+  updater_id: 1
   usages: land_parcel_asset_depreciations
 accounts_086:
   created_at: 2014-10-31 18:48:46.666646000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 86
   label: 2111 - Terrains nus
   lock_version: 0
   name: Terrains nus
   number: '2111'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.666646000 Z
-  updater: users_001
+  updater_id: 1
   usages: land_parcel_assets
 accounts_087:
   created_at: 2014-10-31 18:48:46.670108000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 87
   label: 6131 - Fermages et loyers du foncier
   lock_version: 0
   name: Fermages et loyers du foncier
   number: '6131'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.670108000 Z
-  updater: users_001
+  updater_id: 1
   usages: land_parcel_rent_expenses
 accounts_088:
   created_at: 2014-10-31 18:48:46.673773000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 88
   label: 7752 - Immobilisations corporelles (hors biens vivants)
   lock_version: 0
   name: Immobilisations corporelles (hors biens vivants)
   number: '7752'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.673773000 Z
-  updater: users_001
+  updater_id: 1
   usages: land_parcel_sell_revenues
 accounts_089:
   created_at: 2014-10-31 18:48:46.677703000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 89
   label: 1061 - Réserve légale
   lock_version: 0
   name: Réserve légale
   number: '1061'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.677703000 Z
-  updater: users_001
+  updater_id: 1
   usages: legal_reserves
 accounts_090:
   created_at: 2014-10-31 18:48:46.681402000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 90
   label: 6066 - Fournitures d’entretien et de petits équipements
   lock_version: 0
   name: Fournitures d’entretien et de petits équipements
   number: '6066'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.681402000 Z
-  updater: users_001
+  updater_id: 1
   usages: little_office_equipment_expenses
 accounts_091:
   created_at: 2014-10-31 18:48:46.684972000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 91
   label: 6014 - Aliments du betail
   lock_version: 0
   name: Aliments du betail
   number: '6014'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.684972000 Z
-  updater: users_001
+  updater_id: 1
   usages: livestock_feed_matter_expenses
 accounts_092:
   created_at: 2014-10-31 18:48:46.688467000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 92
   label: 3014 - Stock d’aliment du bétail
   lock_version: 0
   name: Stock d’aliment du bétail
   number: '3014'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.688467000 Z
-  updater: users_001
+  updater_id: 1
   usages: livestock_feed_stock
 accounts_093:
   created_at: 2014-10-31 18:48:46.692249000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 93
   label: 4553 - Associes comptes courants ‒ comptes bloqués
   lock_version: 0
   name: Associes comptes courants ‒ comptes bloqués
   number: '4553'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.692249000 Z
-  updater: users_001
+  updater_id: 1
   usages: locked_associated_accounts
 accounts_094:
   created_at: 2014-10-31 18:48:46.696192000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 94
   label: 7131 - Variations d’inventaires ‒ animaux (cycle long)
   lock_version: 0
   name: Variations d’inventaires ‒ animaux (cycle long)
   number: '7131'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.696192000 Z
-  updater: users_001
+  updater_id: 1
   usages: long_cycle_animals_inventory_variations
 accounts_095:
   created_at: 2014-10-31 18:48:46.699993000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 95
   label: 331 - Avances aux cultures (cycle long)
   lock_version: 0
   name: Avances aux cultures (cycle long)
   number: '331'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.699993000 Z
-  updater: users_001
+  updater_id: 1
   usages: long_cycle_cultivation_advances
 accounts_096:
   created_at: 2014-10-31 18:48:46.703576000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 96
   label: 7133 - Variations d’inventaires ‒ végétaux (cycle long)
   lock_version: 0
   name: Variations d’inventaires ‒ végétaux (cycle long)
   number: '7133'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.703576000 Z
-  updater: users_001
+  updater_id: 1
   usages: long_cycle_vegetals_inventory_variations
 accounts_097:
   created_at: 2014-10-31 18:48:46.707107000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 97
   label: 1642 - Emprunts à moyen et long terme
   lock_version: 0
   name: Emprunts à moyen et long terme
   number: '1642'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.707107000 Z
-  updater: users_001
+  updater_id: 1
   usages: long_term_loans
 accounts_098:
   created_at: 2014-10-31 18:48:46.710738000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 98
   label: 6612 - Intérêts des autres emprunts à moyen et long terme
   lock_version: 0
   name: Intérêts des autres emprunts à moyen et long terme
   number: '6612'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.710738000 Z
-  updater: users_001
+  updater_id: 1
   usages: long_term_loans_interests
 accounts_099:
   created_at: 2014-10-31 18:48:46.714343000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 99
   label: 31 - Animaux (cycle long)
   lock_version: 0
   name: Animaux (cycle long)
   number: '31'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.714343000 Z
-  updater: users_001
+  updater_id: 1
   usages: long_time_animal_stock
 accounts_100:
   created_at: 2014-10-31 18:48:46.717884000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 100
   label: 626 - Frais postaux et de télécommunications
   lock_version: 0
   name: Frais postaux et de télécommunications
   number: '626'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.717884000 Z
-  updater: users_001
+  updater_id: 1
   usages: mails_expenses
 accounts_101:
   created_at: 2014-10-31 18:48:46.721468000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 101
   label: 6022 - Produits d’entretien
   lock_version: 0
   name: Produits d’entretien
   number: '6022'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.721468000 Z
-  updater: users_001
+  updater_id: 1
   usages: maintenances_consumables_expenses
 accounts_102:
   created_at: 2014-10-31 18:48:46.725549000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 102
   label: 3022 - Stock de produits d’entretien
   lock_version: 0
   name: Stock de produits d’entretien
   number: '3022'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.725549000 Z
-  updater: users_001
+  updater_id: 1
   usages: maintenances_consumables_stock
 accounts_103:
   created_at: 2014-10-31 18:48:46.729469000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 103
   label: 28183 - Ammortissements des équipements de bureau
   lock_version: 0
   name: Ammortissements des équipements de bureau
   number: '28183'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.729469000 Z
-  updater: users_001
+  updater_id: 1
   usages: office_equipment_asset_depreciations
 accounts_104:
   created_at: 2014-10-31 18:48:46.733285000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 104
   label: 2183 - Matériel de bureau et informatique
   lock_version: 0
   name: Matériel de bureau et informatique
   number: '2183'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.733285000 Z
-  updater: users_001
+  updater_id: 1
   usages: office_equipment_assets
 accounts_105:
   created_at: 2014-10-31 18:48:46.737008000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 105
   label: 28184 - Ammortissements du mobilier
   lock_version: 0
   name: Ammortissements du mobilier
   number: '28184'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.737008000 Z
-  updater: users_001
+  updater_id: 1
   usages: office_furniture_asset_depreciations
 accounts_106:
   created_at: 2014-10-31 18:48:46.740611000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 106
   label: 2184 - Mobilier
   lock_version: 0
   name: Mobilier
   number: '2184'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.740611000 Z
-  updater: users_001
+  updater_id: 1
   usages: office_furniture_assets
 accounts_107:
   created_at: 2014-10-31 18:48:46.744143000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 107
   label: 6024 - Fournitures de bureau
   lock_version: 0
   name: Fournitures de bureau
   number: '6024'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.744143000 Z
-  updater: users_001
+  updater_id: 1
   usages: office_supply_matter_expenses
 accounts_108:
   created_at: 2014-10-31 18:48:46.747641000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 108
   label: 6045 - Autres animaux
   lock_version: 0
   name: Autres animaux
   number: '6045'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.747641000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_animal_expenses
 accounts_109:
   created_at: 2014-10-31 18:48:46.751140000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 109
   label: 7045 - Autres animaux
   lock_version: 0
   name: Autres animaux
   number: '7045'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.751140000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_animal_revenues
 accounts_110:
   created_at: 2014-10-31 18:48:46.754681000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 110
   label: 28188 - Ammortissements des autres immobilisations
   lock_version: 0
   name: Ammortissements des autres immobilisations
   number: '28188'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.754681000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_asset_depreciations
 accounts_111:
   created_at: 2014-10-31 18:48:46.758230000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 111
   label: 2188 - Autres immobilisations
   lock_version: 0
   name: Autres immobilisations
   number: '2188'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.758230000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_assets
 accounts_112:
   created_at: 2014-10-31 18:48:46.761826000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 112
   label: 2814 - Ammortissements des constructions sur sol d’autrui
   lock_version: 0
   name: Ammortissements des constructions sur sol d’autrui
   number: '2814'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.761826000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_building_asset_depreciations
 accounts_113:
   created_at: 2014-10-31 18:48:46.765375000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 113
   label: 6154 - Constructions (sur sol d’autrui)
   lock_version: 0
   name: Constructions (sur sol d’autrui)
   number: '6154'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.765375000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_building_expenses
 accounts_114:
   created_at: 2014-10-31 18:48:46.768898000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 114
   label: 744 - Autres indemnités d’exploitation
   lock_version: 0
   name: Autres indemnités d’exploitation
   number: '744'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.768898000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_compensations
 accounts_115:
   created_at: 2014-10-31 18:48:46.773584000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 115
   label: 6027 - Autres fournitures consommables
   lock_version: 0
   name: Autres fournitures consommables
   number: '6027'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.773584000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_consumable_matter_expenses
 accounts_116:
   created_at: 2014-10-31 18:48:46.778022000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 116
   label: 3027 - Stock d’autres consommables
   lock_version: 0
   name: Stock d’autres consommables
   number: '3027'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.778022000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_consumables_stock
 accounts_117:
   created_at: 2014-10-31 18:48:46.781800000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 117
   label: 2818 - Ammortissements des autres immobilisations corporelles
   lock_version: 0
   name: Ammortissements des autres immobilisations corporelles
   number: '2818'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.781800000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_corporeal_asset_depreciations
 accounts_118:
   created_at: 2014-10-31 18:48:46.785423000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 118
   label: 618 - Divers
   lock_version: 0
   name: Divers
   number: '618'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.785423000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_expenses
 accounts_119:
   created_at: 2014-10-31 18:48:46.789024000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 119
   label: 6226 - Autres honoraires
   lock_version: 0
   name: Autres honoraires
   number: '6226'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.789024000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_fees_expenses
 accounts_120:
   created_at: 2014-10-31 18:48:46.792667000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 120
   label: 2181 - Installations générales. Autres
   lock_version: 0
   name: Installations générales. Autres
   number: '2181'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.792667000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_general_installation_assets
 accounts_121:
   created_at: 2014-10-31 18:48:46.796316000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 121
   label: 2808 - Autres immobilisations incorporelles
   lock_version: 0
   name: Autres immobilisations incorporelles
   number: '2808'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.796316000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_incorporeal_asset_depreciations
 accounts_122:
   created_at: 2014-10-31 18:48:46.799901000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 122
   label: 208 - Autres immobilisations incorporelles (Droits de plantation, Quotas)
   lock_version: 0
   name: Autres immobilisations incorporelles (Droits de plantation, Quotas)
   number: '208'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.799901000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_incorporeal_assets
 accounts_123:
   created_at: 2014-10-31 18:48:46.803429000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 123
   label: 6618 - Autres charges d’intérêts
   lock_version: 0
   name: Autres charges d’intérêts
   number: '6618'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.803429000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_interests_expenses
 accounts_124:
   created_at: 2014-10-31 18:48:46.806968000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 124
   label: 138 - Autres subventions d’investissement
   lock_version: 0
   name: Autres subventions d’investissement
   number: '138'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.806968000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_investment_subventions
 accounts_125:
   created_at: 2014-10-31 18:48:46.810556000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 125
   label: 139 - Autres subventions d’investissement inscrites au compte de résultat
   lock_version: 0
   name: Autres subventions d’investissement inscrites au compte de résultat
   number: '139'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.810556000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_investment_subventions_in_earnings_statement
 accounts_126:
   created_at: 2014-10-31 18:48:46.814234000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 126
   label: 2628 - Autres participations à des OPA
   lock_version: 0
   name: Autres participations à des OPA
   number: '2628'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.814234000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_professional_agricultural_participation_assets
 accounts_127:
   created_at: 2014-10-31 18:48:46.817722000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 127
   label: 1068 - Autres réserves
   lock_version: 0
   name: Autres réserves
   number: '1068'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.817722000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_reserves
 accounts_128:
   created_at: 2014-10-31 18:48:46.821217000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 128
   label: 648 - Autres Charges de personnel
   lock_version: 0
   name: Autres Charges de personnel
   number: '648'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.821217000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_staff_expenses
 accounts_129:
   created_at: 2014-10-31 18:48:46.825409000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 129
   label: 6032 - Variation des stocks autres approvisionnements
   lock_version: 0
   name: Variation des stocks autres approvisionnements
   number: '6032'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.825409000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_supply_stocks_variation
 accounts_130:
   created_at: 2014-10-31 18:48:46.829265000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 130
   label: 635 - Autres impôts, taxes et versements assimilés
   lock_version: 0
   name: Autres impôts, taxes et versements assimilés
   number: '635'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.829265000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_taxes
 accounts_131:
   created_at: 2014-10-31 18:48:46.833122000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 131
   label: 658 - Charges diverses de gestion courante
   lock_version: 0
   name: Charges diverses de gestion courante
   number: '658'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.833122000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_usual_running_expenses
 accounts_132:
   created_at: 2014-10-31 18:48:46.837037000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 132
   label: 758 - Produits divers de gestion courante
   lock_version: 0
   name: Produits divers de gestion courante
   number: '758'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.837037000 Z
-  updater: users_001
+  updater_id: 1
   usages: other_usual_running_profits
 accounts_133:
   created_at: 2014-10-31 18:48:46.840791000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 133
   label: 2813 - Ammortissements des constructions sur sol propre
   lock_version: 0
   name: Ammortissements des constructions sur sol propre
   number: '2813'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.840791000 Z
-  updater: users_001
+  updater_id: 1
   usages: own_building_asset_depreciations
 accounts_134:
   created_at: 2014-10-31 18:48:46.844395000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 134
   label: 6153 - Constructions (sur sol propre)
   lock_version: 0
   name: Constructions (sur sol propre)
   number: '6153'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.844395000 Z
-  updater: users_001
+  updater_id: 1
   usages: own_building_expenses
 accounts_135:
   created_at: 2014-10-31 18:48:46.847913000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 135
   label: 271 - Titres immobilisés (droits de propriété)
   lock_version: 0
   name: Titres immobilisés (droits de propriété)
   number: '271'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.847913000 Z
-  updater: users_001
+  updater_id: 1
   usages: ownership_assets
 accounts_136:
   created_at: 2014-10-31 18:48:46.851408000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 136
   label: 274 - Prêts consentis
   lock_version: 0
   name: Prêts consentis
   number: '274'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.851408000 Z
-  updater: users_001
+  updater_id: 1
   usages: ownership_loan
 accounts_137:
   created_at: 2014-10-31 18:48:46.854835000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 137
   label: 6017 - Emballages
   lock_version: 0
   name: Emballages
   number: '6017'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.854835000 Z
-  updater: users_001
+  updater_id: 1
   usages: packaging
 accounts_138:
   created_at: 2014-10-31 18:48:46.858440000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 138
   label: '511 - Valeurs à l’encaissement '
   lock_version: 0
   name: 'Valeurs à l’encaissement '
   number: '511'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.858440000 Z
-  updater: users_001
+  updater_id: 1
   usages: pending_deposit_payments
 accounts_139:
   created_at: 2014-10-31 18:48:46.862025000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 139
   label: 374 - Stock de produits finis végétaux
   lock_version: 0
   name: Stock de produits finis végétaux
   number: '374'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.862025000 Z
-  updater: users_001
+  updater_id: 1
   usages: plant_derivative_stock
 accounts_140:
   created_at: 2014-10-31 18:48:46.866931000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 140
   label: 6013 - Produits de défense des végétaux
   lock_version: 0
   name: Produits de défense des végétaux
   number: '6013'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.866931000 Z
-  updater: users_001
+  updater_id: 1
   usages: plant_medicine_matter_expenses
 accounts_141:
   created_at: 2014-10-31 18:48:46.870483000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 141
   label: 3013 - Stock de produits de défense des végétaux
   lock_version: 0
   name: Stock de produits de défense des végétaux
   number: '3013'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.870483000 Z
-  updater: users_001
+  updater_id: 1
   usages: plant_medicine_stock
 accounts_142:
   created_at: 2014-10-31 18:48:46.874365000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 142
   label: 4551 - Associes comptes courants ‒ principal
   lock_version: 0
   name: Associes comptes courants ‒ principal
   number: '4551'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.874365000 Z
-  updater: users_001
+  updater_id: 1
   usages: principal_associated_accounts
 accounts_143:
   created_at: 2014-10-31 18:48:46.878187000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 143
   label: 7137 - Variations d’inventaires ‒ produits
   lock_version: 0
   name: Variations d’inventaires ‒ produits
   number: '7137'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.878187000 Z
-  updater: users_001
+  updater_id: 1
   usages: products_inventory_variations
 accounts_144:
   created_at: 2014-10-31 18:48:46.881787000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 144
   label: 634 - Taxes spécifiques sur les produits de l’exploitation
   lock_version: 0
   name: Taxes spécifiques sur les produits de l’exploitation
   number: '634'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.881787000 Z
-  updater: users_001
+  updater_id: 1
   usages: products_specials_taxes
 accounts_145:
   created_at: 2014-10-31 18:48:46.885380000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 145
   label: 262 - Participations à des organismes professionnels agricoles
   lock_version: 0
   name: Participations à des organismes professionnels agricoles
   number: '262'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.885380000 Z
-  updater: users_001
+  updater_id: 1
   usages: professional_agricultural_organization_assets
 accounts_146:
   created_at: 2014-10-31 18:48:46.888975000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 146
   label: 628 - Cotisations professionnelles
   lock_version: 0
   name: Cotisations professionnelles
   number: '628'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.888975000 Z
-  updater: users_001
+  updater_id: 1
   usages: professional_subscriptions_expenses
 accounts_147:
   created_at: 2014-10-31 18:48:46.892517000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 147
   label: 6028 - Matières premières
   lock_version: 0
   name: Matières premières
   number: '6028'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.892517000 Z
-  updater: users_001
+  updater_id: 1
   usages: raw_material_expenses
 accounts_148:
   created_at: 2014-10-31 18:48:46.896002000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 148
   label: 44575 - TVA collectée à régulariser
   lock_version: 0
   name: TVA collectée à régulariser
   number: '44575'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.896002000 Z
-  updater: users_001
+  updater_id: 1
   usages: rectify_collected_vat
 accounts_149:
   created_at: 2014-10-31 18:48:46.899524000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 149
   label: 765 - Escomptes obtenus
   lock_version: 0
   name: Escomptes obtenus
   number: '765'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.899524000 Z
-  updater: users_001
+  updater_id: 1
   usages: reductions
 accounts_150:
   created_at: 2014-10-31 18:48:46.903061000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 150
   label: 105 - Ecart de réévaluation
   lock_version: 0
   name: Ecart de réévaluation
   number: '105'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.903061000 Z
-  updater: users_001
+  updater_id: 1
   usages: reevaluation_gaps
 accounts_151:
   created_at: 2014-10-31 18:48:46.906508000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 151
   label: 106 - Réserves
   lock_version: 0
   name: Réserves
   number: '106'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.906508000 Z
-  updater: users_001
+  updater_id: 1
   usages: reserves
 accounts_152:
   created_at: 2014-10-31 18:48:46.909996000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 152
   label: 7 - Comptes de produits
   lock_version: 0
   name: Comptes de produits
   number: '7'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.909996000 Z
-  updater: users_001
+  updater_id: 1
   usages: revenues
 accounts_153:
   created_at: 2014-10-31 18:48:46.913527000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 153
   label: 775 - Produits des ventes d’immobilisations
   lock_version: 0
   name: Produits des ventes d’immobilisations
   number: '775'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.913527000 Z
-  updater: users_001
+  updater_id: 1
   usages: sales_assets_revenues
 accounts_154:
   created_at: 2014-10-31 18:48:46.917027000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 154
   label: 6012 - Semences et plants
   lock_version: 0
   name: Semences et plants
   number: '6012'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.917027000 Z
-  updater: users_001
+  updater_id: 1
   usages: seed_expenses
 accounts_155:
   created_at: 2014-10-31 18:48:46.920511000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 155
   label: 3012 - Stock de semences et plants
   lock_version: 0
   name: Stock de semences et plants
   number: '3012'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.920511000 Z
-  updater: users_001
+  updater_id: 1
   usages: seed_stock
 accounts_156:
   created_at: 2014-10-31 18:48:46.924511000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 156
   label: 2843 - Ammortissements des animaux de services
   lock_version: 0
   name: Ammortissements des animaux de services
   number: '2843'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.924511000 Z
-  updater: users_001
+  updater_id: 1
   usages: service_animal_asset_depreciations
 accounts_157:
   created_at: 2014-10-31 18:48:46.928212000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 157
   label: 243 - Animaux de service
   lock_version: 0
   name: Animaux de service
   number: '243'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.928212000 Z
-  updater: users_001
+  updater_id: 1
   usages: service_animal_assets
 accounts_158:
   created_at: 2014-10-31 18:48:46.931878000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 158
   label: 777 - Quote-part des subventions d’investissement virée au resultat de l’exercice
   lock_version: 0
   name: Quote-part des subventions d’investissement virée au resultat de l’exercice
   number: '777'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.931878000 Z
-  updater: users_001
+  updater_id: 1
   usages: share_asset_subsidies
 accounts_159:
   created_at: 2014-10-31 18:48:46.935568000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 159
   label: 7132 - Variations d’inventaires ‒ animaux (cycle court)
   lock_version: 0
   name: Variations d’inventaires ‒ animaux (cycle court)
   number: '7132'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.935568000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_animals_inventory_variations
 accounts_160:
   created_at: 2014-10-31 18:48:46.939297000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 160
   label: 341 - Avances aux cultures (cycle court)
   lock_version: 0
   name: Avances aux cultures (cycle court)
   number: '341'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.939297000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_cultivation_advances
 accounts_161:
   created_at: 2014-10-31 18:48:46.942999000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 161
   label: 3415 - Avances aux cultures (cycle court) ‒ Façons culturales
   lock_version: 0
   name: Avances aux cultures (cycle court) ‒ Façons culturales
   number: '3415'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.942999000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_cultivation_advances_culturals_ways
 accounts_162:
   created_at: 2014-10-31 18:48:46.946603000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 162
   label: 3411 - Avances aux cultures (cycle court) ‒ Engrais et ammendement
   lock_version: 0
   name: Avances aux cultures (cycle court) ‒ Engrais et ammendement
   number: '3411'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.946603000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_cultivation_advances_fertilizers
 accounts_163:
   created_at: 2014-10-31 18:48:46.950227000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 163
   label: 3413 - Avances aux cultures (cycle court) ‒ Produits de défense des végétaux
   lock_version: 0
   name: Avances aux cultures (cycle court) ‒ Produits de défense des végétaux
   number: '3413'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.950227000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_cultivation_advances_plants_medicines
 accounts_164:
   created_at: 2014-10-31 18:48:46.953820000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 164
   label: 3412 - Avances aux cultures (cycle court) ‒ Semences et plants
   lock_version: 0
   name: Avances aux cultures (cycle court) ‒ Semences et plants
   number: '3412'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.953820000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_cultivation_advances_seeds
 accounts_165:
   created_at: 2014-10-31 18:48:46.957485000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 165
   label: 7134 - Variations d’inventaires ‒ végétaux (cycle court)
   lock_version: 0
   name: Variations d’inventaires ‒ végétaux (cycle court)
   number: '7134'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.957485000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_cycle_vegetals_inventory_variations
 accounts_166:
   created_at: 2014-10-31 18:48:46.961002000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 166
   label: 1643 - Emprunts à court terme
   lock_version: 0
   name: Emprunts à court terme
   number: '1643'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.961002000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_term_loans
 accounts_167:
   created_at: 2014-10-31 18:48:46.964540000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 167
   label: 6613 - Intérêts des emprunts à court terme
   lock_version: 0
   name: Intérêts des emprunts à court terme
   number: '6613'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.964540000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_term_loans_interests
 accounts_168:
   created_at: 2014-10-31 18:48:46.968735000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 168
   label: 32 - Animaux (cycle court)
   lock_version: 0
   name: Animaux (cycle court)
   number: '32'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.968735000 Z
-  updater: users_001
+  updater_id: 1
   usages: short_time_animal_stock
 accounts_169:
   created_at: 2014-10-31 18:48:46.972396000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 169
   label: 431 - Mutualité Sociale Agricole
   lock_version: 0
   name: Mutualité Sociale Agricole
   number: '431'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.972396000 Z
-  updater: users_001
+  updater_id: 1
   usages: social_agricultural_mutuality
 accounts_170:
   created_at: 2014-10-31 18:48:46.976444000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 170
   label: 421 - Personnel ‒ rémunérations dûes
   lock_version: 0
   name: Personnel ‒ rémunérations dûes
   number: '421'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.976444000 Z
-  updater: users_001
+  updater_id: 1
   usages: staff_due_remunerations
 accounts_171:
   created_at: 2014-10-31 18:48:46.979980000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 171
   label: 64 - Charges de personnel
   lock_version: 0
   name: Charges de personnel
   number: '64'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.979980000 Z
-  updater: users_001
+  updater_id: 1
   usages: staff_expenses
 accounts_172:
   created_at: 2014-10-31 18:48:46.983498000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 172
   label: 6411 - Salaires
   lock_version: 0
   name: Salaires
   number: '6411'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.983498000 Z
-  updater: users_001
+  updater_id: 1
   usages: staff_salary
 accounts_173:
   created_at: 2014-10-31 18:48:46.986938000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 173
   label: 3 - Comptes de stocks et en-cours
   lock_version: 0
   name: Comptes de stocks et en-cours
   number: '3'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.986938000 Z
-  updater: users_001
+  updater_id: 1
   usages: stocks
 accounts_174:
   created_at: 2014-10-31 18:48:46.990493000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 174
   label: 603 - Variation de stocks
   lock_version: 0
   name: Variation de stocks
   number: '603'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.990493000 Z
-  updater: users_001
+  updater_id: 1
   usages: stocks_variation
 accounts_175:
   created_at: 2014-10-31 18:48:46.994068000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 175
   label: 617 - Etudes et recherches
   lock_version: 0
   name: Etudes et recherches
   number: '617'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.994068000 Z
-  updater: users_001
+  updater_id: 1
   usages: studies_and_research_expenses
 accounts_176:
   created_at: 2014-10-31 18:48:46.997536000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 176
   label: 745 - Subventions d’exploitation
   lock_version: 0
   name: Subventions d’exploitation
   number: '745'
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.997536000 Z
-  updater: users_001
+  updater_id: 1
   usages: subsidies
 accounts_177:
   created_at: 2014-10-31 18:48:47.001049000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 177
   label: 401 - Fournisseurs
   lock_version: 0
   name: Fournisseurs
   number: '401'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.001049000 Z
-  updater: users_001
+  updater_id: 1
   usages: suppliers
 accounts_178:
   created_at: 2014-10-31 18:48:47.004691000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 178
   label: 402 - Fournisseurs d’exploitation ‒ soldes apres compensation
   lock_version: 0
   name: Fournisseurs d’exploitation ‒ soldes apres compensation
   number: '402'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.004691000 Z
-  updater: users_001
+  updater_id: 1
   usages: suppliers_balance_after_compensation
 accounts_179:
   created_at: 2014-10-31 18:48:47.008346000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 179
   label: 408 - Fournisseurs ‒ factures non parvenues
   lock_version: 0
   name: Fournisseurs ‒ factures non parvenues
   number: '408'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.008346000 Z
-  updater: users_001
+  updater_id: 1
   usages: suppliers_invoices_not_received
 accounts_180:
   created_at: 2014-10-31 18:48:47.011944000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 180
   label: 6031 - Variation de stocks d’approvisonnements
   lock_version: 0
   name: Variation de stocks d’approvisonnements
   number: '6031'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.011944000 Z
-  updater: users_001
+  updater_id: 1
   usages: supply_stocks_variation
 accounts_181:
   created_at: 2014-10-31 18:48:47.015647000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 181
   label: 28186 - Ammortissements des emballages réutilisables
   lock_version: 0
   name: Ammortissements des emballages réutilisables
   number: '28186'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.015647000 Z
-  updater: users_001
+  updater_id: 1
   usages: sustainable_packaging_asset_depreciations
 accounts_182:
   created_at: 2014-10-31 18:48:47.019197000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 182
   label: 2186 - Emballages récupérables
   lock_version: 0
   name: Emballages récupérables
   number: '2186'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.019197000 Z
-  updater: users_001
+  updater_id: 1
   usages: sustainable_packaging_assets
 accounts_183:
   created_at: 2014-10-31 18:48:47.022830000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 183
   label: 2846 - Ammortissements des plantations pérennes
   lock_version: 0
   name: Ammortissements des plantations pérennes
   number: '2846'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.022830000 Z
-  updater: users_001
+  updater_id: 1
   usages: sustainables_plants_asset_depreciations
 accounts_184:
   created_at: 2014-10-31 18:48:47.026917000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 184
   label: 246 - Plantations pérennes
   lock_version: 0
   name: Plantations pérennes
   number: '246'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.026917000 Z
-  updater: users_001
+  updater_id: 1
   usages: sustainables_plants_assets
 accounts_185:
   created_at: 2014-10-31 18:48:47.030732000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 185
   label: 2465 - Plantations pérennes sur sol d’autrui
   lock_version: 0
   name: Plantations pérennes sur sol d’autrui
   number: '2465'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.030732000 Z
-  updater: users_001
+  updater_id: 1
   usages: sustainables_plants_on_other_land_parcel_assets
 accounts_186:
   created_at: 2014-10-31 18:48:47.034540000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 186
   label: 2461 - Plantations pérennes sur sol propre
   lock_version: 0
   name: Plantations pérennes sur sol propre
   number: '2461'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.034540000 Z
-  updater: users_001
+  updater_id: 1
   usages: sustainables_plants_on_own_land_parcel_assets
 accounts_187:
   created_at: 2014-10-31 18:48:47.038015000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 187
   label: 4 - Compte de tiers
   lock_version: 0
   name: Compte de tiers
   number: '4'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.038015000 Z
-  updater: users_001
+  updater_id: 1
   usages: third_party
 accounts_188:
   created_at: 2014-10-31 18:48:47.041656000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 188
   label: 28182 - Ammortissements des véhicules de transport
   lock_version: 0
   name: Ammortissements des véhicules de transport
   number: '28182'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.041656000 Z
-  updater: users_001
+  updater_id: 1
   usages: transport_vehicle_asset_depreciations
 accounts_189:
   created_at: 2014-10-31 18:48:47.045247000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 189
   label: 2182 - Matériel de transport
   lock_version: 0
   name: Matériel de transport
   number: '2182'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.045247000 Z
-  updater: users_001
+  updater_id: 1
   usages: transport_vehicle_assets
 accounts_190:
   created_at: 2014-10-31 18:48:47.146835000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 190
   label: 624 - Frais de transports
   lock_version: 0
   name: Frais de transports
   number: '624'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.146835000 Z
-  updater: users_001
+  updater_id: 1
   usages: transports_expenses
 accounts_191:
   created_at: 2014-10-31 18:48:47.151668000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 191
   label: 625 - Frais de voyages
   lock_version: 0
   name: Frais de voyages
   number: '625'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.151668000 Z
-  updater: users_001
+  updater_id: 1
   usages: travels_expenses
 accounts_192:
   created_at: 2014-10-31 18:48:47.155805000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 192
   label: 4552 - Associes comptes courants ‒ comptes courants
   lock_version: 0
   name: Associes comptes courants ‒ comptes courants
   number: '4552'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.155805000 Z
-  updater: users_001
+  updater_id: 1
   usages: usual_associated_accounts
 accounts_193:
   created_at: 2014-10-31 18:48:47.160110000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 193
   label: 519 - Concours bancaires courants
   lock_version: 0
   name: Concours bancaires courants
   number: '519'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.160110000 Z
-  updater: users_001
+  updater_id: 1
   usages: usual_bank_overdraft
 accounts_194:
   created_at: 2014-10-31 18:48:47.163924000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 194
   label: 445 - État ‒ Taxes sur le chiffre d’affaire
   lock_version: 0
   name: "État ‒ Taxes sur le chiffre d’affaire"
   number: '445'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.163924000 Z
-  updater: users_001
+  updater_id: 1
   usages: vat
 accounts_195:
   created_at: 2014-10-31 18:48:47.167948000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 195
   label: 6051 - Achats pour productions végétales
   lock_version: 0
   name: Achats pour productions végétales
   number: '6051'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.167948000 Z
-  updater: users_001
+  updater_id: 1
   usages: vegetals_productions_expenses
 accounts_196:
   created_at: 2014-10-31 18:48:47.171832000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 196
   label: 6225 - Honoraires veterinaires
   lock_version: 0
   name: Honoraires veterinaires
   number: '6225'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.171832000 Z
-  updater: users_001
+  updater_id: 1
   usages: veterinary_fees_expenses
 accounts_197:
   created_at: 2014-10-31 18:48:47.176231000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 197
   label: 4458 - Taxes sur le chiffres d’affaires à régulariser ou en attente
   lock_version: 0
   name: Taxes sur le chiffres d’affaires à régulariser ou en attente
   number: '4458'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.176231000 Z
-  updater: users_001
+  updater_id: 1
   usages: waiting_vat
 accounts_198:
   created_at: 2014-10-31 18:48:47.180323000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 198
   label: 6061 - Eau
   lock_version: 0
   name: Eau
   number: '6061'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.180323000 Z
-  updater: users_001
+  updater_id: 1
   usages: water_expenses
 accounts_199:
   created_at: 2014-10-31 18:48:47.184248000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 199
   label: 242 - Animaux reproducteurs (jeunes de renouvellement)
   lock_version: 0
   name: Animaux reproducteurs (jeunes de renouvellement)
   number: '242'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.184248000 Z
-  updater: users_001
+  updater_id: 1
   usages: young_animal_assets
 accounts_200:
   created_at: 2014-10-31 18:48:47.188060000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 200
   label: 6042 - Animaux reproducteurs (jeunes de renouvellement)
   lock_version: 0
   name: Animaux reproducteurs (jeunes de renouvellement)
   number: '6042'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.188060000 Z
-  updater: users_001
+  updater_id: 1
   usages: young_animal_expenses
 accounts_201:
   created_at: 2014-10-31 18:48:47.191937000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 201
   label: 7042 - Animaux reproducteurs (jeunes de renouvellement)
   lock_version: 0
   name: Animaux reproducteurs (jeunes de renouvellement)
   number: '7042'
   reconcilable: false
   updated_at: 2014-10-31 18:48:47.191937000 Z
-  updater: users_001
+  updater_id: 1
   usages: young_animal_revenues
 accounts_202:
   created_at: 2014-10-31 18:51:28.047332000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 202
   label: 4113 - Yuey LTD
   lock_version: 0
   name: Yuey LTD
   number: '4113'
   reconcilable: true
   updated_at: 2014-10-31 18:51:28.047332000 Z
-  updater: users_001
+  updater_id: 1
 accounts_203:
   created_at: 2014-11-01 19:44:07.733349000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 203
   label: 401EI00000001 - Taurus Plus
   lock_version: 0
   name: Taurus Plus
   number: 401EI00000001
   reconcilable: true
   updated_at: 2014-11-01 19:44:07.733349000 Z
-  updater: users_001
+  updater_id: 1
 accounts_204:
   created_at: 2014-11-01 19:46:24.884993000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 204
   label: 401198 - BAKTOUBI Inc.
   lock_version: 0
   name: BAKTOUBI Inc.
   number: '401198'
   reconcilable: true
   updated_at: 2014-11-01 19:46:24.884993000 Z
-  updater: users_001
+  updater_id: 1
 accounts_205:
   created_at: 2014-11-01 19:47:25.939118000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 205
   label: 4011 - Busbest Andrew
   lock_version: 0
   name: Busbest Andrew
   number: '4011'
   reconcilable: true
   updated_at: 2014-11-01 19:47:25.939118000 Z
-  updater: users_001
+  updater_id: 1
 accounts_206:
   created_at: 2014-11-01 19:47:25.946030000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 206
   label: 4111 - Busbest Andrew
   lock_version: 0
   name: Busbest Andrew
   number: '4111'
   reconcilable: true
   updated_at: 2014-11-01 19:47:25.946030000 Z
-  updater: users_001
+  updater_id: 1
 accounts_207:
   created_at: 2014-11-01 19:47:25.953834000 Z
-  creator: users_001
+  creator_id: 1
   debtor: false
+  id: 207
   label: 4013 - Yuey LTD
   lock_version: 0
   name: Yuey LTD
   number: '4013'
   reconcilable: true
   updated_at: 2014-11-01 19:47:25.953834000 Z
-  updater: users_001
+  updater_id: 1

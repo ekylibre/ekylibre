@@ -63,35 +63,38 @@ production_support_markers_001:
   aim: minimal
   boolean_value: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   decimal_value: 10.0
+  id: 1
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  support: production_supports_001
+  support_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 production_support_markers_002:
   aim: maximal
   boolean_value: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   decimal_value: 1000.0
+  id: 2
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  support: production_supports_001
+  support_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 production_support_markers_003:
   aim: perfect
   boolean_value: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   decimal_value: 100.0
+  id: 3
   indicator_datatype: decimal
   indicator_name: population
   lock_version: 0
-  support: production_supports_001
+  support_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

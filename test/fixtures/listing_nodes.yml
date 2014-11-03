@@ -64,77 +64,82 @@
 ---
 listing_nodes_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
   exportable: true
+  id: 1
   key: k7808663264735959d
   label: Entities
-  listing: listings_001
+  listing_id: 1
   lock_version: 0
   name: entity
   nature: root
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 listing_nodes_002:
   attribute_name: first_name
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
   exportable: true
+  id: 2
   key: k557222636710691d
   label: First name
-  listing: listings_001
+  listing_id: 1
   lock_version: 0
   name: entity.first_name
   nature: column
-  parent: listing_nodes_001
+  parent_id: 1
   sql_type: string
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 listing_nodes_003:
   attribute_name: addresses
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
   exportable: true
+  id: 3
   key: k3049773318823211d
   label: Addresses
-  listing: listings_001
+  listing_id: 1
   lock_version: 0
   name: address_0
   nature: has_many
-  parent: listing_nodes_001
+  parent_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 listing_nodes_004:
   attribute_name: coordinate
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
   exportable: true
+  id: 4
   key: k4171358212843227d
   label: Coordinate
-  listing: listings_001
+  listing_id: 1
   lock_version: 0
   name: address_0.coordinate
   nature: column
-  parent: listing_nodes_003
+  parent_id: 3
   sql_type: string
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 listing_nodes_005:
   attribute_name: canal
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
   exportable: true
+  id: 5
   key: k9380294020455736d
   label: Canal
-  listing: listings_001
+  listing_id: 1
   lock_version: 0
   name: address_0.canal
   nature: column
-  parent: listing_nodes_003
+  parent_id: 3
   sql_type: string
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

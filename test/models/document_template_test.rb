@@ -48,7 +48,7 @@ class DocumentTemplateTest < ActiveSupport::TestCase
     for locale in I18n.available_locales
       # Load all templates
       assert_nothing_raised do
-        DocumentTemplate.load_defaults(:locale => locale)
+        DocumentTemplate.load_defaults(locale: locale)
       end
       # TODO: Check that XML are good to use
     end

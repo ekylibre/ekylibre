@@ -52,35 +52,38 @@ purchase_natures_001:
   active: true
   by_default: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
-  journal: journals_004
+  id: 1
+  journal_id: 4
   lock_version: 1
   name: Classical purchase
   updated_at: 2014-10-31 18:37:30.563173000 Z
-  updater: users_001
+  updater_id: 1
   with_accounting: true
 purchase_natures_002:
   active: true
   by_default: false
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
-  journal: journals_004
+  id: 2
+  journal_id: 4
   lock_version: 0
   name: Lorem
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   with_accounting: true
 purchase_natures_003:
   active: true
   by_default: false
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: USD
-  journal: journals_005
+  id: 3
+  journal_id: 5
   lock_version: 1
   name: USD Purchase
   updated_at: 2014-10-31 18:39:35.027564000 Z
-  updater: users_001
+  updater_id: 1
   with_accounting: true

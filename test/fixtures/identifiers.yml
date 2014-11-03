@@ -44,53 +44,59 @@
 ---
 identifiers_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
   nature: pacage_number
-  net_service: net_services_001
+  net_service_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   value: '172563'
 identifiers_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 0
   nature: password
-  net_service: net_services_001
+  net_service_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   value: '123456'
 identifiers_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
   nature: cattling_number
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   value: 172563ED
 identifiers_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   lock_version: 0
   nature: husbandry_owner_number
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   value: HONAZER172563ED
 identifiers_005:
   created_at: 2014-10-31 19:07:23.551178000 Z
-  creator: users_001
+  creator_id: 1
+  id: 5
   lock_version: 0
   nature: synel_username
-  net_service: net_services_003
+  net_service_id: 3
   updated_at: 2014-10-31 19:07:23.551178000 Z
-  updater: users_001
+  updater_id: 1
   value: 12345fgfgdfg
 identifiers_006:
   created_at: 2014-10-31 19:07:23.552231000 Z
-  creator: users_001
+  creator_id: 1
+  id: 6
   lock_version: 0
   nature: password
-  net_service: net_services_003
+  net_service_id: 3
   updated_at: 2014-10-31 19:07:23.552231000 Z
-  updater: users_001
+  updater_id: 1
   value: '128543548'

@@ -76,12 +76,13 @@ journal_entries_001:
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2007-07-21 22:00:00.000000000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_016
-  journal: journals_001
+  financial_year_id: 16
+  id: 1
+  journal_id: 1
   lock_version: 0
   number: XYZ0001
   printed_on: 2007-07-20
@@ -89,22 +90,24 @@ journal_entries_001:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
-  resource: sales_001 (Sale)
+  resource_id: 1
+  resource_type: Sale
   state: draft
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_002:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2009-07-18 22:00:00.000000000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_018
-  journal: journals_001
+  financial_year_id: 18
+  id: 2
+  journal_id: 1
   lock_version: 0
   number: XYZ0002
   printed_on: 2007-07-25
@@ -114,19 +117,20 @@ journal_entries_002:
   real_debit: 0.0
   state: draft
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_003:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2009-07-18 22:00:00.000000000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_016
-  journal: journals_001
+  financial_year_id: 16
+  id: 3
+  journal_id: 1
   lock_version: 0
   number: XYZ0003
   printed_on: 2007-05-19
@@ -136,19 +140,20 @@ journal_entries_003:
   real_debit: 0.0
   state: draft
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_004:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2009-07-18 22:00:00.000000000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_018
-  journal: journals_001
+  financial_year_id: 18
+  id: 4
+  journal_id: 1
   lock_version: 0
   number: XYZ0004
   printed_on: 2007-01-19
@@ -158,19 +163,20 @@ journal_entries_004:
   real_debit: 0.0
   state: draft
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_005:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2007-07-21 22:00:00.000000000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_016
-  journal: journals_002
+  financial_year_id: 16
+  id: 5
+  journal_id: 2
   lock_version: 0
   number: ABC0001
   printed_on: 2007-07-20
@@ -178,22 +184,24 @@ journal_entries_005:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
-  resource: purchases_001 (Purchase)
+  resource_id: 1
+  resource_type: Purchase
   state: confirmed
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_006:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2007-07-21 22:00:00.000000000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_016
-  journal: journals_002
+  financial_year_id: 16
+  id: 6
+  journal_id: 2
   lock_version: 0
   number: ABC0002
   printed_on: 2007-07-19
@@ -203,19 +211,20 @@ journal_entries_006:
   real_debit: 0.0
   state: closed
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_007:
   absolute_credit: 150.0
   absolute_currency: EUR
   absolute_debit: 150.0
   balance: 0.0
   created_at: 2014-11-01 19:48:47.123287000 Z
-  creator: users_001
+  creator_id: 1
   credit: 150.0
   currency: EUR
   debit: 150.0
-  financial_year: financial_years_018
-  journal: journals_001
+  financial_year_id: 18
+  id: 7
+  journal_id: 1
   lock_version: 2
   number: XYZ0005
   printed_on: 2009-07-19
@@ -223,22 +232,24 @@ journal_entries_007:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 150.0
-  resource: incoming_payments_002 (IncomingPayment)
+  resource_id: 2
+  resource_type: IncomingPayment
   state: draft
   updated_at: 2014-11-01 19:48:47.174182000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_008:
   absolute_credit: 100.0
   absolute_currency: EUR
   absolute_debit: 100.0
   balance: 0.0
   created_at: 2014-11-01 19:51:21.104877000 Z
-  creator: users_001
+  creator_id: 1
   credit: 100.0
   currency: EUR
   debit: 100.0
-  financial_year: financial_years_018
-  journal: journals_001
+  financial_year_id: 18
+  id: 8
+  journal_id: 1
   lock_version: 2
   number: XYZ0006
   printed_on: 2009-07-19
@@ -246,22 +257,24 @@ journal_entries_008:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 100.0
-  resource: incoming_payments_003 (IncomingPayment)
+  resource_id: 3
+  resource_type: IncomingPayment
   state: draft
   updated_at: 2014-11-01 19:51:21.146494000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_009:
   absolute_credit: 63.82
   absolute_currency: EUR
   absolute_debit: 63.82
   balance: 0.0
   created_at: 2014-11-01 19:51:53.619246000 Z
-  creator: users_001
+  creator_id: 1
   credit: 63.82
   currency: EUR
   debit: 63.82
-  financial_year: financial_years_024
-  journal: journals_004
+  financial_year_id: 24
+  id: 9
+  journal_id: 4
   lock_version: 12
   number: PUR000001
   printed_on: 2014-10-31
@@ -269,22 +282,24 @@ journal_entries_009:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 63.82
-  resource: purchases_003 (Purchase)
+  resource_id: 3
+  resource_type: Purchase
   state: draft
   updated_at: 2014-11-01 20:01:04.959877000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_010:
   absolute_credit: 27.0
   absolute_currency: EUR
   absolute_debit: 27.0
   balance: 0.0
   created_at: 2014-11-01 19:52:00.937882000 Z
-  creator: users_001
+  creator_id: 1
   credit: 27.0
   currency: EUR
   debit: 27.0
-  financial_year: financial_years_024
-  journal: journals_001
+  financial_year_id: 24
+  id: 10
+  journal_id: 1
   lock_version: 15
   number: XYZ0007
   printed_on: 2014-11-01
@@ -292,22 +307,24 @@ journal_entries_010:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 27.0
-  resource: affairs_003 (Affair)
+  resource_id: 3
+  resource_type: Affair
   state: draft
   updated_at: 2014-11-01 19:52:01.279238000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_011:
   absolute_credit: 117.0
   absolute_currency: EUR
   absolute_debit: 117.0
   balance: 0.0
   created_at: 2014-11-01 19:52:00.993593000 Z
-  creator: users_001
+  creator_id: 1
   credit: 117.0
   currency: EUR
   debit: 117.0
-  financial_year: financial_years_024
-  journal: journals_001
+  financial_year_id: 24
+  id: 11
+  journal_id: 1
   lock_version: 4
   number: XYZ0008
   printed_on: 2014-11-01
@@ -315,22 +332,24 @@ journal_entries_011:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 117.0
-  resource: gaps_003 (Gap)
+  resource_id: 3
+  resource_type: Gap
   state: draft
   updated_at: 2014-11-01 19:52:01.073308000 Z
-  updater: users_001
+  updater_id: 1
 journal_entries_012:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
   balance: 0.0
   created_at: 2014-11-01 20:01:05.058333000 Z
-  creator: users_001
+  creator_id: 1
   credit: 0.0
   currency: EUR
   debit: 0.0
-  financial_year: financial_years_024
-  journal: journals_001
+  financial_year_id: 24
+  id: 12
+  journal_id: 1
   lock_version: 0
   number: XYZ0009
   printed_on: 2014-11-01
@@ -338,7 +357,8 @@ journal_entries_012:
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
-  resource: affairs_003 (Affair)
+  resource_id: 3
+  resource_type: Affair
   state: draft
   updated_at: 2014-11-01 20:01:05.058333000 Z
-  updater: users_001
+  updater_id: 1

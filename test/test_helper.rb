@@ -10,6 +10,8 @@ if ENV['LOCALE']
   I18n.locale = ENV['LOCALE']
 end
 
+# Configure tenants.yml
+Ekylibre::Tenant.setup!("test", keep_files: true)
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -47,7 +49,16 @@ class ActionController::TestCase
 
     # Returns ID of the given label
     def identify(label)
-      ActiveRecord::FixtureSet.identify(label)
+      # ActiveRecord::FixtureSet.identify(label)
+      elements = label.to_s.split("_")
+      id = elements.delete_at(-1)
+      model = elements.join("_").classify.constantize
+      @@fixtures ||= {}
+      @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join("test", "fixtures", "#{model.table_name}.yml"))
+      unless attrs = @@fixtures[model.table_name][label.to_s]
+        raise "Unknown fixture #{label}"
+      end
+      return attrs['id'].to_i
     end
 
     def test_restfully_all_actions(options = {}, &block)
@@ -92,6 +103,7 @@ class ActionController::TestCase
       code  = ""
 
       code << "setup do\n"
+      code << "  Ekylibre::Tenant.switch('test')\n"
       # Check locale
       code << "  I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
       code << "  assert_not_nil I18n.locale\n"

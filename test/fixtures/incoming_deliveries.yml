@@ -48,97 +48,105 @@
 #
 ---
 incoming_deliveries_001:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
   mode: ex_works
   number: INDEL000001
   received_at: 2014-10-24 17:19:32.000000000 Z
-  sender: legal_entities_001
+  sender_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_002:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 1
   mode: ex_works
   number: INDEL000002
   received_at: 2014-11-06 08:45:00.000000000 Z
   reference_number: ''
-  sender: entities_004
+  sender_id: 4
   updated_at: 2014-11-01 16:01:24.150621000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_003:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
   mode: ex_works
   number: INDEL000003
-  purchase: purchases_001
+  purchase_id: 1
   received_at: 2014-10-14 17:19:32.000000000 Z
-  sender: legal_entities_001
+  sender_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_004:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 20:23:37.027824000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   lock_version: 0
   mode: delivered_duty_paid
   number: INDEL000004
   received_at: 2014-10-31 20:09:00.000000000 Z
   reference_number: '1282'
-  sender: entities_004
+  sender_id: 4
   updated_at: 2014-10-31 20:23:37.027824000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_005:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-11-01 16:00:08.015634000 Z
-  creator: users_001
+  creator_id: 1
+  id: 5
   lock_version: 0
   mode: delivered_at_terminal
   number: BR20140001
   received_at: 2014-10-31 20:31:00.000000000 Z
   reference_number: DFS1282
-  sender: entities_004
+  sender_id: 4
   updated_at: 2014-11-01 16:00:08.015634000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_006:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-11-01 19:29:58.086427000 Z
-  creator: users_001
+  creator_id: 1
+  id: 6
   lock_version: 0
   mode: delivered_duty_paid
   number: RRCBR20140004
   received_at: 2014-11-01 19:26:00.000000000 Z
   reference_number: VD
-  sender: entities_004
+  sender_id: 4
   updated_at: 2014-11-01 19:29:58.086427000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_007:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-11-01 19:35:50.370591000 Z
-  creator: users_001
+  creator_id: 1
+  id: 7
   lock_version: 0
   mode: delivered_duty_paid
   number: INWRRCBR20140007
   received_at: 2014-11-01 19:33:00.000000000 Z
   reference_number: EDSDFSF
-  sender: entities_005
+  sender_id: 5
   updated_at: 2014-11-01 19:35:50.370591000 Z
-  updater: users_001
+  updater_id: 1
 incoming_deliveries_008:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-11-01 20:19:35.352913000 Z
-  creator: users_001
+  creator_id: 1
+  id: 8
   lock_version: 1
   mode: delivered_duty_paid
   number: YINWRRCBR20140008
   received_at: 2013-08-01 00:50:00.000000000 Z
   reference_number: ''
-  sender: legal_entities_003
+  sender_id: 8
   updated_at: 2014-11-01 20:23:54.910311000 Z
-  updater: users_001
+  updater_id: 1

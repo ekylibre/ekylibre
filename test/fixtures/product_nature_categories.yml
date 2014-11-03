@@ -66,113 +66,119 @@
 ---
 product_nature_categories_001:
   active: true
-  charge_account: accounts_001
+  charge_account_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: true
-  financial_asset_account: accounts_001
+  financial_asset_account_id: 1
+  id: 1
   lock_version: 0
   name: Generic Product Nature Category
   number: PNC001
-  product_account: accounts_001
+  product_account_id: 1
   purchasable: true
   reductible: true
   saleable: true
-  stock_account: accounts_001
+  stock_account_id: 1
   storable: true
   subscribing: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_002:
   active: true
-  charge_account: accounts_001
+  charge_account_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: true
-  financial_asset_account: accounts_001
+  financial_asset_account_id: 1
+  id: 2
   lock_version: 0
   name: Obsolete Product Nature Category
   number: PNC002
-  product_account: accounts_001
+  product_account_id: 1
   purchasable: true
   reductible: true
   saleable: true
-  stock_account: accounts_001
+  stock_account_id: 1
   storable: true
   subscribing: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_003:
   active: true
-  charge_account: accounts_140
+  charge_account_id: 140
   created_at: 2014-10-31 20:11:19.871117000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 3
   lock_version: 0
   name: Produit phytosanitaire
   number: PNC003
   pictogram: beaker
-  product_account: accounts_152
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: plant_medicine
   saleable: true
-  stock_account: accounts_141
+  stock_account_id: 141
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:19.871117000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_004:
   active: true
   created_at: 2014-10-31 20:11:30.463762000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 4
   lock_version: 0
   name: Paille
   number: PNC004
   pictogram: wheat
-  product_account: accounts_005
+  product_account_id: 5
   purchasable: false
   reductible: false
   reference_name: straw
   saleable: true
-  stock_account: accounts_139
+  stock_account_id: 139
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:30.463762000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_005:
   active: true
-  charge_account: accounts_154
+  charge_account_id: 154
   created_at: 2014-10-31 20:11:42.132127000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 5
   lock_version: 0
   name: Semence
   number: PNC005
   pictogram: matter
-  product_account: accounts_152
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: seed
   saleable: true
-  stock_account: accounts_155
+  stock_account_id: 155
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:42.132127000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_006:
   active: true
-  charge_account: accounts_134
+  charge_account_id: 134
   created_at: 2014-10-31 20:13:23.311480000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: true
-  financial_asset_account: accounts_028
+  financial_asset_account_id: 28
+  id: 6
   lock_version: 0
   name: Bâtiment
   number: PNC006
   pictogram: building
-  product_account: accounts_153
+  product_account_id: 153
   purchasable: true
   reductible: false
   reference_name: building
@@ -180,12 +186,13 @@ product_nature_categories_006:
   storable: false
   subscribing: false
   updated_at: 2014-10-31 20:13:23.311480000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_007:
   active: true
   created_at: 2014-10-31 20:13:55.094715000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 7
   lock_version: 0
   name: Pièce ou zone d’un bâtiment
   number: PNC007
@@ -197,117 +204,123 @@ product_nature_categories_007:
   storable: false
   subscribing: false
   updated_at: 2014-10-31 20:13:55.094715000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_008:
   active: true
   created_at: 2014-11-01 19:06:50.017161000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 8
   lock_version: 0
   name: Culture
   number: PNC008
   pictogram: leaf
-  product_account: accounts_005
+  product_account_id: 5
   purchasable: false
   reductible: false
   reference_name: crop
   saleable: true
-  stock_account: accounts_160
+  stock_account_id: 160
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:06:50.017161000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_009:
   active: true
-  charge_account: accounts_011
+  charge_account_id: 11
   created_at: 2014-11-01 19:08:36.210197000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: true
-  financial_asset_account: accounts_010
+  financial_asset_account_id: 10
+  id: 9
   lock_version: 0
   name: Vache
   number: PNC009
   pictogram: cow
-  product_account: accounts_012
+  product_account_id: 12
   purchasable: true
   reductible: false
   reference_name: female_adult_cow
   saleable: true
-  stock_account: accounts_099
+  stock_account_id: 99
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:08:36.210197000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_010:
   active: true
-  charge_account: accounts_147
+  charge_account_id: 147
   created_at: 2014-11-01 19:09:20.923402000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 10
   lock_version: 0
   name: Lait
   number: PNC010
   pictogram: drop
-  product_account: accounts_015
+  product_account_id: 15
   purchasable: true
   reductible: false
   reference_name: milk
   saleable: true
-  stock_account: accounts_014
+  stock_account_id: 14
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:09:20.923402000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_011:
   active: true
   created_at: 2014-11-01 19:10:35.057312000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 11
   lock_version: 0
   name: Graine
   number: PNC011
   pictogram: wheat
-  product_account: accounts_005
+  product_account_id: 5
   purchasable: false
   reductible: false
   reference_name: grain
   saleable: true
-  stock_account: accounts_139
+  stock_account_id: 139
   storable: true
   subscribing: false
   updated_at: 2014-11-01 19:10:35.057312000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_012:
   active: true
-  charge_account: accounts_016
+  charge_account_id: 16
   created_at: 2014-11-01 20:20:57.118801000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 12
   lock_version: 0
   name: Produit vétérinaire
   number: PNC012
   pictogram: pill
-  product_account: accounts_152
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: animal_medicine
   saleable: true
-  stock_account: accounts_017
+  stock_account_id: 17
   storable: true
   subscribing: false
   updated_at: 2014-11-01 20:20:57.118801000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_013:
   active: true
-  charge_account: accounts_171
+  charge_account_id: 171
   created_at: 2014-11-01 20:26:13.040696000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 13
   lock_version: 0
   name: Responsable
   number: PNC013
   pictogram: male
-  product_account: accounts_152
+  product_account_id: 152
   purchasable: true
   reductible: false
   reference_name: worker
@@ -315,19 +328,20 @@ product_nature_categories_013:
   storable: false
   subscribing: false
   updated_at: 2014-11-01 20:26:13.040696000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_014:
   active: true
-  charge_account: accounts_047
+  charge_account_id: 47
   created_at: 2014-11-02 18:19:37.942990000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: true
-  financial_asset_account: accounts_045
+  financial_asset_account_id: 45
+  id: 14
   lock_version: 0
   name: "Équipement"
   number: PNC014
   pictogram: tractor
-  product_account: accounts_153
+  product_account_id: 153
   purchasable: true
   reductible: false
   reference_name: equipment
@@ -335,12 +349,13 @@ product_nature_categories_014:
   storable: false
   subscribing: false
   updated_at: 2014-11-02 18:19:37.942990000 Z
-  updater: users_001
+  updater_id: 1
 product_nature_categories_015:
   active: true
   created_at: 2014-11-02 18:31:53.721523000 Z
-  creator: users_001
+  creator_id: 1
   depreciable: false
+  id: 15
   lock_version: 0
   name: Zone cultivable
   number: PNC015
@@ -352,4 +367,4 @@ product_nature_categories_015:
   storable: false
   subscribing: false
   updated_at: 2014-11-02 18:31:53.721523000 Z
-  updater: users_001
+  updater_id: 1

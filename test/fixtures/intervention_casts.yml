@@ -52,10 +52,11 @@
 #
 ---
 intervention_casts_001:
-  actor: equipments_005
+  actor_id: 30
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_001
+  creator_id: 1
+  id: 1
+  intervention_id: 1
   lock_version: 1
   nature: product
   population: 1.0
@@ -63,13 +64,14 @@ intervention_casts_001:
   reference_name: grinder
   roles: soil_enrichment-tool, grinding-tool
   updated_at: 2014-11-02 18:23:56.836868000 Z
-  updater: users_001
-  variant: product_nature_variants_025
+  updater_id: 1
+  variant_id: 25
 intervention_casts_002:
-  actor: matters_003
+  actor_id: 49
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_002
+  creator_id: 1
+  id: 2
+  intervention_id: 2
   lock_version: 1
   nature: product
   population: 12.0
@@ -77,13 +79,14 @@ intervention_casts_002:
   reference_name: grinded
   roles: soil_enrichment-input
   updated_at: 2014-11-02 18:25:25.072269000 Z
-  updater: users_001
-  variant: product_nature_variants_009
+  updater_id: 1
+  variant_id: 9
 intervention_casts_003:
-  actor: plants_001
+  actor_id: 61
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_001
+  creator_id: 1
+  id: 3
+  intervention_id: 1
   lock_version: 0
   nature: product
   population: 1.8
@@ -94,12 +97,13 @@ intervention_casts_003:
     45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
     45.5698323584928,-0.66741943359371 45.619800720955)))
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 intervention_casts_004:
-  actor: equipments_004
+  actor_id: 29
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_001
+  creator_id: 1
+  id: 4
+  intervention_id: 1
   lock_version: 1
   nature: product
   population: 1.0
@@ -107,13 +111,14 @@ intervention_casts_004:
   reference_name: tractor
   roles: ''
   updated_at: 2014-11-02 18:23:56.836022000 Z
-  updater: users_001
-  variant: product_nature_variants_026
+  updater_id: 1
+  variant_id: 26
 intervention_casts_005:
-  actor: matters_003
+  actor_id: 49
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_001
+  creator_id: 1
+  id: 5
+  intervention_id: 1
   lock_version: 1
   nature: product
   population: 12.0
@@ -121,13 +126,14 @@ intervention_casts_005:
   reference_name: grinded
   roles: soil_enrichment-input
   updated_at: 2014-11-02 18:24:09.442736000 Z
-  updater: users_001
-  variant: product_nature_variants_009
+  updater_id: 1
+  variant_id: 9
 intervention_casts_006:
-  actor: cultivable_zones_003
+  actor_id: 24
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_001
+  creator_id: 1
+  id: 6
+  intervention_id: 1
   lock_version: 0
   nature: product
   population: 1.8
@@ -138,13 +144,14 @@ intervention_casts_006:
     45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
     45.5698323584928,-0.66741943359371 45.619800720955)))
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 intervention_casts_007:
-  actor: workers_004
+  actor_id: 79
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  event_participation: event_participations_009
-  intervention: interventions_001
+  creator_id: 1
+  event_participation_id: 9
+  id: 7
+  intervention_id: 1
   lock_version: 1
   nature: product
   population: 1.0
@@ -152,13 +159,14 @@ intervention_casts_007:
   reference_name: driver
   roles: grinding-doer, soil_enrichment-doer
   updated_at: 2014-11-02 18:23:56.833726000 Z
-  updater: users_001
-  variant: product_nature_variants_023
+  updater_id: 1
+  variant_id: 23
 intervention_casts_008:
-  actor: animals_005
+  actor_id: 5
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_003
+  creator_id: 1
+  id: 8
+  intervention_id: 3
   lock_version: 1
   nature: product
   population: 1.0
@@ -166,13 +174,14 @@ intervention_casts_008:
   reference_name: animal
   roles: animal_curative_medicine_admission-target
   updated_at: 2014-11-02 18:25:43.709509000 Z
-  updater: users_001
-  variant: product_nature_variants_017
+  updater_id: 1
+  variant_id: 17
 intervention_casts_009:
-  actor: matters_001
+  actor_id: 47
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_003
+  creator_id: 1
+  id: 9
+  intervention_id: 3
   lock_version: 0
   nature: product
   population: 1.0
@@ -180,12 +189,13 @@ intervention_casts_009:
   reference_name: animal_medicine_to_give
   roles: animal_curative_medicine_admission-input
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 intervention_casts_010:
-  actor: animal_groups_001
+  actor_id: 7
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_004
+  creator_id: 1
+  id: 10
+  intervention_id: 4
   lock_version: 0
   nature: product
   population: 1.0
@@ -193,12 +203,13 @@ intervention_casts_010:
   reference_name: herd
   roles: harvest-tool,harvest-doer,pasturing-doer
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 intervention_casts_011:
-  actor: plants_001
+  actor_id: 61
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_004
+  creator_id: 1
+  id: 11
+  intervention_id: 4
   lock_version: 0
   nature: product
   population: 1.0
@@ -206,12 +217,13 @@ intervention_casts_011:
   reference_name: cultivation
   roles: harvest-target,pasturing-target
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 intervention_casts_012:
-  actor: plants_001
+  actor_id: 61
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_005
+  creator_id: 1
+  id: 12
+  intervention_id: 5
   lock_version: 0
   nature: product
   population: 1.0
@@ -219,13 +231,14 @@ intervention_casts_012:
   reference_name: cultivation
   roles: plant_illness_treatment-target
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 intervention_casts_013:
-  actor: workers_004
+  actor_id: 79
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  event_participation: event_participations_010
-  intervention: interventions_005
+  creator_id: 1
+  event_participation_id: 10
+  id: 13
+  intervention_id: 5
   lock_version: 1
   nature: product
   population: 1.0
@@ -233,13 +246,14 @@ intervention_casts_013:
   reference_name: driver
   roles: plant_illness_treatment-doer
   updated_at: 2014-11-02 18:25:05.432331000 Z
-  updater: users_001
-  variant: product_nature_variants_023
+  updater_id: 1
+  variant_id: 23
 intervention_casts_014:
-  actor: matters_003
+  actor_id: 49
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  intervention: interventions_005
+  creator_id: 1
+  id: 14
+  intervention_id: 5
   lock_version: 0
   nature: product
   population: 1.0
@@ -247,13 +261,14 @@ intervention_casts_014:
   reference_name: plant_medicine_to_spray
   roles: plant_illness_treatment-input
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_004
+  updater_id: 1
+  variant_id: 4
 intervention_casts_015:
-  actor: animals_005
+  actor_id: 5
   created_at: 2014-11-01 20:24:26.752426000 Z
-  creator: users_001
-  intervention: interventions_006
+  creator_id: 1
+  id: 15
+  intervention_id: 6
   lock_version: 0
   nature: product
   population: 0.0
@@ -261,13 +276,14 @@ intervention_casts_015:
   reference_name: animal
   roles: animal_curative_medicine_admission-target
   updated_at: 2014-11-01 20:24:26.752426000 Z
-  updater: users_001
-  variant: product_nature_variants_017
+  updater_id: 1
+  variant_id: 17
 intervention_casts_016:
-  actor: matters_012
+  actor_id: 58
   created_at: 2014-11-01 20:24:26.754785000 Z
-  creator: users_001
-  intervention: interventions_006
+  creator_id: 1
+  id: 16
+  intervention_id: 6
   lock_version: 1
   nature: product
   population: 10.0
@@ -275,12 +291,13 @@ intervention_casts_016:
   reference_name: animal_medicine
   roles: animal_curative_medicine_admission-input_origin
   updated_at: 2014-11-01 20:31:38.677631000 Z
-  updater: users_001
-  variant: product_nature_variants_021
+  updater_id: 1
+  variant_id: 21
 intervention_casts_017:
   created_at: 2014-11-01 20:24:26.756056000 Z
-  creator: users_001
-  intervention: interventions_006
+  creator_id: 1
+  id: 17
+  intervention_id: 6
   lock_version: 3
   nature: product
   population: 1.0
@@ -288,14 +305,15 @@ intervention_casts_017:
   reference_name: animal_medicine_to_give
   roles: animal_curative_medicine_admission-input
   updated_at: 2014-11-02 17:44:04.774842000 Z
-  updater: users_001
-  variant: product_nature_variants_022
+  updater_id: 1
+  variant_id: 22
 intervention_casts_018:
-  actor: workers_004
+  actor_id: 79
   created_at: 2014-11-01 20:24:26.757471000 Z
-  creator: users_001
-  event_participation: event_participations_008
-  intervention: interventions_006
+  creator_id: 1
+  event_participation_id: 8
+  id: 18
+  intervention_id: 6
   lock_version: 1
   nature: product
   population: 0.0
@@ -303,14 +321,15 @@ intervention_casts_018:
   reference_name: caregiver
   roles: animal_curative_medicine_admission-doer
   updated_at: 2014-11-01 20:30:45.155505000 Z
-  updater: users_001
-  variant: product_nature_variants_023
+  updater_id: 1
+  variant_id: 23
 intervention_casts_019:
-  actor: workers_004
+  actor_id: 79
   created_at: 2014-11-02 18:30:08.210020000 Z
-  creator: users_001
-  event_participation: event_participations_011
-  intervention: interventions_007
+  creator_id: 1
+  event_participation_id: 11
+  id: 19
+  intervention_id: 7
   lock_version: 0
   nature: product
   population: 0.0
@@ -318,13 +337,14 @@ intervention_casts_019:
   reference_name: driver
   roles: plowing-doer
   updated_at: 2014-11-02 18:30:08.210020000 Z
-  updater: users_001
-  variant: product_nature_variants_023
+  updater_id: 1
+  variant_id: 23
 intervention_casts_020:
-  actor: equipments_004
+  actor_id: 29
   created_at: 2014-11-02 18:30:08.212809000 Z
-  creator: users_001
-  intervention: interventions_007
+  creator_id: 1
+  id: 20
+  intervention_id: 7
   lock_version: 0
   nature: product
   population: 1.0
@@ -332,13 +352,14 @@ intervention_casts_020:
   reference_name: tractor
   roles: plowing-tool
   updated_at: 2014-11-02 18:30:08.212809000 Z
-  updater: users_001
-  variant: product_nature_variants_026
+  updater_id: 1
+  variant_id: 26
 intervention_casts_021:
-  actor: cultivable_zones_004
+  actor_id: 25
   created_at: 2014-11-02 18:30:08.213997000 Z
-  creator: users_001
-  intervention: interventions_007
+  creator_id: 1
+  id: 21
+  intervention_id: 7
   lock_version: 1
   nature: product
   population: 0.8031
@@ -349,13 +370,14 @@ intervention_casts_021:
     45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
     45.5944092001224,-0.817789435386658 45.5943078511944)))
   updated_at: 2014-11-02 18:34:24.483299000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 intervention_casts_022:
-  actor: equipments_006
+  actor_id: 31
   created_at: 2014-11-02 18:30:08.215410000 Z
-  creator: users_001
-  intervention: interventions_007
+  creator_id: 1
+  id: 22
+  intervention_id: 7
   lock_version: 0
   nature: product
   population: 1.0
@@ -363,13 +385,14 @@ intervention_casts_022:
   reference_name: plow
   roles: plowing-tool
   updated_at: 2014-11-02 18:30:08.215410000 Z
-  updater: users_001
-  variant: product_nature_variants_027
+  updater_id: 1
+  variant_id: 27
 intervention_casts_023:
-  actor: matters_007
+  actor_id: 53
   created_at: 2014-11-02 18:37:42.474848000 Z
-  creator: users_001
-  intervention: interventions_008
+  creator_id: 1
+  id: 23
+  intervention_id: 8
   lock_version: 0
   nature: product
   population: 0.0
@@ -377,13 +400,14 @@ intervention_casts_023:
   reference_name: seeds
   roles: sowing-input_origin
   updated_at: 2014-11-02 18:37:42.474848000 Z
-  updater: users_001
-  variant: product_nature_variants_010
+  updater_id: 1
+  variant_id: 10
 intervention_casts_024:
-  actor: matters_014
+  actor_id: 60
   created_at: 2014-11-02 18:37:42.476777000 Z
-  creator: users_001
-  intervention: interventions_008
+  creator_id: 1
+  id: 24
+  intervention_id: 8
   lock_version: 2
   nature: product
   population: 1.905
@@ -391,13 +415,14 @@ intervention_casts_024:
   reference_name: seeds_to_sow
   roles: sowing-input
   updated_at: 2014-11-02 18:38:47.125171000 Z
-  updater: users_001
-  variant: product_nature_variants_010
+  updater_id: 1
+  variant_id: 10
 intervention_casts_025:
-  actor: equipments_007
+  actor_id: 32
   created_at: 2014-11-02 18:37:42.478620000 Z
-  creator: users_001
-  intervention: interventions_008
+  creator_id: 1
+  id: 25
+  intervention_id: 8
   lock_version: 0
   nature: product
   population: 1.0
@@ -405,14 +430,15 @@ intervention_casts_025:
   reference_name: sower
   roles: sowing-tool
   updated_at: 2014-11-02 18:37:42.478620000 Z
-  updater: users_001
-  variant: product_nature_variants_029
+  updater_id: 1
+  variant_id: 29
 intervention_casts_026:
-  actor: workers_004
+  actor_id: 79
   created_at: 2014-11-02 18:37:42.485042000 Z
-  creator: users_001
-  event_participation: event_participations_012
-  intervention: interventions_008
+  creator_id: 1
+  event_participation_id: 12
+  id: 26
+  intervention_id: 8
   lock_version: 0
   nature: product
   population: 0.0
@@ -420,13 +446,14 @@ intervention_casts_026:
   reference_name: driver
   roles: sowing-doer
   updated_at: 2014-11-02 18:37:42.485042000 Z
-  updater: users_001
-  variant: product_nature_variants_023
+  updater_id: 1
+  variant_id: 23
 intervention_casts_027:
-  actor: equipments_004
+  actor_id: 29
   created_at: 2014-11-02 18:37:42.487523000 Z
-  creator: users_001
-  intervention: interventions_008
+  creator_id: 1
+  id: 27
+  intervention_id: 8
   lock_version: 0
   nature: product
   population: 1.0
@@ -434,13 +461,14 @@ intervention_casts_027:
   reference_name: tractor
   roles: sowing-tool
   updated_at: 2014-11-02 18:37:42.487523000 Z
-  updater: users_001
-  variant: product_nature_variants_026
+  updater_id: 1
+  variant_id: 26
 intervention_casts_028:
-  actor: cultivable_zones_004
+  actor_id: 25
   created_at: 2014-11-02 18:37:42.488670000 Z
-  creator: users_001
-  intervention: interventions_008
+  creator_id: 1
+  id: 28
+  intervention_id: 8
   lock_version: 0
   nature: product
   population: 0.8031
@@ -451,13 +479,14 @@ intervention_casts_028:
     45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
     45.5944092001224,-0.817789435386658 45.5943078511944)))
   updated_at: 2014-11-02 18:37:42.488670000 Z
-  updater: users_001
-  variant: product_nature_variants_028
+  updater_id: 1
+  variant_id: 28
 intervention_casts_029:
-  actor: plants_004
+  actor_id: 64
   created_at: 2014-11-02 18:37:42.489923000 Z
-  creator: users_001
-  intervention: interventions_008
+  creator_id: 1
+  id: 29
+  intervention_id: 8
   lock_version: 2
   nature: product
   population: 0.8031
@@ -468,5 +497,5 @@ intervention_casts_029:
     45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
     45.5944092001224,-0.817789435386658 45.5943078511944)))
   updated_at: 2014-11-02 18:38:47.185125000 Z
-  updater: users_001
-  variant: product_nature_variants_016
+  updater_id: 1
+  variant_id: 16

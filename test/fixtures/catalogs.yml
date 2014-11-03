@@ -55,22 +55,24 @@ catalogs_001:
   by_default: true
   code: DEFAULT
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 1
   lock_version: 0
   name: Default
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   usage: sale
 catalogs_002:
   all_taxes_included: false
   by_default: false
   code: DEFTODEL
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 2
   lock_version: 0
   name: Default to delete
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   usage: sale

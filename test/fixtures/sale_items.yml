@@ -66,123 +66,130 @@
 sale_items_001:
   amount: 0.0
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 1
   indicator_name: population
   lock_version: 0
   pretax_amount: 0.0
-  price: catalog_prices_001
+  price_id: 1
   quantity: 1.0
   reduction_percentage: 0.0
-  sale: sales_001
-  tax: taxes_001
+  sale_id: 1
+  tax_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 sale_items_002:
   amount: 0.0
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 2
   indicator_name: population
   lock_version: 0
   pretax_amount: 0.0
-  price: catalog_prices_002
+  price_id: 2
   quantity: 2.0
   reduction_percentage: 0.0
-  sale: sales_001
-  tax: taxes_001
+  sale_id: 1
+  tax_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 sale_items_003:
-  account: accounts_001
+  account_id: 1
   amount: 430.56
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 3
   indicator_name: population
   label: Generic Product Variant
   lock_version: 1
   pretax_amount: 360.0
-  price: catalog_prices_003
+  price_id: 3
   quantity: 30.0
   reduction_percentage: 0.0
-  sale: sales_002
-  tax: taxes_001
+  sale_id: 2
+  tax_id: 1
   unit_price_amount: 12.0
   updated_at: 2014-11-01 19:50:57.929399000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 sale_items_004:
   amount: 10.0
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 4
   indicator_name: population
   lock_version: 0
   pretax_amount: 10.0
-  price: catalog_prices_004
+  price_id: 4
   quantity: 5.0
   reduction_percentage: 0.0
-  sale: sales_003
-  tax: taxes_001
+  sale_id: 3
+  tax_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 sale_items_005:
   amount: 10.0
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 5
   indicator_name: population
   lock_version: 0
   pretax_amount: 10.0
-  price: catalog_prices_005
+  price_id: 5
   quantity: 500.0
   reduction_percentage: 0.0
-  sale: sales_004
-  tax: taxes_001
+  sale_id: 4
+  tax_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 sale_items_006:
-  account: accounts_001
+  account_id: 1
   amount: 70.08
   created_at: 2014-10-31 18:51:27.887260000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 6
   indicator_name: population
   label: Generic Product Variant
   lock_version: 0
   position: 1
   pretax_amount: 58.4
-  price: catalog_prices_002
+  price_id: 2
   quantity: 3.0
   reduction_percentage: 0.0
-  sale: sales_006
-  tax: taxes_003
+  sale_id: 6
+  tax_id: 3
   unit_price_amount: 23.36
   updated_at: 2014-10-31 18:51:27.887260000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 sale_items_007:
-  account: accounts_001
+  account_id: 1
   amount: 378.9
   created_at: 2014-10-31 18:51:27.892570000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 7
   indicator_name: population
   label: Generic Product Variant
   lock_version: 0
   position: 2
   pretax_amount: 316.81
-  price: catalog_prices_005
+  price_id: 5
   quantity: 9.0
   reduction_percentage: 0.0
-  sale: sales_006
-  tax: taxes_001
+  sale_id: 6
+  tax_id: 1
   unit_price_amount: 42.1
   updated_at: 2014-10-31 18:51:27.892570000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1

@@ -51,274 +51,299 @@
 #
 ---
 product_phases_001:
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
-  nature: product_natures_001
-  product: products_001
+  nature_id: 1
+  product_id: 65
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 product_phases_002:
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 0
-  nature: product_natures_001
-  product: products_002
+  nature_id: 1
+  product_id: 66
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 product_phases_003:
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
-  nature: product_natures_001
-  product: products_001
+  nature_id: 1
+  product_id: 65
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 product_phases_004:
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 20:12:30.978517000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   lock_version: 0
-  nature: product_natures_004
-  product: buildings_004
+  nature_id: 4
+  product_id: 13
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:12:30.978517000 Z
-  updater: users_001
-  variant: product_nature_variants_003
+  updater_id: 1
+  variant_id: 3
 product_phases_005:
-  category: product_nature_categories_006
+  category_id: 6
   created_at: 2014-10-31 20:15:14.827382000 Z
-  creator: users_001
+  creator_id: 1
+  id: 5
   lock_version: 0
-  nature: product_natures_011
-  product: buildings_005
+  nature_id: 11
+  product_id: 14
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:15:14.827382000 Z
-  updater: users_001
-  variant: product_nature_variants_012
+  updater_id: 1
+  variant_id: 12
 product_phases_006:
-  category: product_nature_categories_007
+  category_id: 7
   created_at: 2014-10-31 20:18:12.264322000 Z
-  creator: users_001
+  creator_id: 1
+  id: 6
   lock_version: 0
-  nature: product_natures_012
-  product: building_divisions_005
+  nature_id: 12
+  product_id: 19
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:18:12.264322000 Z
-  updater: users_001
-  variant: product_nature_variants_013
+  updater_id: 1
+  variant_id: 13
 product_phases_007:
-  category: product_nature_categories_007
+  category_id: 7
   created_at: 2014-10-31 20:23:26.807434000 Z
-  creator: users_001
+  creator_id: 1
+  id: 7
   lock_version: 0
-  nature: product_natures_013
-  product: building_divisions_006
+  nature_id: 13
+  product_id: 20
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:23:26.807434000 Z
-  updater: users_001
-  variant: product_nature_variants_014
+  updater_id: 1
+  variant_id: 14
 product_phases_008:
-  category: product_nature_categories_005
+  category_id: 5
   created_at: 2014-10-31 20:23:37.075897000 Z
-  creator: users_001
+  creator_id: 1
+  id: 8
   lock_version: 0
-  nature: product_natures_010
-  product: matters_007
+  nature_id: 10
+  product_id: 53
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.075897000 Z
-  updater: users_001
-  variant: product_nature_variants_010
+  updater_id: 1
+  variant_id: 10
 product_phases_009:
-  category: product_nature_categories_007
+  category_id: 7
   created_at: 2014-10-31 20:25:41.493303000 Z
-  creator: users_001
+  creator_id: 1
+  id: 9
   lock_version: 0
-  nature: product_natures_014
-  product: building_divisions_007
+  nature_id: 14
+  product_id: 21
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-10-31 20:25:41.493303000 Z
-  updater: users_001
-  variant: product_nature_variants_015
+  updater_id: 1
+  variant_id: 15
 product_phases_010:
-  category: product_nature_categories_005
+  category_id: 5
   created_at: 2014-11-01 16:00:08.287724000 Z
-  creator: users_001
+  creator_id: 1
+  id: 10
   lock_version: 0
-  nature: product_natures_010
-  product: matters_008
+  nature_id: 10
+  product_id: 54
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.287724000 Z
-  updater: users_001
-  variant: product_nature_variants_011
+  updater_id: 1
+  variant_id: 11
 product_phases_011:
-  category: product_nature_categories_004
+  category_id: 4
   created_at: 2014-11-01 16:00:08.378583000 Z
-  creator: users_001
+  creator_id: 1
+  id: 11
   lock_version: 0
-  nature: product_natures_009
-  product: matters_009
+  nature_id: 9
+  product_id: 55
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.378583000 Z
-  updater: users_001
-  variant: product_nature_variants_009
+  updater_id: 1
+  variant_id: 9
 product_phases_012:
-  category: product_nature_categories_005
+  category_id: 5
   created_at: 2014-11-01 16:01:24.221262000 Z
-  creator: users_001
+  creator_id: 1
+  id: 12
   lock_version: 0
-  nature: product_natures_010
-  product: matters_010
+  nature_id: 10
+  product_id: 56
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.221262000 Z
-  updater: users_001
-  variant: product_nature_variants_011
+  updater_id: 1
+  variant_id: 11
 product_phases_013:
-  category: product_nature_categories_009
+  category_id: 9
   created_at: 2014-11-01 19:29:58.318212000 Z
-  creator: users_001
+  creator_id: 1
+  id: 13
   lock_version: 0
-  nature: product_natures_016
-  product: animals_005
+  nature_id: 16
+  product_id: 5
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.318212000 Z
-  updater: users_001
-  variant: product_nature_variants_017
+  updater_id: 1
+  variant_id: 17
 product_phases_014:
-  category: product_nature_categories_009
+  category_id: 9
   created_at: 2014-11-01 19:35:50.422700000 Z
-  creator: users_001
+  creator_id: 1
+  id: 14
   lock_version: 0
-  nature: product_natures_016
-  product: animals_006
+  nature_id: 16
+  product_id: 6
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.422700000 Z
-  updater: users_001
-  variant: product_nature_variants_017
+  updater_id: 1
+  variant_id: 17
 product_phases_015:
-  category: product_nature_categories_003
+  category_id: 3
   created_at: 2014-11-01 20:19:35.459736000 Z
-  creator: users_001
+  creator_id: 1
+  id: 15
   lock_version: 0
-  nature: product_natures_008
-  product: matters_011
+  nature_id: 8
+  product_id: 57
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.459736000 Z
-  updater: users_001
-  variant: product_nature_variants_020
+  updater_id: 1
+  variant_id: 20
 product_phases_016:
-  category: product_nature_categories_012
+  category_id: 12
   created_at: 2014-11-01 20:23:55.225490000 Z
-  creator: users_001
+  creator_id: 1
+  id: 16
   lock_version: 0
-  nature: product_natures_019
-  product: matters_012
+  nature_id: 19
+  product_id: 58
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.225490000 Z
-  updater: users_001
-  variant: product_nature_variants_022
+  updater_id: 1
+  variant_id: 22
 product_phases_017:
-  category: product_nature_categories_012
+  category_id: 12
   created_at: 2014-11-01 20:23:55.296993000 Z
-  creator: users_001
+  creator_id: 1
+  id: 17
   lock_version: 0
-  nature: product_natures_019
-  product: matters_013
+  nature_id: 19
+  product_id: 59
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.296993000 Z
-  updater: users_001
-  variant: product_nature_variants_021
+  updater_id: 1
+  variant_id: 21
 product_phases_018:
-  category: product_nature_categories_013
+  category_id: 13
   created_at: 2014-11-01 20:30:35.665259000 Z
-  creator: users_001
+  creator_id: 1
+  id: 18
   lock_version: 0
-  nature: product_natures_020
-  product: workers_004
+  nature_id: 20
+  product_id: 79
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-01 20:30:35.665259000 Z
-  updater: users_001
-  variant: product_nature_variants_023
+  updater_id: 1
+  variant_id: 23
 product_phases_019:
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:22:30.630624000 Z
-  creator: users_001
+  creator_id: 1
+  id: 19
   lock_version: 0
-  nature: product_natures_021
-  product: equipments_004
+  nature_id: 21
+  product_id: 29
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:22:30.630624000 Z
-  updater: users_001
-  variant: product_nature_variants_026
+  updater_id: 1
+  variant_id: 26
 product_phases_020:
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:23:23.694993000 Z
-  creator: users_001
+  creator_id: 1
+  id: 20
   lock_version: 0
-  nature: product_natures_022
-  product: equipments_005
+  nature_id: 22
+  product_id: 30
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:23:23.694993000 Z
-  updater: users_001
-  variant: product_nature_variants_025
+  updater_id: 1
+  variant_id: 25
 product_phases_021:
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:29:41.511924000 Z
-  creator: users_001
+  creator_id: 1
+  id: 21
   lock_version: 0
-  nature: product_natures_023
-  product: equipments_006
+  nature_id: 23
+  product_id: 31
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:29:41.511924000 Z
-  updater: users_001
-  variant: product_nature_variants_027
+  updater_id: 1
+  variant_id: 27
 product_phases_022:
-  category: product_nature_categories_015
+  category_id: 15
   created_at: 2014-11-02 18:33:01.599534000 Z
-  creator: users_001
+  creator_id: 1
+  id: 22
   lock_version: 0
-  nature: product_natures_024
-  product: cultivable_zones_004
+  nature_id: 24
+  product_id: 25
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:33:01.599534000 Z
-  updater: users_001
-  variant: product_nature_variants_028
+  updater_id: 1
+  variant_id: 28
 product_phases_023:
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:37:22.438911000 Z
-  creator: users_001
+  creator_id: 1
+  id: 23
   lock_version: 0
-  nature: product_natures_025
-  product: equipments_007
+  nature_id: 25
+  product_id: 32
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:37:22.438911000 Z
-  updater: users_001
-  variant: product_nature_variants_029
+  updater_id: 1
+  variant_id: 29
 product_phases_024:
-  category: product_nature_categories_005
+  category_id: 5
   created_at: 2014-11-02 18:38:47.118084000 Z
-  creator: users_001
+  creator_id: 1
+  id: 24
   lock_version: 0
-  nature: product_natures_010
-  product: matters_014
+  nature_id: 10
+  product_id: 60
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.118084000 Z
-  updater: users_001
-  variant: product_nature_variants_010
+  updater_id: 1
+  variant_id: 10
 product_phases_025:
-  category: product_nature_categories_008
+  category_id: 8
   created_at: 2014-11-02 18:38:47.180005000 Z
-  creator: users_001
+  creator_id: 1
+  id: 25
   lock_version: 0
-  nature: product_natures_015
-  product: plants_004
+  nature_id: 15
+  product_id: 64
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.180005000 Z
-  updater: users_001
-  variant: product_nature_variants_016
+  updater_id: 1
+  variant_id: 16

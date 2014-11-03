@@ -44,27 +44,30 @@
 establishments_001:
   code: ''
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   description: ''
+  id: 1
   lock_version: 2
   name: Bordeaux
   updated_at: 2014-11-01 18:35:19.601482000 Z
-  updater: users_001
+  updater_id: 1
 establishments_002:
   code: ''
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   description: ''
+  id: 2
   lock_version: 1
   name: New-York
   updated_at: 2014-11-01 18:35:09.998337000 Z
-  updater: users_001
+  updater_id: 1
 establishments_003:
   code: ''
   created_at: 2014-11-01 18:35:32.856651000 Z
-  creator: users_001
+  creator_id: 1
   description: ''
+  id: 3
   lock_version: 0
   name: Saint-Denis
   updated_at: 2014-11-01 18:35:32.856651000 Z
-  updater: users_001
+  updater_id: 1

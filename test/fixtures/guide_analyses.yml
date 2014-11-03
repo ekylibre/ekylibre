@@ -52,36 +52,39 @@
 guide_analyses_001:
   acceptance_status: passed
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   execution_number: 0
-  guide: guides_001
+  guide_id: 1
+  id: 1
   latest: false
   lock_version: 0
   started_at: 2013-10-26 14:34:04.000000000 Z
   stopped_at: 2013-10-26 14:34:09.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 guide_analyses_002:
   acceptance_status: failed
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   execution_number: 1
-  guide: guides_001
+  guide_id: 1
+  id: 2
   latest: false
   lock_version: 0
   started_at: 2013-10-26 14:34:15.000000000 Z
   stopped_at: 2013-10-26 14:34:18.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 guide_analyses_003:
   acceptance_status: failed
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   execution_number: 0
-  guide: guides_002
+  guide_id: 2
+  id: 3
   latest: false
   lock_version: 0
   started_at: 2013-10-26 14:34:15.000000000 Z
   stopped_at: 2013-10-26 14:34:18.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

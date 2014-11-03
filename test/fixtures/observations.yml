@@ -49,24 +49,28 @@
 #
 ---
 observations_001:
-  author: users_001
+  author_id: 1
   content: Simple notice
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   importance: normal
   lock_version: 0
   observed_at: 2009-07-19 15:13:59.000000000 Z
-  subject: entities_001 (Entity)
+  subject_id: 1
+  subject_type: Entity
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 observations_002:
-  author: users_001
+  author_id: 1
   content: Simple notice
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   importance: normal
   lock_version: 0
   observed_at: 2009-07-19 15:13:59.000000000 Z
-  subject: entities_001 (Entity)
+  subject_id: 1
+  subject_type: Entity
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

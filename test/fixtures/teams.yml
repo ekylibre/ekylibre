@@ -48,17 +48,19 @@
 ---
 teams_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
+  id: 1
   lock_version: 0
   name: Lorem ipsum
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 teams_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   depth: 0
+  id: 2
   lock_version: 0
   name: Lorem ipsum 2
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

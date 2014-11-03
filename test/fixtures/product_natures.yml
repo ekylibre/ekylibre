@@ -65,233 +65,248 @@
 ---
 product_natures_001:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: true
   frozen_indicators_list: net_mass, net_volume
+  id: 1
   lock_version: 0
   name: Generic Product Type
   number: PN001
   population_counting: decimal
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   variety: product
 product_natures_002:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_002
+  creator_id: 2
   evolvable: false
+  id: 2
   lock_version: 0
   name: Lorem ipsum 2
   number: LI2
   population_counting: unitary
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_002
+  updater_id: 2
   variety: animal
 product_natures_003:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
+  id: 3
   lock_version: 0
   name: Lorem ipsum 3
   number: LI3
   population_counting: unitary
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   variety: plant
 product_natures_004:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
+  id: 4
   lock_version: 0
   name: Building
   number: BUILDING
   population_counting: unitary
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   variety: building
 product_natures_005:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: meat, milk
   evolvable: false
   frozen_indicators_list: sex, population
+  id: 5
   lock_version: 0
   name: Female cow
   number: FEMCOW
   population_counting: unitary
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   variety: bos
 product_natures_006:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
+  id: 6
   lock_version: 0
   name: Building division
   number: BUILDIV
   population_counting: unitary
   reference_name: animal_building_division
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   variety: building_division
 product_natures_007:
   active: true
-  category: product_nature_categories_001
+  category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
+  id: 7
   lock_version: 0
   name: Herd
   number: HERD
   population_counting: unitary
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
   variety: animal_group
 product_natures_008:
   abilities_list: care(plant), kill(fungus)
   active: true
-  category: product_nature_categories_003
+  category_id: 3
   created_at: 2014-10-31 20:11:19.889621000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
   frozen_indicators_list: net_mass, net_volume
+  id: 8
   lock_version: 0
   name: Fongicide
   number: BUILDINH
   population_counting: decimal
   reference_name: fungicide
   updated_at: 2014-10-31 20:11:19.889621000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: approved_input_dose, population, untreated_zone_length,
     wait_before_harvest_period
   variety: preparation
 product_natures_009:
   abilities_list: feed(animal)
   active: true
-  category: product_nature_categories_004
+  category_id: 4
   created_at: 2014-10-31 20:11:30.472907000 Z
-  creator: users_001
+  creator_id: 1
   derivative_of: poaceae
   evolvable: false
   frozen_indicators_list: net_mass, net_volume
+  id: 9
   lock_version: 0
   name: Paille
   number: BUILDINI
   population_counting: decimal
   reference_name: straw
   updated_at: 2014-10-31 20:11:30.472907000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: population
   variety: straw
 product_natures_010:
   abilities_list: grow
   active: true
-  category: product_nature_categories_005
+  category_id: 5
   created_at: 2014-10-31 20:11:42.141258000 Z
-  creator: users_001
+  creator_id: 1
   derivative_of: plant
   evolvable: false
   frozen_indicators_list: net_mass, thousand_grains_mass
+  id: 10
   lock_version: 0
   name: Semence
   number: BUILDINJ
   population_counting: decimal
   reference_name: seed
   updated_at: 2014-10-31 20:11:42.141258000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: population
   variety: seed
 product_natures_011:
   abilities_list: store(building_division)
   active: true
-  category: product_nature_categories_006
+  category_id: 6
   created_at: 2014-10-31 20:13:23.322567000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
   frozen_indicators_list: population
+  id: 11
   lock_version: 0
   name: Bâtiment
   number: BUILDINK
   population_counting: unitary
   reference_name: building
   updated_at: 2014-10-31 20:13:23.322567000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: net_surface_area, shape
   variety: building
 product_natures_012:
   abilities_list: store(equipment)
   active: true
-  category: product_nature_categories_007
+  category_id: 7
   created_at: 2014-10-31 20:13:55.104377000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
   frozen_indicators_list: population
+  id: 12
   lock_version: 0
   name: Zone de stockage des équipements
   number: BUILDINL
   population_counting: unitary
   reference_name: equipment_building_division
   updated_at: 2014-10-31 20:13:55.104377000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
 product_natures_013:
   abilities_list: store(equipment), store(grass), store(mix), store(seed)
   active: true
-  category: product_nature_categories_007
+  category_id: 7
   created_at: 2014-10-31 20:21:52.482591000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
   frozen_indicators_list: population
+  id: 13
   lock_version: 0
   name: Zone de stockage des équipements et des aliments
   number: BUILDINM
   population_counting: unitary
   reference_name: food_equipment_division
   updated_at: 2014-10-31 20:21:52.482591000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
 product_natures_014:
   abilities_list: store(product)
   active: true
-  category: product_nature_categories_007
+  category_id: 7
   created_at: 2014-10-31 20:25:22.969151000 Z
-  creator: users_001
+  creator_id: 1
   evolvable: false
   frozen_indicators_list: population
+  id: 14
   lock_version: 0
   name: Pièce ou zone d’un bâtiment
   number: BUILDINN
   population_counting: unitary
   reference_name: building_division
   updated_at: 2014-10-31 20:25:22.969151000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
     shape
   variety: building_division
 product_natures_015:
   abilities_list: consume(phytosanitary), consume(water), produce(grain), produce(straw)
   active: true
-  category: product_nature_categories_008
+  category_id: 8
   created_at: 2014-11-01 19:06:50.030010000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: grain, straw
   evolvable: false
   frozen_indicators_list: net_surface_area
+  id: 15
   linkage_points_list: ''
   lock_version: 0
   name: Culture de céréales
@@ -299,7 +314,7 @@ product_natures_015:
   population_counting: decimal
   reference_name: cereal_crop
   updated_at: 2014-11-01 19:06:50.030010000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
     plants_count, population, shape, tiller_count
   variety: plant
@@ -307,12 +322,13 @@ product_natures_016:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
     move, produce(animal), produce(excrement), produce(milk)
   active: true
-  category: product_nature_categories_009
+  category_id: 9
   created_at: 2014-11-01 19:08:36.219671000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: meat, milk
   evolvable: false
   frozen_indicators_list: livestock_unit, population, reproductor, sex
+  id: 16
   linkage_points_list: ''
   lock_version: 0
   name: Vache
@@ -320,7 +336,7 @@ product_natures_016:
   population_counting: unitary
   reference_name: female_adult_cow
   updated_at: 2014-11-01 19:08:36.219671000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: animal_life_state, economical_milk_index, fat_matter_concentration_index,
     healthy, lactating, last_birth_children_count, mammalia_birth_count, mammalia_reproduction_event_abortion,
     mammalia_reproduction_method_embryo_transplant, mammalia_reproduction_state, milk_daily_production,
@@ -329,13 +345,14 @@ product_natures_016:
 product_natures_017:
   abilities_list: feed(mammalia)
   active: true
-  category: product_nature_categories_010
+  category_id: 10
   created_at: 2014-11-01 19:09:20.935423000 Z
-  creator: users_001
+  creator_id: 1
   derivative_of: mammalia
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: net_mass, net_volume
+  id: 17
   linkage_points_list: ''
   lock_version: 0
   name: Lait
@@ -343,7 +360,7 @@ product_natures_017:
   population_counting: decimal
   reference_name: milk
   updated_at: 2014-11-01 19:09:20.935423000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: clostridial_spores_concentration, fat_matters_concentration,
     freezing_point_temperature, immunoglobulins_concentration, inhibitors_presence,
     lipolysis, population, protein_matters_concentration, somatic_cell_concentration,
@@ -352,13 +369,14 @@ product_natures_017:
 product_natures_018:
   abilities_list: feed(animal)
   active: true
-  category: product_nature_categories_011
+  category_id: 11
   created_at: 2014-11-01 19:10:35.067432000 Z
-  creator: users_001
+  creator_id: 1
   derivative_of: plant
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: net_mass
+  id: 18
   linkage_points_list: ''
   lock_version: 0
   name: Céréale
@@ -366,20 +384,21 @@ product_natures_018:
   population_counting: decimal
   reference_name: grain
   updated_at: 2014-11-01 19:10:35.067432000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: hagberg_falling_number, impurity_concentration, population,
     protein_concentration, specific_weight, water_content_rate
   variety: grain
 product_natures_019:
   abilities_list: care(animal), kill(bacteria), kill(fungus), kill(virus)
   active: true
-  category: product_nature_categories_012
+  category_id: 12
   created_at: 2014-11-01 20:20:57.132408000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: meat_withdrawal_period, milk_withdrawal_period, net_mass,
     net_volume
+  id: 19
   linkage_points_list: ''
   lock_version: 0
   name: Produit vétérinaire
@@ -387,19 +406,20 @@ product_natures_019:
   population_counting: decimal
   reference_name: animal_medicine
   updated_at: 2014-11-01 20:20:57.132408000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: population
   variety: preparation
 product_natures_020:
   abilities_list: administer_care(animal), drive(equipment), milk(mammalia), move,
     repair(equipment)
   active: true
-  category: product_nature_categories_013
+  category_id: 13
   created_at: 2014-11-01 20:26:13.052907000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: population
+  id: 20
   linkage_points_list: ''
   lock_version: 0
   name: Technicien
@@ -407,18 +427,19 @@ product_natures_020:
   population_counting: unitary
   reference_name: technician
   updated_at: 2014-11-01 20:26:13.052907000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: geolocation
   variety: worker
 product_natures_021:
   abilities_list: catch(equipment), consume(fuel), consume(oil), move, tow(matter)
   active: true
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:19:37.955910000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: population
+  id: 21
   linkage_points_list: front, rear
   lock_version: 0
   name: Tracteur
@@ -426,18 +447,19 @@ product_natures_021:
   population_counting: unitary
   reference_name: tractor
   updated_at: 2014-11-02 18:19:37.955910000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: geolocation, motor_power, net_surface_area
   variety: tractor
 product_natures_022:
   abilities_list: grind(plant)
   active: true
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:19:51.679190000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: population
+  id: 22
   linkage_points_list: ''
   lock_version: 0
   name: Broyeur
@@ -445,18 +467,19 @@ product_natures_022:
   population_counting: unitary
   reference_name: grinder
   updated_at: 2014-11-02 18:19:51.679190000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: application_width, geolocation
   variety: plower
 product_natures_023:
   abilities_list: plow
   active: true
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:29:03.417542000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: population
+  id: 23
   linkage_points_list: ''
   lock_version: 0
   name: Charrue
@@ -464,19 +487,20 @@ product_natures_023:
   population_counting: unitary
   reference_name: plow
   updated_at: 2014-11-02 18:29:03.417542000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: application_width, geolocation
   variety: plower
 product_natures_024:
   abilities_list: consume(seed), consume(water), produce(plant), store(animal), store(fungus),
     store(plant)
   active: true
-  category: product_nature_categories_015
+  category_id: 15
   created_at: 2014-11-02 18:31:53.731583000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: net_surface_area
+  id: 24
   linkage_points_list: ''
   lock_version: 0
   name: Zone cultivable
@@ -484,18 +508,19 @@ product_natures_024:
   population_counting: decimal
   reference_name: cultivable_zone
   updated_at: 2014-11-02 18:31:53.731583000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: population, shape, soil_cultural_state
   variety: cultivable_zone
 product_natures_025:
   abilities_list: sow
   active: true
-  category: product_nature_categories_014
+  category_id: 14
   created_at: 2014-11-02 18:36:36.365485000 Z
-  creator: users_001
+  creator_id: 1
   derivatives_list: ''
   evolvable: false
   frozen_indicators_list: population
+  id: 25
   linkage_points_list: ''
   lock_version: 0
   name: Semoir
@@ -503,6 +528,6 @@ product_natures_025:
   population_counting: unitary
   reference_name: sower
   updated_at: 2014-11-02 18:36:36.365485000 Z
-  updater: users_001
+  updater_id: 1
   variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
   variety: sower

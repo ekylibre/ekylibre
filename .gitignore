@@ -19,7 +19,8 @@
 /db/migrate
 
 # Ignore the default first run files
-/db/first_runs
+db/first_runs
+!db/first_runs/default
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
@@ -37,7 +38,9 @@ config/locales/*/prints/*.jrxml
 config/locales/*/prints/*.pdf
 
 # Ignore private files
-/private/**/*
+private/*
+!private/test/
+private/test/tmp
 
 # Ignore compiled assets
 /public/assets

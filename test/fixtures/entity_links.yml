@@ -52,34 +52,37 @@
 ---
 entity_links_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity_1: legal_entities_001
+  creator_id: 1
+  entity_1_id: 6
   entity_1_role: employer
-  entity_2: legal_entities_002
+  entity_2_id: 7
   entity_2_role: employee
+  id: 1
   lock_version: 0
   nature: work
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 entity_links_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity_1: legal_entities_002
+  creator_id: 1
+  entity_1_id: 7
   entity_1_role: employer
-  entity_2: legal_entities_001
+  entity_2_id: 6
   entity_2_role: employee
+  id: 2
   lock_version: 0
   nature: work
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 entity_links_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity_1: legal_entities_002
+  creator_id: 1
+  entity_1_id: 7
   entity_1_role: entity
-  entity_2: legal_entities_003
+  entity_2_id: 8
   entity_2_role: entity
+  id: 3
   lock_version: 0
   nature: undefined
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

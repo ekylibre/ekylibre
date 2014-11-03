@@ -54,7 +54,8 @@
 ---
 sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   last_cweek: 44
   last_month: 10
   last_number: 1
@@ -66,11 +67,12 @@ sequences_001:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:40:55.024221000 Z
-  updater: users_001
+  updater_id: 1
   usage: sales
 sequences_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   last_cweek: 44
   last_month: 11
   last_number: 1
@@ -82,11 +84,12 @@ sequences_002:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:39:10.650383000 Z
-  updater: users_001
+  updater_id: 1
   usage: entities
 sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   last_cweek: 44
   last_month: 11
   last_number: 23
@@ -98,11 +101,12 @@ sequences_003:
   number_start: 1
   period: number
   updated_at: 2014-11-02 18:38:47.147850000 Z
-  updater: users_001
+  updater_id: 1
   usage: products
 sequences_004:
   created_at: 2014-11-01 16:00:08.011117000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   last_cweek: 44
   last_month: 11
   last_number: 8
@@ -114,11 +118,12 @@ sequences_004:
   number_start: 1
   period: year
   updated_at: 2014-11-01 20:48:14.625168000 Z
-  updater: users_001
+  updater_id: 1
   usage: incoming_deliveries
 sequences_005:
   created_at: 2014-11-01 16:03:04.383294000 Z
-  creator: users_001
+  creator_id: 1
+  id: 5
   lock_version: 3
   name: Analyse
   number_format: A[number|8]
@@ -126,11 +131,12 @@ sequences_005:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:38:29.848998000 Z
-  updater: users_001
+  updater_id: 1
   usage: analyses
 sequences_006:
   created_at: 2014-11-01 16:03:04.391388000 Z
-  creator: users_001
+  creator_id: 1
+  id: 6
   lock_version: 0
   name: Campagne
   number_format: CAMP[number|4]
@@ -138,11 +144,12 @@ sequences_006:
   number_start: 1
   period: number
   updated_at: 2014-11-01 16:03:04.391388000 Z
-  updater: users_001
+  updater_id: 1
   usage: campaigns
 sequences_007:
   created_at: 2014-11-01 16:03:04.402621000 Z
-  creator: users_001
+  creator_id: 1
+  id: 7
   lock_version: 0
   name: Virement interne
   number_format: VI[year|4][number|4]
@@ -150,11 +157,12 @@ sequences_007:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:03:04.402621000 Z
-  updater: users_001
+  updater_id: 1
   usage: cash_transfers
 sequences_008:
   created_at: 2014-11-01 16:03:04.413999000 Z
-  creator: users_001
+  creator_id: 1
+  id: 8
   lock_version: 0
   name: Remise en banque
   number_format: B[year|4][number|4]
@@ -162,23 +170,29 @@ sequences_008:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:03:04.413999000 Z
-  updater: users_001
+  updater_id: 1
   usage: deposits
 sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
-  creator: users_001
-  lock_version: 2
+  creator_id: 1
+  id: 9
+  last_cweek: 45
+  last_month: 11
+  last_number: 1
+  last_year: 2014
+  lock_version: 3
   name: Document
   number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 20:38:47.385993000 Z
-  updater: users_001
+  updated_at: 2014-11-03 11:27:19.574167000 Z
+  updater_id: 1
   usage: documents
 sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
-  creator: users_001
+  creator_id: 1
+  id: 10
   last_cweek: 44
   last_month: 11
   last_number: 3
@@ -190,11 +204,12 @@ sequences_010:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:38:35.458035000 Z
-  updater: users_001
+  updater_id: 1
   usage: affairs
 sequences_011:
   created_at: 2014-11-01 16:25:18.188360000 Z
-  creator: users_001
+  creator_id: 1
+  id: 11
   lock_version: 0
   name: Animal
   number_format: ANI[year|4][number|4]
@@ -202,11 +217,12 @@ sequences_011:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:18.188360000 Z
-  updater: users_001
+  updater_id: 1
   usage: animals
 sequences_012:
   created_at: 2014-11-01 16:25:18.202839000 Z
-  creator: users_001
+  creator_id: 1
+  id: 12
   lock_version: 0
   name: Immobilisation
   number_format: IM[number|7]
@@ -214,11 +230,12 @@ sequences_012:
   number_start: 1
   period: number
   updated_at: 2014-11-01 16:25:18.202839000 Z
-  updater: users_001
+  updater_id: 1
   usage: financial_assets
 sequences_013:
   created_at: 2014-11-01 16:25:18.214468000 Z
-  creator: users_001
+  creator_id: 1
+  id: 13
   last_cweek: 44
   last_month: 11
   last_number: 1
@@ -230,11 +247,12 @@ sequences_013:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:39:18.264946000 Z
-  updater: users_001
+  updater_id: 1
   usage: gaps
 sequences_014:
   created_at: 2014-11-01 16:25:18.232107000 Z
-  creator: users_001
+  creator_id: 1
+  id: 14
   lock_version: 0
   name: Encaissement
   number_format: R[year|4][number|6]
@@ -242,11 +260,12 @@ sequences_014:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:18.232107000 Z
-  updater: users_001
+  updater_id: 1
   usage: incoming_payments
 sequences_015:
   created_at: 2014-11-01 16:25:18.953891000 Z
-  creator: users_001
+  creator_id: 1
+  id: 15
   last_cweek: 44
   last_month: 11
   last_number: 7
@@ -258,11 +277,12 @@ sequences_015:
   number_start: 1
   period: number
   updated_at: 2014-11-02 18:37:42.467998000 Z
-  updater: users_001
+  updater_id: 1
   usage: interventions
 sequences_016:
   created_at: 2014-11-01 16:25:18.971984000 Z
-  creator: users_001
+  creator_id: 1
+  id: 16
   lock_version: 0
   name: Livraison
   number_format: BL[year|4][number|6]
@@ -270,11 +290,12 @@ sequences_016:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:18.971984000 Z
-  updater: users_001
+  updater_id: 1
   usage: outgoing_deliveries
 sequences_017:
   created_at: 2014-11-01 16:25:18.981743000 Z
-  creator: users_001
+  creator_id: 1
+  id: 17
   lock_version: 0
   name: Décaissement
   number_format: D[year|4][number|4]
@@ -282,11 +303,12 @@ sequences_017:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:18.981743000 Z
-  updater: users_001
+  updater_id: 1
   usage: outgoing_payments
 sequences_018:
   created_at: 2014-11-01 16:25:18.999692000 Z
-  creator: users_001
+  creator_id: 1
+  id: 18
   lock_version: 0
   name: Plante
   number_format: PLANT[year|4][number|4]
@@ -294,11 +316,12 @@ sequences_018:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:18.999692000 Z
-  updater: users_001
+  updater_id: 1
   usage: plants
 sequences_019:
   created_at: 2014-11-01 16:25:19.021542000 Z
-  creator: users_001
+  creator_id: 1
+  id: 19
   lock_version: 0
   name: Achat
   number_format: A[year|4][month|2][number|6]
@@ -306,11 +329,12 @@ sequences_019:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:19.021542000 Z
-  updater: users_001
+  updater_id: 1
   usage: purchases
 sequences_020:
   created_at: 2014-11-01 16:25:19.028014000 Z
-  creator: users_001
+  creator_id: 1
+  id: 20
   lock_version: 0
   name: sales_invoices
   number_format: F[year|4][number|6]
@@ -318,11 +342,12 @@ sequences_020:
   number_start: 1
   period: year
   updated_at: 2014-11-01 16:25:19.028014000 Z
-  updater: users_001
+  updater_id: 1
   usage: sales_invoices
 sequences_021:
   created_at: 2014-11-01 16:25:19.033897000 Z
-  creator: users_001
+  creator_id: 1
+  id: 21
   lock_version: 0
   name: stock_transfers
   number_format: ST[number|12]
@@ -330,11 +355,12 @@ sequences_021:
   number_start: 1
   period: number
   updated_at: 2014-11-01 16:25:19.033897000 Z
-  updater: users_001
+  updater_id: 1
   usage: stock_transfers
 sequences_022:
   created_at: 2014-11-01 16:25:19.042625000 Z
-  creator: users_001
+  creator_id: 1
+  id: 22
   lock_version: 0
   name: Abonnement
   number_format: ABO[number|8]
@@ -342,11 +368,12 @@ sequences_022:
   number_start: 1
   period: number
   updated_at: 2014-11-01 16:25:19.042625000 Z
-  updater: users_001
+  updater_id: 1
   usage: subscriptions
 sequences_023:
   created_at: 2014-11-01 16:25:19.051177000 Z
-  creator: users_001
+  creator_id: 1
+  id: 23
   lock_version: 0
   name: Transport
   number_format: TR[number|8]
@@ -354,11 +381,12 @@ sequences_023:
   number_start: 1
   period: number
   updated_at: 2014-11-01 16:25:19.051177000 Z
-  updater: users_001
+  updater_id: 1
   usage: transports
 sequences_024:
   created_at: 2014-11-01 19:06:50.057606000 Z
-  creator: users_001
+  creator_id: 1
+  id: 24
   last_cweek: 44
   last_month: 11
   last_number: 14
@@ -370,11 +398,12 @@ sequences_024:
   number_start: 1
   period: number
   updated_at: 2014-11-02 18:36:36.380242000 Z
-  updater: users_001
+  updater_id: 1
   usage: product_nature_variants
 sequences_025:
   created_at: 2014-11-01 20:47:16.048462000 Z
-  creator: users_001
+  creator_id: 1
+  id: 25
   lock_version: 0
   name: Type de produit
   number_format: PN[number|12]
@@ -382,11 +411,12 @@ sequences_025:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:47:16.048462000 Z
-  updater: users_001
+  updater_id: 1
   usage: product_natures
 sequences_026:
   created_at: 2014-11-01 20:47:16.066552000 Z
-  creator: users_001
+  creator_id: 1
+  id: 26
   lock_version: 0
   name: Catégorie de type de produit
   number_format: PNC[number|12]
@@ -394,5 +424,5 @@ sequences_026:
   number_start: 1
   period: number
   updated_at: 2014-11-01 20:47:16.066552000 Z
-  updater: users_001
+  updater_id: 1
   usage: product_nature_categories

@@ -53,41 +53,44 @@
 #
 ---
 subscriptions_001:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   first_number: 1
+  id: 1
   last_number: 50
   lock_version: 0
-  nature: subscription_natures_001
+  nature_id: 1
   number: SUB0001
-  subscriber: legal_entities_001
+  subscriber_id: 6
   suspended: true
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 subscriptions_002:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   first_number: 1
+  id: 2
   last_number: 50
   lock_version: 0
-  nature: subscription_natures_001
+  nature_id: 1
   number: SUB0002
-  subscriber: legal_entities_001
+  subscriber_id: 6
   suspended: true
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 subscriptions_003:
-  address: entity_addresses_003
+  address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
-  nature: subscription_natures_003
+  nature_id: 3
   number: SUB0003
   started_at: 2000-12-31 23:00:00.000000000 Z
   stopped_at: 2002-12-30 23:00:00.000000000 Z
-  subscriber: legal_entities_001
+  subscriber_id: 6
   suspended: true
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

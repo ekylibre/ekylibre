@@ -55,22 +55,24 @@
 guides_001:
   active: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   external: true
   frequency: yearly
+  id: 1
   lock_version: 0
   name: Sample
   nature: best_practices
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 guides_002:
   active: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   external: true
   frequency: none
+  id: 2
   lock_version: 0
   name: Sample
   nature: best_practices
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

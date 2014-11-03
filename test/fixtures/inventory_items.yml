@@ -50,20 +50,22 @@
 inventory_items_001:
   actual_population: 10.0
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   expected_population: 15.0
-  inventory: inventories_001
+  id: 1
+  inventory_id: 1
   lock_version: 0
-  product: products_001
+  product_id: 65
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 inventory_items_002:
   actual_population: 0.0
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   expected_population: 0.0
-  inventory: inventories_001
+  id: 2
+  inventory_id: 1
   lock_version: 0
-  product: products_001
+  product_id: 65
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

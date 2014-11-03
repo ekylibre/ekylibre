@@ -48,20 +48,22 @@
 trackings_001:
   active: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
   name: Lot REM 1P5UM
-  producer: legal_entities_001
-  product: products_001
+  producer_id: 6
+  product_id: 65
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 trackings_002:
   active: true
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 0
   name: Lot REM 1P6UM
-  producer: entities_001
-  product: products_002
+  producer_id: 1
+  product_id: 66
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

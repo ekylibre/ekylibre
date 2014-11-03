@@ -49,19 +49,21 @@
 ---
 product_links_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  linked: animals_004
+  creator_id: 1
+  id: 1
+  linked_id: 4
   lock_version: 0
   nature: father
-  product: animals_001
+  product_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_links_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  linked: animals_002
+  creator_id: 1
+  id: 2
+  linked_id: 2
   lock_version: 0
   nature: mother
-  product: animals_001
+  product_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1

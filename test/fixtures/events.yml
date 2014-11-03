@@ -51,38 +51,42 @@
 ---
 events_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
   name: Nothing
   nature: meeting
   restricted: false
   started_at: 2014-09-30 17:19:32.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 events_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 0
   name: Nothing too
   nature: meeting
   restricted: false
   started_at: 2013-10-31 18:19:32.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 events_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
   name: Nothing too again
   nature: meeting
   restricted: false
   started_at: 2012-10-31 18:19:32.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 events_004:
   created_at: 2014-10-31 18:45:44.741463000 Z
-  creator: users_001
+  creator_id: 1
   duration: 7200
+  id: 4
   lock_version: 0
   name: Interview
   nature: appointment
@@ -91,11 +95,12 @@ events_004:
   started_at: 2014-01-29 07:45:00.000000000 Z
   stopped_at: 2014-01-29 09:45:00.000000000 Z
   updated_at: 2014-10-31 18:45:44.741463000 Z
-  updater: users_001
+  updater_id: 1
 events_005:
   created_at: 2014-10-31 18:51:27.910985000 Z
-  creator: users_001
+  creator_id: 1
   duration: 10
+  id: 5
   lock_version: 0
   name: Enregistrement d’une vente
   nature: absence
@@ -103,11 +108,12 @@ events_005:
   started_at: 2014-10-31 18:51:27.900495000 Z
   stopped_at: 2014-10-31 18:51:37.900495000 Z
   updated_at: 2014-10-31 18:51:27.910985000 Z
-  updater: users_001
+  updater_id: 1
 events_006:
   created_at: 2014-11-01 20:24:26.747196000 Z
-  creator: users_001
+  creator_id: 1
   duration: 3600
+  id: 6
   lock_version: 0
   name: Traitement animal n°F1
   nature: production_intervention
@@ -115,11 +121,12 @@ events_006:
   started_at: 2014-09-03 07:45:00.000000000 Z
   stopped_at: 2014-09-03 08:45:00.000000000 Z
   updated_at: 2014-11-01 20:24:26.747196000 Z
-  updater: users_001
+  updater_id: 1
 events_007:
   created_at: 2014-11-02 18:23:56.820905000 Z
-  creator: users_001
+  creator_id: 1
   duration: 11040
+  id: 7
   lock_version: 0
   name: Broyage de végétaux n°1
   nature: production_intervention
@@ -127,11 +134,12 @@ events_007:
   started_at: 2009-05-03 05:13:00.000000000 Z
   stopped_at: 2009-05-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:23:56.820905000 Z
-  updater: users_001
+  updater_id: 1
 events_008:
   created_at: 2014-11-02 18:25:05.424579000 Z
-  creator: users_001
+  creator_id: 1
   duration: 11040
+  id: 8
   lock_version: 0
   name: Pulvérisation sur culture n°5
   nature: production_intervention
@@ -139,11 +147,12 @@ events_008:
   started_at: 2009-04-03 05:13:00.000000000 Z
   stopped_at: 2009-04-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:25:05.424579000 Z
-  updater: users_001
+  updater_id: 1
 events_009:
   created_at: 2014-11-02 18:25:25.069727000 Z
-  creator: users_001
+  creator_id: 1
   duration: 11040
+  id: 9
   lock_version: 0
   name: Broyage de végétaux n°2
   nature: production_intervention
@@ -151,11 +160,12 @@ events_009:
   started_at: 2009-06-03 05:13:00.000000000 Z
   stopped_at: 2009-06-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:25:25.069727000 Z
-  updater: users_001
+  updater_id: 1
 events_010:
   created_at: 2014-11-02 18:25:43.706648000 Z
-  creator: users_001
+  creator_id: 1
   duration: 11040
+  id: 10
   lock_version: 0
   name: Traitement animal n°3
   nature: production_intervention
@@ -163,11 +173,12 @@ events_010:
   started_at: 2009-05-03 05:13:00.000000000 Z
   stopped_at: 2009-05-03 08:17:00.000000000 Z
   updated_at: 2014-11-02 18:25:43.706648000 Z
-  updater: users_001
+  updater_id: 1
 events_011:
   created_at: 2014-11-02 18:30:08.197407000 Z
-  creator: users_001
+  creator_id: 1
   duration: 64800
+  id: 11
   lock_version: 0
   name: Labour n°6
   nature: production_intervention
@@ -175,11 +186,12 @@ events_011:
   started_at: 2014-11-01 00:25:00.000000000 Z
   stopped_at: 2014-11-01 18:25:00.000000000 Z
   updated_at: 2014-11-02 18:30:08.197407000 Z
-  updater: users_001
+  updater_id: 1
 events_012:
   created_at: 2014-11-02 18:37:42.470994000 Z
-  creator: users_001
+  creator_id: 1
   duration: 152700
+  id: 12
   lock_version: 0
   name: Semis n°7
   nature: production_intervention
@@ -187,4 +199,4 @@ events_012:
   started_at: 2014-10-27 03:25:00.000000000 Z
   stopped_at: 2014-10-28 21:50:00.000000000 Z
   updated_at: 2014-11-02 18:37:42.470994000 Z
-  updater: users_001
+  updater_id: 1

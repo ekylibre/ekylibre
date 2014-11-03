@@ -64,89 +64,96 @@ entity_addresses_001:
   canal: phone
   coordinate: 0123456789
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity: legal_entities_001
+  creator_id: 1
+  entity_id: 6
+  id: 1
   lock_version: 0
   mail_auto_update: false
   thread: AAAA
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 entity_addresses_002:
   by_default: false
   canal: phone
   coordinate: '1234567890'
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity: legal_entities_001
+  creator_id: 1
+  entity_id: 6
+  id: 2
   lock_version: 0
   mail_auto_update: false
   thread: AAAB
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 entity_addresses_003:
   by_default: true
   canal: mail
   coordinate: Andrew, Somewhere, 12345 InTheWorld, Afrique Du Sud
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity: legal_entities_001
+  creator_id: 1
+  entity_id: 6
+  id: 3
   lock_version: 2
   mail_auto_update: false
   mail_country: za
   mail_line_1: Andrew
   mail_line_4: Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_postal_zone: postal_zones_003
+  mail_postal_zone_id: 3
   thread: AAAC
   updated_at: 2014-10-31 18:58:17.604745000 Z
-  updater: users_001
+  updater_id: 1
 entity_addresses_004:
   by_default: true
   canal: mail
   coordinate: Mr Jones, Somewhere, 12345 InTheWorld
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  entity: people_001
+  creator_id: 1
+  entity_id: 9
+  id: 4
   lock_version: 0
   mail_auto_update: false
   mail_line_1: Mr Jones
   mail_line_4: 2 Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_postal_zone: postal_zones_002
+  mail_postal_zone_id: 2
   thread: AAAC
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 entity_addresses_005:
   by_default: true
   canal: email
   coordinate: yui.ikari@nerv.jp
   created_at: 2014-10-31 19:04:00.190872000 Z
-  creator: users_001
-  entity: people_003
+  creator_id: 1
+  entity_id: 11
+  id: 5
   lock_version: 0
   mail_auto_update: false
   thread: AAAA
   updated_at: 2014-10-31 19:04:00.190872000 Z
-  updater: users_001
+  updater_id: 1
 entity_addresses_006:
   by_default: true
   canal: email
   coordinate: contact@taurus-plus.in
   created_at: 2014-11-01 19:34:28.396983000 Z
-  creator: users_001
-  entity: entities_005
+  creator_id: 1
+  entity_id: 5
+  id: 6
   lock_version: 0
   mail_auto_update: false
   thread: AAAA
   updated_at: 2014-11-01 19:34:28.396983000 Z
-  updater: users_001
+  updater_id: 1
 entity_addresses_007:
   by_default: true
   canal: mail
   coordinate: "碇 ユイ, 17123 CHAR-EN-TEUX, France"
   created_at: 2014-11-01 20:16:17.397421000 Z
-  creator: users_001
-  entity: people_003
+  creator_id: 1
+  entity_id: 11
+  id: 7
   lock_version: 1
   mail_auto_update: true
   mail_country: fr
@@ -156,7 +163,62 @@ entity_addresses_007:
   mail_line_4: ''
   mail_line_5: ''
   mail_line_6: 17123 CHAR-EN-TEUX
-  mail_postal_zone: postal_zones_004
+  mail_postal_zone_id: 4
   thread: AAAA
   updated_at: 2014-11-01 20:16:17.409256000 Z
-  updater: users_001
+  updater_id: 1
+entity_addresses_008:
+  by_default: true
+  canal: mail
+  coordinate: Yuey LTD, 7548-454565 New-York, États-Unis
+  created_at: 2014-11-03 11:29:45.652906000 Z
+  creator_id: 1
+  entity_id: 8
+  id: 8
+  lock_version: 0
+  mail_auto_update: false
+  mail_country: us
+  mail_line_1: Yuei LTD
+  mail_line_2: ''
+  mail_line_3: ''
+  mail_line_4: ''
+  mail_line_5: ''
+  mail_line_6: 7548-454565 New-York
+  mail_postal_zone_id: 5
+  thread: AAAA
+  updated_at: 2014-11-03 11:29:45.652906000 Z
+  updater_id: 1
+entity_addresses_009:
+  by_default: true
+  canal: mail
+  coordinate: Ferstivall LTD, 33000 BORDEAUX, France
+  created_at: 2014-11-03 11:30:58.908408000 Z
+  creator_id: 1
+  entity_id: 1
+  id: 9
+  lock_version: 0
+  mail_auto_update: false
+  mail_country: fr
+  mail_line_1: Ferstivall LTD
+  mail_line_2: ''
+  mail_line_3: ''
+  mail_line_4: ''
+  mail_line_5: ''
+  mail_line_6: 33000 BORDEAUX
+  mail_postal_zone_id: 2
+  thread: AAAA
+  updated_at: 2014-11-03 11:30:58.908408000 Z
+  updater_id: 1
+entity_addresses_010:
+  by_default: true
+  canal: email
+  coordinate: contact@ferstivall.com
+  created_at: 2014-11-03 11:30:58.913730000 Z
+  creator_id: 1
+  entity_id: 1
+  id: 10
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAA
+  updated_at: 2014-11-03 11:30:58.913730000 Z
+  updater_id: 1

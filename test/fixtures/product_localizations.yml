@@ -48,262 +48,295 @@
 #
 ---
 product_localizations_001:
-  container: building_divisions_001
+  container_id: 15
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 1
   lock_version: 0
   nature: interior
-  product: animals_001
+  product_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   stopped_at: 2009-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_002:
-  container: building_divisions_001
+  container_id: 15
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 2
   lock_version: 0
   nature: transfer
-  product: animals_001
+  product_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   stopped_at: 2009-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_003:
-  container: building_divisions_001
+  container_id: 15
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 3
   lock_version: 0
   nature: interior
-  product: equipments_003
+  product_id: 28
   started_at: 2001-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_004:
-  container: cultivable_zones_001
+  container_id: 22
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 4
   lock_version: 0
   nature: interior
-  product: plants_001
+  product_id: 61
   started_at: 2000-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_005:
-  container: cultivable_zones_002
+  container_id: 23
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 5
   lock_version: 0
   nature: interior
-  product: plants_002
+  product_id: 62
   started_at: 2000-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_006:
-  container: cultivable_zones_003
+  container_id: 24
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
+  id: 6
   lock_version: 0
   nature: interior
-  product: plants_003
+  product_id: 63
   started_at: 2000-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_007:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-10-31 20:23:37.090697000 Z
-  creator: users_001
+  creator_id: 1
+  id: 7
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_004 (IncomingDeliveryItem)
-  product: matters_007
+  originator_id: 4
+  originator_type: IncomingDeliveryItem
+  product_id: 53
   started_at: 2014-10-31 20:09:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.090697000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_008:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-11-01 16:00:08.317473000 Z
-  creator: users_001
+  creator_id: 1
+  id: 8
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_005 (IncomingDeliveryItem)
-  product: matters_008
+  originator_id: 5
+  originator_type: IncomingDeliveryItem
+  product_id: 54
   started_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.317473000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_009:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-11-01 16:00:08.386096000 Z
-  creator: users_001
+  creator_id: 1
+  id: 9
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_006 (IncomingDeliveryItem)
-  product: matters_009
+  originator_id: 6
+  originator_type: IncomingDeliveryItem
+  product_id: 55
   started_at: 2014-10-31 20:31:00.000000000 Z
   updated_at: 2014-11-01 16:00:08.386096000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_010:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 16:01:24.231272000 Z
-  creator: users_001
+  creator_id: 1
+  id: 10
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_007 (IncomingDeliveryItem)
-  product: matters_010
+  originator_id: 7
+  originator_type: IncomingDeliveryItem
+  product_id: 56
   started_at: 2014-11-06 08:45:00.000000000 Z
   updated_at: 2014-11-01 16:01:24.231272000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_011:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 19:29:58.583615000 Z
-  creator: users_001
+  creator_id: 1
+  id: 11
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_008 (IncomingDeliveryItem)
-  product: animals_005
+  originator_id: 8
+  originator_type: IncomingDeliveryItem
+  product_id: 5
   started_at: 2014-11-01 19:26:00.000000000 Z
   updated_at: 2014-11-01 19:29:58.583615000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_012:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 19:35:50.431527000 Z
-  creator: users_001
+  creator_id: 1
+  id: 12
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_009 (IncomingDeliveryItem)
-  product: animals_006
+  originator_id: 9
+  originator_type: IncomingDeliveryItem
+  product_id: 6
   started_at: 2014-11-01 19:33:00.000000000 Z
   updated_at: 2014-11-01 19:35:50.431527000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_013:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 20:19:35.475802000 Z
-  creator: users_001
+  creator_id: 1
+  id: 13
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_010 (IncomingDeliveryItem)
-  product: matters_011
+  originator_id: 10
+  originator_type: IncomingDeliveryItem
+  product_id: 57
   started_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:19:35.475802000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_014:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 20:23:55.240912000 Z
-  creator: users_001
+  creator_id: 1
+  id: 14
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_011 (IncomingDeliveryItem)
-  product: matters_012
+  originator_id: 11
+  originator_type: IncomingDeliveryItem
+  product_id: 58
   started_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.240912000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_015:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 20:23:55.306166000 Z
-  creator: users_001
+  creator_id: 1
+  id: 15
   lock_version: 0
   nature: interior
-  originator: incoming_delivery_items_012 (IncomingDeliveryItem)
-  product: matters_013
+  originator_id: 12
+  originator_type: IncomingDeliveryItem
+  product_id: 59
   started_at: 2013-08-01 00:50:00.000000000 Z
   updated_at: 2014-11-01 20:23:55.306166000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_016:
   created_at: 2014-11-02 18:34:30.426592000 Z
-  creator: users_001
+  creator_id: 1
+  id: 16
   lock_version: 0
   nature: transfer
-  operation: operations_004
-  product: equipments_004
+  operation_id: 4
+  product_id: 29
   started_at: 2014-11-01 00:25:00.000000000 Z
   stopped_at: 2014-11-01 09:25:00.000000000 Z
   updated_at: 2014-11-02 18:34:30.426592000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_017:
-  container: cultivable_zones_004
+  container_id: 25
   created_at: 2014-11-02 18:34:30.433148000 Z
-  creator: users_001
+  creator_id: 1
+  id: 17
   lock_version: 0
   nature: interior
-  operation: operations_004
-  product: equipments_004
+  operation_id: 4
+  product_id: 29
   started_at: 2014-11-01 09:25:00.000000000 Z
   stopped_at: 2014-11-02 04:25:00.000000000 Z
   updated_at: 2014-11-02 18:34:30.433148000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_018:
-  container: building_divisions_005
+  container_id: 19
   created_at: 2014-11-02 18:37:22.419038000 Z
-  creator: users_001
+  creator_id: 1
+  id: 18
   lock_version: 0
   nature: interior
-  product: equipments_007
+  product_id: 32
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:37:22.419038000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_019:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-11-02 18:38:47.111163000 Z
-  creator: users_001
+  creator_id: 1
+  id: 19
   lock_version: 0
   nature: interior
-  product: matters_014
+  product_id: 60
   started_at: 0001-01-01 00:00:00.000000000 Z
   stopped_at: 2014-11-02 04:43:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.111163000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_020:
   created_at: 2014-11-02 18:38:47.193267000 Z
-  creator: users_001
+  creator_id: 1
+  id: 20
   lock_version: 0
   nature: transfer
-  operation: operations_006
-  product: equipments_004
+  operation_id: 6
+  product_id: 29
   started_at: 2014-11-02 04:25:00.000000000 Z
   stopped_at: 2014-11-02 04:43:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.193267000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_021:
-  container: cultivable_zones_004
+  container_id: 25
   created_at: 2014-11-02 18:38:47.201761000 Z
-  creator: users_001
+  creator_id: 1
+  id: 21
   lock_version: 0
   nature: interior
-  operation: operations_006
-  product: equipments_004
+  operation_id: 6
+  product_id: 29
   started_at: 2014-11-02 04:43:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.201761000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_022:
   created_at: 2014-11-02 18:38:47.268550000 Z
-  creator: users_001
+  creator_id: 1
+  id: 22
   lock_version: 0
   nature: transfer
-  operation: operations_007
-  product: matters_014
+  operation_id: 7
+  product_id: 60
   started_at: 2014-11-02 04:43:00.000000000 Z
   stopped_at: 2014-11-02 11:06:30.000000000 Z
   updated_at: 2014-11-02 18:38:47.268550000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_023:
-  container: cultivable_zones_004
+  container_id: 25
   created_at: 2014-11-02 18:38:47.275175000 Z
-  creator: users_001
+  creator_id: 1
+  id: 23
   lock_version: 0
   nature: interior
-  operation: operations_007
-  product: matters_014
+  operation_id: 7
+  product_id: 60
   started_at: 2014-11-02 11:06:30.000000000 Z
   updated_at: 2014-11-02 18:38:47.275175000 Z
-  updater: users_001
+  updater_id: 1
 product_localizations_024:
-  container: cultivable_zones_004
+  container_id: 25
   created_at: 2014-11-02 18:38:47.602873000 Z
-  creator: users_001
+  creator_id: 1
+  id: 24
   lock_version: 0
   nature: interior
-  operation: operations_007
-  product: plants_004
+  operation_id: 7
+  product_id: 64
   started_at: 2014-11-02 04:43:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.602873000 Z
-  updater: users_001
+  updater_id: 1

@@ -48,121 +48,133 @@
 ---
 incoming_delivery_items_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  delivery: incoming_deliveries_001
+  creator_id: 1
+  delivery_id: 1
+  id: 1
   lock_version: 0
   population: 0.0
-  product: products_001
-  purchase_item: purchase_items_001
+  product_id: 65
+  purchase_item_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  delivery: incoming_deliveries_001
+  creator_id: 1
+  delivery_id: 1
+  id: 2
   lock_version: 0
   population: 0.0
-  product: products_001
-  purchase_item: purchase_items_001
+  product_id: 65
+  purchase_item_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  delivery: incoming_deliveries_001
+  creator_id: 1
+  delivery_id: 1
+  id: 3
   lock_version: 0
   population: 0.0
-  product: products_001
-  purchase_item: purchase_items_001
+  product_id: 65
+  purchase_item_id: 1
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_004:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-10-31 20:23:37.079652000 Z
-  creator: users_001
-  delivery: incoming_deliveries_004
+  creator_id: 1
+  delivery_id: 4
+  id: 4
   lock_version: 0
   population: 7.0
-  product: matters_007
+  product_id: 53
   updated_at: 2014-10-31 20:23:37.079652000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_005:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-11-01 16:00:08.291496000 Z
-  creator: users_001
-  delivery: incoming_deliveries_005
+  creator_id: 1
+  delivery_id: 5
+  id: 5
   lock_version: 0
   population: 20.0
-  product: matters_008
+  product_id: 54
   updated_at: 2014-11-01 16:00:08.291496000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_006:
-  container: building_divisions_006
+  container_id: 20
   created_at: 2014-11-01 16:00:08.381565000 Z
-  creator: users_001
-  delivery: incoming_deliveries_005
+  creator_id: 1
+  delivery_id: 5
+  id: 6
   lock_version: 0
   population: 20.0
-  product: matters_009
+  product_id: 55
   updated_at: 2014-11-01 16:00:08.381565000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_007:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 16:01:24.225780000 Z
-  creator: users_001
-  delivery: incoming_deliveries_002
+  creator_id: 1
+  delivery_id: 2
+  id: 7
   lock_version: 0
   population: 0.0
-  product: matters_010
+  product_id: 56
   updated_at: 2014-11-01 16:01:24.225780000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_008:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 19:29:58.321983000 Z
-  creator: users_001
-  delivery: incoming_deliveries_006
+  creator_id: 1
+  delivery_id: 6
+  id: 8
   lock_version: 0
   population: 1.0
-  product: animals_005
+  product_id: 5
   updated_at: 2014-11-01 19:29:58.321983000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_009:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 19:35:50.426074000 Z
-  creator: users_001
-  delivery: incoming_deliveries_007
+  creator_id: 1
+  delivery_id: 7
+  id: 9
   lock_version: 0
   population: 1.0
-  product: animals_006
+  product_id: 6
   updated_at: 2014-11-01 19:35:50.426074000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_010:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 20:19:35.464060000 Z
-  creator: users_001
-  delivery: incoming_deliveries_008
+  creator_id: 1
+  delivery_id: 8
+  id: 10
   lock_version: 0
   population: 10.0
-  product: matters_011
+  product_id: 57
   updated_at: 2014-11-01 20:19:35.464060000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_011:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 20:23:55.229924000 Z
-  creator: users_001
-  delivery: incoming_deliveries_008
+  creator_id: 1
+  delivery_id: 8
+  id: 11
   lock_version: 0
   population: 10.0
-  product: matters_012
+  product_id: 58
   updated_at: 2014-11-01 20:23:55.229924000 Z
-  updater: users_001
+  updater_id: 1
 incoming_delivery_items_012:
-  container: building_divisions_007
+  container_id: 21
   created_at: 2014-11-01 20:23:55.300646000 Z
-  creator: users_001
-  delivery: incoming_deliveries_008
+  creator_id: 1
+  delivery_id: 8
+  id: 12
   lock_version: 0
   population: 10.0
-  product: matters_013
+  product_id: 59
   updated_at: 2014-11-01 20:23:55.300646000 Z
-  updater: users_001
+  updater_id: 1

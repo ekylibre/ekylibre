@@ -42,29 +42,36 @@
 ---
 versions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Alice
   event: create
-  item: products_001 (Product)
+  id: 1
+  item_id: 65
+  item_type: Product
 versions_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Bob
   event: update
-  item: animals_001 (Animal)
+  id: 2
+  item_id: 1
+  item_type: Animal
 versions_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Charlene
   event: destroy
-  item: entities_001 (Entity)
+  id: 3
+  item_id: 1
+  item_type: Entity
 versions_004:
   created_at: 2014-10-31 18:58:07.372736000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: legal_entities_001 (LegalEntity)
+  id: 4
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 6
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 3
     type: LegalEntity
@@ -104,13 +111,15 @@ versions_004:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: LegalEntity
 versions_005:
   created_at: 2014-10-31 18:59:01.573980000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: destroy
-  item: legal_entities_001 (LegalEntity)
+  id: 5
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 6
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 2
     type: Entity
@@ -150,13 +159,15 @@ versions_005:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: LegalEntity
 versions_006:
   created_at: 2014-10-31 19:04:00.181101000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: people_003 (Person)
+  id: 6
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 11
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 8
     type: Person
@@ -196,14 +207,16 @@ versions_006:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: Person
 versions_007:
   created_at: 2014-10-31 19:04:30.098492000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: people_003 (Person)
+  id: 7
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     country:
+  item_id: 11
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 8
     type: Person
@@ -243,14 +256,16 @@ versions_007:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: Person
 versions_008:
   created_at: 2014-10-31 19:04:53.822748000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: people_003 (Person)
+  id: 8
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     active: true
+  item_id: 11
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 8
     type: Person
@@ -290,13 +305,15 @@ versions_008:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: Person
 versions_009:
   created_at: 2014-10-31 19:28:25.982446000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: entities_002 (Entity)
+  id: 9
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 2
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 9
     type:
@@ -336,13 +353,15 @@ versions_009:
     picture_updated_at:
     created_at: 2014-10-31 19:28:25.976860000 Z
     creator_id: 1
+  item_type: Entity
 versions_010:
   created_at: 2014-10-31 20:09:53.272265000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: entities_003 (Entity)
+  id: 10
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 3
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 10
     type:
@@ -382,13 +401,15 @@ versions_010:
     picture_updated_at:
     created_at: 2014-10-31 20:09:53.266533000 Z
     creator_id: 1
+  item_type: Entity
 versions_011:
   created_at: 2014-10-31 20:10:25.994199000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: entities_004 (Entity)
+  id: 11
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 4
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 11
     type:
@@ -428,13 +449,15 @@ versions_011:
     picture_updated_at:
     created_at: 2014-10-31 20:10:25.992209000 Z
     creator_id: 1
+  item_type: Entity
 versions_012:
   created_at: 2014-10-31 20:12:30.892952000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: buildings_004 (Building)
+  id: 12
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 13
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 59
     type: Building
@@ -472,13 +495,15 @@ versions_012:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Building
 versions_013:
   created_at: 2014-10-31 20:15:14.784345000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: buildings_005 (Building)
+  id: 13
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 14
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 60
     type: Building
@@ -547,16 +572,18 @@ versions_013:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8317086700117210 45.5990635462548966,
         -0.8315584663068880 45.5984855274884993, -0.8312902454053980 45.5985005410381987,
         -0.8314619067823510 45.5991160931203012, -0.8317086700117210 45.5990635462548966)))
+  item_type: Building
 versions_014:
   created_at: 2014-10-31 20:15:42.716163000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: buildings_005 (Building)
+  id: 14
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     born_at:
     identification_number: ''
     work_number: ''
+  item_id: 14
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 60
     type: Building
@@ -625,13 +652,15 @@ versions_014:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8317086700117210 45.5990635462548966,
         -0.8315584663068880 45.5984855274884993, -0.8312902454053980 45.5985005410381987,
         -0.8314619067823510 45.5991160931203012, -0.8317086700117210 45.5990635462548966)))
+  item_type: Building
 versions_015:
   created_at: 2014-10-31 20:18:12.221051000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: building_divisions_005 (BuildingDivision)
+  id: 15
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 19
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 61
     type: BuildingDivision
@@ -700,13 +729,15 @@ versions_015:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8130317777613530 45.5987083844552004,
         -0.8128802329520110 45.5986882100715007, -0.8128581047276380 45.5987590549682977,
         -0.8130036145666960 45.5987759451291979, -0.8130317777613530 45.5987083844552004)))
+  item_type: BuildingDivision
 versions_016:
   created_at: 2014-10-31 20:23:26.765355000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: building_divisions_006 (BuildingDivision)
+  id: 16
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 20
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 62
     type: BuildingDivision
@@ -777,13 +808,15 @@ versions_016:
         -0.8359976112842560 45.5976513308166034, -0.8359987736184850 45.5975565562820009,
         -0.8365756273269650 45.5975631248192030, -0.8365742862224580 45.5976569609819009,
         -0.8368921279907230 45.5976625911467011, -0.8368986547429810 45.5974477061239014)))
+  item_type: BuildingDivision
 versions_017:
   created_at: 2014-10-31 20:23:37.031927000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_007 (Matter)
+  id: 17
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 53
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 63
     type: Matter
@@ -821,13 +854,15 @@ versions_017:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_018:
   created_at: 2014-10-31 20:25:41.456587000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: building_divisions_007 (BuildingDivision)
+  id: 18
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 21
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 64
     type: BuildingDivision
@@ -894,12 +929,13 @@ versions_018:
           default_srid:
         auto_prepare: simple
       wkt: GEOMETRYCOLLECTION EMPTY
+  item_type: BuildingDivision
 versions_019:
   created_at: 2014-10-31 20:26:47.174539000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: building_divisions_007 (BuildingDivision)
+  id: 19
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     born_at:
     initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
@@ -932,6 +968,7 @@ versions_019:
           default_srid:
         auto_prepare: simple
       wkt: GEOMETRYCOLLECTION EMPTY
+  item_id: 21
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 64
     type: BuildingDivision
@@ -1000,14 +1037,16 @@ versions_019:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
+  item_type: BuildingDivision
 versions_020:
   created_at: 2014-10-31 20:49:21.881366000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: building_divisions_007 (BuildingDivision)
+  id: 20
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Hangar central
+  item_id: 21
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 64
     type: BuildingDivision
@@ -1076,14 +1115,16 @@ versions_020:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
+  item_type: BuildingDivision
 versions_021:
   created_at: 2014-10-31 20:49:34.041488000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: building_divisions_007 (BuildingDivision)
+  id: 21
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     name: Hangar central
+  item_id: 21
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 64
     type: BuildingDivision
@@ -1152,13 +1193,15 @@ versions_021:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
+  item_type: BuildingDivision
 versions_022:
   created_at: 2014-11-01 16:00:08.025514000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_008 (Matter)
+  id: 22
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 54
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 67
     type: Matter
@@ -1196,13 +1239,15 @@ versions_022:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_023:
   created_at: 2014-11-01 16:00:08.342121000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_009 (Matter)
+  id: 23
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 55
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 68
     type: Matter
@@ -1240,13 +1285,15 @@ versions_023:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_024:
   created_at: 2014-11-01 16:01:24.159746000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_010 (Matter)
+  id: 24
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 56
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 69
     type: Matter
@@ -1284,15 +1331,17 @@ versions_024:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_025:
   created_at: 2014-11-01 17:00:00.266880000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: entities_004 (Entity)
+  id: 25
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 11
     active: false
+  item_id: 4
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 4
     type:
@@ -1332,13 +1381,15 @@ versions_025:
     picture_updated_at:
     created_at: 2014-10-31 20:10:25.992209000 Z
     creator_id: 1
+  item_type: Entity
 versions_026:
   created_at: 2014-11-01 18:28:24.979924000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: people_002 (Person)
+  id: 26
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 10
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 9
     type: Person
@@ -1378,13 +1429,15 @@ versions_026:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: Person
 versions_027:
   created_at: 2014-11-01 19:29:58.097653000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: animals_005 (Animal)
+  id: 27
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 5
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 68
     type: Animal
@@ -1422,13 +1475,15 @@ versions_027:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Animal
 versions_028:
   created_at: 2014-11-01 19:34:28.165842000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: entities_005 (Entity)
+  id: 28
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 5
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 11
     type:
@@ -1468,13 +1523,15 @@ versions_028:
     picture_updated_at:
     created_at: 2014-11-01 19:34:28.161304000 Z
     creator_id: 1
+  item_type: Entity
 versions_029:
   created_at: 2014-11-01 19:35:50.375324000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: animals_006 (Animal)
+  id: 29
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 6
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 69
     type: Animal
@@ -1512,13 +1569,15 @@ versions_029:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Animal
 versions_030:
   created_at: 2014-11-01 19:36:27.501722000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: issues_003 (Issue)
+  id: 30
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 3
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 3
     target_id: 69
@@ -1536,13 +1595,15 @@ versions_030:
     picture_updated_at:
     created_at: 2014-11-01 19:36:27.498008000 Z
     creator_id: 1
+  item_type: Issue
 versions_031:
   created_at: 2014-11-01 19:47:04.286035000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: legal_entities_003 (LegalEntity)
+  id: 31
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 8
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 7
     type: LegalEntity
@@ -1582,13 +1643,15 @@ versions_031:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: LegalEntity
 versions_032:
   created_at: 2014-11-01 20:16:17.387286000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: people_003 (Person)
+  id: 32
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 11
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 10
     type: Person
@@ -1628,13 +1691,15 @@ versions_032:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
+  item_type: Person
 versions_033:
   created_at: 2014-11-01 20:19:35.359776000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_011 (Matter)
+  id: 33
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 57
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 70
     type: Matter
@@ -1672,13 +1737,15 @@ versions_033:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_034:
   created_at: 2014-11-01 20:23:54.919029000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_012 (Matter)
+  id: 34
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 58
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 73
     type: Matter
@@ -1716,13 +1783,15 @@ versions_034:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_035:
   created_at: 2014-11-01 20:23:55.249770000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_013 (Matter)
+  id: 35
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 59
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 74
     type: Matter
@@ -1760,13 +1829,15 @@ versions_035:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_036:
   created_at: 2014-11-01 20:30:35.484926000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: workers_004 (Worker)
+  id: 36
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 79
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 75
     type: Worker
@@ -1804,13 +1875,15 @@ versions_036:
     creator_id: 1
     person_id: 8
     initial_shape:
+  item_type: Worker
 versions_037:
   created_at: 2014-11-02 18:22:30.494390000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: equipments_004 (Equipment)
+  id: 37
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 29
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 76
     type: Equipment
@@ -1848,13 +1921,15 @@ versions_037:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Equipment
 versions_038:
   created_at: 2014-11-02 18:22:39.397058000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: equipments_004 (Equipment)
+  id: 38
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 29
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 76
     type: Equipment
@@ -1892,13 +1967,15 @@ versions_038:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Equipment
 versions_039:
   created_at: 2014-11-02 18:23:23.654787000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: equipments_005 (Equipment)
+  id: 39
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 30
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 77
     type: Equipment
@@ -1936,13 +2013,15 @@ versions_039:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Equipment
 versions_040:
   created_at: 2014-11-02 18:23:36.528020000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: equipments_005 (Equipment)
+  id: 40
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 30
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 77
     type: Equipment
@@ -1980,13 +2059,15 @@ versions_040:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Equipment
 versions_041:
   created_at: 2014-11-02 18:29:41.473807000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: equipments_006 (Equipment)
+  id: 41
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 31
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 78
     type: Equipment
@@ -2024,13 +2105,15 @@ versions_041:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Equipment
 versions_042:
   created_at: 2014-11-02 18:33:01.551632000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: cultivable_zones_004 (CultivableZone)
+  id: 42
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 25
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 79
     type: CultivableZone
@@ -2100,13 +2183,15 @@ versions_042:
         -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
         -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
         -0.8177894353866580 45.5943078511944009)))
+  item_type: CultivableZone
 versions_043:
   created_at: 2014-11-02 18:37:22.388480000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: equipments_007 (Equipment)
+  id: 43
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 32
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 80
     type: Equipment
@@ -2144,13 +2229,15 @@ versions_043:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Equipment
 versions_044:
   created_at: 2014-11-02 18:38:47.085576000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: matters_014 (Matter)
+  id: 44
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 60
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 81
     type: Matter
@@ -2188,13 +2275,15 @@ versions_044:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_045:
   created_at: 2014-11-02 18:38:47.155014000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: create
-  item: plants_004 (Plant)
+  id: 45
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 64
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 82
     type: Plant
@@ -2264,13 +2353,15 @@ versions_045:
         45.5939962959363001, -0.8178430795669560 45.5937673204872027, -0.8168962597846980
         45.5934848535846982, -0.8162477015139300 45.5944092001223993, -0.8177894353866580
         45.5943078511944009)))
+  item_type: Plant
 versions_046:
   created_at: 2014-11-02 18:38:47.249893000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: matters_007 (Matter)
+  id: 46
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 53
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 47
     type: Matter
@@ -2308,13 +2399,15 @@ versions_046:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_047:
   created_at: 2014-11-02 18:38:47.531262000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: matters_014 (Matter)
+  id: 47
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 60
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 81
     type: Matter
@@ -2352,13 +2445,15 @@ versions_047:
     creator_id: 1
     person_id:
     initial_shape:
+  item_type: Matter
 versions_048:
   created_at: 2014-11-02 18:38:47.548098000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: cultivable_zones_004 (CultivableZone)
+  id: 48
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 25
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 79
     type: CultivableZone
@@ -2428,13 +2523,15 @@ versions_048:
         -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
         -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
         -0.8177894353866580 45.5943078511944009)))
+  item_type: CultivableZone
 versions_049:
   created_at: 2014-11-02 18:38:47.590134000 Z
-  creator: users_001
+  creator_id: 1
   creator_name: Gendo IKARI
   event: update
-  item: cultivable_zones_004 (CultivableZone)
+  id: 49
   item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 25
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 79
     type: CultivableZone
@@ -2504,3 +2601,363 @@ versions_049:
         -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
         -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
         -0.8177894353866580 45.5943078511944009)))
+  item_type: CultivableZone
+versions_050:
+  created_at: 2014-11-02 19:33:57.165996000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 50
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 4
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    target_id: 69
+    target_type: Animal
+    nature: limping
+    observed_at: 0001-12-31 00:11:32.000000000 Z
+    priority: 4
+    gravity: 2
+    state: opened
+    name: Boîterie sur Isabelle
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-02 19:33:57.155217000 Z
+    creator_id: 1
+  item_type: Issue
+versions_051:
+  created_at: 2014-11-03 11:29:45.632781000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 51
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: LegalEntity
+    nature: company
+    last_name: Yuey LTD
+    first_name: ''
+    number: '3'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 202
+    supplier: true
+    supplier_account_id: 207
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: LegalEntity
+versions_052:
+  created_at: 2014-11-03 11:30:58.898635000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 52
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_053:
+  created_at: 2014-11-03 11:36:22.922861000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 53
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 11:36:22.690854000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_054:
+  created_at: 2014-11-03 12:46:50.992235000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 54
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    picture_updated_at: 2014-11-03 11:36:22.690854000 Z
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 12:46:50.797482000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_055:
+  created_at: 2014-11-03 16:19:15.118331000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 55
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    picture_updated_at: 2014-11-03 12:46:50.797482000 Z
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_056:
+  created_at: 2014-11-03 16:19:27.364736000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 56
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    nature: entity
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: company
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity

@@ -59,80 +59,85 @@
 catalog_prices_001:
   all_taxes_included: true
   amount: 1196.0
-  catalog: catalogs_001
+  catalog_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 1
   indicator_name: population
   lock_version: 0
   name: Catalog price 001
-  reference_tax: taxes_001
+  reference_tax_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   thread: sale:population:fdsfsdf:jshfjhsfkhjsfsk
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 catalog_prices_002:
   all_taxes_included: true
   amount: 1196.0
-  catalog: catalogs_001
+  catalog_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 2
   indicator_name: population
   lock_version: 0
   name: Catalog price 002
-  reference_tax: taxes_001
+  reference_tax_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   thread: sale:population:fdsfsdf:jshfjhsfkhjsfsk
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 catalog_prices_003:
   all_taxes_included: false
   amount: 950.0
-  catalog: catalogs_001
+  catalog_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 3
   indicator_name: population
   lock_version: 0
   name: Catalog price 003
-  reference_tax: taxes_001
+  reference_tax_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   thread: sale:population:fdsfsdf:jshfjhsfkhjsfsk
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 catalog_prices_004:
   all_taxes_included: true
   amount: 1196.0
-  catalog: catalogs_001
+  catalog_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 4
   indicator_name: population
   lock_version: 0
   name: Catalog price 004
-  reference_tax: taxes_001
+  reference_tax_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   thread: sale:population:fdsfsdf:jshfjhsfkhjsfsk
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1
 catalog_prices_005:
   all_taxes_included: true
   amount: 1196.0
-  catalog: catalogs_001
+  catalog_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
+  creator_id: 1
   currency: EUR
+  id: 5
   indicator_name: population
   lock_version: 0
   name: Catalog price 005
-  reference_tax: taxes_001
+  reference_tax_id: 1
   started_at: 2009-07-19 15:13:59.000000000 Z
   thread: sale:population:fdsfsdf:jshfjhsfkhjsfsk
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
-  variant: product_nature_variants_001
+  updater_id: 1
+  variant_id: 1

@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="veterinary_booklet" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+  <property name="ireport.zoom" value="0.9558924531310702"/>
+  <property name="ireport.x" value="0"/>
+  <property name="ireport.y" value="131"/>
+  <property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
+  <template><![CDATA["/home/brice/Projets/ekylibre/erp/config/corporate_identity/reporting_style.xml"]]></template>
+  <style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
+  <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+  <style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+  <style name="Detail" fontName="Open Sans" fontSize="12">
+    <conditionalStyle>
+      <conditionExpression><![CDATA[$F{dead-at} != null]]></conditionExpression>
+      <style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
+    </conditionalStyle>
+    <conditionalStyle>
+      <conditionExpression><![CDATA[$F{race-name}.contains("CROISE")]]></conditionExpression>
+      <style mode="Opaque" backcolor="#FFFF00" fill="Solid" vAlign="Top" isBlankWhenNull="false" isBold="false" isItalic="false" isUnderline="false"/>
+    </conditionalStyle>
+  </style>
+  <style name="Row" mode="Transparent"/>
+  <style name="Crosstab Data Text" hAlign="Center"/>
+  <style name="conditional_state">
+    <conditionalStyle>
+      <conditionExpression><![CDATA[$F{state} == "closed" || $F{state} == "aborted"]]></conditionExpression>
+      <style mode="Opaque" backcolor="#33CC00">
+        <box topPadding="3"/>
+      </style>
+    </conditionalStyle>
+    <conditionalStyle>
+      <conditionExpression><![CDATA[$F{state} == "opened" && $F{interventions_count} == 0]]></conditionExpression>
+      <style mode="Opaque" backcolor="#FF0000"/>
+    </conditionalStyle>
+    <conditionalStyle>
+      <conditionExpression><![CDATA[$F{state} == "opened" && $F{interventions_count} != 0]]></conditionExpression>
+      <style mode="Opaque" backcolor="#FFA800"/>
+    </conditionalStyle>
+  </style>
+  <parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+  <parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+  <parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+    <defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/reporting/"]]></defaultValueExpression>
+  </parameter>
+  <queryString language="xPath"><![CDATA[campaigns/campaign/intervention/inputs/input]]></queryString>
+  <field name="entity_name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
+  </field>
+  <field name="campaign" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::campaign/@id]]></fieldDescription>
+  </field>
+  <field name="started_at" class="java.util.Date">
+    <fieldDescription><![CDATA[ancestor::intervention/@started-at]]></fieldDescription>
+  </field>
+  <field name="stopped_at" class="java.util.Date">
+    <fieldDescription><![CDATA[ancestor::intervention/@stopped-at]]></fieldDescription>
+  </field>
+  <field name="target_class_name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/target/@type]]></fieldDescription>
+  </field>
+  <field name="target_identification" class="java.lang.String">
+    <fieldDescription><![CDATA[../../target/@identification-number]]></fieldDescription>
+  </field>
+  <field name="target_name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/target/@name]]></fieldDescription>
+  </field>
+  <field name="description" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/issue/@description]]></fieldDescription>
+  </field>
+  <field name="name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/issue/@name]]></fieldDescription>
+  </field>
+  <field name="observed_at" class="java.util.Date">
+    <fieldDescription><![CDATA[ancestor::intervention/issue/@observed-at]]></fieldDescription>
+  </field>
+  <field name="state" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/issue/@state]]></fieldDescription>
+  </field>
+  <field name="interventions_count" class="java.lang.Integer">
+    <fieldDescription><![CDATA[ancestor::intervention/issue/@interventions-count]]></fieldDescription>
+  </field>
+  <field name="worker_name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/worker/@name]]></fieldDescription>
+  </field>
+  <field name="id" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/prescription/@id]]></fieldDescription>
+  </field>
+  <field name="prescriptor" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/prescription/@name]]></fieldDescription>
+  </field>
+  <field name="reference_number" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/prescription/@reference-number]]></fieldDescription>
+  </field>
+  <field name="meat_min_sale_date" class="java.util.Date">
+    <fieldDescription><![CDATA[sale-dates/meat-saleable-on]]></fieldDescription>
+  </field>
+  <field name="milk_min_sale_date" class="java.util.Date">
+    <fieldDescription><![CDATA[sale-dates/milk-saleable-on]]></fieldDescription>
+  </field>
+  <field name="medicine_name" class="java.lang.String">
+    <fieldDescription><![CDATA[variant-name]]></fieldDescription>
+  </field>
+  <field name="medicine_nature" class="java.lang.String">
+    <fieldDescription><![CDATA[nit-name]]></fieldDescription>
+  </field>
+  <field name="procedure_duration_day" class="java.lang.Double">
+    <fieldDescription><![CDATA[ancestor::intervention/@duration]]></fieldDescription>
+  </field>
+  <field name="quantity" class="java.lang.String">
+    <fieldDescription><![CDATA[population]]></fieldDescription>
+  </field>
+  <field name="target_id" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/@target-id]]></fieldDescription>
+  </field>
+  <field name="worker_entity_id" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/@worker-person-id]]></fieldDescription>
+  </field>
+  <field name="entity_breeding_number" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::campaigns/@breeding-number]]></fieldDescription>
+  </field>
+  <field name="entity_address" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::campaigns/@address]]></fieldDescription>
+  </field>
+  <field name="campaign_name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
+  </field>
+  <field name="unit_name" class="java.lang.String">
+    <fieldDescription><![CDATA[unit-name]]></fieldDescription>
+  </field>
+  <field name="issue_nature" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/issue/@nature]]></fieldDescription>
+  </field>
+  <sortField name="campaign"/>
+  <sortField name="started_at"/>
+  <group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+    <groupExpression><![CDATA[$F{campaign}]]></groupExpression>
+  </group>
+  <background>
+    <band splitType="Stretch"/>
+  </background>
+  <title>
+    <band height="444" splitType="Stretch">
+      <staticText>
+        <reportElement style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
+        <textElement verticalAlignment="Middle">
+          <font pdfFontName="Open Sans"/>
+        </textElement>
+        <text><![CDATA[]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="title" x="0" y="0" width="786" height="29" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
+        <textElement>
+          <font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
+        </textElement>
+        <text><![CDATA[Carnet sanitaire]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="0" y="171" width="786" height="40" uuid="6e0769cf-38a5-42a5-9a6e-7f073c13bdeb"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="24" isBold="true"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement x="0" y="211" width="786" height="40" uuid="64dbde96-ffbe-4bd0-9827-2ef1068e6a1f"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="24"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{entity_breeding_number}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement style="address" x="0" y="251" width="786" height="20" uuid="b60f24a3-d657-4f3f-8872-1ce3bef0f9e0"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
+      </textField>
+    </band>
+  </title>
+  <pageHeader>
+    <band height="84" splitType="Stretch">
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="192" y="26" width="238" height="44" uuid="6c3b38e3-fa18-4ce1-afca-00110dd02c2a"/>
+        <textElement textAlignment="Center" verticalAlignment="Top">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5" spacingBefore="5"/>
+        </textElement>
+        <text><![CDATA[Incident]]></text>
+      </staticText>
+      <textField>
+        <reportElement style="address" x="0" y="0" width="786" height="13" uuid="548666df-fcbc-42e7-b461-8ee8b327b70e"/>
+        <textElement textAlignment="Center" verticalAlignment="Top"/>
+        <textFieldExpression><![CDATA["Carnet sanitaire "]]></textFieldExpression>
+      </textField>
+      <staticText>
+        <reportElement style="base" mode="Transparent" x="208" y="48" width="56" height="22" uuid="edc9f11e-f430-4080-9bf8-bd2893724afb"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Non traité]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="base" mode="Transparent" x="287" y="48" width="49" height="22" uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[En cours]]></text>
+      </staticText>
+      <textField evaluationTime="Group" evaluationGroup="campaign" isBlankWhenNull="true">
+        <reportElement style="title" x="0" y="26" width="192" height="44" uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d"/>
+        <textElement verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{campaign_name}]]></textFieldExpression>
+      </textField>
+      <rectangle radius="10">
+        <reportElement style="conditional_state" x="274" y="54" width="10" height="10" backcolor="#FFA500" uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c"/>
+      </rectangle>
+      <rectangle radius="10">
+        <reportElement style="conditional_state" positionType="FixRelativeToBottom" x="196" y="54" width="10" height="10" backcolor="#FF0000" uuid="23e8397b-4700-4711-8745-7a13f840a2b8"/>
+      </rectangle>
+      <rectangle radius="10">
+        <reportElement style="conditional_state" x="350" y="54" width="10" height="10" backcolor="#33CC00" uuid="53c1eead-9594-4681-82f8-853e01b2aaec"/>
+      </rectangle>
+      <staticText>
+        <reportElement style="conditional_state" mode="Transparent" x="365" y="48" width="49" height="21" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Résolu]]></text>
+      </staticText>
+    </band>
+  </pageHeader>
+  <columnHeader>
+    <band height="47">
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="0" y="0" width="107" height="47" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
+        <textElement verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Date début / date fin]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="107" y="0" width="85" height="47" uuid="8c03c7d1-59ce-4a3e-b107-731138094210"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Animal ou Groupe / n° identification]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="192" y="0" width="166" height="47" uuid="7f274133-db12-4509-990a-4d5105a59f59"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Date Incident / description]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="708" y="0" width="78" height="47" uuid="b02f454f-dfb7-4dc4-8434-563f3dff23ca"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Intervenant]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="358" y="0" width="89" height="47" uuid="f7f32060-e90c-44c5-bdcd-43dda3340a7a"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Ordonnance / prescripteur]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="447" y="0" width="144" height="16" uuid="da1e41ad-1aa3-4d74-960f-417dd3b212a3"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Traitements]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="447" y="16" width="144" height="31" uuid="3fb5daae-14c0-4710-9a8c-caba67180cd0"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Médicament / quantité - durée (jour)]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="591" y="0" width="117" height="30" uuid="47ebaa59-657b-4a3c-bf63-ecec8a5537b8"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Date de remise en vente]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="591" y="30" width="59" height="17" uuid="81c221d4-ac0f-4d69-b959-9903b6d7d6ca"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Lait]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="table-th" mode="Transparent" x="650" y="30" width="58" height="17" uuid="75f2faed-fe8f-4098-9353-19ff58c25923"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans" size="10"/>
+          <paragraph leftIndent="5"/>
+        </textElement>
+        <text><![CDATA[Viande]]></text>
+      </staticText>
+    </band>
+  </columnHeader>
+  <detail>
+    <band height="40" splitType="Stretch">
+      <rectangle>
+        <reportElement mode="Transparent" x="0" y="0" width="107" height="39" uuid="3bc54923-9c6a-4bbc-b071-67d7a9ecf1a1"/>
+      </rectangle>
+      <rectangle>
+        <reportElement mode="Transparent" x="708" y="0" width="78" height="39" uuid="2d99775a-646f-4357-b1d4-9e6b1e217177"/>
+      </rectangle>
+      <rectangle>
+        <reportElement mode="Transparent" x="358" y="0" width="89" height="39" uuid="95f32bce-eaff-4126-87bb-902735499158"/>
+      </rectangle>
+      <textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+        <reportElement style="base" x="0" y="0" width="107" height="20" uuid="0339ffa3-8998-4dab-897d-fe28061d4c98"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
+      </textField>
+      <textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+        <reportElement style="base" x="0" y="20" width="107" height="20" uuid="edcf261a-fea8-4417-9c52-67d74ff54973"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement style="base" x="107" y="20" width="85" height="20" uuid="ee5f9f81-ece7-485a-aded-f878c5f986e2"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{target_identification}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement x="192" y="17" width="166" height="23" uuid="0344b0fd-1f7d-4c93-b7de-e5a992d71536"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font size="8"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$F{issue_nature}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement style="base" x="358" y="20" width="89" height="20" uuid="f131a1e3-9cd0-4de7-af30-bb89f77adc4b"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{prescriptor}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
+        <reportElement style="base" x="358" y="0" width="89" height="20" uuid="a58786b7-0578-49b2-9a19-cd3cb2d16144"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{reference_number}]]></textFieldExpression>
+      </textField>
+      <textField hyperlinkType="Reference">
+        <reportElement style="base" x="708" y="0" width="78" height="40" uuid="2dd1edbf-6bd2-4033-99e6-a0d6e04234a0"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{worker_name}]]></textFieldExpression>
+      </textField>
+      <textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+        <reportElement style="base" x="192" y="1" width="166" height="16" uuid="fe9ac1c4-f41e-42b1-9d4d-8deffb888e19"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{observed_at}]]></textFieldExpression>
+      </textField>
+      <textField pattern="" isBlankWhenNull="true">
+        <reportElement style="base" x="548" y="21" width="43" height="18" uuid="020fa119-10d7-4db8-b0a4-5f5c02816413"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{procedure_duration_day}]]></textFieldExpression>
+        <patternExpression><![CDATA["###0.00 "+"jours"]]></patternExpression>
+      </textField>
+      <textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+        <reportElement style="base" x="591" y="0" width="59" height="40" uuid="313e5f18-039b-40cf-9074-8069d19bc009"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{milk_min_sale_date}]]></textFieldExpression>
+      </textField>
+      <textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+        <reportElement style="base" x="650" y="0" width="58" height="40" uuid="8a71bc40-7eba-468b-88e3-a6d0db7883a4"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{meat_min_sale_date}]]></textFieldExpression>
+      </textField>
+      <textField pattern="" isBlankWhenNull="true">
+        <reportElement style="base" x="448" y="21" width="99" height="18" uuid="698527ac-5221-44cd-9e7b-29ad6a94d793"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{quantity}+" "+$F{unit_name}]]></textFieldExpression>
+      </textField>
+      <rectangle>
+        <reportElement mode="Transparent" x="107" y="0" width="85" height="39" uuid="7a34b150-fc8b-451d-bc81-849a41f970ab"/>
+      </rectangle>
+      <rectangle>
+        <reportElement mode="Transparent" x="192" y="0" width="166" height="39" uuid="fcbd3841-1898-4f14-b865-676de0d0d238"/>
+      </rectangle>
+      <rectangle>
+        <reportElement mode="Transparent" x="447" y="0" width="144" height="39" uuid="ddcf59f6-8d7d-4b5c-a7e6-66260fdcb2a9"/>
+      </rectangle>
+      <rectangle>
+        <reportElement mode="Transparent" x="591" y="0" width="117" height="39" uuid="ab718dde-85d5-4c96-b595-1c2df577c5ef"/>
+      </rectangle>
+      <rectangle radius="10">
+        <reportElement style="conditional_state" x="197" y="24" width="10" height="10" uuid="004277c2-8a42-41d5-99b1-d9351770a198">
+          <printWhenExpression><![CDATA[$F{state} != null]]></printWhenExpression>
+        </reportElement>
+      </rectangle>
+      <textField isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
+        <reportElement style="base" x="107" y="0" width="85" height="20" uuid="e52b3426-4c76-46f7-85d6-7239447ab282"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{target_name}]]></textFieldExpression>
+        <hyperlinkReferenceExpression><![CDATA["http://www.google.com"]]></hyperlinkReferenceExpression>
+        <hyperlinkTooltipExpression><![CDATA["Click here"]]></hyperlinkTooltipExpression>
+      </textField>
+      <textField pattern="" hyperlinkType="Reference" hyperlinkTarget="Blank">
+        <reportElement style="base" x="447" y="0" width="144" height="20" uuid="6ce19214-11bd-4dd6-a911-828901e2e260"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <textFieldExpression><![CDATA[$F{medicine_name}]]></textFieldExpression>
+        <hyperlinkReferenceExpression><![CDATA["http://localhost:3000/fra/backend/procedures/"+$F{id}]]></hyperlinkReferenceExpression>
+      </textField>
+    </band>
+  </detail>
+  <pageFooter>
+    <band height="26" splitType="Stretch">
+      <textField evaluationTime="Report">
+        <reportElement style="base" x="751" y="3" width="35" height="22" forecolor="#000000" uuid="50272410-1b25-4669-88c3-3be64f156f82"/>
+        <textElement verticalAlignment="Middle">
+          <font fontName="Open Sans"/>
+        </textElement>
+        <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+      </textField>
+      <textField pattern="dd/MM/yyyy HH.mm.ss">
+        <reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans"/>
+        </textElement>
+        <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement style="base" x="708" y="3" width="43" height="22" forecolor="#000000" uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font fontName="Open Sans"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+      </textField>
+      <staticText>
+        <reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
+        <textElement verticalAlignment="Middle">
+          <font pdfFontName="Open Sans"/>
+        </textElement>
+        <text><![CDATA[]]></text>
+      </staticText>
+      <textField>
+        <reportElement style="address" x="277" y="1" width="224" height="25" uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7"/>
+        <textElement textAlignment="Center" verticalAlignment="Top"/>
+        <textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+      </textField>
+    </band>
+  </pageFooter>
+  <lastPageFooter>
+    <band height="26">
+      <staticText>
+        <reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0"/>
+        <textElement verticalAlignment="Middle">
+          <font pdfFontName="Open Sans"/>
+        </textElement>
+        <text><![CDATA[]]></text>
+      </staticText>
+      <textField evaluationTime="Report">
+        <reportElement style="base" x="751" y="3" width="35" height="22" forecolor="#000000" uuid="c5669d5d-31af-4dd7-bf88-534422b21b01"/>
+        <textElement verticalAlignment="Middle">
+          <font fontName="Open Sans"/>
+        </textElement>
+        <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+      </textField>
+      <textField pattern="dd/MM/yyyy HH.mm.ss">
+        <reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="a98f0540-b3f2-4380-aab0-f9d96ea72b6e"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <font fontName="Open Sans"/>
+        </textElement>
+        <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement style="base" x="708" y="3" width="43" height="22" forecolor="#000000" uuid="5de70a0c-bd99-4937-84fa-c172a5df272f"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle">
+          <font fontName="Open Sans"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement style="address" x="277" y="0" width="224" height="25" uuid="fb8e778f-b77c-4999-b9d3-f736bf4a6174"/>
+        <textElement textAlignment="Center" verticalAlignment="Top"/>
+        <textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+      </textField>
+    </band>
+  </lastPageFooter>
+</jasperReport>

@@ -49,336 +49,366 @@
 ---
 product_junction_ways_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  junction: product_births_001
+  creator_id: 1
+  id: 1
+  junction_id: 1
   lock_version: 0
   nature: start
-  road: products_001
+  road_id: 65
   role: product
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  junction: product_births_002
+  creator_id: 1
+  id: 2
+  junction_id: 2
   lock_version: 0
   nature: start
-  road: products_001
+  road_id: 65
   role: product
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  junction: product_creations_001
+  creator_id: 1
+  id: 3
+  junction_id: 26
   lock_version: 0
   nature: start
-  road: products_002
+  road_id: 66
   role: product
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_004:
   created_at: 2014-10-31 17:19:32.000000000 Z
-  creator: users_001
-  junction: product_creations_001
+  creator_id: 1
+  id: 4
+  junction_id: 26
   lock_version: 0
   nature: continuity
-  road: products_002
+  road_id: 66
   role: producer
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_005:
   created_at: 2014-10-31 20:12:30.960076000 Z
-  creator: users_001
-  junction: product_births_003
+  creator_id: 1
+  id: 5
+  junction_id: 3
   lock_version: 0
   nature: start
   population: 0.0
-  road: buildings_004
+  road_id: 13
   role: product
   updated_at: 2014-10-31 20:12:30.960076000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_006:
   created_at: 2014-10-31 20:15:14.809116000 Z
-  creator: users_001
-  junction: product_births_004
+  creator_id: 1
+  id: 6
+  junction_id: 4
   lock_version: 0
   nature: start
   population: 1.0
-  road: buildings_005
+  road_id: 14
   role: product
   shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.831708670011721 45.5990635462549,-0.831558466306888
     45.5984855274885,-0.831290245405398 45.5985005410382,-0.831461906782351 45.5991160931203,-0.831708670011721
     45.5990635462549)))
   updated_at: 2014-10-31 20:15:14.809116000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_007:
   created_at: 2014-10-31 20:18:12.246684000 Z
-  creator: users_001
-  junction: product_births_005
+  creator_id: 1
+  id: 7
+  junction_id: 5
   lock_version: 0
   nature: start
-  road: building_divisions_005
+  road_id: 19
   role: product
   shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813031777761353 45.5987083844552,-0.812880232952011
     45.5986882100715,-0.812858104727638 45.5987590549683,-0.813003614566696 45.5987759451292,-0.813031777761353
     45.5987083844552)))
   updated_at: 2014-10-31 20:18:12.246684000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_008:
   created_at: 2014-10-31 20:23:26.789990000 Z
-  creator: users_001
-  junction: product_births_006
+  creator_id: 1
+  id: 8
+  junction_id: 6
   lock_version: 0
   nature: start
-  road: building_divisions_006
+  road_id: 20
   role: product
   shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.836898654742981 45.5974477061239,-0.835784196897293
     45.5974289388339,-0.835794925733353 45.5976466390117,-0.835997611284256 45.5976513308166,-0.835998773618485
     45.597556556282,-0.836575627326965 45.5975631248192,-0.836574286222458 45.5976569609819,-0.836892127990723
     45.5976625911467,-0.836898654742981 45.5974477061239)))
   updated_at: 2014-10-31 20:23:26.789990000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_009:
   created_at: 2014-10-31 20:23:37.054421000 Z
-  creator: users_001
-  junction: product_births_007
+  creator_id: 1
+  id: 9
+  junction_id: 7
   lock_version: 0
   nature: start
   population: 7.0
-  road: matters_007
+  road_id: 53
   role: product
   updated_at: 2014-10-31 20:23:37.054421000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_010:
   created_at: 2014-10-31 20:25:41.478132000 Z
-  creator: users_001
-  junction: product_births_008
+  creator_id: 1
+  id: 10
+  junction_id: 8
   lock_version: 1
   nature: start
-  road: building_divisions_007
+  road_id: 21
   role: product
   shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813218951225281 45.5985699786537,-0.813113003969193
     45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281
     45.5985699786537)))
   updated_at: 2014-10-31 20:26:47.202010000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_011:
   created_at: 2014-11-01 16:00:08.179898000 Z
-  creator: users_001
-  junction: product_births_009
+  creator_id: 1
+  id: 11
+  junction_id: 9
   lock_version: 0
   nature: start
   population: 20.0
-  road: matters_008
+  road_id: 54
   role: product
   updated_at: 2014-11-01 16:00:08.179898000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_012:
   created_at: 2014-11-01 16:00:08.361327000 Z
-  creator: users_001
-  junction: product_births_010
+  creator_id: 1
+  id: 12
+  junction_id: 10
   lock_version: 0
   nature: start
   population: 20.0
-  road: matters_009
+  road_id: 55
   role: product
   updated_at: 2014-11-01 16:00:08.361327000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_013:
   created_at: 2014-11-01 16:01:24.194166000 Z
-  creator: users_001
-  junction: product_births_011
+  creator_id: 1
+  id: 13
+  junction_id: 11
   lock_version: 0
   nature: start
   population: 10.0
-  road: matters_010
+  road_id: 56
   role: product
   updated_at: 2014-11-01 16:01:24.194166000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_014:
   created_at: 2014-11-01 19:29:58.256910000 Z
-  creator: users_001
-  junction: product_births_012
+  creator_id: 1
+  id: 14
+  junction_id: 12
   lock_version: 0
   nature: start
   population: 1.0
-  road: animals_005
+  road_id: 5
   role: product
   updated_at: 2014-11-01 19:29:58.256910000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_015:
   created_at: 2014-11-01 19:35:50.401187000 Z
-  creator: users_001
-  junction: product_births_013
+  creator_id: 1
+  id: 15
+  junction_id: 13
   lock_version: 0
   nature: start
   population: 1.0
-  road: animals_006
+  road_id: 6
   role: product
   updated_at: 2014-11-01 19:35:50.401187000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_016:
   created_at: 2014-11-01 20:19:35.427159000 Z
-  creator: users_001
-  junction: product_births_014
+  creator_id: 1
+  id: 16
+  junction_id: 14
   lock_version: 0
   nature: start
   population: 10.0
-  road: matters_011
+  road_id: 57
   role: product
   updated_at: 2014-11-01 20:19:35.427159000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_017:
   created_at: 2014-11-01 20:23:55.168744000 Z
-  creator: users_001
-  junction: product_births_015
+  creator_id: 1
+  id: 17
+  junction_id: 15
   lock_version: 0
   nature: start
   population: 10.0
-  road: matters_012
+  road_id: 58
   role: product
   updated_at: 2014-11-01 20:23:55.168744000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_018:
   created_at: 2014-11-01 20:23:55.268692000 Z
-  creator: users_001
-  junction: product_births_016
+  creator_id: 1
+  id: 18
+  junction_id: 16
   lock_version: 0
   nature: start
   population: 10.0
-  road: matters_013
+  road_id: 59
   role: product
   updated_at: 2014-11-01 20:23:55.268692000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_019:
   created_at: 2014-11-01 20:30:35.608922000 Z
-  creator: users_001
-  junction: product_births_017
+  creator_id: 1
+  id: 19
+  junction_id: 17
   lock_version: 0
   nature: start
-  road: workers_004
+  road_id: 79
   role: product
   updated_at: 2014-11-01 20:30:35.608922000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_020:
   created_at: 2014-11-02 18:22:30.606162000 Z
-  creator: users_001
-  junction: product_births_018
+  creator_id: 1
+  id: 20
+  junction_id: 18
   lock_version: 0
   nature: start
-  road: equipments_004
+  road_id: 29
   role: product
   updated_at: 2014-11-02 18:22:30.606162000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_021:
   created_at: 2014-11-02 18:23:23.682370000 Z
-  creator: users_001
-  junction: product_births_019
+  creator_id: 1
+  id: 21
+  junction_id: 19
   lock_version: 0
   nature: start
   population: 1.0
-  road: equipments_005
+  road_id: 30
   role: product
   updated_at: 2014-11-02 18:23:23.682370000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_022:
   created_at: 2014-11-02 18:29:41.499312000 Z
-  creator: users_001
-  junction: product_births_020
+  creator_id: 1
+  id: 22
+  junction_id: 20
   lock_version: 0
   nature: start
   population: 1.0
-  road: equipments_006
+  road_id: 31
   role: product
   updated_at: 2014-11-02 18:29:41.499312000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_023:
   created_at: 2014-11-02 18:33:01.580766000 Z
-  creator: users_001
-  junction: product_births_021
+  creator_id: 1
+  id: 23
+  junction_id: 21
   lock_version: 0
   nature: start
   population: 0.8031
-  road: cultivable_zones_004
+  road_id: 25
   role: product
   shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
     45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
     45.5944092001224,-0.817789435386658 45.5943078511944)))
   updated_at: 2014-11-02 18:33:01.580766000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_024:
   created_at: 2014-11-02 18:37:22.427061000 Z
-  creator: users_001
-  junction: product_births_022
+  creator_id: 1
+  id: 24
+  junction_id: 22
   lock_version: 0
   nature: start
-  road: equipments_007
+  road_id: 32
   role: product
   updated_at: 2014-11-02 18:37:22.427061000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_025:
   created_at: 2014-11-02 18:38:47.221808000 Z
-  creator: users_001
-  junction: product_divisions_003
+  creator_id: 1
+  id: 25
+  junction_id: 33
   lock_version: 0
   nature: start
   population: 1.905
-  road: matters_014
+  road_id: 60
   role: product
   updated_at: 2014-11-02 18:38:47.221808000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_026:
   created_at: 2014-11-02 18:38:47.255079000 Z
-  creator: users_001
-  junction: product_divisions_003
+  creator_id: 1
+  id: 26
+  junction_id: 33
   lock_version: 0
   nature: continuity
-  road: matters_007
+  road_id: 53
   role: producer
   updated_at: 2014-11-02 18:38:47.255079000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_027:
   created_at: 2014-11-02 18:38:47.537010000 Z
-  creator: users_001
-  junction: product_consumptions_003
+  creator_id: 1
+  id: 27
+  junction_id: 25
   lock_version: 0
   nature: finish
-  road: matters_014
+  road_id: 60
   role: product
   updated_at: 2014-11-02 18:38:47.537010000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_028:
   created_at: 2014-11-02 18:38:47.555269000 Z
-  creator: users_001
-  junction: product_consumptions_003
+  creator_id: 1
+  id: 28
+  junction_id: 25
   lock_version: 0
   nature: continuity
-  road: cultivable_zones_004
+  road_id: 25
   role: consumer
   updated_at: 2014-11-02 18:38:47.555269000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_029:
   created_at: 2014-11-02 18:38:47.568019000 Z
-  creator: users_001
-  junction: product_creations_003
+  creator_id: 1
+  id: 29
+  junction_id: 28
   lock_version: 0
   nature: start
   population: 0.8031
-  road: plants_004
+  road_id: 64
   role: product
   shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
     45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
     45.5944092001224,-0.817789435386658 45.5943078511944)))
   updated_at: 2014-11-02 18:38:47.568019000 Z
-  updater: users_001
+  updater_id: 1
 product_junction_ways_030:
   created_at: 2014-11-02 18:38:47.596862000 Z
-  creator: users_001
-  junction: product_creations_003
+  creator_id: 1
+  id: 30
+  junction_id: 28
   lock_version: 0
   nature: continuity
-  road: cultivable_zones_004
+  road_id: 25
   role: producer
   updated_at: 2014-11-02 18:38:47.596862000 Z
-  updater: users_001
+  updater_id: 1
