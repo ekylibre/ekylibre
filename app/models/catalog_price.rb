@@ -54,7 +54,7 @@ class CatalogPrice < Ekylibre::Record::Base
   # has_many :purchase_items, foreign_key: :price_id
   has_many :sale_items, foreign_key: :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :indicator_name, :thread, allow_nil: true, maximum: 120

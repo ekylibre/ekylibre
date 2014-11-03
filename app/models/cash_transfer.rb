@@ -52,7 +52,7 @@ class CashTransfer < Ekylibre::Record::Base
   belongs_to :reception_cash, class_name: "Cash"
   belongs_to :reception_journal_entry, class_name: "JournalEntry"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :transfered_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
   validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
   validates_length_of :number, allow_nil: true, maximum: 255

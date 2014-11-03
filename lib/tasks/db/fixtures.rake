@@ -3,12 +3,12 @@ namespace :db do
 
     desc "Write database into fixtures files (removing existing files)"
     task :dump => :environment do
-      Fixturing.dump(ENV["TENANT"] || ENV["name"] || "demo")
+      Fixturing.dump(ENV["TENANT"] || ENV["name"] || "test")
     end
 
     desc "Load fixtures files in tenant (removing existing data)"
     task :restore => :environment do
-      Fixturing.restore(ENV["TENANT"] || ENV["name"] || "demo")
+      Fixturing.restore(ENV["TENANT"] || ENV["name"] || "test")
     end
 
     desc "There and Back Again like Bilbo"

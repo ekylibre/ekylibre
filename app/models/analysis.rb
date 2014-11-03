@@ -47,7 +47,7 @@ class Analysis < Ekylibre::Record::Base
   belongs_to :product
   has_many :items, class_name: "AnalysisItem", foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :analysed_at, :sampled_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :analysed_at, :sampled_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :nature, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :nature, :number, :sampled_at
   #]VALIDATORS]

@@ -20,10 +20,10 @@ module Ekylibre
 
       # Tests existence of a tenant in DB
       # and removes it if not exist
-      def check!(name)
+      def check!(name, options = {})
         if list.include?(name)
           unless Apartment.connection.schema_exists? name
-            drop(name)
+            drop(name, options)
           end
         end
       end
@@ -55,8 +55,18 @@ module Ekylibre
         write
       end
 
+      # Add a tenant in config without creating it
+      # Nothing is done if already exist
+      def setup!(name, options = {})
+        check!(name, options)
+        unless exist?(name)
+          create(name)
+        end
+        switch!(name)
+      end
+
       # Drop tenant
-      def drop(name)
+      def drop(name, options = {})
         name = name.to_s
         unless exist?(name)
           raise TenantError, "Unexistent tenant: #{name}"
@@ -64,7 +74,9 @@ module Ekylibre
         if Apartment.connection.schema_exists? name
           Apartment::Tenant.drop(name)
         end
-        FileUtils.rm_rf private_directory(name)
+        unless options[:keep_files]
+          FileUtils.rm_rf private_directory(name)
+        end
         @list[env].delete(name)
         write
       end
@@ -92,16 +104,17 @@ module Ekylibre
       end
 
       # Change current tenant
-      def switch(name, &block)
-        Apartment::Tenant.switch(name, &block)
+      def switch(name)
+        Apartment::Tenant.switch(name)
       end
       alias :current= :switch
+      alias :switch! :switch
 
-      def switch_default!(&block)
+      def switch_default!
         if list.empty?
           raise TenantError, "No default tenant"
         else
-          Apartment::Tenant.switch(list.first, &block)
+          Apartment::Tenant.switch(list.first)
         end
       end
 

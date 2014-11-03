@@ -231,27 +231,27 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Loads in DB all default document templates
   def self.load_defaults(options = {})
-    locale = (options[:locale] || Entity.of_company.language || I18n.locale).to_s
+    locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
     Ekylibre::Record::Base.transaction do
-      manageds = self.where(:managed => true).pluck(:id)
+      manageds = self.where(managed: true).select(&:destroyable?)
       for nature in self.nature.values
         source = Rails.root.join("config", "locales", locale, "reporting", "#{nature}.xml")
         if source.exist?
           File.open(source, "rb:UTF-8") do |f|
-            unless template = self.where(:nature => nature, :managed => true).first
-              template = self.new(:nature => nature, :managed => true, :active => true, :by_default => false, :archiving => "last")
+            unless template = self.find_by(nature: nature, managed: true)
+              template = self.new(nature: nature, managed: true, active: true, by_default: false, archiving: "last")
             end
-            manageds.delete(template.id)
-            template.attributes = {:source => f, :language => locale}
+            manageds.delete(template)
+            template.attributes = {source: f, language: locale}
             template.name ||= template.nature.l
             template.save!
           end
-          logger.info "NOTICE: Load a default document template #{nature}"
+          Rails.logger.info "NOTICE: Load a default document template #{nature}"
         else
-          logger.info "WARNING: Cannot load a default document template #{nature}: No file found at #{source}"
+          Rails.logger.warn "WARNING: Cannot load a default document template #{nature}: No file found at #{source}"
         end
       end
-      self.destroy(manageds)
+      self.destroy(manageds.map(&:id))
     end
     return true
   end

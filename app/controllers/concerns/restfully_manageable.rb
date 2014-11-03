@@ -272,9 +272,9 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       code = ''
       code << "def picture\n"
-      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-      code << "  if #{record_name}.picture.file?\n"
-      code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+      code << "  if @#{record_name}.picture.file?\n"
+      code << "    send_file(@#{record_name}.picture.path(params[:style] || :original))\n"
       code << "  else\n"
       code << "    head :not_found\n"
       code << "  end\n"

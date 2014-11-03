@@ -26,15 +26,15 @@ module Fixturing
     def restore(tenant)
       Ekylibre::Tenant.check!(tenant)
       if Ekylibre::Tenant.exist?(tenant)
-        Ekylibre::Tenant.drop(tenant)
+        Ekylibre::Tenant.drop(tenant, keep_files: true)
       end
       # Apartment.connection.execute(%{CREATE SCHEMA "#{tenant}"})
       Ekylibre::Tenant.create(tenant)
       Ekylibre::Tenant.migrate(tenant, to: current_version)
-      columnize_keys # Simple IDs
+      # columnize_keys # Simple IDs
       Ekylibre::Tenant.switch(tenant)
       ActiveRecord::FixtureSet.create_fixtures(directory, Ekylibre::Schema.table_names)
-      reflectionize_keys # Back to simple reading
+      # reflectionize_keys # Back to simple reading
       unless up_to_date?
         migrate
       end
@@ -64,7 +64,7 @@ module Fixturing
         end
 
         File.open(directory.join("#{table}.yml"), "wb") do |f|
-          f.write records.to_yaml
+          f.write records.to_yaml.gsub(/[\ \t]+\n/, "\n")
         end
       end
 
@@ -74,7 +74,8 @@ module Fixturing
       end
 
       # Clean fixtures
-      reflectionize_keys
+      # reflectionize_keys
+      beautify_fixture_ids
     end
 
 
@@ -233,6 +234,57 @@ module Fixturing
       # Clean
       Clean::Annotations.run(only: :fixtures, verbose: false)
     end
+
+
+
+
+
+
+
+
+
+
+    # Adds model conform fixture ids
+    def beautify_fixture_ids
+      # Load and prepare fixtures
+      data = {}
+      model_ids = {}
+      Ekylibre::Schema.tables.each do |table, columns|
+        records = YAML.load_file(directory.join("#{table}.yml"))
+        base_model = table.to_s.classify
+        counter = {}
+        data[table.to_s] = records.values.sort{|a,b| [a["type"] || base_model, a["id"]] <=> [b["type"] || base_model, b["id"]] }.inject({}) do |hash, attributes|
+          model = attributes["type"] ? attributes["type"].underscore.pluralize : table.to_s
+          counter[model] ||= 0
+          counter[model] += 1
+          hash["#{model}_#{counter[model].to_s.rjust(3, '0')}"] = attributes
+          hash
+        end
+      end
+
+      data.each do |table, records|
+        records.each do |record, attributes|
+          data[table][record] = attributes.sort{|a,b| a.first <=> b.first }.inject({}) do |hash, pair|
+            hash[pair.first] = pair.second
+            hash
+          end
+        end
+      end
+
+      # Write
+      Ekylibre::Schema.tables.each do |table, columns|
+        File.open(directory.join("#{table}.yml"), "wb") do |f|
+          f.write data[table].to_yaml
+        end
+      end
+
+      # Clean
+      Clean::Annotations.run(only: :fixtures, verbose: false)
+    end
+
+
+
+
 
 
     def yaml_escape(value, type = :string)

@@ -43,7 +43,7 @@ class ManureManagementPlan < Ekylibre::Record::Base
   has_many :zones, class_name: "ManureManagementPlanZone", dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id
   enumerize :default_computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :opened_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :opened_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :default_computation_method, :name, allow_nil: true, maximum: 255
   validates_inclusion_of :locked, :selected, in: [true, false]
   validates_presence_of :campaign, :default_computation_method, :name, :opened_at, :recommender

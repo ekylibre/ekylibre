@@ -122,9 +122,9 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              :tp => row[10].to_f,
                              :tb => row[11].to_f
                              )
-          animal = Animal.create!(:variant_id => male_adult_cow.id, 
-                                  :name => r.name, :variety => 'bos', 
-                                  :identification_number => r.identification_number[-10..-1], 
+          animal = Animal.create!(:variant_id => male_adult_cow.id,
+                                  :name => r.name, :variety => 'bos',
+                                  :identification_number => r.identification_number[-10..-1],
                                   :initial_owner => owners.sample)
           # set default indicators
           animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
@@ -190,8 +190,8 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              dead_at: (dead_on ? dead_on.to_datetime : nil)
                              )
           unless group = groups.detect do |g|
-              (g.sex.blank? or g.sex == r.sex) and 
-              (g.minimum_age.blank? or r.age >= g.minimum_age) and 
+              (g.sex.blank? or g.sex == r.sex) and
+              (g.minimum_age.blank? or r.age >= g.minimum_age) and
               (g.maximum_age.blank? or r.age < g.maximum_age)
             end
             raise "Cannot find a valid group for the given (for #{r.inspect})"

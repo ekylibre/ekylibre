@@ -17,10 +17,10 @@ module Clean
         columns = model.content_columns.delete_if{|c| !validable_column?(c)}.sort{|a,b| a.name.to_s <=> b.name.to_s}
 
         cs = columns.select{|c| c.type == :date}
-        code << "  validates_date " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')\n" if cs.any?
+        code << "  validates_date " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')\n" if cs.any?
 
         cs = columns.select{|c| c.type == :datetime or c.type == :timestamp}
-        code << "  validates_datetime " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, on_or_after: Date.civil(1,1,1)\n" if cs.any?
+        code << "  validates_datetime " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_blank: true, on_or_after: Date.civil(1,1,1)\n" if cs.any?
 
         cs = columns.select{|c| c.type == :integer}
         code << "  validates_numericality_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, only_integer: true\n" if cs.any?

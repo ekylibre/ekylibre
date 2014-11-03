@@ -42,7 +42,7 @@ class BankStatement < Ekylibre::Record::Base
   belongs_to :cash
   has_many :items, class_name: "JournalEntryItem", dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, allow_nil: true, maximum: 255

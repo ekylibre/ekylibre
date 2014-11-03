@@ -191,10 +191,9 @@ module Ekylibre
 
         loaders = Ekylibre::FirstRun.loaders if loaders.empty?
 
-        Ekylibre::Tenant.switch(@name) do
-          loaders.each do |loader|
-            execute_loader(loader)
-          end
+        Ekylibre::Tenant.switch(@name)
+        loaders.each do |loader|
+          execute_loader(loader)
         end
       ensure
         Ekylibre::Tenant.check!(@name)

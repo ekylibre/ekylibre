@@ -53,7 +53,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :payee, class_name: "Entity"
   belongs_to :responsible, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :bank_check_number, :number, allow_nil: true, maximum: 255

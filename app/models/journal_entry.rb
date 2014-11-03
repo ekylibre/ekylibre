@@ -68,7 +68,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: "FinancialYear", dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_nil: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :printed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :state, allow_nil: true, maximum: 30

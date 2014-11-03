@@ -43,7 +43,7 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "Person"
   has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :achieved_at, :reflected_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :accounted_at, :achieved_at, :reflected_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :number, allow_nil: true, maximum: 20
   validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :reflected, in: [true, false]

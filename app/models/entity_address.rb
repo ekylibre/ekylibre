@@ -62,7 +62,7 @@ class EntityAddress < Ekylibre::Record::Base
   # enumerize :country, in: Nomen::Countries.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :deleted_at, allow_nil: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :deleted_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :mail_country, allow_nil: true, maximum: 2
   validates_length_of :thread, allow_nil: true, maximum: 10
   validates_length_of :canal, allow_nil: true, maximum: 20

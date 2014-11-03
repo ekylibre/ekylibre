@@ -64,7 +64,7 @@ class FinancialAsset < Ekylibre::Record::Base
   has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "FinancialAssetDepreciation", dependent: :destroy
   has_one :tool, class_name: "Equipment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :ceded_on, :purchased_on, :started_on, :stopped_on, allow_nil: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :ceded_on, :purchased_on, :started_on, :stopped_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :depreciation_method, :name, :number, allow_nil: true, maximum: 255

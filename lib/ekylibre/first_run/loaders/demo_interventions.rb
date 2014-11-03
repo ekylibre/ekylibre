@@ -16,12 +16,12 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     end
 
     GC.start
-    
+
     first_run.count :cultural_interventions do |w|
       workers = Worker.all
       products = {
         manure: Product.where(variety: :manure).can('fertilize').all,
-        tractor: { spreader: Product.can('tow(spreader)').all, 
+        tractor: { spreader: Product.can('tow(spreader)').all,
                    plower: Product.can('tow(plower)').all,
                    sower: Product.can('tow(sower)').all,
                    catcher: Product.can('catch').all },
@@ -107,7 +107,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     first_run.count :zea_cultural_interventions do |w|
       workers = Worker.all
       products = {
-        tractor: { spreader: Product.can('tow(spreader)').all, 
+        tractor: { spreader: Product.can('tow(spreader)').all,
                    plower: Product.can('tow(plower)').all,
                    sower: Product.can('tow(sower)').all,
                    equipment: Product.can('tow(equipment)').all,
@@ -120,9 +120,9 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         insecticide: Product.where(variety: :preparation).can('kill(insecta)').all,
         molluscicide: Product.where(variety: :preparation).can('kill(mollusca)').all,
       }
-      equipments = { 
+      equipments = {
         sower: Equipment.can('spread(preparation), sow, spray').all,
-        hoe: Equipment.can('hoe').all 
+        hoe: Equipment.can('hoe').all
       }
       Production.joins(:variant,:activity,:campaign).find_each do |production|
         next unless production.active?
@@ -176,7 +176,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
               cultivation = int.casts.find_by(reference_name: 'cultivation').actor
               # Treatment herbicide 01-04 30-04
               Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 5, 27, 1.07 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample) 
+                i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
                 i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + 0.9 * coeff)
                 i.add_cast(reference_name: 'sprayer',  actor: products[:sprayer].sample)
                 i.add_cast(reference_name: 'driver',   actor: workers.sample)
@@ -206,7 +206,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         year = production.campaign.name.to_i
         Ekylibre::FirstRun::Booker.production = production
         production.supports.joins(:storage,:activity).where(irrigated: true).find_each do |support|
-          next unless support.active? 
+          next unless support.active?
           land_parcel = support.storage
           next unless area = land_parcel.shape_area
           coeff = (area.to_s.to_f / 10000.0) / 6.0
@@ -296,7 +296,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       end
     end
     GC.start
-   
+
     # intervention for animal treatment
     first_run.count :animal_treatment_interventions do |w|
       workers = Worker.all
