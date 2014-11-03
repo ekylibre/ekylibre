@@ -26,6 +26,24 @@
             unit_name="band"
             frozen_indicators_values=""
             />
+      <item name="male_young_cattle_herd"
+            nature="cattle_herd"
+            derivative_of="bos"
+            unit_name="band"
+            frozen_indicators_values="sex: male, reproductor: false"
+            />
+      <item name="female_young_cattle_herd"
+            nature="cattle_herd"
+            derivative_of="bos"
+            unit_name="band"
+            frozen_indicators_values="sex: female, reproductor: false"
+            />
+      <item name="male_adult_cattle_herd"
+            nature="cattle_herd"
+            derivative_of="bos"
+            unit_name="band"
+            frozen_indicators_values="sex: male, reproductor: true"
+            />
       <item name="female_adult_cattle_herd"
             nature="female_adult_cattle_herd"
             derivative_of="bos"
