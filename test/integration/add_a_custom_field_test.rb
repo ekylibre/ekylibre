@@ -17,12 +17,12 @@ class AddACustomFieldTest < CapybaraIntegrationTest
 
   # tests 15% of models randomly. For local tests, set manually this value
   coverage_percent = 0.15
-  models = CustomField.customized_type.values
+  models = CustomField.customized_type.values.select do |model|
+    # Do not test when controller does not exist
+    Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
+  end
   custom_field_natures = CustomField.nature.values.map(&:to_sym)
   models.sample((models.count * coverage_percent).round + custom_field_natures.count).each_with_index do |model, index|
-    # Do not test when controller does not exist
-    next unless Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
-
     model_name = model.underscore
     model_human_name = Ekylibre::Record.human_name(model_name)
     id = ActiveRecord::FixtureSet.identify("#{model.tableize}_001")

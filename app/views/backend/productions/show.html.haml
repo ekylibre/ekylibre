@@ -112,14 +112,14 @@
 
             if cultivable_zones.any?
               cultivable_zones_serie = cultivable_zones.collect do |cultivable_zone|
-                        { name: cultivable_zone.name, y: cultivable_zone.area.to_s.to_f, color: cycle(*theme_colors), url: backend_cultivable_zone_path(cultivable_zone) }
+                        { name: cultivable_zone.name, y: cultivable_zone.net_surface_area.to_s.to_f, color: cycle(*theme_colors), url: backend_cultivable_zone_path(cultivable_zone) }
               end
             end
 
             series = []
             series << {name: CultivableZone.model_name.human, data: cultivable_zones_serie, size: "80%"}
 
-          = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
+          = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.net_surface_area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
         - else
           = no_data
 

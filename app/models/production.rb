@@ -164,12 +164,13 @@ class Production < Ekylibre::Record::Base
   end
 
   def area
+    # raise "NO AREA"
     ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
     return net_surface_area
   end
 
   def duration
-    if self.interventions.count > 0
+    if self.interventions.any?
       return self.interventions.map(&:duration).compact.sum
     else
       return 0

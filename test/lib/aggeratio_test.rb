@@ -39,7 +39,7 @@ class AggeratioTest < ActiveSupport::TestCase
       doc = Nokogiri::XML(xml, nil, nil, Nokogiri::XML::ParseOptions::NOBLANKS|Nokogiri::XML::ParseOptions::STRICT|Nokogiri::XML::ParseOptions::DEFAULT_XML)
       errors, queries = [], agg.queries(strict: false)
       queries.each do |query|
-        errors << query unless doc.xpath(query).size > 0
+        errors << query unless doc.xpath(query).any?
       end
       assert errors.empty?, "Cannot find #{errors.count} elements in XML export (among #{queries.count}). Fixtures may be incomplete.\nMissing element are:\n" + errors.join("\n").dig # + "\nXML:\n" + xml.dig
     end
