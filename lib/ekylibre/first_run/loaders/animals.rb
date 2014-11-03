@@ -18,19 +18,19 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              member_nature: (row[2].blank? ? nil : row[2].to_sym),
                              code: row[3],
                              minimum_age: (row[4].blank? ? nil : row[4].to_i),
-                             maximum_age: (row[5].blank? ? nil : row[5].to_i),
-                             sex: (row[6].blank? ? nil : row[6].to_sym),
-                             place: (row[7].blank? ? nil : row[7].to_sym),
-                             indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
-                             indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-                               h[i.first.strip.downcase.to_sym] = i.second
-                               h
+          maximum_age: (row[5].blank? ? nil : row[5].to_i),
+          sex: (row[6].blank? ? nil : row[6].to_sym),
+          place: (row[7].blank? ? nil : row[7].to_sym),
+          indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
+            h
                              },
                              record: nil
                              )
 
 
-          unless r.record = AnimalGroup.find_by_work_number(r.code)
+          unless r.record = AnimalGroup.find_by(work_number: r.code)
             r.record = AnimalGroup.create!(name: r.name,
                                            work_number: r.code,
                                            initial_born_at: r.indicators_at,
@@ -51,7 +51,6 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
       end
     end
 
-    #
     file = first_run.path("alamano", "animals.csv")
     if file.exist?
       first_run.count :animals do |w|
@@ -72,8 +71,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              record: nil
           )
 
-
-          unless r.record = Animal.find_by_work_number(r.code)
+          unless r.record = Animal.find_by(work_number: r.code)
             r.record = Animal.create!(name: r.name,
                                            work_number: r.code,
                                            identification_number: r.code,
@@ -105,6 +103,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
     male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
     female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
     place   = BuildingDivision.last # find_by_work_number("B07_D2")
+    owners = Entity.where(:of_company => false).all
 
     file = first_run.path("alamano", "liste_males_reproducteurs.txt")
     if file.exist?
@@ -115,15 +114,18 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
           r = OpenStruct.new(:order => row[0],
                              :name => row[1],
                              :identification_number => row[2],
-                             :work_number => row[2][-4..-1],
-                             :father => row[3],
-                             :provider => row[4],
+                             #:work_number => row[2][-4..-1],
+                             #:father => row[3],
+                             #:provider => row[4],
                              :isu => row[5].to_i,
                              :inel => row[9].to_i,
                              :tp => row[10].to_f,
                              :tb => row[11].to_f
                              )
-          animal = Animal.create!(:variant_id => male_adult_cow.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample)
+          animal = Animal.create!(:variant_id => male_adult_cow.id, 
+                                  :name => r.name, :variety => 'bos', 
+                                  :identification_number => r.identification_number[-10..-1], 
+                                  :initial_owner => owners.sample)
           # set default indicators
           animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
           animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
@@ -159,16 +161,18 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
     else synel_file_name = "animaux.csv"
     end
 
+    is_a_demo_instance = Preference.get!(:demo, false, :boolean).value
+    variants = {}
+    owner = Entity.of_company
     file = first_run.path("synel", synel_file_name.to_s)
     if file.exist?
       now = Time.now
       first_run.count :synel_animal_import do |w|
         #############################################################################
-
         CSV.foreach(file, encoding: "CP1252", col_sep: ";", headers: true) do |row|
           next if row[4].blank?
-          born_on = (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i)))
-          dead_on = (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
+          born_on = (row[4].blank? ? nil : Date.parse(row[4]))
+          dead_on = (row[10].blank? ? nil : Date.parse(row[10]))
           r = OpenStruct.new(:country => row[0],
                              :identification_number => row[1],
                              :work_number => row[2],
@@ -180,35 +184,39 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              :sex => (row[6] == "F" ? :female : :male),
                              # :arrival_cause => (arrival_causes[row[7]] || row[7]),
                              # :initial_arrival_cause => (initial_arrival_causes[row[7]] || row[7]),
-                             :arrived_on => (row[8].blank? ? nil : Date.civil(*row[8].to_s.split(/\//).reverse.map(&:to_i))),
+                             :arrived_on => (row[8].blank? ? nil : Date.parse(row[8])),
                              # :departure_cause => (departure_causes[row[9]] ||row[9]),
                              :departed_on => dead_on,
                              dead_at: (dead_on ? dead_on.to_datetime : nil)
                              )
           unless group = groups.detect do |g|
-              (g.sex.blank? or g.sex == r.sex) and (g.minimum_age.blank? or r.age >= g.minimum_age) and (g.maximum_age.blank? or r.age < g.maximum_age)
+              (g.sex.blank? or g.sex == r.sex) and 
+              (g.minimum_age.blank? or r.age >= g.minimum_age) and 
+              (g.maximum_age.blank? or r.age < g.maximum_age)
             end
             raise "Cannot find a valid group for the given (for #{r.inspect})"
           end
 
-          variant = ProductNatureVariant.import_from_nomenclature(group.member_nature)
-          animal = Animal.create!(variant: variant,
-                                  name: r.name,
-                                  variety: variant.variety,
-                                  identification_number: r.identification_number,
-                                  work_number: r.work_number,
-                                  initial_born_at: r.born_at,
-                                  initial_dead_at: r.dead_at,
-                                  initial_owner: Entity.of_company,
-                                  # initial_container: group.record.default_storage,
-                                  default_storage: group.record.default_storage
-                                  )
+          variants[group.member_nature] ||= ProductNatureVariant.import_from_nomenclature(group.member_nature)
+          variant = variants[group.member_nature]
+          animal = Animal.create!(
+             variant: variant,
+             name: r.name,
+             variety: variant.variety,
+             identification_number: r.identification_number,
+             work_number: r.work_number,
+             initial_born_at: r.born_at,
+             initial_dead_at: r.dead_at,
+             initial_owner: owner,
+             # initial_container: group.record.default_storage,
+             default_storage: group.record.default_storage
+             )
 
           # Sex is already known but not if the group has no sex
           animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
 
           # load demo data weight and state
-          if Preference.get!(:demo, false, :boolean).value
+          if is_a_demo_instance
             weighted_at = r.born_at
             if weighted_at and weighted_at < Time.now
               variation = 0.02
@@ -220,8 +228,8 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                 weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
               end
             end
-            animal.read!(:healthy, true,  at: (now - 3.days))
-            animal.read!(:healthy, false, at: (now - 2.days))
+            #animal.read!(:healthy, true,  at: (now - 3.days))
+            #animal.read!(:healthy, false, at: (now - 2.days))
             animal.read!(:healthy, true,  at: now)
           end
 
@@ -236,12 +244,13 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
     file = first_run.path("synel", "inventaire.csv")
     if file.exist?
       first_run.count :assign_parents_with_inventory do |w|
-
+        # animals cache, for speeder mother / father search
+        parents = { mother: {}, father: {} }
         CSV.foreach(file, encoding: "UTF-8", col_sep: "\t", headers: false) do |row|
 
-          born_on = (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i)))
-          incoming_on = (row[6].blank? ? nil : Date.civil(*row[6].to_s.split(/\//).reverse.map(&:to_i)))
-          outgoing_on = (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i)))
+          born_on = (row[4].blank? ? nil : Date.parse(row[4]))
+          incoming_on = (row[6].blank? ? nil : Date.parse(row[6]))
+          outgoing_on = (row[12].blank? ? nil : Date.parse(row[12]))
 
           r = OpenStruct.new(:work_number => row[0],
                              :identification_number => (row[0] ? cattling_root_number+row[0].to_s : nil),
@@ -263,58 +272,56 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              outgoing_at: (outgoing_on ? outgoing_on.to_datetime + 10.hours : nil)
                              )
           # check if animal is present in DB
-          next unless animal = Animal.find_by_identification_number(r.identification_number)
-
-          linkeds = {}
+          next unless animal = Animal.find_by(identification_number: r.identification_number)
 
           # Find or create mother
-          unless linkeds[:mother] = Animal.find_by_identification_number(r.mother_identification_number)
-            unless r.mother_identification_number.blank?
-              linkeds[:mother] = Animal.create!(:variant_id => female_adult_cow.id,
-                                                :name => r.mother_name,
-                                                :variety => "bos",
-                                                :identification_number => r.mother_identification_number,
-                                                work_number: r.mother_work_number,
-                                                :initial_owner => Entity.of_company,
-                                                :initial_container => place,
-                                                :default_storage => place)
-            end
+          unless r.mother_identification_number.blank?
+            parents[:mother][r.mother_identification_number] ||=
+              Animal.find_by(identification_number: r.mother_identification_number) ||
+              Animal.create!(:variant_id => female_adult_cow.id,
+                             :name => r.mother_name,
+                             :variety => "bos",
+                             :identification_number => r.mother_identification_number,
+                             work_number: r.mother_work_number,
+                             :initial_owner => owner,
+                             :initial_container => place,
+                             :default_storage => place)
+            link = animal.links.new(nature: :mother,  started_at: animal.born_at)
+            link.linked = parents[:mother][r.mother_identification_number]
+            link.save
           end
 
           # Find or create father
-          unless linkeds[:father] = Animal.find_by_identification_number(r.father_identification_number)
-            unless r.father_identification_number.blank?
-              linkeds[:father] = Animal.create!(:variant_id => male_adult_cow.id,
-                                                :name => r.father_name,
-                                                :variety => "bos",
-                                                :identification_number => r.father_identification_number,
-                                                work_number: r.father_work_number,
-                                                :initial_owner => Entity.where(of_company: false).all.sample)
-            end
+          unless r.father_identification_number.blank?
+            parents[:father][r.father_identification_number] ||=
+              Animal.find_by(identification_number: r.father_identification_number) ||
+              Animal.create!(:variant_id => female_adult_cow.id,
+                             :name => r.mother_name,
+                             :variety => "bos",
+                             :identification_number => r.father_identification_number,
+                             work_number: r.mother_work_number,
+                             :initial_owner => owners.sample,
+                             :initial_container => place,
+                             :default_storage => place)
+            link = animal.links.new(nature: :father,  started_at: animal.born_at)
+            link.linked = parents[:father][r.mother_identification_number]
+            link.save
           end
-
-          for nature in [:mother, :father]
-            next unless linkeds[nature]
-            unless link = animal.links.find_by(nature: nature)
-              link = animal.links.new(nature: nature, started_at: animal.born_at)
-            end
-            link.linked = linkeds[nature]
-            link.save!
-          end
-
           w.check_point
         end
 
       end
     end
 
+    groups, male_adult_cow, female_adult_cow, place, owners, is_a_demo_instance, variants, owner = nil
+    GC.start
+
     # attach picture if exist for each animal
-    for animal in Animal.all
+    Animal.find_each do |animal|
       picture_path = first_run.path("alamano", "animals_pictures", "#{animal.work_number}.jpg")
       f = (picture_path.exist? ? File.open(picture_path) : nil)
       if f
-        animal.picture = f
-        animal.save!
+        animal.update!(picture: f)
         f.close
       end
     end
