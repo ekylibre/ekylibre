@@ -4,12 +4,17 @@ require 'test_helper'
 class AddANewAnimalTest < CapybaraIntegrationTest
 
   setup do
+    # Need to go on page to set tenant
     visit('/authentication/sign_in')
     resize_window(1366, 768)
     shoot_screen "authentication/sign_in"
-    login_as(users(:users_001), scope: :user)
-    # visit('/backend')
+    login_as(users(:users_001), scope: :user) # , run_callbacks: false
+    visit('/backend')
     shoot_screen "backend"
+  end
+
+  teardown do
+    Warden.test_reset!
   end
 
   # Add a cow

@@ -88,8 +88,6 @@ users_001:
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  current_sign_in_at: 2014-11-03 11:17:07.694888000 Z
-  current_sign_in_ip: 127.0.0.1
   email: gendo@nerv.jp
   employed: true
   employment: ''
@@ -179,4 +177,30 @@ users_002:
   role_id: 1
   sign_in_count: 0
   updated_at: 2014-11-01 18:26:38.061328000 Z
+  updater_id: 1
+users_003:
+  administrator: true
+  authentication_token: 5ceFqVYMhbq1mEXihaWP
+  commercial: false
+  created_at: 2014-11-03 16:56:06.592906000 Z
+  creator_id: 1
+  email: yui.ikari@nerv.jp
+  employed: false
+  employment: ''
+  encrypted_password: "$2a$10$.t/anI3zkVJ1MTAAe8Ab/ekGl02Ynnc3LJKmXw2ruQrWn69tGl1Xe"
+  failed_attempts: 0
+  first_name: Yui
+  id: 3
+  language: jpn
+  last_name: IKARI
+  lock_version: 1
+  locked: false
+  maximal_grantable_reduction_percentage: 5.0
+  person_id: 12
+  rights:
+    accounts:
+    - read
+  role_id: 1
+  sign_in_count: 0
+  updated_at: 2014-11-03 16:56:06.616705000 Z
   updater_id: 1

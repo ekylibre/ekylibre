@@ -2961,3 +2961,51 @@ versions_056:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
   item_type: Entity
+versions_057:
+  created_at: 2014-11-03 16:56:06.579973000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 57
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 12
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 12
+    type: Person
+    nature: person
+    last_name: IKARI
+    first_name: Yui
+    number: P00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions:
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin:
+    first_met_at:
+    activity_code:
+    vat_number:
+    siren:
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-03 16:56:06.570291000 Z
+    creator_id: 1
+  item_type: Person

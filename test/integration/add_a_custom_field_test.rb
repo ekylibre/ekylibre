@@ -4,28 +4,29 @@ require 'test_helper'
 class AddACustomFieldTest < CapybaraIntegrationTest
 
   setup do
-    #~ for field in [:custom_fields_001, :custom_fields_002]
-      #~ #break
-      #~ record = custom_fields(field)
-      #~ assert record.save, record.errors.inspect
-    #~ end
+    # Need to go on page to set tenant
     visit('/authentication/sign_in')
     resize_window(1366, 768)
-    login_as(users(:users_001), scope: :user)
+    # shoot_screen "authentication/sign_in"
+    login_as(users(:users_001), scope: :user, run_callbacks: false) #
     visit('/backend/custom_fields/new')
+  end
+
+  teardown do
+    CustomField.destroy_all
+    Warden.test_reset!
   end
 
   # tests 15% of models randomly. For local tests, set manually this value
   coverage_percent = 0.15
   models = CustomField.customized_type.values.select do |model|
     # Do not test when controller does not exist
-    Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
+    model != CustomField.name and Rails.root.join("app", "controllers", "backend", "#{model.tableize}_controller.rb").exist?
   end
   custom_field_natures = CustomField.nature.values.map(&:to_sym)
   models.sample((models.count * coverage_percent).round + custom_field_natures.count).each_with_index do |model, index|
     model_name = model.underscore
     model_human_name = Ekylibre::Record.human_name(model_name)
-    id = ActiveRecord::FixtureSet.identify("#{model.tableize}_001")
 
     # tests one random custom field nature. For local tests, set manually left and right range values
     left = index.modulo(custom_field_natures.count)
@@ -33,6 +34,7 @@ class AddACustomFieldTest < CapybaraIntegrationTest
     custom_field_natures[left..right].each do |nature|
       nature_human_name = CustomField.nature.human_value_name(nature)
       test "manage #{nature} custom field on #{model_name}" do
+        id = send(model.tableize, "#{model.tableize}_001").id
         # creating custom field
         select model_human_name,  from: "custom_field[customized_type]"
         select nature_human_name, from: "custom_field[nature]"
@@ -50,21 +52,22 @@ class AddACustomFieldTest < CapybaraIntegrationTest
             2.times do
               click_on :add_choice.tl
             end
-            counter = 0
-            all('input').each do |current_input|
-              fill_in current_input[:name], with: "Bar #{counter}"
-              counter += 1
+            all('input').each_with_index do |input, index|
+              fill_in current_input[:name], with: "Bar #{index}"
             end
           end
         end
         click_on :create.tl
-        wait_for_ajax
+        # wait_for_ajax
 
+        # puts "OK".red
         # TODO: get real column name after create
         field = CustomField.find_by(name: custom_field_name)
         assert field, "Cannot find created custom field '#{custom_field_name}'"
         assert_equal custom_field_name, field.name
         column_name = field.column_name
+
+        # puts "OK".green
 
         # using custom field in model
         visit "/backend/#{model.tableize}/#{id}/edit"
@@ -113,7 +116,7 @@ class AddACustomFieldTest < CapybaraIntegrationTest
 
         # Ensure custom field is removed
         # Needed for tests
-        field.destroy
+        # field.destroy
 
         # TODO: check if custom field is visible in #show view
       end

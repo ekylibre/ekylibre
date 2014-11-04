@@ -13,7 +13,7 @@ module Ekylibre::Record
         columns = [:by_default] if columns.empty?
         code  = ""
 
-        scope = "self.class"
+        scope = self.table_name.classify.constantize.name # "self.class"
         scope_columns = []
         if s = options[:scope]
           s = [s] if s.is_a?(Symbol)
@@ -101,7 +101,9 @@ module Ekylibre::Record
           code << "  self.find_by(" + scope_columns.collect{|c| "#{c}: #{c}, "}.join + "#{column}: true)\n"
           code << "end\n"
         end
-        # code.split(/\n/).each_with_index{|l,i| puts i.to_s.rjust(4) + ": " + l}
+
+        # code.split(/\n/).each_with_index{|l,i| puts i.to_s.rjust(4).blue + ": " + l.yellow}
+
         class_eval code
       end
     end

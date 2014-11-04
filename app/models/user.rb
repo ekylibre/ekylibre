@@ -106,6 +106,9 @@ class User < Ekylibre::Record::Base
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
+    if self.administrator?
+      self.role ||= Role.first
+    end
     if self.role
       self.rights ||= self.role.rights
     end

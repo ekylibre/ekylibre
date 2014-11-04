@@ -23,6 +23,21 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Returns ID of the given label
+  def self.identify(label)
+    # ActiveRecord::FixtureSet.identify(label)
+    elements = label.to_s.split("_")
+    id = elements.delete_at(-1)
+    model = elements.join("_").classify.constantize
+    @@fixtures ||= {}
+    @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join("test", "fixtures", "#{model.table_name}.yml"))
+    unless attrs = @@fixtures[model.table_name][label.to_s]
+      raise "Unknown fixture #{label}"
+    end
+    return attrs['id'].to_i
+  end
+
 end
 
 class HashCollector
@@ -46,20 +61,6 @@ class ActionController::TestCase
   include Devise::TestHelpers
 
   class << self
-
-    # Returns ID of the given label
-    def identify(label)
-      # ActiveRecord::FixtureSet.identify(label)
-      elements = label.to_s.split("_")
-      id = elements.delete_at(-1)
-      model = elements.join("_").classify.constantize
-      @@fixtures ||= {}
-      @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join("test", "fixtures", "#{model.table_name}.yml"))
-      unless attrs = @@fixtures[model.table_name][label.to_s]
-        raise "Unknown fixture #{label}"
-      end
-      return attrs['id'].to_i
-    end
 
     def test_restfully_all_actions(options = {}, &block)
       controller_name = self.controller_class.controller_name
@@ -369,9 +370,11 @@ Capybara.javascript_driver = Capybara.default_driver
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  # # include Capybara::Screenshot
+  # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
+
+  # fixtures :all
 
   def wait_for_ajax
     Timeout.timeout(Capybara.default_wait_time) do

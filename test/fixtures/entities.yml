@@ -391,3 +391,27 @@ people_003:
   updater_id: 1
   vat_number: ''
   vat_subjected: true
+people_004:
+  active: true
+  client: false
+  created_at: 2014-11-03 16:56:06.570291000 Z
+  creator_id: 1
+  currency: EUR
+  first_name: Yui
+  full_name: IKARI Yui
+  id: 12
+  language: eng
+  last_name: IKARI
+  lock_version: 0
+  locked: false
+  nature: person
+  number: P00000002
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  supplier: false
+  transporter: false
+  type: Person
+  updated_at: 2014-11-03 16:56:06.570291000 Z
+  updater_id: 1
+  vat_subjected: true
