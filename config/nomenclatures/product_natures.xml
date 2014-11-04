@@ -28,7 +28,7 @@
             variable_indicators="population, unique_synthesis_index, economical_milk_index, sex"
             frozen_indicators=""
             />
-       <!-- CATTLE -->
+      <!-- CATTLE -->
       <item name="cattle_herd"
             category="cattle_herd"
             variety="animal_group"
@@ -36,7 +36,7 @@
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)"
             variable_indicators="population"
-            frozen_indicators=""
+            frozen_indicators="sex"
             />
       <item name="female_adult_cattle_herd"
             category="cattle_herd"

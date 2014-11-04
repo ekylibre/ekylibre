@@ -5,6 +5,7 @@
       <item name="male"/>
       <item name="female"/>
       <item name="hermaphrodite"/>
+      <item name="undefined"/>
     </items>
   </nomenclature>
 </nomenclatures>
