@@ -20,10 +20,22 @@ class ExchangesTest < ActiveSupport::TestCase
     Ekylibre::Tenant.drop(:sekindovall)
   end
 
-  for importer, path in IMPORTS
-    test "import of a #{importer} file" do
-      Exchanges.import(importer, path)
-    end
+  #~ for importer, path in IMPORTS
+    #~ test "import of a #{importer} file" do
+      #~ Exchanges.import(importer, path)
+    #~ end
+  #~ end
+
+  test "import of a ekylibre_erp_settings file" do
+    Exchanges.import(:ekylibre_erp_settings, FIRST_RUN.join("manifest"))
+  end
+
+  test "import of a ekylibre_erp_visuals file" do
+    Exchanges.import(:ekylibre_erp_visuals, FIRST_RUN.dirname.join("sample_image.png"))
+  end
+
+  test "import of a legrain_epicea_accounts file" do
+    Exchanges.import(:legrain_epicea_accounts, FIRST_RUN.join("epicea","PlanComptable.Txt"))
   end
 
 end
