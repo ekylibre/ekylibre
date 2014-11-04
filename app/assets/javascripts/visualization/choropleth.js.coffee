@@ -19,7 +19,8 @@ class visualization.Choropleth extends visualization.Gradient
           blue:  start.blue  + (Math.round(stop.blue  - start.blue)  * level)
       console.log "Colors computed"
     else
-      console.warn "Invalid choropleth"
+      console.warn "Invalid choropleth for #{@layer.reference}"
+      console.warn @data
 
   # Build layer as wanted
   buildLayerGroup: (widget, globalStyle = {}) ->

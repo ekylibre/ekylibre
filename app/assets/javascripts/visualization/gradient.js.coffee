@@ -13,14 +13,22 @@ class visualization.Gradient
     @levelNumber ?= options.levelNumber
 
     # Find min and max values
-    @maxValue = data[0][property]
-    @minValue = data[0][property]
     @grades   = []
-    for zone in data
-      if zone[property] > @maxValue
-        @maxValue = zone[property]
-      if zone[property] < @minValue
-        @minValue = zone[property]
+    if data[0]
+      @maxValue = data[0][property]
+      @minValue = data[0][property]
+      for zone in data
+        if zone[property] > @maxValue
+          @maxValue = zone[property]
+        if zone[property] < @minValue
+          @minValue = zone[property]
+        if @maxValue == @minValue
+          console.warn "Force max value to be different of min value"
+          @maxValue += 1
+    else
+      console.warn "Sets default min and max without data"
+      @maxValue = 10
+      @minValue = 0
     console.log "Exact min (#{@minValue}) and max (#{@maxValue}) computed"
 
     # Simplify values

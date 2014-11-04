@@ -368,3 +368,22 @@ product_nature_categories_015:
   subscribing: false
   updated_at: 2014-11-02 18:31:53.721523000 Z
   updater_id: 1
+product_nature_categories_016:
+  active: true
+  created_at: 2014-11-04 17:27:32.635406000 Z
+  creator_id: 1
+  depreciable: false
+  id: 16
+  lock_version: 0
+  name: Troupeau de bovins
+  number: PNC016
+  pictogram: cow
+  purchasable: false
+  reductible: false
+  reference_name: cattle_herd
+  saleable: false
+  stock_account_id: 99
+  storable: false
+  subscribing: false
+  updated_at: 2014-11-04 17:27:32.635406000 Z
+  updater_id: 1

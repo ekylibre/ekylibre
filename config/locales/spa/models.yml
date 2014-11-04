@@ -1260,6 +1260,7 @@ spa:
     production:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Aborted"
         # draft: "Draft"

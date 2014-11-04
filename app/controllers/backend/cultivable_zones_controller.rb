@@ -29,6 +29,8 @@ class Backend::CultivableZonesController < Backend::LandParcelGroupsController
     t.column :clusters_work_number
     t.column :net_surface_area, datatype: :measure
     # t.column :unit
+    t.action :edit
+    t.action :destroy
   end
 
   # content production on current cultivable land parcel

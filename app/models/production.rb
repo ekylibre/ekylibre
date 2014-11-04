@@ -45,7 +45,7 @@ class Production < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
   has_many :distributions, class_name: "AnalyticDistribution"
-  has_many :supports, class_name: "ProductionSupport", inverse_of: :production
+  has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
   has_many :storages, through: :supports
@@ -125,8 +125,10 @@ class Production < Ekylibre::Record::Base
   end
 
   before_validation do
-    if self.activity and self.variant and self.campaign
-      self.name = tc('name', state: self.state_label, activity: self.activity.name, variant: self.variant.name, campaign: self.campaign.name)
+    if self.activity and self.campaign and self.variant
+      self.name = tc(:name, state: self.state_label, activity: self.activity.name, variant: self.variant.name, campaign: self.campaign.name)
+    elsif self.activity and self.campaign
+      self.name = tc(:name_without_variant, state: self.state_label, activity: self.activity.name, campaign: self.campaign.name)
     end
   end
 
@@ -156,11 +158,10 @@ class Production < Ekylibre::Record::Base
   end
 
   def net_surface_area
-    if self.static_support?
+    if self.static_support? and self.supports.any?
       return self.supports.map(&:storage_net_surface_area).compact.sum
-    else
-      return 0.0.in_square_meter
     end
+    return 0.0.in_square_meter
   end
 
   def area
@@ -172,9 +173,8 @@ class Production < Ekylibre::Record::Base
   def duration
     if self.interventions.any?
       return self.interventions.map(&:duration).compact.sum
-    else
-      return 0
     end
+    return 0
   end
 
   def cost(role = :input)

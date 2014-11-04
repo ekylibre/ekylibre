@@ -52,450 +52,134 @@
 #
 ---
 intervention_casts_001:
-  actor_id: 30
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  intervention_id: 1
-  lock_version: 1
-  nature: product
-  population: 1.0
-  position: 3
-  reference_name: grinder
-  roles: soil_enrichment-tool, grinding-tool
-  updated_at: 2014-11-02 18:23:56.836868000 Z
-  updater_id: 1
-  variant_id: 25
-intervention_casts_002:
-  actor_id: 49
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  intervention_id: 2
-  lock_version: 1
-  nature: product
-  population: 12.0
-  position: 4
-  reference_name: grinded
-  roles: soil_enrichment-input
-  updated_at: 2014-11-02 18:25:25.072269000 Z
-  updater_id: 1
-  variant_id: 9
-intervention_casts_003:
-  actor_id: 61
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 3
-  intervention_id: 1
-  lock_version: 0
-  nature: product
-  population: 1.8
-  position: 1
-  reference_name: cultivation
-  roles: grinding-input
-  shape: SRID=4326;MULTIPOLYGON(((-0.66741943359371 45.619800720955,-0.78002929687592
-    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
-    45.5698323584928,-0.66741943359371 45.619800720955)))
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-intervention_casts_004:
-  actor_id: 29
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 4
-  intervention_id: 1
-  lock_version: 1
-  nature: product
-  population: 1.0
-  position: 2
-  reference_name: tractor
-  roles: ''
-  updated_at: 2014-11-02 18:23:56.836022000 Z
-  updater_id: 1
-  variant_id: 26
-intervention_casts_005:
-  actor_id: 49
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 5
-  intervention_id: 1
-  lock_version: 1
-  nature: product
-  population: 12.0
-  position: 4
-  reference_name: grinded
-  roles: soil_enrichment-input
-  updated_at: 2014-11-02 18:24:09.442736000 Z
-  updater_id: 1
-  variant_id: 9
-intervention_casts_006:
-  actor_id: 24
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 6
-  intervention_id: 1
-  lock_version: 0
-  nature: product
-  population: 1.8
-  position: 1
-  reference_name: land_parcel
-  roles: soil_enrichment-target
-  shape: SRID=4326;MULTIPOLYGON(((-0.66741943359371 45.619800720955,-0.78002929687592
-    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
-    45.5698323584928,-0.66741943359371 45.619800720955)))
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-intervention_casts_007:
   actor_id: 79
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  created_at: 2014-11-04 18:31:09.305211000 Z
   creator_id: 1
-  event_participation_id: 9
-  id: 7
-  intervention_id: 1
-  lock_version: 1
-  nature: product
-  population: 1.0
-  position: 6
-  reference_name: driver
-  roles: grinding-doer, soil_enrichment-doer
-  updated_at: 2014-11-02 18:23:56.833726000 Z
-  updater_id: 1
-  variant_id: 23
-intervention_casts_008:
-  actor_id: 5
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 8
-  intervention_id: 3
-  lock_version: 1
-  nature: product
-  population: 1.0
-  position: 1
-  reference_name: animal
-  roles: animal_curative_medicine_admission-target
-  updated_at: 2014-11-02 18:25:43.709509000 Z
-  updater_id: 1
-  variant_id: 17
-intervention_casts_009:
-  actor_id: 47
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 9
-  intervention_id: 3
-  lock_version: 0
-  nature: product
-  population: 1.0
-  position: 1
-  reference_name: animal_medicine_to_give
-  roles: animal_curative_medicine_admission-input
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-intervention_casts_010:
-  actor_id: 7
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 10
-  intervention_id: 4
-  lock_version: 0
-  nature: product
-  population: 1.0
-  position: 1
-  reference_name: herd
-  roles: harvest-tool,harvest-doer,pasturing-doer
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-intervention_casts_011:
-  actor_id: 61
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 11
-  intervention_id: 4
-  lock_version: 0
-  nature: product
-  population: 1.0
-  position: 1
-  reference_name: cultivation
-  roles: harvest-target,pasturing-target
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-intervention_casts_012:
-  actor_id: 61
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 12
-  intervention_id: 5
-  lock_version: 0
-  nature: product
-  population: 1.0
-  position: 1
-  reference_name: cultivation
-  roles: plant_illness_treatment-target
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-intervention_casts_013:
-  actor_id: 79
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  event_participation_id: 10
-  id: 13
-  intervention_id: 5
-  lock_version: 1
-  nature: product
-  population: 1.0
-  position: 5
-  reference_name: driver
-  roles: plant_illness_treatment-doer
-  updated_at: 2014-11-02 18:25:05.432331000 Z
-  updater_id: 1
-  variant_id: 23
-intervention_casts_014:
-  actor_id: 49
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 14
-  intervention_id: 5
-  lock_version: 0
-  nature: product
-  population: 1.0
-  position: 1
-  reference_name: plant_medicine_to_spray
-  roles: plant_illness_treatment-input
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 4
-intervention_casts_015:
-  actor_id: 5
-  created_at: 2014-11-01 20:24:26.752426000 Z
-  creator_id: 1
-  id: 15
-  intervention_id: 6
-  lock_version: 0
-  nature: product
-  population: 0.0
-  position: 1
-  reference_name: animal
-  roles: animal_curative_medicine_admission-target
-  updated_at: 2014-11-01 20:24:26.752426000 Z
-  updater_id: 1
-  variant_id: 17
-intervention_casts_016:
-  actor_id: 58
-  created_at: 2014-11-01 20:24:26.754785000 Z
-  creator_id: 1
-  id: 16
-  intervention_id: 6
-  lock_version: 1
-  nature: product
-  population: 10.0
-  position: 2
-  reference_name: animal_medicine
-  roles: animal_curative_medicine_admission-input_origin
-  updated_at: 2014-11-01 20:31:38.677631000 Z
-  updater_id: 1
-  variant_id: 21
-intervention_casts_017:
-  created_at: 2014-11-01 20:24:26.756056000 Z
-  creator_id: 1
-  id: 17
-  intervention_id: 6
-  lock_version: 3
-  nature: product
-  population: 1.0
-  position: 3
-  reference_name: animal_medicine_to_give
-  roles: animal_curative_medicine_admission-input
-  updated_at: 2014-11-02 17:44:04.774842000 Z
-  updater_id: 1
-  variant_id: 22
-intervention_casts_018:
-  actor_id: 79
-  created_at: 2014-11-01 20:24:26.757471000 Z
-  creator_id: 1
-  event_participation_id: 8
-  id: 18
-  intervention_id: 6
-  lock_version: 1
-  nature: product
-  population: 0.0
-  position: 4
-  reference_name: caregiver
-  roles: animal_curative_medicine_admission-doer
-  updated_at: 2014-11-01 20:30:45.155505000 Z
-  updater_id: 1
-  variant_id: 23
-intervention_casts_019:
-  actor_id: 79
-  created_at: 2014-11-02 18:30:08.210020000 Z
-  creator_id: 1
-  event_participation_id: 11
-  id: 19
-  intervention_id: 7
+  event_participation_id: 13
+  id: 30
+  intervention_id: 9
   lock_version: 0
   nature: product
   population: 0.0
   position: 1
   reference_name: driver
   roles: plowing-doer
-  updated_at: 2014-11-02 18:30:08.210020000 Z
+  updated_at: 2014-11-04 18:31:09.305211000 Z
   updater_id: 1
   variant_id: 23
-intervention_casts_020:
+intervention_casts_002:
   actor_id: 29
-  created_at: 2014-11-02 18:30:08.212809000 Z
+  created_at: 2014-11-04 18:31:09.308816000 Z
   creator_id: 1
-  id: 20
-  intervention_id: 7
+  id: 31
+  intervention_id: 9
   lock_version: 0
   nature: product
   population: 1.0
   position: 2
   reference_name: tractor
   roles: plowing-tool
-  updated_at: 2014-11-02 18:30:08.212809000 Z
+  updated_at: 2014-11-04 18:31:09.308816000 Z
   updater_id: 1
   variant_id: 26
-intervention_casts_021:
-  actor_id: 25
-  created_at: 2014-11-02 18:30:08.213997000 Z
+intervention_casts_003:
+  actor_id: 83
+  created_at: 2014-11-04 18:31:09.310469000 Z
   creator_id: 1
-  id: 21
-  intervention_id: 7
-  lock_version: 1
+  id: 32
+  intervention_id: 9
+  lock_version: 0
   nature: product
-  population: 0.8031
+  population: 5.3806
   position: 3
   reference_name: land_parcel
   roles: plowing-target
-  shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
-    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
-    45.5944092001224,-0.817789435386658 45.5943078511944)))
-  updated_at: 2014-11-02 18:34:24.483299000 Z
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-04 18:31:09.310469000 Z
   updater_id: 1
-  variant_id: 1
-intervention_casts_022:
+  variant_id: 28
+intervention_casts_004:
   actor_id: 31
-  created_at: 2014-11-02 18:30:08.215410000 Z
+  created_at: 2014-11-04 18:31:09.312157000 Z
   creator_id: 1
-  id: 22
-  intervention_id: 7
+  id: 33
+  intervention_id: 9
   lock_version: 0
   nature: product
   population: 1.0
   position: 4
   reference_name: plow
   roles: plowing-tool
-  updated_at: 2014-11-02 18:30:08.215410000 Z
+  updated_at: 2014-11-04 18:31:09.312157000 Z
   updater_id: 1
   variant_id: 27
-intervention_casts_023:
-  actor_id: 53
-  created_at: 2014-11-02 18:37:42.474848000 Z
+intervention_casts_005:
+  actor_id: 83
+  created_at: 2014-11-04 18:41:39.740739000 Z
   creator_id: 1
-  id: 23
-  intervention_id: 8
+  id: 34
+  intervention_id: 10
+  lock_version: 0
+  nature: product
+  population: 5.3806
+  position: 1
+  reference_name: land_parcel
+  roles: raking-target, physical_weed_killing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-04 18:41:39.740739000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_006:
+  actor_id: 79
+  created_at: 2014-11-04 18:41:39.752672000 Z
+  creator_id: 1
+  event_participation_id: 14
+  id: 35
+  intervention_id: 10
   lock_version: 0
   nature: product
   population: 0.0
-  position: 1
-  reference_name: seeds
-  roles: sowing-input_origin
-  updated_at: 2014-11-02 18:37:42.474848000 Z
-  updater_id: 1
-  variant_id: 10
-intervention_casts_024:
-  actor_id: 60
-  created_at: 2014-11-02 18:37:42.476777000 Z
-  creator_id: 1
-  id: 24
-  intervention_id: 8
-  lock_version: 2
-  nature: product
-  population: 1.905
   position: 2
-  reference_name: seeds_to_sow
-  roles: sowing-input
-  updated_at: 2014-11-02 18:38:47.125171000 Z
+  reference_name: driver
+  roles: raking-doer, physical_weed_killing-doer
+  updated_at: 2014-11-04 18:41:39.752672000 Z
   updater_id: 1
-  variant_id: 10
-intervention_casts_025:
-  actor_id: 32
-  created_at: 2014-11-02 18:37:42.478620000 Z
+  variant_id: 23
+intervention_casts_007:
+  actor_id: 29
+  created_at: 2014-11-04 18:41:39.756098000 Z
   creator_id: 1
-  id: 25
-  intervention_id: 8
+  id: 36
+  intervention_id: 10
   lock_version: 0
   nature: product
   population: 1.0
   position: 3
-  reference_name: sower
-  roles: sowing-tool
-  updated_at: 2014-11-02 18:37:42.478620000 Z
+  reference_name: tractor
+  roles: raking-tool, physical_weed_killing-tool
+  updated_at: 2014-11-04 18:41:39.756098000 Z
   updater_id: 1
-  variant_id: 29
-intervention_casts_026:
-  actor_id: 79
-  created_at: 2014-11-02 18:37:42.485042000 Z
+  variant_id: 26
+intervention_casts_008:
+  actor_id: 88
+  created_at: 2014-11-04 18:41:39.757856000 Z
   creator_id: 1
-  event_participation_id: 12
-  id: 26
-  intervention_id: 8
-  lock_version: 0
-  nature: product
-  population: 0.0
-  position: 4
-  reference_name: driver
-  roles: sowing-doer
-  updated_at: 2014-11-02 18:37:42.485042000 Z
-  updater_id: 1
-  variant_id: 23
-intervention_casts_027:
-  actor_id: 29
-  created_at: 2014-11-02 18:37:42.487523000 Z
-  creator_id: 1
-  id: 27
-  intervention_id: 8
+  id: 37
+  intervention_id: 10
   lock_version: 0
   nature: product
   population: 1.0
-  position: 5
-  reference_name: tractor
-  roles: sowing-tool
-  updated_at: 2014-11-02 18:37:42.487523000 Z
+  position: 4
+  reference_name: cultivator
+  roles: raking-tool, physical_weed_killing-tool
+  updated_at: 2014-11-04 18:41:39.757856000 Z
   updater_id: 1
-  variant_id: 26
-intervention_casts_028:
-  actor_id: 25
-  created_at: 2014-11-02 18:37:42.488670000 Z
-  creator_id: 1
-  id: 28
-  intervention_id: 8
-  lock_version: 0
-  nature: product
-  population: 0.8031
-  position: 6
-  reference_name: land_parcel
-  roles: sowing-target
-  shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
-    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
-    45.5944092001224,-0.817789435386658 45.5943078511944)))
-  updated_at: 2014-11-02 18:37:42.488670000 Z
-  updater_id: 1
-  variant_id: 28
-intervention_casts_029:
-  actor_id: 64
-  created_at: 2014-11-02 18:37:42.489923000 Z
-  creator_id: 1
-  id: 29
-  intervention_id: 8
-  lock_version: 2
-  nature: product
-  population: 0.8031
-  position: 7
-  reference_name: cultivation
-  roles: sowing-output
-  shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
-    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
-    45.5944092001224,-0.817789435386658 45.5943078511944)))
-  updated_at: 2014-11-02 18:38:47.185125000 Z
-  updater_id: 1
-  variant_id: 16
+  variant_id: 34

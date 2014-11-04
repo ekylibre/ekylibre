@@ -49,6 +49,7 @@ class Campaign < Ekylibre::Record::Base
   validates_presence_of :name, :number
   #]VALIDATORS]
   validates :harvest_year, length: {is: 4}, allow_nil: true
+  validates_uniqueness_of :name
   before_validation :set_default_values, on: :create
 
   acts_as_numbered :number, readonly: false

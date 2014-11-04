@@ -46,17 +46,24 @@
 prescriptions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  delivered_at: 2013-02-05 07:40:00.000000000 Z
+  description: ''
+  document_id: 2
   id: 1
-  lock_version: 0
-  prescriptor_id: 6
+  lock_version: 1
+  prescriptor_id: 5
   reference_number: 012382
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-04 15:25:09.160058000 Z
   updater_id: 1
 prescriptions_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  delivered_at: 2014-06-04 07:25:00.000000000 Z
+  description: ''
+  document_id: 1
   id: 2
-  lock_version: 0
-  prescriptor_id: 6
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  lock_version: 1
+  prescriptor_id: 5
+  reference_number: 851DF
+  updated_at: 2014-11-04 15:24:42.690021000 Z
   updater_id: 1

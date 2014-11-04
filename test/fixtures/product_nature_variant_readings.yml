@@ -617,3 +617,77 @@ product_nature_variant_readings_041:
   updated_at: 2014-11-02 18:36:36.387922000 Z
   updater_id: 1
   variant_id: 29
+product_nature_variant_readings_042:
+  boolean_value: false
+  choice_value: female
+  created_at: 2014-11-04 17:27:32.670709000 Z
+  creator_id: 1
+  id: 42
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  updated_at: 2014-11-04 17:27:32.670709000 Z
+  updater_id: 1
+  variant_id: 30
+product_nature_variant_readings_043:
+  boolean_value: true
+  created_at: 2014-11-04 17:27:32.676106000 Z
+  creator_id: 1
+  id: 43
+  indicator_datatype: boolean
+  indicator_name: reproductor
+  lock_version: 0
+  updated_at: 2014-11-04 17:27:32.676106000 Z
+  updater_id: 1
+  variant_id: 30
+product_nature_variant_readings_044:
+  boolean_value: false
+  choice_value: undefined
+  created_at: 2014-11-04 17:27:59.323373000 Z
+  creator_id: 1
+  id: 44
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  updated_at: 2014-11-04 17:27:59.323373000 Z
+  updater_id: 1
+  variant_id: 31
+product_nature_variant_readings_045:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-04 18:17:16.197067000 Z
+  creator_id: 1
+  id: 45
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  updated_at: 2014-11-04 18:17:16.197067000 Z
+  updater_id: 1
+  variant_id: 32
+product_nature_variant_readings_046:
+  boolean_value: false
+  created_at: 2014-11-04 18:38:32.222886000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 46
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-04 18:38:32.222886000 Z
+  updater_id: 1
+  variant_id: 33
+product_nature_variant_readings_047:
+  boolean_value: false
+  created_at: 2014-11-04 18:40:21.577326000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 47
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-04 18:40:21.577326000 Z
+  updater_id: 1
+  variant_id: 34

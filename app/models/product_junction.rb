@@ -39,7 +39,7 @@
 class ProductJunction < Ekylibre::Record::Base
   include Taskable
   belongs_to :tool, class_name: "Product"
-  has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction, foreign_key: :junction_id
+  has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction, foreign_key: :junction_id, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :originator_type, allow_nil: true, maximum: 255

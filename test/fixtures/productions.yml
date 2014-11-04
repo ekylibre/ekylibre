@@ -57,36 +57,62 @@ productions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  lock_version: 1
+  lock_version: 3
   name: Culture de blé/Blé 2013 (Prévue)
   state: draft
   static_support: true
-  updated_at: 2014-11-01 19:07:17.733118000 Z
+  updated_at: 2014-11-04 17:23:15.015623000 Z
   updater_id: 1
   variant_id: 16
 productions_002:
   activity_id: 1
-  campaign_id: 2
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  campaign_id: 4
+  created_at: 2014-11-04 15:26:44.662690000 Z
   creator_id: 1
-  id: 2
+  id: 4
   lock_version: 2
-  name: Graine de blé/Blé 2999 (Prévue)
+  name: Culture de blé/Blé 2014 (Prévue)
   state: draft
   static_support: true
-  updated_at: 2014-11-01 19:11:46.682961000 Z
+  updated_at: 2014-11-04 17:23:48.519311000 Z
   updater_id: 1
-  variant_id: 19
+  variant_id: 16
 productions_003:
   activity_id: 3
   campaign_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  created_at: 2014-11-04 17:24:51.387221000 Z
   creator_id: 1
-  id: 3
-  lock_version: 3
+  id: 5
+  lock_version: 0
   name: Vache/Bovins 2013 (Prévue)
   state: draft
   static_support: false
-  updated_at: 2014-11-01 20:09:49.582916000 Z
+  updated_at: 2014-11-04 17:24:51.387221000 Z
   updater_id: 1
   variant_id: 17
+productions_004:
+  activity_id: 5
+  campaign_id: 4
+  created_at: 2014-11-04 18:17:39.473350000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  name: Culture de maïs/Maïs 2014 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-04 18:17:39.473350000 Z
+  updater_id: 1
+  variant_id: 32
+productions_005:
+  activity_id: 5
+  campaign_id: 1
+  created_at: 2014-11-04 18:21:43.148079000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 1
+  name: Culture de maïs/Maïs 2013 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-04 18:29:40.340837000 Z
+  updater_id: 1
+  variant_id: 32

@@ -61,21 +61,23 @@ campaigns_002:
   closed: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  harvest_year: 2999
+  description: ''
+  harvest_year: 1870
   id: 2
-  lock_version: 0
-  name: '2999'
-  number: '2999'
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  lock_version: 1
+  name: '1870'
+  number: '1870'
+  updated_at: 2014-11-04 18:14:33.691327000 Z
   updater_id: 1
 campaigns_003:
-  closed: true
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  closed: false
+  created_at: 2014-11-04 15:26:29.112273000 Z
   creator_id: 1
+  description: ''
   harvest_year: 2014
-  id: 3
+  id: 4
   lock_version: 0
   name: '2014'
-  number: '2014'
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  number: CAMP0001
+  updated_at: 2014-11-04 15:26:29.112273000 Z
   updater_id: 1

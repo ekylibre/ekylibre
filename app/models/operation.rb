@@ -42,22 +42,22 @@ end
 class Operation < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention, inverse_of: :operations
-  has_many :product_births,        dependent: :destroy
-  has_many :product_consumptions,  dependent: :destroy
-  has_many :product_creations,     dependent: :destroy
-  has_many :product_deaths,        dependent: :destroy
-  has_many :product_divisions,     dependent: :destroy
-  has_many :product_enjoyments,    dependent: :destroy
-  has_many :product_linkages,      dependent: :destroy
-  has_many :product_localizations, dependent: :destroy
-  has_many :product_memberships,   dependent: :destroy
-  has_many :product_mergings,      dependent: :destroy
-  has_many :product_mixings,       dependent: :destroy
-  has_many :product_ownerships,    dependent: :destroy
-  has_many :product_phases,        dependent: :destroy
+  has_many :product_births,            dependent: :destroy
+  has_many :product_consumptions,      dependent: :destroy
+  has_many :product_creations,         dependent: :destroy
+  has_many :product_deaths,            dependent: :destroy
+  has_many :product_divisions,         dependent: :destroy
+  has_many :product_enjoyments,        dependent: :destroy
+  has_many :product_linkages,          dependent: :destroy
+  has_many :product_localizations,     dependent: :destroy
+  has_many :product_memberships,       dependent: :destroy
+  has_many :product_mergings,          dependent: :destroy
+  has_many :product_mixings,           dependent: :destroy
+  has_many :product_ownerships,        dependent: :destroy
+  has_many :product_phases,            dependent: :destroy
   has_many :product_quadruple_mixings, dependent: :destroy
   has_many :product_quintuple_mixings, dependent: :destroy
-  has_many :product_reading_tasks, dependent: :destroy
+  has_many :product_reading_tasks,     dependent: :destroy
   has_many :product_triple_mixings,    dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -70,7 +70,7 @@ class Operation < Ekylibre::Record::Base
   delegate :reference, to: :intervention, prefix: true
   delegate :casts, to: :intervention
 
-  scope :unvalidateds, -> { where(:confirmed => false) }
+  scope :unvalidateds, -> { where(confirmed: false) }
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!

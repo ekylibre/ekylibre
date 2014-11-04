@@ -53,7 +53,7 @@
   - t.new
 
 = beehive do |b|
-  - if campaign
+  - if campaign and data.any?
     - b.cell :map do
       = visualization do |v|
         - v.serie :main, data

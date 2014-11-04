@@ -3,6 +3,9 @@
 #= require visualization/color
 #= require visualization/choropleth
 #= require visualization/bubbles
+#= require visualization/paths
+#= require visualization/path
+#= require visualization/simple
 
 (($) ->
   "use strict"

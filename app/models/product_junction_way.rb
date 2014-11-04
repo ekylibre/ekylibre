@@ -92,7 +92,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
 
   before_destroy do
     unless self.continuity?
-      old_record.road.update_attribute(touch_column, nil)
+      old_record.road.update_column(touch_column, nil)
       # old_record.road.readings.where(indicator: "population", read_at: old_record.stopped_at).destroy_all
       # if self.start? and self.population
       #   old_record.road.readings.where(indicator: "population").where("read_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)

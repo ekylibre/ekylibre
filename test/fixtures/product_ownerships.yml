@@ -287,3 +287,103 @@ product_ownerships_024:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.169959000 Z
   updater_id: 1
+product_ownerships_025:
+  created_at: 2014-11-04 15:29:49.242969000 Z
+  creator_id: 1
+  id: 25
+  lock_version: 0
+  nature: unknown
+  product_id: 22
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 15:29:49.242969000 Z
+  updater_id: 1
+product_ownerships_026:
+  created_at: 2014-11-04 17:12:23.340880000 Z
+  creator_id: 1
+  id: 26
+  lock_version: 0
+  nature: unknown
+  product_id: 80
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:12:23.340880000 Z
+  updater_id: 1
+product_ownerships_027:
+  created_at: 2014-11-04 17:15:04.616151000 Z
+  creator_id: 1
+  id: 27
+  lock_version: 0
+  nature: unknown
+  product_id: 81
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:15:04.616151000 Z
+  updater_id: 1
+product_ownerships_028:
+  created_at: 2014-11-04 17:17:04.681414000 Z
+  creator_id: 1
+  id: 28
+  lock_version: 0
+  nature: unknown
+  product_id: 82
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:17:04.681414000 Z
+  updater_id: 1
+product_ownerships_029:
+  created_at: 2014-11-04 17:19:31.143203000 Z
+  creator_id: 1
+  id: 29
+  lock_version: 0
+  nature: unknown
+  product_id: 83
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:19:31.143203000 Z
+  updater_id: 1
+product_ownerships_030:
+  created_at: 2014-11-04 17:22:31.682439000 Z
+  creator_id: 1
+  id: 30
+  lock_version: 0
+  nature: unknown
+  product_id: 84
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:22:31.682439000 Z
+  updater_id: 1
+product_ownerships_031:
+  created_at: 2014-11-04 17:28:40.079850000 Z
+  creator_id: 1
+  id: 31
+  lock_version: 0
+  nature: unknown
+  product_id: 85
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:28:40.079850000 Z
+  updater_id: 1
+product_ownerships_032:
+  created_at: 2014-11-04 17:32:45.826052000 Z
+  creator_id: 1
+  id: 32
+  lock_version: 0
+  nature: unknown
+  product_id: 86
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:32:45.826052000 Z
+  updater_id: 1
+product_ownerships_033:
+  created_at: 2014-11-04 18:39:58.341635000 Z
+  creator_id: 1
+  id: 33
+  lock_version: 0
+  nature: unknown
+  product_id: 87
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:39:58.341635000 Z
+  updater_id: 1
+product_ownerships_034:
+  created_at: 2014-11-04 18:41:16.433638000 Z
+  creator_id: 1
+  id: 34
+  lock_version: 0
+  nature: unknown
+  product_id: 88
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:41:16.433638000 Z
+  updater_id: 1

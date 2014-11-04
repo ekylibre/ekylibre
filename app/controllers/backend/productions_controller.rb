@@ -49,7 +49,7 @@ class Backend::ProductionsController < BackendController
     return code.c
   end
 
-  list(conditions: productions_conditions, joins: [:activity, :variant, :campaign]) do |t|
+  list(conditions: productions_conditions) do |t|
     t.column :name, url: true
     t.column :activity, url: true
     t.column :campaign, url: true

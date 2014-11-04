@@ -285,3 +285,103 @@ product_enjoyments_024:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2014-11-02 18:38:47.175192000 Z
   updater_id: 1
+product_enjoyments_025:
+  created_at: 2014-11-04 15:29:49.269032000 Z
+  creator_id: 1
+  id: 25
+  lock_version: 0
+  nature: unknown
+  product_id: 22
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 15:29:49.269032000 Z
+  updater_id: 1
+product_enjoyments_026:
+  created_at: 2014-11-04 17:12:23.366653000 Z
+  creator_id: 1
+  id: 26
+  lock_version: 0
+  nature: unknown
+  product_id: 80
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:12:23.366653000 Z
+  updater_id: 1
+product_enjoyments_027:
+  created_at: 2014-11-04 17:15:04.623028000 Z
+  creator_id: 1
+  id: 27
+  lock_version: 0
+  nature: unknown
+  product_id: 81
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:15:04.623028000 Z
+  updater_id: 1
+product_enjoyments_028:
+  created_at: 2014-11-04 17:17:04.688455000 Z
+  creator_id: 1
+  id: 28
+  lock_version: 0
+  nature: unknown
+  product_id: 82
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:17:04.688455000 Z
+  updater_id: 1
+product_enjoyments_029:
+  created_at: 2014-11-04 17:19:31.149804000 Z
+  creator_id: 1
+  id: 29
+  lock_version: 0
+  nature: unknown
+  product_id: 83
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:19:31.149804000 Z
+  updater_id: 1
+product_enjoyments_030:
+  created_at: 2014-11-04 17:22:31.689952000 Z
+  creator_id: 1
+  id: 30
+  lock_version: 0
+  nature: unknown
+  product_id: 84
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:22:31.689952000 Z
+  updater_id: 1
+product_enjoyments_031:
+  created_at: 2014-11-04 17:28:40.085441000 Z
+  creator_id: 1
+  id: 31
+  lock_version: 0
+  nature: unknown
+  product_id: 85
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:28:40.085441000 Z
+  updater_id: 1
+product_enjoyments_032:
+  created_at: 2014-11-04 17:32:45.959058000 Z
+  creator_id: 1
+  id: 32
+  lock_version: 0
+  nature: unknown
+  product_id: 86
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:32:45.959058000 Z
+  updater_id: 1
+product_enjoyments_033:
+  created_at: 2014-11-04 18:39:58.356596000 Z
+  creator_id: 1
+  id: 33
+  lock_version: 0
+  nature: unknown
+  product_id: 87
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:39:58.356596000 Z
+  updater_id: 1
+product_enjoyments_034:
+  created_at: 2014-11-04 18:41:16.440595000 Z
+  creator_id: 1
+  id: 34
+  lock_version: 1
+  nature: unknown
+  product_id: 88
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:41:24.723437000 Z
+  updater_id: 1

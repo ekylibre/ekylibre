@@ -1,21 +1,18 @@
 :ruby
-  data = []
-  ProductionSupport.of_productions(resource).find_each do |support|
-    item = {
-            name:       support.name,
-            shape:      support.shape,
-            campaign:   support.production.campaign.name,
-            activity:   support.production.activity.name,
-            production: support.production.name,
-            tool_cost:  support.tool_cost.to_s.to_f.round(2),
-            input_cost: support.input_cost.to_s.to_f.round(2),
-            time_cost:  support.time_cost.to_s.to_f.round(2),
-            nitrogen_concentration:   support.nitrogen_balance.to_s.to_f.round(2),
-            phosphorus_concentration: support.phosphorus_balance.to_s.to_f.round(2),
-            potassium_concentration:  support.potassium_balance.to_s.to_f.round(2),
-            interventions_count: support.interventions.count
-          }
-          data << item
+  data = resource.supports.collect do |support|
+    { name:       support.name,
+      shape:      support.shape,
+      campaign:   support.campaign_name,
+      activity:   support.activity_name,
+      production: support.production_name,
+      tool_cost:  support.tool_cost.to_s.to_f.round(2),
+      input_cost: support.input_cost.to_s.to_f.round(2),
+      time_cost:  support.time_cost.to_s.to_f.round(2),
+      nitrogen_concentration:   support.nitrogen_balance.to_s.to_f.round(2),
+      phosphorus_concentration: support.phosphorus_balance.to_s.to_f.round(2),
+      potassium_concentration:  support.potassium_balance.to_s.to_f.round(2),
+      interventions_count: support.interventions.count
+    }
   end
 
 - main_toolbar do |t|
@@ -88,7 +85,7 @@
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
       - b.cell(:supports) do
         = list(:supports)
-    - elsif Nomen::Varieties[resource.variant.variety] <= :plant
+    - elsif Nomen::Varieties[resource.variant.variety] <= :plant and resource.supports.any?
       - b.cell :map do
         - visualization do |v|
           - v.serie :main, data
@@ -105,23 +102,20 @@
           - v.control :layer_selector
 
       - b.cell :cropping_plan_chart do
-        - if resource.supports.any?
-          :ruby
+        :ruby
 
-            cultivable_zones = CultivableZone.of_production(resource).order(:id)
+          cultivable_zones = CultivableZone.of_production(resource).order(:id)
 
-            if cultivable_zones.any?
-              cultivable_zones_serie = cultivable_zones.collect do |cultivable_zone|
-                        { name: cultivable_zone.name, y: cultivable_zone.net_surface_area.to_s.to_f, color: cycle(*theme_colors), url: backend_cultivable_zone_path(cultivable_zone) }
-              end
+          if cultivable_zones.any?
+            cultivable_zones_serie = cultivable_zones.collect do |cultivable_zone|
+                      { name: cultivable_zone.name, y: cultivable_zone.net_surface_area.to_s.to_f, color: cycle(*theme_colors), url: backend_cultivable_zone_path(cultivable_zone) }
             end
+          end
 
-            series = []
-            series << {name: CultivableZone.model_name.human, data: cultivable_zones_serie, size: "80%"}
+          series = []
+          series << {name: CultivableZone.model_name.human, data: cultivable_zones_serie, size: "80%"}
 
-          = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.net_surface_area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
-        - else
-          = no_data
+        = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (resource.net_surface_area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
 
       - b.cell :map do
         - visualization do |v|

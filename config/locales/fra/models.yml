@@ -1369,6 +1369,7 @@ fra:
     production:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       name: "%{variant}/%{activity} %{campaign} (%{state})"
+      name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         aborted: "Annulée"
         draft: "Prévue"

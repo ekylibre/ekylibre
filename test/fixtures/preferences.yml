@@ -262,10 +262,10 @@ preferences_020:
   created_at: 2014-10-31 18:35:57.459730000 Z
   creator_id: 1
   id: 20
-  lock_version: 0
+  lock_version: 2
   name: interface.snippets.land_parcels.collapsed
   nature: boolean
-  updated_at: 2014-10-31 18:35:57.459730000 Z
+  updated_at: 2014-11-04 16:21:28.197900000 Z
   updater_id: 1
   user_id: 1
 preferences_021:
@@ -273,10 +273,10 @@ preferences_021:
   created_at: 2014-10-31 18:35:57.465917000 Z
   creator_id: 1
   id: 21
-  lock_version: 0
+  lock_version: 2
   name: interface.snippets.equipments.collapsed
   nature: boolean
-  updated_at: 2014-10-31 18:35:57.465917000 Z
+  updated_at: 2014-11-04 18:38:50.236427000 Z
   updater_id: 1
   user_id: 1
 preferences_022:
@@ -388,47 +388,47 @@ preferences_031:
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater_id: 1
 preferences_032:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator_id: 1
   id: 32
-  lock_version: 6
+  lock_version: 7
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2014-11-03 11:18:45.515914000 Z
+  updated_at: 2014-11-04 17:27:11.522949000 Z
   updater_id: 1
   user_id: 1
 preferences_033:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.789204000 Z
   creator_id: 1
   id: 33
-  lock_version: 2
+  lock_version: 3
   name: interface.snippets.people.collapsed
   nature: boolean
-  updated_at: 2014-11-01 20:15:41.046269000 Z
+  updated_at: 2014-11-04 17:27:12.979162000 Z
   updater_id: 1
   user_id: 1
 preferences_034:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.794739000 Z
   creator_id: 1
   id: 34
-  lock_version: 0
+  lock_version: 1
   name: interface.snippets.accountancy.collapsed
   nature: boolean
-  updated_at: 2014-10-31 18:36:11.794739000 Z
+  updated_at: 2014-11-04 17:27:13.926805000 Z
   updater_id: 1
   user_id: 1
 preferences_035:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.800229000 Z
   creator_id: 1
   id: 35
-  lock_version: 0
+  lock_version: 1
   name: interface.snippets.trade.collapsed
   nature: boolean
-  updated_at: 2014-10-31 18:36:11.800229000 Z
+  updated_at: 2014-11-04 17:27:15.010343000 Z
   updater_id: 1
   user_id: 1
 preferences_036:
@@ -1657,10 +1657,11 @@ preferences_146:
   created_at: 2014-11-01 18:45:25.729424000 Z
   creator_id: 1
   id: 146
-  lock_version: 0
+  lock_version: 1
   name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/productions/index.html.haml:1:0.default
   nature: string
-  updated_at: 2014-11-01 18:45:25.729424000 Z
+  string_value: ''
+  updated_at: 2014-11-04 18:22:19.870195000 Z
   updater_id: 1
   user_id: 1
 preferences_147:
@@ -1668,10 +1669,10 @@ preferences_147:
   created_at: 2014-11-01 18:45:25.748340000 Z
   creator_id: 1
   id: 147
-  lock_version: 0
+  lock_version: 4
   name: interface.kujakus.backend-productions-index-1.collapsed
   nature: boolean
-  updated_at: 2014-11-01 18:45:25.748340000 Z
+  updated_at: 2014-11-04 18:29:06.388693000 Z
   updater_id: 1
   user_id: 1
 preferences_148:
@@ -2027,5 +2028,49 @@ preferences_175:
   nature: string
   string_value: {}
   updated_at: 2014-11-03 13:21:58.149164000 Z
+  updater_id: 1
+  user_id: 1
+preferences_176:
+  created_at: 2014-11-04 15:25:14.900170000 Z
+  creator_id: 1
+  id: 176
+  lock_version: 0
+  name: list._documents_list_archives_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-04 15:25:14.900170000 Z
+  updater_id: 1
+  user_id: 1
+preferences_177:
+  created_at: 2014-11-04 15:25:30.619268000 Z
+  creator_id: 1
+  id: 177
+  lock_version: 0
+  name: list._activities_list_activities_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-04 15:25:30.619268000 Z
+  updater_id: 1
+  user_id: 1
+preferences_178:
+  created_at: 2014-11-04 18:14:19.286949000 Z
+  creator_id: 1
+  id: 178
+  lock_version: 0
+  name: list._campaigns_list_campaigns_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-04 18:14:19.286949000 Z
+  updater_id: 1
+  user_id: 1
+preferences_179:
+  created_at: 2014-11-04 18:29:58.684321000 Z
+  creator_id: 1
+  id: 179
+  lock_version: 0
+  name: list._animal_products_list_animal_products_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-04 18:29:58.684321000 Z
   updater_id: 1
   user_id: 1

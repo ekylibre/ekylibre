@@ -90,17 +90,17 @@ sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
   creator_id: 1
   id: 3
-  last_cweek: 44
+  last_cweek: 45
   last_month: 11
-  last_number: 23
+  last_number: 32
   last_year: 2014
-  lock_version: 25
+  lock_version: 34
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-02 18:38:47.147850000 Z
+  updated_at: 2014-11-04 18:41:16.413027000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -137,13 +137,17 @@ sequences_006:
   created_at: 2014-11-01 16:03:04.391388000 Z
   creator_id: 1
   id: 6
-  lock_version: 0
+  last_cweek: 45
+  last_month: 11
+  last_number: 1
+  last_year: 2014
+  lock_version: 1
   name: Campagne
   number_format: CAMP[number|4]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-01 16:03:04.391388000 Z
+  updated_at: 2014-11-04 15:26:29.110544000 Z
   updater_id: 1
   usage: campaigns
 sequences_007:
@@ -266,17 +270,17 @@ sequences_015:
   created_at: 2014-11-01 16:25:18.953891000 Z
   creator_id: 1
   id: 15
-  last_cweek: 44
+  last_cweek: 45
   last_month: 11
-  last_number: 7
+  last_number: 9
   last_year: 2014
-  lock_version: 8
+  lock_version: 10
   name: Intervention
   number_format: "[number]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-02 18:37:42.467998000 Z
+  updated_at: 2014-11-04 18:41:39.731486000 Z
   updater_id: 1
   usage: interventions
 sequences_016:
@@ -387,17 +391,17 @@ sequences_024:
   created_at: 2014-11-01 19:06:50.057606000 Z
   creator_id: 1
   id: 24
-  last_cweek: 44
+  last_cweek: 45
   last_month: 11
-  last_number: 14
+  last_number: 19
   last_year: 2014
-  lock_version: 14
+  lock_version: 19
   name: Variante de type de produit
   number_format: GWNVKRYVPNV[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-02 18:36:36.380242000 Z
+  updated_at: 2014-11-04 18:40:21.568359000 Z
   updater_id: 1
   usage: product_nature_variants
 sequences_025:

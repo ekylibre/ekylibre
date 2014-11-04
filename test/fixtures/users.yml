@@ -88,7 +88,7 @@ users_001:
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  email: gendo@nerv.jp
+  email: admin@ekylibre.org
   employed: true
   employment: ''
   encrypted_password: "$2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea"

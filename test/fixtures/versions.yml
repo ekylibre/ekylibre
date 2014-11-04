@@ -3009,3 +3009,1217 @@ versions_057:
     created_at: 2014-11-03 16:56:06.570291000 Z
     creator_id: 1
   item_type: Person
+versions_058:
+  created_at: 2014-11-04 15:29:49.206236000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 73
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 22
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 22
+    type: CultivableZone
+    name: La michardière
+    number: '32001'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC1
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: CultivableZone
+versions_059:
+  created_at: 2014-11-04 16:19:53.749609000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 74
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 24
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 24
+    type: CultivableZone
+    name: 'CultivableZone #3'
+    number: '32003'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: CultivableZone
+versions_060:
+  created_at: 2014-11-04 16:20:03.627315000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 75
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 22
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 22
+    type: CultivableZone
+    name: La michardière
+    number: '32001'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-04 15:29:49.307392000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC1
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: CultivableZone
+versions_061:
+  created_at: 2014-11-04 16:20:13.890301000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 76
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 25
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 25
+    type: CultivableZone
+    name: Zone cultivable 4
+    number: PR00000000020
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1972-04-24 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1972-04-24 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-02 18:33:01.548071000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8177894353866580 45.5943078511944009,
+        -0.8177626132965090 45.5939962959363001, -0.8178430795669560 45.5937673204872027,
+        -0.8168962597846980 45.5934848535846982, -0.8162477015139300 45.5944092001223993,
+        -0.8177894353866580 45.5943078511944009)))
+  item_type: CultivableZone
+versions_062:
+  created_at: 2014-11-04 16:21:13.106360000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 77
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 62
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 62
+    type: Plant
+    name: 'Plant #2'
+    number: '10002'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: plant
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Plant
+versions_063:
+  created_at: 2014-11-04 16:53:02.507694000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 78
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 23
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 23
+    type: CultivableZone
+    name: 'CultivableZone #2'
+    number: '32002'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: CultivableZone
+versions_064:
+  created_at: 2014-11-04 17:12:23.247694000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 79
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 80
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 80
+    type: CultivableZone
+    name: La Michardière
+    number: PR00000000024
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1974-05-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC1
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:12:23.238580000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7992875576019290 45.8255247100833998,
+        -0.7981717586517330 45.8259433837065018, -0.7971739768981930 45.8246574475615986,
+        -0.7962727546691890 45.8233789583431985, -0.7965946197509760 45.8217490289287994,
+        -0.7976460456848140 45.8210088158703002, -0.7985687255859381 45.8212032162121972,
+        -0.7995665073394780 45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
+  item_type: CultivableZone
+versions_065:
+  created_at: 2014-11-04 17:15:04.596198000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 80
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 81
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 81
+    type: CultivableZone
+    name: Le Margoulin
+    number: PR00000000025
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1965-01-22 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC0
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:15:04.591592000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7995691895484920 45.8210648929617008,
+        -0.8006769418716430 45.8208704921366987, -0.8016023039817810 45.8207901146742032,
+        -0.8015057444572450 45.8212873315344993, -0.8015513420104980 45.8215415459580981,
+        -0.8019107580184940 45.8223359585506032, -0.8020234107971190 45.8230051255386996,
+        -0.7994645833969120 45.8229752188059010, -0.7995691895484920 45.8210648929617008)))
+  item_type: CultivableZone
+versions_066:
+  created_at: 2014-11-04 17:17:04.662296000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 81
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 82
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 82
+    type: CultivableZone
+    name: Le Baltomire
+    number: PR00000000026
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1975-06-01 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC2
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:17:04.657670000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8010685443878170 45.8251546298839969,
+        -0.8017122745513910 45.8250686513037024, -0.8020234107971190 45.8230013871979978,
+        -0.7994592189788819 45.8229901721743005, -0.7993036508560180 45.8255060192231980,
+        -0.8003604412078860 45.8251322007020008, -0.8010685443878170 45.8251546298839969)))
+  item_type: CultivableZone
+versions_067:
+  created_at: 2014-11-04 17:19:31.124487000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 82
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 83
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 83
+    type: CultivableZone
+    name: La Crédanpouille
+    number: PR00000000027
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1983-12-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC3
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:19:31.120097000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7968091964721680 45.8269227686334020,
+        -0.7965195178985600 45.8257153564986979, -0.7953017950057980 45.8259060022610996,
+        -0.7943201065063480 45.8240368979821966, -0.7962405681610110 45.8235621355009997,
+        -0.7966804504394530 45.8240705424138000, -0.7975119352340700 45.8253078957195967,
+        -0.7980698347091670 45.8259471218497012, -0.7980912923812870 45.8262386962433013,
+        -0.7979893684387210 45.8264592450905965, -0.7977801561355590 45.8266349359198983,
+        -0.7968091964721680 45.8269227686334020)))
+  item_type: CultivableZone
+versions_068:
+  created_at: 2014-11-04 17:22:31.661911000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 83
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 84
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 84
+    type: CultivableZone
+    name: La Queue du Loup
+    number: PR00000000028
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1985-11-03 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC4
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:22:31.656517000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7962137460708620 45.8235247524564997,
+        -0.7961493730545040 45.8232967153415984, -0.7963210344314580 45.8224967088962032,
+        -0.7964658737182621 45.8218275357971976, -0.7967501878738400 45.8214948154526027,
+        -0.7974207401275630 45.8210910622515968, -0.7975333929061890 45.8209490002438002,
+        -0.7967501878738400 45.8206237516506008, -0.7962405681610110 45.8205601971057987,
+        -0.7951086759567260 45.8205938436384983, -0.7943952083587650 45.8206274901508976,
+        -0.7939231395721440 45.8206798291298014, -0.7934564352035520 45.8208069378735985,
+        -0.7928019762039180 45.8209377848067021, -0.7943308353424070 45.8240069918035999,
+        -0.7962137460708620 45.8235247524564997)))
+  item_type: CultivableZone
+versions_069:
+  created_at: 2014-11-04 17:25:11.327270000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 84
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: AnimalGroup
+    name: 'AnimalGroup #2'
+    number: '29002'
+    variant_id: 7
+    nature_id: 7
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_070:
+  created_at: 2014-11-04 17:25:14.516142000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 85
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 9
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    type: AnimalGroup
+    name: 'AnimalGroup #3'
+    number: '29003'
+    variant_id: 7
+    nature_id: 7
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_071:
+  created_at: 2014-11-04 17:28:40.068990000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 86
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 85
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 85
+    type: AnimalGroup
+    name: Troupeau de génisses A
+    number: PR00000000029
+    variant_id: 31
+    nature_id: 27
+    category_id: 16
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of: bos
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: TGA
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:28:40.064178000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_072:
+  created_at: 2014-11-04 17:32:29.146738000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 87
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 7
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 7
+    type: AnimalGroup
+    name: 'AnimalGroup #1'
+    number: '29001'
+    variant_id: 7
+    nature_id: 7
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_073:
+  created_at: 2014-11-04 17:32:45.769507000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 88
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 86
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 86
+    type: AnimalGroup
+    name: Troupeau de génisses B
+    number: PR00000000030
+    variant_id: 31
+    nature_id: 27
+    category_id: 16
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of: bos
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: TGB
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:32:45.765155000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_074:
+  created_at: 2014-11-04 18:38:59.527403000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 89
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 26
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 26
+    type: Equipment
+    name: Tractor
+    number: '16001'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: equipment
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_075:
+  created_at: 2014-11-04 18:39:03.486053000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 90
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 27
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 27
+    type: Equipment
+    name: Useless tractor
+    number: '16002'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: equipment
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_076:
+  created_at: 2014-11-04 18:39:06.807423000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 91
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 28
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 28
+    type: Equipment
+    name: Grinder
+    number: '16003'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: equipment
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_077:
+  created_at: 2014-11-04 18:39:58.306233000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 92
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 87
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 87
+    type: Equipment
+    name: Cultipacker CP360
+    number: PR00000000031
+    variant_id: 33
+    nature_id: 28
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 1992-01-17 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: plower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-04 18:39:58.300986000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_078:
+  created_at: 2014-11-04 18:41:16.420412000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 93
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 88
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 88
+    type: Equipment
+    name: Bineuse BIN3+
+    number: PR00000000032
+    variant_id: 34
+    nature_id: 29
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 1997-09-22 12:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: plower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 18:41:16.415301000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_079:
+  created_at: 2014-11-04 18:41:24.701385000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 94
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 88
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 88
+    type: Equipment
+    name: Bineuse BIN3+
+    number: PR00000000032
+    variant_id: 34
+    nature_id: 29
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 1997-09-22 12:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 19
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: plower
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1997-09-22 12:30:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 19
+    created_at: 2014-11-04 18:41:16.415301000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment

@@ -259,6 +259,106 @@ product_births_022:
   type: ProductBirth
   updated_at: 2014-11-02 18:37:22.425817000 Z
   updater_id: 1
+product_births_023:
+  created_at: 2014-11-04 15:29:49.309419000 Z
+  creator_id: 1
+  id: 38
+  lock_version: 0
+  started_at: 2014-11-04 15:29:49.307392000 Z
+  stopped_at: 2014-11-04 15:29:49.307392000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 15:29:49.309419000 Z
+  updater_id: 1
+product_births_024:
+  created_at: 2014-11-04 17:12:23.406569000 Z
+  creator_id: 1
+  id: 39
+  lock_version: 0
+  started_at: 1974-05-11 23:00:00.000000000 Z
+  stopped_at: 1974-05-11 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:12:23.406569000 Z
+  updater_id: 1
+product_births_025:
+  created_at: 2014-11-04 17:15:04.629128000 Z
+  creator_id: 1
+  id: 40
+  lock_version: 0
+  started_at: 1965-01-22 23:00:00.000000000 Z
+  stopped_at: 1965-01-22 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:15:04.629128000 Z
+  updater_id: 1
+product_births_026:
+  created_at: 2014-11-04 17:17:04.694776000 Z
+  creator_id: 1
+  id: 41
+  lock_version: 0
+  started_at: 1975-06-01 23:00:00.000000000 Z
+  stopped_at: 1975-06-01 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:17:04.694776000 Z
+  updater_id: 1
+product_births_027:
+  created_at: 2014-11-04 17:19:31.156210000 Z
+  creator_id: 1
+  id: 42
+  lock_version: 0
+  started_at: 1983-12-11 23:00:00.000000000 Z
+  stopped_at: 1983-12-11 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:19:31.156210000 Z
+  updater_id: 1
+product_births_028:
+  created_at: 2014-11-04 17:22:31.696214000 Z
+  creator_id: 1
+  id: 43
+  lock_version: 0
+  started_at: 1985-11-03 23:00:00.000000000 Z
+  stopped_at: 1985-11-03 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:22:31.696214000 Z
+  updater_id: 1
+product_births_029:
+  created_at: 2014-11-04 17:28:40.090862000 Z
+  creator_id: 1
+  id: 44
+  lock_version: 0
+  started_at: 2014-11-04 17:28:40.089209000 Z
+  stopped_at: 2014-11-04 17:28:40.089209000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:28:40.090862000 Z
+  updater_id: 1
+product_births_030:
+  created_at: 2014-11-04 17:32:46.000121000 Z
+  creator_id: 1
+  id: 45
+  lock_version: 0
+  started_at: 2014-11-04 17:32:45.997952000 Z
+  stopped_at: 2014-11-04 17:32:45.997952000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 17:32:46.000121000 Z
+  updater_id: 1
+product_births_031:
+  created_at: 2014-11-04 18:39:58.391709000 Z
+  creator_id: 1
+  id: 46
+  lock_version: 0
+  started_at: 1992-01-17 23:00:00.000000000 Z
+  stopped_at: 1992-01-17 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 18:39:58.391709000 Z
+  updater_id: 1
+product_births_032:
+  created_at: 2014-11-04 18:41:16.446680000 Z
+  creator_id: 1
+  id: 47
+  lock_version: 0
+  started_at: 1997-09-22 12:30:00.000000000 Z
+  stopped_at: 1997-09-22 12:30:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-04 18:41:16.446680000 Z
+  updater_id: 1
 product_consumptions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -275,17 +375,6 @@ product_consumptions_002:
   type: ProductConsumption
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-product_consumptions_003:
-  created_at: 2014-11-02 18:38:47.519907000 Z
-  creator_id: 1
-  id: 25
-  lock_version: 0
-  operation_id: 7
-  started_at: 2014-11-02 04:43:00.000000000 Z
-  stopped_at: 2014-11-02 11:06:30.000000000 Z
-  type: ProductConsumption
-  updated_at: 2014-11-02 18:38:47.519907000 Z
-  updater_id: 1
 product_creations_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -301,17 +390,6 @@ product_creations_002:
   lock_version: 0
   type: ProductCreation
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_creations_003:
-  created_at: 2014-11-02 18:38:47.566866000 Z
-  creator_id: 1
-  id: 28
-  lock_version: 0
-  operation_id: 7
-  started_at: 2014-11-02 04:43:00.000000000 Z
-  stopped_at: 2014-11-02 11:06:30.000000000 Z
-  type: ProductCreation
-  updated_at: 2014-11-02 18:38:47.566866000 Z
   updater_id: 1
 product_deaths_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -344,17 +422,6 @@ product_divisions_002:
   lock_version: 0
   type: ProductDivision
   updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_divisions_003:
-  created_at: 2014-11-02 18:38:47.219767000 Z
-  creator_id: 1
-  id: 33
-  lock_version: 0
-  operation_id: 7
-  started_at: 2014-11-02 04:43:00.000000000 Z
-  stopped_at: 2014-11-02 11:06:30.000000000 Z
-  type: ProductDivision
-  updated_at: 2014-11-02 18:38:47.219767000 Z
   updater_id: 1
 product_mergings_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

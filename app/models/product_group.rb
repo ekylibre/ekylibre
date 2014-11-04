@@ -67,8 +67,8 @@
 class ProductGroup < Product
   enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: {prefix: true}
   belongs_to :parent, class_name: "ProductGroup"
-  has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id
-  has_many :members, :through => :memberships
+  has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id, dependent: :destroy
+  has_many :members, through: :memberships
 
   scope :groups_of, lambda { |member, viewed_at|
     where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, "interior", viewed_at, viewed_at, viewed_at)

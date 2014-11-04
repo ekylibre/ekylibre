@@ -153,7 +153,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     else
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
         editor[:view] = {center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
-      else zone = CultivableZone.first
+      elsif zone = CultivableZone.first
         editor[:view] = {center: zone.shape_centroid}
       end
     end

@@ -190,56 +190,43 @@ animals_006:
   variety: bos
   work_number: '1526'
 animal_groups_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  born_at: 2014-11-04 17:28:40.089209000 Z
+  category_id: 16
+  created_at: 2014-11-04 17:28:40.064178000 Z
   creator_id: 1
+  derivative_of: bos
+  description: ''
   extjuncted: false
-  id: 7
-  initial_population: 0.0
+  id: 85
   lock_version: 0
-  name: 'AnimalGroup #1'
-  nature_id: 7
-  number: '29001'
-  parent_id: 65
+  name: Troupeau de génisses A
+  nature_id: 27
+  number: PR00000000029
   type: AnimalGroup
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-04 17:28:40.064178000 Z
   updater_id: 1
-  variant_id: 7
+  variant_id: 31
   variety: animal_group
+  work_number: TGA
 animal_groups_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  born_at: 2014-11-04 17:32:45.997952000 Z
+  category_id: 16
+  created_at: 2014-11-04 17:32:45.765155000 Z
   creator_id: 1
+  derivative_of: bos
+  description: ''
   extjuncted: false
-  id: 8
-  initial_population: 0.0
+  id: 86
   lock_version: 0
-  name: 'AnimalGroup #2'
-  nature_id: 7
-  number: '29002'
-  parent_id: 65
+  name: Troupeau de génisses B
+  nature_id: 27
+  number: PR00000000030
   type: AnimalGroup
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-04 17:32:45.765155000 Z
   updater_id: 1
-  variant_id: 7
+  variant_id: 31
   variety: animal_group
-animal_groups_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 9
-  initial_population: 0.0
-  lock_version: 0
-  name: 'AnimalGroup #3'
-  nature_id: 7
-  number: '29003'
-  parent_id: 65
-  type: AnimalGroup
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 7
-  variety: animal_group
+  work_number: TGB
 buildings_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -459,128 +446,123 @@ building_divisions_007:
   variant_id: 15
   variety: building_division
 cultivable_zones_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 22
-  initial_population: 0.0
-  lock_version: 0
-  name: 'CultivableZone #1'
-  nature_id: 1
-  number: '32001'
-  parent_id: 65
-  type: CultivableZone
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: cultivable_zone
-cultivable_zones_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 23
-  initial_population: 0.0
-  lock_version: 0
-  name: 'CultivableZone #2'
-  nature_id: 1
-  number: '32002'
-  parent_id: 65
-  type: CultivableZone
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: cultivable_zone
-cultivable_zones_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 24
-  initial_population: 0.0
-  lock_version: 0
-  name: 'CultivableZone #3'
-  nature_id: 1
-  number: '32003'
-  parent_id: 65
-  type: CultivableZone
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: cultivable_zone
-cultivable_zones_004:
-  born_at: 1972-04-24 23:00:00.000000000 Z
+  born_at: 1974-05-11 23:00:00.000000000 Z
   category_id: 15
-  created_at: 2014-11-02 18:33:01.548071000 Z
+  created_at: 2014-11-04 17:12:23.238580000 Z
   creator_id: 1
   description: ''
   extjuncted: false
-  id: 25
-  initial_born_at: 1972-04-24 23:00:00.000000000 Z
-  initial_population: 0.0
-  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.817789435386658 45.5943078511944,-0.817762613296509
-    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
-    45.5944092001224,-0.817789435386658 45.5943078511944)))
+  id: 80
+  initial_born_at: 1974-05-11 23:00:00.000000000 Z
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
   lock_version: 0
-  name: Zone cultivable 4
+  name: La Michardière
   nature_id: 24
-  number: PR00000000020
+  number: PR00000000024
   type: CultivableZone
-  updated_at: 2014-11-02 18:33:01.548071000 Z
+  updated_at: 2014-11-04 17:12:23.238580000 Z
   updater_id: 1
   variant_id: 28
   variety: cultivable_zone
-  work_number: ''
+  work_number: ZC1
+cultivable_zones_002:
+  born_at: 1965-01-22 23:00:00.000000000 Z
+  category_id: 15
+  created_at: 2014-11-04 17:15:04.591592000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 81
+  initial_born_at: 1965-01-22 23:00:00.000000000 Z
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.799569189548492 45.8210648929617,-0.800676941871643
+    45.8208704921367,-0.801602303981781 45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498
+    45.8215415459581,-0.801910758018494 45.8223359585506,-0.802023410797119 45.8230051255387,-0.799464583396912
+    45.8229752188059,-0.799569189548492 45.8210648929617)))
+  lock_version: 0
+  name: Le Margoulin
+  nature_id: 24
+  number: PR00000000025
+  type: CultivableZone
+  updated_at: 2014-11-04 17:15:04.591592000 Z
+  updater_id: 1
+  variant_id: 28
+  variety: cultivable_zone
+  work_number: ZC0
+cultivable_zones_003:
+  born_at: 1975-06-01 23:00:00.000000000 Z
+  category_id: 15
+  created_at: 2014-11-04 17:17:04.657670000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 82
+  initial_born_at: 1975-06-01 23:00:00.000000000 Z
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.801068544387817 45.825154629884,-0.801712274551391
+    45.8250686513037,-0.802023410797119 45.823001387198,-0.799459218978882 45.8229901721743,-0.799303650856018
+    45.8255060192232,-0.800360441207886 45.825132200702,-0.801068544387817 45.825154629884)))
+  lock_version: 0
+  name: Le Baltomire
+  nature_id: 24
+  number: PR00000000026
+  type: CultivableZone
+  updated_at: 2014-11-04 17:17:04.657670000 Z
+  updater_id: 1
+  variant_id: 28
+  variety: cultivable_zone
+  work_number: ZC2
+cultivable_zones_004:
+  born_at: 1983-12-11 23:00:00.000000000 Z
+  category_id: 15
+  created_at: 2014-11-04 17:19:31.120097000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 83
+  initial_born_at: 1983-12-11 23:00:00.000000000 Z
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  lock_version: 0
+  name: La Crédanpouille
+  nature_id: 24
+  number: PR00000000027
+  type: CultivableZone
+  updated_at: 2014-11-04 17:19:31.120097000 Z
+  updater_id: 1
+  variant_id: 28
+  variety: cultivable_zone
+  work_number: ZC3
+cultivable_zones_005:
+  born_at: 1985-11-03 23:00:00.000000000 Z
+  category_id: 15
+  created_at: 2014-11-04 17:22:31.656517000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 84
+  initial_born_at: 1985-11-03 23:00:00.000000000 Z
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  lock_version: 0
+  name: La Queue du Loup
+  nature_id: 24
+  number: PR00000000028
+  type: CultivableZone
+  updated_at: 2014-11-04 17:22:31.656517000 Z
+  updater_id: 1
+  variant_id: 28
+  variety: cultivable_zone
+  work_number: ZC4
 equipments_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 26
-  initial_population: 0.0
-  lock_version: 0
-  name: Tractor
-  nature_id: 1
-  number: '16001'
-  type: Equipment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: equipment
-equipments_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 27
-  initial_population: 0.0
-  lock_version: 0
-  name: Useless tractor
-  nature_id: 1
-  number: '16002'
-  type: Equipment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: equipment
-equipments_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 28
-  initial_population: 0.0
-  lock_version: 0
-  name: Grinder
-  nature_id: 1
-  number: '16003'
-  type: Equipment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: equipment
-equipments_004:
   born_at: 2002-12-14 23:00:00.000000000 Z
   category_id: 14
   created_at: 2014-11-02 18:22:30.483623000 Z
@@ -599,7 +581,7 @@ equipments_004:
   updater_id: 1
   variant_id: 26
   variety: tractor
-equipments_005:
+equipments_002:
   born_at: 2007-08-22 22:00:00.000000000 Z
   category_id: 14
   created_at: 2014-11-02 18:23:23.650907000 Z
@@ -618,7 +600,7 @@ equipments_005:
   updater_id: 1
   variant_id: 25
   variety: plower
-equipments_006:
+equipments_003:
   born_at: 2005-09-14 22:00:00.000000000 Z
   category_id: 14
   created_at: 2014-11-02 18:29:41.469233000 Z
@@ -637,7 +619,7 @@ equipments_006:
   updater_id: 1
   variant_id: 27
   variety: plower
-equipments_007:
+equipments_004:
   born_at: 1997-01-22 23:00:00.000000000 Z
   category_id: 14
   created_at: 2014-11-02 18:37:22.384578000 Z
@@ -658,6 +640,46 @@ equipments_007:
   updater_id: 1
   variant_id: 29
   variety: sower
+equipments_005:
+  born_at: 1992-01-17 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-04 18:39:58.300986000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 87
+  initial_born_at: 1992-01-17 23:00:00.000000000 Z
+  initial_container_id: 21
+  lock_version: 0
+  name: Cultipacker CP360
+  nature_id: 28
+  number: PR00000000031
+  type: Equipment
+  updated_at: 2014-11-04 18:39:58.300986000 Z
+  updater_id: 1
+  variant_id: 33
+  variety: plower
+equipments_006:
+  born_at: 1997-09-22 12:30:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-04 18:41:16.415301000 Z
+  creator_id: 1
+  default_storage_id: 19
+  description: ''
+  extjuncted: false
+  id: 88
+  initial_born_at: 1997-09-22 12:30:00.000000000 Z
+  initial_container_id: 19
+  lock_version: 1
+  name: Bineuse BIN3+
+  nature_id: 29
+  number: PR00000000032
+  type: Equipment
+  updated_at: 2014-11-04 18:41:24.697151000 Z
+  updater_id: 1
+  variant_id: 34
+  variety: plower
 fungi_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -1122,11 +1144,9 @@ matters_013:
   variant_id: 21
   variety: packaged_matter
 matters_014:
-  born_at: 2014-11-02 11:06:30.000000000 Z
   category_id: 5
   created_at: 2014-11-02 18:38:47.081597000 Z
   creator_id: 1
-  dead_at: 2014-11-02 11:06:30.000000000 Z
   default_storage_id: 20
   derivative_of: triticum_aestivum_rubisko
   extjuncted: true
@@ -1165,23 +1185,6 @@ plants_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   extjuncted: false
-  id: 62
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Plant #2'
-  nature_id: 1
-  number: '10002'
-  parent_id: 65
-  type: Plant
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: plant
-plants_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
   id: 63
   initial_population: 0.0
   lock_version: 0
@@ -1194,8 +1197,7 @@ plants_003:
   updater_id: 1
   variant_id: 1
   variety: plant
-plants_004:
-  born_at: 2014-11-02 11:06:30.000000000 Z
+plants_003:
   category_id: 8
   created_at: 2014-11-02 18:38:47.150196000 Z
   creator_id: 1
