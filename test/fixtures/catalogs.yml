@@ -53,26 +53,56 @@
 catalogs_001:
   all_taxes_included: false
   by_default: true
-  code: DEFAULT
+  code: PROEUR
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  description: ''
   id: 1
-  lock_version: 0
-  name: Default
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  lock_version: 6
+  name: Catalogue Pro Europe
+  updated_at: 2014-11-05 09:36:48.608936000 Z
   updater_id: 1
   usage: sale
 catalogs_002:
   all_taxes_included: false
   by_default: false
-  code: DEFTODEL
+  code: PROASI
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  currency: EUR
+  currency: CNY
+  description: ''
   id: 2
+  lock_version: 3
+  name: Catalogue Pro Asie
+  updated_at: 2014-11-05 09:41:48.113850000 Z
+  updater_id: 1
+  usage: sale
+catalogs_003:
+  all_taxes_included: false
+  by_default: true
+  code: USAGE
+  created_at: 2014-11-05 09:35:40.419229000 Z
+  creator_id: 1
+  currency: EUR
+  description: Utilisé pour estimer les coûts matériels.
+  id: 3
   lock_version: 0
-  name: Default to delete
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  name: Prix d'usage
+  updated_at: 2014-11-05 09:35:40.419229000 Z
+  updater_id: 1
+  usage: cost
+catalogs_004:
+  all_taxes_included: false
+  by_default: false
+  code: PRONAM
+  created_at: 2014-11-05 09:37:30.560702000 Z
+  creator_id: 1
+  currency: USD
+  description: ''
+  id: 4
+  lock_version: 0
+  name: Catalogue Pro Amérique du Nord
+  updated_at: 2014-11-05 09:37:30.560702000 Z
   updater_id: 1
   usage: sale

@@ -46,6 +46,7 @@
 require 'test_helper'
 
 class CustomFieldTest < ActiveSupport::TestCase
+  test_fixtures
 
   for model in Ekylibre::Record::Base.descendants
     test "manage custom field on #{model.name.underscore}" do

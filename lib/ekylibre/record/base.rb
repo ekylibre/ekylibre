@@ -166,17 +166,21 @@ module Ekylibre::Record
       def attr_readonly_with_conditions(*args)
         options = args.extract_options!
         return attr_readonly_without_conditions(*args) unless options[:if]
-        method_name = "readonly_#{@@readonly_counter+=1}?"
-        self.send(:define_method, method_name, options[:if])
-        code = ""
-        code += "before_update do\n"
-        code += "  if self.#{method_name}(#{'self' if options[:if].arity>0})\n"
-        code += "    old = self.class.find(self.id)\n"
-        for attribute in args
-          code += "  self['#{attribute}'] = old['#{attribute}']\n"
+        if options[:if].is_a?(Symbol)
+          method_name = options[:if]
+        else
+          method_name = "readonly_#{@@readonly_counter+=1}?"
+          self.send(:define_method, method_name, options[:if])
         end
-        code += "  end\n"
-        code += "end\n"
+        code = ""
+        code << "before_update do\n"
+        code << "  if self.#{method_name}\n"
+        code << "    old = #{self.name}.find(self.id)\n"
+        for attribute in args
+          code << "  self['#{attribute}'] = old['#{attribute}']\n"
+        end
+        code << "  end\n"
+        code << "end\n"
         class_eval code
       end
       alias_method_chain :attr_readonly, :conditions

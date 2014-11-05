@@ -46,9 +46,5 @@
 require 'test_helper'
 
 class ProductNatureVariantReadingTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, ProductNatureVariantReading.count
-  end
-
+  test_fixtures
 end

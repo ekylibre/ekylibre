@@ -61,127 +61,59 @@
 #
 ---
 purchase_items_001:
-  account_id: 1
-  amount: 10.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  account_id: 140
+  amount: 126.0
+  created_at: 2014-11-05 10:44:42.253242000 Z
   creator_id: 1
   currency: EUR
-  id: 1
-  indicator_name: population
-  lock_version: 0
-  pretax_amount: 0.0
-  purchase_id: 1
-  quantity: 1.0
-  tax_id: 1
-  unit_price_amount: 5.0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-purchase_items_002:
-  account_id: 1
-  amount: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 2
-  indicator_name: population
-  lock_version: 0
-  pretax_amount: 0.0
-  purchase_id: 1
-  quantity: 2.0
-  tax_id: 1
-  unit_price_amount: 5.0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-purchase_items_003:
-  account_id: 1
-  amount: 77.74
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 3
-  indicator_name: population
-  label: Generic Product Variant
-  lock_version: 1
-  pretax_amount: 65.0
-  purchase_id: 2
-  quantity: 13.0
-  tax_id: 1
-  unit_price_amount: 5.0
-  updated_at: 2014-11-01 19:48:20.053949000 Z
-  updater_id: 1
-  variant_id: 1
-purchase_items_004:
-  account_id: 1
-  amount: 10.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 4
-  indicator_name: population
-  lock_version: 0
-  pretax_amount: 10.0
-  purchase_id: 3
-  quantity: 7.0
-  tax_id: 1
-  unit_price_amount: 5.0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-purchase_items_005:
-  account_id: 1
-  amount: 53.82
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 5
+  id: 8
   indicator_name: population
   label: Adexar 5 l
-  lock_version: 1
-  pretax_amount: 45.0
-  purchase_id: 3
-  quantity: 9.0
-  tax_id: 1
-  unit_price_amount: 5.0
-  updated_at: 2014-11-01 20:01:04.602927000 Z
+  lock_version: 0
+  position: 1
+  pretax_amount: 105.0
+  purchase_id: 6
+  quantity: 3.0
+  tax_id: 3
+  unit_price_amount: 35.0
+  updated_at: 2014-11-05 10:44:42.253242000 Z
   updater_id: 1
   variant_id: 8
-purchase_items_006:
-  account_id: 11
-  amount: 6458.4
-  created_at: 2014-11-01 19:44:07.661108000 Z
+purchase_items_002:
+  account_id: 47
+  amount: 1850.0
+  created_at: 2014-11-05 10:46:06.137764000 Z
   creator_id: 1
   currency: USD
-  id: 6
+  id: 9
   indicator_name: population
-  label: Vache
+  label: Broyeur
   lock_version: 0
   position: 1
-  pretax_amount: 5400.0
-  purchase_id: 5
-  quantity: 3.0
-  tax_id: 1
-  unit_price_amount: 1800.0
-  updated_at: 2014-11-01 19:44:07.661108000 Z
+  pretax_amount: 1850.0
+  purchase_id: 7
+  quantity: 1.0
+  tax_id: 2
+  unit_price_amount: 1850.0
+  updated_at: 2014-11-05 10:46:06.137764000 Z
   updater_id: 1
-  variant_id: 17
-purchase_items_007:
-  account_id: 154
-  amount: 592.02
-  created_at: 2014-11-01 19:46:24.839459000 Z
+  variant_id: 25
+purchase_items_003:
+  account_id: 16
+  amount: 45.6
+  created_at: 2014-11-05 13:40:18.865125000 Z
   creator_id: 1
-  currency: USD
-  id: 7
+  currency: EUR
+  id: 10
   indicator_name: population
-  label: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  label: Riflexine
   lock_version: 0
-  position: 1
-  pretax_amount: 495.0
-  purchase_id: 4
-  quantity: 11.0
-  tax_id: 1
-  unit_price_amount: 45.0
-  updated_at: 2014-11-01 19:46:24.839459000 Z
+  position: 2
+  pretax_amount: 38.0
+  purchase_id: 6
+  quantity: 10.0
+  tax_id: 3
+  unit_price_amount: 3.8
+  updated_at: 2014-11-05 13:40:18.865125000 Z
   updater_id: 1
-  variant_id: 11
+  variant_id: 22

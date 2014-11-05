@@ -41,5 +41,5 @@
 require 'test_helper'
 
 class IncomingDeliveryItemTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

@@ -135,3 +135,55 @@ events_007:
   stopped_at: 2012-10-04 17:50:00.000000000 Z
   updated_at: 2014-11-04 18:41:39.735286000 Z
   updater_id: 1
+events_008:
+  created_at: 2014-11-05 09:52:05.595487000 Z
+  creator_id: 1
+  duration: 10
+  id: 15
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 09:52:05.582501000 Z
+  stopped_at: 2014-11-05 09:52:15.582501000 Z
+  updated_at: 2014-11-05 09:52:05.595487000 Z
+  updater_id: 1
+events_009:
+  created_at: 2014-11-05 10:01:39.898552000 Z
+  creator_id: 1
+  duration: 10
+  id: 16
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 10:01:39.885292000 Z
+  stopped_at: 2014-11-05 10:01:49.885292000 Z
+  updated_at: 2014-11-05 10:01:39.898552000 Z
+  updater_id: 1
+events_010:
+  created_at: 2014-11-05 10:03:05.995952000 Z
+  creator_id: 1
+  duration: 10
+  id: 17
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 10:03:05.989373000 Z
+  stopped_at: 2014-11-05 10:03:15.989373000 Z
+  updated_at: 2014-11-05 10:03:05.995952000 Z
+  updater_id: 1
+events_011:
+  created_at: 2014-11-05 13:36:09.002362000 Z
+  creator_id: 1
+  duration: 10
+  id: 18
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 13:36:08.985183000 Z
+  stopped_at: 2014-11-05 13:36:18.985183000 Z
+  updated_at: 2014-11-05 13:36:09.002362000 Z
+  updater_id: 1

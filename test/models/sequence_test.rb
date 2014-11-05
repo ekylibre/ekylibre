@@ -44,5 +44,5 @@
 require 'test_helper'
 
 class SequenceTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

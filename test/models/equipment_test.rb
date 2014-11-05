@@ -67,5 +67,5 @@
 require 'test_helper'
 
 class EquipmentTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

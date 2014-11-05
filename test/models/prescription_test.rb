@@ -37,9 +37,5 @@
 require 'test_helper'
 
 class PrescriptionTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Prescription.count
-  end
-
+  test_fixtures
 end

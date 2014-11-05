@@ -65,9 +65,5 @@
 require 'test_helper'
 
 class SettlementTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Settlement.count
-  end
-
+  test_fixtures
 end

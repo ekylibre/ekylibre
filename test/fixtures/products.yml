@@ -114,40 +114,6 @@ animals_002:
   variant_id: 1
   variety: gallus
 animals_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 3
-  identification_number: A7004
-  initial_population: 0.0
-  lock_version: 0
-  name: Marguerite
-  nature_id: 1
-  number: '7004'
-  type: Animal
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 5
-  variety: bos
-animals_004:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 4
-  identification_number: A7005
-  initial_population: 0.0
-  lock_version: 0
-  name: Hélico
-  nature_id: 1
-  number: '7005'
-  type: Animal
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 5
-  variety: bos
-animals_005:
   born_at: 2012-02-01 04:25:00.000000000 Z
   category_id: 9
   created_at: 2014-11-01 19:29:58.088036000 Z
@@ -168,7 +134,7 @@ animals_005:
   variant_id: 17
   variety: bos_taurus_limousine
   work_number: '8746'
-animals_006:
+animals_004:
   born_at: 2005-01-03 09:45:00.000000000 Z
   category_id: 9
   created_at: 2014-11-01 19:35:50.372083000 Z
@@ -198,6 +164,7 @@ animal_groups_001:
   description: ''
   extjuncted: false
   id: 85
+  initial_population: 0.0
   lock_version: 0
   name: Troupeau de génisses A
   nature_id: 27
@@ -217,6 +184,7 @@ animal_groups_002:
   description: ''
   extjuncted: false
   id: 86
+  initial_population: 0.0
   lock_version: 0
   name: Troupeau de génisses B
   nature_id: 27
@@ -316,73 +284,6 @@ buildings_005:
   variety: building
   work_number: '123123'
 building_divisions_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 15
-  initial_population: 0.0
-  lock_version: 0
-  name: 'BuildingDivision #1'
-  nature_id: 1
-  number: '28001'
-  parent_id: 65
-  type: BuildingDivision
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: building_division
-building_divisions_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 16
-  initial_population: 0.0
-  lock_version: 0
-  name: 'BuildingDivision #2'
-  nature_id: 1
-  number: '28002'
-  parent_id: 65
-  type: BuildingDivision
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: building_division
-building_divisions_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 17
-  initial_population: 0.0
-  lock_version: 0
-  name: 'BuildingDivision #3'
-  nature_id: 1
-  number: '28003'
-  parent_id: 65
-  type: BuildingDivision
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: building_division
-building_divisions_004:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 18
-  initial_population: 0.0
-  lock_version: 0
-  name: 'BuildingDivision #4'
-  nature_id: 6
-  number: '28004'
-  type: BuildingDivision
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 6
-  variety: building_division
-building_divisions_005:
   born_at: 1979-03-02 05:30:00.000000000 Z
   category_id: 7
   created_at: 2014-10-31 20:18:12.218328000 Z
@@ -403,7 +304,7 @@ building_divisions_005:
   updater_id: 1
   variant_id: 13
   variety: building_division
-building_divisions_006:
+building_divisions_002:
   born_at: 1980-01-31 04:45:00.000000000 Z
   category_id: 7
   created_at: 2014-10-31 20:23:26.762717000 Z
@@ -425,7 +326,7 @@ building_divisions_006:
   updater_id: 1
   variant_id: 14
   variety: building_division
-building_divisions_007:
+building_divisions_003:
   born_at: 2014-10-31 20:25:41.475254000 Z
   category_id: 7
   created_at: 2014-10-31 20:25:41.454096000 Z
@@ -454,6 +355,7 @@ cultivable_zones_001:
   extjuncted: false
   id: 80
   initial_born_at: 1974-05-11 23:00:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.799287557601929 45.8255247100834,-0.798171758651733
     45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
     45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
@@ -477,6 +379,7 @@ cultivable_zones_002:
   extjuncted: false
   id: 81
   initial_born_at: 1965-01-22 23:00:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.799569189548492 45.8210648929617,-0.800676941871643
     45.8208704921367,-0.801602303981781 45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498
     45.8215415459581,-0.801910758018494 45.8223359585506,-0.802023410797119 45.8230051255387,-0.799464583396912
@@ -500,6 +403,7 @@ cultivable_zones_003:
   extjuncted: false
   id: 82
   initial_born_at: 1975-06-01 23:00:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.801068544387817 45.825154629884,-0.801712274551391
     45.8250686513037,-0.802023410797119 45.823001387198,-0.799459218978882 45.8229901721743,-0.799303650856018
     45.8255060192232,-0.800360441207886 45.825132200702,-0.801068544387817 45.825154629884)))
@@ -522,6 +426,7 @@ cultivable_zones_004:
   extjuncted: false
   id: 83
   initial_born_at: 1983-12-11 23:00:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796809196472168 45.8269227686334,-0.79651951789856
     45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
     45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
@@ -546,6 +451,7 @@ cultivable_zones_005:
   extjuncted: false
   id: 84
   initial_born_at: 1985-11-03 23:00:00.000000000 Z
+  initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796213746070862 45.8235247524565,-0.796149373054504
     45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
     45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
@@ -651,6 +557,7 @@ equipments_005:
   id: 87
   initial_born_at: 1992-01-17 23:00:00.000000000 Z
   initial_container_id: 21
+  initial_population: 0.0
   lock_version: 0
   name: Cultipacker CP360
   nature_id: 28
@@ -671,6 +578,7 @@ equipments_006:
   id: 88
   initial_born_at: 1997-09-22 12:30:00.000000000 Z
   initial_container_id: 19
+  initial_population: 0.0
   lock_version: 1
   name: Bineuse BIN3+
   nature_id: 29

@@ -70,6 +70,7 @@ class CatalogPrice < Ekylibre::Record::Base
   delegate :usage, to: :catalog
 
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+  scope :actives, -> { actives_at(Time.now) }
 
   scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 

@@ -41,4 +41,5 @@
 require 'test_helper'
 
 class BankStatementTest < ActiveSupport::TestCase
+  test_fixtures
 end

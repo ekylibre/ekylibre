@@ -69,10 +69,10 @@ product_reading_tasks_001:
   creator_id: 1
   id: 1
   indicator_datatype: measure
-  indicator_name: temperature
+  indicator_name: net_mass
   lock_version: 0
-  measure_value_unit: celsius
-  measure_value_value: 37.0
+  measure_value_unit: kilogram
+  measure_value_value: 537.0
   product_id: 2
   started_at: 2009-07-19 15:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z

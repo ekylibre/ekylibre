@@ -4223,3 +4223,403 @@ versions_079:
     person_id:
     initial_shape:
   item_type: Equipment
+versions_080:
+  created_at: 2014-11-05 09:14:00.843340000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 95
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 4
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    type: Animal
+    name: Hélico
+    number: '7005'
+    variant_id: 5
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: bos
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: A7005
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Animal
+versions_081:
+  created_at: 2014-11-05 09:14:05.524619000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 96
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 3
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    type: Animal
+    name: Marguerite
+    number: '7004'
+    variant_id: 5
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: bos
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: A7004
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Animal
+versions_082:
+  created_at: 2014-11-05 09:19:17.264356000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 97
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 18
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 18
+    type: BuildingDivision
+    name: 'BuildingDivision #4'
+    number: '28004'
+    variant_id: 6
+    nature_id: 6
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: BuildingDivision
+versions_083:
+  created_at: 2014-11-05 09:20:13.196015000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 98
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 15
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 15
+    type: BuildingDivision
+    name: 'BuildingDivision #1'
+    number: '28001'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: BuildingDivision
+versions_084:
+  created_at: 2014-11-05 09:20:16.436495000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 99
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 16
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 16
+    type: BuildingDivision
+    name: 'BuildingDivision #2'
+    number: '28002'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: BuildingDivision
+versions_085:
+  created_at: 2014-11-05 09:20:19.802403000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 100
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 17
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 17
+    type: BuildingDivision
+    name: 'BuildingDivision #3'
+    number: '28003'
+    variant_id: 1
+    nature_id: 1
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id: 65
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: BuildingDivision
+versions_086:
+  created_at: 2014-11-05 10:01:10.923532000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 101
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    type:
+    nature: cooperative
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: '123456789'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+  item_type: Entity
+versions_087:
+  created_at: 2014-11-05 11:32:36.959099000 Z
+  event: destroy
+  id: 102
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    target_id: 3
+    target_type: Animal
+    nature: mammite
+    observed_at: 2009-07-19 15:13:59.000000000 Z
+    priority: 2
+    gravity:
+    state: opened
+    name: Mammite on Marguerite
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Issue
+versions_088:
+  created_at: 2014-11-05 11:32:37.049627000 Z
+  event: destroy
+  id: 103
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 2
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 2
+    target_id: 3
+    target_type: Animal
+    nature: mammite
+    observed_at: 2009-07-19 15:13:59.000000000 Z
+    priority: 2
+    gravity:
+    state: opened
+    name: Mammite on Marguerite
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Issue
+versions_089:
+  created_at: 2014-11-05 11:45:09.290916000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 104
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    target_id: 69
+    observed_at: 0001-12-31 00:11:32.000000000 Z
+  item_id: 4
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    target_id: 6
+    target_type: Animal
+    nature: limping
+    observed_at: 2012-12-29 00:05:00.000000000 Z
+    priority: 4
+    gravity: 2
+    state: opened
+    name: Boîterie sur Isabelle
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-02 19:33:57.155217000 Z
+    creator_id: 1
+  item_type: Issue

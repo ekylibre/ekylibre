@@ -44,6 +44,7 @@
 require 'test_helper'
 
 class AffairTest < ActiveSupport::TestCase
+  test_fixtures
 
   # check that every model that can be affairable
   def test_affairables

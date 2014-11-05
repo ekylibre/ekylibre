@@ -44,4 +44,5 @@
 require 'test_helper'
 
 class DepositTest < ActiveSupport::TestCase
+  test_fixtures
 end

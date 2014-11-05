@@ -17,6 +17,12 @@ eng:
       nature:
         bank_account: "Bank account"
         cash_box: "Cash box"
+    catalog:
+      usage:
+        sale: "Sale"
+        purchase: "Purchase"
+        stock: "Stock"
+        cost: "Cost"
     custom_field:
       nature:
         boolean: "Check box"

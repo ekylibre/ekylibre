@@ -83,26 +83,26 @@ class Product < Ekylibre::Record::Base
   belongs_to :person
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
-  has_many :analyses, class_name: "Analysis"
-  has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
+  has_many :analyses, class_name: "Analysis", dependent: :restrict_with_exception
+  has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id, dependent: :destroy
   has_many :content_localizations, class_name: "ProductLocalization", foreign_key: :container_id
   has_many :contents, class_name: "Product", through: :content_localizations, source: :product
-  has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
-  has_many :issues, as: :target
-  has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
+  has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id, dependent: :destroy
+  has_many :issues, as: :target, dependent: :destroy
+  has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor, dependent: :restrict_with_exception
   # has_many :groups, :through => :memberships
-  has_many :reading_tasks, class_name: "ProductReadingTask"
+  has_many :reading_tasks, class_name: "ProductReadingTask", dependent: :destroy
   # has_many :incoming_delivery_items
-  has_many :junction_ways, class_name: "ProductJunctionWay", foreign_key: :road_id
+  has_many :junction_ways, class_name: "ProductJunctionWay", foreign_key: :road_id, dependent: :destroy
   has_many :junctions, class_name: "ProductJunction", through: :junction_ways
-  has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
-  has_many :links, class_name: "ProductLink", foreign_key: :product_id
-  has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
+  has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id, dependent: :destroy
+  has_many :links, class_name: "ProductLink", foreign_key: :product_id, dependent: :destroy
+  has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id, dependent: :destroy
   has_many :markers, :through => :supports
-  has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
-  has_many :outgoing_delivery_items
-  has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
-  has_many :phases, class_name: "ProductPhase"
+  has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id, dependent: :destroy
+  has_many :outgoing_delivery_items, dependent: :restrict_with_exception
+  has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id, dependent: :destroy
+  has_many :phases, class_name: "ProductPhase", dependent: :destroy
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
   has_one :start_way,  -> { where(nature: 'start') },  class_name: "ProductJunctionWay", inverse_of: :road, foreign_key: :road_id

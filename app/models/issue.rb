@@ -87,7 +87,7 @@ class Issue < Ekylibre::Record::Base
     # way A2
     event :close do
       # transition :in_progress => :closed, if: :has_intervention?
-      transition :opened => :closed, if: :has_intervention?
+      transition :opened => :closed # , if: :has_intervention?
     end
 
     # way B1

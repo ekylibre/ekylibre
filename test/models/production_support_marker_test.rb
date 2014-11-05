@@ -49,9 +49,5 @@
 require 'test_helper'
 
 class ProductionSupportMarkerTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, ProductionSupportMarker.count
-  end
-
+  test_fixtures
 end

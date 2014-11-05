@@ -42,6 +42,7 @@
 require 'test_helper'
 
 class DocumentTemplateTest < ActiveSupport::TestCase
+  test_fixtures
 
   # Tests all templates
   test "compile all templates" do

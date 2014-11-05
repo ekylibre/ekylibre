@@ -392,43 +392,43 @@ preferences_032:
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator_id: 1
   id: 32
-  lock_version: 7
+  lock_version: 9
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2014-11-04 17:27:11.522949000 Z
+  updated_at: 2014-11-05 09:30:17.140821000 Z
   updater_id: 1
   user_id: 1
 preferences_033:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:11.789204000 Z
   creator_id: 1
   id: 33
-  lock_version: 3
+  lock_version: 4
   name: interface.snippets.people.collapsed
   nature: boolean
-  updated_at: 2014-11-04 17:27:12.979162000 Z
+  updated_at: 2014-11-05 08:10:08.822200000 Z
   updater_id: 1
   user_id: 1
 preferences_034:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:11.794739000 Z
   creator_id: 1
   id: 34
-  lock_version: 1
+  lock_version: 2
   name: interface.snippets.accountancy.collapsed
   nature: boolean
-  updated_at: 2014-11-04 17:27:13.926805000 Z
+  updated_at: 2014-11-05 10:46:28.486252000 Z
   updater_id: 1
   user_id: 1
 preferences_035:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:11.800229000 Z
   creator_id: 1
   id: 35
-  lock_version: 1
+  lock_version: 2
   name: interface.snippets.trade.collapsed
   nature: boolean
-  updated_at: 2014-11-04 17:27:15.010343000 Z
+  updated_at: 2014-11-05 09:29:00.956959000 Z
   updater_id: 1
   user_id: 1
 preferences_036:
@@ -1279,10 +1279,10 @@ preferences_111:
   created_at: 2014-10-31 19:07:52.102297000 Z
   creator_id: 1
   id: 111
-  lock_version: 0
+  lock_version: 2
   name: interface.kujakus.backend-journals-show-12.collapsed
   nature: boolean
-  updated_at: 2014-10-31 19:07:52.102297000 Z
+  updated_at: 2014-11-05 09:28:46.996652000 Z
   updater_id: 1
   user_id: 1
 preferences_112:
@@ -1429,11 +1429,19 @@ preferences_125:
   created_at: 2014-10-31 20:11:11.205553000 Z
   creator_id: 1
   id: 125
-  lock_version: 0
+  lock_version: 2
   name: list._product_nature_variants_list_product_nature_variants_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 20:11:11.205553000 Z
+  string_value:
+    page: 1
+    only: content
+    action: list
+    controller: backend/product_nature_variants
+    hidden_columns: []
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2014-11-05 09:46:28.886426000 Z
   updater_id: 1
   user_id: 1
 preferences_126:
@@ -2072,5 +2080,221 @@ preferences_179:
   nature: string
   string_value: {}
   updated_at: 2014-11-04 18:29:58.684321000 Z
+  updater_id: 1
+  user_id: 1
+preferences_180:
+  boolean_value: true
+  created_at: 2014-11-05 09:14:28.065962000 Z
+  creator_id: 1
+  id: 180
+  lock_version: 0
+  name: interface.kujakus.backend-matters-index-1.collapsed
+  nature: boolean
+  updated_at: 2014-11-05 09:14:28.065962000 Z
+  updater_id: 1
+  user_id: 1
+preferences_181:
+  created_at: 2014-11-05 09:25:04.012369000 Z
+  creator_id: 1
+  id: 181
+  lock_version: 0
+  name: interface.journal.BNK.view
+  nature: string
+  updated_at: 2014-11-05 09:25:04.012369000 Z
+  updater_id: 1
+  user_id: 1
+preferences_182:
+  created_at: 2014-11-05 09:28:40.113452000 Z
+  creator_id: 1
+  id: 182
+  lock_version: 0
+  name: interface.journal.SAL.view
+  nature: string
+  updated_at: 2014-11-05 09:28:40.113452000 Z
+  updater_id: 1
+  user_id: 1
+preferences_183:
+  created_at: 2014-11-05 09:30:20.178777000 Z
+  creator_id: 1
+  id: 183
+  lock_version: 0
+  name: list._catalogs_list_catalogs_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 09:30:20.178777000 Z
+  updater_id: 1
+  user_id: 1
+preferences_184:
+  created_at: 2014-11-05 09:37:52.526746000 Z
+  creator_id: 1
+  id: 184
+  lock_version: 0
+  name: list._catalogs_list_prices_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 09:37:52.526746000 Z
+  updater_id: 1
+  user_id: 1
+preferences_185:
+  created_at: 2014-11-05 10:46:47.825953000 Z
+  creator_id: 1
+  id: 185
+  lock_version: 0
+  name: list._financial_years_list_account_balances_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 10:46:47.825953000 Z
+  updater_id: 1
+  user_id: 1
+preferences_186:
+  created_at: 2014-11-05 10:46:47.835168000 Z
+  creator_id: 1
+  id: 186
+  lock_version: 0
+  name: list._financial_years_list_financial_asset_depreciations_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 10:46:47.835168000 Z
+  updater_id: 1
+  user_id: 1
+preferences_187:
+  created_at: 2014-11-05 11:45:13.213838000 Z
+  creator_id: 1
+  id: 187
+  lock_version: 0
+  name: list._issues_list_interventions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 11:45:13.213838000 Z
+  updater_id: 1
+  user_id: 1
+preferences_188:
+  created_at: 2014-11-05 11:55:56.170458000 Z
+  creator_id: 1
+  id: 188
+  lock_version: 0
+  name: list._cashes_list_cashes_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 11:55:56.170458000 Z
+  updater_id: 1
+  user_id: 1
+preferences_189:
+  created_at: 2014-11-05 12:09:28.429334000 Z
+  creator_id: 1
+  id: 189
+  lock_version: 0
+  name: list._accounts_list_entities_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:09:28.429334000 Z
+  updater_id: 1
+  user_id: 1
+preferences_190:
+  created_at: 2014-11-05 12:09:28.440151000 Z
+  creator_id: 1
+  id: 190
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/accounts/show.html.haml:18:0.default
+  nature: string
+  updated_at: 2014-11-05 12:09:28.440151000 Z
+  updater_id: 1
+  user_id: 1
+preferences_191:
+  boolean_value: true
+  created_at: 2014-11-05 12:09:28.464862000 Z
+  creator_id: 1
+  id: 191
+  lock_version: 0
+  name: interface.kujakus.backend-accounts-show-18.collapsed
+  nature: boolean
+  updated_at: 2014-11-05 12:09:28.464862000 Z
+  updater_id: 1
+  user_id: 1
+preferences_192:
+  created_at: 2014-11-05 12:09:28.472850000 Z
+  creator_id: 1
+  id: 192
+  lock_version: 0
+  name: list._accounts_list_journal_entry_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:09:28.472850000 Z
+  updater_id: 1
+  user_id: 1
+preferences_193:
+  created_at: 2014-11-05 12:28:46.487579000 Z
+  creator_id: 1
+  id: 193
+  lock_version: 0
+  name: interface.journal.BCA.view
+  nature: string
+  updated_at: 2014-11-05 12:28:46.487579000 Z
+  updater_id: 1
+  user_id: 1
+preferences_194:
+  created_at: 2014-11-05 12:44:54.614682000 Z
+  creator_id: 1
+  id: 194
+  lock_version: 0
+  name: list._cash_transfers_list_cash_transfers_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:44:54.614682000 Z
+  updater_id: 1
+  user_id: 1
+preferences_195:
+  created_at: 2014-11-05 12:45:01.615575000 Z
+  creator_id: 1
+  id: 195
+  lock_version: 0
+  name: list._bank_statements_list_bank_statements_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:45:01.615575000 Z
+  updater_id: 1
+  user_id: 1
+preferences_196:
+  created_at: 2014-11-05 12:45:07.371070000 Z
+  creator_id: 1
+  id: 196
+  lock_version: 0
+  name: list._cashes_list_deposits_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:45:07.371070000 Z
+  updater_id: 1
+  user_id: 1
+preferences_197:
+  created_at: 2014-11-05 12:45:07.389253000 Z
+  creator_id: 1
+  id: 197
+  lock_version: 0
+  name: list._cashes_list_bank_statements_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:45:07.389253000 Z
+  updater_id: 1
+  user_id: 1
+preferences_198:
+  created_at: 2014-11-05 12:45:12.908338000 Z
+  creator_id: 1
+  id: 198
+  lock_version: 0
+  name: list._deposits_list_payments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 12:45:12.908338000 Z
+  updater_id: 1
+  user_id: 1
+preferences_199:
+  created_at: 2014-11-05 13:41:03.186177000 Z
+  creator_id: 1
+  id: 199
+  lock_version: 0
+  name: list._outgoing_payment_modes_list_outgoing_payment_modes_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 13:41:03.186177000 Z
   updater_id: 1
   user_id: 1

@@ -47,5 +47,5 @@
 require 'test_helper'
 
 class PurchaseItemTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

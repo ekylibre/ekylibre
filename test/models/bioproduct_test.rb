@@ -65,4 +65,5 @@
 require 'test_helper'
 
 class BioproductTest < ActiveSupport::TestCase
+  test_fixtures
 end

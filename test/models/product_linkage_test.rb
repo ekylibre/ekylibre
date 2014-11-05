@@ -41,9 +41,5 @@
 require 'test_helper'
 
 class ProductLinkageTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, ProductLink.count
-  end
-
+  test_fixtures
 end

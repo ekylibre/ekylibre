@@ -136,21 +136,6 @@ product_nature_variants_005:
 product_nature_variants_006:
   active: true
   category_id: 1
-  commercial_name: Building division
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 6
-  lock_version: 0
-  name: Building division
-  nature_id: 5
-  number: PNV005
-  unit_name: unit
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variety: building
-product_nature_variants_007:
-  active: true
-  category_id: 1
   commercial_name: Herd
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -163,7 +148,7 @@ product_nature_variants_007:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: animal_group
-product_nature_variants_008:
+product_nature_variants_007:
   active: true
   category_id: 3
   commercial_name: Adexar 5 l
@@ -179,7 +164,7 @@ product_nature_variants_008:
   updated_at: 2014-10-31 20:11:19.901366000 Z
   updater_id: 1
   variety: preparation
-product_nature_variants_009:
+product_nature_variants_008:
   active: true
   category_id: 4
   commercial_name: Botte de paille de blé ‒ balle ronde
@@ -196,7 +181,7 @@ product_nature_variants_009:
   updated_at: 2014-10-31 20:11:30.483301000 Z
   updater_id: 1
   variety: straw
-product_nature_variants_010:
+product_nature_variants_009:
   active: true
   category_id: 5
   commercial_name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
@@ -213,7 +198,7 @@ product_nature_variants_010:
   updated_at: 2014-10-31 20:11:42.154937000 Z
   updater_id: 1
   variety: seed
-product_nature_variants_011:
+product_nature_variants_010:
   active: true
   category_id: 5
   commercial_name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
@@ -230,7 +215,7 @@ product_nature_variants_011:
   updated_at: 2014-10-31 20:11:53.428269000 Z
   updater_id: 1
   variety: seed
-product_nature_variants_012:
+product_nature_variants_011:
   active: true
   category_id: 6
   commercial_name: Bâtiment d’accueil pour les animaux
@@ -246,7 +231,7 @@ product_nature_variants_012:
   updated_at: 2014-10-31 20:13:23.333612000 Z
   updater_id: 1
   variety: building
-product_nature_variants_013:
+product_nature_variants_012:
   active: true
   category_id: 7
   commercial_name: Emplacement de stockage du matériel
@@ -262,7 +247,7 @@ product_nature_variants_013:
   updated_at: 2014-10-31 20:13:55.113547000 Z
   updater_id: 1
   variety: building_division
-product_nature_variants_014:
+product_nature_variants_013:
   active: true
   category_id: 7
   commercial_name: Zone de stockage des aliments et du matériels
@@ -278,7 +263,7 @@ product_nature_variants_014:
   updated_at: 2014-10-31 20:21:52.492960000 Z
   updater_id: 1
   variety: building_division
-product_nature_variants_015:
+product_nature_variants_014:
   active: true
   category_id: 7
   commercial_name: Pièce ou zone d’un bâtiment
@@ -294,7 +279,7 @@ product_nature_variants_015:
   updated_at: 2014-10-31 20:25:22.980248000 Z
   updater_id: 1
   variety: building_division
-product_nature_variants_016:
+product_nature_variants_015:
   active: true
   category_id: 8
   commercial_name: Culture de blé
@@ -310,7 +295,7 @@ product_nature_variants_016:
   updated_at: 2014-11-01 19:06:50.064047000 Z
   updater_id: 1
   variety: triticum_aestivum
-product_nature_variants_017:
+product_nature_variants_016:
   active: true
   category_id: 9
   commercial_name: Vache
@@ -326,7 +311,7 @@ product_nature_variants_017:
   updated_at: 2014-11-01 19:08:36.236984000 Z
   updater_id: 1
   variety: bos
-product_nature_variants_018:
+product_nature_variants_017:
   active: true
   category_id: 10
   commercial_name: Lait de vache
@@ -343,7 +328,7 @@ product_nature_variants_018:
   updated_at: 2014-11-01 19:09:20.953489000 Z
   updater_id: 1
   variety: milk
-product_nature_variants_019:
+product_nature_variants_018:
   active: true
   category_id: 11
   commercial_name: Graine de blé
@@ -360,7 +345,7 @@ product_nature_variants_019:
   updated_at: 2014-11-01 19:10:35.097658000 Z
   updater_id: 1
   variety: grain
-product_nature_variants_020:
+product_nature_variants_019:
   active: true
   category_id: 3
   commercial_name: Microthiol sp disp
@@ -376,7 +361,7 @@ product_nature_variants_020:
   updated_at: 2014-11-01 20:17:55.024266000 Z
   updater_id: 1
   variety: preparation
-product_nature_variants_021:
+product_nature_variants_020:
   active: true
   category_id: 12
   commercial_name: Acetal
@@ -392,7 +377,7 @@ product_nature_variants_021:
   updated_at: 2014-11-01 20:20:57.147222000 Z
   updater_id: 1
   variety: preparation
-product_nature_variants_022:
+product_nature_variants_021:
   active: true
   category_id: 12
   commercial_name: Riflexine
@@ -408,7 +393,7 @@ product_nature_variants_022:
   updated_at: 2014-11-01 20:21:07.072559000 Z
   updater_id: 1
   variety: preparation
-product_nature_variants_023:
+product_nature_variants_022:
   active: true
   category_id: 13
   commercial_name: Employé
@@ -424,7 +409,7 @@ product_nature_variants_023:
   updated_at: 2014-11-01 20:26:13.069661000 Z
   updater_id: 1
   variety: worker
-product_nature_variants_024:
+product_nature_variants_023:
   active: true
   category_id: 14
   commercial_name: Tracteur
@@ -440,7 +425,7 @@ product_nature_variants_024:
   updated_at: 2014-11-02 18:19:37.982583000 Z
   updater_id: 1
   variety: tractor
-product_nature_variants_025:
+product_nature_variants_024:
   active: true
   category_id: 14
   commercial_name: Broyeur
@@ -456,7 +441,7 @@ product_nature_variants_025:
   updated_at: 2014-11-02 18:19:51.698049000 Z
   updater_id: 1
   variety: plower
-product_nature_variants_026:
+product_nature_variants_025:
   active: true
   category_id: 14
   commercial_name: Tracteur
@@ -472,7 +457,7 @@ product_nature_variants_026:
   updated_at: 2014-11-02 18:20:34.104515000 Z
   updater_id: 1
   variety: tractor
-product_nature_variants_027:
+product_nature_variants_026:
   active: true
   category_id: 14
   commercial_name: Charrue
@@ -488,7 +473,7 @@ product_nature_variants_027:
   updated_at: 2014-11-02 18:29:03.433574000 Z
   updater_id: 1
   variety: plower
-product_nature_variants_028:
+product_nature_variants_027:
   active: true
   category_id: 15
   commercial_name: Zone cultivable
@@ -504,7 +489,7 @@ product_nature_variants_028:
   updated_at: 2014-11-02 18:31:53.744596000 Z
   updater_id: 1
   variety: cultivable_zone
-product_nature_variants_029:
+product_nature_variants_028:
   active: true
   category_id: 14
   commercial_name: Semoir
@@ -520,7 +505,7 @@ product_nature_variants_029:
   updated_at: 2014-11-02 18:36:36.382111000 Z
   updater_id: 1
   variety: sower
-product_nature_variants_030:
+product_nature_variants_029:
   active: true
   category_id: 16
   commercial_name: Troupeau de vaches laitières
@@ -537,7 +522,7 @@ product_nature_variants_030:
   updated_at: 2014-11-04 17:27:32.663559000 Z
   updater_id: 1
   variety: animal_group
-product_nature_variants_031:
+product_nature_variants_030:
   active: true
   category_id: 16
   commercial_name: Troupeau de bovins
@@ -554,7 +539,7 @@ product_nature_variants_031:
   updated_at: 2014-11-04 17:27:59.316996000 Z
   updater_id: 1
   variety: animal_group
-product_nature_variants_032:
+product_nature_variants_031:
   active: true
   category_id: 8
   commercial_name: Culture de maïs
@@ -570,7 +555,7 @@ product_nature_variants_032:
   updated_at: 2014-11-04 18:17:16.166463000 Z
   updater_id: 1
   variety: zea
-product_nature_variants_033:
+product_nature_variants_032:
   active: true
   category_id: 14
   commercial_name: Cultipacker
@@ -586,7 +571,7 @@ product_nature_variants_033:
   updated_at: 2014-11-04 18:38:32.203593000 Z
   updater_id: 1
   variety: plower
-product_nature_variants_034:
+product_nature_variants_033:
   active: true
   category_id: 14
   commercial_name: Bineuse

@@ -65,9 +65,5 @@
 require 'test_helper'
 
 class LandParcelClusterTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, LandParcelCluster.count
-  end
-
+  test_fixtures
 end

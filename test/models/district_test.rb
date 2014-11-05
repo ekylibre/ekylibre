@@ -34,4 +34,5 @@
 require 'test_helper'
 
 class DistrictTest < ActiveSupport::TestCase
+  test_fixtures
 end

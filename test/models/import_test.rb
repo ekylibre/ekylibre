@@ -41,9 +41,10 @@
 require 'test_helper'
 
 class ImportTest < ActiveSupport::TestCase
+  test_fixtures
 
-  test "EBP.EDI import" do
-    # TODO Write import test
-  end
+  # TODO: Write import test
+  # test "EBP.EDI import" do
+  # end
 
 end

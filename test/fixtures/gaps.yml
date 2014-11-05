@@ -58,22 +58,6 @@
 #
 ---
 gaps_001:
-  affair_id: 1
-  amount: 0.53
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  direction: profit
-  entity_id: 1
-  entity_role: client
-  id: 1
-  lock_version: 0
-  number: G001
-  pretax_amount: 0.0
-  printed_at: 2005-07-19 06:45:01.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-gaps_002:
   affair_id: 2
   amount: 0.17
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -89,21 +73,39 @@ gaps_002:
   printed_at: 2005-04-01 06:47:19.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+gaps_002:
+  accounted_at: 2014-11-05 13:35:14.587933000 Z
+  affair_id: 14
+  amount: -11.23
+  created_at: 2014-11-05 13:35:14.448437000 Z
+  creator_id: 1
+  currency: EUR
+  direction: loss
+  entity_id: 10
+  entity_role: client
+  id: 3
+  journal_entry_id: 18
+  lock_version: 0
+  number: E000000000002
+  pretax_amount: -9.36
+  printed_at: 2014-11-05 13:35:14.423643000 Z
+  updated_at: 2014-11-05 13:35:14.448437000 Z
+  updater_id: 1
 gaps_003:
-  accounted_at: 2014-11-01 19:52:01.076838000 Z
-  affair_id: 3
-  amount: 117.0
-  created_at: 2014-11-01 19:52:00.905958000 Z
+  accounted_at: 2014-11-05 13:36:51.461191000 Z
+  affair_id: 17
+  amount: 0.8
+  created_at: 2014-11-05 13:36:51.329768000 Z
   creator_id: 1
   currency: EUR
   direction: profit
-  entity_id: 8
+  entity_id: 10
   entity_role: client
-  id: 3
-  journal_entry_id: 11
+  id: 4
+  journal_entry_id: 19
   lock_version: 0
-  number: TE000000000001
-  pretax_amount: 112.92
-  printed_at: 2014-11-01 19:52:00.895372000 Z
-  updated_at: 2014-11-01 19:52:00.905958000 Z
+  number: E000000000003
+  pretax_amount: 0.8
+  printed_at: 2014-11-05 13:36:51.319412000 Z
+  updated_at: 2014-11-05 13:36:51.329768000 Z
   updater_id: 1

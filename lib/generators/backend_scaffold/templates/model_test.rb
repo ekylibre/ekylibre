@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class <%= class_name -%>Test < ActiveSupport::TestCase
+  test_fixtures
 
-  test "presence of fixtures" do
+  test "something cool" do
     # assert_equal 2, <%= class_name -%>.count
   end
 

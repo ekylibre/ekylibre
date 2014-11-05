@@ -130,3 +130,83 @@ event_participations_009:
   state: accepted
   updated_at: 2014-11-04 18:41:39.751358000 Z
   updater_id: 1
+event_participations_010:
+  created_at: 2014-11-05 09:52:05.597221000 Z
+  creator_id: 1
+  event_id: 15
+  id: 15
+  lock_version: 0
+  participant_id: 7
+  state: informative
+  updated_at: 2014-11-05 09:52:05.597221000 Z
+  updater_id: 1
+event_participations_011:
+  created_at: 2014-11-05 09:52:05.598204000 Z
+  creator_id: 1
+  event_id: 15
+  id: 16
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-05 09:52:05.598204000 Z
+  updater_id: 1
+event_participations_012:
+  created_at: 2014-11-05 10:01:39.900113000 Z
+  creator_id: 1
+  event_id: 16
+  id: 17
+  lock_version: 0
+  participant_id: 13
+  state: informative
+  updated_at: 2014-11-05 10:01:39.900113000 Z
+  updater_id: 1
+event_participations_013:
+  created_at: 2014-11-05 10:01:39.900948000 Z
+  creator_id: 1
+  event_id: 16
+  id: 18
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-05 10:01:39.900948000 Z
+  updater_id: 1
+event_participations_014:
+  created_at: 2014-11-05 10:03:05.997474000 Z
+  creator_id: 1
+  event_id: 17
+  id: 19
+  lock_version: 0
+  participant_id: 10
+  state: informative
+  updated_at: 2014-11-05 10:03:05.997474000 Z
+  updater_id: 1
+event_participations_015:
+  created_at: 2014-11-05 10:03:05.998338000 Z
+  creator_id: 1
+  event_id: 17
+  id: 20
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-05 10:03:05.998338000 Z
+  updater_id: 1
+event_participations_016:
+  created_at: 2014-11-05 13:36:09.004703000 Z
+  creator_id: 1
+  event_id: 18
+  id: 21
+  lock_version: 0
+  participant_id: 10
+  state: informative
+  updated_at: 2014-11-05 13:36:09.004703000 Z
+  updater_id: 1
+event_participations_017:
+  created_at: 2014-11-05 13:36:09.006147000 Z
+  creator_id: 1
+  event_id: 18
+  id: 22
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-05 13:36:09.006147000 Z
+  updater_id: 1

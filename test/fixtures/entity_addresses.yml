@@ -222,3 +222,16 @@ entity_addresses_010:
   thread: AAAA
   updated_at: 2014-11-03 11:30:58.913730000 Z
   updater_id: 1
+entity_addresses_011:
+  by_default: true
+  canal: email
+  coordinate: contact@coopaincoopin.coop
+  created_at: 2014-11-05 10:01:10.931464000 Z
+  creator_id: 1
+  entity_id: 13
+  id: 11
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAA
+  updated_at: 2014-11-05 10:01:10.931464000 Z
+  updater_id: 1

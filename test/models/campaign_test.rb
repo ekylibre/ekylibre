@@ -38,9 +38,5 @@
 require 'test_helper'
 
 class CampaignTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Campaign.count
-  end
-
+  test_fixtures
 end

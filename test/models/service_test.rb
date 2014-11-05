@@ -65,6 +65,5 @@
 require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
-
-
+  test_fixtures
 end

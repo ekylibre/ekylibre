@@ -58,7 +58,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "User"
   has_many :deliveries, class_name: "IncomingDelivery"
   has_many :documents, :as => :owner
-  has_many :items, class_name: "PurchaseItem", foreign_key: :purchase_id, inverse_of: :purchase
+  has_many :items, class_name: "PurchaseItem", dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, :as => :resource
   has_many :products, -> { uniq }, :through => :items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

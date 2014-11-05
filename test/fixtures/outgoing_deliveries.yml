@@ -82,19 +82,3 @@ outgoing_deliveries_002:
   updated_at: 2014-11-01 19:41:23.879406000 Z
   updater_id: 1
   with_transport: false
-outgoing_deliveries_003:
-  address_id: 3
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 3
-  lock_version: 1
-  mode: ex_works
-  net_mass: 0.0
-  number: OUTDEL000003
-  recipient_id: 6
-  sale_id: 3
-  sent_at: 2014-11-07 18:19:00.000000000 Z
-  transporter_id: 8
-  updated_at: 2014-11-01 19:41:40.583315000 Z
-  updater_id: 1
-  with_transport: true

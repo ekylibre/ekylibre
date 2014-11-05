@@ -51,6 +51,5 @@
 require 'test_helper'
 
 class SaleItemTest < ActiveSupport::TestCase
-
-
+  test_fixtures
 end

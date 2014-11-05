@@ -19,10 +19,7 @@ module Clean
         code  = ""
         code << "require 'test_helper'\n\n"
         code << "class #{klass} < ActiveSupport::TestCase\n\n"
-        code << "  # Replace this with your real tests.'\n"
-        code << "  test \"the truth\" do\n"
-        code << "    assert true\n"
-        code << "  end\n\n"
+        code << "  test_fixtures\n\n"
         code << "end\n"
         file = Rails.root.join("test", "models", klass.underscore + ".rb")
         FileUtils.mkdir_p(file.dirname)

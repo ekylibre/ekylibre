@@ -43,9 +43,5 @@
 require 'test_helper'
 
 class GapTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Gap.count
-  end
-
+  test_fixtures
 end

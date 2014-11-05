@@ -9,7 +9,7 @@ module Unrollable
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
       foreign_record  = model.name.underscore
       foreign_records = foreign_record.pluralize
-      scope_name = options.delete(:scope) || name
+      scope_name = options.delete(:scope) || "unscoped"
       max = options[:max] || 80
       available_methods = model.columns_definition.keys.map(&:to_sym)
       if label = options.delete(:label)
@@ -104,7 +104,7 @@ module Unrollable
       code << "  conditions = []\n"
 
       code << "  klass = controller_name.classify.constantize\n"
-      code << "  items = klass.unscoped"
+      code << "  items = klass.#{scope_name}"
       if options[:includes]
         code << ".includes(#{options[:includes].inspect})"
         code << ".references(#{options[:includes].inspect})"

@@ -39,4 +39,5 @@
 require 'test_helper'
 
 class PostalZoneTest < ActiveSupport::TestCase
+  test_fixtures
 end

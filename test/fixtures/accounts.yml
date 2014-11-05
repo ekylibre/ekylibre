@@ -2730,3 +2730,93 @@ accounts_207:
   reconcilable: true
   updated_at: 2014-11-01 19:47:25.953834000 Z
   updater_id: 1
+accounts_208:
+  created_at: 2014-11-05 09:52:05.783306000 Z
+  creator_id: 1
+  debtor: false
+  id: 208
+  label: 4112 - Toley LTD
+  lock_version: 0
+  name: Toley LTD
+  number: '4112'
+  reconcilable: true
+  updated_at: 2014-11-05 09:52:05.783306000 Z
+  updater_id: 1
+accounts_209:
+  created_at: 2014-11-05 10:01:39.941732000 Z
+  creator_id: 1
+  debtor: false
+  id: 209
+  label: 411P00000003 - Coop Ain Coop'In
+  lock_version: 0
+  name: Coop Ain Coop'In
+  number: 411P00000003
+  reconcilable: true
+  updated_at: 2014-11-05 10:01:39.941732000 Z
+  updater_id: 1
+accounts_210:
+  created_at: 2014-11-05 10:03:06.037383000 Z
+  creator_id: 1
+  debtor: false
+  id: 210
+  label: 411194 - FUYUTSUKI Kōzō
+  lock_version: 0
+  name: FUYUTSUKI Kōzō
+  number: '411194'
+  reconcilable: true
+  updated_at: 2014-11-05 10:03:06.037383000 Z
+  updater_id: 1
+accounts_211:
+  created_at: 2014-11-05 10:44:42.305008000 Z
+  creator_id: 1
+  debtor: false
+  id: 211
+  label: 401P00000003 - Coop Ain Coop'In
+  lock_version: 0
+  name: Coop Ain Coop'In
+  number: 401P00000003
+  reconcilable: true
+  updated_at: 2014-11-05 10:44:42.305008000 Z
+  updater_id: 1
+accounts_212:
+  created_at: 2014-11-05 11:57:23.141048000 Z
+  creator_id: 1
+  debtor: false
+  description: ''
+  id: 212
+  label: 512101 - Banque GHB
+  lock_version: 0
+  name: Banque GHB
+  number: '512101'
+  reconcilable: false
+  updated_at: 2014-11-05 11:57:23.141048000 Z
+  updater_id: 1
+  usages: banks
+accounts_213:
+  created_at: 2014-11-05 11:58:30.722335000 Z
+  creator_id: 1
+  debtor: false
+  description: ''
+  id: 213
+  label: 530101 - Caisse Accueil
+  lock_version: 1
+  name: Caisse Accueil
+  number: '530101'
+  reconcilable: false
+  updated_at: 2014-11-05 12:09:37.184105000 Z
+  updater_id: 1
+  usages: cashes
+accounts_214:
+  created_at: 2014-11-05 12:12:39.884201000 Z
+  creator_id: 1
+  debtor: false
+  description: ''
+  id: 214
+  label: 512102 - Capitalis
+  lock_version: 0
+  name: Capitalis
+  number: '512102'
+  reconcilable: false
+  updated_at: 2014-11-05 12:12:39.884201000 Z
+  updater_id: 1
+  usages: banks

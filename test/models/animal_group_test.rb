@@ -65,9 +65,5 @@
 require 'test_helper'
 
 class AnimalGroupTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, AnimalGroup.count
-  end
-
+  test_fixtures
 end

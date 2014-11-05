@@ -31,6 +31,7 @@ module Ekylibre::Record
             end
             code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
           end
+          code << "has_many :affairs, as: :originator, dependent: :destroy\n"
 
           code << "delegate :credit, :debit, :closed?, to: :affair, prefix: true\n"
 
