@@ -9,9 +9,20 @@ Exchanges.add_importer :legrain_epicea_accounts do |file, w|
   end
 
   rows.each do |row|
-    usage = usage_by_account_number[row[0]]
+    account_number = row[0]
+    label = row[1]
+    usage = usage_by_account_number[account_number]
     if usage.present?
       account = Account.find_or_create_in_chart(usage)
+    else
+      upper_account_number = account_number.chop
+      while upper_account_number.present? do
+        usage = usage_by_account_number[upper_account_number]
+        break if usage.present?
+        upper_account_number.chop!
+      end
+      account = Account.create(number: account_number, name: label, usages: usage)
+      account.save
     end
     w.check_point
   end
