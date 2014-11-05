@@ -59,4 +59,193 @@
 #   support: supports_001
 #   updater: users_001
 #
---- {}
+---
+manure_management_plan_zones_001:
+  absorbed_nitrogen_at_opening: 10.0
+  administrative_area: france_department_charente
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:50:52.979383000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 70.0
+  humus_mineralization: 30.0
+  id: 1
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 3
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 15.0
+  nitrogen_input: 230.0
+  nitrogen_need: 210.0
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 2
+  previous_cultivation_residue_mineralization: -20.0
+  soil_nature: clay_limestone_soil
+  soil_production: 50.0
+  support_id: 8
+  updated_at: 2014-11-05 13:52:45.048864000 Z
+  updater_id: 1
+manure_management_plan_zones_002:
+  absorbed_nitrogen_at_opening: 10.0
+  administrative_area: france_department_charente
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:50:52.981037000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 75.0
+  humus_mineralization: 30.0
+  id: 2
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 3
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 15.0
+  nitrogen_input: 236.5
+  nitrogen_need: 225.0
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 2
+  previous_cultivation_residue_mineralization: -20.0
+  soil_nature: silt_schist_soil
+  soil_production: 50.0
+  support_id: 9
+  updated_at: 2014-11-05 13:52:45.047941000 Z
+  updater_id: 1
+manure_management_plan_zones_003:
+  absorbed_nitrogen_at_opening: 10.0
+  administrative_area: france_department_charente
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:50:52.982211000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 70.0
+  humus_mineralization: 30.0
+  id: 3
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 3
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 0.0
+  nitrogen_input: 181.5
+  nitrogen_need: 210.0
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 2
+  previous_cultivation_residue_mineralization: 0.0
+  soil_nature: silt_soil
+  soil_production: 50.0
+  support_id: 10
+  updated_at: 2014-11-05 13:52:45.047000000 Z
+  updater_id: 1
+manure_management_plan_zones_004:
+  absorbed_nitrogen_at_opening: 0.0
+  administrative_area: france_department_gironde
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:50:52.983265000 Z
+  creator_id: 1
+  cultivation_variety: zea
+  expected_yield: 90.0
+  humus_mineralization: 75.0
+  id: 4
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 3
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 15.0
+  nitrogen_input: 177.1
+  nitrogen_need: 216.0
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 2
+  previous_cultivation_residue_mineralization: -10.0
+  soil_nature: silty_clay_loam_soil
+  soil_production: 60.0
+  support_id: 11
+  updated_at: 2014-11-05 13:52:45.045980000 Z
+  updater_id: 1
+manure_management_plan_zones_005:
+  absorbed_nitrogen_at_opening: 10.0
+  administrative_area: france_department_charente
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:53:36.128014000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 70.0
+  humus_mineralization: 30.0
+  id: 5
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 1
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 15.0
+  nitrogen_input: 198.0
+  nitrogen_need: 210.0
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 1
+  previous_cultivation_residue_mineralization: 0.0
+  soil_nature: granite_arena_soil
+  soil_production: 50.0
+  support_id: 6
+  updated_at: 2014-11-05 13:53:36.128014000 Z
+  updater_id: 1
+manure_management_plan_zones_006:
+  absorbed_nitrogen_at_opening: 10.0
+  administrative_area: france_department_charente
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:53:36.129142000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 72.0
+  humus_mineralization: 30.0
+  id: 6
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 1
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 15.0
+  nitrogen_input: 204.6
+  nitrogen_need: 216.0
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 1
+  previous_cultivation_residue_mineralization: 0.0
+  soil_nature: silt_schist_soil
+  soil_production: 50.0
+  support_id: 7
+  updated_at: 2014-11-05 13:53:36.129142000 Z
+  updater_id: 1
+manure_management_plan_zones_007:
+  absorbed_nitrogen_at_opening: 0.0
+  administrative_area: france_department_charente
+  computation_method: poitou_charentes_2013
+  created_at: 2014-11-05 13:53:36.130077000 Z
+  creator_id: 1
+  cultivation_variety: zea
+  expected_yield: 87.0
+  humus_mineralization: 70.0
+  id: 7
+  intermediate_cultivation_residue_mineralization: 0.0
+  irrigation_water_nitrogen: 0.0
+  lock_version: 1
+  maximum_nitrogen_input: 170.0
+  meadow_humus_mineralization: 0.0
+  mineral_nitrogen_at_opening: 5.0
+  nitrogen_at_closing: 15.0
+  nitrogen_input: 163.68
+  nitrogen_need: 208.8
+  organic_fertilizer_mineral_fraction: 0.0
+  plan_id: 1
+  previous_cultivation_residue_mineralization: 0.0
+  soil_nature: silty_clay_loam_soil
+  soil_production: 60.0
+  support_id: 12
+  updated_at: 2014-11-05 13:53:36.130077000 Z
+  updater_id: 1

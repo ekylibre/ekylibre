@@ -1,4 +1,4 @@
-= field_set f.object.name, collapsed: true, class: (f.object.expected_yield.to_f > 0 ? :valid : :error) do
+= field_set f.object.name, collapsed: !f.object.errors.any?, class: (f.object.expected_yield.to_f <= 0 ? :error : :valid) do
   = f.association :support, as: :hidden
   = f.input :computation_method
   = f.input :soil_nature
