@@ -600,6 +600,7 @@ fra:
     public:
       index: "Accueil"
   errors:
+    format: "%{message}"
     messages:
       already_confirmed: "a déjà été validé(e)"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"

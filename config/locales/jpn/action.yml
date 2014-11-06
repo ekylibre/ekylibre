@@ -566,6 +566,7 @@ jpn:
     public:
       # index: "Home"
   errors:
+    # format: "%{message}"
     messages:
       # already_confirmed: "was already confirmed, please try signing in"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
@@ -1526,6 +1527,7 @@ jpn:
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
+    # backend/incoming_payments: "{number} {mode.name} {payer.full_name} {amount} {currency}"
     # backend/journal_entry_items: "{entry.number} {name} {account.number} D{real_debit} C{real_credit} {currency}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"

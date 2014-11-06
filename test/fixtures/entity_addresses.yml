@@ -235,3 +235,24 @@ entity_addresses_011:
   thread: AAAA
   updated_at: 2014-11-05 10:01:10.931464000 Z
   updater_id: 1
+entity_addresses_012:
+  by_default: true
+  canal: mail
+  coordinate: Coop Ain Coop'In, 33 rue de la société, 11110 MAROUSSAC, France
+  created_at: 2014-11-05 14:14:01.994491000 Z
+  creator_id: 1
+  entity_id: 13
+  id: 12
+  lock_version: 1
+  mail_auto_update: true
+  mail_country: fr
+  mail_line_1: Coop Ain Coop'In
+  mail_line_2: ''
+  mail_line_3: ''
+  mail_line_4: 33 rue de la société
+  mail_line_5: ''
+  mail_line_6: 11110 MAROUSSAC
+  mail_postal_zone_id: 6
+  thread: AAAA
+  updated_at: 2014-11-05 14:14:02.006894000 Z
+  updater_id: 1

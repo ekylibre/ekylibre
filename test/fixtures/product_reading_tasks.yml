@@ -104,5 +104,106 @@ product_reading_tasks_003:
   product_id: 83
   reporter_id: 79
   started_at: 2012-10-03 12:30:00.000000000 Z
+  stopped_at: 2013-11-10 14:45:00.000000000 Z
   updated_at: 2014-11-04 18:31:37.361592000 Z
+  updater_id: 1
+product_reading_tasks_004:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.357769000 Z
+  creator_id: 1
+  decimal_value: 5.3806
+  id: 8
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  operation_id: 13
+  product_id: 90
+  started_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:40:16.357769000 Z
+  updater_id: 1
+product_reading_tasks_005:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-05 15:40:16.373150000 Z
+  creator_id: 1
+  id: 9
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  operation_id: 13
+  product_id: 83
+  started_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:40:16.373150000 Z
+  updater_id: 1
+product_reading_tasks_006:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.387769000 Z
+  creator_id: 1
+  id: 10
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 3000
+  lock_version: 0
+  operation_id: 13
+  product_id: 90
+  started_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:40:16.387769000 Z
+  updater_id: 1
+product_reading_tasks_007:
+  boolean_value: false
+  choice_value: nude
+  created_at: 2014-11-06 17:49:51.139058000 Z
+  creator_id: 1
+  id: 11
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  operation_id: 15
+  product_id: 84
+  reporter_id: 79
+  started_at: 2012-10-07 13:30:00.000000000 Z
+  stopped_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:49:51.139058000 Z
+  updater_id: 1
+product_reading_tasks_008:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.342193000 Z
+  creator_id: 1
+  decimal_value: 8.349
+  id: 12
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  operation_id: 18
+  product_id: 92
+  started_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.342193000 Z
+  updater_id: 1
+product_reading_tasks_009:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-06 17:50:07.355554000 Z
+  creator_id: 1
+  id: 13
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  operation_id: 18
+  product_id: 84
+  started_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.355554000 Z
+  updater_id: 1
+product_reading_tasks_010:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.369059000 Z
+  creator_id: 1
+  id: 14
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 17000
+  lock_version: 0
+  operation_id: 18
+  product_id: 92
+  started_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.369059000 Z
   updater_id: 1

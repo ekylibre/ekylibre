@@ -1567,11 +1567,18 @@ preferences_137:
   created_at: 2014-11-01 16:54:40.504877000 Z
   creator_id: 1
   id: 137
-  lock_version: 0
+  lock_version: 1
   name: list._plants_list_plants_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-11-01 16:54:40.504877000 Z
+  string_value:
+    action: list
+    controller: backend/plants
+    hidden_columns: []
+    dir: ''
+    page: 1
+    per_page: 20
+    sort: ''
+  updated_at: 2014-11-06 17:43:42.364249000 Z
   updater_id: 1
   user_id: 1
 preferences_138:
@@ -2296,5 +2303,37 @@ preferences_199:
   nature: string
   string_value: {}
   updated_at: 2014-11-05 13:41:03.186177000 Z
+  updater_id: 1
+  user_id: 1
+preferences_200:
+  created_at: 2014-11-05 15:14:01.048635000 Z
+  creator_id: 1
+  id: 200
+  lock_version: 0
+  name: list._transports_list_deliveries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-05 15:14:01.048635000 Z
+  updater_id: 1
+  user_id: 1
+preferences_201:
+  created_at: 2014-11-06 17:44:44.907841000 Z
+  creator_id: 1
+  id: 201
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/plants/index.html.haml:123:0.default
+  nature: string
+  updated_at: 2014-11-06 17:44:44.907841000 Z
+  updater_id: 1
+  user_id: 1
+preferences_202:
+  boolean_value: true
+  created_at: 2014-11-06 17:44:44.914366000 Z
+  creator_id: 1
+  id: 202
+  lock_version: 0
+  name: interface.kujakus.backend-plants-index-123.collapsed
+  nature: boolean
+  updated_at: 2014-11-06 17:44:44.914366000 Z
   updater_id: 1
   user_id: 1

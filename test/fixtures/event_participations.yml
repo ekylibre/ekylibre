@@ -210,3 +210,33 @@ event_participations_017:
   state: accepted
   updated_at: 2014-11-05 13:36:09.006147000 Z
   updater_id: 1
+event_participations_018:
+  created_at: 2014-11-05 15:39:35.624779000 Z
+  creator_id: 1
+  event_id: 19
+  id: 23
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-05 15:39:35.624779000 Z
+  updater_id: 1
+event_participations_019:
+  created_at: 2014-11-06 17:47:16.020114000 Z
+  creator_id: 1
+  event_id: 20
+  id: 24
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-06 17:47:16.020114000 Z
+  updater_id: 1
+event_participations_020:
+  created_at: 2014-11-06 17:49:34.381422000 Z
+  creator_id: 1
+  event_id: 21
+  id: 25
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-06 17:49:34.381422000 Z
+  updater_id: 1

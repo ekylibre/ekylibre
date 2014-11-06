@@ -54,31 +54,48 @@
 #
 ---
 outgoing_deliveries_001:
-  address_id: 3
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  address_id: 12
+  created_at: 2014-11-05 14:15:20.016507000 Z
   creator_id: 1
-  id: 1
-  lock_version: 2
-  mode: ex_works
-  net_mass: 1200.0
-  number: OUTDEL000001
-  recipient_id: 6
-  sent_at: 2014-10-24 17:19:00.000000000 Z
-  transporter_id: 8
-  updated_at: 2014-11-01 19:41:06.932338000 Z
+  id: 3
+  lock_version: 1
+  mode: delivered_duty_paid
+  net_mass: 3127.375
+  number: BL2014000002
+  recipient_id: 13
+  sent_at: 2014-11-05 15:14:00.754740000 Z
+  transport_id: 3
+  transporter_id: 4
+  updated_at: 2014-11-05 15:14:00.950218000 Z
   updater_id: 1
   with_transport: true
 outgoing_deliveries_002:
-  address_id: 3
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  address_id: 7
+  created_at: 2014-11-05 14:16:19.773131000 Z
   creator_id: 1
-  id: 2
+  id: 4
   lock_version: 1
-  mode: ex_works
+  mode: delivered_duty_paid
   net_mass: 0.0
-  number: OUTDEL000002
-  recipient_id: 6
-  sent_at: 2014-10-31 18:19:00.000000000 Z
-  updated_at: 2014-11-01 19:41:23.879406000 Z
+  number: BL2014000003
+  recipient_id: 11
+  sent_at: 2014-11-05 15:14:00.754740000 Z
+  transport_id: 3
+  transporter_id: 4
+  updated_at: 2014-11-05 15:14:00.962449000 Z
+  updater_id: 1
+  with_transport: true
+outgoing_deliveries_003:
+  address_id: 12
+  created_at: 2014-11-05 14:16:48.643201000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  mode: delivered_duty_paid
+  net_mass: 0.0
+  number: BL2014000004
+  recipient_id: 13
+  sent_at: 2014-11-03 03:20:00.000000000 Z
+  updated_at: 2014-11-05 14:16:48.643201000 Z
   updater_id: 1
   with_transport: false

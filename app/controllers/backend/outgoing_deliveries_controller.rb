@@ -71,7 +71,10 @@ class Backend::OutgoingDeliveriesController < BackendController
       redirect_to backend_transport_url(transport)
     else
       # default case: render the transporter selector
-      params[:transporter_id] = OutgoingDelivery.transporters_of(deliveries).compact.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+      transporters = OutgoingDelivery.transporters_of(deliveries)
+      if transporters.any?
+        params[:transporter_id] = transporters.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+      end
       params[:responsible_id] = current_user.person.id
     end
   end

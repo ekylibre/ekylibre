@@ -187,3 +187,42 @@ events_011:
   stopped_at: 2014-11-05 13:36:18.985183000 Z
   updated_at: 2014-11-05 13:36:09.002362000 Z
   updater_id: 1
+events_012:
+  created_at: 2014-11-05 15:39:35.597587000 Z
+  creator_id: 1
+  duration: 20700
+  id: 19
+  lock_version: 0
+  name: Semis n°10
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-11-10 09:00:00.000000000 Z
+  stopped_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:39:35.597587000 Z
+  updater_id: 1
+events_013:
+  created_at: 2014-11-06 17:47:15.999779000 Z
+  creator_id: 1
+  duration: 20400
+  id: 20
+  lock_version: 0
+  name: Labour n°11
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-10-07 07:50:00.000000000 Z
+  stopped_at: 2013-10-07 13:30:00.000000000 Z
+  updated_at: 2014-11-06 17:47:15.999779000 Z
+  updater_id: 1
+events_014:
+  created_at: 2014-11-06 17:49:34.366901000 Z
+  creator_id: 1
+  duration: 28800
+  id: 21
+  lock_version: 0
+  name: Semis n°12
+  nature: production_intervention
+  restricted: false
+  started_at: 2012-10-17 06:00:00.000000000 Z
+  stopped_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:49:34.366901000 Z
+  updater_id: 1

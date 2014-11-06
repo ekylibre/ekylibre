@@ -100,7 +100,7 @@
       popup_content << {label: :issues_count.tl, value: issues.count }
     end
 
-    if issues.count > 0 and last_issue = issues.last
+    if issues.any? and last_issue = issues.last
       popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
     end
 
@@ -111,8 +111,9 @@
     water_interventions = Intervention.of_nature(:plant_irrigation).with_generic_cast(:target, p)
     for intervention in water_interventions
       for input in intervention.casts.of_role('plant_irrigation-input')
-        i = input.population / p.shape_area.to_f(:hectare)
-        water_concentration << i
+        if i = input.population / p.shape_area.to_f(:hectare)
+          water_concentration << i
+        end
       end
     end
 

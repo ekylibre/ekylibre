@@ -95,12 +95,12 @@ class Journal < Ekylibre::Record::Base
   validate do
     if self.closed_on and FinancialYear.find_by(started_on: self.closed_on + 1).blank?
       if self.closed_on != self.closed_on.end_of_month
-        errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l) 
+        errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l)
       end
     end
     unless self.code.blank?
       if self.others.find_by(code: self.code.to_s[0..3])
-        errors.add(:code, :taken) 
+        errors.add(:code, :taken)
       end
     end
   end

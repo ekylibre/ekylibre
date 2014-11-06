@@ -43,9 +43,16 @@ class ActiveSupport::TestCase
     record_type = model.name.underscore
     test "validity of fixtures" do
       invalids = []
+      reflections = model.reflections.values.select{|r| r.macro == :belongs_to }.delete_if{|r| r.name.to_s == "item" and model == Version }
       model.find_each do |record|
         unless record.valid?
-          invalids << "##{record.id}: #{record.errors.full_messages.to_sentence}" 
+          invalids << "##{record.id}: #{record.errors.full_messages.to_sentence}"
+        end
+        reflections.each do |reflection|
+          id = record.send(reflection.foreign_key)
+          if id and id.to_i > 0 and record.send(reflection.name).blank?
+            invalids << "##{record.id}: Invalid #{reflection.foreign_key} value: #{record.send(reflection.foreign_key)} (#{reflection.class_name})"
+          end
         end
       end
       assert invalids.empty?, "#{invalids.count} records are invalid: \n" + invalids.join("\n").dig(2)

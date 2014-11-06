@@ -335,7 +335,7 @@ product_readings_019:
   boolean_value: false
   created_at: 2014-10-31 20:23:37.067577000 Z
   creator_id: 1
-  decimal_value: 7.0
+  decimal_value: -42.4553
   id: 24
   indicator_datatype: decimal
   indicator_name: population
@@ -1198,7 +1198,7 @@ product_readings_080:
   boolean_value: false
   created_at: 2014-11-02 18:38:47.262528000 Z
   creator_id: 1
-  decimal_value: 5.095
+  decimal_value: -44.3603
   id: 90
   indicator_datatype: decimal
   indicator_name: population
@@ -1208,76 +1208,6 @@ product_readings_080:
   updated_at: 2014-11-02 18:38:47.262528000 Z
   updater_id: 1
 product_readings_081:
-  absolute_measure_value_unit: square_meter
-  absolute_measure_value_value: 10000.0
-  boolean_value: false
-  created_at: 2014-11-02 18:38:47.573914000 Z
-  creator_id: 1
-  id: 91
-  indicator_datatype: measure
-  indicator_name: net_surface_area
-  lock_version: 0
-  measure_value_unit: hectare
-  measure_value_value: 1.0
-  product_id: 64
-  read_at: 2014-11-02 11:06:30.000000000 Z
-  updated_at: 2014-11-02 18:38:47.573914000 Z
-  updater_id: 1
-product_readings_082:
-  boolean_value: false
-  created_at: 2014-11-02 18:38:47.576870000 Z
-  creator_id: 1
-  decimal_value: 0.8031
-  id: 92
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  product_id: 64
-  read_at: 2014-11-02 11:06:30.000000000 Z
-  updated_at: 2014-11-02 18:38:47.576870000 Z
-  updater_id: 1
-product_readings_083:
-  boolean_value: false
-  created_at: 2014-11-02 18:38:47.580371000 Z
-  creator_id: 1
-  geometry_value: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
-    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
-    45.5944092001224,-0.817789435386658 45.5943078511944)))
-  id: 93
-  indicator_datatype: geometry
-  indicator_name: shape
-  lock_version: 0
-  product_id: 64
-  read_at: 2014-11-02 11:06:30.000000000 Z
-  updated_at: 2014-11-02 18:38:47.580371000 Z
-  updater_id: 1
-product_readings_084:
-  boolean_value: false
-  created_at: 2014-11-02 18:38:47.623085000 Z
-  creator_id: 1
-  decimal_value: 0.8031
-  id: 94
-  indicator_datatype: decimal
-  indicator_name: population
-  lock_version: 0
-  product_id: 64
-  read_at: 2014-11-02 17:30:00.000000000 Z
-  updated_at: 2014-11-02 18:38:47.623085000 Z
-  updater_id: 1
-product_readings_085:
-  boolean_value: false
-  created_at: 2014-11-02 18:38:47.644606000 Z
-  creator_id: 1
-  id: 96
-  indicator_datatype: integer
-  indicator_name: plants_count
-  integer_value: 1458
-  lock_version: 0
-  product_id: 64
-  read_at: 2014-11-02 17:30:00.000000000 Z
-  updated_at: 2014-11-02 18:38:47.644606000 Z
-  updater_id: 1
-product_readings_086:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:12:23.255145000 Z
@@ -1290,7 +1220,7 @@ product_readings_086:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.255145000 Z
   updater_id: 1
-product_readings_087:
+product_readings_082:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1306,7 +1236,7 @@ product_readings_087:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.414207000 Z
   updater_id: 1
-product_readings_088:
+product_readings_083:
   boolean_value: false
   created_at: 2014-11-04 17:12:23.417819000 Z
   creator_id: 1
@@ -1319,7 +1249,7 @@ product_readings_088:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.417819000 Z
   updater_id: 1
-product_readings_089:
+product_readings_084:
   boolean_value: false
   created_at: 2014-11-04 17:12:23.422452000 Z
   creator_id: 1
@@ -1335,7 +1265,7 @@ product_readings_089:
   read_at: 1974-05-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:12:23.422452000 Z
   updater_id: 1
-product_readings_090:
+product_readings_085:
   boolean_value: false
   choice_value: covered
   created_at: 2014-11-04 17:15:04.604337000 Z
@@ -1348,7 +1278,7 @@ product_readings_090:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.604337000 Z
   updater_id: 1
-product_readings_091:
+product_readings_086:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1364,7 +1294,7 @@ product_readings_091:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.636477000 Z
   updater_id: 1
-product_readings_092:
+product_readings_087:
   boolean_value: false
   created_at: 2014-11-04 17:15:04.640240000 Z
   creator_id: 1
@@ -1377,7 +1307,7 @@ product_readings_092:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.640240000 Z
   updater_id: 1
-product_readings_093:
+product_readings_088:
   boolean_value: false
   created_at: 2014-11-04 17:15:04.644741000 Z
   creator_id: 1
@@ -1393,7 +1323,7 @@ product_readings_093:
   read_at: 1965-01-22 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:15:04.644741000 Z
   updater_id: 1
-product_readings_094:
+product_readings_089:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:17:04.669059000 Z
@@ -1406,7 +1336,7 @@ product_readings_094:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.669059000 Z
   updater_id: 1
-product_readings_095:
+product_readings_090:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1422,7 +1352,7 @@ product_readings_095:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.701939000 Z
   updater_id: 1
-product_readings_096:
+product_readings_091:
   boolean_value: false
   created_at: 2014-11-04 17:17:04.706112000 Z
   creator_id: 1
@@ -1435,7 +1365,7 @@ product_readings_096:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.706112000 Z
   updater_id: 1
-product_readings_097:
+product_readings_092:
   boolean_value: false
   created_at: 2014-11-04 17:17:04.710877000 Z
   creator_id: 1
@@ -1450,7 +1380,7 @@ product_readings_097:
   read_at: 1975-06-01 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:17:04.710877000 Z
   updater_id: 1
-product_readings_098:
+product_readings_093:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:19:31.130666000 Z
@@ -1463,7 +1393,7 @@ product_readings_098:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.130666000 Z
   updater_id: 1
-product_readings_099:
+product_readings_094:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1479,7 +1409,7 @@ product_readings_099:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.266286000 Z
   updater_id: 1
-product_readings_100:
+product_readings_095:
   boolean_value: false
   created_at: 2014-11-04 17:19:31.270840000 Z
   creator_id: 1
@@ -1492,7 +1422,7 @@ product_readings_100:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.270840000 Z
   updater_id: 1
-product_readings_101:
+product_readings_096:
   boolean_value: false
   created_at: 2014-11-04 17:19:31.276006000 Z
   creator_id: 1
@@ -1509,7 +1439,7 @@ product_readings_101:
   read_at: 1983-12-11 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:19:31.276006000 Z
   updater_id: 1
-product_readings_102:
+product_readings_097:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 17:22:31.669214000 Z
@@ -1522,7 +1452,7 @@ product_readings_102:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.669214000 Z
   updater_id: 1
-product_readings_103:
+product_readings_098:
   absolute_measure_value_unit: square_meter
   absolute_measure_value_value: 10000.0
   boolean_value: false
@@ -1538,7 +1468,7 @@ product_readings_103:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.704135000 Z
   updater_id: 1
-product_readings_104:
+product_readings_099:
   boolean_value: false
   created_at: 2014-11-04 17:22:31.708666000 Z
   creator_id: 1
@@ -1551,7 +1481,7 @@ product_readings_104:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.708666000 Z
   updater_id: 1
-product_readings_105:
+product_readings_100:
   boolean_value: false
   created_at: 2014-11-04 17:22:31.714466000 Z
   creator_id: 1
@@ -1569,7 +1499,7 @@ product_readings_105:
   read_at: 1985-11-03 23:00:00.000000000 Z
   updated_at: 2014-11-04 17:22:31.714466000 Z
   updater_id: 1
-product_readings_106:
+product_readings_101:
   boolean_value: false
   choice_value: undefined
   created_at: 2014-11-04 17:28:40.097845000 Z
@@ -1582,7 +1512,7 @@ product_readings_106:
   read_at: 2014-11-04 17:28:40.089209000 Z
   updated_at: 2014-11-04 17:28:40.097845000 Z
   updater_id: 1
-product_readings_107:
+product_readings_102:
   boolean_value: false
   choice_value: undefined
   created_at: 2014-11-04 17:32:46.037461000 Z
@@ -1595,7 +1525,7 @@ product_readings_107:
   read_at: 2014-11-04 17:32:45.997952000 Z
   updated_at: 2014-11-04 17:32:46.037461000 Z
   updater_id: 1
-product_readings_108:
+product_readings_103:
   boolean_value: false
   choice_value: nude
   created_at: 2014-11-04 18:31:37.367320000 Z
@@ -1608,7 +1538,7 @@ product_readings_108:
   read_at: 2012-10-03 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:31:37.367320000 Z
   updater_id: 1
-product_readings_109:
+product_readings_104:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 4.5
   boolean_value: false
@@ -1624,7 +1554,7 @@ product_readings_109:
   read_at: 1992-01-17 23:00:00.000000000 Z
   updated_at: 2014-11-04 18:39:58.312219000 Z
   updater_id: 1
-product_readings_110:
+product_readings_105:
   boolean_value: false
   created_at: 2014-11-04 18:39:58.401204000 Z
   creator_id: 1
@@ -1637,7 +1567,7 @@ product_readings_110:
   read_at: 1992-01-17 23:00:00.000000000 Z
   updated_at: 2014-11-04 18:39:58.401204000 Z
   updater_id: 1
-product_readings_111:
+product_readings_106:
   absolute_measure_value_unit: meter
   absolute_measure_value_value: 3.0
   boolean_value: false
@@ -1653,7 +1583,7 @@ product_readings_111:
   read_at: 1997-09-22 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:41:16.426028000 Z
   updater_id: 1
-product_readings_112:
+product_readings_107:
   boolean_value: false
   created_at: 2014-11-04 18:41:16.454088000 Z
   creator_id: 1
@@ -1665,4 +1595,304 @@ product_readings_112:
   product_id: 88
   read_at: 1997-09-22 12:30:00.000000000 Z
   updated_at: 2014-11-04 18:41:16.454088000 Z
+  updater_id: 1
+product_readings_108:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 42.0
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.120063000 Z
+  creator_id: 1
+  id: 126
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 42.0
+  product_id: 89
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.120063000 Z
+  updater_id: 1
+product_readings_109:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.126925000 Z
+  creator_id: 1
+  id: 127
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product_id: 89
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.126925000 Z
+  updater_id: 1
+product_readings_110:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.134257000 Z
+  creator_id: 1
+  decimal_value: 20.0
+  id: 128
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 89
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.134257000 Z
+  updater_id: 1
+product_readings_111:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.166810000 Z
+  creator_id: 1
+  decimal_value: -49.4553
+  id: 129
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 53
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.166810000 Z
+  updater_id: 1
+product_readings_112:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.280688000 Z
+  creator_id: 1
+  id: 130
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product_id: 90
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.280688000 Z
+  updater_id: 1
+product_readings_113:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.285431000 Z
+  creator_id: 1
+  decimal_value: 0.0
+  id: 131
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 90
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.285431000 Z
+  updater_id: 1
+product_readings_114:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.291363000 Z
+  creator_id: 1
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  id: 132
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product_id: 90
+  read_at: 2013-11-10 12:01:30.000000000 Z
+  updated_at: 2014-11-05 15:40:16.291363000 Z
+  updater_id: 1
+product_readings_115:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.362850000 Z
+  creator_id: 1
+  decimal_value: 5.3806
+  id: 133
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 90
+  read_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:40:16.362850000 Z
+  updater_id: 1
+product_readings_116:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-05 15:40:16.378114000 Z
+  creator_id: 1
+  id: 134
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product_id: 83
+  read_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:40:16.378114000 Z
+  updater_id: 1
+product_readings_117:
+  boolean_value: false
+  created_at: 2014-11-05 15:40:16.392430000 Z
+  creator_id: 1
+  id: 135
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 3000
+  lock_version: 0
+  product_id: 90
+  read_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:40:16.392430000 Z
+  updater_id: 1
+product_readings_118:
+  boolean_value: false
+  choice_value: nude
+  created_at: 2014-11-06 17:49:51.144914000 Z
+  creator_id: 1
+  id: 136
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product_id: 84
+  read_at: 2012-10-07 13:30:00.000000000 Z
+  updated_at: 2014-11-06 17:49:51.144914000 Z
+  updater_id: 1
+product_readings_119:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 42.0
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.115012000 Z
+  creator_id: 1
+  id: 137
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 42.0
+  product_id: 91
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.115012000 Z
+  updater_id: 1
+product_readings_120:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.119355000 Z
+  creator_id: 1
+  id: 138
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product_id: 91
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.119355000 Z
+  updater_id: 1
+product_readings_121:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.124315000 Z
+  creator_id: 1
+  decimal_value: 29.4553
+  id: 139
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 91
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.124315000 Z
+  updater_id: 1
+product_readings_122:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.183612000 Z
+  creator_id: 1
+  decimal_value: -29.4553
+  id: 140
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 53
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.183612000 Z
+  updater_id: 1
+product_readings_123:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.284471000 Z
+  creator_id: 1
+  id: 141
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product_id: 92
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.284471000 Z
+  updater_id: 1
+product_readings_124:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.289222000 Z
+  creator_id: 1
+  decimal_value: 0.0
+  id: 142
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 92
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.289222000 Z
+  updater_id: 1
+product_readings_125:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.294840000 Z
+  creator_id: 1
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  id: 143
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product_id: 92
+  read_at: 2012-10-17 10:09:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.294840000 Z
+  updater_id: 1
+product_readings_126:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.346750000 Z
+  creator_id: 1
+  decimal_value: 8.349
+  id: 144
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 92
+  read_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.346750000 Z
+  updater_id: 1
+product_readings_127:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-06 17:50:07.360016000 Z
+  creator_id: 1
+  id: 145
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product_id: 84
+  read_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.360016000 Z
+  updater_id: 1
+product_readings_128:
+  boolean_value: false
+  created_at: 2014-11-06 17:50:07.373557000 Z
+  creator_id: 1
+  id: 146
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 17000
+  lock_version: 0
+  product_id: 92
+  read_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.373557000 Z
   updater_id: 1

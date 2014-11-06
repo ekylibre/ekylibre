@@ -86,13 +86,12 @@ class Cash < Ekylibre::Record::Base
 
   scope :bank_accounts, -> { where(nature: "bank_account") }
   scope :cash_boxes,    -> { where(nature: "cash_box") }
-  
+
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
     self.mode.lower!
     self.mode = self.class.mode.default_value if self.mode.blank?
     if self.currency.blank?
-      raise self.currency.inspect
       if self.journal
         self.currency = self.journal_currency
       elsif eoc = Entity.of_company
@@ -111,7 +110,7 @@ class Cash < Ekylibre::Record::Base
   validate do
     if self.journal
       unless self.currency == self.journal.currency
-        errors.add(:journal, :currency_does_not_match, journal: self.journal.name) 
+        errors.add(:journal, :currency_does_not_match, journal: self.journal.name)
       end
     end
     if self.bank_account?

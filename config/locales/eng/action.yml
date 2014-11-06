@@ -486,11 +486,6 @@ eng:
       new: "New product type"
       pick: "Pick product nature"
       show: "Product type: %{name}"
-    backend/production_support_markers:
-      # edit: "Edit production support marker: %{name}"
-      # index: "Production support markers"
-      # new: "New production support marker"
-      # show: "Production support marker: %{name}"
     backend/production_supports:
       edit: "Edit production support: %{name}"
       index: "Production supports"

@@ -19,10 +19,10 @@ eng:
         cash_box: "Cash box"
     catalog:
       usage:
-        sale: "Sale"
-        purchase: "Purchase"
-        stock: "Stock"
         cost: "Cost"
+        purchase: "Purchase"
+        sale: "Sale"
+        stock: "Stock"
     custom_field:
       nature:
         boolean: "Check box"

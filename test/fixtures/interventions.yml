@@ -102,3 +102,66 @@ interventions_002:
   stopped_at: 2012-10-04 17:50:00.000000000 Z
   updated_at: 2014-11-04 18:41:39.737616000 Z
   updater_id: 1
+interventions_003:
+  created_at: 2014-11-05 15:39:35.599908000 Z
+  creator_id: 1
+  event_id: 19
+  id: 11
+  lock_version: 3
+  natures: sowing
+  number: '10'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-sowing-0-750-2: '3000'
+  production_id: 1
+  production_support_id: 8
+  provisional: false
+  recommended: false
+  reference_name: base-sowing-0
+  started_at: 2013-11-10 09:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-06 17:48:17.037410000 Z
+  updater_id: 1
+interventions_004:
+  created_at: 2014-11-06 17:47:16.003032000 Z
+  creator_id: 1
+  event_id: 20
+  id: 12
+  lock_version: 3
+  natures: plowing
+  number: '11'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-plowing-0-500-1: nude
+  production_id: 1
+  production_support_id: 7
+  provisional: false
+  recommended: false
+  reference_name: base-plowing-0
+  started_at: 2012-10-07 07:50:00.000000000 Z
+  state: done
+  stopped_at: 2012-10-07 13:30:00.000000000 Z
+  updated_at: 2014-11-06 17:49:51.154667000 Z
+  updater_id: 1
+interventions_005:
+  created_at: 2014-11-06 17:49:34.368349000 Z
+  creator_id: 1
+  event_id: 21
+  id: 13
+  lock_version: 2
+  natures: sowing
+  number: '12'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-sowing-0-750-2: '17000'
+  production_id: 1
+  production_support_id: 7
+  provisional: false
+  recommended: false
+  reference_name: base-sowing-0
+  started_at: 2012-10-17 06:00:00.000000000 Z
+  state: done
+  stopped_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.381890000 Z
+  updater_id: 1

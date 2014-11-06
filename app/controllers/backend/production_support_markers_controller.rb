@@ -18,20 +18,20 @@
 #
 
 class Backend::ProductionSupportMarkersController < BackendController
-  manage_restfully # (:t3e => {:name => :name})
+  # manage_restfully # (:t3e => {:name => :name})
 
-  # unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]
+  # # unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]
 
-  list do |t|
-    t.column :campaign, url: true
-    t.column :activity, url: true, hidden: true
-    t.column :support, url: true
-    t.column :indicator, datatype: :item
-    t.column :aim
-    t.column :subject_label
-    t.column :derivative, hidden: true
-    t.column :subject, hidden: true
-    t.column :value, datatype: :measure
-  end
+  # list do |t|
+  #   t.column :campaign, url: true
+  #   t.column :activity, url: true, hidden: true
+  #   t.column :support, url: true
+  #   t.column :indicator, datatype: :item
+  #   t.column :aim
+  #   t.column :subject_label
+  #   t.column :derivative, hidden: true
+  #   t.column :subject, hidden: true
+  #   t.column :value, datatype: :measure
+  # end
 
 end

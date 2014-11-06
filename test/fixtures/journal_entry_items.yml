@@ -176,7 +176,7 @@ journal_entry_items_004:
   created_at: 2014-11-01 19:52:01.001174000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 217.0
+  cumulated_absolute_credit: 417.0
   cumulated_absolute_debit: 117.0
   currency: EUR
   debit: 117.0
@@ -321,7 +321,7 @@ journal_entry_items_009:
   created_at: 2014-11-01 19:52:01.242841000 Z
   creator_id: 1
   credit: 17.0
-  cumulated_absolute_credit: 234.0
+  cumulated_absolute_credit: 434.0
   cumulated_absolute_debit: 117.0
   currency: EUR
   debit: 0.0
@@ -350,7 +350,7 @@ journal_entry_items_010:
   created_at: 2014-11-01 19:52:01.256895000 Z
   creator_id: 1
   credit: 10.0
-  cumulated_absolute_credit: 433.0
+  cumulated_absolute_credit: 979.0
   cumulated_absolute_debit: 0.0
   currency: EUR
   debit: 0.0
@@ -409,7 +409,7 @@ journal_entry_items_012:
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 1787.0
+  cumulated_absolute_debit: 2533.0
   currency: EUR
   debit: 1164.0
   entry_id: 13
@@ -460,129 +460,13 @@ journal_entry_items_013:
 journal_entry_items_014:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 100.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-11-05 12:45:57.795958000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 250.0
-  currency: EUR
-  debit: 100.0
-  entry_id: 8
-  entry_number: XYZ0006
-  financial_year_id: 18
-  id: 29
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP003] In cash!  de Yuey LTD"
-  position: 1
-  printed_on: 2009-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 100.0
-  state: draft
-  updated_at: 2014-11-05 12:45:57.795958000 Z
-  updater_id: 1
-journal_entry_items_015:
-  absolute_credit: 100.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 202
-  balance: 0.0
-  created_at: 2014-11-05 12:45:57.815404000 Z
-  creator_id: 1
-  credit: 100.0
-  cumulated_absolute_credit: 100.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 8
-  entry_number: XYZ0006
-  financial_year_id: 18
-  id: 30
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP003] In cash!  de Yuey LTD"
-  position: 2
-  printed_on: 2009-07-19
-  real_credit: 100.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-11-05 12:45:57.815404000 Z
-  updater_id: 1
-journal_entry_items_016:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 123.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-11-05 12:45:57.860397000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 373.0
-  currency: EUR
-  debit: 123.0
-  entry_id: 15
-  entry_number: XYZ0011
-  financial_year_id: 18
-  id: 31
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP001] In cash!  de Busbest Andrew"
-  position: 1
-  printed_on: 2009-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 123.0
-  state: draft
-  updated_at: 2014-11-05 12:45:57.860397000 Z
-  updater_id: 1
-journal_entry_items_017:
-  absolute_credit: 123.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 206
-  balance: 0.0
-  created_at: 2014-11-05 12:45:57.880971000 Z
-  creator_id: 1
-  credit: 123.0
-  cumulated_absolute_credit: 273.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 15
-  entry_number: XYZ0011
-  financial_year_id: 18
-  id: 32
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP001] In cash!  de Busbest Andrew"
-  position: 2
-  printed_on: 2009-07-19
-  real_credit: 123.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-11-05 12:45:57.880971000 Z
-  updater_id: 1
-journal_entry_items_018:
-  absolute_credit: 0.0
-  absolute_currency: EUR
   absolute_debit: 223.0
   account_id: 212
   balance: 0.0
   created_at: 2014-11-05 12:45:57.925799000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 0.0
+  cumulated_absolute_credit: 116.0
   cumulated_absolute_debit: 223.0
   currency: EUR
   debit: 223.0
@@ -602,7 +486,7 @@ journal_entry_items_018:
   state: draft
   updated_at: 2014-11-05 12:45:57.925799000 Z
   updater_id: 1
-journal_entry_items_019:
+journal_entry_items_015:
   absolute_credit: 123.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -612,7 +496,7 @@ journal_entry_items_019:
   creator_id: 1
   credit: 123.0
   cumulated_absolute_credit: 123.0
-  cumulated_absolute_debit: 1787.0
+  cumulated_absolute_debit: 2533.0
   currency: EUR
   debit: 0.0
   entry_id: 16
@@ -631,7 +515,7 @@ journal_entry_items_019:
   state: draft
   updated_at: 2014-11-05 12:45:57.949128000 Z
   updater_id: 1
-journal_entry_items_020:
+journal_entry_items_016:
   absolute_credit: 100.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -641,7 +525,7 @@ journal_entry_items_020:
   creator_id: 1
   credit: 100.0
   cumulated_absolute_credit: 223.0
-  cumulated_absolute_debit: 1787.0
+  cumulated_absolute_debit: 2533.0
   currency: EUR
   debit: 0.0
   entry_id: 16
@@ -660,65 +544,7 @@ journal_entry_items_020:
   state: draft
   updated_at: 2014-11-05 12:45:57.992673000 Z
   updater_id: 1
-journal_entry_items_021:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 150.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-11-05 12:46:06.266186000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 523.0
-  currency: EUR
-  debit: 150.0
-  entry_id: 7
-  entry_number: XYZ0005
-  financial_year_id: 18
-  id: 36
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP002] In cash!  de Busbest Andrew"
-  position: 1
-  printed_on: 2009-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 150.0
-  state: draft
-  updated_at: 2014-11-05 12:46:06.266186000 Z
-  updater_id: 1
-journal_entry_items_022:
-  absolute_credit: 150.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 206
-  balance: 0.0
-  created_at: 2014-11-05 12:46:06.285188000 Z
-  creator_id: 1
-  credit: 150.0
-  cumulated_absolute_credit: 423.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 7
-  entry_number: XYZ0005
-  financial_year_id: 18
-  id: 37
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP002] In cash!  de Busbest Andrew"
-  position: 2
-  printed_on: 2009-07-19
-  real_credit: 150.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-11-05 12:46:06.285188000 Z
-  updater_id: 1
-journal_entry_items_023:
+journal_entry_items_017:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 150.0
@@ -727,7 +553,7 @@ journal_entry_items_023:
   created_at: 2014-11-05 12:46:06.342790000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 0.0
+  cumulated_absolute_credit: 116.0
   cumulated_absolute_debit: 373.0
   currency: EUR
   debit: 150.0
@@ -747,7 +573,7 @@ journal_entry_items_023:
   state: draft
   updated_at: 2014-11-05 12:46:06.342790000 Z
   updater_id: 1
-journal_entry_items_024:
+journal_entry_items_018:
   absolute_credit: 150.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -757,7 +583,7 @@ journal_entry_items_024:
   creator_id: 1
   credit: 150.0
   cumulated_absolute_credit: 373.0
-  cumulated_absolute_debit: 1787.0
+  cumulated_absolute_debit: 2533.0
   currency: EUR
   debit: 0.0
   entry_id: 17
@@ -776,7 +602,7 @@ journal_entry_items_024:
   state: draft
   updated_at: 2014-11-05 12:46:06.362768000 Z
   updater_id: 1
-journal_entry_items_025:
+journal_entry_items_019:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 11.23
@@ -805,7 +631,7 @@ journal_entry_items_025:
   state: draft
   updated_at: 2014-11-05 13:35:14.532588000 Z
   updater_id: 1
-journal_entry_items_026:
+journal_entry_items_020:
   absolute_credit: 9.36
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -834,7 +660,7 @@ journal_entry_items_026:
   state: draft
   updated_at: 2014-11-05 13:35:14.554188000 Z
   updater_id: 1
-journal_entry_items_027:
+journal_entry_items_021:
   absolute_credit: 1.87
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -863,7 +689,7 @@ journal_entry_items_027:
   state: draft
   updated_at: 2014-11-05 13:35:14.574475000 Z
   updater_id: 1
-journal_entry_items_028:
+journal_entry_items_022:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.8
@@ -892,7 +718,7 @@ journal_entry_items_028:
   state: draft
   updated_at: 2014-11-05 13:36:51.398622000 Z
   updater_id: 1
-journal_entry_items_029:
+journal_entry_items_023:
   absolute_credit: 0.8
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -921,7 +747,7 @@ journal_entry_items_029:
   state: draft
   updated_at: 2014-11-05 13:36:51.423491000 Z
   updater_id: 1
-journal_entry_items_030:
+journal_entry_items_024:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -949,4 +775,224 @@ journal_entry_items_030:
   real_debit: 0.0
   state: draft
   updated_at: 2014-11-05 13:36:51.445674000 Z
+  updater_id: 1
+journal_entry_items_025:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 100.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 14:07:45.760775000 Z
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 373.0
+  currency: EUR
+  debit: 100.0
+  entry_id: 8
+  entry_number: XYZ0006
+  financial_year_id: 18
+  id: 52
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP003] In cash!  de Yuey LTD"
+  position: 1
+  printed_on: 2009-07-18
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 100.0
+  state: draft
+  updated_at: 2014-11-05 14:07:45.760775000 Z
+journal_entry_items_026:
+  absolute_credit: 100.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 202
+  balance: 0.0
+  created_at: 2014-11-05 14:07:45.779570000 Z
+  credit: 100.0
+  cumulated_absolute_credit: 100.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 8
+  entry_number: XYZ0006
+  financial_year_id: 18
+  id: 53
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP003] In cash!  de Yuey LTD"
+  position: 2
+  printed_on: 2009-07-18
+  real_credit: 100.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 14:07:45.779570000 Z
+journal_entry_items_027:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 150.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 14:07:49.050648000 Z
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 523.0
+  currency: EUR
+  debit: 150.0
+  entry_id: 7
+  entry_number: XYZ0005
+  financial_year_id: 18
+  id: 54
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
+  position: 1
+  printed_on: 2009-07-18
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 150.0
+  state: draft
+  updated_at: 2014-11-05 14:07:49.050648000 Z
+journal_entry_items_028:
+  absolute_credit: 150.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 206
+  balance: 0.0
+  created_at: 2014-11-05 14:07:49.069065000 Z
+  credit: 150.0
+  cumulated_absolute_credit: 273.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 7
+  entry_number: XYZ0005
+  financial_year_id: 18
+  id: 55
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
+  position: 2
+  printed_on: 2009-07-18
+  real_credit: 150.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 14:07:49.069065000 Z
+journal_entry_items_029:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 123.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 14:07:53.285220000 Z
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 646.0
+  currency: EUR
+  debit: 123.0
+  entry_id: 15
+  entry_number: XYZ0011
+  financial_year_id: 18
+  id: 56
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
+  position: 1
+  printed_on: 2009-07-18
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 123.0
+  state: draft
+  updated_at: 2014-11-05 14:07:53.285220000 Z
+journal_entry_items_030:
+  absolute_credit: 123.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 206
+  balance: 0.0
+  created_at: 2014-11-05 14:07:53.305114000 Z
+  credit: 123.0
+  cumulated_absolute_credit: 396.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 15
+  entry_number: XYZ0011
+  financial_year_id: 18
+  id: 57
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
+  position: 2
+  printed_on: 2009-07-18
+  real_credit: 123.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 14:07:53.305114000 Z
+journal_entry_items_031:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 116.0
+  account_id: 205
+  balance: 0.0
+  created_at: 2014-11-05 14:11:50.159137000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 116.0
+  currency: EUR
+  debit: 116.0
+  entry_id: 20
+  entry_number: BNK000003
+  financial_year_id: 18
+  id: 58
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
+  position: 1
+  printed_on: 2009-08-31
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 116.0
+  state: draft
+  updated_at: 2014-11-05 14:11:50.159137000 Z
+  updater_id: 1
+journal_entry_items_032:
+  absolute_credit: 116.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-05 14:11:50.182428000 Z
+  creator_id: 1
+  credit: 116.0
+  cumulated_absolute_credit: 116.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 20
+  entry_number: BNK000003
+  financial_year_id: 18
+  id: 59
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
+  position: 2
+  printed_on: 2009-08-31
+  real_credit: 116.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 14:11:50.182428000 Z
   updater_id: 1

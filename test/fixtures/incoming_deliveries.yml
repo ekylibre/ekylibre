@@ -80,7 +80,6 @@ incoming_deliveries_003:
   lock_version: 0
   mode: ex_works
   number: INDEL000003
-  purchase_id: 1
   received_at: 2014-10-14 17:19:32.000000000 Z
   sender_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z

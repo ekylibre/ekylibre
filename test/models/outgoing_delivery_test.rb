@@ -62,4 +62,5 @@ class OutgoingDeliveryTest < ActiveSupport::TestCase
     delivery = OutgoingDelivery.new items_attributes: {"123456789"=>{"product_id"=>"", "_destroy"=>"false"}, "852" => item}
     delivery.items.map(&:net_mass)
   end
+
 end

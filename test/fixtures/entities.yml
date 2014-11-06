@@ -242,7 +242,7 @@ entities_006:
   id: 13
   language: fra
   last_name: Coop Ain Coop'In
-  lock_version: 0
+  lock_version: 1
   locked: false
   meeting_origin: ''
   nature: cooperative
@@ -254,7 +254,7 @@ entities_006:
   supplier: true
   supplier_account_id: 211
   transporter: false
-  updated_at: 2014-11-05 10:01:10.914643000 Z
+  updated_at: 2014-11-05 14:14:01.977457000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: false

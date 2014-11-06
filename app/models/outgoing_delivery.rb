@@ -167,7 +167,6 @@ class OutgoingDelivery < Ekylibre::Record::Base
           raise StandardError, "Need an obvious transporter to ship deliveries"
         end
       end
-
       transport = Transport.create!(departed_at: Time.now, transporter_id: options[:transporter_id], responsible_id: options[:responsible_id])
       deliveries.each do |delivery|
         delivery.with_transport = true
@@ -183,7 +182,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
   # Returns an array of all the transporter ids for the given deliveries
   def self.transporters_of(deliveries)
-    deliveries.map(&:transporter_id)
+    deliveries.map(&:transporter_id).compact
   end
 
 

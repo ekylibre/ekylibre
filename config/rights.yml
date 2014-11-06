@@ -1554,9 +1554,9 @@ product_natures:
 productions:
   read:
     actions:
-    - "backend/production_support_markers#index"
-    - "backend/production_support_markers#list"
-    - "backend/production_support_markers#show"
+    - "backend/production_support_markers#index" #?
+    - "backend/production_support_markers#list" #?
+    - "backend/production_support_markers#show" #?
     - "backend/production_supports#index"
     - "backend/production_supports#list"
     - "backend/production_supports#list_interventions"
@@ -1574,11 +1574,11 @@ productions:
     depend-on:
     - read-productions
     actions:
-    - "backend/production_support_markers#create"
-    - "backend/production_support_markers#destroy"
-    - "backend/production_support_markers#edit"
-    - "backend/production_support_markers#new"
-    - "backend/production_support_markers#update"
+    - "backend/production_support_markers#create" #?
+    - "backend/production_support_markers#destroy" #?
+    - "backend/production_support_markers#edit" #?
+    - "backend/production_support_markers#new" #?
+    - "backend/production_support_markers#update" #?
     - "backend/production_supports#create"
     - "backend/production_supports#destroy"
     - "backend/production_supports#edit"

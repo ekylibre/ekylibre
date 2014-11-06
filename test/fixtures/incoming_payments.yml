@@ -67,8 +67,8 @@
 #
 ---
 incoming_payments_001:
-  accounted_at: 2014-11-05 12:45:57.894237000 Z
-  affair_id: 1
+  accounted_at: 2014-11-05 14:07:53.334739000 Z
+  affair_id: 20
   amount: 123.0
   commission_amount: 0.0
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -88,7 +88,7 @@ incoming_payments_001:
   updated_at: 2014-11-05 12:45:57.840651000 Z
   updater_id: 1
 incoming_payments_002:
-  accounted_at: 2014-11-05 12:46:06.297817000 Z
+  accounted_at: 2014-11-05 14:07:49.081269000 Z
   affair_id: 2
   amount: 150.0
   bank_account_number: ''
@@ -113,8 +113,8 @@ incoming_payments_002:
   updated_at: 2014-11-05 12:46:06.215514000 Z
   updater_id: 1
 incoming_payments_003:
-  accounted_at: 2014-11-05 12:45:57.828925000 Z
-  affair_id: 3
+  accounted_at: 2014-11-05 14:07:45.790887000 Z
+  affair_id: 21
   amount: 100.0
   bank_account_number: ''
   bank_check_number: ''
@@ -137,8 +137,8 @@ incoming_payments_003:
   updated_at: 2014-11-05 12:45:57.743007000 Z
   updater_id: 1
 incoming_payments_004:
-  accounted_at: 2014-10-31 18:51:59.239449000 Z
-  affair_id: 6
+  accounted_at: 2014-11-05 14:07:42.844167000 Z
+  affair_id: 22
   amount: 448.98
   commission_amount: 0.0
   created_at: 2014-10-31 18:51:59.234679000 Z

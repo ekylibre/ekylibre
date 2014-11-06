@@ -75,7 +75,9 @@ class ProductPhase < Ekylibre::Record::Base
       if previous = self.previous
         self.product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
       else
-        raise "Cannot destroy this product phase"
+        unless self.destroyed_by_association
+          raise "Cannot destroy this product phase"
+        end
       end
     end
   end
