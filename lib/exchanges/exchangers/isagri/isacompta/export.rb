@@ -10,8 +10,12 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
   }
 
   version = nil
-  File.open(file, "rb:CP1252") do |f|
-    version = f.readline.to_s[13..16].to_i
+  begin
+    File.open(file, "rb:CP1252") do |f|
+      version = f.readline.to_s[13..16].to_i
+    end
+  rescue
+    raise NotWellFormedFileError
   end
   used_versions = [8550]
   version = used_versions.select{|x| x <= version}.sort[-1]
@@ -23,10 +27,10 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
       # Find or create financial year
       unless fy = FinancialYear.find_by_started_on_and_stopped_on(isa_fy.started_on, isa_fy.stopped_on)
         if FinancialYear.where("? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on", isa_fy.started_on, isa_fy.stopped_on).count > 0
-          raise ImcompatibleDataError.new("Financial year dates overlaps existing financial years")
+          raise Exchanges::IncompatibleDataError.new("Financial year dates overlaps existing financial years")
         else
-          raise ImcompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != "EUR"
-          fy = FinancialYear.create!(:started_on => isa_fy.started_on, :stopped_on => isa_fy.stopped_on)
+          raise Exchanges::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != "EUR"
+          fy = FinancialYear.create!(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
         end
       end
 
@@ -154,7 +158,7 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
     end
 
   else
-    raise NotWellFormedFileError.new("Version does not seems to be supported")
+    raise Exchanges::NotWellFormedFileError, "Version does not seems to be supported"
   end
 
 end

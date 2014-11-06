@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: preferences
@@ -48,7 +48,7 @@ class Preference < Ekylibre::Record::Base
   cattr_reader :reference
   attr_readonly :user_id, :name, :nature
   belongs_to :user, class_name: "Entity"
-  belongs_to :record_value, :polymorphic => true
+  belongs_to :record_value, polymorphic: true
   # cattr_reader :reference
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
@@ -88,6 +88,19 @@ class Preference < Ekylibre::Record::Base
   # prefer :map_measure_srid, :integer, 0
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystems.default
 
+
+  before_validation do
+    if self.record?
+      self.record_value_type = self.record_value.class.name
+    end
+  end
+
+  def self.check!
+    reference.keys.each do |pref|
+      get(pref)
+    end
+  end
+
   def self.type_to_nature(object)
     klass = object.class.to_s
     if object.is_a?(Nomen::Item) and nature = object.nomenclature.name.to_s.singularize.to_sym and nature.values.include?(nature)
@@ -122,6 +135,34 @@ class Preference < Ekylibre::Record::Base
     elsif preference.nil?
       raise ArgumentError, "Undefined preference: #{name}"
     end
+    return preference
+  end
+
+  def self.get!(name, default_value = nil, nature = :string)
+    name = name.to_s
+    preference = Preference.find_by(name: name)
+    if preference.nil? and self.reference.has_key?(name)
+      preference = self.new name: name, nature: self.reference[name][:nature]
+      preference.value = default_value || self.reference[name][:default]
+      preference.save!
+    elsif preference.nil?
+      preference = self.new name: name, nature: nature
+      preference.value = default_value
+      preference.save!
+    end
+    return preference
+  end
+
+  def self.set!(name, value, nature = :string)
+    name = name.to_s
+    preference = Preference.find_by(name: name)
+    if preference.nil? and self.reference.has_key?(name)
+      preference = self.new name: name, nature: self.reference[name][:nature]
+    elsif preference.nil?
+      preference = self.new name: name, nature: nature
+    end
+    preference.value = value
+    preference.save!
     return preference
   end
 

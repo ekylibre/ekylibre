@@ -1,7 +1,8 @@
 # Create or updates entities
 Exchanges.add_importer :ekylibre_erp_settings do |file, w|
 
-  manifest = YAML.load_file(file).deep_symbolize_keys
+  manifest = YAML.load_file(file) || {}
+  manifest.deep_symbolize_keys!
 
   # TODO: Find a cleaner way to manage those following methods
   def manifest.can_load?(key)
@@ -30,7 +31,7 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
             attributes[reflection.name] = get_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
           end
         end
-        @records[records][identifier] = model.create!(attributes)
+        @records[records][identifier.to_s] = model.create!(attributes)
       end
     end
   end
@@ -57,14 +58,17 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   language = I18n.locale = manifest[:language]
   currency = manifest[:currency] || 'EUR'
   country  = manifest[:country]  || 'fr'
-  Preference.get(:language).set!(language)
-  Preference.get(:currency).set!(currency)
-  Preference.get(:country).set!(country)
+  Preference.set!(:language, language)
+  Preference.set!(:currency, currency)
+  Preference.set!(:country, country)
   if srs = manifest[:map_measure_srs]
-    Preference.get(:map_measure_srs).set!(srs)
+    Preference.set!(:map_measure_srs, srs)
   elsif srid = manifest[:map_measure_srid]
-    Preference.get(:map_measure_srs).set!(Nomen::SpatialReferenceSystems.find_by(srid: srid.to_i).name)
+    Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystems.find_by(srid: srid.to_i).name)
   end
+  Preference.set!(:demo, !!manifest[:demo], :boolean)
+  Preference.set!(:create_activities_from_telepac, !!manifest[:create_activities_from_telepac], :boolean)
+  ::I18n.locale = Preference[:language]
 
   w.check_point
 
@@ -102,14 +106,14 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
 
   # Teams
   if manifest.can_load_default?(:teams)
-    manifest[:teams] = {default: {name: 'models.team.default'.t}}
+    manifest[:teams] = {default: {name: Establishment.tc('default')}}
   end
   manifest.create_records(:teams)
   w.check_point
 
   # Establishment
   if manifest.can_load_default?(:establishments)
-    manifest[:establishments] = {default: {name: 'models.establishment.default'.t}}
+    manifest[:establishments] = {default: {name: Establishment.tc('default')}}
   end
   manifest.create_records(:establishments)
   w.check_point
@@ -117,8 +121,8 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Roles
   if manifest.can_load_default?(:roles)
     manifest[:roles] = {
-      default: {name: 'models.role.default.public'.t},
-      administrator: {name: 'models.role.default.administrator'.t, rights: Ekylibre::Access.actions}
+      default: {name: Role.tc('default.public')},
+      administrator: {name: Role.tc('default.administrator'), rights: Ekylibre::Access.actions}
     }
   end
   manifest.create_records(:roles)
@@ -141,7 +145,9 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
         attributes[:password] = "12345678"
       else
         attributes[:password] = User.give_password(8, :normal)
-        puts "New password for account #{attributes[:email]}: #{attributes[:password]}"
+        unless Rails.env.test?
+          puts "New password for account #{attributes[:email]}: #{attributes[:password]}"
+        end
       end
     end
     attributes[:password_confirmation] = attributes[:password]
@@ -187,7 +193,7 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
       hash
     end
   end
-  manifest.create_records(:journals)
+  manifest.create_records(:journals, :code)
   w.check_point
 
   # Load cashes
@@ -197,12 +203,14 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Load incoming payment modes
   if manifest.can_load_default?(:incoming_payment_modes)
     manifest[:incoming_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
-      hash[nature] = {name: "models.incoming_payment_mode.default.#{nature}.name".t, with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account), with_deposit: (nature == "check" ? true : false)}
-      if hash[nature][:with_deposit] and journal = Journal.find_by(nature: "bank")
-        hash[nature][:depositables_journal] = journal
-        hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)
-      else
-        hash[nature][:with_deposit] = false
+      if cash = Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)
+        hash[nature] = {name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == "check" ? true : false)}
+        if hash[nature][:with_deposit] and journal = Journal.find_by(nature: "bank")
+          hash[nature][:depositables_journal] = journal
+          hash[nature][:depositables_account] = Account.find_or_create_in_chart(:pending_deposit_payments)
+        else
+          hash[nature][:with_deposit] = false
+        end
       end
       hash
     end
@@ -213,7 +221,7 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Load outgoing payment modes
   if manifest.can_load_default?(:outgoing_payment_modes)
     manifest[:outgoing_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
-      hash[nature] = {name: "models.outgoing_payment_mode.default.#{nature}.name".t, with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)}
+      hash[nature] = {name: OutgoingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)}
       hash
     end
   end
@@ -222,14 +230,19 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
 
   # Load sale natures
   if manifest.can_load_default?(:sale_natures)
-    manifest[:sale_natures] = {default: {name: 'models.sale_nature.default.name'.t, active: true, expiration_delay: "30 day", payment_delay: "30 day", downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, with_accounting: true, journal: :sales, catalog: Catalog.of_usage(:sale).first}}
+    nature, usage = :sales, :sale
+    journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
+    catalog = Catalog.of_usage(:sale).first || Catalog.create!(name: "enumerize.catalog.usage.#{usage}".t, usage: usage, currency: currency)
+    manifest[:sale_natures] = {default: {name: SaleNature.tc('default.name'), active: true, expiration_delay: "30 day", payment_delay: "30 day", downpayment: false, downpayment_minimum: 300, downpayment_percentage: 30, currency: currency, with_accounting: true, journal: journal, catalog: catalog}}
   end
   manifest.create_records(:sale_natures)
   w.check_point
 
   # Load purchase natures
   if manifest.can_load_default?(:purchase_natures)
-    manifest[:sale_natures] = {default: {name: "models.purchase_nature.default.name".t, active: true, currency: currency, with_accounting: true, journal: :purchases}}
+    nature = :purchases
+    journal = Journal.find_by(nature: nature, currency: currency) || Journal.create!(name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month)
+    manifest[:purchase_natures] = {default: {name: PurchaseNature.tc("default.name"), active: true, currency: currency, with_accounting: true, journal: journal}}
   end
   manifest.create_records(:purchase_natures)
   w.check_point

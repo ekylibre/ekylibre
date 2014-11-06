@@ -64,7 +64,7 @@ module Unrollable
       fill_in = fill_in.to_sym unless fill_in.nil?
 
       if !fill_in.nil? and !columns.detect{|c| c[:name] == fill_in }
-        raise StandardError.new("Label (#{label}, #{columns.inspect}) of unroll must include the primary column: #{fill_in.inspect}")
+        raise StandardError, "Label (#{label}, #{columns.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
 
       haml  = ""
@@ -80,15 +80,16 @@ module Unrollable
       haml << "  - if items.count > #{(max*1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
-      haml << "- else\n"
+      haml << "- elsif params[:insert].to_i > 0\n"
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
         haml << "    - unless search.blank?\n"
         haml << "      %li.item.special{'data-new-item' => search, 'data-new-item-parameter' => '#{fill_in}'}= I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
       end
       haml << "    %li.item.special{'data-new-item' => ''}= I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
-      # haml << "  %span.items-status.items-status-empty\n"
-      # haml << "    =I18n.t('labels.no_results')\n"
+      haml << "- else\n"
+      haml << "  %span.items-status.items-status-empty\n"
+      haml << "    = :no_results.tl\n"
 
       # Write haml in cache
       path = self.controller_path.split('/')
@@ -109,10 +110,8 @@ module Unrollable
         code << ".references(#{options[:includes].inspect})"
       end
       code <<  ".order(#{order.inspect})\n"
-      # code << "  items = #{model.name}.unscoped\n"
-      # code << "  raise params[:scope].inspect\n"
       code << "  if scopes = params[:scope]\n"
-      code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String)\n"
+      code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String) or scopes.is_a?(Symbol)\n"
       code << "    for scope, parameters in scopes.symbolize_keys\n"
       code << "      if (parameters.is_a?(TrueClass) or parameters == 'true') and klass.simple_scopes.map(&:name).include?(scope)\n"
       code << "        items = items.send(scope)\n"
@@ -134,8 +133,8 @@ module Unrollable
       code << "  if params[:id]\n"
       code << "    items = items.where(id: params[:id])\n"
       searchable_columns = columns.delete_if{ |c| c[:type] == :boolean }
-      if searchable_columns.size > 0
-        code << "  elsif keys.size > 0\n"
+      if searchable_columns.any?
+        code << "  elsif keys.any?\n"
         code << "    conditions = ['(']\n"
         code << "    keys.each_with_index do |key, index|\n"
         code << "      conditions[0] << ') AND (' if index > 0\n"

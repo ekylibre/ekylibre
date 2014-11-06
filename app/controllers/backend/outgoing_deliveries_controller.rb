@@ -4,16 +4,16 @@
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -58,11 +58,22 @@ class Backend::OutgoingDeliveriesController < BackendController
   end
 
   def ship
-    for id in ids = params[:id].split(',')
-      return unless find_and_check(id: id)
+    deliveries = []
+    for id in params[:id].split(',')
+      return unless delivery = find_and_check(id: id)
+      deliveries << delivery
     end
-    transport = OutgoingDelivery.ship(ids)
-    redirect_to backend_transport_url(transport)
+    if params[:transporter_id]
+      transport = OutgoingDelivery.ship(deliveries, params.slice(:transporter_id, :responsible_id))
+      redirect_to backend_transport_url(transport)
+    elsif OutgoingDelivery.transporters_of(deliveries).uniq.count == 1
+      transport = OutgoingDelivery.ship(deliveries, params.slice(:responsible_id))
+      redirect_to backend_transport_url(transport)
+    else
+      # default case: render the transporter selector
+      params[:transporter_id] = OutgoingDelivery.transporters_of(deliveries).compact.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+      params[:responsible_id] = current_user.person.id
+    end
   end
 
 end

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: accounts
@@ -158,7 +158,11 @@ class Account < Ekylibre::Record::Base
 
     # Find account with its usage among.all existing account records
     def find_in_chart(usage)
-      return self.of_usage(usage).first
+      unless account = of_usage(usage).first
+        item = Nomen::Accounts[usage]
+        account = find_by(number: item.send(chart)) if item
+      end
+      return account
     end
 
     # Find all account matching with the regexp in a String
@@ -216,9 +220,9 @@ class Account < Ekylibre::Record::Base
     # It takes the information in preferences
     def chart=(name)
       unless item = Nomen::ChartsOfAccounts[name]
-        raise ArgumentError.new("The chart of accounts #{name.inspect} is unknown.")
+        raise ArgumentError, "The chart of accounts #{name.inspect} is unknown."
       end
-      return Preference.get(:chart_of_accounts).value = item.name
+      Preference.get(:chart_of_accounts).set!(item.name)
     end
     alias :chart_of_accounts= :chart=
 
@@ -234,14 +238,17 @@ class Account < Ekylibre::Record::Base
 
     # Load a chart of account
     def load # (name, options = {})
-      name = chart
-      unless item = Nomen::ChartsOfAccounts[name]
-        raise ArgumentError.new("Chart of accounts #{name.inspect} is unknown")
+      self.transaction do
+        # Destroy unused existing accounts
+        find_each do |account|
+          account.destroy if account.destroyable?
+        end
+
+        for item in Nomen::Accounts.all
+          find_or_create_in_chart(item)
+        end
       end
-      for item in Nomen::Accounts.all
-        find_or_create_in_chart(item)
-      end
-      return false
+      return true
     end
 
     # Clean ranges of accounts
@@ -368,7 +375,8 @@ class Account < Ekylibre::Record::Base
 
 
   def reconcilable_entry_items(period, started_at, stopped_at)
-    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).order("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
+    # self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
+    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).reorder("letter DESC, je.printed_on")
   end
 
   def new_letter

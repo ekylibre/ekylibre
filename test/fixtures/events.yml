@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: events
@@ -48,24 +48,90 @@
 #   started_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
-
+---
 events_001:
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
   name: Nothing
   nature: meeting
-  started_at: <%=(t=Time.now-1.month).to_s(:db)%>
-  updater: users_001
-
+  restricted: false
+  started_at: 2014-09-30 17:19:32.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 events_002:
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
   name: Nothing too
   nature: meeting
-  started_at: <%=(t=Time.now-1.year).to_s(:db)%>
-  updater: users_001
-
+  restricted: false
+  started_at: 2013-10-31 18:19:32.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 events_003:
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
   name: Nothing too again
   nature: meeting
-  started_at: <%=(t=Time.now-2.year).to_s(:db)%>
-  updater: users_001
+  restricted: false
+  started_at: 2012-10-31 18:19:32.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+events_004:
+  created_at: 2014-10-31 18:45:44.741463000 Z
+  creator_id: 1
+  duration: 7200
+  id: 4
+  lock_version: 0
+  name: Interview
+  nature: appointment
+  place: Bordeaux
+  restricted: false
+  started_at: 2014-01-29 07:45:00.000000000 Z
+  stopped_at: 2014-01-29 09:45:00.000000000 Z
+  updated_at: 2014-10-31 18:45:44.741463000 Z
+  updater_id: 1
+events_005:
+  created_at: 2014-10-31 18:51:27.910985000 Z
+  creator_id: 1
+  duration: 10
+  id: 5
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-10-31 18:51:27.900495000 Z
+  stopped_at: 2014-10-31 18:51:37.900495000 Z
+  updated_at: 2014-10-31 18:51:27.910985000 Z
+  updater_id: 1
+events_006:
+  created_at: 2014-11-04 18:31:09.283882000 Z
+  creator_id: 1
+  duration: 14400
+  id: 13
+  lock_version: 0
+  name: Labour n°8
+  nature: production_intervention
+  restricted: false
+  started_at: 2012-10-03 08:30:00.000000000 Z
+  stopped_at: 2012-10-03 12:30:00.000000000 Z
+  updated_at: 2014-11-04 18:31:09.283882000 Z
+  updater_id: 1
+events_007:
+  created_at: 2014-11-04 18:41:39.735286000 Z
+  creator_id: 1
+  duration: 37500
+  id: 14
+  lock_version: 0
+  name: Binage n°9
+  nature: production_intervention
+  restricted: false
+  started_at: 2012-10-04 07:25:00.000000000 Z
+  stopped_at: 2012-10-04 17:50:00.000000000 Z
+  updated_at: 2014-11-04 18:41:39.735286000 Z
+  updater_id: 1

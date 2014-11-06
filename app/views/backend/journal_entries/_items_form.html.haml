@@ -1,0 +1,39 @@
+- if @financial_year = FinancialYear.at(@journal_entry.printed_on)
+  - if @journal.currency != @financial_year.currency
+    = field :exchange_rate_from_x_to_y.tl(x: @journal.currency, y: @financial_year.currency), text_field(:journal_entry, :real_currency_rate)
+
+.active-list
+  %table.list
+
+    %thead
+      %tr
+        %th= JournalEntryItem.human_attribute_name(:name)
+        %th= JournalEntryItem.human_attribute_name(:account)
+        %th{colspan: 2}= JournalEntryItem.human_attribute_name(:debit)
+        %th{colspan: 2}= JournalEntryItem.human_attribute_name(:credit)
+        %th.act
+
+    %tfoot
+      %tr#total.total{data: {valid_if_equality_between: "#entry-real-debit, #entry-real-credit"}}
+        %th{colspan: 2}
+          = tool_to(:new.ta, {controller: :journal_entry_items, action: :new, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
+          %span= :total.tl
+        %td#entry-real-debit.decimal{ data: {use: "input.real-debit"}}=  @journal_entry.real_debit
+        %td.txt= @journal.currency
+        %td#entry-real-credit.decimal{data: {use: "input.real-credit"}}= @journal_entry.real_credit
+        %td.txt= @journal.currency
+        %th.act
+
+      - if @financial_year and @journal.currency != @financial_year.currency
+        %tr.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit"}}
+          %th{colspan: 2}= :total_in_currency.tl(currency: @financial_year.currency)
+          %td#entry-debit.decimal{ data: {use: "td.debit",  calculate_round: Nomen::Currencies[@financial_year.currency].precision}}= @journal_entry.debit
+          %td.txt= @financial_year.currency
+          %td#entry-credit.decimal{data: {use: "td.credit", calculate_round: Nomen::Currencies[@financial_year.currency].precision}}= @journal_entry.credit
+          %td.txt= @financial_year.currency
+          %th.act
+
+    %tbody#items.items
+      - items = @journal_entry_items || @journal_entry.items.order(:position)
+      = render partial: "backend/journal_entry_items/row_form", collection: items
+      = render partial: "backend/journal_entry_items/row_form", object: @journal_entry.items.new if items.empty?

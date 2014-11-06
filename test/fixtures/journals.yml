@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: journals
@@ -50,32 +50,74 @@
 #   used_for_affairs: true
 #   used_for_gaps: true
 #
-
+---
 journals_001:
   closed_on: 2007-06-30
   code: VOP
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 1
+  lock_version: 0
   name: Various operations
   nature: various
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
   used_for_affairs: true
   used_for_gaps: true
-
 journals_002:
   closed_on: 2009-07-19
   code: BNK
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 2
+  lock_version: 0
   name: Bank
   nature: bank
-  updater: users_001
-
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
 journals_003:
   closed_on: 2007-06-30
   code: SAL
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 3
+  lock_version: 0
   name: Sales
   nature: sales
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+journals_004:
+  closed_on: 2007-06-30
+  code: PUR
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  id: 4
+  lock_version: 0
+  name: Purchases
+  nature: purchases
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false
+journals_005:
+  closed_on: 2007-06-30
+  code: PUD
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: USD
+  id: 5
+  lock_version: 0
+  name: Purchases USD
+  nature: purchases
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  used_for_affairs: false
+  used_for_gaps: false

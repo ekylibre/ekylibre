@@ -189,7 +189,7 @@ arb:
       entity_nature:  #?
         description: "المواصفات" #?
       equipment:
-        # born_at: "putting into service at"
+        # born_at: "Put in service at"
         consumption: "(الاستهلاك (لتر / ساعة " #?
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات" #?
@@ -645,6 +645,8 @@ arb:
     errors:
       messages:
         accepted: "%{attribute} يجب أن تكون مقبولة"
+        # after: "%{attribute} must be after %{restriction}"
+        # before: "%{attribute} must be before %{restriction}"
         blank: "%{attribute} لا يمكن أن تكون فارغة"
         confirmation: "%{attribute} لا تطابق التثبيت"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
@@ -658,7 +660,11 @@ arb:
         inclusion: "%{attribute} ليست مدرجة بالقائمة"
         invalid: "%{attribute} غير متوفر"
         invalid_at: "%{attribute} غير_متوفر. %{error} على مقربة من الخطأ"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
         invalid_token: "%{attribute} غير متوفر.%{error} النموذج غير معروف.%{accepted} النماذج المقبولة هي"
+        # is_at: "%{attribute} must be at %{restriction}"
         less_than: "%{attribute} يجب ان يكون اقل من %{count}"
         less_than_or_equal_to: "%{attribute} يجب ان يكون اقل او يساو %{count}"
         # must_be_a_mail_address: "%{attribute} must be a mail address"
@@ -666,6 +672,8 @@ arb:
         # not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"
@@ -888,6 +896,7 @@ arb:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
+      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
@@ -896,11 +905,11 @@ arb:
       product_move: "حركة السهم" #?
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
-      # product_nature_category_taxation: "Product nature category taxation"
+      # product_nature_category_taxation: "Product type category taxation"
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
-      # product_nature_variant: "Product nature variant"
-      # product_nature_variant_reading: "Product nature variant reading"
+      # product_nature_variant: "Product type variant"
+      # product_nature_variant_reading: "Product type variant reading"
       # product_ownership: "Product ownership"
       # product_phase: "Product phase"
       product_price_listing: "فئة الفرد" #?
@@ -921,7 +930,7 @@ arb:
       # property_title: "Property title"
       purchase: "الشراء"
       purchase_item: "طريقة طلب الشراء"
-      # purchase_nature: "Purchase nature"
+      # purchase_nature: "Purchase type"
       role: "الدور"
       sale: "البيع"
       sale_item: "طريقة طلب البيع"
@@ -942,7 +951,7 @@ arb:
       team: "الخجمة"
       tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
-      transfer: "التحويل"
+      transfer: "التحويل" #?
       transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
@@ -1066,7 +1075,7 @@ arb:
     category: "الفئة"
     category_id: "الفئة" #?
     # ceded: "Ceded"
-    # ceded_at: "Ceded on"
+    # ceded_on: "Ceded on"
     # charge_account: "Charge account"
     # charges_account: "Charges account"
     charges_accounts: "حسابات الحمولة" #?
@@ -1424,6 +1433,7 @@ arb:
     integer_value: "قيمة العدد الصحيح"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # intervention: "Intervention"
+    # intervention_cast: "Intervention cast"
     # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     introduction: "المقدمة"
@@ -1563,8 +1573,8 @@ arb:
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
-    # nature_name: "Nature name"
-    # natures: "Natures"
+    # nature_name: "Type name"
+    # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
     nic: "واجهة بطاقة الشبكة" #?
@@ -1685,6 +1695,7 @@ arb:
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
     prices: "الاسعار"
+    # printed_at: "Printed at"
     printed_on: "طبع يوم"
     # priority: "Priority"
     producer: "المنتج"
@@ -1709,10 +1720,10 @@ arb:
     # product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     # product_mixings: "Product mixings"
-    # product_nature: "Product nature"
-    # product_nature_categories: "Product nature categories"
-    # product_nature_category: "Product nature category"
-    # product_nature_category_taxations: "Product nature category taxations"
+    # product_nature: "Product type"
+    # product_nature_categories: "Product type categories"
+    # product_nature_category: "Product type category"
+    # product_nature_category_taxations: "Product type category taxations"
     # product_ownerships: "Product ownerships"
     # product_phases: "Product phases"
     # product_quadruple_mixings: "Product quadruple mixings"
@@ -1734,6 +1745,7 @@ arb:
     profession: "المهنة" #?
     profession_id: "مهنة" #?
     professions: "مهن" #?
+    # progression_percentage: "Progression (%)"
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
@@ -1749,7 +1761,7 @@ arb:
     purchase_items: "طرق طلب الشراء"
     # purchase_taxations: "Purchase taxations"
     # purchase_taxes: "Purchase taxes"
-    # purchased_at: "Purchased on"
+    # purchased_on: "Purchased on"
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
@@ -1801,6 +1813,7 @@ arb:
     # reflections: "Reflections"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
     # remember_created_at: "Remember created at"
+    # remember_me: "Remember me"
     # reminder_submissive: "Reminder submissive"
     # reporter: "Reporter"
     required: "الزامي"
@@ -1872,7 +1885,7 @@ arb:
     # sign_in_count: "Sign in count"
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم" #?
-    # soil_nature: "Soil nature"
+    # soil_nature: "Soil type"
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
@@ -2057,7 +2070,9 @@ arb:
       sale:
         # name: "Sales prices catalog"
     catalog_price:
-      # label: "%{variant} %{amount}/%{unit}"
+      name: "%{product} / %{amount} %{currency}"
+      no_range: "ليس هناك من فترة استراحة" #?
+      range: "من %{min} الى %{max}" #?
     company:  #?
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة" #?
       default: #?
@@ -2326,9 +2341,12 @@ arb:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     intervention:
       # name: "%{intervention} #%{number}"
-    inventory_item:
-      inventory: "عملية الجرد"
+    inventory_item:  #?
+      inventory: "عملية الجرد" #?
     inventory_line: #?
+    issue:
+      # name_with_target: "%{nature} on %{target}"
+      # name_without_target: "%{nature}"
     journal:  #?
       natures: #?
         bank: "البنك" #?
@@ -2422,10 +2440,6 @@ arb:
           # name: "Transfer"
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})" #?
-    price:  #?
-      label: "%{product} / %{amount} %{currency}" #?
-      no_range: "ليس هناك من فترة استراحة" #?
-      range: "من %{min} الى %{max}" #?
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
@@ -2498,6 +2512,7 @@ arb:
     production:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Aborted"
         # draft: "Draft"
@@ -2544,7 +2559,7 @@ arb:
     purchase_line: #?
     purchase_nature:
       default:
-        # name: "Standard"
+        # name: "Standard purchase"
     role:
       default:
         # administrator: "Administrator"
@@ -2591,7 +2606,7 @@ arb:
     sale_line: #?
     sale_nature:
       default:
-        # name: "Standard"
+        # name: "Standard sale"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?
@@ -2601,6 +2616,7 @@ arb:
       no_product: "[لا لاي منتج]" #?
     sequence:
       default:
+        # affairs: "A[number|12]"
         # animals: "ANI[year|4][number|4]"
         assets: #?
         # campaigns: "CAMP[number|4]"
@@ -2608,6 +2624,7 @@ arb:
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
         # financial_assets: "FA[number|7]"
+        # gaps: "G[number|12]"
         # incoming_deliveries: "ID[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"

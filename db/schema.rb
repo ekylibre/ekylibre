@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925220644) do
+ActiveRecord::Schema.define(version: 20141021082742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -310,7 +310,7 @@ ActiveRecord::Schema.define(version: 20140925220644) do
     t.string   "currency",           limit: 3,                                            null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.string   "thread",             limit: 20
+    t.string   "thread",             limit: 120,                                          null: false
     t.datetime "created_at",                                                              null: false
     t.datetime "updated_at",                                                              null: false
     t.integer  "creator_id"

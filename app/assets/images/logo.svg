@@ -7,20 +7,21 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1023.9999"
    height="200"
    id="erp-logo"
    sodipodi:version="0.32"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.5 r10040"
    version="1.0"
    sodipodi:docname="logo.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="logo.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
+  <defs
+     id="defs15" />
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -29,10 +30,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5"
-     inkscape:cx="64.171269"
-     inkscape:cy="-94.242816"
+     inkscape:cx="1172.5289"
+     inkscape:cy="35.254659"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g3167"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
@@ -60,7 +61,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -71,18 +72,23 @@
      transform="translate(-964.66001,540.15198)">
     <g
        id="g3167">
-      <text
+      <g
          transform="scale(0.99997531,1.0000247)"
-         sodipodi:linespacing="125%"
-         id="text4307"
-         y="-404.10001"
-         x="1697.5685"
          style="font-size:143.9964447px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#476ba8;fill-opacity:1;stroke:none;font-family:Montserrat;-inkscape-font-specification:Montserrat Bold"
-         xml:space="preserve"><tspan
-           y="-404.10001"
-           x="1697.5685"
-           id="tspan4309"
-           sodipodi:role="line">ERP</tspan></text>
+         id="text4307">
+        <path
+           d="m 1782.5264,-504.75352 0,20.0155 -50.1108,0 0,20.73549 45.0709,0 0,19.15153 -45.0709,0 0,20.87948 51.6947,0 0,19.87151 -74.1581,0 0,-100.65351 72.5742,0"
+           style=""
+           id="path2993" />
+        <path
+           d="m 1885.8146,-471.34635 c -10e-5,16.12766 -6.3839,26.54339 -19.1515,31.24723 l 25.4873,35.99911 -27.6473,0 -22.3194,-32.1112 -15.5517,0 0,32.1112 -22.4634,0 0,-100.65351 38.1591,0 c 15.6475,10e-5 26.7832,2.64003 33.4071,7.9198 6.7198,5.27996 10.0797,13.77574 10.0798,25.48737 m -42.767,15.69562 c 7.6798,5e-5 12.9117,-1.24792 15.6957,-3.74391 2.7838,-2.49588 4.1758,-6.43178 4.1758,-11.80771 0,-5.47179 -1.44,-9.2157 -4.3198,-11.23172 -2.88,-2.01587 -7.9199,-3.02385 -15.1197,-3.02393 l -16.8476,0 0,29.80727 16.4156,0"
+           style=""
+           id="path2995" />
+        <path
+           d="m 1944.3581,-504.75352 c 15.4556,10e-5 26.6873,3.02402 33.6952,9.07178 7.1037,5.95193 10.6556,15.1677 10.6557,27.64731 -10e-5,12.38375 -3.648,21.45552 -10.9437,27.21533 -7.1999,5.75989 -18.2396,8.63982 -33.1192,8.63979 l -13.3916,0 0,28.0793 -22.4635,0 0,-100.65351 35.5671,0 m 2.016,53.13469 c 7.4877,4e-5 12.5756,-1.48792 15.2636,-4.46389 2.6879,-3.07187 4.0318,-7.48776 4.0319,-13.24768 -10e-5,-5.85578 -1.776,-9.98367 -5.3279,-12.38369 -3.4559,-2.49586 -8.8798,-3.74383 -16.2716,-3.74391 l -12.8156,0 0,33.83917 15.1196,0"
+           style=""
+           id="path2997" />
+      </g>
       <g
          inkscape:label="Master"
          id="master"

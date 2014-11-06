@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: cashes
@@ -100,7 +100,7 @@ class Cash < Ekylibre::Record::Base
   # IBAN have to be checked before saved.
   validate do
     if self.journal
-      errors.add(:journal, :currency_does_not_match) unless self.currency == self.journal.currency
+      errors.add(:journal, :currency_does_not_match, journal: self.journal.name) unless self.currency == self.journal.currency
     end
     if self.bank_account?
       if self.mode_bban?
@@ -128,7 +128,7 @@ class Cash < Ekylibre::Record::Base
              options["bank_account_number"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*3)
       return (options["bank_account_key"].to_i + ban.modulo(97) - 97).zero?
     else
-      raise ArgumentError.new("Unknown country code #{country_code.inspect}")
+      raise ArgumentError, "Unknown country code #{country_code.inspect}"
     end
   end
 

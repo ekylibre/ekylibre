@@ -4,12 +4,17 @@ require 'test_helper'
 class AddANewAnimalTest < CapybaraIntegrationTest
 
   setup do
+    # Need to go on page to set tenant
     visit('/authentication/sign_in')
     resize_window(1366, 768)
     shoot_screen "authentication/sign_in"
-    login_as(users(:users_001), scope: :user)
-    # visit('/backend')
+    login_as(users(:users_001), scope: :user) # , run_callbacks: false
+    visit('/backend')
     shoot_screen "backend"
+  end
+
+  teardown do
+    Warden.test_reset!
   end
 
   # Add a cow
@@ -46,11 +51,11 @@ class AddANewAnimalTest < CapybaraIntegrationTest
   test "add an issue" do
     visit('/backend/issues/new?target_id=7004&target_type=Animal')
     shoot_screen "issues/new"
-    fill_in('issue[name]', with: "3ème mammite de l'année")
+    # fill_in('issue[name]', with: "3ème mammite de l'année")
     select('Mammite', from: 'issue[nature]')
-    fill_in("issue_observed_at", with: '2013-06-01 14:50')
     choose("issue_priority_1")
     choose("issue_gravity_3")
+    fill_in("issue_observed_at", with: '2013-06-01 14:50')
     click_on(:create.tl)
     shoot_screen "issues/create"
   end

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-gallus" hierarchical="true">
+    <items>
+      <item name="gallus_gallus_domesticus" itis_tsn="176086"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-gallus_gallus_domesticus" hierarchical="true">
+    <items>
+      <item name="gallus_gallus_domesticus_gournay" />
+      <item name="gallus_gallus_domesticus_babcock" />
+    </items>
+  </nomenclature>
+</nomenclatures>

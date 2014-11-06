@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: manure_management_plans
@@ -51,26 +51,34 @@
 #   selected: true
 #   updater: users_001
 #
-
-
+---
 manure_management_plans_001:
-  campaign: campaigns_001
-  creator: users_001
-  default_computation_method: "external"
+  annotation: ''
+  campaign_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  default_computation_method: external
+  id: 1
+  lock_version: 2
   locked: false
-  name: "PPF 2013"
-  opened_at: 2013-10-26 18:34:04 +02:00
-  recommender: people_001
+  name: PPF 2013
+  opened_at: 2013-10-26 14:34:00.000000000 Z
+  recommender_id: 9
   selected: true
-  updater: users_001
-
+  updated_at: 2014-11-01 19:13:42.686845000 Z
+  updater_id: 1
 manure_management_plans_002:
-  campaign: campaigns_001
-  creator: users_001
-  default_computation_method: "external"
+  annotation: ''
+  campaign_id: 1
+  created_at: 2014-11-01 18:47:51.247742000 Z
+  creator_id: 1
+  default_computation_method: poitou_charentes_2013
+  id: 2
+  lock_version: 3
   locked: false
-  name: "PPF 2013 bis"
-  opened_at: 2013-10-26 18:34:04 +02:00
-  recommender: people_001
+  name: PPF 2013 bis
+  opened_at: 2013-02-01 08:45:00.000000000 Z
+  recommender_id: 6
   selected: false
-  updater: users_001
+  updated_at: 2014-11-01 18:49:26.837158000 Z
+  updater_id: 1

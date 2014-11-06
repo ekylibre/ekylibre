@@ -4,23 +4,23 @@
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 class Backend::DepositsController < BackendController
   manage_restfully only: :destroy
 
-  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :ods, :xlsx
 
   unroll
 
@@ -74,7 +74,7 @@ class Backend::DepositsController < BackendController
     t.column :paid_at
     t.column :responsible
     t.column :amount, currency: true
-    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: tc(:to_deposit), form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
+    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: :to_deposit.tl, form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
   end
 
   def new

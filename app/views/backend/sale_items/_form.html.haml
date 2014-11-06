@@ -1,27 +1,28 @@
--#=field_set @sale_item do
--#  =f.referenced_association :sale, :field => :hidden
--#  =f.input :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => @sale.currency} # , controller: :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
--#  -partial(:detail, :depend_at => :price)
--##detail{"data-refresh" => url_for(controller: :sale_items, action: :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}=render :partial => "sale_items/detail_form"
+-#= field_set @sale_item do
+-#  = f.referenced_association :sale, :field => :hidden
+-#  = f.input :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => @sale.currency} # , controller: :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
+-#  -partial(:detail, :depend_on => :price)
+-##detail{"data-refresh" => url_for(controller: :sale_items, action: :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}= render :partial => "sale_items/detail_form"
 
 -# TODO manage.to_a new attributes
 = field_set do
   = f.referenced_association :sale, :field => :hidden
-  -# FIXME =f.referenced_association :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => "sale.currency".to_sym }
+  -# FIXME = f.referenced_association :price, :source => :availables_for_sales, :new => {mode: :sales, :currency => "sale.currency".to_sym }
   = f.input :quantity
-  -# = f.input :unit, :readonly => true, :depend_at => :price, :value => "product.unit".to_sym
+  -# = f.input :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
   = f.input :annotation
 
--# = field_set :stock, :depend_at => :price, :if => :stockable? do
+-# = field_set :stock, :depend_on => :price, :if => :stockable? do
   = f.referenced_association :building
-  = f.referenced_association :tracking, :depend_at => :building, :if => :trackable?
+  = f.referenced_association :tracking, :depend_on => :building, :if => :trackable?
+  = f.custom_fields
 
 = field_set :subscriptions do
-  = f.nested_association :subscriptions, :depend_at => :price, :if => :subscribing?
+  = f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing?
 
 = field_set :change_price, :grant_at => :change_prices_on_sales do
   = f.input :unit_price_amount
   = f.referenced_association :tax
 
-= field_set :give_discount, :grant_at => :give_discounts_on_sales, :depend_at => :price, :if => "product.reduction_submissive?".to_sym do
+= field_set :give_discount, :grant_at => :give_discounts_on_sales, :depend_on => :price, :if => "product.reduction_submissive?".to_sym do
   = f.input :reduction_percentage, :size => 5

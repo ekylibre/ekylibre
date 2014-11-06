@@ -18,8 +18,8 @@
           <property name="work_number" of="plant"/>
           <property name="variant_name" of="plant"/>
           <property name="variety" of="plant"/>
-          <property name="area" of="plant" type="measure"/>
-          <property name="area_in_hectare" value="plant.net_surface_area.to_d(:hectare)" type="measure" level="api"/>
+          <property name="area" value="plant.net_surface_area" type="measure"/>
+          <property name="area_in_hectare" value="plant.net_surface_area.to_d(:hectare)" type="decimal" level="api"/>
           <property name="id" of="plant" level="api"/>
           <property name="cluster_pac_number" value="plant.current_localization.container.clusters_work_number"/>
           <property name="cultivable_zone" if="plant.current_localization.container" value="plant.current_localization.container.name"/>

@@ -1,17 +1,16 @@
 !!! 5
-%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xmlns:svg' => 'http://www.w3.org/2000/svg', 'xmlns:xlink' => 'http://www.w3.org/1999/xlink', :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), :class => :backend}
+%html{xmlns: "http://www.w3.org/1999/xhtml", 'xmlns:svg' => 'http://www.w3.org/2000/svg', 'xmlns:xlink' => 'http://www.w3.org/1999/xlink', dir: t("i18n.dir"), lang: t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), class: :backend}
   %head
     = title_tag
     = csrf_meta_tags
     = viewport_tag
     = icon_tags
+    -#= plugins_link_tag
     = theme_link_tag
     = javascript_include_tag :application, "data-turbolinks-track" => true
-  - expiration = {}
-  - expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_path(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i > 0
-  %body{:data => expiration}
+  %body
     = navigation_tag
-    - attrs = (help_shown? ? {:class => "show-help"} : {})
+    - attrs = (help_shown? ? {class: "show-help"} : {})
     #wrap{attrs}
       %aside#side.visible
         .inner
@@ -23,10 +22,10 @@
             .btn-group.btn-group-help
               = tool_to(content_tag(:i) + h(" ") + h(:help.tl), toggle_backend_helps_path, data: {toggle: 'help'}, class: "btn")
           = heading_tag
-        = deck(:id => :content) do
+        = deck(id: :content) do
           = subheading_tag
-          = main_toolbar_tag
           = notifications_tag
+          = main_toolbar_tag
           = yield
       #help
         .inner= render(:partial => "backend/helps/search", :object => @article)

@@ -6,6 +6,7 @@
   #transporter= f.referenced_association :transporter
   = f.referenced_association :address, source: :mails
   -#= f.referenced_association :sale
+  = f.custom_fields
 
 = field_set OutgoingDelivery.human_attribute_name(:items) do
   %table

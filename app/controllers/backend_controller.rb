@@ -4,16 +4,16 @@
 # Copyright (C) 2009-2012 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -21,12 +21,11 @@ class BackendController < BaseController
   include Unrollable, RestfullyManageable
   protect_from_forgery
 
+  layout :dialog_or_not
+
   before_action :authenticate_user!
   before_action :authorize_user!
   before_action :set_versioner
-  before_action :themize
-
-  layout :dialog_or_not
 
   include Userstamp
 
@@ -62,17 +61,26 @@ class BackendController < BaseController
     options = args.extract_options!
     model = args.shift || options[:model] || self.controller_name.singularize
     id    = args.shift || options[:id] || params[:id]
+    klass = nil
     begin
-      return model.to_s.camelize.constantize.find(id)
+      klass = model.to_s.camelize.constantize
     rescue
-      notify_error(:unavailable_model, model: model.inspect, id: id)
+      notify_error(:unexpected_resource_type, type: model.inspect)
+      return false
+    end
+    unless klass < Ekylibre::Record::Base
+      notify_error(:unexpected_resource_type, type: klass.model_name)
+      return false
+    end
+    unless record = klass.find_by(id: id)
+      notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
       redirect_to_current
       return false
     end
+    return record
   end
 
   def save_and_redirect(record, options={}, &block)
-    url = options[:url] || :back
     record.attributes = options[:attributes] if options[:attributes]
     ActiveRecord::Base.transaction do
       if record.send(:save) or options[:saved]
@@ -83,9 +91,12 @@ class BackendController < BaseController
           head :ok
         else
           # TODO: notify if success
-          if url == :back
+          if options[:url] == :back
             redirect_to_back
+          elsif params[:redirect]
+            redirect_to params[:redirect]
           else
+            url = options[:url]
             record.reload
             if url.is_a? Hash
               url0 = {}
@@ -109,11 +120,7 @@ class BackendController < BaseController
       arg = arg.attributes if arg.respond_to?(:attributes)
       raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}") unless arg.is_a? Hash
       arg.each do |k,v|
-        @title[k.to_sym] = if v.respond_to?(:strftime) or v.is_a?(Numeric)
-                             ::I18n.localize(v)
-                           else
-                             v.to_s
-                           end
+        @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)
       end
     end
   end
@@ -136,18 +143,11 @@ class BackendController < BaseController
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
   end
 
-  # # Load current user
-  # def identify
-  #   # Load current_user if connected
-  #   @current_user = nil
-  #   @current_user = User.find_by(id: session[:user_id]).readonly if session[:user_id]
-  # end
-
   def set_versioner
     Version.current_user = current_user
   end
 
-  def themize
+  def set_theme
     # TODO: Dynamic theme choosing
     if current_user
       if %w(margarita tekyla tekyla-sunrise).include?(params[:theme])
@@ -181,20 +181,6 @@ class BackendController < BaseController
     end
     return true
   end
-
-
-
-  # # Fill the history array
-  # def historize
-  #   if @current_user and request.get? and not request.xhr? and params[:format].blank?
-  #     session[:history] = [] unless session[:history].is_a? Array
-  #     session[:history].delete_if { |h| h[:path] == request.path }
-  #     session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url => request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
-  #     session[:history].delete_at(30)
-  #   end
-  # end
-
-
 
   def search_article(article = nil)
     # session[:help_history] = [] unless session[:help_history].is_a? [].class

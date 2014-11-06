@@ -4,16 +4,16 @@
 # Copyright (C) 2009 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ##### END LICENSE BLOCK #####
@@ -49,8 +49,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
     html_options = options.delete(:input_html) || {}
 
-    return input(reflection.foreign_key, options.merge(wrapper: :append, reflection: reflection)) do
-      self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url)}))
+    return input(reflection.foreign_key, options.merge(wrapper: (options[:wrapper] == :nested ? :nested_append : :append), reflection: reflection)) do
+      self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url), value_parameter_name: options[:value_parameter_name] || reflection.foreign_key}))
     end
   end
 
@@ -145,11 +145,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
-  def indicator_input()
-
-  end
-
-
   def shape(attribute_name = :shape, options = {})
     # raise @object.send(attribute_name)
     editor = {}
@@ -158,7 +153,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     else
       if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
         editor[:view] = {center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
-      else zone = CultivableZone.first
+      elsif zone = CultivableZone.first
         editor[:view] = {center: zone.shape_centroid}
       end
     end
@@ -207,8 +202,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   # Load a partial
   def subset(name, options = {}, &block)
     options[:id] ||= name
-    if options[:depend_at]
-      options['data-depend-on'] = options.delete(:depend_at)
+    if options[:depend_on]
+      options['data-depend-on'] = options.delete(:depend_on)
     end
     if block_given?
       return @template.content_tag(:div, capture(&block), options)
@@ -289,7 +284,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         end
 
         # error message for indicators
-        fs << @object.errors.inspect if @object.errors.any?
+        if Rails.env.development?
+          fs << @object.errors.inspect if @object.errors.any?
+        end
 
 
         # Adds owner fields
@@ -378,7 +375,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join
     html = "".html_safe
     reference = @object.send(name) || {}
-    for resource, accesses in Ekylibre::Access.list
+    for resource, accesses in Ekylibre::Access.list.sort{|a,b| Nomen::EnterpriseResources[a.first].human_name <=> Nomen::EnterpriseResources[b.first].human_name }
       resource_reference = reference[resource] || []
       html << @template.content_tag(:div, class: "control-group booleans") do
         @template.content_tag(:label, class: "control-label") do
@@ -461,22 +458,22 @@ class SimpleForm::Inputs::DateTimeInput
 
   def input_html_options
     value = object.send(attribute_name)
-    format = @options[:format] || :default
-    unless format.is_a?(Symbol)
-      raise ArgumentError, "Option :format must be a Symbol referencing a translation 'date.formats.<format>'"
-    end
-    if localized_value = value
-      localized_value = localized_value.l(format: format)
-    end
-    format = I18n.translate("#{input_type == :datetime ? :time : input_type}.formats.#{format}")
-    # format = I18n.translate("time.formats.#{format}")
-    Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
-    Formize::TIME_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
+    # format = @options[:format] || :default
+    # unless format.is_a?(Symbol)
+    #   raise ArgumentError, "Option :format must be a Symbol referencing a translation 'date.formats.<format>'"
+    # end
+    # if localized_value = value
+    #   localized_value = localized_value.l(format: format)
+    # end
+    # format = I18n.translate("#{input_type == :datetime ? :time : input_type}.formats.#{format}")
+    # # format = I18n.translate("time.formats.#{format}")
+    # Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
+    # Formize::TIME_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
     options = {
-      data: {
-        format: format,
-        human_value: localized_value
-      },
+      # data: {
+      #   format: format,
+      #   human_value: localized_value
+      # },
       lang: "i18n.iso2".t,
       value: value.blank? ? nil : value.l(format: "%Y-%m-%d#{' %H:%M' if input_type == :datetime}"),
       type: input_type,

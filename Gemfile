@@ -29,7 +29,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks' # , '~> 2.2.1'
+gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
@@ -38,7 +38,7 @@ gem 'jquery-ui-rails'
 gem "jquery-scrollto-rails"
 
 # Forms helper
-gem 'formize', '~> 2.0'
+gem 'formize', '~> 2.1.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -75,13 +75,14 @@ gem 'exception_notification'
 gem 'haml'
 gem "calendar_helper", "~> 0.2.5"
 gem "simple_calendar", "~> 0.1"
-gem "active_list" #, path: "../active_list"
+gem "active_list", '>= 6.3.1' #, path: "../active_list"
 
 # Models helpers
 gem 'acts_as_list'
 gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0.rc3'
 gem 'enumerize'
+gem 'jc-validates_timeliness', '~> 3.1.1'
 
 # Authentication & Authorization
 gem 'devise'
@@ -92,14 +93,14 @@ gem 'devise-i18n-views'
 
 # Attachments
 gem 'paperclip'
-gem 'paperclip-document', '~> 0.0'
+gem 'paperclip-document', '>= 0.0.8'
 
 # Forms
 gem 'simple_form', '~> 3.0.0'
 gem 'cocoon'
 
 # I18n and localeapp
-gem 'i18n-complements'
+gem 'i18n-complements', '>= 0.0.12'
 gem 'http_accept_language'
 # gem 'i18n-spec'
 # gem 'localeapp'
@@ -114,7 +115,7 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-gem 'beardley'
+gem 'beardley', '~> 1.1.0'
 gem 'beardley-barcode'
 gem 'beardley-batik'
 gem 'beardley-charts'
@@ -154,7 +155,7 @@ group :development do
 
   # Project management
   gem 'rails_best_practices'
-  gem 'railroady'
+  # gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
   # Webservers
@@ -170,8 +171,8 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
 
-  gem 'awesome_print'
-  gem 'pry'
+  # gem 'awesome_print'
+  # gem 'pry'
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
 end

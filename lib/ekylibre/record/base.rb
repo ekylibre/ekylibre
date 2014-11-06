@@ -24,7 +24,9 @@ module Ekylibre::Record
     end
 
     def check_if_destroyable?
-      raise RecordNotDestroyable unless self.destroyable?
+      unless self.destroyable?
+        raise RecordNotDestroyable, "#{self.class.name} ID=#{self.id} is not destroyable"
+      end
     end
 
     def destroyable?
@@ -70,35 +72,38 @@ module Ekylibre::Record
       for custom_field in self.custom_fields
         value = self.custom_value(custom_field)
         if value.blank?
-          errors.add(custom_field.column_name, :custom_field_is_required, :field => custom_field.name) if custom_field.required?
+          errors.add(custom_field.column_name, :blank, attribute: custom_field.name) if custom_field.required?
         else
           if custom_field.text?
             unless custom_field.maximal_length.blank? or custom_field.maximal_length <= 0
-              errors.add(custom_field.column_name, :custom_field_is_too_long, :field => custom_field.name, :count => custom_field.maximal_length) if value.length > custom_field.maximal_length
+              errors.add(custom_field.column_name, :too_long, attribute: custom_field.name, count: custom_field.maximal_length) if value.length > custom_field.maximal_length
             end
             unless custom_field.minimal_length.blank? or custom_field.minimal_length <= 0
-              errors.add(custom_field.column_name, :custom_field_is_too_short, :field => custom_field.name, :count => custom_field.maximal_length) if value.length < custom_field.minimal_length
+              errors.add(custom_field.column_name, :too_short, attribute: custom_field.name, count: custom_field.maximal_length) if value.length < custom_field.minimal_length
             end
           elsif custom_field.decimal?
             value = value.to_d unless value.is_a?(Numeric)
             unless custom_field.minimal_value.blank?
-              errors.add(custom_field.column_name, :custom_field_is_less_than, :field => custom_field.name, :count => custom_field.minimal_value) if value < custom_field.minimal_value
+              errors.add(custom_field.column_name, :greater_than, attribute: custom_field.name, count: custom_field.minimal_value) if value < custom_field.minimal_value
             end
             unless custom_field.maximal_value.blank?
-              errors.add(custom_field.column_name, :custom_field_is_greater_than, :field => custom_field.name, :count => custom_field.maximal_value) if value > custom_field.maximal_value
+              errors.add(custom_field.column_name, :less_than, attribute: custom_field.name, count: custom_field.maximal_value) if value > custom_field.maximal_value
             end
           end
         end
       end
     end
 
-    # def method_missing(method_name, *args)
-    #   # custom fields
-    #   if self.customs_fields.find_by(column_name: method_name.to_s)
-    #     return self[method_name.to_s]
-    #   end
-    #   return super
-    # end
+    def method_missing(method_name, *args)
+      if method_name.to_s =~ /\A\_/
+        unless self.class.columns.detect{|c| c.name == method_name.to_s}
+          Rails.logger.warn "Reset column information"
+          self.class.reset_column_information
+          connection.execute "DEALLOCATE ALL"
+        end
+      end
+      return super
+    end
 
     @@readonly_counter = 0
 
@@ -148,9 +153,14 @@ module Ekylibre::Record
 
       # Permits to consider something and something_id like the same
       def human_attribute_name_with_id(attribute, options = {})
-        human_attribute_name_without_id(attribute.to_s.gsub(/_id$/, ''), options)
+        human_attribute_name_without_id(attribute.to_s.gsub(/_id\z/, ''), options)
       end
       alias_method_chain :human_attribute_name, :id
+
+      def has_human_attribute_name?(name)
+        # TODO: don't use hardtranslate
+        I18n.hardtranslate("attributes.#{name}").present?
+      end
 
       # Permits to add conditions on attr_readonly
       def attr_readonly_with_conditions(*args)

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: affairs
@@ -56,80 +56,155 @@
 #   third: thirds_001
 #   updater: users_001
 #
-
+---
 affairs_001:
   closed: false
-  creator: users_001
-  credit: 0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 0.0
   currency: EUR
-  debit: 123
+  deals_count: 0
+  debit: 123.0
+  id: 1
+  lock_version: 0
   number: A000001
-  originator: sales_001 (Sale)
-  third: legal_entities_001
-  updater: users_001
-
+  originator_id: 1
+  originator_type: Sale
+  third_id: 6
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 affairs_002:
-  closed: true
-  creator: users_001
-  credit: 411.23
-  currency: EUR
-  debit: 411.23
-  number: A000002
-  originator: gaps_002 (Gap)
-  third: legal_entities_001
-  updater: users_001
-
-affairs_003:
+  accounted_at: 2014-11-01 19:48:47.195851000 Z
   closed: false
-  creator: users_001
-  credit: 236
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 156.0
   currency: EUR
-  debit: 158
+  deals_count: 5
+  debit: 227.57
+  id: 2
+  lock_version: 3
+  number: A000002
+  originator_id: 2
+  originator_type: Gap
+  third_id: 6
+  updated_at: 2014-11-01 19:48:47.184877000 Z
+  updater_id: 1
+affairs_003:
+  accounted_at: 2014-11-01 20:01:05.062013000 Z
+  closed: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 127.0
+  currency: EUR
+  deals_count: 4
+  debit: 163.82
+  id: 3
+  lock_version: 6
   number: A000003
-  originator: sales_003 (Sale)
-  third: legal_entities_001
-  updater: users_001
-
+  originator_id: 3
+  originator_type: Sale
+  third_id: 6
+  updated_at: 2014-11-01 20:01:05.036596000 Z
+  updater_id: 1
 affairs_004:
   closed: false
-  creator: users_001
-  credit: 1236
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 1236.0
   currency: EUR
-  debit: 158
+  deals_count: 0
+  debit: 158.0
+  id: 4
+  lock_version: 0
   number: A000004
-  originator: incoming_payments_001 (IncomingPayment)
-  third: legal_entities_001
-  updater: users_001
-
+  originator_id: 1
+  originator_type: IncomingPayment
+  third_id: 6
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 affairs_005:
   closed: false
-  creator: users_001
-  credit: 236
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  credit: 236.0
   currency: EUR
-  debit: 1158
+  deals_count: 0
+  debit: 1158.0
+  id: 5
+  lock_version: 0
   number: A000005
-  originator: incoming_payments_003 (IncomingPayment)
-  third: legal_entities_001
-  updater: users_001
-
+  originator_id: 3
+  originator_type: IncomingPayment
+  third_id: 6
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 affairs_006:
-  closed: false
-  creator: users_001
-  credit: 120
+  accounted_at: 2014-10-31 18:52:01.381974000 Z
+  closed: true
+  closed_at: 2014-10-31 18:52:01.370526000 Z
+  created_at: 2014-10-31 18:51:27.932259000 Z
+  creator_id: 1
+  credit: 448.98
   currency: EUR
-  debit: 0
+  deals_count: 2
+  debit: 448.98
+  id: 6
+  lock_version: 1
   number: A000006
-  originator: transfers_001 (Transfer)
-  third: legal_entities_001
-  updater: users_001
-
+  originator_id: 6
+  originator_type: Sale
+  third_id: 8
+  updated_at: 2014-10-31 18:52:01.373471000 Z
+  updater_id: 1
 affairs_007:
+  accounted_at: 2014-11-01 19:44:07.737811000 Z
   closed: false
-  creator: users_001
-  credit: 101
+  created_at: 2014-11-01 19:44:07.709263000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: USD
+  deals_count: 1
+  debit: 6458.4
+  id: 7
+  lock_version: 0
+  number: FDA000000000001
+  originator_id: 5
+  originator_type: Purchase
+  third_id: 5
+  updated_at: 2014-11-01 19:44:07.709263000 Z
+  updater_id: 1
+affairs_008:
+  accounted_at: 2014-11-01 19:46:24.889150000 Z
+  closed: false
+  created_at: 2014-11-01 19:46:24.859478000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: USD
+  deals_count: 1
+  debit: 592.02
+  id: 8
+  lock_version: 0
+  number: UFDA000000000002
+  originator_id: 4
+  originator_type: Purchase
+  third_id: 4
+  updated_at: 2014-11-01 19:46:24.859478000 Z
+  updater_id: 1
+affairs_009:
+  accounted_at: 2014-11-01 19:50:57.971530000 Z
+  closed: false
+  created_at: 2014-11-01 19:50:57.952981000 Z
+  creator_id: 1
+  credit: 430.56
   currency: EUR
-  debit: 0
-  number: A000007
-  originator: transfers_002 (Transfer)
-  third: legal_entities_001
-  updater: users_001
+  deals_count: 1
+  debit: 0.0
+  id: 9
+  lock_version: 0
+  number: GUFDA000000000003
+  originator_id: 2
+  originator_type: Sale
+  third_id: 6
+  updated_at: 2014-11-01 19:50:57.952981000 Z
+  updater_id: 1

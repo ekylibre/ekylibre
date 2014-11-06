@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: sale_natures
@@ -64,26 +64,38 @@
 ---
 sale_natures_001:
   active: true
-  catalog: catalogs_001
-  creator: users_001
+  by_default: true
+  catalog_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
   downpayment: true
-  downpayment_minimum: 300
-  downpayment_percentage: 30
+  downpayment_minimum: 300.0
+  downpayment_percentage: 30.0
   expiration_delay: 15 days, bom, 10 days
-  journal: journals_003
-  name: Lorem ipsum
+  id: 1
+  journal_id: 3
+  lock_version: 1
+  name: Classical sale
   payment_delay: 12 days, eom, 1 week ago
-  updater: users_001
+  updated_at: 2014-10-31 18:36:44.183917000 Z
+  updater_id: 1
+  with_accounting: false
 sale_natures_002:
-  active: true
-  catalog: catalogs_001
-  creator: users_001
-  currency: EUR
+  active: false
+  by_default: false
+  catalog_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: FRF
   downpayment: true
-  downpayment_minimum: 0
-  downpayment_percentage: 0
+  downpayment_minimum: 0.0
+  downpayment_percentage: 0.0
   expiration_delay: 10 days
-  name: Lorex
+  id: 2
+  lock_version: 2
+  name: Old french sale
   payment_delay: 10 weeks
-  updater: users_001
+  updated_at: 2014-10-31 18:49:55.605640000 Z
+  updater_id: 1
+  with_accounting: false

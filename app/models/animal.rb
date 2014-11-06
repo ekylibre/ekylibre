@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: products
@@ -97,7 +97,7 @@ class Animal < Bioproduct
       animal_age = (self.age / (3600*24*30)).to_d
     end
     # production (if a cow, get annual milk production)
-    if Nomen::Varieties[self.variety].self_and_parents.include?(Nomen::Varieties[:bos])
+    if Nomen::Varieties[self.variety] <= :bos
       if self.milk_daily_production
         animal_milk_production = (self.milk_daily_production * 365).to_d
       end

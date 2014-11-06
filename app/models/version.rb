@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: versions
@@ -32,15 +32,6 @@
 #  item_object  :text
 #  item_type    :string(255)
 #
-
-class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
-
-  def human_attribute_name
-    self.version.item.class.human_attribute_name(self.attribute)
-  end
-
-end
-
 
 class Version < ActiveRecord::Base
   extend Enumerize
@@ -64,6 +55,9 @@ class Version < ActiveRecord::Base
   serialize :item_changes, HashWithIndifferentAccess
 
   before_save do
+    if self.item
+      self.item_type = self.item.class.name
+    end
     self.created_at ||= Time.now
     self.creator ||= Version.current_user
     if self.creator

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: purchase_items
@@ -48,7 +48,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
   # belongs_to :price, class_name: "CatalogPrice"
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -80,13 +80,15 @@ class PurchaseItem < Ekylibre::Record::Base
       self.currency  ||= Preference.get(:currency).value
       self.indicator_name ||= :population.to_s
     end
-    amount = self.quantity * self.unit_price_amount
-    if self.tax
-      tax_amount = self.tax.compute(amount, false)
-      self.pretax_amount = amount
-      self.amount = (self.pretax_amount + tax_amount).round(2)
-    else
-      self.amount = self.pretax_amount = amount
+    if self.quantity and self.unit_price_amount
+      amount = self.quantity * self.unit_price_amount
+      if self.tax
+        tax_amount = self.tax.compute(amount, false)
+        self.pretax_amount = amount
+        self.amount = (self.pretax_amount + tax_amount).round(2)
+      else
+        self.amount = self.pretax_amount = amount
+      end
     end
   end
 
@@ -103,16 +105,6 @@ class PurchaseItem < Ekylibre::Record::Base
     # end
     # errors.add(:quantity, :invalid) if self.quantity.zero?
   end
-
-  # def name
-  #   options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, currency: self.price.currency.name} # , :unit => self.unit.name
-  #   if self.tracking
-  #     options[:tracking] = self.tracking.name
-  #     tc(:name_with_tracking, options)
-  #   else
-  #     tc(:name, options)
-  #   end
-  # end
 
   def product_name
     self.variant.name

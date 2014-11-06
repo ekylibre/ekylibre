@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="detach" natures="coupling" version="0" status="frozen">
+    <!-- Labour d'une zone cultivable -->
+    <variables>
+      <variable name="driver"      abilities="drive(tractor)" roles="coupling-doer"/>
+      <variable name="tractor"     abilities="tow(equipment)" roles="coupling-tool"/>
+      <variable name="tool"        variety="equipment" roles="coupling-tool"/>
+    </variables>
+    <operations>
+      <operation id="100">
+        <task do="[tractor] moves in default storage of [tool]"/>
+      </operation>
+      <operation id="200">
+        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'outil-->
+        <task do="[tractor] releases [tool]"/>
+      </operation>
+      <operation id="300">
+        <!-- le chauffeur attache l'outil au tracteur -->
+        <task do="[tractor] moves in default storage"/>
+      </operation>
+      <operation id="400">
+        <task do="[driver] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

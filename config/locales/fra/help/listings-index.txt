@@ -3,9 +3,10 @@
 Les extractions de données permettent de produire des tableaux au format CSV à partir de toutes les données enregistrées dans la base de données.
 Le système d'extraction sert de base pour l'envoi de courriels en nombre.
 
-  * {{icon:action}} permet d'extraire le tableau au format CSV
-  * {{icon:nomail}} permet d'extraire le tableau qui ne contient pas d'adresse e-mail (au format CSV)
+  * {{icon:extract}} permet d'extraire le tableau au format CSV
   * {{icon:mail}} permet d'accéder à la page d'envoi de mail. Pour pouvoir avoir le bouton, il faut qu'une colonne **e-mail** soit présente au niveau de l'extraction.
   * {{icon:duplicate}} permet de dupliquer l'extraction
+  * {{icon:edit}} permet de modifier l'extraction
+  * {{icon:destroy|supprimer}} permet de supprimer l'extraction
 
 

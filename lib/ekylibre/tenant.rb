@@ -20,10 +20,10 @@ module Ekylibre
 
       # Tests existence of a tenant in DB
       # and removes it if not exist
-      def check!(name)
+      def check!(name, options = {})
         if list.include?(name)
           unless Apartment.connection.schema_exists? name
-            drop(name)
+            drop(name, options)
           end
         end
       end
@@ -55,8 +55,18 @@ module Ekylibre
         write
       end
 
+      # Add a tenant in config without creating it
+      # Nothing is done if already exist
+      def setup!(name, options = {})
+        check!(name, options)
+        unless exist?(name)
+          create(name)
+        end
+        switch!(name)
+      end
+
       # Drop tenant
-      def drop(name)
+      def drop(name, options = {})
         name = name.to_s
         unless exist?(name)
           raise TenantError, "Unexistent tenant: #{name}"
@@ -64,9 +74,22 @@ module Ekylibre
         if Apartment.connection.schema_exists? name
           Apartment::Tenant.drop(name)
         end
-        FileUtils.rm_rf private_directory(name)
+        unless options[:keep_files]
+          FileUtils.rm_rf private_directory(name)
+        end
         @list[env].delete(name)
         write
+      end
+
+      # Migrate tenant to wanted version
+      def migrate(name, options = {})
+        if options[:to] ||= options[:up_to]
+          Apartment::Migrator.run(:up, name, options[:to])
+        elsif options[:down_to]
+          Apartment::Migrator.run(:down, name, options[:down_to])
+        else
+          Apartment::Migrator.migrate(name)
+        end
       end
 
 
@@ -85,6 +108,7 @@ module Ekylibre
         Apartment::Tenant.switch(name)
       end
       alias :current= :switch
+      alias :switch! :switch
 
       def switch_default!
         if list.empty?
@@ -103,6 +127,7 @@ module Ekylibre
       def list
         unless @list
           @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
+          @list ||= {}
           @list[env] ||= []
         end
         return @list[env]

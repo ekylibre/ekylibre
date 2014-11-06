@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: purchase_natures
@@ -49,6 +49,8 @@ class PurchaseNature < Ekylibre::Record::Base
   validates_presence_of :currency
   validates_uniqueness_of :name
 
+  delegate :currency, to: :journal, prefix: true
+
   selects_among_all
 
   scope :actives, -> { where(active: true) }
@@ -56,7 +58,7 @@ class PurchaseNature < Ekylibre::Record::Base
   validate do
     self.journal = nil unless self.with_accounting?
     if self.journal
-      errors.add(:journal, :currency_does_not_match) if self.currency != self.journal.currency
+      errors.add(:journal, :currency_does_not_match, currency: self.journal_currency) if self.currency != self.journal_currency
     end
   end
 

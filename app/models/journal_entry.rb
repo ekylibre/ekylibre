@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: journal_entries
@@ -52,12 +52,12 @@
 # corresponds to the 3 currency we always add in accountancy:
 #  - *          in journal currency
 #  - real_*     in financial year currency
-#  - absolute_* in global currency (the same as current financial year's)
+#  - absolute_* in global currency (the same as current financial year's theoretically)
 class JournalEntry < Ekylibre::Record::Base
   attr_readonly :journal_id
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
-  belongs_to :resource, :polymorphic => true
+  belongs_to :resource, polymorphic: true
   has_many :affairs, dependent: :nullify
   has_many :financial_asset_depreciations, dependent: :nullify
   has_many :useful_items, -> { where("balance != ?", 0.0) }, foreign_key: :entry_id, class_name: "JournalEntryItem"
@@ -68,6 +68,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: "FinancialYear", dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_date :printed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :state, allow_nil: true, maximum: 30
@@ -75,8 +76,9 @@ class JournalEntry < Ekylibre::Record::Base
   validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_presence_of :real_currency
-  validates_format_of :number, :with => /\A[\dA-Z]+\z/
+  validates_format_of :number, with: /\A[\dA-Z]+\z/
   validates_numericality_of :real_currency_rate, greater_than: 0
+  validates_uniqueness_of :number, scope: [:journal_id, :financial_year_id]
 
   accepts_nested_attributes_for :items
 
@@ -90,9 +92,9 @@ class JournalEntry < Ekylibre::Record::Base
     event :close do
       transition :confirmed => :closed, if: :balanced?
     end
-#     event :reopen do
-#       transition :closed => :confirmed
-#     end
+    #     event :reopen do
+    #       transition :closed => :confirmed
+    #     end
   end
 
   # Build an SQL condition based on options which should contains acceptable states
@@ -143,6 +145,9 @@ class JournalEntry < Ekylibre::Record::Base
 
   #
   before_validation do
+    if self.resource
+      self.resource_type = self.resource.class.name
+    end
     if self.journal
       self.real_currency = self.journal.currency
     end
@@ -155,7 +160,9 @@ class JournalEntry < Ekylibre::Record::Base
       else
         # TODO: Find a better way to manage currency rates!
         # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        self.real_currency_rate = I18n.currency_rate(self.real_currency, self.currency)
+        if self.real_currency_rate.blank? or self.real_currency_rate.zero?
+          self.real_currency_rate = I18n.currency_rate(self.real_currency, self.currency)
+        end
       end
     else
       self.real_currency_rate = 1
@@ -165,11 +172,18 @@ class JournalEntry < Ekylibre::Record::Base
     self.debit  = self.items.sum(:debit)
     self.credit = self.items.sum(:credit)
     self.balance = self.debit - self.credit
-    self.absolute_currency ||= self.currency
+    self.absolute_currency = Preference[:currency]
     if self.absolute_currency == self.currency
+      self.absolute_debit = self.debit
+      self.absolute_credit = self.credit
+    elsif self.absolute_currency == self.real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
+    else
+      # FIXME We need to do something better when currencies don't match
+      raise "You create an entry where the absolute currency (#{self.absolute_currency.inspect}) is not the real (#{self.real_currency.inspect}) or current one (#{self.currency.inspect})"
     end
+    self.number.upcase! if self.number
     if self.journal and not self.number
       self.number ||= self.journal.next_number
     end
@@ -262,12 +276,6 @@ class JournalEntry < Ekylibre::Record::Base
     return false
   end
 
-
-
-#   #this method tests if.all the entry_items matching to the entry does not edited in draft mode.
-#   def normalized
-#     return (not self.items.exists?(:draft => true))
-#   end
 
   # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".
   # If the amount is negative, the amount is put in the other column (debit or credit). Example:

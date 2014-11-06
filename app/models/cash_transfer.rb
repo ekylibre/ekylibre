@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: cash_transfers
@@ -52,6 +52,7 @@ class CashTransfer < Ekylibre::Record::Base
   belongs_to :reception_cash, class_name: "Cash"
   belongs_to :reception_journal_entry, class_name: "JournalEntry"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
   validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
   validates_length_of :number, allow_nil: true, maximum: 255

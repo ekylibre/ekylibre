@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: event_participations
@@ -41,6 +41,8 @@ class EventParticipation < Ekylibre::Record::Base
   validates_length_of :state, allow_nil: true, maximum: 255
   validates_presence_of :event, :participant
   #]VALIDATORS]
+
+  delegate :name, to: :participant, prefix: true
 
   def status
     {waiting: :caution, accepted: :go, refused: :stop, informative: :undefined}.with_indifferent_access[self.state]

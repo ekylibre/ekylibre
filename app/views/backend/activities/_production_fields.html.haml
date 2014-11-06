@@ -1,6 +1,6 @@
 .nested-fields
-  =link_to_remove_nested_association(:production, f)
-  =f.referenced_association(:variant, wrapper_html: {id: 'variant-field'})
-  =f.referenced_association(:campaign, wrapper_html: {id: 'campaign-field'})
-  =f.input(:started_at, wrapper_html: {id: 'started_at-field'})
-  =f.input(:stopped_at, wrapper_html: {id: 'stopped_at-field'})
+  = link_to_remove_nested_association(:production, f)
+  = f.referenced_association(:variant, wrapper_html: {id: 'variant-field'})
+  = f.referenced_association(:campaign, wrapper_html: {id: 'campaign-field'})
+  = f.input(:started_at, wrapper_html: {id: 'started_at-field'})
+  = f.input(:stopped_at, wrapper_html: {id: 'stopped_at-field'})

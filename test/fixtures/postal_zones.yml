@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: postal_zones
@@ -49,13 +49,57 @@
 ---
 postal_zones_001:
   country: us
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
   name: 3451-13231 LAS VEGAS
   postal_code: 3451-13231
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 postal_zones_002:
   country: fr
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
   name: 33000 BORDEAUX
   postal_code: '33000'
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+postal_zones_003:
+  city: InTheWorld
+  city_name: InTheWorld
+  country: za
+  created_at: 2014-10-31 18:58:07.355534000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: 12345 InTheWorld
+  postal_code: '12345'
+  updated_at: 2014-10-31 18:58:07.355534000 Z
+  updater_id: 1
+postal_zones_004:
+  city: CHAR-EN-TEUX
+  city_name: CHAR-EN-TEUX
+  country: fr
+  created_at: 2014-11-01 20:16:17.369291000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  name: 17123 CHAR-EN-TEUX
+  postal_code: '17123'
+  updated_at: 2014-11-01 20:16:17.369291000 Z
+  updater_id: 1
+postal_zones_005:
+  city: New-York
+  city_name: New-York
+  country: us
+  created_at: 2014-11-03 11:28:25.423704000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  name: 7548-454565 New-York
+  postal_code: 7548-454565
+  updated_at: 2014-11-03 11:28:25.423704000 Z
+  updater_id: 1

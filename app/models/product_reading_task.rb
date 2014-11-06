@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: product_reading_tasks
@@ -56,6 +56,7 @@ class ProductReadingTask < Ekylibre::Record::Base
   belongs_to :reporter, class_name: "Worker"
   belongs_to :tool, class_name: "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, :originator_type, allow_nil: true, maximum: 255

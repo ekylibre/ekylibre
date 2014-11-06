@@ -2,13 +2,13 @@
 
 ===== Principe =====
 
-Les remises en banques concernent les réglements en attente d'encaissement. Sont concernés les chèques et traites principalement. Les espèces étant directement utilisable est mis en caisse, il n'y a pas à utiliser de remise en banque pour les faire passer en banque. Dans ce dernier cas, vous pouvez effectuer un [[>backend/cash_transfers#new|virement entre votre caisse et votre banque]].
+Les remises en banques concernent les règlements en attente d'encaissement. Sont concernés les chèques et traites principalement. Les espèces étant directement utilisables et mises en caisse, il n'y a pas à utiliser de remise en banque pour les faire passer en banque. Dans ce dernier cas, vous pouvez effectuer un [[>backend/cash_transfers#new|virement entre votre caisse et votre banque]].
 
 ===== Utilisation =====
 
 Créer une remise de chèque consiste à **sélectionner un ou plusieurs chèques à déposer sur un compte**. Vous pourrez ensuite imprimer le **bordereau de remise de chèques** que vous pourrez envoyer, accompagnés des chèques, directement à votre banque.
 
-Vous avez le récapitulatif du nombre de chèque à encaisser ainsi que des remises de chèques précédemment effectuées. Si un chèque devait être encaissé depuis **plus de 15 jours**, vous en serez informés au niveau du tableau de bord de la gestion commerciale. 
+Vous avez le récapitulatif du nombre de chèques à encaisser ainsi que des remises de chèques précédemment effectuées. Si un chèque devait être encaissé depuis **plus de 15 jours**, vous en serez informé au niveau du tableau de bord de la gestion commerciale. 
 
 ===== Validation  =====
 

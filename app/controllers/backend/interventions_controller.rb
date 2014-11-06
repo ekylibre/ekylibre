@@ -3,16 +3,16 @@
 # Copyright (C) 2013 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionsController < BackendController
@@ -50,7 +50,7 @@ class Backend::InterventionsController < BackendController
     t.column :started_at
     t.column :stopped_at, hidden: true
     t.status
-    t.column :issue, url: true
+    t.column :issue, label_method: :nature, url: true
     t.column :casting
     t.action :new,  on: :none
     t.action :run,  if: :runnable?, method: :post, confirm: true
@@ -84,7 +84,7 @@ class Backend::InterventionsController < BackendController
     return unless @intervention = find_and_check
     t3e @intervention, procedure_name: @intervention.name
     respond_with(@intervention, :methods => [:cost, :earn, :status, :name, :duration],
-                :include => [{:casts => {:methods => [:variable_name, :default_name], :include => {:actor => {:methods => [:picture_path, :nature_name, :unit_name]}}}}, {:storage => {:methods => :shape_svg}}, :recommender, :prescription],
+                :include => [{:casts => {:methods => [:variable_name, :default_name], :include => {:actor => {:methods => [:picture_path, :nature_name, :unit_name]}}}}, {:storage => {}}, :recommender, :prescription],
                 procs: Proc.new{|options| options[:builder].tag!(:url, backend_intervention_url(@intervention))}
                 )
   end
@@ -111,10 +111,17 @@ class Backend::InterventionsController < BackendController
       head :not_found
       return
     end
-    updates = procedure.impact(params[:casting], params[:global], params[:updater])
-    respond_to do |format|
-      format.xml  { render xml: updates.to_xml }
-      format.json { render xml: updates.to_json }
+    begin
+      updates = procedure.impact(params[:casting], params[:global], params[:updater])
+      respond_to do |format|
+        format.xml  { render xml: updates.to_xml }
+        format.json { render json: updates.to_json }
+      end
+    rescue Procedo::Error => e
+      respond_to do |format|
+        format.xml  { render xml:  {errors: e.message}, status: 500 }
+        format.json { render json: {errors: e.message}, status: 500 }
+      end
     end
   end
 

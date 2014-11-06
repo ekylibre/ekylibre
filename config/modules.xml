@@ -134,14 +134,12 @@
     <group name="journals" icon="book">
       <item name="journals">
         <page to="backend/journals#index"/>
-        <page to="backend/journals#balance"/>
         <page to="backend/journals#bookkeep"/>
         <page to="backend/journals#close"/>
         <page to="backend/journals#create"/>
         <page to="backend/journals#destroy"/>
         <page to="backend/journals#draft"/>
         <page to="backend/journals#edit"/>
-        <page to="backend/journals#general_ledger"/>
         <page to="backend/journals#import"/>
         <page to="backend/journals#list"/>
         <page to="backend/journals#list_draft_items"/>
@@ -167,6 +165,18 @@
         <page to="backend/journal_entry_items#new"/>
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
+      </item>
+      <item name="balance">
+        <page to="backend/journals#balance"/>
+      </item>
+      <item name="general_ledger">
+        <page to="backend/journals#general_ledger"/>
+      </item>
+      <item name="accounts">
+        <page to="backend/accounts#reconciliation"/>
+        <page to="backend/accounts#list_reconciliation"/>
+        <page to="backend/accounts#mark"/>
+        <page to="backend/accounts#unmark"/>
       </item>
     </group>
     <group name="analytics" icon="tasks">
@@ -311,6 +321,7 @@
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
         <page to="backend/purchase_items#index"/>
+        <page to="backend/product_nature_variants#last_purchase_item"/>
         <page to="backend/purchase_items#show"/>
         <page to="backend/purchase_items#create"/>
         <page to="backend/purchase_items#destroy"/>
@@ -1036,7 +1047,7 @@
       <item name="synchronizations">
         <page to="backend/synchronizations#index"/>
         <page to="backend/synchronizations#show"/>
-        <page to="backend/synchronizations#update"/>
+        <page to="backend/synchronizations#run"/>
       </item>
     </group>
     <!--
@@ -1073,6 +1084,7 @@
         <page to="backend/roles#edit"/>
         <page to="backend/roles#incorporate"/>
         <page to="backend/roles#list"/>
+        <page to="backend/roles#list_users"/>
         <page to="backend/roles#pick"/>
         <page to="backend/roles#new"/>
         <page to="backend/roles#show"/>
@@ -1229,13 +1241,9 @@
         <page to="backend/accounts#list"/>
         <page to="backend/accounts#list_entities"/>
         <page to="backend/accounts#list_journal_entry_items"/>
-        <page to="backend/accounts#list_reconciliation"/>
         <page to="backend/accounts#load"/>
-        <page to="backend/accounts#mark"/>
         <page to="backend/accounts#new"/>
-        <page to="backend/accounts#reconciliation"/>
         <page to="backend/accounts#show"/>
-        <page to="backend/accounts#unmark"/>
         <page to="backend/accounts#unroll"/>
         <page to="backend/accounts#update"/>
       </item>
@@ -1326,6 +1334,7 @@
         <page to="backend/product_nature_categories#list"/>
         <page to="backend/product_nature_categories#list_products"/>
         <page to="backend/product_nature_categories#list_product_natures"/>
+        <page to="backend/product_nature_categories#list_taxations"/>
         <page to="backend/product_nature_categories#new"/>
         <page to="backend/product_nature_categories#pick"/>
         <page to="backend/product_nature_categories#show"/>
@@ -1391,6 +1400,7 @@
         <page to="backend/catalog_prices#edit"/>
         <page to="backend/catalog_prices#export"/>
         <page to="backend/catalog_prices#find"/>
+        <page to="backend/catalog_prices#stop"/>
         <page to="backend/catalog_prices#import"/>
         <page to="backend/catalog_prices#list"/>
         <page to="backend/catalog_prices#new"/>
@@ -1761,6 +1771,16 @@
     <group>
       <item name="visuals">
         <page to="backend/visuals#picture"/>
+      </item>
+    </group>
+    <group>
+      <item name="crumbs">
+        <page to="api/v1/crumbs#index"/>
+        <page to="api/v1/crumbs#create"/>
+      </item>
+      <item name="tokens">
+        <page to="api/v1/tokens#create"/>
+        <page to="api/v1/tokens#destroy"/>
       </item>
     </group>
   </inaccessible-actions>

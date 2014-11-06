@@ -7,3 +7,9 @@
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name
+
+    - b.cell :users do
+      = list :users
+
+  - b.cell :rights do
+    = access_control_list(resource.rights)

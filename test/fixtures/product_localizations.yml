@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: product_localizations
@@ -46,29 +46,247 @@
 #   product: products_001
 #   updater: users_001
 #
-
+---
 product_localizations_001:
-  container: building_divisions_001
-  creator: users_001
+  container_id: 15
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
   nature: interior
-  product: animals_001
-  started_at: 2009-07-19 19:13:59.000000000 +02:00
-  stopped_at: 2009-07-19 19:13:59.000000000 +02:00
-  updater: users_001
-
+  product_id: 1
+  started_at: 2009-07-19 15:13:59.000000000 Z
+  stopped_at: 2009-07-19 15:13:59.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 product_localizations_002:
-  container: building_divisions_001
-  creator: users_001
+  container_id: 15
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
   nature: transfer
-  product: animals_001
-  started_at: 2009-07-19 19:13:59.000000000 +02:00
-  stopped_at: 2009-07-19 19:13:59.000000000 +02:00
-  updater: users_001
-
+  product_id: 1
+  started_at: 2009-07-19 15:13:59.000000000 Z
+  stopped_at: 2009-07-19 15:13:59.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 product_localizations_003:
-  container: building_divisions_001
-  creator: users_001
+  container_id: 15
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
   nature: interior
-  product: equipments_003
-  started_at: 2001-07-19 19:13:59.000000000 +02:00
-  updater: users_001
+  product_id: 28
+  started_at: 2001-07-19 15:13:59.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_localizations_004:
+  container_id: 22
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  nature: interior
+  product_id: 61
+  started_at: 2000-07-19 15:13:59.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_localizations_005:
+  container_id: 24
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  nature: interior
+  product_id: 63
+  started_at: 2000-07-19 15:13:59.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_localizations_006:
+  container_id: 20
+  created_at: 2014-10-31 20:23:37.090697000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  nature: interior
+  originator_id: 4
+  originator_type: IncomingDeliveryItem
+  product_id: 53
+  started_at: 2014-10-31 20:09:00.000000000 Z
+  updated_at: 2014-10-31 20:23:37.090697000 Z
+  updater_id: 1
+product_localizations_007:
+  container_id: 20
+  created_at: 2014-11-01 16:00:08.317473000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  nature: interior
+  originator_id: 5
+  originator_type: IncomingDeliveryItem
+  product_id: 54
+  started_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.317473000 Z
+  updater_id: 1
+product_localizations_008:
+  container_id: 20
+  created_at: 2014-11-01 16:00:08.386096000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  nature: interior
+  originator_id: 6
+  originator_type: IncomingDeliveryItem
+  product_id: 55
+  started_at: 2014-10-31 20:31:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.386096000 Z
+  updater_id: 1
+product_localizations_009:
+  container_id: 21
+  created_at: 2014-11-01 16:01:24.231272000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  nature: interior
+  originator_id: 7
+  originator_type: IncomingDeliveryItem
+  product_id: 56
+  started_at: 2014-11-06 08:45:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.231272000 Z
+  updater_id: 1
+product_localizations_010:
+  container_id: 21
+  created_at: 2014-11-01 19:29:58.583615000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  nature: interior
+  originator_id: 8
+  originator_type: IncomingDeliveryItem
+  product_id: 5
+  started_at: 2014-11-01 19:26:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.583615000 Z
+  updater_id: 1
+product_localizations_011:
+  container_id: 21
+  created_at: 2014-11-01 19:35:50.431527000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  nature: interior
+  originator_id: 9
+  originator_type: IncomingDeliveryItem
+  product_id: 6
+  started_at: 2014-11-01 19:33:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.431527000 Z
+  updater_id: 1
+product_localizations_012:
+  container_id: 21
+  created_at: 2014-11-01 20:19:35.475802000 Z
+  creator_id: 1
+  id: 13
+  lock_version: 0
+  nature: interior
+  originator_id: 10
+  originator_type: IncomingDeliveryItem
+  product_id: 57
+  started_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.475802000 Z
+  updater_id: 1
+product_localizations_013:
+  container_id: 21
+  created_at: 2014-11-01 20:23:55.240912000 Z
+  creator_id: 1
+  id: 14
+  lock_version: 0
+  nature: interior
+  originator_id: 11
+  originator_type: IncomingDeliveryItem
+  product_id: 58
+  started_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.240912000 Z
+  updater_id: 1
+product_localizations_014:
+  container_id: 21
+  created_at: 2014-11-01 20:23:55.306166000 Z
+  creator_id: 1
+  id: 15
+  lock_version: 0
+  nature: interior
+  originator_id: 12
+  originator_type: IncomingDeliveryItem
+  product_id: 59
+  started_at: 2013-08-01 00:50:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.306166000 Z
+  updater_id: 1
+product_localizations_015:
+  container_id: 19
+  created_at: 2014-11-02 18:37:22.419038000 Z
+  creator_id: 1
+  id: 18
+  lock_version: 0
+  nature: interior
+  product_id: 32
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.419038000 Z
+  updater_id: 1
+product_localizations_016:
+  container_id: 20
+  created_at: 2014-11-02 18:38:47.111163000 Z
+  creator_id: 1
+  id: 19
+  lock_version: 0
+  nature: interior
+  product_id: 60
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2014-11-02 11:06:30.000000000 Z
+  updated_at: 2014-11-02 18:38:47.111163000 Z
+  updater_id: 1
+product_localizations_017:
+  created_at: 2014-11-04 18:31:37.318710000 Z
+  creator_id: 1
+  id: 25
+  lock_version: 0
+  nature: transfer
+  operation_id: 9
+  product_id: 29
+  started_at: 2012-10-03 08:30:00.000000000 Z
+  stopped_at: 2012-10-03 10:30:00.000000000 Z
+  updated_at: 2014-11-04 18:31:37.318710000 Z
+  updater_id: 1
+product_localizations_018:
+  container_id: 83
+  created_at: 2014-11-04 18:31:37.330701000 Z
+  creator_id: 1
+  id: 26
+  lock_version: 0
+  nature: interior
+  operation_id: 9
+  product_id: 29
+  started_at: 2012-10-03 10:30:00.000000000 Z
+  updated_at: 2014-11-04 18:31:37.330701000 Z
+  updater_id: 1
+product_localizations_019:
+  container_id: 21
+  created_at: 2014-11-04 18:39:58.365518000 Z
+  creator_id: 1
+  id: 27
+  lock_version: 0
+  nature: interior
+  product_id: 87
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:39:58.365518000 Z
+  updater_id: 1
+product_localizations_020:
+  container_id: 19
+  created_at: 2014-11-04 18:41:24.733522000 Z
+  creator_id: 1
+  id: 28
+  lock_version: 0
+  nature: interior
+  product_id: 88
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:41:24.733522000 Z
+  updater_id: 1

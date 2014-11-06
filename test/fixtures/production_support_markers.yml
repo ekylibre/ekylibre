@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: production_support_markers
@@ -58,33 +58,43 @@
 #   support: supports_001
 #   updater: users_001
 #
-
+---
 production_support_markers_001:
   aim: minimal
   boolean_value: true
-  creator: users_001
-  decimal_value: 10
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  decimal_value: 10.0
+  id: 1
   indicator_datatype: decimal
   indicator_name: population
-  support: production_supports_001
-  updater: users_001
-
+  lock_version: 0
+  support_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 production_support_markers_002:
   aim: maximal
   boolean_value: true
-  creator: users_001
-  decimal_value: 1000
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  decimal_value: 1000.0
+  id: 2
   indicator_datatype: decimal
   indicator_name: population
-  support: production_supports_001
-  updater: users_001
-
+  lock_version: 0
+  support_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 production_support_markers_003:
   aim: perfect
   boolean_value: true
-  creator: users_001
-  decimal_value: 100
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  decimal_value: 100.0
+  id: 3
   indicator_datatype: decimal
   indicator_name: population
-  support: production_supports_001
-  updater: users_001
+  lock_version: 0
+  support_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

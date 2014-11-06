@@ -1,10 +1,10 @@
 module Calculus
   module ManureManagementPlan
 
-    autoload :Method,              'calculus/manure_management_plan/method'
+    autoload :Aquitaine2013,       'calculus/manure_management_plan/aquitaine_2013'
     autoload :External,            'calculus/manure_management_plan/external'
+    autoload :Method,              'calculus/manure_management_plan/method'
     autoload :PoitouCharentes2013, 'calculus/manure_management_plan/poitou_charentes_2013'
-    autoload :Aquitaine2013, 'calculus/manure_management_plan/aquitaine_2013'
 
     class << self
 
@@ -17,7 +17,7 @@ module Calculus
       end
 
       def find_method(options)
-        "Calculus::ManureManagementPlan::#{options[:method].name.to_s.camelize}".constantize.new(options)
+        Calculus::ManureManagementPlan.const_get(options[:method].name.to_s.camelize).new(options)
       end
 
     end

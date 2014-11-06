@@ -7,7 +7,6 @@ module Aggeratio
   autoload :DocumentFragment, 'aggeratio/document_fragment'
   # autoload :JSON, 'aggeratio/json'
   # autoload :CSV,  'aggeratio/csv'
-
   # autoload :XSD,  'aggeratio/xsd'
 
   XMLNS = "http://www.ekylibre.org/XML/2013/aggregators".freeze
@@ -17,6 +16,15 @@ module Aggeratio
   @@categories = HashWithIndifferentAccess.new
 
   class << self
+
+    def each(&block)
+      if block.arity == 2
+        @@list.each(&block)
+      else
+        @@list.values.each(&block)
+      end
+    end
+
     # Returns the names of the aggregators
     def names
       @@list.keys
@@ -27,31 +35,35 @@ module Aggeratio
       @@list[name]
     end
 
-    # Load all files
+    # Load all aggregator and build Aggregator children
     def load
-      # Inventory aggregators
+      each_xml_aggregator do |element|
+        aggregator = build(element)
+        @@list[aggregator.aggregator_name] = aggregator
+        cat = aggregator.category
+        @@categories[cat] ||= []
+        @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
+      end
+      return true
+    end
+
+    # Browse all aggregator elements in XML files
+    def each_xml_aggregator(&block)
       for path in Dir.glob(root.join("*.xml")).sort
         f = File.open(path, "rb")
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
         end
         f.close
-        # Add a better syntax check
+        # TODO: Add a better syntax check
         if document.root.namespace.href.to_s == XMLNS
           document.root.xpath('xmlns:aggregator').each do |element|
-            # aggregator = Aggregator.new(element)
-            # @@list[aggregator.name] = aggregator
-            aggregator = build(element)
-            @@list[aggregator.aggregator_name] = aggregator
-            cat = aggregator.category
-            @@categories[cat] ||= []
-            @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
+            yield clean(element)
           end
         else
           Rails.logger.info("File #{path} is not a aggregator as defined by #{XMLNS}")
         end
       end
-      return true
     end
 
     # Returns the root of the aggregators
@@ -63,8 +75,7 @@ module Aggeratio
       return (@@categories[cat] || []).collect{|a| Aggeratio[a]}
     end
 
-
-    def build(element)
+    def clean(element)
       # Merge <within>s
       for within in element.xpath('//xmlns:within')
         name, of, of_type = within.attr('name'), within.attr('of'), within.attr('of-type')
@@ -110,12 +121,12 @@ module Aggeratio
           end
         end
       end
-
-
       # element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
+      return element
+    end
 
-      # Codes!
 
+    def build(element)
       agg = Base.new(element)
       name = agg.name
 
@@ -144,8 +155,8 @@ module Aggeratio
       code << "  end\n"
 
       params = "options"
-      code << "  def initialize(controller, #{params} = {})\n"
-      code << "    @controller = controller\n"
+      code << "  def initialize(#{params} = nil)\n"
+      code << "    #{params} ||= {}\n"
       for p in parameters
         if p.record_list?
           # campaigns
@@ -174,18 +185,16 @@ module Aggeratio
           code << "      @#{p.name} = #{p.foreign_class.name}.#{p.default}\n"
           code << "    end\n"
         elsif p.decimal?
-          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_f : #{p.default.to_f.inspect})\n"
+          code << "    @#{p.name} = (#{params}['#{p.name}'] ? #{params}['#{name}'].to_f : #{p.default.to_f.inspect})\n"
         elsif p.integer?
-          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_i : #{p.default.to_i.inspect})\n"
+          code << "    @#{p.name} = (#{params}['#{p.name}'] ? #{params}['#{name}'].to_i : #{p.default.to_i.inspect})\n"
+        elsif p.date?
+          code << "    @#{p.name} = (#{params}['#{p.name}'] || #{p.default.to_s.inspect}).to_date\n"
         else
-          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_s : #{p.default.inspect})\n"
+          code << "    @#{p.name} = (#{params}['#{p.name}'] ? #{params}['#{name}'].to_s : #{p.default.inspect})\n"
         end
       end
       code << "  end\n"
-
-      code << "   def url_for(params = {})\n"
-      code << "     @controller.url_for(params)\n"
-      code << "   end\n"
 
       # code << "  def to_json\n"
       # code << JSON.new(element).build.gsub(/^/, '    ')
@@ -201,7 +210,7 @@ module Aggeratio
 
       code << "end\n"
 
-      if Rails.env.development?
+      if true # Rails.env.development?
         f = Rails.root.join("tmp", "code", "aggregators", "#{agg.name}.rb")
         FileUtils.mkdir_p(f.dirname)
         File.write(f, code)

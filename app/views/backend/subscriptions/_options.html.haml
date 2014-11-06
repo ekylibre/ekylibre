@@ -1,8 +1,8 @@
--if @subscription_nature.quantity?
-  %label=tc("select_number")
-  =text_field_tag(:instant, session[:subscriptions_instant], :size => 6)
--elsif @subscription_nature.period?
-  %label=tc("select_date")
-  =date_field_tag(:instant, session[:subscriptions_instant])
--else
+- if @subscription_nature.quantity?
+  %label= :select_number.tl
+  = text_field_tag(:instant, session[:subscriptions_instant], :size => 6)
+- elsif @subscription_nature.period?
+  %label= :select_date.tl
+  = date_field_tag(:instant, session[:subscriptions_instant])
+- else
   %strong [NoNatureError]

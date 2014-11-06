@@ -27,6 +27,16 @@ module Aggeratio
       return "#{element.attr('name')} = #{value_of(element)}\n"
     end
 
+    def properties(element = nil)
+      element ||= @root
+      array = []
+      array << element if ["section", "cell", "property", "title"].include?(element.name)
+      for child in element.children
+        array += self.properties(child)
+      end
+      return array
+    end
+
 
     def parameter_initialization
       code = ""
@@ -77,7 +87,7 @@ module Aggeratio
       code = if type == :date or type == :datetime or type == :measure
                "xml.text(#{value}.l) unless #{value}.nil?"
              elsif type == :url
-               "xml.a(#{value}, :href => #{value}) unless #{value}.blank?"
+               "xml.a(#{value}, href: #{value}) unless #{value}.blank?"
              else
                "xml.text(#{value})"
              end
@@ -101,7 +111,38 @@ module Aggeratio
       name = element.attr('value').to_s.downcase # unless name.is_a?(String)
       name = element.attr('name') unless name.match(/^\w+$/)
       name = name.to_s.strip.gsub('-', '_')
-      return "'labels.#{name}'.t(:default => [:'attributes.#{name}', '#{name.to_s.humanize}'])"
+      return "'aggregator_properties.#{name}'.t(default: [:'attributes.#{name}', :'labels.#{name}', :'activerecord.models.#{name}', #{name.to_s.humanize.inspect}])"
+    end
+
+    # Returns all default XPATH queries
+    def queries(options = {})
+      return @root.xpath("//node()[not(node())]").collect do |leaf|
+        next if options[:strict].is_a?(FalseClass) and leaf.has_attribute?("if")
+        xpath(leaf)
+      end.compact
+    end
+
+    private
+
+    def xpath(element)
+      return nil if ["comment", "variable"].include?(element.name)
+      name = element.name.to_s.upcase
+      if ["matrix", "sections"].include?(element.name)
+        name = normalize_name(element.attr("for"))
+        if element.has_attribute?("name")
+          name = normalize_name(element.attr("name")) + "/" + name
+        end
+      elsif element.has_attribute?("name")
+        name = normalize_name(element.attr("name"))
+      end
+      prefix = (["property", "title"].include?(element.name) ? "/@" : "/")
+      if element == @root
+        return prefix + name
+      elsif element.parent and !element.parent.is_a?(Nokogiri::XML::Document)
+        return xpath(element.parent) + prefix + name rescue nil
+      else
+        return nil
+      end
     end
 
   end

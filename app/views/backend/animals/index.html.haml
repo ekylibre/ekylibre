@@ -1,3 +1,9 @@
+= kujaku do |k|
+  - k.text
+  - k.criterion do
+    %label= Production.human_attribute_name(:variant)
+    = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.of_variety(:bos).collect{|u| [u.name, u.id]}, params[:variant_id]))
+
 - main_toolbar do |t|
   - t.export do |e|
     - e.animal_list Time.now.to_s, @animals

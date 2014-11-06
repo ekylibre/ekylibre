@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: intervention_casts
@@ -50,80 +50,136 @@
 #   reference_name: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 intervention_casts_001:
-  actor: equipments_003
-  creator: users_001
-  intervention: interventions_001
+  actor_id: 79
+  created_at: 2014-11-04 18:31:09.305211000 Z
+  creator_id: 1
+  event_participation_id: 13
+  id: 30
+  intervention_id: 9
+  lock_version: 0
   nature: product
-  population: 1
-  position: 1
-  reference_name: grinder
-  roles: soil_enrichment-tool, grinding-tool
-  updater: users_001
-
-intervention_casts_002:
-  actor: matters_003
-  creator: users_001
-  intervention: interventions_002
-  nature: product
-  population: 12
-  position: 1
-  reference_name: grinded
-  roles: grinding-output, soil_enrichment-input
-  updater: users_001
-
-intervention_casts_003:
-  actor: plants_001
-  creator: users_001
-  intervention: interventions_001
-  nature: product
-  population: 1.8
-  position: 1
-  reference_name: cultivation
-  roles: grinding-input
-  updater: users_001
-
-intervention_casts_004:
-  actor: equipments_001
-  creator: users_001
-  intervention: interventions_001
-  nature: product
-  population: 1
-  position: 1
-  reference_name: tractor
-  updater: users_001
-
-intervention_casts_005:
-  actor: matters_003
-  creator: users_001
-  intervention: interventions_001
-  nature: product
-  population: 12
-  position: 1
-  reference_name: grinded
-  roles: grinding-output, soil_enrichment-input
-  updater: users_001
-  variant: product_nature_variants_005
-
-intervention_casts_006:
-  actor: cultivable_zones_003
-  creator: users_001
-  intervention: interventions_001
-  nature: product
-  population: 1.8
-  position: 1
-  reference_name: land_parcel
-  roles: soil_enrichment-target
-  updater: users_001
-
-intervention_casts_007:
-  actor: workers_003
-  creator: users_001
-  intervention: interventions_001
-  nature: product
-  population: 1
+  population: 0.0
   position: 1
   reference_name: driver
-  roles: grinding-doer, soil_enrichment-doer
-  updater: users_001
+  roles: plowing-doer
+  updated_at: 2014-11-04 18:31:09.305211000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_002:
+  actor_id: 29
+  created_at: 2014-11-04 18:31:09.308816000 Z
+  creator_id: 1
+  id: 31
+  intervention_id: 9
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 2
+  reference_name: tractor
+  roles: plowing-tool
+  updated_at: 2014-11-04 18:31:09.308816000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_003:
+  actor_id: 83
+  created_at: 2014-11-04 18:31:09.310469000 Z
+  creator_id: 1
+  id: 32
+  intervention_id: 9
+  lock_version: 0
+  nature: product
+  population: 5.3806
+  position: 3
+  reference_name: land_parcel
+  roles: plowing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-04 18:31:09.310469000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_004:
+  actor_id: 31
+  created_at: 2014-11-04 18:31:09.312157000 Z
+  creator_id: 1
+  id: 33
+  intervention_id: 9
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: plow
+  roles: plowing-tool
+  updated_at: 2014-11-04 18:31:09.312157000 Z
+  updater_id: 1
+  variant_id: 27
+intervention_casts_005:
+  actor_id: 83
+  created_at: 2014-11-04 18:41:39.740739000 Z
+  creator_id: 1
+  id: 34
+  intervention_id: 10
+  lock_version: 0
+  nature: product
+  population: 5.3806
+  position: 1
+  reference_name: land_parcel
+  roles: raking-target, physical_weed_killing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-04 18:41:39.740739000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_006:
+  actor_id: 79
+  created_at: 2014-11-04 18:41:39.752672000 Z
+  creator_id: 1
+  event_participation_id: 14
+  id: 35
+  intervention_id: 10
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 2
+  reference_name: driver
+  roles: raking-doer, physical_weed_killing-doer
+  updated_at: 2014-11-04 18:41:39.752672000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_007:
+  actor_id: 29
+  created_at: 2014-11-04 18:41:39.756098000 Z
+  creator_id: 1
+  id: 36
+  intervention_id: 10
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: tractor
+  roles: raking-tool, physical_weed_killing-tool
+  updated_at: 2014-11-04 18:41:39.756098000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_008:
+  actor_id: 88
+  created_at: 2014-11-04 18:41:39.757856000 Z
+  creator_id: 1
+  id: 37
+  intervention_id: 10
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: cultivator
+  roles: raking-tool, physical_weed_killing-tool
+  updated_at: 2014-11-04 18:41:39.757856000 Z
+  updater_id: 1
+  variant_id: 34

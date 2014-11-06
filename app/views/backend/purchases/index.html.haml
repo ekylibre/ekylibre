@@ -1,4 +1,4 @@
-=kujaku
+= kujaku
 - main_toolbar do |t|
-  -t.new
-=list
+  - t.new variants: PurchaseNature.reorder(:by_default).to_a.inject({}){|h,n| h[n.name] = {nature_id: n.id}; h}
+= list

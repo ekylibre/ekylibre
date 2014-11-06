@@ -37,5 +37,9 @@ end
 # Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
 # # TODO: supply generic implementation
 # }
-# Rails.application.config.middleware.use 'Apartment::Elevators::Domain'
-Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
+
+if Rails.env.test?
+  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', Proc.new { |request| "test" }
+else
+  Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
+end

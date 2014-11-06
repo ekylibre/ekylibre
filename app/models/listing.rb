@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: listings
@@ -62,7 +62,7 @@ class Listing < Ekylibre::Record::Base
   end
 
   def root_model_name
-    # ::I18n.t("activerecord.models."+self.root_model.underscore)
+    # Ekylibre::Record.human_name(self.root_model.underscore)
     self.root_model.classify.constantize.model_name.human rescue '???'
   end
 
@@ -115,7 +115,7 @@ class Listing < Ekylibre::Record::Base
 
   # Fully duplicate a listing
   def duplicate
-    listing = self.class.create!(self.attributes.merge(name: tg(:copy_of, :source => self.name)).delete_if{|a| ["id", "lock_version"].include?(a.to_s)})
+    listing = self.class.create!(self.attributes.merge(name: :copy_of.tl(source: self.name)).delete_if{|a| ["id", "lock_version"].include?(a.to_s)})
     self.root_node.duplicate(listing)
     return listing
   end

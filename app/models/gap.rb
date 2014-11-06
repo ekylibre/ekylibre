@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: gaps
@@ -50,6 +50,7 @@ class Gap < Ekylibre::Record::Base
   has_many :items, class_name: "GapItem", inverse_of: :gap
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :accounted_at, :printed_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :direction, :entity_role, :number, allow_nil: true, maximum: 255
@@ -67,7 +68,7 @@ class Gap < Ekylibre::Record::Base
 
   bookkeep do |b|
     b.journal_entry(Journal.used_for_gaps, printed_on: self.printed_at.to_date, :unless => self.amount.zero?) do |entry|
-      label = tc(:bookkeep, resource: self.direction.text, number: self.number, entity: self.entity.full_name)
+      label = tc(:bookkeep, resource: self.direction.l, number: self.number, entity: self.entity.full_name)
       if self.profit?
         entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)
         for item in self.items

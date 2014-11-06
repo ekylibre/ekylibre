@@ -4,36 +4,36 @@
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 class Backend::JournalEntryItemsController < BackendController
 
-  unroll
+  unroll includes: [:entry, :account]
 
   def new
     @journal_entry_item = JournalEntryItem.new
     @journal_entry_item.name = params[:name] if params[:name]
-    if params["entry-original-debit"] and params["entry-original-credit"]
-      debit, credit = params["entry-original-debit"].to_f, params["entry-original-credit"].to_f
+    if params["entry-real-debit"] and params["entry-real-credit"]
+      debit, credit = params["entry-real-debit"].to_f, params["entry-real-credit"].to_f
       if debit > credit
         @journal_entry_item.real_credit = debit - credit
       else
         @journal_entry_item.real_debit  = credit - debit
       end
     end
-    if params[:journal_id] and @journal = Journal.find_by_id(params[:journal_id])
-      if @journal.cashes.size == 1
+    if params[:journal_id] and @journal = Journal.find_by(id: params[:journal_id])
+      if @journal.cashes.count == 1
         @journal_entry_item.account = @journal.cashes.first.account
       end
     end

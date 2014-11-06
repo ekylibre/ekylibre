@@ -1,4 +1,8 @@
 # THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION
+#     - "api/v1/crumbs#create"
+#     - "api/v1/crumbs#index"
+#     - "api/v1/tokens#create"
+#     - "api/v1/tokens#destroy"
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"
@@ -42,10 +46,6 @@
 #     - "backend/cells/rss_cells#show"
 #     - "backend/cells/weather_cells#show"
 #     - "backend/cells/working_sets_stocks_cells#show"
-#     - "backend/crumbs#convert"
-#     - "backend/crumbs#destroy"
-#     - "backend/crumbs#index"
-#     - "backend/crumbs#update"
 #     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#index"
 #     - "backend/dashboards#production"
@@ -56,33 +56,14 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/documents#unroll"
-#     - "backend/financial_assets#list_products"
-#     - "backend/georeadings#create"
-#     - "backend/georeadings#destroy"
-#     - "backend/georeadings#edit"
-#     - "backend/georeadings#index"
-#     - "backend/georeadings#list"
-#     - "backend/georeadings#new"
-#     - "backend/georeadings#show"
-#     - "backend/georeadings#unroll"
-#     - "backend/georeadings#update"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/imports#create"
-#     - "backend/imports#destroy"
-#     - "backend/imports#edit"
-#     - "backend/imports#index"
-#     - "backend/imports#list"
-#     - "backend/imports#new"
-#     - "backend/imports#run"
-#     - "backend/imports#show"
-#     - "backend/imports#update"
 #     - "backend/kujakus#toggle"
+#     - "backend/net_services#unroll"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
-#     - "backend/synchronizations#update"
+#     - "backend/synchronizations#run"
 #     - "backend/visuals#picture"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
@@ -161,12 +142,6 @@ affairs:
     - "backend/affairs#detach"
     - "backend/affairs#finish"
     - "backend/affairs#select"
-
-aggregators:
-  read:
-    actions:
-    - "backend/exports#index"
-    - "backend/exports#show"
 
 analyses:
   read:
@@ -423,6 +398,7 @@ catalog_prices:
     - "backend/catalog_prices#destroy"
     - "backend/catalog_prices#edit"
     - "backend/catalog_prices#new"
+    - "backend/catalog_prices#stop"
     - "backend/catalog_prices#update"
 
 catalogs:
@@ -564,6 +540,7 @@ documents:
     - "backend/documents#list"
     - "backend/documents#list_archives"
     - "backend/documents#show"
+    - "backend/documents#unroll"
   write:
     depend-on:
     - read-documents
@@ -693,12 +670,19 @@ events:
     - "backend/events#new"
     - "backend/events#update"
 
+exports:
+  read:
+    actions:
+    - "backend/exports#index"
+    - "backend/exports#show"
+
 financial_assets:
   read:
     actions:
     - "backend/financial_assets#index"
     - "backend/financial_assets#list"
     - "backend/financial_assets#list_depreciations"
+    - "backend/financial_assets#list_products"
     - "backend/financial_assets#show"
     - "backend/financial_assets#unroll"
   write:
@@ -788,6 +772,23 @@ gaps:
     depend-on:
     - read-gaps
 
+georeadings:
+  read:
+    actions:
+    - "backend/georeadings#index"
+    - "backend/georeadings#list"
+    - "backend/georeadings#show"
+    - "backend/georeadings#unroll"
+  write:
+    depend-on:
+    - read-georeadings
+    actions:
+    - "backend/georeadings#create"
+    - "backend/georeadings#destroy"
+    - "backend/georeadings#edit"
+    - "backend/georeadings#new"
+    - "backend/georeadings#update"
+
 guide_analyses:
   read:
     actions:
@@ -823,7 +824,6 @@ identifiers:
     - "backend/identifiers#index"
     - "backend/identifiers#list"
     - "backend/identifiers#show"
-    - "backend/identifiers#unroll"
   write:
     depend-on:
     - read-identifiers
@@ -833,6 +833,27 @@ identifiers:
     - "backend/identifiers#edit"
     - "backend/identifiers#new"
     - "backend/identifiers#update"
+
+imports:
+  read:
+    actions:
+    - "backend/imports#index"
+    - "backend/imports#list"
+    - "backend/imports#show"
+  write:
+    depend-on:
+    - read-imports
+    actions:
+    - "backend/imports#create"
+    - "backend/imports#destroy"
+    - "backend/imports#edit"
+    - "backend/imports#new"
+    - "backend/imports#update"
+  execute:
+    depend-on:
+    - read-imports
+    actions:
+    - "backend/imports#run"
 
 incoming_deliveries:
   read:
@@ -905,6 +926,10 @@ interventions:
     depend-on:
     - read-interventions
     actions:
+    - "backend/crumbs#convert"
+    - "backend/crumbs#destroy"
+    - "backend/crumbs#index"
+    - "backend/crumbs#update"
     - "backend/interventions#compute"
     - "backend/interventions#create"
     - "backend/interventions#destroy"
@@ -1234,7 +1259,6 @@ net_services:
     - "backend/net_services#list"
     - "backend/net_services#list_identifiers"
     - "backend/net_services#show"
-    - "backend/net_services#unroll"
   write:
     depend-on:
     - read-net_services
@@ -1464,6 +1488,7 @@ product_nature_categories:
     - "backend/product_nature_categories#list"
     - "backend/product_nature_categories#list_product_natures"
     - "backend/product_nature_categories#list_products"
+    - "backend/product_nature_categories#list_taxations"
     - "backend/product_nature_categories#show"
     - "backend/product_nature_categories#unroll"
   write:
@@ -1482,6 +1507,7 @@ product_nature_variants:
   read:
     actions:
     - "backend/product_nature_variants#index"
+    - "backend/product_nature_variants#last_purchase_item"
     - "backend/product_nature_variants#list"
     - "backend/product_nature_variants#list_prices"
     - "backend/product_nature_variants#list_products"
@@ -1531,7 +1557,6 @@ productions:
     - "backend/production_support_markers#index"
     - "backend/production_support_markers#list"
     - "backend/production_support_markers#show"
-    - "backend/production_support_markers#unroll"
     - "backend/production_supports#index"
     - "backend/production_supports#list"
     - "backend/production_supports#list_interventions"
@@ -1650,6 +1675,7 @@ roles:
     actions:
     - "backend/roles#index"
     - "backend/roles#list"
+    - "backend/roles#list_users"
     - "backend/roles#show"
     - "backend/roles#unroll"
   write:
@@ -1865,11 +1891,6 @@ trackings:
     - "backend/trackings#new"
     - "backend/trackings#update"
 
-transfers:
-  write:
-    depend-on:
-    - read-transfers
-
 transformed_products:
   read:
     actions:
@@ -1910,21 +1931,14 @@ users:
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"
-    - "backend/users#lock"
     - "backend/users#new"
-    - "backend/users#unlock"
     - "backend/users#update"
   lock:
     depend-on:
     - read-users
     actions:
-    - "backend/users#create"
-    - "backend/users#destroy"
-    - "backend/users#edit"
     - "backend/users#lock"
-    - "backend/users#new"
     - "backend/users#unlock"
-    - "backend/users#update"
 
 wine_tanks:
   read:

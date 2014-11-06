@@ -4,16 +4,16 @@
 # Copyright (C) 2008-2013 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -33,7 +33,7 @@ module BackendHelper
   end
 
   def root_models
-    Ekylibre::Schema.table_names.collect{|a| [::I18n.t("activerecord.models.#{a.to_s.singularize}"), a.to_s.singularize]}.sort{|a,b| a[0].ascii <=> b[0].ascii}
+    Ekylibre::Schema.table_names.collect{|a| [Ekylibre::Record.human_name(a.to_s.singularize), a.to_s.singularize]}.sort{|a,b| a[0].ascii <=> b[0].ascii}
   end
 
   def navigation_tag
@@ -44,6 +44,16 @@ module BackendHelper
     path = reverse_menus
     return '' if path.nil?
     render(partial: 'layouts/side', locals: {path: path})
+    # render_snippets(:side)
+    # render('/shared/snippet', collection: Ekylibre::SnippetManager.at(:side), path: path)
+  end
+
+  def add_snippets(place, options = {})
+    Ekylibre::Snippet.at(:side).each do |s|
+      snippet(s.name, {icon: :plug}.merge(s.options)) do
+        render(file: s.path)
+      end
+    end
   end
 
   def module_authorized?(mod)
@@ -118,7 +128,7 @@ module BackendHelper
     unless options[:title].is_a?(FalseClass)
       html << "<a href='#{url_for(:controller => "/backend/snippets", :action => :toggle, :id => name)}' class='snippet-title' data-toggle-snippet='true'>"
       html << "<i class='collapser'></i>"
-      html << "<h3><i></i>" + (options[:title] || tl(name)) + "</h3>"
+      html << "<h3><i></i>" + (options[:title] || "snippets.#{name}".t(default: ["labels.#{name}".to_sym])) + "</h3>"
       html << "</a>"
     end
 
@@ -155,7 +165,7 @@ module BackendHelper
     k.criteria.each_with_index do |c, index|
       code, opts = "", c[:options]||{}
       if c[:type] == :mode
-        code = content_tag(:label, opts[:label]||tg(:mode))
+        code = content_tag(:label, opts[:label] || :mode.tl)
         name = c[:name]||:mode
         params[name] ||= c[:modes][0].to_s
         i18n_root = opts[:i18n_root]||'labels.criterion_modes.'
@@ -167,7 +177,7 @@ module BackendHelper
         end
 
       elsif c[:type] == :radio_buttons
-        code = content_tag(:label, opts[:label]||tg(:state))
+        code = content_tag(:label, opts[:label] || :state.tl)
         params[c[:name]] ||= c[:states][0].to_s
         i18n_root = opts[:i18n_root]||"labels.#{controller_name}_states."
         for state in c[:states]
@@ -177,7 +187,7 @@ module BackendHelper
         end
 
       elsif c[:type] == :check_boxes
-        code = content_tag(:label, opts[:label] || tg(:selection))
+        code = content_tag(:label, opts[:label] || :selection.tl)
         params[c[:name]] ||= []
         i18n_root = opts[:i18n_root]||"labels.#{controller_name}_selections."
         for selection in c[:selections]
@@ -192,7 +202,7 @@ module BackendHelper
         code << " ".html_safe << content_tag(:span, select_tag(c[:name], options_for_select(c[:selection], opts[:selected] || params[c[:name]])), class: :slc)
 
       elsif c[:type] == :text
-        code = content_tag(:label, opts[:label]||tg(:search))
+        code = content_tag(:label, opts[:label] || :search.tl)
         name = c[:name]||:q
         p = current_user.pref("kujaku.criteria.#{c[:uid]}.default", params[name])
         params[name] ||= p.value
@@ -200,7 +210,7 @@ module BackendHelper
         code << " ".html_safe << text_field_tag(name, params[name])
 
       elsif c[:type] == :date
-        code = content_tag(:label, opts[:label]||tg(:select_date))
+        code = content_tag(:label, opts[:label] || :select_date.tl)
         name = c[:name]||:d
         code << " ".html_safe << date_field_tag(name, params[name])
 

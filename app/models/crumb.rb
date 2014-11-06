@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: crumbs
@@ -45,6 +45,7 @@ class Crumb < Ekylibre::Record::Base
   belongs_to :intervention_cast
   has_one :worker, through: :user
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :read_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :accuracy, allow_nil: true
   validates_length_of :device_uid, :nature, allow_nil: true, maximum: 255
   validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
@@ -56,10 +57,22 @@ class Crumb < Ekylibre::Record::Base
   scope :unconverted, -> { where(intervention_cast_id: nil) }
 
   # returns all crumbs for a given day. Default: the current day
-  # TODO: remove this and replace by something like #start_day_betwee or #at
+  # TODO: remove this and replace by something like #start_day_between or #at
   scope :of_date, lambda{|start_date = Time.now.midnight|
     where(read_at: start_date.midnight..start_date.end_of_day)
   }
+
+  before_validation do
+    if self.start?
+      if self.previous and original = self.previous.siblings.where(nature: :start).first
+        self.metadata ||= original.metadata
+        self.metadata["procedure_nature"] ||= original.metadata["procedure_nature"]
+      else
+        self.metadata ||= {}
+        self.metadata["procedure_nature"] ||= "administrative_task"
+      end
+    end
+  end
 
   after_destroy do
     if self.start?
@@ -67,7 +80,7 @@ class Crumb < Ekylibre::Record::Base
     end
   end
 
-  before_update do
+  after_update do
     if self.start? and previous = self.previous
       unless previous.stop?
         previous.update_column(:nature, :stop)
@@ -180,7 +193,7 @@ class Crumb < Ekylibre::Record::Base
       options[:actors_ids] << self.worker.id unless self.worker.nil?
       actors = Crumb.products(intervention_path.to_a).concat(Product.find(options[:actors_ids])).compact.uniq
       unless options[:support_id] ||= Crumb.production_supports(intervention_path.where(nature: :hard_start)).pluck(:id).first
-        raise StandardError, "notifications.messages.need_a_production_support".t
+        raise StandardError, :need_a_production_support.tn
       end
       support = ProductionSupport.find(options[:support_id])
       options[:procedure_name] ||= Intervention.match(actors, options).first[0].name

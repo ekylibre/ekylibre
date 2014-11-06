@@ -1,12 +1,13 @@
-=field_set do
-  =f.referenced_association :entity
-  =f.input :by_default
-  =f.input :canal, :show => {:mail => :mail_details}, :hide => {:mail => :coordinate}
-  =f.input :coordinate
-  =f.input :mail_line_1, :in => :mail_details
-  =f.input :mail_line_2, :in => :mail_details
-  =f.input :mail_line_3, :in => :mail_details
-  =f.input :mail_line_4, :in => :mail_details
-  =f.input :mail_line_5, :in => :mail_details
-  =f.input :mail_line_6, :in => :mail_details
-  =f.input :mail_country, :collection => countries, :in => :mail_details
+= field_set do
+  = f.referenced_association :entity
+  = f.input :by_default
+  = f.input :canal, :show => {:mail => :mail_details}, :hide => {:mail => :coordinate}
+  = f.input :coordinate
+  = f.input :mail_line_1, :in => :mail_details
+  = f.input :mail_line_2, :in => :mail_details
+  = f.input :mail_line_3, :in => :mail_details
+  = f.input :mail_line_4, :in => :mail_details
+  = f.input :mail_line_5, :in => :mail_details
+  = f.input :mail_line_6, :in => :mail_details
+  = f.input :mail_country, :collection => countries, :in => :mail_details
+  = f.custom_fields

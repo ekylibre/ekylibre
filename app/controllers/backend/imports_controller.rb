@@ -4,23 +4,23 @@
 # Copyright (C) 2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 class Backend::ImportsController < BackendController
   manage_restfully
 
-  list do |t|
+  list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
     t.column :nature
     t.column :state
     t.column :created_at
@@ -34,7 +34,14 @@ class Backend::ImportsController < BackendController
 
   def run
     return unless import = find_and_check
-    Import.find(import.id).run
+    begin
+      Import.find(import.id).run
+    rescue Exchanges::Error => e
+      notify_error :cannot_import_file, message: e.message
+    rescue Exception => e
+      notify_error :exception_raised, message: e.message
+    end
+    # TODO: Activate background tasks
     # ImportJob.enqueue(import.id)
     redirect_to action: :index
   end

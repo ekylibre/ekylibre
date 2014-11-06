@@ -4,16 +4,16 @@
 # Copyright (C) 2008-2013 David Joulin, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -30,28 +30,26 @@ class Backend::ProductionsController < BackendController
   #   :product_nature_id
   def self.productions_conditions
     code = ""
-    code = search_conditions(:productions => [:state], :activities => [:name], :product_nature_variants => [:name]) + " ||= []\n"
+    code = search_conditions(productions: [:state], activities: [:name], product_nature_variants: [:name]) + " ||= []\n"
     code << "unless params[:s].blank?\n"
     code << "  unless params[:s] == 'all'\n"
-    # code << "    c[0] << \" AND state IN ('draft', 'validated', 'aborted', 'started')\"\n"
-    # code << "  else\n"
     code << "    c[0] << \" AND state = ?\"\n"
     code << "    c << params[:s]\n"
     code << "  end\n"
     code << "end\n "
-    code << "  if params[:campaign_id].to_i > 0\n"
-    code << "    c[0] << \" AND \#{Campaign.table_name}.id = ?\"\n"
-    code << "    c << params[:campaign_id].to_i\n"
-    code << "  end\n"
-    code << "  if params[:variant_id].to_i > 0\n"
-    code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
-    code << "    c << params[:variant_id].to_i\n"
-    code << "  end\n"
+    code << "if params[:campaign_id].to_i > 0\n"
+    code << "  c[0] << \" AND \#{Campaign.table_name}.id = ?\"\n"
+    code << "  c << params[:campaign_id].to_i\n"
+    code << "end\n"
+    code << "if params[:variant_id].to_i > 0\n"
+    code << "  c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
+    code << "  c << params[:variant_id].to_i\n"
+    code << "end\n"
     code << "c\n "
     return code.c
   end
 
-  list(conditions: productions_conditions, joins: [:activity, :variant, :campaign]) do |t|
+  list(conditions: productions_conditions) do |t|
     t.column :name, url: true
     t.column :activity, url: true
     t.column :campaign, url: true

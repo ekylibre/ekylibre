@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: georeadings
@@ -44,44 +44,43 @@
 #   nature: "Lorem ipsum"
 #   updater: users_001
 #
-
-
+---
 georeadings_001:
-  content: !wgs84.geo.ekylibre.org,2014/polygon
-  -
-    - [-0.66741943359371, 45.619800720955041]
-    - [-0.78002929687592, 45.692751372908732]
-    - [-0.87341308593753, 45.633246139812343]
-    - [-0.74157714843754, 45.560217957150514]
-    - [-0.66467285156255, 45.569832358492825]
-    - [-0.66741943359371, 45.619800720955041]
-  creator: users_001
-  name: "Polygon #1"
-  nature: "polygon"
-  updater: users_001
-
+  content: SRID=4326;POLYGON((-0.66741943359371 45.619800720955,-0.78002929687592
+    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
+    45.5698323584928,-0.66741943359371 45.619800720955))
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  name: 'Polygon #1'
+  nature: polygon
+  number: Polygon1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 georeadings_002:
-  content: !wgs84.geo.ekylibre.org,2014/polygon
-  -
-    - [-0.66741943359371, 45.619800720955041]
-    - [-0.78002929687592, 45.692751372908732]
-    - [-0.87341308593753, 45.633246139812343]
-    - [-0.74157714843754, 45.560217957150514]
-    - [-0.66467285156255, 45.569832358492825]
-    - [-0.66741943359371, 45.619800720955041]
-  creator: users_001
-  name: "Polygon #1 bis"
-  nature: "polygon"
-  updater: users_001
-
+  content: SRID=4326;POLYGON((-0.66741943359371 45.619800720955,-0.78002929687592
+    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
+    45.5698323584928,-0.66741943359371 45.619800720955))
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  name: 'Polygon #1 bis'
+  nature: polygon
+  number: Polygon1bis
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 georeadings_003:
-  content: !wgs84.geo.ekylibre.org,2014/linestring
-  - [-0.66741943359371, 45.619800720955041]
-  - [-0.78002929687592, 45.692751372908732]
-  - [-0.87341308593753, 45.633246139812343]
-  - [-0.74157714843754, 45.560217957150514]
-  - [-0.66467285156255, 45.569832358492825]
-  creator: users_001
-  name: "Line #1"
-  nature: "linestring"
-  updater: users_001
+  content: SRID=4326;LINESTRING(-0.66741943359371 45.619800720955,-0.78002929687592
+    45.6927513729087,-0.87341308593753 45.6332461398123,-0.74157714843754 45.5602179571505,-0.66467285156255
+    45.5698323584928)
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: 'Line #1'
+  nature: linestring
+  number: Line1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

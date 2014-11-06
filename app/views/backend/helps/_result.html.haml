@@ -1,3 +1,3 @@
--url = url_for(controller: :helps, action: :show, id: result[:name])
-=link_to wikize(result[:title], :without_paragraph => true), url, :remote => true, "data-update" => "#helpage", "data-type" => :html
-%span.pertinence=tc(:pertinence, :value => result[:pertinence].to_s)
+- url = url_for(controller: :helps, action: :show, id: result[:name])
+= link_to wikize(result[:title], :without_paragraph => true), url, :remote => true, "data-update" => "#helpage", "data-type" => :html
+%span.pertinence= :pertinence.tl(value: result[:pertinence].to_s)

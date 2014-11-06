@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: document_archives
@@ -48,15 +48,46 @@
 #   document: documents_001
 #   updater: users_001
 #
-
+---
 document_archives_001:
-  archived_at: 2009-07-19 19:13:59.000000000 +02:00
-  creator: users_001
-  document: documents_001
-  updater: users_001
-
+  archived_at: 2009-07-19 15:13:59.000000000 Z
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  document_id: 1
+  id: 1
+  lock_version: 0
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 document_archives_002:
-  archived_at: 2009-07-19 19:13:59.000000000 +02:00
-  creator: users_001
-  document: documents_002
-  updater: users_001
+  archived_at: 2009-07-19 15:13:59.000000000 Z
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  document_id: 2
+  id: 2
+  lock_version: 0
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+document_archives_003:
+  archived_at: 2014-11-03 16:20:05.023566000 Z
+  created_at: 2014-11-03 16:20:05.050135000 Z
+  creator_id: 1
+  document_id: 3
+  file_content_text: "Ferstivall LTD\n33000 BORDEAUX\nFrance\nYUEI LTD\n7548-454565
+    NEW-YORK\nÉTATS-UNIS\n\nFacture 000000000001\n\nCode\n\nDésignation\n\n31/10/2014\n\nQté.\n\nPrix
+    unitaire\nHT\n\nMontant HT\n\nMontant TVA Taux TVA\n\nPNV001\n\nGeneric Product
+    Variant\n\n3.0\n\n23.36\n\n58.4\n\n11.68\n\n20% VAT\n\nPNV001\n\nGeneric Product
+    Variant\n\n9.0\n\n42.1\n\n316.81\n\n62.09\n\n19.6% VAT\n\n375.21\n\n73.77\n\nACQUITÉE\n\nTotaux\n\nNet
+    à payer ( EUR )\n\nRéglement à transmettre à Ferstivall LTD, 33000 BORDEAUX, France\nClient\n\n03/11/2014
+    17.20.04\n\n3\n\nNuméro Pièce\n\n000000000001\n\n448.98\n\nDate limite de paiement\n\n11/11/2014\n\nNet
+    à payer\n\n448.98 EUR\n1 /1\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_neh1dg_t0rjhzg.pdf
+  file_file_size: 38147
+  file_fingerprint: 8309af1b3bd1858d8e77350713ff5c12
+  file_pages_count: 1
+  file_updated_at: 2014-11-03 16:20:04.625460000 Z
+  id: 5
+  lock_version: 0
+  template_id: 3
+  updated_at: 2014-11-03 16:20:05.050135000 Z
+  updater_id: 1

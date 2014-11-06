@@ -2,6 +2,7 @@
   = f.input :name
   = f.referenced_association :cash
   = f.input :with_accounting, :show => :accountancy_options
+  = f.custom_fields
 
 = field_set(:accountancy, :in => :accountancy_options) do
   = f.input :with_deposit, :show => :deposit

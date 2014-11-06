@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require modernizr
 //= require jquery
 //= require jquery-ui/datepicker
 //= require jquery-ui/dialog
@@ -19,27 +20,28 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require active_list.jquery
+//= require_self
+//= require erp
 //= require formize/behave
 //= require formize/dialog
-//= require formize/unroll
 //= require formize/observe
-//= require formize/dependents
-//= require formize/toggle
+//= require form/scope
+//= require form/dependents
+//= require form/toggle
+//= require form/dates
 //= require formize/autocomplete
 //= require formize/popover-form
 //= require cocoon
 //= require support
 //= require selector
-//= require modernizr.mq
 //= require ui
 //= require jstz
-//= require wicket
 //= require leaflet
 //= require leaflet/draw
-//= require leaflet/wicket
 //= require leaflet/fullscreen
 //= require leaflet/providers
-//= require_self
 //= require_tree .
 
 var visualization = {};
+var erp = {};
+

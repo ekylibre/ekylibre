@@ -32,7 +32,9 @@ module RestfullyManageable
           after_save_url = named_url if instance_methods(true).include?(named_url.to_sym)
         end
       elsif after_save_url.is_a?(CodeString)
-        after_save_url.gsub!(/RECORD/, '@' + record_name)
+        after_save_url.gsub!(/RECORD/, "@#{record_name}")
+      elsif after_save_url.is_a?(Hash)
+        after_save_url = after_save_url.inspect.gsub(/RECORD/, "@#{record_name}")
       end
 
 
@@ -245,10 +247,13 @@ module RestfullyManageable
       code << "def incorporate\n"
       code << "  reference_name = params[:#{record_name}][:reference_name]\n"
       code << "  if Nomen::#{controller_name.camelcase}[reference_name]\n"
-      code << "    @#{record_name} = #{model.name}.import_from_nomenclature(reference_name, true)\n"
-      code << "    notify_success(:record_has_been_imported)\n"
-      code << "    redirect_to :back\n"
-      code << "    return\n"
+      code << "     begin\n"
+      code << "       @#{record_name} = #{model.name}.import_from_nomenclature(reference_name, true)\n"
+      code << "       notify_success(:record_has_been_imported)\n"
+      code << "     rescue ActiveRecord::RecordInvalid => e\n"
+      code << "       notify_error :record_already_imported\n"
+      code << "     end\n"
+      code << "     redirect_to(params[:redirect] || :back) and return\n"
       code << "  else\n"
       code << "    @#{record_name} = resource_model.new(#{values})\n"
       code << "    @items = Nomen::#{controller_name.camelcase}.selection\n"
@@ -267,9 +272,9 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       code = ''
       code << "def picture\n"
-      code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-      code << "  if #{record_name}.picture.file?\n"
-      code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+      code << "  if @#{record_name}.picture.file?\n"
+      code << "    send_file(@#{record_name}.picture.path(params[:style] || :original))\n"
       code << "  else\n"
       code << "    head :not_found\n"
       code << "  end\n"

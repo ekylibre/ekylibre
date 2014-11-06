@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: sales
@@ -85,6 +85,7 @@ class Sale < Ekylibre::Record::Base
   has_many :journal_entries, :as => :resource
   has_many :subscriptions, class_name: "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
@@ -98,7 +99,7 @@ class Sale < Ekylibre::Record::Base
 
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
-  accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   delegate :closed, to: :affair, prefix: true
 
@@ -193,7 +194,7 @@ class Sale < Ekylibre::Record::Base
       label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.description.blank? ? self.items.pluck(:label).to_sentence : self.description), :sale => self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for item in self.items
-        entry.add_credit(label, (item.account||item.variant.sales_account).id, item.pretax_amount) unless item.pretax_amount.zero?
+        entry.add_credit(label, (item.account||item.variant.product_account).id, item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
     end

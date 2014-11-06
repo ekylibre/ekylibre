@@ -27,9 +27,6 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[forager_driver] moves in [forager]"/>
-      </operation>
       <operation id="200" duration="18 minutes">
         <task do="[forager] moves at [cultivation]"/>
       </operation>
@@ -37,12 +34,6 @@
         <task do="[forager] consumes [cultivation]"/>
         <task do="[forager] produces [silage]"/>
         <task do="[silage] is at [cultivation]"/>
-      </operation>
-      <operation id="400" duration="18 minutes">
-        <task do="[forager] moves in default storage"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[forager_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

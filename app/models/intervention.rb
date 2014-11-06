@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: interventions
@@ -71,6 +71,7 @@ class Intervention < Ekylibre::Record::Base
   enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :natures, :number, :reference_name, :ressource_type, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state
@@ -118,11 +119,12 @@ class Intervention < Ekylibre::Record::Base
   scope :provisional, -> { where(provisional: true) }
   scope :real, -> { where(provisional: false) }
 
-  # scope :with_variable, lambda { |role, object|
-  #    where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
-  # }
   scope :with_cast, lambda { |role, object|
-     where(id: InterventionCast.with_cast(role, object).pluck(:intervention_id))
+    where(id: InterventionCast.of_role(role).of_actor(object).pluck(:intervention_id))
+  }
+
+  scope :with_generic_cast, lambda { |role, object|
+     where(id: InterventionCast.of_generic_role(role).of_actor(object).pluck(:intervention_id))
   }
 
   before_validation do
@@ -163,6 +165,10 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  # prevents from deleting an intervention that was executed
+  protect on: :destroy do
+    self.done?
+  end
 
   # Main reference
   def reference
@@ -175,7 +181,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def name
-    "models.intervention.name".t(intervention: self.reference.human_name, number: self.number)
+    tc(:name, intervention: self.reference.human_name, number: self.number)
   end
 
   def start_time
@@ -189,25 +195,25 @@ class Intervention < Ekylibre::Record::Base
 
   # Sums all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
   def cost(role = :input)
-    if self.casts.of_role(role).any?
-      self.casts.of_role(role).where.not(actor_id: nil).map(&:cost).compact.sum
+    if self.casts.of_generic_role(role).any?
+      self.casts.of_generic_role(role).where.not(actor_id: nil).map(&:cost).compact.sum
     else
       return nil
     end
   end
 
   def earn
-    if self.casts.of_role(:output).any?
-      self.casts.of_role(:output).where.not(actor_id: nil).map(&:earn).compact.sum
+    if self.casts.of_generic_role(:output).any?
+      self.casts.of_generic_role(:output).where.not(actor_id: nil).map(&:earn).compact.sum
     else
       return nil
     end
   end
 
   def working_area(unit = :hectare)
-    if self.casts.of_role(:target).any?
-      if target = self.casts.of_role(:target).where.not(actor_id: nil).first
-        return target.actor.area.round(2)
+    if self.casts.of_generic_role(:target).any?
+      if target = self.casts.of_generic_role(:target).where.not(actor_id: nil).first
+        return target.actor.net_surface_area.round(2)
       else
         return nil
       end
@@ -232,8 +238,9 @@ class Intervention < Ekylibre::Record::Base
     return false unless self.undone?
     valid = true
     for variable in self.reference.variables.values
-      valid = false unless cast = self.casts.find_by(reference_name: variable.name)
-      valid = false unless cast.runnable?
+      unless cast = self.casts.find_by(reference_name: variable.name) and cast.runnable?
+        valid = false
+      end
     end
     return valid
   end

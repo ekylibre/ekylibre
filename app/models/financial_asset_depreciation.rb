@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: financial_asset_depreciations
@@ -47,6 +47,8 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :accounted_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :amount, :depreciable_amount, :depreciated_amount, allow_nil: true
   validates_inclusion_of :accountable, :locked, in: [true, false]
   validates_presence_of :amount, :financial_asset, :started_on, :stopped_on

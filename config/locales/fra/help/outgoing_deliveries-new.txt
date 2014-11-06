@@ -1,0 +1,11 @@
+====== Nouvelle livraison sortante ======
+
+Cette page permet de gérer le transport pour un certain nombre de ventes à livrer.
+
+===== Informations générales =====
+
+C'est là que se renseignent les informations relatives à la livraison (destinataire, adresse, etc.)
+
+===== Lignes de livraison =====
+
+//Ajouter un élément// permet de choisir les produits à livrer.

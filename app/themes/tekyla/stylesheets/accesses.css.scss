@@ -1,3 +1,5 @@
+@import "compass/css3/columns";
+
 @mixin access-color($color) {
   // $color: change-color($color, $lightness: 60%);
     color: $color;
@@ -32,6 +34,23 @@
     }
     &.chk-access-write, &.chk-access-link, &.chk-access-execute {
       @include access-color($caution-color);
+    }
+  }
+}
+
+
+.access-control-list {
+  @include respond-to-bigger-than(normal) {
+    .box-1-cells & {
+      @include columns(2);
+    }
+  }
+  .access {
+    display: block;
+    margin: $default-gap;
+    .resource {
+      @include inline-block;
+      min-width: 40%;
     }
   }
 }

@@ -4,13 +4,16 @@ module Exchanges
   @@exporters = {}.with_indifferent_access
   @@importers = {}.with_indifferent_access
 
-  class NotSupportedFormatError < StandardError
+  class Error < ::StandardError
   end
 
-  class NotWellFormedFileError < ArgumentError
+  class NotSupportedFormatError < Error
   end
 
-  class ImcompatibleDataError < ArgumentError
+  class NotWellFormedFileError < Error
+  end
+
+  class IncompatibleDataError < Error
   end
 
   autoload :Exchange, 'exchanges/exchange'
@@ -56,6 +59,7 @@ module Exchanges
     def execute(callable, *args, &block)
       exchange = Exchange.new(&block)
       callable.call(*args, exchange)
+      GC.start
     end
 
   end

@@ -242,8 +242,11 @@
   }
 }
 
-@mixin dropdown-menu($vpos: bottom, $hpos: end) {
+@mixin dropdown-menu($vpos: bottom, $hpos: start) {
   @include menu;
+  max-height: 12 * $menu-height;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: absolute;
   display: none;
   @if $hpos == end {

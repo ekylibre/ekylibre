@@ -3,6 +3,7 @@
   a.btn.btn-#{$symbol-name} i,
   button.btn-#{$symbol-name} i,
   // tables
+  .active-list table.list tr > .act > a.#{$symbol-name} > i,
   .active-list[data-list-source] table.list tr > .act > a.#{$symbol-name} > i,
   .active-list[data-list-source] table.list tr > .act[data-list-column="#{$symbol-name}"] > i,
   // snippets

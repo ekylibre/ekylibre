@@ -17,5 +17,8 @@
     %li= link_to(current_user.person.full_name, backend_myself_path, :class => :user)
     %li= link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_path, :method => :delete)
 
+- add_snippets(:side)
+
 - if content_for?(:aside)
   = content_for(:aside)
+

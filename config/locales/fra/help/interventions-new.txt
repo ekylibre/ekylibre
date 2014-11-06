@@ -8,13 +8,11 @@ Les catégories de procédures apparaissent en gras
 
 {{icon:book}} Informations générales
 
-**Production** = La production concernée par votre intervention
-
-**Début et Fin** = la race de l'animal est automatiquement conditionné par son type.
+**Support de production** : Le support de production concerné par votre intervention
+**Incident** : permet, s'il y a lieu, d'enregistrer un incident survenu en cours d'intervention
 
 {{icon:bullhorn}} Casting
 
-Vous devez selectionner les produits qui font partis de cette intervention.
+Vous devez sélectionner les produits qui font partie de cette intervention.
 
->>> Produits qui n'existe pas encore et qui vont être créés à l'issue de l'éxécution de l'intervention
->>> Il faut saisir la quantité et la variante du futur produit.
+>>> Pour les produits qui n'existent pas encore et qui vont être créés à l'issue de l'éxécution de l'intervention, il faut saisir la quantité et la variante du futur produit.

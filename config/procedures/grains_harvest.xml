@@ -41,11 +41,8 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[cropper_driver] moves in [cropper]"/>
-        <!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
-      </operation>
-      <operation id="200" duration="18 minutes">
+
+      <operation id="200">
         <task do="[cropper] moves at [cultivation]"/>
         <!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
       </operation>
@@ -58,12 +55,6 @@
         <task do="[straws] is at [cultivation]"/>
         <task do="[grains] is at [cultivation]"/>
         <task do="[cultivation] dies"/>
-      </operation>
-      <operation id="400" duration="18 minutes">
-        <task do="[cropper] moves in default storage"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[cropper_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

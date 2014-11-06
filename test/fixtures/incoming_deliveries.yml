@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: incoming_deliveries
@@ -46,30 +46,107 @@
 #   sender: senders_001
 #   updater: users_001
 #
-
+---
 incoming_deliveries_001:
-  address: entity_addresses_003
-  creator: users_001
+  address_id: 3
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
   mode: ex_works
   number: INDEL000001
-  received_at: <%= Time.now-7.days %>
-  sender: legal_entities_001
-  updater: users_001
-
+  received_at: 2014-10-24 17:19:32.000000000 Z
+  sender_id: 6
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 incoming_deliveries_002:
-  address: entity_addresses_003
-  creator: users_001
+  address_id: 3
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 1
   mode: ex_works
   number: INDEL000002
-  sender: legal_entities_001
-  updater: users_001
-
+  received_at: 2014-11-06 08:45:00.000000000 Z
+  reference_number: ''
+  sender_id: 4
+  updated_at: 2014-11-01 16:01:24.150621000 Z
+  updater_id: 1
 incoming_deliveries_003:
-  address: entity_addresses_003
-  creator: users_001
+  address_id: 3
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
   mode: ex_works
   number: INDEL000003
-  purchase: purchases_001
-  received_at: <%= Time.now-17.days %>
-  sender: legal_entities_001
-  updater: users_001
+  purchase_id: 1
+  received_at: 2014-10-14 17:19:32.000000000 Z
+  sender_id: 6
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+incoming_deliveries_004:
+  address_id: 3
+  created_at: 2014-10-31 20:23:37.027824000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: INDEL000004
+  received_at: 2014-10-31 20:09:00.000000000 Z
+  reference_number: '1282'
+  sender_id: 4
+  updated_at: 2014-10-31 20:23:37.027824000 Z
+  updater_id: 1
+incoming_deliveries_005:
+  address_id: 3
+  created_at: 2014-11-01 16:00:08.015634000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  mode: delivered_at_terminal
+  number: BR20140001
+  received_at: 2014-10-31 20:31:00.000000000 Z
+  reference_number: DFS1282
+  sender_id: 4
+  updated_at: 2014-11-01 16:00:08.015634000 Z
+  updater_id: 1
+incoming_deliveries_006:
+  address_id: 3
+  created_at: 2014-11-01 19:29:58.086427000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: RRCBR20140004
+  received_at: 2014-11-01 19:26:00.000000000 Z
+  reference_number: VD
+  sender_id: 4
+  updated_at: 2014-11-01 19:29:58.086427000 Z
+  updater_id: 1
+incoming_deliveries_007:
+  address_id: 3
+  created_at: 2014-11-01 19:35:50.370591000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: INWRRCBR20140007
+  received_at: 2014-11-01 19:33:00.000000000 Z
+  reference_number: EDSDFSF
+  sender_id: 5
+  updated_at: 2014-11-01 19:35:50.370591000 Z
+  updater_id: 1
+incoming_deliveries_008:
+  address_id: 3
+  created_at: 2014-11-01 20:19:35.352913000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 1
+  mode: delivered_duty_paid
+  number: YINWRRCBR20140008
+  received_at: 2013-08-01 00:50:00.000000000 Z
+  reference_number: ''
+  sender_id: 8
+  updated_at: 2014-11-01 20:23:54.910311000 Z
+  updater_id: 1

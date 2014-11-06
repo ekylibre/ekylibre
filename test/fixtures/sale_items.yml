@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: sale_items
@@ -64,63 +64,132 @@
 #
 ---
 sale_items_001:
-  amount: 0
-  creator: users_001
+  amount: 0.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 1
   indicator_name: population
-  pretax_amount: 0
-  price: catalog_prices_001
-  quantity: 1
-  sale: sales_001
-  tax: taxes_001
-  updater: users_001
-  variant: product_nature_variants_001
+  lock_version: 0
+  pretax_amount: 0.0
+  price_id: 1
+  quantity: 1.0
+  reduction_percentage: 0.0
+  sale_id: 1
+  tax_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 1
 sale_items_002:
-  amount: 0
-  creator: users_001
+  amount: 0.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 2
   indicator_name: population
-  pretax_amount: 0
-  price: catalog_prices_002
-  quantity: 2
-  sale: sales_001
-  tax: taxes_001
-  updater: users_001
-  variant: product_nature_variants_001
+  lock_version: 0
+  pretax_amount: 0.0
+  price_id: 2
+  quantity: 2.0
+  reduction_percentage: 0.0
+  sale_id: 1
+  tax_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 1
 sale_items_003:
-  amount: 0
-  creator: users_001
+  account_id: 1
+  amount: 430.56
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 3
   indicator_name: population
-  pretax_amount: 0
-  price: catalog_prices_003
-  quantity: 30
-  sale: sales_002
-  tax: taxes_001
-  updater: users_001
-  variant: product_nature_variants_001
+  label: Generic Product Variant
+  lock_version: 1
+  pretax_amount: 360.0
+  price_id: 3
+  quantity: 30.0
+  reduction_percentage: 0.0
+  sale_id: 2
+  tax_id: 1
+  unit_price_amount: 12.0
+  updated_at: 2014-11-01 19:50:57.929399000 Z
+  updater_id: 1
+  variant_id: 1
 sale_items_004:
-  amount: 10
-  creator: users_001
+  amount: 10.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 4
   indicator_name: population
-  pretax_amount: 10
-  price: catalog_prices_004
-  quantity: 5
-  sale: sales_003
-  tax: taxes_001
-  updater: users_001
-  variant: product_nature_variants_001
+  lock_version: 0
+  pretax_amount: 10.0
+  price_id: 4
+  quantity: 5.0
+  reduction_percentage: 0.0
+  sale_id: 3
+  tax_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 1
 sale_items_005:
-  amount: 10
-  creator: users_001
+  amount: 10.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   currency: EUR
+  id: 5
   indicator_name: population
-  pretax_amount: 10
-  price: catalog_prices_005
-  quantity: 500
-  reduction_percentage: 0
-  sale: sales_004
-  tax: taxes_001
-  updater: users_001
-  variant: product_nature_variants_001
+  lock_version: 0
+  pretax_amount: 10.0
+  price_id: 5
+  quantity: 500.0
+  reduction_percentage: 0.0
+  sale_id: 4
+  tax_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 1
+sale_items_006:
+  account_id: 1
+  amount: 70.08
+  created_at: 2014-10-31 18:51:27.887260000 Z
+  creator_id: 1
+  currency: EUR
+  id: 6
+  indicator_name: population
+  label: Generic Product Variant
+  lock_version: 0
+  position: 1
+  pretax_amount: 58.4
+  price_id: 2
+  quantity: 3.0
+  reduction_percentage: 0.0
+  sale_id: 6
+  tax_id: 3
+  unit_price_amount: 23.36
+  updated_at: 2014-10-31 18:51:27.887260000 Z
+  updater_id: 1
+  variant_id: 1
+sale_items_007:
+  account_id: 1
+  amount: 378.9
+  created_at: 2014-10-31 18:51:27.892570000 Z
+  creator_id: 1
+  currency: EUR
+  id: 7
+  indicator_name: population
+  label: Generic Product Variant
+  lock_version: 0
+  position: 2
+  pretax_amount: 316.81
+  price_id: 5
+  quantity: 9.0
+  reduction_percentage: 0.0
+  sale_id: 6
+  tax_id: 1
+  unit_price_amount: 42.1
+  updated_at: 2014-10-31 18:51:27.892570000 Z
+  updater_id: 1
+  variant_id: 1

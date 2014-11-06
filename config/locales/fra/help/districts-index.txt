@@ -4,6 +4,6 @@
 Il s'agit d'une des divisions du territoire national (région, département, arrondissement, canton, commune).
 
 ===== Gestion d'une zone administrative  =====
-Pour utiliser une zone administrative, commencer par la [[>backend/districts#new|créer]]. La zone crée apparaîtra dans le tableau des zones administratives. Par la suite, il vous sera possible de la modifier{{icon:edit|modifier}} ou même de la supprimer{{icon:destroy|supprimer}}. Dans ce cas, l'ensemble des villes rattachées à cette zone seront aussi supprimées.
-De même, vous disposez d'un système de recherche classique pour filtrer la zone administrative qui vous intéresse.
+Pour utiliser une zone administrative, commencer par la [[>backend/districts#new|créer]]. La zone créée apparaîtra dans le tableau des zones administratives. Par la suite, il vous sera possible de la modifier{{icon:edit|modifier}} ou même de la supprimer{{icon:destroy|supprimer}}. Dans ce cas, les villes rattachées à cette zone seront aussi supprimées.
+De même, vous disposez d'un système de recherche classique pour filtrer la zone administrative qui vous intéressent.
 

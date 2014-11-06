@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: inventory_items
@@ -46,19 +46,26 @@
 #   product: products_001
 #   updater: users_001
 #
-
+---
 inventory_items_001:
-  actual_population: 10
-  creator: users_001
-  inventory: inventories_001
-  product: products_001
-  expected_population: 15
-  updater: users_001
-
+  actual_population: 10.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  expected_population: 15.0
+  id: 1
+  inventory_id: 1
+  lock_version: 0
+  product_id: 65
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 inventory_items_002:
-  actual_population: 0
-  creator: users_001
-  inventory: inventories_001
-  product: products_001
-  expected_population: 0
-  updater: users_001
+  actual_population: 0.0
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  expected_population: 0.0
+  id: 2
+  inventory_id: 1
+  lock_version: 0
+  product_id: 65
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

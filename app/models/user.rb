@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: users
@@ -65,6 +65,7 @@
 #
 
 class User < Ekylibre::Record::Base
+  include Rightable
   belongs_to :team
   belongs_to :establishment
   belongs_to :person
@@ -81,6 +82,7 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_length_of :language, allow_nil: true, maximum: 3
@@ -101,10 +103,12 @@ class User < Ekylibre::Record::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp.all records
   delegate :picture, :full_name, :participations, to: :person
-  serialize :rights
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
+    if self.administrator?
+      self.role ||= Role.first
+    end
     if self.role
       self.rights ||= self.role.rights
     end
@@ -148,24 +152,11 @@ class User < Ekylibre::Record::Base
     self.full_name
   end
 
-  def resource_actions
-    list = []
-    return list unless self.rights
-    for resource, actions in self.rights
-      for action in actions
-        list << "#{action}-#{resource}"
-      end
-    end
-    return list
-  end
-
   # Find or create preference for given name
-  def preference(name, value = nil, nature = :string)
-    unless p = self.preferences.reorder(:id).find_by(name: name)
-      p = self.preferences.build
-      p.name   = name
-      p.nature = nature.to_s
-      p.value  = value
+  def preference(name, default_value = nil, nature = :string)
+    unless p = self.preferences.find_by(name: name)
+      p = self.preferences.build(name: name, nature: nature.to_s)
+      p.value  = default_value
       p.save!
     end
     return p
@@ -173,10 +164,8 @@ class User < Ekylibre::Record::Base
   alias :pref :preference
 
   def prefer!(name, value, nature = :string)
-    unless p = self.preferences.reorder(:id).find_by(name: name)
-      p = self.preferences.build
-      p.name   = name
-      p.nature = nature.to_s
+    unless p = self.preferences.find_by(name: name)
+      p = self.preferences.build(name: name, nature: nature.to_s)
     end
     p.value = value
     p.save!
@@ -187,11 +176,11 @@ class User < Ekylibre::Record::Base
     rights_list = self.rights_array if rights_list.blank?
     message = nil
     if self.class.rights[controller_name.to_sym].nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
+      message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
+      message = :no_right_defined_for_this_part_of_the_application.tl(controller: controller_name, action: action_name)
     elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.administrator?
-      message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
+      message = :no_right_defined_for_this_part_of_the_application_and_this_user.tl
     end
     return message
   end
@@ -218,6 +207,15 @@ class User < Ekylibre::Record::Base
     return list.any?
   end
 
+  # Lock the user
+  def lock
+    update_column(:locked, true)
+  end
+
+  # Unlock the user
+  def unlock
+    update_column(:locked, false)
+  end
 
   # Returns the days where the user has crumbs present
   def unconverted_crumb_days
@@ -229,7 +227,7 @@ class User < Ekylibre::Record::Base
   # An intervention path is an array of crumbs, for a user, ordered by read_at,
   # between a start crumb and a stop crumb.
   def interventions_paths(options = {})
-    crumbs = self.crumbs.unconverted.where(nature: :start)
+    crumbs = self.reload.crumbs.unconverted.where(nature: :start)
     if options[:on]
       crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
     end

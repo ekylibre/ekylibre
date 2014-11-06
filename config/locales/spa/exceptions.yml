@@ -1,0 +1,3 @@
+spa:
+  exceptions:
+    # pg/undefined_table: "Undefined table"

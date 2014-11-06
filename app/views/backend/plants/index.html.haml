@@ -88,7 +88,7 @@
       popup_content << {label: :cultivable_zone.tl, value: link_to(container.name, backend_product_path(container)) }
     end
 
-    if interventions = Intervention.with_cast(:target, p).reorder(:started_at)
+    if interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)
       popup_content << {label: :interventions_count.tl, value: interventions.count }
     end
 
@@ -108,9 +108,9 @@
 
     # for irrigation management
     water_concentration = []
-    water_interventions = Intervention.of_nature(:plant_irrigation).with_cast(:target, p)
+    water_interventions = Intervention.of_nature(:plant_irrigation).with_generic_cast(:target, p)
     for intervention in water_interventions
-      for input in intervention.casts.of_role(:'plant_irrigation-input')
+      for input in intervention.casts.of_role('plant_irrigation-input')
         i = input.population / p.shape_area.to_f(:hectare)
         water_concentration << i
       end

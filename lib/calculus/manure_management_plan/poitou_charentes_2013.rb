@@ -158,7 +158,7 @@ module Calculus
           for support in campaign.production_supports.where(storage_id: @support.storage.id)
             # if an implantation intervention exist, get the plant output
             if previous_implantation_intervention = support.interventions.of_nature(:implantation).where(state: :done).order(:started_at).last
-              if previous_cultivation = previous_implantation_intervention.casts.of_role(:output).actor
+              if previous_cultivation = previous_implantation_intervention.casts.of_generic_role(:output).actor
                 previous_variety = previous_cultivation.variety
                 previous_cultivation_dead_at = previous_cultivation.dead_at
                 break
@@ -226,7 +226,7 @@ module Calculus
               for support in campaign.production_supports.where(storage_id: @support.storage.id)
                 # if an implantation intervention exist, get the plant output
                 if previous_implantation_intervention = support.interventions.of_nature(:implantation).where(state: :done).order(:started_at).last
-                  if previous_cultivation = previous_implantation_intervention.casts.of_role(:output).actor
+                  if previous_cultivation = previous_implantation_intervention.casts.of_generic_role(:output).actor
                     previous_variety = previous_cultivation.variety
                     previous_cultivation_dead_at = previous_cultivation.dead_at
                     break

@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: operations
@@ -42,25 +42,26 @@ end
 class Operation < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention, inverse_of: :operations
-  has_many :product_births,        dependent: :destroy
-  has_many :product_consumptions,  dependent: :destroy
-  has_many :product_creations,     dependent: :destroy
-  has_many :product_deaths,        dependent: :destroy
-  has_many :product_divisions,     dependent: :destroy
-  has_many :product_enjoyments,    dependent: :destroy
-  has_many :product_linkages,      dependent: :destroy
-  has_many :product_localizations, dependent: :destroy
-  has_many :product_memberships,   dependent: :destroy
-  has_many :product_mergings,      dependent: :destroy
-  has_many :product_mixings,       dependent: :destroy
-  has_many :product_ownerships,    dependent: :destroy
-  has_many :product_phases,        dependent: :destroy
+  has_many :product_births,            dependent: :destroy
+  has_many :product_consumptions,      dependent: :destroy
+  has_many :product_creations,         dependent: :destroy
+  has_many :product_deaths,            dependent: :destroy
+  has_many :product_divisions,         dependent: :destroy
+  has_many :product_enjoyments,        dependent: :destroy
+  has_many :product_linkages,          dependent: :destroy
+  has_many :product_localizations,     dependent: :destroy
+  has_many :product_memberships,       dependent: :destroy
+  has_many :product_mergings,          dependent: :destroy
+  has_many :product_mixings,           dependent: :destroy
+  has_many :product_ownerships,        dependent: :destroy
+  has_many :product_phases,            dependent: :destroy
   has_many :product_quadruple_mixings, dependent: :destroy
   has_many :product_quintuple_mixings, dependent: :destroy
-  has_many :product_reading_tasks, dependent: :destroy
+  has_many :product_reading_tasks,     dependent: :destroy
   has_many :product_triple_mixings,    dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :intervention, :reference_name, :started_at, :stopped_at
@@ -69,7 +70,7 @@ class Operation < Ekylibre::Record::Base
   delegate :reference, to: :intervention, prefix: true
   delegate :casts, to: :intervention
 
-  scope :unvalidateds, -> { where(:confirmed => false) }
+  scope :unvalidateds, -> { where(confirmed: false) }
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -89,6 +90,10 @@ class Operation < Ekylibre::Record::Base
 
   scope :with_cast, lambda { |role, object|
     joins(:intervention).merge(Intervention.with_cast(role, object))
+  }
+
+  scope :with_generic_cast, lambda { |role, object|
+    joins(:intervention).merge(Intervention.with_generic_cast(role, object))
   }
 
   calculable period: :month, at: :started_at, column: :duration

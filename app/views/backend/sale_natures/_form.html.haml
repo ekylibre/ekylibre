@@ -1,22 +1,23 @@
-=field_set do
-  =f.input :name
-  =f.input :active
-  =f.input :currency, :collection => currencies
-  =f.input :downpayment, :show => :downpayment
-  =f.input :with_accounting, :show => :accountancy
+= field_set do
+  = f.input :name
+  = f.input :active
+  = f.input :currency, :collection => currencies
+  = f.input :downpayment, :show => :downpayment
+  = f.input :with_accounting, :show => :accountancy
+  = f.custom_fields
 
-=field_set(:payment_conditions) do
-  =f.input :expiration_delay
-  =f.input :payment_delay
-  =f.referenced_association :payment_mode
-  =f.input :payment_mode_complement
+= field_set(:payment_conditions) do
+  = f.input :expiration_delay
+  = f.input :payment_delay
+  = f.referenced_association :payment_mode
+  = f.input :payment_mode_complement
 
-=field_set(:downpayment) do
-  =f.input :downpayment_minimum
-  =f.input :downpayment_percentage
+= field_set(:downpayment) do
+  = f.input :downpayment_minimum
+  = f.input :downpayment_percentage
 
-=field_set(:accountancy) do
-  =f.referenced_association :journal, :new => {:nature => 'sales'}
+= field_set(:accountancy) do
+  = f.referenced_association :journal, :new => {:nature => 'sales'}
 
 
 

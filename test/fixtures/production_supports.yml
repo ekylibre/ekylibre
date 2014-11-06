@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: production_supports
@@ -50,21 +50,95 @@
 #   storage: storages_001
 #   updater: users_001
 #
-
+---
 production_supports_001:
-  creator: users_001
+  created_at: 2014-11-04 17:23:15.017043000 Z
+  creator_id: 1
   exclusive: false
+  id: 6
+  irrigated: false
+  lock_version: 0
   nature: main
-  production: productions_001
-  production_usage: grain
-  storage: cultivable_zones_001
-  updater: users_001
-
+  production_id: 1
+  production_usage: fodder
+  storage_id: 83
+  updated_at: 2014-11-04 17:23:15.017043000 Z
+  updater_id: 1
 production_supports_002:
-  creator: users_001
+  created_at: 2014-11-04 17:23:15.019045000 Z
+  creator_id: 1
   exclusive: false
+  id: 7
+  irrigated: false
+  lock_version: 0
   nature: main
-  production: productions_001
-  production_usage: grain
-  storage: cultivable_zones_003
-  updater: users_001
+  production_id: 1
+  production_usage: fodder
+  storage_id: 84
+  updated_at: 2014-11-04 17:23:15.019045000 Z
+  updater_id: 1
+production_supports_003:
+  created_at: 2014-11-04 17:23:48.520900000 Z
+  creator_id: 1
+  exclusive: false
+  id: 8
+  irrigated: false
+  lock_version: 0
+  nature: main
+  production_id: 4
+  production_usage: fodder
+  storage_id: 83
+  updated_at: 2014-11-04 17:23:48.520900000 Z
+  updater_id: 1
+production_supports_004:
+  created_at: 2014-11-04 17:23:48.523744000 Z
+  creator_id: 1
+  exclusive: false
+  id: 9
+  irrigated: false
+  lock_version: 0
+  nature: main
+  production_id: 4
+  production_usage: fodder
+  storage_id: 84
+  updated_at: 2014-11-04 17:23:48.523744000 Z
+  updater_id: 1
+production_supports_005:
+  created_at: 2014-11-04 17:23:48.526283000 Z
+  creator_id: 1
+  exclusive: false
+  id: 10
+  irrigated: false
+  lock_version: 0
+  nature: main
+  production_id: 4
+  production_usage: fodder
+  storage_id: 82
+  updated_at: 2014-11-04 17:23:48.526283000 Z
+  updater_id: 1
+production_supports_006:
+  created_at: 2014-11-04 18:17:39.475733000 Z
+  creator_id: 1
+  exclusive: false
+  id: 11
+  irrigated: false
+  lock_version: 0
+  nature: main
+  production_id: 6
+  production_usage: fodder
+  storage_id: 81
+  updated_at: 2014-11-04 18:17:39.475733000 Z
+  updater_id: 1
+production_supports_007:
+  created_at: 2014-11-04 18:21:43.150392000 Z
+  creator_id: 1
+  exclusive: false
+  id: 12
+  irrigated: false
+  lock_version: 0
+  nature: main
+  production_id: 7
+  production_usage: fodder
+  storage_id: 81
+  updated_at: 2014-11-04 18:21:43.150392000 Z
+  updater_id: 1

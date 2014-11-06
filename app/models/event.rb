@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: events
@@ -44,6 +44,7 @@ class Event < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::EventNatures.all, default: Nomen::EventNatures.default
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_length_of :name, :nature, :place, allow_nil: true, maximum: 255
   validates_inclusion_of :restricted, in: [true, false]
@@ -60,10 +61,10 @@ class Event < Ekylibre::Record::Base
   scope :after,   lambda { |at| where(arel_table[:started_at].gt(at)) }
   scope :before,  lambda { |at| where(arel_table[:started_at].lt(at)) }
   scope :without_restrictions_for, lambda { |*entities|
-    where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.map(&:id))
+    where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.flatten.map(&:id))
   }
   scope :with_participant, lambda { |*entities|
-    where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.map(&:id))
+    where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.flatten.map(&:id))
   }
 
   before_validation do

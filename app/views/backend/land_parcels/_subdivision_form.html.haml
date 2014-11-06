@@ -5,5 +5,5 @@
   %td=text_field_tag("subdivisions[#{id}][name]", (params[:name]||@land_parcel.name).succ, id: "subdivisions_#{id}_name", "data-parameter-name" => "name")
   %td=text_field_tag("subdivisions[#{id}][area_measure]", measure, class: "area")+@land_parcel.area_unit
 
-  %td.act=link_to(tl(:add), {action: :divide, controller: :land_parcels, mode: "new-item", id: @land_parcel.id}, :remote => true, "data-with" => "#used-area, #subdivisions_#{id}_name", "data-update" => "#subdivisions", "data-update-at" => :bottom, "data-type" => "html", class: "icon im-new")
-  %td.act=link_to(tl(:delete), "#", "data-remove" => "##{id}", class: "icon im-delete") if params[:mode] == "new-item"
+  %td.act= link_to(tl(:add), {action: :divide, controller: :land_parcels, mode: "new-item", id: @land_parcel.id}, :remote => true, "data-with" => "#used-area, #subdivisions_#{id}_name", "data-update" => "#subdivisions", "data-update-at" => :bottom, "data-type" => "html", class: "icon im-new")
+  %td.act= link_to(tl(:delete), "#", "data-remove" => "##{id}", class: "icon im-delete") if params[:mode] == "new-item"

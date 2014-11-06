@@ -4,16 +4,16 @@
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -22,9 +22,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :set_theme
-  before_filter :set_locale
-  before_filter :set_time_zone
+  before_action :set_theme
+  before_action :set_locale
+  before_action :set_time_zone
+
+  rescue_from PG::UndefinedTable, Apartment::SchemaNotFound, with: :configure_application
 
   hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
 
@@ -83,12 +85,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def set_theme()
+  def set_theme
     @current_theme = 'tekyla'
   end
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
-  def set_locale()
+  def set_locale
     session[:locale] = params[:locale] if params[:locale]
     if session[:locale].blank?
       if locale = http_accept_language.compatible_language_from(Ekylibre::HTTP_LANGUAGES.keys)
@@ -97,17 +99,26 @@ class ApplicationController < ActionController::Base
     else
       session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)
     end
-    session[:locale] ||= Preference[:language] || I18n.default_locale
+    if ::I18n.available_locales.include?(Preference[:language])
+      session[:locale] ||= Preference[:language]
+    end
+    session[:locale] ||= I18n.default_locale
     I18n.locale = session[:locale]
   end
 
   # Change the time zone from the given params or reuse session variable
-  def set_time_zone()
+  def set_time_zone
     if params[:time_zone]
       session[:time_zone] = params[:time_zone]
     end
     session[:time_zone] ||= "UTC"
     Time.zone = session[:time_zone]
+  end
+
+
+  def configure_application(exception)
+    title = exception.class.name.underscore.t(scope: "exceptions")
+    render "/public/configure_application", layout: "exception", locals: {title: title, message: exception.message, class_name: exception.class.name}, status: 500
   end
 
 end

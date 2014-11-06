@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: products
@@ -176,10 +176,11 @@ class Product < Ekylibre::Record::Base
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_zone"]) }
-  scope :supporters,  -> { of_variety(:cultivable_zone) }
+  scope :supporters,  -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :initial_population, allow_nil: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
@@ -194,7 +195,7 @@ class Product < Ekylibre::Record::Base
     !reading["indicator_name"] != "population" and reading[ProductReading.value_column(reading["indicator_name"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
-  acts_as_numbered force: false
+  acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
   delegate :variety, :derivative_of, :name, :nature, :reference_name, to: :variant, prefix: true

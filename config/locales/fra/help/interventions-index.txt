@@ -12,6 +12,6 @@ Elles utilisent diverses procédures et nomenclatures métiers et enregistrent l
 
 le statut d'une intervention est le suivant :
 
-!!! rouge : tous les paramétres ne sont pas renseignés
-!!! orange : tous les paramètres sont renseignés mais l'intervention n'a pas été exécuté
-!!! vert : l'intervention a été exécuté (les stocks ont été mouvementé)
+!!! **rouge** : tous les paramétres ne sont pas renseignés
+!!! **orange** : tous les paramètres sont renseignés mais l'intervention n'a pas été exécuté
+!!! **vert** : l'intervention a été exécuté (les stocks ont été mouvementés)

@@ -1,6 +1,6 @@
-=form_tag do
-  =field_set :select_closure_date, @journal do
-    =field :closed_on, :source => @journal.closures.collect{|d| [::I18n.l(d), d]}
-  =form_actions do
-    =submit_tag(tc(:close_journal))
-    =link_to_back(:label => :cancel)
+= form_tag do
+  = field_set :select_closure_date do
+    = field Journal.human_attribute_name(:closed_on), select_tag(:closed_on, options_for_select(resource.closures.map{|d| [d.l, d]}))
+  = form_actions do
+    = submit_tag(:close_journal.tl, class: "primary")
+    = link_to(:cancel.tl, params[:redirect] || {action: :index}, class: "btn")

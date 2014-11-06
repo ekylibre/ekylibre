@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: entities
@@ -74,6 +74,7 @@ class Entity < Ekylibre::Record::Base
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
+  enumerize :country, in: Nomen::Countries.all
   enumerize :nature, in: Nomen::EntityNatures.all, default: Nomen::EntityNatures.default, predicates: {prefix: true}
   versionize exclude: [:full_name]
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
@@ -90,6 +91,7 @@ class Entity < Ekylibre::Record::Base
   has_many :websites,  -> { where(canal: "website", deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
   has_many :auto_updateable_addresses, -> { where(deleted_at: nil, mail_auto_update: true) }, class_name: "EntityAddress"
   has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_1_id
+  has_many :gaps, dependent: :restrict_with_error
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
@@ -109,7 +111,7 @@ class Entity < Ekylibre::Record::Base
   has_many :transports, foreign_key: :transporter_id
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
-  has_many :waiting_deliveries, -> { where("moved_at IS NULL AND planned_at <= CURRENT_DATE") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
+  has_many :waiting_deliveries, -> { where("sent_at IS NULL") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -122,7 +124,7 @@ class Entity < Ekylibre::Record::Base
   }
 
   # # default_scope order(:last_name, :first_name)
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (sent_at IS NULL AND planned_at <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
@@ -131,6 +133,7 @@ class Entity < Ekylibre::Record::Base
   }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :country, allow_nil: true, maximum: 2
   validates_length_of :language, allow_nil: true, maximum: 3
@@ -159,6 +162,7 @@ class Entity < Ekylibre::Record::Base
   before_validation do
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
+    # FIXME: I18nize full name computation
     self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
     # unless self.nature.nil?
     # self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")

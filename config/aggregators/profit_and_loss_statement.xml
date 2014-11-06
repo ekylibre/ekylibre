@@ -14,169 +14,169 @@
       <property name="financial_year_name" value="financial_year.code"/>
       <section name="profits" legend="profits">
         <section name="products_sales" legend="products_sales">
-          <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7086X, 7087X, 7088X, 7097X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7086X, 7087X, 7088X, 7097X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="productions_sales" legend="productions_sales">
-          <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7086, ^7087, ^7088, ^7097, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7086, ^7087, ^7088, ^7097').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
-        <property name="net_revenue" legend="net_revenue" value="financial_year.credit_balance('70X, ')"/>
+        <property name="net_revenue" legend="net_revenue" value="financial_year.credit_balance('70X')"/>
         <section name="stock_production" legend="stock_production">
-          <matrix name="items" for="item" in="Account.find_with_regexp('71X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('71X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="capitalised_production" legend="capitalised_production">
-          <matrix name="items" for="item" in="Account.find_with_regexp('72X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('72X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="subsidies" legend="subsidies">
-          <matrix name="items" for="item" in="Account.find_with_regexp('74X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('74X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="provisions_revenues" legend="provisions_revenues">
-          <matrix name="items" for="item" in="Account.find_with_regexp('781X, 791X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('781X, 791X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="other_products" legend="other_products">
-          <matrix name="items" for="item" in="Account.find_with_regexp('75X, ^755, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('75X, ^755').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
-        <property name="exploitation_products_total" legend="exploitation_products_total" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755, ')"/>
+        <property name="exploitation_products_total" legend="exploitation_products_total" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755')"/>
       </section>
       <section name="losses" legend="losses">
-        <property name="loss_balance" value="financial_year.debit_balance('6X, ')"/>
+        <property name="loss_balance" value="financial_year.debit_balance('6X')"/>
         <section name="products_purchases" legend="products_purchases">
-          <matrix name="items" for="item" in="Account.find_with_regexp('607X, 6087X, 6097X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('607X, 6087X, 6097X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="stocks_variation" legend="stocks_variation">
-          <matrix name="items" for="item" in="Account.find_with_regexp('6037X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('6037X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="raw_matters_purchases" legend="raw_matters_purchases">
-          <matrix name="items" for="item" in="Account.find_with_regexp('601X, 602X, 6081X, 6082X, 6091X, 6092X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('601X, 602X, 6081X, 6082X, 6091X, 6092X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="raw_matters_stocks_variation" legend="raw_matters_stocks_variation">
-          <matrix name="items" for="item" in="Account.find_with_regexp('6031X, 6032X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('6031X, 6032X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="other_purchases" legend="other_purchases">
-          <matrix name="items" for="item" in="Account.find_with_regexp('604X, 605X, 606X, 6084X, 6085X, 6086X, 6094X, 6095X, 6096X, 61X, 62X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('604X, 605X, 606X, 6084X, 6085X, 6086X, 6094X, 6095X, 6096X, 61X, 62X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="taxes" legend="taxes">
-          <matrix name="items" for="item" in="Account.find_with_regexp('63X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('63X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="wages" legend="wages">
-          <matrix name="items" for="item" in="Account.find_with_regexp('641X, 644X, 648X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('641X, 644X, 648X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="social_expenses" legend="social_expenses">
-          <matrix name="items" for="item" in="Account.find_with_regexp('645X, 646X, 647X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('645X, 646X, 647X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="depreciations_inputations_expenses" legend="depreciations_inputations_expenses">
-          <matrix name="items" for="item" in="Account.find_with_regexp('681X, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('681X').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
         <section name="other_expenses" legend="other_expenses">
-          <matrix name="items" for="item" in="Account.find_with_regexp('65X, ^655, ').order(:label)">
-	    <cell name="id" of="item" level="api"/>
-	    <cell name="label" of="item"/>
-	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+          <matrix name="items" for="item" in="Account.find_with_regexp('65X, ^655').order(:label)">
+            <cell name="id" of="item" level="api"/>
+            <cell name="label" of="item"/>
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
-        <property name="exploitation_expenses_total" legend="exploitation_expenses_total" value="financial_year.debit_balance('60X, 61X, 62X, 63X, 64X, 681X, 65X, ^655, ')"/>
+        <property name="exploitation_expenses_total" legend="exploitation_expenses_total" value="financial_year.debit_balance('60X, 61X, 62X, 63X, 64X, 681X, 65X, ^655')"/>
       </section>
-      <property name="exploitation_result" legend="exploitation_result" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755, -60X, -61X, -62X, -63X, -64X, -681X, -65X, ^655, ')"/>
+      <property name="exploitation_result" legend="exploitation_result" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755, -60X, -61X, -62X, -63X, -64X, -681X, -65X, ^655')"/>
       <section name="financial_products" legend="financial_products">
-	<matrix name="items" for="item" in="Account.find_with_regexp('76X, ').order(:label)">
-	  <cell name="id" of="item" level="api"/>
-	  <cell name="label" of="item"/>
-	  <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-	</matrix>
-	<property name="financial_products_total" legend="financial_products_total" value="financial_year.credit_balance('76X, ')"/>
+        <matrix name="items" for="item" in="Account.find_with_regexp('76X').order(:label)">
+          <cell name="id" of="item" level="api"/>
+          <cell name="label" of="item"/>
+          <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+        </matrix>
+        <property name="financial_products_total" legend="financial_products_total" value="financial_year.credit_balance('76X')"/>
       </section>
       <section name="financial_expenses" legend="financial_expenses">
-	<matrix name="items" for="item" in="Account.find_with_regexp('686X, 66X ').order(:label)">
-	  <cell name="id" of="item" level="api"/>
-	  <cell name="label" of="item"/>
-	  <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-	</matrix>
-	<property name="financial_expenses_total" legend="financial_expenses_total" value="financial_year.debit_balance('686X, 66X ')"/>
+        <matrix name="items" for="item" in="Account.find_with_regexp('686X, 66X ').order(:label)">
+          <cell name="id" of="item" level="api"/>
+          <cell name="label" of="item"/>
+          <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+        </matrix>
+        <property name="financial_expenses_total" legend="financial_expenses_total" value="financial_year.debit_balance('686X, 66X ')"/>
       </section>
-      <property name="financial_result" legend="financial_result" value="financial_year.credit_balance('76X, -686X, -66X, ')"/>
-      <property name="current_result_before_taxes" legend="current_result_before_taxes" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 75X, 76X, 781X, 791X, -60X, -61X, -62X, -63X, -64X, -65X, -66X, -681X, -686X, ')"/>
+      <property name="financial_result" legend="financial_result" value="financial_year.credit_balance('76X, -686X, -66X')"/>
+      <property name="current_result_before_taxes" legend="current_result_before_taxes" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 75X, 76X, 781X, 791X, -60X, -61X, -62X, -63X, -64X, -65X, -66X, -681X, -686X')"/>
       <section name="exceptional_products" legend="exceptional_products">
-	<matrix name="items" for="item" in="Account.find_with_regexp('77X, 787X, 797X, ').order(:label)">
-	  <cell name="id" of="item" level="api"/>
-	  <cell name="label" of="item"/>
-	  <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-	</matrix>
-	<property name="exceptional_products_total" legend="exceptional_products_total" value="financial_year.credit_balance('77X, 787X, 797X, ')"/>
+        <matrix name="items" for="item" in="Account.find_with_regexp('77X, 787X, 797X').order(:label)">
+          <cell name="id" of="item" level="api"/>
+          <cell name="label" of="item"/>
+          <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+        </matrix>
+        <property name="exceptional_products_total" legend="exceptional_products_total" value="financial_year.credit_balance('77X, 787X, 797X')"/>
       </section>
       <section name="exceptional_expenses" legend="exceptional_expenses">
-	<matrix name="items" for="item" in="Account.find_with_regexp('67X, 687X').order(:label)">
-	  <cell name="id" of="item" level="api"/>
-	  <cell name="label" of="item"/>
-	  <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
-	</matrix>
-	<property name="exceptional_expenses_total" legend="exceptional_expenses_total" value="financial_year.debit_balance('67X, 687X')"/>
+        <matrix name="items" for="item" in="Account.find_with_regexp('67X, 687X').order(:label)">
+          <cell name="id" of="item" level="api"/>
+          <cell name="label" of="item"/>
+          <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+        </matrix>
+        <property name="exceptional_expenses_total" legend="exceptional_expenses_total" value="financial_year.debit_balance('67X, 687X')"/>
       </section>
       <property name="exceptional_result" legend="exceptional_result" value="financial_year.credit_balance('77X, 787X, 797X, -67X, -687X')"/>
-      <property name="employee_involvement" legend="employee_involvement" value="financial_year.debit_balance('691X, ')"/>
-      <property name="profits_taxes" legend="profits_taxes" value="financial_year.debit_balance('695X, 696X, 697X, 689X, 698X, 699X, -789X, ')"/>
+      <property name="employee_involvement" legend="employee_involvement" value="financial_year.debit_balance('691X')"/>
+      <property name="profits_taxes" legend="profits_taxes" value="financial_year.debit_balance('695X, 696X, 697X, 689X, 698X, 699X, -789X')"/>
       <property name="products_total" legend="products_total" value="financial_year.credit_balance('7X')"/>
       <property name="expenses_total" legend="expenses_total" value="financial_year.credit_balance('6X')"/>
       <property name="profit_or_loss" legend="profit_or_loss" value="financial_year.credit_balance('7X, -6X')"/>

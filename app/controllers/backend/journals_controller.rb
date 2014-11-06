@@ -4,21 +4,21 @@
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 class Backend::JournalsController < BackendController
-  manage_restfully :nature => "params[:nature]".c, :currency => "Preference[:currency]".c
+  manage_restfully nature: "params[:nature]".c, currency: "Preference[:currency]".c
 
   unroll
 
@@ -57,7 +57,7 @@ class Backend::JournalsController < BackendController
     return code.gsub(/\s*\n\s*/, ";").c
   end
 
-  list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, line_class: "(RECORD.position==1 ? 'first-item' : '') + (RECORD.entry_balanced? ? '' : ' error')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :entry_number, url: true
     t.column :printed_on, through: :entry, :datatype => :date
     t.column :account, url: true
@@ -73,7 +73,7 @@ class Backend::JournalsController < BackendController
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
-  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, order: {created_at: :desc}) do |t|
+  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}) do |t|
     t.column :number, url: true
     t.column :printed_on
     t.column :state_label
@@ -87,8 +87,7 @@ class Backend::JournalsController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  # FIXME RECORD.real_currency does not exist
-  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
+  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, children: :items, line_class: "(RECORD.balanced? ? '' : 'error')".c, order: {created_at: :desc}, per_page: 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, url: {action: :account}
@@ -108,7 +107,7 @@ class Backend::JournalsController < BackendController
     t.column :name, url: true
     t.column :code, url: true
     t.column :nature
-    #t.column :currency
+    t.column :currency
     t.column :closed_on
     # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
     t.action :close, if: 'RECORD.closable?(Date.today)'.c, image: :unlock
@@ -127,7 +126,7 @@ class Backend::JournalsController < BackendController
       journal_view.save
     end
     @journal_view = journal_view.value
-    t3e @journal.attributes
+    t3e @journal
   end
 
   def close
@@ -138,12 +137,12 @@ class Backend::JournalsController < BackendController
       return
     end
     if request.post?
-      if @journal.close(params[:journal][:closed_on].to_date)
-        notify_success(:journal_closed_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
-        redirect_to_back
+      if @journal.close(params[:closed_on].to_date)
+        notify_success(:journal_closed_on, closed_on: @journal.closed_on.l, journal: @journal.name)
+        redirect_to action: :index
       end
     end
-    t3e @journal.attributes
+    t3e @journal
   end
 
   def reopen
@@ -154,12 +153,12 @@ class Backend::JournalsController < BackendController
       return
     end
     if request.post?
-      if @journal.reopen(params[:journal][:closed_on].to_date)
-        notify_success(:journal_reopened_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
-        redirect_to_back
+      if @journal.reopen(params[:closed_on].to_date)
+        notify_success(:journal_reopened_on, closed_on: @journal.closed_on.l, journal: @journal.name)
+        redirect action: :index
       end
     end
-    t3e @journal.attributes
+    t3e @journal
   end
 
   # Displays the main page with the list of journals

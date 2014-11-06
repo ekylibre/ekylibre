@@ -4,10 +4,12 @@
   -# = f.referenced_association :responsible
   = f.input :nature, collection: Nomen::EventNatures.selection
   = f.input :place, :autocomplete => true
+  = f.input :restricted
   -# TODO Manages refresh_depending_at
   = f.input :started_at
   = f.input :stopped_at
   -# = f.input :duration, :refresh_depending_at => :nature
+  = f.custom_fields
 
 = field_set(:participants) do
   = f.nested_association(:participations)

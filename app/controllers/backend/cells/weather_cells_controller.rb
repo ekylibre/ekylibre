@@ -30,7 +30,7 @@ class Backend::Cells::WeatherCellsController < Backend::CellsController
   rescue Exception => e
     # Nothing
     @forecast = nil
-    Rails.logger e.message
+    logger.warn e.message
     puts e.message.red
   end
 

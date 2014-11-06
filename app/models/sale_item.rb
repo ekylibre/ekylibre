@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: sale_items
@@ -105,7 +105,6 @@ class SaleItem < Ekylibre::Record::Base
   calculable period: :month, at: "invoiced_at", column: :pretax_amount
 
   before_validation do
-
     self.pretax_amount ||= 0
     self.amount ||= 0
 
@@ -127,30 +126,8 @@ class SaleItem < Ekylibre::Record::Base
       else
         self.amount = self.pretax_amount = amount
       end
-
-      # if self.reduced_item.nil?
-      #   amount = self.quantity * self.unit_price_amount
-      #   if self.price.all_taxes_included?
-      #     self.amount = amount
-      #     self.pretax_amount = self.price.(self.amount / ()).round(2)
-      #   if self.quantity
-      #     self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
-      #     self.amount = (self.price.amount*self.quantity).round(2)
-      #   elsif self.pretax_amount
-      #     q = self.pretax_amount/self.price.pretax_amount
-      #     self.quantity = q.round(2)
-      #     self.amount = (q*self.price.amount).round(2)
-      #   elsif self.amount
-      #     q = self.amount/self.price.amount
-      #     self.quantity = q.round(2)
-      #     self.pretax_amount = (q*self.price.pretax_amount).round(2)
-      #   end
-      # else
-      #   self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
-      #   self.amount = (self.price.amount * self.quantity).round(2)
-      # end
-      # self.price_amount ||= self.price.pretax_amount
-      # self.tax ||= self.price.tax
+    elsif self.sale
+      self.currency = self.sale.currency
     end
 
     if self.variant

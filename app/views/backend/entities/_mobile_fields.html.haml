@@ -1,6 +1,6 @@
 -# Generated automatically. Don't edit this file.
 -entity_address ||= f.object
 .nested-fields
-  =link_to_remove_nested_association(:mobile, f)
-  =f.input(:canal, as: :hidden, wrapper_html: {id: 'canal-field'})
-  =f.input(:coordinate, as: :tel, :label => I18n.translate("enumerize.entity_address.canal.mobile"), wrapper_html: {id: 'coordinate-field'})
+  = link_to_remove_nested_association(:mobile, f)
+  = f.input(:canal, as: :hidden, wrapper_html: {id: 'canal-field'})
+  = f.input(:coordinate, as: :tel, :label => I18n.translate("enumerize.entity_address.canal.mobile"), wrapper_html: {id: 'coordinate-field'})

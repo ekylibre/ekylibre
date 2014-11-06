@@ -4,16 +4,16 @@
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # ##### END LICENSE BLOCK #####
@@ -38,8 +38,11 @@ module ApplicationHelper
 
   def selector_tag(name, choices = nil, options = {}, html_options = {})
     choices ||= :unroll
-    choices = {:action => choices} if choices.is_a?(Symbol)
-    return text_field_tag(name, nil, html_options.merge('data-selector' => url_for(choices)))
+    choices = {action: choices} if choices.is_a?(Symbol)
+    html_options[:data] ||= {}
+    html_options[:data][:selector] = url_for(choices)
+    html_options[:data][:selector_new_item] = url_for(options[:new]) if options[:new]
+    return text_field_tag(name, options[:value], html_options)
   end
 
 
@@ -47,9 +50,11 @@ module ApplicationHelper
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflections[association.to_sym]
-      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}")
+      raise ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
     end
-    raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
+    if reflection.macro != :belongs_to
+      raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+    end
     return text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
 
@@ -95,9 +100,9 @@ module ApplicationHelper
       content_tag(:label, ::I18n.translate('general.n'), :for => "#{object_name}_#{method}_#{unchecked_value}")
   end
 
-  def number_to_accountancy(value)
+  def number_to_accountancy(value, currency = nil)
     number = value.to_f
-    return (number.zero? ? '' : number.l)
+    return (number.zero? ? '' : number.l(currency: currency || Preference[:currency]))
   end
 
   def number_to_management(value)
@@ -224,36 +229,16 @@ module ApplicationHelper
   end
 
   def nomenclature_as_options(nomenclature)
-    [[]] + nomenclature.items.values.collect{|l| [l.human_name, l.name.to_s]}
+    [[]] + nomenclature.selection
   end
 
-
   def back_url
-    # if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
-    #   return session[:history][0][:url]
-    # else
     return :back
-    # end
   end
 
   def link_to_back(options={})
-    link_to(tg(options[:label]||'back'), back_url)
-  end
-
-  #
-
-  #
-  def evalue(object, attribute, options={})
-    label, value = attribute_item(object, attribute, options={})
-    if options[:orient] == :vertical
-      code  = content_tag(:tr, content_tag(:td, label.to_s, :class => :label))
-      code << content_tag(:tr, content_tag(:td, value.to_s, :class => :value))
-      return content_tag(:table, code, :class => "evalue verti")
-    else
-      code  = content_tag(:td, label.to_s, :class => :label)
-      code << content_tag(:td, value.to_s, :class => :value)
-      return content_tag(:table, content_tag(:tr, code), :class => "evalue hori")
-    end
+    options[:label] ||= :back
+    link_to(options[:label].is_a?(String) ? options[:label] : options[:label].tl, back_url)
   end
 
 
@@ -272,7 +257,7 @@ module ApplicationHelper
       default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
       default << "attributes.#{attribute.to_s}".to_sym
       default << "attributes.#{attribute.to_s}_id".to_sym
-      label = ::I18n.translate("activerecord.attributes.#{model_name}.#{attribute.to_s}".to_sym, :default => default)
+      label = "activerecord.attributes.#{model_name}.#{attribute.to_s}".t(default: default)
       if value.is_a? ActiveRecord::Base
         record = value
         value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
@@ -301,7 +286,7 @@ module ApplicationHelper
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.respond_to?(:strftime) or value.is_a?(Numeric)
-      value = ::I18n.localize(value)
+      value = value.l
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
       duration = value
@@ -310,7 +295,7 @@ module ApplicationHelper
       hours = (duration/3600).floor.to_i
       minutes = (duration/60-60*hours).floor.to_i
       seconds = (duration - 60*minutes - 3600*hours).round.to_i
-      value = tg(:duration_in_hours_and_minutes, :hours => hours, :minutes => minutes, :seconds => seconds)
+      value = :duration_in_hours_and_minutes.tl(hours: hours, minutes: minutes, seconds: seconds)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.is_a? String
       classes = []
@@ -328,14 +313,16 @@ module ApplicationHelper
     record = args.shift || instance_variable_get("@#{controller_name.singularize}")
     columns = options[:columns] || 3
     attribute_list = AttributesList.new(record)
-    raise ArgumentError.new("One parameter needed") unless block.arity == 1
+    unless block.arity == 1
+      raise ArgumentError, "One parameter needed for attribute_list block"
+    end
     yield attribute_list if block_given?
     unless options[:without_custom_fields]
       unless attribute_list.items.detect{|item| item[0] == :custom_fields}
         attribute_list.custom_fields
       end
     end
-    unless options[:without_stamp] or options[:without_stamps]
+    unless options[:without_stamp] or options[:without_stamps] or options[:stamps].is_a?(FalseClass)
       attribute_list.attribute :creator, :label => :full_name
       attribute_list.attribute :created_at
       attribute_list.attribute :updater, :label => :full_name
@@ -344,8 +331,7 @@ module ApplicationHelper
     end
     code = ""
     items = attribute_list.items.delete_if{|x| x[0] == :custom_fields}
-    size = items.size
-    if size > 0
+    if items.any?
       for item in items
         label, value = if item[0] == :custom
                          attribute_item(*item[1])
@@ -354,7 +340,7 @@ module ApplicationHelper
                        end
         code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
       end
-      code = content_tag(:div, code.html_safe, :class => "attributes-list")
+      code = content_tag(:div, code.html_safe, class: "attributes-list")
     end
     return code.html_safe
   end
@@ -481,8 +467,8 @@ module ApplicationHelper
 
   def icon_tags(options = {})
     # Favicon
-    html  = tag(:link, :rel => "icon", :type => "image/png", :href => image_path("icon/favicon.png"), "data-turbolinks-track" => true)
-    html << "\n".html_safe + tag(:link, :rel => "shortcut icon", :href => image_path("icon/favicon.ico"), "data-turbolinks-track" => true)
+    html  = tag(:link, rel: "icon", type: "image/png", href: image_path("icon/favicon.png"), "data-turbolinks-track" => true)
+    html << "\n".html_safe + tag(:link, rel: "shortcut icon", href: image_path("icon/favicon.ico"), "data-turbolinks-track" => true)
     # Apple touch icon
     icon_sizes = {iphone: "57x57", ipad: "72x72", "iphone-retina" => "114x114", "ipad-retina" => "144x144"}
     unless options[:app].is_a?(FalseClass)
@@ -502,18 +488,21 @@ module ApplicationHelper
   # Permits to use themes for Ekylibre
   #  stylesheet_link_tag 'application', 'list', 'list-colors'
   #  stylesheet_link_tag 'print', :media => 'print'
-  def theme_link_tag()
+  def theme_link_tag(theme = nil)
+    theme ||= current_theme
+    return nil unless theme
     html = ""
-    html << stylesheet_link_tag(theme_path("all.css"), :media => :all, "data-turbolinks-track" => true)
+    html << stylesheet_link_tag(theme_path("all.css", theme), media: :all, "data-turbolinks-track" => true)
     return html.html_safe
   end
 
-  def theme_button(name, theme='tekyla')
-    image_path(theme_path("buttons/#{name}.png"))
+  def theme_button(name, theme = nil)
+    image_path(theme_path("buttons/#{name}.png", theme))
   end
 
-  def theme_path(name)
-    "themes/#{current_theme}/#{name}"
+  def theme_path(name, theme = nil)
+    theme ||= current_theme
+    "themes/#{theme}/#{name}"
   end
 
 
@@ -530,12 +519,12 @@ module ApplicationHelper
     title = if current_user
               code = request.url.split(/(\:\/\/|\.)/).third
               if r.empty?
-                tc(:page_title_special, :company_code => code, :action => controller.human_action_name)
+                :page_title_special.tl(company_code: code, action: controller.human_action_name)
               else
-                tc(:page_title, :company_code => code, :action => controller.human_action_name, :menu => tl("menus.#{r[0]}"))
+                :page_title.tl(company_code: code, action: controller.human_action_name, menu: "menus.#{r[0]}".tl)
               end
             else
-              tc(:page_title_by_default, :action => controller.human_action_name)
+              :page_title_by_default.tl(action: controller.human_action_name)
             end
     return ("<title>" << h(title) << "</title>").html_safe
   end
@@ -641,6 +630,9 @@ module ApplicationHelper
     icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
     options[:class] = (options[:class].blank? ? 'btn' : options[:class].to_s+' btn')
     options[:class] << ' btn-' + icon.to_s if icon
+    if url.is_a?(Hash)
+      url[:redirect] ||= request.path
+    end
     link_to(url, options) do
       # (icon ? content_tag(:span, '', :class => "icon")+content_tag(:span, name, :class => "text") : content_tag(:span, name, :class => "text"))
       (icon ? content_tag(:i) + h(" ") + h(name) : h(name))
@@ -738,7 +730,7 @@ module ApplicationHelper
     # variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
     variants ||= {action.to_s.t(scope: 'rest.actions') => url} if authorized?(url)
     return dropdown_button do |l|
-      for name, url_options in variants || []
+      for name, url_options in variants || {}
         variant_url = url.merge(url_options)
         l.link_to(name, variant_url, options) if authorized?(variant_url)
       end
@@ -904,29 +896,11 @@ module ApplicationHelper
     class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
     return content_tag(:div,
                        content_tag(:div,
-                                   link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
+                                   link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').tl(default: ["form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
                                    content_tag(:span, buttons.join.html_safe, :class => :buttons),
                                    :class => "fieldset-legend") +
                        content_tag(:div, capture(&block), :class => options[:fields_class]), :class => class_names, :id => name) # "#{name}-fieldset"
   end
-
-
-  # def steps_tag(record, steps, options={})
-  #   name = options[:name] || record.class.name.underscore
-  #   state_method = options[:state_method] || :state
-  #   state = record.send(state_method).to_s
-  #   code = ''
-  #   for step in steps
-  #     title = tc("#{name}_steps.#{step[:name]}")
-  #     classes  = "step"
-  #     classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
-  #     classes << " disabled" unless step[:states].include?(state)
-  #     title = link_to(title, (record.id ? step[:actions][0].merge(:id => record.id) : "#"))
-  #     code << content_tag(:div, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
-  #     code << content_tag(:div, title, :class => classes)
-  #   end
-  #   return content_tag(:div, code.html_safe, :class => "stepper stepper-#{steps.count}-steps")
-  # end
 
 
 

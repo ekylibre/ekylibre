@@ -1,8 +1,8 @@
 #!/bin/bash
 psql -U postgres -c "CREATE DATABASE ekylibre_test;"
 psql -U postgres -d ekylibre_test -c "CREATE SCHEMA postgis;"
-psql -U postgres -d ekylibre_test -c "CREATE EXTENSION postgis;"
+psql -U postgres -d ekylibre_test -c "CREATE EXTENSION postgis SCHEMA postgis;"
 
 cp -f test/ci/database.yml config/database.yml
 
-bundle exec rake db:migrate
+bundle exec rake db:schema:load

@@ -4,16 +4,16 @@
 # Copyright (C) 2014 Sébastien Gauvrit, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -27,26 +27,6 @@ class Backend::CrumbsController < BackendController
       @worked_on = current_user.unconverted_crumb_days.first
     end
   end
-
-  # def update
-  #   crumb = Crumb.find(params[:id])
-  #   if crumb_params[:previous_crumb_id]
-  #     previous = Crumb.find(crumb_params[:previous_crumb_id])
-  #     previous.update(nature: 'stop')
-  #   end
-  #   crumb.update(nature: crumb_params[:nature])
-  #   redirect_to backend_crumbs_path
-  # end
-
-  # def destroy
-  #   crumb = Crumb.find(params[:id])
-  #   if crumb.nature == 'start'
-  #    crumb.intervention_path.map(&:destroy)
-  #   else
-  #     crumb.destroy
-  #   end
-  #   redirect_to backend_crumbs_path
-  # end
 
   # Creates an intervention from crumb and redirects to an edit form for
   # the newly created intervention.
@@ -65,11 +45,5 @@ class Backend::CrumbsController < BackendController
       redirect_to backend_crumbs_path
     end
   end
-
-  # private
-
-  # def crumb_params
-  #   params.permit!
-  # end
 
 end

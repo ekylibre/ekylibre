@@ -1,18 +1,11 @@
 - item ||= f.object
 %tr.nested-fields
-  %td
-    .selector
-      = f.input_field(:variant_id, as: :string, 'data-selector' => url_for(controller: :product_nature_variants, action: :unroll), 'data-selector-new-item' => url_for(action: :new, controller: :product_nature_variants))
-    -# if item.errors.any?
-      = item.errors.messages.inspect
-  %td.decimal
-    = f.input_field(:quantity, :size => 7, class: "item-pta item-wta")
-  %td
-    = f.input_field(:unit_price_amount, class: "item-pta item-wta")
-  %td.decimal
-    = f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "item-wta")
-  %td.decimal.pta{'data-use' => ".item-pta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}= item.pretax_amount
-  %td.decimal.wta{'data-use' => ".item-wta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}= item.amount
-  %td.currency= @purchase.currency
-  %td.action
-    = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'remove-item')
+  %td= f.referenced_association(:variant, wrapper: :nested, input_html: {data:{priced_variant: {url: last_purchase_item_backend_product_nature_variant_url("VARIANT_ID"), amount: ".amount", tax: ".tax", scope: ".nested-fields"}}})
+  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
+  %td= f.input(:unit_price_amount, wrapper: :nested, input_html: {class: "item-pta item-wta amount"})
+  %td.decimal= f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "item-wta tax")
+  -# TODO: replace calculate_round value with the actual currency precision
+  %td.decimal.pta{data: {use: ".item-pta", use_closest: "tr", calculate: "mul", calculate_round: 2}}= item.pretax_amount
+  %td.decimal.wta{data: {use: ".item-wta", use_closest: "tr", calculate: "mul", calculate_round: 2}}= item.amount
+  %td.currency= f.object.purchase_currency
+  %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

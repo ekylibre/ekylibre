@@ -1,24 +1,26 @@
 - main_toolbar do |t|
   - t.export do |e|
-    - e.deposit_list @deposit.number, @deposit
-  - t.edit @deposit
+    - e.deposit_list resource.number, resource
+  - t.edit resource
 
-= attributes_list do |l|
-  - l.attribute :number
-  - l.attribute :cash, url: true
-  - l.attribute :mode # , url: true
-  - l.attribute :payments_count
-  - l.attribute :responsible
-  - l.attribute :description
-  - l.attribute :journal_entry, url: true
+= beehive do |b|
+  - b.cell :general do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :cash, url: true
+      - l.attribute :mode #, url: true
+      - l.attribute :payments_count
+      - l.attribute :responsible
+      - l.attribute :description
+      - l.attribute :journal_entry, url: true
 
-%h2= Deposit.human_attribute_name("payments")
-= list :payments
+  - b.cell Deposit.human_attribute_name(:payments) do
+    = list :payments
+    %table.list
+      %tr.total
+        %th= :payments_count.tl(mode: resource.mode.name)
+        %td= resource.payments_count
+      %tr.total.important
+        %th= :total.tl
+        %td= resource.amount.l(currency: resource.currency)
 
-%table.list
-  %tr.total
-    %th= tc(:payments_count, mode: @deposit.mode.name)
-    %td= @deposit.payments_count
-  %tr.total.important
-    %th= tc(:total)
-    %td= @deposit.amount.l(currency: @deposit.currency)

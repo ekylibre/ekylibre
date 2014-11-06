@@ -1,0 +1,6 @@
+= form_tag do
+  = field_set do
+    = field Transport.human_attribute_name(:transporter), content_tag(:span, selector_tag(:transporter_id, {controller: :entities, action: :unroll}, value: params[:transporter_id], new: backend_entity_url(transporter: 1)), class: "input-append")
+    = field Transport.human_attribute_name(:responsible), content_tag(:span, selector_tag(:responsible_id, {controller: :people, action: :unroll}, value: params[:responsible_id], new: backend_entity_url), class: "input-append")
+  = form_actions do
+    = submit_tag :ship.ta

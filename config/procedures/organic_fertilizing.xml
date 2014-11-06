@@ -42,51 +42,17 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[driver] moves in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
-      </operation>
-      <operation id="200" duration="7 minutes">
-        <task do="[tractor] moves at [spreader]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'épandeur-->
-      </operation>
-      <operation id="300" duration="4 minutes">
-        <task do="[tractor] catches [spreader]"/><!-- le chauffeur attache l'épandeur au tracteur -->
-      </operation>
-      <operation id="400" duration="4 minutes">
-        <task do="[tractor] moves at [manure]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
-      </operation>
-      <operation id="500" duration="1 minutes">
-        <task do="[manure] parts with [manure_to_spread]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global -->
-      </operation>
-      <operation id="600" duration="4 minutes">
-        <task do="[manure_to_spread] moves in [spreader]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
-      </operation>
       <operation id="700" duration="18 minutes">
         <task do="[tractor] moves in [land_parcel]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="800" repeatable="true">
         <!-- Tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, l'épandeur tourne) les task tournent -->
+        <task do="[manure] parts with [manure_to_spread]"/>
         <task do="[manure_to_spread] moves in [land_parcel]"/><!-- le fumier tombe par terre car l'épandeur tourne (?) -->
         <task do="[land_parcel] consumes [manure_to_spread]"/><!-- la parcelle consomme le fumier épandu -->
         <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
         <!-- et je retourne charger du fumier sur le tas global-->
       </operation><!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
-      <operation id="900" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [spreader]"/>
-      </operation>
-      <operation id="1000" duration="4 minutes">
-        <task do="[tractor] releases [spreader]"/>
-      </operation>
-      <operation id="1100" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1200" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
-      </operation>
     </operations>
   </procedure>
-  <!--
-      Journal de culture [land_parcel] à la fin :      le 01/01/2013 = Ma parcelle 1 a reçu une dose de XX Tonne de fumier
-      Journal d'entretien [tractor] à la fin :         le 01/01/2013 = Mon tracteur a travaillé pendant YY Heures pour épandre du fumier dans la parcelle 1
-      Journal des temps de travaux [driver] à la fin : le 01/01/2013 = J'ai épandu du fumier pendant YY Heures dans la parcelle 1
-  -->
 </procedures>

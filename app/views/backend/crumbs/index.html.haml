@@ -7,9 +7,13 @@
       name = intervention_path.human_name
       intervention_path.each do |crumb|
         popup_content = []
-        popup_content << {label: Crumb.human_attribute_name(:nature), value: crumb.nature }
+        unless crumb.point?
+          popup_content << {label: Crumb.human_attribute_name(:nature), value: crumb.nature }
+        end
         popup_content << {label: Crumb.human_attribute_name(:read_at), value: crumb.read_at.l }
-        popup_content << render('form', crumb: crumb)
+        unless crumb.start? or crumb.stop?
+          popup_content << render('form', crumb: crumb)
+        end
         crumbs << {
           name:         name,
           shape:        crumb.geolocation,

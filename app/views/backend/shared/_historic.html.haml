@@ -8,17 +8,15 @@
           %p= :updated_at_by.th(at: version.created_at.l, by: (version.creator_name || :unknown_user.tl))
           %ul.changes
             - for change in version.changes
-              - o = (change.old_value.respond_to?(:l) ? change.old_value.l : change.old_value).to_s
-              - n = (change.new_value.respond_to?(:l) ? change.new_value.l : change.new_value).to_s
-              - unless o.blank? and n.blank?
+              - unless change.old_value.blank? and change.new_value.blank?
                 %li
                   %p
-                    - if o.blank?
-                      = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: n)
-                    - elsif n.blank?
-                      = :x_has_been_cleared.th(x: change.human_attribute_name, a: o)
+                    - if change.old_value.blank?
+                      = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: change.human_new_value)
+                    - elsif change.new_value.blank?
+                      = :x_has_been_cleared.th(x: change.human_attribute_name, a: change.human_old_value)
                     - else
-                      = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: o, b: n)
+                      = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: change.human_old_value, b: change.human_new_value)
 
         - elsif version.destroy?
           %p= :destroyed_at_by.th(at: version.created_at.l, by: (version.creator_name || :unknown_user.tl))

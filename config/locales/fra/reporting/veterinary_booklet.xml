@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="veterinary_booklet" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="0.9558924531310702"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="349"/>
+	<property name="ireport.y" value="131"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -22,7 +22,7 @@
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<style name="conditional_state">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{state} == "closed"]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{state} == "closed" || $F{state} == "aborted"]]></conditionExpression>
 			<style mode="Opaque" backcolor="#33CC00">
 				<box topPadding="3"/>
 			</style>
@@ -184,7 +184,7 @@
 					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5" spacingBefore="5"/>
 				</textElement>
-				<text><![CDATA[Issue]]></text>
+				<text><![CDATA[Incident]]></text>
 			</staticText>
 			<textField>
 				<reportElement style="address" x="0" y="0" width="786" height="13" uuid="548666df-fcbc-42e7-b461-8ee8b327b70e"/>
@@ -255,7 +255,7 @@
 					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Date Issue / description]]></text>
+				<text><![CDATA[Date Incident / description]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="708" y="0" width="78" height="47" uuid="b02f454f-dfb7-4dc4-8434-563f3dff23ca"/>
@@ -364,14 +364,9 @@
 				<textFieldExpression><![CDATA[$F{worker_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-				<reportElement style="base" x="192" y="1" width="85" height="16" uuid="fe9ac1c4-f41e-42b1-9d4d-8deffb888e19"/>
+				<reportElement style="base" x="192" y="1" width="166" height="16" uuid="fe9ac1c4-f41e-42b1-9d4d-8deffb888e19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{observed_at}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement style="base" x="277" y="1" width="81" height="16" uuid="309ca664-21a8-43ad-ab12-93bb15cf6380"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement style="base" x="548" y="21" width="43" height="18" uuid="020fa119-10d7-4db8-b0a4-5f5c02816413"/>

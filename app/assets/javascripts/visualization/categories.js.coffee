@@ -51,8 +51,10 @@ class visualization.Categories
 
   # Returns the item matching the given name
   itemFor: (name) ->
-    @items.find (item, index, array) ->
-      item.name == name
+    back = null
+    @items.forEach (item, index, array) ->
+      back = item if item.name == name
+    return back
 
   # Check if categories are valid
   valid: () ->

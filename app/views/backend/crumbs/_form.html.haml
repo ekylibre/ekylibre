@@ -1,4 +1,5 @@
-- unless crumb.start? or crumb.stop?
-  = form_for Crumb.find(crumb), action: :update, url: backend_crumb_path(crumb), method: :patch do |f|
-    = hidden_field_tag :nature, 'start'
-    = f.submit "start new intervention here"
+= backend_form_for(crumb) do |f|
+  = f.input :nature, input_html: {value: 'start'}, as: :hidden
+  = f.simple_fields_for :metadata do |mf|
+    = mf.input :procedure_nature, collection: Nomen::ProcedureNatures.selection
+  = f.submit :start_new_intervention_here.tl

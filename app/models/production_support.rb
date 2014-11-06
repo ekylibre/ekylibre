@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: production_supports
@@ -40,15 +40,19 @@
 class ProductionSupport < Ekylibre::Record::Base
   enumerize :nature, in: [:main, :secondary, :nitrate_trap], default: :main
   enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
-  belongs_to :storage, class_name: "Product", inverse_of: :supports
+
   belongs_to :production, inverse_of: :supports
+  belongs_to :storage, class_name: "Product", inverse_of: :supports
   has_many :interventions
   has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
-  has_one :selected_manure_management_plan_zone, -> { selected }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
-  has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
+  has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support, dependent: :destroy
   has_one :activity, through: :production
   has_one :campaign, through: :production
+  has_one :selected_manure_management_plan_zone, -> { selected }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_one :variant, through: :production
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :nature, :production_usage, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :nature, :production, :production_usage, :storage
@@ -59,8 +63,10 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, :variant, to: :production, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :storage
   delegate :name, to: :activity, prefix: true
+  delegate :name, to: :campaign, prefix: true
+  delegate :name, to: :variant,  prefix: true
 
-  accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :markers, reject_if: :all_blank, allow_destroy: true
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -187,9 +193,9 @@ class ProductionSupport < Ekylibre::Record::Base
     # m = net_mass of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      puts "I#{intervention.id}".red
+      # puts "I#{intervention.id}".red
       for input in intervention.casts.of_role('soil_enrichment-input')
-        puts "C#{input.id}".yellow
+        # puts "C#{input.id}".yellow
         m = (input.actor ? input.actor.net_mass(input).to_f(:kilogram) : 0.0)
         # TODO for method phosphorus_concentration(input)
         n = (input.actor ? input.actor.phosphorus_concentration.to_f(:unity) : 0.0)

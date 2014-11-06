@@ -1,5 +1,6 @@
-=field_set do
-  =f.input :name
-  =f.input :code
-  =f.input :currency, :collection => currencies
-  =f.input :nature
+= field_set do
+  = f.input :name
+  = f.input :code
+  = f.input :currency, collection: currencies
+  = f.input :nature
+  = f.custom_fields

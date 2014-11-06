@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: intervention_casts
@@ -67,16 +67,18 @@ class InterventionCast < Ekylibre::Record::Base
   delegate :matching_model, to: :variant
 
   scope :of_role, lambda { |role|
-    # for nature in natures
-    #   raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
-    # end
-    # where("roles ~ E?", "\\\\m#{role}\\\\M")
+    unless role.to_s =~ /\-/
+      raise ArgumentError, "Need a valid role: <procedure_nature>-<role>"
+    end
+    nature, role = role.to_s.split('-')[0..1]
+    where("roles ~ E?", "\\\\m(#{Nomen::ProcedureNatures.all(nature).sort.join('|')})-#{role}\\\\M")
+  }
+
+  scope :of_generic_role, lambda { |role|
     where("roles ~ E?", (role =~ /\-/  ? "\\\\m#{role}\\\\M" : "-#{role}\\\\M"))
   }
 
-  scope :with_cast, lambda { |role, object|
-    self.of_role(role).where(actor_id: object.id)
-  }
+  scope :of_actor, lambda { |actor| where(actor_id: actor.id) }
 
   before_validation do
     if self.reference

@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete))
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
 
 = beehive do |b|
   - b.cell :details do
@@ -23,7 +23,7 @@
       = list(:intervention_casts)
     - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
+        - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
       = list(:issues)
     - b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

@@ -214,7 +214,7 @@ catalog_prices:
   reference_tax_id: {type: integer, references: tax}
   started_at: {type: datetime}
   stopped_at: {type: datetime}
-  thread: {type: string, limit: 20}
+  thread: {type: string, limit: 120, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
   variant_id: {type: integer, references: product_nature_variant, required: true}

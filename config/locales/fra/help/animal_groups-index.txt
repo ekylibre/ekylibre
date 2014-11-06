@@ -5,4 +5,4 @@ Ici, vous pouvez [[>backend/animal_groups#new|créer]], modifier et visualiser v
 >>> Pour enregistrer un évènement lié à un groupe d'animaux (alimentation, pesée, traitement, achat, vente...), il faut [[>backend/interventions#new|créer]]
 >>> {{icon:plus}} une nouvelle intervention.
 
-!!! Tant qu'un groupe d'animaux n'intervient dans aucun indicateurs, interventions, achats, ventes... il peut être supprimé.
+!!! Tant qu'un groupe d'animaux n'intervient dans aucun indicateur, intervention, achat, vente… il peut être supprimé.

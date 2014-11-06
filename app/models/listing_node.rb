@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: listing_nodes
@@ -167,7 +167,7 @@ class ListingNode < Ekylibre::Record::Base
   def comparators
     #raise StandardError.new self.sql_type.inspect
     #return @@comparators[self.sql_type.to_sym] if self.sql_type
-    @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_node.comparators.'+x),x]} if self.sql_type
+    @@comparators[self.sql_type.to_sym].collect{|x| [tc('comparators.'+x),x]} if self.sql_type
   end
 
   def sql_format_comparator
@@ -236,7 +236,7 @@ class ListingNode < Ekylibre::Record::Base
     # raise self.parent.model.reflections[self.attribute_name.to_sym].class_name.inspect
     return nodes unless self.reflection? and model = self.model
     # Columns
-    nodes << [tc(:columns), [[tc(:all_columns), 'special.all_columns']] + model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
+    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.select{|c| model.has_human_attribute_name?(c.name)}.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections
     nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
     return nodes

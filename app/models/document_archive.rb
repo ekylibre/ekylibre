@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: document_archives
@@ -50,13 +50,14 @@ class DocumentArchive < Ekylibre::Record::Base
     }
   }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :archived_at, :file_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
   validates_length_of :file_content_type, :file_file_name, :file_fingerprint, allow_nil: true, maximum: 255
   validates_presence_of :archived_at, :document
   #]VALIDATORS]
   validates_presence_of :archived_at
   validates_attachment_presence :file
-  validates_attachment_content_type :file, content_type: /application/
+  validates_attachment_content_type :file, content_type: /(application|image)/
 
   before_validation(on: :create) do
     self.archived_at ||= Time.now

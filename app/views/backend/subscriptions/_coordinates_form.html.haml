@@ -1,6 +1,0 @@
--if @subscription
-  =formalize do |f|
-    -f.title :coordinates
-    -f.field :subscription, :contact_id, :choices => :subscription_contacts
-    -f.field :subscription, :description, :field => :textarea
-  #subscription-duration{"data-refresh" => url_for(controller: :subscriptions, action: :coordinates, mode: :duration), "data-refresh-mode" => "update"}=render :partial => "subscriptions/duration_form"

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-sus" hierarchical="true">
+    <items>
+      <item name="sus_scrofa" itis_tsn="180722"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

@@ -5,6 +5,7 @@
   = f.input :reference_number
   = f.input :departed_at
   = f.input :annotation, :field => :text
+  = f.custom_fields
 
 %h2= Transport.human_attribute_name(:deliveries)
 #deliveries{"data-refresh" => url_for(controller: :transports, action: :new, :transport_id => @transport.id), "data-refresh-mode" => "update"}= render 'deliveries_form'

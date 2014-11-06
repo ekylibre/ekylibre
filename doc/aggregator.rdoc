@@ -74,7 +74,7 @@ These following codes compose the Rosetta Stone to unciffer the Aggregator XML.
       <sections name="interventions" with="procedures">
         <title name="name"/>
         <property name="id" level="api"/>
-        <matrix name="inputs" with="intervention.variables.of_role(:input)">
+        <matrix name="inputs" with="intervention.variables.of_generic_role(:input)">
           <cell name="id" level="api"/>
           <cell name="role_label" value="input.role.text"/>
           <cell name="indicator" level="api"/>

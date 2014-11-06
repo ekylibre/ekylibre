@@ -28,9 +28,6 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[mower_driver] moves in [mower]"/>
-      </operation>
       <operation id="200" duration="18 minutes">
         <task do="[mower] moves at [cultivation]"/>
       </operation>
@@ -38,12 +35,6 @@
         <task do="[mower] consumes [cultivation]"/>
         <task do="[mower] produces [straw]"/>
         <task do="[straw] is at [cultivation]"/>
-      </operation>
-      <operation id="400" duration="18 minutes">
-        <task do="[mower] moves in default storage"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[mower_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

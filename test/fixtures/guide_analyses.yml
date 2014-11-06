@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: guide_analyses
@@ -48,30 +48,43 @@
 #   stopped_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
-
+---
 guide_analyses_001:
-  acceptance_status: "passed"
-  creator: users_001
+  acceptance_status: passed
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   execution_number: 0
-  guide: guides_001
-  started_at: 2013-10-26 18:34:04 +02:00
-  stopped_at: 2013-10-26 18:34:09 +02:00
-  updater: users_001
-
+  guide_id: 1
+  id: 1
+  latest: false
+  lock_version: 0
+  started_at: 2013-10-26 14:34:04.000000000 Z
+  stopped_at: 2013-10-26 14:34:09.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 guide_analyses_002:
-  acceptance_status: "failed"
-  creator: users_001
+  acceptance_status: failed
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   execution_number: 1
-  guide: guides_001
-  started_at: 2013-10-26 18:34:15 +02:00
-  stopped_at: 2013-10-26 18:34:18 +02:00
-  updater: users_001
-
+  guide_id: 1
+  id: 2
+  latest: false
+  lock_version: 0
+  started_at: 2013-10-26 14:34:15.000000000 Z
+  stopped_at: 2013-10-26 14:34:18.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 guide_analyses_003:
-  acceptance_status: "failed"
-  creator: users_001
+  acceptance_status: failed
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
   execution_number: 0
-  guide: guides_002
-  started_at: 2013-10-26 18:34:15 +02:00
-  stopped_at: 2013-10-26 18:34:18 +02:00
-  updater: users_001
+  guide_id: 2
+  id: 3
+  latest: false
+  lock_version: 0
+  started_at: 2013-10-26 14:34:15.000000000 Z
+  stopped_at: 2013-10-26 14:34:18.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

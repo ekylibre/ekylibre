@@ -92,7 +92,7 @@ spa:
     backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
-      # index: "Campagains"
+      # index: "Campaigns"
       # new: "New campaign"
       # show: "Campaign %{name}"
     backend/cash_transfers:
@@ -265,7 +265,8 @@ spa:
       index: "Establecimientos"
       new: "Añadido de un nuevo establecimiento"
     backend/event_natures: #?
-    backend/event_participations: #?
+    backend/event_participations:
+      # edit: "Edit participation: %{participant_name}"
     backend/events:
       # edit: "Edit event"
       # index: "Events"
@@ -380,14 +381,13 @@ spa:
       draft: "Niebla"
       edit: "Modicicar el periodico\_: %{name}"
       general_ledger: "Grande libro"
-      # import: "Import accounting data"
       index: "Periodicos"
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
       show: "Periodico\_: %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
-      # edit: "Edit land parcel cluster : %{name}"
+      # edit: "Edit land parcel cluster: %{name}"
       # index: "Land parcel clusters"
       # new: "New land parcel cluster"
       # show: "Land parcel cluster %{name}"
@@ -460,6 +460,7 @@ spa:
       edit: "Modificacion de la entrega"
       # index: "Outgoing deliveries"
       new: "Añadir una entrega"
+      # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_lines: #?
     backend/outgoing_delivery_modes:  #?
@@ -645,7 +646,7 @@ spa:
       backups: "Salvaguardia" #?
       configure: "Configuracion" #?
       # edit: "Configuration"
-      import: "Importacion"
+      import: "Importacion" #?
     backend/settlements:
       # edit: "Edit settlement: %{name}"
       # index: "Settlement"
@@ -733,6 +734,7 @@ spa:
         # one: "1 error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
   labels:
+    # access: "Access"
     account_accruals: "Cuentos de regularisación" #?
     account_claims_assets: "Creditos" #?
     account_create: "Registrar un nuevo cuento" #?
@@ -757,14 +759,14 @@ spa:
     account_value_current: "BRUT" #?
     account_value_previous: "BRUT N-1" #?
     accountancy: "contabilidad"
-    # accounting_balance: "Accounting balance"
     accounts: "Cuentos contables utilizados"
+    # accounts_only_used_at: "Accounts only used at"
     # accounts_to_load: "Accounts to load"
     # active: "Active"
-    active_balance_sheet: "Balance activo"
-    active_current_sum: "Total activos circulandos"
-    active_fixed_sum: "Total activos inmobilisados"
-    active_sum: "Total activos"
+    active_balance_sheet: "Balance activo" #?
+    active_current_sum: "Total activos circulandos" #?
+    active_fixed_sum: "Total activos inmobilisados" #?
+    active_sum: "Total activos" #?
     # activity: "Activity"
     # add: "Add"
     # add_choice: "Add choice"
@@ -773,6 +775,7 @@ spa:
     # add_delivery: "Add delivery"
     # add_email: "Add email"
     # add_fax: "Add fax"
+    # add_filter: "Add filter"
     # add_item: "Add item"
     # add_mail: "Add postal adress"
     # add_mobile: "Add mobile phone number"
@@ -787,25 +790,25 @@ spa:
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_website: "Add website"
-    # address: "Address"
     # affair: "Affair"
     # affairs: "Affairs"
     # all: "All"
     # all_accounts: "All accounts"
-    # all_areas: "All postal areas"
+    # all_columns: "All columns"
     # all_conditions: "All conditions"
     # all_periods: "All financial years"
-    already_credited_quantity: "Cantidad ya pasada en activo"
+    already_credited_quantity: "Cantidad ya pasada en activo" #?
     amount: "Total TVA a pagar"
-    amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
-    amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
+    amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
+    amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
     amount_with_taxes: "Total de la entrega TTC"
     # amounts_in_currency: "Amounts (%{currency})"
-    # analysis: "Analysis"
+    # analyses: "Analyses"
     # analytics: "Analytics"
     animal_group_tabbox: #?
     # animal_productions: "Animal productions"
     animal_tabbox: #?
+    # animals: "Animals"
     # archives: "Archives"
     # are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to:
@@ -819,15 +822,12 @@ spa:
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
     assessable_operations: "Operaciones imponibles (H.T)" #?
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
-    # attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}"
-    # attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}"
     # attach_deal: "Add a deal"
     attachment: "Pieza juntada"
-    # attorney: "Attorney"
     available_columns: "Campos disponibles\_: %{columns}"
     # back: "Back to the previous page"
-    backup: "Salvaguardiar"
-    backups: "Salvaguardias"
+    backup: "Salvaguardiar" #?
+    backups: "Salvaguardias" #?
     bad_browser:  #?
       explanation: "esta version del navegante no es compatible con Ekylibre. Utilizando este navegante, la paginas no pueden fijarse correctamente y varios funccionalidades puenden flatar." #?
       proposal: "Por favor, tenga previsto ponerse a día  con unos de estos navegantes recientes\_:" #?
@@ -839,22 +839,27 @@ spa:
         opera: "Opéra" #?
         safari: "Safari" #?
     balance: "Saldo"
+    # bank_account: "Bank account"
     bank_statement_point: "Despuntar el levantar" #?
     bank_statement_update: "Modificar el leventar" #?
     # bban: "Basic Bank Account Number (BBAN)"
+    # beginning: "Beginning"
     body: "Cuerpo del mensaje"
-    # building: "Building"
+    # bookkeep: "Bookkeep"
+    # bookkeep_with_payment: "Bookkeep with payment"
     building_create: "Añadir un lugar de deposito" #?
     # building_name: "Building name"
     building_tabbox: #?
     building_update: "Modifiar el lugar de deposito" #?
-    buildings: "Ver la lista de los lugares de deposito"
+    buildings: "Ver la lista de los lugares de deposito" #?
     # calculate: "Calculate"
+    # calculators: "Calculators"
     # calendar: "Calendar"
     # campaign: "Campaign"
     # canals: "Canals"
     # cancel: "Cancel"
-    cancelled: "Pasar en activos"
+    # cancelation: "Cancelation"
+    cancelled: "Pasar en activos" #?
     # cartography: "Cartography"
     # cash: "Cash"
     # cash_balances: "Bank chart"
@@ -862,6 +867,8 @@ spa:
       bank_statements: "Leventar de cuento" #?
       deposits: "Entregas en banca" #?
     cash_update: "Modificar la tresoreria" #?
+    # casting: "Casting"
+    # casts: "Casts"
     # catalog: "Catalog"
     # category: "Category"
     # category_name: "Category"
@@ -869,8 +876,8 @@ spa:
     centralized_account: "Cuento centralizador %{name}"
     # change_price: "Change price"
     # check: "Check"
-    # check_fields: "You have to check at least one box in order to update"
-    # childrens: "Childrens"
+    # children: "Children"
+    # choice_options: "Choice options"
     # choices: "Choices"
     # choose_a_type_of_product: "Choose a type of product"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
@@ -878,41 +885,29 @@ spa:
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     # client: "Client"
     # client_balance: "Client balance"
-    # client_code: "Client code"
     # client_informations: "Client informations"
-    # client_phone: "Phone"
     close: "Cerrar"
     # close_financial_year: "Close financial year"
     # close_journal: "Close the journal"
     closed: "Cerrados"
     code: "Codigo" #?
     # column: "Column"
-    # column_family: "Family"
-    # column_organization: "Organization"
-    # column_title: "Title"
     # columns: "Columns to import"
     # commission: "Commission"
-    # complement_sort: "Complement sort"
-    # complements: "Complements"
-    # components: "Components"
     conditions:
       # filter_on_attribute_of_class: "Filter on attribute of class"
       # special-subscriber: "Special-subscriber"
-    confirmed: "Confirmadas"
-    # confirmed_at: "Confirmed on"
-    connect: "Entrar"
-    # consult: "Consult"
-    # contact: "At"
+    confirmed: "Confirmadas" #?
+    connect: "Entrar" #?
+    # contained_products: "Contained products"
     # container: "Container"
-    # contains: "Contains"
-    # content_products: "Content products"
-    # contextual_help: "Help on current page"
     convert_balance_into: #?
     # convert_balance_into_loss: "Convert balance into loss"
     # convert_balance_into_profit: "Convert balance into profit"
+    # cooperative_cartodb: "Cooperative CartoDB"
     # coordinates: "Coordinates"
     # copy_of: "Copy of %{source}"
-    cost_income_statement: "Cargas"
+    cost_income_statement: "Cargas" #?
     # cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total cargas de explotación"
     # costs: "Costs"
@@ -928,49 +923,57 @@ spa:
       # all: "All"
       # confirmed: "Confirmed"
       # unconfirmed: "Unconfirmed"
-    # critic_stock_min: "Critic stock min"
-    critic_stocks: "Depósitos bajo el umbral crítico"
+    critic_stocks: "Depósitos bajo el umbral crítico" #?
+    # cropping_plan_chart: "Cropping plan chart"
+    # cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     # crumb_procedure_nature: "Crumb procedure nature"
     # crumbs: "Crumbs"
-    csv_statistics: "Statisticas a exportar al formato CSV"
+    csv_statistics: "Statisticas a exportar al formato CSV" #?
     # cultivable_zone: "Cultivable zone"
     # cultivable_zone_abbreviation: "CZ"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
-    # currency_with_code: "%{name} (%{code})"
     # current: "Current"
     current_letter: "Carta en curso\_: %{letter}"
-    data_to_export: "Datos a exportar"
-    data_to_extract: "Datos para extraer"
+    # current_stocks_by_variety: "Current stocks by variety"
+    data_to_export: "Datos a exportar" #?
+    data_to_extract: "Datos para extraer" #?
     dates: "Marcar las fechas de empezo y termino por los periodos"
+    # deals: "Deals"
     debit: "Flujo"
-    # decimal_case: "Decimal case"
+    # decimal_options: "Decimal options"
     # decision_making: "Decision-making"
+    # default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
+    # default_letter_function_title: "Dear madam, dear sir"
+    # default_letter_introduction: "Following our conversation, I give you the elements of the estimate."
     default_subject: "[%{company}]"
-    # delay: "Delay"
+    # definition: "Definition"
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
-    # delays: "Delays"
+    # delete: "Delete"
     # deliver: "Delivered on"
     # deliveries: "Deliveries"
     # delivery: "Delivery"
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia" #?
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia" #?
     department_create: "Añadir un nuevo servicio" #?
-    departments: "Servicios"
+    departments: "Servicios" #?
     deposit: "Aposto en banco del"
     deposit_create:  #?
       one: "Hacer un aposto\_: %{mode} (1 encajonamiento)" #?
       other: "Hacer un aposto\_: %{mode} (%{count} encajonamientos)" #?
       zero: "Hacer un aposto\_: %{mode} (Ningun encajonamiento)" #?
     deposit_update: "Modifiar el aposto en banco" #?
+    # depositable_options: "Deposit options"
     # depreciation: "Depreciation"
+    # depreciations: "Depreciations"
     description: "Descripción general"
     # destroy: "Destroy"
     # details: "Details"
     # discount: "Discount (%)"
     # display: "Display"
-    # display_help: "Display help"
-    # district_x: "%{name} (%{code})"
+    # divide: "Divide"
+    # division: "Division"
+    # divisions: "Divisions"
     # document: "Document"
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
@@ -978,8 +981,8 @@ spa:
     # doer_cost: "Doer cost"
     dont_use_journal: "-- No utilizar el periodico --"
     # down: "Down"
-    down_to_level: "Detallar hasta el nivel"
-    download_firefox: "Carga Mozilla Firefox..."
+    down_to_level: "Detallar hasta el nivel" #?
+    download_firefox: "Carga Mozilla Firefox..." #?
     # downpayment: "Downpayment"
     draft: "Niebla"
     draft_entries: "niebla" #?
@@ -990,16 +993,18 @@ spa:
     # edit: "Edit"
     ekylibre: "www.ekylibre.org"
     # email: "Email:"
+    # employee: "Employee"
     # employee_name: "Employee"
     end: "al"
+    # entities: "Entities"
     # entity: "Person"
     # entity_to_delete: "Person to delete"
     # entity_to_update: "Person to update"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
     # equipments: "Equipments"
+    # error: "Sorry..."
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
-    # error_sale_already_paid: "The sale is already paid"
     # errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     establish_capital_goods: "Bienes que  constituyen inmobilizaciones" #?
     establishment: "Establecimiento" #?
@@ -1013,33 +1018,25 @@ spa:
     # example: "Example: %{value}"
     # exchange: "Exchange"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
-    # executed: "Executed"
-    # existing_part: "Existing part"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
-    # expense_chart: "Expense chart"
     export: "Exportación de un fichero de salvaguardia"
-    # export_backup: "Export backup"
-    # exportation: "Exportation"
-    # extract: "Extract"
-    # fax: "Fax"
     file_nature: "Tipo de fichero"
-    # file_to_download: "File to download"
-    file_to_import: "Fichero a importar"
+    file_to_import: "Fichero a importar" #?
     # file_to_upload: "File to upload"
     # filter: "Filter"
-    filter_entries_with: "Flitrar las escrituras con"
+    filter_entries_with: "Flitrar las escrituras con" #?
+    # financial_asset_depreciations: "Financial asset depreciations"
     # financial_assets: "Financial assets"
     # financial_state: "Financial state"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     # finish: "Finish"
-    finished_income_statement: "Productos"
+    finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación"
-    # finishes: "Finishes with"
-    # first_contact: "Principal address"
+    # first_line_as_title: "First line as title"
     format_date:
       # iso: "(YYYY-MM-DD)"
-    free_purchases: "Compras en franquisia"
+    free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     # full_name: "Client"
     # fungi: "Fungi"
@@ -1049,17 +1046,19 @@ spa:
     general_informations: "Informaciones generales"
     general_ledger: "Grande libro"
     # generate: "Generate"
+    # generate_last_journal_entry: "Generate last journal entry"
     # give_discount: "Give discount"
     # global_margin: "Global margin"
     # global_margin_per_area: "Global margin per area"
     # go: "Go"
-    # graph_statistics: "Graph statistics"
     # group: "Group"
     # groups: "Groups"
+    # guide_evolution: "Guide evolution"
     # harvested_at: "Harvested at"
     help: "Ayuda"
     # help_center: "Help center"
     # hint: "Hint: %{value}"
+    # historic: "Historic"
     home: "Vuelta a la cogida de la ayuda"
     hour_duration:
       # one: "Total used time: 1 hour"
@@ -1067,10 +1066,10 @@ spa:
       # zero: "No time used"
     iban: "Numero de cuento bancario internacional (IBAN)"
     # identification: "Identification"
+    # identifiers: "Identifiers"
     # illness: "Illness"
     # implanted_at: "Implanted at"
     import: "Importación de un  fichero de salvaguardia"
-    # import_backup: "Import backup"
     # importation_explanation: "Importation explanation"
     # incident: "Incident"
     # include_blank: "Include blank"
@@ -1087,31 +1086,37 @@ spa:
     # indicator: "Indicators"
     # indicator_value: "Indicator value"
     # indicators: "Indicators"
+    # indicators_evolutions: "Indicators evolutions"
     # info: "General parameters"
     infos: "Informar las caracteristicas de la entrega"
     # input_cost: "Input cost"
     # input_cost_per_hectare: "Input cost per hectare"
-    insert_actual_password: "Coja su contraseña actual"
-    insert_password: "Coja su nueva contraseña"
+    insert_actual_password: "Coja su contraseña actual" #?
+    insert_password: "Coja su nueva contraseña" #?
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
     international_reduce_vat_collected: "Tasa réducida a 2,1%" #?
     international_vat_collected: "Operación realisada en los DOM" #?
     interval: "Intervalo personalisado"
     # intervention: "Intervention"
     # intervention_at: "%{intervention} at %{at}"
+    # intervention_casts: "Intervention casts"
+    # interventions: "Interventions"
     # interventions_count: "Interventions count"
+    # interventions_paths: "Interventions paths"
     # inventories: "Inventories"
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
-    inventory_print: "Imprimir el inventario"
+    inventory_print: "Imprimir el inventario" #?
     # invoiced_amount: "Sales invoiced amount"
-    # invoices_only: "Use only invoices"
     # is: "Is"
     # issue: "Issue"
     # issues: "Issues"
+    # issues_count: "Issues count"
+    # items: "Items"
     journal: "Periodico"
     journal_entries: "Escrituras"
     # journal_entries_states: "States of entries"
+    # journal_entry_items: "Journal entry items"
     journal_entry_lines_states: "Estado de las escrituras utilizadas" #?
     journal_name: "%{name}"
     journal_record_update: "Modificar la pieza" #?
@@ -1123,25 +1128,20 @@ spa:
       mixed: "Piezas y Escrituras"
       records: "Piezas" #?
     journals: "Periodico general"
+    # label: "Label"
     # land_parcel_abbreviation: "LP"
     # land_parcel_name: "Land parcel name"
     # land_parcels: "Land parcels"
     # last_analyses: "Last milk analysis"
-    # last_animals: "Last birth"
     # last_computed_balance: "Last computed balance"
     # last_events: "Last events"
     # last_intervention: "Last intervention"
     # last_interventions: "Last interventions"
     # last_issue: "Last issue"
-    # last_payment_amount: "Amount of the last payment"
-    # last_payment_date: "Date of the last payment"
-    # last_procedures: "Last procedures"
     # last_products: "Last products"
-    left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar"
+    # last_purchases: "Last purchases"
+    left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     # letter: "Letter"
-    # letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
-    # letter_function_title: "Dear madam, dear sir"
-    # letter_introduction: "Following our conversation, I give you the elements of the estimate."
     # letter_options: "Letter options"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
     lettering_account_supplier: "marcar con lettra los cuentos abastecedores" #?
@@ -1150,18 +1150,18 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
-    # line: "Line #%{index}:"
-    # line_stock: "Building: %{building}, available quantity: %{virtual_q}"
+    # line_number: "Line #%{number}"
+    # linear_options: "Linear options"
+    # list: "List"
     listing_create: "Craer una nueva extracción" #?
-    listing_extract: "Ejecutar la extracción"
-    listing_mail: "Enviar un correo electronico"
-    listings: "Extracciones de datos"
+    listing_extract: "Ejecutar la extracción" #?
+    listing_mail: "Enviar un correo electronico" #?
+    listings: "Extracciones de datos" #?
     # load: "Load"
-    load_demo_data: "Cargar datos de prueba"
+    load_demo_data: "Cargar datos de prueba" #?
     locale: "Idioma"
     localization: "Localisación geografica"
     # lock: "Lock"
-    # logout: "Logout"
     # mail: "Send an email"
     # mailing: "Mailing"
     mails:
@@ -1171,12 +1171,11 @@ spa:
     # main_settings: "Main settings"
     management: "Administración comercial" #?
     manual_period: "del %{start} al %{finish}"
+    # manure_management_plan_chart: "Manure management plan chart"
     # map: "Map"
     # margins: "Margins"
-    # mass: "Mass"
+    # markers: "Markers"
     # maximal_temperature: "Maximal temperature"
-    # meeting: "Meeting"
-    # meetings: "Meetings"
     # members: "Members"
     menu: #?
     menus:
@@ -1186,7 +1185,7 @@ spa:
       # finances: "Finances"
       # general: "General"
       # home: "Home"
-      # index: "Ekylibre"
+      # index: "Ekylibre ERP"
       # mandates: "Responsibilities"
       # production: "Production"
       # purchases: "Purchases"
@@ -1200,7 +1199,6 @@ spa:
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
     missing_help: "La página no existe"
-    # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
     # mobile: "Mobile"
     # mode: "Mode"
     # modes: "Modes"
@@ -1211,14 +1209,15 @@ spa:
     # moved_at: "Made on"
     # movements: "Movements"
     moves: "Movimientos de depositos"
-    my_company: "Coja las informaciones sobre su sociedad"
-    my_self: "Coja sus informaciones"
+    my_company: "Coja las informaciones sobre su sociedad" #?
+    my_self: "Coja sus informaciones" #?
     # name: "Name"
     national_deliveries: "Entregas intracolectivas" #?
     national_normal_vat_collected: "Tasa normal a 19,6%" #?
     national_reduce_vat_collected: "Tasa réducida a 5,5%" #?
     national_vat_collected: "Opéraciones réalisadas en Francia métropolitaria" #?
     # nature: "Type"
+    # natures: "Natures"
     nb_mandates: #?
     nb_products: #?
     nb_purchases:  #?
@@ -1232,7 +1231,6 @@ spa:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
-    # new_title: "New title"
     new_transport_of_x_deliveries:
       # one: "New transport (%{count} delivery)"
       # other: "New transport (%{count} deliveries)"
@@ -1243,58 +1241,53 @@ spa:
     # next: "Next"
     # nitrogen_concentration: "Nitrogen_concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
-    # no_commercial: "No commercial"
-    # no_contacts: "No address defined for %{name}"
     # no_crumbs_to_check: "No crumbs to check"
     # no_data: "No data"
     # no_deliveries: "No deliveries"
-    # no_deliveries_for_this_sale: "No deliveries for this sale"
     # no_deposits: "No deposits"
-    # no_filters: "— No filters —"
-    no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension."
+    no_javascript: "Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension." #?
     # no_origin: "No origin"
     # no_products: "No products"
-    # no_proposer: "No proposer"
-    # no_purchases: "No purchases"
     # no_records: "No records"
     # no_results: "No results"
+    # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
+    # no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     # no_tracking: "No tracking"
-    # no_transfers: "No transfers"
+    # none: "None"
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
-    notifications:
-      # error: "Error"
-      # information: "Information"
-      # success: "Success"
-      # warning: "Warning!"
+    notifications: #?
     # number: "Number"
     # number_options: "Options Numbers"
+    # numbers: "Numbers"
     on_account: "Volver a poner sobre la cuenta"
     # one_condition: "One condition"
     # operation_items: "Incoming and outgoing products"
     # operations: "Operations"
+    # options: "Options"
     # order: "Order"
-    # order_amount_with_taxes: "Order amount with taxes"
     # order_print: "Print order"
     # organic_matter_concentration: "Organic matter concentration"
     other_assessable_operations: "Autras operaciones imponibles" #?
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
-    other_results: "Otros resultados"
+    other_results: "Otros resultados" #?
     other_services: "Otros bienes y servicios" #?
-    others: "Otra TVA a deducir" #?
+    others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
     outgoing_payments_states:
       # all: "All"
       # undelivered: "Undelivered"
       # unparted: "Unused"
       # waiting: "To deposit later"
-    overflow: "CREDITO O ECCEDENTE"
+    overflow: "CREDITO O ECCEDENTE" #?
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
     # paid_amount: "Paid amount"
-    # paid_at: "Paid on"
+    # paid_at: "Paid at"
     parameters: "Parametros"
+    # participants: "Participants"
+    # participations: "Participations"
     passive_balance_sheet: "Balance pasivo" #?
     passive_capital_sum: "Total capitales" #?
     passive_debt_sum: "Total deudas" #?
@@ -1302,16 +1295,15 @@ spa:
     passive_sum: "Total pasivos" #?
     password: "Contraseña"
     # paths_to_convert: "Paths to convert"
-    payback: "Reembolso pedido"
+    # payable_taxes: "Payable taxes"
+    payback: "Reembolso pedido" #?
     # payment_amount: "Amount of payment"
     # payment_at: "Payment on"
+    # payment_conditions: "Payment conditions"
     # payment_label: "Payment label"
     # payment_mode: "Payment mode"
     payments: "Encajonamientos"
-    # payments_amount: "Payments amount"
     payments_count: "Nombre de %{mode}"
-    # payments_number: "Payments number"
-    # payments_total: "Payments total"
     # people: "People"
     period: "Intervalo de periodo"
     # permute: "Permute"
@@ -1323,12 +1315,13 @@ spa:
     # picture: "Picture"
     # placeholder: "Placeholder"
     # places: "Places"
-    # planned_at: "Planned on"
     # plant: "Plant"
     # plant_productions: "Plant productions"
     # plantation_density: "Plantation density"
+    # plants: "Plants"
     # please_wait: "Please wait…"
     # point: "Point"
+    # points: "Points"
     # population: "Population"
     # potassium_concentration: "Potassium concentration"
     # potassium_concentration_per_hectare: "Potassium concentration per hectare"
@@ -1336,25 +1329,23 @@ spa:
     # precipitation: "Precipitation"
     # preferences: "Preferences"
     # prescription: "Prescription"
+    # prescriptions: "Prescriptions"
     # pretax_amount: "Pre-tax amount"
     # previous: "Previous"
     previous_bank_statement: "Saldo del leventar precedente N°%{number}"
     # price: "Price"
     price_amount: "Precio HT" #?
     price_amount_with_taxes: "PrecioTTC" #?
-    # prices_export: "Export your prices in CSV"
-    # prices_for_all: "All the prices"
-    # prices_for_clients: "Prices of sale"
-    # prices_for_suppliers: "Prices of purchase of supplier"
-    # prices_import: "Importer un fichier CSV"
+    # prices: "Prices"
+    # prices_evolutions: "Prices evolutions"
     print: "Impresion de documentos"
     print_at: "el"
-    # print_with_template: "Print %{name}"
     # procedures: "Procedures"
     product: "Producto"
     # product_bar: "Product by categories"
     # product_category: "Product category"
     # product_name: "Product name"
+    # product_natures: "Product natures"
     product_tabbox: #?
     production: "Administración de la producción"
     # production_cost: "Production cost"
@@ -1374,25 +1365,21 @@ spa:
     # profitability: "Profitability"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
-    purchase_steps:
-      # deliveries: "Incoming deliveries"
-      products: "Creación de la compra"
-      summary: "Desembolsos"
+    purchase_steps:  #?
+      products: "Creación de la compra" #?
+      summary: "Desembolsos" #?
     # purchases: "Purchases"
-    # purchases_bar: "Purchase by natures"
-    # purchases_expense_bar: "Purchase Expenses by month"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo"
     quarterly: "Trimestral" #?
     query: "Demanda:"
+    # reading_tasks: "Reading tasks"
     # received: "Received"
     # recent_events: "Recent events"
-    # recent_historic: "Recent historic"
-    # record_has_been_correctly_removed: "The record has been correctly removed"
-    # record_has_not_been_removed: "The record has not been removed"
     # reflect: "Reflect"
     # reflected: "Reflected changes"
+    # reflections: "Reflections"
     # refresh: "Refresh"
     register: "Crear una nueva compañía" #?
     # related_people: "Related people"
@@ -1403,13 +1390,14 @@ spa:
     # remove_subscription: "Remove subscription"
     reopen: "Volver a abrir el periodico" #?
     report: "Informaciones comunes"
-    reported_balance: "Credito a rendir"
+    reported_balance: "Credito a rendir" #?
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     # reset: "Reset"
     resource: "Consultar la pieza de origen\_: %{resource} %{number}"
     resources: "Administración de los recursos humanos"
+    # rest: "Rest"
     # rest_to_pay: "Rest to pay"
     restore: "Restaurar"
     result: "Résulto"
@@ -1430,6 +1418,7 @@ spa:
     role_create: "Añadir un papel" #?
     role_name: "Entrar el nombre del papel y atribuirle sus derechos"
     roles: "Papeles"
+    # rss: "RSS"
     # run: "Run"
     running_cost: "Cargas de explotación" #?
     running_finished: "Productos de explotación" #?
@@ -1451,7 +1440,6 @@ spa:
       # all: "All"
       # cancelled: "Cancelled"
       # credits: "Credits"
-    # sales_invoices_total: "Sales invoices total"
     sales_states:
       # all: "All"
       # current: "Current"
@@ -1462,47 +1450,49 @@ spa:
     # scheduled: "Scheduled"
     search: "buscars piezas/escrituras"
     # search_account: "Search for accounts"
-    # search_for_available_prices: "%{code} - %{name}, %{pretax_amount}"
     # search_go: "Search!"
     # search_placeholder: "Search…"
     # search_sales: "Search sales"
     # section_x: "Section %{x}"
-    select_account_client: "Cuentos a marcar con letras"
-    select_account_supplier: "Cuento a marcar con letra"
+    select_account_client: "Cuentos a marcar con letras" #?
+    select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?
     select_closure_date: "Escoger la fecha de cierre"
     # select_columns: "Select columns"
     # select_date: "Select date"
     select_date_generation: "Fecha limita de integración"
-    # select_document: "Select document"
-    # select_existing_payment: "Select existing payment"
     # select_file_to_upload: "Select file to upload"
-    select_financial_year: "Ejercicio"
+    select_financial_year: "Ejercicio" #?
     # select_number: "Select number"
-    # select_number_or_date: "Select number or date"
     select_renew_journal: "Periodico utilizado para los aplazamientos de nuevo"
-    send: "Enviar un correro electronico"
-    send_test: "Enviar un correo electronico de prueba"
+    # selection: "Selection"
+    send: "Enviar un correro electronico" #?
+    # send_mail: "Send mail"
+    send_test: "Enviar un correo electronico de prueba" #?
+    # send_test_mail: "Send test mail"
     sequence_create: "Añadir une sequencia" #?
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes" #?
     # set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     # settings: "Settings"
+    # shape: "Shape"
     shelf: "Categoria" #?
     # ship: "Ship"
     # show: "Show"
     # sign_out: "Sign out"
     simplified: "Regimen del real simplificado"
+    # simplified_linear_options: "Simplified linear options"
     source: "Fuente de datos"
     start: "Del"
+    # start_new_intervention_here: "Start new intervention here"
     # state: "State"
+    # statistics: "Statistics"
+    # stock: "Stock"
     stock_move_create: "Añadir un movimiento de deposito" #?
     # stock_of_x: "Stock of %{x}"
     # stocks: "Stocks"
-    # stocks_preferences: "Stock management"
     # stop: "Stop"
     # storage: "Storage"
-    # string_case: "String case"
     # string_options: "Text options"
     subject: "Tema"
     # submit: "Submit"
@@ -1510,34 +1500,30 @@ spa:
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     # subscription_nature: "Subscription type"
     # subscriptions: "Subscriptions"
-    subtitle: "Informar la diferentes caracteristicas del nuevo utilizador"
+    subtitle: "Informar la diferentes caracteristicas del nuevo utilizador" #?
     subtotal: "Subtotal %{name}"
     subtotals_at_level: "Subtotales al nivel"
     # supplier: "Purchase prices of the supplier"
-    # supplier_code: "Supplier code"
-    # supplier_informations: "Supplier informations "
+    # supplier_informations: "Supplier informations"
     # supply: "Supply"
     # support: "Support"
+    # supports: "Supports"
     synthesis: "Documentos de sintesis" #?
     # target: "Target"
-    # target_zone: "Target zone"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    # taxations: "Taxations"
     # taxes: "Taxes"
     theoric_quantity: "cantidad teorica" #?
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
     to: "Al"
-    # to_bank_at: "To bank on"
-    # to_date: "To date"
-    # to_deliver: "To deliver"
     # to_deposit: "To deposit"
     # today: "Today"
     # tool_cost: "Tool cost"
     # tool_cost_per_hectare: "Tool cost per hectare"
     # tools: "Tools"
-    # tools_list: "Tools"
     total: "Total"
     total_amount: "Total importe HT"
     # total_cost: "Total cost"
@@ -1545,7 +1531,7 @@ spa:
     # total_earn: "Total earn"
     # total_earn_per_area: "Total earn per area"
     # total_in_currency: "Total (%{currency})"
-    total_invoiced_amount: "Total importe facturado"
+    total_invoiced_amount: "Total importe facturado" #?
     # total_paid_amount: "Total paid amount"
     total_quantity: "Quantidad total"
     # total_unpaid_amount: "Total unpaid amount"
@@ -1571,6 +1557,7 @@ spa:
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Cargar las unidades de base que falten" #?
+    # unknown: "Unknown"
     # unknown_condition: "Unknown condition"
     # unknown_user: "Unknown user"
     # unknown_variant: "Unknown variant"
@@ -1579,14 +1566,9 @@ spa:
     # unpaid: "Unpaid"
     # unpaid_amount: "Unpaid amount"
     # unpaid_days: "Unpaid since (in days)"
-    # unpaid_sales: "Unpaid sale"
-    # unpaid_sales_export: "Export unpaid sales in CSV"
-    # unparted: "Unparted"
+    # unpaid_sales: "Unpaid sales"
     # unreceived: "Unreceived"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
-    # unused_payment: "Unused payment"
-    # unvalid_date: "Invalid date"
-    # unvalidated_operations: "Operations not validated"
     # up: "Up"
     # update: "Update"
     # update_params: "Update params"
@@ -1598,24 +1580,21 @@ spa:
     use_renew: "Seleccionar un periodico para los aplazamientos de nuevo"
     used_accounts: "Cuentos utilozados unico"
     user_create: "Añadir un nuevo utilizador" #?
-    user_name: "Nombre de usuario"
+    user_name: "Nombre de usuario" #?
     user_update: "Modificar las informaciones del utilizador" #?
     # valid: "Valid"
     validate: "Validar"
     validate_selected_entries: "Validar la escrituras seleccionadas"
     # values: "Values"
+    # variable_indicators: "Variable indicators"
+    # variants: "Variants"
     # view: "View"
-    view_modes:
-      # printable: "Printable mode"
-      # resized: "Resized mode"
-    # virtual_quantity: "Virtual quantity"
-    # watering_concentration: "Watering_concentration"
+    view_modes: #?
     # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
-    with_prints: "Incluir las impresiones (facturas, encargos...)"
-    # worked_on: "Worked on"
-    # working_zone: "Working zone"
+    with_prints: "Incluir las impresiones (facturas, encargos...)" #?
+    # working_sets_stocks: "Working sets stocks"
     x_cashes:
       # one: "%{count} cash"
       # other: "%{count} cashes"
@@ -1735,7 +1714,8 @@ spa:
       # other: "%{count} years"
       # zero: "0 years"
     yearly: "Anual" #?
-    years_count_in_historic: "Nombre de años en el historico"
+    years_count_in_historic: "Nombre de años en el historico" #?
+    # zones: "Zones"
   notifications:
     levels:
       error: "Error"
@@ -1750,6 +1730,8 @@ spa:
       cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable" #?
       # cannot_find_deal_to_attach: "Cannot find deal to attach"
       # cannot_find_deal_to_detach: "Cannot find deal to detach"
+      # cannot_finish_affair: "Cannot finish affair"
+      # cannot_import_file: "Cannot import file (%{message})"
       # cannot_mark_entry_items: "Cannot mark these entry lines"
       cannot_merge_an_entity_with_itself: "No es posible fusionar una papeleta con si misma"
       cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
@@ -1779,7 +1761,8 @@ spa:
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       impossible_to_add_lines: "No se puede añadir productos a su venta, el presupuesto esta en encargo" #?
       impossible_to_add_lines_to_purchase: "No se puede añadir productos a su compra" #?
-      invalid_file_nature: "Tipo de fichero invalido"
+      invalid_file_nature: "Tipo de fichero invalido" #?
+      # invalid_reference_name: "Invalid reference name"
       journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente." #?
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       # journal_entry_already_validated: "The record has already been validated and can not be changed"
@@ -1791,6 +1774,8 @@ spa:
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "Los correos electronicos han sido enviados"
       # need_a_production_support: "Need a production support"
+      # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
+      # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
       need_balanced_journal_to_tax_declaration: "Todos sur periodicos deben de ser cerrados y equilibrados a esta fecha." #?
       need_building_to_create_purchase_line: "Se debe crear un lugar de almacenamiento para hacer una compra" #?
       need_building_to_create_sale_line: "Se debe crear un lugar de almacenamiento para hacer une venta" #?
@@ -1808,7 +1793,6 @@ spa:
       # need_to_create_productions: "Need to create productions"
       need_to_create_subscription_nature: "se debe crear un tipo de abono para administrar los abonos"
       new_actual_number: "El nuevo numero en curso es %{numero_actual}"
-      # new_values_are_calculated: "New values are calculated"
       no_authenticated: "No puede ser identificado. El nombre de utilizador o la contrasña debe de ser incorrecta."
       no_balance_template: "No hay modelo de documento para este equilibrio" #?
       no_building: "Ningun lugar de almacenamineto es definido. por favor cree uno para administrar los depositos" #?
@@ -1817,7 +1801,6 @@ spa:
       no_depositable_payments: "No hay pago para entregar en banco"
       no_existing_mandates: "No hay responsabilidades registradas por el momento" #?
       no_financial_year: "Ningun ejercicio registrado" #?
-      # no_items_found: "No product has been added to the order"
       no_lines_found: "Ningun producto ha sido añadido al encargo" #?
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
       no_reopenable_journal: "nos se puede cerrar este periodico."
@@ -1828,23 +1811,26 @@ spa:
       password_successfully_changed: "Su contraseña ha sido puesta a día con éxito" #?
       prices_import_succeeded: "Sus datos han sido importados correctamente" #?
       print_failure: "Imposible de imprimir. Intenta recargar los modelos de documentos para corrgir el problema. %{error} (%{class})." #?
-      # purchase_already_invoiced: "Purchase already invoiced"
+      # record_already_imported: "Record already imported"
       record_cannot_be_removed: "El registro no puede ser suprimido"
       record_has_been_correctly_removed: "El registro ha sido suprimido correctamente"
       # record_has_been_imported: "Record has been imported"
       record_has_not_been_removed: "El registro no puede ser suprimido" #?
-      restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}"
-      sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"
-      sale_cannot_be_updated: "El presupuesto ya no esta modificable."
-      sale_cant_be_deleted: "La venta no puede ser suprimida"
+      # record_not_found: "Record not found"
+      restoration_finished: "La restauración de la salvaguardia se tremino (en %{name} secondos). Su codigo sociedad es %{code}" #?
+      sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison" #?
+      sale_cannot_be_updated: "El presupuesto ya no esta modificable." #?
+      sale_cant_be_deleted: "La venta no puede ser suprimida" #?
       select_entries_to_letter_together: "Escroge escroturas para latrarlas juntas" #?
       # select_entry_items_to_mark_together: "Select entry items to mark together"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
-      unavailable_model: "%{model} indisponible o inexistente (%{id})"
+      unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
+      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "La pagina que quiere esta indisponible (%{url})" #?
       unknown_company: "Sociedad desconocida" #?
-      unvalid_version_for_restore: "La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software"
+      unvalid_version_for_restore: "La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software" #?
       update_is_done: "La puesta al día ha sido efectuada"
       validates_old_inventories: "Es aconsejado suprimir o validar los inventarios que no lo son antes de hacer nuevos" #?
       x_unpointed_journal_entries:  #?
@@ -1858,6 +1844,7 @@ spa:
       x_unpointed_journal_entry_lines: #?
       you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?
+      # you_need_to_review_your_application_configuration: "You need to review your application configuration"
       you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?" #?
   preferences:
     # bookkeep_automatically: "Activate the automatic bookkeeping"
@@ -1921,6 +1908,7 @@ spa:
       # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
+      # stop: "Stop"
       # toggle: "Toggle"
       # unlock: "Unlock"
       # unmark: "Unmark"
@@ -1935,7 +1923,7 @@ spa:
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
-    # backend/journal_entry_items: "{name}"
+    # backend/journal_entry_items: "{entry.number} {name} {account.number} D{real_debit} C{real_credit} {currency}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
     # backend/operations: "{nature} ({created_at})"

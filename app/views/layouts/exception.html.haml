@@ -1,0 +1,17 @@
+!!! 5
+%html{:xmlns => "http://www.w3.org/1999/xhtml", 'xmlns:svg' => 'http://www.w3.org/2000/svg', 'xmlns:xlink' => 'http://www.w3.org/1999/xlink', :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), :class => :exception}
+  %head
+    = csrf_meta_tags
+    = viewport_tag
+    = icon_tags
+    = theme_link_tag(:tekyla)
+    = javascript_include_tag :application, "data-turbolinks-track" => true
+  %body
+    #wrap
+      #main
+        #header
+          %h1= :error.tl
+        #content
+
+          = yield
+    %footer#legals= legals_sentence

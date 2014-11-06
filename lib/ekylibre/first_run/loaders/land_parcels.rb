@@ -3,12 +3,12 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
 
   shapes = {}.with_indifferent_access
 
-  file = first_run.check_archive("ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", "ilot.prj", in: "telepac")
+  file = first_run.check_archive("ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", in: "telepac")
   if file.exist?
     first_run.import(:telepac_cap_land_parcels, file)
   end
 
-  file = first_run.check_archive("parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", "parcelle.prj", in: "telepac")
+  file = first_run.check_archive("parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", in: "telepac")
   if file.exist?
     first_run.import(:telepac_land_parcels, file)
   end

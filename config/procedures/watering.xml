@@ -33,9 +33,6 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[driver] moves at [spreader]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
-      </operation>
       <operation id="200" duration="1 minutes">
         <task do="[water] parts with [water_to_spread]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global -->
       </operation>
@@ -49,9 +46,6 @@
         <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
         <!-- et je retourne charger du fumier sur le tas global-->
       </operation><!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
-      <operation id="500" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
-      </operation>
     </operations>
   </procedure>
   <!--

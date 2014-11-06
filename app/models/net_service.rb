@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: net_services
@@ -32,19 +32,31 @@
 #
 class NetService < Ekylibre::Record::Base
   enumerize :reference_name, in: Nomen::NetServices.all
-  has_many :identifiers
+  has_many :identifiers, -> { order(:nature) }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :reference_name
   #]VALIDATORS]
   validates_uniqueness_of :reference_name
 
+  accepts_nested_attributes_for :identifiers
+
+  delegate :url, to: :reference
+
   def name
-    self.reference_name.text
+    self.reference_name.l
   end
 
   def reference
     Nomen::NetServices[self.reference_name]
+  end
+
+  def each_identifier(&block)
+    if self.reference
+      self.reference.identifiers.each do |identifier|
+        yield Nomen::IdentifierNatures[identifier]
+      end
+    end
   end
 
 end

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: product_nature_variants
@@ -50,9 +50,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
   belongs_to :category, class_name: "ProductNatureCategory", inverse_of: :variants
-  has_many :products, foreign_key: :variant_id
-  has_many :readings, class_name: "ProductNatureVariantReading", foreign_key: :variant_id, inverse_of: :variant
   has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
+  has_many :products, foreign_key: :variant_id
+  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
+  has_many :readings, class_name: "ProductNatureVariantReading", foreign_key: :variant_id, inverse_of: :variant
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
@@ -64,6 +65,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
   validates_length_of :commercial_name, :name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255
@@ -207,6 +209,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
     return product_model.create!(:variant => self, :name => product_name + " " + born_at.l, :initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => default_storage)
   end
 
+  # Returns last purchase item for the variant
+  # and a given supplier if any, or nil if there's
+  # no purchase item matching criterias
+  def last_purchase_item_for(supplier = nil)
+    return purchase_items.last unless supplier.present?
+    purchase_items.
+      joins(:purchase).
+      where("purchases.supplier_id = ?", Entity.find(supplier).id).
+      last
+  end
 
   class << self
 

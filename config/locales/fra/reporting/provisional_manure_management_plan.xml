@@ -133,7 +133,7 @@
 			<variableExpression><![CDATA[$F{intervention_nitrogen_input_per_hectare}]]></variableExpression>
 			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
-		<variable name="provisionnal_balance" class="java.lang.Double">
+		<variable name="provisional_balance" class="java.lang.Double">
 			<variableExpression><![CDATA[$P{nitrogen_input_prev} - ($V{n_intervention} + $V{n_animal})]]></variableExpression>
 			<initialValueExpression><![CDATA["0.0"]]></initialValueExpression>
 		</variable>
@@ -428,12 +428,12 @@
 							<jr:columnFooter height="30" rowSpan="1">
 								<ellipse>
 									<reportElement x="5" y="8" width="15" height="15" backcolor="#65A907" uuid="95f971b2-2765-4ec9-98f7-61a000c5f988">
-										<printWhenExpression><![CDATA[$V{provisionnal_balance} >= 0.0]]></printWhenExpression>
+										<printWhenExpression><![CDATA[$V{provisional_balance} >= 0.0]]></printWhenExpression>
 									</reportElement>
 								</ellipse>
 								<ellipse>
 									<reportElement x="5" y="8" width="15" height="15" backcolor="#F17900" uuid="d8c24a92-7bbb-4a93-b063-057ed2c69549">
-										<printWhenExpression><![CDATA[$V{provisionnal_balance} < 0.0]]></printWhenExpression>
+										<printWhenExpression><![CDATA[$V{provisional_balance} < 0.0]]></printWhenExpression>
 									</reportElement>
 								</ellipse>
 							</jr:columnFooter>
@@ -444,7 +444,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement style="strong" x="0" y="0" width="53" height="30" uuid="8a4e3aa5-a10c-4fb3-a939-37bb6be61b71"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$V{provisional_balance}]]></textFieldExpression>
 								</textField>
 							</jr:columnFooter>
 							<jr:detailCell height="4" rowSpan="1"/>

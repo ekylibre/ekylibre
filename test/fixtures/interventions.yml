@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: interventions
@@ -61,27 +61,44 @@
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 interventions_001:
-  creator: users_001
-  natures: grinding, soil_enrichment
-  number: "1"
-  production: productions_001
+  created_at: 2014-11-04 18:31:09.285923000 Z
+  creator_id: 1
+  event_id: 13
+  id: 9
+  lock_version: 2
+  natures: plowing
+  number: '8'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-plowing-0-500-1: nude
+  production_id: 1
+  production_support_id: 6
   provisional: false
-  reference_name: 'base-plant_grinding-0'
-  started_at: 2009-05-03 09:13:59.000000000 +02:00
-  state: undone
-  stopped_at: 2009-05-03 12:17:23.000000000 +02:00
-  updater: users_001
-
-interventions_002:
-  creator: users_001
-  natures: grinding, soil_enrichment
-  number: "2"
-  production: productions_001
-  provisional: false
-  reference_name: 'base-plant_grinding-0'
-  started_at: 2009-06-03 09:13:59.000000000 +02:00
+  recommended: false
+  reference_name: base-plowing-0
+  started_at: 2012-10-03 08:30:00.000000000 Z
   state: done
-  stopped_at: 2009-06-03 12:17:23.000000000 +02:00
-  updater: users_001
+  stopped_at: 2012-10-03 12:30:00.000000000 Z
+  updated_at: 2014-11-04 18:31:37.378414000 Z
+  updater_id: 1
+interventions_002:
+  created_at: 2014-11-04 18:41:39.737616000 Z
+  creator_id: 1
+  event_id: 14
+  id: 10
+  lock_version: 0
+  natures: physical_weed_killing raking
+  number: '9'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 1
+  production_support_id: 6
+  provisional: false
+  recommended: false
+  reference_name: base-hoeing-0
+  started_at: 2012-10-04 07:25:00.000000000 Z
+  state: undone
+  stopped_at: 2012-10-04 17:50:00.000000000 Z
+  updated_at: 2014-11-04 18:41:39.737616000 Z
+  updater_id: 1

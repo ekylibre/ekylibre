@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: catalogs
@@ -40,7 +40,7 @@
 
 class Catalog < Ekylibre::Record::Base
   enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
-  has_many :active_prices, -> { where(:active => true) }, class_name: "CatalogPrice"
+  has_many :active_prices, -> { where(active: true) }, class_name: "CatalogPrice"
   has_many :prices, class_name: "CatalogPrice", dependent: :destroy, inverse_of: :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, allow_nil: true, maximum: 3

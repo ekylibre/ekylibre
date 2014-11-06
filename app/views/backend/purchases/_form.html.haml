@@ -1,32 +1,38 @@
 = field_set do
-  = f.referenced_association :supplier, :source => :suppliers
-  = f.referenced_association :nature
-  = f.referenced_association :delivery_address, :source => :own_mails, :new => {:entity_id => Entity.of_company.id}
+  = f.referenced_association :supplier, source: :suppliers
+  = f.input :nature_id, as: :hidden
+  = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :planned_at
   = f.input :reference_number
-  = f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
+  = f.referenced_association :responsible, source: :employees, new: {employed: 1}
   = f.input :description
+  = f.custom_fields
 
 = field_set Purchase.human_attribute_name(:items) do
-  %table
-    %thead
-      %tr
-        %th= PurchaseItem.human_attribute_name(:variant)
-        %th= PurchaseItem.human_attribute_name(:quantity)
-        %th= PurchaseItem.human_attribute_name(:price) # Custom price
-        %th= PurchaseItem.human_attribute_name(:tax) # Custom price
-        %th= PurchaseItem.human_attribute_name(:pretax_amount)
-        %th= PurchaseItem.human_attribute_name(:amount)
-        %th= PurchaseItem.human_attribute_name(:currency)
-        %th
-    %tbody#items
-      = f.simple_fields_for :items, @purchase.items do |item|
-        = render 'item_fields', f: item
-    %tfoot
-      %tr.total
-        %td= link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
-        %th{:colspan => 3}= "total".tl
-        %td#pta.decimal{'data-use' => '.pta', 'data-calculate' => 'sum'}= @purchase.pretax_amount
-        %td#wta.decimal{'data-use' => '.wta', 'data-calculate' => 'sum'}= @purchase.amount
-        %td= @purchase.currency
-        %th
+  .items
+    %table
+      %thead
+        %tr
+          %th= PurchaseItem.human_attribute_name(:variant)
+          %th= PurchaseItem.human_attribute_name(:quantity)
+          %th= PurchaseItem.human_attribute_name(:price) # Custom price
+          %th= PurchaseItem.human_attribute_name(:tax) # Custom price
+          %th= PurchaseItem.human_attribute_name(:pretax_amount)
+          %th= PurchaseItem.human_attribute_name(:amount)
+          %th= PurchaseItem.human_attribute_name(:currency)
+          %th
+
+      %tbody#items
+        = f.simple_fields_for :items, @purchase.items do |item|
+          = render 'item_fields', f: item
+
+      - precision = Nomen::Currencies[resource.currency].precision
+      %tfoot
+        %tr.total
+          %td= link_to_add_association :add_item.tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
+          %th{colspan: 3}= :total.tl
+          -# TODO: replace calculate_round value with the actual currency precision
+          %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= @purchase.pretax_amount
+          %td#wta.decimal{data:{use: ".wta", calculate: "sum", calculate_round: precision}}= @purchase.amount
+          %td= @purchase.currency
+          %th

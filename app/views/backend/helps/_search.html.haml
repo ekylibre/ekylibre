@@ -12,12 +12,12 @@
         = link_to(toggle_backend_helps_path, 'data-toggle' => 'help', class: "btn active") do
           %i
           = :help.tl
-    %h1= tc(:help)
+    %h1= :help.tl
   .content
     - if article_exist?(article)
       = article(article, "data-update" => "#help", url: base_params)
     - else
-      %h1= tc("missing_help")
+      %h1= :missing_help.tl
       .help-error= :error_no_file.tl(article: article.to_s)
     -#=Ekylibre.helps.inspect
 - unless controller_path == "backend/helps"

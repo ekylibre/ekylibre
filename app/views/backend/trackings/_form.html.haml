@@ -1,12 +1,12 @@
-=field_set do
-  =f.input :name
-  =f.input :serial
-  =f.input :active
+= field_set do
+  = f.input :name
+  = f.input :serial
+  = f.input :active
 
-=field_set(:details) do
-  =f.referenced_association :product
-  =f.referenced_association :producer
-  =f.input :description, as: :text
-  =f.custom_fields
+= field_set(:details) do
+  = f.referenced_association :product
+  = f.referenced_association :producer
+  = f.input :description, as: :text
+  = f.custom_fields
 
 

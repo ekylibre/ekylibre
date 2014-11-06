@@ -1,3 +1,6 @@
+# This module permits to execute an procedure to generate operations
+# with the user interaction.
+
 (($) ->
   'use strict'
 
@@ -47,7 +50,7 @@
       casting
 
     unserialize: (procedure, casting, updater) ->
-      console.log("Unserialize data")
+      # console.log("Unserialize data")
       for variable, attributes of casting
         if attributes.actor?
           $("*[data-procedure='#{procedure}'][data-variable-actor='#{variable}']").each (index) ->
@@ -125,6 +128,7 @@
             computing.prop 'state', 'waiting'
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
+            false
           success: (data, status, request) ->
             computing.prop 'state', 'ready'
             # Updates elements with new values

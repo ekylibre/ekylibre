@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: document_templates
@@ -164,6 +164,26 @@ class DocumentTemplate < Ekylibre::Record::Base
     return data
   end
 
+
+  # Print a document with the given datasource
+  # Store if needed by template
+  # @param datasource XML representation of data used by the template
+  def export(datasource, key, format = :pdf, options = {})
+    # Load the report
+    report = Beardley::Report.new(self.source_path)
+    # Call it with datasource
+    path = Pathname.new(report.to_file(format, datasource))
+    # Archive the document according to archiving method. See #archive method.
+    if archive = self.archive(path, key, format, options)
+      FileUtils.rm_rf(path)
+      path = archive.file.path(:original)
+    end
+    # Returns only the data (without filename)
+    return path
+  end
+
+
+
   # Returns the list of formats of the templates
   def formats
     (self["formats"].blank? ? Ekylibre::Reporting.formats : self["formats"].strip.split(/[\s\,]+/))
@@ -174,13 +194,14 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
   # Archive the document using the given archiving method
-  def archive(data, key, format, options = {})
-    document = nil
+  def archive(data_or_path, key, format, options = {})
+    document_archive = nil
     unless self.archiving_none? or self.archiving_none_of_template?
       # Find exisiting document
-      document = Document.where(:nature => self.nature, :key => key).first
-      # Create document if not exist
-      document ||= Document.create!(:nature => self.nature, :key => key, :name => (options[:name] || tc('document_name', :nature => self.nature.text, :key => key))) # }, :without_protection => true)
+      unless document = Document.find_by(nature: self.nature, key: key)
+        # Create document if not exist
+        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key))) # }, :without_protection => true)
+      end
 
       # Removes old archives if only keepping last archive
       if self.archiving_last? or self.archiving_last_of_template?
@@ -193,13 +214,13 @@ class DocumentTemplate < Ekylibre::Record::Base
       end
 
       # Adds the new archive if expected
-      if (self.archiving_first? and document.archives.where("template_id IS NOT NULL").count.zero?) or
-          (self.archiving_first_of_template? and document.archives.where(:template_id => self.id).count.zero?) or
+      if (self.archiving_first? and document.archives.where("template_id IS NOT NULL").empty?) or
+          (self.archiving_first_of_template? and document.archives.where(template_id: self.id).empty?) or
           self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
-        document.archive(data, format, options.merge(:template_id => self.id))
+        document_archive = document.archive(data_or_path, format, options.merge(template_id: self.id))
       end
     end
-    return document
+    return document_archive
   end
 
 
@@ -210,27 +231,27 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Loads in DB all default document templates
   def self.load_defaults(options = {})
-    locale = (options[:locale] || Entity.of_company.language || I18n.locale).to_s
+    locale = (options[:locale] || Preference[:language] || I18n.locale).to_s
     Ekylibre::Record::Base.transaction do
-      manageds = self.where(:managed => true).pluck(:id)
+      manageds = self.where(managed: true).select(&:destroyable?)
       for nature in self.nature.values
         source = Rails.root.join("config", "locales", locale, "reporting", "#{nature}.xml")
         if source.exist?
           File.open(source, "rb:UTF-8") do |f|
-            unless template = self.where(:nature => nature, :managed => true).first
-              template = self.new(:nature => nature, :managed => true, :active => true, :by_default => false, :archiving => "last")
+            unless template = self.find_by(nature: nature, managed: true)
+              template = self.new(nature: nature, managed: true, active: true, by_default: false, archiving: "last")
             end
-            manageds.delete(template.id)
-            template.attributes = {:source => f, :language => locale}
-            template.name ||= template.nature.text
+            manageds.delete(template)
+            template.attributes = {source: f, language: locale}
+            template.name ||= template.nature.l
             template.save!
           end
-          logger.info "NOTICE: Load a default document template #{nature}"
+          Rails.logger.info "NOTICE: Load a default document template #{nature}"
         else
-          logger.info "WARNING: Cannot load a default document template #{nature}: No file found at #{source}"
+          Rails.logger.warn "WARNING: Cannot load a default document template #{nature}: No file found at #{source}"
         end
       end
-      self.destroy(manageds)
+      self.destroy(manageds.map(&:id))
     end
     return true
   end

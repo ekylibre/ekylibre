@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: product_junction_ways
@@ -46,38 +46,436 @@
 #   role: "Lorem ipsum"
 #   updater: users_001
 #
-
-
+---
 product_junction_ways_001:
-  creator: users_001
-  junction: product_births_001
-  nature: "start"
-  road: products_001
-  role: "product"
-  updater: users_001
-
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  junction_id: 1
+  lock_version: 0
+  nature: start
+  road_id: 65
+  role: product
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 product_junction_ways_002:
-  creator: users_001
-  junction: product_births_002
-  nature: "start"
-  road: products_001
-  role: "product"
-  updater: users_001
-
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  junction_id: 2
+  lock_version: 0
+  nature: start
+  road_id: 65
+  role: product
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 product_junction_ways_003:
-  creator: users_001
-  junction: product_creations_001
-  nature: "start"
-  road: products_002
-  role: "product"
-  updater: users_001
-
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
+  junction_id: 26
+  lock_version: 0
+  nature: start
+  road_id: 66
+  role: product
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 product_junction_ways_004:
-  creator: users_001
-  junction: product_creations_001
-  nature: "continuity"
-  road: products_002
-  role: "producer"
-  updater: users_001
-
-
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 4
+  junction_id: 26
+  lock_version: 0
+  nature: continuity
+  road_id: 66
+  role: producer
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_junction_ways_005:
+  created_at: 2014-10-31 20:12:30.960076000 Z
+  creator_id: 1
+  id: 5
+  junction_id: 3
+  lock_version: 0
+  nature: start
+  population: 0.0
+  road_id: 13
+  role: product
+  updated_at: 2014-10-31 20:12:30.960076000 Z
+  updater_id: 1
+product_junction_ways_006:
+  created_at: 2014-10-31 20:15:14.809116000 Z
+  creator_id: 1
+  id: 6
+  junction_id: 4
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road_id: 14
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.831708670011721 45.5990635462549,-0.831558466306888
+    45.5984855274885,-0.831290245405398 45.5985005410382,-0.831461906782351 45.5991160931203,-0.831708670011721
+    45.5990635462549)))
+  updated_at: 2014-10-31 20:15:14.809116000 Z
+  updater_id: 1
+product_junction_ways_007:
+  created_at: 2014-10-31 20:18:12.246684000 Z
+  creator_id: 1
+  id: 7
+  junction_id: 5
+  lock_version: 0
+  nature: start
+  road_id: 19
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813031777761353 45.5987083844552,-0.812880232952011
+    45.5986882100715,-0.812858104727638 45.5987590549683,-0.813003614566696 45.5987759451292,-0.813031777761353
+    45.5987083844552)))
+  updated_at: 2014-10-31 20:18:12.246684000 Z
+  updater_id: 1
+product_junction_ways_008:
+  created_at: 2014-10-31 20:23:26.789990000 Z
+  creator_id: 1
+  id: 8
+  junction_id: 6
+  lock_version: 0
+  nature: start
+  road_id: 20
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.836898654742981 45.5974477061239,-0.835784196897293
+    45.5974289388339,-0.835794925733353 45.5976466390117,-0.835997611284256 45.5976513308166,-0.835998773618485
+    45.597556556282,-0.836575627326965 45.5975631248192,-0.836574286222458 45.5976569609819,-0.836892127990723
+    45.5976625911467,-0.836898654742981 45.5974477061239)))
+  updated_at: 2014-10-31 20:23:26.789990000 Z
+  updater_id: 1
+product_junction_ways_009:
+  created_at: 2014-10-31 20:23:37.054421000 Z
+  creator_id: 1
+  id: 9
+  junction_id: 7
+  lock_version: 0
+  nature: start
+  population: 7.0
+  road_id: 53
+  role: product
+  updated_at: 2014-10-31 20:23:37.054421000 Z
+  updater_id: 1
+product_junction_ways_010:
+  created_at: 2014-10-31 20:25:41.478132000 Z
+  creator_id: 1
+  id: 10
+  junction_id: 8
+  lock_version: 1
+  nature: start
+  road_id: 21
+  role: product
+  shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813218951225281 45.5985699786537,-0.813113003969193
+    45.5985455816635,-0.81300538033247 45.5987766488858,-0.813106298446655 45.5987876744046,-0.813218951225281
+    45.5985699786537)))
+  updated_at: 2014-10-31 20:26:47.202010000 Z
+  updater_id: 1
+product_junction_ways_011:
+  created_at: 2014-11-01 16:00:08.179898000 Z
+  creator_id: 1
+  id: 11
+  junction_id: 9
+  lock_version: 0
+  nature: start
+  population: 20.0
+  road_id: 54
+  role: product
+  updated_at: 2014-11-01 16:00:08.179898000 Z
+  updater_id: 1
+product_junction_ways_012:
+  created_at: 2014-11-01 16:00:08.361327000 Z
+  creator_id: 1
+  id: 12
+  junction_id: 10
+  lock_version: 0
+  nature: start
+  population: 20.0
+  road_id: 55
+  role: product
+  updated_at: 2014-11-01 16:00:08.361327000 Z
+  updater_id: 1
+product_junction_ways_013:
+  created_at: 2014-11-01 16:01:24.194166000 Z
+  creator_id: 1
+  id: 13
+  junction_id: 11
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road_id: 56
+  role: product
+  updated_at: 2014-11-01 16:01:24.194166000 Z
+  updater_id: 1
+product_junction_ways_014:
+  created_at: 2014-11-01 19:29:58.256910000 Z
+  creator_id: 1
+  id: 14
+  junction_id: 12
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road_id: 5
+  role: product
+  updated_at: 2014-11-01 19:29:58.256910000 Z
+  updater_id: 1
+product_junction_ways_015:
+  created_at: 2014-11-01 19:35:50.401187000 Z
+  creator_id: 1
+  id: 15
+  junction_id: 13
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road_id: 6
+  role: product
+  updated_at: 2014-11-01 19:35:50.401187000 Z
+  updater_id: 1
+product_junction_ways_016:
+  created_at: 2014-11-01 20:19:35.427159000 Z
+  creator_id: 1
+  id: 16
+  junction_id: 14
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road_id: 57
+  role: product
+  updated_at: 2014-11-01 20:19:35.427159000 Z
+  updater_id: 1
+product_junction_ways_017:
+  created_at: 2014-11-01 20:23:55.168744000 Z
+  creator_id: 1
+  id: 17
+  junction_id: 15
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road_id: 58
+  role: product
+  updated_at: 2014-11-01 20:23:55.168744000 Z
+  updater_id: 1
+product_junction_ways_018:
+  created_at: 2014-11-01 20:23:55.268692000 Z
+  creator_id: 1
+  id: 18
+  junction_id: 16
+  lock_version: 0
+  nature: start
+  population: 10.0
+  road_id: 59
+  role: product
+  updated_at: 2014-11-01 20:23:55.268692000 Z
+  updater_id: 1
+product_junction_ways_019:
+  created_at: 2014-11-01 20:30:35.608922000 Z
+  creator_id: 1
+  id: 19
+  junction_id: 17
+  lock_version: 0
+  nature: start
+  road_id: 79
+  role: product
+  updated_at: 2014-11-01 20:30:35.608922000 Z
+  updater_id: 1
+product_junction_ways_020:
+  created_at: 2014-11-02 18:22:30.606162000 Z
+  creator_id: 1
+  id: 20
+  junction_id: 18
+  lock_version: 0
+  nature: start
+  road_id: 29
+  role: product
+  updated_at: 2014-11-02 18:22:30.606162000 Z
+  updater_id: 1
+product_junction_ways_021:
+  created_at: 2014-11-02 18:23:23.682370000 Z
+  creator_id: 1
+  id: 21
+  junction_id: 19
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road_id: 30
+  role: product
+  updated_at: 2014-11-02 18:23:23.682370000 Z
+  updater_id: 1
+product_junction_ways_022:
+  created_at: 2014-11-02 18:29:41.499312000 Z
+  creator_id: 1
+  id: 22
+  junction_id: 20
+  lock_version: 0
+  nature: start
+  population: 1.0
+  road_id: 31
+  role: product
+  updated_at: 2014-11-02 18:29:41.499312000 Z
+  updater_id: 1
+product_junction_ways_023:
+  created_at: 2014-11-02 18:33:01.580766000 Z
+  creator_id: 1
+  id: 23
+  junction_id: 21
+  lock_version: 0
+  nature: start
+  population: 0.8031
+  road_id: 25
+  role: product
+  shape: SRID=4326;MULTIPOLYGON(((-0.817789435386658 45.5943078511944,-0.817762613296509
+    45.5939962959363,-0.817843079566956 45.5937673204872,-0.816896259784698 45.5934848535847,-0.81624770151393
+    45.5944092001224,-0.817789435386658 45.5943078511944)))
+  updated_at: 2014-11-02 18:33:01.580766000 Z
+  updater_id: 1
+product_junction_ways_024:
+  created_at: 2014-11-02 18:37:22.427061000 Z
+  creator_id: 1
+  id: 24
+  junction_id: 22
+  lock_version: 0
+  nature: start
+  road_id: 32
+  role: product
+  updated_at: 2014-11-02 18:37:22.427061000 Z
+  updater_id: 1
+product_junction_ways_025:
+  created_at: 2014-11-04 15:29:49.311261000 Z
+  creator_id: 1
+  id: 31
+  junction_id: 38
+  lock_version: 0
+  nature: start
+  population: 0.0
+  road_id: 22
+  role: product
+  updated_at: 2014-11-04 15:29:49.311261000 Z
+  updater_id: 1
+product_junction_ways_026:
+  created_at: 2014-11-04 17:12:23.408443000 Z
+  creator_id: 1
+  id: 32
+  junction_id: 39
+  lock_version: 0
+  nature: start
+  population: 10.1637
+  road_id: 80
+  role: product
+  shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  updated_at: 2014-11-04 17:12:23.408443000 Z
+  updater_id: 1
+product_junction_ways_027:
+  created_at: 2014-11-04 17:15:04.631028000 Z
+  creator_id: 1
+  id: 33
+  junction_id: 40
+  lock_version: 0
+  nature: start
+  population: 3.9989
+  road_id: 81
+  role: product
+  shape: SRID=4326;MULTIPOLYGON(((-0.799569189548492 45.8210648929617,-0.800676941871643
+    45.8208704921367,-0.801602303981781 45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498
+    45.8215415459581,-0.801910758018494 45.8223359585506,-0.802023410797119 45.8230051255387,-0.799464583396912
+    45.8229752188059,-0.799569189548492 45.8210648929617)))
+  updated_at: 2014-11-04 17:15:04.631028000 Z
+  updater_id: 1
+product_junction_ways_028:
+  created_at: 2014-11-04 17:17:04.696432000 Z
+  creator_id: 1
+  id: 34
+  junction_id: 41
+  lock_version: 0
+  nature: start
+  population: 4.7133
+  road_id: 82
+  role: product
+  shape: SRID=4326;MULTIPOLYGON(((-0.801068544387817 45.825154629884,-0.801712274551391
+    45.8250686513037,-0.802023410797119 45.823001387198,-0.799459218978882 45.8229901721743,-0.799303650856018
+    45.8255060192232,-0.800360441207886 45.825132200702,-0.801068544387817 45.825154629884)))
+  updated_at: 2014-11-04 17:17:04.696432000 Z
+  updater_id: 1
+product_junction_ways_029:
+  created_at: 2014-11-04 17:19:31.157696000 Z
+  creator_id: 1
+  id: 35
+  junction_id: 42
+  lock_version: 0
+  nature: start
+  population: 5.3806
+  road_id: 83
+  role: product
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-04 17:19:31.157696000 Z
+  updater_id: 1
+product_junction_ways_030:
+  created_at: 2014-11-04 17:22:31.697978000 Z
+  creator_id: 1
+  id: 36
+  junction_id: 43
+  lock_version: 0
+  nature: start
+  population: 8.349
+  road_id: 84
+  role: product
+  shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  updated_at: 2014-11-04 17:22:31.697978000 Z
+  updater_id: 1
+product_junction_ways_031:
+  created_at: 2014-11-04 17:28:40.092317000 Z
+  creator_id: 1
+  id: 37
+  junction_id: 44
+  lock_version: 0
+  nature: start
+  road_id: 85
+  role: product
+  updated_at: 2014-11-04 17:28:40.092317000 Z
+  updater_id: 1
+product_junction_ways_032:
+  created_at: 2014-11-04 17:32:46.002017000 Z
+  creator_id: 1
+  id: 38
+  junction_id: 45
+  lock_version: 0
+  nature: start
+  road_id: 86
+  role: product
+  updated_at: 2014-11-04 17:32:46.002017000 Z
+  updater_id: 1
+product_junction_ways_033:
+  created_at: 2014-11-04 18:39:58.393925000 Z
+  creator_id: 1
+  id: 39
+  junction_id: 46
+  lock_version: 0
+  nature: start
+  road_id: 87
+  role: product
+  updated_at: 2014-11-04 18:39:58.393925000 Z
+  updater_id: 1
+product_junction_ways_034:
+  created_at: 2014-11-04 18:41:16.448446000 Z
+  creator_id: 1
+  id: 40
+  junction_id: 47
+  lock_version: 0
+  nature: start
+  road_id: 88
+  role: product
+  updated_at: 2014-11-04 18:41:16.448446000 Z
+  updater_id: 1

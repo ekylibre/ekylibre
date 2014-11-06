@@ -40,12 +40,6 @@
         <task do="[cultivation] produces [walnuts]"/>
         <task do="[walnuts] is at [cultivation]"/>
       </operation>
-      <operation id="400" duration="18 minutes">
-        <task do="[cropper] moves in default storage"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[cropper_driver] moves in default storage"/>
-      </operation>
     </operations>
   </procedure>
 </procedures>

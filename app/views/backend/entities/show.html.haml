@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   - t.export :entity, resource
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
+  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
 = beehive do |b|
   - b.hbox do
@@ -11,7 +11,7 @@
           .picture= image_tag(resource.picture.url(:identity))
         - for address in resource.addresses.order(:canal, :by_default)
           .info
-            %span.title{class: "canal-"+address.canal.to_s}= address.canal.text
+            %span.title{class: "canal-#{address.canal}"}= address.canal.l
             %span.value
               - if address.email?
                 = mail_to(address.coordinate, address.coordinate)
@@ -43,7 +43,7 @@
         - l.attribute :nature if resource.nature
         - l.attribute :number
         - l.attribute :active
-        - l.custom Entity.human_attribute_name("country"), image_tag("countries/"+resource.country+".png")+" "+t("countries."+resource.country) unless resource.country.blank?
+        - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
         - l.attribute :siren unless resource.siren.blank?
         - l.attribute :activity_code unless resource.activity_code.blank?
         - l.attribute :vat_number unless resource.vat_number.blank?
@@ -83,7 +83,7 @@
 
     - if resource.participations.any?
       - b.cell(tl(:x_events, count: resource.participations.count)) do
-        -#=toolbar do |t|
+        -#= toolbar do |t|
           - t.new(params: {controller: :events, entity_id: resource.id})
         = list(:event_participations)
 

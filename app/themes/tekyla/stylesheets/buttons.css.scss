@@ -21,6 +21,7 @@
   @include box-sizing(content-box);
   padding: round($fs-normal*0.20) round($fs-normal*0.35);
   height: round(1.4 * $fs-normal);
+  font-weight: normal;
   line-height: round(1.4 * $fs-normal);
   cursor: pointer;
   text-decoration: none;
@@ -148,10 +149,10 @@ a.btn, button {
     &:first-child {
       @include margin-left(0);
     }
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child, html[dir="ltr"] &:first-of-type, html[dir="rtl"] &:last-of-type {
       @include border-left-radius($buttons-radius);
     }
-    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
+    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-of-type, html[dir="rtl"] &:first-of-type {
       @include border-right-radius($buttons-radius);
     }
     &:focus, &:hover, &:active {

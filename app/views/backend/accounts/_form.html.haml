@@ -1,6 +1,7 @@
-=field_set do
-  =f.input :number
-  =f.input :name
-  =f.input :reconcilable
-  =f.input :description, :field => :text
+= field_set do
+  = f.input :number
+  = f.input :name
+  = f.input :reconcilable
+  = f.input :description, :field => :text
+  = f.input :usages, collection: Nomen::Accounts.all
   = f.custom_fields

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: interventions
@@ -52,8 +52,34 @@ require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
 
-  test "presence of fixtures" do
-    # assert_equal 2, Procedure.count
+  test "scopes" do
+    cast = intervention_casts(:intervention_casts_001)
+    actor = cast.actor
+    assert_nothing_raised do
+      Intervention.with_generic_cast(:tool, actor)
+    end
+    assert_nothing_raised do
+      Intervention.with_generic_cast("tool", actor)
+    end
+    assert_nothing_raised do
+      Intervention.with_cast(:'grinding-tool', actor)
+    end
+    assert_nothing_raised do
+      Intervention.with_cast('grinding-tool', actor)
+    end
+    assert_raise ArgumentError do
+      Intervention.with_cast("tool", actor)
+    end
+    assert_raise ArgumentError do
+      Intervention.with_cast(:tool, actor)
+    end
+  end
+
+  test "protect on destroy" do
+    # It should not be possible to destroy an intervention marked as done
+    assert_raise Ekylibre::Record::RecordNotDestroyable do
+      Intervention.destroy(interventions(:interventions_001).id)
+    end
   end
 
 end

@@ -10,6 +10,8 @@ if ENV['LOCALE']
   I18n.locale = ENV['LOCALE']
 end
 
+# Configure tenants.yml
+Ekylibre::Tenant.setup!("test", keep_files: true)
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -21,6 +23,21 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Returns ID of the given label
+  def self.identify(label)
+    # ActiveRecord::FixtureSet.identify(label)
+    elements = label.to_s.split("_")
+    id = elements.delete_at(-1)
+    model = elements.join("_").classify.constantize
+    @@fixtures ||= {}
+    @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join("test", "fixtures", "#{model.table_name}.yml"))
+    unless attrs = @@fixtures[model.table_name][label.to_s]
+      raise "Unknown fixture #{label}"
+    end
+    return attrs['id'].to_i
+  end
+
 end
 
 class HashCollector
@@ -45,11 +62,6 @@ class ActionController::TestCase
 
   class << self
 
-    # Returns ID of the given label
-    def identify(label)
-      ActiveRecord::FixtureSet.identify(label)
-    end
-
     def test_restfully_all_actions(options = {}, &block)
       controller_name = self.controller_class.controller_name
       controller_path = self.controller_class.controller_path
@@ -70,6 +82,7 @@ class ActionController::TestCase
         attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if{|c|
           [:depth, :lft, :rgt].include?(c)
         }
+        attributes += options.delete(:other_attributes) || []
         attributes = ("{" + attributes.collect do |a|
                         if file_columns[a.to_sym]
                           "#{a}: fixture_file_upload('files/sample_image.png')"
@@ -89,33 +102,15 @@ class ActionController::TestCase
       end
 
       code  = ""
-      # code << "context 'A #{controller_name} controller' do\n"
-      # code << "\n"
-      # code << "  setup do\n"
-      # code << "    I18n.locale = I18n.default_locale\n"
-      # code << "    assert_not_nil I18n.locale\n"
-      # code << "    assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
-      # code << "    @user = users(:users_001)\n"
-      # code << "    sign_in(@user)\n"
-      # code << "    for cf in [:custom_fields_001, :custom_fields_002]\n"
-      # code << "      record = custom_fields(cf)\n"
-      # code << "      assert record.save, record.errors.inspect\n"
-      # code << "    end\n"
-      # code << "  end\n"
-      # code << "\n"
 
       code << "setup do\n"
+      code << "  Ekylibre::Tenant.switch('test')\n"
       # Check locale
       code << "  I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
       code << "  assert_not_nil I18n.locale\n"
       code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
       # Check document templates
-      code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
-      # Check custom fields
-      code << "  for cf in [:custom_fields_001, :custom_fields_002]\n"
-      code << "    record = custom_fields(cf)\n"
-      code << "    assert record.save, record.errors.inspect\n"
-      code << "  end\n"
+      # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
       # Connect user
       code << "  @user = users(:users_001)\n"
       code << "  sign_in(@user)\n"
@@ -269,10 +264,37 @@ class ActionController::TestCase
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
         elsif mode == :unroll
-          test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
-          test_code << "xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
-          test_code << "xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
-          # TODO test all scopes
+          test_code << "assert_nothing_raised do\n"
+          test_code << "  xhr :get, :#{action}, #{sanitized_params[]}\n"
+          test_code << "end\n"
+          test_code << "assert_nothing_raised do\n"
+          test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
+          test_code << "end\n"
+          test_code << "assert_nothing_raised do\n"
+          test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
+          test_code << "end\n"
+          if model
+            test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+            test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+            test_code << "assert_nothing_raised do\n"
+            test_code << "  xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            test_code << "end\n"
+            for scope in model.simple_scopes
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name]}\n"
+              test_code << "end\n"
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :json]}\n"
+              test_code << "end\n"
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :xml]}\n"
+              test_code << "end\n"
+              test_code << "assert_nothing_raised do\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}\n"
+              test_code << "end\n"
+            end
+            # TODO test complex scopes
+          end
         elsif mode == :get
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{show_notification}\n"
@@ -348,9 +370,21 @@ Capybara.javascript_driver = Capybara.default_driver
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  # # include Capybara::Screenshot
+  # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
+
+  # fixtures :all
+
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_wait_time) do
+      loop until finished_all_ajax_requests?
+    end
+  end
+
+  def finished_all_ajax_requests?
+    page.evaluate_script('$.turbo.isReady') and page.evaluate_script('jQuery.active').zero?
+  end
 
   def shoot_screen(name = nil)
     name ||= current_url.split(/\:\d+\//).last

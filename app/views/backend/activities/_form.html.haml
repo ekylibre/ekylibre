@@ -1,9 +1,10 @@
-=field_set do
-  =f.input :name
-  =f.referenced_association :parent
-  =f.input :description
-  =f.input :nature
-  =f.input :family
+= field_set do
+  = f.input :name
+  = f.referenced_association :parent
+  = f.input :description
+  = f.input :nature
+  = f.input :family
+  = f.custom_fields
 
-=field_set(:productions) do
-  =f.nested_association(:productions)
+= field_set(:productions) do
+  = f.nested_association(:productions)

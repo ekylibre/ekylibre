@@ -1,0 +1,667 @@
+ Compte ; Libellé ; U1 ; U2 ; Code Tva ; Tva Déb ; SensC ; Coll. ; Rapp. ; Immo. ; Point. ; Plan S 
+10;CAPITAL ET RESERVES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+101;Capital;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1010;Capital individuel;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1011;Capital initial;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1012;Variation du capital initial;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1015;Capital souscrit-appelé,versé;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+108;"Compte de l""exploitant";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1081;"Compte de l""exploitant";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+10811;"Compte de l""exploitant";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+108118;"Compte de l""exploitant";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+10812;"Compte de l""exploitant/BIC entreprise";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1083;"Compte de l""exploitant";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+11;REPORT A NOUVEAU;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+110;Report à nouveau créditeur;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+119;Report à nouveau débiteur;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+12;"RESULTAT DE L""EXERCICE";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+120;"Résultat de l""exerc.  bénéfice";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+129;"Résultat de l""exerc.  perte";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+13;"SUBVENTIONS D""INVESTISSEMENT";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+131;"Subventions d""équipement";;;;Faux;Vrai;Faux;Faux;Vrai;Faux;Faux
+139;"Subv. d""invest. inscr. au résu";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1391;Subv. équip. inscr. au résult.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+14;PROVISIONS REGLEMENTEES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+145;Amortissement dérogatoire;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+15;PROVISIONS / RISQUES & CHARGES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+151;Provision pour risques;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1518;Autres provis. pour risques;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+16;EMPRUNTS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+164;Emprunt établiss. de crédit;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1641;Emprunts fonciers;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1642;Emprunts à long et moyen terme;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1643;Emprunts à court terme;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+168;Autres emprunts et dettes;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+1688;Intérêts courus;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+17;DETTES RATTACH. / PARTICIPAT.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+18;COMPTES DE LIAISON DES ETABLIS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+20;IMMOBILISATIONS INCORPORELLES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+201;"Frais d""établissement";;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+208;Autres immos. incorporelles;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+21;IMMOBILISATIONS CORPORELLES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+211;Terrains;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+212;Agencements et aménag. terrain;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+213;"Constructions sur sol d""autrui";;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+214;Constructions sur sol propre;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+215;Matériel et outillage;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2151;Matériel de traction;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2152;Matériel vigne;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2153;Véhicules;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2154;Matériel bureau;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2155;Outillage divers;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+217;Amélioration du fonds;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+218;Autres immos. corporelles;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2182;Matériel de transport;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+22;IMMOBIL. MISES EN CONCESSION;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+23;IMMOBILISATIONS EN COURS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+231;Immobilis. corpor. en cours;;;I1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+2313;Constructions en cours;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2314;"Constr. sur sol d""aut.en cours";;;I1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+23140;"Constr. sur sol d""aut.en cours";;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+23141;Constr. sur sol propre en crs;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2315;Matériel en cours;;;I1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+234;Immos.corp.en crs (biens viv.);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2346;Plantations pérennes en cours;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+238;Avances /immos corporelles;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+24;IMMOBILISATIONS CORPORELLES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+246;Plantations pérennes;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2461;Plantatø pérennes sur sol prop;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+2462;Plantatø pérennes sur fermage;;;I1;Vrai;Faux;Faux;Faux;Vrai;Faux;Faux
+25;PARTS SUR ENTREPRISES LIEES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+26;PARTICIPATIONS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+261;Titres de participation;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+262;Participat. organismes agric.;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+266;Autres formes de participation;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+267;Créances rattach. à des partic;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+2678;Intérêts courus;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+268;Créances rattachées à des stés;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+269;Vers. à effectuer sur titres;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+27;AUTRES IMMOBIL. FINANCIERES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+271;Titres immobilisés;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+272;Titres immobilisés (créance);;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+274;Prêts;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+275;Dépôts et cautionn. versés;;;;Faux;Faux;Faux;Faux;Vrai;Faux;Faux
+28;AMORTISSEMENTS DES IMMOBIL.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+280;Amort. immobilisations incorp.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2801;Amort. frais établissement;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2808;Amort. autres immos. incorpor.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+281;Amort. immobilisat. corporel.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2811;Amort. immobilisat. corporel.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2812;Amort. agencement terrain;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2813;"Amort. const. sur sol d""autrui";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2814;Amort. construc. sol propre;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2815;Amort. matériel et outillage;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28151;Matériel de traction;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28152;Matériel vigne;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28153;Véhicules;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28154;Matériel bureau;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28155;Amort. matériel et outillage;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2817;Amort. amélioration du fonds;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2818;Amort. autres immos corporel.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28182;Matériel de transport;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+282;Amort. immos. mises en conces.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+284;Amort. immos. corp.(biens viv);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+2846;Plantations pérennes;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28461;Plantatø pérennes sur sol prop;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+28462;Plantatø pérennes sol non prop;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+29;PROVISIONS SUR IMMOBILISATIONS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+30;APPROVISIONNEMENTS & MARCHAND.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+301;Stocks approvisionnements;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3011;Stocks engrais et amendements;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3012;Stocks semences;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3013;Stocks produits défense végét.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3014;Stocks aliments du bétail;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3015;Stocks produits défense anim.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3016;Stocks produits reprod. anim.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3017;Stocks emballages;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3018;Stocks combustibles;L;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+302;Stocks autres approvisionnem.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3021;Stocks carburants et lubrif.;L;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3022;"Stocks produits d""entretien";U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3023;"Stocks fournitures d""atelier";U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3024;Stocks fournitures de bureau;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3025;Stocks autres approvisionnem.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3026;Stocks matériaux divers;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3027;Stocks autres fournitures vign;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3028;Stocks autres approvisionnem.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+31;ANIMAUX (cycle long);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+310;Stocks animaux (cycle long);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+32;ANIMAUX (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+320;Stocks animaux (cycle court);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+33;VEGETAUX EN TERRE (long);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+330;Végétaux en terre;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+331;Avances en terre (cycle long);HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3311;Engrais en terre (cycle long);QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3312;Semences en terre (cycle long);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3313;Phytos en terre (cycle long);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3314;Autres appros en terre (c.long;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3315;Façons culturales (cycle long);HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+34;VEGETAUX EN TERRE (court);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+341;Avances en terre (cycle court);HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3411;Engrais en terre (court);QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3412;Semences en terre (court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3413;Phytos en terre (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3414;Autres appros en terre (court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3415;Façons culturales (cycle court;HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3418;Autres (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+35;EN-COURS DE PRODUCTION (long);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+356;En-cours autres biens (c.l.);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+357;En-cours travaux à façon (c.l);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+358;En-cours autres services (c.l);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+36;EN-COURS DE PRODUCTION (court);;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+361;Produits végétaux (cycle court;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+362;Produits animaux (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+363;Vins (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+364;Alcools (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+365;Autres prod. transf.(cycle co);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+366;Autres biens (cycle court);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+367;Travaux à façon;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+368;Autres services;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+37;PRODUITS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+370;Produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+371;Prod. interm. végétaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+372;Prod. interm. animaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+373;Prod. interm. transformés;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+374;Produits finis végétaux;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3741;Produits finis végétaux;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+375;Produits finis animaux;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3751;Produits finis animaux;L;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+376;Prod. finis transformés;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3761;VTE VIN CAVE HEALTHEWORLD;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+37611;VTE VIN CAVE HEALTHEWORLD;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3762;CAVE MYSTÉRIEUX;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+376761;Prod. finis transformés;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+376762;Prod. finis transformés;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+378;Produits (activités annexes);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3784;Produits (activités annexes);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+37841;Produits (activités annexes);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+37842;Produits (activités annexes);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3785;Produits (activités annexes);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+3788;Produits (activités annexes);U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+39;PROVISIONS SUR STOCKS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+397;Provis. dép. produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4;TIERS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+40;FOURNISSEURS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+401;Fournisseurs;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+402;Fourn. - conv. cpte courant;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+403;Fourn. - effets à payer;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+404;"Fourn. d""immobilisations";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+408;Fourn. - fact. non parvenues;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4081;"Fourn. d""expl. -fact.non parv.";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4084;Fourn. immos. fact. non parv.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+409;Fournisseurs débiteurs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4091;Fourn. - acptes vers. s/ comm.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+41;CLIENTS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+411;Clients;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+4110;Clients;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+41100;Clients;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+411000;Clients;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+4110000;Clients ACOMPT CAVE;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+412;Clients - conv. cpte courant;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+413;Clients - effets à recevoir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+416;Clients douteux ou litigieux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+418;Clients - produits non factur.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4181;Clients - factures à établir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4188;Clients - intérêts courus;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+419;Clients créditeurs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4190;Clients créditeurs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+41900;Clients créditeurs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+419003;Clients créditeurs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4190031;AVANCES CAVE HEALTHEWORLD;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+4191;Clients - acptes  reçus /comm.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+42;PERSONNEL;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+421;Personnel - rémunérations dues;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+43;ORGANISMES SOCIAUX;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+431;Sécu;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+437;Autres organismes sociaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+438;Organ. soc. -ch.à p. & pr.à r.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4386;Organ. soci. - charges à payer;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4387;Organ. soci. - prod. à rec.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44;COLLECTIVITES PUBLIQUES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+441;Etat - subvention à recevoir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+442;Etat - impôts et taxes recouv.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+444;Etat - impôt sur le bénéfice;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+445;Etat - taxes sur le CA;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4455;TVA à décaisser;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44551;TVA à décaisser;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44552;TVA à décaisser;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44558;Taxes assimilées à la TVA;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4456;TVA déductibles;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44562;TVA sur immobilisations;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44565;TVA /achats à régulariser;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44566;TVA sur Biens et Services;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44567;Crédit de TVA à reporter;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44568;Taxes déductibles assimi. TVA;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4457;TVA collectées;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44571;TVA collectées;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+445713;TVA collectées à 5.5 %;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+445714;TVA sur ventes à 7%;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+445715;TVA sur ventes à 19.6 %;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+445718;TVA sur production immobil.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+445719;"TVA sur ventes d""immobil.";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44575;TVA /ventes à régulariser;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44578;Taxes collectées assimil. TVA;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4458;TVA à régulariser;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44581;Acompte TVA - réel simplifié;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44582;Acompte TVA - régime forfait;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44583;Rembours. de TVA demandé;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44586;TVA sur factures non parvenues;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+44587;TVA sur factures à établir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+448;Etat- ch. à pay. & prod.à rec.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4486;Etat - autres charges à payer;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4487;Etat - produits à recevoir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+45;GROUPE & ASSOCIES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+46;DEBITEURS & CREDITEURS DIVERS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+461;Caisse de péréquation;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+462;"Créances sur cession d""immos";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+467;Débiteurs créditeurs divers;;;;Faux;Faux;Vrai;Faux;Faux;Vrai;Faux
+468;Divers -Ch. à pay. /pr. à rec.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4686;Crédit. débit. charges à payer;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+47;COMPTES TRANSITOIRES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+471;"Compte d""attente";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+472;Opérations de compensation;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+475;Arrondi Euro;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+48;COMPTES DE REGULARISATION;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+481;Charg. à répart. sur plus. exe;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4811;Charges différées;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+4812;Charges différées;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+48121;Charges différées / réc 2000;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+48122;Charges différées / réc 2001;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+48123;Charges différées / réc 2002;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+486;"Charg. constatées d""avance";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+487;"Produits constatés d""avance";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+49;PROVISIONS SUR TIERS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+50;VALEURS DE PLACEMENT;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+51;ETABLISSEMENTS FINANCIERS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+512;Banques;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+5121;CRCA LAURÉOLE;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+5122;BPSO LONGUENT;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+518;Intérêts courus;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+53;CAISSE;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+54;"REGIES D""AVANCE ET ACCREDITIFS";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+58;VIREMENTS INTERNES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+580;Virements internes;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+59;PROVISIONS COMPTES FINANCIERS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60;ACHATS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+601;"Achats d""approvisionnements";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6011;Engrais et amendements;QX;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6012;Semences;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6013;Produits de défense des végét.;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6014;Aliments du bétail;QX;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6015;Produits de défense des anim.;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6016;Produits de reproduction anim.;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6017;Emballages;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6018;Combustibles;L;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+602;Achats autres approvisionnem.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6021;Carburants et lubrifiants;L;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6022;"Achat produits d""entretien";U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6023;Achat fournitures de magasin;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6024;Achat fournitures de bureau;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6025;Achat fournitures pour person.;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6026;Matériaux divers;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6027;Autres fournitures vignes;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6028;Autres matières premières;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+603;Variation de stocks;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6031;Variat. stocks mat. premières;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60311;Variat. stocks engrais;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60312;Variat. stocks semences;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60313;Variat. stocks phytos;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60314;Variat. stocks aliments;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60315;Variat. stocks produits véto;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60316;Variat. stocks reproduct. anim;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60317;Variat. stocks emballages;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60318;Variat. stocks combustibles;L;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6032;Variation stocks approvision.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60321;Variat. stocks carburants;L;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60322;Variat. stocks prod. entretien;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60323;Variat. stocks fourn. atelier;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60324;Variat. stocks fourn. de bur.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60325;Variat. stocks fourn. p/ pers.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60326;Variat. stocks matér. divers;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60327;Variat. stocks autres fournit.;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+60328;Variat. stocks mat. premières;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+604;"Achats d""animaux";U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+605;Achats de travaux et services;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6051;Achat pour prod. végétales;U;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6054;Achat pour prod. animales;U;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6058;Autres achats;U;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+606;Achats non stockés de fournit.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6061;Eau;M3;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6062;Gaz;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6063;Electricité                .;U;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6064;Carburants et lubrifiants;L;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6065;"Eau d""irrigation";M3;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6066;Fournitures entret. et équip.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6067;Fournitures pour prod. immobi.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+60670;Fourn. pour product. immobil.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+60671;Fourn. prod. immob. plantes 2004;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+60672;Fourn. prod. immob. vigne 98;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+60673;Fourn. prod. immob. vigne 2000;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+60674;Four. prod.immob.vignes 2002;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+60679;Fourn. pour BATIMENT EXPLOITAT;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6068;Autres fournitures non stock.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+608;"Frais accessoires d""achat";;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+609;R.R.R.O sur achats;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+61;SERVICES EXTERIEURS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+611;Sous traitance générale;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+612;Redevances de crédit bail;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6122;Crédit bail mobilier;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6125;Crédit bail immobilier;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+613;Locations;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6131;Fermages et loyers du foncier;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6132;Location de matériel;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6134;"Location d""animaux";;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6138;Autres locations;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+614;Charges locatives de co-prop.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+615;Entretiens et réparations;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6151;Entretien terrains;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6152;Entretien aménagement terrains;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6153;Entret. constr. s/ sol propre;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6155;Entretien matériel outillage;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6158;Maintenance;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+616;"Primes d""assurances";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6161;Assurance multirisque;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6165;"Primes d""assurances";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6167;Assurance grêle;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6168;Autres assurances;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+618;Divers;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6181;Documentation générale;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6183;Documentation technique;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6185;Frais de colloque,séminaire...;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+619;RRRO /services extérieurs;;;A1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+62;AUTRES SERVICES EXTERIEURS;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+621;"Personnel extérieur à l""entre.";;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+622;"Rémunérations d""intermédiaires";;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6225;Honoraires vétérinaires;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6226;Autres honoraires;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6228;Divers;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+62286;Divers;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+622862;Divers;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6228622;Divers;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+62286226;Divers;;;A1;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+623;Publicité,relations publiques;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6231;Annonces et insertions;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6234;Cadeaux fournisseurs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+624;Transports de biens et collect;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6241;Transports sur achats;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6242;Transports sur ventes;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6243;Transports sur chantiers;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6248;Divers;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+625;Déplacem., missions et récept.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6251;Voyages et déplacements;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6255;Frais de déménagement;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6257;Réceptions;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+626;Frais postaux et télécommunic.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+627;Services bancaires et assim.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6272;"Commissions sur émiss. d""emp.";;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6278;Autres frais bancaires;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+628;Divers;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6281;Cotisations productions végét.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6284;Cotisations productions anim.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6286;Autres cotisations profession.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6287;Frais de recrutement de perso.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6288;Autres frais services extér.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+629;R.R.R.O sur services extér.;;;A1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+63;IMPOTS ET TAXES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+631;Impôts, taxes sur rémunération;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+633;Impôts et taxes sur rémunérat.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6333;Part. form. profess. cont. org;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+634;Taxes spécifiques sur produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6341;Taxes produits végétaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6342;Taxes produits animaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6343;Taxes produits transformés;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6344;Taxes animaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6348;Taxes autres produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+635;Autres taxes et impôts;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6351;Taxe professionnelle;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+63513;Taxe professionnelle;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+63514;Taxe sur véhicule de société;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6352;Taxe foncière;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6353;Autres impôts locaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6354;Autres impôts directs;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6356;Impôts indirects;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6357;"Droit d""enregist. et de timbre";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6358;Autres droits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+637;Autres impôts et taxes organis;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6371;Contrib. sociale solidarité;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6372;Taxes organismes publics;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6378;CSG DEDUCTIBLE;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+64;CHARGES DE PERSONNEL;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+641;Rémunérations du personnel;H;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+644;Rémunération travail exploit.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+645;Charges de sécurité sociale;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6451;Cotisat. à la Sécu;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6452;Cotisat. aux mutuelles;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6453;Cotisat. aux caisses de retr.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6458;Cotisat. aux autr. organ. soc.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+646;Cotis. soc. person. exploitant;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+647;Autres charges sociales;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+648;Autres charges de personnel;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+65;AUTRES CHARGES DE GESTION;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+656;Valeurs compt. élém. actif céd;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+658;Charges div. gestion courante;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+66;CHARGES FINANCIERES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+661;"Charges d""intérêts";;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6611;Intérêts des emprunts fonciers;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6612;Intérêts des autres emprunts;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6613;Intérêts des emprunts à C.T.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6614;Intérêts des crédits de campa.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6615;Intérêts comptes courants;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6616;Intérêts bancaires;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6617;Intérêts du crédit fournisseur;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6618;Intérêts des autres dettes;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+665;Escomptes accordés;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+668;Autres charges financières;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+67;CHARGES EXCEPTIONNELLES;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+671;Charges exceptionnelles;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6712;Pénalités, amendes fiscales;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6713;Dons, libéralités;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6714;Créances dev. irréc. ds exerc.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+6715;Subventions accordées;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6718;Autres charges except./op.gest;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+672;Charges except./exercices ant.;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+675;Valeurs compt. élém. actif céd;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6751;Valeurs compt. immos. incorp.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6752;Valeurs compt. immos. corpor.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6756;Valeur compta. immos. finan.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+678;Autres charges exceptionnelles;;;A1;Vrai;Faux;Faux;Faux;Faux;Faux;Faux
+68;DOTATIONS AUX AMORT. & PROVIS.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681;Dotat. amort. immobilisations;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811;Dotat. amort. immobilisations;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68111;Dotat. amort. immos incorp.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681111;Dotat. amort. immos incorp.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681118;Dotat. amort. immos. incorp.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68112;Dotat. amort. immos corporel.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681121;Dotat. terrains;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681122;Dotat. aménagements;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681123;Dotat. constructions;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681124;Dotat. constructions;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681125;Dotat. matériel;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811251;Matériel de traction;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811252;Matériel vigne;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811253;Véhicules;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811254;Matériel bureau;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811255;Dotat. matériel;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681127;Dotat. amort. immos. corporel.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681128;Dotat. autres immobilisations;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811282;Matériel de transport;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68114;Dotat. amort. immos. corp. B.V;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681146;Plantations pérennes;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811461;Plantatø pérennes sur sol prop;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6811462;Plantatø pérennes sol non prop;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6812;Dotat. amort. char. à répartir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68121;Dotat. amort. char. à répartir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68122;Charges différées;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681221;Charges différées / réc 2000;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681222;Charges différées / réc 2001;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681223;Charges différées / réc 2002;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68126;Dotat. amort. char. à répartir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68127;Dotat. amort. char. à répartir;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6815;Dotat. pour risques et charges;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68151;Dotat. pour risques et charges;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681518;Dotat. pour risques et charges;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6816;Dotat. prov. dépréc. immos;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6817;Dotat. prov. dépréc. actif;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68173;Dotat. prov.stocks et en-cours;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+681737;Dotat. prov.stocks et en-cours;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68174;Dotat. prov. dépréc. créances;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+686;Dotat. amort. & prov. -Ch. fin;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6861;Dotat. amort. primes obligati.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6865;Dotat. prov. risques financ.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6866;Dotat. prov. dépréc. élém. fin;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68665;Dotat. prov. val. placement;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+687;Dotat. amort. & prov. -Ch Exc.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6871;Dot. amort. exception.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6872;Dotat. prov. réglement. -immos;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+68725;Amortissement dérogatoire;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6875;Dot. prov. risq. et char. exc.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+6876;Dot. prov. dépréc. exception.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+69;PARTICIP. SALARIES-IMPOT BENEF;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+70;VENTES;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+701;Vente de produits végétaux;QX;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7011;Vente de céréales;QX;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+702;Vente produits animaux;U;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7021;Vente de lait;L;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+703;Vente de produits transformés;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7031;VTE VIN CAVE  MYSTÉRIEUX;;;V4;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+70311;VTE VIN CAVE  MYSTÉRIEUX;;;V4;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7032;VTE VIN CAVE;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+703761;Vente de produits transformés;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+703762;Vente de produits transformés;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+704;"Vente d""animaux";U;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7041;"Vente d""animaux reproducteurs";U;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7042;"Vente d""animaux de renouvell.";U;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7045;Vente autres animaux;U;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+706;Prestations de services;;;V5;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7061;Pension animaux;;;V5;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+708;Produits des activités annexes;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7084;Prestations de services;H;;V5;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+70841;Prestations de services 19.6;H;;V5;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+70842;Prestations de services 5.5;H;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7085;Ports et frais access. factur.;U;;V5;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7088;"Autres produits d""activ. ann.";U;;V3;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+709;R.R.R.A.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71;"VARIATIONS D""INVENTAIRE";;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+712;Variation inventaire animaux;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713;Variation inventaire biens;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7131;Variation animaux CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71310;Variation animaux CL;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7132;Variation animaux CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71320;Variation animaux CC;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7133;Variation végétaux en terre CL;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71330;Variation végétaux en terre CL;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71331;Variation végétaux en terre CL;HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713311;Variation végétaux en terre CL;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713312;Variation végétaux en terre CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713313;Variation végétaux en terre CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713314;Variation végétaux en terre CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713315;Variation végétaux en terre CL;HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7134;Variation végétaux en terre CC;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71341;Variation végétaux en terre CC;HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713411;Variation végétaux en terre CC;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713412;Variation végétaux en terre CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713413;Variation végétaux en terre CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713414;Variation végétaux en terre CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713415;Variation végétaux en terre CC;HA;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713418;Variation végétaux en terre CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7135;Variation en cours prod. CL;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71356;Variation en cours prod. CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71357;Variation en cours prod. CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71358;Variation en cours prod. CL;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7136;Variation en cours prod. CC;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71361;Variation en cours prod. CC;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71362;Variation en cours prod. CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71363;Variation en cours prod. CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71364;Variation en cours prod. CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71365;Variation en cours prod. CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71366;Variation en cours prod. CC;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71367;Variation en cours prod. CC;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71368;Variation en cours prod. CC;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7137;Variation produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71373;Variation produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71374;Variation produits;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713741;Variation produits;QX;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71375;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713751;Variation produits;L;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71376;Variation produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713761;VTE VIN CAVE MYSTÉRIEUX;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7137611;VTE VIN CAVE MYSTÉRIEUX;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713762;VTE VIN CAVE;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71376761;Variation produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71376762;Variation produits;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+71378;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713784;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7137841;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7137842;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713785;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+713788;Variation produits;U;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+72;PROD. IMMOBILISEE & AUTO-CONSO;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+721;Production immos incorporelles;;;V4;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+722;Production immos corporelles;;;V4;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+724;Product. immob. biens vivants;;;V4;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+726;Production autoconsommée;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+73;PRODUITS NETS PARTIELS;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+731;Prod. nets part. opér.en cours;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+739;Prod. nets part. opér. termin.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+74;INDEMNITES ET SUBVENTIONS;;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+742;"Indemnités d""assurances";;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+743;Indemnités calamités agricoles;;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+744;"Autres indemnités d""exploit.";;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+745;"Subventions d""exploitation";;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+7451;Subventions aux produits;;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+7452;Subventions aux structures;;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+7453;Subventions au revenu;;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+7458;"Autres subventions d""exploit.";;;N1;Vrai;Vrai;Faux;Faux;Faux;Faux;Faux
+75;AUTRES PRODUITS DE GESTION;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+754;Ristournes perçues des coop.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+756;"Produits de ces. élém. d""actif";;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+758;Produits divers de gestion;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+76;PRODUITS FINANCIERS;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+761;Produits de participations;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7611;Produits des titres particip.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7612;Produits de part. organis. agr;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+762;Produits autres immos financ.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+763;Revenus autres créances;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7638;Revenus créances diverses;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+765;Escomptes obtenus;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+768;Autres produits financiers;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+77;PRODUITS EXCEPTIONNELS;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+771;Prod. excep. sur opérat. gest.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+772;Prod. excep. /exerc. antérieur;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+775;"Produit cess. éléments d""actif";;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7751;Produit cession immos. incorp.;;;V9;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7752;Produit cession immos. corpor.;;;V9;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+777;Quote-part subvention invest.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7771;Quote-part subvention invest.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+778;Autres produits exceptionnels;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+78;REPRISES AMORT. & PROVIS.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+781;Reprise amort et provisions;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7811;Reprise /amort. immobilisat.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78111;Reprise /amort. immos incorp.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78112;Reprise /amort. immos corpor.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7815;Reprise prov. ris. & ch. expl.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78151;Reprise prov. ris. & ch. expl.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+781518;Reprise prov. ris. & ch. expl.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7816;Reprise prov. dépréc. immos.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7817;Reprise prov. dépréc. stocks;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78173;Reprise prov. dépréc. stocks;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+781737;Reprise prov. dépréc. stocks;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78174;Reprise prov. dépréc. stocks;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+786;Reprise prov. - prod. finan.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7865;Reprise prov. risq. & ch. fin.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7866;Reprise prov. dépr. immos fin.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78665;Reprise prov. dépr. val. mob.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+787;Reprise prov. - prod. except.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7872;Reprise prov. réglem. immobil.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+78725;Amortissement dérogatoire;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7875;Reprise prov. ris. & ch. exc.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+7876;Reprise prov. dépréc. except.;;;;Faux;Faux;Faux;Faux;Faux;Faux;Faux
+79;TRANSFERTS DE CHARGES;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+791;Transferts de charges exploit.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7911;Transferts de charges exploit.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7912;Charges différées;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+79121;Charges différées / réc 2000;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+79122;Charges différées / réc 2001;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+79123;Charges différées / réc 2002;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7916;Transferts de charges exploit.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux
+7917;Transferts de charges exploit.;;;;Faux;Vrai;Faux;Faux;Faux;Faux;Faux

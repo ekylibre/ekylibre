@@ -5,7 +5,7 @@ Vous avez la possibilité de **rechercher** vos décaissements par le **montant*
 
 ===== Ajout/modification de décaissement =====
 Vous pouvez spécifier une date de décaissement future. 
-Dans ce cas, vous aurait une alerte sur le tableau de bord une fois le jour venu. 
+Dans ce cas, vous aurez une alerte sur le tableau de bord une fois le jour venu. 
 
 !!! Dans le cas d'un **futur règlement**, il est important de préciser que le règlement n'a **pas encore été émis** pour que la comptabilité soit en ordre.
 

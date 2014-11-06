@@ -2,11 +2,10 @@ class Backend::Cells::EventsCellsController < Backend::CellsController
 
   def show
     mode = (params[:mode] || :all).to_s.gsub('_', '-')
-    @events = Event.without_restrictions_for(current_user)
-    @events = @events.with_participant(current_user) if mode =~ /\bmy\b/
+    @events = (mode =~ /\bmy\b/ ? Event.with_participant(current_user.person) : Event.without_restrictions_for(current_user.person))
     now = Time.now
     if mode =~ /\bfuture\b/
-      @events = @events.after(now).reorder(started_at: :desc)
+      @events = @events.after(now).reorder(started_at: :asc)
     elsif mode =~ /\blast\b/
       @events = @events.before(now).reorder(started_at: :desc)
     end

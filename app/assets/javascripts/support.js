@@ -358,7 +358,7 @@ function toCurrency(value) {
 
     // Calculate result base on markup
     $.calculate = function () {
-        var element = $(this), calculation = element.data("calculate"), use = element.data("use"), result = null, closest = element.data("use-closest");
+        var element = $(this), calculation = element.data("calculate"), use = element.data("use"), result = null, closest = element.data("use-closest"), round = parseInt(element.data("calculate-round"));
         if (use === null || use === undefined) {
             return element.numericalValue();
         }
@@ -378,10 +378,17 @@ function toCurrency(value) {
                 result = result + $.calculate.call(this);
             });
         }
+        //*
+        if (!(isNaN(round))) {
+			result = parseFloat(result.toFixed(round));
+		}
+		//*/
+
         if (element.numericalValue() !== result) {
             element.numericalValue(result);
             element.trigger("emulated:change");
         }
+
         return result;
     };
 

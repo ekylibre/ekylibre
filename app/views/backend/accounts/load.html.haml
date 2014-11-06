@@ -1,13 +1,13 @@
-=form_tag({}, class: "flex") do
-  =field_set do
-    =field(tl(:accounts_to_load), select_tag("chart", options_for_select(Account.charts.collect{|c| [Account.chart_name(c), c]}.sort)))
+= form_tag({}, class: "flex") do
+  = field_set do
+    = field(tl(:accounts_to_load), select_tag("chart", options_for_select(Account.charts.collect{|c| [Account.chart_name(c), c.to_s]}.sort, Account.chart.to_s)))
 
     -# for setting in [:unset_reconcilable_old_third_accounts, :set_reconcilable_new_but_existing_third_accounts]
-      =field tl(setting), check_box_tag(setting, "1", params[setting])
+      = field tl(setting), check_box_tag(setting, "1", params[setting])
 
     -# preferences = Preference.where("name LIKE ?", "%_accounts").order("name")
     -# if preferences.count > 0
       -for preference in
-        =field t("preferences."+preference.name), {:datatype => preference.nature.to_sym, :model => preference.model, :value => preference.value, :name => "preference[#{preference.name}][value]"}
-  =form_actions do
-    =submit_tag tl(:load)
+        = field t("preferences."+preference.name), {:datatype => preference.nature.to_sym, :model => preference.model, :value => preference.value, :name => "preference[#{preference.name}][value]"}
+  = form_actions do
+    = submit_tag :load.tl, class: 'primary'

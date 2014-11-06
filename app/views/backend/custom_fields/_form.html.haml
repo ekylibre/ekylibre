@@ -1,9 +1,10 @@
 = field_set do
-  = f.input :customized_type, collection: Ekylibre::Schema.model_names.collect{|m| ["activerecord.models.#{m.to_s.underscore}".t, m]}.sort{|a,b| a[0] <=> b[0]}
+  = f.input :customized_type, collection: resource.class.enumerized_attributes[:customized_type].values.collect{|m| [Ekylibre::Record.human_name(m.to_s.underscore), m]}.sort{|a,b| a[0] <=> b[0]}
   = f.input :name
   = f.input :nature, :show => {:decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
   = f.input :active
   = f.input :required
+  = f.custom_fields
 
 = field_set(:string_options) do
   = f.input :minimal_length

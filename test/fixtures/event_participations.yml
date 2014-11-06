@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: event_participations
@@ -43,12 +43,90 @@
 #
 ---
 event_participations_001:
-  creator: users_001
-  event: events_001
-  participant: legal_entities_001
-  updater: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  event_id: 1
+  id: 1
+  lock_version: 0
+  participant_id: 6
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 event_participations_002:
-  creator: users_001
-  event: events_002
-  participant: legal_entities_002
-  updater: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  event_id: 2
+  id: 2
+  lock_version: 0
+  participant_id: 7
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+event_participations_003:
+  created_at: 2014-10-31 18:45:44.742755000 Z
+  creator_id: 1
+  event_id: 4
+  id: 3
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-10-31 18:45:44.742755000 Z
+  updater_id: 1
+event_participations_004:
+  created_at: 2014-10-31 18:45:44.743768000 Z
+  creator_id: 1
+  event_id: 4
+  id: 4
+  lock_version: 0
+  participant_id: 11
+  state: refused
+  updated_at: 2014-10-31 18:45:44.743768000 Z
+  updater_id: 1
+event_participations_005:
+  created_at: 2014-10-31 18:45:44.744576000 Z
+  creator_id: 1
+  event_id: 4
+  id: 5
+  lock_version: 0
+  participant_id: 10
+  state: informative
+  updated_at: 2014-10-31 18:45:44.744576000 Z
+  updater_id: 1
+event_participations_006:
+  created_at: 2014-10-31 18:51:27.912153000 Z
+  creator_id: 1
+  event_id: 5
+  id: 6
+  lock_version: 0
+  participant_id: 8
+  state: informative
+  updated_at: 2014-10-31 18:51:27.912153000 Z
+  updater_id: 1
+event_participations_007:
+  created_at: 2014-10-31 18:51:27.913016000 Z
+  creator_id: 1
+  event_id: 5
+  id: 7
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-10-31 18:51:27.913016000 Z
+  updater_id: 1
+event_participations_008:
+  created_at: 2014-11-04 18:31:09.303861000 Z
+  creator_id: 1
+  event_id: 13
+  id: 13
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-04 18:31:09.303861000 Z
+  updater_id: 1
+event_participations_009:
+  created_at: 2014-11-04 18:41:39.751358000 Z
+  creator_id: 1
+  event_id: 14
+  id: 14
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2014-11-04 18:41:39.751358000 Z
+  updater_id: 1

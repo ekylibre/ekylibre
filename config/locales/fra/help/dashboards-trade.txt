@@ -1,7 +1,7 @@
 ====== Gestion commerciale ======
 
 ===== Pour commencer =====
-Il est bon d'avoir au préalable enregistré ses clients et fournisseurs grâce au module **Relations**. De plus le **paramétrage** est la première étape de votre gestion commerciale.
+Il est bon d'avoir au préalable enregistré ses clients et fournisseurs grâce au module [[>backend/dashboards#relationship|**Relations**]]. De plus le **paramétrage** est la première étape de votre gestion commerciale.
 
 ===== Comment gérer ses achats et ses ventes~? =====
   * La gestion commerciale fait le lien avec les relations clients/fournisseurs en vous permettant de choisir, lors d'achats ou de ventes, les clients ou les fournisseurs que vous avez préalablement enregistrés par le biais des fiches.

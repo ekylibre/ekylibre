@@ -9,16 +9,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: issues
@@ -47,7 +47,7 @@ class Issue < Ekylibre::Record::Base
   include Versionable
   enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
   has_many :interventions
-  belongs_to :target , :polymorphic => true
+  belongs_to :target , polymorphic: true
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -60,6 +60,7 @@ class Issue < Ekylibre::Record::Base
   }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :observed_at, :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
   validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
@@ -105,11 +106,14 @@ class Issue < Ekylibre::Record::Base
 
   end
 
-  # before_validation do
-  #   if self.can_treat?
-  #     self.treat
-  #   end
-  # end
+  before_validation do
+    if self.target
+      self.target_type = self.target.class.name
+    end
+    if self.nature
+      self.name = (self.target ? tc(:name_with_target, nature: self.nature.l, target: target.name) : tc(:name_without_target, nature: self.nature.l))
+    end
+  end
 
   protect(on: :destroy) do
     self.has_intervention?

@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   - t.edit @product_group
-  - t.destroy(@product_group, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product_group.destroyable?
+  - t.destroy(@product_group, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if @product_group.destroyable?
 
 = beehive do |b|
   - b.cell :details do

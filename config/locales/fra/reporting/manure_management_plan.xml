@@ -168,7 +168,7 @@
 			<variableExpression><![CDATA[$F{intervention_nitrogen_input_per_hectare}]]></variableExpression>
 			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
-		<variable name="provisionnal_balance" class="java.lang.Double">
+		<variable name="provisional_balance" class="java.lang.Double">
 			<variableExpression><![CDATA[($P{nitrogen_input_prev} == null ? new Double(0.0) : $P{nitrogen_input_prev}.doubleValue())  - ( ($V{n_animal} == null ? new Double(0.0) : $V{n_animal}.doubleValue()) + ($V{n_intervention} == null ? new Double(0.0) : $V{n_intervention}.doubleValue()) )]]></variableExpression>
 			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
@@ -571,12 +571,12 @@
 							<jr:columnFooter height="57" rowSpan="1">
 								<ellipse>
 									<reportElement x="5" y="35" width="15" height="15" backcolor="#65A907" uuid="51fd0ed7-d68f-4315-8633-fd668205c8d0">
-										<printWhenExpression><![CDATA[$V{provisionnal_balance} >= 0.0]]></printWhenExpression>
+										<printWhenExpression><![CDATA[$V{provisional_balance} >= 0.0]]></printWhenExpression>
 									</reportElement>
 								</ellipse>
 								<ellipse>
 									<reportElement x="5" y="35" width="15" height="15" backcolor="#F17900" uuid="a75677b8-e671-44a5-8a71-16f034a5abeb">
-										<printWhenExpression><![CDATA[$V{provisionnal_balance} < 0.0]]></printWhenExpression>
+										<printWhenExpression><![CDATA[$V{provisional_balance} < 0.0]]></printWhenExpression>
 									</reportElement>
 								</ellipse>
 							</jr:columnFooter>
@@ -587,7 +587,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement style="strong" x="0" y="27" width="53" height="30" uuid="23af3dc0-5a88-4390-b353-d0d531aee86f"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{provisionnal_balance}]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$V{provisional_balance}]]></textFieldExpression>
 								</textField>
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement x="0" y="0" width="53" height="27" uuid="c937104f-e4ab-4cfc-b6ac-d2a6058079f1"/>

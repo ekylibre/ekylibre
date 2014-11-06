@@ -70,8 +70,8 @@ Ekylibre::Application.configure do
   # Configure exception notification
   config.middleware.use ExceptionNotification::Rack, {
     :email => {
-      :email_prefix => "[Ekylibre] ",
-      :sender_address => %{"Ekylibre Exception Notifier" <notifier@ekylibre.org>},
+      :email_prefix => "[Exception] ",
+      :sender_address => %{"Ekylibre ERP" <notifications@ekylibre.org>},
       :exception_recipients => %w{dev@ekylibre.org}
     }
   }

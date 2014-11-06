@@ -199,6 +199,12 @@
             telepac_crop_code="PT"
             variant_support="temporary_meadow_crop"
             />
+      <item name="five_years_temporary_meadow"
+            production_code="3400"
+            activity="meadow"
+            telepac_crop_code="PX"
+            variant_support="temporary_meadow_crop"
+              />
       <item name="permanent_meadow"
             production_code="3800"
             activity="meadow"
@@ -229,6 +235,18 @@
             telepac_crop_code="GF"
             variant_support="annual_fallow_crop"
             />
+      <item name="green_fallow_land"
+            production_code="3900"
+            activity="fallow_land"
+            telepac_crop_code="GV"
+            variant_support="annual_fallow_crop"
+              />
+      <item name="specific_fallow_land"
+            production_code="3900"
+            activity="fallow_land"
+            telepac_crop_code="GS"
+            variant_support="annual_fallow_crop"
+              />
       <!-- 4 - GARDENER CROP -->
       <item name="garlic"
             production_code="4000"
@@ -266,6 +284,12 @@
             telepac_crop_code="MX"
             variant_support="market_gardening_crop"
             />
+      <item name="other_gardening"
+            production_code="4999"
+            activity="market_garden_crops"
+            telepac_crop_code="FP"
+            variant_support="market_gardening_crop"
+              />
       <item name="market_gardening_under_greenhouse"
             production_code="4999"
             activity="market_garden_crops"
@@ -312,15 +336,27 @@
       <item name="walnut"
             production_code="5750"
             activity="orchard_crops"
-            telepac_crop_code="NC"
+            telepac_crop_code="NX"
             variant_support="walnut_crop"
             />
+      <item name="marketable_walnut"
+            production_code="5750"
+            activity="orchard_crops"
+            telepac_crop_code="NC"
+            variant_support="walnut_crop"
+              />
       <item name="hazel"
             production_code="5760"
             activity="orchard_crops"
             telepac_crop_code="NS"
             variant_support="hazel_crop"
             />
+      <item name="marketable_hazel"
+            production_code="5760"
+            activity="orchard_crops"
+            telepac_crop_code="NO"
+            variant_support="hazel_crop"
+              />
       <!-- 6 - VINE CROP AND WINE -->
       <item name="vine"
             production_code="6000"
@@ -367,6 +403,16 @@
             activity="cattle_farming"
             variant_support="calf"
             />
+      <item name="goat"
+            production_code="8900"
+            activity="cattle_farming"
+            variant_support="female_adult_goat"
+              />
+      <item name="pig"
+            production_code="8600"
+            activity="cattle_farming"
+            variant_support="female_adult_pig"
+              />
       <!-- 9 - OTHER ANIMALS -->
       <item name="laying_hen"
             production_code="9020"

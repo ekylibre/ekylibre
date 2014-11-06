@@ -2,12 +2,12 @@
   - t.export :purchase, resource
   - t.edit resource if resource.draft?
   - if resource.can_confirm?
-    - t.confirm resource, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
+    - t.confirm resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_confirm.tl
   - if resource.can_invoice?
-    - t.invoice resource, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+    - t.invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
   - for event in [:propose, :correct, :refuse]
-    - t.send(event, resource, method: :post, "data-confirm" => tc(:are_you_sure)) if resource.send("can_#{event}?")
-  - t.abort(resource, method: :post, "data-confirm" => tc(:are_you_sure)) if resource.can_abort?
+    - t.send(event, resource, method: :post, "data-confirm" => :are_you_sure.tl) if resource.send("can_#{event}?")
+  - t.abort(resource, method: :post, "data-confirm" => :are_you_sure.tl) if resource.can_abort?
 
 = beehive do |b|
 
@@ -27,7 +27,7 @@
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :journal_entry, url: true
 
-  - b.cell Purchase.human_attribute_name("items") do
+  - b.cell Purchase.human_attribute_name(:items) do
     = list :items do
       %tr.total
         %th{:colspan => 5}
@@ -35,8 +35,8 @@
         %td= resource.amount.l(currency: resource.currency)
         %th{:colspan => 3}
 
-  - b.cell tc(:affair) do
+  - b.cell :affair do
     = affair_of(resource)
 
-  - b.cell Purchase.human_attribute_name("deliveries") do
+  - b.cell Purchase.human_attribute_name(:deliveries) do
     = list :deliveries

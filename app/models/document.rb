@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: documents
@@ -50,17 +50,25 @@ class Document < Ekylibre::Record::Base
   acts_as_numbered
 
   # Create an archive with the given data
-  def archive(data, format, options = {})
-    tmp_dir = Rails.root.join('tmp', 'archiving')
-    FileUtils.mkdir_p(tmp_dir)
-    path = tmp_dir.join("#{self.id}.#{format}")
-    File.open(path, "wb:#{data.encoding}") do |f|
-      f.write data
+  def archive(data_or_path, format, options = {})
+    record = nil
+    if data_or_path.is_a?(Pathname)
+      File.open(data_or_path, 'rb') do |f|
+        record = self.archives.create!(file: f, template_id: options[:template_id])
+      end
+    else
+      tmp_dir = Rails.root.join('tmp', 'archiving')
+      FileUtils.mkdir_p(tmp_dir)
+      path = tmp_dir.join("#{self.id}.#{format}")
+      File.open(path, "wb:#{data_or_path.encoding}") do |f|
+        f.write data_or_path
+      end
+      File.open(path, 'rb') do |f|
+        record = self.archives.create!(file: f, template_id: options[:template_id])
+      end
+      FileUtils.rm_f(path)
     end
-    File.open(path, 'rb') do |f|
-      self.archives.create!(file: f, template_id: options[:template_id])
-    end
-    FileUtils.rm_f(path)
+    return record
   end
 
   # Returns the matching unique document for the given nature and key

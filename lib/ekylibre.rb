@@ -6,7 +6,9 @@ module Ekylibre
   autoload :Modules,           'ekylibre/modules'
   autoload :Record,            'ekylibre/record'
   autoload :Reporting,         'ekylibre/reporting'
+  autoload :Plugin,            'ekylibre/plugin'
   autoload :Schema,            'ekylibre/schema'
+  autoload :Snippet,           'ekylibre/snippet'
   autoload :Support,           'ekylibre/support'
   autoload :Tenant,            'ekylibre/tenant'
   autoload :VERSION,           'ekylibre/version'
@@ -41,7 +43,7 @@ module Ekylibre
         for file in Dir[locales_dir.join("**", "*.txt")].sort
           path = Pathname.new(file).relative_path_from(locales_dir)
           File.open(file, 'rb:UTF-8') do |f|
-            help = {:title => f.read[/^======\s*(.*)\s*======$/, 1].strip, :name => path.to_s.gsub(/\.txt$/, ''), :file => file}
+            help = {title: f.read[/^======\s*(.*)\s*======$/, 1].strip, name: path.to_s.gsub(/\.txt$/, ''), file: file}
             unless help[:title].blank?
               @helps[locale][path.to_s.gsub(/\.txt$/, '')] = help
             end

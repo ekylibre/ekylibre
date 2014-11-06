@@ -3,7 +3,7 @@
     - e.incoming_delivery_sheet @incoming_delivery.number, @incoming_delivery
   -# t.new(params: {controller: :issues, :target_id => @animal.id, :target_type => @animal.class.name})
   - t.edit @incoming_delivery
-  - t.destroy(@incoming_delivery, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @incoming_delivery.destroyable?
+  - t.destroy(@incoming_delivery, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if @incoming_delivery.destroyable?
 
 = beehive do |b|
   - b.hbox do

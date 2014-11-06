@@ -1,54 +1,68 @@
 - main_toolbar do |t|
-  - t.edit @bank_statement
-= attributes_list do |l|
-  - l.attribute(:number)
-  - l.attribute(:started_at)
-  - l.attribute(:stopped_at)
+  - t.edit resource
 
-%h2= tc(:entries_to_point)
 = form_tag do
-  .active-list
-    %table.list
-      %thead
-        %tr
-          %th
-          %th= JournalEntry.human_attribute_name("number")
-          %th= JournalEntry.human_attribute_name("printed_on")
-          %th= JournalEntryItem.human_attribute_name("name")
-          %th= JournalEntryItem.human_attribute_name("debit")
-          %th= JournalEntryItem.human_attribute_name("credit")
-      %tfoot
-        %tr.total
-          %th{:colspan => 4}= tg(:total)
-          %td#total-debit{"data-use" => "tr.notice .debit"}= @bank_statement.debit || 0
-          %td#total-credit{"data-use" => "tr.notice .credit"}= @bank_statement.credit || 0
-        - if previous = @bank_statement.previous
+
+  = field_set :details do
+    = attributes_list stamps: false do |l|
+      - l.attribute(:number)
+      - l.attribute(:started_at)
+      - l.attribute(:stopped_at)
+
+  = field_set :entries_to_point do
+    .active-list
+      %table.list
+
+        %thead
+          %tr
+            %th
+            %th= JournalEntry.human_attribute_name(:printed_on)
+            %th= JournalEntryItem.human_attribute_name(:name)
+            %th= JournalEntryItem.human_attribute_name(:debit)
+            %th= JournalEntryItem.human_attribute_name(:credit)
+            %th= JournalEntry.human_attribute_name(:number)
+
+
+        - precision = Nomen::Currencies[resource.currency].precision
+        %tfoot
           %tr.total
-            %th{:colspan => 4}= tc(:previous_bank_statement, :number => previous.number, :started_at => previous.started_at, :stopped_at => previous.stopped_at)
-            %td#previous-debit= previous.balance_debit || 0
-            %td#previous-credit= previous.balance_credit || 0
-          %tr.total
-            %th{:colspan => 4}= tc(:cumul, :number => previous.number, :started_at => previous.started_at, :stopped_at => previous.stopped_at)
-            %td#cumul-debit{"data-use" => "#total-debit, #previous-debit"}= previous.balance_debit || 0
-            %td#cumul-credit{"data-use" => "#total-credit, #previous-credit"}= previous.balance_credit || 0
-          %tr.total
-            %th{:colspan => 4}= tc(:balance)
-            %td#balance-debit{"data-balance" => "#cumul-debit - #cumul-credit"}= previous.balance_debit || 0
-            %td#balance-credit{"data-balance" => "#cumul-credit - #cumul-debit"}= previous.balance_credit || 0
-      %tbody
-        - for @journal_entry_item in @journal_entry_items
-          - checked = (@journal_entry_item.bank_statement_id==@bank_statement.id)
-          - trid, conf = "e#{@journal_entry_item.id}", {}
-          %tr{id: trid, class: (checked ? "notice " : "")+cycle("even", "odd")}
-            %td.chk
-              - if @journal_entry_item.bank_statement_id.nil? or checked
-                = check_box_tag("journal_entry_item[#{@journal_entry_item.id}][checked]", "1", checked, id: "journal_entry_item_#{@journal_entry_item.id}_checked", "data-add-class" => "notice", "data-add-class-to" => "##{trid}")
-                - conf = {"data-click" => "#journal_entry_item_#{@journal_entry_item.id}_checked"}
-              - else
-                = link_to(@journal_entry_item.bank_statement.number, action: :show, id: @journal_entry_item.bank_statement.id)
-            %td{conf}= link_to(@journal_entry_item.entry.number, action: :show, controller: :journal_entries, id: @journal_entry_item.entry_id)
-            %td.date{conf}= I18n.localize(@journal_entry_item.entry.printed_on)
-            %td{conf}= @journal_entry_item.name
-            %td.dec.debit{conf}= number_to_accountancy(@journal_entry_item.debit)
-            %td.dec.credit{conf}= number_to_accountancy(@journal_entry_item.credit)
-  .actions= submit_tag(tg(:save))
+            %th{colspan: 3}= :total.tl
+            %td#total-debit{data:  {use: "tr.selected .debit", calculate_round: precision}}=  resource.debit  || 0
+            %td#total-credit{data: {use: "tr.selected .credit", calculate_round: precision}}= resource.credit || 0
+            %th
+          - if previous = resource.previous
+            %tr.total
+              %th{colspan: 3}= :previous_bank_statement.tl(number: previous.number, started_at: previous.started_at, stopped_at: previous.stopped_at)
+              %td#previous-debit=  previous.balance_debit  || 0
+              %td#previous-credit= previous.balance_credit || 0
+              %th
+            %tr.total
+              %th{colspan: 3}= :cumul.tl(number: previous.number, started_at: previous.started_at, stopped_at: previous.stopped_at)
+              %td#cumul-debit{data:  {use: "#total-debit, #previous-debit", calculate_round: precision}}=   previous.balance_debit  || 0
+              %td#cumul-credit{data: {use: "#total-credit, #previous-credit", calculate_round: precision}}= previous.balance_credit || 0
+              %th
+            %tr.total
+              %th{colspan: 3}= :balance.tl
+              %td#balance-debit{data:  {balance: "#cumul-debit - #cumul-credit", calculate_round: precision}}= previous.balance_debit  || 0
+              %td#balance-credit{data: {balance: "#cumul-credit - #cumul-debit", calculate_round: precision}}= previous.balance_credit || 0
+              %th
+
+        %tbody
+          - for item in @journal_entry_items
+            - checked = (item.bank_statement_id == resource.id)
+            - trid, conf = "e#{item.id}", {}
+            %tr{id: trid, class: (checked ? "selected " : "") + cycle("even", "odd")}
+              %td.chk
+                - if item.bank_statement_id.nil? or checked
+                  = check_box_tag("journal_entry_items[#{item.id}][checked]", "1", checked, id: "#{trid}-checked", data: {add_class: "selected", add_class_to: "##{trid}"})
+                  - conf = {data: {click: "##{trid}-checked"}}
+                - else
+                  = link_to(item.bank_statement.number, action: :show, id: item.bank_statement.id)
+              %td.date{conf}= item.entry.printed_on.l
+              %td{conf}= item.name
+              %td.dec.debit{conf}=  number_to_accountancy(item.debit)
+              %td.dec.credit{conf}= number_to_accountancy(item.credit)
+              %td= link_to(item.entry.number, action: :show, controller: :journal_entries, id: item.entry_id)
+
+  = form_actions do
+    = submit_tag :save.tl

@@ -4,61 +4,62 @@
   - k.crit :accounts_range
   - k.criterion do
     - centralized = Preference.order("id").where("name LIKE ? ", "third_%_accounts").collect{ |p| p.value.to_s }.join(" ")
-    %label= tc(:centralize)
+    %label= :centralize.tl
     = text_field_tag("centralize", params[:centralize]||centralized, :size => 30)
   - k.criterion do
     - max = Account.maximum("LENGTH(TRIM(number))").to_i
-    %label= tc(:subtotals_at_level)
+    %label= :subtotals_at_level.tl
     - for level in 1..max-1
       - name = "level_#{level}"
       = check_box_tag(name, "1", params[name]=="1")
       %label{:for => name}= level
 
 - if @balance
+  - currency = Preference[:currency]
   .active-list
     %table.list
       %thead
         %tr
-          %th{:rowspan => 2}= tc(:account_number)
-          %th{:rowspan => 2}= tc(:account_name)
-          %th{:colspan => 2}= tc(:total)
-          %th{:colspan => 2}= tc(:balance)
+          %th{rowspan: 2}= :account_number.tl
+          %th{rowspan: 2}= :account_name.tl
+          %th{colspan: 2}= :total.tl
+          %th{colspan: 2}= :balance.tl
         %tr
-          %th= JournalEntry.human_attribute_name("debit")
-          %th= JournalEntry.human_attribute_name("credit")
-          %th= JournalEntry.human_attribute_name("debit")
-          %th= JournalEntry.human_attribute_name("credit")
+          %th= JournalEntry.human_attribute_name(:debit)
+          %th= JournalEntry.human_attribute_name(:credit)
+          %th= JournalEntry.human_attribute_name(:debit)
+          %th= JournalEntry.human_attribute_name(:credit)
       - for item in @balance
         - d = item[0].size-1
         - if item[1].to_i > 0
           - account = Account.find(item[1])
           %tr{class: cycle(:odd, :even)}
             %td.code= link_to(account.number, action: :show, controller: :accounts, id: account.id)
-            %td=link_to(account.name, action: :show, controller: :accounts, id: account.id)
-            %td.dec=number_to_accountancy(item[2])
-            %td.dec=number_to_accountancy(item[3])
-            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
-            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
-        -elsif item[1].to_i == -1
+            %td= link_to(account.name, action: :show, controller: :accounts, id: account.id)
+            %td.dec= number_to_accountancy(item[2], currency)
+            %td.dec= number_to_accountancy(item[3], currency)
+            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+        - elsif item[1].to_i == -1
           %tr.total
-            %th{:colspan => 2}=tg(:total)
-            %td.dec=number_to_accountancy(item[2])
-            %td.dec=number_to_accountancy(item[3])
-            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
-            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
-        -elsif item[1].to_i == -2
+            %th{colspan: 2}= :total.tl
+            %td.dec= number_to_accountancy(item[2], currency)
+            %td.dec= number_to_accountancy(item[3], currency)
+            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+        - elsif item[1].to_i == -2
           %tr.subtotal
-            %td{:colspan => 2, :style => "padding-left: #{d*8+4}px"}=tc(:subtotal, :name => item[0])
-            %td.dec=number_to_accountancy(item[2])
-            %td.dec=number_to_accountancy(item[3])
-            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
-            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
-        -elsif item[1].to_i == -3
+            %td{colspan: 2, style: "padding-left: #{d*8+4}px"}= :subtotal.tl(name: item[0])
+            %td.dec= number_to_accountancy(item[2], currency)
+            %td.dec= number_to_accountancy(item[3], currency)
+            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
+        - elsif item[1].to_i == -3
           %tr.centralize{class: cycle(:odd, :even)}
-            %td=item[0]
-            %td=tc(:centralized_account, :name => item[0])
-            %td.dec=number_to_accountancy(item[2])
-            %td.dec=number_to_accountancy(item[3])
-            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
-            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
+            %td= item[0]
+            %td= :centralized_account.tl(name: item[0])
+            %td.dec= number_to_accountancy(item[2], currency)
+            %td.dec= number_to_accountancy(item[3], currency)
+            %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0
+            %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
 .end

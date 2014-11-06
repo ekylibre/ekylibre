@@ -3,7 +3,7 @@ Ekylibre::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: "authentication", :module => :authentication
+  devise_for :users, path: "authentication", module: :authentication
 
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
@@ -243,7 +243,11 @@ Ekylibre::Application.routes.draw do
 
     resources :cash_transfers, concerns: [:list, :unroll]
 
-    resources :catalog_prices, concerns: [:list, :unroll]
+    resources :catalog_prices, concerns: [:list, :unroll] do
+      member do
+        post :stop
+      end
+    end
 
     resources :catalogs, concerns: [:list, :unroll] do
       member do
@@ -578,6 +582,7 @@ Ekylibre::Application.routes.draw do
       member do
         get :list_products
         get :list_product_natures
+        get :list_taxations
       end
     end
 
@@ -587,6 +592,7 @@ Ekylibre::Application.routes.draw do
       member do
         get :list_products
         get :list_prices
+        get :last_purchase_item
       end
     end
 
@@ -634,7 +640,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :roles, concerns: [:incorporate, :list, :unroll]
+    resources :roles, concerns: [:incorporate, :list, :unroll] do
+      member do
+        get :list_users
+      end
+    end
 
     resources :sale_items, concerns: [:list, :unroll] do
       collection do
@@ -647,7 +657,6 @@ Ekylibre::Application.routes.draw do
     resources :sales, concerns: [:list, :unroll] do
       resources :items, only: [:new, :create], controller: :sale_items
       collection do
-        get :statistics
         get :contacts
       end
       member do
@@ -699,7 +708,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :synchronizations
+    resources :synchronizations do
+      member do
+        post :run
+      end
+    end
 
     resources :taxes, concerns: [:list, :unroll]
 

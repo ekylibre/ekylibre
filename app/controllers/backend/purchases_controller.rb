@@ -4,21 +4,21 @@
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
 class Backend::PurchasesController < BackendController
-  manage_restfully :planned_at => "Date.today+2".c, :redirect_to => '{action: :show, id: "id"}'.c
+  manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id"}'.c, except: :new
 
   unroll
 
@@ -83,29 +83,23 @@ class Backend::PurchasesController < BackendController
     return unless @purchase = find_and_check
     respond_to do |format|
       format.html do
-        # session[:current_purchase_id] = @purchase.id
-        if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
-          state  = @purchase.state
-          params[:step] = (@purchase.invoice? ? :summary : @purchase.order? ? :deliveries : :products).to_s
-          # redirect_to action: :show, id: @purchase.id,  step: (["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
-          # return
-        end
-        if params[:step] == "deliveries"
-          if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
-            redirect_to action: :new, controller: :incoming_deliveries, purchase_id: @purchase.id
-          elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
-            notify(:purchase_already_invoiced)
-          elsif @purchase.items.size <= 0
-            notify_warning(:no_items_found)
-            redirect_to action: :show, id: @purchase.id
-          end
-        end
-        t3e @purchase.attributes, :supplier => @purchase.supplier.full_name, :state => @purchase.state_label
+        t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label
       end
       format.xml { render :xml => @purchase.to_xml }
       format.pdf { render_print_purchase(@purchase) }
     end
   end
+
+  def new
+    unless nature = PurchaseNature.find_by(id: params[:nature_id]) || PurchaseNature.by_default
+      notify_error :need_a_valid_purchase_nature_to_start_new_purchase
+      redirect_to action: :index
+      return
+    end
+    @purchase = Purchase.new(nature: nature)
+    @purchase.currency = @purchase.nature.currency
+  end
+
 
   def abort
     return unless @purchase = find_and_check

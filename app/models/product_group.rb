@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: products
@@ -67,8 +67,8 @@
 class ProductGroup < Product
   enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: {prefix: true}
   belongs_to :parent, class_name: "ProductGroup"
-  has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id
-  has_many :members, :through => :memberships
+  has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id, dependent: :destroy
+  has_many :members, through: :memberships
 
   scope :groups_of, lambda { |member, viewed_at|
     where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, "interior", viewed_at, viewed_at, viewed_at)

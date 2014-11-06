@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: journal_entry_items
@@ -59,7 +59,7 @@
 #   * (credit|debit|balance) are in currency of the journal
 #   * real_(credit|debit|balance) are in currency of the financial year
 #   * absolute_(credit|debit|balance) are in currency of the company
-#   * cumulated_absolute_(credit|debit)are in currency of the company too
+#   * cumulated_absolute_(credit|debit) are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
@@ -68,9 +68,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
   belongs_to :bank_statement
   has_many :distributions, class_name: "AnalyticDistribution", foreign_key: :journal_entry_item_id
-  # delegate :real_currency, to: :entry
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_date :printed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :letter, allow_nil: true, maximum: 10
@@ -81,6 +81,8 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}
+
+  delegate :balanced?, to: :entry, prefix: true
 
   acts_as_list :scope => :entry
 
@@ -118,10 +120,16 @@ class JournalEntryItem < Ekylibre::Record::Base
       end
     end
 
-    self.absolute_currency ||= self.currency
+    self.absolute_currency = Preference[:currency]
     if self.absolute_currency == self.currency
+      self.absolute_debit = self.debit
+      self.absolute_credit = self.credit
+    elsif self.absolute_currency == self.real_currency
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
+    else
+      # FIXME We need to do something better when currencies don't match
+      raise "You create an entry where the absolute currency (#{self.absolute_currency.inspect}) is not the real (#{self.real_currency.inspect}) or current one (#{self.currency.inspect})"
     end
     self.cumulated_absolute_debit  = self.absolute_debit
     self.cumulated_absolute_credit = self.absolute_credit
@@ -157,7 +165,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Prints human name of current state
   def state_label
-    ::I18n.t('models.journal_entry.states.'+self.state.to_s)
+    JournalEntry.tc("states.#{self.state}")
   end
 
   # Updates the amounts to the debit and the credit
@@ -184,6 +192,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Returns the previous item
   def previous
+    return nil unless self.account
     if self.new_record?
       self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
     else
@@ -194,6 +203,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   # Returns following items
   def followings
+    return self.class.none unless self.account
     if self.new_record?
       self.account.journal_entry_items.where("printed_on > ?", self.printed_on)
     else
@@ -207,14 +217,14 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
 
-#   # this method allows to lock the entry_item.
-#   def close
-#     self.update_column(:closed, true)
-#   end
+  #   # this method allows to lock the entry_item.
+  #   def close
+  #     self.update_column(:closed, true)
+  #   end
 
-#   def reopen
-#     self.update_column(:closed, false)
-#   end
+  #   def reopen
+  #     self.update_column(:closed, false)
+  #   end
 
   # Check if the current letter is balanced with all entry items with the same letter
   def balanced_letter?
@@ -222,10 +232,10 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.account.balanced_letter?(letter)
   end
 
-  #this method allows to fix a display color if the entry_item is in draft mode.
+  # this method allows to fix a display color if the entry_item is in draft mode.
   def mode
-    mode=""
-    mode+="warning" if self.draft?
+    mode = ""
+    mode += "warning" if self.draft?
     mode
   end
 
@@ -234,7 +244,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     if self.entry
       return self.entry.resource_type
     else
-      'rien'
+      :none.tl
     end
   end
 
@@ -243,7 +253,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     if self.entry
       return self.entry.journal.name
     else
-      'rien'
+      :none.tl
     end
   end
 

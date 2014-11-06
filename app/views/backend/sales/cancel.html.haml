@@ -14,4 +14,4 @@
     = field Sale.human_attribute_name(:responsible), selector(:sale, :responsible, {action: :unroll, :scope => :employees, controller: :people})
     = list :creditable_items
   = form_actions do
-    = submit_tag(tc('validate'))
+    = submit_tag :validate.tl

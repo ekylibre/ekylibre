@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: sequences
@@ -43,11 +43,7 @@
 
 class Sequence < Ekylibre::Record::Base
   enumerize :period, in: [:cweek, :month, :number, :year]
-  # TODO: Adds all usage for sequence? or register_usage like Account ?
-  enumerize :usage, in: [:affairs, :animals, :campaigns, :cash_transfers, :deposits, :entities, :financial_assets, :gaps, :incoming_deliveries, :incoming_payments, :interventions, :outgoing_deliveries, :outgoing_payments, :plants, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]
-  # cattr_reader :usages
-
-  REPLACE_REGEXP = Regexp.new('\[(' + self.period.values.join('|') + ')(\|(\d+)(\|([^\]]*))?)?\]').freeze
+  enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deposits, :documents, :entities, :financial_assets, :gaps, :incoming_deliveries, :incoming_payments, :interventions, :outgoing_deliveries, :outgoing_payments, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions, :transports]
 
   has_many :preferences, :as => :record_value
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -60,7 +56,7 @@ class Sequence < Ekylibre::Record::Base
   validates_uniqueness_of :number_format
   validates_uniqueness_of :usage, if: :used?
 
-  scope :of_usage, lambda { |usage| where(:usage => usage.to_s).order(:id) }
+  scope :of_usage, lambda { |usage| where(usage: usage.to_s).order(:id) }
 
   before_validation do
     self.period ||= 'number'
@@ -70,32 +66,45 @@ class Sequence < Ekylibre::Record::Base
     self.preferences.any?
   end
 
-  def self.of(usage)
-    self.of_usage(usage).first
-  end
+  class << self
 
-  def self.best_period_for(format)
-    keys = []
-    format.match(REPLACE_REGEXP) do |m|
-      key, size, pattern = $1, $3, $5
-      keys << key.to_sym
-    end
-    keys.delete(:number)
-    # Because period size correspond to alphabetical order
-    # We use thaht to find the littlest period
-    return keys.sort.first
-  end
-
-  def self.load_defaults
-    for usage in self.usage.values
-      unless sequence = self.find_by_usage(usage)
+    def of(usage)
+      unless sequence = self.find_by(usage: usage)
         sequence = self.new(usage: usage)
-        sequence.name = sequence.usage.text
-        sequence.number_format = "models.sequence.default.#{usage}".t(default: sequence.usage.to_s.split(/\_/).map{|w| w[0..0]}.join.upcase + "[number|12]")
+        sequence.name = sequence.usage.to_s.classify.constantize.model_name.human rescue sequence.usage
+        sequence.number_format = tc("default.#{usage}", default: sequence.usage.to_s.split(/\_/).map{|w| w[0..0]}.join.upcase + "[number|12]")
+        while find_by(number_format: sequence.number_format)
+          sequence.number_format = ("A".."Z").to_a.sample + sequence.number_format
+        end
         sequence.period = best_period_for(sequence.number_format)
-        sequence.save
+        sequence.save!
+      end
+      return sequence
+    end
+
+    def best_period_for(format)
+      keys = []
+      format.match(replace_regexp) do |m|
+        key, size, pattern = $1, $3, $5
+        keys << key.to_sym
+      end
+      keys.delete(:number)
+      # Because period size correspond to alphabetical order
+      # We use thaht to find the littlest period
+      return keys.sort.first
+    end
+
+    # Load defaults sequences
+    def load_defaults
+      self.usage.values.each do |usage|
+        of(usage)
       end
     end
+
+    def replace_regexp
+      @replace_regexp ||= Regexp.new('\[(' + self.period.values.join('|') + ')(\|(\d+)(\|([^\]]*))?)?\]').freeze
+    end
+
   end
 
   def used?
@@ -105,7 +114,7 @@ class Sequence < Ekylibre::Record::Base
   def compute(number=nil)
     number ||= self.last_number
     today = Date.today
-    self['number_format'].gsub(REPLACE_REGEXP) do |m|
+    self['number_format'].gsub(self.class.replace_regexp) do |m|
       key, size, pattern = $1, $3, $5
       string = (key == 'number' ? number : today.send(key)).to_s
       size.nil? ? string : string.rjust(size.to_i, pattern||'0')

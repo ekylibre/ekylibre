@@ -5,6 +5,11 @@ eng:
         auxiliary: "Auxiliary"
         main: "Main"
         none: "None"
+    analytic_distribution:
+      state:
+        closed: "Closed"
+        confirmed: "Confirmed"
+        draft: "Draft"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"
@@ -86,21 +91,29 @@ eng:
         number: "No periodicity"
         year: "Year"
       usage:
+        affairs: "Numeration of affairs"
+        analyses: "Numeration of analyses"
         animals: "Numeration of animals"
         campaigns: "Numeration of campaigns"
         cash_transfers: "Numeration of cash transfers"
         deposits: "Numeration of deposits"
+        documents: "Numeration of documents"
         entities: "Numeration of people"
         financial_assets: "Numeration of financial assets"
+        gaps: "Numeration of gaps"
         incoming_deliveries: "Numeration of incoming deliveries"
         incoming_payments: "Numeration of payments"
+        interventions: "Numeration of interventions"
         outgoing_deliveries: "Numeration of outgoing deliveries"
         outgoing_payments: "Numeration of payments"
         plants: "Numeration of plants"
+        product_nature_categories: "Numeration of product nature categories"
+        product_nature_variants: "Numeration of product nature variants"
+        product_natures: "Numeration of product natures"
+        products: "Numeration of products"
         purchases: "Numeration of purchases"
         sales: "Numeration of sales"
         sales_invoices: "Numeration of sales invoices"
-        stock_transfers: "Numeration of stock transfers"
         subscriptions: "Numeration of subscriptions"
         transports: "Numeration of transports"
     subscription_nature:

@@ -1,6 +1,8 @@
-=field_set do
-  =f.input :name
-  =f.input :root_model, :source => :root_models
-  =f.input :conditions, :field => :text
-  =f.input :description, :field => :text
-  =render 'nodes_form'
+= field_set do
+  = f.input :name
+  = f.input :root_model, :source => :root_models
+  = f.input :conditions, :field => :text
+  = f.input :description, :field => :text
+  = f.custom_fields
+  = render 'nodes_form'
+

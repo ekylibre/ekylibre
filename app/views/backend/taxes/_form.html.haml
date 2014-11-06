@@ -6,3 +6,4 @@
   = f.referenced_association :deduction_account, :source => {scope: {of_usage: :deductible_vat}}, :new => {:number => Account.find_or_create_in_chart(:deductible_vat).number}
   = f.input :included
   = f.input :reductible
+  = f.custom_fields

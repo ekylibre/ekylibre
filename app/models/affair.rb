@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: affairs
@@ -66,6 +66,7 @@ class Affair < Ekylibre::Record::Base
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :accounted_at, :closed_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :originator_type, allow_nil: true, maximum: 255
@@ -77,6 +78,9 @@ class Affair < Ekylibre::Record::Base
   acts_as_numbered
 
   before_validation do
+    if self.originator
+      self.originator_type = self.originator.class.name
+    end
     deals = self.deals
     self.debit, self.credit, self.deals_count = 0, 0, deals.count
     for deal in deals

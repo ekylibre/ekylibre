@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: analysis_items
@@ -56,21 +56,30 @@
 #   indicator_name: "Lorem ipsum"
 #   updater: users_001
 #
-
+---
 analysis_items_001:
-  analysis: analyses_001
-  creator: users_001
-  indicator_datatype: "measure"
-  indicator_name: "nitrogen_concentration"
-  measure_value_unit: "percent"
-  measure_value_value: "33.33"
-  updater: users_001
-
+  analysis_id: 1
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  indicator_datatype: measure
+  indicator_name: nitrogen_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 33.33
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 analysis_items_002:
-  analysis: analyses_001
-  creator: users_001
-  indicator_datatype: "measure"
-  indicator_name: "nitrogen_concentration"
-  measure_value_unit: "percent"
-  measure_value_value: "33.33"
-  updater: users_001
+  analysis_id: 1
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  indicator_datatype: measure
+  indicator_name: nitrogen_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 33.33
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

@@ -329,7 +329,7 @@ html.backend {
 }
 
 
-html.authentication {
+html.authentication, html.exception {
   background: #F7F7F7;
   @include background(radial-gradient(top, #FFF, #F7F7F7, #C2C2C2));
   height: 100%;
@@ -403,6 +403,23 @@ html.authentication {
   }
 }
 
+html.exception {
+  background: #F7F7F7;
+  @include background(radial-gradient(top, #F7F7F7, $invalid-color));
+  h1, h2, h3 {
+    font-weight: bold;
+  }
+  #header {
+    background: $invalid-color;
+    @include background(linear-gradient(top, lighten($invalid-color, $default-lightness-variation), $invalid-color, darken($invalid-color, $default-lightness-variation)));
+    padding: 2em;
+    h1 {
+      color: #F7F7F7;
+      font-size: $fs-huge;
+    }
+  }
+}
+
 .help-toolbar {
   @include toolbar();
   @include float(right);
@@ -440,6 +457,9 @@ div[data-deck] > div#default {
 #about-us {
   .logo {
     margin: 20px auto;
+    img {
+      width: 100%;
+    }
   }
   dl {
     display: block;
@@ -904,20 +924,20 @@ form.search {
     text-shadow: 1px 1px 0 rgba(#000, 0.3);
   }
   .icon {
-    font-size: $fs-normal;
-    line-height: round(1.4*$fs-normal);
-    @include is-icon($fs-normal + 2px);
+    @include is-icon($lh-normal);
     display: inline;
     vertical-align: middle;
     @include margin-right($default-gap);
-    @include float(left);
   }
   .message {
     display: inline;
+    &, * {
+      vertical-align: middle;
+    }
     h3 {
       display: none;
       font-size: $fs-normal;
-      line-height: round(1.4*$fs-normal);
+      line-height: $lh-normal;
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
       padding: 0 0 $gap;
@@ -926,11 +946,11 @@ form.search {
     p {
       display: inline;
       font-size: $fs-normal;
-      line-height: round(1.4*$fs-normal);
+      line-height: $lh-normal;
       font-weight: bold;
     }
     ul {
-      padding: round($fs-normal/4);
+      padding: round($fs-normal * 0.25);
       @include padding-left(round(1.2*$fs-normal));
       li { list-style-type: square; }
     }
@@ -1026,7 +1046,7 @@ form.search {
   }
   .fieldset-fields {
     // border-top: $fieldset-border;
-    border-top: 2px solid $active-color;
+    border-top: (2 * $menu-border-width) solid $active-color;
     margin: 0 $default-gap $vertical-gap;
     padding: 0;
 
@@ -1251,9 +1271,8 @@ $form-actions-height: 48px;
 
 
 
-
-
 .ui-dialog {
+  z-index: 10;
   .ui-dialog-content {
     & > form {
       margin: 0;
@@ -1274,8 +1293,10 @@ $form-actions-height: 48px;
 .kujaku {
   $color: #580;
   $background-color: #CE8;
+  $color: $text-color;
+  $background-color: lighten($active-color, 20%);
   color: $color;
-  margin: 0;
+  margin: 0 0 $default-gap;
   padding: $default-gap;
   background: $background-color; // mix(white, #CE0, 80%);
   @include clearfix;
@@ -1283,7 +1304,7 @@ $form-actions-height: 48px;
   .crits {
     padding: 0;
     .crit {
-      border-top: $menu-border-width solid darken($background-color, 20%);
+      border-top: (2 * $menu-border-width) solid darken($background-color, 5%);
       // padding: round($fs-normal/6) round($fs-normal/4);
       padding: round($default-gap * 0.6) 0 0;
       margin-top: round($default-gap * 0.6);
@@ -1366,15 +1387,16 @@ $form-actions-height: 48px;
       @include is-icon;
       @include use-icon(times);
       color: $text-color;
-      @include opacity(0.3);
-      margin-top: 3px;
+      background: transparent;
+      @include opacity(0.6);
       height: 16px;
       width: 16px;
-      span.ui-icon {
+      padding: 2px;
+      .ui-icon, .ui-button-text {
         display: none;
       }
       &:focus, &:active, &:hover {
-        @include opacity(0.5);
+        @include opacity(0.8);
       }
     }
   }
@@ -2233,6 +2255,12 @@ svg.map {
   }
 }
 
+*[data-click] {
+  &, * {
+    cursor: pointer;
+  }
+}
+
 .lights {
   $light-size: 2 * round($fs-normal * 0.35);
   $light-darken: 6%;
@@ -2374,5 +2402,13 @@ svg.map {
   opacity: 0.6;
   &:hover {
     opacity: 1;
+  }
+}
+
+#items-form {
+  #total {
+    a {
+      @include float(left);
+    }
   }
 }

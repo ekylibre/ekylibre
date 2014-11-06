@@ -1,5 +1,3 @@
 ====== Paramétres de l'application ======
 
 Vous avez ici la possibilité de modifier toutes les options générales de l'application.
-
-Le lien **Charger les séquences manquantes** vous permet de générer automatiquement les séquences que vous ne possédez pas ou plus et de les **associer au bon paramètre de configuration** de votre société.

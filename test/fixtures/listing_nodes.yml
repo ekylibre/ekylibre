@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: listing_nodes
@@ -63,58 +63,83 @@
 #
 ---
 listing_nodes_001:
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  depth: 0
   exportable: true
-  key: <%='k'+rand.to_s[2..-1]+'d'%>
+  id: 1
+  key: k7808663264735959d
   label: Entities
-  listing: listings_001
+  listing_id: 1
+  lock_version: 0
   name: entity
   nature: root
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 listing_nodes_002:
   attribute_name: first_name
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  depth: 0
   exportable: true
-  key: <%='k'+rand.to_s[2..-1]+'d'%>
+  id: 2
+  key: k557222636710691d
   label: First name
-  listing: listings_001
+  listing_id: 1
+  lock_version: 0
   name: entity.first_name
   nature: column
-  parent: listing_nodes_001
+  parent_id: 1
   sql_type: string
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 listing_nodes_003:
   attribute_name: addresses
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  depth: 0
   exportable: true
-  key: <%='k'+rand.to_s[2..-1]+'d'%>
+  id: 3
+  key: k3049773318823211d
   label: Addresses
-  listing: listings_001
+  listing_id: 1
+  lock_version: 0
   name: address_0
   nature: has_many
-  parent: listing_nodes_001
-  updater: users_001
+  parent_id: 1
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 listing_nodes_004:
   attribute_name: coordinate
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  depth: 0
   exportable: true
-  key: <%='k'+rand.to_s[2..-1]+'d'%>
+  id: 4
+  key: k4171358212843227d
   label: Coordinate
-  listing: listings_001
+  listing_id: 1
+  lock_version: 0
   name: address_0.coordinate
   nature: column
-  parent: listing_nodes_003
+  parent_id: 3
   sql_type: string
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 listing_nodes_005:
   attribute_name: canal
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  depth: 0
   exportable: true
-  key: <%='k'+rand.to_s[2..-1]+'d'%>
+  id: 5
+  key: k9380294020455736d
   label: Canal
-  listing: listings_001
+  listing_id: 1
+  lock_version: 0
   name: address_0.canal
   nature: column
-  parent: listing_nodes_003
+  parent_id: 3
   sql_type: string
-  updater: users_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

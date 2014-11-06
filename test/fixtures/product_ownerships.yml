@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: product_ownerships
@@ -48,14 +48,342 @@
 #
 ---
 product_ownerships_001:
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
   nature: own
-  owner: legal_entities_001
-  product: products_001
-  updater: users_001
+  owner_id: 6
+  product_id: 65
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 product_ownerships_002:
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
   nature: own
-  owner: legal_entities_001
-  product: products_002
-  updater: users_001
+  owner_id: 6
+  product_id: 66
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_ownerships_003:
+  created_at: 2014-10-31 20:12:30.917322000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  nature: unknown
+  product_id: 13
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:12:30.917322000 Z
+  updater_id: 1
+product_ownerships_004:
+  created_at: 2014-10-31 20:15:14.796213000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  nature: unknown
+  product_id: 14
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:15:14.796213000 Z
+  updater_id: 1
+product_ownerships_005:
+  created_at: 2014-10-31 20:18:12.235340000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  nature: unknown
+  product_id: 19
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:18:12.235340000 Z
+  updater_id: 1
+product_ownerships_006:
+  created_at: 2014-10-31 20:23:26.779274000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  nature: unknown
+  product_id: 20
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:26.779274000 Z
+  updater_id: 1
+product_ownerships_007:
+  created_at: 2014-10-31 20:23:37.042059000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  nature: unknown
+  product_id: 53
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:23:37.042059000 Z
+  updater_id: 1
+product_ownerships_008:
+  created_at: 2014-10-31 20:25:41.466962000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  nature: unknown
+  product_id: 21
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-10-31 20:25:41.466962000 Z
+  updater_id: 1
+product_ownerships_009:
+  created_at: 2014-11-01 16:00:08.109822000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  nature: unknown
+  product_id: 54
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.109822000 Z
+  updater_id: 1
+product_ownerships_010:
+  created_at: 2014-11-01 16:00:08.350621000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  nature: unknown
+  product_id: 55
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:00:08.350621000 Z
+  updater_id: 1
+product_ownerships_011:
+  created_at: 2014-11-01 16:01:24.174480000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 0
+  nature: unknown
+  product_id: 56
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 16:01:24.174480000 Z
+  updater_id: 1
+product_ownerships_012:
+  created_at: 2014-11-01 19:29:58.189055000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  nature: unknown
+  product_id: 5
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 19:29:58.189055000 Z
+  updater_id: 1
+product_ownerships_013:
+  created_at: 2014-11-01 19:35:50.390284000 Z
+  creator_id: 1
+  id: 13
+  lock_version: 0
+  nature: unknown
+  product_id: 6
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 19:35:50.390284000 Z
+  updater_id: 1
+product_ownerships_014:
+  created_at: 2014-11-01 20:19:35.383374000 Z
+  creator_id: 1
+  id: 14
+  lock_version: 0
+  nature: unknown
+  product_id: 57
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:19:35.383374000 Z
+  updater_id: 1
+product_ownerships_015:
+  created_at: 2014-11-01 20:23:55.099381000 Z
+  creator_id: 1
+  id: 15
+  lock_version: 0
+  nature: unknown
+  product_id: 58
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.099381000 Z
+  updater_id: 1
+product_ownerships_016:
+  created_at: 2014-11-01 20:23:55.258045000 Z
+  creator_id: 1
+  id: 16
+  lock_version: 0
+  nature: unknown
+  product_id: 59
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:23:55.258045000 Z
+  updater_id: 1
+product_ownerships_017:
+  created_at: 2014-11-01 20:30:35.543589000 Z
+  creator_id: 1
+  id: 17
+  lock_version: 0
+  nature: unknown
+  product_id: 79
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-01 20:30:35.543589000 Z
+  updater_id: 1
+product_ownerships_018:
+  created_at: 2014-11-02 18:22:30.560437000 Z
+  creator_id: 1
+  id: 18
+  lock_version: 0
+  nature: unknown
+  product_id: 29
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:22:30.560437000 Z
+  updater_id: 1
+product_ownerships_019:
+  created_at: 2014-11-02 18:23:23.669242000 Z
+  creator_id: 1
+  id: 19
+  lock_version: 0
+  nature: unknown
+  product_id: 30
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:23:23.669242000 Z
+  updater_id: 1
+product_ownerships_020:
+  created_at: 2014-11-02 18:29:41.487256000 Z
+  creator_id: 1
+  id: 20
+  lock_version: 0
+  nature: unknown
+  product_id: 31
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:29:41.487256000 Z
+  updater_id: 1
+product_ownerships_021:
+  created_at: 2014-11-02 18:33:01.569080000 Z
+  creator_id: 1
+  id: 21
+  lock_version: 0
+  nature: unknown
+  product_id: 25
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:33:01.569080000 Z
+  updater_id: 1
+product_ownerships_022:
+  created_at: 2014-11-02 18:37:22.405291000 Z
+  creator_id: 1
+  id: 22
+  lock_version: 0
+  nature: unknown
+  product_id: 32
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:37:22.405291000 Z
+  updater_id: 1
+product_ownerships_023:
+  created_at: 2014-11-02 18:38:47.097454000 Z
+  creator_id: 1
+  id: 23
+  lock_version: 0
+  nature: unknown
+  product_id: 60
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.097454000 Z
+  updater_id: 1
+product_ownerships_024:
+  created_at: 2014-11-02 18:38:47.169959000 Z
+  creator_id: 1
+  id: 24
+  lock_version: 0
+  nature: unknown
+  product_id: 64
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-02 18:38:47.169959000 Z
+  updater_id: 1
+product_ownerships_025:
+  created_at: 2014-11-04 15:29:49.242969000 Z
+  creator_id: 1
+  id: 25
+  lock_version: 0
+  nature: unknown
+  product_id: 22
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 15:29:49.242969000 Z
+  updater_id: 1
+product_ownerships_026:
+  created_at: 2014-11-04 17:12:23.340880000 Z
+  creator_id: 1
+  id: 26
+  lock_version: 0
+  nature: unknown
+  product_id: 80
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:12:23.340880000 Z
+  updater_id: 1
+product_ownerships_027:
+  created_at: 2014-11-04 17:15:04.616151000 Z
+  creator_id: 1
+  id: 27
+  lock_version: 0
+  nature: unknown
+  product_id: 81
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:15:04.616151000 Z
+  updater_id: 1
+product_ownerships_028:
+  created_at: 2014-11-04 17:17:04.681414000 Z
+  creator_id: 1
+  id: 28
+  lock_version: 0
+  nature: unknown
+  product_id: 82
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:17:04.681414000 Z
+  updater_id: 1
+product_ownerships_029:
+  created_at: 2014-11-04 17:19:31.143203000 Z
+  creator_id: 1
+  id: 29
+  lock_version: 0
+  nature: unknown
+  product_id: 83
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:19:31.143203000 Z
+  updater_id: 1
+product_ownerships_030:
+  created_at: 2014-11-04 17:22:31.682439000 Z
+  creator_id: 1
+  id: 30
+  lock_version: 0
+  nature: unknown
+  product_id: 84
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:22:31.682439000 Z
+  updater_id: 1
+product_ownerships_031:
+  created_at: 2014-11-04 17:28:40.079850000 Z
+  creator_id: 1
+  id: 31
+  lock_version: 0
+  nature: unknown
+  product_id: 85
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:28:40.079850000 Z
+  updater_id: 1
+product_ownerships_032:
+  created_at: 2014-11-04 17:32:45.826052000 Z
+  creator_id: 1
+  id: 32
+  lock_version: 0
+  nature: unknown
+  product_id: 86
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 17:32:45.826052000 Z
+  updater_id: 1
+product_ownerships_033:
+  created_at: 2014-11-04 18:39:58.341635000 Z
+  creator_id: 1
+  id: 33
+  lock_version: 0
+  nature: unknown
+  product_id: 87
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:39:58.341635000 Z
+  updater_id: 1
+product_ownerships_034:
+  created_at: 2014-11-04 18:41:16.433638000 Z
+  creator_id: 1
+  id: 34
+  lock_version: 0
+  nature: unknown
+  product_id: 88
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-04 18:41:16.433638000 Z
+  updater_id: 1

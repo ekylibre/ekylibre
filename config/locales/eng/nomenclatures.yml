@@ -502,7 +502,6 @@ eng:
       items:
         fr_pcg82: "French PCG 1982"
         fr_pcga: "French PCGA"
-        ifrs: "IFRS"
     chemical_elements:
       name: "Chemical elements"
       property_natures:
@@ -1083,9 +1082,9 @@ eng:
         TZS: "Tanzanian Shilling"
         UAH: "Hryvnia"
         UGX: "Uganda Shilling"
-        USD: "United States dollar"
-        USN: "US Dollar (Next day)"
-        USS: "US Dollar (Same day)"
+        USD: "United States Dollar"
+        USN: "United States Dollar (Next day)"
+        USS: "United States Dollar (Same day)"
         UYI: "Uruguay Peso en Unidades Indexadas (URUIURUI)"
         UYU: "Peso Uruguayo"
         UZS: "Uzbekistan Sum"
@@ -1237,7 +1236,6 @@ eng:
         accounts: "Accounts"
         activities: "Activities"
         affairs: "Affairs"
-        aggregators: "Aggregators"
         analyses: "Analyses"
         analytic_distributions: "Analytic distributions"
         animal_foods: "Animal foods"
@@ -1263,13 +1261,16 @@ eng:
         equipments: "Equipments"
         establishments: "Establishments"
         events: "Events"
+        exports: "Exports"
         financial_assets: "Financial assets"
         financial_years: "Financial years"
         fungi: "Fungi"
         gaps: "Gaps"
+        georeadings: "Georeadings"
         guide_analyses: "Guide analyses"
         guides: "Guides"
         identifiers: "Identifiers"
+        imports: "Imports"
         incoming_deliveries: "Incoming deliveries"
         incoming_payment_modes: "Incoming payment modes"
         incoming_payments: "Incoming payments"
@@ -1315,7 +1316,6 @@ eng:
         taxes: "Taxes"
         teams: "Teams"
         trackings: "Trackings"
-        transfers: "Transfers"
         transformed_products: "Transformed products"
         transports: "Transports"
         users: "Users"
@@ -1389,23 +1389,25 @@ eng:
       name: "Exchange types"
       items:
         agro_systemes_soil_analyses: "AGRO Systèmes soil analyses"
-        # bordeaux_sciences_agro_istea_general_ledger: "Bordeaux sciences agro istea general ledger"
-        # bordeaux_sciences_agro_istea_journals: "Bordeaux sciences agro istea journals"
+        bordeaux_sciences_agro_istea_general_ledger: "Bordeaux sciences agro istea general ledger"
+        bordeaux_sciences_agro_istea_journals: "Bordeaux sciences agro istea journals"
         bovins_croissance_cattle_performance_controls: "Bovins Croissance cattle performance controls"
         charentes_alliance_water_analyses: "Charentes Alliance water analyses"
         ebp_edi: "EBP EDI"
-        # ekylibre_erp_cultivable_zones: "Ekylibre erp cultivable zones"
-        # ekylibre_erp_entities: "Ekylibre erp entities"
-        # ekylibre_erp_georeadings: "Ekylibre erp georeadings"
-        # ekylibre_erp_land_parcels: "Ekylibre erp land parcels"
-        # ekylibre_erp_plants: "Ekylibre erp plants"
-        # ekylibre_erp_settings: "Ekylibre erp settings"
-        # ekylibre_erp_visuals: "Ekylibre erp visuals"
+        ekylibre_erp_cultivable_zones: "Ekylibre ERP Cultivable zones"
+        ekylibre_erp_entities: "Ekylibre ERP Entities"
+        ekylibre_erp_georeadings: "Ekylibre ERP Georeadings"
+        ekylibre_erp_land_parcels: "Ekylibre ERP Land parcels"
+        ekylibre_erp_plants: "Ekylibre ERP Plants"
+        ekylibre_erp_settings: "Ekylibre ERP Settings"
+        ekylibre_erp_visuals: "Ekylibre ERP Visuals"
         galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
-        # isagri_isacompta_export: "Isagri isacompta export"
+        isagri_isacompta_export: "Isagri isacompta export"
+        # legrain_epicea_accounts: "Legrain epicea accounts"
+        # legrain_epicea_general_ledger: "Legrain epicea general ledger"
         lilco_milk_analyses: "Lilco milk analyses"
-        # telepac_cap_land_parcels: "Telepac cap land parcels"
-        # telepac_land_parcels: "Telepac land parcels"
+        telepac_cap_land_parcels: "Telepac cap land parcels"
+        telepac_land_parcels: "Telepac land parcels"
     figures:
       name: "Figures"
       items:
@@ -1911,26 +1913,29 @@ eng:
       items:
         addition: "Addition"                               #< transformation
         administrative_task: "Administrative task"
+        animal_care: "Animal care"
         animal_curative_medicine_admission: "Animal curative medicine admission" #< animal_illness_treatment
         animal_fecondation: "Animal fecondation"
-        animal_feeding: "Animal feeding"
         animal_group_changing: "Animal group changing"
-        animal_health: "Animal health"
-        animal_housing_cleaning: "Animal housing cleaning" #< animal_health
-        animal_housing_treatment: "Animal housing treatment" #< animal_health
-        animal_illness_treatment: "Animal illness treatment" #< animal_health
+        animal_housing_cleaning: "Animal housing cleaning" #< animal_care
+        animal_housing_treatment: "Animal housing treatment" #< animal_care
+        animal_illness_treatment: "Animal illness treatment" #< animal_care
         animal_moving: "Animal moving"
+        animal_nutrition: "Animal nutrition"
         animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
         blending: "Blending"                               #< transformation
         bottling: "Bottling"                               #< transformation
+        chemical_weed_killing: "Chemical weed killing"     #< weed_killing
         consummables_addition: "Consummables addition"     #< maintenance_task
+        coupling: "Coupling"
         cultipacking: "Cultipacking"                       #< tillage
-        cultivation_protection: "Cultivation protection"
         cutting: "Cutting"
+        egg_production: "Egg production"                   #< animal_production
         fermentation: "Fermentation"                       #< transformation
+        filling: "Filling"
         filtration: "Filtration"                           #< transformation
-        food_supply: "Food supply"                         #< animal_feeding
+        food_supply: "Food supply"                         #< animal_nutrition
         grain_transport: "Grain transport"                 #< transport
         grains_harvest: "Grains harvest"                   #< harvest
         grape_harvest: "Grape harvest"                     #< harvest
@@ -1945,16 +1950,17 @@ eng:
         maintenance_task: "Maintenance task"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
+        moving: "Moving"
         nuts_harvest: "Nuts harvest"                       #< harvest
         oviparous_birth: "Oviparous birth"
-        pasturing: "Pasturing"                             #< animal_feeding
+        pasturing: "Pasturing"                             #< animal_nutrition
+        physical_weed_killing: "Physical weed killing"     #< weed_killing
         piece_replacement: "Piece replacement"             #< maintenance_task
-        plant_chemical_weed: "Plant chemical weed"         #< cultivation_protection
+        plant_care: "Plant care"
         plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
-        plant_illness_treatment: "Plant illness treatment" #< cultivation_protection
+        plant_illness_treatment: "Plant illness treatment" #< plant_care
         plant_irrigation: "Plant irrigation"               #< plant_nutrition
         plant_nutrition: "Plant nutrition"
-        plant_physical_weed: "Plant physical weed"         #< cultivation_protection
         plowing: "Plowing"                                 #< tillage
         pressing: "Pressing"                               #< transformation
         pruning: "Pruning"
@@ -1964,11 +1970,13 @@ eng:
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"
         sowing: "Sowing"                                   #< implantation
+        thermal_weed_killing: "Thermal weed killing"       #< weed_killing
         tillage: "Tillage"
         transfer: "Transfer"                               #< transformation
         transformation: "Transformation"
         transport: "Transport"
         viviparous_birth: "Viviparous birth"
+        weed_killing: "Weed killing"
     procedure_roles:
       name: "Procedure roles"
       items:
@@ -2037,10 +2045,12 @@ eng:
         cattle_herd: "Cattle herd"
         crop: "Crop"
         cultivable_zone: "Cultivable zone"
+        egg: "Egg"
         electricity: "Electricity"
         equipment: "Equipment"
         equipment_rent: "Equipment rent"
         female_adult_cow: "Female adult cow"
+        female_adult_pig: "Female adult pig"
         female_young_cow: "Female young cow"
         fertilizer: "Fertilizer"
         fish_band: "Fish band"
@@ -2054,12 +2064,14 @@ eng:
         land_parcel: "Land parcel"
         land_parcel_cluster: "Land parcel cluster"
         male_adult_cow: "Male adult cow"
+        male_adult_pig: "Male adult pig"
         male_young_cow: "Male young cow"
         milk: "Milk"
         natural_water: "Natural water"
         oenological_product: "Oenological product"
         other_consumable: "Other consumable"
         oyster_band: "Oyster band"
+        pig_band: "Pig band"
         plant: "Plant"
         plant_medicine: "Plant medicine"
         running_water: "Running water"
@@ -2107,6 +2119,7 @@ eng:
           dose: "Dose"
           equipment: "Equipment"
           gram: "Gram"
+          group: "Group"
           head: "Head"
           hectare: "Hectare"
           hectoliter: "Hectoliter"
@@ -2120,6 +2133,7 @@ eng:
           round_bale: "Round bale"
           small_rectangular_bale: "Small rectangular bale"
           square_meter: "Square meter"
+          subject: "Subject"
           ton: "Ton"
           unit: "Unit"
       items:
@@ -2184,6 +2198,7 @@ eng:
         chainsaw: "Chainsaw"
         chandler_walnut: "Chandler walnut"
         chemical_fertilizer_division: "Chemical fertilizer division"
+        chicken_egg: "Chicken egg"
         complete_herbicide: "Complete herbicide"
         concrete_tank: "Concrete tank"
         coop:adexar_5l: "Coop:adexar 5l"
@@ -2310,9 +2325,12 @@ eng:
         female_adult_cow: "Female adult cow"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
+        female_adult_pig: "Female adult pig"
         female_adult_sheep: "Female adult sheep"
         female_adult_sheep_herd: "Female adult sheep herd"
         female_hen_band: "Female hen band"
+        female_pig_band: "Female pig band"
+        female_young_cattle_herd: "Female young cattle herd"
         female_young_cow: "Female young cow"
         fercoril_corabel_hazelnut: "Fercoril corabel hazelnut"
         feriale_hazelnut: "Feriale hazelnut"
@@ -2364,10 +2382,12 @@ eng:
         helianthus_herbicide: "Helianthus herbicide"
         hen_compost: "Hen compost"
         hen_guano: "Hen guano"
+        hen_herd: "Hen herd"
         hen_manure: "Hen manure"
         hen_slurry: "Hen slurry"
         herbicide: "Herbicide"
         hoe: "Hoe"
+        horse_compost: "Horse compost"
         horse_manure: "Horse manure"
         horsebean_crop: "Horsebean crop"
         howard_walnut: "Howard walnut"
@@ -2391,10 +2411,14 @@ eng:
         livestock_cleanliness_product: "Livestock cleanliness product"
         lucerne_crop: "Lucerne crop"
         lucerne_seed: "Lucerne seed"
+        male_adult_cattle_herd: "Male adult cattle herd"
         male_adult_cow: "Male adult cow"
         male_adult_goat: "Male adult goat"
+        male_adult_pig: "Male adult pig"
         male_adult_sheep: "Male adult sheep"
         male_hen_band: "Male hen band"
+        male_pig_band: "Male pig band"
+        male_young_cattle_herd: "Male young cattle herd"
         male_young_cow: "Male young cow"
         malic_acid_25kg: "Malic acid 25kg"
         manager: "Manager"
@@ -2454,6 +2478,7 @@ eng:
         potassium_bicarbonate_25kg: "Potassium bicarbonate 25kg"
         potassium_ferrocyanide_25kg: "Potassium ferrocyanide 25kg"
         potato_crop: "Potato crop"
+        preparation_division: "Preparation division"
         pruning_platform: "Pruning platform"
         rabbit_manure: "Rabbit manure"
         rape_crop: "Rape crop"
@@ -2586,6 +2611,7 @@ eng:
         cultivable_zone: "Cultivable zone"
         duck_band: "Duck band"
         duck_herd: "Duck herd"
+        egg: "Egg"
         electricity: "Electricity"
         equipment: "Equipment"
         equipment_building_division: "Equipment building division"
@@ -2593,11 +2619,11 @@ eng:
         female_adult_cow: "Female adult cow"
         female_adult_goat: "Female adult goat"
         female_adult_goat_herd: "Female adult goat herd"
+        female_adult_pig: "Female adult pig"
         female_adult_sheep: "Female adult sheep"
         female_adult_sheep_herd: "Female adult sheep herd"
         female_young_cow: "Female young cow"
         fermented_grape_juice: "Fermented grape juice"
-        fertilizer_division: "Fertilizer division"
         flower_crop: "Flower crop"
         food_distributor: "Food distributor"
         food_equipment_division: "Food equipment division"
@@ -2627,6 +2653,7 @@ eng:
         hazelnut: "Hazelnut"
         hedge_cutter: "Hedge cutter"
         hen_band: "Hen band"
+        hen_herd: "Hen herd"
         herbicide: "Herbicide"
         hoe: "Hoe"
         hydraulic_oil: "Hydraulic oil"
@@ -2639,6 +2666,7 @@ eng:
         land_parcel_cluster: "Land parcel cluster"
         male_adult_cow: "Male adult cow"
         male_adult_goat: "Male adult goat"
+        male_adult_pig: "Male adult pig"
         male_adult_sheep: "Male adult sheep"
         male_young_cow: "Male young cow"
         manager: "Manager"
@@ -2658,10 +2686,12 @@ eng:
         organic_fertilizer: "Organic fertilizer"
         oyster_band: "Oyster band"
         packaged_process_food: "Packaged process food"
+        pig_band: "Pig band"
         plant_medicine_tank: "Plant medicine tank"
         plow: "Plow"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
+        preparation_division: "Preparation division"
         process_food: "Process food"
         pruning_platform: "Pruning platform"
         reaper: "Reaper"
@@ -2720,11 +2750,14 @@ eng:
         chicken: "Chicken"
         duck: "Duck"
         escourgeon_barley: "Escourgeon barley"
+        five_years_temporary_meadow: "Five years temporary meadow"
         fixed_frost_fallow_land: "Fixed frost fallow land"
         fruit_processing: "Fruit processing"
         garlic: "Garlic"
+        goat: "Goat"
         gooseberry: "Gooseberry"
         grain_corn: "Grain corn"
+        green_fallow_land: "Green fallow land"
         hazel: "Hazel"
         horsebean: "Horsebean"
         lavender: "Lavender"
@@ -2733,14 +2766,18 @@ eng:
         maintenance: "Maintenance"
         market_gardening: "Market gardening"
         market_gardening_under_greenhouse: "Market gardening under greenhouse"
+        marketable_hazel: "Marketable hazel"
+        marketable_walnut: "Marketable walnut"
         melon: "Melon"
         milk_bull_calf: "Milk bull calf"
         milk_cattle: "Milk cattle"
+        other_gardening: "Other gardening"
         others_usages: "Others usages"
         oyster: "Oyster"
         peach: "Peach"
         pear: "Pear"
         permanent_meadow: "Permanent meadow"
+        pig: "Pig"
         plum: "Plum"
         potato: "Potato"
         raspberry: "Raspberry"
@@ -2752,6 +2789,7 @@ eng:
         silage_corn: "Silage corn"
         sorghum: "Sorghum"
         soy: "Soy"
+        specific_fallow_land: "Specific fallow land"
         spring_barley: "Spring barley"
         spring_oat: "Spring oat"
         spring_pea: "Spring pea"
@@ -2781,6 +2819,8 @@ eng:
       items:
         fodder: "Fodder"
         grain: "Grain"
+        # meat: "Meat"
+        # milk: "Milk"
         seed: "Seed"
     residue_elimination_methods:
       name: "Residue elimination methods"
@@ -2825,6 +2865,7 @@ eng:
         female: "Female"
         hermaphrodite: "Hermaphrodite"
         male: "Male"
+        undefined: "Undefined"
     soil_cultural_states:
       name: "Soil cultural states"
       items:
@@ -3131,6 +3172,9 @@ eng:
         fuel: "Fuel"                                       #< raw_matter
         fungus: "Fungus"                                   #< bioproduct
         gallus: "Gallus"                                   #< aves
+        gallus_gallus_domesticus: "Domesticated chicken"   #< gallus
+        gallus_gallus_domesticus_babcock: "Domesticated chicken Babcock" #< gallus_gallus_domesticus
+        gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay" #< gallus_gallus_domesticus
         gas: "Gas"                                         #< raw_matter
         glycine: "Glycine"                                 #< fabaceae
         glycine_max: "Soy bean"                            #< glycine
@@ -3335,6 +3379,7 @@ eng:
         sub_zone: "Sub zone"                               #< zone
         sugar: "Sugar"                                     #< raw_matter
         sus: "Sus"                                         #< mammalia
+        sus_scrofa: "Domestic pig"                         #< sus
         tank: "Tank"                                       #< equipment
         tractor: "Tractor"                                 #< equipment
         trailer: "Trailer"                                 #< equipment

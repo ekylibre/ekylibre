@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: journals
@@ -45,6 +45,7 @@ class Journal < Ekylibre::Record::Base
   has_many :entries, class_name: "JournalEntry", inverse_of: :journal
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_date :closed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, allow_nil: true, maximum: 4
   validates_length_of :nature, allow_nil: true, maximum: 30
@@ -83,11 +84,11 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = self.nature.text if self.name.blank? and self.nature
+    self.name = self.nature.l if self.name.blank? and self.nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.text.codeize if self.code.blank?
+    self.code = self.nature.l.codeize if self.code.blank?
     self.code = self.code[0..3]
   end
 
@@ -97,10 +98,10 @@ class Journal < Ekylibre::Record::Base
       valid = true if self.closed_on == (financial_year.started_on-1).end_of_day
     end
     unless valid
-      errors.add(:closed_on, :end_of_month, :closed_on => ::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
+      errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l) if self.closed_on and self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
     if self.code.to_s.size > 0
-      errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).count > 0
+      errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).any?
     end
   end
 
@@ -188,10 +189,15 @@ class Journal < Ekylibre::Record::Base
 
   # Takes the very last created entry in the journal to generate the entry number
   def next_number
-    entry = self.entries.order("created_at DESC").first
-    code = entry ? entry.number : self.code.to_s+"000000"
-    code.gsub!(/(9+)$/, '0\1') if code.match(/[^\d]9+$/)
-    return code.succ
+    entry = self.entries.order(id: :desc).first
+    number = entry ? entry.number : self.code.to_s.upcase + "000000"
+    number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
+    number.succ!
+    while self.entries.where(number: number).any?
+      number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
+      number.succ!
+    end
+    return number
   end
 
   # this method searches the last entries according to a number.

@@ -3,119 +3,52 @@ jpn:
     attributes:
       activity:
         # parent: "Parent activity"
-      activity_distribution: #?
-      activity_watching: #?
-      analytic_distribution: #?
-      animal: #?
       animal_group:
         # born_at: "Created at"
-      animal_race: #?
-      animal_treatment_use: #?
-      asset_depreciation: #?
       building:
         # born_at: "Built at"
-      campaign: #?
-      cash: #?
-      company: #?
-      cultivable_zone: #?
-      deposit: #?
       document:
         # filename: "File"
-      document_archive: #?
       document_template:
         # managed: "Managed by the system"
-      entity: #?
-      entity_event: #?
-      entity_event_nature: #?
       equipment:
-        # born_at: "putting into service at"
-      event: #?
-      event_nature: #?
+        # born_at: "Put in service at"
       financial_asset_depreciation:
         # asset_amount: "Accountable value"
       financial_year:
         # stopped_on: "Date of closure"
-      incoming_payment: #?
-      incoming_payment_use: #?
-      intervention: #?
-      inventory_item: #?
-      inventory_line: #?
-      journal_entry: #?
-      journal_entry_item: #?
-      journal_entry_line: #?
       land_parcel:
         # born_at: "Created at"
       land_parcel_group:
         # born_at: "Created at"
-      mandate: #?
-      matter: #?
-      meeting: #?
-      meeting_nature: #?
-      operation: #?
-      outgoing_delivery: #?
       outgoing_payment:
         # delivered: "Given to recipient"
-      outgoing_payment_mode: #?
-      outgoing_payment_use: #?
       plant:
         # born_at: "Planted at"
-      price: #?
-      procedure: #?
-      product: #?
-      product_category: #?
-      product_localization: #?
-      product_move: #?
       product_nature:
         # duration: "Quantity OR period"
         # price: "Cost price"
-      product_nature_category: #?
-      product_nature_price: #?
-      product_nature_variant: #?
-      product_price_template: #?
-      product_reading: #?
-      product_specy: #?
-      product_stock: #?
-      product_stock_move: #?
-      product_transfer: #?
-      product_variety: #?
-      production: #?
       production_support:
         # production_usage: "Production usage"
-      products_nature: #?
-      profession: #?
       purchase:
         # amount: "Amount with taxes"
       purchase_item:
         # amount: "Amount with taxes"
-      purchase_line: #?
       sale:
         # amount: "Amount with taxes"
         # contact: "Address for the estimate"
         # has_downpayment: "Downpayment received"
       sale_item:
         # amount: "Amount with taxes"
-      sale_line: #?
       sale_nature:
         # downpayment: "Request downpayment"
-      sales_invoice: #?
-      sales_invoice_line: #?
-      stock: #?
-      stock_move: #?
-      stock_transfer: #?
-      subscription: #?
       tax:
         # amount: "Value"
-      tax_declaration: #?
-      tool: #?
-      tracking: #?
-      transfer: #?
-      unit: #?
-      user: #?
-      vegetal: #?
-      worker: #?
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # before: "%{attribute} must be before %{restriction}"
         # blank: "%{attribute} can't be blank"
         # confirmation: "%{attribute} doesn't match confirmation"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
@@ -129,7 +62,11 @@ jpn:
         # inclusion: "%{attribute} is not included in the list"
         # invalid: "%{attribute} is invalid"
         # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is_at: "%{attribute} must be at %{restriction}"
         # less_than: "%{attribute} must be less than %{count}"
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
         # must_be_a_mail_address: "%{attribute} must be a mail address"
@@ -137,19 +74,18 @@ jpn:
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
         # posterior: "The date %{attribute} must be posterior to %{to}"
-        # record_invalid: "Validations failed : %{errors}"
+        # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
-        application: #?
-        asset: #?
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           # unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
-        custom_field_datum: #?
         deposit:
           # must_be_a_bank_account: "%{field} must be a bank account and not a cash"
         entity:
@@ -168,10 +104,8 @@ jpn:
           # overlap: "%{attribute} overlaps an existing financial year"
         incoming_delivery_item:
           # greater_than_undelivered_quantity: "The quantity of product %{product} to deliver is greater than undelivered quantity (%{maximum}%{unit})"
-        incoming_delivery_line: #?
         journal:
           attributes:
-            closed_at: #?
             closed_on:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
@@ -182,30 +116,18 @@ jpn:
           # closed_entry: "The journal entry is locked. You can not update it."
           # empty_amounts: "The journal entry must be filled either debit or credit"
           # unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        journal_entry_line: #?
         outgoing_delivery_item:
           # greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        outgoing_delivery_line: #?
-        price: #?
-        product_nature_price: #?
-        product_price_template: #?
-        product_stock: #?
-        product_transfer: #?
         purchase_item:
           # building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           # serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-        purchase_line: #?
         sale_item:
           # building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
           # can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
           # currency_is_not_sale_currency: "Currency is not identical to the sale currency"
           # error_no_found_price: "No found price"
-        sale_line: #?
-        stock: #?
-        stock_transfer: #?
         subscription:
           # entity_must_be_the_same_as_the_contact_entity: "Person must be the same as the contact person"
-        tax_declaration: #?
       template:
         # body: "There were problems with the following fields:"
         header:
@@ -228,9 +150,8 @@ jpn:
       # campaign: "Campaign"
       # cash: "Cash"
       # cash_transfer: "Cash transfer"
-      # catalog: "Person category"
+      # catalog: "Catalog"
       # catalog_price: "Catalog price"
-      company: "会社" #?
       # crumb: "Crumb"
       # cultivable_zone: "Cultivable zone"
       # cultivable_zone_membership: "Cultivable zone membership"
@@ -242,7 +163,7 @@ jpn:
       # document_archive: "Document archive"
       # document_template: "Document template"
       # easement: "Easement"
-      # entity: "Person"
+      # entity: "Entity"
       # entity_address: "Address"
       # entity_link: "Entity link"
       # equipment: "Equipment"
@@ -306,16 +227,17 @@ jpn:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
+      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
       # product_merging: "Product merging"
       # product_mixing: "Product mixing"
-      # product_nature: "Product"
+      # product_nature: "Product nature"
       # product_nature_category: "Product category"
-      # product_nature_category_taxation: "Product nature category taxation"
-      # product_nature_variant: "Product nature variant"
-      # product_nature_variant_reading: "Product nature variant reading"
+      # product_nature_category_taxation: "Product type category taxation"
+      # product_nature_variant: "Product type variant"
+      # product_nature_variant_reading: "Product type variant reading"
       # product_ownership: "Product ownership"
       # product_phase: "Product phase"
       # product_quadruple_mixing: "Product quadruple mixing"
@@ -329,7 +251,7 @@ jpn:
       # property_title: "Property title"
       # purchase: "Purchase"
       # purchase_item: "Purchase item"
-      # purchase_nature: "Purchase nature"
+      # purchase_nature: "Purchase type"
       # role: "Role"
       # sale: "Sale"
       # sale_item: "Sale item"
@@ -343,7 +265,6 @@ jpn:
       # tax: "Tax"
       # team: "Team"
       # tracking: "Tracking"
-      # transfer: "Transfer"
       # transport: "Transport"
       # user: "User"
       # version: "Version"
@@ -431,7 +352,7 @@ jpn:
     # catalog: "Catalog"
     # category: "Category"
     # ceded: "Ceded"
-    # ceded_at: "Ceded on"
+    # ceded_on: "Ceded on"
     # charge_account: "Charge account"
     # charges_account: "Charges account"
     # charges_categories: "Charges categories"
@@ -463,8 +384,6 @@ jpn:
     # commission_base_amount: "Base amount of the commission"
     # commission_percentage: "Commission percentage"
     # commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
-    company: "会社" #?
-    company_id: "会社" #?
     # computation_method: "Computation method"
     # compute: "Compute"
     # conclusion: "Conclusion"
@@ -485,7 +404,6 @@ jpn:
     # country: "Country"
     # created_at: "Created at"
     creator: "創始者"
-    creator_id: "創始者" #?
     # creator_name: "Creator name"
     # credit: "Credit"
     # credited_item: "Credited item"
@@ -678,6 +596,7 @@ jpn:
     # integer_value: "Integer value"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # intervention: "Intervention"
+    # intervention_cast: "Intervention cast"
     # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     # introduction: "Introduction"
@@ -775,9 +694,9 @@ jpn:
     # mode: "Mode"
     # mother: "Mother"
     name: "名前"
-    # nature: "Nature"
-    # nature_name: "Nature name"
-    # natures: "Natures"
+    # nature: "Type"
+    # nature_name: "Type name"
+    # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
     # nitrogen_at_closing: "Nitrogen at closing"
@@ -810,7 +729,6 @@ jpn:
     # paid_taxes: "Paid taxes"
     # parameters: "Parameters"
     parent: "親戚"
-    parent_id: "親戚" #?
     # participant: "Participant"
     # participants: "Participants"
     # participations: "Participations"
@@ -836,7 +754,7 @@ jpn:
     # picture_updated_at: "Picture updated at"
     # place: "Place"
     # plan: "Plan"
-    # planned_at: "Planned on"
+    # planned_at: "Planned at"
     # planned_depreciations: "Planned depreciations"
     # point: "Point"
     # point_value: "Point value"
@@ -853,6 +771,7 @@ jpn:
     # previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     # price: "Price"
     # prices: "Prices"
+    # printed_at: "Printed at"
     # printed_on: "Printed on"
     # priority: "Priority"
     # producer: "Producer"
@@ -871,10 +790,10 @@ jpn:
     # product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     # product_mixings: "Product mixings"
-    # product_nature: "Product nature"
-    # product_nature_categories: "Product nature categories"
-    # product_nature_category: "Product nature category"
-    # product_nature_category_taxations: "Product nature category taxations"
+    # product_nature: "Product type"
+    # product_nature_categories: "Product type categories"
+    # product_nature_category: "Product type category"
+    # product_nature_category_taxations: "Product type category taxations"
     # product_ownerships: "Product ownerships"
     # product_phases: "Product phases"
     # product_quadruple_mixings: "Product quadruple mixings"
@@ -891,6 +810,7 @@ jpn:
     # productions: "Productions"
     # products: "Products"
     # products_categories: "Products categories"
+    # progression_percentage: "Progression (%)"
     # proposer: "Proposer"
     # prospect: "Prospect"
     # provisional: "Provisional"
@@ -903,7 +823,7 @@ jpn:
     # purchase_items: "Purchase items"
     # purchase_taxations: "Purchase taxations"
     # purchase_taxes: "Purchase taxes"
-    # purchased_at: "Purchased on"
+    # purchased_on: "Purchased on"
     # purchases: "Purchase orders"
     # quantity: "Quantity"
     # query: "Query"
@@ -940,6 +860,7 @@ jpn:
     # reflection_nodes: "Reflection nodes"
     # reflections: "Reflections"
     # remember_created_at: "Remember created at"
+    # remember_me: "Remember me"
     # reminder_submissive: "Reminder submissive"
     # reporter: "Reporter"
     # required: "Required"
@@ -983,7 +904,7 @@ jpn:
     # shape: "Shape"
     # sign_in_count: "Sign in count"
     # siren: "SIREN"
-    # soil_nature: "Soil nature"
+    # soil_nature: "Soil type"
     # soil_production: "Soil production"
     # source: "Source"
     # spaced_iban: "Spaced IBAN"
@@ -1051,7 +972,6 @@ jpn:
     # unpaid_sales: "Unpaid sales"
     # updated_at: "Updated at"
     updater: "修正の人"
-    updater_id: "修正の人" #?
     # usable_incoming_payments: "Usable incoming payments"
     # usage: "Usage"
     # usages: "Usages"
@@ -1096,10 +1016,7 @@ jpn:
       sale:
         # name: "Sales prices catalog"
     catalog_price:
-      # label: "%{variant} %{amount}/%{unit}"
-    company: #?
-    contact: #?
-    delay: #?
+      # name: "%{variant} %{amount}/%{unit}"
     deposit:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -1107,7 +1024,6 @@ jpn:
         # zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
-      default: #?
       # document_name: "%{nature} %{key}"
       # error_attribute: "The key word %{value} is incorrect. The possibilities are: %{possibilities}"
       # invalid_filename: "File"
@@ -1115,11 +1031,9 @@ jpn:
       # unvalid_nature: "Unvalid type of document template."
     entity:
       # client: "Client"
-      import: #?
       # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       # supplier: "Supplier"
-    entity_nature: #?
     establishment:
       # default: "Main"
     financial_year:
@@ -1140,12 +1054,11 @@ jpn:
           # name: "Chèque"
         transfer:
           # name: "Virement"
-    incoming_payment_use: #?
     intervention:
       # name: "%{intervention} #%{number}"
-    inventory_item:
-      # inventory: "Inventory"
-    inventory_line: #?
+    issue:
+      # name_with_target: "%{nature} on %{target}"
+      # name_without_target: "%{nature}"
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       states:
@@ -1189,14 +1102,11 @@ jpn:
         # with_value: "%{comparator} %{value}"
         # without_value: "%{comparator}"
       # reflections: "Associated tables"
-    operation_item: #?
-    operation_line: #?
     outgoing_delivery:
       # label: "%{client} at %{address}"
       # sale: "Sale %{number}"
     outgoing_delivery_item:
       # sale: "Sale %{number}"
-    outgoing_delivery_line: #?
     outgoing_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
       # label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
@@ -1208,8 +1118,6 @@ jpn:
           # name: "Check"
         transfer:
           # name: "Transfer"
-    outgoing_payment_use: #?
-    price: #?
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1224,8 +1132,6 @@ jpn:
         # purchases: "Purchases"
         # rent: "Location"
         # sales: "Sales"
-    product_component: #?
-    product_move: #?
     product_nature:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1240,21 +1146,15 @@ jpn:
         # purchases: "Purchases"
         # rent: "Location"
         # sales: "Sales"
-    product_nature_component: #?
-    product_nature_price: #?
-    product_price_listing: #?
-    product_price_template: #?
-    product_stock: #?
-    product_stock_move: #?
     production:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Aborted"
         # draft: "Draft"
         # started: "Started"
         # validated: "Validated"
-    products_nature: #?
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       # label: "%{supplier} at %{address}"
@@ -1270,10 +1170,9 @@ jpn:
       # name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       # tracking: "S/N: %{serial}"
-    purchase_line: #?
     purchase_nature:
       default:
-        # name: "Standard"
+        # name: "Standard purchase"
     role:
       default:
         # administrator: "Administrator"
@@ -1309,19 +1208,19 @@ jpn:
       # no_product: "[No product]"
       # reduction_at: "Reduction of %{percentage}%  on %{product}"
       # tracking: "S/N: %{serial}"
-    sale_line: #?
     sale_nature:
       default:
-        # name: "Standard"
+        # name: "Standard sale"
     sequence:
       default:
+        # affairs: "A[number|12]"
         # animals: "ANI[year|4][number|4]"
-        assets: #?
         # campaigns: "CAMP[number|4]"
         # cash_transfers: "CT[year|4][number|4]"
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
         # financial_assets: "FA[number|7]"
+        # gaps: "G[number|12]"
         # incoming_deliveries: "ID[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"
@@ -1332,13 +1231,7 @@ jpn:
         # purchases: "PU[year|4][month|2][number|6]"
         # sales: "SA[year|4][month|2][number|6]"
         # sales_invoices: "SI[year|4][number|6]"
-        stock_transfers: #?
         # subscriptions: "SUB[number|8]"
         # transports: "TR[number|8]"
-    stock: #?
-    stock_move: #?
-    tax: #?
-    tax_declaration: #?
     team:
       # default: "Main team"
-    unit: #?

@@ -11,27 +11,26 @@
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <!-- looking for all Account used in journal_entry_items in the current period (started_on, stopped_on) -->
-
-          <matrix name="items" for="item" in="JournalEntryItem.between(started_on, stopped_on).order(:id)">
-            <cell name="JournalCode" value="item.journal.code" of-type="record"/>
-            <cell name="JournalLib" value="item.journal.name" />
-            <cell name="EcritureNum" value="item.id" of-type="record"/>
-            <cell name="EcritureDate" value="item.printed_on" type="date"/>
-            <cell name="CompteNum" value="item.account.number" of-type="record"/>
-            <cell name="CompteLib" value="item.account.name"/>
-            <cell name="CompAuxNum" value="''"/>
-            <cell name="CompAuxLib" value="''"/>
-            <cell name="PieceRef" if="item.entry.resource" value="item.entry.resource_type"/>
-            <cell name="PieceDate" if="item.entry.resource" value="item.created_at" type="date"/>
-            <cell name="EcritureLib" value="item.name"/>
-            <cell name="Debit" value="item.debit" type="number"/>
-            <cell name="Credit" value="item.credit" type="number"/>
-            <cell name="EcritureLet" if="item.entry.resource" value="item.entry.resource_id"/>
-            <cell name="DateLet" if="item.entry.resource" value="item.entry.created_at" type="date"/>
-            <cell name="ValidDate" if="item.state == 'confirm'" value="item.printed_on" type="date"/>
-            <cell name="Montantdevise" value="''"/>
-            <cell name="Idevise" value="''"/>
-          </matrix>
+      <matrix name="items" for="item" in="JournalEntryItem.between(started_on, stopped_on).order(:id)">
+        <cell name="JournalCode" value="item.journal.code" of-type="record"/>
+        <cell name="JournalLib" value="item.journal.name" />
+        <cell name="EcritureNum" value="item.id" of-type="record"/>
+        <cell name="EcritureDate" value="item.printed_on" type="date"/>
+        <cell name="CompteNum" value="item.account.number" of-type="record"/>
+        <cell name="CompteLib" value="item.account.name"/>
+        <cell name="CompAuxNum" value="''"/>
+        <cell name="CompAuxLib" value="''"/>
+        <cell name="PieceRef" if="item.entry.resource" value="item.entry.resource_type"/>
+        <cell name="PieceDate" if="item.entry.resource" value="item.created_at" type="date"/>
+        <cell name="EcritureLib" value="item.name"/>
+        <cell name="Debit" value="item.debit" type="number"/>
+        <cell name="Credit" value="item.credit" type="number"/>
+        <cell name="EcritureLet" if="item.entry.resource" value="item.entry.resource_id"/>
+        <cell name="DateLet" if="item.entry.resource" value="item.entry.created_at" type="date"/>
+        <cell name="ValidDate" if="item.confirmed? or item.closed?" value="item.printed_on" type="date"/>
+        <cell name="Montantdevise" value="''"/>
+        <cell name="Idevise" value="''"/>
+      </matrix>
     </section>
   </aggregator>
 </aggregators>

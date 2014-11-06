@@ -148,7 +148,7 @@ module Nomen
     def selection(item_name = nil)
       items = (item_name ? @items[item_name].self_and_children : @items.values)
       return items.collect do |item|
-        [item.human_name, item.name]
+        [item.human_name, item.name.to_s]
       end.sort do |a, b|
         a.first <=> b.first
       end

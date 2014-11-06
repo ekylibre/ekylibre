@@ -4,6 +4,11 @@ arb:
     dir: "rtl"
     iso2: "ar"
     name: "لعربية"
+  boolean:
+    formats:
+      default:
+        # false: "False"
+        # true: "True"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]

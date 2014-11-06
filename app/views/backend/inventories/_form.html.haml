@@ -2,6 +2,7 @@
   = f.input :name
   = f.referenced_association :responsible #, source: :employees
   = f.input :achieved_at
+  = f.custom_fields
 
 :ruby
   f.object.build_missing_items

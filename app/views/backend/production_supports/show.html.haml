@@ -40,24 +40,26 @@
           end
           opened_at = resource.selected_manure_management_plan_zone.opened_at
 
-          data_series << { name: 'Fumure calculée (X) au ' + opened_at.strftime("%d/%m/%Y"), y: o.to_s.to_f}
+          data_series << { name: 'Fumure calculée (X) au ' + opened_at.strftime("%d/%m/%Y"), y: o.to_s.to_f, color: "#000077"}
 
           # get the nitrogen input I from opened_at to now (in kg N / Ha )
-
-            for intervention in resource.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now).reorder(:started_at)
-              i = 0
-              for input in intervention.casts.of_role('soil_enrichment-input')
-                m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-                n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
-                nitrogen_mass <<  m * n
-              end
-              if surface_area = intervention.casts.of_role('soil_enrichment-target').first.population
-                i = (nitrogen_mass.compact.sum / surface_area.to_d)
-                data_series << { name: intervention.name + ' du ' + intervention.started_at.strftime("%d/%m/%Y"), y: -i.to_s.to_f}
-              end
+          balance = o
+          for intervention in resource.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now).reorder(:started_at)
+            i = 0
+            for input in intervention.casts.of_role('soil_enrichment-input')
+              m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+              n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
+              nitrogen_mass <<  m * n
             end
+            if surface_area = intervention.casts.of_role('soil_enrichment-target').first.population
+              i = (nitrogen_mass.compact.sum / surface_area.to_d)
+              data_series << { name: intervention.name + ' du ' + intervention.started_at.strftime("%d/%m/%Y"), y: -i.to_s.to_f, color: "#FFEE99"}
+              balance -= i
+            end
+          end
 
-            data_series << { name: "Reste à apporter", isSum: true, color: cycle(*theme_colors)}
+          # TODO fix the russian method bellow
+          data_series << { name: "Reste à apporter", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
 
           series = []
           series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
@@ -66,7 +68,7 @@
       - else
         = no_data
 
-  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
+  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety] <= :plant
     - b.cell :production_cost do
       :ruby
         # prepare an array of hash

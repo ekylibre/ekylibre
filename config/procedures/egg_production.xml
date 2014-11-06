@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
+  <procedure name="egg_production" natures="egg_production" version="0" status="frozen">
+    <variables>
+      <variable name="bird_band" variety="aves" abilities="produce(egg)" roles="egg_production-target" />
+      <variable name="eggs" variety="egg" derivative-of="variety:bird_band" roles="egg_production-output" new="produced-by: bird_band" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})"/>
+      <variable name="doer" variety="worker" roles="egg_production-doer"/>
+      <variable name="container" abilities="store(egg)"/>
+    </variables>
+    <operations>
+      <operation id="100">
+        <task do="[doer] moves at [bird_band]"/>
+      </operation>
+      <operation id="200">
+        <task do="[bird_band] produces [eggs]"/>
+      </operation>
+      <operation id="300">
+        <task do="[doer] moves at [container]"/>
+        <task do="[eggs] is in [container]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

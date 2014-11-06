@@ -10,6 +10,7 @@
     -#= f.referenced_association :production
     = f.input :started_at, input_html: {data: {procedure: procedure.name, procedure_global: "at", intervention_updater: "global:at"}}
     = f.input :stopped_at
+    = f.custom_fields
 
   = field_set(:prescriptions) do
     = f.referenced_association :prescription
@@ -74,7 +75,7 @@
           = family.human_name
         .proposal-list
           - for procedure in procedures.sort{|a,b| a.human_name <=> b.human_name }
-            = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name), class: "btn")
+            = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name).merge(params), class: "btn")
     - remainings = Procedo.list.values - proposed
     - if remainings.any?
       %h3.others
@@ -82,7 +83,7 @@
         = :others.tl
       .proposal-list
         - for procedure in remainings.sort{|a,b| a.human_name <=> b.human_name }
-          = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name), class: "btn")
+          = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name).merge(params), class: "btn")
 
 
 

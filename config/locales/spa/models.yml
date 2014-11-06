@@ -28,7 +28,7 @@ spa:
       entity_event: #?
       entity_event_nature: #?
       equipment:
-        # born_at: "putting into service at"
+        # born_at: "Put in service at"
       event: #?
       event_nature: #?
       financial_asset_depreciation:
@@ -116,6 +116,8 @@ spa:
     errors:
       messages:
         # accepted: "%{attribute} must be accepted"
+        # after: "%{attribute} must be after %{restriction}"
+        # before: "%{attribute} must be before %{restriction}"
         # blank: "%{attribute} can't be blank"
         # confirmation: "%{attribute} doesn't match confirmation"
         # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
@@ -129,7 +131,11 @@ spa:
         # inclusion: "%{attribute} is not included in the list"
         # invalid: "%{attribute} is invalid"
         # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
         # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is_at: "%{attribute} must be at %{restriction}"
         # less_than: "%{attribute} must be less than %{count}"
         # less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
         # must_be_a_mail_address: "%{attribute} must be a mail address"
@@ -137,8 +143,10 @@ spa:
         # not_an_end_of_month: "%{attribute} must be an end of month"
         # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         # odd: "%{attribute} must be odd"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
         # posterior: "The date %{attribute} must be posterior to %{to}"
-        # record_invalid: "Validations failed : %{errors}"
+        # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
@@ -228,7 +236,7 @@ spa:
       # campaign: "Campaign"
       # cash: "Cash"
       # cash_transfer: "Cash transfer"
-      # catalog: "Person category"
+      # catalog: "Catalog"
       # catalog_price: "Catalog price"
       company: "Compañía" #?
       # crumb: "Crumb"
@@ -242,7 +250,7 @@ spa:
       # document_archive: "Document archive"
       # document_template: "Document template"
       # easement: "Easement"
-      # entity: "Person"
+      # entity: "Entity"
       # entity_address: "Address"
       # entity_link: "Entity link"
       # equipment: "Equipment"
@@ -306,16 +314,17 @@ spa:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
+      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
       # product_merging: "Product merging"
       # product_mixing: "Product mixing"
-      # product_nature: "Product"
+      # product_nature: "Product nature"
       # product_nature_category: "Product category"
-      # product_nature_category_taxation: "Product nature category taxation"
-      # product_nature_variant: "Product nature variant"
-      # product_nature_variant_reading: "Product nature variant reading"
+      # product_nature_category_taxation: "Product type category taxation"
+      # product_nature_variant: "Product type variant"
+      # product_nature_variant_reading: "Product type variant reading"
       # product_ownership: "Product ownership"
       # product_phase: "Product phase"
       # product_quadruple_mixing: "Product quadruple mixing"
@@ -329,7 +338,7 @@ spa:
       # property_title: "Property title"
       # purchase: "Purchase"
       # purchase_item: "Purchase item"
-      # purchase_nature: "Purchase nature"
+      # purchase_nature: "Purchase type"
       # role: "Role"
       # sale: "Sale"
       # sale_item: "Sale item"
@@ -343,7 +352,6 @@ spa:
       # tax: "Tax"
       # team: "Team"
       # tracking: "Tracking"
-      # transfer: "Transfer"
       # transport: "Transport"
       # user: "User"
       # version: "Version"
@@ -431,7 +439,7 @@ spa:
     # catalog: "Catalog"
     # category: "Category"
     # ceded: "Ceded"
-    # ceded_at: "Ceded on"
+    # ceded_on: "Ceded on"
     # charge_account: "Charge account"
     # charges_account: "Charges account"
     # charges_categories: "Charges categories"
@@ -677,6 +685,7 @@ spa:
     # integer_value: "Integer value"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     # intervention: "Intervention"
+    # intervention_cast: "Intervention cast"
     # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     # introduction: "Introduction"
@@ -774,9 +783,9 @@ spa:
     # mode: "Mode"
     # mother: "Mother"
     name: "Nombre"
-    # nature: "Nature"
-    # nature_name: "Nature name"
-    # natures: "Natures"
+    # nature: "Type"
+    # nature_name: "Type name"
+    # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
     # nitrogen_at_closing: "Nitrogen at closing"
@@ -834,7 +843,7 @@ spa:
     # picture_updated_at: "Picture updated at"
     # place: "Place"
     # plan: "Plan"
-    # planned_at: "Planned on"
+    # planned_at: "Planned at"
     # planned_depreciations: "Planned depreciations"
     # point: "Point"
     # point_value: "Point value"
@@ -851,6 +860,7 @@ spa:
     # previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     # price: "Price"
     # prices: "Prices"
+    # printed_at: "Printed at"
     # printed_on: "Printed on"
     # priority: "Priority"
     # producer: "Producer"
@@ -869,10 +879,10 @@ spa:
     # product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     # product_mixings: "Product mixings"
-    # product_nature: "Product nature"
-    # product_nature_categories: "Product nature categories"
-    # product_nature_category: "Product nature category"
-    # product_nature_category_taxations: "Product nature category taxations"
+    # product_nature: "Product type"
+    # product_nature_categories: "Product type categories"
+    # product_nature_category: "Product type category"
+    # product_nature_category_taxations: "Product type category taxations"
     # product_ownerships: "Product ownerships"
     # product_phases: "Product phases"
     # product_quadruple_mixings: "Product quadruple mixings"
@@ -889,6 +899,7 @@ spa:
     # productions: "Productions"
     # products: "Products"
     # products_categories: "Products categories"
+    # progression_percentage: "Progression (%)"
     # proposer: "Proposer"
     # prospect: "Prospect"
     # provisional: "Provisional"
@@ -901,7 +912,7 @@ spa:
     # purchase_items: "Purchase items"
     # purchase_taxations: "Purchase taxations"
     # purchase_taxes: "Purchase taxes"
-    # purchased_at: "Purchased on"
+    # purchased_on: "Purchased on"
     # purchases: "Purchase orders"
     # quantity: "Quantity"
     # query: "Query"
@@ -938,6 +949,7 @@ spa:
     # reflection_nodes: "Reflection nodes"
     # reflections: "Reflections"
     # remember_created_at: "Remember created at"
+    # remember_me: "Remember me"
     # reminder_submissive: "Reminder submissive"
     # reporter: "Reporter"
     # required: "Required"
@@ -981,7 +993,7 @@ spa:
     # shape: "Shape"
     # sign_in_count: "Sign in count"
     # siren: "SIREN"
-    # soil_nature: "Soil nature"
+    # soil_nature: "Soil type"
     # soil_production: "Soil production"
     # source: "Source"
     # spaced_iban: "Spaced IBAN"
@@ -1093,7 +1105,7 @@ spa:
       sale:
         # name: "Sales prices catalog"
     catalog_price:
-      # label: "%{variant} %{amount}/%{unit}"
+      # name: "%{variant} %{amount}/%{unit}"
     company: #?
     contact: #?
     delay: #?
@@ -1140,9 +1152,11 @@ spa:
     incoming_payment_use: #?
     intervention:
       # name: "%{intervention} #%{number}"
-    inventory_item:
-      # inventory: "Inventory"
+    inventory_item: #?
     inventory_line: #?
+    issue:
+      # name_with_target: "%{nature} on %{target}"
+      # name_without_target: "%{nature}"
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       states:
@@ -1246,6 +1260,7 @@ spa:
     production:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Aborted"
         # draft: "Draft"
@@ -1270,7 +1285,7 @@ spa:
     purchase_line: #?
     purchase_nature:
       default:
-        # name: "Standard"
+        # name: "Standard purchase"
     role:
       default:
         # administrator: "Administrator"
@@ -1309,9 +1324,10 @@ spa:
     sale_line: #?
     sale_nature:
       default:
-        # name: "Standard"
+        # name: "Standard sale"
     sequence:
       default:
+        # affairs: "A[number|12]"
         # animals: "ANI[year|4][number|4]"
         assets: #?
         # campaigns: "CAMP[number|4]"
@@ -1319,6 +1335,7 @@ spa:
         # deposits: "D[year|4][number|4]"
         # entities: "[number|8]"
         # financial_assets: "FA[number|7]"
+        # gaps: "G[number|12]"
         # incoming_deliveries: "ID[year|4][number|4]"
         # incoming_payments: "IP[year|4][number|6]"
         # interventions: "[number]"

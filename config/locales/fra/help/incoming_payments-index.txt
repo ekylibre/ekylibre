@@ -3,9 +3,9 @@
 ===== Suivi des encaissements =====
 Vous avez la possibilité de **rechercher** vos encaissements par le **montant**, le **numéro de chèque**, le **numéro d'encaissement**, le **nom** et le **code du client**.
 
-===== Ajout/modification de encaissement =====
+===== Ajout/modification d'encaissements =====
 Vous pouvez spécifier une date d'encaissement future. 
-Dans ce cas, vous aurait une alerte sur le tableau de bord une fois le jour venu. 
+Dans ce cas, vous aurez une alerte sur le tableau de bord le jour venu. 
 
 !!! Dans le cas d'un **futur règlement**, il est important de préciser que le règlement n'a **pas encore été reçu** pour que la comptabilité soit en ordre.
 

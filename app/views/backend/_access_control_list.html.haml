@@ -1,0 +1,14 @@
+:ruby
+  list = rights.inject({}) do |hash, pair|
+    if resource = Nomen::EnterpriseResources[pair.first]
+      hash[resource] = pair.second
+    end
+    hash
+  end.sort{|a,b| a.first.human_name <=> b.first.human_name}
+.access-control-list
+  - list.each do |resource, actions|
+    %span.access
+      %span.resource= resource.human_name
+      - actions.each do |action|
+        %span.chk-access{class: "chk-access-#{action} active"}
+          = Nomen::EnterpriseResourceActions[action].human_name.strip

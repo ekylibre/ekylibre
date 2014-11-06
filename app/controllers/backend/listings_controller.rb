@@ -4,16 +4,16 @@
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
@@ -157,12 +157,6 @@ class Backend::ListingsController < BackendController
           Mailman.mailing(params[:from], result[listing_coordinate_column.label], ts[0], ts[1], attachment).deliver
         end
         notify_success_now(:mails_are_sent)
-	# nature = EventNature.where(:usage => "mailing").first
-        # nature = EventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
-        # #raise StandardError.new nature.inspect
-	# EntityAddress.emails.where(:coordinate => @mails).find_each do |address|
-        #   Event.create!(:entity_id => address.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
-        # end
         session[:listing_coordinate_column] = nil
       end
     end

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: productions
@@ -45,7 +45,7 @@ class Production < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
   has_many :distributions, class_name: "AnalyticDistribution"
-  has_many :supports, class_name: "ProductionSupport", inverse_of: :production
+  has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
   has_many :storages, through: :supports
@@ -54,6 +54,7 @@ class Production < Ekylibre::Record::Base
   # has_many :land_parcel_groups, :through => :supports, class_name: "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
   validates_length_of :name, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :static_support, in: [true, false]
   validates_presence_of :activity, :campaign, :name, :state
@@ -124,8 +125,10 @@ class Production < Ekylibre::Record::Base
   end
 
   before_validation do
-    if self.activity and self.variant and self.campaign
-      self.name = tc('name', state: self.state_label, activity: self.activity.name, variant: self.variant.name, campaign: self.campaign.name)
+    if self.activity and self.campaign and self.variant
+      self.name = tc(:name, state: self.state_label, activity: self.activity.name, variant: self.variant.name, campaign: self.campaign.name)
+    elsif self.activity and self.campaign
+      self.name = tc(:name_without_variant, state: self.state_label, activity: self.activity.name, campaign: self.campaign.name)
     end
   end
 
@@ -155,24 +158,23 @@ class Production < Ekylibre::Record::Base
   end
 
   def net_surface_area
-    if self.static_support?
+    if self.static_support? and self.supports.any?
       return self.supports.map(&:storage_net_surface_area).compact.sum
-    else
-      return 0.0.in_square_meter
     end
+    return 0.0.in_square_meter
   end
 
   def area
+    # raise "NO AREA"
     ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
     return net_surface_area
   end
 
   def duration
-    if self.interventions.count > 0
+    if self.interventions.any?
       return self.interventions.map(&:duration).compact.sum
-    else
-      return 0
     end
+    return 0
   end
 
   def cost(role = :input)

@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: outgoing_delivery_items
@@ -44,6 +44,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :delivery, class_name: "OutgoingDelivery", inverse_of: :items
   belongs_to :product
   belongs_to :sale_item
+  has_one :category, through: :variant
   has_one :variant, through: :product
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

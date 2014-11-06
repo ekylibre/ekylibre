@@ -12,38 +12,47 @@
 
     _create: ->
       @element.attr "autocomplete", "off"
+
+      # Create drop down button
       @dropDownButton = $ "<a>",
           href: "##{@element.attr('id')}"
           rel: 'dropdown'
+          tabindex: -1
           class: 'selector-dropdown'
         .append $("<i>")
         .insertAfter @element
       @lastSearch = @element.val()
+
+      # Create drop down menu
       @dropDownMenu = $ "<div>",
           class: "items-menu"
         .hide()
         .insertAfter(@element)
+
+      # Create value field if it doesn't exist
       if @element.data("valueField")?
         @valueField = $ @element.data("valueField")
       else
-        @valueField = $ "<input type='hidden' name='#{@element.attr('name')}'/>"
+        @valueField = $ "<input>",
+          type: "hidden"
+          name: @element.attr('name')
+          'data-parameter-name': @element.attr('data-value-parameter-name')
         @element.after @valueField
       @element.removeAttr "name"
       if @element.attr("required") is "true"
         @valueField.attr "required", "true"
+      unless @valueField.val()? and @valueField.val() != ''
+        @valueField.attr("value", @element.val())
       this._on @element,
         keypress: "_keypress"
         keyup: "_keyup"
         focusout: "_focusOut"
-        # blur: "_focusOut"
       this._on @dropDownButton,
-        click: "_unrollClick"
+        click: "_buttonClick"
         focusout: "_focusOut"
-        # blur: "_focusOut"
       this._on @dropDownMenu,
-        "click ul li.item": "_menuClick"
+        "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
-        # "hover ul li.item": "_menuMouseEnter"
       this.sourceURL = @element.data("selector")
       if @valueField.val()? and @valueField.val().length > 0
         this._set @valueField.val()
@@ -68,8 +77,9 @@
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
             that._select listItem.id, listItem.label, triggerEvents
+            that.element.prop("ready", true)
           else
-            console.log "JSON cannot be parsed. Get: #{request.responseText}."
+            console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
           alert "Cannot get details of item on #{this.sourceURL} (#{status}): #{error}"
       this
@@ -86,6 +96,7 @@
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       if triggerEvents is true
+        @valueField.trigger "selector:change"
         @element.trigger "selector:change"
       this
 
@@ -94,6 +105,8 @@
       data = {}
       if search?
         data.q = search
+      if @element.data("selector-new-item")
+        data.insert = 1
       if @element.data("with")
         $(@element.data("with")).each ->
           paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id")
@@ -209,14 +222,14 @@
       , 300
       true
 
-    _unrollClick: (event) ->
+    _buttonClick: (event) ->
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
       else
         this._openMenu()
       false
 
-    _menuClick: (event) ->
+    _menuItemClick: (event) ->
       # console.log "menuclick"
       # console.log event.target
       this._choose()

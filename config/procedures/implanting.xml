@@ -26,26 +26,11 @@
       </variable>
     </variables>
     <operations>
-      <operation id="100" duration="4 minutes">
-        <task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200" duration="4 minutes">
-        <task do="[tractor] moves at [implanter_tool]"/>
-      </operation>
-      <operation id="300" duration="7 minutes">
-        <task do="[tractor] catches [implanter_tool]"/>
-      </operation>
-      <operation id="400" duration="4 minutes">
-        <task do="[tractor] moves at [plants]"/>
-      </operation>
-      <operation id="500" duration="4 minutes">
-        <task do="[plants] parts with [plants_to_fix]"/>
-        <task do="[plants_to_fix] moves in [implanter_tool]"/>
-      </operation>
       <operation id="600" duration="18 minutes">
         <task do="[tractor] moves in [land_parcel]"/>
       </operation>
       <operation id="700">
+        <task do="[plants] parts with [plants_to_fix]"/>
         <task do="[plants_to_fix] moves in [land_parcel]"/>
         <task do="[land_parcel] consumes [plants_to_fix]"/>
         <task do="[land_parcel] produces [cultivation]"/>
@@ -57,18 +42,6 @@
         <task do="cultivation|rows_interval is measured"/>
         <task do="cultivation|plants_interval is measured"/>
         <task do="cultivation|plants_count is measured"/>
-      </operation>
-      <operation id="800" duration="18 minutes">
-        <task do="[tractor] moves in default storage of [implanter_tool]"/>
-      </operation>
-      <operation id="900" duration="4 minutes">
-        <task do="[tractor] releases [implanter_tool]"/>
-      </operation>
-      <operation id="1000" duration="7 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1100" duration="4 minutes">
-        <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

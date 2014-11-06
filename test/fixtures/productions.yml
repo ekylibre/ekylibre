@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: productions
@@ -52,20 +52,67 @@
 #
 ---
 productions_001:
-  activity: activities_001
-  campaign: campaigns_001
-  creator: users_001
-  name: Wheat 2013
+  activity_id: 1
+  campaign_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 3
+  name: Culture de blé/Blé 2013 (Prévue)
   state: draft
   static_support: true
-  updater: users_001
-  variant: product_nature_variants_001
+  updated_at: 2014-11-04 17:23:15.015623000 Z
+  updater_id: 1
+  variant_id: 16
 productions_002:
-  activity: activities_002
-  campaign: campaigns_001
-  creator: users_001
-  name: Wheat 2014
+  activity_id: 1
+  campaign_id: 4
+  created_at: 2014-11-04 15:26:44.662690000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 2
+  name: Culture de blé/Blé 2014 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-04 17:23:48.519311000 Z
+  updater_id: 1
+  variant_id: 16
+productions_003:
+  activity_id: 3
+  campaign_id: 1
+  created_at: 2014-11-04 17:24:51.387221000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  name: Vache/Bovins 2013 (Prévue)
   state: draft
   static_support: false
-  updater: users_001
-  variant: product_nature_variants_002
+  updated_at: 2014-11-04 17:24:51.387221000 Z
+  updater_id: 1
+  variant_id: 17
+productions_004:
+  activity_id: 5
+  campaign_id: 4
+  created_at: 2014-11-04 18:17:39.473350000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  name: Culture de maïs/Maïs 2014 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-04 18:17:39.473350000 Z
+  updater_id: 1
+  variant_id: 32
+productions_005:
+  activity_id: 5
+  campaign_id: 1
+  created_at: 2014-11-04 18:21:43.148079000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 1
+  name: Culture de maïs/Maïs 2013 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-04 18:29:40.340837000 Z
+  updater_id: 1
+  variant_id: 32

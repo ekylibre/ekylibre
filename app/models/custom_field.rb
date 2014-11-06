@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: custom_fields
@@ -45,7 +45,7 @@
 class CustomField < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: Ekylibre::Schema.model_names
+  enumerize :customized_type, in: (Ekylibre::Schema.model_names - [:AccountBalance, :AnalysisItem, :Affair, :Crumb, :CultivableZoneMembership, :CustomFieldChoice, :DocumentArchive, :FinancialAssetDepreciation, :Gap, :GapItem, :GuideAnalysis, :GuideAnalysisPoint, :IncomingDeliveryItem, :InterventionCast, :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan, :ManureManagementPlanZone, :Observation, :Operation, :OutgoingDeliveryItem, :Preference, :ProductBirth, :ProductConsumption, :ProductCreation, :ProductDeath, :ProductDivision, :ProductEnjoyment, :ProductJunction, :ProductJunctionWay, :ProductLink, :ProductLinkage, :ProductLocalization, :ProductMembership, :ProductMerging, :ProductMixing, :ProductNatureCategoryTaxation, :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductQuadrupleMixing, :ProductQuintupleMixing, :ProductReading, :ProductReadingTask, :ProductTripleMixing, :PurchaseItem, :SaleItem, :User, :Version])
   has_many :choices, -> { order(:position) }, class_name: "CustomFieldChoice", dependent: :delete_all, inverse_of: :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
@@ -57,20 +57,20 @@ class CustomField < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_inclusion_of :customized_type, in: self.customized_type.values
-  validates_uniqueness_of :column_name, :scope => [:customized_type]
-  validates_format_of :column_name, :with => /\A(\_[a-z]+)+\z/
-  validates_presence_of :column_name
+  validates_uniqueness_of :column_name, scope: [:customized_type]
+  validates_format_of :column_name, with: /\A(\_[a-z]+)+\z/
+  validates_exclusion_of :column_name, in: ["_destroy"]
 
   accepts_nested_attributes_for :choices
   acts_as_list scope: 'customized_type = \'#{customized_type}\''
 
   # default_scope -> { order(:customized_type, :position) }
   scope :actives, -> { where(active: true).order(:position) }
-  scope :of, lambda { |model| where(active: true, customized_type: model).order(:position) }
+  scope :of, lambda { |model| (customized_type.values.include?(model) ? where(active: true, customized_type: model).order(:position)  : none)}
 
   before_validation do
     self.column_name = ("_" + self.name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, ''))[0..62]
-    while self.class.where(:column_name => self.column_name, :customized_type => self.customized_type).where("id != ?", self.id || 0).any?
+    while self.others.where(column_name: self.column_name, customized_type: self.customized_type).any?
       self.column_name.succ!
     end
   end
@@ -82,7 +82,7 @@ class CustomField < Ekylibre::Record::Base
       if self.choice? and !self.index_exists?
         self.class.connection.add_index(self.customized_table_name, self.column_name)
       end
-      self.customized_model.reset_column_information
+      reset_schema
     end
   end
 
@@ -91,7 +91,7 @@ class CustomField < Ekylibre::Record::Base
     old = self.old_record
     if self.column_name != old.column_name and old.column_exists?
       self.class.connection.rename_column(self.customized_table_name, old.column_name, self.column_name)
-      self.customized_model.reset_column_information
+      reset_schema
     end
   end
 
@@ -102,8 +102,14 @@ class CustomField < Ekylibre::Record::Base
         self.class.connection.remove_index(self.customized_table_name, self.column_name)
       end
       self.class.connection.remove_column(self.customized_table_name, self.column_name)
-      self.customized_model.reset_column_information
+      reset_schema
     end
+  end
+
+  def reset_schema
+    self.customized_model.reset_column_information
+    # Force prepared SELECT to be deallocated
+    self.class.connection.execute "DEALLOCATE ALL"
   end
 
   def choices_count

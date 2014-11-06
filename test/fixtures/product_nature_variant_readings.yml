@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: product_nature_variant_readings
@@ -57,33 +57,637 @@
 ---
 product_nature_variant_readings_001:
   boolean_value: false
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 1
   indicator_datatype: measure
   indicator_name: net_mass
+  lock_version: 0
   measure_value_unit: kilogram
-  measure_value_value: 1
-  updater: users_001
-  variant: product_nature_variants_001
+  measure_value_value: 1.0
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 1
 product_nature_variant_readings_002:
   boolean_value: false
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 2
   indicator_datatype: measure
   indicator_name: net_volume
+  lock_version: 0
   measure_value_unit: liter
   measure_value_value: 0.2
-  updater: users_001
-  variant: product_nature_variants_001
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 1
 product_nature_variant_readings_003:
+  boolean_value: false
   choice_value: female
-  creator: users_001
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  id: 3
   indicator_datatype: choice
   indicator_name: sex
-  updater: users_001
-  variant: product_nature_variants_007
+  lock_version: 0
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 5
 product_nature_variant_readings_004:
-  creator: users_001
-  decimal_value: 1
+  boolean_value: false
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 4
   indicator_datatype: decimal
   indicator_name: population
-  updater: users_001
-  variant: product_nature_variants_007
+  lock_version: 0
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+  variant_id: 5
+product_nature_variant_readings_005:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:19.915395000 Z
+  creator_id: 1
+  id: 5
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  updated_at: 2014-10-31 20:11:19.915395000 Z
+  updater_id: 1
+  variant_id: 8
+product_nature_variant_readings_006:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:19.920524000 Z
+  creator_id: 1
+  id: 6
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  updated_at: 2014-10-31 20:11:19.920524000 Z
+  updater_id: 1
+  variant_id: 8
+product_nature_variant_readings_007:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 150.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:30.489419000 Z
+  creator_id: 1
+  id: 7
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 150.0
+  updated_at: 2014-10-31 20:11:30.489419000 Z
+  updater_id: 1
+  variant_id: 9
+product_nature_variant_readings_008:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1870.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:30.494765000 Z
+  creator_id: 1
+  id: 8
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 1.87
+  updated_at: 2014-10-31 20:11:30.494765000 Z
+  updater_id: 1
+  variant_id: 9
+product_nature_variant_readings_009:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:42.161696000 Z
+  creator_id: 1
+  id: 9
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  updated_at: 2014-10-31 20:11:42.161696000 Z
+  updater_id: 1
+  variant_id: 10
+product_nature_variant_readings_010:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 42.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:42.166620000 Z
+  creator_id: 1
+  id: 10
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 42.0
+  updated_at: 2014-10-31 20:11:42.166620000 Z
+  updater_id: 1
+  variant_id: 10
+product_nature_variant_readings_011:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:53.436431000 Z
+  creator_id: 1
+  id: 11
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  updated_at: 2014-10-31 20:11:53.436431000 Z
+  updater_id: 1
+  variant_id: 11
+product_nature_variant_readings_012:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 35.0
+  boolean_value: false
+  created_at: 2014-10-31 20:11:53.442485000 Z
+  creator_id: 1
+  id: 12
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 35.0
+  updated_at: 2014-10-31 20:11:53.442485000 Z
+  updater_id: 1
+  variant_id: 11
+product_nature_variant_readings_013:
+  boolean_value: false
+  created_at: 2014-10-31 20:13:23.340605000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 13
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-10-31 20:13:23.340605000 Z
+  updater_id: 1
+  variant_id: 12
+product_nature_variant_readings_014:
+  boolean_value: false
+  created_at: 2014-10-31 20:13:55.120102000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 14
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-10-31 20:13:55.120102000 Z
+  updater_id: 1
+  variant_id: 13
+product_nature_variant_readings_015:
+  boolean_value: false
+  created_at: 2014-10-31 20:21:52.499051000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 15
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-10-31 20:21:52.499051000 Z
+  updater_id: 1
+  variant_id: 14
+product_nature_variant_readings_016:
+  boolean_value: false
+  created_at: 2014-10-31 20:25:22.986119000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 16
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-10-31 20:25:22.986119000 Z
+  updater_id: 1
+  variant_id: 15
+product_nature_variant_readings_017:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-01 19:06:50.082273000 Z
+  creator_id: 1
+  id: 17
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 19:06:50.082273000 Z
+  updater_id: 1
+  variant_id: 16
+product_nature_variant_readings_018:
+  boolean_value: false
+  created_at: 2014-11-01 19:08:36.244329000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 18
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-01 19:08:36.244329000 Z
+  updater_id: 1
+  variant_id: 17
+product_nature_variant_readings_019:
+  boolean_value: false
+  choice_value: female
+  created_at: 2014-11-01 19:08:36.249638000 Z
+  creator_id: 1
+  id: 19
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  updated_at: 2014-11-01 19:08:36.249638000 Z
+  updater_id: 1
+  variant_id: 17
+product_nature_variant_readings_020:
+  boolean_value: true
+  created_at: 2014-11-01 19:08:36.255343000 Z
+  creator_id: 1
+  id: 20
+  indicator_datatype: boolean
+  indicator_name: reproductor
+  lock_version: 0
+  updated_at: 2014-11-01 19:08:36.255343000 Z
+  updater_id: 1
+  variant_id: 17
+product_nature_variant_readings_021:
+  boolean_value: false
+  created_at: 2014-11-01 19:08:36.262101000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 21
+  indicator_datatype: decimal
+  indicator_name: livestock_unit
+  lock_version: 0
+  updated_at: 2014-11-01 19:08:36.262101000 Z
+  updater_id: 1
+  variant_id: 17
+product_nature_variant_readings_022:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 19:09:20.960686000 Z
+  creator_id: 1
+  id: 22
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 19:09:20.960686000 Z
+  updater_id: 1
+  variant_id: 18
+product_nature_variant_readings_023:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.03
+  boolean_value: false
+  created_at: 2014-11-01 19:09:20.967270000 Z
+  creator_id: 1
+  id: 23
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.03
+  updated_at: 2014-11-01 19:09:20.967270000 Z
+  updater_id: 1
+  variant_id: 18
+product_nature_variant_readings_024:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2014-11-01 19:10:35.104699000 Z
+  creator_id: 1
+  id: 24
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 19:10:35.104699000 Z
+  updater_id: 1
+  variant_id: 19
+product_nature_variant_readings_025:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:17:55.033379000 Z
+  creator_id: 1
+  id: 25
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 20:17:55.033379000 Z
+  updater_id: 1
+  variant_id: 20
+product_nature_variant_readings_026:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:17:55.040721000 Z
+  creator_id: 1
+  id: 26
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 20:17:55.040721000 Z
+  updater_id: 1
+  variant_id: 20
+product_nature_variant_readings_027:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:20:57.160437000 Z
+  creator_id: 1
+  id: 27
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 20:20:57.160437000 Z
+  updater_id: 1
+  variant_id: 21
+product_nature_variant_readings_028:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-01 20:20:57.166731000 Z
+  creator_id: 1
+  id: 28
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  updated_at: 2014-11-01 20:20:57.166731000 Z
+  updater_id: 1
+  variant_id: 21
+product_nature_variant_readings_029:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 0.0
+  boolean_value: false
+  created_at: 2014-11-01 20:20:57.172842000 Z
+  creator_id: 1
+  id: 29
+  indicator_datatype: measure
+  indicator_name: meat_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 0.0
+  updated_at: 2014-11-01 20:20:57.172842000 Z
+  updater_id: 1
+  variant_id: 21
+product_nature_variant_readings_030:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 0.0
+  boolean_value: false
+  created_at: 2014-11-01 20:20:57.178856000 Z
+  creator_id: 1
+  id: 30
+  indicator_datatype: measure
+  indicator_name: milk_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 0.0
+  updated_at: 2014-11-01 20:20:57.178856000 Z
+  updater_id: 1
+  variant_id: 21
+product_nature_variant_readings_031:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.01
+  boolean_value: false
+  created_at: 2014-11-01 20:21:07.081204000 Z
+  creator_id: 1
+  id: 31
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 10.0
+  updated_at: 2014-11-01 20:21:07.081204000 Z
+  updater_id: 1
+  variant_id: 22
+product_nature_variant_readings_032:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.01
+  boolean_value: false
+  created_at: 2014-11-01 20:21:07.086566000 Z
+  creator_id: 1
+  id: 32
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: milliliter
+  measure_value_value: 10.0
+  updated_at: 2014-11-01 20:21:07.086566000 Z
+  updater_id: 1
+  variant_id: 22
+product_nature_variant_readings_033:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 5.0
+  boolean_value: false
+  created_at: 2014-11-01 20:21:07.092149000 Z
+  creator_id: 1
+  id: 33
+  indicator_datatype: measure
+  indicator_name: meat_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 5.0
+  updated_at: 2014-11-01 20:21:07.092149000 Z
+  updater_id: 1
+  variant_id: 22
+product_nature_variant_readings_034:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 6.0
+  boolean_value: false
+  created_at: 2014-11-01 20:21:07.098565000 Z
+  creator_id: 1
+  id: 34
+  indicator_datatype: measure
+  indicator_name: milk_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 6.0
+  updated_at: 2014-11-01 20:21:07.098565000 Z
+  updater_id: 1
+  variant_id: 22
+product_nature_variant_readings_035:
+  boolean_value: false
+  created_at: 2014-11-01 20:26:13.076831000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 35
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-01 20:26:13.076831000 Z
+  updater_id: 1
+  variant_id: 23
+product_nature_variant_readings_036:
+  boolean_value: false
+  created_at: 2014-11-02 18:19:37.989369000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 36
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:19:37.989369000 Z
+  updater_id: 1
+  variant_id: 24
+product_nature_variant_readings_037:
+  boolean_value: false
+  created_at: 2014-11-02 18:19:51.704113000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 37
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:19:51.704113000 Z
+  updater_id: 1
+  variant_id: 25
+product_nature_variant_readings_038:
+  boolean_value: false
+  created_at: 2014-11-02 18:20:34.112906000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 38
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:20:34.112906000 Z
+  updater_id: 1
+  variant_id: 26
+product_nature_variant_readings_039:
+  boolean_value: false
+  created_at: 2014-11-02 18:29:03.439857000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 39
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:29:03.439857000 Z
+  updater_id: 1
+  variant_id: 27
+product_nature_variant_readings_040:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-02 18:31:53.751099000 Z
+  creator_id: 1
+  id: 40
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  updated_at: 2014-11-02 18:31:53.751099000 Z
+  updater_id: 1
+  variant_id: 28
+product_nature_variant_readings_041:
+  boolean_value: false
+  created_at: 2014-11-02 18:36:36.387922000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 41
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-02 18:36:36.387922000 Z
+  updater_id: 1
+  variant_id: 29
+product_nature_variant_readings_042:
+  boolean_value: false
+  choice_value: female
+  created_at: 2014-11-04 17:27:32.670709000 Z
+  creator_id: 1
+  id: 42
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  updated_at: 2014-11-04 17:27:32.670709000 Z
+  updater_id: 1
+  variant_id: 30
+product_nature_variant_readings_043:
+  boolean_value: true
+  created_at: 2014-11-04 17:27:32.676106000 Z
+  creator_id: 1
+  id: 43
+  indicator_datatype: boolean
+  indicator_name: reproductor
+  lock_version: 0
+  updated_at: 2014-11-04 17:27:32.676106000 Z
+  updater_id: 1
+  variant_id: 30
+product_nature_variant_readings_044:
+  boolean_value: false
+  choice_value: undefined
+  created_at: 2014-11-04 17:27:59.323373000 Z
+  creator_id: 1
+  id: 44
+  indicator_datatype: choice
+  indicator_name: sex
+  lock_version: 0
+  updated_at: 2014-11-04 17:27:59.323373000 Z
+  updater_id: 1
+  variant_id: 31
+product_nature_variant_readings_045:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-04 18:17:16.197067000 Z
+  creator_id: 1
+  id: 45
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  updated_at: 2014-11-04 18:17:16.197067000 Z
+  updater_id: 1
+  variant_id: 32
+product_nature_variant_readings_046:
+  boolean_value: false
+  created_at: 2014-11-04 18:38:32.222886000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 46
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-04 18:38:32.222886000 Z
+  updater_id: 1
+  variant_id: 33
+product_nature_variant_readings_047:
+  boolean_value: false
+  created_at: 2014-11-04 18:40:21.577326000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 47
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  updated_at: 2014-11-04 18:40:21.577326000 Z
+  updater_id: 1
+  variant_id: 34

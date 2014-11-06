@@ -8,16 +8,16 @@
 # Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
+# it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
 # == Table: identifiers
@@ -40,10 +40,18 @@ class Identifier < Ekylibre::Record::Base
   validates_presence_of :nature, :value
   #]VALIDATORS]
 
+  delegate :reference, to: :net_service, prefix: true
+
   validate do
-    if self.net_service and self.net_service.reference
-      errors.add(:nature, :invalid) unless self.net_service.reference.identifiers.include?(self.nature.to_sym)
+    if self.net_service and self.net_service_reference
+      unless self.net_service_reference.identifiers.include?(self.nature.to_sym)
+        errors.add(:nature, :inclusion)
+      end
     end
+  end
+
+  def name
+    (self.nature ? Nomen::IdentifierNatures[self.nature].human_name : :unknown.tl)
   end
 
 end
