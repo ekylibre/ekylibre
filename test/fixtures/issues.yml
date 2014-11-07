@@ -86,3 +86,67 @@ issues_002:
   target_type: Animal
   updated_at: 2014-11-05 11:45:09.282524000 Z
   updater_id: 1
+issues_003:
+  created_at: 2014-11-07 14:56:43.426663000 Z
+  creator_id: 1
+  description: ''
+  gravity: 1
+  id: 5
+  lock_version: 0
+  name: Mammite sur Bonnemine
+  nature: mammite
+  observed_at: 2014-10-27 15:40:00.000000000 Z
+  priority: 3
+  state: opened
+  target_id: 5
+  target_type: Animal
+  updated_at: 2014-11-07 14:56:43.426663000 Z
+  updater_id: 1
+issues_004:
+  created_at: 2014-11-07 14:59:10.181688000 Z
+  creator_id: 1
+  description: ''
+  gravity: 2
+  id: 6
+  lock_version: 0
+  name: Puceron sur Culture de blé [oct. 2012] (La Queue du Loup)
+  nature: aphid
+  observed_at: 2013-02-07 08:45:00.000000000 Z
+  priority: 3
+  state: opened
+  target_id: 92
+  target_type: Plant
+  updated_at: 2014-11-07 14:59:10.181688000 Z
+  updater_id: 1
+issues_005:
+  created_at: 2014-11-07 16:58:41.554270000 Z
+  creator_id: 1
+  description: ''
+  gravity: 4
+  id: 7
+  lock_version: 0
+  name: Mildiou de la vigne sur Culture de vigne [mars. 2008] (La Boutanche)
+  nature: vine_mildew
+  observed_at: 2013-04-01 13:30:00.000000000 Z
+  priority: 4
+  state: opened
+  target_id: 110
+  target_type: Plant
+  updated_at: 2014-11-07 16:58:41.554270000 Z
+  updater_id: 1
+issues_006:
+  created_at: 2014-11-07 19:27:14.236361000 Z
+  creator_id: 1
+  description: ''
+  gravity: 2
+  id: 8
+  lock_version: 0
+  name: Bactériose sur Vin [oct. 2013] (Cuve Jupiter)
+  nature: bacteriosis
+  observed_at: 2013-10-14 17:00:00.000000000 Z
+  priority: 3
+  state: opened
+  target_id: 130
+  target_type: Matter
+  updated_at: 2014-11-07 19:27:14.236361000 Z
+  updater_id: 1

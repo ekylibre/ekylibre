@@ -124,3 +124,45 @@ outgoing_payments_003:
   to_bank_at: 2014-10-04 22:00:00.000000000 Z
   updated_at: 2014-11-05 13:40:55.895164000 Z
   updater_id: 1
+outgoing_payments_004:
+  accounted_at: 2014-11-07 15:58:34.242278000 Z
+  affair_id: 26
+  amount: 1848.0
+  bank_check_number: '9636548'
+  cash_id: 1
+  created_at: 2014-11-07 15:58:34.235757000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: false
+  downpayment: true
+  id: 4
+  lock_version: 0
+  mode_id: 1
+  number: D20140002
+  paid_at: 2014-11-06 23:00:00.000000000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2014-11-06 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:58:34.235757000 Z
+  updater_id: 1
+outgoing_payments_005:
+  accounted_at: 2014-11-07 16:53:26.229792000 Z
+  affair_id: 30
+  amount: 9000.0
+  bank_check_number: ''
+  cash_id: 1
+  created_at: 2014-11-07 16:53:26.222034000 Z
+  creator_id: 1
+  currency: EUR
+  delivered: false
+  downpayment: true
+  id: 5
+  lock_version: 0
+  mode_id: 1
+  number: D20140003
+  paid_at: 2014-11-06 23:00:00.000000000 Z
+  payee_id: 13
+  responsible_id: 1
+  to_bank_at: 2014-11-06 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:53:26.222034000 Z
+  updater_id: 1

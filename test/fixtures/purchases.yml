@@ -97,3 +97,48 @@ purchases_002:
   supplier_id: 4
   updated_at: 2014-11-05 10:46:06.135573000 Z
   updater_id: 1
+purchases_003:
+  accounted_at: 2014-11-07 15:58:47.255968000 Z
+  affair_id: 26
+  amount: 1848.0
+  confirmed_at: 2014-11-07 15:58:44.515180000 Z
+  created_at: 2014-11-07 15:58:10.810682000 Z
+  creator_id: 1
+  currency: EUR
+  description: ''
+  id: 8
+  invoiced_at: 2012-10-11 22:00:00.000000000 Z
+  journal_entry_id: 26
+  lock_version: 5
+  nature_id: 1
+  number: A201411000003
+  planned_at: 2012-10-11 22:00:00.000000000 Z
+  pretax_amount: 1540.0
+  reference_number: ''
+  state: invoice
+  supplier_id: 13
+  updated_at: 2014-11-07 15:58:47.167810000 Z
+  updater_id: 1
+purchases_004:
+  accounted_at: 2014-11-07 16:52:57.689609000 Z
+  affair_id: 30
+  amount: 20520.0
+  confirmed_at: 2014-11-07 16:52:55.330479000 Z
+  created_at: 2014-11-07 16:52:05.036650000 Z
+  creator_id: 1
+  currency: EUR
+  delivery_address_id: 9
+  description: ''
+  id: 11
+  invoiced_at: 2008-03-05 09:00:00.000000000 Z
+  journal_entry_id: 28
+  lock_version: 6
+  nature_id: 1
+  number: A201411000004
+  planned_at: 2008-03-05 09:00:00.000000000 Z
+  pretax_amount: 17100.0
+  reference_number: ''
+  state: invoice
+  supplier_id: 13
+  updated_at: 2014-11-07 16:52:57.564797000 Z
+  updater_id: 1

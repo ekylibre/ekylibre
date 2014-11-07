@@ -587,3 +587,543 @@ product_nature_variants_033:
   updated_at: 2014-11-04 18:40:21.570497000 Z
   updater_id: 1
   variety: plower
+product_nature_variants_034:
+  active: true
+  category_id: 1
+  commercial_name: Zone accueillant des animaux
+  created_at: 2014-11-07 14:30:38.001685000 Z
+  creator_id: 1
+  id: 35
+  lock_version: 0
+  name: Zone accueillant des animaux
+  nature_id: 6
+  number: GWNVKRYVPNV000000000020
+  reference_name: animal_division
+  unit_name: Salle
+  updated_at: 2014-11-07 14:30:38.001685000 Z
+  updater_id: 1
+  variety: building_division
+product_nature_variants_035:
+  active: true
+  category_id: 14
+  commercial_name: Pulvérisateur
+  created_at: 2014-11-07 15:00:45.280360000 Z
+  creator_id: 1
+  id: 36
+  lock_version: 0
+  name: Pulvérisateur
+  nature_id: 30
+  number: GWNVKRYVPNV000000000021
+  reference_name: sprayer
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 15:00:45.280360000 Z
+  updater_id: 1
+  variety: sprayer
+product_nature_variants_036:
+  active: true
+  category_id: 14
+  commercial_name: "Épandeur à engrais"
+  created_at: 2014-11-07 15:22:23.973592000 Z
+  creator_id: 1
+  id: 37
+  lock_version: 0
+  name: "Épandeur à engrais"
+  nature_id: 31
+  number: GWNVKRYVPNV000000000022
+  reference_name: spreader
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 15:22:23.973592000 Z
+  updater_id: 1
+  variety: spreader
+product_nature_variants_037:
+  active: true
+  category_id: 14
+  commercial_name: "Épandeur à fumier"
+  created_at: 2014-11-07 15:22:31.413012000 Z
+  creator_id: 1
+  id: 38
+  lock_version: 0
+  name: "Épandeur à fumier"
+  nature_id: 32
+  number: GWNVKRYVPNV000000000023
+  reference_name: spreader_trailer
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 15:22:31.413012000 Z
+  updater_id: 1
+  variety: trailer
+product_nature_variants_038:
+  active: true
+  category_id: 17
+  commercial_name: Ammonitre 33,5%  Big Bag
+  created_at: 2014-11-07 15:24:11.146570000 Z
+  creator_id: 1
+  id: 39
+  lock_version: 0
+  name: Ammonitre 33,5%  Big Bag
+  nature_id: 33
+  number: GWNVKRYVPNV000000000024
+  reference_name: coop:ammonitre_33_5_____bb
+  unit_name: Tonne
+  updated_at: 2014-11-07 15:24:11.146570000 Z
+  updater_id: 1
+  variety: preparation
+product_nature_variants_039:
+  active: true
+  category_id: 8
+  commercial_name: Culture de prairie permanente
+  created_at: 2014-11-07 15:40:58.381670000 Z
+  creator_id: 1
+  id: 40
+  lock_version: 0
+  name: Culture de prairie permanente
+  nature_id: 34
+  number: GWNVKRYVPNV000000000025
+  reference_name: permanent_meadow_crop
+  unit_name: Hectare
+  updated_at: 2014-11-07 15:40:58.381670000 Z
+  updater_id: 1
+  variety: poa
+product_nature_variants_040:
+  active: true
+  category_id: 5
+  commercial_name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+  created_at: 2014-11-07 15:41:47.838001000 Z
+  creator_id: 1
+  derivative_of: trifolium_pratense
+  id: 41
+  lock_version: 0
+  name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+  nature_id: 10
+  number: GWNVKRYVPNV000000000026
+  reference_name: coop:trefle_v__segur_s10k
+  unit_name: Sac de 10kg
+  updated_at: 2014-11-07 15:41:47.838001000 Z
+  updater_id: 1
+  variety: seed
+product_nature_variants_041:
+  active: true
+  category_id: 5
+  commercial_name: Semence mixte
+  created_at: 2014-11-07 15:43:46.298740000 Z
+  creator_id: 1
+  derivative_of: poa
+  id: 42
+  lock_version: 0
+  name: Semence mixte
+  nature_id: 10
+  number: GWNVKRYVPNV000000000027
+  reference_name: mixture_seed
+  unit_name: Kilogramme
+  updated_at: 2014-11-07 15:43:46.298740000 Z
+  updater_id: 1
+  variety: seed
+product_nature_variants_042:
+  active: true
+  category_id: 18
+  commercial_name: Herbe de prairie
+  created_at: 2014-11-07 15:46:45.156611000 Z
+  creator_id: 1
+  derivative_of: poa
+  id: 43
+  lock_version: 0
+  name: Herbe de prairie
+  nature_id: 35
+  number: GWNVKRYVPNV000000000028
+  reference_name: meadow_grass
+  unit_name: Tonne
+  updated_at: 2014-11-07 15:46:45.156611000 Z
+  updater_id: 1
+  variety: grass
+product_nature_variants_043:
+  active: true
+  category_id: 8
+  commercial_name: Culture de vigne
+  created_at: 2014-11-07 16:33:48.624554000 Z
+  creator_id: 1
+  id: 44
+  lock_version: 0
+  name: Culture de vigne
+  nature_id: 36
+  number: GWNVKRYVPNV000000000029
+  reference_name: vine_grape_crop
+  unit_name: Plant
+  updated_at: 2014-11-07 16:33:48.624554000 Z
+  updater_id: 1
+  variety: vitis_vinifera
+product_nature_variants_044:
+  active: true
+  category_id: 19
+  commercial_name: Plant de vigne standard (So4)
+  created_at: 2014-11-07 16:33:59.265372000 Z
+  creator_id: 1
+  derivative_of: vitis
+  id: 45
+  lock_version: 0
+  name: Plant de vigne standard (So4)
+  nature_id: 37
+  number: GWNVKRYVPNV000000000030
+  reference_name: so4_vine_seedling
+  unit_name: Unité
+  updated_at: 2014-11-07 16:33:59.265372000 Z
+  updater_id: 1
+  variety: seedling
+product_nature_variants_045:
+  active: true
+  category_id: 14
+  commercial_name: Planteuse
+  created_at: 2014-11-07 16:48:34.937972000 Z
+  creator_id: 1
+  id: 46
+  lock_version: 0
+  name: Planteuse
+  nature_id: 38
+  number: GWNVKRYVPNV000000000031
+  reference_name: implanter
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 16:48:34.937972000 Z
+  updater_id: 1
+  variety: implanter
+product_nature_variants_046:
+  active: true
+  category_id: 14
+  commercial_name: Machine à vendanger
+  created_at: 2014-11-07 17:04:02.267331000 Z
+  creator_id: 1
+  id: 47
+  lock_version: 0
+  name: Machine à vendanger
+  nature_id: 39
+  number: GWNVKRYVPNV000000000032
+  reference_name: grape_reaper
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 17:04:02.267331000 Z
+  updater_id: 1
+  variety: reaper
+product_nature_variants_047:
+  active: true
+  category_id: 20
+  commercial_name: Grappe de raisin
+  created_at: 2014-11-07 17:05:38.082911000 Z
+  creator_id: 1
+  derivative_of: vitis_vinifera
+  id: 48
+  lock_version: 0
+  name: Grappe de raisin
+  nature_id: 40
+  number: GWNVKRYVPNV000000000033
+  reference_name: vine_grape_berry
+  unit_name: Kilogramme
+  updated_at: 2014-11-07 17:05:38.082911000 Z
+  updater_id: 1
+  variety: grape
+product_nature_variants_048:
+  active: true
+  category_id: 21
+  commercial_name: Vin
+  created_at: 2014-11-07 17:10:23.486489000 Z
+  creator_id: 1
+  derivative_of: grape
+  id: 49
+  lock_version: 0
+  name: Vin
+  nature_id: 41
+  number: GWNVKRYVPNV000000000034
+  reference_name: wine
+  unit_name: Hectolitre
+  updated_at: 2014-11-07 17:10:23.486489000 Z
+  updater_id: 1
+  variety: wine
+product_nature_variants_049:
+  active: true
+  category_id: 14
+  commercial_name: Cuve en acier inox
+  created_at: 2014-11-07 17:14:18.214538000 Z
+  creator_id: 1
+  id: 50
+  lock_version: 0
+  name: Cuve en acier inox
+  nature_id: 42
+  number: GWNVKRYVPNV000000000035
+  reference_name: stainless_steel_tank
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 17:14:18.214538000 Z
+  updater_id: 1
+  variety: tank
+product_nature_variants_050:
+  active: true
+  category_id: 6
+  commercial_name: Bâtiment
+  created_at: 2014-11-07 17:16:15.471031000 Z
+  creator_id: 1
+  id: 51
+  lock_version: 0
+  name: Bâtiment
+  nature_id: 11
+  number: GWNVKRYVPNV000000000036
+  reference_name: building
+  unit_name: Bâtiment
+  updated_at: 2014-11-07 17:16:15.471031000 Z
+  updater_id: 1
+  variety: building
+product_nature_variants_051:
+  active: true
+  category_id: 14
+  commercial_name: Pressoir
+  created_at: 2014-11-07 17:23:08.062270000 Z
+  creator_id: 1
+  id: 52
+  lock_version: 0
+  name: Pressoir
+  nature_id: 43
+  number: GWNVKRYVPNV000000000037
+  reference_name: wine_press
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 17:23:08.062270000 Z
+  updater_id: 1
+  variety: press
+product_nature_variants_052:
+  active: true
+  category_id: 20
+  commercial_name: Moût de raisin
+  created_at: 2014-11-07 17:25:14.424939000 Z
+  creator_id: 1
+  derivative_of: grape
+  id: 53
+  lock_version: 0
+  name: Moût de raisin
+  nature_id: 45
+  number: GWNVKRYVPNV000000000038
+  reference_name: vine_grape_must
+  unit_name: Hectolitre
+  updated_at: 2014-11-07 17:25:14.424939000 Z
+  updater_id: 1
+  variety: fermented_juice
+product_nature_variants_053:
+  active: true
+  category_id: 4
+  commercial_name: Résidu de culture
+  created_at: 2014-11-07 17:25:46.208771000 Z
+  creator_id: 1
+  derivative_of: plant
+  id: 54
+  lock_version: 0
+  name: Résidu de culture
+  nature_id: 46
+  number: GWNVKRYVPNV000000000039
+  reference_name: crop_residue
+  unit_name: Tonne
+  updated_at: 2014-11-07 17:25:46.208771000 Z
+  updater_id: 1
+  variety: straw
+product_nature_variants_054:
+  active: true
+  category_id: 20
+  commercial_name: Co-produit du raisin
+  created_at: 2014-11-07 17:27:02.369419000 Z
+  creator_id: 1
+  derivative_of: vitis_vinifera
+  id: 55
+  lock_version: 0
+  name: Co-produit du raisin
+  nature_id: 47
+  number: GWNVKRYVPNV000000000040
+  reference_name: vine_residu
+  unit_name: Kilogramme
+  updated_at: 2014-11-07 17:27:02.369419000 Z
+  updater_id: 1
+  variety: pomace
+product_nature_variants_055:
+  active: true
+  category_id: 20
+  commercial_name: Jus de raisin
+  created_at: 2014-11-07 18:58:14.622969000 Z
+  creator_id: 1
+  derivative_of: grape
+  id: 56
+  lock_version: 0
+  name: Jus de raisin
+  nature_id: 48
+  number: GWNVKRYVPNV000000000042
+  reference_name: vine_grape_juice
+  unit_name: Hectolitre
+  updated_at: 2014-11-07 18:58:14.622969000 Z
+  updater_id: 1
+  variety: juice
+product_nature_variants_056:
+  active: true
+  category_id: 22
+  commercial_name: Acide lactique ‒ 25kg
+  created_at: 2014-11-07 19:03:43.671512000 Z
+  creator_id: 1
+  id: 57
+  lock_version: 0
+  name: Acide lactique ‒ 25kg
+  nature_id: 49
+  number: GWNVKRYVPNV000000000043
+  reference_name: lactic_acid_25kg
+  unit_name: Sac de 25kg
+  updated_at: 2014-11-07 19:03:43.671512000 Z
+  updater_id: 1
+  variety: preparation
+product_nature_variants_057:
+  active: true
+  category_id: 22
+  commercial_name: Acide malique ‒ 25kg
+  created_at: 2014-11-07 19:03:55.045552000 Z
+  creator_id: 1
+  id: 58
+  lock_version: 0
+  name: Acide malique ‒ 25kg
+  nature_id: 49
+  number: GWNVKRYVPNV000000000044
+  reference_name: malic_acid_25kg
+  unit_name: Sac de 25kg
+  updated_at: 2014-11-07 19:03:55.045552000 Z
+  updater_id: 1
+  variety: preparation
+product_nature_variants_058:
+  active: true
+  category_id: 22
+  commercial_name: Levure œnologique ‒ sachet de 500g
+  created_at: 2014-11-07 19:05:20.510880000 Z
+  creator_id: 1
+  derivative_of: saccharomyces_cerevisiae
+  id: 59
+  lock_version: 0
+  name: Levure œnologique ‒ sachet de 500g
+  nature_id: 50
+  number: GWNVKRYVPNV000000000045
+  reference_name: oenological_yeast_sc_500g
+  unit_name: Sac
+  updated_at: 2014-11-07 19:05:20.510880000 Z
+  updater_id: 1
+  variety: yeast
+product_nature_variants_059:
+  active: true
+  category_id: 22
+  commercial_name: Sucre blanc ‒ 25kg
+  created_at: 2014-11-07 19:10:37.826371000 Z
+  creator_id: 1
+  id: 60
+  lock_version: 0
+  name: Sucre blanc ‒ 25kg
+  nature_id: 51
+  number: GWNVKRYVPNV000000000046
+  reference_name: white_sugar_25kg
+  unit_name: Sac de 25kg
+  updated_at: 2014-11-07 19:10:37.826371000 Z
+  updater_id: 1
+  variety: saccharose
+product_nature_variants_060:
+  active: true
+  category_id: 22
+  commercial_name: Ferrocyanide de potassium ‒ 25kg
+  created_at: 2014-11-07 19:16:38.635536000 Z
+  creator_id: 1
+  id: 61
+  lock_version: 0
+  name: Ferrocyanide de potassium ‒ 25kg
+  nature_id: 52
+  number: GWNVKRYVPNV000000000047
+  reference_name: potassium_ferrocyanide_25kg
+  unit_name: Sac de 25kg
+  updated_at: 2014-11-07 19:16:38.635536000 Z
+  updater_id: 1
+  variety: potassium_ferrocyanide
+product_nature_variants_061:
+  active: true
+  category_id: 22
+  commercial_name: So2 liquide 10%
+  created_at: 2014-11-07 19:18:50.775331000 Z
+  creator_id: 1
+  id: 62
+  lock_version: 0
+  name: So2 liquide 10%
+  nature_id: 53
+  number: GWNVKRYVPNV000000000048
+  reference_name: so2_liquid_p10
+  unit_name: Litre
+  updated_at: 2014-11-07 19:18:50.775331000 Z
+  updater_id: 1
+  variety: preparation
+product_nature_variants_062:
+  active: true
+  category_id: 23
+  commercial_name: Bouteille Bordelaise 75cl
+  created_at: 2014-11-07 19:29:27.409413000 Z
+  creator_id: 1
+  id: 63
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl
+  nature_id: 54
+  number: GWNVKRYVPNV000000000049
+  reference_name: bordelaise_75cl_bottle
+  unit_name: Bouteille de 75cl
+  updated_at: 2014-11-07 19:29:27.409413000 Z
+  updater_id: 1
+  variety: cork_bottle
+product_nature_variants_063:
+  active: true
+  category_id: 23
+  commercial_name: Bouchon naturel
+  created_at: 2014-11-07 19:29:44.237224000 Z
+  creator_id: 1
+  id: 64
+  lock_version: 0
+  name: Bouchon naturel
+  nature_id: 55
+  number: GWNVKRYVPNV000000000050
+  reference_name: natural_cork
+  unit_name: Unité
+  updated_at: 2014-11-07 19:29:44.237224000 Z
+  updater_id: 1
+  variety: cork
+product_nature_variants_064:
+  active: true
+  category_id: 21
+  commercial_name: Bouteille de vin (75cl)
+  created_at: 2014-11-07 19:29:57.758780000 Z
+  creator_id: 1
+  derivative_of: grape
+  id: 65
+  lock_version: 0
+  name: Bouteille de vin (75cl)
+  nature_id: 41
+  number: GWNVKRYVPNV000000000051
+  reference_name: bottle_75cl_wine
+  unit_name: Bouteille de 75cl
+  updated_at: 2014-11-07 19:29:57.758780000 Z
+  updater_id: 1
+  variety: wine
+product_nature_variants_065:
+  active: true
+  category_id: 14
+  commercial_name: Tireuse
+  created_at: 2014-11-07 19:35:20.887953000 Z
+  creator_id: 1
+  id: 66
+  lock_version: 0
+  name: Tireuse
+  nature_id: 56
+  number: GWNVKRYVPNV000000000052
+  reference_name: hand_drawn
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 19:35:20.887953000 Z
+  updater_id: 1
+  variety: equipment
+product_nature_variants_066:
+  active: true
+  category_id: 14
+  commercial_name: Boucheuse
+  created_at: 2014-11-07 19:35:28.672313000 Z
+  creator_id: 1
+  id: 67
+  lock_version: 0
+  name: Boucheuse
+  nature_id: 57
+  number: GWNVKRYVPNV000000000053
+  reference_name: corker
+  unit_name: "Équipement"
+  updated_at: 2014-11-07 19:35:28.672313000 Z
+  updater_id: 1
+  variety: equipment

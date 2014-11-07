@@ -2820,3 +2820,45 @@ accounts_214:
   updated_at: 2014-11-05 12:12:39.884201000 Z
   updater_id: 1
   usages: banks
+accounts_215:
+  created_at: 2014-11-07 16:01:53.145011000 Z
+  creator_id: 1
+  debtor: false
+  description: ''
+  id: 215
+  label: 607 - Compte 607
+  lock_version: 0
+  name: Compte 607
+  number: '607'
+  reconcilable: false
+  updated_at: 2014-11-07 16:01:53.145011000 Z
+  updater_id: 1
+  usages: expenses
+accounts_216:
+  created_at: 2014-11-07 16:02:59.823910000 Z
+  creator_id: 1
+  debtor: false
+  description: ''
+  id: 216
+  label: 645 - Compte 645
+  lock_version: 0
+  name: Compte 645
+  number: '645'
+  reconcilable: false
+  updated_at: 2014-11-07 16:02:59.823910000 Z
+  updater_id: 1
+  usages: expenses
+accounts_217:
+  created_at: 2014-11-07 16:05:36.316504000 Z
+  creator_id: 1
+  debtor: false
+  description: ''
+  id: 217
+  label: 6037 - Compte 6037
+  lock_version: 0
+  name: Compte 6037
+  number: '6037'
+  reconcilable: false
+  updated_at: 2014-11-07 16:05:36.316504000 Z
+  updater_id: 1
+  usages: expenses

@@ -9,14 +9,14 @@
       <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="fermentation-input" need="population">
         <handler indicator="population" />
       <handler indicator="mass_volume_density"   unit="gram_per_hectoliter"   to="population" if="tank? &amp; juice_to_ferment?"
-                 forward="(value * wine_to_treat.net_volume(hectoliter)) / self..net_mass(gram)"
-                 backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)"
+                 forward="(value * juice_to_ferment.net_volume(hectoliter)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / juice_to_ferment.net_volume(hectoliter)"
                  /> <!-- g/hl -->
       <!--NOT WORKING FOR INSTANCE
         <handler indicator="cells_concentration"   name="cells_density" unit="million_per_liter"   to="population"
      if="self.cells_mass_concentration? &amp; self.cells_mass_concentration(billion_per_gram) > 0"
-                 forward="(value * wine_to_treat.net_volume(liter) * 1000) / (self..net_mass(gram) * self.cells_mass_concentration(billion_per_gram))"
-                 backward="(value * self..net_mass(gram) * (self.cells_mass_concentration(billion_per_gram))) / (wine_to_treat.net_volume(liter) * 1000)"
+                 forward="(value * juice_to_ferment.net_volume(liter) * 1000) / (self..net_mass(gram) * self.cells_mass_concentration(billion_per_gram))"
+                 backward="(value * self..net_mass(gram) * (self.cells_mass_concentration(billion_per_gram))) / (juice_to_ferment.net_volume(liter) * 1000)"
                  /> M de levures/l
       -->
       </variable>

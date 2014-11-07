@@ -387,3 +387,148 @@ product_nature_categories_016:
   subscribing: false
   updated_at: 2014-11-04 17:27:32.635406000 Z
   updater_id: 1
+product_nature_categories_017:
+  active: true
+  charge_account_id: 54
+  created_at: 2014-11-07 15:24:11.118240000 Z
+  creator_id: 1
+  depreciable: false
+  id: 17
+  lock_version: 0
+  name: Engrais
+  number: PNC017
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: fertilizer
+  saleable: true
+  stock_account_id: 55
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 15:24:11.118240000 Z
+  updater_id: 1
+product_nature_categories_018:
+  active: true
+  created_at: 2014-11-07 15:46:45.124919000 Z
+  creator_id: 1
+  depreciable: false
+  id: 18
+  lock_version: 0
+  name: Herbe
+  number: PNC018
+  pictogram: leaf
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: grass
+  saleable: true
+  stock_account_id: 139
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 15:46:45.124919000 Z
+  updater_id: 1
+product_nature_categories_019:
+  active: true
+  charge_account_id: 154
+  created_at: 2014-11-07 16:33:59.239806000 Z
+  creator_id: 1
+  depreciable: true
+  financial_asset_account_id: 184
+  id: 19
+  lock_version: 0
+  name: Plant
+  number: PNC019
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: plant
+  saleable: true
+  stock_account_id: 155
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 16:33:59.239806000 Z
+  updater_id: 1
+product_nature_categories_020:
+  active: true
+  created_at: 2014-11-07 17:05:38.057941000 Z
+  creator_id: 1
+  depreciable: false
+  id: 20
+  lock_version: 0
+  name: Fruit
+  number: PNC020
+  pictogram: leaf
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: fruit
+  saleable: true
+  stock_account_id: 139
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 17:05:38.057941000 Z
+  updater_id: 1
+product_nature_categories_021:
+  active: true
+  created_at: 2014-11-07 17:10:23.458618000 Z
+  creator_id: 1
+  depreciable: false
+  id: 21
+  lock_version: 0
+  name: Vin
+  number: PNC021
+  pictogram: drop
+  product_account_id: 5
+  purchasable: false
+  reductible: false
+  reference_name: wine
+  saleable: true
+  stock_account_id: 139
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 17:10:23.458618000 Z
+  updater_id: 1
+product_nature_categories_022:
+  active: true
+  charge_account_id: 147
+  created_at: 2014-11-07 19:03:43.632961000 Z
+  creator_id: 1
+  depreciable: false
+  id: 22
+  lock_version: 0
+  name: Produit œnologique
+  number: PNC022
+  pictogram: beaker
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: oenological_product
+  saleable: true
+  stock_account_id: 141
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 19:03:43.632961000 Z
+  updater_id: 1
+product_nature_categories_023:
+  active: true
+  charge_account_id: 115
+  created_at: 2014-11-07 19:29:27.376345000 Z
+  creator_id: 1
+  depreciable: false
+  id: 23
+  lock_version: 0
+  name: Matières sèches (vin)
+  number: PNC023
+  pictogram: matter
+  product_account_id: 152
+  purchasable: true
+  reductible: false
+  reference_name: wine_package_consumable
+  saleable: true
+  stock_account_id: 116
+  storable: true
+  subscribing: false
+  updated_at: 2014-11-07 19:29:27.376345000 Z
+  updater_id: 1

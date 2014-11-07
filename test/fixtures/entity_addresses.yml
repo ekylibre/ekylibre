@@ -191,23 +191,24 @@ entity_addresses_008:
 entity_addresses_009:
   by_default: true
   canal: mail
-  coordinate: Ferstivall LTD, 33000 BORDEAUX, France
+  coordinate: Ferstivall LTD, La Banquise, 4 rue Eugène et Marc Dulout, 33600 PESSAC,
+    France
   created_at: 2014-11-03 11:30:58.908408000 Z
   creator_id: 1
   entity_id: 1
   id: 9
-  lock_version: 0
+  lock_version: 4
   mail_auto_update: false
   mail_country: fr
   mail_line_1: Ferstivall LTD
-  mail_line_2: ''
+  mail_line_2: La Banquise
   mail_line_3: ''
-  mail_line_4: ''
+  mail_line_4: 4 rue Eugène et Marc Dulout
   mail_line_5: ''
-  mail_line_6: 33000 BORDEAUX
-  mail_postal_zone_id: 2
+  mail_line_6: 33600 PESSAC
+  mail_postal_zone_id: 7
   thread: AAAA
-  updated_at: 2014-11-03 11:30:58.908408000 Z
+  updated_at: 2014-11-07 15:13:53.040881000 Z
   updater_id: 1
 entity_addresses_010:
   by_default: true

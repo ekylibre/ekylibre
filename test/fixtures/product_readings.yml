@@ -135,16 +135,16 @@ product_readings_006:
   boolean_value: false
   created_at: 2014-10-31 20:15:14.819292000 Z
   creator_id: 1
-  geometry_value: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.831708670011721 45.5990635462549,-0.831558466306888
-    45.5984855274885,-0.831290245405398 45.5985005410382,-0.831461906782351 45.5991160931203,-0.831708670011721
-    45.5990635462549)))
+  geometry_value: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796326398849487 45.8263246730165,-0.796270072460175
+    45.8260798257695,-0.796111822128296 45.8260929092374,-0.796052813529968 45.8258536681952,-0.796449780464172
+    45.8258088103853,-0.796551704406738 45.8262985061865,-0.796326398849487 45.8263246730165)))
   id: 11
   indicator_datatype: geometry
   indicator_name: shape
-  lock_version: 0
+  lock_version: 1
   product_id: 14
   read_at: 1971-03-05 09:50:00.000000000 Z
-  updated_at: 2014-10-31 20:15:14.819292000 Z
+  updated_at: 2014-11-07 14:30:00.704955000 Z
   updater_id: 1
 product_readings_007:
   absolute_measure_value_unit: square_meter
@@ -213,14 +213,16 @@ product_readings_011:
   creator_id: 1
   geometry_value: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813031777761353 45.5987083844552,-0.812880232952011
     45.5986882100715,-0.812858104727638 45.5987590549683,-0.813003614566696 45.5987759451292,-0.813031777761353
-    45.5987083844552)))
+    45.5987083844552)),POLYGON((-0.796550989325624 45.8263695304107,-0.796615362341981
+    45.8266162454325,-0.79639542120276 45.8266386740166,-0.796309590514284 45.8263956972072,-0.796550989325624
+    45.8263695304107)))
   id: 16
   indicator_datatype: geometry
   indicator_name: shape
-  lock_version: 0
+  lock_version: 1
   product_id: 19
   read_at: 1979-03-02 05:30:00.000000000 Z
-  updated_at: 2014-10-31 20:18:12.255848000 Z
+  updated_at: 2014-11-07 14:41:44.769615000 Z
   updater_id: 1
 product_readings_012:
   absolute_measure_value_unit: square_meter
@@ -857,7 +859,7 @@ product_readings_057:
   boolean_value: false
   created_at: 2014-11-01 20:19:35.440204000 Z
   creator_id: 1
-  decimal_value: 10.0
+  decimal_value: -0.649
   id: 62
   indicator_datatype: decimal
   indicator_name: population
@@ -1895,4 +1897,2242 @@ product_readings_128:
   product_id: 92
   read_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.373557000 Z
+  updater_id: 1
+product_readings_129:
+  boolean_value: true
+  created_at: 2014-11-07 14:44:18.926358000 Z
+  creator_id: 1
+  id: 147
+  indicator_datatype: boolean
+  indicator_name: healthy
+  lock_version: 0
+  product_id: 5
+  read_at: 2014-11-05 06:20:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.926358000 Z
+  updater_id: 1
+product_readings_130:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 0.0
+  boolean_value: false
+  created_at: 2014-11-07 14:44:18.979273000 Z
+  creator_id: 1
+  id: 148
+  indicator_datatype: measure
+  indicator_name: milk_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 0.0
+  product_id: 94
+  read_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.979273000 Z
+  updater_id: 1
+product_readings_131:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 0.0
+  boolean_value: false
+  created_at: 2014-11-07 14:44:18.983635000 Z
+  creator_id: 1
+  id: 149
+  indicator_datatype: measure
+  indicator_name: meat_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 0.0
+  product_id: 94
+  read_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.983635000 Z
+  updater_id: 1
+product_readings_132:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 14:44:18.987764000 Z
+  creator_id: 1
+  id: 150
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 94
+  read_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.987764000 Z
+  updater_id: 1
+product_readings_133:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 14:44:18.991665000 Z
+  creator_id: 1
+  id: 151
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 94
+  read_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.991665000 Z
+  updater_id: 1
+product_readings_134:
+  boolean_value: false
+  created_at: 2014-11-07 14:44:18.997446000 Z
+  creator_id: 1
+  decimal_value: 0.02
+  id: 152
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 94
+  read_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.997446000 Z
+  updater_id: 1
+product_readings_135:
+  boolean_value: false
+  created_at: 2014-11-07 14:44:19.029919000 Z
+  creator_id: 1
+  decimal_value: 9.98
+  id: 153
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 59
+  read_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:19.029919000 Z
+  updater_id: 1
+product_readings_136:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 8.0
+  boolean_value: false
+  created_at: 2014-11-07 15:01:32.295858000 Z
+  creator_id: 1
+  id: 154
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 8.0
+  product_id: 95
+  read_at: 2009-01-11 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:01:32.295858000 Z
+  updater_id: 1
+product_readings_137:
+  boolean_value: false
+  created_at: 2014-11-07 15:01:32.340925000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 155
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 95
+  read_at: 2009-01-11 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:01:32.340925000 Z
+  updater_id: 1
+product_readings_138:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 15:02:58.930577000 Z
+  creator_id: 1
+  id: 156
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 96
+  read_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.930577000 Z
+  updater_id: 1
+product_readings_139:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 15:02:58.935802000 Z
+  creator_id: 1
+  id: 157
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 96
+  read_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.935802000 Z
+  updater_id: 1
+product_readings_140:
+  boolean_value: false
+  created_at: 2014-11-07 15:02:59.113211000 Z
+  creator_id: 1
+  decimal_value: 4.1745
+  id: 158
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 96
+  read_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:59.113211000 Z
+  updater_id: 1
+product_readings_141:
+  boolean_value: false
+  created_at: 2014-11-07 15:02:59.147786000 Z
+  creator_id: 1
+  decimal_value: -4.1745
+  id: 159
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 57
+  read_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:59.147786000 Z
+  updater_id: 1
+product_readings_142:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 4.0
+  boolean_value: false
+  created_at: 2014-11-07 15:23:45.101470000 Z
+  creator_id: 1
+  id: 160
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 4.0
+  product_id: 97
+  read_at: 2010-11-01 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:23:45.101470000 Z
+  updater_id: 1
+product_readings_143:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 8000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:23:45.103340000 Z
+  creator_id: 1
+  id: 161
+  indicator_datatype: measure
+  indicator_name: nominal_storable_net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 8.0
+  product_id: 97
+  read_at: 2010-11-01 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:23:45.103340000 Z
+  updater_id: 1
+product_readings_144:
+  boolean_value: false
+  created_at: 2014-11-07 15:23:45.208597000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 162
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 97
+  read_at: 2010-11-01 23:00:00.000000000 Z
+  updated_at: 2014-11-07 15:23:45.208597000 Z
+  updater_id: 1
+product_readings_145:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:25:51.244925000 Z
+  creator_id: 1
+  id: 163
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 1.0
+  product_id: 98
+  read_at: 2012-11-03 15:24:00.000000000 Z
+  updated_at: 2014-11-07 15:25:51.244925000 Z
+  updater_id: 1
+product_readings_146:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:25:51.249493000 Z
+  creator_id: 1
+  id: 164
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  product_id: 98
+  read_at: 2012-11-03 15:24:00.000000000 Z
+  updated_at: 2014-11-07 15:25:51.249493000 Z
+  updater_id: 1
+product_readings_147:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 33.5
+  boolean_value: false
+  created_at: 2014-11-07 15:25:51.253571000 Z
+  creator_id: 1
+  id: 165
+  indicator_datatype: measure
+  indicator_name: nitrogen_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 33.5
+  product_id: 98
+  read_at: 2012-11-03 15:24:00.000000000 Z
+  updated_at: 2014-11-07 15:25:51.253571000 Z
+  updater_id: 1
+product_readings_148:
+  boolean_value: false
+  created_at: 2014-11-07 15:25:51.259524000 Z
+  creator_id: 1
+  decimal_value: 10.0
+  id: 166
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 98
+  read_at: 2012-11-03 15:24:00.000000000 Z
+  updated_at: 2014-11-07 15:25:51.259524000 Z
+  updater_id: 1
+product_readings_149:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:26:50.618150000 Z
+  creator_id: 1
+  id: 167
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 1.0
+  product_id: 99
+  read_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.618150000 Z
+  updater_id: 1
+product_readings_150:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:26:50.622316000 Z
+  creator_id: 1
+  id: 168
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  product_id: 99
+  read_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.622316000 Z
+  updater_id: 1
+product_readings_151:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 33.5
+  boolean_value: false
+  created_at: 2014-11-07 15:26:50.626210000 Z
+  creator_id: 1
+  id: 169
+  indicator_datatype: measure
+  indicator_name: nitrogen_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 33.5
+  product_id: 99
+  read_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.626210000 Z
+  updater_id: 1
+product_readings_152:
+  boolean_value: false
+  created_at: 2014-11-07 15:26:50.630973000 Z
+  creator_id: 1
+  decimal_value: 0.6425
+  id: 170
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 99
+  read_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.630973000 Z
+  updater_id: 1
+product_readings_153:
+  boolean_value: false
+  created_at: 2014-11-07 15:26:50.658889000 Z
+  creator_id: 1
+  decimal_value: 9.3575
+  id: 171
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 98
+  read_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.658889000 Z
+  updater_id: 1
+product_readings_154:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 10.0
+  boolean_value: false
+  created_at: 2014-11-07 15:44:20.506534000 Z
+  creator_id: 1
+  id: 172
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 10.0
+  product_id: 100
+  read_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.506534000 Z
+  updater_id: 1
+product_readings_155:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 2.0
+  boolean_value: false
+  created_at: 2014-11-07 15:44:20.547706000 Z
+  creator_id: 1
+  id: 173
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 2.0
+  product_id: 100
+  read_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.547706000 Z
+  updater_id: 1
+product_readings_156:
+  boolean_value: false
+  created_at: 2014-11-07 15:44:20.552861000 Z
+  creator_id: 1
+  decimal_value: 20.0
+  id: 174
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 100
+  read_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.552861000 Z
+  updater_id: 1
+product_readings_157:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 15:44:20.628230000 Z
+  creator_id: 1
+  id: 175
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 101
+  read_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.628230000 Z
+  updater_id: 1
+product_readings_158:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 50.0
+  boolean_value: false
+  created_at: 2014-11-07 15:44:20.632372000 Z
+  creator_id: 1
+  id: 176
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 50.0
+  product_id: 101
+  read_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.632372000 Z
+  updater_id: 1
+product_readings_159:
+  boolean_value: false
+  created_at: 2014-11-07 15:44:20.637233000 Z
+  creator_id: 1
+  decimal_value: 22.1359
+  id: 177
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 101
+  read_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.637233000 Z
+  updater_id: 1
+product_readings_160:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 15:45:45.877909000 Z
+  creator_id: 1
+  id: 178
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 102
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.877909000 Z
+  updater_id: 1
+product_readings_161:
+  absolute_measure_value_unit: gram
+  absolute_measure_value_value: 50.0
+  boolean_value: false
+  created_at: 2014-11-07 15:45:45.881915000 Z
+  creator_id: 1
+  id: 179
+  indicator_datatype: measure
+  indicator_name: thousand_grains_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 50.0
+  product_id: 102
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.881915000 Z
+  updater_id: 1
+product_readings_162:
+  boolean_value: false
+  created_at: 2014-11-07 15:45:45.886665000 Z
+  creator_id: 1
+  decimal_value: 177.8641
+  id: 180
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 102
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.886665000 Z
+  updater_id: 1
+product_readings_163:
+  boolean_value: false
+  created_at: 2014-11-07 15:45:45.912621000 Z
+  creator_id: 1
+  decimal_value: -177.8641
+  id: 181
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 101
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.912621000 Z
+  updater_id: 1
+product_readings_164:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:45:46.011743000 Z
+  creator_id: 1
+  id: 182
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product_id: 103
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.011743000 Z
+  updater_id: 1
+product_readings_165:
+  boolean_value: false
+  created_at: 2014-11-07 15:45:46.016316000 Z
+  creator_id: 1
+  decimal_value: 10.1637
+  id: 183
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 103
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.016316000 Z
+  updater_id: 1
+product_readings_166:
+  boolean_value: false
+  created_at: 2014-11-07 15:45:46.022749000 Z
+  creator_id: 1
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  id: 184
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product_id: 103
+  read_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.022749000 Z
+  updater_id: 1
+product_readings_167:
+  boolean_value: false
+  created_at: 2014-11-07 15:45:46.092533000 Z
+  creator_id: 1
+  decimal_value: 10.1637
+  id: 185
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 103
+  read_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.092533000 Z
+  updater_id: 1
+product_readings_168:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-07 15:45:46.107843000 Z
+  creator_id: 1
+  id: 186
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product_id: 80
+  read_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.107843000 Z
+  updater_id: 1
+product_readings_169:
+  boolean_value: false
+  created_at: 2014-11-07 15:45:46.122125000 Z
+  creator_id: 1
+  id: 187
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 5000
+  lock_version: 0
+  product_id: 103
+  read_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.122125000 Z
+  updater_id: 1
+product_readings_170:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2014-11-07 15:50:04.512335000 Z
+  creator_id: 1
+  id: 190
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  product_id: 105
+  read_at: 2014-08-01 00:10:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.512335000 Z
+  updater_id: 1
+product_readings_171:
+  boolean_value: false
+  created_at: 2014-11-07 15:50:04.516967000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 191
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 105
+  read_at: 2014-08-01 00:10:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.516967000 Z
+  updater_id: 1
+product_readings_172:
+  boolean_value: false
+  choice_value: raw
+  created_at: 2014-11-07 16:26:53.133333000 Z
+  creator_id: 1
+  id: 192
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product_id: 106
+  read_at: 1971-06-17 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:26:53.133333000 Z
+  updater_id: 1
+product_readings_173:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-07 16:26:53.223075000 Z
+  creator_id: 1
+  id: 193
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product_id: 106
+  read_at: 1971-06-17 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:26:53.223075000 Z
+  updater_id: 1
+product_readings_174:
+  boolean_value: false
+  created_at: 2014-11-07 16:26:53.227583000 Z
+  creator_id: 1
+  decimal_value: 5.3954
+  id: 194
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 106
+  read_at: 1971-06-17 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:26:53.227583000 Z
+  updater_id: 1
+product_readings_175:
+  boolean_value: false
+  created_at: 2014-11-07 16:26:53.233581000 Z
+  creator_id: 1
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  id: 195
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product_id: 106
+  read_at: 1971-06-17 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:26:53.233581000 Z
+  updater_id: 1
+product_readings_176:
+  boolean_value: false
+  choice_value: vitis_cinerea_x_vitis_riparia_SO4
+  created_at: 2014-11-07 16:47:34.907912000 Z
+  creator_id: 1
+  id: 196
+  indicator_datatype: choice
+  indicator_name: woodstock_variety
+  lock_version: 0
+  product_id: 107
+  read_at: 2008-03-05 09:00:00.000000000 Z
+  updated_at: 2014-11-07 16:47:34.907912000 Z
+  updater_id: 1
+product_readings_177:
+  boolean_value: false
+  created_at: 2014-11-07 16:47:34.911990000 Z
+  creator_id: 1
+  decimal_value: 5000.0
+  id: 197
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 107
+  read_at: 2008-03-05 09:00:00.000000000 Z
+  updated_at: 2014-11-07 16:47:34.911990000 Z
+  updater_id: 1
+product_readings_178:
+  boolean_value: false
+  created_at: 2014-11-07 16:49:26.186768000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 198
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 108
+  read_at: 2001-01-22 23:00:00.000000000 Z
+  updated_at: 2014-11-07 16:49:26.186768000 Z
+  updater_id: 1
+product_readings_179:
+  boolean_value: false
+  choice_value: vitis_cinerea_x_vitis_riparia_SO4
+  created_at: 2014-11-07 16:50:07.275975000 Z
+  creator_id: 1
+  id: 199
+  indicator_datatype: choice
+  indicator_name: woodstock_variety
+  lock_version: 0
+  product_id: 109
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.275975000 Z
+  updater_id: 1
+product_readings_180:
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.280293000 Z
+  creator_id: 1
+  decimal_value: 5000.0
+  id: 200
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 109
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.280293000 Z
+  updater_id: 1
+product_readings_181:
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.304300000 Z
+  creator_id: 1
+  decimal_value: 0.0
+  id: 201
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 107
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.304300000 Z
+  updater_id: 1
+product_readings_182:
+  absolute_measure_value_unit: square_meter
+  absolute_measure_value_value: 10000.0
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.400735000 Z
+  creator_id: 1
+  id: 202
+  indicator_datatype: measure
+  indicator_name: net_surface_area
+  lock_version: 0
+  measure_value_unit: hectare
+  measure_value_value: 1.0
+  product_id: 110
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.400735000 Z
+  updater_id: 1
+product_readings_183:
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.405092000 Z
+  creator_id: 1
+  decimal_value: 0.0
+  id: 203
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 110
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.405092000 Z
+  updater_id: 1
+product_readings_184:
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.410204000 Z
+  creator_id: 1
+  geometry_value: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  id: 204
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product_id: 110
+  read_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.410204000 Z
+  updater_id: 1
+product_readings_185:
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.571405000 Z
+  creator_id: 1
+  decimal_value: 5.3954
+  id: 205
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 110
+  read_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.571405000 Z
+  updater_id: 1
+product_readings_186:
+  boolean_value: false
+  choice_value: covered
+  created_at: 2014-11-07 16:50:07.585299000 Z
+  creator_id: 1
+  id: 206
+  indicator_datatype: choice
+  indicator_name: soil_cultural_state
+  lock_version: 0
+  product_id: 106
+  read_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.585299000 Z
+  updater_id: 1
+product_readings_187:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 2.0
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.598816000 Z
+  creator_id: 1
+  id: 207
+  indicator_datatype: measure
+  indicator_name: rows_interval
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 2.0
+  product_id: 110
+  read_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.598816000 Z
+  updater_id: 1
+product_readings_188:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.8
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.611969000 Z
+  creator_id: 1
+  id: 208
+  indicator_datatype: measure
+  indicator_name: plants_interval
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 0.8
+  product_id: 110
+  read_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.611969000 Z
+  updater_id: 1
+product_readings_189:
+  boolean_value: false
+  created_at: 2014-11-07 16:50:07.625403000 Z
+  creator_id: 1
+  id: 209
+  indicator_datatype: integer
+  indicator_name: plants_count
+  integer_value: 5000
+  lock_version: 0
+  product_id: 110
+  read_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.625403000 Z
+  updater_id: 1
+product_readings_190:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 16:59:09.898907000 Z
+  creator_id: 1
+  id: 210
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 111
+  read_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.898907000 Z
+  updater_id: 1
+product_readings_191:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 16:59:09.902667000 Z
+  creator_id: 1
+  id: 211
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 111
+  read_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.902667000 Z
+  updater_id: 1
+product_readings_192:
+  boolean_value: false
+  created_at: 2014-11-07 16:59:09.907829000 Z
+  creator_id: 1
+  decimal_value: 6.4745
+  id: 212
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 111
+  read_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.907829000 Z
+  updater_id: 1
+product_readings_193:
+  boolean_value: false
+  created_at: 2014-11-07 16:59:10.099802000 Z
+  creator_id: 1
+  decimal_value: -10.649
+  id: 213
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 57
+  read_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:10.099802000 Z
+  updater_id: 1
+product_readings_194:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 3.0
+  boolean_value: false
+  created_at: 2014-11-07 17:05:10.444726000 Z
+  creator_id: 1
+  id: 214
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 3.0
+  product_id: 112
+  read_at: 2012-09-02 07:00:00.000000000 Z
+  updated_at: 2014-11-07 17:05:10.444726000 Z
+  updater_id: 1
+product_readings_195:
+  boolean_value: false
+  created_at: 2014-11-07 17:05:10.488248000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 215
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 112
+  read_at: 2012-09-02 07:00:00.000000000 Z
+  updated_at: 2014-11-07 17:05:10.488248000 Z
+  updater_id: 1
+product_readings_196:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 17:08:50.515543000 Z
+  creator_id: 1
+  id: 219
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 114
+  read_at: 2013-09-16 16:38:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.515543000 Z
+  updater_id: 1
+product_readings_197:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 17:08:50.518848000 Z
+  creator_id: 1
+  id: 220
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 114
+  read_at: 2013-09-16 16:38:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.518848000 Z
+  updater_id: 1
+product_readings_198:
+  boolean_value: false
+  created_at: 2014-11-07 17:08:50.522869000 Z
+  creator_id: 1
+  decimal_value: 32372.6138
+  id: 221
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 114
+  read_at: 2013-09-16 16:38:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.522869000 Z
+  updater_id: 1
+product_readings_199:
+  boolean_value: false
+  created_at: 2014-11-07 17:18:26.069636000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 222
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 115
+  read_at: 2011-05-24 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:18:26.069636000 Z
+  updater_id: 1
+product_readings_200:
+  boolean_value: false
+  created_at: 2014-11-07 17:18:26.074996000 Z
+  creator_id: 1
+  geometry_value: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796345174312592 45.8269171615169,-0.795996487140656
+    45.8270218275997,-0.795943513512611 45.8269353846437,-0.796031355857849 45.8269064145419,-0.796053484082222
+    45.8268765099049,-0.796093046665192 45.8268559504576,-0.796143338084221 45.826849876074,-0.796190947294235
+    45.8268545486768,-0.796286836266518 45.8268269803145,-0.796345174312592 45.8269171615169)))
+  id: 223
+  indicator_datatype: geometry
+  indicator_name: shape
+  lock_version: 0
+  product_id: 115
+  read_at: 2011-05-24 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:18:26.074996000 Z
+  updater_id: 1
+product_readings_201:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 3000.0
+  boolean_value: false
+  created_at: 2014-11-07 17:19:35.231167000 Z
+  creator_id: 1
+  id: 224
+  indicator_datatype: measure
+  indicator_name: nominal_storable_net_volume
+  lock_version: 0
+  measure_value_unit: hectoliter
+  measure_value_value: 30.0
+  product_id: 116
+  read_at: 2010-06-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:19:35.231167000 Z
+  updater_id: 1
+product_readings_202:
+  boolean_value: false
+  created_at: 2014-11-07 17:19:35.267972000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 225
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 116
+  read_at: 2010-06-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:19:35.267972000 Z
+  updater_id: 1
+product_readings_203:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 2500.0
+  boolean_value: false
+  created_at: 2014-11-07 17:20:23.971178000 Z
+  creator_id: 1
+  id: 226
+  indicator_datatype: measure
+  indicator_name: nominal_storable_net_volume
+  lock_version: 0
+  measure_value_unit: hectoliter
+  measure_value_value: 25.0
+  product_id: 117
+  read_at: 2010-04-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:20:23.971178000 Z
+  updater_id: 1
+product_readings_204:
+  boolean_value: false
+  created_at: 2014-11-07 17:20:24.006360000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 227
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 117
+  read_at: 2010-04-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:20:24.006360000 Z
+  updater_id: 1
+product_readings_205:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 35000.0
+  boolean_value: false
+  created_at: 2014-11-07 17:22:41.846414000 Z
+  creator_id: 1
+  id: 228
+  indicator_datatype: measure
+  indicator_name: nominal_storable_net_volume
+  lock_version: 0
+  measure_value_unit: hectoliter
+  measure_value_value: 350.0
+  product_id: 118
+  read_at: 2010-04-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:22:41.846414000 Z
+  updater_id: 1
+product_readings_206:
+  boolean_value: false
+  created_at: 2014-11-07 17:22:41.886187000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 229
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 118
+  read_at: 2010-04-30 22:00:00.000000000 Z
+  updated_at: 2014-11-07 17:22:41.886187000 Z
+  updater_id: 1
+product_readings_207:
+  boolean_value: false
+  created_at: 2014-11-07 17:23:41.418572000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 230
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 119
+  read_at: 2014-11-07 17:23:41.409332000 Z
+  updated_at: 2014-11-07 17:23:41.418572000 Z
+  updater_id: 1
+product_readings_208:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.125032000 Z
+  creator_id: 1
+  id: 231
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 120
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.125032000 Z
+  updater_id: 1
+product_readings_209:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.128656000 Z
+  creator_id: 1
+  id: 232
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 120
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.128656000 Z
+  updater_id: 1
+product_readings_210:
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.132696000 Z
+  creator_id: 1
+  decimal_value: 3200.0
+  id: 233
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 120
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.132696000 Z
+  updater_id: 1
+product_readings_211:
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.158333000 Z
+  creator_id: 1
+  decimal_value: 29172.6138
+  id: 234
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 114
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.158333000 Z
+  updater_id: 1
+product_readings_212:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.179989000 Z
+  creator_id: 1
+  id: 235
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 121
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.179989000 Z
+  updater_id: 1
+product_readings_213:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.183136000 Z
+  creator_id: 1
+  id: 236
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 121
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.183136000 Z
+  updater_id: 1
+product_readings_214:
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.186866000 Z
+  creator_id: 1
+  decimal_value: 3000.0
+  id: 237
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 121
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.186866000 Z
+  updater_id: 1
+product_readings_215:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.218350000 Z
+  creator_id: 1
+  id: 238
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 122
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.218350000 Z
+  updater_id: 1
+product_readings_216:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.221482000 Z
+  creator_id: 1
+  id: 239
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 122
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.221482000 Z
+  updater_id: 1
+product_readings_217:
+  boolean_value: false
+  created_at: 2014-11-07 18:53:58.225318000 Z
+  creator_id: 1
+  decimal_value: 200.0
+  id: 240
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 122
+  read_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.225318000 Z
+  updater_id: 1
+product_readings_218:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.400947000 Z
+  creator_id: 1
+  id: 241
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 123
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.400947000 Z
+  updater_id: 1
+product_readings_219:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.404704000 Z
+  creator_id: 1
+  id: 242
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 123
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.404704000 Z
+  updater_id: 1
+product_readings_220:
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.409335000 Z
+  creator_id: 1
+  decimal_value: 3200.0
+  id: 243
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 123
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.409335000 Z
+  updater_id: 1
+product_readings_221:
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.435541000 Z
+  creator_id: 1
+  decimal_value: 25972.6138
+  id: 244
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 114
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.435541000 Z
+  updater_id: 1
+product_readings_222:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 100.0
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.457325000 Z
+  creator_id: 1
+  id: 245
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 100.0
+  product_id: 124
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.457325000 Z
+  updater_id: 1
+product_readings_223:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 100.0
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.487212000 Z
+  creator_id: 1
+  id: 246
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 100.0
+  product_id: 124
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.487212000 Z
+  updater_id: 1
+product_readings_224:
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.492047000 Z
+  creator_id: 1
+  decimal_value: 30.0
+  id: 247
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 124
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.492047000 Z
+  updater_id: 1
+product_readings_225:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.527707000 Z
+  creator_id: 1
+  id: 248
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 125
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.527707000 Z
+  updater_id: 1
+product_readings_226:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.531217000 Z
+  creator_id: 1
+  id: 249
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 125
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.531217000 Z
+  updater_id: 1
+product_readings_227:
+  boolean_value: false
+  created_at: 2014-11-07 19:02:56.535808000 Z
+  creator_id: 1
+  decimal_value: 200.0
+  id: 250
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 125
+  read_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.535808000 Z
+  updater_id: 1
+product_readings_228:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-07 19:05:46.929744000 Z
+  creator_id: 1
+  id: 251
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product_id: 126
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:46.929744000 Z
+  updater_id: 1
+product_readings_229:
+  boolean_value: false
+  created_at: 2014-11-07 19:05:46.934217000 Z
+  creator_id: 1
+  decimal_value: 2.0
+  id: 252
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 126
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:46.934217000 Z
+  updater_id: 1
+product_readings_230:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-07 19:05:47.005554000 Z
+  creator_id: 1
+  id: 253
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product_id: 127
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.005554000 Z
+  updater_id: 1
+product_readings_231:
+  boolean_value: false
+  created_at: 2014-11-07 19:05:47.009600000 Z
+  creator_id: 1
+  decimal_value: 4.0
+  id: 254
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 127
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.009600000 Z
+  updater_id: 1
+product_readings_232:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.5
+  boolean_value: false
+  created_at: 2014-11-07 19:05:47.074351000 Z
+  creator_id: 1
+  id: 255
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 500.0
+  product_id: 128
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.074351000 Z
+  updater_id: 1
+product_readings_233:
+  absolute_measure_value_unit: billion_per_gram
+  absolute_measure_value_value: 10.0
+  boolean_value: false
+  created_at: 2014-11-07 19:05:47.078329000 Z
+  creator_id: 1
+  id: 256
+  indicator_datatype: measure
+  indicator_name: cells_mass_concentration
+  lock_version: 0
+  measure_value_unit: billion_per_gram
+  measure_value_value: 10.0
+  product_id: 128
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.078329000 Z
+  updater_id: 1
+product_readings_234:
+  boolean_value: false
+  created_at: 2014-11-07 19:05:47.082097000 Z
+  creator_id: 1
+  decimal_value: 24.0
+  id: 257
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 128
+  read_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.082097000 Z
+  updater_id: 1
+product_readings_235:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.5
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.377465000 Z
+  creator_id: 1
+  id: 258
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 500.0
+  product_id: 129
+  read_at: 2013-10-05 13:08:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.377465000 Z
+  updater_id: 1
+product_readings_236:
+  absolute_measure_value_unit: billion_per_gram
+  absolute_measure_value_value: 10.0
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.381644000 Z
+  creator_id: 1
+  id: 259
+  indicator_datatype: measure
+  indicator_name: cells_mass_concentration
+  lock_version: 0
+  measure_value_unit: billion_per_gram
+  measure_value_value: 10.0
+  product_id: 129
+  read_at: 2013-10-05 13:08:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.381644000 Z
+  updater_id: 1
+product_readings_237:
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.386695000 Z
+  creator_id: 1
+  decimal_value: 6.0
+  id: 260
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 129
+  read_at: 2013-10-05 13:08:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.386695000 Z
+  updater_id: 1
+product_readings_238:
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.417369000 Z
+  creator_id: 1
+  decimal_value: -6.0
+  id: 261
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 128
+  read_at: 2013-10-05 13:08:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.417369000 Z
+  updater_id: 1
+product_readings_239:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 100.0
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.599414000 Z
+  creator_id: 1
+  id: 262
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 100.0
+  product_id: 130
+  read_at: 2013-10-05 13:36:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.599414000 Z
+  updater_id: 1
+product_readings_240:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 100.0
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.603531000 Z
+  creator_id: 1
+  id: 263
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 100.0
+  product_id: 130
+  read_at: 2013-10-05 13:36:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.603531000 Z
+  updater_id: 1
+product_readings_241:
+  boolean_value: false
+  created_at: 2014-11-07 19:08:55.607971000 Z
+  creator_id: 1
+  decimal_value: 29.5
+  id: 264
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 130
+  read_at: 2013-10-05 13:36:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.607971000 Z
+  updater_id: 1
+product_readings_242:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-07 19:12:04.981385000 Z
+  creator_id: 1
+  id: 265
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product_id: 131
+  read_at: 2013-10-01 18:10:00.000000000 Z
+  updated_at: 2014-11-07 19:12:04.981385000 Z
+  updater_id: 1
+product_readings_243:
+  boolean_value: false
+  created_at: 2014-11-07 19:12:04.985504000 Z
+  creator_id: 1
+  decimal_value: 10.0
+  id: 266
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 131
+  read_at: 2013-10-01 18:10:00.000000000 Z
+  updated_at: 2014-11-07 19:12:04.985504000 Z
+  updater_id: 1
+product_readings_244:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 25.0
+  boolean_value: false
+  created_at: 2014-11-07 19:12:42.930309000 Z
+  creator_id: 1
+  id: 267
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 25.0
+  product_id: 132
+  read_at: 2013-10-07 09:38:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.930309000 Z
+  updater_id: 1
+product_readings_245:
+  boolean_value: false
+  created_at: 2014-11-07 19:12:42.935517000 Z
+  creator_id: 1
+  decimal_value: 0.118
+  id: 268
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 132
+  read_at: 2013-10-07 09:38:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.935517000 Z
+  updater_id: 1
+product_readings_246:
+  boolean_value: false
+  created_at: 2014-11-07 19:12:42.959187000 Z
+  creator_id: 1
+  decimal_value: 9.882
+  id: 269
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 131
+  read_at: 2013-10-07 09:38:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.959187000 Z
+  updater_id: 1
+product_readings_247:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:22:38.333841000 Z
+  creator_id: 1
+  id: 270
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 133
+  read_at: 2013-10-03 18:18:00.000000000 Z
+  updated_at: 2014-11-07 19:22:38.333841000 Z
+  updater_id: 1
+product_readings_248:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:22:38.338563000 Z
+  creator_id: 1
+  id: 271
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 133
+  read_at: 2013-10-03 18:18:00.000000000 Z
+  updated_at: 2014-11-07 19:22:38.338563000 Z
+  updater_id: 1
+product_readings_249:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 10.0
+  boolean_value: false
+  created_at: 2014-11-07 19:22:38.342528000 Z
+  creator_id: 1
+  id: 272
+  indicator_datatype: measure
+  indicator_name: sulfur_dioxide_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 10.0
+  product_id: 133
+  read_at: 2013-10-03 18:18:00.000000000 Z
+  updated_at: 2014-11-07 19:22:38.342528000 Z
+  updater_id: 1
+product_readings_250:
+  boolean_value: false
+  created_at: 2014-11-07 19:22:38.346491000 Z
+  creator_id: 1
+  decimal_value: 10.0
+  id: 273
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 133
+  read_at: 2013-10-03 18:18:00.000000000 Z
+  updated_at: 2014-11-07 19:22:38.346491000 Z
+  updater_id: 1
+product_readings_251:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:24:10.322100000 Z
+  creator_id: 1
+  id: 274
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 134
+  read_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.322100000 Z
+  updater_id: 1
+product_readings_252:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2014-11-07 19:24:10.326375000 Z
+  creator_id: 1
+  id: 275
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 134
+  read_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.326375000 Z
+  updater_id: 1
+product_readings_253:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 10.0
+  boolean_value: false
+  created_at: 2014-11-07 19:24:10.330797000 Z
+  creator_id: 1
+  id: 276
+  indicator_datatype: measure
+  indicator_name: sulfur_dioxide_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 10.0
+  product_id: 134
+  read_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.330797000 Z
+  updater_id: 1
+product_readings_254:
+  boolean_value: false
+  created_at: 2014-11-07 19:24:10.335538000 Z
+  creator_id: 1
+  decimal_value: 1.18
+  id: 277
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 134
+  read_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.335538000 Z
+  updater_id: 1
+product_readings_255:
+  boolean_value: false
+  created_at: 2014-11-07 19:24:10.362960000 Z
+  creator_id: 1
+  decimal_value: 8.82
+  id: 278
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 133
+  read_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.362960000 Z
+  updater_id: 1
+product_readings_256:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.32
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.467329000 Z
+  creator_id: 1
+  id: 279
+  indicator_datatype: measure
+  indicator_name: length
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 32.0
+  product_id: 135
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.467329000 Z
+  updater_id: 1
+product_readings_257:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.42
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.469314000 Z
+  creator_id: 1
+  id: 280
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 420.0
+  product_id: 135
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.469314000 Z
+  updater_id: 1
+product_readings_258:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.75
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.504407000 Z
+  creator_id: 1
+  id: 281
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: centiliter
+  measure_value_value: 75.0
+  product_id: 135
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.504407000 Z
+  updater_id: 1
+product_readings_259:
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.508436000 Z
+  creator_id: 1
+  decimal_value: 10000.0
+  id: 282
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 135
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.508436000 Z
+  updater_id: 1
+product_readings_260:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.05
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.549020000 Z
+  creator_id: 1
+  id: 283
+  indicator_datatype: measure
+  indicator_name: length
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 5.0
+  product_id: 136
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.549020000 Z
+  updater_id: 1
+product_readings_261:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.024
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.550436000 Z
+  creator_id: 1
+  id: 284
+  indicator_datatype: measure
+  indicator_name: width
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 2.4
+  product_id: 136
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.550436000 Z
+  updater_id: 1
+product_readings_262:
+  boolean_value: false
+  created_at: 2014-11-07 19:34:09.579514000 Z
+  creator_id: 1
+  decimal_value: 10000.0
+  id: 285
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 136
+  read_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.579514000 Z
+  updater_id: 1
+product_readings_263:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:09.167986000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 286
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 137
+  read_at: 1954-05-11 23:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:09.167986000 Z
+  updater_id: 1
+product_readings_264:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:30.018990000 Z
+  creator_id: 1
+  decimal_value: 1.0
+  id: 287
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 138
+  read_at: 2014-11-07 19:36:30.009048000 Z
+  updated_at: 2014-11-07 19:36:30.018990000 Z
+  updater_id: 1
+product_readings_265:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 100.0
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.317453000 Z
+  creator_id: 1
+  id: 288
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 100.0
+  product_id: 139
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.317453000 Z
+  updater_id: 1
+product_readings_266:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 100.0
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.321534000 Z
+  creator_id: 1
+  id: 289
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 100.0
+  product_id: 139
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.321534000 Z
+  updater_id: 1
+product_readings_267:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.326276000 Z
+  creator_id: 1
+  decimal_value: 15.0
+  id: 290
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 139
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.326276000 Z
+  updater_id: 1
+product_readings_268:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.356594000 Z
+  creator_id: 1
+  decimal_value: 14.5
+  id: 291
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 130
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.356594000 Z
+  updater_id: 1
+product_readings_269:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.75
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.374026000 Z
+  creator_id: 1
+  id: 292
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: centiliter
+  measure_value_value: 75.0
+  product_id: 140
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.374026000 Z
+  updater_id: 1
+product_readings_270:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.378424000 Z
+  creator_id: 1
+  decimal_value: 2004.0
+  id: 293
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 140
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.378424000 Z
+  updater_id: 1
+product_readings_271:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.32
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.406075000 Z
+  creator_id: 1
+  id: 294
+  indicator_datatype: measure
+  indicator_name: length
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 32.0
+  originator_id: 113
+  originator_type: ProductDivision
+  product_id: 140
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.406075000 Z
+  updater_id: 1
+product_readings_272:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.42
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.412387000 Z
+  creator_id: 1
+  id: 295
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 420.0
+  originator_id: 113
+  originator_type: ProductDivision
+  product_id: 140
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.412387000 Z
+  updater_id: 1
+product_readings_273:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.416985000 Z
+  creator_id: 1
+  decimal_value: 7996.0
+  id: 296
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 135
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.416985000 Z
+  updater_id: 1
+product_readings_274:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.528609000 Z
+  creator_id: 1
+  decimal_value: 1520.0
+  id: 297
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 141
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.528609000 Z
+  updater_id: 1
+product_readings_275:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.05
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.554484000 Z
+  creator_id: 1
+  id: 298
+  indicator_datatype: measure
+  indicator_name: length
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 5.0
+  originator_id: 114
+  originator_type: ProductDivision
+  product_id: 141
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.554484000 Z
+  updater_id: 1
+product_readings_276:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 0.024
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.560946000 Z
+  creator_id: 1
+  id: 299
+  indicator_datatype: measure
+  indicator_name: width
+  lock_version: 0
+  measure_value_unit: centimeter
+  measure_value_value: 2.4
+  originator_id: 114
+  originator_type: ProductDivision
+  product_id: 141
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.560946000 Z
+  updater_id: 1
+product_readings_277:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.565862000 Z
+  creator_id: 1
+  decimal_value: 8480.0
+  id: 300
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 136
+  read_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.565862000 Z
+  updater_id: 1
+product_readings_278:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.76
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.605540000 Z
+  creator_id: 1
+  id: 301
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 760.0
+  product_id: 142
+  read_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.605540000 Z
+  updater_id: 1
+product_readings_279:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.75
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.609559000 Z
+  creator_id: 1
+  id: 302
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: centiliter
+  measure_value_value: 75.0
+  product_id: 142
+  read_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.609559000 Z
+  updater_id: 1
+product_readings_280:
+  boolean_value: false
+  created_at: 2014-11-07 19:36:59.613911000 Z
+  creator_id: 1
+  decimal_value: 1992.0
+  id: 303
+  indicator_datatype: decimal
+  indicator_name: population
+  lock_version: 0
+  product_id: 142
+  read_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.613911000 Z
   updater_id: 1

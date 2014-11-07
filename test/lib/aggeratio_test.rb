@@ -6,8 +6,8 @@ class AggeratioTest < ActiveSupport::TestCase
   setup do
     DocumentTemplate.load_defaults
     @parameters = {
-      exchange_accountancy_file_fr: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access,
-      profit_and_loss_statement: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access,
+      exchange_accountancy_file_fr: {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
+      profit_and_loss_statement:    {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
     }.with_indifferent_access
   end
 

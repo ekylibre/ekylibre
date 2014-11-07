@@ -166,3 +166,543 @@ operations_010:
   stopped_at: 2012-10-17 14:00:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.327127000 Z
   updater_id: 1
+operations_011:
+  created_at: 2014-11-07 14:44:18.873086000 Z
+  creator_id: 1
+  duration: 6900
+  id: 19
+  intervention_id: 14
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2014-11-05 04:25:00.000000000 Z
+  stopped_at: 2014-11-05 06:20:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.873086000 Z
+  updater_id: 1
+operations_012:
+  created_at: 2014-11-07 14:44:18.931857000 Z
+  creator_id: 1
+  duration: 600
+  id: 20
+  intervention_id: 14
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2014-11-05 06:20:00.000000000 Z
+  stopped_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.931857000 Z
+  updater_id: 1
+operations_013:
+  created_at: 2014-11-07 14:44:19.050422000 Z
+  creator_id: 1
+  duration: 6900
+  id: 21
+  intervention_id: 14
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2014-11-05 06:30:00.000000000 Z
+  stopped_at: 2014-11-05 08:25:00.000000000 Z
+  updated_at: 2014-11-07 14:44:19.050422000 Z
+  updater_id: 1
+operations_014:
+  created_at: 2014-11-07 15:02:58.799134000 Z
+  creator_id: 1
+  duration: 1080
+  id: 22
+  intervention_id: 15
+  lock_version: 0
+  reference_name: '700'
+  started_at: 2013-02-08 09:50:00.000000000 Z
+  stopped_at: 2013-02-08 10:08:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.799134000 Z
+  updater_id: 1
+operations_015:
+  created_at: 2014-11-07 15:02:58.823491000 Z
+  creator_id: 1
+  duration: 6120
+  id: 23
+  intervention_id: 15
+  lock_version: 0
+  reference_name: '800'
+  started_at: 2013-02-08 10:08:00.000000000 Z
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.823491000 Z
+  updater_id: 1
+operations_016:
+  created_at: 2014-11-07 15:26:50.569375000 Z
+  creator_id: 1
+  duration: 1080
+  id: 24
+  intervention_id: 16
+  lock_version: 0
+  reference_name: '700'
+  started_at: 2012-12-12 09:20:00.000000000 Z
+  stopped_at: 2012-12-12 09:38:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.569375000 Z
+  updater_id: 1
+operations_017:
+  created_at: 2014-11-07 15:26:50.593215000 Z
+  creator_id: 1
+  duration: 5640
+  id: 25
+  intervention_id: 16
+  lock_version: 0
+  reference_name: '800'
+  started_at: 2012-12-12 09:38:00.000000000 Z
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.593215000 Z
+  updater_id: 1
+operations_018:
+  created_at: 2014-11-07 15:45:45.833966000 Z
+  creator_id: 1
+  duration: 1080
+  id: 26
+  intervention_id: 17
+  lock_version: 0
+  reference_name: '600'
+  started_at: 2007-09-29 08:00:00.000000000 Z
+  stopped_at: 2007-09-29 08:18:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.833966000 Z
+  updater_id: 1
+operations_019:
+  created_at: 2014-11-07 15:45:45.858764000 Z
+  creator_id: 1
+  duration: 9660
+  id: 27
+  intervention_id: 17
+  lock_version: 0
+  reference_name: '700'
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  stopped_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.858764000 Z
+  updater_id: 1
+operations_020:
+  created_at: 2014-11-07 15:45:46.059093000 Z
+  creator_id: 1
+  duration: 9660
+  id: 28
+  intervention_id: 17
+  lock_version: 0
+  reference_name: '750'
+  started_at: 2007-09-29 10:59:00.000000000 Z
+  stopped_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.059093000 Z
+  updater_id: 1
+operations_021:
+  created_at: 2014-11-07 15:50:04.465350000 Z
+  creator_id: 1
+  duration: 2633100
+  id: 33
+  intervention_id: 18
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2014-07-01 12:35:00.000000000 Z
+  stopped_at: 2014-08-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.465350000 Z
+  updater_id: 1
+operations_022:
+  created_at: 2014-11-07 15:50:04.491742000 Z
+  creator_id: 1
+  duration: 600
+  id: 34
+  intervention_id: 18
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2014-08-01 00:00:00.000000000 Z
+  stopped_at: 2014-08-01 00:10:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.491742000 Z
+  updater_id: 1
+operations_023:
+  created_at: 2014-11-07 15:50:04.547983000 Z
+  creator_id: 1
+  duration: 600
+  id: 35
+  intervention_id: 18
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2014-08-01 00:10:00.000000000 Z
+  stopped_at: 2014-08-01 00:20:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.547983000 Z
+  updater_id: 1
+operations_024:
+  created_at: 2014-11-07 15:50:04.608481000 Z
+  creator_id: 1
+  duration: 2633100
+  id: 36
+  intervention_id: 18
+  lock_version: 0
+  reference_name: '400'
+  started_at: 2014-08-01 00:20:00.000000000 Z
+  stopped_at: 2014-08-31 11:45:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.608481000 Z
+  updater_id: 1
+operations_025:
+  created_at: 2014-11-07 16:50:07.230843000 Z
+  creator_id: 1
+  duration: 1080
+  id: 37
+  intervention_id: 21
+  lock_version: 0
+  reference_name: '600'
+  started_at: 2008-03-15 09:00:00.000000000 Z
+  stopped_at: 2008-03-15 09:18:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.230843000 Z
+  updater_id: 1
+operations_026:
+  created_at: 2014-11-07 16:50:07.252793000 Z
+  creator_id: 1
+  duration: 22860
+  id: 38
+  intervention_id: 21
+  lock_version: 0
+  reference_name: '700'
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  stopped_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.252793000 Z
+  updater_id: 1
+operations_027:
+  created_at: 2014-11-07 16:50:07.440105000 Z
+  creator_id: 1
+  duration: 22860
+  id: 39
+  intervention_id: 21
+  lock_version: 0
+  reference_name: '750'
+  started_at: 2008-03-15 15:39:00.000000000 Z
+  stopped_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.440105000 Z
+  updater_id: 1
+operations_028:
+  created_at: 2014-11-07 16:59:09.820258000 Z
+  creator_id: 1
+  duration: 1080
+  id: 40
+  intervention_id: 22
+  lock_version: 0
+  reference_name: '700'
+  started_at: 2013-04-17 08:00:00.000000000 Z
+  stopped_at: 2013-04-17 08:18:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.820258000 Z
+  updater_id: 1
+operations_029:
+  created_at: 2014-11-07 16:59:09.842581000 Z
+  creator_id: 1
+  duration: 13320
+  id: 41
+  intervention_id: 22
+  lock_version: 0
+  reference_name: '800'
+  started_at: 2013-04-17 08:18:00.000000000 Z
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.842581000 Z
+  updater_id: 1
+operations_030:
+  created_at: 2014-11-07 17:08:50.461755000 Z
+  creator_id: 1
+  duration: 240
+  id: 47
+  intervention_id: 23
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2013-09-16 05:00:00.000000000 Z
+  stopped_at: 2013-09-16 05:04:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.461755000 Z
+  updater_id: 1
+operations_031:
+  created_at: 2014-11-07 17:08:50.479701000 Z
+  creator_id: 1
+  duration: 1080
+  id: 48
+  intervention_id: 23
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2013-09-16 05:04:00.000000000 Z
+  stopped_at: 2013-09-16 05:22:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.479701000 Z
+  updater_id: 1
+operations_032:
+  created_at: 2014-11-07 17:08:50.498751000 Z
+  creator_id: 1
+  duration: 40560
+  id: 49
+  intervention_id: 23
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2013-09-16 05:22:00.000000000 Z
+  stopped_at: 2013-09-16 16:38:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.498751000 Z
+  updater_id: 1
+operations_033:
+  created_at: 2014-11-07 17:08:50.555202000 Z
+  creator_id: 1
+  duration: 1080
+  id: 50
+  intervention_id: 23
+  lock_version: 0
+  reference_name: '400'
+  started_at: 2013-09-16 16:38:00.000000000 Z
+  stopped_at: 2013-09-16 16:56:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.555202000 Z
+  updater_id: 1
+operations_034:
+  created_at: 2014-11-07 17:08:50.919525000 Z
+  creator_id: 1
+  duration: 240
+  id: 51
+  intervention_id: 23
+  lock_version: 0
+  reference_name: '500'
+  started_at: 2013-09-16 16:56:00.000000000 Z
+  stopped_at: 2013-09-16 17:00:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.919525000 Z
+  updater_id: 1
+operations_035:
+  created_at: 2014-11-07 19:02:56.313635000 Z
+  creator_id: 1
+  duration: 300
+  id: 55
+  intervention_id: 25
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2013-10-02 07:00:00.000000000 Z
+  stopped_at: 2013-10-02 07:05:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.313635000 Z
+  updater_id: 1
+operations_036:
+  created_at: 2014-11-07 19:02:56.345651000 Z
+  creator_id: 1
+  duration: 1500
+  id: 56
+  intervention_id: 25
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.345651000 Z
+  updater_id: 1
+operations_037:
+  created_at: 2014-11-07 19:02:56.589618000 Z
+  creator_id: 1
+  duration: 300
+  id: 57
+  intervention_id: 25
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2013-10-02 07:30:00.000000000 Z
+  stopped_at: 2013-10-02 07:35:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.589618000 Z
+  updater_id: 1
+operations_038:
+  created_at: 2014-11-07 19:08:55.282894000 Z
+  creator_id: 1
+  duration: 240
+  id: 58
+  intervention_id: 26
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2013-10-05 13:00:00.000000000 Z
+  stopped_at: 2013-10-05 13:04:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.282894000 Z
+  updater_id: 1
+operations_039:
+  created_at: 2014-11-07 19:08:55.317465000 Z
+  creator_id: 1
+  duration: 240
+  id: 59
+  intervention_id: 26
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2013-10-05 13:04:00.000000000 Z
+  stopped_at: 2013-10-05 13:08:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.317465000 Z
+  updater_id: 1
+operations_040:
+  created_at: 2014-11-07 19:08:55.422022000 Z
+  creator_id: 1
+  duration: 840
+  id: 60
+  intervention_id: 26
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2013-10-05 13:08:00.000000000 Z
+  stopped_at: 2013-10-05 13:22:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.422022000 Z
+  updater_id: 1
+operations_041:
+  created_at: 2014-11-07 19:08:55.501443000 Z
+  creator_id: 1
+  duration: 840
+  id: 61
+  intervention_id: 26
+  lock_version: 0
+  reference_name: '400'
+  started_at: 2013-10-05 13:22:00.000000000 Z
+  stopped_at: 2013-10-05 13:36:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.501443000 Z
+  updater_id: 1
+operations_042:
+  created_at: 2014-11-07 19:08:55.639927000 Z
+  creator_id: 1
+  duration: 240
+  id: 62
+  intervention_id: 26
+  lock_version: 0
+  reference_name: '500'
+  started_at: 2013-10-05 13:36:00.000000000 Z
+  stopped_at: 2013-10-05 13:40:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.639927000 Z
+  updater_id: 1
+operations_043:
+  created_at: 2014-11-07 19:12:42.889198000 Z
+  creator_id: 1
+  duration: 240
+  id: 63
+  intervention_id: 27
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2013-10-07 09:30:00.000000000 Z
+  stopped_at: 2013-10-07 09:34:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.889198000 Z
+  updater_id: 1
+operations_044:
+  created_at: 2014-11-07 19:12:42.912288000 Z
+  creator_id: 1
+  duration: 240
+  id: 64
+  intervention_id: 27
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2013-10-07 09:34:00.000000000 Z
+  stopped_at: 2013-10-07 09:38:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.912288000 Z
+  updater_id: 1
+operations_045:
+  created_at: 2014-11-07 19:12:42.962990000 Z
+  creator_id: 1
+  duration: 180
+  id: 65
+  intervention_id: 27
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2013-10-07 09:38:00.000000000 Z
+  stopped_at: 2013-10-07 09:41:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.962990000 Z
+  updater_id: 1
+operations_046:
+  created_at: 2014-11-07 19:12:43.029885000 Z
+  creator_id: 1
+  duration: 240
+  id: 66
+  intervention_id: 27
+  lock_version: 0
+  reference_name: '400'
+  started_at: 2013-10-07 09:41:00.000000000 Z
+  stopped_at: 2013-10-07 09:45:00.000000000 Z
+  updated_at: 2014-11-07 19:12:43.029885000 Z
+  updater_id: 1
+operations_047:
+  created_at: 2014-11-07 19:24:10.259351000 Z
+  creator_id: 1
+  duration: 240
+  id: 67
+  intervention_id: 28
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2013-10-15 08:28:00.000000000 Z
+  stopped_at: 2013-10-15 08:32:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.259351000 Z
+  updater_id: 1
+operations_048:
+  created_at: 2014-11-07 19:24:10.297659000 Z
+  creator_id: 1
+  duration: 240
+  id: 68
+  intervention_id: 28
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2013-10-15 08:32:00.000000000 Z
+  stopped_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.297659000 Z
+  updater_id: 1
+operations_049:
+  created_at: 2014-11-07 19:24:10.366781000 Z
+  creator_id: 1
+  duration: 480
+  id: 69
+  intervention_id: 28
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2013-10-15 08:36:00.000000000 Z
+  stopped_at: 2013-10-15 08:44:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.366781000 Z
+  updater_id: 1
+operations_050:
+  created_at: 2014-11-07 19:24:10.445713000 Z
+  creator_id: 1
+  duration: 240
+  id: 70
+  intervention_id: 28
+  lock_version: 0
+  reference_name: '400'
+  started_at: 2013-10-15 08:44:00.000000000 Z
+  stopped_at: 2013-10-15 08:48:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.445713000 Z
+  updater_id: 1
+operations_051:
+  created_at: 2014-11-07 19:36:59.275794000 Z
+  creator_id: 1
+  duration: 240
+  id: 71
+  intervention_id: 29
+  lock_version: 0
+  reference_name: '100'
+  started_at: 2013-10-30 07:00:00.000000000 Z
+  stopped_at: 2013-10-30 07:04:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.275794000 Z
+  updater_id: 1
+operations_052:
+  created_at: 2014-11-07 19:36:59.300640000 Z
+  creator_id: 1
+  duration: 240
+  id: 72
+  intervention_id: 29
+  lock_version: 0
+  reference_name: '200'
+  started_at: 2013-10-30 07:04:00.000000000 Z
+  stopped_at: 2013-10-30 07:08:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.300640000 Z
+  updater_id: 1
+operations_053:
+  created_at: 2014-11-07 19:36:59.569758000 Z
+  creator_id: 1
+  duration: 24240
+  id: 73
+  intervention_id: 29
+  lock_version: 0
+  reference_name: '300'
+  started_at: 2013-10-30 07:08:00.000000000 Z
+  stopped_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.569758000 Z
+  updater_id: 1
+operations_054:
+  created_at: 2014-11-07 19:36:59.677711000 Z
+  creator_id: 1
+  duration: 240
+  id: 74
+  intervention_id: 29
+  lock_version: 0
+  reference_name: '400'
+  started_at: 2013-10-30 13:52:00.000000000 Z
+  stopped_at: 2013-10-30 13:56:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.677711000 Z
+  updater_id: 1
+operations_055:
+  created_at: 2014-11-07 19:36:59.698490000 Z
+  creator_id: 1
+  duration: 240
+  id: 75
+  intervention_id: 29
+  lock_version: 0
+  reference_name: '500'
+  started_at: 2013-10-30 13:56:00.000000000 Z
+  stopped_at: 2013-10-30 14:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.698490000 Z
+  updater_id: 1

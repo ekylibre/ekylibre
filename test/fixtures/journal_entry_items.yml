@@ -382,7 +382,7 @@ journal_entry_items_011:
   created_at: 2014-11-05 12:45:57.925799000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 416.3
+  cumulated_absolute_credit: 30324.3
   cumulated_absolute_debit: 335.07
   currency: EUR
   debit: 223.0
@@ -469,7 +469,7 @@ journal_entry_items_014:
   created_at: 2014-11-05 12:46:06.342790000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 416.3
+  cumulated_absolute_credit: 30324.3
   cumulated_absolute_debit: 485.07
   currency: EUR
   debit: 150.0
@@ -867,7 +867,7 @@ journal_entry_items_028:
   created_at: 2014-11-07 10:42:11.479791000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 272.0
+  cumulated_absolute_credit: 30180.0
   cumulated_absolute_debit: 112.07
   currency: EUR
   debit: 112.07
@@ -954,7 +954,7 @@ journal_entry_items_031:
   created_at: 2014-11-07 10:42:27.849942000 Z
   creator_id: 1
   credit: 28.3
-  cumulated_absolute_credit: 300.3
+  cumulated_absolute_credit: 30208.3
   cumulated_absolute_debit: 112.07
   currency: EUR
   debit: 0.0
@@ -1124,7 +1124,7 @@ journal_entry_items_037:
   created_at: 2014-11-07 13:58:25.739075000 Z
   creator_id: 1
   credit: 116.0
-  cumulated_absolute_credit: 416.3
+  cumulated_absolute_credit: 30324.3
   cumulated_absolute_debit: 112.07
   currency: EUR
   debit: 0.0
@@ -1201,4 +1201,294 @@ journal_entry_items_039:
   real_debit: 0.0
   state: draft
   updated_at: 2014-11-07 13:58:35.179459000 Z
+  updater_id: 1
+journal_entry_items_040:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1540.0
+  account_id: 54
+  balance: 0.0
+  created_at: 2014-11-07 15:58:47.198797000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1540.0
+  currency: EUR
+  debit: 1540.0
+  entry_id: 26
+  entry_number: PUR000002
+  financial_year_id: 24
+  id: 92
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
+  position: 1
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1540.0
+  state: draft
+  updated_at: 2014-11-07 15:58:47.198797000 Z
+  updater_id: 1
+journal_entry_items_041:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 308.0
+  account_id: 39
+  balance: 0.0
+  created_at: 2014-11-07 15:58:47.220632000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 308.0
+  currency: EUR
+  debit: 308.0
+  entry_id: 26
+  entry_number: PUR000002
+  financial_year_id: 24
+  id: 93
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
+  position: 2
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 308.0
+  state: draft
+  updated_at: 2014-11-07 15:58:47.220632000 Z
+  updater_id: 1
+journal_entry_items_042:
+  absolute_credit: 1848.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 211
+  balance: 0.0
+  created_at: 2014-11-07 15:58:47.241674000 Z
+  creator_id: 1
+  credit: 1848.0
+  cumulated_absolute_credit: 1848.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 26
+  entry_number: PUR000002
+  financial_year_id: 24
+  id: 94
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
+  position: 3
+  printed_on: 2014-11-07
+  real_credit: 1848.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 15:58:47.241674000 Z
+  updater_id: 1
+journal_entry_items_043:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 124.0
+  account_id: 215
+  balance: 0.0
+  created_at: 2014-11-07 16:05:37.957154000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 124.0
+  currency: EUR
+  debit: 124.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 99
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 1
+  printed_on: 2013-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 124.0
+  state: draft
+  updated_at: 2014-11-07 16:05:37.957154000 Z
+  updater_id: 1
+journal_entry_items_044:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 245.0
+  account_id: 217
+  balance: 0.0
+  created_at: 2014-11-07 16:05:37.976262000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 245.0
+  currency: EUR
+  debit: 245.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 100
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 2
+  printed_on: 2013-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 245.0
+  state: draft
+  updated_at: 2014-11-07 16:05:37.976262000 Z
+  updater_id: 1
+journal_entry_items_045:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 14585.0
+  account_id: 216
+  balance: 0.0
+  created_at: 2014-11-07 16:05:37.995393000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 14585.0
+  currency: EUR
+  debit: 14585.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 101
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 3
+  printed_on: 2013-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 14585.0
+  state: draft
+  updated_at: 2014-11-07 16:05:37.995393000 Z
+  updater_id: 1
+journal_entry_items_046:
+  absolute_credit: 14954.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-07 16:05:38.014932000 Z
+  creator_id: 1
+  credit: 14954.0
+  cumulated_absolute_credit: 15110.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 102
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 4
+  printed_on: 2013-11-07
+  real_credit: 14954.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 16:05:38.014932000 Z
+  updater_id: 1
+journal_entry_items_047:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 17100.0
+  account_id: 154
+  balance: 0.0
+  created_at: 2014-11-07 16:52:57.630615000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 17100.0
+  currency: EUR
+  debit: 17100.0
+  entry_id: 28
+  entry_number: PUR000003
+  financial_year_id: 24
+  id: 103
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
+  position: 1
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 17100.0
+  state: draft
+  updated_at: 2014-11-07 16:52:57.630615000 Z
+  updater_id: 1
+journal_entry_items_048:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 3420.0
+  account_id: 39
+  balance: 0.0
+  created_at: 2014-11-07 16:52:57.654541000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 3728.0
+  currency: EUR
+  debit: 3420.0
+  entry_id: 28
+  entry_number: PUR000003
+  financial_year_id: 24
+  id: 104
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
+  position: 2
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3420.0
+  state: draft
+  updated_at: 2014-11-07 16:52:57.654541000 Z
+  updater_id: 1
+journal_entry_items_049:
+  absolute_credit: 20520.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 211
+  balance: 0.0
+  created_at: 2014-11-07 16:52:57.675741000 Z
+  creator_id: 1
+  credit: 20520.0
+  cumulated_absolute_credit: 22368.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 28
+  entry_number: PUR000003
+  financial_year_id: 24
+  id: 105
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
+  position: 3
+  printed_on: 2014-11-07
+  real_credit: 20520.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 16:52:57.675741000 Z
   updater_id: 1

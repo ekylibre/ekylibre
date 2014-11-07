@@ -917,11 +917,19 @@ preferences_079:
   created_at: 2014-10-31 18:52:23.092120000 Z
   creator_id: 1
   id: 79
-  lock_version: 0
+  lock_version: 1
   name: list._incoming_deliveries_list_incoming_deliveries_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 18:52:23.092120000 Z
+  string_value:
+    sort: received_at
+    dir: asc
+    only: content
+    action: list
+    controller: backend/incoming_deliveries
+    hidden_columns: []
+    page: 1
+    per_page: 20
+  updated_at: 2014-11-07 16:50:36.620406000 Z
   updater_id: 1
   user_id: 1
 preferences_080:
@@ -1476,7 +1484,7 @@ preferences_125:
   created_at: 2014-10-31 20:11:11.205553000 Z
   creator_id: 1
   id: 125
-  lock_version: 2
+  lock_version: 6
   name: list._product_nature_variants_list_product_nature_variants_tag
   nature: string
   string_value:
@@ -1488,7 +1496,7 @@ preferences_125:
     dir: ''
     per_page: 20
     sort: ''
-  updated_at: 2014-11-05 09:46:28.886426000 Z
+  updated_at: 2014-11-07 17:31:33.906604000 Z
   updater_id: 1
   user_id: 1
 preferences_126:
@@ -2521,5 +2529,49 @@ preferences_214:
   nature: string
   string_value: {}
   updated_at: 2014-11-07 11:54:24.505135000 Z
+  updater_id: 1
+  user_id: 1
+preferences_215:
+  created_at: 2014-11-07 15:55:23.869471000 Z
+  creator_id: 1
+  id: 215
+  lock_version: 0
+  name: list._production_supports_list_interventions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 15:55:23.869471000 Z
+  updater_id: 1
+  user_id: 1
+preferences_216:
+  created_at: 2014-11-07 15:55:23.880682000 Z
+  creator_id: 1
+  id: 216
+  lock_version: 0
+  name: list._production_supports_list_markers_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 15:55:23.880682000 Z
+  updater_id: 1
+  user_id: 1
+preferences_217:
+  created_at: 2014-11-07 17:20:31.177795000 Z
+  creator_id: 1
+  id: 217
+  lock_version: 0
+  name: list._wine_tanks_list_wine_tanks_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 17:20:31.177795000 Z
+  updater_id: 1
+  user_id: 1
+preferences_218:
+  created_at: 2014-11-07 19:13:42.663726000 Z
+  creator_id: 1
+  id: 218
+  lock_version: 0
+  name: list._wine_transformers_list_wine_transformers_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 19:13:42.663726000 Z
   updater_id: 1
   user_id: 1

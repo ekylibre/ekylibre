@@ -67,3 +67,15 @@ trackings_002:
   product_id: 66
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+trackings_003:
+  active: true
+  created_at: 2014-11-07 16:47:23.733296000 Z
+  creator_id: 1
+  description: ''
+  id: 3
+  lock_version: 0
+  name: Zsfdf84564
+  producer_id: 13
+  serial: Zsfdf84564
+  updated_at: 2014-11-07 16:47:23.733296000 Z
+  updater_id: 1

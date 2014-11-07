@@ -83,11 +83,11 @@ productions_003:
   created_at: 2014-11-04 17:24:51.387221000 Z
   creator_id: 1
   id: 5
-  lock_version: 0
+  lock_version: 1
   name: Vache/Bovins 2013 (Prévue)
   state: draft
-  static_support: false
-  updated_at: 2014-11-04 17:24:51.387221000 Z
+  static_support: true
+  updated_at: 2014-11-07 15:53:12.704285000 Z
   updater_id: 1
   variant_id: 17
 productions_004:
@@ -116,3 +116,55 @@ productions_005:
   updated_at: 2014-11-04 18:29:40.340837000 Z
   updater_id: 1
   variant_id: 32
+productions_006:
+  activity_id: 3
+  campaign_id: 4
+  created_at: 2014-11-07 14:43:13.631506000 Z
+  creator_id: 1
+  id: 8
+  lock_version: 0
+  name: Vache/Bovins 2014 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-07 14:43:13.631506000 Z
+  updater_id: 1
+  variant_id: 17
+productions_007:
+  activity_id: 6
+  campaign_id: 1
+  created_at: 2014-11-07 16:34:30.850122000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  name: Culture de vigne/Vignes 2013 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-07 16:34:30.850122000 Z
+  updater_id: 1
+  variant_id: 44
+productions_008:
+  activity_id: 6
+  campaign_id: 4
+  created_at: 2014-11-07 16:35:00.782789000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  name: Culture de vigne/Vignes 2014 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-07 16:35:00.782789000 Z
+  updater_id: 1
+  variant_id: 44
+productions_009:
+  activity_id: 7
+  campaign_id: 1
+  created_at: 2014-11-07 17:11:38.260932000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 1
+  name: Vin/Vin 2013 (Prévue)
+  state: draft
+  static_support: true
+  updated_at: 2014-11-07 17:21:46.199009000 Z
+  updater_id: 1
+  variant_id: 49

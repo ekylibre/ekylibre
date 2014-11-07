@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Calculus
   module ManureManagementPlan
 
@@ -7,16 +8,16 @@ module Calculus
       def estimate_expected_yield
 expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate_expected_yield
         cultivation_varieties = (@variety ? @variety.self_and_parents : :undefined)
-        puts "------------------------------------------------------".red
-        puts @options.inspect.yellow
-        puts cultivation_varieties.inspect.blue
-        puts soil_natures.inspect.white
+        # puts "------------------------------------------------------".red
+        # puts @options.inspect.yellow
+        # puts cultivation_varieties.inspect.blue
+        # puts soil_natures.inspect.white
         # FIXME for production_usage
         if items = Nomen::NmpFranceAbacusCultivationYield.where(cultivation_variety: cultivation_varieties, administrative_area: @options[:administrative_area] || :undefined) and items.any? #production_usage: @usage
-          puts items.inspect.green
+          # puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
         end
-        puts "======================================================".red
+        # puts "======================================================".red
         return expected_yield
       end
 

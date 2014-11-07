@@ -615,3 +615,576 @@ product_natures_029:
   updater_id: 1
   variable_indicators_list: application_width, geolocation
   variety: plower
+product_natures_030:
+  abilities_list: spray
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 15:00:45.263080000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 30
+  linkage_points_list: ''
+  lock_version: 0
+  name: Pulvérisateur
+  number: BUILDIOD
+  population_counting: unitary
+  reference_name: sprayer
+  updated_at: 2014-11-07 15:00:45.263080000 Z
+  updater_id: 1
+  variable_indicators_list: application_width, geolocation
+  variety: sprayer
+product_natures_031:
+  abilities_list: spread(preparation)
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 15:22:23.946771000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 31
+  linkage_points_list: ''
+  lock_version: 0
+  name: "Épandeur à engrais"
+  number: BUILDIOE
+  population_counting: unitary
+  reference_name: spreader
+  updated_at: 2014-11-07 15:22:23.946771000 Z
+  updater_id: 1
+  variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
+  variety: spreader
+product_natures_032:
+  abilities_list: move, spread(excrement), store(excrement), store_fluid
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 15:22:31.398219000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 32
+  linkage_points_list: ''
+  lock_version: 0
+  name: "Épandeur à fumier"
+  number: BUILDIOF
+  population_counting: unitary
+  reference_name: spreader_trailer
+  updated_at: 2014-11-07 15:22:31.398219000 Z
+  updater_id: 1
+  variable_indicators_list: geolocation, nominal_storable_net_mass, nominal_storable_net_volume
+  variety: trailer
+product_natures_033:
+  abilities_list: fertilize
+  active: true
+  category_id: 17
+  created_at: 2014-11-07 15:24:11.130698000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume, nitrogen_concentration, phosphorus_concentration,
+    potassium_concentration, sulfur_concentration, sulfur_trioxide_concentration
+  id: 33
+  linkage_points_list: ''
+  lock_version: 0
+  name: Engrais minéral
+  number: BUILDIOG
+  population_counting: decimal
+  reference_name: chemical_fertilizer
+  updated_at: 2014-11-07 15:24:11.130698000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: preparation
+product_natures_034:
+  abilities_list: consume(phytosanitary), consume(water), produce(straw)
+  active: true
+  category_id: 8
+  created_at: 2014-11-07 15:40:58.360188000 Z
+  creator_id: 1
+  derivatives_list: straw
+  evolvable: false
+  frozen_indicators_list: net_surface_area
+  id: 34
+  linkage_points_list: ''
+  lock_version: 0
+  name: Culture
+  number: BUILDIOH
+  population_counting: decimal
+  reference_name: crop
+  updated_at: 2014-11-07 15:40:58.360188000 Z
+  updater_id: 1
+  variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
+    plants_count, population, shape, tiller_count
+  variety: plant
+product_natures_035:
+  abilities_list: feed(animal)
+  active: true
+  category_id: 18
+  created_at: 2014-11-07 15:46:45.135495000 Z
+  creator_id: 1
+  derivative_of: plant
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 35
+  linkage_points_list: ''
+  lock_version: 0
+  name: Herbe
+  number: BUILDIOI
+  population_counting: decimal
+  reference_name: grass
+  updated_at: 2014-11-07 15:46:45.135495000 Z
+  updater_id: 1
+  variable_indicators_list: dry_matter_rate, population
+  variety: grass
+product_natures_036:
+  abilities_list: consume(phytosanitary), consume(water), produce(fruit), produce(straw)
+  active: true
+  category_id: 8
+  created_at: 2014-11-07 16:33:48.598611000 Z
+  creator_id: 1
+  derivatives_list: fruit, straw
+  evolvable: false
+  frozen_indicators_list: net_surface_area
+  id: 36
+  linkage_points_list: ''
+  lock_version: 0
+  name: Vigne
+  number: BUILDIOJ
+  population_counting: integer
+  reference_name: wine_crop
+  updated_at: 2014-11-07 16:33:48.598611000 Z
+  updater_id: 1
+  variable_indicators_list: certification, plant_life_state, plants_count, plants_interval,
+    population, rows_interval, shape, woodstock_variety
+  variety: vitis
+product_natures_037:
+  abilities_list: grow
+  active: true
+  category_id: 19
+  created_at: 2014-11-07 16:33:59.251213000 Z
+  creator_id: 1
+  derivative_of: vitis
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: woodstock_variety
+  id: 37
+  linkage_points_list: ''
+  lock_version: 0
+  name: Plant de vigne traditionnel
+  number: BUILDIOK
+  population_counting: integer
+  reference_name: usual_vine_seedling
+  updated_at: 2014-11-07 16:33:59.251213000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: seedling
+product_natures_038:
+  abilities_list: implant
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 16:48:34.917965000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 38
+  linkage_points_list: ''
+  lock_version: 0
+  name: Planteuse
+  number: BUILDIOL
+  population_counting: unitary
+  reference_name: implanter
+  updated_at: 2014-11-07 16:48:34.917965000 Z
+  updater_id: 1
+  variable_indicators_list: application_width, geolocation
+  variety: implanter
+product_natures_039:
+  abilities_list: consume(fuel), consume(oil), harvest(grape)
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 17:04:02.243262000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 39
+  linkage_points_list: ''
+  lock_version: 0
+  name: Machine à vendanger
+  number: BUILDIOM
+  population_counting: unitary
+  reference_name: grape_reaper
+  updated_at: 2014-11-07 17:04:02.243262000 Z
+  updater_id: 1
+  variable_indicators_list: application_width, geolocation
+  variety: reaper
+product_natures_040:
+  abilities_list: produce(juice)
+  active: true
+  category_id: 20
+  created_at: 2014-11-07 17:05:38.068085000 Z
+  creator_id: 1
+  derivative_of: vitis
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 40
+  linkage_points_list: ''
+  lock_version: 0
+  name: Raisin
+  number: BUILDION
+  population_counting: decimal
+  reference_name: grape
+  updated_at: 2014-11-07 17:05:38.068085000 Z
+  updater_id: 1
+  variable_indicators_list: population, sucrose_concentration
+  variety: grape
+product_natures_041:
+  abilities_list: ''
+  active: true
+  category_id: 21
+  created_at: 2014-11-07 17:10:23.472125000 Z
+  creator_id: 1
+  derivative_of: grape
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 41
+  linkage_points_list: ''
+  lock_version: 0
+  name: Vin
+  number: BUILDIOO
+  population_counting: decimal
+  reference_name: wine
+  updated_at: 2014-11-07 17:10:23.472125000 Z
+  updater_id: 1
+  variable_indicators_list: certification, population, reference_year, temperature,
+    total_bacteria_concentration
+  variety: wine
+product_natures_042:
+  abilities_list: store(grape), store(grape_juice), store(wine), store_liquid
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 17:14:18.201534000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 42
+  linkage_points_list: ''
+  lock_version: 0
+  name: Cuve à vin
+  number: BUILDIOP
+  population_counting: unitary
+  reference_name: wine_tank
+  updated_at: 2014-11-07 17:14:18.201534000 Z
+  updater_id: 1
+  variable_indicators_list: nominal_storable_net_volume
+  variety: tank
+product_natures_043:
+  abilities_list: press(grape), press(grape_juice), press(wine)
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 17:23:08.046218000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 43
+  linkage_points_list: ''
+  lock_version: 0
+  name: Pressoir (vin)
+  number: BUILDIOQ
+  population_counting: unitary
+  reference_name: wine_press
+  updated_at: 2014-11-07 17:23:08.046218000 Z
+  updater_id: 1
+  variable_indicators_list: nominal_storable_net_volume
+  variety: press
+product_natures_044:
+  abilities_list: fertilize
+  active: true
+  category_id: 17
+  created_at: 2014-11-07 17:24:39.590466000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume, nitrogen_concentration, phosphorus_concentration,
+    potassium_concentration
+  id: 44
+  linkage_points_list: ''
+  lock_version: 0
+  name: Engrais organique
+  number: BUILDIOR
+  population_counting: decimal
+  reference_name: organic_fertilizer
+  updated_at: 2014-11-07 17:24:39.590466000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: excrement
+product_natures_045:
+  abilities_list: produce(wine)
+  active: true
+  category_id: 20
+  created_at: 2014-11-07 17:25:14.409838000 Z
+  creator_id: 1
+  derivative_of: grape
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 45
+  linkage_points_list: ''
+  lock_version: 0
+  name: Jus fermenté de raisin
+  number: BUILDIOS
+  population_counting: decimal
+  reference_name: fermented_grape_juice
+  updated_at: 2014-11-07 17:25:14.409838000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: fermented_juice
+product_natures_046:
+  abilities_list: ''
+  active: true
+  category_id: 4
+  created_at: 2014-11-07 17:25:46.188857000 Z
+  creator_id: 1
+  derivative_of: plant
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 46
+  linkage_points_list: ''
+  lock_version: 0
+  name: Residu de culture
+  number: BUILDIOT
+  population_counting: decimal
+  reference_name: crop_residue
+  updated_at: 2014-11-07 17:25:46.188857000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: straw
+product_natures_047:
+  abilities_list: fertilize
+  active: true
+  category_id: 20
+  created_at: 2014-11-07 17:27:02.354344000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 47
+  linkage_points_list: ''
+  lock_version: 0
+  name: Co-produit de fruits
+  number: BUILDIOU
+  population_counting: decimal
+  reference_name: fruit_residu
+  updated_at: 2014-11-07 17:27:02.354344000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: pomace
+product_natures_048:
+  abilities_list: produce(fermented_juice)
+  active: true
+  category_id: 20
+  created_at: 2014-11-07 18:58:14.603553000 Z
+  creator_id: 1
+  derivative_of: grape
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume
+  id: 48
+  linkage_points_list: ''
+  lock_version: 0
+  name: Jus de raisin
+  number: BUILDIOV
+  population_counting: decimal
+  reference_name: grape_juice
+  updated_at: 2014-11-07 18:58:14.603553000 Z
+  updater_id: 1
+  variable_indicators_list: population, sucrose_concentration
+  variety: juice
+product_natures_049:
+  abilities_list: acidify(fermented_juice), acidify(wine)
+  active: true
+  category_id: 22
+  created_at: 2014-11-07 19:03:43.646789000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass
+  id: 49
+  linkage_points_list: ''
+  lock_version: 0
+  name: Acidifiant (vin)
+  number: BUILDIOW
+  population_counting: decimal
+  reference_name: wine_acidifying
+  updated_at: 2014-11-07 19:03:43.646789000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: preparation
+product_natures_050:
+  abilities_list: fermentize(wine)
+  active: true
+  category_id: 22
+  created_at: 2014-11-07 19:05:20.496080000 Z
+  creator_id: 1
+  derivative_of: fungus
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: cells_mass_concentration, net_mass
+  id: 50
+  linkage_points_list: ''
+  lock_version: 0
+  name: Levure œnologique
+  number: BUILDIOX
+  population_counting: decimal
+  reference_name: oenological_yeast
+  updated_at: 2014-11-07 19:05:20.496080000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: yeast
+product_natures_051:
+  abilities_list: chaptelise(fermented_juice), chaptelise(juice)
+  active: true
+  category_id: 22
+  created_at: 2014-11-07 19:10:37.806634000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass
+  id: 51
+  linkage_points_list: ''
+  lock_version: 0
+  name: Sucre
+  number: BUILDIOY
+  population_counting: decimal
+  reference_name: sugar
+  updated_at: 2014-11-07 19:10:37.806634000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: saccharose
+product_natures_052:
+  abilities_list: clarify(fermented_juice), clarify(wine)
+  active: true
+  category_id: 22
+  created_at: 2014-11-07 19:16:38.602689000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass
+  id: 52
+  linkage_points_list: ''
+  lock_version: 0
+  name: Solution clarifiante
+  number: BUILDIOZ
+  population_counting: decimal
+  reference_name: clarification_solution
+  updated_at: 2014-11-07 19:16:38.602689000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: preparation
+product_natures_053:
+  abilities_list: sulfurize(wine)
+  active: true
+  category_id: 22
+  created_at: 2014-11-07 19:18:50.746985000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_mass, net_volume, sulfur_dioxide_concentration
+  id: 53
+  linkage_points_list: ''
+  lock_version: 0
+  name: Solution de dioxyde de soufre (SO2)
+  number: BUILDIPA
+  population_counting: decimal
+  reference_name: so2_solution
+  updated_at: 2014-11-07 19:18:50.746985000 Z
+  updater_id: 1
+  variable_indicators_list: population
+  variety: preparation
+product_natures_054:
+  abilities_list: store(juice), store(wine)
+  active: true
+  category_id: 23
+  created_at: 2014-11-07 19:29:27.392215000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: net_volume
+  id: 54
+  linkage_points_list: ''
+  lock_version: 0
+  name: Bouteille
+  number: BUILDIPB
+  population_counting: integer
+  reference_name: bottle
+  updated_at: 2014-11-07 19:29:27.392215000 Z
+  updater_id: 1
+  variable_indicators_list: length, net_mass, population
+  variety: bottle
+product_natures_055:
+  abilities_list: close(cork_bottle)
+  active: true
+  category_id: 23
+  created_at: 2014-11-07 19:29:44.220259000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: ''
+  id: 55
+  linkage_points_list: ''
+  lock_version: 0
+  name: Bouchon
+  number: BUILDIPC
+  population_counting: integer
+  reference_name: cork
+  updated_at: 2014-11-07 19:29:44.220259000 Z
+  updater_id: 1
+  variable_indicators_list: length, population, width
+  variety: cork
+product_natures_056:
+  abilities_list: fill(bottle)
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 19:35:20.874359000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 56
+  linkage_points_list: ''
+  lock_version: 0
+  name: Tireuse
+  number: BUILDIPD
+  population_counting: unitary
+  reference_name: hand_drawn
+  updated_at: 2014-11-07 19:35:20.874359000 Z
+  updater_id: 1
+  variable_indicators_list: nominal_storable_net_volume
+  variety: equipment
+product_natures_057:
+  abilities_list: close(bottle)
+  active: true
+  category_id: 14
+  created_at: 2014-11-07 19:35:28.656403000 Z
+  creator_id: 1
+  derivatives_list: ''
+  evolvable: false
+  frozen_indicators_list: population
+  id: 57
+  linkage_points_list: ''
+  lock_version: 0
+  name: Boucheuse
+  number: BUILDIPE
+  population_counting: unitary
+  reference_name: corker
+  updated_at: 2014-11-07 19:35:28.656403000 Z
+  updater_id: 1
+  variable_indicators_list: ''
+  variety: equipment

@@ -5015,3 +5015,5453 @@ versions_094:
     person_id:
     initial_shape:
   item_type: Product
+versions_095:
+  created_at: 2014-11-07 14:30:00.485184000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 125
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 14
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 14
+    type: Building
+    name: Stabulation
+    number: '40005'
+    variant_id: 12
+    nature_id: 11
+    category_id: 6
+    extjuncted: false
+    initial_born_at: 1971-03-05 09:50:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: building
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1971-03-05 09:50:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: '1212312312313'
+    work_number: '123123'
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:15:14.781851000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7963263988494870 45.8263246730165008,
+        -0.7962700724601750 45.8260798257694972, -0.7961118221282960 45.8260929092374028,
+        -0.7960528135299680 45.8258536681952009, -0.7964497804641720 45.8258088103852970,
+        -0.7965517044067379 45.8262985061864967, -0.7963263988494870 45.8263246730165008)))
+  item_type: Building
+versions_096:
+  created_at: 2014-11-07 14:39:41.445673000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 126
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 93
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 93
+    type: BuildingDivision
+    name: Case 1
+    number: PR00000000037
+    variant_id: 35
+    nature_id: 6
+    category_id: 1
+    extjuncted: false
+    initial_born_at: 1980-01-04 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 14
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: C1
+    address_id:
+    parent_id:
+    default_storage_id: 14
+    created_at: 2014-11-07 14:39:41.440984000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: BuildingDivision
+versions_097:
+  created_at: 2014-11-07 14:41:44.731840000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 127
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 19
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 19
+    type: BuildingDivision
+    name: Emplacement de stockage du matériel
+    number: '40006'
+    variant_id: 13
+    nature_id: 12
+    category_id: 7
+    extjuncted: false
+    initial_born_at: 1979-03-02 05:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building_division
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1979-03-02 05:30:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: ''
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 20:18:12.218328000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8130317777613530 45.5987083844552004,
+        -0.8128802329520110 45.5986882100715007, -0.8128581047276380 45.5987590549682977,
+        -0.8130036145666960 45.5987759451291979, -0.8130317777613530 45.5987083844552004)),
+        POLYGON ((-0.7965509893256240 45.8263695304107017, -0.7966153623419810 45.8266162454324970,
+        -0.7963954212027600 45.8266386740165999, -0.7963095905142840 45.8263956972071966,
+        -0.7965509893256240 45.8263695304107017)))
+  item_type: BuildingDivision
+versions_098:
+  created_at: 2014-11-07 14:44:18.823744000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 128
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 94
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 94
+    type: Matter
+    name: Produit vétérinaire
+    number: PR00000000038
+    variant_id: 21
+    nature_id: 19
+    category_id: 12
+    extjuncted: true
+    initial_born_at: 2014-11-05 08:25:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E-1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 14:44:18.818382000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_099:
+  created_at: 2014-11-07 14:44:19.011557000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 129
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 59
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 59
+    type: Matter
+    name: Acetal
+    number: WARLXP00000000007
+    variant_id: 21
+    nature_id: 19
+    category_id: 12
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: packaged_matter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-01 20:23:55.266224000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:23:55.247530000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_100:
+  created_at: 2014-11-07 14:44:19.103564000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 130
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 94
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 94
+    type: Matter
+    name: Produit vétérinaire
+    number: PR00000000038
+    variant_id: 21
+    nature_id: 19
+    category_id: 12
+    extjuncted: true
+    initial_born_at: 2014-11-05 08:25:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E-1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-05 06:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 14:44:18.818382000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_101:
+  created_at: 2014-11-07 14:44:19.127028000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 131
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 5
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 5
+    type: Animal
+    name: Bonnemine
+    number: P00000000004
+    variant_id: 17
+    nature_id: 16
+    category_id: 9
+    extjuncted: false
+    initial_born_at: 2012-02-01 04:25:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: bos_taurus_limousine
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2012-02-01 04:25:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: FR8746001425
+    work_number: '8746'
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 19:29:58.088036000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Animal
+versions_102:
+  created_at: 2014-11-07 14:56:43.431488000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 132
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 5
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 5
+    target_id: 5
+    target_type: Animal
+    nature: mammite
+    observed_at: 2014-10-27 15:40:00.000000000 Z
+    priority: 3
+    gravity: 1
+    state: opened
+    name: Mammite sur Bonnemine
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-07 14:56:43.426663000 Z
+    creator_id: 1
+  item_type: Issue
+versions_103:
+  created_at: 2014-11-07 14:59:10.184647000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 133
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 6
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 6
+    target_id: 92
+    target_type: Plant
+    nature: aphid
+    observed_at: 2013-02-07 08:45:00.000000000 Z
+    priority: 3
+    gravity: 2
+    state: opened
+    name: Puceron sur Culture de blé [oct. 2012] (La Queue du Loup)
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-07 14:59:10.181688000 Z
+    creator_id: 1
+  item_type: Issue
+versions_104:
+  created_at: 2014-11-07 15:01:32.289891000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 134
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 95
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 95
+    type: Equipment
+    name: Pulveo 8000
+    number: PR00000000039
+    variant_id: 36
+    nature_id: 30
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2009-01-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 19
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: sprayer
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 19
+    created_at: 2014-11-07 15:01:32.169817000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_105:
+  created_at: 2014-11-07 15:02:58.663820000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 135
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 96
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 96
+    type: Matter
+    name: Produit phytosanitaire
+    number: PR00000000040
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: true
+    initial_born_at: 2013-02-08 11:50:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.41745E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:02:58.655370000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_106:
+  created_at: 2014-11-07 15:02:59.127399000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 136
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 57
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 57
+    type: Matter
+    name: Microthiol sp disp
+    number: P00000000006
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: packaged_matter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-01 20:19:35.422952000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:19:35.354902000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_107:
+  created_at: 2014-11-07 15:02:59.202698000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 137
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 96
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 96
+    type: Matter
+    name: Produit phytosanitaire
+    number: PR00000000040
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: true
+    initial_born_at: 2013-02-08 11:50:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.41745E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-02-08 11:50:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:02:58.655370000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_108:
+  created_at: 2014-11-07 15:02:59.222384000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 138
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 92
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 92
+    type: Plant
+    name: Culture de blé [oct. 2012] (La Queue du Loup)
+    number: PR00000000036
+    variant_id: 16
+    nature_id: 15
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2012-10-17 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: triticum_aestivum
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2012-10-17 10:09:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-06 17:50:07.013572000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7962137460708620 45.8235247524564997, -0.7961493730545040
+        45.8232967153415984, -0.7963210344314580 45.8224967088962032, -0.7964658737182621
+        45.8218275357971976, -0.7967501878738400 45.8214948154526027, -0.7974207401275630
+        45.8210910622515968, -0.7975333929061890 45.8209490002438002, -0.7967501878738400
+        45.8206237516506008, -0.7962405681610110 45.8205601971057987, -0.7951086759567260
+        45.8205938436384983, -0.7943952083587650 45.8206274901508976, -0.7939231395721440
+        45.8206798291298014, -0.7934564352035520 45.8208069378735985, -0.7928019762039180
+        45.8209377848067021, -0.7943308353424070 45.8240069918035999, -0.7962137460708620
+        45.8235247524564997)))
+  item_type: Plant
+versions_109:
+  created_at: 2014-11-07 15:06:54.501221000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 139
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    vat_number: ''
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: company
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: FR00123456789
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_110:
+  created_at: 2014-11-07 15:07:07.481500000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 140
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    country:
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: company
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: FR00123456789
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_type: Entity
+versions_111:
+  created_at: 2014-11-07 15:23:45.093502000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 141
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 97
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 97
+    type: Equipment
+    name: "Épandeur ENGRAMAX 75"
+    number: PR00000000041
+    variant_id: 37
+    nature_id: 31
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2010-11-01 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: spreader
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:23:45.087173000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_112:
+  created_at: 2014-11-07 15:25:51.200583000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 142
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 98
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 98
+    type: Matter
+    name: Ammonitre 33,5%  Big Bag
+    number: PR00000000042
+    variant_id: 39
+    nature_id: 33
+    category_id: 17
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:25:51.192693000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_113:
+  created_at: 2014-11-07 15:26:50.527081000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 143
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 99
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 99
+    type: Matter
+    name: Engrais
+    number: PR00000000043
+    variant_id: 39
+    nature_id: 33
+    category_id: 17
+    extjuncted: true
+    initial_born_at: 2012-12-12 11:12:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.6425E0
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:26:50.522451000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_114:
+  created_at: 2014-11-07 15:26:50.644840000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 144
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 98
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 98
+    type: Matter
+    name: Ammonitre 33,5%  Big Bag
+    number: PR00000000042
+    variant_id: 39
+    nature_id: 33
+    category_id: 17
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-07 15:25:51.233605000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:25:51.192693000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_115:
+  created_at: 2014-11-07 15:26:50.712241000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 145
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 99
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 99
+    type: Matter
+    name: Engrais
+    number: PR00000000043
+    variant_id: 39
+    nature_id: 33
+    category_id: 17
+    extjuncted: true
+    initial_born_at: 2012-12-12 11:12:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.6425E0
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2012-12-12 11:12:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:26:50.522451000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_116:
+  created_at: 2014-11-07 15:26:50.732740000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 146
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 83
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 83
+    type: CultivableZone
+    name: La Crédanpouille
+    number: PR00000000027
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1983-12-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1983-12-11 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC3
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:19:31.120097000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7968091964721680 45.8269227686334020,
+        -0.7965195178985600 45.8257153564986979, -0.7953017950057980 45.8259060022610996,
+        -0.7943201065063480 45.8240368979821966, -0.7962405681610110 45.8235621355009997,
+        -0.7966804504394530 45.8240705424138000, -0.7975119352340700 45.8253078957195967,
+        -0.7980698347091670 45.8259471218497012, -0.7980912923812870 45.8262386962433013,
+        -0.7979893684387210 45.8264592450905965, -0.7977801561355590 45.8266349359198983,
+        -0.7968091964721680 45.8269227686334020)))
+  item_type: CultivableZone
+versions_117:
+  created_at: 2014-11-07 15:44:20.462118000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 147
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 100
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 100
+    type: Matter
+    name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+    number: PR00000000044
+    variant_id: 41
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E2
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: trifolium_pratense_diplomat
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:44:20.455537000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_118:
+  created_at: 2014-11-07 15:44:20.593716000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 148
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 101
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 101
+    type: Matter
+    name: Semence mixte
+    number: PR00000000045
+    variant_id: 42
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: poa
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:44:20.589234000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_119:
+  created_at: 2014-11-07 15:45:45.732566000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 149
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 102
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 102
+    type: Matter
+    name: Semences
+    number: PR00000000046
+    variant_id: 42
+    nature_id: 10
+    category_id: 5
+    extjuncted: true
+    initial_born_at: 2007-09-29 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1778641E3
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: poa
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:45:45.728092000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_120:
+  created_at: 2014-11-07 15:45:45.800101000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 150
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 103
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 103
+    type: Plant
+    name: Culture de prairie permanente
+    number: PR00000000047
+    variant_id: 40
+    nature_id: 34
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2007-09-29 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.101637E2
+    initial_father_id:
+    initial_mother_id:
+    variety: poa
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:45:45.794867000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7992875576019290 45.8255247100833998, -0.7981717586517330
+        45.8259433837065018, -0.7971739768981930 45.8246574475615986, -0.7962727546691890
+        45.8233789583431985, -0.7965946197509760 45.8217490289287994, -0.7976460456848140
+        45.8210088158703002, -0.7985687255859381 45.8212032162121972, -0.7995665073394780
+        45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
+  item_type: Plant
+versions_121:
+  created_at: 2014-11-07 15:45:45.900341000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 151
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 101
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 101
+    type: Matter
+    name: Semence mixte
+    number: PR00000000045
+    variant_id: 42
+    nature_id: 10
+    category_id: 5
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: poa
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-07 15:44:20.618455000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:44:20.589234000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_122:
+  created_at: 2014-11-07 15:45:45.958448000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 152
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 102
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 102
+    type: Matter
+    name: Semences
+    number: PR00000000046
+    variant_id: 42
+    nature_id: 10
+    category_id: 5
+    extjuncted: true
+    initial_born_at: 2007-09-29 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1778641E3
+    initial_father_id:
+    initial_mother_id:
+    variety: seed
+    derivative_of: poa
+    tracking_id:
+    financial_asset_id:
+    born_at: 2007-09-29 10:59:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 15:45:45.728092000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_123:
+  created_at: 2014-11-07 15:45:45.980013000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 153
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 80
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 80
+    type: CultivableZone
+    name: La Michardière
+    number: PR00000000024
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1974-05-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1974-05-11 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC1
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:12:23.238580000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7992875576019290 45.8255247100833998,
+        -0.7981717586517330 45.8259433837065018, -0.7971739768981930 45.8246574475615986,
+        -0.7962727546691890 45.8233789583431985, -0.7965946197509760 45.8217490289287994,
+        -0.7976460456848140 45.8210088158703002, -0.7985687255859381 45.8212032162121972,
+        -0.7995665073394780 45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
+  item_type: CultivableZone
+versions_124:
+  created_at: 2014-11-07 15:45:46.036493000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 154
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 80
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 80
+    type: CultivableZone
+    name: La Michardière
+    number: PR00000000024
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1974-05-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1974-05-11 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC1
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-04 17:12:23.238580000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7992875576019290 45.8255247100833998,
+        -0.7981717586517330 45.8259433837065018, -0.7971739768981930 45.8246574475615986,
+        -0.7962727546691890 45.8233789583431985, -0.7965946197509760 45.8217490289287994,
+        -0.7976460456848140 45.8210088158703002, -0.7985687255859381 45.8212032162121972,
+        -0.7995665073394780 45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
+  item_type: CultivableZone
+versions_125:
+  created_at: 2014-11-07 15:49:47.933368000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 159
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 85
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 85
+    type: AnimalGroup
+    name: Troupeau de génisses A
+    number: PR00000000029
+    variant_id: 31
+    nature_id: 27
+    category_id: 16
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id: 14
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of: bos
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-04 17:28:40.089209000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: TGA
+    address_id:
+    parent_id:
+    default_storage_id: 14
+    created_at: 2014-11-04 17:28:40.064178000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_126:
+  created_at: 2014-11-07 15:50:04.419141000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 160
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 105
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 105
+    type: Matter
+    name: Herbe de prairie
+    number: PR00000000048
+    variant_id: 43
+    nature_id: 35
+    category_id: 18
+    extjuncted: true
+    initial_born_at: 2014-08-31 11:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 80
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: grass
+    derivative_of: poa
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 80
+    created_at: 2014-11-07 15:50:04.415002000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_127:
+  created_at: 2014-11-07 15:50:04.533926000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 161
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 103
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 103
+    type: Plant
+    name: Culture de prairie permanente [sept. 2007] (La Michardière)
+    number: PR00000000047
+    variant_id: 40
+    nature_id: 34
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2007-09-29 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.101637E2
+    initial_father_id:
+    initial_mother_id:
+    variety: poa
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2007-09-29 10:59:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 15:45:45.794867000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7992875576019290 45.8255247100833998, -0.7981717586517330
+        45.8259433837065018, -0.7971739768981930 45.8246574475615986, -0.7962727546691890
+        45.8233789583431985, -0.7965946197509760 45.8217490289287994, -0.7976460456848140
+        45.8210088158703002, -0.7985687255859381 45.8212032162121972, -0.7995665073394780
+        45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
+  item_type: Plant
+versions_128:
+  created_at: 2014-11-07 15:50:04.576373000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 162
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 105
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 105
+    type: Matter
+    name: Herbe de prairie
+    number: PR00000000048
+    variant_id: 43
+    nature_id: 35
+    category_id: 18
+    extjuncted: true
+    initial_born_at: 2014-08-31 11:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 80
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E1
+    initial_father_id:
+    initial_mother_id:
+    variety: grass
+    derivative_of: poa
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-08-01 00:10:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 80
+    created_at: 2014-11-07 15:50:04.415002000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_129:
+  created_at: 2014-11-07 15:50:04.599140000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 163
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 85
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 85
+    type: AnimalGroup
+    name: Troupeau de génisses A
+    number: PR00000000029
+    variant_id: 31
+    nature_id: 27
+    category_id: 16
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id: 14
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: animal_group
+    derivative_of: bos
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-04 17:28:40.089209000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: TGA
+    address_id:
+    parent_id:
+    default_storage_id: 14
+    created_at: 2014-11-04 17:28:40.064178000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: AnimalGroup
+versions_130:
+  created_at: 2014-11-07 16:26:53.126359000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 164
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 106
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 106
+    type: CultivableZone
+    name: La Boutanche
+    number: PR00000000049
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1971-06-17 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC5
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:26:53.115665000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8018651604652400 45.8255303173402027,
+        -0.8022594451904300 45.8260181465222018, -0.7983139157295230 45.8273675980814019,
+        -0.7984480261802670 45.8268274475749990, -0.7984131574630740 45.8266480192573979,
+        -0.7982736825942990 45.8265265310055980, -0.7980832457542421 45.8264592450905965,
+        -0.7981932163238530 45.8262499106125034, -0.7981798052787780 45.8260106702450969,
+        -0.7988637685775760 45.8257957268506999, -0.7999259233474730 45.8253677066629024,
+        -0.8003792166709900 45.8252368701408983, -0.8010524511337280 45.8252088337033996,
+        -0.8017095923423770 45.8251228552068000, -0.8018651604652400 45.8255303173402027)),
+        POLYGON ((-0.7983541488647460 45.8268218404488010, -0.7982119917869570 45.8273993714773979,
+        -0.7967340946197510 45.8278871842802005, -0.7964658737182621 45.8271171483252999,
+        -0.7971525192260740 45.8269339828649009, -0.7975736260414120 45.8267975428954983,
+        -0.7978713512420650 45.8266629716393012, -0.7980510592460630 45.8265171857444997,
+        -0.7982200384140010 45.8265863406396008, -0.7983326911926270 45.8266984835302011,
+        -0.7983541488647460 45.8268218404488010)))
+  item_type: CultivableZone
+versions_131:
+  created_at: 2014-11-07 16:47:34.648681000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 165
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 107
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 107
+    type: Matter
+    name: Plant de vigne So4/Sauvignon blanc
+    number: PR00000000051
+    variant_id: 45
+    nature_id: 37
+    category_id: 19
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_father_id:
+    initial_mother_id:
+    variety: seedling
+    derivative_of: vitis_vinifera_sauvignon_blanc
+    tracking_id: 3
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:47:34.638130000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_132:
+  created_at: 2014-11-07 16:49:26.144601000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 166
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 108
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 108
+    type: Equipment
+    name: PLANTOVIGNE X20
+    number: PR00000000052
+    variant_id: 46
+    nature_id: 38
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2001-01-22 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: implanter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 16:49:26.139872000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_133:
+  created_at: 2014-11-07 16:50:07.030791000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 167
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 109
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 109
+    type: Matter
+    name: Plants
+    number: PR00000000053
+    variant_id: 45
+    nature_id: 37
+    category_id: 19
+    extjuncted: true
+    initial_born_at: 2008-03-15 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_father_id:
+    initial_mother_id:
+    variety: seedling
+    derivative_of: vitis
+    tracking_id: 3
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 16:50:07.026840000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_134:
+  created_at: 2014-11-07 16:50:07.195779000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 168
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 110
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 110
+    type: Plant
+    name: Culture de vigne
+    number: PR00000000054
+    variant_id: 44
+    nature_id: 36
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2008-03-15 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: vitis_vinifera
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:50:07.190626000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8018651604652400 45.8255303173402027, -0.8022594451904300
+        45.8260181465222018, -0.7983139157295230 45.8273675980814019, -0.7984480261802670
+        45.8268274475749990, -0.7984131574630740 45.8266480192573979, -0.7982736825942990
+        45.8265265310055980, -0.7980832457542421 45.8264592450905965, -0.7981932163238530
+        45.8262499106125034, -0.7981798052787780 45.8260106702450969, -0.7988637685775760
+        45.8257957268506999, -0.7999259233474730 45.8253677066629024, -0.8003792166709900
+        45.8252368701408983, -0.8010524511337280 45.8252088337033996, -0.8017095923423770
+        45.8251228552068000, -0.8018651604652400 45.8255303173402027)), ((-0.7983541488647460
+        45.8268218404488010, -0.7982119917869570 45.8273993714773979, -0.7967340946197510
+        45.8278871842802005, -0.7964658737182621 45.8271171483252999, -0.7971525192260740
+        45.8269339828649009, -0.7975736260414120 45.8267975428954983, -0.7978713512420650
+        45.8266629716393012, -0.7980510592460630 45.8265171857444997, -0.7982200384140010
+        45.8265863406396008, -0.7983326911926270 45.8266984835302011, -0.7983541488647460
+        45.8268218404488010)))
+  item_type: Plant
+versions_135:
+  created_at: 2014-11-07 16:50:07.292570000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 169
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 107
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 107
+    type: Matter
+    name: Plant de vigne So4/Sauvignon blanc
+    number: PR00000000051
+    variant_id: 45
+    nature_id: 37
+    category_id: 19
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_father_id:
+    initial_mother_id:
+    variety: seedling
+    derivative_of: vitis_vinifera_sauvignon_blanc
+    tracking_id: 3
+    financial_asset_id:
+    born_at: 2014-11-07 16:47:34.875169000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:47:34.638130000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_136:
+  created_at: 2014-11-07 16:50:07.353018000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 170
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 109
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 109
+    type: Matter
+    name: Plants
+    number: PR00000000053
+    variant_id: 45
+    nature_id: 37
+    category_id: 19
+    extjuncted: true
+    initial_born_at: 2008-03-15 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.5E4
+    initial_father_id:
+    initial_mother_id:
+    variety: seedling
+    derivative_of: vitis
+    tracking_id: 3
+    financial_asset_id:
+    born_at: 2008-03-15 15:39:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 16:50:07.026840000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_137:
+  created_at: 2014-11-07 16:50:07.370774000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 171
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 106
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 106
+    type: CultivableZone
+    name: La Boutanche
+    number: PR00000000049
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1971-06-17 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1971-06-17 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC5
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:26:53.115665000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8018651604652400 45.8255303173402027,
+        -0.8022594451904300 45.8260181465222018, -0.7983139157295230 45.8273675980814019,
+        -0.7984480261802670 45.8268274475749990, -0.7984131574630740 45.8266480192573979,
+        -0.7982736825942990 45.8265265310055980, -0.7980832457542421 45.8264592450905965,
+        -0.7981932163238530 45.8262499106125034, -0.7981798052787780 45.8260106702450969,
+        -0.7988637685775760 45.8257957268506999, -0.7999259233474730 45.8253677066629024,
+        -0.8003792166709900 45.8252368701408983, -0.8010524511337280 45.8252088337033996,
+        -0.8017095923423770 45.8251228552068000, -0.8018651604652400 45.8255303173402027)),
+        POLYGON ((-0.7983541488647460 45.8268218404488010, -0.7982119917869570 45.8273993714773979,
+        -0.7967340946197510 45.8278871842802005, -0.7964658737182621 45.8271171483252999,
+        -0.7971525192260740 45.8269339828649009, -0.7975736260414120 45.8267975428954983,
+        -0.7978713512420650 45.8266629716393012, -0.7980510592460630 45.8265171857444997,
+        -0.7982200384140010 45.8265863406396008, -0.7983326911926270 45.8266984835302011,
+        -0.7983541488647460 45.8268218404488010)))
+  item_type: CultivableZone
+versions_138:
+  created_at: 2014-11-07 16:50:07.421786000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 172
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 106
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 106
+    type: CultivableZone
+    name: La Boutanche
+    number: PR00000000049
+    variant_id: 28
+    nature_id: 24
+    category_id: 15
+    extjuncted: false
+    initial_born_at: 1971-06-17 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: cultivable_zone
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 1971-06-17 23:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number: ZC5
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:26:53.115665000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8018651604652400 45.8255303173402027,
+        -0.8022594451904300 45.8260181465222018, -0.7983139157295230 45.8273675980814019,
+        -0.7984480261802670 45.8268274475749990, -0.7984131574630740 45.8266480192573979,
+        -0.7982736825942990 45.8265265310055980, -0.7980832457542421 45.8264592450905965,
+        -0.7981932163238530 45.8262499106125034, -0.7981798052787780 45.8260106702450969,
+        -0.7988637685775760 45.8257957268506999, -0.7999259233474730 45.8253677066629024,
+        -0.8003792166709900 45.8252368701408983, -0.8010524511337280 45.8252088337033996,
+        -0.8017095923423770 45.8251228552068000, -0.8018651604652400 45.8255303173402027)),
+        POLYGON ((-0.7983541488647460 45.8268218404488010, -0.7982119917869570 45.8273993714773979,
+        -0.7967340946197510 45.8278871842802005, -0.7964658737182621 45.8271171483252999,
+        -0.7971525192260740 45.8269339828649009, -0.7975736260414120 45.8267975428954983,
+        -0.7978713512420650 45.8266629716393012, -0.7980510592460630 45.8265171857444997,
+        -0.7982200384140010 45.8265863406396008, -0.7983326911926270 45.8266984835302011,
+        -0.7983541488647460 45.8268218404488010)))
+  item_type: CultivableZone
+versions_139:
+  created_at: 2014-11-07 16:58:41.563373000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 173
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 7
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 7
+    target_id: 110
+    target_type: Plant
+    nature: vine_mildew
+    observed_at: 2013-04-01 13:30:00.000000000 Z
+    priority: 4
+    gravity: 4
+    state: opened
+    name: Mildiou de la vigne sur Culture de vigne [mars. 2008] (La Boutanche)
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-07 16:58:41.554270000 Z
+    creator_id: 1
+  item_type: Issue
+versions_140:
+  created_at: 2014-11-07 16:59:09.710497000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 174
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 111
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 111
+    type: Matter
+    name: Produit phytosanitaire
+    number: PR00000000055
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: true
+    initial_born_at: 2013-04-17 12:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.64745E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 16:59:09.705128000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_141:
+  created_at: 2014-11-07 16:59:10.078711000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 175
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 57
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 57
+    type: Matter
+    name: Microthiol sp disp
+    number: P00000000006
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: packaged_matter
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-01 20:19:35.422952000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-01 20:19:35.354902000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_142:
+  created_at: 2014-11-07 16:59:10.154530000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 176
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 111
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 111
+    type: Matter
+    name: Produit phytosanitaire
+    number: PR00000000055
+    variant_id: 20
+    nature_id: 8
+    category_id: 3
+    extjuncted: true
+    initial_born_at: 2013-04-17 12:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.64745E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-04-17 12:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 16:59:09.705128000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_143:
+  created_at: 2014-11-07 16:59:10.174120000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 177
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 110
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 110
+    type: Plant
+    name: Culture de vigne [mars. 2008] (La Boutanche)
+    number: PR00000000054
+    variant_id: 44
+    nature_id: 36
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2008-03-15 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: vitis_vinifera
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2008-03-15 15:39:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:50:07.190626000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8018651604652400 45.8255303173402027, -0.8022594451904300
+        45.8260181465222018, -0.7983139157295230 45.8273675980814019, -0.7984480261802670
+        45.8268274475749990, -0.7984131574630740 45.8266480192573979, -0.7982736825942990
+        45.8265265310055980, -0.7980832457542421 45.8264592450905965, -0.7981932163238530
+        45.8262499106125034, -0.7981798052787780 45.8260106702450969, -0.7988637685775760
+        45.8257957268506999, -0.7999259233474730 45.8253677066629024, -0.8003792166709900
+        45.8252368701408983, -0.8010524511337280 45.8252088337033996, -0.8017095923423770
+        45.8251228552068000, -0.8018651604652400 45.8255303173402027)), ((-0.7983541488647460
+        45.8268218404488010, -0.7982119917869570 45.8273993714773979, -0.7967340946197510
+        45.8278871842802005, -0.7964658737182621 45.8271171483252999, -0.7971525192260740
+        45.8269339828649009, -0.7975736260414120 45.8267975428954983, -0.7978713512420650
+        45.8266629716393012, -0.7980510592460630 45.8265171857444997, -0.7982200384140010
+        45.8265863406396008, -0.7983326911926270 45.8266984835302011, -0.7983541488647460
+        45.8268218404488010)))
+  item_type: Plant
+versions_144:
+  created_at: 2014-11-07 17:05:10.437803000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 178
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 112
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 112
+    type: Equipment
+    name: VENDOPLUS 960
+    number: PR00000000056
+    variant_id: 47
+    nature_id: 39
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2012-09-02 07:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: reaper
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 17:05:10.430947000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_145:
+  created_at: 2014-11-07 17:07:45.059189000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 181
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 112
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 112
+    type: Equipment
+    name: VENDOPLUS 960
+    number: PR00000000056
+    variant_id: 47
+    nature_id: 39
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2012-09-02 07:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: reaper
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2012-09-02 07:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 17:05:10.430947000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_146:
+  created_at: 2014-11-07 17:08:37.129756000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 182
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 79
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 79
+    type: Worker
+    name: Gendo
+    number: EIZLEIKBWARLXP00000000015
+    variant_id: 23
+    nature_id: 20
+    category_id: 13
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: worker
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-01 20:30:35.605648000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-01 20:30:35.477602000 Z
+    creator_id: 1
+    person_id: 9
+    initial_shape:
+  item_type: Worker
+versions_147:
+  created_at: 2014-11-07 17:08:50.424300000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 183
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 114
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 114
+    type: Matter
+    name: Grappe de raisin
+    number: PR00000000057
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-09-16 17:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.323726138E5
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 17:08:50.419969000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_148:
+  created_at: 2014-11-07 17:08:50.534628000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 184
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 110
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 110
+    type: Plant
+    name: Culture de vigne [mars. 2008] (La Boutanche)
+    number: PR00000000054
+    variant_id: 44
+    nature_id: 36
+    category_id: 8
+    extjuncted: true
+    initial_born_at: 2008-03-15 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: vitis_vinifera
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2008-03-15 15:39:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 16:50:07.190626000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8018651604652400 45.8255303173402027, -0.8022594451904300
+        45.8260181465222018, -0.7983139157295230 45.8273675980814019, -0.7984480261802670
+        45.8268274475749990, -0.7984131574630740 45.8266480192573979, -0.7982736825942990
+        45.8265265310055980, -0.7980832457542421 45.8264592450905965, -0.7981932163238530
+        45.8262499106125034, -0.7981798052787780 45.8260106702450969, -0.7988637685775760
+        45.8257957268506999, -0.7999259233474730 45.8253677066629024, -0.8003792166709900
+        45.8252368701408983, -0.8010524511337280 45.8252088337033996, -0.8017095923423770
+        45.8251228552068000, -0.8018651604652400 45.8255303173402027)), ((-0.7983541488647460
+        45.8268218404488010, -0.7982119917869570 45.8273993714773979, -0.7967340946197510
+        45.8278871842802005, -0.7964658737182621 45.8271171483252999, -0.7971525192260740
+        45.8269339828649009, -0.7975736260414120 45.8267975428954983, -0.7978713512420650
+        45.8266629716393012, -0.7980510592460630 45.8265171857444997, -0.7982200384140010
+        45.8265863406396008, -0.7983326911926270 45.8266984835302011, -0.7983541488647460
+        45.8268218404488010)))
+  item_type: Plant
+versions_149:
+  created_at: 2014-11-07 17:18:25.692377000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 185
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 115
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 115
+    type: Building
+    name: Chai
+    number: PR00000000058
+    variant_id: 51
+    nature_id: 11
+    category_id: 6
+    extjuncted: false
+    initial_born_at: 2011-05-24 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: building
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number: CHAI
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 17:18:25.687359000 Z
+    creator_id: 1
+    person_id:
+    initial_shape: !ruby/object:RGeo::Geos::CAPIGeometryCollectionImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: GEOMETRYCOLLECTION (POLYGON ((-0.7963451743125920 45.8269171615169029,
+        -0.7959964871406560 45.8270218275997010, -0.7959435135126109 45.8269353846436971,
+        -0.7960313558578490 45.8269064145419023, -0.7960534840822220 45.8268765099048991,
+        -0.7960930466651920 45.8268559504575990, -0.7961433380842210 45.8268498760740002,
+        -0.7961909472942350 45.8268545486767991, -0.7962868362665180 45.8268269803145003,
+        -0.7963451743125920 45.8269171615169029)))
+  item_type: Building
+versions_150:
+  created_at: 2014-11-07 17:18:58.804383000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 187
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 10
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    type: Building
+    name: Dock
+    number: '33001'
+    variant_id: 3
+    nature_id: 4
+    category_id: 1
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: building
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Building
+versions_151:
+  created_at: 2014-11-07 17:19:35.226620000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 188
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 116
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 116
+    type: Equipment
+    name: Cuve Jupiter
+    number: PR00000000059
+    variant_id: 50
+    nature_id: 42
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2010-06-30 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 115
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: tank
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 115
+    created_at: 2014-11-07 17:19:35.222129000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_152:
+  created_at: 2014-11-07 17:20:23.966589000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 189
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 117
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 117
+    type: Equipment
+    name: Cuve Saturne
+    number: PR00000000060
+    variant_id: 50
+    nature_id: 42
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2010-04-30 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 115
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: tank
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 115
+    created_at: 2014-11-07 17:20:23.962743000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_153:
+  created_at: 2014-11-07 17:22:41.841164000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 190
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 118
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 118
+    type: Equipment
+    name: Cuve Soleil
+    number: PR00000000061
+    variant_id: 50
+    nature_id: 42
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2010-04-30 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 115
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: tank
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 115
+    created_at: 2014-11-07 17:22:41.836712000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_154:
+  created_at: 2014-11-07 17:23:41.379183000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 191
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 119
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 119
+    type: Equipment
+    name: Pressoir XT96
+    number: PR00000000062
+    variant_id: 52
+    nature_id: 43
+    category_id: 14
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id: 13
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: press
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 17:23:41.373971000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_155:
+  created_at: 2014-11-07 18:53:57.736676000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 192
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 120
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 120
+    type: Matter
+    name: Raisin
+    number: PR00000000063
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-01 08:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 18:53:57.726666000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_156:
+  created_at: 2014-11-07 18:53:57.941773000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 193
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 121
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 121
+    type: Matter
+    name: Raisin (1)
+    number: PR00000000064
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-01 08:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 18:53:57.938037000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_157:
+  created_at: 2014-11-07 18:53:57.999059000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 194
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 122
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 122
+    type: Matter
+    name: Co-produit du raisin
+    number: PR00000000065
+    variant_id: 55
+    nature_id: 47
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-01 08:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_father_id:
+    initial_mother_id:
+    variety: pomace
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 18:53:57.995416000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_158:
+  created_at: 2014-11-07 18:53:58.145289000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 195
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 114
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 114
+    type: Matter
+    name: Grappe de raisin 2013 (La Boutanche)
+    number: PR00000000057
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-09-16 17:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.323726138E5
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-09-16 16:38:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 17:08:50.419969000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_159:
+  created_at: 2014-11-07 18:53:58.198500000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 196
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 120
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 120
+    type: Matter
+    name: Raisin
+    number: PR00000000063
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-01 08:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-01 07:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 18:53:57.726666000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_160:
+  created_at: 2014-11-07 18:53:58.237406000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 197
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 120
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 120
+    type: Matter
+    name: Raisin
+    number: PR00000000063
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-01 08:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-01 07:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 18:53:57.726666000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_161:
+  created_at: 2014-11-07 19:02:56.078649000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 198
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 123
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 123
+    type: Matter
+    name: Raisin
+    number: PR00000000066
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.067968000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_162:
+  created_at: 2014-11-07 19:02:56.218868000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 199
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 124
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 124
+    type: Matter
+    name: Jus de raisin
+    number: PR00000000067
+    variant_id: 56
+    nature_id: 48
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_father_id:
+    initial_mother_id:
+    variety: juice
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.215117000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_163:
+  created_at: 2014-11-07 19:02:56.275468000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 200
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 125
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 125
+    type: Matter
+    name: Co-produit du raisin 2013 (Cuve Saturne) (1)
+    number: PR00000000068
+    variant_id: 55
+    nature_id: 47
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E3
+    initial_father_id:
+    initial_mother_id:
+    variety: pomace
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.271910000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_164:
+  created_at: 2014-11-07 19:02:56.423084000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 201
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 114
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 114
+    type: Matter
+    name: Grappe de raisin 2013 (La Boutanche)
+    number: PR00000000057
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-09-16 17:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.323726138E5
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-09-16 16:38:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 17:08:50.419969000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_165:
+  created_at: 2014-11-07 19:02:56.505796000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 202
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 123
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 123
+    type: Matter
+    name: Raisin
+    number: PR00000000066
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-02 07:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.067968000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_166:
+  created_at: 2014-11-07 19:02:56.548839000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 203
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 123
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 123
+    type: Matter
+    name: Raisin
+    number: PR00000000066
+    variant_id: 48
+    nature_id: 40
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.32E4
+    initial_father_id:
+    initial_mother_id:
+    variety: grape
+    derivative_of: vitis_vinifera
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-02 07:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.067968000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_167:
+  created_at: 2014-11-07 19:05:46.890990000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 204
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 126
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 126
+    type: Matter
+    name: Acide lactique ‒ 25kg
+    number: PR00000000069
+    variant_id: 57
+    nature_id: 49
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:05:46.886304000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_168:
+  created_at: 2014-11-07 19:05:46.972785000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 205
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 127
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 127
+    type: Matter
+    name: Acide malique ‒ 25kg
+    number: PR00000000070
+    variant_id: 58
+    nature_id: 49
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.4E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:05:46.968107000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_169:
+  created_at: 2014-11-07 19:05:47.041939000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 206
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 128
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 128
+    type: Matter
+    name: Levure œnologique ‒ sachet de 500g
+    number: PR00000000071
+    variant_id: 59
+    nature_id: 50
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_father_id:
+    initial_mother_id:
+    variety: yeast
+    derivative_of: saccharomyces_cerevisiae_jb3
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:05:47.037645000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_170:
+  created_at: 2014-11-07 19:08:55.102283000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 207
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 129
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 129
+    type: Matter
+    name: Produit œnologique
+    number: PR00000000072
+    variant_id: 59
+    nature_id: 50
+    category_id: 22
+    extjuncted: true
+    initial_born_at: 2013-10-05 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.6E1
+    initial_father_id:
+    initial_mother_id:
+    variety: yeast
+    derivative_of: saccharomyces_cerevisiae
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:08:55.092680000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_171:
+  created_at: 2014-11-07 19:08:55.240926000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 208
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 130
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 130
+    type: Matter
+    name: Vin
+    number: PR00000000073
+    variant_id: 49
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-05 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:08:55.237093000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_172:
+  created_at: 2014-11-07 19:08:55.399925000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 209
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 128
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 128
+    type: Matter
+    name: Levure œnologique ‒ sachet de 500g
+    number: PR00000000071
+    variant_id: 59
+    nature_id: 50
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_father_id:
+    initial_mother_id:
+    variety: yeast
+    derivative_of: saccharomyces_cerevisiae_jb3
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-07 19:05:47.065062000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:05:47.037645000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_173:
+  created_at: 2014-11-07 19:08:55.475570000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 210
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 129
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 129
+    type: Matter
+    name: Produit œnologique
+    number: PR00000000072
+    variant_id: 59
+    nature_id: 50
+    category_id: 22
+    extjuncted: true
+    initial_born_at: 2013-10-05 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.6E1
+    initial_father_id:
+    initial_mother_id:
+    variety: yeast
+    derivative_of: saccharomyces_cerevisiae
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-05 13:08:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:08:55.092680000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_174:
+  created_at: 2014-11-07 19:08:55.493981000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 211
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 124
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 124
+    type: Matter
+    name: Jus de raisin 2013 (Cuve Jupiter)
+    number: PR00000000067
+    variant_id: 56
+    nature_id: 48
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_father_id:
+    initial_mother_id:
+    variety: juice
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-02 07:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.215117000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_175:
+  created_at: 2014-11-07 19:08:55.522102000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 212
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 124
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 124
+    type: Matter
+    name: Jus de raisin 2013 (Cuve Jupiter)
+    number: PR00000000067
+    variant_id: 56
+    nature_id: 48
+    category_id: 20
+    extjuncted: true
+    initial_born_at: 2013-10-02 09:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 106
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.3E2
+    initial_father_id:
+    initial_mother_id:
+    variety: juice
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-02 07:30:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 106
+    created_at: 2014-11-07 19:02:56.215117000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_176:
+  created_at: 2014-11-07 19:08:55.570499000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 213
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 116
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 116
+    type: Equipment
+    name: Cuve Jupiter
+    number: PR00000000059
+    variant_id: 50
+    nature_id: 42
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2010-06-30 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 115
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: tank
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2010-06-30 22:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 115
+    created_at: 2014-11-07 17:19:35.222129000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_177:
+  created_at: 2014-11-07 19:08:55.621351000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 214
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 116
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 116
+    type: Equipment
+    name: Cuve Jupiter
+    number: PR00000000059
+    variant_id: 50
+    nature_id: 42
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 2010-06-30 22:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 115
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_father_id:
+    initial_mother_id:
+    variety: tank
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2010-06-30 22:00:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 115
+    created_at: 2014-11-07 17:19:35.222129000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_178:
+  created_at: 2014-11-07 19:12:04.944263000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 215
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 131
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 131
+    type: Matter
+    name: Sucre blanc ‒ 25kg
+    number: PR00000000074
+    variant_id: 60
+    nature_id: 51
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: saccharose
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:12:04.938158000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_179:
+  created_at: 2014-11-07 19:12:42.847581000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 216
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 132
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 132
+    type: Matter
+    name: Produit œnologique
+    number: PR00000000075
+    variant_id: 60
+    nature_id: 51
+    category_id: 22
+    extjuncted: true
+    initial_born_at: 2013-10-07 09:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.118E0
+    initial_father_id:
+    initial_mother_id:
+    variety: saccharose
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:12:42.843046000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_180:
+  created_at: 2014-11-07 19:12:42.947647000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 217
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 131
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 131
+    type: Matter
+    name: Sucre blanc ‒ 25kg
+    number: PR00000000074
+    variant_id: 60
+    nature_id: 51
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: saccharose
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-07 19:12:04.970572000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:12:04.938158000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_181:
+  created_at: 2014-11-07 19:12:43.003761000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 218
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 132
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 132
+    type: Matter
+    name: Produit œnologique
+    number: PR00000000075
+    variant_id: 60
+    nature_id: 51
+    category_id: 22
+    extjuncted: true
+    initial_born_at: 2013-10-07 09:45:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.118E0
+    initial_father_id:
+    initial_mother_id:
+    variety: saccharose
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-07 09:38:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:12:42.843046000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_182:
+  created_at: 2014-11-07 19:12:43.022111000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 219
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 130
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 130
+    type: Matter
+    name: Vin [oct. 2013] (Cuve Jupiter)
+    number: PR00000000073
+    variant_id: 49
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-05 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-05 13:36:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:08:55.237093000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_183:
+  created_at: 2014-11-07 19:22:38.087700000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 220
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 133
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 133
+    type: Matter
+    name: SO₂ liquide 10%
+    number: PR00000000076
+    variant_id: 62
+    nature_id: 53
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:22:38.077250000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_184:
+  created_at: 2014-11-07 19:24:10.213723000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 221
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 134
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 134
+    type: Matter
+    name: Produit œnologique
+    number: PR00000000077
+    variant_id: 62
+    nature_id: 53
+    category_id: 22
+    extjuncted: true
+    initial_born_at: 2013-10-15 08:48:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.118E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:24:10.209263000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_185:
+  created_at: 2014-11-07 19:24:10.349067000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 222
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 133
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 133
+    type: Matter
+    name: SO₂ liquide 10%
+    number: PR00000000076
+    variant_id: 62
+    nature_id: 53
+    category_id: 22
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E2
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2014-11-07 19:22:38.298382000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:22:38.077250000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_186:
+  created_at: 2014-11-07 19:24:10.418457000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 223
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 134
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 134
+    type: Matter
+    name: Produit œnologique
+    number: PR00000000077
+    variant_id: 62
+    nature_id: 53
+    category_id: 22
+    extjuncted: true
+    initial_born_at: 2013-10-15 08:48:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.118E1
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-15 08:36:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:24:10.209263000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_187:
+  created_at: 2014-11-07 19:24:10.437398000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 224
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 130
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 130
+    type: Matter
+    name: Vin [oct. 2013] (Cuve Jupiter)
+    number: PR00000000073
+    variant_id: 49
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-05 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-05 13:36:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:08:55.237093000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_188:
+  created_at: 2014-11-07 19:27:14.240913000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 225
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    target_id: 130
+    target_type: Matter
+    nature: bacteriosis
+    observed_at: 2013-10-14 17:00:00.000000000 Z
+    priority: 3
+    gravity: 2
+    state: opened
+    name: Bactériose sur Vin [oct. 2013] (Cuve Jupiter)
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-07 19:27:14.236361000 Z
+    creator_id: 1
+  item_type: Issue
+versions_189:
+  created_at: 2014-11-07 19:34:09.461585000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 226
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 135
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 135
+    type: Matter
+    name: Bouteilles vides
+    number: PR00000000080
+    variant_id: 63
+    nature_id: 54
+    category_id: 23
+    extjuncted: false
+    initial_born_at: 2013-04-15 10:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_father_id:
+    initial_mother_id:
+    variety: cork_bottle
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:34:09.456173000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_190:
+  created_at: 2014-11-07 19:34:09.544351000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 227
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 136
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 136
+    type: Matter
+    name: Bouchon naturel
+    number: PR00000000081
+    variant_id: 64
+    nature_id: 55
+    category_id: 23
+    extjuncted: false
+    initial_born_at: 2013-07-25 10:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_father_id:
+    initial_mother_id:
+    variety: cork
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:34:09.539919000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_191:
+  created_at: 2014-11-07 19:36:09.032833000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 228
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 137
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 137
+    type: Equipment
+    name: Boucheuse manuelle
+    number: PR00000000082
+    variant_id: 67
+    nature_id: 57
+    category_id: 14
+    extjuncted: false
+    initial_born_at: 1954-05-11 23:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: baler
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:36:09.027415000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_192:
+  created_at: 2014-11-07 19:36:29.982387000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 229
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 138
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 138
+    type: Equipment
+    name: Tireuse Coop
+    number: PR00000000083
+    variant_id: 66
+    nature_id: 56
+    category_id: 14
+    extjuncted: false
+    initial_born_at:
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id: 13
+    initial_enjoyer_id:
+    initial_population:
+    initial_father_id:
+    initial_mother_id:
+    variety: baler
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:36:29.977043000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Equipment
+versions_193:
+  created_at: 2014-11-07 19:36:59.039132000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 230
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 139
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 139
+    type: Matter
+    name: Vin
+    number: PR00000000084
+    variant_id: 49
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.15E2
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:36:59.034307000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_194:
+  created_at: 2014-11-07 19:36:59.107723000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 231
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 140
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 140
+    type: Matter
+    name: Bouteilles
+    number: PR00000000085
+    variant_id: 63
+    nature_id: 54
+    category_id: 23
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2004E4
+    initial_father_id:
+    initial_mother_id:
+    variety: cork_bottle
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:36:59.103331000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_195:
+  created_at: 2014-11-07 19:36:59.174117000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 232
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 141
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 141
+    type: Matter
+    name: Bouchons
+    number: PR00000000086
+    variant_id: 64
+    nature_id: 55
+    category_id: 23
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.152E4
+    initial_father_id:
+    initial_mother_id:
+    variety: cork
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:36:59.170065000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_196:
+  created_at: 2014-11-07 19:36:59.237912000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 233
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 142
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 142
+    type: Matter
+    name: Bouteille de vin (75cl)
+    number: PR00000000087
+    variant_id: 65
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1992E4
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at:
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:36:59.233966000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_197:
+  created_at: 2014-11-07 19:36:59.339962000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 234
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 130
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 130
+    type: Matter
+    name: Vin [oct. 2013] (Cuve Jupiter)
+    number: PR00000000073
+    variant_id: 49
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-05 13:40:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.295E2
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-05 13:36:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:08:55.237093000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_198:
+  created_at: 2014-11-07 19:36:59.391233000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 235
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 135
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 135
+    type: Matter
+    name: Bouteilles vides
+    number: PR00000000080
+    variant_id: 63
+    nature_id: 54
+    category_id: 23
+    extjuncted: false
+    initial_born_at: 2013-04-15 10:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_father_id:
+    initial_mother_id:
+    variety: cork_bottle
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-04-15 10:30:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:34:09.456173000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_199:
+  created_at: 2014-11-07 19:36:59.541173000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 236
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 136
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 136
+    type: Matter
+    name: Bouchon naturel
+    number: PR00000000081
+    variant_id: 64
+    nature_id: 55
+    category_id: 23
+    extjuncted: false
+    initial_born_at: 2013-07-25 10:30:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.1E5
+    initial_father_id:
+    initial_mother_id:
+    variety: cork
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-07-25 10:30:00.000000000 Z
+    dead_at:
+    description: ''
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2014-11-07 19:34:09.539919000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_200:
+  created_at: 2014-11-07 19:36:59.628435000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 237
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 139
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 139
+    type: Matter
+    name: Vin
+    number: PR00000000084
+    variant_id: 49
+    nature_id: 41
+    category_id: 21
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 116
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.15E2
+    initial_father_id:
+    initial_mother_id:
+    variety: wine
+    derivative_of: grape
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-30 07:08:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 116
+    created_at: 2014-11-07 19:36:59.034307000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_201:
+  created_at: 2014-11-07 19:36:59.648884000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 238
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 140
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 140
+    type: Matter
+    name: Bouteilles
+    number: PR00000000085
+    variant_id: 63
+    nature_id: 54
+    category_id: 23
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.2004E4
+    initial_father_id:
+    initial_mother_id:
+    variety: cork_bottle
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-30 07:08:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:36:59.103331000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter
+versions_202:
+  created_at: 2014-11-07 19:36:59.668178000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 239
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 141
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 141
+    type: Matter
+    name: Bouchons
+    number: PR00000000086
+    variant_id: 64
+    nature_id: 55
+    category_id: 23
+    extjuncted: true
+    initial_born_at: 2013-10-30 14:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id: 21
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.152E4
+    initial_father_id:
+    initial_mother_id:
+    variety: cork
+    derivative_of:
+    tracking_id:
+    financial_asset_id:
+    born_at: 2013-10-30 07:08:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 21
+    created_at: 2014-11-07 19:36:59.170065000 Z
+    creator_id: 1
+    person_id:
+    initial_shape:
+  item_type: Matter

@@ -50,7 +50,7 @@ class Backend::InterventionsController < BackendController
     t.column :started_at
     t.column :stopped_at, hidden: true
     t.status
-    t.column :issue, label_method: :nature, url: true
+    t.column :issue, url: true
     t.column :casting
     t.action :new,  on: :none
     t.action :run,  if: :runnable?, method: :post, confirm: true

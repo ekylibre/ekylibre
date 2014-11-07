@@ -160,17 +160,19 @@ animal_groups_001:
   category_id: 16
   created_at: 2014-11-04 17:28:40.064178000 Z
   creator_id: 1
+  default_storage_id: 14
   derivative_of: bos
   description: ''
   extjuncted: false
   id: 85
+  initial_container_id: 14
   initial_population: 0.0
-  lock_version: 0
+  lock_version: 1
   name: Troupeau de génisses A
   nature_id: 27
   number: PR00000000029
   type: AnimalGroup
-  updated_at: 2014-11-04 17:28:40.064178000 Z
+  updated_at: 2014-11-07 15:49:47.929754000 Z
   updater_id: 1
   variant_id: 31
   variety: animal_group
@@ -200,22 +202,6 @@ buildings_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   extjuncted: false
-  id: 10
-  initial_population: 0.0
-  lock_version: 0
-  name: Dock
-  nature_id: 4
-  number: '33001'
-  type: Building
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 3
-  variety: building
-buildings_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
   id: 11
   initial_population: 0.0
   lock_version: 0
@@ -227,7 +213,7 @@ buildings_002:
   updater_id: 1
   variant_id: 3
   variety: building
-buildings_003:
+buildings_002:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -243,7 +229,7 @@ buildings_003:
   updater_id: 1
   variant_id: 3
   variety: building
-buildings_004:
+buildings_003:
   born_at: 2014-10-31 20:12:30.956331000 Z
   category_id: 1
   created_at: 2014-10-31 20:12:30.889733000 Z
@@ -260,50 +246,81 @@ buildings_004:
   updater_id: 1
   variant_id: 3
   variety: building
-buildings_005:
+buildings_004:
   born_at: 1971-03-05 09:50:00.000000000 Z
   category_id: 6
   created_at: 2014-10-31 20:15:14.781851000 Z
   creator_id: 1
+  description: ''
   extjuncted: false
   id: 14
   identification_number: '1212312312313'
   initial_born_at: 1971-03-05 09:50:00.000000000 Z
   initial_population: 1.0
-  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.831708670011721 45.5990635462549,-0.831558466306888
-    45.5984855274885,-0.831290245405398 45.5985005410382,-0.831461906782351 45.5991160931203,-0.831708670011721
-    45.5990635462549)))
-  lock_version: 1
-  name: Bâtiment d’accueil pour les animaux
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796326398849487 45.8263246730165,-0.796270072460175
+    45.8260798257695,-0.796111822128296 45.8260929092374,-0.796052813529968 45.8258536681952,-0.796449780464172
+    45.8258088103853,-0.796551704406738 45.8262985061865,-0.796326398849487 45.8263246730165)))
+  lock_version: 2
+  name: Stabulation
   nature_id: 11
   number: '40005'
   type: Building
-  updated_at: 2014-10-31 20:15:42.711136000 Z
+  updated_at: 2014-11-07 14:30:00.476778000 Z
   updater_id: 1
   variant_id: 12
   variety: building
   work_number: '123123'
+buildings_005:
+  born_at: 2011-05-24 22:00:00.000000000 Z
+  category_id: 6
+  created_at: 2014-11-07 17:18:25.687359000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 115
+  identification_number: ''
+  initial_born_at: 2011-05-24 22:00:00.000000000 Z
+  initial_population: 0.0
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.796345174312592 45.8269171615169,-0.795996487140656
+    45.8270218275997,-0.795943513512611 45.8269353846437,-0.796031355857849 45.8269064145419,-0.796053484082222
+    45.8268765099049,-0.796093046665192 45.8268559504576,-0.796143338084221 45.826849876074,-0.796190947294235
+    45.8268545486768,-0.796286836266518 45.8268269803145,-0.796345174312592 45.8269171615169)))
+  lock_version: 0
+  name: Chai
+  nature_id: 11
+  number: PR00000000058
+  type: Building
+  updated_at: 2014-11-07 17:18:25.687359000 Z
+  updater_id: 1
+  variant_id: 51
+  variety: building
+  work_number: CHAI
 building_divisions_001:
   born_at: 1979-03-02 05:30:00.000000000 Z
   category_id: 7
   created_at: 2014-10-31 20:18:12.218328000 Z
   creator_id: 1
+  description: ''
   extjuncted: false
   id: 19
+  identification_number: ''
   initial_born_at: 1979-03-02 05:30:00.000000000 Z
   initial_population: 0.0
   initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.813031777761353 45.5987083844552,-0.812880232952011
     45.5986882100715,-0.812858104727638 45.5987590549683,-0.813003614566696 45.5987759451292,-0.813031777761353
-    45.5987083844552)))
-  lock_version: 0
+    45.5987083844552)),POLYGON((-0.796550989325624 45.8263695304107,-0.796615362341981
+    45.8266162454325,-0.79639542120276 45.8266386740166,-0.796309590514284 45.8263956972072,-0.796550989325624
+    45.8263695304107)))
+  lock_version: 1
   name: Emplacement de stockage du matériel
   nature_id: 12
   number: '40006'
   type: BuildingDivision
-  updated_at: 2014-10-31 20:18:12.218328000 Z
+  updated_at: 2014-11-07 14:41:44.726701000 Z
   updater_id: 1
   variant_id: 13
   variety: building_division
+  work_number: ''
 building_divisions_002:
   born_at: 1980-01-31 04:45:00.000000000 Z
   category_id: 7
@@ -346,6 +363,29 @@ building_divisions_003:
   updater_id: 1
   variant_id: 15
   variety: building_division
+building_divisions_004:
+  born_at: 1980-01-04 23:00:00.000000000 Z
+  category_id: 1
+  created_at: 2014-11-07 14:39:41.440984000 Z
+  creator_id: 1
+  default_storage_id: 14
+  description: ''
+  extjuncted: false
+  id: 93
+  identification_number: ''
+  initial_born_at: 1980-01-04 23:00:00.000000000 Z
+  initial_container_id: 14
+  initial_population: 0.0
+  lock_version: 0
+  name: Case 1
+  nature_id: 6
+  number: PR00000000037
+  type: BuildingDivision
+  updated_at: 2014-11-07 14:39:41.440984000 Z
+  updater_id: 1
+  variant_id: 35
+  variety: building_division
+  work_number: C1
 cultivable_zones_001:
   born_at: 1974-05-11 23:00:00.000000000 Z
   category_id: 15
@@ -468,6 +508,36 @@ cultivable_zones_005:
   variant_id: 28
   variety: cultivable_zone
   work_number: ZC4
+cultivable_zones_006:
+  born_at: 1971-06-17 23:00:00.000000000 Z
+  category_id: 15
+  created_at: 2014-11-07 16:26:53.115665000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 106
+  initial_born_at: 1971-06-17 23:00:00.000000000 Z
+  initial_population: 0.0
+  initial_shape: SRID=4326;GEOMETRYCOLLECTION(POLYGON((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),POLYGON((-0.798354148864746
+    45.8268218404488,-0.798211991786957 45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262
+    45.8271171483253,-0.797152519226074 45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065
+    45.8266629716393,-0.798051059246063 45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627
+    45.8266984835302,-0.798354148864746 45.8268218404488)))
+  lock_version: 0
+  name: La Boutanche
+  nature_id: 24
+  number: PR00000000049
+  type: CultivableZone
+  updated_at: 2014-11-07 16:26:53.115665000 Z
+  updater_id: 1
+  variant_id: 28
+  variety: cultivable_zone
+  work_number: ZC5
 equipments_001:
   born_at: 2002-12-14 23:00:00.000000000 Z
   category_id: 14
@@ -588,6 +658,208 @@ equipments_006:
   updater_id: 1
   variant_id: 34
   variety: plower
+equipments_007:
+  born_at: 2009-01-11 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 15:01:32.169817000 Z
+  creator_id: 1
+  default_storage_id: 19
+  description: ''
+  extjuncted: false
+  id: 95
+  initial_born_at: 2009-01-11 23:00:00.000000000 Z
+  initial_container_id: 19
+  initial_population: 0.0
+  lock_version: 0
+  name: Pulveo 8000
+  nature_id: 30
+  number: PR00000000039
+  type: Equipment
+  updated_at: 2014-11-07 15:01:32.169817000 Z
+  updater_id: 1
+  variant_id: 36
+  variety: sprayer
+equipments_008:
+  born_at: 2010-11-01 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 15:23:45.087173000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 97
+  initial_born_at: 2010-11-01 23:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: "Épandeur ENGRAMAX 75"
+  nature_id: 31
+  number: PR00000000041
+  type: Equipment
+  updated_at: 2014-11-07 15:23:45.087173000 Z
+  updater_id: 1
+  variant_id: 37
+  variety: spreader
+equipments_009:
+  born_at: 2001-01-22 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 16:49:26.139872000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 108
+  initial_born_at: 2001-01-22 23:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: PLANTOVIGNE X20
+  nature_id: 38
+  number: PR00000000052
+  type: Equipment
+  updated_at: 2014-11-07 16:49:26.139872000 Z
+  updater_id: 1
+  variant_id: 46
+  variety: implanter
+equipments_010:
+  born_at: 2012-09-02 07:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:05:10.430947000 Z
+  creator_id: 1
+  default_storage_id: 21
+  description: ''
+  extjuncted: false
+  id: 112
+  initial_born_at: 2012-09-02 07:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.0
+  lock_version: 0
+  name: VENDOPLUS 960
+  nature_id: 39
+  number: PR00000000056
+  type: Equipment
+  updated_at: 2014-11-07 17:05:10.430947000 Z
+  updater_id: 1
+  variant_id: 47
+  variety: reaper
+equipments_011:
+  born_at: 2010-06-30 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:19:35.222129000 Z
+  creator_id: 1
+  default_storage_id: 115
+  description: ''
+  extjuncted: false
+  id: 116
+  initial_born_at: 2010-06-30 22:00:00.000000000 Z
+  initial_container_id: 115
+  initial_population: 0.0
+  lock_version: 0
+  name: Cuve Jupiter
+  nature_id: 42
+  number: PR00000000059
+  type: Equipment
+  updated_at: 2014-11-07 17:19:35.222129000 Z
+  updater_id: 1
+  variant_id: 50
+  variety: tank
+equipments_012:
+  born_at: 2010-04-30 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:20:23.962743000 Z
+  creator_id: 1
+  default_storage_id: 115
+  description: ''
+  extjuncted: false
+  id: 117
+  initial_born_at: 2010-04-30 22:00:00.000000000 Z
+  initial_container_id: 115
+  initial_population: 0.0
+  lock_version: 0
+  name: Cuve Saturne
+  nature_id: 42
+  number: PR00000000060
+  type: Equipment
+  updated_at: 2014-11-07 17:20:23.962743000 Z
+  updater_id: 1
+  variant_id: 50
+  variety: tank
+equipments_013:
+  born_at: 2010-04-30 22:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:22:41.836712000 Z
+  creator_id: 1
+  default_storage_id: 115
+  description: ''
+  extjuncted: false
+  id: 118
+  initial_born_at: 2010-04-30 22:00:00.000000000 Z
+  initial_container_id: 115
+  initial_population: 0.0
+  lock_version: 0
+  name: Cuve Soleil
+  nature_id: 42
+  number: PR00000000061
+  type: Equipment
+  updated_at: 2014-11-07 17:22:41.836712000 Z
+  updater_id: 1
+  variant_id: 50
+  variety: tank
+equipments_014:
+  born_at: 2014-11-07 17:23:41.409332000 Z
+  category_id: 14
+  created_at: 2014-11-07 17:23:41.373971000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 119
+  initial_owner_id: 13
+  initial_population: 0.0
+  lock_version: 0
+  name: Pressoir XT96
+  nature_id: 43
+  number: PR00000000062
+  type: Equipment
+  updated_at: 2014-11-07 17:23:41.373971000 Z
+  updater_id: 1
+  variant_id: 52
+  variety: press
+equipments_015:
+  born_at: 1954-05-11 23:00:00.000000000 Z
+  category_id: 14
+  created_at: 2014-11-07 19:36:09.027415000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 137
+  initial_born_at: 1954-05-11 23:00:00.000000000 Z
+  lock_version: 0
+  name: Boucheuse manuelle
+  nature_id: 57
+  number: PR00000000082
+  type: Equipment
+  updated_at: 2014-11-07 19:36:09.027415000 Z
+  updater_id: 1
+  variant_id: 67
+  variety: baler
+equipments_016:
+  born_at: 2014-11-07 19:36:30.009048000 Z
+  category_id: 14
+  created_at: 2014-11-07 19:36:29.977043000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 138
+  initial_owner_id: 13
+  lock_version: 0
+  name: Tireuse Coop
+  nature_id: 56
+  number: PR00000000083
+  type: Equipment
+  updated_at: 2014-11-07 19:36:29.977043000 Z
+  updater_id: 1
+  variant_id: 66
+  variety: baler
 fungi_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -1109,6 +1381,677 @@ matters_016:
   updater_id: 1
   variant_id: 10
   variety: seed
+matters_017:
+  born_at: 2014-11-05 06:30:00.000000000 Z
+  category_id: 12
+  created_at: 2014-11-07 14:44:18.818382000 Z
+  creator_id: 1
+  dead_at: 2014-11-05 08:25:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 94
+  initial_born_at: 2014-11-05 08:25:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.02
+  lock_version: 0
+  name: Acetal [05/11/2014] (Gendo)
+  nature_id: 19
+  number: PR00000000038
+  type: Matter
+  updated_at: 2014-11-07 14:44:18.818382000 Z
+  updater_id: 1
+  variant_id: 21
+  variety: preparation
+matters_018:
+  born_at: 2013-02-08 11:50:00.000000000 Z
+  category_id: 3
+  created_at: 2014-11-07 15:02:58.655370000 Z
+  creator_id: 1
+  dead_at: 2013-02-08 11:50:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 96
+  initial_born_at: 2013-02-08 11:50:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 4.1745
+  lock_version: 0
+  name: Microthiol sp disp - [08/02/2013]
+  nature_id: 8
+  number: PR00000000040
+  type: Matter
+  updated_at: 2014-11-07 15:02:58.655370000 Z
+  updater_id: 1
+  variant_id: 20
+  variety: preparation
+matters_019:
+  born_at: 2014-11-07 15:25:51.233605000 Z
+  category_id: 17
+  created_at: 2014-11-07 15:25:51.192693000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 98
+  initial_population: 10.0
+  lock_version: 0
+  name: Ammonitre 33,5%  Big Bag
+  nature_id: 33
+  number: PR00000000042
+  type: Matter
+  updated_at: 2014-11-07 15:25:51.192693000 Z
+  updater_id: 1
+  variant_id: 39
+  variety: preparation
+matters_020:
+  born_at: 2012-12-12 11:12:00.000000000 Z
+  category_id: 17
+  created_at: 2014-11-07 15:26:50.522451000 Z
+  creator_id: 1
+  dead_at: 2012-12-12 11:12:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 99
+  initial_born_at: 2012-12-12 11:12:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.6425
+  lock_version: 0
+  name: Engrais
+  nature_id: 33
+  number: PR00000000043
+  type: Matter
+  updated_at: 2014-11-07 15:26:50.522451000 Z
+  updater_id: 1
+  variant_id: 39
+  variety: preparation
+matters_021:
+  born_at: 2014-11-07 15:44:20.494719000 Z
+  category_id: 5
+  created_at: 2014-11-07 15:44:20.455537000 Z
+  creator_id: 1
+  derivative_of: trifolium_pratense_diplomat
+  description: ''
+  extjuncted: false
+  id: 100
+  initial_population: 20.0
+  lock_version: 0
+  name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
+  nature_id: 10
+  number: PR00000000044
+  type: Matter
+  updated_at: 2014-11-07 15:44:20.455537000 Z
+  updater_id: 1
+  variant_id: 41
+  variety: seed
+matters_022:
+  born_at: 2014-11-07 15:44:20.618455000 Z
+  category_id: 5
+  created_at: 2014-11-07 15:44:20.589234000 Z
+  creator_id: 1
+  derivative_of: poa
+  description: ''
+  extjuncted: false
+  id: 101
+  initial_population: 200.0
+  lock_version: 0
+  name: Semence mixte
+  nature_id: 10
+  number: PR00000000045
+  type: Matter
+  updated_at: 2014-11-07 15:44:20.589234000 Z
+  updater_id: 1
+  variant_id: 42
+  variety: seed
+matters_023:
+  born_at: 2007-09-29 10:59:00.000000000 Z
+  category_id: 5
+  created_at: 2014-11-07 15:45:45.728092000 Z
+  creator_id: 1
+  dead_at: 2007-09-29 10:59:00.000000000 Z
+  default_storage_id: 21
+  derivative_of: poa
+  extjuncted: true
+  id: 102
+  initial_born_at: 2007-09-29 13:40:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 177.8641
+  lock_version: 0
+  name: 'Semence mixte - [29/09/2007] - [Semence] '
+  nature_id: 10
+  number: PR00000000046
+  type: Matter
+  updated_at: 2014-11-07 15:45:45.728092000 Z
+  updater_id: 1
+  variant_id: 42
+  variety: seed
+matters_024:
+  born_at: 2014-08-01 00:10:00.000000000 Z
+  category_id: 18
+  created_at: 2014-11-07 15:50:04.415002000 Z
+  creator_id: 1
+  dead_at: 2014-08-01 00:20:00.000000000 Z
+  default_storage_id: 80
+  derivative_of: poa
+  extjuncted: true
+  id: 105
+  initial_born_at: 2014-08-31 11:45:00.000000000 Z
+  initial_container_id: 80
+  initial_population: 1.0
+  lock_version: 0
+  name: Herbe de prairie [01/08/2014] (La Michardière)
+  nature_id: 35
+  number: PR00000000048
+  type: Matter
+  updated_at: 2014-11-07 15:50:04.415002000 Z
+  updater_id: 1
+  variant_id: 43
+  variety: grass
+matters_025:
+  born_at: 2014-11-07 16:47:34.875169000 Z
+  category_id: 19
+  created_at: 2014-11-07 16:47:34.638130000 Z
+  creator_id: 1
+  derivative_of: vitis_vinifera_sauvignon_blanc
+  description: ''
+  extjuncted: false
+  id: 107
+  initial_population: 5000.0
+  lock_version: 0
+  name: Plant de vigne So4/Sauvignon blanc
+  nature_id: 37
+  number: PR00000000051
+  tracking_id: 3
+  type: Matter
+  updated_at: 2014-11-07 16:47:34.638130000 Z
+  updater_id: 1
+  variant_id: 45
+  variety: seedling
+matters_026:
+  born_at: 2008-03-15 15:39:00.000000000 Z
+  category_id: 19
+  created_at: 2014-11-07 16:50:07.026840000 Z
+  creator_id: 1
+  dead_at: 2008-03-15 15:39:00.000000000 Z
+  default_storage_id: 21
+  derivative_of: vitis
+  extjuncted: true
+  id: 109
+  initial_born_at: 2008-03-15 22:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 5000.0
+  lock_version: 0
+  name: Plant de vigne standard (So4) - [Plant]
+  nature_id: 37
+  number: PR00000000053
+  tracking_id: 3
+  type: Matter
+  updated_at: 2014-11-07 16:50:07.026840000 Z
+  updater_id: 1
+  variant_id: 45
+  variety: seedling
+matters_027:
+  born_at: 2013-04-17 12:00:00.000000000 Z
+  category_id: 3
+  created_at: 2014-11-07 16:59:09.705128000 Z
+  creator_id: 1
+  dead_at: 2013-04-17 12:00:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 111
+  initial_born_at: 2013-04-17 12:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 6.4745
+  lock_version: 0
+  name: Microthiol sp disp - [17/04/2013]
+  nature_id: 8
+  number: PR00000000055
+  type: Matter
+  updated_at: 2014-11-07 16:59:09.705128000 Z
+  updater_id: 1
+  variant_id: 20
+  variety: preparation
+matters_028:
+  born_at: 2013-09-16 16:38:00.000000000 Z
+  category_id: 20
+  created_at: 2014-11-07 17:08:50.419969000 Z
+  creator_id: 1
+  default_storage_id: 106
+  derivative_of: vitis_vinifera
+  extjuncted: true
+  id: 114
+  initial_born_at: 2013-09-16 17:00:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 32372.6138
+  lock_version: 0
+  name: Grappe de raisin 2013 (La Boutanche)
+  nature_id: 40
+  number: PR00000000057
+  type: Matter
+  updated_at: 2014-11-07 17:08:50.419969000 Z
+  updater_id: 1
+  variant_id: 48
+  variety: grape
+matters_029:
+  category_id: 20
+  created_at: 2014-11-07 18:53:57.726666000 Z
+  creator_id: 1
+  default_storage_id: 106
+  derivative_of: vitis_vinifera
+  extjuncted: true
+  id: 120
+  initial_born_at: 2013-10-01 08:45:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 3200.0
+  lock_version: 0
+  name: Raisin
+  nature_id: 40
+  number: PR00000000063
+  type: Matter
+  updated_at: 2014-11-07 18:53:57.726666000 Z
+  updater_id: 1
+  variant_id: 48
+  variety: grape
+matters_030:
+  category_id: 20
+  created_at: 2014-11-07 18:53:57.938037000 Z
+  creator_id: 1
+  default_storage_id: 106
+  derivative_of: vitis_vinifera
+  extjuncted: true
+  id: 121
+  initial_born_at: 2013-10-01 08:45:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 3000.0
+  lock_version: 0
+  name: Grappe de raisin 2013 (Cuve Jupiter)
+  nature_id: 40
+  number: PR00000000064
+  type: Matter
+  updated_at: 2014-11-07 18:53:57.938037000 Z
+  updater_id: 1
+  variant_id: 48
+  variety: grape
+matters_031:
+  category_id: 20
+  created_at: 2014-11-07 18:53:57.995416000 Z
+  creator_id: 1
+  default_storage_id: 106
+  derivative_of: vitis_vinifera
+  extjuncted: true
+  id: 122
+  initial_born_at: 2013-10-01 08:45:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 200.0
+  lock_version: 0
+  name: Co-produit du raisin 2013 (Cuve Saturne)
+  nature_id: 47
+  number: PR00000000065
+  type: Matter
+  updated_at: 2014-11-07 18:53:57.995416000 Z
+  updater_id: 1
+  variant_id: 55
+  variety: pomace
+matters_032:
+  born_at: 2013-10-02 07:30:00.000000000 Z
+  category_id: 20
+  created_at: 2014-11-07 19:02:56.067968000 Z
+  creator_id: 1
+  default_storage_id: 106
+  derivative_of: vitis_vinifera
+  extjuncted: true
+  id: 123
+  initial_born_at: 2013-10-02 09:00:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 3200.0
+  lock_version: 0
+  name: Raisin
+  nature_id: 40
+  number: PR00000000066
+  type: Matter
+  updated_at: 2014-11-07 19:02:56.067968000 Z
+  updater_id: 1
+  variant_id: 48
+  variety: grape
+matters_033:
+  born_at: 2013-10-02 07:30:00.000000000 Z
+  category_id: 20
+  created_at: 2014-11-07 19:02:56.215117000 Z
+  creator_id: 1
+  dead_at: 2013-10-05 13:36:00.000000000 Z
+  default_storage_id: 106
+  derivative_of: grape
+  extjuncted: true
+  id: 124
+  initial_born_at: 2013-10-02 09:00:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 30.0
+  lock_version: 0
+  name: Jus de raisin 2013 (Cuve Jupiter)
+  nature_id: 48
+  number: PR00000000067
+  type: Matter
+  updated_at: 2014-11-07 19:02:56.215117000 Z
+  updater_id: 1
+  variant_id: 56
+  variety: juice
+matters_034:
+  born_at: 2013-10-02 07:30:00.000000000 Z
+  category_id: 20
+  created_at: 2014-11-07 19:02:56.271910000 Z
+  creator_id: 1
+  default_storage_id: 106
+  derivative_of: vitis_vinifera
+  extjuncted: true
+  id: 125
+  initial_born_at: 2013-10-02 09:00:00.000000000 Z
+  initial_container_id: 106
+  initial_population: 200.0
+  lock_version: 0
+  name: Co-produit du raisin 2013 (Cuve Saturne)
+  nature_id: 47
+  number: PR00000000068
+  type: Matter
+  updated_at: 2014-11-07 19:02:56.271910000 Z
+  updater_id: 1
+  variant_id: 55
+  variety: pomace
+matters_035:
+  born_at: 2014-11-07 19:05:46.918900000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:05:46.886304000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 126
+  initial_population: 2.0
+  lock_version: 0
+  name: Acide lactique ‒ 25kg
+  nature_id: 49
+  number: PR00000000069
+  type: Matter
+  updated_at: 2014-11-07 19:05:46.886304000 Z
+  updater_id: 1
+  variant_id: 57
+  variety: preparation
+matters_036:
+  born_at: 2014-11-07 19:05:46.995912000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:05:46.968107000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 127
+  initial_population: 4.0
+  lock_version: 0
+  name: Acide malique ‒ 25kg
+  nature_id: 49
+  number: PR00000000070
+  type: Matter
+  updated_at: 2014-11-07 19:05:46.968107000 Z
+  updater_id: 1
+  variant_id: 58
+  variety: preparation
+matters_037:
+  born_at: 2014-11-07 19:05:47.065062000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:05:47.037645000 Z
+  creator_id: 1
+  derivative_of: saccharomyces_cerevisiae_jb3
+  description: ''
+  extjuncted: false
+  id: 128
+  initial_population: 30.0
+  lock_version: 0
+  name: Levure œnologique ‒ sachet de 500g
+  nature_id: 50
+  number: PR00000000071
+  type: Matter
+  updated_at: 2014-11-07 19:05:47.037645000 Z
+  updater_id: 1
+  variant_id: 59
+  variety: yeast
+matters_038:
+  born_at: 2013-10-05 13:08:00.000000000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:08:55.092680000 Z
+  creator_id: 1
+  dead_at: 2013-10-05 13:22:00.000000000 Z
+  default_storage_id: 21
+  derivative_of: saccharomyces_cerevisiae
+  extjuncted: true
+  id: 129
+  initial_born_at: 2013-10-05 13:40:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 6.0
+  lock_version: 0
+  name: Produit œnologique
+  nature_id: 50
+  number: PR00000000072
+  type: Matter
+  updated_at: 2014-11-07 19:08:55.092680000 Z
+  updater_id: 1
+  variant_id: 59
+  variety: yeast
+matters_039:
+  born_at: 2013-10-05 13:36:00.000000000 Z
+  category_id: 21
+  created_at: 2014-11-07 19:08:55.237093000 Z
+  creator_id: 1
+  default_storage_id: 116
+  derivative_of: grape
+  extjuncted: true
+  id: 130
+  initial_born_at: 2013-10-05 13:40:00.000000000 Z
+  initial_container_id: 116
+  initial_population: 29.5
+  lock_version: 0
+  name: Vin [oct. 2013] (Cuve Jupiter)
+  nature_id: 41
+  number: PR00000000073
+  type: Matter
+  updated_at: 2014-11-07 19:08:55.237093000 Z
+  updater_id: 1
+  variant_id: 49
+  variety: wine
+matters_040:
+  born_at: 2014-11-07 19:12:04.970572000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:12:04.938158000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 131
+  initial_population: 10.0
+  lock_version: 0
+  name: Sucre blanc ‒ 25kg
+  nature_id: 51
+  number: PR00000000074
+  type: Matter
+  updated_at: 2014-11-07 19:12:04.938158000 Z
+  updater_id: 1
+  variant_id: 60
+  variety: saccharose
+matters_041:
+  born_at: 2013-10-07 09:38:00.000000000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:12:42.843046000 Z
+  creator_id: 1
+  dead_at: 2013-10-07 09:41:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 132
+  initial_born_at: 2013-10-07 09:45:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 0.118
+  lock_version: 0
+  name: Sucre blanc ‒ 25kg (Cuve Jupiter)
+  nature_id: 51
+  number: PR00000000075
+  type: Matter
+  updated_at: 2014-11-07 19:12:42.843046000 Z
+  updater_id: 1
+  variant_id: 60
+  variety: saccharose
+matters_042:
+  born_at: 2014-11-07 19:22:38.298382000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:22:38.077250000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 133
+  initial_population: 10.0
+  lock_version: 0
+  name: SO₂ liquide 10%
+  nature_id: 53
+  number: PR00000000076
+  type: Matter
+  updated_at: 2014-11-07 19:22:38.077250000 Z
+  updater_id: 1
+  variant_id: 62
+  variety: preparation
+matters_043:
+  born_at: 2013-10-15 08:36:00.000000000 Z
+  category_id: 22
+  created_at: 2014-11-07 19:24:10.209263000 Z
+  creator_id: 1
+  dead_at: 2013-10-15 08:44:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 134
+  initial_born_at: 2013-10-15 08:48:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 1.18
+  lock_version: 0
+  name: Produit œnologique
+  nature_id: 53
+  number: PR00000000077
+  type: Matter
+  updated_at: 2014-11-07 19:24:10.209263000 Z
+  updater_id: 1
+  variant_id: 62
+  variety: preparation
+matters_044:
+  born_at: 2013-04-15 10:30:00.000000000 Z
+  category_id: 23
+  created_at: 2014-11-07 19:34:09.456173000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 135
+  initial_born_at: 2013-04-15 10:30:00.000000000 Z
+  initial_population: 10000.0
+  lock_version: 0
+  name: Bouteilles vides
+  nature_id: 54
+  number: PR00000000080
+  type: Matter
+  updated_at: 2014-11-07 19:34:09.456173000 Z
+  updater_id: 1
+  variant_id: 63
+  variety: cork_bottle
+matters_045:
+  born_at: 2013-07-25 10:30:00.000000000 Z
+  category_id: 23
+  created_at: 2014-11-07 19:34:09.539919000 Z
+  creator_id: 1
+  description: ''
+  extjuncted: false
+  id: 136
+  initial_born_at: 2013-07-25 10:30:00.000000000 Z
+  initial_population: 10000.0
+  lock_version: 0
+  name: Bouchon naturel
+  nature_id: 55
+  number: PR00000000081
+  type: Matter
+  updated_at: 2014-11-07 19:34:09.539919000 Z
+  updater_id: 1
+  variant_id: 64
+  variety: cork
+matters_046:
+  born_at: 2013-10-30 07:08:00.000000000 Z
+  category_id: 21
+  created_at: 2014-11-07 19:36:59.034307000 Z
+  creator_id: 1
+  dead_at: 2013-10-30 13:52:00.000000000 Z
+  default_storage_id: 116
+  derivative_of: grape
+  extjuncted: true
+  id: 139
+  initial_born_at: 2013-10-30 14:00:00.000000000 Z
+  initial_container_id: 116
+  initial_population: 15.0
+  lock_version: 0
+  name: Vin (Cuve Jupiter)
+  nature_id: 41
+  number: PR00000000084
+  type: Matter
+  updated_at: 2014-11-07 19:36:59.034307000 Z
+  updater_id: 1
+  variant_id: 49
+  variety: wine
+matters_047:
+  born_at: 2013-10-30 07:08:00.000000000 Z
+  category_id: 23
+  created_at: 2014-11-07 19:36:59.103331000 Z
+  creator_id: 1
+  dead_at: 2013-10-30 13:52:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 140
+  initial_born_at: 2013-10-30 14:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 2004.0
+  lock_version: 0
+  name: Bouteille Bordelaise 75cl (Hangar principal)
+  nature_id: 54
+  number: PR00000000085
+  type: Matter
+  updated_at: 2014-11-07 19:36:59.103331000 Z
+  updater_id: 1
+  variant_id: 63
+  variety: cork_bottle
+matters_048:
+  born_at: 2013-10-30 07:08:00.000000000 Z
+  category_id: 23
+  created_at: 2014-11-07 19:36:59.170065000 Z
+  creator_id: 1
+  dead_at: 2013-10-30 13:52:00.000000000 Z
+  default_storage_id: 21
+  extjuncted: true
+  id: 141
+  initial_born_at: 2013-10-30 14:00:00.000000000 Z
+  initial_container_id: 21
+  initial_population: 1520.0
+  lock_version: 0
+  name: Bouchon naturel (Hangar principal)
+  nature_id: 55
+  number: PR00000000086
+  type: Matter
+  updated_at: 2014-11-07 19:36:59.170065000 Z
+  updater_id: 1
+  variant_id: 64
+  variety: cork
+matters_049:
+  born_at: 2013-10-30 13:52:00.000000000 Z
+  category_id: 21
+  created_at: 2014-11-07 19:36:59.233966000 Z
+  creator_id: 1
+  default_storage_id: 116
+  derivative_of: grape
+  extjuncted: true
+  id: 142
+  initial_born_at: 2013-10-30 14:00:00.000000000 Z
+  initial_container_id: 116
+  initial_population: 1992.0
+  lock_version: 0
+  name: Bouteille de vin (75cl) [oct. 2013] (Hangar principal)
+  nature_id: 41
+  number: PR00000000087
+  type: Matter
+  updated_at: 2014-11-07 19:36:59.233966000 Z
+  updater_id: 1
+  variant_id: 65
+  variety: wine
 plants_001:
   born_at: 2013-11-10 12:01:30.000000000 Z
   category_id: 8
@@ -1156,6 +2099,56 @@ plants_002:
   updater_id: 1
   variant_id: 16
   variety: triticum_aestivum
+plants_003:
+  born_at: 2007-09-29 10:59:00.000000000 Z
+  category_id: 8
+  created_at: 2014-11-07 15:45:45.794867000 Z
+  creator_id: 1
+  extjuncted: true
+  id: 103
+  initial_born_at: 2007-09-29 13:40:00.000000000 Z
+  initial_population: 10.1637
+  initial_shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  lock_version: 0
+  name: Culture de prairie permanente [sept. 2007] (La Michardière)
+  nature_id: 34
+  number: PR00000000047
+  type: Plant
+  updated_at: 2014-11-07 15:45:45.794867000 Z
+  updater_id: 1
+  variant_id: 40
+  variety: poa
+plants_004:
+  born_at: 2008-03-15 15:39:00.000000000 Z
+  category_id: 8
+  created_at: 2014-11-07 16:50:07.190626000 Z
+  creator_id: 1
+  extjuncted: true
+  id: 110
+  initial_born_at: 2008-03-15 22:00:00.000000000 Z
+  initial_population: 0.0
+  initial_shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  lock_version: 0
+  name: Culture de vigne [mars. 2008] (La Boutanche)
+  nature_id: 36
+  number: PR00000000054
+  type: Plant
+  updated_at: 2014-11-07 16:50:07.190626000 Z
+  updater_id: 1
+  variant_id: 44
+  variety: vitis_vinifera
 products_001:
   born_at: 2009-07-18 22:00:00.000000000 Z
   category_id: 1
@@ -1399,16 +2392,18 @@ workers_004:
   category_id: 13
   created_at: 2014-11-01 20:30:35.477602000 Z
   creator_id: 1
+  default_storage_id: 21
   extjuncted: false
   id: 79
+  initial_container_id: 21
   initial_population: 0.0
-  lock_version: 0
+  lock_version: 1
   name: Gendo
   nature_id: 20
   number: EIZLEIKBWARLXP00000000015
   person_id: 9
   type: Worker
-  updated_at: 2014-11-01 20:30:35.477602000 Z
+  updated_at: 2014-11-07 17:08:37.125582000 Z
   updater_id: 1
   variant_id: 23
   variety: worker

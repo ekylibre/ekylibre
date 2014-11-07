@@ -359,6 +359,246 @@ product_births_032:
   type: ProductBirth
   updated_at: 2014-11-04 18:41:16.446680000 Z
   updater_id: 1
+product_births_033:
+  created_at: 2014-11-07 14:39:41.484353000 Z
+  creator_id: 1
+  id: 54
+  lock_version: 0
+  started_at: 1980-01-04 23:00:00.000000000 Z
+  stopped_at: 1980-01-04 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 14:39:41.484353000 Z
+  updater_id: 1
+product_births_034:
+  created_at: 2014-11-07 15:01:32.333661000 Z
+  creator_id: 1
+  id: 57
+  lock_version: 0
+  started_at: 2009-01-11 23:00:00.000000000 Z
+  stopped_at: 2009-01-11 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 15:01:32.333661000 Z
+  updater_id: 1
+product_births_035:
+  created_at: 2014-11-07 15:23:45.199289000 Z
+  creator_id: 1
+  id: 60
+  lock_version: 0
+  started_at: 2010-11-01 23:00:00.000000000 Z
+  stopped_at: 2010-11-01 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 15:23:45.199289000 Z
+  updater_id: 1
+product_births_036:
+  created_at: 2014-11-07 15:25:51.235546000 Z
+  creator_id: 1
+  id: 61
+  lock_version: 0
+  started_at: 2014-11-07 15:25:51.233605000 Z
+  stopped_at: 2014-11-07 15:25:51.233605000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 15:25:51.235546000 Z
+  updater_id: 1
+product_births_037:
+  created_at: 2014-11-07 15:44:20.497050000 Z
+  creator_id: 1
+  id: 64
+  lock_version: 0
+  started_at: 2014-11-07 15:44:20.494719000 Z
+  stopped_at: 2014-11-07 15:44:20.494719000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 15:44:20.497050000 Z
+  updater_id: 1
+product_births_038:
+  created_at: 2014-11-07 15:44:20.620688000 Z
+  creator_id: 1
+  id: 65
+  lock_version: 0
+  started_at: 2014-11-07 15:44:20.618455000 Z
+  stopped_at: 2014-11-07 15:44:20.618455000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 15:44:20.620688000 Z
+  updater_id: 1
+product_births_039:
+  created_at: 2014-11-07 16:26:53.214776000 Z
+  creator_id: 1
+  id: 73
+  lock_version: 0
+  started_at: 1971-06-17 23:00:00.000000000 Z
+  stopped_at: 1971-06-17 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 16:26:53.214776000 Z
+  updater_id: 1
+product_births_040:
+  created_at: 2014-11-07 16:47:34.877365000 Z
+  creator_id: 1
+  id: 74
+  lock_version: 0
+  started_at: 2014-11-07 16:47:34.875169000 Z
+  stopped_at: 2014-11-07 16:47:34.875169000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 16:47:34.877365000 Z
+  updater_id: 1
+product_births_041:
+  created_at: 2014-11-07 16:49:26.179721000 Z
+  creator_id: 1
+  id: 75
+  lock_version: 0
+  started_at: 2001-01-22 23:00:00.000000000 Z
+  stopped_at: 2001-01-22 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 16:49:26.179721000 Z
+  updater_id: 1
+product_births_042:
+  created_at: 2014-11-07 17:05:10.481091000 Z
+  creator_id: 1
+  id: 81
+  lock_version: 0
+  started_at: 2012-09-02 07:00:00.000000000 Z
+  stopped_at: 2012-09-02 07:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 17:05:10.481091000 Z
+  updater_id: 1
+product_births_043:
+  created_at: 2014-11-07 17:18:26.061914000 Z
+  creator_id: 1
+  id: 84
+  lock_version: 0
+  started_at: 2011-05-24 22:00:00.000000000 Z
+  stopped_at: 2011-05-24 22:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 17:18:26.061914000 Z
+  updater_id: 1
+product_births_044:
+  created_at: 2014-11-07 17:19:35.261625000 Z
+  creator_id: 1
+  id: 85
+  lock_version: 0
+  started_at: 2010-06-30 22:00:00.000000000 Z
+  stopped_at: 2010-06-30 22:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 17:19:35.261625000 Z
+  updater_id: 1
+product_births_045:
+  created_at: 2014-11-07 17:20:23.999497000 Z
+  creator_id: 1
+  id: 86
+  lock_version: 0
+  started_at: 2010-04-30 22:00:00.000000000 Z
+  stopped_at: 2010-04-30 22:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 17:20:23.999497000 Z
+  updater_id: 1
+product_births_046:
+  created_at: 2014-11-07 17:22:41.878377000 Z
+  creator_id: 1
+  id: 87
+  lock_version: 0
+  started_at: 2010-04-30 22:00:00.000000000 Z
+  stopped_at: 2010-04-30 22:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 17:22:41.878377000 Z
+  updater_id: 1
+product_births_047:
+  created_at: 2014-11-07 17:23:41.411291000 Z
+  creator_id: 1
+  id: 88
+  lock_version: 0
+  started_at: 2014-11-07 17:23:41.409332000 Z
+  stopped_at: 2014-11-07 17:23:41.409332000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 17:23:41.411291000 Z
+  updater_id: 1
+product_births_048:
+  created_at: 2014-11-07 19:05:46.921449000 Z
+  creator_id: 1
+  id: 95
+  lock_version: 0
+  started_at: 2014-11-07 19:05:46.918900000 Z
+  stopped_at: 2014-11-07 19:05:46.918900000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:05:46.921449000 Z
+  updater_id: 1
+product_births_049:
+  created_at: 2014-11-07 19:05:46.998012000 Z
+  creator_id: 1
+  id: 96
+  lock_version: 0
+  started_at: 2014-11-07 19:05:46.995912000 Z
+  stopped_at: 2014-11-07 19:05:46.995912000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:05:46.998012000 Z
+  updater_id: 1
+product_births_050:
+  created_at: 2014-11-07 19:05:47.067147000 Z
+  creator_id: 1
+  id: 97
+  lock_version: 0
+  started_at: 2014-11-07 19:05:47.065062000 Z
+  stopped_at: 2014-11-07 19:05:47.065062000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:05:47.067147000 Z
+  updater_id: 1
+product_births_051:
+  created_at: 2014-11-07 19:12:04.972827000 Z
+  creator_id: 1
+  id: 102
+  lock_version: 0
+  started_at: 2014-11-07 19:12:04.970572000 Z
+  stopped_at: 2014-11-07 19:12:04.970572000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:12:04.972827000 Z
+  updater_id: 1
+product_births_052:
+  created_at: 2014-11-07 19:22:38.300918000 Z
+  creator_id: 1
+  id: 105
+  lock_version: 0
+  started_at: 2014-11-07 19:22:38.298382000 Z
+  stopped_at: 2014-11-07 19:22:38.298382000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:22:38.300918000 Z
+  updater_id: 1
+product_births_053:
+  created_at: 2014-11-07 19:34:09.496310000 Z
+  creator_id: 1
+  id: 108
+  lock_version: 0
+  started_at: 2013-04-15 10:30:00.000000000 Z
+  stopped_at: 2013-04-15 10:30:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:34:09.496310000 Z
+  updater_id: 1
+product_births_054:
+  created_at: 2014-11-07 19:34:09.572044000 Z
+  creator_id: 1
+  id: 109
+  lock_version: 0
+  started_at: 2013-07-25 10:30:00.000000000 Z
+  stopped_at: 2013-07-25 10:30:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:34:09.572044000 Z
+  updater_id: 1
+product_births_055:
+  created_at: 2014-11-07 19:36:09.059149000 Z
+  creator_id: 1
+  id: 110
+  lock_version: 0
+  started_at: 1954-05-11 23:00:00.000000000 Z
+  stopped_at: 1954-05-11 23:00:00.000000000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:36:09.059149000 Z
+  updater_id: 1
+product_births_056:
+  created_at: 2014-11-07 19:36:30.011276000 Z
+  creator_id: 1
+  id: 111
+  lock_version: 0
+  started_at: 2014-11-07 19:36:30.009048000 Z
+  stopped_at: 2014-11-07 19:36:30.009048000 Z
+  type: ProductBirth
+  updated_at: 2014-11-07 19:36:30.011276000 Z
+  updater_id: 1
 product_consumptions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -397,6 +637,127 @@ product_consumptions_004:
   type: ProductConsumption
   updated_at: 2014-11-06 17:50:07.219497000 Z
   updater_id: 1
+product_consumptions_005:
+  created_at: 2014-11-07 14:44:19.088507000 Z
+  creator_id: 1
+  id: 56
+  lock_version: 0
+  operation_id: 21
+  started_at: 2014-11-05 06:30:00.000000000 Z
+  stopped_at: 2014-11-05 08:25:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 14:44:19.088507000 Z
+  updater_id: 1
+product_consumptions_006:
+  created_at: 2014-11-07 15:02:59.186843000 Z
+  creator_id: 1
+  id: 59
+  lock_version: 0
+  operation_id: 23
+  started_at: 2013-02-08 10:08:00.000000000 Z
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 15:02:59.186843000 Z
+  updater_id: 1
+product_consumptions_007:
+  created_at: 2014-11-07 15:26:50.696393000 Z
+  creator_id: 1
+  id: 63
+  lock_version: 0
+  operation_id: 25
+  started_at: 2012-12-12 09:38:00.000000000 Z
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 15:26:50.696393000 Z
+  updater_id: 1
+product_consumptions_008:
+  created_at: 2014-11-07 15:45:45.941279000 Z
+  creator_id: 1
+  id: 67
+  lock_version: 0
+  operation_id: 27
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  stopped_at: 2007-09-29 10:59:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 15:45:45.941279000 Z
+  updater_id: 1
+product_consumptions_009:
+  created_at: 2014-11-07 15:50:04.559663000 Z
+  creator_id: 1
+  id: 72
+  lock_version: 0
+  operation_id: 35
+  started_at: 2014-08-01 00:10:00.000000000 Z
+  stopped_at: 2014-08-01 00:20:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 15:50:04.559663000 Z
+  updater_id: 1
+product_consumptions_010:
+  created_at: 2014-11-07 16:50:07.339303000 Z
+  creator_id: 1
+  id: 77
+  lock_version: 0
+  operation_id: 38
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  stopped_at: 2008-03-15 15:39:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 16:50:07.339303000 Z
+  updater_id: 1
+product_consumptions_011:
+  created_at: 2014-11-07 16:59:10.138847000 Z
+  creator_id: 1
+  id: 80
+  lock_version: 0
+  operation_id: 41
+  started_at: 2013-04-17 08:18:00.000000000 Z
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 16:59:10.138847000 Z
+  updater_id: 1
+product_consumptions_012:
+  created_at: 2014-11-07 19:08:55.462411000 Z
+  creator_id: 1
+  id: 99
+  lock_version: 0
+  operation_id: 60
+  started_at: 2013-10-05 13:08:00.000000000 Z
+  stopped_at: 2013-10-05 13:22:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 19:08:55.462411000 Z
+  updater_id: 1
+product_consumptions_013:
+  created_at: 2014-11-07 19:08:55.509328000 Z
+  creator_id: 1
+  id: 100
+  lock_version: 0
+  operation_id: 61
+  started_at: 2013-10-05 13:22:00.000000000 Z
+  stopped_at: 2013-10-05 13:36:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 19:08:55.509328000 Z
+  updater_id: 1
+product_consumptions_014:
+  created_at: 2014-11-07 19:12:42.989780000 Z
+  creator_id: 1
+  id: 104
+  lock_version: 0
+  operation_id: 65
+  started_at: 2013-10-07 09:38:00.000000000 Z
+  stopped_at: 2013-10-07 09:41:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 19:12:42.989780000 Z
+  updater_id: 1
+product_consumptions_015:
+  created_at: 2014-11-07 19:24:10.403967000 Z
+  creator_id: 1
+  id: 107
+  lock_version: 0
+  operation_id: 69
+  started_at: 2013-10-15 08:36:00.000000000 Z
+  stopped_at: 2013-10-15 08:44:00.000000000 Z
+  type: ProductConsumption
+  updated_at: 2014-11-07 19:24:10.403967000 Z
+  updater_id: 1
 product_creations_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -434,6 +795,83 @@ product_creations_004:
   stopped_at: 2012-10-17 10:09:00.000000000 Z
   type: ProductCreation
   updated_at: 2014-11-06 17:50:07.276150000 Z
+  updater_id: 1
+product_creations_005:
+  created_at: 2014-11-07 15:45:46.002659000 Z
+  creator_id: 1
+  id: 68
+  lock_version: 0
+  operation_id: 27
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  stopped_at: 2007-09-29 10:59:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 15:45:46.002659000 Z
+  updater_id: 1
+product_creations_006:
+  created_at: 2014-11-07 15:50:04.502536000 Z
+  creator_id: 1
+  id: 71
+  lock_version: 0
+  operation_id: 34
+  started_at: 2014-08-01 00:00:00.000000000 Z
+  stopped_at: 2014-08-01 00:10:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 15:50:04.502536000 Z
+  updater_id: 1
+product_creations_007:
+  created_at: 2014-11-07 16:50:07.392234000 Z
+  creator_id: 1
+  id: 78
+  lock_version: 0
+  operation_id: 38
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  stopped_at: 2008-03-15 15:39:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 16:50:07.392234000 Z
+  updater_id: 1
+product_creations_008:
+  created_at: 2014-11-07 17:08:50.508461000 Z
+  creator_id: 1
+  id: 83
+  lock_version: 0
+  operation_id: 49
+  started_at: 2013-09-16 05:22:00.000000000 Z
+  stopped_at: 2013-09-16 16:38:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 17:08:50.508461000 Z
+  updater_id: 1
+product_creations_009:
+  created_at: 2014-11-07 19:02:56.450365000 Z
+  creator_id: 1
+  id: 93
+  lock_version: 0
+  operation_id: 56
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 19:02:56.450365000 Z
+  updater_id: 1
+product_creations_010:
+  created_at: 2014-11-07 19:02:56.520609000 Z
+  creator_id: 1
+  id: 94
+  lock_version: 0
+  operation_id: 56
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 19:02:56.520609000 Z
+  updater_id: 1
+product_creations_011:
+  created_at: 2014-11-07 19:08:55.591780000 Z
+  creator_id: 1
+  id: 101
+  lock_version: 0
+  operation_id: 61
+  started_at: 2013-10-05 13:22:00.000000000 Z
+  stopped_at: 2013-10-05 13:36:00.000000000 Z
+  type: ProductCreation
+  updated_at: 2014-11-07 19:08:55.591780000 Z
   updater_id: 1
 product_deaths_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -489,6 +927,149 @@ product_divisions_004:
   type: ProductDivision
   updated_at: 2014-11-06 17:50:07.102469000 Z
   updater_id: 1
+product_divisions_005:
+  created_at: 2014-11-07 14:44:18.969955000 Z
+  creator_id: 1
+  id: 55
+  lock_version: 0
+  operation_id: 20
+  started_at: 2014-11-05 06:20:00.000000000 Z
+  stopped_at: 2014-11-05 06:30:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 14:44:18.969955000 Z
+  updater_id: 1
+product_divisions_006:
+  created_at: 2014-11-07 15:02:58.873075000 Z
+  creator_id: 1
+  id: 58
+  lock_version: 0
+  operation_id: 23
+  started_at: 2013-02-08 10:08:00.000000000 Z
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 15:02:58.873075000 Z
+  updater_id: 1
+product_divisions_007:
+  created_at: 2014-11-07 15:26:50.609183000 Z
+  creator_id: 1
+  id: 62
+  lock_version: 0
+  operation_id: 25
+  started_at: 2012-12-12 09:38:00.000000000 Z
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 15:26:50.609183000 Z
+  updater_id: 1
+product_divisions_008:
+  created_at: 2014-11-07 15:45:45.869618000 Z
+  creator_id: 1
+  id: 66
+  lock_version: 0
+  operation_id: 27
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  stopped_at: 2007-09-29 10:59:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 15:45:45.869618000 Z
+  updater_id: 1
+product_divisions_009:
+  created_at: 2014-11-07 16:50:07.267882000 Z
+  creator_id: 1
+  id: 76
+  lock_version: 0
+  operation_id: 38
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  stopped_at: 2008-03-15 15:39:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 16:50:07.267882000 Z
+  updater_id: 1
+product_divisions_010:
+  created_at: 2014-11-07 16:59:09.889166000 Z
+  creator_id: 1
+  id: 79
+  lock_version: 0
+  operation_id: 41
+  started_at: 2013-04-17 08:18:00.000000000 Z
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 16:59:09.889166000 Z
+  updater_id: 1
+product_divisions_011:
+  created_at: 2014-11-07 19:02:56.392563000 Z
+  creator_id: 1
+  id: 92
+  lock_version: 0
+  operation_id: 56
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:02:56.392563000 Z
+  updater_id: 1
+product_divisions_012:
+  created_at: 2014-11-07 19:08:55.367297000 Z
+  creator_id: 1
+  id: 98
+  lock_version: 0
+  operation_id: 59
+  started_at: 2013-10-05 13:04:00.000000000 Z
+  stopped_at: 2013-10-05 13:08:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:08:55.367297000 Z
+  updater_id: 1
+product_divisions_013:
+  created_at: 2014-11-07 19:12:42.922040000 Z
+  creator_id: 1
+  id: 103
+  lock_version: 0
+  operation_id: 64
+  started_at: 2013-10-07 09:34:00.000000000 Z
+  stopped_at: 2013-10-07 09:38:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:12:42.922040000 Z
+  updater_id: 1
+product_divisions_014:
+  created_at: 2014-11-07 19:24:10.313555000 Z
+  creator_id: 1
+  id: 106
+  lock_version: 0
+  operation_id: 68
+  started_at: 2013-10-15 08:32:00.000000000 Z
+  stopped_at: 2013-10-15 08:36:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:24:10.313555000 Z
+  updater_id: 1
+product_divisions_015:
+  created_at: 2014-11-07 19:36:59.310065000 Z
+  creator_id: 1
+  id: 112
+  lock_version: 0
+  operation_id: 72
+  started_at: 2013-10-30 07:04:00.000000000 Z
+  stopped_at: 2013-10-30 07:08:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:36:59.310065000 Z
+  updater_id: 1
+product_divisions_016:
+  created_at: 2014-11-07 19:36:59.366770000 Z
+  creator_id: 1
+  id: 113
+  lock_version: 0
+  operation_id: 72
+  started_at: 2013-10-30 07:04:00.000000000 Z
+  stopped_at: 2013-10-30 07:08:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:36:59.366770000 Z
+  updater_id: 1
+product_divisions_017:
+  created_at: 2014-11-07 19:36:59.519567000 Z
+  creator_id: 1
+  id: 114
+  lock_version: 0
+  operation_id: 72
+  started_at: 2013-10-30 07:04:00.000000000 Z
+  stopped_at: 2013-10-30 07:08:00.000000000 Z
+  type: ProductDivision
+  updated_at: 2014-11-07 19:36:59.519567000 Z
+  updater_id: 1
 product_mergings_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -520,4 +1101,15 @@ product_mixings_002:
   lock_version: 0
   type: ProductMixing
   updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+product_triple_mixings_001:
+  created_at: 2014-11-07 19:36:59.597083000 Z
+  creator_id: 1
+  id: 115
+  lock_version: 0
+  operation_id: 73
+  started_at: 2013-10-30 07:08:00.000000000 Z
+  stopped_at: 2013-10-30 13:52:00.000000000 Z
+  type: ProductTripleMixing
+  updated_at: 2014-11-07 19:36:59.597083000 Z
   updater_id: 1

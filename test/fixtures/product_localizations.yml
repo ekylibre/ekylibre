@@ -365,7 +365,7 @@ product_localizations_026:
   operation_id: 16
   product_id: 29
   started_at: 2012-10-17 06:18:00.000000000 Z
-  stopped_at: 2013-11-10 09:00:00.000000000 Z
+  stopped_at: 2012-12-12 09:20:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.069378000 Z
   updater_id: 1
 product_localizations_027:
@@ -403,4 +403,1425 @@ product_localizations_029:
   product_id: 92
   started_at: 2012-10-17 06:18:00.000000000 Z
   updated_at: 2014-11-06 17:50:07.322237000 Z
+  updater_id: 1
+product_localizations_030:
+  container_id: 14
+  created_at: 2014-11-07 14:39:41.475149000 Z
+  creator_id: 1
+  id: 43
+  lock_version: 0
+  nature: interior
+  product_id: 93
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 14:39:41.475149000 Z
+  updater_id: 1
+product_localizations_031:
+  container_id: 21
+  created_at: 2014-11-07 14:44:18.852234000 Z
+  creator_id: 1
+  id: 44
+  lock_version: 0
+  nature: interior
+  product_id: 94
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2014-11-05 06:20:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.852234000 Z
+  updater_id: 1
+product_localizations_032:
+  created_at: 2014-11-07 14:44:18.883278000 Z
+  creator_id: 1
+  id: 45
+  lock_version: 0
+  nature: transfer
+  operation_id: 19
+  product_id: 79
+  started_at: 2014-11-05 04:25:00.000000000 Z
+  stopped_at: 2014-11-05 06:20:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.883278000 Z
+  updater_id: 1
+product_localizations_033:
+  container_id: 21
+  created_at: 2014-11-07 14:44:18.894730000 Z
+  creator_id: 1
+  id: 46
+  lock_version: 0
+  nature: interior
+  operation_id: 19
+  product_id: 79
+  started_at: 2014-11-05 06:20:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.894730000 Z
+  updater_id: 1
+product_localizations_034:
+  created_at: 2014-11-07 14:44:18.940258000 Z
+  creator_id: 1
+  id: 47
+  lock_version: 0
+  nature: transfer
+  operation_id: 20
+  product_id: 79
+  started_at: 2014-11-05 06:20:00.000000000 Z
+  stopped_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.940258000 Z
+  updater_id: 1
+product_localizations_035:
+  container_id: 21
+  created_at: 2014-11-07 14:44:18.951066000 Z
+  creator_id: 1
+  id: 48
+  lock_version: 0
+  nature: interior
+  operation_id: 20
+  product_id: 79
+  started_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:18.951066000 Z
+  updater_id: 1
+product_localizations_036:
+  created_at: 2014-11-07 14:44:19.038096000 Z
+  creator_id: 1
+  id: 49
+  lock_version: 0
+  nature: transfer
+  operation_id: 20
+  product_id: 94
+  started_at: 2014-11-05 06:20:00.000000000 Z
+  stopped_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:19.038096000 Z
+  updater_id: 1
+product_localizations_037:
+  container_id: 79
+  created_at: 2014-11-07 14:44:19.045828000 Z
+  creator_id: 1
+  id: 50
+  lock_version: 0
+  nature: interior
+  operation_id: 20
+  product_id: 94
+  started_at: 2014-11-05 06:30:00.000000000 Z
+  updated_at: 2014-11-07 14:44:19.045828000 Z
+  updater_id: 1
+product_localizations_038:
+  created_at: 2014-11-07 14:44:19.057433000 Z
+  creator_id: 1
+  id: 51
+  lock_version: 0
+  nature: transfer
+  operation_id: 21
+  product_id: 79
+  started_at: 2014-11-05 06:30:00.000000000 Z
+  stopped_at: 2014-11-05 08:25:00.000000000 Z
+  updated_at: 2014-11-07 14:44:19.057433000 Z
+  updater_id: 1
+product_localizations_039:
+  container_id: 21
+  created_at: 2014-11-07 14:44:19.068655000 Z
+  creator_id: 1
+  id: 52
+  lock_version: 0
+  nature: interior
+  operation_id: 21
+  product_id: 79
+  started_at: 2014-11-05 08:25:00.000000000 Z
+  updated_at: 2014-11-07 14:44:19.068655000 Z
+  updater_id: 1
+product_localizations_040:
+  container_id: 19
+  created_at: 2014-11-07 15:01:32.325075000 Z
+  creator_id: 1
+  id: 53
+  lock_version: 0
+  nature: interior
+  product_id: 95
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:01:32.325075000 Z
+  updater_id: 1
+product_localizations_041:
+  container_id: 21
+  created_at: 2014-11-07 15:02:58.742682000 Z
+  creator_id: 1
+  id: 54
+  lock_version: 0
+  nature: interior
+  product_id: 96
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-02-08 10:08:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.742682000 Z
+  updater_id: 1
+product_localizations_042:
+  created_at: 2014-11-07 15:02:58.808345000 Z
+  creator_id: 1
+  id: 55
+  lock_version: 0
+  nature: transfer
+  operation_id: 22
+  product_id: 29
+  started_at: 2013-02-08 09:50:00.000000000 Z
+  stopped_at: 2013-02-08 10:08:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.808345000 Z
+  updater_id: 1
+product_localizations_043:
+  container_id: 92
+  created_at: 2014-11-07 15:02:58.817552000 Z
+  creator_id: 1
+  id: 56
+  lock_version: 0
+  nature: interior
+  operation_id: 22
+  product_id: 29
+  started_at: 2013-02-08 10:08:00.000000000 Z
+  stopped_at: 2013-04-17 08:00:00.000000000 Z
+  updated_at: 2014-11-07 15:02:58.817552000 Z
+  updater_id: 1
+product_localizations_044:
+  created_at: 2014-11-07 15:02:59.155660000 Z
+  creator_id: 1
+  id: 57
+  lock_version: 0
+  nature: transfer
+  operation_id: 23
+  product_id: 96
+  started_at: 2013-02-08 10:08:00.000000000 Z
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:59.155660000 Z
+  updater_id: 1
+product_localizations_045:
+  container_id: 92
+  created_at: 2014-11-07 15:02:59.164360000 Z
+  creator_id: 1
+  id: 58
+  lock_version: 0
+  nature: interior
+  operation_id: 23
+  product_id: 96
+  started_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:59.164360000 Z
+  updater_id: 1
+product_localizations_046:
+  container_id: 21
+  created_at: 2014-11-07 15:23:45.168852000 Z
+  creator_id: 1
+  id: 59
+  lock_version: 0
+  nature: interior
+  product_id: 97
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:23:45.168852000 Z
+  updater_id: 1
+product_localizations_047:
+  container_id: 21
+  created_at: 2014-11-07 15:25:51.283184000 Z
+  creator_id: 1
+  id: 60
+  lock_version: 0
+  nature: interior
+  originator_id: 13
+  originator_type: IncomingDeliveryItem
+  product_id: 98
+  started_at: 2012-11-03 15:24:00.000000000 Z
+  updated_at: 2014-11-07 15:25:51.283184000 Z
+  updater_id: 1
+product_localizations_048:
+  container_id: 21
+  created_at: 2014-11-07 15:26:50.551832000 Z
+  creator_id: 1
+  id: 61
+  lock_version: 0
+  nature: interior
+  product_id: 99
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2012-12-12 09:38:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.551832000 Z
+  updater_id: 1
+product_localizations_049:
+  created_at: 2014-11-07 15:26:50.578284000 Z
+  creator_id: 1
+  id: 62
+  lock_version: 0
+  nature: transfer
+  operation_id: 24
+  product_id: 29
+  started_at: 2012-12-12 09:20:00.000000000 Z
+  stopped_at: 2012-12-12 09:38:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.578284000 Z
+  updater_id: 1
+product_localizations_050:
+  container_id: 83
+  created_at: 2014-11-07 15:26:50.587671000 Z
+  creator_id: 1
+  id: 63
+  lock_version: 0
+  nature: interior
+  operation_id: 24
+  product_id: 29
+  started_at: 2012-12-12 09:38:00.000000000 Z
+  stopped_at: 2013-02-08 09:50:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.587671000 Z
+  updater_id: 1
+product_localizations_051:
+  created_at: 2014-11-07 15:26:50.666719000 Z
+  creator_id: 1
+  id: 64
+  lock_version: 0
+  nature: transfer
+  operation_id: 25
+  product_id: 99
+  started_at: 2012-12-12 09:38:00.000000000 Z
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.666719000 Z
+  updater_id: 1
+product_localizations_052:
+  container_id: 83
+  created_at: 2014-11-07 15:26:50.675714000 Z
+  creator_id: 1
+  id: 65
+  lock_version: 0
+  nature: interior
+  operation_id: 25
+  product_id: 99
+  started_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.675714000 Z
+  updater_id: 1
+product_localizations_053:
+  container_id: 21
+  created_at: 2014-11-07 15:44:20.580455000 Z
+  creator_id: 1
+  id: 66
+  lock_version: 0
+  nature: interior
+  originator_id: 14
+  originator_type: IncomingDeliveryItem
+  product_id: 100
+  started_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.580455000 Z
+  updater_id: 1
+product_localizations_054:
+  container_id: 21
+  created_at: 2014-11-07 15:44:20.657549000 Z
+  creator_id: 1
+  id: 67
+  lock_version: 0
+  nature: interior
+  originator_id: 15
+  originator_type: IncomingDeliveryItem
+  product_id: 101
+  started_at: 2014-11-07 15:41:00.000000000 Z
+  updated_at: 2014-11-07 15:44:20.657549000 Z
+  updater_id: 1
+product_localizations_055:
+  container_id: 21
+  created_at: 2014-11-07 15:45:45.759282000 Z
+  creator_id: 1
+  id: 68
+  lock_version: 0
+  nature: interior
+  product_id: 102
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2007-09-29 08:18:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.759282000 Z
+  updater_id: 1
+product_localizations_056:
+  created_at: 2014-11-07 15:45:45.843385000 Z
+  creator_id: 1
+  id: 69
+  lock_version: 0
+  nature: transfer
+  operation_id: 26
+  product_id: 29
+  started_at: 2007-09-29 08:00:00.000000000 Z
+  stopped_at: 2007-09-29 08:18:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.843385000 Z
+  updater_id: 1
+product_localizations_057:
+  container_id: 80
+  created_at: 2014-11-07 15:45:45.853094000 Z
+  creator_id: 1
+  id: 70
+  lock_version: 0
+  nature: interior
+  operation_id: 26
+  product_id: 29
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  stopped_at: 2008-03-15 09:00:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.853094000 Z
+  updater_id: 1
+product_localizations_058:
+  created_at: 2014-11-07 15:45:45.920199000 Z
+  creator_id: 1
+  id: 71
+  lock_version: 0
+  nature: transfer
+  operation_id: 27
+  product_id: 102
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  stopped_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.920199000 Z
+  updater_id: 1
+product_localizations_059:
+  container_id: 80
+  created_at: 2014-11-07 15:45:45.929423000 Z
+  creator_id: 1
+  id: 72
+  lock_version: 0
+  nature: interior
+  operation_id: 27
+  product_id: 102
+  started_at: 2007-09-29 10:59:00.000000000 Z
+  updated_at: 2014-11-07 15:45:45.929423000 Z
+  updater_id: 1
+product_localizations_060:
+  container_id: 80
+  created_at: 2014-11-07 15:45:46.053912000 Z
+  creator_id: 1
+  id: 73
+  lock_version: 0
+  nature: interior
+  operation_id: 27
+  product_id: 103
+  started_at: 2007-09-29 08:18:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.053912000 Z
+  updater_id: 1
+product_localizations_061:
+  container_id: 80
+  created_at: 2014-11-07 15:50:04.447619000 Z
+  creator_id: 1
+  id: 78
+  lock_version: 0
+  nature: interior
+  product_id: 105
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.447619000 Z
+  updater_id: 1
+product_localizations_062:
+  created_at: 2014-11-07 15:50:04.473732000 Z
+  creator_id: 1
+  id: 79
+  lock_version: 0
+  nature: transfer
+  operation_id: 33
+  product_id: 85
+  started_at: 2014-07-01 12:35:00.000000000 Z
+  stopped_at: 2014-08-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.473732000 Z
+  updater_id: 1
+product_localizations_063:
+  container_id: 80
+  created_at: 2014-11-07 15:50:04.484722000 Z
+  creator_id: 1
+  id: 80
+  lock_version: 0
+  nature: interior
+  operation_id: 33
+  product_id: 85
+  started_at: 2014-08-01 00:00:00.000000000 Z
+  stopped_at: 2014-08-01 00:20:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.484722000 Z
+  updater_id: 1
+product_localizations_064:
+  created_at: 2014-11-07 15:50:04.615321000 Z
+  creator_id: 1
+  id: 81
+  lock_version: 0
+  nature: transfer
+  operation_id: 36
+  product_id: 85
+  started_at: 2014-08-01 00:20:00.000000000 Z
+  stopped_at: 2014-08-31 11:45:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.615321000 Z
+  updater_id: 1
+product_localizations_065:
+  container_id: 14
+  created_at: 2014-11-07 15:50:04.624295000 Z
+  creator_id: 1
+  id: 82
+  lock_version: 0
+  nature: interior
+  operation_id: 36
+  product_id: 85
+  started_at: 2014-08-31 11:45:00.000000000 Z
+  updated_at: 2014-11-07 15:50:04.624295000 Z
+  updater_id: 1
+product_localizations_066:
+  container_id: 21
+  created_at: 2014-11-07 16:47:34.957281000 Z
+  creator_id: 1
+  id: 83
+  lock_version: 0
+  nature: interior
+  originator_id: 16
+  originator_type: IncomingDeliveryItem
+  product_id: 107
+  started_at: 2008-03-05 09:00:00.000000000 Z
+  updated_at: 2014-11-07 16:47:34.957281000 Z
+  updater_id: 1
+product_localizations_067:
+  container_id: 21
+  created_at: 2014-11-07 16:49:26.171133000 Z
+  creator_id: 1
+  id: 84
+  lock_version: 0
+  nature: interior
+  product_id: 108
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 16:49:26.171133000 Z
+  updater_id: 1
+product_localizations_068:
+  container_id: 21
+  created_at: 2014-11-07 16:50:07.155980000 Z
+  creator_id: 1
+  id: 85
+  lock_version: 0
+  nature: interior
+  product_id: 109
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2008-03-15 09:18:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.155980000 Z
+  updater_id: 1
+product_localizations_069:
+  created_at: 2014-11-07 16:50:07.239025000 Z
+  creator_id: 1
+  id: 86
+  lock_version: 0
+  nature: transfer
+  operation_id: 37
+  product_id: 29
+  started_at: 2008-03-15 09:00:00.000000000 Z
+  stopped_at: 2008-03-15 09:18:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.239025000 Z
+  updater_id: 1
+product_localizations_070:
+  container_id: 106
+  created_at: 2014-11-07 16:50:07.247558000 Z
+  creator_id: 1
+  id: 87
+  lock_version: 0
+  nature: interior
+  operation_id: 37
+  product_id: 29
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  stopped_at: 2012-10-03 08:30:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.247558000 Z
+  updater_id: 1
+product_localizations_071:
+  created_at: 2014-11-07 16:50:07.311154000 Z
+  creator_id: 1
+  id: 88
+  lock_version: 0
+  nature: transfer
+  operation_id: 38
+  product_id: 109
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  stopped_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.311154000 Z
+  updater_id: 1
+product_localizations_072:
+  container_id: 106
+  created_at: 2014-11-07 16:50:07.318740000 Z
+  creator_id: 1
+  id: 89
+  lock_version: 0
+  nature: interior
+  operation_id: 38
+  product_id: 109
+  started_at: 2008-03-15 15:39:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.318740000 Z
+  updater_id: 1
+product_localizations_073:
+  container_id: 106
+  created_at: 2014-11-07 16:50:07.435571000 Z
+  creator_id: 1
+  id: 90
+  lock_version: 0
+  nature: interior
+  operation_id: 38
+  product_id: 110
+  started_at: 2008-03-15 09:18:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.435571000 Z
+  updater_id: 1
+product_localizations_074:
+  container_id: 21
+  created_at: 2014-11-07 16:59:09.781545000 Z
+  creator_id: 1
+  id: 91
+  lock_version: 0
+  nature: interior
+  product_id: 111
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-04-17 08:18:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.781545000 Z
+  updater_id: 1
+product_localizations_075:
+  created_at: 2014-11-07 16:59:09.828297000 Z
+  creator_id: 1
+  id: 92
+  lock_version: 0
+  nature: transfer
+  operation_id: 40
+  product_id: 29
+  started_at: 2013-04-17 08:00:00.000000000 Z
+  stopped_at: 2013-04-17 08:18:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.828297000 Z
+  updater_id: 1
+product_localizations_076:
+  container_id: 110
+  created_at: 2014-11-07 16:59:09.836909000 Z
+  creator_id: 1
+  id: 93
+  lock_version: 0
+  nature: interior
+  operation_id: 40
+  product_id: 29
+  started_at: 2013-04-17 08:18:00.000000000 Z
+  stopped_at: 2013-11-10 09:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:09.836909000 Z
+  updater_id: 1
+product_localizations_077:
+  created_at: 2014-11-07 16:59:10.107744000 Z
+  creator_id: 1
+  id: 94
+  lock_version: 0
+  nature: transfer
+  operation_id: 41
+  product_id: 111
+  started_at: 2013-04-17 08:18:00.000000000 Z
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:10.107744000 Z
+  updater_id: 1
+product_localizations_078:
+  container_id: 110
+  created_at: 2014-11-07 16:59:10.116273000 Z
+  creator_id: 1
+  id: 95
+  lock_version: 0
+  nature: interior
+  operation_id: 41
+  product_id: 111
+  started_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:10.116273000 Z
+  updater_id: 1
+product_localizations_079:
+  container_id: 21
+  created_at: 2014-11-07 17:05:10.471711000 Z
+  creator_id: 1
+  id: 96
+  lock_version: 0
+  nature: interior
+  product_id: 112
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-09-16 05:04:00.000000000 Z
+  updated_at: 2014-11-07 17:05:10.471711000 Z
+  updater_id: 1
+product_localizations_080:
+  container_id: 106
+  created_at: 2014-11-07 17:08:50.447068000 Z
+  creator_id: 1
+  id: 106
+  lock_version: 0
+  nature: interior
+  product_id: 114
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-09-16 05:22:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.447068000 Z
+  updater_id: 1
+product_localizations_081:
+  created_at: 2014-11-07 17:08:50.468067000 Z
+  creator_id: 1
+  id: 107
+  lock_version: 0
+  nature: transfer
+  operation_id: 47
+  product_id: 79
+  started_at: 2013-09-16 05:00:00.000000000 Z
+  stopped_at: 2013-09-16 05:04:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.468067000 Z
+  updater_id: 1
+product_localizations_082:
+  container_id: 112
+  created_at: 2014-11-07 17:08:50.475300000 Z
+  creator_id: 1
+  id: 108
+  lock_version: 0
+  nature: interior
+  operation_id: 47
+  product_id: 79
+  started_at: 2013-09-16 05:04:00.000000000 Z
+  stopped_at: 2013-09-16 16:56:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.475300000 Z
+  updater_id: 1
+product_localizations_083:
+  created_at: 2014-11-07 17:08:50.485589000 Z
+  creator_id: 1
+  id: 109
+  lock_version: 0
+  nature: transfer
+  operation_id: 48
+  product_id: 112
+  started_at: 2013-09-16 05:04:00.000000000 Z
+  stopped_at: 2013-09-16 05:22:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.485589000 Z
+  updater_id: 1
+product_localizations_084:
+  container_id: 106
+  created_at: 2014-11-07 17:08:50.494284000 Z
+  creator_id: 1
+  id: 110
+  lock_version: 0
+  nature: interior
+  operation_id: 48
+  product_id: 112
+  started_at: 2013-09-16 05:22:00.000000000 Z
+  stopped_at: 2013-09-16 16:38:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.494284000 Z
+  updater_id: 1
+product_localizations_085:
+  container_id: 106
+  created_at: 2014-11-07 17:08:50.550074000 Z
+  creator_id: 1
+  id: 111
+  lock_version: 0
+  nature: interior
+  operation_id: 49
+  product_id: 114
+  started_at: 2013-09-16 05:22:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.550074000 Z
+  updater_id: 1
+product_localizations_086:
+  created_at: 2014-11-07 17:08:50.560903000 Z
+  creator_id: 1
+  id: 112
+  lock_version: 0
+  nature: transfer
+  operation_id: 50
+  product_id: 112
+  started_at: 2013-09-16 16:38:00.000000000 Z
+  stopped_at: 2013-09-16 16:56:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.560903000 Z
+  updater_id: 1
+product_localizations_087:
+  container_id: 21
+  created_at: 2014-11-07 17:08:50.567899000 Z
+  creator_id: 1
+  id: 113
+  lock_version: 0
+  nature: interior
+  operation_id: 50
+  product_id: 112
+  started_at: 2013-09-16 16:56:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.567899000 Z
+  updater_id: 1
+product_localizations_088:
+  created_at: 2014-11-07 17:08:50.926357000 Z
+  creator_id: 1
+  id: 114
+  lock_version: 0
+  nature: transfer
+  operation_id: 51
+  product_id: 79
+  started_at: 2013-09-16 16:56:00.000000000 Z
+  stopped_at: 2013-09-16 17:00:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.926357000 Z
+  updater_id: 1
+product_localizations_089:
+  container_id: 21
+  created_at: 2014-11-07 17:08:50.934455000 Z
+  creator_id: 1
+  id: 115
+  lock_version: 0
+  nature: interior
+  operation_id: 51
+  product_id: 79
+  started_at: 2013-09-16 17:00:00.000000000 Z
+  stopped_at: 2013-10-02 07:00:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.934455000 Z
+  updater_id: 1
+product_localizations_090:
+  container_id: 115
+  created_at: 2014-11-07 17:19:35.253691000 Z
+  creator_id: 1
+  id: 116
+  lock_version: 0
+  nature: interior
+  product_id: 116
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:19:35.253691000 Z
+  updater_id: 1
+product_localizations_091:
+  container_id: 115
+  created_at: 2014-11-07 17:20:23.992774000 Z
+  creator_id: 1
+  id: 117
+  lock_version: 0
+  nature: interior
+  product_id: 117
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:20:23.992774000 Z
+  updater_id: 1
+product_localizations_092:
+  container_id: 115
+  created_at: 2014-11-07 17:22:41.870834000 Z
+  creator_id: 1
+  id: 118
+  lock_version: 0
+  nature: interior
+  product_id: 118
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 17:22:41.870834000 Z
+  updater_id: 1
+product_localizations_093:
+  container_id: 106
+  created_at: 2014-11-07 18:53:57.822653000 Z
+  creator_id: 1
+  id: 119
+  lock_version: 0
+  nature: interior
+  product_id: 120
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 18:53:57.822653000 Z
+  updater_id: 1
+product_localizations_094:
+  container_id: 106
+  created_at: 2014-11-07 18:53:57.965079000 Z
+  creator_id: 1
+  id: 120
+  lock_version: 0
+  nature: interior
+  product_id: 121
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:57.965079000 Z
+  updater_id: 1
+product_localizations_095:
+  container_id: 106
+  created_at: 2014-11-07 18:53:58.021656000 Z
+  creator_id: 1
+  id: 121
+  lock_version: 0
+  nature: interior
+  product_id: 122
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-01 07:30:00.000000000 Z
+  updated_at: 2014-11-07 18:53:58.021656000 Z
+  updater_id: 1
+product_localizations_096:
+  container_id: 106
+  created_at: 2014-11-07 19:02:56.161402000 Z
+  creator_id: 1
+  id: 130
+  lock_version: 0
+  nature: interior
+  product_id: 123
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.161402000 Z
+  updater_id: 1
+product_localizations_097:
+  container_id: 106
+  created_at: 2014-11-07 19:02:56.241292000 Z
+  creator_id: 1
+  id: 131
+  lock_version: 0
+  nature: interior
+  product_id: 124
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-02 07:05:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.241292000 Z
+  updater_id: 1
+product_localizations_098:
+  container_id: 106
+  created_at: 2014-11-07 19:02:56.297293000 Z
+  creator_id: 1
+  id: 132
+  lock_version: 0
+  nature: interior
+  product_id: 125
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-02 07:05:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.297293000 Z
+  updater_id: 1
+product_localizations_099:
+  created_at: 2014-11-07 19:02:56.322071000 Z
+  creator_id: 1
+  id: 133
+  lock_version: 0
+  nature: transfer
+  operation_id: 55
+  product_id: 79
+  started_at: 2013-10-02 07:00:00.000000000 Z
+  stopped_at: 2013-10-02 07:05:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.322071000 Z
+  updater_id: 1
+product_localizations_100:
+  container_id: 115
+  created_at: 2014-11-07 19:02:56.340941000 Z
+  creator_id: 1
+  id: 134
+  lock_version: 0
+  nature: interior
+  operation_id: 55
+  product_id: 79
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.340941000 Z
+  updater_id: 1
+product_localizations_101:
+  created_at: 2014-11-07 19:02:56.560348000 Z
+  creator_id: 1
+  id: 135
+  lock_version: 0
+  nature: transfer
+  operation_id: 56
+  product_id: 124
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.560348000 Z
+  updater_id: 1
+product_localizations_102:
+  container_id: 116
+  created_at: 2014-11-07 19:02:56.569405000 Z
+  creator_id: 1
+  id: 136
+  lock_version: 0
+  nature: interior
+  operation_id: 56
+  product_id: 124
+  started_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.569405000 Z
+  updater_id: 1
+product_localizations_103:
+  created_at: 2014-11-07 19:02:56.577953000 Z
+  creator_id: 1
+  id: 137
+  lock_version: 0
+  nature: transfer
+  operation_id: 56
+  product_id: 125
+  started_at: 2013-10-02 07:05:00.000000000 Z
+  stopped_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.577953000 Z
+  updater_id: 1
+product_localizations_104:
+  container_id: 117
+  created_at: 2014-11-07 19:02:56.585050000 Z
+  creator_id: 1
+  id: 138
+  lock_version: 0
+  nature: interior
+  operation_id: 56
+  product_id: 125
+  started_at: 2013-10-02 07:30:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.585050000 Z
+  updater_id: 1
+product_localizations_105:
+  created_at: 2014-11-07 19:02:56.596108000 Z
+  creator_id: 1
+  id: 139
+  lock_version: 0
+  nature: transfer
+  operation_id: 57
+  product_id: 79
+  started_at: 2013-10-02 07:30:00.000000000 Z
+  stopped_at: 2013-10-02 07:35:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.596108000 Z
+  updater_id: 1
+product_localizations_106:
+  container_id: 21
+  created_at: 2014-11-07 19:02:56.623403000 Z
+  creator_id: 1
+  id: 140
+  lock_version: 0
+  nature: interior
+  operation_id: 57
+  product_id: 79
+  started_at: 2013-10-02 07:35:00.000000000 Z
+  stopped_at: 2013-10-05 13:00:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.623403000 Z
+  updater_id: 1
+product_localizations_107:
+  container_id: 21
+  created_at: 2014-11-07 19:05:46.959681000 Z
+  creator_id: 1
+  id: 141
+  lock_version: 0
+  nature: interior
+  originator_id: 17
+  originator_type: IncomingDeliveryItem
+  product_id: 126
+  started_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:46.959681000 Z
+  updater_id: 1
+product_localizations_108:
+  container_id: 21
+  created_at: 2014-11-07 19:05:47.030768000 Z
+  creator_id: 1
+  id: 142
+  lock_version: 0
+  nature: interior
+  originator_id: 18
+  originator_type: IncomingDeliveryItem
+  product_id: 127
+  started_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.030768000 Z
+  updater_id: 1
+product_localizations_109:
+  container_id: 21
+  created_at: 2014-11-07 19:05:47.102964000 Z
+  creator_id: 1
+  id: 143
+  lock_version: 0
+  nature: interior
+  originator_id: 19
+  originator_type: IncomingDeliveryItem
+  product_id: 128
+  started_at: 2014-11-07 19:04:00.000000000 Z
+  updated_at: 2014-11-07 19:05:47.102964000 Z
+  updater_id: 1
+product_localizations_110:
+  container_id: 21
+  created_at: 2014-11-07 19:08:55.183512000 Z
+  creator_id: 1
+  id: 144
+  lock_version: 0
+  nature: interior
+  product_id: 129
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-05 13:08:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.183512000 Z
+  updater_id: 1
+product_localizations_111:
+  container_id: 116
+  created_at: 2014-11-07 19:08:55.263686000 Z
+  creator_id: 1
+  id: 145
+  lock_version: 0
+  nature: interior
+  product_id: 130
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-05 13:22:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.263686000 Z
+  updater_id: 1
+product_localizations_112:
+  created_at: 2014-11-07 19:08:55.291219000 Z
+  creator_id: 1
+  id: 146
+  lock_version: 0
+  nature: transfer
+  operation_id: 58
+  product_id: 79
+  started_at: 2013-10-05 13:00:00.000000000 Z
+  stopped_at: 2013-10-05 13:04:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.291219000 Z
+  updater_id: 1
+product_localizations_113:
+  container_id: 115
+  created_at: 2014-11-07 19:08:55.312380000 Z
+  creator_id: 1
+  id: 147
+  lock_version: 0
+  nature: interior
+  operation_id: 58
+  product_id: 79
+  started_at: 2013-10-05 13:04:00.000000000 Z
+  stopped_at: 2013-10-05 13:36:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.312380000 Z
+  updater_id: 1
+product_localizations_114:
+  created_at: 2014-11-07 19:08:55.430005000 Z
+  creator_id: 1
+  id: 148
+  lock_version: 0
+  nature: transfer
+  operation_id: 60
+  product_id: 129
+  started_at: 2013-10-05 13:08:00.000000000 Z
+  stopped_at: 2013-10-05 13:22:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.430005000 Z
+  updater_id: 1
+product_localizations_115:
+  container_id: 116
+  created_at: 2014-11-07 19:08:55.440899000 Z
+  creator_id: 1
+  id: 149
+  lock_version: 0
+  nature: interior
+  operation_id: 60
+  product_id: 129
+  started_at: 2013-10-05 13:22:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.440899000 Z
+  updater_id: 1
+product_localizations_116:
+  container_id: 116
+  created_at: 2014-11-07 19:08:55.634696000 Z
+  creator_id: 1
+  id: 150
+  lock_version: 0
+  nature: interior
+  operation_id: 61
+  product_id: 130
+  started_at: 2013-10-05 13:22:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.634696000 Z
+  updater_id: 1
+product_localizations_117:
+  created_at: 2014-11-07 19:08:55.646249000 Z
+  creator_id: 1
+  id: 151
+  lock_version: 0
+  nature: transfer
+  operation_id: 62
+  product_id: 79
+  started_at: 2013-10-05 13:36:00.000000000 Z
+  stopped_at: 2013-10-05 13:40:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.646249000 Z
+  updater_id: 1
+product_localizations_118:
+  container_id: 21
+  created_at: 2014-11-07 19:08:55.654028000 Z
+  creator_id: 1
+  id: 152
+  lock_version: 0
+  nature: interior
+  operation_id: 62
+  product_id: 79
+  started_at: 2013-10-05 13:40:00.000000000 Z
+  stopped_at: 2013-10-07 09:30:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.654028000 Z
+  updater_id: 1
+product_localizations_119:
+  container_id: 21
+  created_at: 2014-11-07 19:12:05.122855000 Z
+  creator_id: 1
+  id: 153
+  lock_version: 0
+  nature: interior
+  originator_id: 20
+  originator_type: IncomingDeliveryItem
+  product_id: 131
+  started_at: 2013-10-01 18:10:00.000000000 Z
+  updated_at: 2014-11-07 19:12:05.122855000 Z
+  updater_id: 1
+product_localizations_120:
+  container_id: 21
+  created_at: 2014-11-07 19:12:42.872984000 Z
+  creator_id: 1
+  id: 154
+  lock_version: 0
+  nature: interior
+  product_id: 132
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-07 09:38:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.872984000 Z
+  updater_id: 1
+product_localizations_121:
+  created_at: 2014-11-07 19:12:42.896714000 Z
+  creator_id: 1
+  id: 155
+  lock_version: 0
+  nature: transfer
+  operation_id: 63
+  product_id: 79
+  started_at: 2013-10-07 09:30:00.000000000 Z
+  stopped_at: 2013-10-07 09:34:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.896714000 Z
+  updater_id: 1
+product_localizations_122:
+  container_id: 115
+  created_at: 2014-11-07 19:12:42.907082000 Z
+  creator_id: 1
+  id: 156
+  lock_version: 0
+  nature: interior
+  operation_id: 63
+  product_id: 79
+  started_at: 2013-10-07 09:34:00.000000000 Z
+  stopped_at: 2013-10-07 09:41:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.907082000 Z
+  updater_id: 1
+product_localizations_123:
+  created_at: 2014-11-07 19:12:42.969733000 Z
+  creator_id: 1
+  id: 157
+  lock_version: 0
+  nature: transfer
+  operation_id: 65
+  product_id: 132
+  started_at: 2013-10-07 09:38:00.000000000 Z
+  stopped_at: 2013-10-07 09:41:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.969733000 Z
+  updater_id: 1
+product_localizations_124:
+  container_id: 116
+  created_at: 2014-11-07 19:12:42.978942000 Z
+  creator_id: 1
+  id: 158
+  lock_version: 0
+  nature: interior
+  operation_id: 65
+  product_id: 132
+  started_at: 2013-10-07 09:41:00.000000000 Z
+  updated_at: 2014-11-07 19:12:42.978942000 Z
+  updater_id: 1
+product_localizations_125:
+  created_at: 2014-11-07 19:12:43.035636000 Z
+  creator_id: 1
+  id: 159
+  lock_version: 0
+  nature: transfer
+  operation_id: 66
+  product_id: 79
+  started_at: 2013-10-07 09:41:00.000000000 Z
+  stopped_at: 2013-10-07 09:45:00.000000000 Z
+  updated_at: 2014-11-07 19:12:43.035636000 Z
+  updater_id: 1
+product_localizations_126:
+  container_id: 21
+  created_at: 2014-11-07 19:12:43.042849000 Z
+  creator_id: 1
+  id: 160
+  lock_version: 0
+  nature: interior
+  operation_id: 66
+  product_id: 79
+  started_at: 2013-10-07 09:45:00.000000000 Z
+  stopped_at: 2013-10-15 08:28:00.000000000 Z
+  updated_at: 2014-11-07 19:12:43.042849000 Z
+  updater_id: 1
+product_localizations_127:
+  container_id: 21
+  created_at: 2014-11-07 19:22:38.396216000 Z
+  creator_id: 1
+  id: 161
+  lock_version: 0
+  nature: interior
+  originator_id: 21
+  originator_type: IncomingDeliveryItem
+  product_id: 133
+  started_at: 2013-10-03 18:18:00.000000000 Z
+  updated_at: 2014-11-07 19:22:38.396216000 Z
+  updater_id: 1
+product_localizations_128:
+  container_id: 21
+  created_at: 2014-11-07 19:24:10.241914000 Z
+  creator_id: 1
+  id: 162
+  lock_version: 0
+  nature: interior
+  product_id: 134
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-15 08:36:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.241914000 Z
+  updater_id: 1
+product_localizations_129:
+  created_at: 2014-11-07 19:24:10.268274000 Z
+  creator_id: 1
+  id: 163
+  lock_version: 0
+  nature: transfer
+  operation_id: 67
+  product_id: 79
+  started_at: 2013-10-15 08:28:00.000000000 Z
+  stopped_at: 2013-10-15 08:32:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.268274000 Z
+  updater_id: 1
+product_localizations_130:
+  container_id: 115
+  created_at: 2014-11-07 19:24:10.291614000 Z
+  creator_id: 1
+  id: 164
+  lock_version: 0
+  nature: interior
+  operation_id: 67
+  product_id: 79
+  started_at: 2013-10-15 08:32:00.000000000 Z
+  stopped_at: 2013-10-15 08:44:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.291614000 Z
+  updater_id: 1
+product_localizations_131:
+  created_at: 2014-11-07 19:24:10.374064000 Z
+  creator_id: 1
+  id: 165
+  lock_version: 0
+  nature: transfer
+  operation_id: 69
+  product_id: 134
+  started_at: 2013-10-15 08:36:00.000000000 Z
+  stopped_at: 2013-10-15 08:44:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.374064000 Z
+  updater_id: 1
+product_localizations_132:
+  container_id: 116
+  created_at: 2014-11-07 19:24:10.384446000 Z
+  creator_id: 1
+  id: 166
+  lock_version: 0
+  nature: interior
+  operation_id: 69
+  product_id: 134
+  started_at: 2013-10-15 08:44:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.384446000 Z
+  updater_id: 1
+product_localizations_133:
+  created_at: 2014-11-07 19:24:10.451965000 Z
+  creator_id: 1
+  id: 167
+  lock_version: 0
+  nature: transfer
+  operation_id: 70
+  product_id: 79
+  started_at: 2013-10-15 08:44:00.000000000 Z
+  stopped_at: 2013-10-15 08:48:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.451965000 Z
+  updater_id: 1
+product_localizations_134:
+  container_id: 21
+  created_at: 2014-11-07 19:24:10.459627000 Z
+  creator_id: 1
+  id: 168
+  lock_version: 0
+  nature: interior
+  operation_id: 70
+  product_id: 79
+  started_at: 2013-10-15 08:48:00.000000000 Z
+  stopped_at: 2013-10-30 07:00:00.000000000 Z
+  updated_at: 2014-11-07 19:24:10.459627000 Z
+  updater_id: 1
+product_localizations_135:
+  container_id: 21
+  created_at: 2014-11-07 19:34:09.532242000 Z
+  creator_id: 1
+  id: 169
+  lock_version: 0
+  nature: interior
+  originator_id: 22
+  originator_type: IncomingDeliveryItem
+  product_id: 135
+  started_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.532242000 Z
+  updater_id: 1
+product_localizations_136:
+  container_id: 21
+  created_at: 2014-11-07 19:34:09.598500000 Z
+  creator_id: 1
+  id: 170
+  lock_version: 0
+  nature: interior
+  originator_id: 23
+  originator_type: IncomingDeliveryItem
+  product_id: 136
+  started_at: 2013-10-15 10:30:00.000000000 Z
+  updated_at: 2014-11-07 19:34:09.598500000 Z
+  updater_id: 1
+product_localizations_137:
+  container_id: 116
+  created_at: 2014-11-07 19:36:59.066480000 Z
+  creator_id: 1
+  id: 171
+  lock_version: 0
+  nature: interior
+  product_id: 139
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.066480000 Z
+  updater_id: 1
+product_localizations_138:
+  container_id: 21
+  created_at: 2014-11-07 19:36:59.134101000 Z
+  creator_id: 1
+  id: 172
+  lock_version: 0
+  nature: interior
+  product_id: 140
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.134101000 Z
+  updater_id: 1
+product_localizations_139:
+  container_id: 21
+  created_at: 2014-11-07 19:36:59.199055000 Z
+  creator_id: 1
+  id: 173
+  lock_version: 0
+  nature: interior
+  product_id: 141
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.199055000 Z
+  updater_id: 1
+product_localizations_140:
+  container_id: 116
+  created_at: 2014-11-07 19:36:59.260995000 Z
+  creator_id: 1
+  id: 174
+  lock_version: 0
+  nature: interior
+  product_id: 142
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.260995000 Z
+  updater_id: 1
+product_localizations_141:
+  created_at: 2014-11-07 19:36:59.283630000 Z
+  creator_id: 1
+  id: 175
+  lock_version: 0
+  nature: transfer
+  operation_id: 71
+  product_id: 79
+  started_at: 2013-10-30 07:00:00.000000000 Z
+  stopped_at: 2013-10-30 07:04:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.283630000 Z
+  updater_id: 1
+product_localizations_142:
+  container_id: 115
+  created_at: 2014-11-07 19:36:59.295468000 Z
+  creator_id: 1
+  id: 176
+  lock_version: 0
+  nature: interior
+  operation_id: 71
+  product_id: 79
+  started_at: 2013-10-30 07:04:00.000000000 Z
+  stopped_at: 2013-10-30 13:56:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.295468000 Z
+  updater_id: 1
+product_localizations_143:
+  created_at: 2014-11-07 19:36:59.685158000 Z
+  creator_id: 1
+  id: 177
+  lock_version: 0
+  nature: transfer
+  operation_id: 74
+  product_id: 142
+  started_at: 2013-10-30 13:52:00.000000000 Z
+  stopped_at: 2013-10-30 13:56:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.685158000 Z
+  updater_id: 1
+product_localizations_144:
+  container_id: 21
+  created_at: 2014-11-07 19:36:59.693465000 Z
+  creator_id: 1
+  id: 178
+  lock_version: 0
+  nature: interior
+  operation_id: 74
+  product_id: 142
+  started_at: 2013-10-30 13:56:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.693465000 Z
+  updater_id: 1
+product_localizations_145:
+  created_at: 2014-11-07 19:36:59.704882000 Z
+  creator_id: 1
+  id: 179
+  lock_version: 0
+  nature: transfer
+  operation_id: 75
+  product_id: 79
+  started_at: 2013-10-30 13:56:00.000000000 Z
+  stopped_at: 2013-10-30 14:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.704882000 Z
+  updater_id: 1
+product_localizations_146:
+  container_id: 21
+  created_at: 2014-11-07 19:36:59.713294000 Z
+  creator_id: 1
+  id: 180
+  lock_version: 0
+  nature: interior
+  operation_id: 75
+  product_id: 79
+  started_at: 2013-10-30 14:00:00.000000000 Z
+  stopped_at: 2014-11-05 04:25:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.713294000 Z
   updater_id: 1

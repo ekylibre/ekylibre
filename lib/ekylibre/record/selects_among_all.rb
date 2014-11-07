@@ -10,10 +10,14 @@ module Ekylibre::Record
       # Manage
       def selects_among_all(*columns)
         options = columns.extract_options!
+
         columns = [:by_default] if columns.empty?
         code  = ""
 
         scope = self.table_name.classify.constantize.name # "self.class"
+        if options[:subset]
+          scope << ".#{options[:subset]}"
+        end
         scope_columns = []
         if s = options[:scope]
           s = [s] if s.is_a?(Symbol)

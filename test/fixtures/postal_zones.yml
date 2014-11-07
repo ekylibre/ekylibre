@@ -115,3 +115,15 @@ postal_zones_006:
   postal_code: '11110'
   updated_at: 2014-11-05 14:14:01.965594000 Z
   updater_id: 1
+postal_zones_007:
+  city: PESSAC
+  city_name: PESSAC
+  country: fr
+  created_at: 2014-11-07 15:05:27.058795000 Z
+  creator_id: 1
+  id: 7
+  lock_version: 0
+  name: 33600 PESSAC
+  postal_code: '33600'
+  updated_at: 2014-11-07 15:05:27.058795000 Z
+  updater_id: 1
