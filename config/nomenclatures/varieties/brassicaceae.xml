@@ -3,6 +3,7 @@
   <nomenclature name="varieties-brassicaceae" hierarchical="true">
     <items>
       <item name="brassica" itis_tsn="23054"/>
+      <item name="crambe" itis_tsn="23107"/>
     </items>
   </nomenclature>
 </nomenclatures>

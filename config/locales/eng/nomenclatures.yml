@@ -3107,11 +3107,28 @@ eng:
         bottler: "Bottler"                                 #< equipment
         brassica: "Brassica"                               #< brassicaceae
         brassica_napus: "Rapeseed"                         #< brassica
+        brassica_napus_rapifera: "Rutabaga"                #< brassica_napus
         brassica_nigra: "Black mustard"                    #< brassica
         brassica_oleracea: "Cabbage"                       #< brassica
+        brassica_oleracea_alboglabra: "Chinese broccoli"   #< brassica_oleracea
         brassica_oleracea_botrytis: "Cauliflower"          #< brassica_oleracea
+        brassica_oleracea_botrytis_romanesco: "Romanesco"  #< brassica_oleracea_botrytis
         brassica_oleracea_capitata: "Apple cabbage"        #< brassica_oleracea
+        brassica_oleracea_capitata_f_acuta: "Pointed cabbage" #< brassica_oleracea_capitata
+        brassica_oleracea_capitata_f_alba: "White cabbage" #< brassica_oleracea_capitata
+        brassica_oleracea_capitata_f_rubra: "Red cabbage"  #< brassica_oleracea_capitata
+        brassica_oleracea_costata: "Tronchunda cabbage"    #< brassica_oleracea
         brassica_oleracea_gemmifera: "Brussels sprout"     #< brassica_oleracea
+        brassica_oleracea_gongylodes: "Kohirabi"           #< brassica_oleracea
+        brassica_oleracea_italica: "Broccoli"              #< brassica_oleracea
+        brassica_oleracea_medullosa: "Marrow-stem Kale"    #< brassica_oleracea
+        brassica_oleracea_olearacea: "Wild cabbage"        #< brassica_oleracea
+        brassica_oleracea_palmifolia: "Palm kale"          #< brassica_oleracea
+        brassica_oleracea_ramosa: "Branching cabbage"      #< brassica_oleracea
+        brassica_oleracea_sabauda: "Savoy cabbage"         #< brassica_oleracea
+        brassica_oleracea_sabellica: "Kale"                #< brassica_oleracea
+        brassica_oleracea_viridis: "Collards greens"       #< brassica_oleracea
+        brassica_pringlea: "Kerguelen cabbage"             #< brassica
         brassica_rapa: "Brassica rapa"                     #< brassica
         brassicaceae: "Brassicaceae"                       #< plant
         building: "Building"                               #< product_group
@@ -3148,6 +3165,8 @@ eng:
         corylus_avellana_ronde_de_piemont: "Common hazel Ronde de piemont" #< corylus_avellana
         corylus_avellana_segorbe: "Common hazel Segorbe"   #< corylus_avellana
         corylus_avellana_tonda_giffoni: "Common hazel Tonda Giffoni" #< corylus_avellana
+        crambe: "Crambe"                                   #< brassicaceae
+        crambe_maritima: "Sea kale"                        #< crambe
         crocus: "Crocus"                                   #< iridaceae
         crocus_sativus: "Saffron crocus"                   #< crocus
         croesus_septentrionalis: "Croesus septentrionalis" #< insecta
