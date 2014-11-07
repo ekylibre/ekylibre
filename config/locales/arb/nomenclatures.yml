@@ -3050,8 +3050,17 @@ arb:
         # symbol: "Symbol"
     varieties:
       items:
-        # allium: "Allium"
+        # allium: "Garlic"
+        # allium_ampeloprasum: "Broadleaf wild leek"
         # allium_cepa: "Shallot"
+        # allium_oleraceum: "Field garlic"
+        # allium_sativum: "Cultivated garlic"
+        # allium_scorodoprasum: "Sand leek"
+        # allium_tricoccum: "Wild leek"
+        # allium_triquetrum: "Threecorner leek"
+        # allium_ursinum: "Bear garlic"
+        # allium_victorialis: "Victory onion"
+        # allium_vineale: "Wild garlic"
         # amaranthaceae: "Amaranthaceae"
         # amaryllidaceae: "Amaryllidaceae"
         # anas: "Anas"
