@@ -13,6 +13,32 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-daucus_carota" hierarchical="true">
+    <items>
+      <item name="daucus_carota_yellow_doubs" itis_tsn=""/>
+      <item name="daucus_carota_white_with_green_collar" itis_tsn=""/>
+      <item name="daucus_carota_white_kuttingen" itis_tsn=""/>
+      <item name="daucus_carota_white_vosges" itis_tsn=""/>
+      <item name="daucus_carota_long_red" itis_tsn=""/>
+      <item name="daucus_carota_giant_tilques_with_green_collar" itis_tsn=""/>
+      <item name="daucus_carota_meaux" itis_tsn=""/>
+      <item name="daucus_carota_colmar" itis_tsn=""/>
+      <item name="daucus_carota_carentan" itis_tsn=""/>
+      <item name="daucus_carota_valerian" itis_tsn=""/>
+      <item name="daucus_carota_halle" itis_tsn=""/>
+      <item name="daucus_carota_halle" itis_tsn=""/>
+      <item name="daucus_carota_creance" itis_tsn=""/>
+      <item name="daucus_carota_chantenay" itis_tsn=""/>
+      <item name="daucus_carota_touchon" itis_tsn=""/>
+      <item name="daucus_carota_nantes_scarlet" itis_tsn=""/>
+      <item name="daucus_carota_flakkeese" itis_tsn=""/>
+      <item name="daucus_carota_gniff" itis_tsn=""/>
+      <item name="daucus_carota_rodelika" itis_tsn=""/>
+      <item name="daucus_carota_little_finger" itis_tsn=""/>
+      <item name="daucus_carota_danvers" itis_tsn=""/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-apium" hierarchical="true">
     <items>
       <item name="apium_graveolens" itis_tsn="29592"/>
