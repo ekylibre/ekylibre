@@ -2,7 +2,7 @@ module Ekylibre
   module Job
 
     class Base
-
+      require 'sidekiq' unless defined? Sidekiq
       include Sidekiq::Worker
 
       class << self
