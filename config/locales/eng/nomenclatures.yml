@@ -1404,6 +1404,7 @@ eng:
         galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
         isagri_isacompta_export: "Isagri isacompta export"
         # legrain_epicea_accounts: "Legrain epicea accounts"
+        # legrain_epicea_general_journals: "Legrain epicea general journals"
         # legrain_epicea_general_ledger: "Legrain epicea general ledger"
         lilco_milk_analyses: "Lilco milk analyses"
         telepac_cap_land_parcels: "Telepac cap land parcels"
