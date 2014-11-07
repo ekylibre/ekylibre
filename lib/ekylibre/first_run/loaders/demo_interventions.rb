@@ -326,6 +326,14 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     first_run.count :animal_insemination_interventions do |w|
       workers = Worker.can('administer_inseminate(animal)').all
       products = Product.where(variety: :vial).derivative_of(:bos).can('inseminate(animal)').all
+      unless workers.any?
+        puts "No workers".red
+        break
+      end
+      unless products.any?
+        puts "No vials".red
+        break
+      end
       Production.joins(:variant,:campaign).find_each do |production|
         variety = Nomen::Varieties[production.variant.variety]
         next unless variety <= :bos and production.variant.sex == 'female'
