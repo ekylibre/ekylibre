@@ -9,6 +9,15 @@
   <nomenclature name="varieties-allium" hierarchical="true">
     <items>
       <item name="allium_cepa" itis_tsn="42720"/>
+      <item name="allium_ursinum" itis_tsn="810202"/>
+      <item name="allium_ampeloprasum" itis_tsn="42708"/>
+      <item name="allium_oleraceum" itis_tsn="42689"/>
+      <item name="allium_scorodoprasum" itis_tsn="42666"/>
+      <item name="allium_tricoccum" itis_tsn="42672"/>
+      <item name="allium_triquetrum" itis_tsn="42673"/>
+      <item name="allium_victorialis" itis_tsn="42656"/>
+      <item name="allium_vineale" itis_tsn="42637"/>
+      <item name="allium_sativum" itis_tsn="42652"/>
     </items>
   </nomenclature>
 

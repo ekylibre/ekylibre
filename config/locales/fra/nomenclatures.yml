@@ -3042,7 +3042,16 @@ fra:
     varieties:
       items:
         allium: "Ail"
+        allium_ampeloprasum: "Poireau d'été"
         allium_cepa: "Echalotte"
+        allium_oleraceum: "Ail des jardins"
+        allium_sativum: "Ail cultivé"
+        allium_scorodoprasum: "Ail rocambole"
+        allium_tricoccum: "Ail des bois"
+        allium_triquetrum: "Ail à 3 angles"
+        allium_ursinum: "Ail des ours"
+        allium_victorialis: "Ail de la Sainte-Victoire"
+        allium_vineale: "Ail des vignes"
         amaranthaceae: "Amaranthacée"
         amaryllidaceae: "Amaryllidacée"
         anas: "Palmipède"

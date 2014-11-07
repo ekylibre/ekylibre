@@ -3033,8 +3033,17 @@ eng:
         europa_tsn: "Europa number id"
         itis_tsn: "Itis number id"
       items:
-        allium: "Allium"                                   #< liliaceae
+        allium: "Garlic"                                   #< amaryllidaceae
+        allium_ampeloprasum: "Broadleaf wild leek"         #< allium
         allium_cepa: "Shallot"                             #< allium
+        allium_oleraceum: "Field garlic"                   #< allium
+        allium_sativum: "Cultivated garlic"                #< allium
+        allium_scorodoprasum: "Sand leek"                  #< allium
+        allium_tricoccum: "Wild leek"                      #< allium
+        allium_triquetrum: "Threecorner leek"              #< allium
+        allium_ursinum: "Bear garlic"                      #< allium
+        allium_victorialis: "Victory onion"                #< allium
+        allium_vineale: "Wild garlic"                      #< allium
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anas: "Anas"                                       #< aves
