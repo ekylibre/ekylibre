@@ -4,7 +4,7 @@ namespace :clean do
   task :code do
     print " - White spaces: "
     files  = []
-    dirs = "{app,bin,config,db,doc,lib,public,test,vendor}"
+    dirs = "{app,bin,config,db,doc,lib,public,test}"
     Dir.chdir(Rails.root) do
       files += Dir["Gemfile*"]
       files += Dir["Rakefile"]
@@ -33,7 +33,11 @@ namespace :clean do
       source = original.dup
 
       # source.gsub!(/(\w+)\ +/, '\1 ')
-      source.gsub!(/[\ \t]+\n/, "\n")
+      begin
+        source.gsub!(/[\ \t]+\n/, "\n")
+      rescue Exception => e
+        STDERR.puts "#{e.message} on #{file}"
+      end
       # source.gsub!(/\n+\n$/, "\n")
 
       if source != original
