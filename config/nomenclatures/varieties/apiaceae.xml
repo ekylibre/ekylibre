@@ -45,4 +45,12 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-apium_graveolens" hierarchical="true">
+    <items>
+      <item name="apium_graveolens_dulce" itis_tsn="182185"/>
+      <item name="apium_graveolens_rapaceum" itis_tsn="530941"/>
+      <item name="apium_graveolens_secalinum" itis_tsn=""/>
+    </items>
+  </nomenclature>
+
 </nomenclatures>

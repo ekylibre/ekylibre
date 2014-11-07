@@ -3055,7 +3055,10 @@ eng:
         apiaceae: "Apiaceae"                               #< plant
         apis: "Apis"                                       #< insecta
         apium: "Celery"                                    #< apiaceae
-        apium_graveolens: "Wild celery"                    #< apium
+        apium_graveolens: "Celery"                         #< apium
+        apium_graveolens_dulce: "Wild Celery"              #< apium_graveolens
+        apium_graveolens_rapaceum: "Celeriac"              #< apium_graveolens
+        apium_graveolens_secalinum: "Chinese Celery"       #< apium_graveolens
         asparagus: "Asparagus"                             #< liliaceae
         asteraceae: "Asteraceae"                           #< plant
         avena: "Oat"                                       #< poaceae
