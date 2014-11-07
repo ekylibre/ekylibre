@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::SaleItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get, new: {sale_id: identify(:sales_001)}, index: :redirect, except: [:detail]
+  test_restfully_all_actions show: :redirected_get, new: {sale_id: identify(:sales_002)}, update: {fixture: 10}, index: :redirect, except: [:detail]
 end

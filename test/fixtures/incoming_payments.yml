@@ -88,8 +88,8 @@ incoming_payments_001:
   updated_at: 2014-11-05 12:45:57.840651000 Z
   updater_id: 1
 incoming_payments_002:
-  accounted_at: 2014-11-05 14:07:49.081269000 Z
-  affair_id: 2
+  accounted_at: 2014-11-07 13:55:38.758657000 Z
+  affair_id: 24
   amount: 150.0
   bank_account_number: ''
   bank_check_number: ''

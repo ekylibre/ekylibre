@@ -203,15 +203,15 @@ sequences_010:
   id: 10
   last_cweek: 45
   last_month: 11
-  last_number: 17
+  last_number: 19
   last_year: 2014
-  lock_version: 20
+  lock_version: 22
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-05 14:11:50.233479000 Z
+  updated_at: 2014-11-07 13:58:35.213126000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -297,15 +297,15 @@ sequences_016:
   id: 16
   last_cweek: 45
   last_month: 11
-  last_number: 4
+  last_number: 5
   last_year: 2014
-  lock_version: 4
+  lock_version: 5
   name: Livraison
   number_format: BL[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2014-11-05 14:16:48.641251000 Z
+  updated_at: 2014-11-07 14:13:05.513428000 Z
   updater_id: 1
   usage: outgoing_deliveries
 sequences_017:

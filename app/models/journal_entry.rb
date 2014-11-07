@@ -262,10 +262,16 @@ class JournalEntry < Ekylibre::Record::Base
           saved = false unless entry_items[index].save
         end
       end
-      self.reload if saved
-      if saved and (not self.balanced? or self.items.size.zero?)
-        self.errors.add(:debit, :unbalanced)
-        saved = false
+      if saved
+        self.reload
+        unless self.items.any?
+          self.errors.add(:items, :empty)
+          saved = false
+        end
+        unless self.balanced?
+          self.errors.add(:debit, :unbalanced)
+          saved = false
+        end
       end
       if saved
         return true

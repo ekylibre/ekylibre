@@ -309,8 +309,9 @@ fra:
       show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
+      index: "Écritures comptables"
       new: "Nouvelle écriture"
-      show: "Écriture\_: %{number}"
+      show: "Écriture comptable\_: %{number}"
     backend/journal_entry_items:
       new: "Nouvelle ligne d’écriture"
     backend/journals:

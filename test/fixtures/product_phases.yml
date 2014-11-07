@@ -52,39 +52,6 @@
 ---
 product_phases_001:
   category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  nature_id: 1
-  product_id: 65
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-product_phases_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  nature_id: 1
-  product_id: 66
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-product_phases_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 3
-  lock_version: 0
-  nature_id: 1
-  product_id: 65
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-product_phases_004:
-  category_id: 1
   created_at: 2014-10-31 20:12:30.978517000 Z
   creator_id: 1
   id: 4
@@ -95,7 +62,7 @@ product_phases_004:
   updated_at: 2014-10-31 20:12:30.978517000 Z
   updater_id: 1
   variant_id: 3
-product_phases_005:
+product_phases_002:
   category_id: 6
   created_at: 2014-10-31 20:15:14.827382000 Z
   creator_id: 1
@@ -107,7 +74,7 @@ product_phases_005:
   updated_at: 2014-10-31 20:15:14.827382000 Z
   updater_id: 1
   variant_id: 12
-product_phases_006:
+product_phases_003:
   category_id: 7
   created_at: 2014-10-31 20:18:12.264322000 Z
   creator_id: 1
@@ -119,7 +86,7 @@ product_phases_006:
   updated_at: 2014-10-31 20:18:12.264322000 Z
   updater_id: 1
   variant_id: 13
-product_phases_007:
+product_phases_004:
   category_id: 7
   created_at: 2014-10-31 20:23:26.807434000 Z
   creator_id: 1
@@ -131,7 +98,7 @@ product_phases_007:
   updated_at: 2014-10-31 20:23:26.807434000 Z
   updater_id: 1
   variant_id: 14
-product_phases_008:
+product_phases_005:
   category_id: 5
   created_at: 2014-10-31 20:23:37.075897000 Z
   creator_id: 1
@@ -143,7 +110,7 @@ product_phases_008:
   updated_at: 2014-10-31 20:23:37.075897000 Z
   updater_id: 1
   variant_id: 10
-product_phases_009:
+product_phases_006:
   category_id: 7
   created_at: 2014-10-31 20:25:41.493303000 Z
   creator_id: 1
@@ -155,7 +122,7 @@ product_phases_009:
   updated_at: 2014-10-31 20:25:41.493303000 Z
   updater_id: 1
   variant_id: 15
-product_phases_010:
+product_phases_007:
   category_id: 5
   created_at: 2014-11-01 16:00:08.287724000 Z
   creator_id: 1
@@ -167,7 +134,7 @@ product_phases_010:
   updated_at: 2014-11-01 16:00:08.287724000 Z
   updater_id: 1
   variant_id: 11
-product_phases_011:
+product_phases_008:
   category_id: 4
   created_at: 2014-11-01 16:00:08.378583000 Z
   creator_id: 1
@@ -179,7 +146,7 @@ product_phases_011:
   updated_at: 2014-11-01 16:00:08.378583000 Z
   updater_id: 1
   variant_id: 9
-product_phases_012:
+product_phases_009:
   category_id: 5
   created_at: 2014-11-01 16:01:24.221262000 Z
   creator_id: 1
@@ -191,7 +158,7 @@ product_phases_012:
   updated_at: 2014-11-01 16:01:24.221262000 Z
   updater_id: 1
   variant_id: 11
-product_phases_013:
+product_phases_010:
   category_id: 9
   created_at: 2014-11-01 19:29:58.318212000 Z
   creator_id: 1
@@ -203,7 +170,7 @@ product_phases_013:
   updated_at: 2014-11-01 19:29:58.318212000 Z
   updater_id: 1
   variant_id: 17
-product_phases_014:
+product_phases_011:
   category_id: 9
   created_at: 2014-11-01 19:35:50.422700000 Z
   creator_id: 1
@@ -215,7 +182,7 @@ product_phases_014:
   updated_at: 2014-11-01 19:35:50.422700000 Z
   updater_id: 1
   variant_id: 17
-product_phases_015:
+product_phases_012:
   category_id: 3
   created_at: 2014-11-01 20:19:35.459736000 Z
   creator_id: 1
@@ -227,7 +194,7 @@ product_phases_015:
   updated_at: 2014-11-01 20:19:35.459736000 Z
   updater_id: 1
   variant_id: 20
-product_phases_016:
+product_phases_013:
   category_id: 12
   created_at: 2014-11-01 20:23:55.225490000 Z
   creator_id: 1
@@ -239,7 +206,7 @@ product_phases_016:
   updated_at: 2014-11-01 20:23:55.225490000 Z
   updater_id: 1
   variant_id: 22
-product_phases_017:
+product_phases_014:
   category_id: 12
   created_at: 2014-11-01 20:23:55.296993000 Z
   creator_id: 1
@@ -251,7 +218,7 @@ product_phases_017:
   updated_at: 2014-11-01 20:23:55.296993000 Z
   updater_id: 1
   variant_id: 21
-product_phases_018:
+product_phases_015:
   category_id: 13
   created_at: 2014-11-01 20:30:35.665259000 Z
   creator_id: 1
@@ -263,7 +230,7 @@ product_phases_018:
   updated_at: 2014-11-01 20:30:35.665259000 Z
   updater_id: 1
   variant_id: 23
-product_phases_019:
+product_phases_016:
   category_id: 14
   created_at: 2014-11-02 18:22:30.630624000 Z
   creator_id: 1
@@ -275,7 +242,7 @@ product_phases_019:
   updated_at: 2014-11-02 18:22:30.630624000 Z
   updater_id: 1
   variant_id: 26
-product_phases_020:
+product_phases_017:
   category_id: 14
   created_at: 2014-11-02 18:23:23.694993000 Z
   creator_id: 1
@@ -287,7 +254,7 @@ product_phases_020:
   updated_at: 2014-11-02 18:23:23.694993000 Z
   updater_id: 1
   variant_id: 25
-product_phases_021:
+product_phases_018:
   category_id: 14
   created_at: 2014-11-02 18:29:41.511924000 Z
   creator_id: 1
@@ -299,7 +266,7 @@ product_phases_021:
   updated_at: 2014-11-02 18:29:41.511924000 Z
   updater_id: 1
   variant_id: 27
-product_phases_022:
+product_phases_019:
   category_id: 14
   created_at: 2014-11-02 18:37:22.438911000 Z
   creator_id: 1
@@ -311,7 +278,7 @@ product_phases_022:
   updated_at: 2014-11-02 18:37:22.438911000 Z
   updater_id: 1
   variant_id: 29
-product_phases_023:
+product_phases_020:
   category_id: 5
   created_at: 2014-11-02 18:38:47.118084000 Z
   creator_id: 1
@@ -323,7 +290,7 @@ product_phases_023:
   updated_at: 2014-11-02 18:38:47.118084000 Z
   updater_id: 1
   variant_id: 10
-product_phases_024:
+product_phases_021:
   category_id: 15
   created_at: 2014-11-04 17:12:23.451451000 Z
   creator_id: 1
@@ -335,7 +302,7 @@ product_phases_024:
   updated_at: 2014-11-04 17:12:23.451451000 Z
   updater_id: 1
   variant_id: 28
-product_phases_025:
+product_phases_022:
   category_id: 15
   created_at: 2014-11-04 17:15:04.654708000 Z
   creator_id: 1
@@ -347,7 +314,7 @@ product_phases_025:
   updated_at: 2014-11-04 17:15:04.654708000 Z
   updater_id: 1
   variant_id: 28
-product_phases_026:
+product_phases_023:
   category_id: 15
   created_at: 2014-11-04 17:17:04.720800000 Z
   creator_id: 1
@@ -359,7 +326,7 @@ product_phases_026:
   updated_at: 2014-11-04 17:17:04.720800000 Z
   updater_id: 1
   variant_id: 28
-product_phases_027:
+product_phases_024:
   category_id: 15
   created_at: 2014-11-04 17:19:31.285406000 Z
   creator_id: 1
@@ -371,7 +338,7 @@ product_phases_027:
   updated_at: 2014-11-04 17:19:31.285406000 Z
   updater_id: 1
   variant_id: 28
-product_phases_028:
+product_phases_025:
   category_id: 15
   created_at: 2014-11-04 17:22:31.724785000 Z
   creator_id: 1
@@ -383,7 +350,7 @@ product_phases_028:
   updated_at: 2014-11-04 17:22:31.724785000 Z
   updater_id: 1
   variant_id: 28
-product_phases_029:
+product_phases_026:
   category_id: 16
   created_at: 2014-11-04 17:28:40.106165000 Z
   creator_id: 1
@@ -395,7 +362,7 @@ product_phases_029:
   updated_at: 2014-11-04 17:28:40.106165000 Z
   updater_id: 1
   variant_id: 31
-product_phases_030:
+product_phases_027:
   category_id: 16
   created_at: 2014-11-04 17:32:46.069008000 Z
   creator_id: 1
@@ -407,7 +374,7 @@ product_phases_030:
   updated_at: 2014-11-04 17:32:46.069008000 Z
   updater_id: 1
   variant_id: 31
-product_phases_031:
+product_phases_028:
   category_id: 14
   created_at: 2014-11-04 18:39:58.426425000 Z
   creator_id: 1
@@ -419,7 +386,7 @@ product_phases_031:
   updated_at: 2014-11-04 18:39:58.426425000 Z
   updater_id: 1
   variant_id: 33
-product_phases_032:
+product_phases_029:
   category_id: 14
   created_at: 2014-11-04 18:41:16.462727000 Z
   creator_id: 1
@@ -431,7 +398,7 @@ product_phases_032:
   updated_at: 2014-11-04 18:41:16.462727000 Z
   updater_id: 1
   variant_id: 34
-product_phases_033:
+product_phases_030:
   category_id: 5
   created_at: 2014-11-05 15:40:15.781696000 Z
   creator_id: 1
@@ -443,7 +410,7 @@ product_phases_033:
   updated_at: 2014-11-05 15:40:15.781696000 Z
   updater_id: 1
   variant_id: 10
-product_phases_034:
+product_phases_031:
   category_id: 8
   created_at: 2014-11-05 15:40:15.871376000 Z
   creator_id: 1
@@ -455,7 +422,7 @@ product_phases_034:
   updated_at: 2014-11-05 15:40:15.871376000 Z
   updater_id: 1
   variant_id: 16
-product_phases_035:
+product_phases_032:
   category_id: 5
   created_at: 2014-11-06 17:50:06.984074000 Z
   creator_id: 1
@@ -467,7 +434,7 @@ product_phases_035:
   updated_at: 2014-11-06 17:50:06.984074000 Z
   updater_id: 1
   variant_id: 10
-product_phases_036:
+product_phases_033:
   category_id: 8
   created_at: 2014-11-06 17:50:07.044320000 Z
   creator_id: 1

@@ -25,6 +25,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :code])) do |t|
     t.column :number, url: true
+    t.column :recipient, url: true
     t.column :with_transport
     t.column :transport, url: true
     t.column :transporter, url: true, hidden: true

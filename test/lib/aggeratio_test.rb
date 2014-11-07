@@ -41,7 +41,7 @@ class AggeratioTest < ActiveSupport::TestCase
       queries.each do |query|
         errors << query unless doc.xpath(query).any?
       end
-      assert errors.empty?, "Cannot find #{errors.count} elements in XML export (among #{queries.count}). Fixtures may be incomplete.\nMissing element are:\n" + errors.join("\n").dig # + "\nXML:\n" + xml.dig
+      assert errors.empty?, "Cannot find #{errors.count} elements in XML export (among #{queries.count}). Fixtures may be incomplete.\nMissing elements are:\n" + errors.join("\n").dig # + "\nXML:\n" + xml.dig
     end
 
   end

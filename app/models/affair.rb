@@ -60,7 +60,8 @@ class Affair < Ekylibre::Record::Base
   belongs_to :third, class_name: "Entity"
   belongs_to :originator, polymorphic: true
   belongs_to :journal_entry
-  has_many :gaps,              inverse_of: :affair, dependent: :nullify
+  # FIXME: Gap#affair_id MUST NOT be mandatory
+  has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify

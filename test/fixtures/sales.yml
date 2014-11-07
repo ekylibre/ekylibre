@@ -117,7 +117,8 @@ sales_001:
   updated_at: 2014-11-05 09:58:26.779080000 Z
   updater_id: 1
 sales_002:
-  accounted_at: 2014-11-05 10:01:39.905714000 Z
+  accounted_at: 2014-11-06 18:25:07.902592000 Z
+  address_id: 12
   affair_id: 12
   amount: 792.0
   client_id: 13
@@ -127,7 +128,8 @@ sales_002:
   creator_id: 1
   credit: false
   currency: EUR
-  description: ''
+  delivery_address_id: 12
+  description: Must stay as a DRAFT for TEST purpose.
   downpayment_amount: 0.0
   expiration_delay: 15 days, bom, 10 days
   expired_at: 2014-11-10 23:00:00.000000000 Z
@@ -135,8 +137,9 @@ sales_002:
   has_downpayment: false
   id: 8
   introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 12
   letter_format: false
-  lock_version: 0
+  lock_version: 1
   nature_id: 1
   number: SO000000000003
   payment_delay: 12 days, eom, 1 week ago
@@ -144,7 +147,7 @@ sales_002:
   responsible_id: 9
   state: draft
   subject: ''
-  updated_at: 2014-11-05 10:01:39.874228000 Z
+  updated_at: 2014-11-06 18:25:07.883815000 Z
   updater_id: 1
 sales_003:
   accounted_at: 2014-11-05 10:03:12.776377000 Z

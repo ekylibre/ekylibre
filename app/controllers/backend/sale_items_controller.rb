@@ -32,22 +32,22 @@ class Backend::SaleItemsController < BackendController
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])
-    @sale_item = @sale.items.new(:unit_price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
       notify_error(:impossible_to_add_items)
-      redirect_to controller: :sales, action: :show, id: @sale.id, step: :products
+      redirect_to controller: :sales, action: :show, id: @sale.id
       return
     end
+    @sale_item = @sale.items.new(unit_price_amount: 0.0, reduction_percentage: @sale.client.maximal_reduction_percentage)
   end
 
   def create
     return unless @sale = find_and_check(:sale, params[:sale_id])
-    @sale_item = @sale.items.new(:unit_price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
       notify_error(:impossible_to_add_items)
-      redirect_to controller: :sales, action: :show, id: @sale.id, step: :products
+      redirect_to controller: :sales, action: :show, id: @sale.id
       return
     end
+    @sale_item = @sale.items.new(unit_price_amount: 0.0, reduction_percentage: @sale.client.maximal_reduction_percentage)
     @sale_item.attributes = permitted_params
     ActiveRecord::Base.transaction do
       if saved = @sale_item.save
@@ -62,19 +62,19 @@ class Backend::SaleItemsController < BackendController
     end
   end
 
-  def detail
-    if request.xhr?
-      return unless price = find_and_check(:product_price_template, params[:price_id])
-      @sale = Sale.find_by_id(params[:sale_id]) if params[:sale_id]
-      @sale_item = SaleItem.new(:product => price.product, :price => price, :unit_price_amount => 0.0, :quantity => 1.0)
-      if @sale
-        @sale_item.sale = @sale
-        @sale_item.reduction_percentage = @sale.client.maximal_reduction_percentage
-      end
-      render partial: "backend/sale_items/detail#{'_row' if params[:mode]=='row'}_form"
-    else
-      redirect_to sales_url
-    end
-  end
+  # def detail
+  #   if request.xhr?
+  #     return unless price = find_and_check(:product_price_template, params[:price_id])
+  #     @sale = Sale.find_by_id(params[:sale_id]) if params[:sale_id]
+  #     @sale_item = SaleItem.new(:product => price.product, :price => price, :unit_price_amount => 0.0, :quantity => 1.0)
+  #     if @sale
+  #       @sale_item.sale = @sale
+  #       @sale_item.reduction_percentage = @sale.client.maximal_reduction_percentage
+  #     end
+  #     render partial: "backend/sale_items/detail#{'_row' if params[:mode]=='row'}_form"
+  #   else
+  #     redirect_to sales_url
+  #   end
+  # end
 
 end

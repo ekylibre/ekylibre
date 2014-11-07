@@ -297,6 +297,7 @@ jpn:
       # show: "Issue: %{name}"
     backend/journal_entries:
       # edit: "Edit journal entry: %{number}"
+      # index: "Journal entries"
       # new: "New entry"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
@@ -1409,7 +1410,7 @@ jpn:
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       # implemented_with_dummy_data: "Implemented with dummy data"
       # importation_finished: "The import is complete."
-      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       # invalid_reference_name: "Invalid reference name"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."

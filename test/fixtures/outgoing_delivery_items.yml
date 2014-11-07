@@ -86,3 +86,13 @@ outgoing_delivery_items_004:
   product_id: 56
   updated_at: 2014-11-05 14:16:48.644715000 Z
   updater_id: 1
+outgoing_delivery_items_005:
+  created_at: 2014-11-07 14:13:05.516637000 Z
+  creator_id: 1
+  delivery_id: 6
+  id: 7
+  lock_version: 0
+  population: 0.0
+  product_id: 76
+  updated_at: 2014-11-07 14:13:05.516637000 Z
+  updater_id: 1

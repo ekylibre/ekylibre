@@ -391,6 +391,7 @@ arb:
       # show: "Issue: %{name}"
     backend/journal_entries:
       edit: "تعديل السجل رقم %{number} من %{created_at}"
+      # index: "Journal entries"
       new: "اضافة سجل"
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
@@ -2110,7 +2111,7 @@ arb:
       import_succeeded: "نم استيراد بياناتك بشكل صحيح" #?
       importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد" #?
       importation_finished: "انتهاء الاستيراد"
-      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
       impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?

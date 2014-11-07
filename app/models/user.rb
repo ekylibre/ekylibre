@@ -145,11 +145,12 @@ class User < Ekylibre::Record::Base
   end
 
   def name
-    self.full_name
+    # TODO: I18nize the method User#name !
+    "#{self.first_name} #{self.last_name}"
   end
 
   def label
-    self.full_name
+    self.name
   end
 
   # Find or create preference for given name

@@ -370,11 +370,23 @@ preferences_030:
   created_at: 2014-10-31 18:36:06.232239000 Z
   creator_id: 1
   id: 30
-  lock_version: 0
+  lock_version: 2
   name: list._sales_list_sales_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 18:36:06.232239000 Z
+  string_value:
+    s: all
+    visibility: hidden
+    column: created_at
+    action: list
+    controller: backend/sales
+    hidden_columns:
+    - :responsible
+    - :created_at
+    dir: ''
+    page: 1
+    per_page: 20
+    sort: ''
+  updated_at: 2014-11-06 18:24:21.281791000 Z
   updater_id: 1
   user_id: 1
 preferences_031:
@@ -1289,11 +1301,34 @@ preferences_112:
   created_at: 2014-10-31 19:07:52.115770000 Z
   creator_id: 1
   id: 112
-  lock_version: 0
+  lock_version: 1
   name: list._journals_list_items_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 19:07:52.115770000 Z
+  string_value:
+    period: all
+    started_at: '1992-11-17'
+    states: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      closed: '1'
+      confirmed: '1'
+      draft: '1'
+    stopped_at: '1993-08-31'
+    view: items
+    page: 2
+    only: content
+    action: list_items
+    controller: backend/journals
+    id: '1'
+    hidden_columns:
+    - :account_number
+    - :account_name
+    - :debit
+    - :credit
+    - :absolute_debit
+    - :absolute_credit
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2014-11-07 08:59:46.935331000 Z
   updater_id: 1
   user_id: 1
 preferences_113:
@@ -1418,11 +1453,23 @@ preferences_124:
   created_at: 2014-10-31 20:08:56.352227000 Z
   creator_id: 1
   id: 124
-  lock_version: 0
+  lock_version: 1
   name: list._outgoing_deliveries_list_outgoing_deliveries_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 20:08:56.352227000 Z
+  string_value:
+    s: unconfirmed
+    visibility: shown
+    column: transporter
+    action: list
+    controller: backend/outgoing_deliveries
+    hidden_columns:
+    - :reference_number
+    - :net_mass
+    dir: ''
+    page: 1
+    per_page: 20
+    sort: ''
+  updated_at: 2014-11-07 09:38:36.922615000 Z
   updater_id: 1
   user_id: 1
 preferences_125:
@@ -2243,11 +2290,21 @@ preferences_194:
   created_at: 2014-11-05 12:44:54.614682000 Z
   creator_id: 1
   id: 194
-  lock_version: 0
+  lock_version: 1
   name: list._cash_transfers_list_cash_transfers_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-11-05 12:44:54.614682000 Z
+  string_value:
+    visibility: hidden
+    column: description
+    action: list
+    controller: backend/cash_transfers
+    hidden_columns:
+    - :description
+    dir: ''
+    page: 1
+    per_page: 20
+    sort: ''
+  updated_at: 2014-11-07 10:42:39.219071000 Z
   updater_id: 1
   user_id: 1
 preferences_195:
@@ -2335,5 +2392,134 @@ preferences_202:
   name: interface.kujakus.backend-plants-index-123.collapsed
   nature: boolean
   updated_at: 2014-11-06 17:44:44.914366000 Z
+  updater_id: 1
+  user_id: 1
+preferences_203:
+  created_at: 2014-11-07 08:23:00.085733000 Z
+  creator_id: 1
+  id: 203
+  lock_version: 0
+  name: list._journal_entries_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 08:23:00.085733000 Z
+  updater_id: 1
+  user_id: 1
+preferences_204:
+  created_at: 2014-11-07 08:59:24.213580000 Z
+  creator_id: 1
+  id: 204
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/erp/app/views/backend/journals/draft.html.haml:5:0.default
+  nature: string
+  updated_at: 2014-11-07 08:59:24.213580000 Z
+  updater_id: 1
+  user_id: 1
+preferences_205:
+  boolean_value: true
+  created_at: 2014-11-07 08:59:24.240367000 Z
+  creator_id: 1
+  id: 205
+  lock_version: 0
+  name: interface.kujakus.backend-journals-draft-5.collapsed
+  nature: boolean
+  updated_at: 2014-11-07 08:59:24.240367000 Z
+  updater_id: 1
+  user_id: 1
+preferences_206:
+  created_at: 2014-11-07 08:59:24.245415000 Z
+  creator_id: 1
+  id: 206
+  lock_version: 0
+  name: list._journals_list_draft_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 08:59:24.245415000 Z
+  updater_id: 1
+  user_id: 1
+preferences_207:
+  created_at: 2014-11-07 08:59:33.835301000 Z
+  creator_id: 1
+  id: 207
+  lock_version: 0
+  name: interface.journal.CUN.view
+  nature: string
+  updated_at: 2014-11-07 08:59:33.835301000 Z
+  updater_id: 1
+  user_id: 1
+preferences_208:
+  created_at: 2014-11-07 08:59:34.872162000 Z
+  creator_id: 1
+  id: 208
+  lock_version: 0
+  name: interface.journal.PUR.view
+  nature: string
+  updated_at: 2014-11-07 08:59:34.872162000 Z
+  updater_id: 1
+  user_id: 1
+preferences_209:
+  created_at: 2014-11-07 08:59:36.401079000 Z
+  creator_id: 1
+  id: 209
+  lock_version: 3
+  name: interface.journal.VOP.view
+  nature: string
+  string_value: entries
+  updated_at: 2014-11-07 08:59:50.766199000 Z
+  updater_id: 1
+  user_id: 1
+preferences_210:
+  created_at: 2014-11-07 08:59:39.838526000 Z
+  creator_id: 1
+  id: 210
+  lock_version: 0
+  name: list._journals_list_entries_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 08:59:39.838526000 Z
+  updater_id: 1
+  user_id: 1
+preferences_211:
+  created_at: 2014-11-07 09:34:45.359429000 Z
+  creator_id: 1
+  id: 211
+  lock_version: 0
+  name: list._analytic_distributions_list_analytic_distributions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 09:34:45.359429000 Z
+  updater_id: 1
+  user_id: 1
+preferences_212:
+  created_at: 2014-11-07 10:53:41.017697000 Z
+  creator_id: 1
+  id: 212
+  lock_version: 0
+  name: list._gaps_list_gaps_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 10:53:41.017697000 Z
+  updater_id: 1
+  user_id: 1
+preferences_213:
+  created_at: 2014-11-07 11:04:48.510466000 Z
+  creator_id: 1
+  id: 213
+  lock_version: 0
+  name: list._gaps_list_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 11:04:48.510466000 Z
+  updater_id: 1
+  user_id: 1
+preferences_214:
+  created_at: 2014-11-07 11:54:24.505135000 Z
+  creator_id: 1
+  id: 214
+  lock_version: 0
+  name: list._products_list_groups_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-11-07 11:54:24.505135000 Z
   updater_id: 1
   user_id: 1

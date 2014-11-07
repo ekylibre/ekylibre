@@ -48,50 +48,6 @@
 #
 ---
 product_junction_ways_001:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  junction_id: 1
-  lock_version: 0
-  nature: start
-  road_id: 65
-  role: product
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_junction_ways_002:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  junction_id: 2
-  lock_version: 0
-  nature: start
-  road_id: 65
-  role: product
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_junction_ways_003:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 3
-  junction_id: 26
-  lock_version: 0
-  nature: start
-  road_id: 66
-  role: product
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_junction_ways_004:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 4
-  junction_id: 26
-  lock_version: 0
-  nature: continuity
-  road_id: 66
-  role: producer
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_junction_ways_005:
   created_at: 2014-10-31 20:12:30.960076000 Z
   creator_id: 1
   id: 5
@@ -103,7 +59,7 @@ product_junction_ways_005:
   role: product
   updated_at: 2014-10-31 20:12:30.960076000 Z
   updater_id: 1
-product_junction_ways_006:
+product_junction_ways_002:
   created_at: 2014-10-31 20:15:14.809116000 Z
   creator_id: 1
   id: 6
@@ -118,7 +74,7 @@ product_junction_ways_006:
     45.5990635462549)))
   updated_at: 2014-10-31 20:15:14.809116000 Z
   updater_id: 1
-product_junction_ways_007:
+product_junction_ways_003:
   created_at: 2014-10-31 20:18:12.246684000 Z
   creator_id: 1
   id: 7
@@ -132,7 +88,7 @@ product_junction_ways_007:
     45.5987083844552)))
   updated_at: 2014-10-31 20:18:12.246684000 Z
   updater_id: 1
-product_junction_ways_008:
+product_junction_ways_004:
   created_at: 2014-10-31 20:23:26.789990000 Z
   creator_id: 1
   id: 8
@@ -147,7 +103,7 @@ product_junction_ways_008:
     45.5976625911467,-0.836898654742981 45.5974477061239)))
   updated_at: 2014-10-31 20:23:26.789990000 Z
   updater_id: 1
-product_junction_ways_009:
+product_junction_ways_005:
   created_at: 2014-10-31 20:23:37.054421000 Z
   creator_id: 1
   id: 9
@@ -159,7 +115,7 @@ product_junction_ways_009:
   role: product
   updated_at: 2014-10-31 20:23:37.054421000 Z
   updater_id: 1
-product_junction_ways_010:
+product_junction_ways_006:
   created_at: 2014-10-31 20:25:41.478132000 Z
   creator_id: 1
   id: 10
@@ -173,7 +129,7 @@ product_junction_ways_010:
     45.5985699786537)))
   updated_at: 2014-10-31 20:26:47.202010000 Z
   updater_id: 1
-product_junction_ways_011:
+product_junction_ways_007:
   created_at: 2014-11-01 16:00:08.179898000 Z
   creator_id: 1
   id: 11
@@ -185,7 +141,7 @@ product_junction_ways_011:
   role: product
   updated_at: 2014-11-01 16:00:08.179898000 Z
   updater_id: 1
-product_junction_ways_012:
+product_junction_ways_008:
   created_at: 2014-11-01 16:00:08.361327000 Z
   creator_id: 1
   id: 12
@@ -197,7 +153,7 @@ product_junction_ways_012:
   role: product
   updated_at: 2014-11-01 16:00:08.361327000 Z
   updater_id: 1
-product_junction_ways_013:
+product_junction_ways_009:
   created_at: 2014-11-01 16:01:24.194166000 Z
   creator_id: 1
   id: 13
@@ -209,7 +165,7 @@ product_junction_ways_013:
   role: product
   updated_at: 2014-11-01 16:01:24.194166000 Z
   updater_id: 1
-product_junction_ways_014:
+product_junction_ways_010:
   created_at: 2014-11-01 19:29:58.256910000 Z
   creator_id: 1
   id: 14
@@ -221,7 +177,7 @@ product_junction_ways_014:
   role: product
   updated_at: 2014-11-01 19:29:58.256910000 Z
   updater_id: 1
-product_junction_ways_015:
+product_junction_ways_011:
   created_at: 2014-11-01 19:35:50.401187000 Z
   creator_id: 1
   id: 15
@@ -233,7 +189,7 @@ product_junction_ways_015:
   role: product
   updated_at: 2014-11-01 19:35:50.401187000 Z
   updater_id: 1
-product_junction_ways_016:
+product_junction_ways_012:
   created_at: 2014-11-01 20:19:35.427159000 Z
   creator_id: 1
   id: 16
@@ -245,7 +201,7 @@ product_junction_ways_016:
   role: product
   updated_at: 2014-11-01 20:19:35.427159000 Z
   updater_id: 1
-product_junction_ways_017:
+product_junction_ways_013:
   created_at: 2014-11-01 20:23:55.168744000 Z
   creator_id: 1
   id: 17
@@ -257,7 +213,7 @@ product_junction_ways_017:
   role: product
   updated_at: 2014-11-01 20:23:55.168744000 Z
   updater_id: 1
-product_junction_ways_018:
+product_junction_ways_014:
   created_at: 2014-11-01 20:23:55.268692000 Z
   creator_id: 1
   id: 18
@@ -269,7 +225,7 @@ product_junction_ways_018:
   role: product
   updated_at: 2014-11-01 20:23:55.268692000 Z
   updater_id: 1
-product_junction_ways_019:
+product_junction_ways_015:
   created_at: 2014-11-01 20:30:35.608922000 Z
   creator_id: 1
   id: 19
@@ -280,7 +236,7 @@ product_junction_ways_019:
   role: product
   updated_at: 2014-11-01 20:30:35.608922000 Z
   updater_id: 1
-product_junction_ways_020:
+product_junction_ways_016:
   created_at: 2014-11-02 18:22:30.606162000 Z
   creator_id: 1
   id: 20
@@ -291,7 +247,7 @@ product_junction_ways_020:
   role: product
   updated_at: 2014-11-02 18:22:30.606162000 Z
   updater_id: 1
-product_junction_ways_021:
+product_junction_ways_017:
   created_at: 2014-11-02 18:23:23.682370000 Z
   creator_id: 1
   id: 21
@@ -303,7 +259,7 @@ product_junction_ways_021:
   role: product
   updated_at: 2014-11-02 18:23:23.682370000 Z
   updater_id: 1
-product_junction_ways_022:
+product_junction_ways_018:
   created_at: 2014-11-02 18:29:41.499312000 Z
   creator_id: 1
   id: 22
@@ -315,7 +271,7 @@ product_junction_ways_022:
   role: product
   updated_at: 2014-11-02 18:29:41.499312000 Z
   updater_id: 1
-product_junction_ways_023:
+product_junction_ways_019:
   created_at: 2014-11-02 18:37:22.427061000 Z
   creator_id: 1
   id: 24
@@ -326,7 +282,7 @@ product_junction_ways_023:
   role: product
   updated_at: 2014-11-02 18:37:22.427061000 Z
   updater_id: 1
-product_junction_ways_024:
+product_junction_ways_020:
   created_at: 2014-11-04 17:12:23.408443000 Z
   creator_id: 1
   id: 32
@@ -342,7 +298,7 @@ product_junction_ways_024:
     45.8210985391894,-0.799287557601929 45.8255247100834)))
   updated_at: 2014-11-04 17:12:23.408443000 Z
   updater_id: 1
-product_junction_ways_025:
+product_junction_ways_021:
   created_at: 2014-11-04 17:15:04.631028000 Z
   creator_id: 1
   id: 33
@@ -358,7 +314,7 @@ product_junction_ways_025:
     45.8229752188059,-0.799569189548492 45.8210648929617)))
   updated_at: 2014-11-04 17:15:04.631028000 Z
   updater_id: 1
-product_junction_ways_026:
+product_junction_ways_022:
   created_at: 2014-11-04 17:17:04.696432000 Z
   creator_id: 1
   id: 34
@@ -373,7 +329,7 @@ product_junction_ways_026:
     45.8255060192232,-0.800360441207886 45.825132200702,-0.801068544387817 45.825154629884)))
   updated_at: 2014-11-04 17:17:04.696432000 Z
   updater_id: 1
-product_junction_ways_027:
+product_junction_ways_023:
   created_at: 2014-11-04 17:19:31.157696000 Z
   creator_id: 1
   id: 35
@@ -390,7 +346,7 @@ product_junction_ways_027:
     45.8266349359199,-0.796809196472168 45.8269227686334)))
   updated_at: 2014-11-04 17:19:31.157696000 Z
   updater_id: 1
-product_junction_ways_028:
+product_junction_ways_024:
   created_at: 2014-11-04 17:22:31.697978000 Z
   creator_id: 1
   id: 36
@@ -408,7 +364,7 @@ product_junction_ways_028:
     45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
   updated_at: 2014-11-04 17:22:31.697978000 Z
   updater_id: 1
-product_junction_ways_029:
+product_junction_ways_025:
   created_at: 2014-11-04 17:28:40.092317000 Z
   creator_id: 1
   id: 37
@@ -419,7 +375,7 @@ product_junction_ways_029:
   role: product
   updated_at: 2014-11-04 17:28:40.092317000 Z
   updater_id: 1
-product_junction_ways_030:
+product_junction_ways_026:
   created_at: 2014-11-04 17:32:46.002017000 Z
   creator_id: 1
   id: 38
@@ -430,7 +386,7 @@ product_junction_ways_030:
   role: product
   updated_at: 2014-11-04 17:32:46.002017000 Z
   updater_id: 1
-product_junction_ways_031:
+product_junction_ways_027:
   created_at: 2014-11-04 18:39:58.393925000 Z
   creator_id: 1
   id: 39
@@ -441,7 +397,7 @@ product_junction_ways_031:
   role: product
   updated_at: 2014-11-04 18:39:58.393925000 Z
   updater_id: 1
-product_junction_ways_032:
+product_junction_ways_028:
   created_at: 2014-11-04 18:41:16.448446000 Z
   creator_id: 1
   id: 40
@@ -452,7 +408,7 @@ product_junction_ways_032:
   role: product
   updated_at: 2014-11-04 18:41:16.448446000 Z
   updater_id: 1
-product_junction_ways_033:
+product_junction_ways_029:
   created_at: 2014-11-05 15:40:16.110543000 Z
   creator_id: 1
   id: 41
@@ -464,7 +420,7 @@ product_junction_ways_033:
   role: product
   updated_at: 2014-11-05 15:40:16.110543000 Z
   updater_id: 1
-product_junction_ways_034:
+product_junction_ways_030:
   created_at: 2014-11-05 15:40:16.157378000 Z
   creator_id: 1
   id: 42
@@ -475,7 +431,7 @@ product_junction_ways_034:
   role: producer
   updated_at: 2014-11-05 15:40:16.157378000 Z
   updater_id: 1
-product_junction_ways_035:
+product_junction_ways_031:
   created_at: 2014-11-05 15:40:16.231238000 Z
   creator_id: 1
   id: 43
@@ -486,7 +442,7 @@ product_junction_ways_035:
   role: product
   updated_at: 2014-11-05 15:40:16.231238000 Z
   updater_id: 1
-product_junction_ways_036:
+product_junction_ways_032:
   created_at: 2014-11-05 15:40:16.255672000 Z
   creator_id: 1
   id: 44
@@ -497,7 +453,7 @@ product_junction_ways_036:
   role: consumer
   updated_at: 2014-11-05 15:40:16.255672000 Z
   updater_id: 1
-product_junction_ways_037:
+product_junction_ways_033:
   created_at: 2014-11-05 15:40:16.273311000 Z
   creator_id: 1
   id: 45
@@ -514,7 +470,7 @@ product_junction_ways_037:
     45.8266349359199,-0.796809196472168 45.8269227686334)))
   updated_at: 2014-11-05 15:40:16.273311000 Z
   updater_id: 1
-product_junction_ways_038:
+product_junction_ways_034:
   created_at: 2014-11-05 15:40:16.312127000 Z
   creator_id: 1
   id: 46
@@ -525,7 +481,7 @@ product_junction_ways_038:
   role: producer
   updated_at: 2014-11-05 15:40:16.312127000 Z
   updater_id: 1
-product_junction_ways_039:
+product_junction_ways_035:
   created_at: 2014-11-06 17:50:07.107112000 Z
   creator_id: 1
   id: 47
@@ -537,7 +493,7 @@ product_junction_ways_039:
   role: product
   updated_at: 2014-11-06 17:50:07.107112000 Z
   updater_id: 1
-product_junction_ways_040:
+product_junction_ways_036:
   created_at: 2014-11-06 17:50:07.175719000 Z
   creator_id: 1
   id: 48
@@ -548,7 +504,7 @@ product_junction_ways_040:
   role: producer
   updated_at: 2014-11-06 17:50:07.175719000 Z
   updater_id: 1
-product_junction_ways_041:
+product_junction_ways_037:
   created_at: 2014-11-06 17:50:07.240636000 Z
   creator_id: 1
   id: 49
@@ -559,7 +515,7 @@ product_junction_ways_041:
   role: product
   updated_at: 2014-11-06 17:50:07.240636000 Z
   updater_id: 1
-product_junction_ways_042:
+product_junction_ways_038:
   created_at: 2014-11-06 17:50:07.261447000 Z
   creator_id: 1
   id: 50
@@ -570,7 +526,7 @@ product_junction_ways_042:
   role: consumer
   updated_at: 2014-11-06 17:50:07.261447000 Z
   updater_id: 1
-product_junction_ways_043:
+product_junction_ways_039:
   created_at: 2014-11-06 17:50:07.278009000 Z
   creator_id: 1
   id: 51
@@ -588,7 +544,7 @@ product_junction_ways_043:
     45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
   updated_at: 2014-11-06 17:50:07.278009000 Z
   updater_id: 1
-product_junction_ways_044:
+product_junction_ways_040:
   created_at: 2014-11-06 17:50:07.314608000 Z
   creator_id: 1
   id: 52

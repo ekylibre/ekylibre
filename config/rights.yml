@@ -771,6 +771,8 @@ gaps:
   write:
     depend-on:
     - read-gaps
+    actions:
+    - "backend/gaps#destroy"
 
 georeadings:
   read:
@@ -1656,7 +1658,7 @@ purchases:
     - "backend/purchase_items#destroy"
     - "backend/purchase_items#edit"
     - "backend/purchase_items#new"
-    - "backend/purchase_items#update"
+    - "backend/purchase_items#update" #?
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1729,7 +1731,7 @@ sales:
     - "backend/outgoing_deliveries#invoice"
     - "backend/sale_items#create"
     - "backend/sale_items#destroy"
-    - "backend/sale_items#detail"
+    - "backend/sale_items#detail" #?
     - "backend/sale_items#edit"
     - "backend/sale_items#new"
     - "backend/sale_items#update"

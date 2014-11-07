@@ -99,3 +99,17 @@ outgoing_deliveries_003:
   updated_at: 2014-11-05 14:16:48.643201000 Z
   updater_id: 1
   with_transport: false
+outgoing_deliveries_004:
+  address_id: 8
+  created_at: 2014-11-07 14:13:05.515052000 Z
+  creator_id: 1
+  id: 6
+  lock_version: 0
+  mode: delivered_duty_paid
+  net_mass: 0.0
+  number: BL2014000005
+  recipient_id: 8
+  transporter_id: 9
+  updated_at: 2014-11-07 14:13:05.515052000 Z
+  updater_id: 1
+  with_transport: true
