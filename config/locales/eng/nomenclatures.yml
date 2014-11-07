@@ -3036,7 +3036,8 @@ eng:
       items:
         allium: "Garlic"                                   #< amaryllidaceae
         allium_ampeloprasum: "Broadleaf wild leek"         #< allium
-        allium_cepa: "Shallot"                             #< allium
+        allium_ascalonicum: "Shallot"                      #< allium
+        allium_cepa: "Onion"                               #< allium
         allium_oleraceum: "Field garlic"                   #< allium
         allium_sativum: "Cultivated garlic"                #< allium
         allium_scorodoprasum: "Sand leek"                  #< allium

@@ -9,6 +9,7 @@
   <nomenclature name="varieties-allium" hierarchical="true">
     <items>
       <item name="allium_cepa" itis_tsn="42720"/>
+      <item name="allium_ascalonicum" itis_tsn="506481"/>
       <item name="allium_ursinum" itis_tsn="810202"/>
       <item name="allium_ampeloprasum" itis_tsn="42708"/>
       <item name="allium_oleraceum" itis_tsn="42689"/>

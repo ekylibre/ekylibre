@@ -54,7 +54,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -584,7 +585,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -1114,7 +1116,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -1935,7 +1938,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -2549,7 +2553,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -3356,7 +3361,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -4105,7 +4111,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -4775,7 +4782,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -5305,7 +5313,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -6138,7 +6147,8 @@ fra:
       cultivation_variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -6689,7 +6699,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -7295,7 +7306,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -7825,7 +7837,8 @@ fra:
       derivative_of:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -8354,7 +8367,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -8884,7 +8898,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -9414,7 +9429,8 @@ fra:
       derivative_of:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -10096,7 +10112,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -10659,7 +10676,8 @@ fra:
       derivative_of:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -11188,7 +11206,8 @@ fra:
       variety:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"
@@ -11965,7 +11984,8 @@ fra:
       derivative:
         allium: "Ail"
         allium_ampeloprasum: "Poireau d'été"
-        allium_cepa: "Echalotte"
+        allium_ascalonicum: "Échalotte"
+        allium_cepa: "Oignon"
         allium_oleraceum: "Ail des jardins"
         allium_sativum: "Ail cultivé"
         allium_scorodoprasum: "Ail rocambole"

@@ -3052,7 +3052,8 @@ arb:
       items:
         # allium: "Garlic"
         # allium_ampeloprasum: "Broadleaf wild leek"
-        # allium_cepa: "Shallot"
+        # allium_ascalonicum: "Shallot"
+        # allium_cepa: "Onion"
         # allium_oleraceum: "Field garlic"
         # allium_sativum: "Cultivated garlic"
         # allium_scorodoprasum: "Sand leek"
