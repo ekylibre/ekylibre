@@ -3067,6 +3067,10 @@ eng:
         bambusa: "Bamboo"                                  #< poaceae
         beta: "Beta"                                       #< amaranthaceae
         beta_vulgaris: "Beet"                              #< beta
+        beta_vulgaris_altissima: "Sugar Beet"              #< beta_vulgaris
+        beta_vulgaris_cicla: "Chard"                       #< beta_vulgaris
+        beta_vulgaris_crassa: "Mangelwurzel"               #< beta_vulgaris
+        beta_vulgaris_vulgaris: "Beetroot"                 #< beta_vulgaris
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Bioproduct"                           #< matter
         boraginaceae: "Boraginaceae"                       #< plant
