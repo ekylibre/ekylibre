@@ -4,7 +4,7 @@ begin
   architecture = `dpkg --print-architecture`.strip
   ENV['LD_LIBRARY_PATH'] = "#{ENV['LD_LIBRARY_PATH']}:#{ENV['JAVA_HOME']}/jre/lib/#{architecture}:#{ENV['JAVA_HOME']}/jre/lib/#{architecture}/client"
 rescue
-  puts "JAVA_HOME has not been set automatically because it's not Debian here."
+  STDERR.puts "JAVA_HOME has not been set automatically because it's not Debian here."
 end
 
 # Set up gems listed in the Gemfile.
