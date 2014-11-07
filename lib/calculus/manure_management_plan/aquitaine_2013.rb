@@ -5,6 +5,7 @@ module Calculus
 
       # Estimate "y"
       def estimate_expected_yield
+	require 'colored' unless defined? Colored
 expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate_expected_yield
         cultivation_varieties = (@variety ? @variety.self_and_parents : :undefined)
         puts "------------------------------------------------------".red

@@ -5,6 +5,7 @@ module Calculus
 
       # Estimate "y"
       def estimate_expected_yield
+	require 'colored' unless defined? Colored
         expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate_expected_yield
         cultivation_varieties = (@variety ? @variety.self_and_parents : :undefined)
         puts "------------------------------------------------------".red
@@ -495,11 +496,6 @@ module Calculus
           values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
         end
         # @zone.mark(:nitrogen_area_density, nitrogen_input.round(3), subject: :support)
-        # puts "-" * 80
-        # puts "crop_yield:     " + crop_yield.inspect
-        # puts "-" * 80
-        # puts "nitrogen_input: " + nitrogen_input.inspect
-        # puts "-" * 80
 
         return values
       end

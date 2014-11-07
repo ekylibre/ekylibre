@@ -89,7 +89,6 @@ module Procedo
         elsif object.nil?
           "null"
         else
-          puts object.class.name.red
           "(" + object.class.name + ")"
         end
       end

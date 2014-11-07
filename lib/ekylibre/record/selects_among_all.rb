@@ -102,8 +102,6 @@ module Ekylibre::Record
           code << "end\n"
         end
 
-        # code.split(/\n/).each_with_index{|l,i| puts i.to_s.rjust(4).blue + ": " + l.yellow}
-
         class_eval code
       end
     end

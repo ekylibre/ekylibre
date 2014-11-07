@@ -200,7 +200,7 @@ class User < Ekylibre::Record::Base
       key = url.to_s
     end
     unless list = Ekylibre::Access.reversed_list[key]
-      puts "Unable to check access for action: #{key.red}. #{url.inspect.yellow}"
+      logger.debug "Unable to check access for action: #{key}. #{url.inspect}"
       return true
     end
     list &= self.resource_actions

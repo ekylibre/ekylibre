@@ -36,7 +36,6 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
     land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
     cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
 
-    # puts "File contains #{file.num_records} records."
     file.each do |record|
       attributes = {
         initial_born_at: Time.utc(1, 1, 1, 0, 0, 0),

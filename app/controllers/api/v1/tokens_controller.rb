@@ -21,7 +21,6 @@ class Api::V1::TokensController < Api::V1::BaseController
   skip_before_action :authenticate_api_user!
 
   def create
-    puts "???".green
     email, password = params[:email], params[:password]
 
     if email.blank? or password.blank?
@@ -31,7 +30,6 @@ class Api::V1::TokensController < Api::V1::BaseController
 
     unless @user = User.find_by(email: email.downcase)
       logger.info("User #{email} failed signin, user cannot be found.")
-      puts "???".red
       render status: :unauthorized, json: {message: "Invalid email or password."}
       return
     end
@@ -42,7 +40,6 @@ class Api::V1::TokensController < Api::V1::BaseController
       @user.save!
       render json: {token: @user.authentication_token}
     else
-      puts "???".blue
       logger.info("User #{email} failed signin, password is invalid")
       render status: :unauthorized, json: {message: "Invalid email or password."}
     end

@@ -83,12 +83,10 @@ module Procedo
         # "\\[(?<#{actor}>#{e})\\]"
         "((?<#{actor}>#{e})|\\[(?<#{actor}>#{e})\\])"
       end + "\\z"
-      # puts "#{@expression}: " + exp
       @pattern = Regexp.new(exp)
     end
 
     def match(expression)
-      # puts [@pattern, expression].inspect
       return pattern.match(expression)
     end
 

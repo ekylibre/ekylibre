@@ -49,11 +49,7 @@ module Aggeratio
     def conditionate(code, element, minimum_level = nil)
       minimum_level ||= @minimum_level || :api
       level = (element.has_attribute?('level') ? element.attr('level').strip.to_sym : @minimum_level)
-      if LEVELS.index(minimum_level) > LEVELS.index(level)
-        return "" # "puts 'Nothing to do: #{minimum_level} level required'.red\n"
-      else
-        # code = "puts 'Minimum required level: #{minimum_level} (got #{level})'.red\n" + code
-      end
+      return "" if LEVELS.index(minimum_level) > LEVELS.index(level)
       if element.has_attribute?('if')
         test = element.attr('if').strip.gsub(/[\r\n\t]+/, ' ')
         code = "if (#{test})\n" + code.dig + "end\n"

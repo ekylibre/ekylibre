@@ -63,7 +63,7 @@ module Nomen
 
       # Merge and load nomenclature sets
       for name, nomenclatures in sets
-        # puts "Load set #{name}... " + nomenclatures.values.collect{|n| n.attr("name") }.to_sentence
+        # Rails.logger.debug "Load set #{name}... " + nomenclatures.values.collect{|n| n.attr("name") }.to_sentence
         load_set(name, nomenclatures.values)
       end
 

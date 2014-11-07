@@ -206,7 +206,6 @@ class Affair < Ekylibre::Record::Base
   # Returns heterogen list of deals of the affair
   def self.generate_deals_method
     code  = "def deals\n"
-    # code << "  puts 'deals()'.red + caller.join(\"\\n\").yellow\n"
     array = AFFAIRABLE_TYPES.collect do |class_name|
       "#{class_name}.where(affair_id: self.id).to_a"
     end.join(" + ")
@@ -295,7 +294,6 @@ class Affair < Ekylibre::Record::Base
   # deals are negatives and substracted to debit deals.
   def tax_items_for(third, amount, mode)
     totals = {}
-    # puts [third.name, self.deals_of(third)].inspect.green
     for deal in self.deals_of(third)
       for total in deal.deal_taxes(mode)
         total[:tax] ||= Tax.used_for_untaxed_deals
@@ -318,7 +316,6 @@ class Affair < Ekylibre::Record::Base
         amounts.last[:amount] += (amount - sum)
       end
     end
-    # puts amounts.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
     return amounts
   end
 

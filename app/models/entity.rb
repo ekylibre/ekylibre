@@ -256,7 +256,6 @@ class Entity < Ekylibre::Record::Base
           suffix.succ! unless account.nil?
           i=i+1
         end
-        # puts "Find entity (#{x-Time.now}s) :"+i.to_s
         valid_account = Account.create(:number => prefix.to_s+suffix.to_s, :name => self.full_name, :reconcilable => true)
       end
       self.reload.update_column("#{nature}_account_id", valid_account.id)
@@ -397,8 +396,6 @@ class Entity < Ekylibre::Record::Base
   #     code += "      sale_catalog = Catalog.create!(:name => '-', by_default: false) unless sale_catalog\n"
   #     code += "    end unless sale_catalog\n"
   #   end
-
-  #   # code += "    puts [nature, sale_catalog].inspect\n"
 
   #   code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_catalog_id => sale_catalog.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
   #   code += "    if entity.save\n"

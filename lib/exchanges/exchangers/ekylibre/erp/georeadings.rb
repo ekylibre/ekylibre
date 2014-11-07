@@ -22,7 +22,6 @@ Exchanges.add_importer :ekylibre_erp_georeadings do |file, w|
           number: record.attributes['number'],
           nature: nature
         }
-        # puts attributes.inspect.red
         unless georeading = Georeading.find_by(attributes.slice(:number))
           georeading = Georeading.new(attributes)
         end

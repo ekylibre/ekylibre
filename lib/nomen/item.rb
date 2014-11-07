@@ -55,12 +55,10 @@ module Nomen
       @depth = depth
       @left = left
       @right = @left + 1
-      # puts "  " * @depth + "#{self.name.to_s.red} (#{@left.to_s.green}-#{@right.to_s.green})"
       children = self.children(false)
       for child in children
         @right = child.rebuild_tree!(@right, @depth + 1) + 1
       end
-      # puts "  " * @depth + "> #{@left.to_s.green}-#{@right.to_s.yellow}" if children.any?
       return @right
     end
 

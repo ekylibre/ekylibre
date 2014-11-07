@@ -21,8 +21,8 @@ module Ekylibre
     config.i18n.available_locales = [:arb, :eng, :fra, :jpn, :spa]
     I18n.config.enforce_available_locales = false
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :eng
-    config.i18n.locale = :eng
+    config.i18n.default_locale = :fra
+    config.i18n.locale = :fra
 
     # Configure defaults for generators
     config.generators do |g|

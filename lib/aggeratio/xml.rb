@@ -12,7 +12,6 @@ module Aggeratio
       code << "builder = Nokogiri::XML::Builder.new do |xml|\n"
       code << build_element(@root).dig
       code << "end\n"
-      # code << "puts builder.to_xml\n"
       code << "return builder.to_xml\n"
       return code
     end
@@ -20,9 +19,7 @@ module Aggeratio
     def build_element(element)
       method_name = "build_#{element.name}".to_sym
       code = ""
-      # code << "puts '  #{self.class.name} #{element.name.capitalize} (#{rand(1000000).to_s(36)})'.red\n"
       if respond_to?(method_name)
-        # code << "#{element.name}\n"
         code << conditionate(send(method_name, element), element)
       else
         Rails.logger.warn("Markup <#{element.name}> is unknown or not implemented")

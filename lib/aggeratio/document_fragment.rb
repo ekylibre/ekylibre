@@ -15,7 +15,6 @@ module Aggeratio
       code << "builder = Nokogiri::HTML::Builder.with(#{document_variable}) do |xml|\n"
       code << build_element(@root).dig
       code << "end\n"
-      # code << "puts #{document_variable}.to_html\n"
       code << "return #{document_variable}.to_html.html_safe\n"
       return code
     end
@@ -23,9 +22,7 @@ module Aggeratio
     def build_element(element)
       method_name = "build_#{element.name}".to_sym
       code = ""
-      # code << "puts '  #{self.class.name} #{element.name.capitalize} (#{rand(1000000).to_s(36)})'.red\n"
       if respond_to?(method_name)
-        # code << "#{element.name}\n"
         code << conditionate(send(method_name, element), element)
       else
         Rails.logger.warn("Markup <#{element.name}> is unknown or not implemented")
@@ -139,7 +136,6 @@ module Aggeratio
 
         if element.has_attribute?("in")
           code << "    for #{item} in #{element.attr("in")}\n"
-          # code << "      puts #{item}.inspect.green\n"
           code << body_code.dig(3)
           code << "    end\n"
         else

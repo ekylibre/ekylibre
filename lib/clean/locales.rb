@@ -51,7 +51,7 @@ module Clean
                 end
               end
             else
-              puts "#{source.first.inspect} nor supported"
+              Rails.logger.error "#{source.first.inspect} nor supported"
             end
           end
         end

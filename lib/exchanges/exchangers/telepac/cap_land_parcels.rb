@@ -40,9 +40,6 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
       # if record.geometry
       #   shapes[record.attributes['NUMERO'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
       # end
-      # puts "Record number #{record.index}:"
-      # puts "  Geometry: #{record.geometry.as_text}"
-      # puts "  Attributes: #{record.attributes.inspect}"
       w.check_point
     end
   end

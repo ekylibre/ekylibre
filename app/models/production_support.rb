@@ -193,21 +193,17 @@ class ProductionSupport < Ekylibre::Record::Base
     # m = net_mass of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      # puts "I#{intervention.id}".red
       for input in intervention.casts.of_role('soil_enrichment-input')
-        # puts "C#{input.id}".yellow
         m = (input.actor ? input.actor.net_mass(input).to_f(:kilogram) : 0.0)
         # TODO for method phosphorus_concentration(input)
         n = (input.actor ? input.actor.phosphorus_concentration.to_f(:unity) : 0.0)
         balance <<  m * n
       end
     end
-    # puts balance.inspect.green
     # if net_surface_area, make the division
     if surface_area = self.storage_net_surface_area(self.started_at)
       phosphorus_unity_per_hectare = (balance.compact.sum / surface_area.to_f(:hectare))
     end
-    # puts phosphorus_unity_per_hectare.inspect.red
     return phosphorus_unity_per_hectare
   end
 

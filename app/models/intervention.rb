@@ -274,10 +274,10 @@ class Intervention < Ekylibre::Record::Base
           variant = producer.variant
           produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.actor.tracking)
           unless produced.actor.save
-            puts '*' * 80 + variant.matching_model.name
-            puts produced.actor.inspect
-            puts '-' * 80
-            puts produced.actor.errors.inspect
+            logger.debug '*' * 80 + variant.matching_model.name
+            logger.debug produced.actor.inspect
+            logger.debug '-' * 80
+            logger.debug produced.actor.errors.inspect
             raise "Stop"
           end
         elsif variable.produced?

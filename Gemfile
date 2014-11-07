@@ -13,11 +13,11 @@ gem 'apartment'
 # Code manipulation
 gem 'code_string'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.1'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+# Gems used only for assets and not required in production
+group :assets do
+  gem 'sass-rails', '~> 4.0.1' # SCSS for stylesheets
+  gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
+end
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.1'
@@ -49,21 +49,15 @@ gem 'jbuilder'
 gem 'timecop'
 
 # Background jobs
-gem 'sidekiq'
+gem 'sidekiq', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
 # Use unicorn as the app server
 # gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -87,9 +81,6 @@ gem 'jc-validates_timeliness', '~> 3.1.1'
 # Authentication & Authorization
 gem 'devise'
 gem 'devise-i18n-views'
-# gem 'simple_token_authentication'
-# gem 'doorkeeper'
-# gem 'rack-cors', require: 'rack/cors'
 
 # Attachments
 gem 'paperclip'
@@ -102,13 +93,9 @@ gem 'cocoon'
 # I18n and localeapp
 gem 'i18n-complements', '>= 0.0.12'
 gem 'http_accept_language'
-# gem 'i18n-spec'
-# gem 'localeapp'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'
-# gem 'mechanize'
-# gem 'savon', '= 2.2.0' # waiting for SOAP and EDE Webservices
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -116,12 +103,12 @@ gem 'treetop'
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
 gem 'beardley', '~> 1.1.0'
-gem 'beardley-barcode'
-gem 'beardley-batik'
-gem 'beardley-charts'
-gem 'beardley-groovy'
-gem 'beardley-xml'
-gem 'beardley-open_sans'
+gem 'beardley-barcode', require: false
+gem 'beardley-batik', require: false
+gem 'beardley-charts', require: false
+gem 'beardley-groovy', require: false
+gem 'beardley-xml', require: false
+gem 'beardley-open_sans', require: false
 
 # Import/Export
 gem 'fastercsv'
@@ -131,13 +118,13 @@ gem 'rgeo-geojson'
 gem 'rubyzip'
 
 # Demo data
-gem 'ffaker'
+gem 'ffaker', require: false
 
 # Reading RSS feeds
-gem 'feedjira'
+gem 'feedjira', require: false
 
 # Adds colors in terminal
-gem 'colored'
+gem 'colored', require: false
 
 # Compass
 gem 'compass-rails'

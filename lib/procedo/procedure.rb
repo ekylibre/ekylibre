@@ -266,7 +266,6 @@ module Procedo
         # Destinations
         for destination in variable.destinations
           code << "    def impact_destination_#{destination}!\n"
-          code << "      # puts \"#{variable.name}#impact_destination_#{destination}!(\#{@destinations[:#{destination}]})\".yellow\n"
           # Updates handlers through backward formula
           for converter in variable.backward_converters_from(destination)
             rubyist.value = "@destinations[:#{destination}]"
@@ -278,7 +277,7 @@ module Procedo
             code << "          impact_handler_#{converter.handler.name}!\n"
             code << "        end\n"
             code << "      rescue Procedo::Errors::UncomputableFormula => e\n"
-            code << "        puts e.message.red\n"
+            code << "        Rails.logger.error e.message\n"
             code << "      end\n"
           end
           # Impacts on handlers of other variables that uses "our" destination
@@ -311,7 +310,6 @@ module Procedo
 
           # Method to impact handler's new value
           code << "    def impact_handler_#{h.name}!\n"
-          code << "      # puts \"#{variable.name}#impact_handler_#{h.name}!\".yellow\n"
           if h.check_usability?
             code << "      return unless can_use_#{h.name}?\n"
           end
@@ -320,12 +318,11 @@ module Procedo
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
             code << "        if value != @destinations[:#{converter.destination}]\n"
-            code << "          puts \"#{variable.name}#value: \#{value.inspect} (\#{@destinations[:#{converter.destination}].inspect})\".blue\n"
             code << "          @destinations[:#{converter.destination}] = value\n"
             code << "          impact_destination_#{converter.destination}!\n"
             code << "        end\n"
             code << "      rescue Procedo::Errors::UncomputableFormula => e\n"
-            code << "        puts e.message.red\n"
+            code << "        Rails.logger.error e.message\n"
             code << "      end\n"
           end
           code << "    end\n\n"
@@ -333,8 +330,6 @@ module Procedo
 
         # Actor or Variant
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
-        code << "      puts \"#{variable.name}#impact_#{variable.new? ? :variant : :actor}!\".yellow\n"
-
         if variable.others.detect{|other| other.parted? and other.producer == variable }
           variant      = (variable.new? ? "@variant" : "@actor.variant")
           variant_test = (variable.new? ? variant : "@actor and #{variant}")
@@ -373,7 +368,7 @@ module Procedo
               end
               code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
               code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
-              code << "          puts e.message.red\n"
+              code << "          Rails.logger.error e.message\n"
               code << "        end\n"
               code << "      end\n"
             end
@@ -390,7 +385,7 @@ module Procedo
             end
             code << "          impact_destination_#{destination}!\n"
             code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
-            code << "          puts e.message.red\n"
+            code << "          Rails.logger.error e.message\n"
             code << "        end\n"
           end
         end
@@ -588,8 +583,6 @@ module Procedo
       before = proc.casting
       proc.impact!
       after = proc.casting
-      #puts before.inspect.red
-      #puts after.inspect.green
       return after
     end
 

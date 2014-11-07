@@ -31,7 +31,6 @@ class Backend::Cells::WeatherCellsController < Backend::CellsController
     # Nothing
     @forecast = nil
     logger.warn e.message
-    puts e.message.red
   end
 
 end

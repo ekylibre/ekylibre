@@ -86,9 +86,9 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
       # filters[:journal_and_code] = entries_to_import.collect{|e| "#{e.journal}-#{e.code}"}
       # for k, v in filters
       #   if v.uniq.sort == v.sort
-      #     puts "Filter #{k} works"
+      #     Rails.logger.debug "Filter #{k} works"
       #   else
-      #     puts "Filter #{k} cannot work!"
+      #     Rails.logger.debug "Filter #{k} cannot work!"
       #   end
       # end
       # raise "Stop"
@@ -143,7 +143,7 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
 
 
       if unused_entries.any?
-        puts "#{unused_entries.size} destroyed entries (on #{total_count})"
+        Rails.logger.warn "#{unused_entries.size} destroyed entries (on #{total_count})"
         JournalEntry.destroy(unused_entries)
       end
 

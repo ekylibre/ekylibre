@@ -96,8 +96,6 @@ module Ekylibre::Record
 
           code << "def undeal!(affair = nil)\n"
           code << "  if affair and affair.id != self.#{affair_id}\n"
-          # code << "    puts self.inspect.red\n"
-          # code << "    puts affair.inspect.blue\n"
           code << "    raise ArgumentError, 'Cannot undeal from this unknown affair'\n"
           code << "  end\n"
           code << "  Ekylibre::Record::Base.transaction do\n"

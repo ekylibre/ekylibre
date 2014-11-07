@@ -5,6 +5,9 @@ module Ekylibre
     class Base
 
       def initialize(options = {})
+	require 'ffaker' unless defined? Faker
+	require 'colored' unless defined? Colored
+
         @verbose = !options[:verbose].is_a?(FalseClass)
         @mode = options[:mode].to_s.downcase
         @mode = "normal" if @mode.blank?

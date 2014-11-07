@@ -132,7 +132,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validate do
     if self.nature
       unless Nomen::Varieties.all(self.nature_variety).include?(self.variety.to_s)
-        puts "#{self.nature_variety}#{Nomen::Varieties.all(self.nature_variety)} not include #{self.variety.inspect}".red
+        logger.debug "#{self.nature_variety}#{Nomen::Varieties.all(self.nature_variety)} not include #{self.variety.inspect}"
         errors.add(:variety, :invalid)
       end
       if self.derivative_of

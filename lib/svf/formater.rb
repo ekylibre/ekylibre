@@ -107,8 +107,6 @@ module SVF
       code << "line = self.parse_line(#{options[:file]}.gets)\n"
       code << "line_number += 1\n"
       code << "while (line)\n"
-      # code << "  puts \"\#{__LINE__} \#{line.class.name}\"\n"
-      # code << "  puts line.inspect\n"
       code << "  "
       for sibling in siblings
         line = @lines[sibling.line]
