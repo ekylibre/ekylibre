@@ -150,10 +150,20 @@ class DocumentTemplate < Ekylibre::Record::Base
     return nil
   end
 
+  def load_beardley
+    require 'beardley-barcode'
+    require 'beardley-batik'
+    require 'beardley-charts'
+    require 'beardley-groovy'
+    require 'beardley-xml'
+    require 'beardley-open_sans'
+  end
+
   # Print a document with the given datasource
   # Store if needed by template
   # @param datasource XML representation of data used by the template
   def print(datasource, key, format = :pdf, options = {})
+    load_beardley unless defined? Beardley::Barcode
     # Load the report
     report = Beardley::Report.new(self.source_path)
     # Call it with datasource
@@ -169,6 +179,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Store if needed by template
   # @param datasource XML representation of data used by the template
   def export(datasource, key, format = :pdf, options = {})
+    load_beardley unless defined? Beardley::Barcode
     # Load the report
     report = Beardley::Report.new(self.source_path)
     # Call it with datasource
