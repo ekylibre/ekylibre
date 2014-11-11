@@ -2341,6 +2341,7 @@ fra:
         female_pig_band: "Bande de truie"
         female_young_cattle_herd: "Troupeau de génisses"
         female_young_cow: "Génisse"
+        female_young_pig_band: "Bande de porcelets femelles"
         fercoril_corabel_hazelnut: "Noisette Fercoril corabel"
         feriale_hazelnut: "Noisette Feriale"
         fernor_walnut: "Noix Fernor"
@@ -2429,6 +2430,7 @@ fra:
         male_pig_band: "Bande de vérrat"
         male_young_cattle_herd: "Troupeau de taurillons"
         male_young_cow: "Taurillon"
+        male_young_pig_band: "Bande de porcelets mâles"
         malic_acid_25kg: "Acide malique ‒ 25kg"
         manager: "Responsable"
         manual_implanter: "Plantoir"
@@ -2573,6 +2575,7 @@ fra:
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
         winter_oat_crop: "Culture d’avoine d’hiver"
         young_goat: "Chevreau"
+        young_pig_band: "Bande de porcelets"
         zea_herbicide: "Herbicide maïs"
       name: "Variantes de produits"
       property_natures:
@@ -3445,7 +3448,7 @@ fra:
         sub_zone: "Sous-zone"
         sugar: "Sucre"
         sus: "Porcin"
-        sus_scrofa: "Porc domestique" #?
+        sus_scrofa: "Porc domestique"
         sus_scrofa_carelie: "Porc domestique Carelie"
         sus_scrofa_corse: "Porc domestique Corse"
         sus_scrofa_creole_de_guadeloupe: "Porc domestique Creole de guadeloupe"

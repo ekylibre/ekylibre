@@ -154,6 +154,24 @@
             unit_name="band"
             frozen_indicators_values="sex: male, reproductor: false"
               />
+      <item name="female_young_pig_band"
+            nature="pig_band"
+            derivative_of="sus"
+            unit_name="band"
+            frozen_indicators_values="sex: female, reproductor: false"
+              />
+      <item name="male_young_pig_band"
+            nature="pig_band"
+            derivative_of="sus"
+            unit_name="band"
+            frozen_indicators_values="sex: male, reproductor: false"
+              />
+      <item name="young_pig_band"
+            nature="pig_band"
+            derivative_of="sus"
+            unit_name="band"
+            frozen_indicators_values="sex: undefined, reproductor: false"
+              />
       <!-- MILK -->
       <item name="cow_milk"
             nature="milk"
