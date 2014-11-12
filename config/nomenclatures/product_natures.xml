@@ -700,14 +700,6 @@
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"
             />
-      <item name="spread_renting"
-            category="equipment_rent"
-            variety="service"
-            population_counting="decimal"
-            abilities="spread"
-            variable_indicators="population"
-            frozen_indicators="usage_duration"
-            />
       <item name="mineral_cleaner"
             category="other_consumable"
             variety="preparation"
@@ -1272,6 +1264,31 @@
             abilities=""
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
+            />
+        <!-- SERVICES -->
+        <item name="spread_renting"
+            category="equipment_rent"
+            variety="service"
+            population_counting="decimal"
+            abilities="spread"
+            variable_indicators="population"
+            frozen_indicators="usage_duration"
+            />
+        <item name="training_course"
+            category="service"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="usage_duration"
+            />
+        <item name="project_management"
+            category="service"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="usage_duration"
             />
     </items>
 

@@ -8,7 +8,7 @@
       <property-nature name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <property-nature name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,drop,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,barn,legal,bolt,pill,desktop,gift,road,fish"/>
+      <property-nature name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,drop,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,legal,bolt,pill,desktop,gift,road,fish,user"/>
       <property-nature name="purchasable" type="boolean" required="true" default="false"/>
       <property-nature name="saleable"    type="boolean" required="true" default="false"/>
       <property-nature name="depreciable" type="boolean" required="true" default="false"/>
@@ -464,6 +464,30 @@
             depreciable="false"
             storable="true"
             pictogram="bolt"
+            />
+         <!-- services -->
+         <item name="service"
+            charge_account="services_expenses"
+            product_account="services_revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="user"
+            />
+		<item name="building_rental"
+            charge_account="leasing_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            pictogram="building"
+            />
+         <item name="car_rental"
+            charge_account="leasing_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            pictogram="car"
             />
     </items>
 

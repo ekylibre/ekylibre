@@ -149,17 +149,21 @@
       <item name="stocks_variation" fr_pcga="603"/>
       <item name="supply_stocks_variation" fr_pcga="6031"/>
       <item name="other_supply_stocks_variation" fr_pcga="6032"/>
+      <item name="services_expenses" fr_pcg82="604"/>
       <item name="adult_animal_expenses" fr_pcga="6041"/>
       <item name="young_animal_expenses" fr_pcga="6042"/>
       <item name="other_animal_expenses" fr_pcga="6045"/>
+      <item name="equipments_expenses" fr_pcg82="605"/>
       <item name="vegetals_productions_expenses" fr_pcga="6051"/>
       <item name="animals_productions_expenses" fr_pcga="6054"/>
+      <item name="unstorable_expenses" fr_pcg82="606"/>
       <item name="water_expenses" fr_pcga="6061"/>
       <item name="gas_expenses" fr_pcga="6062"/>
       <item name="electricity_expenses" fr_pcga="6063"/>
       <item name="fuels_expenses" fr_pcga="6064"/>
       <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="little_office_equipment_expenses" fr_pcga="6066"/>
+      <item name="leasing_expenses" fr_pcg82="612"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131"/>
       <item name="equipment_rent_expenses" fr_pcga="6132"/>
       <item name="own_building_expenses" fr_pcga="6153"/>
@@ -200,7 +204,10 @@
       <item name="adult_animal_revenues" fr_pcga="7041"/>
       <item name="young_animal_revenues" fr_pcga="7042"/>
       <item name="other_animal_revenues" fr_pcga="7045"/>
+      <item name="services_revenues" fr_pcg82="706"/>
+      <item name="merchandising_revenues" fr_pcg82="707"/>
       <item name="fill_up_price_revenues" fr_pcga="7087"/>
+      <item name="discount_and_reductions_revenues" fr_pcg82="709"/>
       <item name="inventory_variations" fr_pcga="71"/>
       <item name="long_cycle_animals_inventory_variations" fr_pcga="7131"/>
       <item name="short_cycle_animals_inventory_variations" fr_pcga="7132"/>
