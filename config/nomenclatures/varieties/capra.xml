@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-capra" hierarchical="true">
+    <items>
+      <item name="capra_hircus" itis_tsn="180715"/>
+    </items>
+  </nomenclature>
+
+  <!-- http://www.brg.prd.fr/brg/pages/les_rg_en_france/rga_ruminants_Bd.php?espece=caprine&page=1 -->
+
+  <nomenclature name="varieties-capra_hircus" hierarchical="true">
+    <items>
+      <item name="capra_hircus_alpine" />
+      <item name="capra_hircus_angora" />
+      <item name="capra_hircus_corse" />
+      <item name="capra_hircus_creole" />
+      <item name="capra_hircus_des_fosses" />
+      <item name="capra_hircus_massif_central" />
+      <item name="capra_hircus_poitevine" />
+      <item name="capra_hircus_provencale" />
+      <item name="capra_hircus_pyreneenne" />
+      <item name="capra_hircus_rove" />
+      <item name="capra_hircus_saanen" />
+    </items>
+  </nomenclature>
+</nomenclatures>

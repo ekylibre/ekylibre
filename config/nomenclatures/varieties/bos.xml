@@ -6,30 +6,59 @@
     </items>
   </nomenclature>
 
+  <!-- http://www.brg.prd.fr/brg/pages/les_rg_en_france/rga_ruminants_Bd.php?espece=bovine&page=1 -->
+
   <nomenclature name="varieties-bos_taurus" hierarchical="true">
     <items>
       <item name="bos_taurus_abondance" />
       <item name="bos_taurus_armoricaine" />
       <item name="bos_taurus_aubrac" />
+      <item name="bos_taurus_aurochs" />
       <item name="bos_taurus_bazadaise" />
       <item name="bos_taurus_bearnaise" />
+      <item name="bos_taurus_betizu" />
+      <item name="bos_taurus_blanc_bleu" />
+      <item name="bos_taurus_bleu_de_bazougers" />
+      <item name="bos_taurus_bleu_du_nord" />
       <item name="bos_taurus_blonde_aquitaine" />
       <item name="bos_taurus_bordelaise" />
+      <item name="bos_taurus_brahman" />
+      <item name="bos_taurus_bretonne_pie_noire" />
       <item name="bos_taurus_brune" />
+      <item name="bos_taurus_canadienne" />
+      <item name="bos_taurus_casta" />
       <item name="bos_taurus_charolaise" />
+      <item name="bos_taurus_combat" />
       <item name="bos_taurus_corse" />
+      <item name="bos_taurus_creole_guadeloupe" />
+      <item name="bos_taurus_creole_martinique" />
       <item name="bos_taurus_ferrandaise" />
+      <item name="bos_taurus_flamande_originelle" />
+      <item name="bos_taurus_froment_du_leon" />
       <item name="bos_taurus_gasconne" />
+      <item name="bos_taurus_herefort" />
+      <item name="bos_taurus_herens" />
+      <item name="bos_taurus_inra_95" />
       <item name="bos_taurus_jersiaise" />
       <item name="bos_taurus_limousine" />
+      <item name="bos_taurus_lourdaise" />
+      <item name="bos_taurus_maraichine" />
+      <item name="bos_taurus_marine_landaise" />
       <item name="bos_taurus_mirandaise" />
       <item name="bos_taurus_montbeliarde" />
       <item name="bos_taurus_nantaise" />
       <item name="bos_taurus_normande" />
       <item name="bos_taurus_parthenaise" />
-      <item name="bos_taurus_french_holstein" />
+      <item name="bos_taurus_pie_rouge_des_plaines" />
+      <item name="bos_taurus_prim_holstein" />
+      <item name="bos_taurus_raco_di_biou" />
+      <item name="bos_taurus_rouge_des_pres" />
+      <item name="bos_taurus_rouge_flamande" />
       <item name="bos_taurus_salers" />
+      <item name="bos_taurus_saosnoise" />
+      <item name="bos_taurus_simmental_francaise" />
       <item name="bos_taurus_tarentaise" />
+      <item name="bos_taurus_villars_de_lans" />
       <item name="bos_taurus_vosgienne" />
     </items>
   </nomenclature>
