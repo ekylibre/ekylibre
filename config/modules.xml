@@ -125,6 +125,7 @@
         <page to="backend/subscriptions#edit"/>
         <page to="backend/subscriptions#list"/>
         <page to="backend/subscriptions#new"/>
+        <page to="backend/subscriptions#show"/>
         <page to="backend/subscriptions#unroll"/>
         <page to="backend/subscriptions#update"/>
       </item>
@@ -1074,6 +1075,7 @@
         <page to="backend/sequences#list"/>
         <page to="backend/sequences#load"/>
         <page to="backend/sequences#new"/>
+        <page to="backend/sequences#show"/>
         <page to="backend/sequences#unroll"/>
         <page to="backend/sequences#update"/>
       </item>
@@ -1270,6 +1272,7 @@
         <page to="backend/taxes#edit"/>
         <page to="backend/taxes#list"/>
         <page to="backend/taxes#new"/>
+        <page to="backend/taxes#show"/>
         <page to="backend/taxes#unroll"/>
         <page to="backend/taxes#update"/>
       </item>
@@ -1306,6 +1309,7 @@
         <page to="backend/incoming_payment_modes#list"/>
         <page to="backend/incoming_payment_modes#new"/>
         <page to="backend/incoming_payment_modes#reflect"/>
+        <page to="backend/incoming_payment_modes#show"/>
         <page to="backend/incoming_payment_modes#up"/>
         <page to="backend/incoming_payment_modes#unroll"/>
         <page to="backend/incoming_payment_modes#update"/>

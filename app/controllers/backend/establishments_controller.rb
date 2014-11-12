@@ -18,7 +18,7 @@
 #
 
 class Backend::EstablishmentsController < BackendController
-  manage_restfully except: :show
+  manage_restfully
 
   unroll
 

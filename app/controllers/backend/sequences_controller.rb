@@ -18,7 +18,7 @@
 #
 
 class Backend::SequencesController < BackendController
-  manage_restfully number_format: '[number|8]', last_number: 0, except: :show
+  manage_restfully number_format: '[number|8]', last_number: 0
 
   unroll
 

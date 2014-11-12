@@ -189,6 +189,7 @@ eng:
       edit: "Edit district: %{name}"
       index: "Districts"
       new: "New district"
+      # show: "District: %{name}"
     backend/document_archives:
       show: "Document archive: %{name}"
     backend/document_templates:
@@ -196,6 +197,7 @@ eng:
       index: "Document templates"
       load: "Load default document templates (overwrite the old templates)"
       new: "New document template"
+      # show: "Document template: %{name}"
     backend/documents:
       edit: "Edit document: %{name}"
       index: "Documents management"
@@ -229,6 +231,7 @@ eng:
       edit: "Edit establishment: %{name}"
       index: "Establishments"
       new: "New establishment"
+      # show: "Establishment: %{name}"
     backend/event_participations:
       edit: "Edit participation: %{participant_name}"
       # new: "New event participation"
@@ -304,6 +307,7 @@ eng:
       edit: "Edit incoming payment mode: %{name}"
       index: "Incoming payment modes"
       new: "New incoming payment mode"
+      # show: "Incoming payment mode: %{name}"
     backend/incoming_payments:
       edit: "Edit incoming payment %{number}"
       index: "Incoming payments"
@@ -419,6 +423,7 @@ eng:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
       new: "New disbursement mode"
+      # show: "Outgoing payment mode: %{name}"
     backend/outgoing_payments:
       edit: "Edit disbursement: %{number}"
       index: "Disbursements"
@@ -451,6 +456,7 @@ eng:
       edit: "Edit postal zone: %{name}"
       index: "Postal zones"
       new: "New postal zone"
+      # show: "Postal zone: %{name}"
     backend/prescriptions:
       edit: "Edit prescription: %{reference_number}"
       index: "Prescriptions"
@@ -559,6 +565,7 @@ eng:
       index: "Sequences"
       load: "Load missing sequences"
       new: "New sequence"
+      # show: "Sequence: %{name}"
     backend/settings:
       about: "About Ekylibre ERP"
       edit: "Configuration"
@@ -578,6 +585,7 @@ eng:
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Subscriptions"
       new: "New subscription"
+      # show: "Subscription: %{name}"
     backend/synchronizations:
       index: "Synchronizations"
       # run: "Run synchronization: %{name}"
@@ -586,10 +594,12 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "New tax"
+      # show: "Tax: %{name}"
     backend/teams:
       edit: "Edit team: %{name}"
       index: "Teams"
       new: "New team"
+      # show: "Team: %{name}"
     backend/trackings:
       edit: "Edit tracking: %{name}"
       index: "Trackings"

@@ -18,7 +18,7 @@
 #
 
 class Backend::PurchaseItemsController < BackendController
-  manage_restfully only: [:edit, :destroy]
+  manage_restfully only: [:edit, :update, :destroy]
 
   def show
     if @purchase_item = PurchaseItem.find_by(id: params[:id])

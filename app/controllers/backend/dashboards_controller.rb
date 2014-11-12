@@ -104,7 +104,7 @@ class Backend::DashboardsController < BackendController
 
     if @search[:count] == 1
       record = @search[:records].first
-      redirect_to controller: record['record_type'].tableize, action: :show, id: record['record_id'].to_i, :q => params[:q]
+      redirect_to controller: record['record_type'].tableize, action: :show, id: record['record_id'].to_i, q: params[:q]
       return
     end
 

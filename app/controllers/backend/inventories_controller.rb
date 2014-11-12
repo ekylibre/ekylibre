@@ -18,7 +18,7 @@
 #
 
 class Backend::InventoriesController < BackendController
-  manage_restfully except: :index # only: [:show, :destroy]
+  manage_restfully except: [:index, :show]
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -34,8 +34,8 @@ class Backend::InventoriesController < BackendController
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :refresh,   if: :editable?, method: :post, confirm: :are_you_sure
     t.action :reflect, if: :reflectable?, method: :post, image: "action", confirm: :are_you_sure
-    t.action :edit,    if: :updateable?
-    t.action :destroy, if: :destroyable?
+    t.action :edit
+    t.action :destroy
   end
 
   # Displays the main page with the list of inventories
