@@ -196,7 +196,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     if self.new_record?
       self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("printed_on <= ?", self.printed_on).limit(1).first
     else
-      self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("(printed_on = ? AND id < ?) OR printed_on <= ?", self.printed_on, self.id, self.printed_on).limit(1).first
+      self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("(printed_on = ? AND id < ?) OR printed_on < ?", self.printed_on, self.id, self.printed_on).limit(1).first
     end
   end
 
