@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, day, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, day, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL VIAL -->
@@ -80,7 +80,7 @@
             nature="sheep_herd"
             derivative_of="ovis"
             unit_name="band"
-            frozen_indicators_values=""
+            frozen_indicators_values="population: 1"
             />
       <item name="female_adult_sheep_herd"
             nature="female_adult_sheep_herd"
@@ -92,6 +92,16 @@
             nature="female_adult_sheep"
             unit_name="head"
             frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.15"
+            />
+      <item name="female_young_sheep"
+            nature="female_young_sheep"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: false, livestock_unit: 0.15"
+            />
+      <item name="male_young_sheep"
+            nature="male_young_sheep"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: false, livestock_unit: 0.15"
             />
       <item name="male_adult_sheep"
             nature="male_adult_sheep"
@@ -108,7 +118,7 @@
             nature="goat_herd"
             derivative_of="capra"
             unit_name="band"
-            frozen_indicators_values=""
+            frozen_indicators_values="population: 1"
             />
       <item name="female_adult_goat_herd"
             nature="female_adult_goat_herd"
@@ -132,6 +142,11 @@
             frozen_indicators_values="population: 1, livestock_unit: 0.09, reproductor: false"
             />
       <!-- PIG -->
+      <item name="pig_herd"
+            nature="pig_herd"
+            unit_name="head"
+            frozen_indicators_values="population: 1"
+              />
       <item name="male_adult_pig"
             nature="male_adult_pig"
             unit_name="head"
@@ -144,15 +159,18 @@
               />
       <item name="female_pig_band"
             nature="pig_band"
-            derivative_of="sus"
-            unit_name="band"
+            unit_name="head"
             frozen_indicators_values="sex: female, reproductor: true"
               />
       <item name="male_pig_band"
             nature="pig_band"
-            derivative_of="sus"
-            unit_name="band"
+            unit_name="head"
             frozen_indicators_values="sex: male, reproductor: false"
+              />
+       <item name="piglet_band"
+            nature="piglet_band"
+            unit_name="head"
+            frozen_indicators_values="reproductor: false"
               />
       <!-- MILK -->
       <item name="cow_milk"
@@ -190,6 +208,12 @@
             unit_name="subject"
             frozen_indicators_values="sex: male, reproductor: false"
             />
+      <item name="chicken_egg"
+            nature="egg"
+            derivative_of="gallus"
+            unit_name="unit"
+            frozen_indicators_values="net_volume: 80milliliter, net_mass: 53gram"
+            />
       <!-- DUCK -->
       <item name="duck_herd"
             nature="duck_herd"
@@ -201,11 +225,40 @@
             unit_name="subject"
             frozen_indicators_values=""
             />
-      <item name="chicken_egg"
-            nature="egg"
-            derivative_of="gallus"
-            unit_name="unit"
-            frozen_indicators_values="net_volume: 80milliliter, net_mass: 53gram"
+      <!-- RABBIT -->
+      <item name="rabbit_herd"
+            nature="rabbit_herd"
+            unit_name="band"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="female_adult_rabbit"
+            nature="female_rabbit"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.115"
+            />
+      <item name="male_adult_rabbit"
+            nature="male_rabbit"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.115"
+            />
+      <item name="young_rabbit"
+            nature="young_rabbit"
+            unit_name="head"
+            />
+      <!-- HORSE -->
+      <item name="horse_herd"
+            nature="horse_herd"
+            unit_name="band"
+            />
+      <item name="female_adult_horse"
+            nature="female_adult_horse"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.79"
+            />
+      <item name="male_adult_horse"
+            nature="female_adult_horse"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.83"
             />
       <!-- FISH -->
       <item name="salmon_band"
