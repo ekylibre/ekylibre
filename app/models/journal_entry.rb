@@ -134,7 +134,7 @@ class JournalEntry < Ekylibre::Record::Base
         conditions << "#{table}.printed_on <= #{self.connection.quote(stopped_at)}"
       end
       return self.connection.quoted_false if conditions.empty?
-      return '('+conditions.join(' AND ')+')'
+      return '(' << conditions.join(' AND ') << ')'
     end
   end
 
