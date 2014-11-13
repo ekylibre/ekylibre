@@ -38,4 +38,7 @@ class ExchangesTest < ActiveSupport::TestCase
     Exchanges.import(:legrain_epicea_accounts, FIRST_RUN.join("epicea","PlanComptable.Txt"))
   end
 
+  test "import of a legrain_epicea_journals file" do
+    Exchanges.import(:legrain_epicea_accounts, FIRST_RUN.join("epicea","ExportationDesEcritures.Txt"))
+  end
 end
