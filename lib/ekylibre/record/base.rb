@@ -109,6 +109,22 @@ module Ekylibre::Record
 
     class << self
 
+      def has_picture
+        has_attached_file :picture, {
+          url: '/backend/:class/:id/picture/:style',
+          path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
+          styles: {
+            thumb:     ["64x64>",  :jpg],
+            identity: ["180x180>", :jpg]
+          },
+          convert_options: {
+            thumb:    "-background white -gravity center -extent 64x64",
+            identity: "-background white -gravity center -extent 180x180"
+          }
+        }
+      end
+
+
       # Returns the definition of custom fields of the class
       def custom_fields
         return CustomField.of(self.name)

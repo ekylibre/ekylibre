@@ -41,7 +41,7 @@
 #
 class DocumentArchive < Ekylibre::Record::Base
   belongs_to :document, counter_cache: :archives_count, inverse_of: :archives
-  belongs_to :template, class_name: "DocumentTemplate"
+  belongs_to :template, class_name: "DocumentTemplate", inverse_of: :archives
   has_attached_file :file, {
     path: ':tenant/:class/:id_partition/:style.:extension',
     styles: {

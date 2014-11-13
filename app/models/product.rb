@@ -117,15 +117,7 @@ class Product < Ekylibre::Record::Base
   has_many :groups, through: :current_memberships
   has_one :incoming_delivery_item, class_name: "IncomingDeliveryItem", foreign_key: :product_id
 
-  has_attached_file :picture, {
-    :url => '/backend/:class/:id/picture/:style',
-    :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
-    :styles => {
-      :thumb => ["64x64#", :jpg],
-      :identity => ["180x180#", :jpg]
-      # :large => ["600x600", :jpg]
-    }
-  }
+  has_picture
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|

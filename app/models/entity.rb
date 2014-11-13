@@ -113,15 +113,7 @@ class Entity < Ekylibre::Record::Base
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where("sent_at IS NULL") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
-  has_attached_file :picture, {
-    :url => '/backend/:class/:id/picture/:style',
-    :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
-    :styles => {
-      :thumb => ["64x64#", :jpg],
-      :identity => ["180x180#", :jpg]
-      # :large => ["490x630#", :jpg] # Not used
-    }
-  }
+  has_picture
 
   # # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }

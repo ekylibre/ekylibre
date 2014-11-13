@@ -65,15 +65,7 @@ class ProductNature < Ekylibre::Record::Base
   has_many :variants, class_name: "ProductNatureVariant", foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
   has_one :default_variant, -> { order(:id) }, class_name: "ProductNatureVariant", foreign_key: :nature_id
 
-  has_attached_file :picture, {
-    :url => '/backend/:class/:id/picture/:style',
-    :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
-    :styles => {
-      :thumb => ["64x64#", :jpg],
-      :identity => ["180x180#", :jpg]
-      # :large => ["600x600", :jpg]
-    }
-  }
+  has_picture
 
   serialize :abilities_list, SymbolArray
   serialize :derivatives_list, SymbolArray
