@@ -631,7 +631,7 @@ module ApplicationHelper
     options[:class] = (options[:class].blank? ? 'btn' : options[:class].to_s+' btn')
     options[:class] << ' btn-' + icon.to_s if icon
     if url.is_a?(Hash)
-      url[:redirect] ||= request.path
+      url[:redirect] ||= request.fullpath
     end
     link_to(url, options) do
       # (icon ? content_tag(:span, '', :class => "icon")+content_tag(:span, name, :class => "text") : content_tag(:span, name, :class => "text"))

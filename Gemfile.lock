@@ -14,7 +14,7 @@ GEM
       activesupport (= 4.1.6)
       builder (~> 3.1)
       erubis (~> 2.7.0)
-    active_list (6.3.1)
+    active_list (6.4.0)
       arel (~> 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements
@@ -343,7 +343,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_list (>= 6.3.1)
+  active_list (>= 6.4.0)
   activerecord-postgis-adapter
   acts_as_list
   agric

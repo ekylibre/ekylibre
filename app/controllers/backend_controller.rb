@@ -205,16 +205,16 @@ class BackendController < BaseController
     raise "Why?"
     reset_session
     @current_user = nil
-    redirect_to(new_user_session_url(:redirect => url))
+    redirect_to(new_user_session_url(redirect: url))
   end
 
   def redirect_to_back(options={})
-    if !params[:redirect].blank?
+    if params[:redirect].present?
       redirect_to params[:redirect], options
       # elsif session[:history].is_a?(Array) and session[:history].second.is_a?(Hash)
       #   session[:history].delete_at(0) unless options[:direct]
       #   redirect_to session[:history][0][:path], options
-    elsif request.referer and request.referer != request.path
+    elsif request.referer and request.referer != request.fullpath
       redirect_to request.referer, options
     else
       redirect_to(root_url)
@@ -222,7 +222,7 @@ class BackendController < BaseController
   end
 
   def redirect_to_current(options={})
-    redirect_to_back(options.merge(:direct => true))
+    redirect_to_back(options.merge(direct: true))
   end
 
   # Autocomplete helper
