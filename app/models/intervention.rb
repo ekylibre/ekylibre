@@ -71,7 +71,7 @@ class Intervention < Ekylibre::Record::Base
   enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :natures, :number, :reference_name, :ressource_type, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state

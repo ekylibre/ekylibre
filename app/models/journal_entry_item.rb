@@ -70,7 +70,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   has_many :distributions, class_name: "AnalyticDistribution", foreign_key: :journal_entry_item_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :letter, allow_nil: true, maximum: 10

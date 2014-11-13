@@ -44,7 +44,7 @@ class EntityLink < Ekylibre::Record::Base
   belongs_to :entity_2, class_name: "Entity"
   enumerize :nature, in: Nomen::EntityLinkNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :entity_1_role, :entity_2_role, :nature, allow_nil: true, maximum: 255
   validates_presence_of :entity_1, :entity_1_role, :entity_2, :entity_2_role, :nature
   #]VALIDATORS]

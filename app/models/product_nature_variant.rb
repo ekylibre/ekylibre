@@ -57,7 +57,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_picture
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
   validates_length_of :commercial_name, :name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255

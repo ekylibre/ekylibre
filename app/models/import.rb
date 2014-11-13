@@ -44,7 +44,7 @@ class Import < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :archive_updated_at, :imported_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :archive_updated_at, :imported_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :archive_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :progression_percentage, allow_nil: true
   validates_length_of :archive_content_type, :archive_file_name, :nature, :state, allow_nil: true, maximum: 255

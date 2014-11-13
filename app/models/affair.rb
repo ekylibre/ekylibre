@@ -67,7 +67,7 @@ class Affair < Ekylibre::Record::Base
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :closed_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :accounted_at, :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :originator_type, allow_nil: true, maximum: 255

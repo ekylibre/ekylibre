@@ -45,7 +45,7 @@ class Crumb < Ekylibre::Record::Base
   belongs_to :intervention_cast
   has_one :worker, through: :user
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :read_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :accuracy, allow_nil: true
   validates_length_of :device_uid, :nature, allow_nil: true, maximum: 255
   validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at

@@ -41,7 +41,7 @@ class ProductJunction < Ekylibre::Record::Base
   belongs_to :tool, class_name: "Product"
   has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction, foreign_key: :junction_id, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :originator_type, allow_nil: true, maximum: 255
   #]VALIDATORS]
   validates_presence_of :started_at, :stopped_at

@@ -52,7 +52,7 @@ class Issue < Ekylibre::Record::Base
   has_picture
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :observed_at, :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :observed_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
   validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
