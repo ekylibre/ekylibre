@@ -65,7 +65,7 @@ class FinancialYear < Ekylibre::Record::Base
     unless year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order(started_on: :desc).limit(1).first
       # First
       unless first = self.first_of_all
-        started_on = Time.now
+        started_on = Date.today
         first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
       end
       return nil if first.started_on > searched_on
