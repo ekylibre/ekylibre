@@ -999,6 +999,7 @@ form.search {
   @include incrust-shadow;
   $size: $fs-normal;
   background: white;
+  @include clearfix;
   .fieldset-legend {
     padding: $vertical-gap $default-gap;
     *, label, span {
@@ -1171,6 +1172,10 @@ $controls-margin-left: round($label-width * 1.1);
     }
     .input-append {
       width: 100%;
+    }
+    .preview.picture {
+      margin-bottom: $default-gap;
+      @include margin-left(0);
     }
     .help-block {
       margin-top: round(0.3 * $default-gap);
