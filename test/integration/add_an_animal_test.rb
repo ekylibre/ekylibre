@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'test_helper'
 
-class AddANewAnimalTest < CapybaraIntegrationTest
+class AddAnAnimalTest < CapybaraIntegrationTest
 
   setup do
     # Need to go on page to set tenant
