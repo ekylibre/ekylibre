@@ -1,4 +1,3 @@
-
 fra:
   nomenclatures:
     abilities:
@@ -218,7 +217,7 @@ fra:
         seed_stock: "Stock de semences et plants"
         service_animal_asset_depreciations: "Ammortissements des animaux de services"
         service_animal_assets: "Animaux de service"
-        services: "Prestations de services"
+        services: "Prestations de services" #?
         services_expenses: "Achat de prestations de services"
         services_revenues: "Vente de prestations de services"
         share_asset_subsidies: "Quote-part des subventions d’investissement virée au resultat de l’exercice"
@@ -288,7 +287,7 @@ fra:
         fodder_crops: "Culture fourragères"
         fruits_crops: "Cultures fruitières"
         goat_farming: "Élevage caprins"
-        handicraft: "Artisanat"
+        handicraft: "Artisanat" #?
         maize_crops: "Culture de maïs"
         market_garden_crops: "Maraîchage"
         meadow: "Prairie"
@@ -308,8 +307,8 @@ fra:
         stocks: "Stocks"
         straw_cereal_crops: "Céréales à paille"
         vegetal_crops: "Production végétale"
-        vine: "Vigne"
-        vine_wine: "Vignes & vin"
+        vine: "Vigne" #?
+        vine_wine: "Vignes & vin" #?
         vines: "Vignes"
         wine: "Vin"
       name: "Familles d’activité"
@@ -513,7 +512,7 @@ fra:
       items:
         fr_pcg82: "Plan comptable général de 1982 ‒ Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole ‒ Arrêté du 11/12/1986"
-        ifrs: "Normes internationales d’information financière (IFRS)"
+        ifrs: "Normes internationales d’information financière (IFRS)" #?
       name: "Plans de comptes"
     chemical_elements:
       items:
@@ -717,7 +716,6 @@ fra:
         er: "Érythrée"
         es: "Espagne"
         et: "Éthiopie"
-        false: "Norvège"
         fi: "Finlande"
         fj: "Fidji"
         fk: "Falkland, Îles (Malvinas)"
@@ -815,6 +813,7 @@ fra:
         ng: "Nigéria"
         ni: "Nicaragua"
         nl: "Pays-Bas"
+        no: "Norvège"
         np: "Népal"
         nr: "Nauru"
         nu: "Niué"
@@ -1194,7 +1193,7 @@ fra:
         animal_list: "Liste des animaux"
         animal_sheet: "Fiche animal"
         balance_sheet: "Bilan comptable"
-        deposit: "Remise en banque"
+        deposit: "Remise en banque" #?
         deposit_list: "Remise en banque"
         entity_sheet: "Fiche tiers"
         exchange_accountancy_file_fr: "Fichier des Ecritures Comptables (FEC)"
@@ -1247,7 +1246,7 @@ fra:
         accounts: "Comptes comptables"
         activities: "Activités"
         affairs: "Affaires"
-        aggregators: "Agrégateurs"
+        aggregators: "Agrégateurs" #?
         analyses: "Analyses"
         analytic_distributions: "Répartitions analytiques"
         animal_foods: "Alimentation animale"
@@ -1328,7 +1327,7 @@ fra:
         taxes: "Taxes"
         teams: "Équipes"
         trackings: "Lots traçés"
-        transfers: "Transferts"
+        transfers: "Transferts" #?
         transformed_products: "Produits transformés"
         transports: "Transports"
         users: "Utilisateurs"
@@ -1875,8 +1874,8 @@ fra:
       name: "Abaque 4 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_nine:
       name: "Abaque 9 de la méthode de calcul de bilan azoté Poitou-Charentes"
-    nmp_poitou_charentes_abacus_one:
-      name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_one:  #?
+      name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes" #?
     nmp_poitou_charentes_abacus_seven:
       name: "Abaque 7 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_six:
@@ -2164,7 +2163,7 @@ fra:
         actilact: "Actilact"
         additive: "Adjuvant"
         air_compressor: "Compresseur"
-        alfalfa_seed: "Semence de luzerne"
+        alfalfa_seed: "Semence de luzerne" #?
         all_inclusive_corn_sower: "Semoir Maïs tout intégré"
         animal_building: "Bâtiment d’accueil pour les animaux"
         animal_division: "Zone accueillant des animaux"
@@ -2222,7 +2221,7 @@ fra:
         chicken_egg: "Oeuf de poule"
         complete_herbicide: "Herbicide total"
         concrete_tank: "Cuve béton"
-        coop:adexar_5_l: "Adexar 5 l"
+        coop:adexar_5_l: "Adexar 5 l" #?
         coop:adexar_5l: "Adexar 5 l"
         coop:ammonitre_27_____vr: "Ammonitre 27  vr"
         coop:ammonitre_33_5_____bb: "Ammonitre 33,5%  Big Bag"
@@ -2237,7 +2236,7 @@ fra:
         coop:balmora_5_l: "Balmora 5 l"
         coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux (r1 cel+gold) ‒ sac de 25kg"
         coop:bd_s_miradoux_r1_gau_red_25kg: "Semence de Blé dur miradoux (r1 gau+red) ‒ sac de 25kg"
-        coop:bd_s_miradoux_r1_gau_red_net_25kg: "Semence de Blé dur miradoux (r1 gau+red) ‒ sac de 25kg"
+        coop:bd_s_miradoux_r1_gau_red_net_25kg: "Semence de Blé dur miradoux (r1 gau+red) ‒ sac de 25kg" #?
         coop:bd_s_tablur_r1_cel_gold_net_25kg: "Semence de Blé dur tablur (r1 cel+gold) ‒ sac de 25kg"
         coop:bd_s_tablur_r1_gau_red_25kg: "Semence de Blé dur tablur (r1 gau+red) ‒ sac de 25kg"
         coop:bell_star_5_l: "Bell star 5 l"
@@ -2245,9 +2244,9 @@ fra:
         coop:bofix_20_l: "Bofix 20 l"
         coop:bofix_5_l: "Bofix 5 l"
         coop:bromotril_225_5_l: "Bromotril 225 5 l"
-        coop:bth_s_arezzo_r1_gau__red_lat_s25kg: "Semence de Blé tendre Arezzo (r1 gau+red) sac de 25kg"
+        coop:bth_s_arezzo_r1_gau__red_lat_s25kg: "Semence de Blé tendre Arezzo (r1 gau+red) sac de 25kg" #?
         coop:bth_s_arezzo_r1_gau_red_lat_s25kg: "Semence de Blé tendre Arezzo (r1 gau+red) sac de 25kg"
-        coop:bth_s_ascott_r1_gau__red_25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg"
+        coop:bth_s_ascott_r1_gau__red_25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg" #?
         coop:bth_s_ascott_r1_gau__red_s25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg"
         coop:bth_s_ascott_r1_gau_red_s25kg: "Semence de Blé tendre Ascott (r1 gau+red) sac de 25kg"
         coop:bth_s_caphorn_r1_cel_gold_net_25kg: "Semence de Blé tendre Caphorn (r1 cel gold) sac de 25kg"
@@ -2257,13 +2256,13 @@ fra:
         coop:bth_s_euclide_r1_gau_red_25kg: "Semence de Blé tendre Euclide (r1 gau+red) sac de 25kg"
         coop:bth_s_premio_r1_gau_red_25kg: "Semence de Blé tendre Premio (r1 gau red) sac de 25kg"
         coop:bth_s_rubisko_r1_gau___red_s25kg: "Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg"
-        coop:bth_s_rubisko_r1_gau_red_25kg: "Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg"
+        coop:bth_s_rubisko_r1_gau_red_25kg: "Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg" #?
         coop:buggy_plus_100_l: "Buggy plus 100 l"
         coop:callisto_5_l: "Callisto 5 l"
         coop:ceando_5_l: "Ceando 5 l"
         coop:chardex_5_l: "Chardex 5 l"
         coop:chlorure_60__gr____vr: "Chlorure 60 gr vrac"
-        coop:chlorure_60__gr_vr: "Chlorure 60 gr vrac"
+        coop:chlorure_60__gr_vr: "Chlorure 60 gr vrac" #?
         coop:da_lazuly_10kg: "Semence de Dactyle lazuly 10kg"
         coop:elite_4_sc_5_l: "Elite 4 sc 5 l"
         coop:esc_s_arturio_r1_gau_red_25kg: "Semence d’orge escourgeon Arturio (r1 gau+red) sac de 25kg"
@@ -2663,7 +2662,7 @@ fra:
         female_young_cow: "Génisse"
         female_young_sheep: "Agnelle"
         fermented_grape_juice: "Jus fermenté de raisin"
-        fertilizer_division: "Zone de stockage des engrais"
+        fertilizer_division: "Zone de stockage des engrais" #?
         flower_crop: "Culture florale"
         food_distributor: "Matériel de distribution d’aliments"
         food_equipment_division: "Zone de stockage des équipements et des aliments"
@@ -3143,7 +3142,7 @@ fra:
         bos_taurus_creole_martinique: "Bovin commun creole martinique"
         bos_taurus_ferrandaise: "Bovin commun Ferrandaise"
         bos_taurus_flamande_originelle: "Bovin commun flamande originelle"
-        bos_taurus_french_holstein: "Bovin commun Holstein"
+        bos_taurus_french_holstein: "Bovin commun Holstein" #?
         bos_taurus_froment_du_leon: "Bovin commun froment du leon"
         bos_taurus_gasconne: "Bovin commun Gasconne"
         bos_taurus_herefort: "Bovin commun herefort"
@@ -3564,7 +3563,7 @@ fra:
         solanum_lycopersicum_monte_carlo: "Tomate Monte Carlo"
         solanum_lycopersicum_new_zealand_pear: "Tomate New Zealand pear"
         solanum_lycopersicum_noire_de_crimee: "Tomate Noire de Crimée"
-        solanum_lycopersicum_olirose_de_saint-domingue: "Tomate Olirose de Saint-Domingue"
+        solanum_lycopersicum_olirose_de_saint_domingue: "Tomate Olirose de Saint-Domingue"
         solanum_lycopersicum_olivette: "Tomate Olivette"
         solanum_lycopersicum_omar_libanaise: "Tomate Omar Libanaise"
         solanum_lycopersicum_opalska: "Tomate Opalska"
