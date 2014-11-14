@@ -1,11 +1,11 @@
--# TODO Form
 = field_set do
-  = f.referenced_association :purchase, :field => :hidden
-  = f.referenced_association :variant#, :source => :purchaseables # , :new => true, "data-parameter-name" => "product_id", "data-dependents" => "#price-amount"
+  = hidden_field_tag(:purchase_id, f.object.purchase_id)
+  = f.association :purchase, as: :hidden
+  = f.referenced_association :variant #, :source => :purchaseables # , :new => true, "data-parameter-name" => "product_id", "data-dependents" => "#price-amount"
   = f.input :quantity
+  = f.input :unit_price_amount, wrapper: :append do
+    = f.input_field :unit_price_amount
+    %span.add-on= f.object.currency
+  = f.referenced_association :tax
   = f.input :annotation
   = f.custom_fields
-
--#= field_set :stocks, :depend_on => :product, :if => :stockable? do
-  = f.referenced_association :building
-  = f.input :tracking_serial, :if => :trackable?

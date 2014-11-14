@@ -106,8 +106,10 @@ class CatalogPrice < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.amount = self.amount.round(4) if self.amount
-    self.name = self.label
+    if self.amount
+      self.amount = self.amount.round(4)
+      self.name = self.label
+    end
   end
 
   # Compute name with given elements

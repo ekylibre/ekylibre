@@ -63,6 +63,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
+  delegate :name, to: :variant, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
   alias_attribute :name, :label
