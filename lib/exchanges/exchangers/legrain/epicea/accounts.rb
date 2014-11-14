@@ -10,7 +10,7 @@ Exchanges.add_importer :legrain_epicea_accounts do |file, w|
 
   rows.each do |row|
     account_number = row[0]
-    label = row[1].gsub(/"/, "'")
+    label = row[1].to_s.gsub(/"/, "'")
     usage = usage_by_account_number[account_number]
     if usage.present?
       account = Account.find_or_create_in_chart(usage)
