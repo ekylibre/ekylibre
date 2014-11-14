@@ -833,6 +833,7 @@ equipments_015:
   extjuncted: false
   id: 137
   initial_born_at: 1954-05-11 23:00:00.000000000 Z
+  initial_population: 0.0
   lock_version: 0
   name: Boucheuse manuelle
   nature_id: 57
@@ -851,6 +852,7 @@ equipments_016:
   extjuncted: false
   id: 138
   initial_owner_id: 13
+  initial_population: 0.0
   lock_version: 0
   name: Tireuse Coop
   nature_id: 56

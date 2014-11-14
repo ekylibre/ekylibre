@@ -1442,7 +1442,7 @@ jpn:
       # record_has_been_imported: "Record has been imported"
       # record_not_found: "Record not found"
       # select_entry_items_to_mark_together: "Select entry items to mark together"
-      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       # update_is_done: "The update has been made"
       x_unpointed_journal_entry_items:

@@ -168,3 +168,15 @@ productions_009:
   updated_at: 2014-11-07 17:21:46.199009000 Z
   updater_id: 1
   variant_id: 49
+productions_010:
+  activity_id: 3
+  campaign_id: 2
+  created_at: 2014-11-14 12:41:09.082846000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  name: Bovins 1870 (Draft)
+  state: draft
+  static_support: false
+  updated_at: 2014-11-14 12:41:09.082846000 Z
+  updater_id: 1

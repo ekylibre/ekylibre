@@ -78,28 +78,29 @@
 
 
   - b.hbox do
-    - if Nomen::Varieties[resource.variant.variety] <= :equipment
-      - b.cell(:supports) do
-        = list(:supports)
-    - elsif Nomen::Varieties[resource.variant.variety] <= :animal
-      - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
-      - b.cell(:supports) do
-        = list(:supports)
-    - elsif Nomen::Varieties[resource.variant.variety] <= :plant and resource.supports.any?
-      - b.cell :map do
-        - visualization do |v|
-          - v.serie :main, data
-          - v.background "OpenStreetMap.HOT"
-          - v.background "OpenStreetMap.Mapnik"
-          - v.background "Thunderforest.Landscape"
-          - v.background "Esri.WorldImagery"
-          - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
-          - v.choropleth :input_cost, :main, stop_color: "#1122DD"
-          - v.choropleth :time_cost, :main, stop_color: "#E77000"
-          - v.control :zoom
-          - v.control :scale
-          - v.control :fullscreen
-          - v.control :layer_selector
+    - if resource.variant
+      - if Nomen::Varieties[resource.variant.variety] <= :equipment
+        - b.cell(:supports) do
+          = list(:supports)
+      - elsif Nomen::Varieties[resource.variant.variety] <= :animal
+        - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
+        - b.cell(:supports) do
+          = list(:supports)
+      - elsif Nomen::Varieties[resource.variant.variety] <= :plant and resource.supports.any?
+        - b.cell :map do
+          - visualization do |v|
+            - v.serie :main, data
+            - v.background "OpenStreetMap.HOT"
+            - v.background "OpenStreetMap.Mapnik"
+            - v.background "Thunderforest.Landscape"
+            - v.background "Esri.WorldImagery"
+            - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
+            - v.choropleth :input_cost, :main, stop_color: "#1122DD"
+            - v.choropleth :time_cost, :main, stop_color: "#E77000"
+            - v.control :zoom
+            - v.control :scale
+            - v.control :fullscreen
+            - v.control :layer_selector
 
       - b.cell :cropping_plan_chart do
         :ruby

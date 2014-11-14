@@ -35,7 +35,7 @@ class Backend::SequencesController < BackendController
   # Load missing sequences for current company
   def load
     Sequence.load_defaults
-    redirect_to_current
+    redirect_to_back
   end
 
 end

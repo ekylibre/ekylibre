@@ -38,13 +38,13 @@ class Backend::UsersController < BackendController
   def lock
     return unless @user = find_and_check
     @user.lock
-    redirect_to_current
+    redirect_to_back
   end
 
   def unlock
     return unless @user = find_and_check
     @user.unlock
-    redirect_to_current
+    redirect_to_back
   end
 
 end

@@ -66,7 +66,7 @@ class Backend::ListingsController < BackendController
 
     rescue Exception => e
       notify_error(:fails_to_extract_listing, :message => e.message)
-      redirect_to_current
+      redirect_to_back
     end
   end
 
@@ -134,7 +134,7 @@ class Backend::ListingsController < BackendController
     if request.post?
       if params[:node]
         session[:listing_coordinate_column] = ListingNode.find_by_key(params[:node][:mail]).id
-        redirect_to_current
+        redirect_to_back
       else
         session[:mail] = params.dup
         session[:mail].delete(:attachment)

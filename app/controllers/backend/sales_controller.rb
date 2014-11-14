@@ -186,7 +186,7 @@ class Backend::SalesController < BackendController
       redirect_to action: :show, id: copy.id
       return
     end
-    redirect_to_current
+    redirect_to_back
   end
 
   list(:creditable_items, model: :sale_items, conditions: ["sale_id=? AND reduced_item_id IS NULL", 'params[:id]'.c]) do |t|

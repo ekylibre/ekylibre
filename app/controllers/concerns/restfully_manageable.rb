@@ -77,6 +77,7 @@ module RestfullyManageable
         if Dir.glob(lookup.join("show.*")).any?
           if options[:subclass_inheritance]
             code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
+            # code << "    notify :redirected_to_best_page\n"
             code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
             code << "    return\n"
             code << "  end\n"
@@ -221,14 +222,14 @@ module RestfullyManageable
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_higher\n"
       code << sort.gsub(/^/, "  ")
-      code << "  redirect_to_current\n"
+      code << "  redirect_to_back\n"
       code << "end\n"
 
       code << "def down\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_lower\n"
       code << sort.gsub(/^/, "  ")
-      code << "  redirect_to_current\n"
+      code << "  redirect_to_back\n"
       code << "end\n"
 
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

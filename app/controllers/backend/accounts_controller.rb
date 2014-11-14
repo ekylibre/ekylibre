@@ -127,7 +127,7 @@ class Backend::AccountsController < BackendController
   def unmark
     return unless @account = find_and_check
     @account.unmark(params[:letter]) if params[:letter]
-    redirect_to_current
+    redirect_to_back
   end
 
   def load

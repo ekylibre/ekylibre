@@ -72,7 +72,7 @@ class Backend::FinancialYearsController < BackendController
   def compute_balances
     return unless @financial_year = find_and_check
     @financial_year.compute_balances!
-    redirect_to_current
+    redirect_to_back
   end
 
 
