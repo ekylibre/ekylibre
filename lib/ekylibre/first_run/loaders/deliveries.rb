@@ -9,7 +9,7 @@ Ekylibre::FirstRun.add_loader :deliveries do |first_run|
   appro_price_template_tax = Tax.first
   building_division = BuildingDivision.first
   suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name)
-  suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
+  suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "EUR", :supplier => true)
 
 
   variants_transcode = {}.with_indifferent_access
