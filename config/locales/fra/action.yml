@@ -716,10 +716,10 @@ fra:
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
       close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
-    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
+    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande ?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
-    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
+    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer ?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
