@@ -62,10 +62,10 @@ class FinancialYear < Ekylibre::Record::Base
   # Find or create if possible the requested financial year for the searched date
   def self.at(searched_at = Time.now)
     searched_on = searched_at.to_date
-    unless year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order(started_on: :desc).first
+    unless year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order(started_on: :desc).limit(1).first
       # First
       unless first = self.first_of_all
-        started_on = Time.now.to_date
+        started_on = Date.today
         first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
       end
       return nil if first.started_on > searched_on
