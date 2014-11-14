@@ -68,7 +68,7 @@ module RestfullyManageable
 
       if actions.include?(:show)
         code << "def show\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+        code << "  return unless @#{record_name} = find_and_check\n"
         parents = [self]
         while parents.last.superclass < ActionController::Base
           parents << parents.last.superclass

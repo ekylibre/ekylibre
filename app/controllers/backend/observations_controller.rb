@@ -18,5 +18,5 @@
 #
 
 class Backend::ObservationsController < BackendController
-  manage_restfully importance: "Observation.importance.default_value".c, except: [:index, :show]
+  manage_restfully importance: "Observation.importance.default_value".c, except: [:index, :show], observed_at: 'Time.now'.c
 end

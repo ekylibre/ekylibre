@@ -120,7 +120,7 @@ class CatalogPrice < Ekylibre::Record::Base
   def save
     super if new_record?
     now = Time.now
-    stamper_id = self.class.stamper_class.stamper.id rescue nil
+    stamper_id = self.class.stamper_class.stamper rescue nil
     if old = self.old_record
       nc = self.class.create!(self.attributes.merge(thread: old.thread, variant_id: old.variant_id, catalog_id: old.catalog_id, indicator_name: old.indicator_name, started_at: now, created_at: now, updated_at: now, creator_id: stamper_id, updater_id: stamper_id).delete_if{|k,v| k.to_s == "id"})
       self.class.where(id: self.id).update_all(stopped_at: now)

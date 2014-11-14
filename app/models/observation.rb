@@ -53,6 +53,12 @@ class Observation < Ekylibre::Record::Base
       self.subject_type = self.subject.class.name
     end
     self.importance ||= self.class.importance.default_value
+    self.observed_at ||= Time.now
+    self.author_id ||= self.class.stamper_class.stamper rescue nil
+  end
+
+  def subject_type=(class_name)
+    super(class_name.to_s.classify.constantize.base_class.name)
   end
 
 end

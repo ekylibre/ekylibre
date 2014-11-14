@@ -63,20 +63,21 @@
 purchase_items_001:
   account_id: 140
   amount: 126.0
+  annotation: ''
   created_at: 2014-11-05 10:44:42.253242000 Z
   creator_id: 1
   currency: EUR
   id: 8
   indicator_name: population
   label: Adexar 5 l
-  lock_version: 0
+  lock_version: 1
   position: 1
   pretax_amount: 105.0
   purchase_id: 6
   quantity: 3.0
   tax_id: 3
   unit_price_amount: 35.0
-  updated_at: 2014-11-05 10:44:42.253242000 Z
+  updated_at: 2014-11-14 20:35:09.552121000 Z
   updater_id: 1
   variant_id: 8
 purchase_items_002:
@@ -100,21 +101,22 @@ purchase_items_002:
   variant_id: 25
 purchase_items_003:
   account_id: 16
-  amount: 45.6
+  amount: 50.16
+  annotation: ''
   created_at: 2014-11-05 13:40:18.865125000 Z
   creator_id: 1
   currency: EUR
   id: 10
   indicator_name: population
   label: Riflexine
-  lock_version: 0
+  lock_version: 2
   position: 2
-  pretax_amount: 38.0
+  pretax_amount: 41.8
   purchase_id: 6
-  quantity: 10.0
+  quantity: 11.0
   tax_id: 3
   unit_price_amount: 3.8
-  updated_at: 2014-11-05 13:40:18.865125000 Z
+  updated_at: 2014-11-14 20:49:41.747668000 Z
   updater_id: 1
   variant_id: 22
 purchase_items_004:
