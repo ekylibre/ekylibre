@@ -36,6 +36,8 @@
     <items>
       <item name="cucurbita_pepo_pepo" itis_tsn="527581"/>
       <item name="cucurbita_pepo_ovifera" itis_tsn="527580"/>
+      <item name="cucurbita_pepo_giromantiina" itis_tsn="527581"/>
+      <item name="cucurbita_pepo_round" itis_tsn="527581"/>
     </items>
   </nomenclature>
   <nomenclature name="varieties-cucurbita_moschata" hierarchical="true">
