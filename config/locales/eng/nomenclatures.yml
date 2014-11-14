@@ -811,7 +811,7 @@ eng:
         ng: "Nigeria"
         ni: "Nicaragua"
         nl: "Netherlands"
-        no: "Norway"
+        'no': "Norway"
         np: "Nepal"
         nr: "Nauru"
         nu: "Niue"
@@ -3083,8 +3083,12 @@ eng:
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anas: "Anas"                                       #< aves
+        anethum_graveolens: "Dill"                         #< apiaceae
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
+        anthriscus: "Chervil"                              #< apiaceae
+        anthriscus_cerefolium: "Garden Chervil"            #< anthriscus
+        anthriscus_nitida: "Alpine Chervil"                #< anthriscus
         aphidoidea: "Aphidoidea"                           #< insecta
         apiaceae: "Apiaceae"                               #< plant
         apis: "Apis"                                       #< insecta
@@ -3210,6 +3214,7 @@ eng:
         coccoidea: "Coccoidea"                             #< insecta
         compost: "Compost"                                 #< excrement
         concentrated_rectified_must: "Concentrated rectified must" #< preparation
+        coriandrum_sativum: "Coriander"                    #< apiaceae
         cork: "Cork"                                       #< packaged_matter
         cork_bottle: "Cork bottle"                         #< bottle
         corker: "Corker"                                   #< equipment
@@ -3267,6 +3272,10 @@ eng:
         ficus_carica: "Common fig"                         #< ficus
         ficus_carica_saint_pierre: "Common fig Saint-Pierre" #< ficus_carica
         flower: "Flower"                                   #< raw_matter
+        foeniculum: "Fennel"                               #< apiaceae
+        foeniculum_vulgare: "Sweet Fennel"                 #< foeniculum
+        foeniculum_vulgare_azoricum: "Florence Fennel"     #< foeniculum_vulgare
+        foeniculum_vulgare_piperitum: "Pepper Fennel"      #< foeniculum_vulgare
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
         forager: "Forager"                                 #< equipment
@@ -3380,9 +3389,16 @@ eng:
         ostreidae: "Ostreidae"                             #< mollusca
         ovis: "Ovis"                                       #< mammalia
         packaged_matter: "Packaged matter"                 #< preparation
+        pastinaca_sativa: "Parsnip"                        #< apiaceae
         peach: "Peach"                                     #< fruit
         pear: "Pear"                                       #< fruit
         peronosporaceae: "Peronosporaceae"                 #< fungus
+        petroselinum: "Parsley"                            #< apiaceae
+        petroselinum_crispum: "Parsley"                    #< petroselinum
+        petroselinum_crispum_crispum: "Parsley"            #< petroselinum_crispum
+        petroselinum_crispum_neapolitanum: "Italian Parsley" #< petroselinum_crispum
+        petroselinum_crispum_tuberosum: "Hamburg Parsley"  #< petroselinum_crispum
+        petroselinum_segetum: "Corn Parsley"               #< petroselinum
         phacelia: "Phacelia"                               #< boraginaceae
         phaseolus: "Phaseolus"                             #< fabaceae
         phytoptus_avellanae: "Phytoptus avellanae"         #< insecta

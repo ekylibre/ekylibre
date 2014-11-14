@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-anthriscus" hierarchical="true">
+    <items>
+      <item name="anthriscus_cerefolium" itis_tsn="29587"/>
+      <item name="anthriscus_nitida" itis_tsn="29585"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

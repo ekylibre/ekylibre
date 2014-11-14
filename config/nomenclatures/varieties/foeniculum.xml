@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-foeniculum" hierarchical="true">
+    <items>
+      <item name="foeniculum_vulgare" itis_tsn="29509"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="varieties-foeniculum_vulgare" hierarchical="true">
+    <items>
+      <item name="foeniculum_vulgare_piperitum" itis_tsn="29509"/>
+      <item name="foeniculum_vulgare_azoricum" itis_tsn="29509"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
