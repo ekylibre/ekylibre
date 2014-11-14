@@ -896,57 +896,6 @@ fungi_002:
   updater_id: 1
   variant_id: 1
   variety: fungus
-immatters_001:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 35
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Immatter #1'
-  nature_id: 1
-  number: '4001'
-  parent_id: 65
-  type: Immatter
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: immatter
-immatters_002:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 36
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Immatter #2'
-  nature_id: 1
-  number: '4002'
-  parent_id: 65
-  type: Immatter
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: immatter
-immatters_003:
-  category_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  extjuncted: false
-  id: 37
-  initial_population: 0.0
-  lock_version: 0
-  name: 'Immatter #3'
-  nature_id: 1
-  number: '4003'
-  parent_id: 65
-  type: Immatter
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-  variety: immatter
 land_parcels_001:
   born_at: 1959-03-02 08:00:00.000000000 Z
   category_id: 1

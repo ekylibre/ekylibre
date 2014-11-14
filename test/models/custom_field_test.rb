@@ -107,6 +107,7 @@ class CustomFieldTest < ActiveSupport::TestCase
           column_name = field.column_name
           field.destroy
           assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s == column_name}
+          assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s =~ /^\_/}
         end
       end
     end

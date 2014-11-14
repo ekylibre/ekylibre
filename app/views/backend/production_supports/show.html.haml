@@ -35,15 +35,14 @@
           data_series = []
           nitrogen_mass = []
 
-          if resource.selected_manure_management_plan_zone.nitrogen_input > 0
-            o = resource.selected_manure_management_plan_zone.nitrogen_input.to_d
-          end
+          nitrogen_input = resource.selected_manure_management_plan_zone.nitrogen_input || 0.0
           opened_at = resource.selected_manure_management_plan_zone.opened_at
 
-          data_series << { name: 'Fumure calculée (X) au ' + opened_at.strftime("%d/%m/%Y"), y: o.to_s.to_f, color: "#000077"}
+          # FIXME Some french to remove, arghh....
+          data_series << { name: 'Fumure calculée (X) au ' + opened_at.strftime("%d/%m/%Y"), y: nitrogen_input.to_s.to_f, color: "#000077"}
 
           # get the nitrogen input I from opened_at to now (in kg N / Ha )
-          balance = o
+          balance = nitrogen_input
           for intervention in resource.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now).reorder(:started_at)
             i = 0
             for input in intervention.casts.of_role('soil_enrichment-input')

@@ -43,7 +43,7 @@
 class DocumentTemplate < Ekylibre::Record::Base
   enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], default: :none, predicates: {prefix: true}
   enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
-  has_many :document_archives, foreign_key: :template_id, dependent: :nullify
+  has_many :archives, class_name: "DocumentArchive", foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :language, allow_nil: true, maximum: 3
   validates_length_of :archiving, :nature, allow_nil: true, maximum: 60
@@ -62,7 +62,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.document_archives.any?
+    self.archives.any?
   end
 
   before_validation do

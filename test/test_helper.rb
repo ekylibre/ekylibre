@@ -266,7 +266,7 @@ class ActionController::TestCase
           test_code << "end\n"
         elsif mode == :show_sti_record
           test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-          test_code << "assert_redirected_to root_url, #{context}\n"
+          test_code << "assert_redirected_to root_url\n"
           test_code << "#{model}.find_each do |record|\n"
           test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}\n"
           test_code << "  if record.type and record.type != '#{model.name}'\n"
@@ -278,7 +278,7 @@ class ActionController::TestCase
           test_code << "end\n"
         elsif mode == :show
           test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-          test_code << "assert_redirected_to root_url, #{context}\n"
+          test_code << "assert_redirected_to root_url\n" # , #{context}
           if model
             test_code << "#{model}.find_each do |record|\n"
             test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
