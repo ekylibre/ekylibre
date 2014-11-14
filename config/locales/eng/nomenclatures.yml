@@ -811,7 +811,7 @@ eng:
         ng: "Nigeria"
         ni: "Nicaragua"
         nl: "Netherlands"
-        'no': "Norway"
+        no: "Norway"
         np: "Nepal"
         nr: "Nauru"
         nu: "Niue"
@@ -3210,6 +3210,13 @@ eng:
         cerambycidae: "Cerambycidae"                       #< insecta
         cichorium: "Cichorium"                             #< asteraceae
         cichorium_endivia: "Curly chicory"                 #< cichorium
+        citrullus: "Watermelon"                            #< cucurbitaceae
+        citrullus_colocynthis: "Colocynth"                 #< citrullus
+        citrullus_lanatus: "Watermelon Common"             #< citrullus
+        citrullus_lanatus_gigérine: "Watermelon Gigerine"  #< citrullus_lanatus
+        citrullus_lanatus_moon_and_stars: "Watermelon Moon and Stars" #< citrullus_lanatus
+        citrullus_lanatus_orangeglo: "Watermelon Orangeglo" #< citrullus_lanatus
+        citrullus_lanatus_small_yellow: "Watermelon Small Yellow" #< citrullus_lanatus
         cleaner: "Cleaner"                                 #< equipment
         coccoidea: "Coccoidea"                             #< insecta
         compost: "Compost"                                 #< excrement
@@ -3239,9 +3246,50 @@ eng:
         crocus_sativus: "Saffron crocus"                   #< crocus
         croesus_septentrionalis: "Croesus septentrionalis" #< insecta
         cucumis: "Cucumis"                                 #< cucurbitaceae
-        cucumis_melo: "Muskmelon"                          #< cucumis
+        cucumis_anguria: "Bur Cucumber"                    #< cucumis
+        cucumis_dipsaceus: "Hedgehog Cucumber"             #< cucumis
+        cucumis_melo: "Cantaloup"                          #< cucumis
+        cucumis_metuliferus: "Horny Cucumber"              #< cucumis
+        # cucumis_sativus: "Cucumis sativus"               #< cucumis
+        cucumis_sativus_cucumber: "Garden Cucumber"        #< cucumis
+        cucumis_sativus_gherkin: "Gherkin"                 #< cucumis
         cucurbita: "Cucurbita"                             #< cucurbitaceae
-        cucurbita_pepo: "Zucchini"                         #< cucurbita
+        cucurbita_argyrosperma: "Cushaw"                   #< cucurbita
+        cucurbita_ficifolia: "Figleaf Gourd"               #< cucurbita
+        cucurbita_maxima: "WinterSquash"                   #< cucurbita
+        cucurbita_maxima_atlantic_giant: "Atlantic Giant"  #< cucurbita_maxima
+        cucurbita_maxima_baleine: "Whale Pumpkin"          #< cucurbita_maxima
+        cucurbita_maxima_blanc_de_mayet: "White Pumpkin"   #< cucurbita_maxima
+        cucurbita_maxima_bleu_de_hongrie: "Bleu de Hongrie Squash" #< cucurbita_maxima
+        cucurbita_maxima_buttercup: "Buttercup Squash"     #< cucurbita_maxima
+        cucurbita_maxima_dalencon: "Alencon Gourd"         #< cucurbita_maxima
+        cucurbita_maxima_de_lohio: "Ohio Squash"           #< cucurbita_maxima
+        cucurbita_maxima_du_chili: "Chilian Gourd"         #< cucurbita_maxima
+        cucurbita_maxima_galeuse_deysines: "Galeux d'Eysines Squash" #< cucurbita_maxima
+        cucurbita_maxima_green_hubbard: "Green Hubbard Squash" #< cucurbita_maxima
+        cucurbita_maxima_gros_jaune_de_paris: "Yellow Zucchini" #< cucurbita_maxima
+        cucurbita_maxima_marina_di_chioggia: "Marina di Chioggia Squash" #< cucurbita_maxima
+        cucurbita_maxima_maxima: "Common Winter Squash "   #< cucurbita_maxima
+        cucurbita_maxima_noir_du_bresil: "Black Brasilian Pumpkin" #< cucurbita_maxima
+        cucurbita_maxima_potimarron: "Potimarron"          #< cucurbita_maxima
+        cucurbita_maxima_rouge_vif_detampes: "Red Pumpkin" #< cucurbita_maxima
+        cucurbita_maxima_turban: "Turban Pumpkin"          #< cucurbita_maxima
+        cucurbita_maxima_vert_de_hokkaido: "Green Hokkaido" #< cucurbita_maxima
+        cucurbita_maxima_vert_olive: "Pumpkin Oliver"      #< cucurbita_maxima
+        cucurbita_moschata: "crookneck squash"             #< cucurbita
+        cucurbita_moschata_butternut: "Butternut"          #< cucurbita_moschata
+        cucurbita_moschata_futsu_black: "Futsu Black"      #< cucurbita_moschata
+        cucurbita_moschata_long_island: "Long Island Cheese" #< cucurbita_moschata
+        cucurbita_moschata_moschata: "Muscat de Provence"  #< cucurbita_moschata
+        cucurbita_moschata_naples: "Pleine de Naple Gourd" #< cucurbita_moschata
+        cucurbita_moschata_nice: "Nice Long Gourd"         #< cucurbita_moschata
+        cucurbita_moschata_tennessee: "Tennessee sweet potato" #< cucurbita_moschata
+        cucurbita_moschata_trombolino: "Trombolino d'Albenga" #< cucurbita_moschata
+        cucurbita_moschata_yokohama: "Yokohama"            #< cucurbita_moschata
+        cucurbita_moschata_zuckerkurbis: "Zuckerkürbis aus dem Berry" #< cucurbita_moschata
+        cucurbita_pepo: "Field Pumpkin"                    #< cucurbita
+        cucurbita_pepo_ovifera: "field pumkin"             #< cucurbita_pepo
+        cucurbita_pepo_pepo: "Zucchini"                    #< cucurbita_pepo
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
         curculio_nucum: "Curculio nucum"                   #< insecta
