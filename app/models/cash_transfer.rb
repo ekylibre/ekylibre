@@ -63,6 +63,12 @@ class CashTransfer < Ekylibre::Record::Base
 
   before_validation do
     self.transfered_at ||= Date.today
+    if self.emission_cash
+      self.emission_currency = self.emission_cash.currency
+    end
+    if self.reception_cash
+      self.reception_currency = self.reception_cash.currency
+    end
     if self.currency_rate.blank?
       if self.emission_currency == self.reception_currency
         self.currency_rate = 1
