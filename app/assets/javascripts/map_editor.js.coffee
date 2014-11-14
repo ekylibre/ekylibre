@@ -6,7 +6,7 @@
       box:
         height: 400
         width: null
-      back: "OpenStreetMap.HOT"
+      back: "Esri.WorldImagery"
       show: null
       edit: null
       change: null
