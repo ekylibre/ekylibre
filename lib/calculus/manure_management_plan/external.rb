@@ -1,3 +1,5 @@
+require 'calculus/manure_management_plan/method'
+
 module Calculus
   module ManureManagementPlan
 

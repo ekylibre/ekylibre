@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'calculus/manure_management_plan/poitou_charentes_2013'
+
 module Calculus
   module ManureManagementPlan
 

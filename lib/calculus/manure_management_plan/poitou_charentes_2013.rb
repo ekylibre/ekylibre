@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'calculus/manure_management_plan/method'
+
 module Calculus
   module ManureManagementPlan
 

@@ -69,7 +69,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   delegate :locked?, :opened_at, to: :plan
   delegate :name, to: :cultivable_zone
 
-  scope :selected, -> { joins(:plan).merge(ManureManagementPlan.selected) }
+  scope :selecteds, -> { joins(:plan).merge(ManureManagementPlan.selecteds) }
 
   protect do
     self.locked?
@@ -84,7 +84,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
 
   def compute
     for name, value in Calculus::ManureManagementPlan.compute(parameters)
-      if self.class.columns_hash.keys.map(&:to_s).include?(name.to_s)
+      if %w(absorbed_nitrogen_at_opening expected_yield humus_mineralization intermediate_cultivation_residue_mineralization irrigation_water_nitrogen maximum_nitrogen_input meadow_humus_mineralization mineral_nitrogen_at_opening nitrogen_at_closing nitrogen_input nitrogen_need organic_fertilizer_mineral_fraction previous_cultivation_residue_mineralization soil_production).include?(name.to_s)
         self.send("#{name}=", value.to_f(:kilogram_per_hectare))
       end
     end

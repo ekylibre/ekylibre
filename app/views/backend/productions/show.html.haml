@@ -148,6 +148,9 @@
               %i.picto{class: "picto-#{type}"}
               = cost.l(currency: Preference[:currency])
 
+  - b.hbox do
+    - b.cell Production.human_attribute_name(:supports) do
+      = list :supports
 
     -#b.cell(:markers) do
       = list(:markers)

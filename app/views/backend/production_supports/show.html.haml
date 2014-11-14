@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  - t.edit @production_support
+  - t.edit resource
 
 = beehive do |b|
   - b.hbox do
@@ -124,11 +124,11 @@
   - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|
-        - t.new(params: {controller: :interventions, :production_support_id => @production_support.id})
+        - t.new(params: {controller: :interventions, :production_support_id => resource.id})
       = list(:interventions)
-    - b.cell(:markers) do
+    -# b.cell(:markers) do
       = toolbar do |t|
-        - t.new(params: {controller: :production_support_markers, :support_id => @production_support.id})
+        - t.new(params: {controller: :production_support_markers, :support_id => resource.id})
       = list(:markers)
     - b.cell do
       = attributes_list do |l|

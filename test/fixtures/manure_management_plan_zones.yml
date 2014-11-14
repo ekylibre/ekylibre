@@ -249,3 +249,67 @@ manure_management_plan_zones_007:
   support_id: 12
   updated_at: 2014-11-05 13:53:36.130077000 Z
   updater_id: 1
+manure_management_plan_zones_008:
+  administrative_area: france_department_gironde
+  computation_method: external
+  created_at: 2014-11-14 20:07:53.707701000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 0.0
+  id: 28
+  lock_version: 1
+  plan_id: 4
+  support_id: 6
+  updated_at: 2014-11-14 20:07:53.707701000 Z
+  updater_id: 1
+manure_management_plan_zones_009:
+  administrative_area: france_department_gironde
+  computation_method: external
+  created_at: 2014-11-14 20:07:53.709185000 Z
+  creator_id: 1
+  cultivation_variety: triticum_aestivum
+  expected_yield: 0.0
+  id: 29
+  lock_version: 1
+  plan_id: 4
+  support_id: 7
+  updated_at: 2014-11-14 20:07:53.709185000 Z
+  updater_id: 1
+manure_management_plan_zones_010:
+  administrative_area: france_department_gironde
+  computation_method: external
+  created_at: 2014-11-14 20:07:53.710012000 Z
+  creator_id: 1
+  expected_yield: 0.0
+  id: 30
+  lock_version: 1
+  plan_id: 4
+  support_id: 14
+  updated_at: 2014-11-14 20:07:53.710012000 Z
+  updater_id: 1
+manure_management_plan_zones_011:
+  administrative_area: france_department_gironde
+  computation_method: external
+  created_at: 2014-11-14 20:07:53.710930000 Z
+  creator_id: 1
+  cultivation_variety: zea
+  expected_yield: 0.0
+  id: 31
+  lock_version: 1
+  plan_id: 4
+  support_id: 12
+  updated_at: 2014-11-14 20:07:53.710930000 Z
+  updater_id: 1
+manure_management_plan_zones_012:
+  administrative_area: france_department_gironde
+  computation_method: external
+  created_at: 2014-11-14 20:07:53.711711000 Z
+  creator_id: 1
+  cultivation_variety: vitis_vinifera
+  expected_yield: 0.0
+  id: 32
+  lock_version: 1
+  plan_id: 4
+  support_id: 16
+  updated_at: 2014-11-14 20:07:53.711711000 Z
+  updater_id: 1
