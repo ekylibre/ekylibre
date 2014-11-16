@@ -1904,3 +1904,16 @@ intervention_casts_115:
   updated_at: 2014-11-07 19:36:53.142995000 Z
   updater_id: 1
   variant_id: 15
+intervention_casts_116:
+  created_at: 2014-11-07 19:36:53.142995000 Z
+  creator_id: 1
+  id: 153
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  position: 13
+  reference_name: wine_storage
+  roles: sowing-output
+  updated_at: 2014-11-07 19:36:53.142995000 Z
+  updater_id: 1
+  variant_id: 16

@@ -141,7 +141,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def reference
-    self.intervention.reference.variables[self.reference_name]
+    @reference ||= self.intervention.reference.variables[self.reference_name]
   end
 
   def variable_name

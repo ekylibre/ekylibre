@@ -32,7 +32,8 @@
       %p= cast.name
       %p= cast.human_roles
       - if !variant.population_counting_unitary?
-        %p= :x_thing.tl(x: cast.population.round(2).l, thing: variant.unit_name.mb_chars.downcase)
+        %p= :x_thing.tl(x: (cast.population || 0).round(2).l,
+                        thing: variant.unit_name.mb_chars.downcase)
 
   - else
     .picto{class: "picto-question"}
