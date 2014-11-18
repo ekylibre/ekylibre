@@ -239,46 +239,37 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   # Build a frame for all product _forms
   def product_form_frame(options = {}, &block)
-    html = "".html_safe
+    html = ''.html_safe
 
-    variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
-    unless variant = @object.variant || ProductNatureVariant.where(id: @template.params[:variant_id].to_i).first
-      # if variants.count == 1
-      #   variant = variants.first
-      #   @template.params[:variant_id] = variant.id
-      # end
-    end
-
+    variant = @object.variant ||
+       ProductNatureVariant.where(id: @template.params[:variant_id].to_i).first
     if variant
       @object.nature ||= variant.nature
-
       whole_indicators = variant.whole_indicators
-
       # Add product type selector
       html << @template.field_set do
         fs  = self.input(:variant_id, value: variant.id, as: :hidden)
-
         # Add name
         fs << self.input(:name)
-
         # Add variant selector
         if variant.derivative_of
-          varieties   = Nomen::Varieties.selection(variant.variety)
-          derivatives = Nomen::Varieties.selection(variant.derivative_of)
-          @object.variety       ||= varieties.first.last if varieties.first
-          @object.derivative_of ||= derivatives.first.last if derivatives.first
+          varieties        = Nomen::Varieties.selection(variant.variety)
+          derivatives      = Nomen::Varieties.selection(variant.derivative_of)
+          @object.variety  ||= varieties.first.last if varieties.first
           fs << self.input(:variety, wrapper: :append, :class => :inline) do
-            ('<span class="add-on">' + ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) + '</span>')
-              .gsub("{@@", '</span>')
-              .gsub("@@}", '<span class="add-on">')
-              .gsub('<span class="add-on"></span>', '')
-              .gsub("@@VARIETY@@", self.input_field(:variety, as: :select, collection: varieties))
-              .gsub("@@DERIVATIVE@@", self.input_field(:derivative_of, as: :select, collection: derivatives))
-              .html_safe
+            field = ('<span class="add-on">' << 
+               ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) << 
+               '</span>')
+            field.gsub!("{@@", '</span>')
+            field.gsub!("@@}", '<span class="add-on">')
+            field.gsub!('<span class="add-on"></span>', '')
+            field.gsub!("@@VARIETY@@", self.input_field(:variety, as: :select, collection: varieties))
+            field.gsub!("@@DERIVATIVE@@", self.input_field(:derivative_of, as: :select, collection: derivatives))
+            field.html_safe
           end
         else
           # Add variety selector
-          varieties = Nomen::Varieties.selection(variant.variety)
+          varieties       = Nomen::Varieties.selection(variant.variety)
           @object.variety ||= varieties.first.last if varieties.first
           fs << self.input(:variety, collection: varieties)
         end
@@ -353,6 +344,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
     else
       clear_actions!
+      variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
       if variants.any?
         html << @template.subheading(:choose_a_type_of_product)
         html << @template.content_tag(:div, :class => "variant-list proposal-list") do
