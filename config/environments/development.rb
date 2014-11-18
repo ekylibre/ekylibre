@@ -22,6 +22,11 @@ Ekylibre::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
+  # autoload sass in dev mode
+  require 'sass-rails'
+  config.sass.preferred_syntax = :sass
+  config.sass.debug_info = false
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
