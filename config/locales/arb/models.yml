@@ -1537,6 +1537,7 @@ arb:
     # mails: "Mails"
     major_accounts: "الحسابات الئيسية" #?
     # managed: "Managed"
+    # managed_sales: "Managed sales"
     mandates: "تفويضات" #?
     # manure_management_plan_zones: "Manure management plan zones"
     # markers: "Markers"

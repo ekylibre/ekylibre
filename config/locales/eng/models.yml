@@ -681,6 +681,7 @@ eng:
     mail_postal_zone: "Mail postal_zone"
     mails: "Mails"
     managed: "Managed"
+    managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
     markers: "Markers"
     mass: "Mass (kg)"

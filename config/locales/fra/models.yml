@@ -853,6 +853,7 @@ fra:
     mail_postal_zone: "Zone postale"
     mails: "Courriels"
     managed: "Géré par le système"
+    # managed_sales: "Managed sales"
     mandates: "Responsabilités" #?
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères"

@@ -260,8 +260,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           derivatives      = Nomen::Varieties.selection(variant.derivative_of)
           @object.variety  ||= varieties.first.last if varieties.first
           fs << self.input(:variety, wrapper: :append, :class => :inline) do
-            field = ('<span class="add-on">' << 
-               ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) << 
+            field = ('<span class="add-on">' <<
+               ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) <<
                '</span>')
             field.gsub!("{@@", '</span>')
             field.gsub!("@@}", '<span class="add-on">')

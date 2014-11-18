@@ -1417,13 +1417,8 @@ fra:
         ekylibre_erp_visuals: "Visuel ‒ Ekylibre ERP"
         galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3"
         isagri_isacompta_export: "Export isacompta ‒ Isagri"
-<<<<<<< HEAD
         legrain_epicea_accounts: "Plan de comptes Epicea - Legrain"
         legrain_epicea_journals: "Journaux Epicea - Legrain"
-=======
-        legrain_epicea_accounts: "Import Codes comptables Epicea - Legrain"
-        legrain_epicea_general_ledger: "Import Grand livre Epicea - Legrain"
->>>>>>> origin/1-0-stable
         lilco_milk_analyses: "Analyses de lait ‒ Lilco"
         telepac_cap_land_parcels: "Îlots ‒ TelePAC"
         telepac_land_parcels: "Parcelles ‒ TelePAC"
@@ -2367,11 +2362,8 @@ fra:
         female_pig_band: "Bande de truie"
         female_young_cattle_herd: "Troupeau de génisses"
         female_young_cow: "Génisse"
-<<<<<<< HEAD
         female_young_pig_band: "Bande de porcelets femelles"
-=======
         female_young_sheep: "Agnelle"
->>>>>>> origin/1-0-stable
         fercoril_corabel_hazelnut: "Noisette Fercoril corabel"
         feriale_hazelnut: "Noisette Feriale"
         fernor_walnut: "Noix Fernor"
@@ -2464,11 +2456,8 @@ fra:
         male_pig_band: "Bande de vérrat"
         male_young_cattle_herd: "Troupeau de taurillons"
         male_young_cow: "Taurillon"
-<<<<<<< HEAD
         male_young_pig_band: "Bande de porcelets mâles"
-=======
         male_young_sheep: "Agneau"
->>>>>>> origin/1-0-stable
         malic_acid_25kg: "Acide malique ‒ 25kg"
         manager: "Responsable"
         manual_implanter: "Plantoir"
@@ -2616,11 +2605,8 @@ fra:
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
         winter_oat_crop: "Culture d’avoine d’hiver"
         young_goat: "Chevreau"
-<<<<<<< HEAD
         young_pig_band: "Bande de porcelets"
-=======
         young_rabbit: "Lapereau"
->>>>>>> origin/1-0-stable
         zea_herbicide: "Herbicide maïs"
       name: "Variantes de produits"
       property_natures:

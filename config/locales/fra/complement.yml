@@ -8512,13 +8512,8 @@ fra:
         ekylibre_erp_visuals: "Visuel ‒ Ekylibre ERP"
         galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3"
         isagri_isacompta_export: "Export isacompta ‒ Isagri"
-<<<<<<< HEAD
         legrain_epicea_accounts: "Plan de comptes Epicea - Legrain"
         legrain_epicea_journals: "Journaux Epicea - Legrain"
-=======
-        legrain_epicea_accounts: "Import Codes comptables Epicea - Legrain"
-        legrain_epicea_general_ledger: "Import Grand livre Epicea - Legrain"
->>>>>>> origin/1-0-stable
         lilco_milk_analyses: "Analyses de lait ‒ Lilco"
         telepac_cap_land_parcels: "Îlots ‒ TelePAC"
         telepac_land_parcels: "Parcelles ‒ TelePAC"

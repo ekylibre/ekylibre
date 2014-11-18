@@ -1428,11 +1428,7 @@ jpn:
         # galactea3_monthly_unitary_milk_analyses: "Galactea 3 monthly unitary milk analyses"
         # isagri_isacompta_export: "Isagri isacompta export"
         # legrain_epicea_accounts: "Legrain epicea accounts"
-<<<<<<< HEAD
         # legrain_epicea_journals: "Legrain epicea journals"
-=======
-        # legrain_epicea_general_ledger: "Legrain epicea general ledger"
->>>>>>> origin/1-0-stable
         # lilco_milk_analyses: "Lilco milk analyses"
         # telepac_cap_land_parcels: "Telepac cap land parcels"
         # telepac_land_parcels: "Telepac land parcels"
@@ -2373,11 +2369,8 @@ jpn:
         # female_pig_band: "Female pig band"
         # female_young_cattle_herd: "Female young cattle herd"
         # female_young_cow: "Female young cow"
-<<<<<<< HEAD
         # female_young_pig_band: "Female young pig band"
-=======
         # female_young_sheep: "Female young sheep"
->>>>>>> origin/1-0-stable
         # fercoril_corabel_hazelnut: "Fercoril corabel hazelnut"
         # feriale_hazelnut: "Feriale hazelnut"
         # fernor_walnut: "Fernor walnut"
@@ -2470,11 +2463,8 @@ jpn:
         # male_pig_band: "Male pig band"
         # male_young_cattle_herd: "Male young cattle herd"
         # male_young_cow: "Male young cow"
-<<<<<<< HEAD
         # male_young_pig_band: "Male young pig band"
-=======
         # male_young_sheep: "Male young sheep"
->>>>>>> origin/1-0-stable
         # malic_acid_25kg: "Malic acid 25kg"
         # manager: "Manager"
         # manual_implanter: "Manual implanter"
@@ -2622,11 +2612,8 @@ jpn:
         # winter_barley_seed_25: "Winter barley seed 25"
         # winter_oat_crop: "Winter oat crop"
         # young_goat: "Young goat"
-<<<<<<< HEAD
         # young_pig_band: "Young pig band"
-=======
         # young_rabbit: "Young rabbit"
->>>>>>> origin/1-0-stable
         # zea_herbicide: "Zea herbicide"
       # name: "Product nature variants"
       property_natures:

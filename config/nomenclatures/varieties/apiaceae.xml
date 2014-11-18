@@ -17,7 +17,6 @@
       <item name="daucus_carota" itis_tsn="29476"/>
     </items>
   </nomenclature>
-<<<<<<< HEAD
 
   <nomenclature name="varieties-daucus_carota" hierarchical="true">
     <items>
@@ -45,14 +44,11 @@
     </items>
   </nomenclature>
 
-=======
->>>>>>> origin/1-0-stable
   <nomenclature name="varieties-apium" hierarchical="true">
     <items>
       <item name="apium_graveolens" itis_tsn="29592"/>
     </items>
   </nomenclature>
-<<<<<<< HEAD
 
   <nomenclature name="varieties-apium_graveolens" hierarchical="true">
     <items>
@@ -62,6 +58,4 @@
     </items>
   </nomenclature>
 
-=======
->>>>>>> origin/1-0-stable
 </nomenclatures>

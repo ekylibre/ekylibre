@@ -146,52 +146,50 @@
             nature="pig_herd"
             unit_name="head"
             frozen_indicators_values="population: 1"
-              />
+            />
       <item name="male_adult_pig"
             nature="male_adult_pig"
             unit_name="head"
             frozen_indicators_values="population: 1, sex: male, reproductor: false, livestock_unit: 0.3"
-              />
+            />
       <item name="female_adult_pig"
             nature="female_adult_pig"
             unit_name="head"
             frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.5"
-              />
+            />
       <item name="female_pig_band"
             nature="pig_band"
             unit_name="head"
             frozen_indicators_values="sex: female, reproductor: true"
-              />
+            />
       <item name="male_pig_band"
             nature="pig_band"
             unit_name="head"
             frozen_indicators_values="sex: male, reproductor: false"
-              />
-<<<<<<< HEAD
+            />
       <item name="female_young_pig_band"
             nature="pig_band"
             derivative_of="sus"
             unit_name="band"
             frozen_indicators_values="sex: female, reproductor: false"
-              />
+            />
       <item name="male_young_pig_band"
             nature="pig_band"
             derivative_of="sus"
             unit_name="band"
             frozen_indicators_values="sex: male, reproductor: false"
-              />
+            />
       <item name="young_pig_band"
             nature="pig_band"
             derivative_of="sus"
             unit_name="band"
             frozen_indicators_values="sex: undefined, reproductor: false"
-=======
-       <item name="piglet_band"
+            />
+      <item name="piglet_band"
             nature="piglet_band"
             unit_name="head"
             frozen_indicators_values="reproductor: false"
->>>>>>> origin/1-0-stable
-              />
+            />
       <!-- MILK -->
       <item name="cow_milk"
             nature="milk"
@@ -217,7 +215,7 @@
             derivative_of="gallus"
             unit_name="group"
             frozen_indicators_values=""
-              />
+            />
       <item name="female_hen_band"
             nature="hen_band"
             unit_name="subject"
@@ -601,13 +599,13 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00square_meter"
             />
-     <item name="rose_crop"
+      <item name="rose_crop"
             nature="fruit_crop"
             variety="rosa"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-     <item name="raspberry_crop"
+      <item name="raspberry_crop"
             nature="fruit_crop"
             variety="rubus"
             unit_name="plant"
@@ -768,135 +766,135 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
-       <!-- hazelnut -->
-       <item name="hazelnut"
+      <!-- hazelnut -->
+      <item name="hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="butler_hazelnut"
+      <item name="butler_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_butler"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="corabel_hazelnut"
+      <item name="corabel_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_corabel"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="ennis_hazelnut"
+      <item name="ennis_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_ennis"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="feriale_hazelnut"
+      <item name="feriale_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_feriale"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="fercoril_corabel_hazelnut"
+      <item name="fercoril_corabel_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_fercoril_corabel"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="fertile_hazelnut"
+      <item name="fertile_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_fertile"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="fertile_coutard_hazelnut"
+      <item name="fertile_coutard_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_fertile_coutard"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="jemstegaard_hazelnut"
+      <item name="jemstegaard_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_jemstegaard"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="lewis_hazelnut"
+      <item name="lewis_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_lewis"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-        <item name="merveille_hazelnut"
+      <item name="merveille_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_merveille"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-        <item name="negret_hazelnut"
+      <item name="negret_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_negret"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-        <item name="pauetet_hazelnut"
+      <item name="pauetet_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_pauetet"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-        <item name="ronde_de_piemont_hazelnut"
+      <item name="ronde_de_piemont_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_ronde_de_piemont"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-        <item name="segorbe_hazelnut"
+      <item name="segorbe_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_segorbe"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-        <item name="tonda_giffoni_hazelnut"
+      <item name="tonda_giffoni_hazelnut"
             nature="hazelnut"
             derivative_of="corylus_avellana_tonda_giffoni"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <!-- walnut -->
-       <item name="walnut"
+      <!-- walnut -->
+      <item name="walnut"
             nature="walnut"
             derivative_of="juglans_regia"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="chandler_walnut"
+      <item name="chandler_walnut"
             nature="walnut"
             derivative_of="juglans_regia_chandler"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="fernor_walnut"
+      <item name="fernor_walnut"
             nature="walnut"
             derivative_of="juglans_regia_fernor"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="franquette_walnut"
+      <item name="franquette_walnut"
             nature="walnut"
             derivative_of="juglans_regia_franquette"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="howard_walnut"
+      <item name="howard_walnut"
             nature="walnut"
             derivative_of="juglans_regia_howard"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram"
             />
-       <item name="lara_walnut"
+      <item name="lara_walnut"
             nature="walnut"
             derivative_of="juglans_regia_lara"
             unit_name="kilogram"
@@ -1022,7 +1020,7 @@
             unit_name="5g_pill"
             frozen_indicators_values="net_mass: 5.00gram, sulfur_dioxide_concentration: 100percent"
             />
-        <!-- YEAST -->
+      <!-- YEAST -->
       <item name="oenological_yeast_sc_500g"
             nature="oenological_yeast"
             variety="yeast"
@@ -1193,7 +1191,7 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
-       <item name="mixed_liquid_fertilizer"
+      <item name="mixed_liquid_fertilizer"
             nature="mixed_liquid_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
@@ -1345,7 +1343,7 @@
             derivative_of="equus"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1percent"
-              />
+            />
       <item name="mud"
             nature="organic_fertilizer"
             variety="slurry"
@@ -1636,7 +1634,7 @@
             frozen_indicators_values="net_mass: 25kilogram, net_volume: 25.00liter"
             />
       <!-- PACKAGING PRODUCT -->
-          <!-- CORK -->
+      <!-- CORK -->
       <item name="natural_cork"
             nature="cork"
             unit_name="unit"
@@ -1647,7 +1645,7 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
-        <!-- BOTTLE -->
+      <!-- BOTTLE -->
       <item name="bordelaise_75cl_bottle"
             nature="bottle"
             variety="cork_bottle"
@@ -1724,7 +1722,7 @@
             nature="preparation_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
-              />
+            />
       <item name="office_building_division"
             nature="administrative_division"
             unit_name="room"
@@ -1852,13 +1850,13 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-        <item name="grinder"
+      <item name="grinder"
             nature="grinder"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-        <!-- EQUIPMENT FOR WINE -->
-          <!-- TANK FOR WINE -->
+      <!-- EQUIPMENT FOR WINE -->
+      <!-- TANK FOR WINE -->
       <item name="concrete_tank"
             nature="wine_tank"
             unit_name="equipment"
@@ -1879,13 +1877,13 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-          <!-- PRESS FOR WINE -->
+      <!-- PRESS FOR WINE -->
       <item name="wine_press"
             nature="wine_press"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-          <!-- WINE BOTTLING -->
+      <!-- WINE BOTTLING -->
       <item name="hand_drawn"
             nature="hand_drawn"
             unit_name="equipment"
@@ -1971,38 +1969,38 @@
             nature="equipment"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-	    />
+	          />
       <item name="forager"
             nature="forager"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-	    />
+	          />
 	    <item name="silage_distributor"
             nature="food_distributor"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-      />
+            />
       <item name="animal_housing_cleaner"
             nature="animal_housing_cleaner"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-      />
+            />
       <!-- TREE CROP -->
       <item name="pruning_platform"
             nature="pruning_platform"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-      />
+            />
       <item name="chainsaw"
             nature="chainsaw"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-      />
+            />
       <item name="hedge_cutter"
             nature="hedge_cutter"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-      />
+            />
 
 
 
@@ -2170,25 +2168,25 @@
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
             />
-       <item name="coop:luzerne_comete_s10k"
+      <item name="coop:luzerne_comete_s10k"
             nature="seed"
             derivative_of="medicago_comete"
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
             />
-       <item name="coop:trefle_alexandrie_s10k"
+      <item name="coop:trefle_alexandrie_s10k"
             nature="seed"
             derivative_of="trifolium_alexandrinum"
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
             />
-       <item name="coop:trefle_v__segur_s10k"
+      <item name="coop:trefle_v__segur_s10k"
             nature="seed"
             derivative_of="trifolium_pratense"
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
             />
-        <item name="coop:vesce_velue_savane_hiver_10k"
+      <item name="coop:vesce_velue_savane_hiver_10k"
             nature="seed"
             derivative_of="vicia_villosa_savane"
             unit_name="10kg_bag"
@@ -2330,7 +2328,7 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
 
-       <!-- HARD WHEAT -->
+      <!-- HARD WHEAT -->
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
@@ -2362,7 +2360,7 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4percent"
             />
-     <item name="coop:fertiactyl_starter"
+      <item name="coop:fertiactyl_starter"
             nature="chemical_fertilizer"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, nitrogen_concentration: 13percent, phosphorus_concentration: 5percent"
@@ -2398,7 +2396,7 @@
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent"
             />
       <!-- PLANT MEDICINE -->
-        <!-- ADDITIVE -->
+      <!-- ADDITIVE -->
       <item name="coop:mix_in_5_l"
             nature="additive"
             unit_name="liter"
@@ -2409,8 +2407,8 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-        <!-- INSECTICIDE -->
-        <!-- MOLLUSCICIDE -->
+      <!-- INSECTICIDE -->
+      <!-- MOLLUSCICIDE -->
       <item name="coop:metarex_rg_tds_20kg"
             nature="molluscicide"
             unit_name="20kg_bag"
@@ -2436,7 +2434,7 @@
             unit_name="kilogram"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-        <!-- FUNGICIDE -->
+      <!-- FUNGICIDE -->
       <item name="coop:adexar_5l"
             nature="fungicide"
             unit_name="liter"
@@ -2482,7 +2480,7 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-        <!-- HERBICIDE -->
+      <!-- HERBICIDE -->
       <item name="coop:atlantis_wg_3_kg"
             nature="herbicide"
             unit_name="kilogram"
