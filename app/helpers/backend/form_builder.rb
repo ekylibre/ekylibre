@@ -241,8 +241,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   def product_form_frame(options = {}, &block)
     html = ''.html_safe
 
-    variant = @object.variant ||
-       ProductNatureVariant.where(id: @template.params[:variant_id].to_i).first
+    variant = @object.variant
+    unless variant
+      variant_id = @template.params[:variant_id]
+      variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
+    end
     if variant
       @object.nature ||= variant.nature
       whole_indicators = variant.whole_indicators
