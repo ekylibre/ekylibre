@@ -189,7 +189,11 @@ module ApplicationHelper
       end
 
       html_options = convert_options_to_data_attributes(options, html_options)
-      url = url_for(options)
+      begin
+        url = url_for(options)
+      rescue ActionController::UrlGenerationError => uge
+        return '' # Don't segv when trying to display a non-existent route
+      end
 
       if html_options
         html_options = html_options.stringify_keys
