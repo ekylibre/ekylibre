@@ -1647,8 +1647,6 @@ purchase_natures:
 purchases:
   read:
     actions:
-    - "backend/purchase_items#index"
-    - "backend/purchase_items#show"
     - "backend/purchases#index"
     - "backend/purchases#list"
     - "backend/purchases#list_deliveries"
@@ -1660,11 +1658,6 @@ purchases:
     - read-purchases
     actions:
     - "backend/incoming_deliveries#invoice"
-    - "backend/purchase_items#create"
-    - "backend/purchase_items#destroy"
-    - "backend/purchase_items#edit"
-    - "backend/purchase_items#new"
-    - "backend/purchase_items#update"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1718,8 +1711,6 @@ sale_natures:
 sales:
   read:
     actions:
-    - "backend/sale_items#index"
-    - "backend/sale_items#show"
     - "backend/sales#index"
     - "backend/sales#list"
     - "backend/sales#list_creditable_items"
@@ -1735,12 +1726,6 @@ sales:
     - read-sales
     actions:
     - "backend/outgoing_deliveries#invoice"
-    - "backend/sale_items#create"
-    - "backend/sale_items#destroy"
-    - "backend/sale_items#detail" #?
-    - "backend/sale_items#edit"
-    - "backend/sale_items#new"
-    - "backend/sale_items#update"
     - "backend/sales#abort"
     - "backend/sales#cancel"
     - "backend/sales#confirm"

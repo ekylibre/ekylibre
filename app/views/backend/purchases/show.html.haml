@@ -30,10 +30,10 @@
   - b.cell Purchase.human_attribute_name(:items) do
     = list :items do
       %tr.total
-        %th{:colspan => 5}
+        %th{colspan: 5}
         %td= resource.pretax_amount.l(currency: resource.currency)
         %td= resource.amount.l(currency: resource.currency)
-        %th{:colspan => 3}
+        %th
 
   - b.cell :affair do
     = affair_of(resource)

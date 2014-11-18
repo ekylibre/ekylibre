@@ -449,9 +449,7 @@ jpn:
       # index: "Products"
       # new: "New product"
       # show: "%{nature}: %{name}"
-    backend/purchase_items:
-      # edit: "Edit purchase item"
-      # new: "New purchase item"
+    backend/purchase_items: #?
     backend/purchase_natures:
       # edit: "Edit purchase type"
       # index: "Purchase types"
@@ -475,9 +473,7 @@ jpn:
       # new: "New role"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
-    backend/sale_items:
-      # edit: "Edit sale's item"
-      # new: "Add a product to the sale"
+    backend/sale_items: #?
     backend/sale_natures:
       # edit: "Edit sale type: %{name}"
       # index: "Sale types"

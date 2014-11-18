@@ -649,9 +649,9 @@ arb:
       show: "المنتجات : %{name}" #?
     backend/professions: #?
     backend/public: #?
-    backend/purchase_items:
-      edit: "تعديل تصميم الطلب"
-      new: "اضافة طلب للمنتج : %{number}"
+    backend/purchase_items:  #?
+      edit: "تعديل تصميم الطلب" #?
+      new: "اضافة طلب للمنتج : %{number}" #?
     backend/purchase_lines:  #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -680,9 +680,9 @@ arb:
       new: "اضافة مهام"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
-    backend/sale_items:
-      edit: "تعديل مسار طلب المنتج"
-      new: "اضافة تصميم خطوط المنتج"
+    backend/sale_items:  #?
+      edit: "تعديل مسار طلب المنتج" #?
+      new: "اضافة تصميم خطوط المنتج" #?
     backend/sale_lines:  #?
       edit: "تعديل مسار طلب المنتج" #?
       new: "اضافة تصميم خطوط المنتج" #?

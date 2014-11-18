@@ -621,8 +621,6 @@ Ekylibre::Application.routes.draw do
 
     resources :professions, concerns: [:list, :unroll]
 
-    resources :purchase_items
-
     resources :purchase_natures, concerns: [:list, :unroll]
 
     resources :purchases, concerns: [:list, :unroll] do
@@ -643,12 +641,6 @@ Ekylibre::Application.routes.draw do
     resources :roles, concerns: [:incorporate, :list, :unroll] do
       member do
         get :list_users
-      end
-    end
-
-    resources :sale_items, concerns: [:list, :unroll] do
-      collection do
-        get :detail
       end
     end
 

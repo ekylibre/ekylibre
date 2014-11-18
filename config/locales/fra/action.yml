@@ -472,9 +472,9 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
-    backend/purchase_items:
-      edit: "Modifier une ligne de la commande"
-      new: "Nouveau produit à la commande"
+    backend/purchase_items:  #?
+      edit: "Modifier une ligne de la commande" #?
+      new: "Nouveau produit à la commande" #?
     backend/purchase_natures:
       edit: "Modifier le type d’achat\_: %{name}"
       index: "Type d’achats"
@@ -499,10 +499,10 @@ fra:
       new: "Nouveau rôle"
       pick: "Piocher un rôle\_"
       show: "Rôle\_: %{name}"
-    backend/sale_items:
+    backend/sale_items:  #?
       detail: "Détailler une ligne de la vente" #?
-      edit: "Modifier une ligne de la vente"
-      new: "Nouveau produit à la vente"
+      edit: "Modifier une ligne de la vente" #?
+      new: "Nouveau produit à la vente" #?
     backend/sale_natures:
       edit: "Modifier le type de vente\_: %{name}"
       index: "Types de ventes"

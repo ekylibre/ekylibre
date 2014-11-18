@@ -289,14 +289,6 @@
         <page to="backend/sales#new"/>
         <page to="backend/sales#unroll"/>
         <page to="backend/sales#update"/>
-        <page to="backend/sale_items#index"/>
-        <page to="backend/sale_items#show"/>
-        <page to="backend/sale_items#create"/>
-        <page to="backend/sale_items#destroy"/>
-        <page to="backend/sale_items#detail"/>
-        <page to="backend/sale_items#edit"/>
-        <page to="backend/sale_items#new"/>
-        <page to="backend/sale_items#update"/>
       </item>
     </group>
     <group name="purchases" icon="shopping-cart">
@@ -321,14 +313,7 @@
         <page to="backend/purchases#unroll"/>
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
-        <page to="backend/purchase_items#index"/>
         <page to="backend/product_nature_variants#last_purchase_item"/>
-        <page to="backend/purchase_items#show"/>
-        <page to="backend/purchase_items#create"/>
-        <page to="backend/purchase_items#destroy"/>
-        <page to="backend/purchase_items#edit"/>
-        <page to="backend/purchase_items#new"/>
-        <page to="backend/purchase_items#update"/>
       </item>
     </group>
     <group name="payments" icon="credit-card">

@@ -507,11 +507,6 @@ eng:
       index: "Products"
       new: "New product"
       show: "%{nature}: %{name}"
-    backend/purchase_items:
-      edit: "Edit purchase item"
-      # index: "Purchase items"
-      new: "New purchase item"
-      # show: "Purchase item: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -536,11 +531,6 @@ eng:
       new: "New role"
       pick: "Pick role: %{name}"
       show: "Role: %{name}"
-    backend/sale_items:
-      edit: "Edit sale's item"
-      # index: "Sale items"
-      new: "Add a product to the sale"
-      # show: "Sale item: %{name}"
     backend/sale_natures:
       edit: "Edit sale type: %{name}"
       index: "Sale types"
@@ -747,7 +737,7 @@ eng:
     category_name: "Category" #?
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
-    change_price: "Change price"
+    change_price: "Change price" #?
     check: "Check"
     children: "Children"
     choice_options: "Choice options"
@@ -822,7 +812,7 @@ eng:
     description: "Description" #?
     destroy: "Destroy"
     details: "Details"
-    discount: "Discount (%)" #?
+    discount: "Discount (%)" #?!
     display: "Display" #?
     divide: "Divide"
     division: "Division"
@@ -886,7 +876,7 @@ eng:
     general_ledger: "General ledger" #?
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
-    give_discount: "Give discount"
+    give_discount: "Give discount" #?!
     global_margin: "Global margin"
     global_margin_per_area: "Global margin per area"
     go: "Go" #?
@@ -1024,7 +1014,7 @@ eng:
     nature: "Type"
     natures: "Natures"
     net_mass: "Net mass"
-    new: "New"
+    new: "New" #?
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
@@ -1227,7 +1217,7 @@ eng:
     start_new_intervention_here: "Start new intervention here"
     state: "State"
     statistics: "Statistics"
-    stock: "Stock"
+    stock: "Stock" #?
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
@@ -1467,8 +1457,8 @@ eng:
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
       importation_finished: "The import is complete."
-      impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
-      impossible_to_add_items_to_purchase: "You can not add products to your purchase"
+      impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order" #?
+      impossible_to_add_items_to_purchase: "You can not add products to your purchase" #?
       invalid_reference_name: "Invalid reference name"
       journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "The record has already been validated and can not be changed"
