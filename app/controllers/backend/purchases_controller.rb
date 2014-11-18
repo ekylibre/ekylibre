@@ -51,8 +51,8 @@ class Backend::PurchasesController < BackendController
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
     t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
-    t.action :edit, if: :draft?
-    t.action :destroy, if: :draft?
+    # t.action :edit, if: :draft?
+    # t.action :destroy, if: :draft?
   end
 
   list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {purchase_id: 'params[:id]'.c}) do |t|

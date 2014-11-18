@@ -74,7 +74,7 @@ class BackendController < BaseController
     end
     unless record = klass.find_by(id: id)
       notify_error(:unavailable_resource, type: klass.model_name.human, id: id)
-      redirect_to_current
+      redirect_to_back
       return false
     end
     return record
@@ -118,7 +118,9 @@ class BackendController < BaseController
     @title ||= {}
     for arg in args
       arg = arg.attributes if arg.respond_to?(:attributes)
-      raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}") unless arg.is_a? Hash
+      unless arg.is_a? Hash
+        raise ArgumentError, "Hash expected, got #{arg.class.name}:#{arg.inspect}"
+      end
       arg.each do |k,v|
         @title[k.to_sym] = (v.respond_to?(:localize) ? v.localize : v.to_s)
       end
@@ -201,20 +203,10 @@ class BackendController < BaseController
     return file
   end
 
-  def redirect_to_login(url = nil)
-    raise "Why?"
-    reset_session
-    @current_user = nil
-    redirect_to(new_user_session_url(:redirect => url))
-  end
-
   def redirect_to_back(options={})
-    if !params[:redirect].blank?
+    if params[:redirect].present?
       redirect_to params[:redirect], options
-      # elsif session[:history].is_a?(Array) and session[:history].second.is_a?(Hash)
-      #   session[:history].delete_at(0) unless options[:direct]
-      #   redirect_to session[:history][0][:path], options
-    elsif request.referer and request.referer != request.path
+    elsif request.referer and request.referer != request.fullpath
       redirect_to request.referer, options
     else
       redirect_to(root_url)
@@ -222,7 +214,8 @@ class BackendController < BaseController
   end
 
   def redirect_to_current(options={})
-    redirect_to_back(options.merge(:direct => true))
+    ActiveSupport::Deprecation.warn("Use redirect_to_back instead of redirect_to_current")
+    redirect_to_back(options.merge(direct: true))
   end
 
   # Autocomplete helper
@@ -244,23 +237,6 @@ class BackendController < BaseController
     code << "  end\n"
     code << "end\n"
     class_eval(code, "#{__FILE__}:#{__LINE__}")
-  end
-
-  def self.deprecated_search_conditions(model_name, columns)
-    ActiveSupport::Deprecation.warn("Use search_conditions instead of deprecated_search_conditions")
-    model = model_name.to_s.classify.constantize
-    columns = [columns] if [String, Symbol].include? columns.class
-    columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
-    columns.flatten!
-    raise ArgumentError.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
-    code = ""
-    code << "c = ['1=1']\n"
-    code << "session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
-    code << "c[0] << ' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')+")';\n"
-    code << "c += [#{(['kw']*columns.size).join(',')}]"
-    code << "}\n"
-    code << "c"
-    code.c
   end
 
   # search is a hash like {table: [columns...]}

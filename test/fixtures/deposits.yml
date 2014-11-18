@@ -54,44 +54,36 @@
 #
 ---
 deposits_001:
-  amount: 0.0
+  accounted_at: 2014-11-05 12:45:58.006119000 Z
+  amount: 223.0
   cash_id: 1
-  created_at: 2009-07-18 22:00:00.000000000 Z
+  created_at: 2014-11-05 12:45:57.737663000 Z
   creator_id: 1
-  id: 1
+  description: ''
+  id: 4
+  journal_entry_id: 16
   lock_version: 0
   locked: false
   mode_id: 1
-  number: DEPO01
-  payments_count: 0
+  number: B20140001
+  payments_count: 2
   responsible_id: 9
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-05 12:45:57.737663000 Z
   updater_id: 1
 deposits_002:
-  amount: 0.0
+  accounted_at: 2014-11-05 12:46:06.375773000 Z
+  amount: 150.0
   cash_id: 1
-  created_at: 2009-07-18 22:00:00.000000000 Z
+  created_at: 2014-11-05 12:46:06.208010000 Z
   creator_id: 1
-  id: 2
+  description: ''
+  id: 5
+  journal_entry_id: 17
   lock_version: 0
   locked: false
   mode_id: 1
-  number: DEPO02
-  payments_count: 0
+  number: B20140002
+  payments_count: 1
   responsible_id: 9
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-deposits_003:
-  amount: 0.0
-  cash_id: 3
-  created_at: 2009-07-18 22:00:00.000000000 Z
-  creator_id: 1
-  id: 3
-  lock_version: 0
-  locked: false
-  mode_id: 2
-  number: DEPO03
-  payments_count: 0
-  responsible_id: 9
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-05 12:46:06.208010000 Z
   updater_id: 1

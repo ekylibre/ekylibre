@@ -30,7 +30,8 @@ class Backend::ManureManagementPlansController < BackendController
     t.column :recommender, url: true
     t.column :opened_at, hidden: true
     t.column :default_computation_method, hidden: true
-    # t.column :selected
+    t.column :selected, hidden: true
+    t.column :annotation
     t.action :edit
     t.action :destroy
   end

@@ -70,7 +70,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   has_many :distributions, class_name: "AnalyticDistribution", foreign_key: :journal_entry_item_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :letter, allow_nil: true, maximum: 10
@@ -194,9 +194,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   def previous
     return nil unless self.account
     if self.new_record?
-      self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
+      self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("printed_on <= ?", self.printed_on).limit(1).first
     else
-      self.account.journal_entry_items.order("printed_on, id").where("(printed_on = ? AND id < ?) OR printed_on <= ?", self.printed_on, self.id, self.printed_on).last
+      self.account.journal_entry_items.order(printed_on: :desc, id: :desc).where("(printed_on = ? AND id < ?) OR printed_on < ?", self.printed_on, self.id, self.printed_on).limit(1).first
     end
   end
 

@@ -65,5 +65,5 @@
 require 'test_helper'
 
 class MatterTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

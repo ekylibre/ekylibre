@@ -20,7 +20,7 @@
 class Backend::CatalogPricesController < BackendController
   manage_restfully indicator_name: "params[:indicator_name] || 'population'".c, started_at: "params[:started_at] || Time.now".c
 
-  unroll
+  unroll scope: :actives
 
   list do |t|
     t.column :variant, url: true

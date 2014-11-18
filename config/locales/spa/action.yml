@@ -369,6 +369,7 @@ spa:
       # show: "Issue: %{name}"
     backend/journal_entries:
       edit: "Modificar la pieza N°%{number}"
+      # index: "Journal entries"
       new: "Añadir una pieza"
       show: "Pieza contable N°%{number}"
     backend/journal_entry_items:
@@ -584,9 +585,7 @@ spa:
       # show: "%{nature}: %{name}"
     backend/professions: #?
     backend/public: #?
-    backend/purchase_items:
-      # edit: "Edit purchase item"
-      # new: "New purchase item"
+    backend/purchase_items: #?
     backend/purchase_lines: #?
     backend/purchase_natures:
       # edit: "Edit purchase type"
@@ -611,9 +610,7 @@ spa:
       new: "Añadir un papel"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
-    backend/sale_items:
-      # edit: "Edit sale's item"
-      # new: "Add a product to the sale"
+    backend/sale_items: #?
     backend/sale_lines: #?
     backend/sale_natures:
       # edit: "Edit sale type: %{name}"
@@ -719,6 +716,7 @@ spa:
     public:
       # index: "Home"
   errors:
+    # format: "%{message}"
     messages:
       # already_confirmed: "was already confirmed, please try signing in"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
@@ -1757,7 +1755,7 @@ spa:
       import_succeeded: "Sus datos han sido correctamente importados" #?
       importation_cancelled: "Sus datos no han sido importados. La importación ha sido anulada" #?
       importation_finished: "La importación esta terminada."
-      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       impossible_to_add_lines: "No se puede añadir productos a su venta, el presupuesto esta en encargo" #?
       impossible_to_add_lines_to_purchase: "No se puede añadir productos a su compra" #?
@@ -1826,7 +1824,7 @@ spa:
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
-      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "La pagina que quiere esta indisponible (%{url})" #?
       unknown_company: "Sociedad desconocida" #?
@@ -1923,6 +1921,7 @@ spa:
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
+    # backend/incoming_payments: "{number} {mode.name} {payer.full_name} {amount} {currency}"
     # backend/journal_entry_items: "{entry.number} {name} {account.number} D{real_debit} C{real_credit} {currency}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
@@ -1934,4 +1933,5 @@ spa:
     # backend/product_natures: "{name}"
     # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name}"
+    # backend/trackings: "{serial} ‒ {name} ‒ {producer.full_name}"
     # backend/users: "{first_name} {last_name}"

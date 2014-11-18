@@ -54,7 +54,7 @@ class CatalogPrice < Ekylibre::Record::Base
   # has_many :purchase_items, foreign_key: :price_id
   has_many :sale_items, foreign_key: :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :indicator_name, :thread, allow_nil: true, maximum: 120
@@ -70,6 +70,7 @@ class CatalogPrice < Ekylibre::Record::Base
   delegate :usage, to: :catalog
 
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+  scope :actives, -> { actives_at(Time.now) }
 
   scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
@@ -105,8 +106,10 @@ class CatalogPrice < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.amount = self.amount.round(4) if self.amount
-    self.name = self.label
+    if self.amount
+      self.amount = self.amount.round(4)
+      self.name = self.label
+    end
   end
 
   # Compute name with given elements
@@ -115,14 +118,13 @@ class CatalogPrice < Ekylibre::Record::Base
   end
 
   def save
-    super if new_record?
+    return super if new_record?
     now = Time.now
-    stamper_id = self.class.stamper_class.stamper.id rescue nil
+    stamper_id = self.class.stamper_class.stamper rescue nil
     if old = self.old_record
       nc = self.class.create!(self.attributes.merge(thread: old.thread, variant_id: old.variant_id, catalog_id: old.catalog_id, indicator_name: old.indicator_name, started_at: now, created_at: now, updated_at: now, creator_id: stamper_id, updater_id: stamper_id).delete_if{|k,v| k.to_s == "id"})
       self.class.where(id: self.id).update_all(stopped_at: now)
     end
-    # nc.ensure_by_default_uniqueness
     return nc
   end
 

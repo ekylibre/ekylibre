@@ -19,6 +19,12 @@ jpn:
       nature:
         # bank_account: "Bank account"
         # cash_box: "Cash box"
+    catalog:
+      usage:
+        # cost: "Cost"
+        # purchase: "Purchase"
+        # sale: "Sale"
+        # stock: "Stock"
     custom_field:
       nature:
         # boolean: "Check box"

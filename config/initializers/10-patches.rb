@@ -297,16 +297,16 @@ module ActiveModel
     #   end
     # end
 
-    # Returns all the full error messages in an array.
-    #
-    #   class Company
-    #     validates_presence_of :name, :address, :email
-    #     validates_length_of :name, :in => 5..30
-    #   end
-    #
-    #   company = Company.create(:address => '123 First St.')
-    #   company.errors.full_messages # =>
-    #     ["Name is too short (minimum is 5 characters)", "Name can't be blank", "Address can't be blank"]
+    # # Returns all the full error messages in an array.
+    # #
+    # #   class Company
+    # #     validates_presence_of :name, :address, :email
+    # #     validates_length_of :name, :in => 5..30
+    # #   end
+    # #
+    # #   company = Company.create(:address => '123 First St.')
+    # #   company.errors.full_messages # =>
+    # #     ["Name is too short (minimum is 5 characters)", "Name can't be blank", "Address can't be blank"]
     # def full_messages(options = {})
     #   full_messages = []
     #   each do |attribute, messages|

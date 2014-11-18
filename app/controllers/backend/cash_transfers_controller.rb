@@ -29,7 +29,7 @@ class Backend::CashTransfersController < BackendController
     t.column :reception_amount,            currency: :reception_currency
     t.column :reception_cash,   url: true
     t.column :transfered_at
-    t.column :description
+    t.column :description, hidden: true
     t.action :edit
     t.action :destroy
   end

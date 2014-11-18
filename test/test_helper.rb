@@ -13,6 +13,62 @@ end
 # Configure tenants.yml
 Ekylibre::Tenant.setup!("test", keep_files: true)
 
+class FixtureRetriever
+  ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth)
+  @@truc = {}
+
+  def initialize(model, options = {})
+    if model and model < Ekylibre::Record::Base
+      @model = model
+      @prefix = @model.name.underscore.pluralize
+      @table = @model.table_name
+      if options and !options.is_a?(Hash)
+        options = {first: normalize(options)}
+      end
+      @options = options || {}
+    end
+  end
+
+  def retrieve(role = :first, default_value = nil)
+    if @model
+      "#{@table}(#{normalize(@options[role] || default_value || role).inspect})"
+    else
+      raise "No valid model given, cannot retrieve fixture from that"
+    end
+  end
+
+  protected
+
+  def normalize(value)
+    if value.is_a?(Integer)
+      unless @@truc[@table]
+        @@truc[@table] = YAML.load_file(Rails.root.join("test", "fixtures", "#{@table}.yml")).inject({}) do |hash, pair|
+          hash[pair.second["id"].to_i] = pair.first.to_sym
+          hash
+        end
+      end
+      unless name = @@truc[@table][value]
+        raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
+      end
+      return name
+    elsif value.is_a?(Symbol)
+      if ROLES.include?(value.to_s)
+        return "#{@prefix}_#{ROLES.index(value.to_s).to_s.rjust(3, '0')}".to_sym
+      elsif value.to_s =~ /^\d+$/
+        return "#{@prefix}_#{value.to_s.rjust(3, '0')}".to_sym
+      else
+        return value
+      end
+    elsif value.is_a?(CodeString)
+      return value
+    else
+      raise "What kind of value (#{value.class.name}:#{value.inspect})"
+    end
+  end
+
+end
+
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
@@ -38,7 +94,32 @@ class ActiveSupport::TestCase
     return attrs['id'].to_i
   end
 
+  def self.test_fixtures
+    model = self.name.gsub(/Test$/, '').constantize
+    record_type = model.name.underscore
+    test "validity of fixtures" do
+      invalids = []
+      reflections = model.reflections.values.select{|r| r.macro == :belongs_to }.delete_if{|r| r.name.to_s == "item" and model == Version }
+      model.find_each do |record|
+        unless record.valid?
+          invalids << "##{record.id}: #{record.errors.full_messages.to_sentence}"
+        end
+        reflections.each do |reflection|
+          id = record.send(reflection.foreign_key)
+          if id and id.to_i > 0 and record.send(reflection.name).blank?
+            invalids << "##{record.id}: Invalid #{reflection.foreign_key} value: #{record.send(reflection.foreign_key)} (#{reflection.class_name})"
+          end
+        end
+      end
+      assert invalids.empty?, "#{invalids.count} records are invalid: \n" + invalids.join("\n").dig(2)
+      # assert invalids.empty?, "Some records are invalid: " + invalids.collect do |id, errors|
+      #   "\n#{model.name} ##{id}:\n" + errors.join("\n").dig + "\n"
+      # end.join("\n")
+    end
+  end
+
 end
+
 
 class HashCollector
 
@@ -92,9 +173,6 @@ class ActionController::TestCase
                       end.join(", ")+ "}").c
       end
 
-      fixture_name = record.pluralize
-      fixture_table = table_name
-
       if block_given?
         collector = HashCollector.new
         yield collector
@@ -118,8 +196,21 @@ class ActionController::TestCase
       code << "end\n"
       code << "\n"
 
-      code << "def teardown\n"
+      code << "teardown do\n"
       code << "  sign_out(@user)\n"
+      code << "end\n"
+      code << "\n"
+
+      code << "def beautify(value, back = true)\n"
+      code << "  if value.is_a?(Hash)\n"
+      code << "    (back ? \"\\n\" : '') + value.map{|k,v| \"\#{k.to_s.yellow}: \#{beautify(v)}\"}.join(\"\\n\").dig\n"
+      code << "  elsif value.is_a?(Array)\n"
+      code << "    (back ? \"\\n\" : '') + value.map{|v| \"- \#{beautify(v)}\"}.join(\"\\n\").dig\n"
+      code << "  elsif value.is_a?(ActiveRecord::Base)\n"
+      code << "    \"\#{value.class.name} #\#{value.id}\" + (value.errors.any? ? '. Errors: ' + value.errors.full_messages.to_sentence.red : '')"
+      code << "  else\n"
+      code << "    value.inspect\n"
+      code << "  end\n"
       code << "end\n"
       code << "\n"
 
@@ -130,32 +221,37 @@ class ActionController::TestCase
       ignored = self.controller_class.action_methods.to_a.map(&:to_sym) - actions
       puts "Ignore in #{controller_path}: " + ignored.join(', ') if ignored.any?
 
+      infos = []
+      infos << '"Response code: " + @response.response_code.to_s'
+      infos << '(flash[:notifications].is_a?(Hash) ? "Notifications are:\n" + flash[:notifications].collect{|k,v| "[#{k.to_s.upcase.yellow}] " + v.to_sentence(locale: :eng)}.join("\n").dig : "No notifications.")'
+      infos << '(assigns.any? ? "Assigns are:" + beautify(assigns) : "No assigns.")'
 
-      show_notification = '(flash[:notification].is_a?(Hash) ? "Notifications are: " + flash[:notification].collect{|k,v| "#{k}: " + v.to_sentence(locale: :eng)}.to_sentence(locale: :eng) : "No given notifications") + "."'
+      context = infos.join(' + "\n" + ')
 
-      for action in actions
+      actions.sort.each do |action|
         action_label = "#{controller_path}##{action}"
 
         params, mode = {}, options[action]
         if mode.is_a?(Hash)
-          if mode[:params] or mode[:mode]
-            params.update(mode[:params])
-            mode = mode[:mode]
+          if mode[:params].is_a?(Hash)
+            params.update mode[:params]
+            mode = mode.delete(:mode)
           else
-            params.update(mode)
-            mode = nil
+            mode = mode.delete(:mode)
+            params.update(options[action])
           end
         end
         mode ||= choose_mode(action_label)
 
         test_code = ""
         params.deep_symbolize_keys!
+        fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture))
         sanitized_params = Proc.new { |p = {}|
           p.deep_symbolize_keys.deep_merge(params).inspect.gsub('OTHER_RECORD', other_record).gsub('RECORD', record)
         }
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
-          test_code << "assert_response :success, #{show_notification}\n"
+          test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
           if params[:format] == :json
             # TODO: JSON parsing test
           else
@@ -164,55 +260,64 @@ class ActionController::TestCase
         elsif mode == :new_product
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
-          test_code << "  assert_response :success, #{show_notification}\n"
+          test_code << "  assert_response :success, #{context}\n"
           test_code << "else\n"
-          test_code << "  assert_response :redirect, #{show_notification}\n"
+          test_code << "  assert_response :redirect, #{context}\n"
+          test_code << "end\n"
+        elsif mode == :show_sti_record
+          test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
+          test_code << "assert_redirected_to root_url\n"
+          test_code << "#{model}.find_each do |record|\n"
+          test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}\n"
+          test_code << "  if record.type and record.type != '#{model.name}'\n"
+          test_code << "    assert_redirected_to({controller: record.class.name.tableize, action: :show, id: record.id})\n" # , #{context}
+          test_code << "  else\n"
+          test_code << "    assert_response :success, #{context}\n"
+          test_code << "    assert_not_nil assigns(:#{record})\n"
+          test_code << "  end\n"
           test_code << "end\n"
         elsif mode == :show
-          test_code << "assert_nothing_raised do\n"
-          test_code << "  get :#{action}, #{sanitized_params[id: 'NaID']}\n"
-          test_code << "end\n"
+          test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
+          test_code << "assert_redirected_to root_url\n" # , #{context}
           if model
-            test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-            test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-            test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :success, #{show_notification}\n"
-            test_code << "assert_not_nil assigns(:#{record})\n"
+            test_code << "#{model}.find_each do |record|\n"
+            test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
+            test_code << "  assert_response :success, #{context}\n"
+            test_code << "  assert_not_nil assigns(:#{record})\n"
+            test_code << "end\n"
           end
         elsif mode == :picture
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "if #{record}.picture.file?\n"
-          test_code << "  assert_response :success, #{show_notification}\n"
+          test_code << "  assert_response :success, #{context}\n"
           test_code << "  assert_not_nil assigns(:#{record})\n"
           test_code << "end\n"
         elsif mode == :list_things
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          test_code << "assert_response :success, #{show_notification}\n"
+          test_code << "assert_response :success, #{context}\n"
           for format in [:csv, :ods] # :xcsv,
             test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
             test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end
         elsif mode == :create
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "post :#{action}, #{sanitized_params[record => attributes]}\n"
         elsif mode == :update
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          test_code << "patch :#{action}, #{sanitized_params[id: 'RECORD.id'.c, record => attributes]}\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "assert_nothing_raised \"Update on record ID=\#{#{record}.id} must not raise something\" do\n"
+          test_code << "  patch :#{action}, #{sanitized_params[id: 'RECORD.id'.c, record => attributes]}\n"
+          test_code << "end\n"
+          test_code << "assert_response :redirect, \"After update on record ID=\#{#{record}.id} we should be redirected to another page. \" + #{context}\n"
         elsif mode == :destroy
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_002)\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first, :second)}\n"
           test_code << "assert_nothing_raised do\n"
           test_code << "  delete :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "end\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
         elsif mode == :list
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
@@ -222,45 +327,39 @@ class ActionController::TestCase
           end
         elsif mode == :touch
           test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
         elsif mode == :soft_touch
           test_code << "post :#{action}, #{sanitized_params[]}\n"
-          test_code << "assert_response :success, #{show_notification}\n"
+          test_code << "assert_response :success, #{context}\n"
         elsif mode == :multi_touch
           test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
           # Multi IDS
-          test_code << "#{other_record} = #{fixture_table}(:#{fixture_name}_003)\n"
-          test_code << "assert #{other_record}.valid?, '#{fixture_name}_003 must be valid:' + #{other_record}.errors.inspect\n"
+          test_code << "#{other_record} = #{fixtures_to_use.retrieve(:second)}\n"
           test_code << "post :#{action}, " + sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c] + "\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
         elsif mode == :redirected_get # with ID
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
         elsif mode == :get_and_post # with ID
           test_code << "get :#{action}, #{sanitized_params[id: 'NaID']}\n"
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          test_code << "assert_response :success, #{show_notification}\n"
+          test_code << "assert_response :success, #{context}\n"
         elsif mode == :index_xhr
           test_code << "get :#{action}, #{sanitized_params[]}\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
           test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
-          test_code << "assert_response :success, #{show_notification}\n"
+          test_code << "assert_response :success, #{context}\n"
         elsif mode == :show_xhr
-          test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-          test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
           test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
         elsif mode == :unroll
@@ -274,8 +373,7 @@ class ActionController::TestCase
           test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
           test_code << "end\n"
           if model
-            test_code << "#{record} = #{fixture_table}(:#{fixture_name}_001)\n"
-            test_code << "assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
             test_code << "assert_nothing_raised do\n"
             test_code << "  xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
             test_code << "end\n"
@@ -297,17 +395,19 @@ class ActionController::TestCase
           end
         elsif mode == :get
           test_code << "get :#{action}, #{sanitized_params[]}\n"
-          test_code << "assert_response :success, #{show_notification}\n"
+          test_code << "assert_response :success, #{context}\n"
         elsif mode == :redirect
           test_code << "get :#{action}, #{sanitized_params[]}\n"
-          test_code << "assert_response :redirect, #{show_notification}\n"
+          test_code << "assert_response :redirect, #{context}\n"
         else
           test_code << "raise StandardError, 'What is this mode? #{mode.inspect}'\n"
         end
 
-        # code << "  should '#{action} (#{mode})' do\n"
-        code << "test \"should #{action} (#{mode})\" do\n"
-        # code << "  print '#{controller_name}##{action}'.green\n"
+        if action != mode
+          code << "test '#{action} action in #{mode} mode' do\n"
+        else
+          code << "test '#{action} action' do\n"
+        end
         code << test_code.dig
         code << "end\n\n"
       end
@@ -343,6 +443,9 @@ class ActionController::TestCase
       if action_name == :new
         model = array.first.split(/\//).last.classify.constantize rescue nil
         return :new_product if model and model <= Product
+      elsif action_name == :show
+        model = array.first.split(/\//).last.classify.constantize rescue nil
+        return :show_sti_record if model and (model <= Product or model <= Entity)
       end
       for exp, mode in MODES
         return mode if action =~ exp

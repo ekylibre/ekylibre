@@ -2,7 +2,7 @@ module Versionable
   extend ActiveSupport::Concern
 
   included do
-    has_many :versions, -> { order(created_at: :desc) }, as: :item, dependent: :nullify
+    has_many :versions, -> { order(created_at: :desc) }, as: :item, dependent: :delete_all
 
     after_create  :add_creation_version
     after_update  :add_update_version

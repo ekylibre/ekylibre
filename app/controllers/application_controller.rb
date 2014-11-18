@@ -47,11 +47,15 @@ class ApplicationController < ActionController::Base
     options = {} unless options.is_a?(Hash)
     root, action = "actions." + self.controller_path + ".", action.to_s
     options[:default] ||= []
-    options[:default] << (root + "new").to_sym  if action == "create"
-    options[:default] << (root + "edit").to_sym if action == "update"
+    if action == "create" and !options[:default].include? (root + "new").to_sym
+      options[:default] << (root + "new").to_sym
+    elsif action == "update" and !options[:default].include? (root + "edit").to_sym
+      options[:default] << (root + "edit").to_sym
+    end
     klass = self.superclass
     while klass != ApplicationController do
-      options[:default] << "actions.#{klass.controller_path}.#{action}".to_sym
+      default = "actions.#{klass.controller_path}.#{action}".to_sym
+      options[:default] << default unless options[:default].include?(default)
       klass = klass.superclass
     end
     return ::I18n.translate(root + action, options)

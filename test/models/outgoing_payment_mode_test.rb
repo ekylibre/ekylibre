@@ -39,5 +39,5 @@
 require 'test_helper'
 
 class OutgoingPaymentModeTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

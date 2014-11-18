@@ -30,7 +30,7 @@
 
     - b.cell(tl(:x_observations, count: resource.observations.count)) do
       = toolbar do |t|
-        - t.new(params: {controller: :observations, entity_id: resource.id})
+        - t.new(params: {controller: :observations, subject_id: resource.id, subject_type: resource.class.name})
       - if resource.observations.any?
         = list(:observations)
 

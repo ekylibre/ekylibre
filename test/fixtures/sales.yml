@@ -83,155 +83,133 @@
 #
 ---
 sales_001:
-  address_id: 3
-  affair_id: 1
-  amount: 123.0
-  client_id: 6
-  created_at: 2009-07-18 22:00:00.000000000 Z
-  creator_id: 1
-  credit: false
-  currency: EUR
-  downpayment_amount: 0.0
-  expiration_delay: 1 month
-  expired_at: 2009-07-18 22:00:00.000000000 Z
-  has_downpayment: true
-  id: 1
-  letter_format: true
-  lock_version: 0
-  nature_id: 1
-  number: SO123456
-  payment_delay: 90 days
-  pretax_amount: 123.0
-  state: draft
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-sales_002:
-  accounted_at: 2014-11-01 19:50:57.940548000 Z
-  address_id: 3
-  affair_id: 9
-  amount: 430.56
-  client_id: 6
-  conclusion: ''
-  created_at: 2009-07-18 22:00:00.000000000 Z
-  creator_id: 1
-  credit: false
-  currency: EUR
-  delivery_address_id: 3
-  description: ''
-  downpayment_amount: 0.0
-  expiration_delay: 1 month
-  expired_at: 2009-07-18 22:00:00.000000000 Z
-  function_title: ''
-  has_downpayment: true
-  id: 2
-  introduction: ''
-  invoice_address_id: 3
-  letter_format: false
-  lock_version: 1
-  nature_id: 1
-  number: SO123458
-  payment_delay: 45 days
-  pretax_amount: 360.0
-  state: draft
-  subject: ''
-  updated_at: 2014-11-01 19:50:57.927330000 Z
-  updater_id: 1
-sales_003:
-  address_id: 3
-  affair_id: 3
-  amount: 10.0
-  client_id: 6
-  created_at: 2009-07-18 22:00:00.000000000 Z
-  creator_id: 1
-  credit: false
-  currency: EUR
-  downpayment_amount: 0.0
-  expiration_delay: 2 days
-  expired_at: 2009-07-18 22:00:00.000000000 Z
-  has_downpayment: true
-  id: 3
-  letter_format: true
-  lock_version: 0
-  nature_id: 1
-  number: SO123457
-  payment_delay: 3 months
-  pretax_amount: 10.0
-  state: order
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-sales_004:
-  address_id: 3
-  affair_id: 4
-  amount: 10.0
-  client_id: 6
-  created_at: 2009-07-18 22:00:00.000000000 Z
-  creator_id: 1
-  credit: false
-  currency: EUR
-  downpayment_amount: 0.0
-  has_downpayment: false
-  id: 4
-  letter_format: true
-  lock_version: 0
-  number: SO7894582
-  payment_delay: 3 months
-  pretax_amount: 10.0
-  state: draft
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-sales_005:
-  address_id: 3
-  affair_id: 5
-  amount: 123.0
-  client_id: 6
-  created_at: 2009-07-18 22:00:00.000000000 Z
-  creator_id: 1
-  credit: false
-  currency: EUR
-  downpayment_amount: 0.0
-  expiration_delay: end of month
-  expired_at: 2009-07-18 22:00:00.000000000 Z
-  has_downpayment: true
-  id: 5
-  letter_format: true
-  lock_version: 0
-  nature_id: 1
-  number: SO123460
-  payment_delay: 15 days, eom
-  pretax_amount: 123.0
-  state: order
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-sales_006:
-  accounted_at: 2014-10-31 18:51:33.927928000 Z
-  address_id: 8
-  affair_id: 6
-  amount: 448.98
-  client_id: 8
+  accounted_at: 2014-11-05 09:58:26.783812000 Z
+  affair_id: 10
+  amount: 1164.0
+  client_id: 7
   conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
     distinguées.
-  confirmed_at: 2014-10-31 18:51:33.880689000 Z
-  created_at: 2014-10-31 18:51:27.842209000 Z
+  confirmed_at: 2014-11-05 09:58:26.701417000 Z
+  created_at: 2014-11-05 09:52:05.483838000 Z
   creator_id: 1
   credit: false
   currency: EUR
+  description: ''
   downpayment_amount: 0.0
   expiration_delay: 15 days, bom, 10 days
   expired_at: 2014-11-10 23:00:00.000000000 Z
   function_title: Chère Madame, Cher Monsieur
   has_downpayment: false
-  id: 6
-  initial_number: '000000000001'
+  id: 7
+  initial_number: SO000000000002
   introduction: Suite à notre conversation, je vous communique les éléments du devis.
-  invoice_address_id: 8
-  invoiced_at: 2014-10-31 18:51:33.900404000 Z
+  invoiced_at: 2014-11-05 09:58:26.734061000 Z
   letter_format: false
   lock_version: 4
   nature_id: 1
-  number: '000000000001'
+  number: F2014000001
   payment_at: 2014-11-23 22:59:59.999999000 Z
   payment_delay: 12 days, eom, 1 week ago
-  pretax_amount: 375.21
+  pretax_amount: 970.0
+  responsible_id: 9
   state: invoice
-  updated_at: 2014-10-31 18:51:33.924423000 Z
+  subject: ''
+  updated_at: 2014-11-05 09:58:26.779080000 Z
+  updater_id: 1
+sales_002:
+  accounted_at: 2014-11-06 18:25:07.902592000 Z
+  address_id: 12
+  affair_id: 12
+  amount: 792.0
+  client_id: 13
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  created_at: 2014-11-05 10:01:39.833526000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  delivery_address_id: 12
+  description: Must stay as a DRAFT for TEST purpose.
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2014-11-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 8
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoice_address_id: 12
+  letter_format: false
+  lock_version: 1
+  nature_id: 1
+  number: SO000000000003
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 660.0
+  responsible_id: 9
+  state: draft
+  subject: ''
+  updated_at: 2014-11-06 18:25:07.883815000 Z
+  updater_id: 1
+sales_003:
+  accounted_at: 2014-11-05 10:03:12.776377000 Z
+  affair_id: 14
+  amount: 11.23
+  client_id: 10
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  confirmed_at: 2014-11-05 10:03:12.709619000 Z
+  created_at: 2014-11-05 10:03:05.874795000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2014-11-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 9
+  initial_number: SO000000000004
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  invoiced_at: 2014-11-05 10:03:12.735238000 Z
+  letter_format: false
+  lock_version: 4
+  nature_id: 1
+  number: F2014000002
+  payment_at: 2014-11-23 22:59:59.999999000 Z
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 9.36
+  responsible_id: 9
+  state: invoice
+  subject: ''
+  updated_at: 2014-11-05 10:03:12.772201000 Z
+  updater_id: 1
+sales_004:
+  accounted_at: 2014-11-05 13:36:09.012263000 Z
+  affair_id: 17
+  amount: 19.2
+  client_id: 10
+  conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations
+    distinguées.
+  created_at: 2014-11-05 13:36:08.943621000 Z
+  creator_id: 1
+  credit: false
+  currency: EUR
+  description: ''
+  downpayment_amount: 0.0
+  expiration_delay: 15 days, bom, 10 days
+  expired_at: 2014-11-10 23:00:00.000000000 Z
+  function_title: Chère Madame, Cher Monsieur
+  has_downpayment: false
+  id: 10
+  introduction: Suite à notre conversation, je vous communique les éléments du devis.
+  letter_format: false
+  lock_version: 0
+  nature_id: 1
+  number: SO000000000005
+  payment_delay: 12 days, eom, 1 week ago
+  pretax_amount: 16.0
+  responsible_id: 9
+  state: draft
+  subject: ''
+  updated_at: 2014-11-05 13:36:08.971783000 Z
   updater_id: 1

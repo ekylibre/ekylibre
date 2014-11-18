@@ -60,7 +60,6 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
-#     - "backend/net_services#unroll"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#run"
@@ -504,6 +503,7 @@ districts:
     actions:
     - "backend/districts#index"
     - "backend/districts#list"
+    - "backend/districts#show"
     - "backend/districts#unroll"
   write:
     depend-on:
@@ -520,6 +520,7 @@ document_templates:
     actions:
     - "backend/document_templates#index"
     - "backend/document_templates#list"
+    - "backend/document_templates#show"
     - "backend/document_templates#unroll"
   write:
     depend-on:
@@ -634,6 +635,7 @@ establishments:
     actions:
     - "backend/establishments#index"
     - "backend/establishments#list"
+    - "backend/establishments#show"
     - "backend/establishments#unroll"
   write:
     depend-on:
@@ -771,6 +773,8 @@ gaps:
   write:
     depend-on:
     - read-gaps
+    actions:
+    - "backend/gaps#destroy"
 
 georeadings:
   read:
@@ -880,6 +884,7 @@ incoming_payment_modes:
     actions:
     - "backend/incoming_payment_modes#index"
     - "backend/incoming_payment_modes#list"
+    - "backend/incoming_payment_modes#show"
     - "backend/incoming_payment_modes#unroll"
   write:
     depend-on:
@@ -1259,6 +1264,7 @@ net_services:
     - "backend/net_services#list"
     - "backend/net_services#list_identifiers"
     - "backend/net_services#show"
+    - "backend/net_services#unroll"
   write:
     depend-on:
     - read-net_services
@@ -1303,6 +1309,7 @@ outgoing_payment_modes:
     actions:
     - "backend/outgoing_payment_modes#index"
     - "backend/outgoing_payment_modes#list"
+    - "backend/outgoing_payment_modes#show"
     - "backend/outgoing_payment_modes#unroll"
   write:
     depend-on:
@@ -1422,6 +1429,7 @@ postal_zones:
     actions:
     - "backend/postal_zones#index"
     - "backend/postal_zones#list"
+    - "backend/postal_zones#show"
     - "backend/postal_zones#unroll"
   write:
     depend-on:
@@ -1554,9 +1562,9 @@ product_natures:
 productions:
   read:
     actions:
-    - "backend/production_support_markers#index"
-    - "backend/production_support_markers#list"
-    - "backend/production_support_markers#show"
+    - "backend/production_support_markers#index" #?
+    - "backend/production_support_markers#list" #?
+    - "backend/production_support_markers#show" #?
     - "backend/production_supports#index"
     - "backend/production_supports#list"
     - "backend/production_supports#list_interventions"
@@ -1574,11 +1582,11 @@ productions:
     depend-on:
     - read-productions
     actions:
-    - "backend/production_support_markers#create"
-    - "backend/production_support_markers#destroy"
-    - "backend/production_support_markers#edit"
-    - "backend/production_support_markers#new"
-    - "backend/production_support_markers#update"
+    - "backend/production_support_markers#create" #?
+    - "backend/production_support_markers#destroy" #?
+    - "backend/production_support_markers#edit" #?
+    - "backend/production_support_markers#new" #?
+    - "backend/production_support_markers#update" #?
     - "backend/production_supports#create"
     - "backend/production_supports#destroy"
     - "backend/production_supports#edit"
@@ -1639,8 +1647,6 @@ purchase_natures:
 purchases:
   read:
     actions:
-    - "backend/purchase_items#index"
-    - "backend/purchase_items#show"
     - "backend/purchases#index"
     - "backend/purchases#list"
     - "backend/purchases#list_deliveries"
@@ -1652,11 +1658,6 @@ purchases:
     - read-purchases
     actions:
     - "backend/incoming_deliveries#invoice"
-    - "backend/purchase_items#create"
-    - "backend/purchase_items#destroy"
-    - "backend/purchase_items#edit"
-    - "backend/purchase_items#new"
-    - "backend/purchase_items#update"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1710,8 +1711,6 @@ sale_natures:
 sales:
   read:
     actions:
-    - "backend/sale_items#index"
-    - "backend/sale_items#show"
     - "backend/sales#index"
     - "backend/sales#list"
     - "backend/sales#list_creditable_items"
@@ -1727,12 +1726,6 @@ sales:
     - read-sales
     actions:
     - "backend/outgoing_deliveries#invoice"
-    - "backend/sale_items#create"
-    - "backend/sale_items#destroy"
-    - "backend/sale_items#detail"
-    - "backend/sale_items#edit"
-    - "backend/sale_items#new"
-    - "backend/sale_items#update"
     - "backend/sales#abort"
     - "backend/sales#cancel"
     - "backend/sales#confirm"
@@ -1754,6 +1747,7 @@ sequences:
     actions:
     - "backend/sequences#index"
     - "backend/sequences#list"
+    - "backend/sequences#show"
     - "backend/sequences#unroll"
   write:
     depend-on:
@@ -1830,6 +1824,7 @@ subscriptions:
     actions:
     - "backend/subscriptions#index"
     - "backend/subscriptions#list"
+    - "backend/subscriptions#show"
     - "backend/subscriptions#unroll"
   write:
     depend-on:
@@ -1846,6 +1841,7 @@ taxes:
     actions:
     - "backend/taxes#index"
     - "backend/taxes#list"
+    - "backend/taxes#show"
     - "backend/taxes#unroll"
   write:
     depend-on:
@@ -1862,6 +1858,7 @@ teams:
     actions:
     - "backend/teams#index"
     - "backend/teams#list"
+    - "backend/teams#show"
     - "backend/teams#unroll"
   write:
     depend-on:

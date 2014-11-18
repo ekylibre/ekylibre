@@ -391,6 +391,7 @@ arb:
       # show: "Issue: %{name}"
     backend/journal_entries:
       edit: "تعديل السجل رقم %{number} من %{created_at}"
+      # index: "Journal entries"
       new: "اضافة سجل"
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
@@ -648,9 +649,9 @@ arb:
       show: "المنتجات : %{name}" #?
     backend/professions: #?
     backend/public: #?
-    backend/purchase_items:
-      edit: "تعديل تصميم الطلب"
-      new: "اضافة طلب للمنتج : %{number}"
+    backend/purchase_items:  #?
+      edit: "تعديل تصميم الطلب" #?
+      new: "اضافة طلب للمنتج : %{number}" #?
     backend/purchase_lines:  #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
@@ -679,9 +680,9 @@ arb:
       new: "اضافة مهام"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
-    backend/sale_items:
-      edit: "تعديل مسار طلب المنتج"
-      new: "اضافة تصميم خطوط المنتج"
+    backend/sale_items:  #?
+      edit: "تعديل مسار طلب المنتج" #?
+      new: "اضافة تصميم خطوط المنتج" #?
     backend/sale_lines:  #?
       edit: "تعديل مسار طلب المنتج" #?
       new: "اضافة تصميم خطوط المنتج" #?
@@ -877,6 +878,7 @@ arb:
     backend/units: "وحدات القياس" #?
     backend/users: "المستخدمين" #?
   errors:
+    # format: "%{message}"
     messages:
       # already_confirmed: "was already confirmed, please try signing in"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
@@ -2109,7 +2111,7 @@ arb:
       import_succeeded: "نم استيراد بياناتك بشكل صحيح" #?
       importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد" #?
       importation_finished: "انتهاء الاستيراد"
-      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
       impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
@@ -2178,7 +2180,7 @@ arb:
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
-      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
       unknown_company: "شركة غير معروفة" #?
@@ -2323,6 +2325,7 @@ arb:
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
+    # backend/incoming_payments: "{number} {mode.name} {payer.full_name} {amount} {currency}"
     # backend/journal_entry_items: "{entry.number} {name} {account.number} D{real_debit} C{real_credit} {currency}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
@@ -2334,4 +2337,5 @@ arb:
     # backend/product_natures: "{name}"
     # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name}"
+    # backend/trackings: "{serial} ‒ {name} ‒ {producer.full_name}"
     # backend/users: "{first_name} {last_name}"

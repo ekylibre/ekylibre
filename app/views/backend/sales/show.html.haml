@@ -1,23 +1,23 @@
 - main_toolbar do |t|
   - t.export do |e|
-    - if @sale.invoice?
-      - e.sales_invoice @sale.number, @sale
-    - elsif @sale.order?
-      - e.sales_order @sale.number, @sale
-    - elsif @sale.estimate? or @sale.draft?
-      - e.sales_estimate @sale.number, @sale
-  - if @sale.invoice?
-    - t.cancel(@sale) if @sale.cancelable?
-  - t.edit @sale if @sale.draft?
-  - if @sale.can_confirm?
-    - t.confirm @sale, method: :post, "data-confirm" => :are_you_sure_you_want_to_confirm.tl
-  - if @sale.can_propose?
-    - t.propose_and_invoice @sale, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
-  - if @sale.can_invoice?
-    - t.invoice @sale, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
+    - if resource.invoice?
+      - e.sales_invoice resource.number, resource
+    - elsif resource.order?
+      - e.sales_order resource.number, resource
+    - elsif resource.estimate? or resource.draft?
+      - e.sales_estimate resource.number, resource
+  - if resource.invoice?
+    - t.cancel(resource) if resource.cancelable?
+  - t.edit resource if resource.draft?
+  - if resource.can_confirm?
+    - t.confirm resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_confirm.tl
+  - if resource.can_propose?
+    - t.propose_and_invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
+  - if resource.can_invoice?
+    - t.invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
   - for event in [:propose, :correct, :refuse]
-    - t.send(event, @sale, method: :post, "data-confirm" => :are_you_sure.tl) if @sale.send("can_#{event}?")
-  - t.abort(@sale, method: :post, "data-confirm" => :are_you_sure.tl) if @sale.can_abort?
+    - t.send(event, resource, method: :post, "data-confirm" => :are_you_sure.tl) if resource.send("can_#{event}?")
+  - t.abort(resource, method: :post, "data-confirm" => :are_you_sure.tl) if resource.can_abort?
 
 = beehive do |b|
 
@@ -25,53 +25,53 @@
     - b.cell Sale.human_attribute_name(:items) do
       = list :items do
         %tr.total
-          %th{:colspan => 4}= :total.tl
-          %td= @sale.pretax_amount.l(currency: @sale.currency)
-          %td= @sale.amount.l(currency: @sale.currency)
-          %th{:colspan => 3}
+          %th{colspan: 4}= :total.tl
+          %td= resource.pretax_amount.l(currency: resource.currency)
+          %td= resource.amount.l(currency: resource.currency)
+          %th
 
     - b.cell do
       = attributes_list do |l|
         - l.attribute :client, :label => :label, url: true
         - l.attribute :number
-        - l.attribute :initial_number if @sale.invoice?
+        - l.attribute :initial_number if resource.invoice?
         - l.attribute :state_label
         - l.attribute :responsible, :label => :full_name
         - l.attribute :created_at
-        - l.attribute :confirmed_at if @sale.confirmed_at?
-        - l.attribute :invoiced_at if @sale.invoiced_at?
-        - l.attribute :origin, url: true if @sale.invoice? and @sale.origin
+        - l.attribute :confirmed_at if resource.confirmed_at?
+        - l.attribute :invoiced_at if resource.invoiced_at?
+        - l.attribute :origin, url: true if resource.invoice? and resource.origin
         - l.attribute :payment_delay, :label => :name
         - l.attribute :nature
-        - l.attribute :currency unless @sale.currency == Entity.of_company.currency
-        - l.attribute :description if @sale.description?
+        - l.attribute :currency unless resource.currency == Entity.of_company.currency
+        - l.attribute :description if resource.description?
         - l.attribute :address, :label => :coordinate
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :invoice_address, :label => :coordinate
-        - l.attribute(:journal_entry, url: true) if @sale.journal_entry
+        - l.attribute(:journal_entry, url: true) if resource.journal_entry
         - l.attribute :letter_format
-        - if @sale.letter_format?
+        - if resource.letter_format?
           - l.attribute :subject
           - l.attribute :function_title
           - l.attribute :introduction, :field => :textarea
           - l.attribute :conclusion, :field => :textarea
 
 
-    - if @sale.subscriptions.any?
-      - b.cell tl(:x_subscriptions, count: @sale.subscriptions.count) do
-        - if @sale.draft?
+    - if resource.subscriptions.any?
+      - b.cell tl(:x_subscriptions, count: resource.subscriptions.count) do
+        - if resource.draft?
           = toolbar do |t|
-            - for item in @sale.items.includes(:product, :reduction_origin)
+            - for item in resource.items.includes(:product, :reduction_origin)
               - if item.product.nature.subscribing? and not item.reduction_origin
                 - t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
         = list :subscriptions
 
   - b.cell(Sale.human_attribute_name(:affair)) do
-    = affair_of(@sale)
+    = affair_of(resource)
 
-  - if @sale.deliverable?
+  - if resource.deliverable?
     - b.hbox do
-      - if @sale.deliveries.any?
+      - if resource.deliveries.any?
         - b.cell Sale.human_attribute_name("deliveries") do
           = list :deliveries
 

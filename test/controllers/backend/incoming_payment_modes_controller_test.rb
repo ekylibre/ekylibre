@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::IncomingPaymentModesControllerTest < ActionController::TestCase
-  test_restfully_all_actions reflect: :touch
+  test_restfully_all_actions reflect: :touch, show: :redirected_get
 end

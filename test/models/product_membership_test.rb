@@ -40,6 +40,5 @@
 require 'test_helper'
 
 class ProductMembershipTest < ActiveSupport::TestCase
-
-
+  test_fixtures
 end

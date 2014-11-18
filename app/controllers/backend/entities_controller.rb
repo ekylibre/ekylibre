@@ -68,9 +68,10 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:observations, conditions: {subject_id: 'params[:id]'.c, subject_type: ["Entity", "LegalEntity", "Person"]}, line_class: :importance, per_page: 5) do |t|
+  list(:observations, conditions: {subject_id: 'params[:id]'.c, subject_type: "Entity"}, line_class: :importance, per_page: 5) do |t|
     t.column :content
     t.column :importance
+    t.column :observed_at
     t.action :edit
     t.action :destroy
   end

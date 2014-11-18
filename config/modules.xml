@@ -125,6 +125,7 @@
         <page to="backend/subscriptions#edit"/>
         <page to="backend/subscriptions#list"/>
         <page to="backend/subscriptions#new"/>
+        <page to="backend/subscriptions#show"/>
         <page to="backend/subscriptions#unroll"/>
         <page to="backend/subscriptions#update"/>
       </item>
@@ -288,14 +289,6 @@
         <page to="backend/sales#new"/>
         <page to="backend/sales#unroll"/>
         <page to="backend/sales#update"/>
-        <page to="backend/sale_items#index"/>
-        <page to="backend/sale_items#show"/>
-        <page to="backend/sale_items#create"/>
-        <page to="backend/sale_items#destroy"/>
-        <page to="backend/sale_items#detail"/>
-        <page to="backend/sale_items#edit"/>
-        <page to="backend/sale_items#new"/>
-        <page to="backend/sale_items#update"/>
       </item>
     </group>
     <group name="purchases" icon="shopping-cart">
@@ -320,14 +313,7 @@
         <page to="backend/purchases#unroll"/>
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
-        <page to="backend/purchase_items#index"/>
         <page to="backend/product_nature_variants#last_purchase_item"/>
-        <page to="backend/purchase_items#show"/>
-        <page to="backend/purchase_items#create"/>
-        <page to="backend/purchase_items#destroy"/>
-        <page to="backend/purchase_items#edit"/>
-        <page to="backend/purchase_items#new"/>
-        <page to="backend/purchase_items#update"/>
       </item>
     </group>
     <group name="payments" icon="credit-card">
@@ -1074,6 +1060,7 @@
         <page to="backend/sequences#list"/>
         <page to="backend/sequences#load"/>
         <page to="backend/sequences#new"/>
+        <page to="backend/sequences#show"/>
         <page to="backend/sequences#unroll"/>
         <page to="backend/sequences#update"/>
       </item>
@@ -1270,6 +1257,7 @@
         <page to="backend/taxes#edit"/>
         <page to="backend/taxes#list"/>
         <page to="backend/taxes#new"/>
+        <page to="backend/taxes#show"/>
         <page to="backend/taxes#unroll"/>
         <page to="backend/taxes#update"/>
       </item>
@@ -1306,6 +1294,7 @@
         <page to="backend/incoming_payment_modes#list"/>
         <page to="backend/incoming_payment_modes#new"/>
         <page to="backend/incoming_payment_modes#reflect"/>
+        <page to="backend/incoming_payment_modes#show"/>
         <page to="backend/incoming_payment_modes#up"/>
         <page to="backend/incoming_payment_modes#unroll"/>
         <page to="backend/incoming_payment_modes#update"/>

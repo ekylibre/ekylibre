@@ -41,12 +41,7 @@
 require 'test_helper'
 
 class FinancialYearTest < ActiveSupport::TestCase
-
-  def test_fixtures
-    FinancialYear.find_each do |record|
-      assert record.valid?, "Record ##{record.name} is invalid. #{record.errors.full_messages.to_sentence}"
-    end
-  end
+  test_fixtures
 
   def test_chronology
     first_year = financial_years(:financial_years_001)

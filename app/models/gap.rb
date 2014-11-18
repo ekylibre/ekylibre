@@ -47,10 +47,10 @@ class Gap < Ekylibre::Record::Base
   enumerize :entity_role, in: [:client, :supplier], predicates: true
   belongs_to :journal_entry
   belongs_to :entity
-  has_many :items, class_name: "GapItem", inverse_of: :gap
+  has_many :items, class_name: "GapItem", inverse_of: :gap, dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :printed_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :accounted_at, :printed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :direction, :entity_role, :number, allow_nil: true, maximum: 255

@@ -68,18 +68,30 @@ module RestfullyManageable
 
       if actions.include?(:show)
         code << "def show\n"
-        code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-        if options[:subclass_inheritance]
-          code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
-          code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
-          code << "    return\n"
-          code << "  end\n"
+        code << "  return unless @#{record_name} = find_and_check\n"
+        parents = [self]
+        while parents.last.superclass < ActionController::Base
+          parents << parents.last.superclass
         end
-        code << "  respond_to do |format|\n"
-        code << "    format.html { #{t3e_code} }\n"
-        code << "    format.xml  { render xml:  @#{record_name} }\n"
-        code << "    format.json { render json: @#{record_name} }\n"
-        code << "  end\n"
+        lookup = Rails.root.join("app", "views", "{#{parents.map(&:controller_path).join(',')}}")
+        if Dir.glob(lookup.join("show.*")).any?
+          if options[:subclass_inheritance]
+            code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
+            # code << "    notify :redirected_to_best_page\n"
+            code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
+            code << "    return\n"
+            code << "  end\n"
+          end
+          code << "  respond_to do |format|\n"
+          code << "    format.html { #{t3e_code} }\n"
+          code << "    format.xml  { render xml:  @#{record_name} }\n"
+          code << "    format.json { render json: @#{record_name} }\n"
+          code << "  end\n"
+        elsif Dir.glob(lookup.join("index.*")).any?
+          code << "  redirect_to action: :index, '#{name}-id' => @#{record_name}.id\n"
+        else
+          raise StandardError, "Cannot build a default show action without view for show or index actions in #{parents.map(&:controller_path).to_sentence(locale: :eng)} (#{lookup.join('show.*')})."
+        end
         code << "end\n"
       end
 
@@ -210,14 +222,14 @@ module RestfullyManageable
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_higher\n"
       code << sort.gsub(/^/, "  ")
-      code << "  redirect_to_current\n"
+      code << "  redirect_to_back\n"
       code << "end\n"
 
       code << "def down\n"
       code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code << "  #{record_name}.move_lower\n"
       code << sort.gsub(/^/, "  ")
-      code << "  redirect_to_current\n"
+      code << "  redirect_to_back\n"
       code << "end\n"
 
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

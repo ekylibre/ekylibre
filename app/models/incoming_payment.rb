@@ -62,7 +62,7 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :payer, class_name: "Entity", inverse_of: :incoming_payments
   belongs_to :mode, class_name: "IncomingPaymentMode", inverse_of: :payments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :commission_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :bank_account_number, :bank_check_number, :bank_name, :number, allow_nil: true, maximum: 255

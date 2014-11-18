@@ -18,12 +18,16 @@
 #
 
 class Backend::GapsController < BackendController
-  manage_restfully only: [:index, :show]
+  manage_restfully only: [:index, :show, :destroy]
 
   list do |t|
+    t.column :number, url: true
     t.column :entity, url: true
     t.column :direction
+    t.column :pretax_amount, currency: true
     t.column :amount, currency: true
+    t.column :printed_at
+    t.action :destroy
   end
 
   list(:items, model: :gap_items, conditions: {gap_id: 'params[:id]'.c}) do |t|

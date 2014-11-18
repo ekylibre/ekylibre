@@ -51,5 +51,5 @@
 require 'test_helper'
 
 class ProductNatureTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

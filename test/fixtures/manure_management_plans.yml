@@ -55,30 +55,46 @@
 manure_management_plans_001:
   annotation: ''
   campaign_id: 1
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  created_at: 2014-11-05 13:49:07.221872000 Z
   creator_id: 1
-  default_computation_method: external
+  default_computation_method: poitou_charentes_2013
   id: 1
   lock_version: 2
   locked: false
   name: PPF 2013
-  opened_at: 2013-10-26 14:34:00.000000000 Z
-  recommender_id: 9
-  selected: true
-  updated_at: 2014-11-01 19:13:42.686845000 Z
+  opened_at: 2013-01-31 23:00:00.000000000 Z
+  recommender_id: 1
+  selected: false
+  updated_at: 2014-11-05 13:54:05.218863000 Z
   updater_id: 1
 manure_management_plans_002:
   annotation: ''
-  campaign_id: 1
-  created_at: 2014-11-01 18:47:51.247742000 Z
+  campaign_id: 4
+  created_at: 2014-11-05 13:49:55.999775000 Z
   creator_id: 1
   default_computation_method: poitou_charentes_2013
   id: 2
-  lock_version: 3
+  lock_version: 5
   locked: false
-  name: PPF 2013 bis
-  opened_at: 2013-02-01 08:45:00.000000000 Z
-  recommender_id: 6
-  selected: false
-  updated_at: 2014-11-01 18:49:26.837158000 Z
+  name: PPF 2014 (Baktoubi)
+  opened_at: 2014-01-31 23:00:00.000000000 Z
+  recommender_id: 4
+  selected: true
+  updated_at: 2014-11-05 13:56:45.575805000 Z
+  updater_id: 1
+manure_management_plans_003:
+  annotation: "Used for null operands test purpose. Do not touch, please. Thank you.\r\nUtilisé
+    pour tester les valeurs des opérandes nulles. Ne pas toucher SVP. Merci."
+  campaign_id: 1
+  created_at: 2014-11-14 20:01:58.653299000 Z
+  creator_id: 1
+  default_computation_method: external
+  id: 4
+  lock_version: 13
+  locked: false
+  name: PPF vide !
+  opened_at: 2013-02-02 23:00:00.000000000 Z
+  recommender_id: 1
+  selected: true
+  updated_at: 2014-11-14 20:31:15.803022000 Z
   updater_id: 1

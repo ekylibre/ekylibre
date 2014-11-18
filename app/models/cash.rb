@@ -52,17 +52,20 @@ class Cash < Ekylibre::Record::Base
     :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
   }
   # attr_accessible :name, :nature, :mode, :iban, :bank_identifier_code, :bank_account_key, :bank_name, :bank_code, :bank_agency_code, :bank_account_number, :bank_agency_address, :account_id, :journal_id, :country, :currency
-  attr_readonly :nature, :currency
+  attr_readonly :nature
+  attr_readonly :currency, if: :used?
   belongs_to :account
   belongs_to :journal
-  has_many :bank_statements
+  has_many :bank_statements, dependent: :destroy
   has_many :deposits
   has_many :journal_entry_items, through: :account
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_one :last_bank_statement, -> { order("stopped_at DESC") }, class_name: "BankStatement"
+
   enumerize :nature, in: [:bank_account, :cash_box], default: :bank_account, predicates: true
   enumerize :mode, in: [:iban, :bban], default: :iban, predicates: {prefix: true}
+  # enumerize :currency, in: Nomen::Currencies.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, allow_nil: true, maximum: 2
@@ -79,15 +82,21 @@ class Cash < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
   validates_uniqueness_of :account_id
 
-  scope :bank_accounts, -> { where(:nature => "bank_account") }
-  scope :cash_boxes,    -> { where(:nature => "cash_box") }
+  delegate :currency, to: :journal, prefix: true
+
+  scope :bank_accounts, -> { where(nature: "bank_account") }
+  scope :cash_boxes,    -> { where(nature: "cash_box") }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
     self.mode.lower!
     self.mode = self.class.mode.default_value if self.mode.blank?
-    if self.currency.blank? and eoc = Entity.of_company
-      self.currency = eoc.currency
+    if self.currency.blank?
+      if self.journal
+        self.currency = self.journal_currency
+      elsif eoc = Entity.of_company
+        self.currency = eoc.currency
+      end
     end
     if self.mode_iban?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
@@ -100,7 +109,9 @@ class Cash < Ekylibre::Record::Base
   # IBAN have to be checked before saved.
   validate do
     if self.journal
-      errors.add(:journal, :currency_does_not_match, journal: self.journal.name) unless self.currency == self.journal.currency
+      unless self.currency == self.journal.currency
+        errors.add(:journal, :currency_does_not_match, journal: self.journal.name)
+      end
     end
     if self.bank_account?
       if self.mode_bban?
@@ -111,7 +122,11 @@ class Cash < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.deposits.any? or self.bank_statements.any?
+    self.used?
+  end
+
+  def used?
+    self.deposits.any? or self.bank_statements.any? or self.outgoing_payment_modes.any? or self.incoming_payment_modes.any?
   end
 
 
@@ -145,8 +160,7 @@ class Cash < Ekylibre::Record::Base
       end
     end
     iban_key = 98 - (str.to_i.modulo 97)
-
-    return iban_key.to_i.eql?(iban[2..3].to_i)
+    return (iban_key.to_i == iban[2..3].to_i)
   end
 
   # Generates the IBAN key.

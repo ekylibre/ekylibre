@@ -6,8 +6,8 @@ class AggeratioTest < ActiveSupport::TestCase
   setup do
     DocumentTemplate.load_defaults
     @parameters = {
-      exchange_accountancy_file_fr: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access,
-      profit_and_loss_statement: {started_on: "2007-01-01", stopped_on: "2007-12-31"}.with_indifferent_access,
+      exchange_accountancy_file_fr: {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
+      profit_and_loss_statement:    {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
     }.with_indifferent_access
   end
 
@@ -41,7 +41,7 @@ class AggeratioTest < ActiveSupport::TestCase
       queries.each do |query|
         errors << query unless doc.xpath(query).any?
       end
-      assert errors.empty?, "Cannot find #{errors.count} elements in XML export (among #{queries.count}). Fixtures may be incomplete.\nMissing element are:\n" + errors.join("\n").dig # + "\nXML:\n" + xml.dig
+      assert errors.empty?, "Cannot find #{errors.count} elements in XML export (among #{queries.count}). Fixtures may be incomplete.\nMissing elements are:\n" + errors.join("\n").dig # + "\nXML:\n" + xml.dig
     end
 
   end

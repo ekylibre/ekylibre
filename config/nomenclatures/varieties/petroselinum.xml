@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-petroselinum" hierarchical="true">
+    <items>
+      <item name="petroselinum_segetum" itis_tsn="29816"/>
+      <item name="petroselinum_crispum" itis_tsn="822347"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="varieties-petroselinum_crispum" hierarchical="true">
+    <items>
+      <item name="petroselinum_crispum_crispum" itis_tsn="822347"/>
+      <item name="petroselinum_crispum_neapolitanum" itis_tsn="822347"/>
+      <item name="petroselinum_crispum_tuberosum" itis_tsn="822347"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

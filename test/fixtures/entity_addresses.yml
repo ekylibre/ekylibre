@@ -191,23 +191,24 @@ entity_addresses_008:
 entity_addresses_009:
   by_default: true
   canal: mail
-  coordinate: Ferstivall LTD, 33000 BORDEAUX, France
+  coordinate: Ferstivall LTD, La Banquise, 4 rue Eugène et Marc Dulout, 33600 PESSAC,
+    France
   created_at: 2014-11-03 11:30:58.908408000 Z
   creator_id: 1
   entity_id: 1
   id: 9
-  lock_version: 0
+  lock_version: 4
   mail_auto_update: false
   mail_country: fr
   mail_line_1: Ferstivall LTD
-  mail_line_2: ''
+  mail_line_2: La Banquise
   mail_line_3: ''
-  mail_line_4: ''
+  mail_line_4: 4 rue Eugène et Marc Dulout
   mail_line_5: ''
-  mail_line_6: 33000 BORDEAUX
-  mail_postal_zone_id: 2
+  mail_line_6: 33600 PESSAC
+  mail_postal_zone_id: 7
   thread: AAAA
-  updated_at: 2014-11-03 11:30:58.908408000 Z
+  updated_at: 2014-11-07 15:13:53.040881000 Z
   updater_id: 1
 entity_addresses_010:
   by_default: true
@@ -221,4 +222,38 @@ entity_addresses_010:
   mail_auto_update: false
   thread: AAAA
   updated_at: 2014-11-03 11:30:58.913730000 Z
+  updater_id: 1
+entity_addresses_011:
+  by_default: true
+  canal: email
+  coordinate: contact@coopaincoopin.coop
+  created_at: 2014-11-05 10:01:10.931464000 Z
+  creator_id: 1
+  entity_id: 13
+  id: 11
+  lock_version: 0
+  mail_auto_update: false
+  thread: AAAA
+  updated_at: 2014-11-05 10:01:10.931464000 Z
+  updater_id: 1
+entity_addresses_012:
+  by_default: true
+  canal: mail
+  coordinate: Coop Ain Coop'In, 33 rue de la société, 11110 MAROUSSAC, France
+  created_at: 2014-11-05 14:14:01.994491000 Z
+  creator_id: 1
+  entity_id: 13
+  id: 12
+  lock_version: 1
+  mail_auto_update: true
+  mail_country: fr
+  mail_line_1: Coop Ain Coop'In
+  mail_line_2: ''
+  mail_line_3: ''
+  mail_line_4: 33 rue de la société
+  mail_line_5: ''
+  mail_line_6: 11110 MAROUSSAC
+  mail_postal_zone_id: 6
+  thread: AAAA
+  updated_at: 2014-11-05 14:14:02.006894000 Z
   updater_id: 1

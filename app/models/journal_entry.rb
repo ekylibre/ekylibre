@@ -68,7 +68,7 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :sales, dependent: :nullify
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: "FinancialYear", dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :state, allow_nil: true, maximum: 30
@@ -134,7 +134,7 @@ class JournalEntry < Ekylibre::Record::Base
         conditions << "#{table}.printed_on <= #{self.connection.quote(stopped_at)}"
       end
       return self.connection.quoted_false if conditions.empty?
-      return '('+conditions.join(' AND ')+')'
+      return '(' << conditions.join(' AND ') << ')'
     end
   end
 
@@ -262,10 +262,16 @@ class JournalEntry < Ekylibre::Record::Base
           saved = false unless entry_items[index].save
         end
       end
-      self.reload if saved
-      if saved and (not self.balanced? or self.items.size.zero?)
-        self.errors.add(:debit, :unbalanced)
-        saved = false
+      if saved
+        self.reload
+        unless self.items.any?
+          self.errors.add(:items, :empty)
+          saved = false
+        end
+        unless self.balanced?
+          self.errors.add(:debit, :unbalanced)
+          saved = false
+        end
       end
       if saved
         return true

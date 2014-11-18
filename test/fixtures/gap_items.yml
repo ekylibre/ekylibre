@@ -47,50 +47,26 @@
 #
 ---
 gap_items_001:
-  amount: 120.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  amount: -11.23
+  created_at: 2014-11-05 13:35:14.450417000 Z
   creator_id: 1
   currency: EUR
-  gap_id: 1
+  gap_id: 3
   id: 1
   lock_version: 0
-  pretax_amount: 100.0
+  pretax_amount: -9.36
   tax_id: 3
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-05 13:35:14.450417000 Z
   updater_id: 1
 gap_items_002:
-  amount: 60.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  amount: 0.8
+  created_at: 2014-11-05 13:36:51.333086000 Z
   creator_id: 1
   currency: EUR
-  gap_id: 1
+  gap_id: 4
   id: 2
   lock_version: 0
-  pretax_amount: 50.0
-  tax_id: 3
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-gap_items_003:
-  amount: 92.13
-  created_at: 2014-11-01 19:52:00.907532000 Z
-  creator_id: 1
-  currency: EUR
-  gap_id: 3
-  id: 3
-  lock_version: 0
-  pretax_amount: 92.13
+  pretax_amount: 0.8
   tax_id: 2
-  updated_at: 2014-11-01 19:52:00.907532000 Z
-  updater_id: 1
-gap_items_004:
-  amount: 24.87
-  created_at: 2014-11-01 19:52:00.910983000 Z
-  creator_id: 1
-  currency: EUR
-  gap_id: 3
-  id: 4
-  lock_version: 0
-  pretax_amount: 20.79
-  tax_id: 1
-  updated_at: 2014-11-01 19:52:00.910983000 Z
+  updated_at: 2014-11-05 13:36:51.333086000 Z
   updater_id: 1

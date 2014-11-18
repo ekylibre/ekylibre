@@ -45,7 +45,7 @@ class ProductPhase < Ekylibre::Record::Base
   belongs_to :nature,   class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :category, :nature, :product, :variant
   #]VALIDATORS]
@@ -75,7 +75,9 @@ class ProductPhase < Ekylibre::Record::Base
       if previous = self.previous
         self.product.update_columns(variant_id: previous.variant_id, nature_id: previous.nature_id, category_id: previous.category_id)
       else
-        raise "Cannot destroy this product phase"
+        unless self.destroyed_by_association
+          raise "Cannot destroy this product phase"
+        end
       end
     end
   end

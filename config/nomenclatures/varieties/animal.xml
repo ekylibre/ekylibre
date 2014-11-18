@@ -13,6 +13,7 @@
     <items>
       <item name="gallus"/>
       <item name="anas"/>
+      <item name="cairina"/>
       <item name="numida"/>
     </items>
   </nomenclature>
@@ -59,6 +60,7 @@
       <item name="bos"/>
       <item name="sus"/>
       <item name="lepus"/>
+      <item name="oryctolagus"/>
       <item name="equus"/>
     </items>
   </nomenclature>

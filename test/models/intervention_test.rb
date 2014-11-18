@@ -51,6 +51,7 @@
 require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
+  test_fixtures
 
   test "scopes" do
     cast = intervention_casts(:intervention_casts_001)

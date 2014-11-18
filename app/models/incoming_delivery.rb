@@ -51,7 +51,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   enumerize :mode, in: Nomen::DeliveryModes.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :received_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :received_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
   validates_length_of :mode, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :number, :sender
@@ -129,7 +129,7 @@ class IncomingDelivery < Ekylibre::Record::Base
         for item in delivery.items
           next unless item.population > 0
           item.purchase_item = purchase.items.create!(variant: item.variant,
-                                                      unit_price_amount: item.variant.prices.first.amount,
+                                                      unit_price_amount: (item.variant.prices.any? ? item.variant.prices.first.amount : 0.0),
                                                       tax: item.variant.category.purchase_taxes.first || Tax.first,
                                                       indicator_name: "population",
                                                       quantity: item.population)

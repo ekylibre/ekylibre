@@ -48,5 +48,5 @@
 require 'test_helper'
 
 class SubscriptionTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

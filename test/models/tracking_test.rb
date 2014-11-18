@@ -38,5 +38,5 @@
 require 'test_helper'
 
 class TrackingTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

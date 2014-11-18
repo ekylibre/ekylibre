@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'test_helper'
 
-class AddANewAnimalTest < CapybaraIntegrationTest
+class AddAnAnimalTest < CapybaraIntegrationTest
 
   setup do
     # Need to go on page to set tenant
@@ -41,10 +41,11 @@ class AddANewAnimalTest < CapybaraIntegrationTest
   test "view an animal" do
     visit ('/backend/animals')
     shoot_screen "animals/index"
-    assert has_content?('Marguerite'), "Marguerite must appear in animals list"
-    click_link 'Marguerite'
-    shoot_screen "animals/show-marguerite"
-    # assert has_content?('female'), "Marguerite should appear as a female"
+    name = 'Bonnemine'
+    assert has_content?(name), "#{name} must appear in animals list"
+    click_link name
+    shoot_screen "animals/show-#{name.underscore}"
+    # assert has_content?('female'), "#{name} should appear as a female"
   end
 
   # Add an issue on the current animal

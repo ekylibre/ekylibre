@@ -297,6 +297,7 @@ jpn:
       # show: "Issue: %{name}"
     backend/journal_entries:
       # edit: "Edit journal entry: %{number}"
+      # index: "Journal entries"
       # new: "New entry"
       # show: "Journal entry: %{number}"
     backend/journal_entry_items:
@@ -448,9 +449,7 @@ jpn:
       # index: "Products"
       # new: "New product"
       # show: "%{nature}: %{name}"
-    backend/purchase_items:
-      # edit: "Edit purchase item"
-      # new: "New purchase item"
+    backend/purchase_items: #?
     backend/purchase_natures:
       # edit: "Edit purchase type"
       # index: "Purchase types"
@@ -474,9 +473,7 @@ jpn:
       # new: "New role"
       # pick: "Pick role: %{name}"
       # show: "Role: %{name}"
-    backend/sale_items:
-      # edit: "Edit sale's item"
-      # new: "Add a product to the sale"
+    backend/sale_items: #?
     backend/sale_natures:
       # edit: "Edit sale type: %{name}"
       # index: "Sale types"
@@ -566,6 +563,7 @@ jpn:
     public:
       # index: "Home"
   errors:
+    # format: "%{message}"
     messages:
       # already_confirmed: "was already confirmed, please try signing in"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
@@ -1408,7 +1406,7 @@ jpn:
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       # implemented_with_dummy_data: "Implemented with dummy data"
       # importation_finished: "The import is complete."
-      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
       # invalid_reference_name: "Invalid reference name"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
@@ -1440,7 +1438,7 @@ jpn:
       # record_has_been_imported: "Record has been imported"
       # record_not_found: "Record not found"
       # select_entry_items_to_mark_together: "Select entry items to mark together"
-      # unavailable_resource: "Inexistent %{type} #%{id}"
+      # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
       # update_is_done: "The update has been made"
       x_unpointed_journal_entry_items:
@@ -1526,6 +1524,7 @@ jpn:
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
+    # backend/incoming_payments: "{number} {mode.name} {payer.full_name} {amount} {currency}"
     # backend/journal_entry_items: "{entry.number} {name} {account.number} D{real_debit} C{real_credit} {currency}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
@@ -1537,4 +1536,5 @@ jpn:
     # backend/product_natures: "{name}"
     # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name}"
+    # backend/trackings: "{serial} ‒ {name} ‒ {producer.full_name}"
     # backend/users: "{first_name} {last_name}"

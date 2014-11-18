@@ -25,7 +25,10 @@ class Backend::CatalogsController < BackendController
   list do |t|
     t.column :code, url: true
     t.column :name, url: true
-    t.column :description
+    t.column :usage
+    t.column :currency, url: true
+    t.column :all_taxes_included, url: true
+    t.column :description, hidden: true
     t.column :by_default
     t.action :edit
     t.action :destroy

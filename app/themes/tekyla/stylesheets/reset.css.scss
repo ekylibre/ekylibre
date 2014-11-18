@@ -11,6 +11,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   @include text-align(left);
 }
 
+mark {
+  background-color: $highlight-color;
+}
+
 td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
 small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus {

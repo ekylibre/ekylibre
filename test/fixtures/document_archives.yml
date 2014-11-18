@@ -50,24 +50,6 @@
 #
 ---
 document_archives_001:
-  archived_at: 2009-07-19 15:13:59.000000000 Z
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  document_id: 1
-  id: 1
-  lock_version: 0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-document_archives_002:
-  archived_at: 2009-07-19 15:13:59.000000000 Z
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  document_id: 2
-  id: 2
-  lock_version: 0
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-document_archives_003:
   archived_at: 2014-11-03 16:20:05.023566000 Z
   created_at: 2014-11-03 16:20:05.050135000 Z
   creator_id: 1
@@ -90,4 +72,27 @@ document_archives_003:
   lock_version: 0
   template_id: 3
   updated_at: 2014-11-03 16:20:05.050135000 Z
+  updater_id: 1
+document_archives_002:
+  archived_at: 2014-11-05 09:58:38.043421000 Z
+  created_at: 2014-11-05 09:58:38.067403000 Z
+  creator_id: 1
+  document_id: 4
+  file_content_text: "Ferstivall LTD\n33000 BORDEAUX\nFrance\n\nFacture F2014000001\n\n05/11/2014\n\nCode\n\nDésignation\n\nQté.\n\nPrix
+    unitaire\nHT\n\nMontant HT\n\nPNV031\n\nBotte de paille de blé balle\nronde\n\n1.0\n\n70.0\n\n70.0\n\n14.0\n\n20%
+    VAT\n\n5.0\n\n180.0\n\n900.0\n\n180.0\n\n20% VAT\n\n970.0\n\n194.0\n\nKRYVPNV0000
+    Graine de blé\n\nACQUITÉE\n\nTotaux\n\nNet à payer ( EUR )\n\nRéglement à transmettre
+    à Ferstivall LTD, 33000 BORDEAUX, France\nClient\n\n05/11/2014 10.58.37\n\n2\n\nNuméro
+    Pièce\n\nF2014000001\n\nMontant TVA Taux TVA\n\n1164.0\n\nDate limite de paiement\n\n11/11/2014\n\nNet
+    à payer\n\n1164.0 EUR\n1 /1\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_nek91m_11vef0wx.pdf
+  file_file_size: 38023
+  file_fingerprint: 6a32990a6ea5fe5f53f283a6565b439e
+  file_pages_count: 1
+  file_updated_at: 2014-11-05 09:58:37.547186000 Z
+  id: 6
+  lock_version: 0
+  template_id: 3
+  updated_at: 2014-11-05 09:58:38.067403000 Z
   updater_id: 1

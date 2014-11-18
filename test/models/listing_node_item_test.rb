@@ -37,5 +37,5 @@
 require 'test_helper'
 
 class ListingNodeItemTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

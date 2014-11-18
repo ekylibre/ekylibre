@@ -30,15 +30,15 @@ class Backend::FinancialYearsController < BackendController
     t.column :currency
     # t.column :currency_precision
     # t.action :close, if: '!RECORD.closed and RECORD.closable?'
-    t.action :edit, :unless => :closed?
-    t.action :destroy, :unless => :closed?
+    t.action :edit, unless: :closed?
+    t.action :destroy, unless: :closed?
   end
 
   list(:account_balances, joins: :account, conditions: {financial_year_id: 'params[:id]'.c}, order: "accounts.number") do |t|
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
-    t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
-    t.column :local_debit, currency: true
+    t.column :account_name,   through: :account, label_method: :name, url: true, hidden: true
+    t.column :local_debit,  currency: true
     t.column :local_credit, currency: true
   end
 
@@ -54,7 +54,7 @@ class Backend::FinancialYearsController < BackendController
     return unless @financial_year = find_and_check
     respond_to do |format|
       format.html do
-        if @financial_year.closed? and @financial_year.account_balances.size.zero?
+        if @financial_year.closed? and @financial_year.account_balances.empty?
           @financial_year.compute_balances!
         end
         t3e @financial_year.attributes
@@ -72,7 +72,7 @@ class Backend::FinancialYearsController < BackendController
   def compute_balances
     return unless @financial_year = find_and_check
     @financial_year.compute_balances!
-    redirect_to_current
+    redirect_to_back
   end
 
 

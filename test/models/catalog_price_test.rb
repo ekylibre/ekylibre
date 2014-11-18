@@ -43,9 +43,5 @@
 require 'test_helper'
 
 class CatalogPriceTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, ProductPrice.count
-  end
-
+  test_fixtures
 end

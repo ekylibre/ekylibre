@@ -60,97 +60,85 @@
 #
 ---
 purchases_001:
-  affair_id: 1
-  amount: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  accounted_at: 2014-11-05 13:40:18.878913000 Z
+  affair_id: 15
+  amount: 176.16
+  created_at: 2014-11-05 10:44:42.231209000 Z
   creator_id: 1
   currency: EUR
-  id: 1
-  lock_version: 0
+  description: ''
+  id: 6
+  lock_version: 1
   nature_id: 1
-  number: P000001
-  planned_at: 2009-08-19 22:00:00.000000000 Z
-  pretax_amount: 0.0
+  number: A201411000001
+  planned_at: 2012-05-12 12:00:00.000000000 Z
+  pretax_amount: 146.8
+  reference_number: ''
   state: draft
-  supplier_id: 8
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  supplier_id: 13
+  updated_at: 2014-11-05 13:40:18.863437000 Z
   updater_id: 1
 purchases_002:
-  accounted_at: 2014-11-01 19:48:20.062713000 Z
-  affair_id: 2
-  amount: 77.74
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  accounted_at: 2014-11-05 10:46:06.149701000 Z
+  affair_id: 16
+  amount: 1850.0
+  created_at: 2014-11-05 10:46:06.121855000 Z
   creator_id: 1
-  currency: EUR
+  currency: USD
   description: ''
-  id: 2
-  lock_version: 3
-  nature_id: 1
-  number: P000002
-  planned_at: 2014-10-31 17:19:00.000000000 Z
-  pretax_amount: 65.0
+  id: 7
+  lock_version: 0
+  nature_id: 3
+  number: A201411000002
+  planned_at: 2002-07-04 15:25:00.000000000 Z
+  pretax_amount: 1850.0
   reference_number: ''
   state: draft
-  supplier_id: 8
-  updated_at: 2014-11-01 19:48:20.052947000 Z
+  supplier_id: 4
+  updated_at: 2014-11-05 10:46:06.135573000 Z
   updater_id: 1
 purchases_003:
-  accounted_at: 2014-11-01 20:01:04.963338000 Z
-  affair_id: 3
-  amount: 63.82
-  confirmed_at: 2014-11-01 19:51:49.496925000 Z
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  accounted_at: 2014-11-07 15:58:47.255968000 Z
+  affair_id: 26
+  amount: 1848.0
+  confirmed_at: 2014-11-07 15:58:44.515180000 Z
+  created_at: 2014-11-07 15:58:10.810682000 Z
   creator_id: 1
   currency: EUR
   description: ''
-  id: 3
-  invoiced_at: 2014-10-31 17:19:00.000000000 Z
-  journal_entry_id: 9
-  lock_version: 8
+  id: 8
+  invoiced_at: 2012-10-11 22:00:00.000000000 Z
+  journal_entry_id: 26
+  lock_version: 5
   nature_id: 1
-  number: P000003
-  planned_at: 2014-10-31 17:19:00.000000000 Z
-  pretax_amount: 55.0
+  number: A201411000003
+  planned_at: 2012-10-11 22:00:00.000000000 Z
+  pretax_amount: 1540.0
   reference_number: ''
   state: invoice
-  supplier_id: 8
-  updated_at: 2014-11-01 20:01:04.601523000 Z
+  supplier_id: 13
+  updated_at: 2014-11-07 15:58:47.167810000 Z
   updater_id: 1
 purchases_004:
-  accounted_at: 2014-11-01 19:46:24.846366000 Z
-  affair_id: 8
-  amount: 592.02
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  accounted_at: 2014-11-07 16:52:57.689609000 Z
+  affair_id: 30
+  amount: 20520.0
+  confirmed_at: 2014-11-07 16:52:55.330479000 Z
+  created_at: 2014-11-07 16:52:05.036650000 Z
   creator_id: 1
-  currency: USD
+  currency: EUR
+  delivery_address_id: 9
   description: ''
-  id: 4
-  lock_version: 1
-  nature_id: 3
-  number: P000004
-  planned_at: 2009-08-19 22:00:00.000000000 Z
-  pretax_amount: 495.0
+  id: 11
+  invoiced_at: 2008-03-05 09:00:00.000000000 Z
+  journal_entry_id: 28
+  lock_version: 6
+  nature_id: 1
+  number: A201411000004
+  planned_at: 2008-03-05 09:00:00.000000000 Z
+  pretax_amount: 17100.0
   reference_number: ''
-  state: order
-  supplier_id: 4
-  updated_at: 2014-11-01 19:46:24.838445000 Z
-  updater_id: 1
-purchases_005:
-  accounted_at: 2014-11-01 19:44:07.681417000 Z
-  affair_id: 7
-  amount: 6458.4
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: USD
-  description: ''
-  id: 5
-  lock_version: 1
-  nature_id: 3
-  number: P000005
-  planned_at: 2009-08-19 22:00:00.000000000 Z
-  pretax_amount: 5400.0
-  reference_number: ''
-  state: order
-  supplier_id: 5
-  updated_at: 2014-11-01 19:44:07.659951000 Z
+  state: invoice
+  supplier_id: 13
+  updated_at: 2014-11-07 16:52:57.564797000 Z
   updater_id: 1

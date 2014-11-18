@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::EstablishmentsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions show: :redirected_get
 end

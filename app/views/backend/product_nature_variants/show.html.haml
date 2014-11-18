@@ -55,7 +55,7 @@
   - b.hbox do
     - b.cell(:prices) do
       = toolbar do |t|
-        - t.new variants: Catalog.reorder(:name).to_a.inject({}){|h,c| h[c.name] = {catalog_id: c.id}; h}, params: {controller: :catalog_prices, variant_id: resource.id, redirect: request.path}
+        - t.new variants: Catalog.reorder(:name).to_a.inject({}){|h,c| h[c.name] = {catalog_id: c.id}; h}, params: {controller: :catalog_prices, variant_id: resource.id, redirect: request.fullpath}
       = list(:prices)
     - if resource.prices.any?
       - b.cell(:prices_evolutions) do

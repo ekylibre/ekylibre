@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-cucumis" hierarchical="true">
+    <items>
+      <item name="cucumis_sativus" itis_tsn="22364"/>
+      <item name="cucumis_melo" itis_tsn="22362"/>
+      <item name="cucumis_anguria" itis_tsn="22360"/>
+      <item name="cucumis_metuliferus" itis_tsn="501835"/>
+      <item name="cucumis_dipsaceus" itis_tsn="22361"/>
+      <item name="cucumis_sativus_cucumber" itis_tsn="22364"/>
+      <item name="cucumis_sativus_gherkin" itis_tsn="22364"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

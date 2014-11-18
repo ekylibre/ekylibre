@@ -183,3 +183,1737 @@ intervention_casts_008:
   updated_at: 2014-11-04 18:41:39.757856000 Z
   updater_id: 1
   variant_id: 34
+intervention_casts_009:
+  actor_id: 53
+  created_at: 2014-11-05 15:39:35.604238000 Z
+  creator_id: 1
+  id: 38
+  intervention_id: 11
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: seeds
+  roles: sowing-input_origin
+  updated_at: 2014-11-05 15:39:35.604238000 Z
+  updater_id: 1
+  variant_id: 10
+intervention_casts_010:
+  actor_id: 89
+  created_at: 2014-11-05 15:39:35.605810000 Z
+  creator_id: 1
+  id: 39
+  intervention_id: 11
+  lock_version: 2
+  nature: product
+  population: 20.0001
+  position: 2
+  reference_name: seeds_to_sow
+  roles: sowing-input
+  updated_at: 2014-11-06 17:48:17.039399000 Z
+  updater_id: 1
+  variant_id: 10
+intervention_casts_011:
+  actor_id: 32
+  created_at: 2014-11-05 15:39:35.607997000 Z
+  creator_id: 1
+  id: 40
+  intervention_id: 11
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: sower
+  roles: sowing-tool
+  updated_at: 2014-11-05 15:39:35.607997000 Z
+  updater_id: 1
+  variant_id: 29
+intervention_casts_012:
+  actor_id: 79
+  created_at: 2014-11-05 15:39:35.626436000 Z
+  creator_id: 1
+  event_participation_id: 23
+  id: 41
+  intervention_id: 11
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 4
+  reference_name: driver
+  roles: sowing-doer
+  updated_at: 2014-11-05 15:39:35.626436000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_013:
+  actor_id: 29
+  created_at: 2014-11-05 15:39:35.630192000 Z
+  creator_id: 1
+  id: 42
+  intervention_id: 11
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 5
+  reference_name: tractor
+  roles: sowing-tool
+  updated_at: 2014-11-05 15:39:35.630192000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_014:
+  actor_id: 83
+  created_at: 2014-11-05 15:39:35.631580000 Z
+  creator_id: 1
+  id: 43
+  intervention_id: 11
+  lock_version: 0
+  nature: product
+  population: 5.3806
+  position: 6
+  reference_name: land_parcel
+  roles: sowing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-05 15:39:35.631580000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_015:
+  actor_id: 90
+  created_at: 2014-11-05 15:39:35.633332000 Z
+  creator_id: 1
+  id: 44
+  intervention_id: 11
+  lock_version: 2
+  nature: product
+  population: 5.3806
+  position: 7
+  reference_name: cultivation
+  roles: sowing-output
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-06 17:48:17.040692000 Z
+  updater_id: 1
+  variant_id: 16
+intervention_casts_016:
+  actor_id: 79
+  created_at: 2014-11-06 17:47:16.022902000 Z
+  creator_id: 1
+  event_participation_id: 24
+  id: 45
+  intervention_id: 12
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: driver
+  roles: plowing-doer
+  updated_at: 2014-11-06 17:47:16.022902000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_017:
+  actor_id: 29
+  created_at: 2014-11-06 17:47:16.026916000 Z
+  creator_id: 1
+  id: 46
+  intervention_id: 12
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 2
+  reference_name: tractor
+  roles: plowing-tool
+  updated_at: 2014-11-06 17:47:16.026916000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_018:
+  actor_id: 84
+  created_at: 2014-11-06 17:47:16.028274000 Z
+  creator_id: 1
+  id: 47
+  intervention_id: 12
+  lock_version: 1
+  nature: product
+  population: 8.349
+  position: 3
+  reference_name: land_parcel
+  roles: plowing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  updated_at: 2014-11-06 17:47:42.946892000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_019:
+  actor_id: 31
+  created_at: 2014-11-06 17:47:16.029670000 Z
+  creator_id: 1
+  id: 48
+  intervention_id: 12
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: plow
+  roles: plowing-tool
+  updated_at: 2014-11-06 17:47:16.029670000 Z
+  updater_id: 1
+  variant_id: 27
+intervention_casts_020:
+  actor_id: 53
+  created_at: 2014-11-06 17:49:34.370767000 Z
+  creator_id: 1
+  id: 49
+  intervention_id: 13
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: seeds
+  roles: sowing-input_origin
+  updated_at: 2014-11-06 17:49:34.370767000 Z
+  updater_id: 1
+  variant_id: 10
+intervention_casts_021:
+  actor_id: 91
+  created_at: 2014-11-06 17:49:34.371997000 Z
+  creator_id: 1
+  id: 50
+  intervention_id: 13
+  lock_version: 1
+  nature: product
+  population: 29.4553
+  position: 2
+  reference_name: seeds_to_sow
+  roles: sowing-input
+  updated_at: 2014-11-06 17:50:06.991523000 Z
+  updater_id: 1
+  variant_id: 10
+intervention_casts_022:
+  actor_id: 32
+  created_at: 2014-11-06 17:49:34.373467000 Z
+  creator_id: 1
+  id: 51
+  intervention_id: 13
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: sower
+  roles: sowing-tool
+  updated_at: 2014-11-06 17:49:34.373467000 Z
+  updater_id: 1
+  variant_id: 29
+intervention_casts_023:
+  actor_id: 79
+  created_at: 2014-11-06 17:49:34.382240000 Z
+  creator_id: 1
+  event_participation_id: 25
+  id: 52
+  intervention_id: 13
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 4
+  reference_name: driver
+  roles: sowing-doer
+  updated_at: 2014-11-06 17:49:34.382240000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_024:
+  actor_id: 29
+  created_at: 2014-11-06 17:49:34.385387000 Z
+  creator_id: 1
+  id: 53
+  intervention_id: 13
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 5
+  reference_name: tractor
+  roles: sowing-tool
+  updated_at: 2014-11-06 17:49:34.385387000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_025:
+  actor_id: 84
+  created_at: 2014-11-06 17:49:34.386680000 Z
+  creator_id: 1
+  id: 54
+  intervention_id: 13
+  lock_version: 0
+  nature: product
+  population: 8.349
+  position: 6
+  reference_name: land_parcel
+  roles: sowing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  updated_at: 2014-11-06 17:49:34.386680000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_026:
+  actor_id: 92
+  created_at: 2014-11-06 17:49:34.388295000 Z
+  creator_id: 1
+  id: 55
+  intervention_id: 13
+  lock_version: 1
+  nature: product
+  population: 0.0
+  position: 7
+  reference_name: cultivation
+  roles: sowing-output
+  shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  updated_at: 2014-11-06 17:50:07.049999000 Z
+  updater_id: 1
+  variant_id: 16
+intervention_casts_027:
+  actor_id: 5
+  created_at: 2014-11-07 14:44:11.011153000 Z
+  creator_id: 1
+  id: 56
+  intervention_id: 14
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 1
+  reference_name: animal
+  roles: animal_curative_medicine_admission-target
+  updated_at: 2014-11-07 14:44:11.011153000 Z
+  updater_id: 1
+  variant_id: 17
+intervention_casts_028:
+  actor_id: 59
+  created_at: 2014-11-07 14:44:11.012898000 Z
+  creator_id: 1
+  id: 57
+  intervention_id: 14
+  lock_version: 0
+  nature: product
+  population: 10.0
+  position: 2
+  reference_name: animal_medicine
+  roles: animal_curative_medicine_admission-input_origin
+  updated_at: 2014-11-07 14:44:11.012898000 Z
+  updater_id: 1
+  variant_id: 21
+intervention_casts_029:
+  actor_id: 94
+  created_at: 2014-11-07 14:44:11.013827000 Z
+  creator_id: 1
+  id: 58
+  intervention_id: 14
+  lock_version: 1
+  nature: product
+  population: 0.02
+  position: 3
+  reference_name: animal_medicine_to_give
+  roles: animal_curative_medicine_admission-input
+  updated_at: 2014-11-07 14:44:18.866173000 Z
+  updater_id: 1
+  variant_id: 21
+intervention_casts_030:
+  actor_id: 79
+  created_at: 2014-11-07 14:44:11.029745000 Z
+  creator_id: 1
+  event_participation_id: 26
+  id: 59
+  intervention_id: 14
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: caregiver
+  roles: animal_curative_medicine_admission-doer
+  updated_at: 2014-11-07 14:44:11.029745000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_031:
+  actor_id: 57
+  created_at: 2014-11-07 15:02:12.147551000 Z
+  creator_id: 1
+  id: 60
+  intervention_id: 15
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: plant_medicine
+  roles: plant_illness_treatment-input_origin
+  updated_at: 2014-11-07 15:02:12.147551000 Z
+  updater_id: 1
+  variant_id: 20
+intervention_casts_032:
+  actor_id: 96
+  created_at: 2014-11-07 15:02:12.148751000 Z
+  creator_id: 1
+  id: 61
+  intervention_id: 15
+  lock_version: 1
+  nature: product
+  population: 4.1745
+  position: 2
+  reference_name: plant_medicine_to_spray
+  roles: plant_illness_treatment-input
+  updated_at: 2014-11-07 15:02:58.793077000 Z
+  updater_id: 1
+  variant_id: 20
+intervention_casts_033:
+  actor_id: 29
+  created_at: 2014-11-07 15:02:12.150087000 Z
+  creator_id: 1
+  id: 62
+  intervention_id: 15
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: tractor
+  roles: plant_illness_treatment-tool
+  updated_at: 2014-11-07 15:02:12.150087000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_034:
+  actor_id: 95
+  created_at: 2014-11-07 15:02:12.151232000 Z
+  creator_id: 1
+  id: 63
+  intervention_id: 15
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: sprayer
+  roles: plant_illness_treatment-tool
+  updated_at: 2014-11-07 15:02:12.151232000 Z
+  updater_id: 1
+  variant_id: 36
+intervention_casts_035:
+  actor_id: 79
+  created_at: 2014-11-07 15:02:12.160940000 Z
+  creator_id: 1
+  event_participation_id: 27
+  id: 64
+  intervention_id: 15
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: driver
+  roles: plant_illness_treatment-doer
+  updated_at: 2014-11-07 15:02:12.160940000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_036:
+  actor_id: 92
+  created_at: 2014-11-07 15:02:12.164652000 Z
+  creator_id: 1
+  id: 65
+  intervention_id: 15
+  lock_version: 0
+  nature: product
+  population: 8.349
+  position: 6
+  reference_name: cultivation
+  roles: plant_illness_treatment-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  updated_at: 2014-11-07 15:02:12.164652000 Z
+  updater_id: 1
+  variant_id: 16
+intervention_casts_037:
+  actor_id: 98
+  created_at: 2014-11-07 15:26:35.542791000 Z
+  creator_id: 1
+  id: 66
+  intervention_id: 16
+  lock_version: 0
+  nature: product
+  population: 10.0
+  position: 1
+  reference_name: fertilizer
+  roles: soil_enrichment-input_origin
+  updated_at: 2014-11-07 15:26:35.542791000 Z
+  updater_id: 1
+  variant_id: 39
+intervention_casts_038:
+  actor_id: 99
+  created_at: 2014-11-07 15:26:35.544748000 Z
+  creator_id: 1
+  id: 67
+  intervention_id: 16
+  lock_version: 1
+  nature: product
+  population: 0.6425
+  position: 2
+  reference_name: fertilizer_to_spread
+  roles: soil_enrichment-input
+  updated_at: 2014-11-07 15:26:50.566188000 Z
+  updater_id: 1
+  variant_id: 39
+intervention_casts_039:
+  actor_id: 97
+  created_at: 2014-11-07 15:26:35.546491000 Z
+  creator_id: 1
+  id: 68
+  intervention_id: 16
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: spreader
+  roles: soil_enrichment-tool
+  updated_at: 2014-11-07 15:26:35.546491000 Z
+  updater_id: 1
+  variant_id: 37
+intervention_casts_040:
+  actor_id: 79
+  created_at: 2014-11-07 15:26:35.559939000 Z
+  creator_id: 1
+  event_participation_id: 28
+  id: 69
+  intervention_id: 16
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 4
+  reference_name: driver
+  roles: soil_enrichment-doer
+  updated_at: 2014-11-07 15:26:35.559939000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_041:
+  actor_id: 29
+  created_at: 2014-11-07 15:26:35.563438000 Z
+  creator_id: 1
+  id: 70
+  intervention_id: 16
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 5
+  reference_name: tractor
+  roles: soil_enrichment-tool
+  updated_at: 2014-11-07 15:26:35.563438000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_042:
+  actor_id: 83
+  created_at: 2014-11-07 15:26:35.564719000 Z
+  creator_id: 1
+  id: 71
+  intervention_id: 16
+  lock_version: 0
+  nature: product
+  population: 5.3806
+  position: 6
+  reference_name: land_parcel
+  roles: soil_enrichment-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
+    45.8257153564987,-0.795301795005798 45.8259060022611,-0.794320106506348 45.8240368979822,-0.796240568161011
+    45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
+    45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
+    45.8266349359199,-0.796809196472168 45.8269227686334)))
+  updated_at: 2014-11-07 15:26:35.564719000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_043:
+  actor_id: 101
+  created_at: 2014-11-07 15:45:30.885596000 Z
+  creator_id: 1
+  id: 72
+  intervention_id: 17
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: seeds
+  roles: sowing-input_origin
+  updated_at: 2014-11-07 15:45:30.885596000 Z
+  updater_id: 1
+  variant_id: 42
+intervention_casts_044:
+  actor_id: 102
+  created_at: 2014-11-07 15:45:30.886707000 Z
+  creator_id: 1
+  id: 73
+  intervention_id: 17
+  lock_version: 1
+  nature: product
+  population: 177.8641
+  position: 2
+  reference_name: seeds_to_sow
+  roles: sowing-input
+  updated_at: 2014-11-07 15:45:45.773268000 Z
+  updater_id: 1
+  variant_id: 42
+intervention_casts_045:
+  actor_id: 32
+  created_at: 2014-11-07 15:45:30.888448000 Z
+  creator_id: 1
+  id: 74
+  intervention_id: 17
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: sower
+  roles: sowing-tool
+  updated_at: 2014-11-07 15:45:30.888448000 Z
+  updater_id: 1
+  variant_id: 29
+intervention_casts_046:
+  actor_id: 79
+  created_at: 2014-11-07 15:45:30.924281000 Z
+  creator_id: 1
+  event_participation_id: 29
+  id: 75
+  intervention_id: 17
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 4
+  reference_name: driver
+  roles: sowing-doer
+  updated_at: 2014-11-07 15:45:30.924281000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_047:
+  actor_id: 29
+  created_at: 2014-11-07 15:45:30.928585000 Z
+  creator_id: 1
+  id: 76
+  intervention_id: 17
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 5
+  reference_name: tractor
+  roles: sowing-tool
+  updated_at: 2014-11-07 15:45:30.928585000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_048:
+  actor_id: 80
+  created_at: 2014-11-07 15:45:30.929885000 Z
+  creator_id: 1
+  id: 77
+  intervention_id: 17
+  lock_version: 0
+  nature: product
+  population: 10.1637
+  position: 6
+  reference_name: land_parcel
+  roles: sowing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  updated_at: 2014-11-07 15:45:30.929885000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_049:
+  actor_id: 103
+  created_at: 2014-11-07 15:45:30.931117000 Z
+  creator_id: 1
+  id: 78
+  intervention_id: 17
+  lock_version: 1
+  nature: product
+  population: 10.1637
+  position: 7
+  reference_name: cultivation
+  roles: sowing-output
+  shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  updated_at: 2014-11-07 15:45:45.831395000 Z
+  updater_id: 1
+  variant_id: 40
+intervention_casts_050:
+  actor_id: 85
+  created_at: 2014-11-07 15:47:46.998727000 Z
+  creator_id: 1
+  id: 79
+  intervention_id: 18
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: herd
+  roles: harvest-tool, harvest-doer, pasturing-doer
+  updated_at: 2014-11-07 15:47:46.998727000 Z
+  updater_id: 1
+  variant_id: 31
+intervention_casts_051:
+  actor_id: 103
+  created_at: 2014-11-07 15:47:47.000211000 Z
+  creator_id: 1
+  id: 80
+  intervention_id: 18
+  lock_version: 2
+  nature: product
+  population: 10.1637
+  position: 2
+  reference_name: cultivation
+  roles: harvest-target, pasturing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  updated_at: 2014-11-07 15:55:52.248115000 Z
+  updater_id: 1
+  variant_id: 40
+intervention_casts_052:
+  actor_id: 105
+  created_at: 2014-11-07 15:47:47.001216000 Z
+  creator_id: 1
+  id: 81
+  intervention_id: 18
+  lock_version: 2
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: grass
+  roles: harvest-output, pasturing-input
+  updated_at: 2014-11-07 15:50:04.462680000 Z
+  updater_id: 1
+  variant_id: 43
+intervention_casts_053:
+  actor_id: 85
+  created_at: 2014-11-07 16:16:21.824119000 Z
+  creator_id: 1
+  id: 82
+  intervention_id: 19
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: herd
+  roles: harvest-tool, harvest-doer, pasturing-doer
+  updated_at: 2014-11-07 16:16:21.824119000 Z
+  updater_id: 1
+  variant_id: 31
+intervention_casts_054:
+  actor_id: 103
+  created_at: 2014-11-07 16:16:21.826306000 Z
+  creator_id: 1
+  id: 83
+  intervention_id: 19
+  lock_version: 0
+  nature: product
+  population: 10.1637
+  position: 2
+  reference_name: cultivation
+  roles: harvest-target, pasturing-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
+  updated_at: 2014-11-07 16:16:21.826306000 Z
+  updater_id: 1
+  variant_id: 40
+intervention_casts_055:
+  created_at: 2014-11-07 16:16:21.828011000 Z
+  creator_id: 1
+  id: 84
+  intervention_id: 19
+  lock_version: 0
+  nature: product
+  population: 10.1637
+  position: 3
+  reference_name: grass
+  roles: harvest-output, pasturing-input
+  updated_at: 2014-11-07 16:16:21.828011000 Z
+  updater_id: 1
+  variant_id: 43
+intervention_casts_056:
+  actor_id: 98
+  created_at: 2014-11-07 16:20:51.423020000 Z
+  creator_id: 1
+  id: 85
+  intervention_id: 20
+  lock_version: 0
+  nature: product
+  population: 9.3575
+  position: 1
+  reference_name: fertilizer
+  roles: soil_enrichment-input_origin
+  updated_at: 2014-11-07 16:20:51.423020000 Z
+  updater_id: 1
+  variant_id: 39
+intervention_casts_057:
+  created_at: 2014-11-07 16:20:51.424030000 Z
+  creator_id: 1
+  id: 86
+  intervention_id: 20
+  lock_version: 0
+  nature: product
+  population: 0.7477
+  position: 2
+  reference_name: fertilizer_to_spread
+  roles: soil_enrichment-input
+  updated_at: 2014-11-07 16:20:51.424030000 Z
+  updater_id: 1
+  variant_id: 39
+intervention_casts_058:
+  actor_id: 97
+  created_at: 2014-11-07 16:20:51.425202000 Z
+  creator_id: 1
+  id: 87
+  intervention_id: 20
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: spreader
+  roles: soil_enrichment-tool
+  updated_at: 2014-11-07 16:20:51.425202000 Z
+  updater_id: 1
+  variant_id: 37
+intervention_casts_059:
+  actor_id: 79
+  created_at: 2014-11-07 16:20:51.439031000 Z
+  creator_id: 1
+  event_participation_id: 30
+  id: 88
+  intervention_id: 20
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 4
+  reference_name: driver
+  roles: soil_enrichment-doer
+  updated_at: 2014-11-07 16:20:51.439031000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_060:
+  actor_id: 29
+  created_at: 2014-11-07 16:20:51.442456000 Z
+  creator_id: 1
+  id: 89
+  intervention_id: 20
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 5
+  reference_name: tractor
+  roles: soil_enrichment-tool
+  updated_at: 2014-11-07 16:20:51.442456000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_061:
+  actor_id: 84
+  created_at: 2014-11-07 16:20:51.443760000 Z
+  creator_id: 1
+  id: 90
+  intervention_id: 20
+  lock_version: 0
+  nature: product
+  population: 8.349
+  position: 6
+  reference_name: land_parcel
+  roles: soil_enrichment-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
+    45.8232967153416,-0.796321034431458 45.8224967088962,-0.796465873718262 45.8218275357972,-0.79675018787384
+    45.8214948154526,-0.797420740127563 45.8210910622516,-0.797533392906189 45.8209490002438,-0.79675018787384
+    45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
+    45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
+    45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  updated_at: 2014-11-07 16:20:51.443760000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_062:
+  actor_id: 107
+  created_at: 2014-11-07 16:49:41.928007000 Z
+  creator_id: 1
+  id: 91
+  intervention_id: 21
+  lock_version: 0
+  nature: product
+  population: 5000.0
+  position: 1
+  reference_name: plants
+  roles: implanting-input_origin
+  updated_at: 2014-11-07 16:49:41.928007000 Z
+  updater_id: 1
+  variant_id: 45
+intervention_casts_063:
+  actor_id: 109
+  created_at: 2014-11-07 16:49:41.929403000 Z
+  creator_id: 1
+  id: 92
+  intervention_id: 21
+  lock_version: 1
+  nature: product
+  population: 5000.0
+  position: 2
+  reference_name: plants_to_fix
+  roles: implanting-input
+  updated_at: 2014-11-07 16:50:07.168748000 Z
+  updater_id: 1
+  variant_id: 45
+intervention_casts_064:
+  actor_id: 108
+  created_at: 2014-11-07 16:49:41.930712000 Z
+  creator_id: 1
+  id: 93
+  intervention_id: 21
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: implanter_tool
+  roles: implanting-tool
+  updated_at: 2014-11-07 16:49:41.930712000 Z
+  updater_id: 1
+  variant_id: 46
+intervention_casts_065:
+  actor_id: 79
+  created_at: 2014-11-07 16:49:41.942487000 Z
+  creator_id: 1
+  event_participation_id: 31
+  id: 94
+  intervention_id: 21
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 4
+  reference_name: driver
+  roles: ''
+  updated_at: 2014-11-07 16:49:41.942487000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_066:
+  actor_id: 79
+  created_at: 2014-11-07 16:49:41.951173000 Z
+  creator_id: 1
+  event_participation_id: 32
+  id: 95
+  intervention_id: 21
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: implanter_man
+  roles: implanting-doer
+  updated_at: 2014-11-07 16:49:41.951173000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_067:
+  actor_id: 29
+  created_at: 2014-11-07 16:49:41.953808000 Z
+  creator_id: 1
+  id: 96
+  intervention_id: 21
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 6
+  reference_name: tractor
+  roles: implanting-tool
+  updated_at: 2014-11-07 16:49:41.953808000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_068:
+  actor_id: 106
+  created_at: 2014-11-07 16:49:41.954984000 Z
+  creator_id: 1
+  id: 97
+  intervention_id: 21
+  lock_version: 0
+  nature: product
+  population: 5.3954
+  position: 7
+  reference_name: land_parcel
+  roles: implanting-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  updated_at: 2014-11-07 16:49:41.954984000 Z
+  updater_id: 1
+  variant_id: 28
+intervention_casts_069:
+  actor_id: 110
+  created_at: 2014-11-07 16:49:41.956818000 Z
+  creator_id: 1
+  id: 98
+  intervention_id: 21
+  lock_version: 1
+  nature: product
+  population: 0.0
+  position: 8
+  reference_name: cultivation
+  roles: implanting-output
+  shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  updated_at: 2014-11-07 16:50:07.225134000 Z
+  updater_id: 1
+  variant_id: 44
+intervention_casts_070:
+  actor_id: 57
+  created_at: 2014-11-07 16:58:54.127581000 Z
+  creator_id: 1
+  id: 99
+  intervention_id: 22
+  lock_version: 0
+  nature: product
+  population: -4.1745
+  position: 1
+  reference_name: plant_medicine
+  roles: plant_illness_treatment-input_origin
+  updated_at: 2014-11-07 16:58:54.127581000 Z
+  updater_id: 1
+  variant_id: 20
+intervention_casts_071:
+  actor_id: 111
+  created_at: 2014-11-07 16:58:54.129262000 Z
+  creator_id: 1
+  id: 100
+  intervention_id: 22
+  lock_version: 1
+  nature: product
+  population: 6.4745
+  position: 2
+  reference_name: plant_medicine_to_spray
+  roles: plant_illness_treatment-input
+  updated_at: 2014-11-07 16:59:09.814608000 Z
+  updater_id: 1
+  variant_id: 20
+intervention_casts_072:
+  actor_id: 29
+  created_at: 2014-11-07 16:58:54.130462000 Z
+  creator_id: 1
+  id: 101
+  intervention_id: 22
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: tractor
+  roles: plant_illness_treatment-tool
+  updated_at: 2014-11-07 16:58:54.130462000 Z
+  updater_id: 1
+  variant_id: 26
+intervention_casts_073:
+  actor_id: 95
+  created_at: 2014-11-07 16:58:54.131571000 Z
+  creator_id: 1
+  id: 102
+  intervention_id: 22
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: sprayer
+  roles: plant_illness_treatment-tool
+  updated_at: 2014-11-07 16:58:54.131571000 Z
+  updater_id: 1
+  variant_id: 36
+intervention_casts_074:
+  actor_id: 79
+  created_at: 2014-11-07 16:58:54.144194000 Z
+  creator_id: 1
+  event_participation_id: 33
+  id: 103
+  intervention_id: 22
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: driver
+  roles: plant_illness_treatment-doer
+  updated_at: 2014-11-07 16:58:54.144194000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_075:
+  actor_id: 110
+  created_at: 2014-11-07 16:58:54.147211000 Z
+  creator_id: 1
+  id: 104
+  intervention_id: 22
+  lock_version: 0
+  nature: product
+  population: 5.3954
+  position: 6
+  reference_name: cultivation
+  roles: plant_illness_treatment-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  updated_at: 2014-11-07 16:58:54.147211000 Z
+  updater_id: 1
+  variant_id: 44
+intervention_casts_076:
+  actor_id: 79
+  created_at: 2014-11-07 17:07:15.612283000 Z
+  creator_id: 1
+  event_participation_id: 34
+  id: 105
+  intervention_id: 23
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 1
+  reference_name: grape_reaper_driver
+  roles: grape_harvest-doer
+  updated_at: 2014-11-07 17:07:15.612283000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_077:
+  actor_id: 112
+  created_at: 2014-11-07 17:07:15.615508000 Z
+  creator_id: 1
+  id: 106
+  intervention_id: 23
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 2
+  reference_name: grape_reaper
+  roles: grape_harvest-tool
+  updated_at: 2014-11-07 17:07:15.615508000 Z
+  updater_id: 1
+  variant_id: 47
+intervention_casts_078:
+  actor_id: 110
+  created_at: 2014-11-07 17:07:15.616923000 Z
+  creator_id: 1
+  id: 107
+  intervention_id: 23
+  lock_version: 0
+  nature: product
+  population: 5.3954
+  position: 3
+  reference_name: cultivation
+  roles: grape_harvest-target
+  shape: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+  updated_at: 2014-11-07 17:07:15.616923000 Z
+  updater_id: 1
+  variant_id: 44
+intervention_casts_079:
+  actor_id: 114
+  created_at: 2014-11-07 17:07:15.618160000 Z
+  creator_id: 1
+  id: 108
+  intervention_id: 23
+  lock_version: 1
+  nature: product
+  population: 32372.6138
+  position: 4
+  reference_name: fruits
+  roles: grape_harvest-output
+  updated_at: 2014-11-07 17:08:50.459455000 Z
+  updater_id: 1
+  variant_id: 48
+intervention_casts_080:
+  actor_id: 114
+  created_at: 2014-11-07 19:02:48.879797000 Z
+  creator_id: 1
+  id: 117
+  intervention_id: 25
+  lock_version: 0
+  nature: product
+  population: 29172.6138
+  position: 1
+  reference_name: grape
+  roles: ''
+  updated_at: 2014-11-07 19:02:48.879797000 Z
+  updater_id: 1
+  variant_id: 48
+intervention_casts_081:
+  actor_id: 123
+  created_at: 2014-11-07 19:02:48.881362000 Z
+  creator_id: 1
+  id: 118
+  intervention_id: 25
+  lock_version: 1
+  nature: product
+  population: 3200.0
+  position: 2
+  reference_name: grape_to_press
+  roles: pressing-input
+  updated_at: 2014-11-07 19:02:56.195971000 Z
+  updater_id: 1
+  variant_id: 48
+intervention_casts_082:
+  actor_id: 116
+  created_at: 2014-11-07 19:02:48.883101000 Z
+  creator_id: 1
+  id: 119
+  intervention_id: 25
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 3
+  reference_name: tank_for_wine
+  roles: pressing-target
+  updated_at: 2014-11-07 19:02:48.883101000 Z
+  updater_id: 1
+  variant_id: 50
+intervention_casts_083:
+  actor_id: 117
+  created_at: 2014-11-07 19:02:48.884235000 Z
+  creator_id: 1
+  id: 120
+  intervention_id: 25
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 4
+  reference_name: tank_for_residue
+  roles: ''
+  updated_at: 2014-11-07 19:02:48.884235000 Z
+  updater_id: 1
+  variant_id: 50
+intervention_casts_084:
+  actor_id: 119
+  created_at: 2014-11-07 19:02:48.885290000 Z
+  creator_id: 1
+  id: 121
+  intervention_id: 25
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: press
+  roles: pressing-tool
+  updated_at: 2014-11-07 19:02:48.885290000 Z
+  updater_id: 1
+  variant_id: 52
+intervention_casts_085:
+  actor_id: 79
+  created_at: 2014-11-07 19:02:48.901584000 Z
+  creator_id: 1
+  event_participation_id: 36
+  id: 122
+  intervention_id: 25
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 6
+  reference_name: wine_man
+  roles: pressing-doer
+  updated_at: 2014-11-07 19:02:48.901584000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_086:
+  actor_id: 124
+  created_at: 2014-11-07 19:02:48.904367000 Z
+  creator_id: 1
+  id: 123
+  intervention_id: 25
+  lock_version: 1
+  nature: product
+  population: 30.0
+  position: 7
+  reference_name: juice
+  roles: pressing-output
+  updated_at: 2014-11-07 19:02:56.252536000 Z
+  updater_id: 1
+  variant_id: 56
+intervention_casts_087:
+  actor_id: 125
+  created_at: 2014-11-07 19:02:48.971735000 Z
+  creator_id: 1
+  id: 124
+  intervention_id: 25
+  lock_version: 1
+  nature: product
+  population: 200.0
+  position: 8
+  reference_name: residue
+  roles: pressing-output
+  updated_at: 2014-11-07 19:02:56.308252000 Z
+  updater_id: 1
+  variant_id: 55
+intervention_casts_088:
+  actor_id: 116
+  created_at: 2014-11-07 19:08:38.779989000 Z
+  creator_id: 1
+  id: 125
+  intervention_id: 26
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 1
+  reference_name: tank
+  roles: fermentation-tool
+  updated_at: 2014-11-07 19:08:38.779989000 Z
+  updater_id: 1
+  variant_id: 50
+intervention_casts_089:
+  actor_id: 124
+  created_at: 2014-11-07 19:08:38.781584000 Z
+  creator_id: 1
+  id: 126
+  intervention_id: 26
+  lock_version: 0
+  nature: product
+  population: 30.0
+  position: 2
+  reference_name: juice_to_ferment
+  roles: fermentation-target
+  updated_at: 2014-11-07 19:08:38.781584000 Z
+  updater_id: 1
+  variant_id: 56
+intervention_casts_090:
+  actor_id: 128
+  created_at: 2014-11-07 19:08:38.782634000 Z
+  creator_id: 1
+  id: 127
+  intervention_id: 26
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 3
+  reference_name: oenological_intrant
+  roles: ''
+  updated_at: 2014-11-07 19:08:38.782634000 Z
+  updater_id: 1
+  variant_id: 59
+intervention_casts_091:
+  actor_id: 129
+  created_at: 2014-11-07 19:08:38.783435000 Z
+  creator_id: 1
+  id: 128
+  intervention_id: 26
+  lock_version: 1
+  nature: product
+  population: 6.0
+  position: 4
+  reference_name: oenological_intrant_to_put
+  roles: fermentation-input
+  updated_at: 2014-11-07 19:08:55.217270000 Z
+  updater_id: 1
+  variant_id: 59
+intervention_casts_092:
+  actor_id: 79
+  created_at: 2014-11-07 19:08:38.797904000 Z
+  creator_id: 1
+  event_participation_id: 37
+  id: 129
+  intervention_id: 26
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: wine_man
+  roles: fermentation-doer
+  updated_at: 2014-11-07 19:08:38.797904000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_093:
+  actor_id: 130
+  created_at: 2014-11-07 19:08:38.800479000 Z
+  creator_id: 1
+  id: 130
+  intervention_id: 26
+  lock_version: 1
+  nature: product
+  population: 29.5
+  position: 6
+  reference_name: fermented_juice
+  roles: fermentation-output
+  updated_at: 2014-11-07 19:08:55.276817000 Z
+  updater_id: 1
+  variant_id: 49
+intervention_casts_094:
+  actor_id: 116
+  created_at: 2014-11-07 19:12:37.527848000 Z
+  creator_id: 1
+  id: 131
+  intervention_id: 27
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 1
+  reference_name: tank
+  roles: ''
+  updated_at: 2014-11-07 19:12:37.527848000 Z
+  updater_id: 1
+  variant_id: 50
+intervention_casts_095:
+  actor_id: 130
+  created_at: 2014-11-07 19:12:37.529155000 Z
+  creator_id: 1
+  id: 132
+  intervention_id: 27
+  lock_version: 0
+  nature: product
+  population: 29.5
+  position: 2
+  reference_name: wine_to_treat
+  roles: addition-target
+  updated_at: 2014-11-07 19:12:37.529155000 Z
+  updater_id: 1
+  variant_id: 49
+intervention_casts_096:
+  actor_id: 131
+  created_at: 2014-11-07 19:12:37.530289000 Z
+  creator_id: 1
+  id: 133
+  intervention_id: 27
+  lock_version: 0
+  nature: product
+  population: 10.0
+  position: 3
+  reference_name: oenological_intrant
+  roles: ''
+  updated_at: 2014-11-07 19:12:37.530289000 Z
+  updater_id: 1
+  variant_id: 60
+intervention_casts_097:
+  actor_id: 132
+  created_at: 2014-11-07 19:12:37.531132000 Z
+  creator_id: 1
+  id: 134
+  intervention_id: 27
+  lock_version: 1
+  nature: product
+  population: 0.118
+  position: 4
+  reference_name: oenological_intrant_to_put
+  roles: addition-input
+  updated_at: 2014-11-07 19:12:42.886870000 Z
+  updater_id: 1
+  variant_id: 60
+intervention_casts_098:
+  actor_id: 79
+  created_at: 2014-11-07 19:12:37.538291000 Z
+  creator_id: 1
+  event_participation_id: 38
+  id: 135
+  intervention_id: 27
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: wine_man
+  roles: addition-doer
+  updated_at: 2014-11-07 19:12:37.538291000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_099:
+  actor_id: 116
+  created_at: 2014-11-07 19:23:41.909497000 Z
+  creator_id: 1
+  id: 136
+  intervention_id: 28
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 1
+  reference_name: tank
+  roles: ''
+  updated_at: 2014-11-07 19:23:41.909497000 Z
+  updater_id: 1
+  variant_id: 50
+intervention_casts_100:
+  actor_id: 130
+  created_at: 2014-11-07 19:23:41.911235000 Z
+  creator_id: 1
+  id: 137
+  intervention_id: 28
+  lock_version: 0
+  nature: product
+  population: 29.5
+  position: 2
+  reference_name: wine_to_treat
+  roles: addition-target
+  updated_at: 2014-11-07 19:23:41.911235000 Z
+  updater_id: 1
+  variant_id: 49
+intervention_casts_101:
+  actor_id: 133
+  created_at: 2014-11-07 19:23:41.912940000 Z
+  creator_id: 1
+  id: 138
+  intervention_id: 28
+  lock_version: 0
+  nature: product
+  population: 10.0
+  position: 3
+  reference_name: oenological_intrant
+  roles: ''
+  updated_at: 2014-11-07 19:23:41.912940000 Z
+  updater_id: 1
+  variant_id: 62
+intervention_casts_102:
+  actor_id: 134
+  created_at: 2014-11-07 19:23:41.914215000 Z
+  creator_id: 1
+  id: 139
+  intervention_id: 28
+  lock_version: 1
+  nature: product
+  population: 1.18
+  position: 4
+  reference_name: oenological_intrant_to_put
+  roles: addition-input
+  updated_at: 2014-11-07 19:24:10.255802000 Z
+  updater_id: 1
+  variant_id: 62
+intervention_casts_103:
+  actor_id: 79
+  created_at: 2014-11-07 19:23:41.928210000 Z
+  creator_id: 1
+  event_participation_id: 39
+  id: 140
+  intervention_id: 28
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 5
+  reference_name: wine_man
+  roles: addition-doer
+  updated_at: 2014-11-07 19:23:41.928210000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_104:
+  actor_id: 116
+  created_at: 2014-11-07 19:36:53.123476000 Z
+  creator_id: 1
+  id: 141
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 1
+  reference_name: tank
+  roles: ''
+  updated_at: 2014-11-07 19:36:53.123476000 Z
+  updater_id: 1
+  variant_id: 50
+intervention_casts_105:
+  actor_id: 130
+  created_at: 2014-11-07 19:36:53.124968000 Z
+  creator_id: 1
+  id: 142
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 29.5
+  position: 2
+  reference_name: wine
+  roles: bottling-target
+  updated_at: 2014-11-07 19:36:53.124968000 Z
+  updater_id: 1
+  variant_id: 49
+intervention_casts_106:
+  actor_id: 139
+  created_at: 2014-11-07 19:36:53.125901000 Z
+  creator_id: 1
+  id: 143
+  intervention_id: 29
+  lock_version: 1
+  nature: product
+  population: 15.0
+  position: 3
+  reference_name: wine_to_pack
+  roles: bottling-input
+  updated_at: 2014-11-07 19:36:59.081425000 Z
+  updater_id: 1
+  variant_id: 49
+intervention_casts_107:
+  actor_id: 135
+  created_at: 2014-11-07 19:36:53.126991000 Z
+  creator_id: 1
+  id: 144
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 10000.0
+  position: 4
+  reference_name: bottles
+  roles: ''
+  updated_at: 2014-11-07 19:36:53.126991000 Z
+  updater_id: 1
+  variant_id: 63
+intervention_casts_108:
+  actor_id: 140
+  created_at: 2014-11-07 19:36:53.127836000 Z
+  creator_id: 1
+  id: 145
+  intervention_id: 29
+  lock_version: 1
+  nature: product
+  population: 2004.0
+  position: 5
+  reference_name: bottles_to_use
+  roles: bottling-input
+  updated_at: 2014-11-07 19:36:59.149265000 Z
+  updater_id: 1
+  variant_id: 63
+intervention_casts_109:
+  actor_id: 136
+  created_at: 2014-11-07 19:36:53.128909000 Z
+  creator_id: 1
+  id: 146
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 10000.0
+  position: 6
+  reference_name: corks
+  roles: ''
+  updated_at: 2014-11-07 19:36:53.128909000 Z
+  updater_id: 1
+  variant_id: 64
+intervention_casts_110:
+  actor_id: 141
+  created_at: 2014-11-07 19:36:53.129743000 Z
+  creator_id: 1
+  id: 147
+  intervention_id: 29
+  lock_version: 1
+  nature: product
+  population: 1520.0
+  position: 7
+  reference_name: corks_to_use
+  roles: bottling-input
+  updated_at: 2014-11-07 19:36:59.212241000 Z
+  updater_id: 1
+  variant_id: 64
+intervention_casts_111:
+  actor_id: 79
+  created_at: 2014-11-07 19:36:53.137218000 Z
+  creator_id: 1
+  event_participation_id: 40
+  id: 148
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 8
+  reference_name: wine_man
+  roles: bottling-doer
+  updated_at: 2014-11-07 19:36:53.137218000 Z
+  updater_id: 1
+  variant_id: 23
+intervention_casts_112:
+  actor_id: 138
+  created_at: 2014-11-07 19:36:53.139991000 Z
+  creator_id: 1
+  id: 149
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 9
+  reference_name: hand_drawn
+  roles: bottling-tool
+  updated_at: 2014-11-07 19:36:53.139991000 Z
+  updater_id: 1
+  variant_id: 66
+intervention_casts_113:
+  actor_id: 137
+  created_at: 2014-11-07 19:36:53.141079000 Z
+  creator_id: 1
+  id: 150
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 1.0
+  position: 10
+  reference_name: corker
+  roles: bottling-tool
+  updated_at: 2014-11-07 19:36:53.141079000 Z
+  updater_id: 1
+  variant_id: 67
+intervention_casts_114:
+  actor_id: 142
+  created_at: 2014-11-07 19:36:53.141904000 Z
+  creator_id: 1
+  id: 151
+  intervention_id: 29
+  lock_version: 1
+  nature: product
+  population: 1992.0
+  position: 11
+  reference_name: wine_bottles
+  roles: bottling-output
+  updated_at: 2014-11-07 19:36:59.273396000 Z
+  updater_id: 1
+  variant_id: 65
+intervention_casts_115:
+  actor_id: 21
+  created_at: 2014-11-07 19:36:53.142995000 Z
+  creator_id: 1
+  id: 152
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  population: 0.0
+  position: 12
+  reference_name: wine_storage
+  roles: ''
+  updated_at: 2014-11-07 19:36:53.142995000 Z
+  updater_id: 1
+  variant_id: 15
+intervention_casts_116:
+  created_at: 2014-11-07 19:36:53.142995000 Z
+  creator_id: 1
+  id: 153
+  intervention_id: 29
+  lock_version: 0
+  nature: product
+  position: 13
+  reference_name: wine_storage
+  roles: sowing-output
+  updated_at: 2014-11-07 19:36:53.142995000 Z
+  updater_id: 1
+  variant_id: 16

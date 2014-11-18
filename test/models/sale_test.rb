@@ -68,6 +68,7 @@
 require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
+  test_fixtures
 
   context "A minimal configuration" do
 

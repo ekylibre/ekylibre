@@ -99,7 +99,7 @@ module Ekylibre::Record
         unless self.class.columns.detect{|c| c.name == method_name.to_s}
           Rails.logger.warn "Reset column information"
           self.class.reset_column_information
-          connection.execute "DEALLOCATE ALL"
+          # self.class.connection.execute "DEALLOCATE ALL"
         end
       end
       return super
@@ -108,6 +108,22 @@ module Ekylibre::Record
     @@readonly_counter = 0
 
     class << self
+
+      def has_picture
+        has_attached_file :picture, {
+          url: '/backend/:class/:id/picture/:style',
+          path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
+          styles: {
+            thumb:     ["64x64>",  :jpg],
+            identity: ["180x180>", :jpg]
+          },
+          convert_options: {
+            thumb:    "-background white -gravity center -extent 64x64",
+            identity: "-background white -gravity center -extent 180x180"
+          }
+        }
+      end
+
 
       # Returns the definition of custom fields of the class
       def custom_fields
@@ -166,17 +182,21 @@ module Ekylibre::Record
       def attr_readonly_with_conditions(*args)
         options = args.extract_options!
         return attr_readonly_without_conditions(*args) unless options[:if]
-        method_name = "readonly_#{@@readonly_counter+=1}?"
-        self.send(:define_method, method_name, options[:if])
-        code = ""
-        code += "before_update do\n"
-        code += "  if self.#{method_name}(#{'self' if options[:if].arity>0})\n"
-        code += "    old = self.class.find(self.id)\n"
-        for attribute in args
-          code += "  self['#{attribute}'] = old['#{attribute}']\n"
+        if options[:if].is_a?(Symbol)
+          method_name = options[:if]
+        else
+          method_name = "readonly_#{@@readonly_counter+=1}?"
+          self.send(:define_method, method_name, options[:if])
         end
-        code += "  end\n"
-        code += "end\n"
+        code = ""
+        code << "before_update do\n"
+        code << "  if self.#{method_name}\n"
+        code << "    old = #{self.name}.find(self.id)\n"
+        for attribute in args
+          code << "  self['#{attribute}'] = old['#{attribute}']\n"
+        end
+        code << "  end\n"
+        code << "end\n"
         class_eval code
       end
       alias_method_chain :attr_readonly, :conditions

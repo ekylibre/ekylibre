@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-oryctolagus" hierarchical="true">
+    <items>
+      <item name="oryctolagus_cuniculus" itis_tsn="180129"/>
+    </items>
+  </nomenclature>
+
+  <!-- http://fr.wikipedia.org/wiki/Liste_des_races_de_lapins -->
+
+  <nomenclature name="varieties-oryctolagus_cuniculus" hierarchical="true">
+    <items>
+      <item name="oryctolagus_cuniculus_blanc_de_vienne" itis_tsn="000000"/>
+      <item name="oryctolagus_cuniculus_bleu_de_vienne" itis_tsn="000000"/>
+      <item name="oryctolagus_cuniculus_gris_de_vienne" itis_tsn="000000"/>
+      <item name="oryctolagus_cuniculus_nain_belier"    itis_tsn="000000"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

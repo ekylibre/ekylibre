@@ -73,9 +73,9 @@ bank_statements_002:
   currency: EUR
   debit: 0.0
   id: 2
-  lock_version: 0
+  lock_version: 1
   number: '000000000002'
   started_at: 2009-07-18 22:00:00.000000000 Z
-  stopped_at: 2009-07-18 22:00:00.000000000 Z
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  stopped_at: 2009-08-18 22:00:00.000000000 Z
+  updated_at: 2014-11-05 13:07:46.431302000 Z
   updater_id: 1

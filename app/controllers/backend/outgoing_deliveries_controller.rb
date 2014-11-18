@@ -25,6 +25,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :code])) do |t|
     t.column :number, url: true
+    t.column :recipient, url: true
     t.column :with_transport
     t.column :transport, url: true
     t.column :transporter, url: true, hidden: true
@@ -71,7 +72,10 @@ class Backend::OutgoingDeliveriesController < BackendController
       redirect_to backend_transport_url(transport)
     else
       # default case: render the transporter selector
-      params[:transporter_id] = OutgoingDelivery.transporters_of(deliveries).compact.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+      transporters = OutgoingDelivery.transporters_of(deliveries)
+      if transporters.any?
+        params[:transporter_id] = transporters.group_by{|transporter_id| transporter_id}.max_by{|k, v| v.count}.first
+      end
       params[:responsible_id] = current_user.person.id
     end
   end

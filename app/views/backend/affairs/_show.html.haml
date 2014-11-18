@@ -17,7 +17,7 @@
 
             %span.btn-group<
               - for model in (Affair::AFFAIRABLE_MODELS - %w(gap))
-                = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, :redirect => request.path}, class: "btn btn-link") do
+                = link_to({action: :select, controller: :affairs, id: affair.id, :deal_type => model, :third_id => third_id, redirect: request.fullpath}, class: "btn btn-link") do
                   %i
                   = Ekylibre::Record.human_name(model)
         %td.total
@@ -26,7 +26,7 @@
           - else
             - unless affair.balance.zero?
               %span.btn-group<
-                = link_to({controller: :affairs, action: :finish, id: affair.id, redirect: request.path}, method: :post, class: "btn btn-check primary") do
+                = link_to({controller: :affairs, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn btn-check primary") do
                   %i
                   = "convert_balance_into_#{affair.losing? ? :loss : :profit}".tl
         %td.total.amount.sum{class: (affair.balance == 0 ? "debit" : "credit")}= affair.balance.l(currency: affair.currency)
@@ -46,6 +46,6 @@
             %span.value= amount.l(currency: deal.currency)
           %td.act
             - if deal != current_deal and deal.detachable?
-              = link_to({action: :detach, controller: :affairs, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, :redirect => request.url}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "remove") do
+              = link_to({action: :detach, controller: :affairs, id: deal.affair_id, :deal_type => deal.class.name.underscore, :deal_id => deal.id, redirect: request.fullpath}, method: :delete, data: {confirm: :are_you_sure.tl}, class: "remove") do
                 %i
                 = :destroy.tl

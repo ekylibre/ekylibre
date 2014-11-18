@@ -15,7 +15,10 @@
   %td= @journal.currency
   %td.dec= text_field_tag "items[#{id}][real_credit]", (item.real_credit||0.0), size: 10, id: "items_#{id}_real_credit", class: "real-credit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_debit"}
   %td= @journal.currency
-  %td.act= link_to(:destroy.ta, "#", data: {remove: ".#{id}-item"}, class: "destroy")
+  %td.act
+    = link_to("#", data: {remove: ".#{id}-item"}, class: "destroy") do
+      %i
+      = :destroy.ta
 
 - if @financial_year and @journal and @journal.currency != @financial_year.currency
   %tr{id: "#{id}-real-values", class: "#{id}-item"}

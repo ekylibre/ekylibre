@@ -60,45 +60,71 @@
 #
 ---
 cashes_001:
-  account_id: 1
+  account_id: 212
+  bank_account_key: ''
+  bank_account_number: ''
+  bank_agency_address: ''
+  bank_agency_code: ''
+  bank_code: ''
+  bank_identifier_code: GHBXFRPP
+  bank_name: GHB
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
   iban: FR7611111222223333333333391
   id: 1
-  journal_id: 1
-  lock_version: 0
+  journal_id: 2
+  lock_version: 3
   mode: iban
-  name: Lorem ipsum
+  name: GHB
   nature: bank_account
   spaced_iban: FR76 1111 1222 2233 3333 3333 391
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-05 12:35:44.603014000 Z
   updater_id: 1
 cashes_002:
-  account_id: 2
+  account_id: 214
+  bank_account_key: ''
+  bank_account_number: ''
+  bank_agency_address: "45 Fort Knox Street\r\n4541-78454 Baltimore"
+  bank_agency_code: ''
+  bank_code: ''
+  bank_identifier_code: CAPIUSXX
+  bank_name: Capitalis
+  country: us
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  currency: EUR
-  iban: FR76
+  currency: USD
+  iban: US65123456789012345678912
   id: 2
-  journal_id: 1
-  lock_version: 0
+  journal_id: 7
+  lock_version: 5
   mode: iban
-  name: Lorem ipsum
+  name: Capitalis
   nature: bank_account
-  spaced_iban: FR76
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  spaced_iban: US65 1234 5678 9012 3456 7891 2
+  updated_at: 2014-11-05 12:44:40.749428000 Z
   updater_id: 1
 cashes_003:
-  account_id: 3
+  account_id: 213
+  bank_account_key: ''
+  bank_account_number: ''
+  bank_agency_address: ''
+  bank_agency_code: ''
+  bank_code: ''
+  bank_identifier_code: ''
+  bank_name: ''
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  iban: ''
   id: 3
-  journal_id: 1
-  lock_version: 0
+  journal_id: 6
+  lock_version: 3
   mode: iban
-  name: Lorem ipsum
+  name: Caisse Accueil
   nature: cash_box
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  spaced_iban: ''
+  updated_at: 2014-11-05 12:34:57.099302000 Z
   updater_id: 1

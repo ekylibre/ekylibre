@@ -45,7 +45,7 @@ class Journal < Ekylibre::Record::Base
   has_many :entries, class_name: "JournalEntry", inverse_of: :journal
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :closed_on, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :closed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, allow_nil: true, maximum: 4
   validates_length_of :nature, allow_nil: true, maximum: 30
@@ -93,15 +93,15 @@ class Journal < Ekylibre::Record::Base
   end
 
   validate do
-    valid = false
-    FinancialYear.find_each do |financial_year|
-      valid = true if self.closed_on == (financial_year.started_on-1).end_of_day
+    if self.closed_on and FinancialYear.find_by(started_on: self.closed_on + 1).blank?
+      if self.closed_on != self.closed_on.end_of_month
+        errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l)
+      end
     end
-    unless valid
-      errors.add(:closed_on, :end_of_month, closed_on: self.closed_on.l) if self.closed_on and self.closed_on.to_date != self.closed_on.end_of_month.to_date
-    end
-    if self.code.to_s.size > 0
-      errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).any?
+    unless self.code.blank?
+      if self.others.find_by(code: self.code.to_s[0..3])
+        errors.add(:code, :taken)
+      end
     end
   end
 

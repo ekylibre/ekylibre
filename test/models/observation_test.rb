@@ -40,5 +40,5 @@
 require 'test_helper'
 
 class ObservationTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

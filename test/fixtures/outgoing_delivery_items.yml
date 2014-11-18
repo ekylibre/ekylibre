@@ -47,32 +47,52 @@
 #
 ---
 outgoing_delivery_items_001:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  delivery_id: 1
-  id: 1
-  lock_version: 0
-  population: 1.0
-  product_id: 1
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-outgoing_delivery_items_002:
-  created_at: 2014-11-01 19:41:23.880692000 Z
-  creator_id: 1
-  delivery_id: 2
-  id: 2
-  lock_version: 0
-  population: 0.0
-  product_id: 49
-  updated_at: 2014-11-01 19:41:23.880692000 Z
-  updater_id: 1
-outgoing_delivery_items_003:
-  created_at: 2014-11-01 19:41:40.584266000 Z
+  created_at: 2014-11-05 14:15:20.018501000 Z
   creator_id: 1
   delivery_id: 3
   id: 3
   lock_version: 0
+  population: 20.0
+  product_id: 55
+  updated_at: 2014-11-05 14:15:20.018501000 Z
+  updater_id: 1
+outgoing_delivery_items_002:
+  created_at: 2014-11-05 14:15:20.026550000 Z
+  creator_id: 1
+  delivery_id: 3
+  id: 4
+  lock_version: 0
+  population: 5.095
+  product_id: 53
+  updated_at: 2014-11-05 14:15:20.026550000 Z
+  updater_id: 1
+outgoing_delivery_items_003:
+  created_at: 2014-11-05 14:16:19.775348000 Z
+  creator_id: 1
+  delivery_id: 4
+  id: 5
+  lock_version: 0
   population: 0.0
-  product_id: 27
-  updated_at: 2014-11-01 19:41:40.584266000 Z
+  product_id: 11
+  updated_at: 2014-11-05 14:16:19.775348000 Z
+  updater_id: 1
+outgoing_delivery_items_004:
+  created_at: 2014-11-05 14:16:48.644715000 Z
+  creator_id: 1
+  delivery_id: 5
+  id: 6
+  lock_version: 0
+  population: 0.0
+  product_id: 56
+  updated_at: 2014-11-05 14:16:48.644715000 Z
+  updater_id: 1
+outgoing_delivery_items_005:
+  created_at: 2014-11-07 14:13:05.516637000 Z
+  creator_id: 1
+  delivery_id: 6
+  id: 7
+  lock_version: 0
+  population: 0.0
+  product_id: 76
+  updated_at: 2014-11-07 14:13:05.516637000 Z
   updater_id: 1

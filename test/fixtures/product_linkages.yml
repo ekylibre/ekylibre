@@ -48,26 +48,4 @@
 #   point: "Lorem ipsum"
 #   updater: users_001
 #
----
-product_linkages_001:
-  carried_id: 26
-  carrier_id: 27
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  nature: occupied
-  point: rear
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-product_linkages_002:
-  carried_id: 26
-  carrier_id: 27
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  nature: occupied
-  point: front
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
+--- {}

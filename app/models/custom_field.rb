@@ -45,7 +45,7 @@
 class CustomField < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: (Ekylibre::Schema.model_names - [:AccountBalance, :AnalysisItem, :Affair, :Crumb, :CultivableZoneMembership, :CustomFieldChoice, :DocumentArchive, :FinancialAssetDepreciation, :Gap, :GapItem, :GuideAnalysis, :GuideAnalysisPoint, :IncomingDeliveryItem, :InterventionCast, :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan, :ManureManagementPlanZone, :Observation, :Operation, :OutgoingDeliveryItem, :Preference, :ProductBirth, :ProductConsumption, :ProductCreation, :ProductDeath, :ProductDivision, :ProductEnjoyment, :ProductJunction, :ProductJunctionWay, :ProductLink, :ProductLinkage, :ProductLocalization, :ProductMembership, :ProductMerging, :ProductMixing, :ProductNatureCategoryTaxation, :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductQuadrupleMixing, :ProductQuintupleMixing, :ProductReading, :ProductReadingTask, :ProductTripleMixing, :PurchaseItem, :SaleItem, :User, :Version])
+  enumerize :customized_type, in: (Ekylibre::Schema.model_names - [:AccountBalance, :AnalysisItem, :Affair, :Crumb, :CultivableZoneMembership, :CustomField, :CustomFieldChoice, :DocumentArchive, :FinancialAssetDepreciation, :Gap, :GapItem, :GuideAnalysis, :GuideAnalysisPoint, :IncomingDeliveryItem, :InterventionCast, :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan, :ManureManagementPlanZone, :Observation, :Operation, :OutgoingDeliveryItem, :Preference, :ProductBirth, :ProductConsumption, :ProductCreation, :ProductDeath, :ProductDivision, :ProductEnjoyment, :ProductionSupportMarker, :ProductJunction, :ProductJunctionWay, :ProductLink, :ProductLinkage, :ProductLocalization, :ProductMembership, :ProductMerging, :ProductMixing, :ProductNatureCategoryTaxation, :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductQuadrupleMixing, :ProductQuintupleMixing, :ProductReading, :ProductReadingTask, :ProductTripleMixing, :PurchaseItem, :SaleItem, :User, :Version])
   has_many :choices, -> { order(:position) }, class_name: "CustomFieldChoice", dependent: :delete_all, inverse_of: :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
@@ -80,7 +80,7 @@ class CustomField < Ekylibre::Record::Base
     unless self.column_exists?
       self.class.connection.add_column(self.customized_table_name, self.column_name, self.column_type)
       if self.choice? and !self.index_exists?
-        self.class.connection.add_index(self.customized_table_name, self.column_name)
+        self.class.connection.add_index(self.customized_table_name, self.column_name, name: self.index_name)
       end
       reset_schema
     end
@@ -109,7 +109,7 @@ class CustomField < Ekylibre::Record::Base
   def reset_schema
     self.customized_model.reset_column_information
     # Force prepared SELECT to be deallocated
-    self.class.connection.execute "DEALLOCATE ALL"
+    # self.class.connection.execute "DEALLOCATE ALL"
   end
 
   def choices_count
@@ -137,6 +137,10 @@ class CustomField < Ekylibre::Record::Base
   def index_exists?
     return false unless self.column_exists?
     self.class.connection.index_exists?(self.customized_table_name, self.column_name)
+  end
+
+  def index_name
+    "index_#{self.customized_table_name}_on_cf_#{self.id}"
   end
 
   # Access to the customized model

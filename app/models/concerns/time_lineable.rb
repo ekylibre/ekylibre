@@ -12,7 +12,8 @@ module TimeLineable
     scope :current, -> { at(Time.now) }
 
     before_validation do
-      if self.started_at and following = siblings.after(self.started_at).order(:started_at).first
+      following = siblings.after(self.started_at).order(:started_at).first rescue nil
+      if self.started_at and following
         self.stopped_at = following.started_at
       else
         self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, "+00:00")
@@ -74,10 +75,14 @@ module TimeLineable
 
   def has_previous?
     siblings.before(self.started_at).any?
+  rescue
+    false
   end
 
   def has_followings?
     siblings.after(self.started_at).any?
+  rescue
+    false
   end
 
   def last_for_now?

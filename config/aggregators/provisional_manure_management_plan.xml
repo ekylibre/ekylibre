@@ -14,7 +14,7 @@
         <variable name="recommender" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.recommender"/>
         <property name="manure_management_plan_name" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.name"/>
         <property name="recommender_full_name" if="recommender" value="recommender.full_name"/>
-        <property name="recommender_mail_coordinate" if="recommender" value="recommender.default_mail_address.mail_coordinate"/>
+        <property name="recommender_mail_coordinate" if="recommender and recommender.default_mail_address" value="recommender.default_mail_address.mail_coordinate"/>
         <property name="manure_management_plan_default_computation_method" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.default_computation_method"/>
         <property name="manure_management_plan_opened_at" if="campaign.selected_manure_management_plan" value="campaign.selected_manure_management_plan.opened_at" type="datetime"/>
         <!-- looking for all CultivableLandParcel in current campaign -->
@@ -33,8 +33,8 @@
             <property name="activity_family" value="support.activity.family"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
-            <property name="started_at" of="support" type="datetime"/>
-            <property name="stopped_at" of="support" type="datetime"/>
+            <property name="started_at" of="support" type="datetime" if="support.started_at"/>
+            <property name="stopped_at" of="support" type="datetime" if="support.stopped_at"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
 
@@ -52,8 +52,8 @@
               <variable name="original_input" value="provisional_intervention.casts.of_role(:'soil_enrichment-input_origin').first"/>
               <title name="name" of="provisional_intervention"/>
               <property name="id" of="provisional_intervention" level="api"/>
-              <property name="started_at" of="provisional_intervention" type="datetime"/>
-              <property name="stopped_at" of="provisional_intervention" type="datetime"/>
+              <property name="started_at" of="provisional_intervention" type="datetime" if="provisional_intervention.started_at"/>
+              <property name="stopped_at" of="provisional_intervention" type="datetime" if="provisional_intervention.stopped_at"/>
               <property name="period" value="((provisional_intervention.stopped_at - provisional_intervention.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
               <matrix name="inputs" for="input" in="provisional_intervention.casts.of_role(:'soil_enrichment-input')">
                 <cell name="id" of="input" level="api"/>
@@ -77,8 +77,8 @@
               <property name="id" of="provisional_pasturing" level="api"/>
               <property name="animal_group_name" value="animal_group.name"/>
               <property name="animal_group_population" value="animal_group.members_at(provisional_pasturing.started_at).count"/>
-              <property name="started_at" of="provisional_pasturing" type="datetime"/>
-              <property name="stopped_at" of="provisional_pasturing" type="datetime"/>
+              <property name="started_at" of="provisional_pasturing" type="datetime" if="provisional_pasturing.started_at"/>
+              <property name="stopped_at" of="provisional_pasturing" type="datetime" if="provisional_pasturing.stopped_at"/>
               <property name="pasturing_period" value="period.to_d"/>
               <property name="pasturing_working_area" value="pasturing_working_area" />
               <property name="nitrogen_input" value="period.to_d * daily_nitrogen_production.to_d" level="api"/>

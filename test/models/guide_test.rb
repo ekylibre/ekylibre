@@ -42,9 +42,5 @@
 require 'test_helper'
 
 class GuideTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Guide.count
-  end
-
+  test_fixtures
 end

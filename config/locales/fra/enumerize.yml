@@ -17,6 +17,12 @@ fra:
       nature:
         bank_account: "Compte bancaire"
         cash_box: "Caisse"
+    catalog:
+      usage:
+        cost: "Coûts d’usage"
+        purchase: "Achat"
+        sale: "Vente"
+        stock: "Stock"
     custom_field:
       nature:
         boolean: "Case à cocher"

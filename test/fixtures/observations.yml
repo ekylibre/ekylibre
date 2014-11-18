@@ -74,3 +74,16 @@ observations_002:
   subject_type: Entity
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+observations_003:
+  author_id: 1
+  content: Nothing to say
+  created_at: 2014-11-14 22:03:22.349676000 Z
+  creator_id: 1
+  id: 3
+  importance: notice
+  lock_version: 0
+  observed_at: 2014-11-14 22:03:00.000000000 Z
+  subject_id: 13
+  subject_type: Entity
+  updated_at: 2014-11-14 22:03:22.349676000 Z
+  updater_id: 1

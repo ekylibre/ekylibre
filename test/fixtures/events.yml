@@ -135,3 +135,289 @@ events_007:
   stopped_at: 2012-10-04 17:50:00.000000000 Z
   updated_at: 2014-11-04 18:41:39.735286000 Z
   updater_id: 1
+events_008:
+  created_at: 2014-11-05 09:52:05.595487000 Z
+  creator_id: 1
+  duration: 10
+  id: 15
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 09:52:05.582501000 Z
+  stopped_at: 2014-11-05 09:52:15.582501000 Z
+  updated_at: 2014-11-05 09:52:05.595487000 Z
+  updater_id: 1
+events_009:
+  created_at: 2014-11-05 10:01:39.898552000 Z
+  creator_id: 1
+  duration: 10
+  id: 16
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 10:01:39.885292000 Z
+  stopped_at: 2014-11-05 10:01:49.885292000 Z
+  updated_at: 2014-11-05 10:01:39.898552000 Z
+  updater_id: 1
+events_010:
+  created_at: 2014-11-05 10:03:05.995952000 Z
+  creator_id: 1
+  duration: 10
+  id: 17
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 10:03:05.989373000 Z
+  stopped_at: 2014-11-05 10:03:15.989373000 Z
+  updated_at: 2014-11-05 10:03:05.995952000 Z
+  updater_id: 1
+events_011:
+  created_at: 2014-11-05 13:36:09.002362000 Z
+  creator_id: 1
+  duration: 10
+  id: 18
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: absence
+  restricted: false
+  started_at: 2014-11-05 13:36:08.985183000 Z
+  stopped_at: 2014-11-05 13:36:18.985183000 Z
+  updated_at: 2014-11-05 13:36:09.002362000 Z
+  updater_id: 1
+events_012:
+  created_at: 2014-11-05 15:39:35.597587000 Z
+  creator_id: 1
+  duration: 20700
+  id: 19
+  lock_version: 0
+  name: Semis n°10
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-11-10 09:00:00.000000000 Z
+  stopped_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-05 15:39:35.597587000 Z
+  updater_id: 1
+events_013:
+  created_at: 2014-11-06 17:47:15.999779000 Z
+  creator_id: 1
+  duration: 20400
+  id: 20
+  lock_version: 0
+  name: Labour n°11
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-10-07 07:50:00.000000000 Z
+  stopped_at: 2013-10-07 13:30:00.000000000 Z
+  updated_at: 2014-11-06 17:47:15.999779000 Z
+  updater_id: 1
+events_014:
+  created_at: 2014-11-06 17:49:34.366901000 Z
+  creator_id: 1
+  duration: 28800
+  id: 21
+  lock_version: 0
+  name: Semis n°12
+  nature: production_intervention
+  restricted: false
+  started_at: 2012-10-17 06:00:00.000000000 Z
+  stopped_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:49:34.366901000 Z
+  updater_id: 1
+events_015:
+  created_at: 2014-11-07 14:44:11.005037000 Z
+  creator_id: 1
+  duration: 14400
+  id: 22
+  lock_version: 0
+  name: Traitement animal n°13
+  nature: production_intervention
+  restricted: false
+  started_at: 2014-11-05 04:25:00.000000000 Z
+  stopped_at: 2014-11-05 08:25:00.000000000 Z
+  updated_at: 2014-11-07 14:44:11.005037000 Z
+  updater_id: 1
+events_016:
+  created_at: 2014-11-07 15:02:12.143357000 Z
+  creator_id: 1
+  duration: 7200
+  id: 23
+  lock_version: 0
+  name: Pulvérisation sur culture n°14
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-02-08 09:50:00.000000000 Z
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:12.143357000 Z
+  updater_id: 1
+events_017:
+  created_at: 2014-11-07 15:26:35.536194000 Z
+  creator_id: 1
+  duration: 6720
+  id: 24
+  lock_version: 0
+  name: Fertilisation minérale n°15
+  nature: production_intervention
+  restricted: false
+  started_at: 2012-12-12 09:20:00.000000000 Z
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:35.536194000 Z
+  updater_id: 1
+events_018:
+  created_at: 2014-11-07 15:45:30.880743000 Z
+  creator_id: 1
+  duration: 20400
+  id: 25
+  lock_version: 0
+  name: Semis n°16
+  nature: production_intervention
+  restricted: false
+  started_at: 2007-09-29 08:00:00.000000000 Z
+  stopped_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:30.880743000 Z
+  updater_id: 1
+events_019:
+  created_at: 2014-11-07 15:47:46.992985000 Z
+  creator_id: 1
+  duration: 5267400
+  id: 26
+  lock_version: 0
+  name: Pâturage n°17
+  nature: production_intervention
+  restricted: false
+  started_at: 2014-07-01 12:35:00.000000000 Z
+  stopped_at: 2014-08-31 11:45:00.000000000 Z
+  updated_at: 2014-11-07 15:47:46.992985000 Z
+  updater_id: 1
+events_020:
+  created_at: 2014-11-07 16:16:21.816976000 Z
+  creator_id: 1
+  duration: 5163600
+  id: 27
+  lock_version: 0
+  name: Pâturage n°18
+  nature: production_intervention
+  restricted: false
+  started_at: 2014-09-01 15:15:00.000000000 Z
+  stopped_at: 2014-10-31 09:35:00.000000000 Z
+  updated_at: 2014-11-07 16:16:21.816976000 Z
+  updater_id: 1
+events_021:
+  created_at: 2014-11-07 16:20:51.419132000 Z
+  creator_id: 1
+  duration: 9900
+  id: 28
+  lock_version: 0
+  name: Fertilisation minérale n°19
+  nature: production_intervention
+  restricted: false
+  started_at: 2014-02-01 09:45:00.000000000 Z
+  stopped_at: 2014-02-01 12:30:00.000000000 Z
+  updated_at: 2014-11-07 16:20:51.419132000 Z
+  updater_id: 1
+events_022:
+  created_at: 2014-11-07 16:49:41.922532000 Z
+  creator_id: 1
+  duration: 46800
+  id: 29
+  lock_version: 0
+  name: Plantation n°20
+  nature: production_intervention
+  restricted: false
+  started_at: 2008-03-15 09:00:00.000000000 Z
+  stopped_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:49:41.922532000 Z
+  updater_id: 1
+events_023:
+  created_at: 2014-11-07 16:58:54.119706000 Z
+  creator_id: 1
+  duration: 14400
+  id: 30
+  lock_version: 0
+  name: Pulvérisation sur culture n°21
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-04-17 08:00:00.000000000 Z
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:58:54.119706000 Z
+  updater_id: 1
+events_024:
+  created_at: 2014-11-07 17:07:15.600188000 Z
+  creator_id: 1
+  duration: 43200
+  id: 31
+  lock_version: 0
+  name: Vendange n°22
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-09-16 05:00:00.000000000 Z
+  stopped_at: 2013-09-16 17:00:00.000000000 Z
+  updated_at: 2014-11-07 17:07:15.600188000 Z
+  updater_id: 1
+events_025:
+  created_at: 2014-11-07 19:02:48.873057000 Z
+  creator_id: 1
+  duration: 7200
+  id: 33
+  lock_version: 0
+  name: Pressage de raisin n°25
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-10-02 07:00:00.000000000 Z
+  stopped_at: 2013-10-02 09:00:00.000000000 Z
+  updated_at: 2014-11-07 19:02:48.873057000 Z
+  updater_id: 1
+events_026:
+  created_at: 2014-11-07 19:08:38.771956000 Z
+  creator_id: 1
+  duration: 2400
+  id: 34
+  lock_version: 0
+  name: Fermentation n°26
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-10-05 13:00:00.000000000 Z
+  stopped_at: 2013-10-05 13:40:00.000000000 Z
+  updated_at: 2014-11-07 19:08:38.771956000 Z
+  updater_id: 1
+events_027:
+  created_at: 2014-11-07 19:12:37.523930000 Z
+  creator_id: 1
+  duration: 900
+  id: 35
+  lock_version: 0
+  name: Chaptalisation n°27
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-10-07 09:30:00.000000000 Z
+  stopped_at: 2013-10-07 09:45:00.000000000 Z
+  updated_at: 2014-11-07 19:12:37.523930000 Z
+  updater_id: 1
+events_028:
+  created_at: 2014-11-07 19:23:41.904108000 Z
+  creator_id: 1
+  duration: 1200
+  id: 36
+  lock_version: 0
+  name: Sulfitage n°28
+  nature: production_intervention
+  restricted: false
+  started_at: 2014-10-15 08:28:00.000000000 Z
+  stopped_at: 2014-10-15 08:48:00.000000000 Z
+  updated_at: 2014-11-07 19:23:41.904108000 Z
+  updater_id: 1
+events_029:
+  created_at: 2014-11-07 19:36:53.119491000 Z
+  creator_id: 1
+  duration: 25200
+  id: 37
+  lock_version: 0
+  name: Embouteillage de vin n°29
+  nature: production_intervention
+  restricted: false
+  started_at: 2013-10-30 07:00:00.000000000 Z
+  stopped_at: 2013-10-30 14:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:53.119491000 Z
+  updater_id: 1

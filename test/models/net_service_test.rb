@@ -33,9 +33,5 @@
 require 'test_helper'
 
 class NetServiceTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, NetService.count
-  end
-
+  test_fixtures
 end

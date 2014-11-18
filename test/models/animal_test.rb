@@ -65,4 +65,5 @@
 require 'test_helper'
 
 class AnimalTest < ActiveSupport::TestCase
+  test_fixtures
 end

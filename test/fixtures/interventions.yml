@@ -102,3 +102,369 @@ interventions_002:
   stopped_at: 2012-10-04 17:50:00.000000000 Z
   updated_at: 2014-11-04 18:41:39.737616000 Z
   updater_id: 1
+interventions_003:
+  created_at: 2014-11-05 15:39:35.599908000 Z
+  creator_id: 1
+  event_id: 19
+  id: 11
+  lock_version: 3
+  natures: sowing
+  number: '10'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-sowing-0-750-2: '3000'
+  production_id: 1
+  production_support_id: 8
+  provisional: false
+  recommended: false
+  reference_name: base-sowing-0
+  started_at: 2013-11-10 09:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-11-10 14:45:00.000000000 Z
+  updated_at: 2014-11-06 17:48:17.037410000 Z
+  updater_id: 1
+interventions_004:
+  created_at: 2014-11-06 17:47:16.003032000 Z
+  creator_id: 1
+  event_id: 20
+  id: 12
+  lock_version: 3
+  natures: plowing
+  number: '11'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-plowing-0-500-1: nude
+  production_id: 1
+  production_support_id: 7
+  provisional: false
+  recommended: false
+  reference_name: base-plowing-0
+  started_at: 2012-10-07 07:50:00.000000000 Z
+  state: done
+  stopped_at: 2012-10-07 13:30:00.000000000 Z
+  updated_at: 2014-11-06 17:49:51.154667000 Z
+  updater_id: 1
+interventions_005:
+  created_at: 2014-11-06 17:49:34.368349000 Z
+  creator_id: 1
+  event_id: 21
+  id: 13
+  lock_version: 2
+  natures: sowing
+  number: '12'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-sowing-0-750-2: '17000'
+  production_id: 1
+  production_support_id: 7
+  provisional: false
+  recommended: false
+  reference_name: base-sowing-0
+  started_at: 2012-10-17 06:00:00.000000000 Z
+  state: done
+  stopped_at: 2012-10-17 14:00:00.000000000 Z
+  updated_at: 2014-11-06 17:50:07.381890000 Z
+  updater_id: 1
+interventions_006:
+  created_at: 2014-11-07 14:44:11.007227000 Z
+  creator_id: 1
+  event_id: 22
+  id: 14
+  issue_id: 5
+  lock_version: 4
+  natures: animal_curative_medicine_admission
+  number: '13'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-animal_treatment-0-100-1: '1'
+  prescription_id: 1
+  production_id: 8
+  production_support_id: 13
+  provisional: false
+  recommended: true
+  recommender_id: 13
+  reference_name: base-animal_treatment-0
+  started_at: 2014-11-05 04:25:00.000000000 Z
+  state: done
+  stopped_at: 2014-11-05 08:25:00.000000000 Z
+  updated_at: 2014-11-07 14:56:53.830642000 Z
+  updater_id: 1
+interventions_007:
+  created_at: 2014-11-07 15:02:12.145127000 Z
+  creator_id: 1
+  event_id: 23
+  id: 15
+  issue_id: 6
+  lock_version: 2
+  natures: plant_illness_treatment
+  number: '14'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 1
+  production_support_id: 7
+  provisional: false
+  recommended: false
+  reference_name: base-spraying_on_cultivation-0
+  started_at: 2013-02-08 09:50:00.000000000 Z
+  state: done
+  stopped_at: 2013-02-08 11:50:00.000000000 Z
+  updated_at: 2014-11-07 15:02:59.236199000 Z
+  updater_id: 1
+interventions_008:
+  created_at: 2014-11-07 15:26:35.538449000 Z
+  creator_id: 1
+  event_id: 24
+  id: 16
+  lock_version: 2
+  natures: soil_enrichment
+  number: '15'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 1
+  production_support_id: 6
+  provisional: false
+  recommended: false
+  reference_name: base-mineral_fertilizing-0
+  started_at: 2012-12-12 09:20:00.000000000 Z
+  state: done
+  stopped_at: 2012-12-12 11:12:00.000000000 Z
+  updated_at: 2014-11-07 15:26:50.748268000 Z
+  updater_id: 1
+interventions_009:
+  created_at: 2014-11-07 15:45:30.882661000 Z
+  creator_id: 1
+  event_id: 25
+  id: 17
+  lock_version: 2
+  natures: sowing
+  number: '16'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-sowing-0-750-2: '5000'
+  production_id: 8
+  production_support_id: 13
+  provisional: false
+  recommended: false
+  reference_name: base-sowing-0
+  started_at: 2007-09-29 08:00:00.000000000 Z
+  state: done
+  stopped_at: 2007-09-29 13:40:00.000000000 Z
+  updated_at: 2014-11-07 15:45:46.130915000 Z
+  updater_id: 1
+interventions_010:
+  created_at: 2014-11-07 15:47:46.996499000 Z
+  creator_id: 1
+  event_id: 26
+  id: 18
+  lock_version: 4
+  natures: harvest pasturing
+  number: '17'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 8
+  production_support_id: 15
+  provisional: false
+  recommended: false
+  reference_name: base-pasturing-0
+  started_at: 2014-07-01 12:35:00.000000000 Z
+  state: done
+  stopped_at: 2014-08-31 11:45:00.000000000 Z
+  updated_at: 2014-11-07 15:55:52.246355000 Z
+  updater_id: 1
+interventions_011:
+  created_at: 2014-11-07 16:16:21.819333000 Z
+  creator_id: 1
+  event_id: 27
+  id: 19
+  lock_version: 0
+  natures: harvest pasturing
+  number: '18'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 8
+  production_support_id: 15
+  provisional: true
+  recommended: false
+  reference_name: base-pasturing-0
+  started_at: 2014-09-01 15:15:00.000000000 Z
+  state: undone
+  stopped_at: 2014-10-31 09:35:00.000000000 Z
+  updated_at: 2014-11-07 16:16:21.819333000 Z
+  updater_id: 1
+interventions_012:
+  created_at: 2014-11-07 16:20:51.420516000 Z
+  creator_id: 1
+  event_id: 28
+  id: 20
+  lock_version: 0
+  natures: soil_enrichment
+  number: '19'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 4
+  production_support_id: 9
+  provisional: true
+  recommended: false
+  reference_name: base-mineral_fertilizing-0
+  started_at: 2014-02-01 09:45:00.000000000 Z
+  state: undone
+  stopped_at: 2014-02-01 12:30:00.000000000 Z
+  updated_at: 2014-11-07 16:20:51.420516000 Z
+  updater_id: 1
+interventions_013:
+  created_at: 2014-11-07 16:49:41.924502000 Z
+  creator_id: 1
+  event_id: 29
+  id: 21
+  lock_version: 2
+  natures: implanting
+  number: '20'
+  parameters: !ruby/hash:ActionController::Parameters
+    readings: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      base-implanting-0-750-2: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        value: '2'
+        unit: meter
+      base-implanting-0-750-3: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+        value: '0.8'
+        unit: meter
+      base-implanting-0-750-4: '5000'
+  production_id: 9
+  production_support_id: 16
+  provisional: false
+  recommended: false
+  reference_name: base-implanting-0
+  started_at: 2008-03-15 09:00:00.000000000 Z
+  state: done
+  stopped_at: 2008-03-15 22:00:00.000000000 Z
+  updated_at: 2014-11-07 16:50:07.634178000 Z
+  updater_id: 1
+interventions_014:
+  created_at: 2014-11-07 16:58:54.121180000 Z
+  creator_id: 1
+  event_id: 30
+  id: 22
+  issue_id: 7
+  lock_version: 2
+  natures: plant_illness_treatment
+  number: '21'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 9
+  production_support_id: 16
+  provisional: false
+  recommended: false
+  reference_name: base-spraying_on_cultivation-0
+  started_at: 2013-04-17 08:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-04-17 12:00:00.000000000 Z
+  updated_at: 2014-11-07 16:59:10.188297000 Z
+  updater_id: 1
+interventions_015:
+  created_at: 2014-11-07 17:07:15.601972000 Z
+  creator_id: 1
+  event_id: 31
+  id: 23
+  lock_version: 2
+  natures: grape_harvest
+  number: '22'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 9
+  production_support_id: 16
+  provisional: false
+  recommended: false
+  reference_name: base-vine_harvest-0
+  started_at: 2013-09-16 05:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-09-16 17:00:00.000000000 Z
+  updated_at: 2014-11-07 17:08:50.944424000 Z
+  updater_id: 1
+interventions_016:
+  created_at: 2014-11-07 19:02:48.874701000 Z
+  creator_id: 1
+  event_id: 33
+  id: 25
+  lock_version: 2
+  natures: pressing
+  number: '25'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 11
+  production_support_id: 18
+  provisional: false
+  recommended: false
+  reference_name: base-grape_pressing-0
+  started_at: 2013-10-02 07:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-10-02 07:35:00.000000000 Z
+  updated_at: 2014-11-07 19:02:56.633410000 Z
+  updater_id: 1
+interventions_017:
+  created_at: 2014-11-07 19:08:38.774375000 Z
+  creator_id: 1
+  event_id: 34
+  id: 26
+  lock_version: 2
+  natures: fermentation
+  number: '26'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 11
+  production_support_id: 18
+  provisional: false
+  recommended: false
+  reference_name: base-fermentation-0
+  started_at: 2013-10-05 13:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-10-05 13:40:00.000000000 Z
+  updated_at: 2014-11-07 19:08:55.663395000 Z
+  updater_id: 1
+interventions_018:
+  created_at: 2014-11-07 19:12:37.525620000 Z
+  creator_id: 1
+  event_id: 35
+  id: 27
+  lock_version: 2
+  natures: addition
+  number: '27'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 11
+  production_support_id: 18
+  provisional: false
+  recommended: false
+  reference_name: base-chaptalization-0
+  started_at: 2013-10-07 09:30:00.000000000 Z
+  state: done
+  stopped_at: 2013-10-07 09:45:00.000000000 Z
+  updated_at: 2014-11-07 19:12:43.051707000 Z
+  updater_id: 1
+interventions_019:
+  created_at: 2014-11-07 19:23:41.906006000 Z
+  creator_id: 1
+  event_id: 36
+  id: 28
+  issue_id: 8
+  lock_version: 4
+  natures: addition
+  number: '28'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 11
+  production_support_id: 18
+  provisional: false
+  recommended: false
+  reference_name: base-sulfur_addition-0
+  started_at: 2013-10-15 08:28:00.000000000 Z
+  state: done
+  stopped_at: 2013-10-15 08:48:00.000000000 Z
+  updated_at: 2014-11-07 19:27:25.683759000 Z
+  updater_id: 1
+interventions_020:
+  created_at: 2014-11-07 19:36:53.121209000 Z
+  creator_id: 1
+  event_id: 37
+  id: 29
+  lock_version: 2
+  natures: bottling
+  number: '29'
+  parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  production_id: 11
+  production_support_id: 18
+  provisional: false
+  recommended: false
+  reference_name: base-wine_bottling-0
+  started_at: 2013-10-30 07:00:00.000000000 Z
+  state: done
+  stopped_at: 2013-10-30 14:00:00.000000000 Z
+  updated_at: 2014-11-07 19:36:59.723027000 Z
+  updater_id: 1

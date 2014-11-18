@@ -80,7 +80,6 @@ incoming_deliveries_003:
   lock_version: 0
   mode: ex_works
   number: INDEL000003
-  purchase_id: 1
   received_at: 2014-10-14 17:19:32.000000000 Z
   sender_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
@@ -149,4 +148,96 @@ incoming_deliveries_008:
   reference_number: ''
   sender_id: 8
   updated_at: 2014-11-01 20:23:54.910311000 Z
+  updater_id: 1
+incoming_deliveries_009:
+  address_id: 9
+  created_at: 2014-11-07 15:25:51.188992000 Z
+  creator_id: 1
+  id: 9
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: ID20140009
+  received_at: 2012-11-03 15:24:00.000000000 Z
+  reference_number: '2012110001458'
+  sender_id: 13
+  updated_at: 2014-11-07 15:25:51.188992000 Z
+  updater_id: 1
+incoming_deliveries_010:
+  address_id: 9
+  created_at: 2014-11-07 15:44:20.453162000 Z
+  creator_id: 1
+  id: 10
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: ID20140010
+  received_at: 2014-11-07 15:41:00.000000000 Z
+  reference_number: '2007090001213'
+  sender_id: 13
+  updated_at: 2014-11-07 15:44:20.453162000 Z
+  updater_id: 1
+incoming_deliveries_011:
+  address_id: 9
+  created_at: 2014-11-07 16:47:34.635509000 Z
+  creator_id: 1
+  id: 11
+  lock_version: 1
+  mode: delivered_duty_paid
+  number: ID20140012
+  purchase_id: 11
+  received_at: 2008-03-05 09:00:00.000000000 Z
+  reference_number: '2008030001215'
+  sender_id: 13
+  updated_at: 2014-11-07 16:52:05.914027000 Z
+  updater_id: 1
+incoming_deliveries_012:
+  address_id: 9
+  created_at: 2014-11-07 19:05:46.884082000 Z
+  creator_id: 1
+  id: 12
+  lock_version: 0
+  mode: ex_works
+  number: ID20140013
+  received_at: 2014-11-07 19:04:00.000000000 Z
+  reference_number: '201210'
+  sender_id: 13
+  updated_at: 2014-11-07 19:05:46.884082000 Z
+  updater_id: 1
+incoming_deliveries_013:
+  address_id: 9
+  created_at: 2014-11-07 19:12:04.935666000 Z
+  creator_id: 1
+  id: 13
+  lock_version: 0
+  mode: ex_works
+  number: ID20140014
+  received_at: 2013-10-01 18:10:00.000000000 Z
+  reference_number: '2013100000546'
+  sender_id: 13
+  updated_at: 2014-11-07 19:12:04.935666000 Z
+  updater_id: 1
+incoming_deliveries_014:
+  address_id: 9
+  created_at: 2014-11-07 19:22:38.074904000 Z
+  creator_id: 1
+  id: 14
+  lock_version: 0
+  mode: ex_works
+  number: ID20140015
+  received_at: 2013-10-03 18:18:00.000000000 Z
+  reference_number: '2013100000598'
+  sender_id: 13
+  updated_at: 2014-11-07 19:22:38.074904000 Z
+  updater_id: 1
+incoming_deliveries_015:
+  address_id: 9
+  created_at: 2014-11-07 19:34:09.453724000 Z
+  creator_id: 1
+  id: 15
+  lock_version: 0
+  mode: delivered_duty_paid
+  number: ID20140017
+  received_at: 2013-10-15 10:30:00.000000000 Z
+  reference_number: '2013100000750'
+  sender_id: 13
+  updated_at: 2014-11-07 19:34:09.453724000 Z
   updater_id: 1

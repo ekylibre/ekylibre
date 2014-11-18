@@ -23,7 +23,7 @@
     = f.backend_fields_for :casts do |v|
       - reference = v.object.reference
       = v.input :reference_name, as: :hidden
-      - if reference.type_product?
+      - if reference and reference.type_product?
         - if reference.handlers.any?
           = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
             - for need in reference.needs

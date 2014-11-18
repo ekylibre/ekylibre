@@ -14,12 +14,12 @@
 = beehive do |b|
   - b.hbox do
     - b.cell do
+      - if resource.picture.exists?
+        .picture= image_tag(resource.picture.url(:identity))
       = attributes_list do |l|
         - l.attribute :target, url: true
+        - l.attribute :state
         - l.attribute :description
-    - if resource.picture.exists?
-      - b.cell do
-        .picture= image_tag(resource.picture.url(:identity))
 
   - b.hbox do
     - b.cell(:interventions) do

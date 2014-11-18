@@ -31,6 +31,7 @@ module Ekylibre::Record
             end
             code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
           end
+          code << "has_many :affairs, as: :originator, dependent: :destroy\n"
 
           code << "delegate :credit, :debit, :closed?, to: :affair, prefix: true\n"
 
@@ -96,7 +97,9 @@ module Ekylibre::Record
 
           code << "def undeal!(affair = nil)\n"
           code << "  if affair and affair.id != self.#{affair_id}\n"
-          code << "    raise ArgumentError, 'Cannot undeal from this unknown affair'\n"
+          # code << "    puts self.inspect.red\n"
+          # code << "    puts affair.inspect.blue\n"
+          code << "    raise ArgumentError, \"Cannot undeal from this unknown affair #\#{affair.id}\"\n"
           code << "  end\n"
           code << "  Ekylibre::Record::Base.transaction do\n"
           code << "    old_affair = self.#{affair}\n"

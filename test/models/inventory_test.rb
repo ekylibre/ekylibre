@@ -42,5 +42,5 @@
 require 'test_helper'
 
 class InventoryTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

@@ -48,11 +48,11 @@ class ProductionSupport < Ekylibre::Record::Base
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support, dependent: :destroy
   has_one :activity, through: :production
   has_one :campaign, through: :production
-  has_one :selected_manure_management_plan_zone, -> { selected }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_one :selected_manure_management_plan_zone, -> { selecteds }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
   has_one :variant, through: :production
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :nature, :production_usage, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :nature, :production, :production_usage, :storage
@@ -145,7 +145,7 @@ class ProductionSupport < Ekylibre::Record::Base
     nitrogen_unity_per_hectare = nil
     if self.selected_manure_management_plan_zone
       # get the output O aka nitrogen_input from opened_at (in kg N / Ha )
-      o = self.selected_manure_management_plan_zone.nitrogen_input.to_d
+      o = self.selected_manure_management_plan_zone.nitrogen_input || 0.0
       opened_at = self.selected_manure_management_plan_zone.opened_at
       # get the nitrogen input I from opened_at to now (in kg N / Ha )
       for intervention in self.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now)
@@ -223,20 +223,23 @@ class ProductionSupport < Ekylibre::Record::Base
 
   def tool_cost(surface_unit = :hectare)
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      self.cost(:tool)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+      return self.cost(:tool)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
+    return 0.0
   end
 
   def input_cost(surface_unit = :hectare)
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      self.cost(:input)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+      return self.cost(:input)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
+    return 0.0
   end
 
   def time_cost(surface_unit = :hectare)
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      self.cost(:doer)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
+      return self.cost(:doer)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
+    return 0.0
   end
 
   # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production

@@ -45,4 +45,5 @@
 require 'test_helper'
 
 class AccountBalanceTest < ActiveSupport::TestCase
+  test_fixtures
 end

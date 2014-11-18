@@ -32,17 +32,17 @@ $text-color:         #333333 !default;
 $invalid-color:      #D81E08 !default;
 $caution-color:      #FF8811 !default;
 $success-color:      #65A907 !default;
+$highlight-color:    #FFEE80 !default;
 $mapbar-background-color: #FFFFFF !default;
-
-$hover-transparency: 0.75 !default;
-$hover-mask: transparentize($base-color, $hover-transparency);
-
 $active-color: $base-color !default;
-$link-color:   darken($base-color, 10%) !default;
-$title-color:  darken($base-color, 40%) !default;
+$link-color:         darken($base-color, 10%) !default;
+$title-color:        darken($base-color, 40%) !default;
 $selection-color:  $active-color;
 $base-font-color:  $text-color !default;
 $base-font-reversed-color: #FFF !default;
+
+$hover-transparency: 0.75 !default;
+$hover-mask: transparentize($base-color, $hover-transparency);
 
 $neutral-background: change-color($neutral-color, $lightness: 90%) !default;
 $input-background:   $desktop-background;

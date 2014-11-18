@@ -44,4 +44,5 @@
 require 'test_helper'
 
 class FinancialAssetDepreciationTest < ActiveSupport::TestCase
+  test_fixtures
 end

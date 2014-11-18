@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::OutgoingDeliveriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions invoice: :multi_touch, ship: :multi_touch
+  test_restfully_all_actions invoice: {mode: :multi_touch, fixture: {first: 3, second: 5}}, ship: {mode: :multi_touch, fixture: {first: 3, second: 4}}
 end

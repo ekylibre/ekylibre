@@ -28,6 +28,11 @@
             production_code="M100"
             activity="exploitation"
             />
+      <!-- S - SERVICES ACTIVITIES -->
+      <item name="services"
+            production_code="S100"
+            activity="service"
+            />
       <!-- 1 - CEREALS CROP -->
       <item name="winter_soft_wheat"
             production_code="1100"

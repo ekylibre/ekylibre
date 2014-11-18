@@ -57,7 +57,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   enumerize :mode, in: Nomen::DeliveryModes.all
   # has_many :product_moves, :as => :origin, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :sent_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :sent_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
   validates_length_of :mode, :number, :reference_number, allow_nil: true, maximum: 255
   validates_inclusion_of :with_transport, in: [true, false]
@@ -167,7 +167,6 @@ class OutgoingDelivery < Ekylibre::Record::Base
           raise StandardError, "Need an obvious transporter to ship deliveries"
         end
       end
-
       transport = Transport.create!(departed_at: Time.now, transporter_id: options[:transporter_id], responsible_id: options[:responsible_id])
       deliveries.each do |delivery|
         delivery.with_transport = true
@@ -183,7 +182,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
   # Returns an array of all the transporter ids for the given deliveries
   def self.transporters_of(deliveries)
-    deliveries.map(&:transporter_id)
+    deliveries.map(&:transporter_id).compact
   end
 
 

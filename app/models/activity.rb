@@ -38,7 +38,6 @@
 #  updater_id   :integer
 #
 class Activity < Ekylibre::Record::Base
-  # attr_accessible :started_at, :stopped_at, :nature, :description, :family, :name, :parent_id, :productions_attributes
   enumerize :nature, in: [:main, :auxiliary, :none], default: :main
   enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
   has_many :productions

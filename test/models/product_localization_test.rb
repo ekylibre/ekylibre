@@ -40,5 +40,5 @@
 require 'test_helper'
 
 class ProductLocalizationTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

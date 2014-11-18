@@ -58,72 +58,23 @@
 #
 ---
 affairs_001:
+  accounted_at: 2014-11-05 09:30:00.003467000 Z
   closed: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  credit: 0.0
+  credit: 6000.0
   currency: EUR
-  deals_count: 0
-  debit: 123.0
-  id: 1
-  lock_version: 0
-  number: A000001
-  originator_id: 1
-  originator_type: Sale
-  third_id: 6
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-affairs_002:
-  accounted_at: 2014-11-01 19:48:47.195851000 Z
-  closed: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 156.0
-  currency: EUR
-  deals_count: 5
-  debit: 227.57
-  id: 2
-  lock_version: 3
-  number: A000002
-  originator_id: 2
-  originator_type: Gap
-  third_id: 6
-  updated_at: 2014-11-01 19:48:47.184877000 Z
-  updater_id: 1
-affairs_003:
-  accounted_at: 2014-11-01 20:01:05.062013000 Z
-  closed: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 127.0
-  currency: EUR
-  deals_count: 4
-  debit: 163.82
-  id: 3
-  lock_version: 6
-  number: A000003
-  originator_id: 3
-  originator_type: Sale
-  third_id: 6
-  updated_at: 2014-11-01 20:01:05.036596000 Z
-  updater_id: 1
-affairs_004:
-  closed: false
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 1236.0
-  currency: EUR
-  deals_count: 0
-  debit: 158.0
+  deals_count: 1
+  debit: 0.0
   id: 4
-  lock_version: 0
+  lock_version: 1
   number: A000004
   originator_id: 1
   originator_type: IncomingPayment
   third_id: 6
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-05 09:29:59.992533000 Z
   updater_id: 1
-affairs_005:
+affairs_002:
   closed: false
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
@@ -139,72 +90,238 @@ affairs_005:
   third_id: 6
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-affairs_006:
-  accounted_at: 2014-10-31 18:52:01.381974000 Z
+affairs_003:
+  accounted_at: 2014-11-05 09:58:26.803289000 Z
   closed: true
-  closed_at: 2014-10-31 18:52:01.370526000 Z
-  created_at: 2014-10-31 18:51:27.932259000 Z
+  closed_at: 2014-11-05 09:58:26.789660000 Z
+  created_at: 2014-11-05 09:52:05.651665000 Z
   creator_id: 1
-  credit: 448.98
+  credit: 1164.0
   currency: EUR
   deals_count: 2
-  debit: 448.98
-  id: 6
-  lock_version: 1
-  number: A000006
-  originator_id: 6
+  debit: 1164.0
+  id: 10
+  lock_version: 5
+  number: A000000000004
+  originator_id: 7
   originator_type: Sale
-  third_id: 8
-  updated_at: 2014-10-31 18:52:01.373471000 Z
+  third_id: 7
+  updated_at: 2014-11-05 09:58:26.794031000 Z
+  updater_id: 1
+affairs_004:
+  accounted_at: 2014-11-06 18:25:07.940847000 Z
+  closed: false
+  created_at: 2014-11-05 10:01:39.917982000 Z
+  creator_id: 1
+  credit: 792.0
+  currency: EUR
+  deals_count: 2
+  debit: 300.0
+  id: 12
+  lock_version: 1
+  number: A000000000006
+  originator_id: 8
+  originator_type: Sale
+  third_id: 13
+  updated_at: 2014-11-05 10:02:28.482875000 Z
+  updater_id: 1
+affairs_005:
+  accounted_at: 2014-11-05 13:35:14.625131000 Z
+  closed: true
+  closed_at: 2014-11-05 13:35:14.611051000 Z
+  created_at: 2014-11-05 10:03:06.014961000 Z
+  creator_id: 1
+  credit: 11.23
+  currency: EUR
+  deals_count: 2
+  debit: 11.23
+  id: 14
+  lock_version: 3
+  number: A000000000008
+  originator_id: 9
+  originator_type: Sale
+  third_id: 10
+  updated_at: 2014-11-05 13:35:14.615292000 Z
+  updater_id: 1
+affairs_006:
+  accounted_at: 2014-11-05 13:40:57.922047000 Z
+  closed: true
+  closed_at: 2014-11-05 13:40:57.905739000 Z
+  created_at: 2014-11-05 10:44:42.282299000 Z
+  creator_id: 1
+  credit: 171.6
+  currency: EUR
+  deals_count: 2
+  debit: 171.6
+  id: 15
+  lock_version: 2
+  number: A000000000009
+  originator_id: 6
+  originator_type: Purchase
+  third_id: 13
+  updated_at: 2014-11-05 13:40:57.910272000 Z
   updater_id: 1
 affairs_007:
-  accounted_at: 2014-11-01 19:44:07.737811000 Z
+  accounted_at: 2014-11-05 10:46:06.183488000 Z
   closed: false
-  created_at: 2014-11-01 19:44:07.709263000 Z
+  created_at: 2014-11-05 10:46:06.163028000 Z
   creator_id: 1
   credit: 0.0
   currency: USD
   deals_count: 1
-  debit: 6458.4
-  id: 7
+  debit: 1850.0
+  id: 16
   lock_version: 0
-  number: FDA000000000001
-  originator_id: 5
-  originator_type: Purchase
-  third_id: 5
-  updated_at: 2014-11-01 19:44:07.709263000 Z
-  updater_id: 1
-affairs_008:
-  accounted_at: 2014-11-01 19:46:24.889150000 Z
-  closed: false
-  created_at: 2014-11-01 19:46:24.859478000 Z
-  creator_id: 1
-  credit: 0.0
-  currency: USD
-  deals_count: 1
-  debit: 592.02
-  id: 8
-  lock_version: 0
-  number: UFDA000000000002
-  originator_id: 4
+  number: A000000000010
+  originator_id: 7
   originator_type: Purchase
   third_id: 4
-  updated_at: 2014-11-01 19:46:24.859478000 Z
+  updated_at: 2014-11-05 10:46:06.163028000 Z
+  updater_id: 1
+affairs_008:
+  accounted_at: 2014-11-05 13:36:51.555823000 Z
+  closed: true
+  closed_at: 2014-11-05 13:36:51.536711000 Z
+  created_at: 2014-11-05 13:36:09.026401000 Z
+  creator_id: 1
+  credit: 20.0
+  currency: EUR
+  deals_count: 3
+  debit: 20.0
+  id: 17
+  lock_version: 4
+  number: A000000000011
+  originator_id: 10
+  originator_type: Sale
+  third_id: 10
+  updated_at: 2014-11-05 13:36:51.542064000 Z
   updater_id: 1
 affairs_009:
-  accounted_at: 2014-11-01 19:50:57.971530000 Z
+  accounted_at: 2014-11-05 14:07:53.349357000 Z
   closed: false
-  created_at: 2014-11-01 19:50:57.952981000 Z
+  created_at: 2014-11-05 14:05:57.528434000 Z
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 123.0
+  id: 20
+  lock_version: 1
+  number: A000000000014
+  originator_id: 1
+  originator_type: IncomingPayment
+  third_id: 6
+  updated_at: 2014-11-05 14:05:57.543080000 Z
+affairs_010:
+  accounted_at: 2014-11-05 14:07:45.804138000 Z
+  closed: false
+  created_at: 2014-11-05 14:06:06.158342000 Z
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 100.0
+  id: 21
+  lock_version: 1
+  number: A000000000015
+  originator_id: 3
+  originator_type: IncomingPayment
+  third_id: 8
+  updated_at: 2014-11-05 14:06:06.173578000 Z
+affairs_011:
+  accounted_at: 2014-11-05 14:07:42.859080000 Z
+  closed: false
+  created_at: 2014-11-05 14:06:11.319314000 Z
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 448.98
+  id: 22
+  lock_version: 1
+  number: A000000000016
+  originator_id: 4
+  originator_type: IncomingPayment
+  third_id: 8
+  updated_at: 2014-11-05 14:06:11.334075000 Z
+affairs_012:
+  accounted_at: 2014-11-07 13:58:25.770377000 Z
+  closed: false
+  created_at: 2014-11-05 14:11:50.235322000 Z
   creator_id: 1
-  credit: 430.56
+  credit: 116.0
   currency: EUR
   deals_count: 1
   debit: 0.0
-  id: 9
-  lock_version: 0
-  number: GUFDA000000000003
-  originator_id: 2
-  originator_type: Sale
+  id: 23
+  lock_version: 1
+  number: A000000000017
+  originator_id: 1
+  originator_type: OutgoingPayment
   third_id: 6
-  updated_at: 2014-11-01 19:50:57.952981000 Z
+  updated_at: 2014-11-05 14:11:50.255067000 Z
+  updater_id: 1
+affairs_013:
+  accounted_at: 2014-11-07 13:55:38.873436000 Z
+  closed: false
+  created_at: 2014-11-07 13:55:38.852252000 Z
+  credit: 0.0
+  currency: EUR
+  deals_count: 1
+  debit: 150.0
+  id: 24
+  lock_version: 1
+  number: A000000000018
+  originator_id: 2
+  originator_type: IncomingPayment
+  third_id: 6
+  updated_at: 2014-11-07 13:55:38.866825000 Z
+affairs_014:
+  accounted_at: 2014-11-07 13:58:35.237502000 Z
+  closed: false
+  created_at: 2014-11-07 13:58:35.214828000 Z
+  creator_id: 1
+  credit: 156.0
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 25
+  lock_version: 0
+  number: A000000000019
+  originator_id: 2
+  originator_type: OutgoingPayment
+  third_id: 6
+  updated_at: 2014-11-07 13:58:35.214828000 Z
+  updater_id: 1
+affairs_015:
+  accounted_at: 2014-11-07 15:58:47.273853000 Z
+  closed: true
+  closed_at: 2014-11-07 15:58:47.261242000 Z
+  created_at: 2014-11-07 15:58:10.856248000 Z
+  creator_id: 1
+  credit: 1848.0
+  currency: EUR
+  deals_count: 2
+  debit: 1848.0
+  id: 26
+  lock_version: 6
+  number: A000000000020
+  originator_id: 8
+  originator_type: Purchase
+  third_id: 13
+  updated_at: 2014-11-07 15:58:47.265018000 Z
+  updater_id: 1
+affairs_016:
+  accounted_at: 2014-11-07 16:53:27.408639000 Z
+  closed: false
+  created_at: 2014-11-07 16:52:05.277386000 Z
+  creator_id: 1
+  credit: 9000.0
+  currency: EUR
+  deals_count: 2
+  debit: 20520.0
+  id: 30
+  lock_version: 4
+  number: A000000000022
+  originator_id: 11
+  originator_type: Purchase
+  third_id: 13
+  updated_at: 2014-11-07 16:53:27.399316000 Z
   updater_id: 1

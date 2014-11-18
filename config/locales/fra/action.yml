@@ -309,8 +309,9 @@ fra:
       show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
+      index: "Écritures comptables"
       new: "Nouvelle écriture"
-      show: "Écriture\_: %{number}"
+      show: "Écriture comptable\_: %{number}"
     backend/journal_entry_items:
       new: "Nouvelle ligne d’écriture"
     backend/journals:
@@ -471,9 +472,9 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       show: "%{nature}\_: %{name}"
-    backend/purchase_items:
-      edit: "Modifier une ligne de la commande"
-      new: "Nouveau produit à la commande"
+    backend/purchase_items:  #?
+      edit: "Modifier une ligne de la commande" #?
+      new: "Nouveau produit à la commande" #?
     backend/purchase_natures:
       edit: "Modifier le type d’achat\_: %{name}"
       index: "Type d’achats"
@@ -498,10 +499,10 @@ fra:
       new: "Nouveau rôle"
       pick: "Piocher un rôle\_"
       show: "Rôle\_: %{name}"
-    backend/sale_items:
+    backend/sale_items:  #?
       detail: "Détailler une ligne de la vente" #?
-      edit: "Modifier une ligne de la vente"
-      new: "Nouveau produit à la vente"
+      edit: "Modifier une ligne de la vente" #?
+      new: "Nouveau produit à la vente" #?
     backend/sale_natures:
       edit: "Modifier le type de vente\_: %{name}"
       index: "Types de ventes"
@@ -600,6 +601,7 @@ fra:
     public:
       index: "Accueil"
   errors:
+    format: "%{message}"
     messages:
       already_confirmed: "a déjà été validé(e)"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
@@ -714,10 +716,10 @@ fra:
       abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
       close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
-    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
+    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande ?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
-    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
+    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer ?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
@@ -1953,6 +1955,7 @@ fra:
     backend/catalog_prices: "{name}"
     backend/entity_links: "{started_at}"
     backend/events: "{name}"
+    backend/incoming_payments: "{number} {mode.name} {payer.full_name} {amount} {currency}"
     backend/journal_entry_items: "[{entry.number}] {name} ({account.number}) D{real_debit}/C{real_credit} {currency}"
     backend/matters: "{name} ‒ {work_number}"
     backend/observations: "{content}"
@@ -1964,5 +1967,5 @@ fra:
     backend/product_natures: "{name}"
     backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     backend/products: "{work_number} {name} ({!population} {!unit_name})"
-    backend/trackings: "{serial} ‒ {name} ‒ {producer.name}" #?
+    backend/trackings: "{serial} ‒ {name} ‒ {producer.full_name}"
     backend/users: "{first_name} {last_name}"

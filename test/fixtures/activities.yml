@@ -50,34 +50,28 @@
 activities_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  family: vegetal_crops
+  depth: 0
+  description: ''
+  family: cereal_crops
   id: 1
-  lock_version: 0
+  lock_version: 1
   name: Blé
   nature: main
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-07 16:31:31.790045000 Z
   updater_id: 1
 activities_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  family: rabbit_farming
-  id: 2
-  lock_version: 0
-  name: Lapins
-  nature: main
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-activities_003:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
+  depth: 0
+  description: ''
   family: cattle_farming
   id: 3
-  lock_version: 0
+  lock_version: 3
   name: Bovins
   nature: main
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-11-07 16:30:59.478636000 Z
   updater_id: 1
-activities_004:
+activities_003:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   family: exploitation
@@ -87,7 +81,7 @@ activities_004:
   nature: auxiliary
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
-activities_005:
+activities_004:
   created_at: 2014-11-04 18:16:53.454319000 Z
   creator_id: 1
   depth: 0
@@ -100,4 +94,32 @@ activities_005:
   nature: main
   rgt: 2
   updated_at: 2014-11-04 18:16:53.454319000 Z
+  updater_id: 1
+activities_005:
+  created_at: 2014-11-07 16:28:28.828977000 Z
+  creator_id: 1
+  depth: 0
+  description: ''
+  family: vines
+  id: 6
+  lft: 1
+  lock_version: 0
+  name: Vignes
+  nature: main
+  rgt: 2
+  updated_at: 2014-11-07 16:28:28.828977000 Z
+  updater_id: 1
+activities_006:
+  created_at: 2014-11-07 16:28:45.261588000 Z
+  creator_id: 1
+  depth: 0
+  description: ''
+  family: wine
+  id: 7
+  lft: 1
+  lock_version: 0
+  name: Vin
+  nature: main
+  rgt: 2
+  updated_at: 2014-11-07 16:28:45.261588000 Z
   updater_id: 1

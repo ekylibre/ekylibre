@@ -65,9 +65,5 @@
 require 'test_helper'
 
 class WorkerTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Worker.count
-  end
-
+  test_fixtures
 end

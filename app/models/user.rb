@@ -72,17 +72,17 @@ class User < Ekylibre::Record::Base
   belongs_to :role
   has_many :crumbs
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
-  has_many :sales_invoices, -> { where(state: "invoice") }, foreign_key: :responsible_id, class_name: "Sale"
-  has_many :sales, foreign_key: :responsible_id
+  has_many :sales_invoices, -> { where(state: "invoice") }, through: :person, source: :managed_sales, class_name: "Sale"
+  has_many :sales, through: :person, source: :managed_sales
   has_many :transports, foreign_key: :responsible_id
-  has_many :unpaid_sales, -> { order(:created_at).where(state: ['order', 'invoice']).where(lost: false).where("paid_amount < amount") }, class_name: "Sale", foreign_key: :responsible_id
+  has_many :unpaid_sales, -> { order(:created_at).where(state: ['order', 'invoice']).where(lost: false).where("paid_amount < amount") }, through: :person, source: :managed_sales, class_name: "Sale"
   has_one :worker, through: :person
 
   scope :employees, -> { where(employed: true) }
   scope :administrators, -> { where(administrator: true) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_length_of :language, allow_nil: true, maximum: 3
@@ -145,11 +145,12 @@ class User < Ekylibre::Record::Base
   end
 
   def name
-    self.full_name
+    # TODO: I18nize the method User#name !
+    "#{self.first_name} #{self.last_name}"
   end
 
   def label
-    self.full_name
+    self.name
   end
 
   # Find or create preference for given name

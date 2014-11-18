@@ -67,5 +67,5 @@
 require 'test_helper'
 
 class BuildingTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

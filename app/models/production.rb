@@ -54,7 +54,7 @@ class Production < Ekylibre::Record::Base
   # has_many :land_parcel_groups, :through => :supports, class_name: "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :name, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :static_support, in: [true, false]
   validates_presence_of :activity, :campaign, :name, :state

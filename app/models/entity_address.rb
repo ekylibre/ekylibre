@@ -62,7 +62,7 @@ class EntityAddress < Ekylibre::Record::Base
   # enumerize :country, in: Nomen::Countries.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :deleted_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :deleted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :mail_country, allow_nil: true, maximum: 2
   validates_length_of :thread, allow_nil: true, maximum: 10
   validates_length_of :canal, allow_nil: true, maximum: 20
@@ -76,10 +76,11 @@ class EntityAddress < Ekylibre::Record::Base
   validates_presence_of :mail_country, if: :mail?
 
 
-  selects_among_all scope: [:entity_id, :canal]
+  selects_among_all scope: [:entity_id, :canal], subset: :actives
 
   # Use unscoped to get all historic
-  default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
+  default_scope -> { actives }
+  scope :actives, -> { where("deleted_at IS NULL").order(:coordinate) }
 
   # Defines test and scope methods for.all canals
   self.canal.values.each do |canal|

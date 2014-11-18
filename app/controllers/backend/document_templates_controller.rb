@@ -18,7 +18,7 @@
 #
 
 class Backend::DocumentTemplatesController < BackendController
-  manage_restfully language: "Preference[:language]".c, except: :show
+  manage_restfully language: "Preference[:language]".c
 
   unroll
 

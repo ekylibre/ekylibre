@@ -104,6 +104,7 @@ class Entity < Ekylibre::Record::Base
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :sales_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Sale", foreign_key: :client_id
   has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
+  has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: "Sale"
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id
   has_many :trackings, foreign_key: :producer_id
@@ -113,15 +114,7 @@ class Entity < Ekylibre::Record::Base
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where("sent_at IS NULL") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
-  has_attached_file :picture, {
-    :url => '/backend/:class/:id/picture/:style',
-    :path => ':tenant/:class/:attachment/:id_partition/:style.:extension',
-    :styles => {
-      :thumb => ["64x64#", :jpg],
-      :identity => ["180x180#", :jpg]
-      # :large => ["490x630#", :jpg] # Not used
-    }
-  }
+  has_picture
 
   # # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE sent_at IS NULL OR transport_id IS NULL)").order(:last_name, :first_name) }
@@ -133,7 +126,7 @@ class Entity < Ekylibre::Record::Base
   }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: Date.civil(1,1,1)
+  validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :country, allow_nil: true, maximum: 2
   validates_length_of :language, allow_nil: true, maximum: 3

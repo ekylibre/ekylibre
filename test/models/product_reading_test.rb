@@ -49,5 +49,5 @@
 require 'test_helper'
 
 class ProductReadingTest < ActiveSupport::TestCase
-
+  test_fixtures
 end

@@ -91,6 +91,7 @@ entities_001:
   active: true
   activity_code: ''
   client: false
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -100,7 +101,7 @@ entities_001:
   id: 1
   language: eng
   last_name: C. Ferstivall LTD
-  lock_version: 5
+  lock_version: 11
   locked: false
   meeting_origin: ''
   nature: company
@@ -116,9 +117,9 @@ entities_001:
   supplier: false
   transporter: false
   type: Entity
-  updated_at: 2014-11-03 16:19:27.360659000 Z
+  updated_at: 2014-11-07 15:13:53.028918000 Z
   updater_id: 1
-  vat_number: ''
+  vat_number: FR00123456789
   vat_subjected: true
 entities_002:
   active: false
@@ -226,6 +227,38 @@ entities_005:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
+entities_006:
+  active: false
+  activity_code: ''
+  born_at: 1962-08-11 23:00:00.000000000 Z
+  client: true
+  client_account_id: 209
+  country: fr
+  created_at: 2014-11-05 10:01:10.914643000 Z
+  creator_id: 1
+  currency: EUR
+  deliveries_conditions: ''
+  first_name: ''
+  full_name: Coop Ain Coop'In
+  id: 13
+  language: fra
+  last_name: Coop Ain Coop'In
+  lock_version: 1
+  locked: false
+  meeting_origin: ''
+  nature: cooperative
+  number: P00000003
+  of_company: false
+  prospect: false
+  reminder_submissive: false
+  siren: '123456789'
+  supplier: true
+  supplier_account_id: 211
+  transporter: false
+  updated_at: 2014-11-05 14:14:01.977457000 Z
+  updater_id: 1
+  vat_number: ''
+  vat_subjected: false
 legal_entities_001:
   active: true
   client: false
@@ -255,6 +288,7 @@ legal_entities_001:
 legal_entities_002:
   active: true
   client: false
+  client_account_id: 208
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
@@ -334,6 +368,7 @@ people_002:
   active: true
   activity_code: ''
   client: true
+  client_account_id: 210
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR

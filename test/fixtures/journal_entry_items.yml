@@ -86,353 +86,13 @@
 journal_entry_items_001:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 1
-  entry_number: XYZ0001
-  financial_year_id: 1
-  id: 1
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  printed_on: 2007-07-20
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_002:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 1
-  entry_number: XYZ0001
-  financial_year_id: 1
-  id: 2
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum 2
-  printed_on: 2007-07-20
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_003:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 1
-  entry_number: XYZ0001
-  financial_year_id: 1
-  id: 3
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  printed_on: 2007-07-20
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_004:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 5
-  entry_number: ABC0001
-  financial_year_id: 1
-  id: 4
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  printed_on: 2007-07-20
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: confirmed
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_005:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 5
-  entry_number: ABC0001
-  financial_year_id: 1
-  id: 5
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum 2
-  printed_on: 2007-07-20
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: confirmed
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_006:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 5
-  entry_number: ABC0001
-  financial_year_id: 1
-  id: 6
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  printed_on: 2007-07-20
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: confirmed
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_007:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 4
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 5
-  entry_number: ABC0001
-  financial_year_id: 16
-  id: 7
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  printed_on: 2007-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: closed
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_008:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 5
-  balance: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 5
-  entry_number: ABC0001
-  financial_year_id: 16
-  id: 8
-  journal_id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  printed_on: 2007-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 0.0
-  real_debit: 0.0
-  state: closed
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-journal_entry_items_009:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 150.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-11-01 19:48:47.144833000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 150.0
-  currency: EUR
-  debit: 150.0
-  entry_id: 7
-  entry_number: XYZ0005
-  financial_year_id: 18
-  id: 9
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP002] In cash!  de Busbest Andrew"
-  position: 1
-  printed_on: 2009-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 150.0
-  state: draft
-  updated_at: 2014-11-01 19:48:47.144833000 Z
-  updater_id: 1
-journal_entry_items_010:
-  absolute_credit: 150.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 206
-  balance: 0.0
-  created_at: 2014-11-01 19:48:47.164684000 Z
-  creator_id: 1
-  credit: 150.0
-  cumulated_absolute_credit: 150.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 7
-  entry_number: XYZ0005
-  financial_year_id: 18
-  id: 10
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP002] In cash!  de Busbest Andrew"
-  position: 2
-  printed_on: 2009-07-19
-  real_credit: 150.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-11-01 19:48:47.164684000 Z
-  updater_id: 1
-journal_entry_items_011:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 100.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-11-01 19:51:21.113180000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 250.0
-  currency: EUR
-  debit: 100.0
-  entry_id: 8
-  entry_number: XYZ0006
-  financial_year_id: 18
-  id: 11
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP003] In cash!  de Yuey LTD"
-  position: 1
-  printed_on: 2009-07-19
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 100.0
-  state: draft
-  updated_at: 2014-11-01 19:51:21.113180000 Z
-  updater_id: 1
-journal_entry_items_012:
-  absolute_credit: 100.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 202
-  balance: 0.0
-  created_at: 2014-11-01 19:51:21.137256000 Z
-  creator_id: 1
-  credit: 100.0
-  cumulated_absolute_credit: 100.0
-  cumulated_absolute_debit: 0.0
-  currency: EUR
-  debit: 0.0
-  entry_id: 8
-  entry_number: XYZ0006
-  financial_year_id: 18
-  id: 12
-  journal_id: 1
-  lock_version: 0
-  name: "[Encaissement IP003] In cash!  de Yuey LTD"
-  position: 2
-  printed_on: 2009-07-19
-  real_credit: 100.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2014-11-01 19:51:21.137256000 Z
-  updater_id: 1
-journal_entry_items_013:
-  absolute_credit: 0.0
-  absolute_currency: EUR
   absolute_debit: 117.0
   account_id: 202
   balance: 0.0
   created_at: 2014-11-01 19:52:01.001174000 Z
   creator_id: 1
   credit: 0.0
-  cumulated_absolute_credit: 117.0
+  cumulated_absolute_credit: 417.0
   cumulated_absolute_debit: 117.0
   currency: EUR
   debit: 117.0
@@ -452,7 +112,7 @@ journal_entry_items_013:
   state: draft
   updated_at: 2014-11-01 19:52:01.001174000 Z
   updater_id: 1
-journal_entry_items_014:
+journal_entry_items_002:
   absolute_credit: 92.13
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -481,7 +141,7 @@ journal_entry_items_014:
   state: draft
   updated_at: 2014-11-01 19:52:01.017454000 Z
   updater_id: 1
-journal_entry_items_015:
+journal_entry_items_003:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -510,7 +170,7 @@ journal_entry_items_015:
   state: draft
   updated_at: 2014-11-01 19:52:01.032901000 Z
   updater_id: 1
-journal_entry_items_016:
+journal_entry_items_004:
   absolute_credit: 20.79
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -539,7 +199,7 @@ journal_entry_items_016:
   state: draft
   updated_at: 2014-11-01 19:52:01.049892000 Z
   updater_id: 1
-journal_entry_items_017:
+journal_entry_items_005:
   absolute_credit: 4.08
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -568,7 +228,7 @@ journal_entry_items_017:
   state: draft
   updated_at: 2014-11-01 19:52:01.065221000 Z
   updater_id: 1
-journal_entry_items_018:
+journal_entry_items_006:
   absolute_credit: 17.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -577,7 +237,7 @@ journal_entry_items_018:
   created_at: 2014-11-01 19:52:01.242841000 Z
   creator_id: 1
   credit: 17.0
-  cumulated_absolute_credit: 134.0
+  cumulated_absolute_credit: 434.0
   cumulated_absolute_debit: 117.0
   currency: EUR
   debit: 0.0
@@ -597,7 +257,7 @@ journal_entry_items_018:
   state: draft
   updated_at: 2014-11-01 19:52:01.242841000 Z
   updater_id: 1
-journal_entry_items_019:
+journal_entry_items_007:
   absolute_credit: 10.0
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -606,7 +266,7 @@ journal_entry_items_019:
   created_at: 2014-11-01 19:52:01.256895000 Z
   creator_id: 1
   credit: 10.0
-  cumulated_absolute_credit: 160.0
+  cumulated_absolute_credit: 1129.0
   cumulated_absolute_debit: 0.0
   currency: EUR
   debit: 0.0
@@ -626,7 +286,7 @@ journal_entry_items_019:
   state: draft
   updated_at: 2014-11-01 19:52:01.256895000 Z
   updater_id: 1
-journal_entry_items_020:
+journal_entry_items_008:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 27.0
@@ -655,119 +315,1180 @@ journal_entry_items_020:
   state: draft
   updated_at: 2014-11-01 19:52:01.272084000 Z
   updater_id: 1
-journal_entry_items_021:
+journal_entry_items_009:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 45.0
+  absolute_debit: 1164.0
   account_id: 1
   balance: 0.0
-  created_at: 2014-11-01 20:01:04.894802000 Z
+  created_at: 2014-11-05 09:58:15.849777000 Z
   creator_id: 1
   credit: 0.0
   cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 295.0
+  cumulated_absolute_debit: 2683.0
   currency: EUR
-  debit: 45.0
-  entry_id: 9
-  entry_number: PUR000001
+  debit: 1164.0
+  entry_id: 13
+  entry_number: XYZ0010
   financial_year_id: 24
-  id: 21
-  journal_id: 4
+  id: 25
+  journal_id: 1
   lock_version: 0
-  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
-  printed_on: 2014-10-31
+  printed_on: 2014-11-01
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
-  real_debit: 45.0
+  real_debit: 1164.0
   state: draft
-  updated_at: 2014-11-01 20:01:04.894802000 Z
+  updated_at: 2014-11-05 09:58:15.849777000 Z
   updater_id: 1
-journal_entry_items_022:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 8.82
-  account_id: 39
-  balance: 0.0
-  created_at: 2014-11-01 20:01:04.913517000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 8.82
-  currency: EUR
-  debit: 8.82
-  entry_id: 9
-  entry_number: PUR000001
-  financial_year_id: 24
-  id: 22
-  journal_id: 4
-  lock_version: 0
-  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
-  position: 2
-  printed_on: 2014-10-31
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 8.82
-  state: draft
-  updated_at: 2014-11-01 20:01:04.913517000 Z
-  updater_id: 1
-journal_entry_items_023:
-  absolute_credit: 0.0
-  absolute_currency: EUR
-  absolute_debit: 10.0
-  account_id: 1
-  balance: 0.0
-  created_at: 2014-11-01 20:01:04.932183000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 0.0
-  cumulated_absolute_debit: 305.0
-  currency: EUR
-  debit: 10.0
-  entry_id: 9
-  entry_number: PUR000001
-  financial_year_id: 24
-  id: 23
-  journal_id: 4
-  lock_version: 0
-  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
-  position: 3
-  printed_on: 2014-10-31
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 10.0
-  state: draft
-  updated_at: 2014-11-01 20:01:04.932183000 Z
-  updater_id: 1
-journal_entry_items_024:
-  absolute_credit: 63.82
+journal_entry_items_010:
+  absolute_credit: 1164.0
   absolute_currency: EUR
   absolute_debit: 0.0
-  account_id: 207
+  account_id: 208
   balance: 0.0
-  created_at: 2014-11-01 20:01:04.950735000 Z
+  created_at: 2014-11-05 09:58:15.870717000 Z
   creator_id: 1
-  credit: 63.82
-  cumulated_absolute_credit: 63.82
+  credit: 1164.0
+  cumulated_absolute_credit: 1164.0
   cumulated_absolute_debit: 0.0
   currency: EUR
   debit: 0.0
-  entry_id: 9
-  entry_number: PUR000001
+  entry_id: 13
+  entry_number: XYZ0010
   financial_year_id: 24
-  id: 24
-  journal_id: 4
+  id: 26
+  journal_id: 1
   lock_version: 0
-  name: "[Achat P000003] Adexar 5 l et  de Yuey LTD"
-  position: 4
-  printed_on: 2014-10-31
-  real_credit: 63.82
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
+  position: 2
+  printed_on: 2014-11-01
+  real_credit: 1164.0
   real_currency: EUR
   real_currency_rate: 1.0
   real_debit: 0.0
   state: draft
-  updated_at: 2014-11-01 20:01:04.950735000 Z
+  updated_at: 2014-11-05 09:58:15.870717000 Z
+  updater_id: 1
+journal_entry_items_011:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 223.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-05 12:45:57.925799000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 30324.3
+  cumulated_absolute_debit: 335.07
+  currency: EUR
+  debit: 223.0
+  entry_id: 16
+  entry_number: BNK000001
+  financial_year_id: 24
+  id: 33
+  journal_id: 2
+  lock_version: 0
+  name: "[Remise en banque B20140001] Aucun encaissement In cash! "
+  position: 1
+  printed_on: 2014-11-05
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 223.0
+  state: draft
+  updated_at: 2014-11-05 12:45:57.925799000 Z
+  updater_id: 1
+journal_entry_items_012:
+  absolute_credit: 123.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 12:45:57.949128000 Z
+  creator_id: 1
+  credit: 123.0
+  cumulated_absolute_credit: 123.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 16
+  entry_number: BNK000001
+  financial_year_id: 24
+  id: 34
+  journal_id: 2
+  lock_version: 0
+  name: "[Remise en banque B20140001] In cash!  de Busbest Andrew (IP001)"
+  position: 2
+  printed_on: 2014-11-05
+  real_credit: 123.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 12:45:57.949128000 Z
+  updater_id: 1
+journal_entry_items_013:
+  absolute_credit: 100.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 12:45:57.992673000 Z
+  creator_id: 1
+  credit: 100.0
+  cumulated_absolute_credit: 223.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 16
+  entry_number: BNK000001
+  financial_year_id: 24
+  id: 35
+  journal_id: 2
+  lock_version: 0
+  name: "[Remise en banque B20140001] In cash!  de Yuey LTD (IP003)"
+  position: 3
+  printed_on: 2014-11-05
+  real_credit: 100.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 12:45:57.992673000 Z
+  updater_id: 1
+journal_entry_items_014:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 150.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-05 12:46:06.342790000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 30324.3
+  cumulated_absolute_debit: 485.07
+  currency: EUR
+  debit: 150.0
+  entry_id: 17
+  entry_number: BNK000002
+  financial_year_id: 24
+  id: 38
+  journal_id: 2
+  lock_version: 0
+  name: "[Remise en banque B20140002] Aucun encaissement In cash! "
+  position: 1
+  printed_on: 2014-11-05
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 150.0
+  state: draft
+  updated_at: 2014-11-05 12:46:06.342790000 Z
+  updater_id: 1
+journal_entry_items_015:
+  absolute_credit: 150.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 12:46:06.362768000 Z
+  creator_id: 1
+  credit: 150.0
+  cumulated_absolute_credit: 373.0
+  cumulated_absolute_debit: 2683.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 17
+  entry_number: BNK000002
+  financial_year_id: 24
+  id: 39
+  journal_id: 2
+  lock_version: 0
+  name: "[Remise en banque B20140002] In cash!  de Busbest Andrew (IP002)"
+  position: 2
+  printed_on: 2014-11-05
+  real_credit: 150.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 12:46:06.362768000 Z
+  updater_id: 1
+journal_entry_items_016:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 11.23
+  account_id: 210
+  balance: 0.0
+  created_at: 2014-11-05 13:35:14.532588000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 11.23
+  currency: EUR
+  debit: 11.23
+  entry_id: 18
+  entry_number: XYZ0012
+  financial_year_id: 24
+  id: 40
+  journal_id: 1
+  lock_version: 0
+  name: "[Loss E000000000002] FUYUTSUKI Kōzō"
+  position: 1
+  printed_on: 2014-11-05
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 11.23
+  state: draft
+  updated_at: 2014-11-05 13:35:14.532588000 Z
+  updater_id: 1
+journal_entry_items_017:
+  absolute_credit: 9.36
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 131
+  balance: 0.0
+  created_at: 2014-11-05 13:35:14.554188000 Z
+  creator_id: 1
+  credit: 9.36
+  cumulated_absolute_credit: 9.36
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 18
+  entry_number: XYZ0012
+  financial_year_id: 24
+  id: 41
+  journal_id: 1
+  lock_version: 0
+  name: "[Loss E000000000002] FUYUTSUKI Kōzō"
+  position: 2
+  printed_on: 2014-11-05
+  real_credit: 9.36
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 13:35:14.554188000 Z
+  updater_id: 1
+journal_entry_items_018:
+  absolute_credit: 1.87
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 39
+  balance: 0.0
+  created_at: 2014-11-05 13:35:14.574475000 Z
+  creator_id: 1
+  credit: 1.87
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 18
+  entry_number: XYZ0012
+  financial_year_id: 24
+  id: 42
+  journal_id: 1
+  lock_version: 0
+  name: "[Loss E000000000002] FUYUTSUKI Kōzō"
+  position: 3
+  printed_on: 2014-11-05
+  real_credit: 1.87
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 13:35:14.574475000 Z
+  updater_id: 1
+journal_entry_items_019:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.8
+  account_id: 210
+  balance: 0.0
+  created_at: 2014-11-05 13:36:51.398622000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 12.03
+  currency: EUR
+  debit: 0.8
+  entry_id: 19
+  entry_number: XYZ0013
+  financial_year_id: 24
+  id: 43
+  journal_id: 1
+  lock_version: 0
+  name: "[Profit E000000000003] FUYUTSUKI Kōzō"
+  position: 1
+  printed_on: 2014-11-05
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.8
+  state: draft
+  updated_at: 2014-11-05 13:36:51.398622000 Z
+  updater_id: 1
+journal_entry_items_020:
+  absolute_credit: 0.8
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 132
+  balance: 0.0
+  created_at: 2014-11-05 13:36:51.423491000 Z
+  creator_id: 1
+  credit: 0.8
+  cumulated_absolute_credit: 113.72
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 19
+  entry_number: XYZ0013
+  financial_year_id: 24
+  id: 44
+  journal_id: 1
+  lock_version: 0
+  name: "[Profit E000000000003] FUYUTSUKI Kōzō"
+  position: 2
+  printed_on: 2014-11-05
+  real_credit: 0.8
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 13:36:51.423491000 Z
+  updater_id: 1
+journal_entry_items_021:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 33
+  balance: 0.0
+  created_at: 2014-11-05 13:36:51.445674000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 4.08
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 19
+  entry_number: XYZ0013
+  financial_year_id: 24
+  id: 45
+  journal_id: 1
+  lock_version: 0
+  name: "[Profit E000000000003] FUYUTSUKI Kōzō"
+  position: 3
+  printed_on: 2014-11-05
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 13:36:51.445674000 Z
+  updater_id: 1
+journal_entry_items_022:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 100.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 14:07:45.760775000 Z
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 373.0
+  currency: EUR
+  debit: 100.0
+  entry_id: 8
+  entry_number: XYZ0006
+  financial_year_id: 18
+  id: 52
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP003] In cash!  de Yuey LTD"
+  position: 1
+  printed_on: 2009-07-18
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 100.0
+  state: draft
+  updated_at: 2014-11-05 14:07:45.760775000 Z
+journal_entry_items_023:
+  absolute_credit: 100.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 202
+  balance: 0.0
+  created_at: 2014-11-05 14:07:45.779570000 Z
+  credit: 100.0
+  cumulated_absolute_credit: 100.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 8
+  entry_number: XYZ0006
+  financial_year_id: 18
+  id: 53
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP003] In cash!  de Yuey LTD"
+  position: 2
+  printed_on: 2009-07-18
+  real_credit: 100.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 14:07:45.779570000 Z
+journal_entry_items_024:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 123.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-05 14:07:53.285220000 Z
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 646.0
+  currency: EUR
+  debit: 123.0
+  entry_id: 15
+  entry_number: XYZ0011
+  financial_year_id: 18
+  id: 56
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
+  position: 1
+  printed_on: 2009-07-18
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 123.0
+  state: draft
+  updated_at: 2014-11-05 14:07:53.285220000 Z
+journal_entry_items_025:
+  absolute_credit: 123.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 206
+  balance: 0.0
+  created_at: 2014-11-05 14:07:53.305114000 Z
+  credit: 123.0
+  cumulated_absolute_credit: 396.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 15
+  entry_number: XYZ0011
+  financial_year_id: 18
+  id: 57
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
+  position: 2
+  printed_on: 2009-07-18
+  real_credit: 123.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-05 14:07:53.305114000 Z
+journal_entry_items_026:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 112.07
+  account_id: 80
+  balance: 0.0
+  created_at: 2014-11-07 10:42:11.434174000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 112.07
+  currency: EUR
+  debit: 112.07
+  entry_id: 21
+  entry_number: CUN000001
+  financial_year_id: 23
+  id: 78
+  journal_id: 6
+  lock_version: 0
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
+  position: 1
+  printed_on: 2014-01-03
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 112.07
+  state: draft
+  updated_at: 2014-11-07 10:42:11.434174000 Z
+  updater_id: 1
+journal_entry_items_027:
+  absolute_credit: 112.07
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 213
+  balance: 0.0
+  created_at: 2014-11-07 10:42:11.451827000 Z
+  creator_id: 1
+  credit: 112.07
+  cumulated_absolute_credit: 112.07
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 21
+  entry_number: CUN000001
+  financial_year_id: 23
+  id: 79
+  journal_id: 6
+  lock_version: 0
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
+  position: 2
+  printed_on: 2014-01-03
+  real_credit: 112.07
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 10:42:11.451827000 Z
+  updater_id: 1
+journal_entry_items_028:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 112.07
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-07 10:42:11.479791000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 30180.0
+  cumulated_absolute_debit: 112.07
+  currency: EUR
+  debit: 112.07
+  entry_id: 22
+  entry_number: BNK000004
+  financial_year_id: 23
+  id: 80
+  journal_id: 2
+  lock_version: 0
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
+  position: 1
+  printed_on: 2014-01-03
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 112.07
+  state: draft
+  updated_at: 2014-11-07 10:42:11.479791000 Z
+  updater_id: 1
+journal_entry_items_029:
+  absolute_credit: 112.07
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 80
+  balance: 0.0
+  created_at: 2014-11-07 10:42:11.499021000 Z
+  creator_id: 1
+  credit: 112.07
+  cumulated_absolute_credit: 112.07
+  cumulated_absolute_debit: 112.07
+  currency: EUR
+  debit: 0.0
+  entry_id: 22
+  entry_number: BNK000004
+  financial_year_id: 23
+  id: 81
+  journal_id: 2
+  lock_version: 0
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
+  position: 2
+  printed_on: 2014-01-03
+  real_credit: 112.07
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 10:42:11.499021000 Z
+  updater_id: 1
+journal_entry_items_030:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 28.3
+  account_id: 80
+  balance: 0.0
+  created_at: 2014-11-07 10:42:27.828792000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 112.07
+  cumulated_absolute_debit: 140.37
+  currency: EUR
+  debit: 28.3
+  entry_id: 23
+  entry_number: BNK000005
+  financial_year_id: 23
+  id: 82
+  journal_id: 2
+  lock_version: 0
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
+  position: 1
+  printed_on: 2014-07-19
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 28.3
+  state: draft
+  updated_at: 2014-11-07 10:42:27.828792000 Z
+  updater_id: 1
+journal_entry_items_031:
+  absolute_credit: 28.3
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-07 10:42:27.849942000 Z
+  creator_id: 1
+  credit: 28.3
+  cumulated_absolute_credit: 30208.3
+  cumulated_absolute_debit: 112.07
+  currency: EUR
+  debit: 0.0
+  entry_id: 23
+  entry_number: BNK000005
+  financial_year_id: 23
+  id: 83
+  journal_id: 2
+  lock_version: 0
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
+  position: 2
+  printed_on: 2014-07-19
+  real_credit: 28.3
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 10:42:27.849942000 Z
+  updater_id: 1
+journal_entry_items_032:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 28.3
+  account_id: 213
+  balance: 0.0
+  created_at: 2014-11-07 10:42:27.879460000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 112.07
+  cumulated_absolute_debit: 28.3
+  currency: EUR
+  debit: 28.3
+  entry_id: 24
+  entry_number: CUN000002
+  financial_year_id: 23
+  id: 84
+  journal_id: 6
+  lock_version: 0
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
+  position: 1
+  printed_on: 2014-07-19
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 28.3
+  state: draft
+  updated_at: 2014-11-07 10:42:27.879460000 Z
+  updater_id: 1
+journal_entry_items_033:
+  absolute_credit: 28.3
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 80
+  balance: 0.0
+  created_at: 2014-11-07 10:42:27.897494000 Z
+  creator_id: 1
+  credit: 28.3
+  cumulated_absolute_credit: 140.37
+  cumulated_absolute_debit: 140.37
+  currency: EUR
+  debit: 0.0
+  entry_id: 24
+  entry_number: CUN000002
+  financial_year_id: 23
+  id: 85
+  journal_id: 6
+  lock_version: 0
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
+  position: 2
+  printed_on: 2014-07-19
+  real_credit: 28.3
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 10:42:27.897494000 Z
+  updater_id: 1
+journal_entry_items_034:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 150.0
+  account_id: 1
+  balance: 0.0
+  created_at: 2014-11-07 13:55:38.726715000 Z
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 796.0
+  currency: EUR
+  debit: 150.0
+  entry_id: 7
+  entry_number: XYZ0005
+  financial_year_id: 18
+  id: 86
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
+  position: 1
+  printed_on: 2009-07-18
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 150.0
+  state: draft
+  updated_at: 2014-11-07 13:55:38.726715000 Z
+journal_entry_items_035:
+  absolute_credit: 150.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 206
+  balance: 0.0
+  created_at: 2014-11-07 13:55:38.746477000 Z
+  credit: 150.0
+  cumulated_absolute_credit: 546.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 7
+  entry_number: XYZ0005
+  financial_year_id: 18
+  id: 87
+  journal_id: 1
+  lock_version: 0
+  name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
+  position: 2
+  printed_on: 2009-07-18
+  real_credit: 150.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 13:55:38.746477000 Z
+journal_entry_items_036:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 116.0
+  account_id: 205
+  balance: 0.0
+  created_at: 2014-11-07 13:58:25.718164000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 272.0
+  currency: EUR
+  debit: 116.0
+  entry_id: 20
+  entry_number: BNK000003
+  financial_year_id: 23
+  id: 88
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
+  position: 1
+  printed_on: 2014-08-31
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 116.0
+  state: draft
+  updated_at: 2014-11-07 13:58:25.718164000 Z
+  updater_id: 1
+journal_entry_items_037:
+  absolute_credit: 116.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-07 13:58:25.739075000 Z
+  creator_id: 1
+  credit: 116.0
+  cumulated_absolute_credit: 30324.3
+  cumulated_absolute_debit: 112.07
+  currency: EUR
+  debit: 0.0
+  entry_id: 20
+  entry_number: BNK000003
+  financial_year_id: 23
+  id: 89
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
+  position: 2
+  printed_on: 2014-08-31
+  real_credit: 116.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 13:58:25.739075000 Z
+  updater_id: 1
+journal_entry_items_038:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 156.0
+  account_id: 205
+  balance: 0.0
+  created_at: 2014-11-07 13:58:35.155946000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 156.0
+  currency: EUR
+  debit: 156.0
+  entry_id: 25
+  entry_number: BNK000006
+  financial_year_id: 22
+  id: 90
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
+  position: 1
+  printed_on: 2013-07-19
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 156.0
+  state: draft
+  updated_at: 2014-11-07 13:58:35.155946000 Z
+  updater_id: 1
+journal_entry_items_039:
+  absolute_credit: 156.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-07 13:58:35.179459000 Z
+  creator_id: 1
+  credit: 156.0
+  cumulated_absolute_credit: 156.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 25
+  entry_number: BNK000006
+  financial_year_id: 22
+  id: 91
+  journal_id: 2
+  lock_version: 0
+  name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
+  position: 2
+  printed_on: 2013-07-19
+  real_credit: 156.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 13:58:35.179459000 Z
+  updater_id: 1
+journal_entry_items_040:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1540.0
+  account_id: 54
+  balance: 0.0
+  created_at: 2014-11-07 15:58:47.198797000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 1540.0
+  currency: EUR
+  debit: 1540.0
+  entry_id: 26
+  entry_number: PUR000002
+  financial_year_id: 24
+  id: 92
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
+  position: 1
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1540.0
+  state: draft
+  updated_at: 2014-11-07 15:58:47.198797000 Z
+  updater_id: 1
+journal_entry_items_041:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 308.0
+  account_id: 39
+  balance: 0.0
+  created_at: 2014-11-07 15:58:47.220632000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 308.0
+  currency: EUR
+  debit: 308.0
+  entry_id: 26
+  entry_number: PUR000002
+  financial_year_id: 24
+  id: 93
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
+  position: 2
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 308.0
+  state: draft
+  updated_at: 2014-11-07 15:58:47.220632000 Z
+  updater_id: 1
+journal_entry_items_042:
+  absolute_credit: 1848.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 211
+  balance: 0.0
+  created_at: 2014-11-07 15:58:47.241674000 Z
+  creator_id: 1
+  credit: 1848.0
+  cumulated_absolute_credit: 1848.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 26
+  entry_number: PUR000002
+  financial_year_id: 24
+  id: 94
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
+  position: 3
+  printed_on: 2014-11-07
+  real_credit: 1848.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 15:58:47.241674000 Z
+  updater_id: 1
+journal_entry_items_043:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 124.0
+  account_id: 215
+  balance: 0.0
+  created_at: 2014-11-07 16:05:37.957154000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 124.0
+  currency: EUR
+  debit: 124.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 99
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 1
+  printed_on: 2013-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 124.0
+  state: draft
+  updated_at: 2014-11-07 16:05:37.957154000 Z
+  updater_id: 1
+journal_entry_items_044:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 245.0
+  account_id: 217
+  balance: 0.0
+  created_at: 2014-11-07 16:05:37.976262000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 245.0
+  currency: EUR
+  debit: 245.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 100
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 2
+  printed_on: 2013-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 245.0
+  state: draft
+  updated_at: 2014-11-07 16:05:37.976262000 Z
+  updater_id: 1
+journal_entry_items_045:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 14585.0
+  account_id: 216
+  balance: 0.0
+  created_at: 2014-11-07 16:05:37.995393000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 14585.0
+  currency: EUR
+  debit: 14585.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 101
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 3
+  printed_on: 2013-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 14585.0
+  state: draft
+  updated_at: 2014-11-07 16:05:37.995393000 Z
+  updater_id: 1
+journal_entry_items_046:
+  absolute_credit: 14954.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: 0.0
+  created_at: 2014-11-07 16:05:38.014932000 Z
+  creator_id: 1
+  credit: 14954.0
+  cumulated_absolute_credit: 15110.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 27
+  entry_number: XYZ0014
+  financial_year_id: 23
+  id: 102
+  journal_id: 1
+  lock_version: 0
+  name: Charges 2013
+  position: 4
+  printed_on: 2013-11-07
+  real_credit: 14954.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 16:05:38.014932000 Z
+  updater_id: 1
+journal_entry_items_047:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 17100.0
+  account_id: 154
+  balance: 0.0
+  created_at: 2014-11-07 16:52:57.630615000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 17100.0
+  currency: EUR
+  debit: 17100.0
+  entry_id: 28
+  entry_number: PUR000003
+  financial_year_id: 24
+  id: 103
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
+  position: 1
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 17100.0
+  state: draft
+  updated_at: 2014-11-07 16:52:57.630615000 Z
+  updater_id: 1
+journal_entry_items_048:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 3420.0
+  account_id: 39
+  balance: 0.0
+  created_at: 2014-11-07 16:52:57.654541000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 3728.0
+  currency: EUR
+  debit: 3420.0
+  entry_id: 28
+  entry_number: PUR000003
+  financial_year_id: 24
+  id: 104
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
+  position: 2
+  printed_on: 2014-11-07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 3420.0
+  state: draft
+  updated_at: 2014-11-07 16:52:57.654541000 Z
+  updater_id: 1
+journal_entry_items_049:
+  absolute_credit: 20520.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 211
+  balance: 0.0
+  created_at: 2014-11-07 16:52:57.675741000 Z
+  creator_id: 1
+  credit: 20520.0
+  cumulated_absolute_credit: 22368.0
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 28
+  entry_number: PUR000003
+  financial_year_id: 24
+  id: 105
+  journal_id: 4
+  lock_version: 0
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
+  position: 3
+  printed_on: 2014-11-07
+  real_credit: 20520.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2014-11-07 16:52:57.675741000 Z
   updater_id: 1

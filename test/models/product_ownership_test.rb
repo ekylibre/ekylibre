@@ -40,9 +40,5 @@
 require 'test_helper'
 
 class ProductOwnershipTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, ProductOwnership.count
-  end
-
+  test_fixtures
 end

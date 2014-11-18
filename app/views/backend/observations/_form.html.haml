@@ -1,6 +1,7 @@
 = field_set do
-  -#= f.referenced_association :entity
-  = f.input :importance
-  = f.input :content, :field => :text
+  = f.input :subject_id, as: :hidden
+  = f.input :subject_type, as: :hidden
+  = f.input :importance, as: :radio_buttons
+  = f.input :observed_at
+  = f.input :content
   = f.custom_fields
-

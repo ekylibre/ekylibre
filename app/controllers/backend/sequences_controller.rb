@@ -18,7 +18,7 @@
 #
 
 class Backend::SequencesController < BackendController
-  manage_restfully number_format: '[number|8]', last_number: 0, except: :show
+  manage_restfully number_format: '[number|8]', last_number: 0
 
   unroll
 
@@ -35,7 +35,7 @@ class Backend::SequencesController < BackendController
   # Load missing sequences for current company
   def load
     Sequence.load_defaults
-    redirect_to_current
+    redirect_to_back
   end
 
 end

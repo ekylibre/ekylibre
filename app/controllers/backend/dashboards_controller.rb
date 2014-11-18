@@ -104,7 +104,7 @@ class Backend::DashboardsController < BackendController
 
     if @search[:count] == 1
       record = @search[:records].first
-      redirect_to controller: record['record_type'].tableize, action: :show, id: record['record_id'].to_i, :q => params[:q]
+      redirect_to controller: record['record_type'].tableize, action: :show, id: record['record_id'].to_i, q: params[:q]
       return
     end
 
@@ -123,7 +123,7 @@ class Backend::DashboardsController < BackendController
   private
 
   def self.build_centralizing_query
-    excluded = [:account_balance, :affair, :financial_asset_depreciation, :custom_field_choice, :deposit_item, :document_template, :inventory_item, :listing_node_item, :preference, :tax_declaration, :transfer]
+    excluded = [:account_balance, :financial_asset_depreciation, :custom_field_choice, :deposit_item, :inventory_item, :listing_node_item, :preference]
 
     queries = []
     for model_name in Ekylibre::Schema.models

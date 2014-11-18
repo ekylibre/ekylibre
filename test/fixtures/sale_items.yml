@@ -64,132 +64,107 @@
 #
 ---
 sale_items_001:
-  amount: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  account_id: 5
+  amount: 84.0
+  created_at: 2014-11-05 09:52:05.569662000 Z
   creator_id: 1
   currency: EUR
-  id: 1
+  id: 8
   indicator_name: population
-  lock_version: 0
-  pretax_amount: 0.0
-  price_id: 1
-  quantity: 1.0
-  reduction_percentage: 0.0
-  sale_id: 1
-  tax_id: 1
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-sale_items_002:
-  amount: 0.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 2
-  indicator_name: population
-  lock_version: 0
-  pretax_amount: 0.0
-  price_id: 2
-  quantity: 2.0
-  reduction_percentage: 0.0
-  sale_id: 1
-  tax_id: 1
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-sale_items_003:
-  account_id: 1
-  amount: 430.56
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 3
-  indicator_name: population
-  label: Generic Product Variant
-  lock_version: 1
-  pretax_amount: 360.0
-  price_id: 3
-  quantity: 30.0
-  reduction_percentage: 0.0
-  sale_id: 2
-  tax_id: 1
-  unit_price_amount: 12.0
-  updated_at: 2014-11-01 19:50:57.929399000 Z
-  updater_id: 1
-  variant_id: 1
-sale_items_004:
-  amount: 10.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 4
-  indicator_name: population
-  lock_version: 0
-  pretax_amount: 10.0
-  price_id: 4
-  quantity: 5.0
-  reduction_percentage: 0.0
-  sale_id: 3
-  tax_id: 1
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-sale_items_005:
-  amount: 10.0
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  currency: EUR
-  id: 5
-  indicator_name: population
-  lock_version: 0
-  pretax_amount: 10.0
-  price_id: 5
-  quantity: 500.0
-  reduction_percentage: 0.0
-  sale_id: 4
-  tax_id: 1
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  variant_id: 1
-sale_items_006:
-  account_id: 1
-  amount: 70.08
-  created_at: 2014-10-31 18:51:27.887260000 Z
-  creator_id: 1
-  currency: EUR
-  id: 6
-  indicator_name: population
-  label: Generic Product Variant
+  label: Botte de paille de blé ‒ balle ronde
   lock_version: 0
   position: 1
-  pretax_amount: 58.4
-  price_id: 2
-  quantity: 3.0
+  pretax_amount: 70.0
+  price_id: 9
+  quantity: 1.0
   reduction_percentage: 0.0
-  sale_id: 6
+  sale_id: 7
   tax_id: 3
-  unit_price_amount: 23.36
-  updated_at: 2014-10-31 18:51:27.887260000 Z
+  unit_price_amount: 70.0
+  updated_at: 2014-11-05 09:52:05.569662000 Z
   updater_id: 1
-  variant_id: 1
-sale_items_007:
-  account_id: 1
-  amount: 378.9
-  created_at: 2014-10-31 18:51:27.892570000 Z
+  variant_id: 9
+sale_items_002:
+  account_id: 5
+  amount: 1080.0
+  created_at: 2014-11-05 09:52:05.575226000 Z
   creator_id: 1
   currency: EUR
-  id: 7
+  id: 9
   indicator_name: population
-  label: Generic Product Variant
+  label: Graine de blé
   lock_version: 0
   position: 2
-  pretax_amount: 316.81
-  price_id: 5
-  quantity: 9.0
+  pretax_amount: 900.0
+  price_id: 19
+  quantity: 5.0
   reduction_percentage: 0.0
-  sale_id: 6
-  tax_id: 1
-  unit_price_amount: 42.1
-  updated_at: 2014-10-31 18:51:27.892570000 Z
+  sale_id: 7
+  tax_id: 3
+  unit_price_amount: 180.0
+  updated_at: 2014-11-05 09:52:05.575226000 Z
   updater_id: 1
-  variant_id: 1
+  variant_id: 19
+sale_items_003:
+  account_id: 5
+  amount: 792.0
+  created_at: 2014-11-05 10:01:39.877000000 Z
+  creator_id: 1
+  currency: EUR
+  id: 10
+  indicator_name: population
+  label: Botte de paille de blé ‒ balle ronde
+  lock_version: 0
+  position: 1
+  pretax_amount: 660.0
+  price_id: 9
+  quantity: 12.0
+  reduction_percentage: 0.0
+  sale_id: 8
+  tax_id: 3
+  unit_price_amount: 55.0
+  updated_at: 2014-11-05 10:01:39.877000000 Z
+  updater_id: 1
+  variant_id: 9
+sale_items_004:
+  account_id: 15
+  amount: 11.23
+  created_at: 2014-11-05 10:03:05.895615000 Z
+  creator_id: 1
+  currency: EUR
+  id: 11
+  indicator_name: population
+  label: Lait de vache
+  lock_version: 0
+  position: 1
+  pretax_amount: 9.36
+  price_id: 13
+  quantity: 6.0
+  reduction_percentage: 0.0
+  sale_id: 9
+  tax_id: 3
+  unit_price_amount: 1.56
+  updated_at: 2014-11-05 10:03:05.895615000 Z
+  updater_id: 1
+  variant_id: 18
+sale_items_005:
+  account_id: 15
+  amount: 19.2
+  created_at: 2014-11-05 13:36:08.975616000 Z
+  creator_id: 1
+  currency: EUR
+  id: 12
+  indicator_name: population
+  label: Lait de vache
+  lock_version: 0
+  position: 1
+  pretax_amount: 16.0
+  price_id: 13
+  quantity: 10.0
+  reduction_percentage: 0.0
+  sale_id: 10
+  tax_id: 3
+  unit_price_amount: 1.6
+  updated_at: 2014-11-05 13:36:08.975616000 Z
+  updater_id: 1
+  variant_id: 18

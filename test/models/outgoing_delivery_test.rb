@@ -45,6 +45,7 @@
 require 'test_helper'
 
 class OutgoingDeliveryTest < ActiveSupport::TestCase
+  test_fixtures
 
   test "ship giving a transporter" do
     OutgoingDelivery.ship(OutgoingDelivery.all, transporter_id: entities(:entities_001).id)
@@ -61,4 +62,5 @@ class OutgoingDeliveryTest < ActiveSupport::TestCase
     delivery = OutgoingDelivery.new items_attributes: {"123456789"=>{"product_id"=>"", "_destroy"=>"false"}, "852" => item}
     delivery.items.map(&:net_mass)
   end
+
 end
