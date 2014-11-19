@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
+  <!-- ########################## FAIRE LE PLEIN ############################### -->
   <procedure name="fuel_up" natures="consummables_addition" version="0" status="frozen">
     <variables>
       <variable name="equipment"      variety="equipment" abilities="consume(fuel)" roles="consummables_addition-target"/>
       <variable name="fuel"           variety="fuel" />
       <variable name="fuel_to_input"  new="parted-from: fuel" roles="consummables_addition-input" need="population"/>
-      <variable name="mechanic"       abilities="care(equipment)" roles="consummables_addition-doer"/>
+      <variable name="mechanic"       abilities="drive(equipment)" roles="consummables_addition-doer"/>
     </variables>
     <operations>
       <operation id="100">
