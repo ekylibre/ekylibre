@@ -17,12 +17,16 @@ module Unrollable
       max = options[:max] || 80
       available_methods = model.columns_definition.keys.map(&:to_sym)
 
-      # Sets default parameters
-      columns = [:title, :label, :full_name, :name, :code, :number, :reference_number].select do |x|
-        available_methods.include?(x)
-      end if columns.empty?
+      columns = compactify(columns)
 
-      if columns.empty?
+      # Sets default parameters
+      if columns.blank?
+        columns = [:title, :label, :full_name, :name, :code, :number, :reference_number].select do |x|
+          available_methods.include?(x)
+        end
+      end
+
+      if columns.blank?
         raise "Cannot unroll #{model.name} records. No column available."
       end
 
@@ -43,9 +47,9 @@ module Unrollable
         raise StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
 
-      searchable_filters = filters.delete_if{ |c| c[:column_type] == :boolean }
+      searchable_filters = filters.select{ |c| c[:column_type] != :boolean }
       unless searchable_filters.any?
-        logger.error("No searchable filters for #{self.controller_path}#unroll")
+        raise "No searchable filters for #{self.controller_path}#unroll.\nFilters: #{filters.inspect}\nColumns: #{columns.inspect}"
       end
 
       item_label = "'unrolls.#{self.controller_path}'.t(" + filters.map do |f|
@@ -124,10 +128,10 @@ module Unrollable
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
       code << "      conditions[0] << " + searchable_filters.collect do |column|
-        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ~ E?"
+        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ILIKE E?"
       end.join(' OR ').inspect + "\n"
       code << "      conditions += [" + searchable_filters.collect do |column|
-        column[:pattern].inspect.gsub('X', '" + key + "').gsub('%', '')
+        column[:pattern].inspect.gsub('X', '" + key + "')
           .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
       end.join(", ") + "]\n"
       code << "    end\n"
@@ -198,6 +202,21 @@ module Unrollable
         end
       elsif object.is_a?(Symbol) or object.is_a?(String)
         return nil
+      else
+        raise "What a parameter? #{object.inspect}"
+      end
+    end
+
+
+    # Converts parameters to a valid :includes option for ARel
+    def compactify(object)
+      if object.is_a?(Array)
+        a = object.map{|o| compactify(o)}.compact
+        return (a.empty? ? nil : a)
+      elsif object.is_a?(Hash)
+        return (object.keys.empty? ? nil : object.inject({}){|h,p| h[p.first] = compactify(p.second); h })
+      elsif object.is_a?(Symbol) or object.is_a?(String)
+        return object
       else
         raise "What a parameter? #{object.inspect}"
       end
