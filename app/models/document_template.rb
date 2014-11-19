@@ -57,7 +57,10 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # default_scope order(:name)
   scope :of_nature, lambda { |*natures|
-    invalids = natures.flatten!.select{ |nature| Nomen::DocumentNatures[nature].nil? }
+    natures.flatten!
+    natures.compact!
+    return none unless natures.respond_to?(:any?) and natures.any?
+    invalids = natures.select{ |nature| Nomen::DocumentNatures[nature].nil? }
     if invalids.any?
       raise ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
     end
