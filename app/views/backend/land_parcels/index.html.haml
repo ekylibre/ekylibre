@@ -32,9 +32,9 @@
         - v.background "OpenStreetMap.HOT"
         - v.background "OpenStreetMap.Mapnik"
         - v.background "Thunderforest.Landscape"
-        - v.bubbles :available_water_capacity_per_area, :main
-        - v.choropleth :organic_matter_concentration, :main, hidden: true
-        - v.choropleth :potential_hydrogen, :main, hidden: true
+        - v.bubbles :available_water_capacity_per_area, :main, label: Nomen::Indicators[:available_water_capacity_per_area].human_name
+        - v.choropleth :organic_matter_concentration, :main, hidden: true, label: Nomen::Indicators[:organic_matter_concentration].human_name
+        - v.choropleth :potential_hydrogen, :main, hidden: true, label: Nomen::Indicators[:potential_hydrogen].human_name
         - v.categories :soil_nature, :main
         - v.control :zoom
         - v.control :scale
