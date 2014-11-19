@@ -103,12 +103,12 @@ gem 'treetop'
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
 gem 'beardley', '~> 1.1.0'
-gem 'beardley-barcode', require: false
-gem 'beardley-batik', require: false
-gem 'beardley-charts', require: false
-gem 'beardley-groovy', require: false
-gem 'beardley-xml', require: false
-gem 'beardley-open_sans', require: false
+gem 'beardley-barcode'
+gem 'beardley-batik'
+gem 'beardley-charts'
+gem 'beardley-groovy'
+gem 'beardley-xml'
+gem 'beardley-open_sans'
 
 # Import/Export
 gem 'fastercsv'
