@@ -192,7 +192,11 @@ module ApplicationHelper
       begin
         url = url_for(options)
       rescue ActionController::UrlGenerationError => uge
-        return '' # Don't segv when trying to display a non-existent route
+        # Trying to fail gracefully in production
+	raise uge unless Rails.env.production?
+        ExceptionNotifier::Notifier.exception_notification(request.env, uge).deliver
+        request.env['exception_notifier.delivered'] = true
+        return "<a class='forbidden' disabled='true'>#{name}</a>".html_safe
       end
 
       if html_options
