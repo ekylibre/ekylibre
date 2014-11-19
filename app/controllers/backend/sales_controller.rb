@@ -140,6 +140,7 @@ class Backend::SalesController < BackendController
                         :include => {:address => {:methods => [:mail_coordinate]},
                                      :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
                                      :credits => {},
+                                     :affair => {:methods => [:balance], :include => {}},
                                      :invoice_address => {:methods => [:mail_coordinate]},
                                      :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant, :price]}
                                      }
