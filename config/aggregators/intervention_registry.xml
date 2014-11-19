@@ -65,15 +65,15 @@
                 <matrix name="inputs" for="input" in="intervention.casts">
                   <cell name="id" of="input" level="api"/>
                   <within of="input.actor">
-                    <cell name="name"/>
-                    <cell name="nature_name"/>
-                    <cell name="variety" level="api"/>
+                    <cell name="name" if="input.actor"/>
+                    <cell name="nature_name" if="input.actor"/>
+                    <cell name="variety" level="api" if="input.actor"/>
                   </within>
                   <cell name="roles" of="input" level="api"/>
                   <cell name="variable_name" of="input"/>
                   <cell name="human_roles" of="input"/>
                   <cell name="population" of="input" />
-                  <cell name="unit_name" value="input.actor.unit_name" />
+                  <cell name="unit_name" value="input.actor.unit_name" if="input.actor"/>
                 </matrix>
               </sections>
               <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
