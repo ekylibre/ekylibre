@@ -108,8 +108,7 @@ class CustomField < Ekylibre::Record::Base
 
   def reset_schema
     self.customized_model.reset_column_information
-    # Force prepared SELECT to be deallocated
-    # self.class.connection.execute "DEALLOCATE ALL"
+    self.customized_model.descendants.each(&:reset_column_information)
   end
 
   def choices_count
