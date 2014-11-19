@@ -58,7 +58,10 @@ class Observation < Ekylibre::Record::Base
   end
 
   def subject_type=(class_name)
-    super(class_name.to_s.classify.constantize.base_class.name)
+    unless normalized_class_name = class_name.to_s.classify.constantize.base_class.name rescue nil
+      raise "Invalid class name: #{class_name.inspect}"
+    end
+    super(normalized_class_name)
   end
 
 end

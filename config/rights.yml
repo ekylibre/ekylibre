@@ -166,7 +166,6 @@ analytic_distributions:
     - "backend/analytic_distributions#index"
     - "backend/analytic_distributions#list"
     - "backend/analytic_distributions#show"
-    - "backend/analytic_distributions#unroll"
   write:
     depend-on:
     - read-analytic_distributions
@@ -1264,7 +1263,6 @@ net_services:
     - "backend/net_services#list"
     - "backend/net_services#list_identifiers"
     - "backend/net_services#show"
-    - "backend/net_services#unroll"
   write:
     depend-on:
     - read-net_services

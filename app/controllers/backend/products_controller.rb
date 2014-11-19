@@ -25,7 +25,7 @@ class Backend::ProductsController < BackendController
 
   before_action :check_variant_availability, only: :new
 
-  unroll
+  unroll :name, :number, :work_number
 
   list(conditions: search_conditions(products: [:name, :number], product_nature_variants: [:name])) do |t|
     t.column :number, url: true

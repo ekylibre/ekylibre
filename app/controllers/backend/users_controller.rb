@@ -20,7 +20,7 @@
 class Backend::UsersController < BackendController
   manage_restfully
 
-  unroll
+  unroll :first_name, :last_name
 
   list(order: "locked, last_name", line_class: "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.column :full_name, url: true

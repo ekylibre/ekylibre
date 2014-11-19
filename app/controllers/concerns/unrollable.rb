@@ -5,77 +5,63 @@ module Unrollable
 
     # Create unroll action for all scopes in the model corresponding to the controller
     # including the default scope
-    def unroll(options = {})
+    def unroll(*columns)
+      available_options = [:model, :max, :order, :partial, :fill_in, :scope]
+      if columns[-1].is_a?(Hash) and (columns[-1].keys - available_options).empty?
+        options = columns[-1].slice!(available_options)
+      else
+        options = {}
+      end
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
-      foreign_record  = model.name.underscore
-      foreign_records = foreign_record.pluralize
       scope_name = options.delete(:scope) || "unscoped"
       max = options[:max] || 80
       available_methods = model.columns_definition.keys.map(&:to_sym)
-      if label = options.delete(:label)
-        label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.to_s)
-      else
-        # base = "unroll." + self.controller_path
-        # label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
-        label = I18n.translate("unrolls." + self.controller_path, :default => "")
-        if label.blank?
-          label = '{' + [:title, :label, :full_name, :name, :code, :number].select{|x| available_methods.include?(x)}.first.to_s + ':%X%}'
-        end
+
+      # Sets default parameters
+      columns = [:title, :label, :full_name, :name, :code, :number, :reference_number].select do |x|
+        available_methods.include?(x)
+      end if columns.empty?
+
+      if columns.empty?
+        raise "Cannot unroll #{model.name} records. No column available."
       end
 
+      # Normalize parameters
+      filters  = filterify(columns, model)
+      includes = includify(columns)
+
       unless order = options[:order]
-        order = [:title, :label, :full_name, :name, :code, :number].detect{|x| available_methods.include?(x)}
+        order = filters.map{|f| f[:search] }
         order ||= :id
       end
 
-      columns = []
-      item_label = label.inspect.gsub(/\{\!?[a-z\_\.]+(\:\%?X\%?)?\}/) do |word|
-        ca = word[1..-2].split(":")
-        name = ca.first
-        i = nil
-        if name =~ /\A\!/
-          i = "item." + name.gsub!(/\A\!/, '')
-        else
-          if name =~ /\./
-            i = "item.#{name}"
-            array = name.split(/\./)
-            fmodel = model
-            for step in array[0..-2]
-              fmodel = fmodel.reflections[step.to_sym].class_name.constantize
-            end
-            columns << {name: name.gsub(/\W/, '_'), search: fmodel.table_name + "." + array[-1], filter: ca.second || "X%"}
-          elsif column = model.columns_definition[name]
-            i = "item.#{name}"
-            columns << column.options.merge(search: "#{model.table_name}.#{name}", filter: ca.second || "X%")
-          else
-            raise StandardError, "Cannot handle #{name} for #{model.name}"
-          end
-        end
-        steps = i.to_s.split('.')
-        expr = (0..(steps.size - 1)).to_a.collect do |s|
-          steps[0..s].join(".")
-        end
-        "\" + ((#{expr.join(' and ')}) ? #{i}.l : '') + \""
-      end
-      item_label.gsub!(/\A\"\"\s*\+\s*/, '')
-      item_label.gsub!(/\s*\+\s*\"\"\z/, '')
-
-      fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : columns.size == 1 ? columns.first[:name] : model.columns_definition["name"] ? :name : nil)
+      roots = filters.select{|f| f[:root] }
+      fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : roots.any? ? roots.first[:column_name] : nil)
       fill_in = fill_in.to_sym unless fill_in.nil?
 
-      if !fill_in.nil? and !columns.detect{|c| c[:name] == fill_in }
-        raise StandardError, "Label (#{label}, #{columns.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
+      if !fill_in.nil? and !filters.detect{|c| c[:name] == fill_in }
+        raise StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
+
+      searchable_filters = filters.delete_if{ |c| c[:column_type] == :boolean }
+      unless searchable_filters.any?
+        logger.error("No searchable filters for #{self.controller_path}#unroll")
+      end
+
+      item_label = "'unrolls.#{self.controller_path}'.t(" + filters.map do |f|
+        "#{f[:name]}: #{f[:expression]}, "
+      end.join + "default: '" + filters.map{ |f| "%{#{f[:name]}}"}.join(', ') + "')"
 
       haml  = ""
       haml << "- if items.any?\n"
       haml << "  %ul.items-list\n"
-      haml << "    - for item in items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2})\n"
-      haml << "      %li.item{'data-item-label' => #{item_label}, 'data-item-id' => item.id}\n"
+      haml << "    - items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2}).each do |item|\n"
+      haml << "      - item_label = #{item_label}\n"
+      haml << "      %li.item{data: {item: {label: item_label, id: item.id}}}\n"
       if options[:partial]
-        haml << "        = render '#{partial}', :item => item\n"
+        haml << "        = render '#{partial}', item: item\n"
       else
-        haml << "        = highlight(#{item_label}, keys)\n"
+        haml << "        = highlight(item_label, keys)\n"
       end
       haml << "  - if items.count > #{(max*1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
@@ -84,9 +70,9 @@ module Unrollable
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
         haml << "    - unless search.blank?\n"
-        haml << "      %li.item.special{'data-new-item' => search, 'data-new-item-parameter' => '#{fill_in}'}= I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
+        haml << "      %li.item.special{data: {new_item: search, new_item_parameter: '#{fill_in}'}}= 'labels.add_x'.th(x: search).html_safe\n"
       end
-      haml << "    %li.item.special{'data-new-item' => ''}= I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
+      haml << "    %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
       haml << "- else\n"
       haml << "  %span.items-status.items-status-empty\n"
       haml << "    = :no_results.tl\n"
@@ -100,14 +86,15 @@ module Unrollable
         f.write(haml)
       end
 
+
       code  = "def unroll\n"
       code << "  conditions = []\n"
 
       code << "  klass = controller_name.classify.constantize\n"
       code << "  items = klass.#{scope_name}"
-      if options[:includes]
-        code << ".includes(#{options[:includes].inspect})"
-        code << ".references(#{options[:includes].inspect})"
+      unless includes.empty?
+        code << ".includes(#{includes.inspect})"
+        code << ".references(#{includes.inspect})"
       end
       code <<  ".order(#{order.inspect})\n"
       code << "  if scopes = params[:scope]\n"
@@ -132,36 +119,88 @@ module Unrollable
       code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
       code << "  if params[:id]\n"
       code << "    items = items.where(id: params[:id])\n"
-      searchable_columns = columns.delete_if{ |c| c[:type] == :boolean }
-      if searchable_columns.any?
-        code << "  elsif keys.any?\n"
-        code << "    conditions = ['(']\n"
-        code << "    keys.each_with_index do |key, index|\n"
-        code << "      conditions[0] << ') AND (' if index > 0\n"
-        code << "      conditions[0] << " + searchable_columns.collect do |column|
-          "LOWER(CAST(#{column[:search]} AS VARCHAR)) ~ E?"
-        end.join(' OR ').inspect + "\n"
-        code << "      conditions += [" + searchable_columns.collect do |column|
-          column[:filter].inspect.gsub('X', '" + key + "').gsub('%', '')
-            .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
-        end.join(", ") + "]\n"
-        code << "    end\n"
-        code << "    conditions[0] << ')'\n"
-        code << "    items = items.where(conditions)\n"
-      else
-        logger.error("No searchable columns for #{self.controller_path}#unroll")
-      end
+      code << "  elsif keys.any?\n"
+      code << "    conditions = ['(']\n"
+      code << "    keys.each_with_index do |key, index|\n"
+      code << "      conditions[0] << ') AND (' if index > 0\n"
+      code << "      conditions[0] << " + searchable_filters.collect do |column|
+        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ~ E?"
+      end.join(' OR ').inspect + "\n"
+      code << "      conditions += [" + searchable_filters.collect do |column|
+        column[:pattern].inspect.gsub('X', '" + key + "').gsub('%', '')
+          .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
+      end.join(", ") + "]\n"
+      code << "    end\n"
+      code << "    conditions[0] << ')'\n"
+      code << "    items = items.where(conditions)\n"
       code << "  end\n"
 
       code << "  respond_to do |format|\n"
-      code << "    format.html { render file: '#{view.relative_path_from(Rails.root)}', :locals => { items: items, keys: keys, search: params[:q].to_s.capitalize.strip }, layout: false }\n"
+      code << "    format.html { render file: '#{view.relative_path_from(Rails.root)}', locals: { items: items, keys: keys, search: params[:q].to_s.capitalize.strip }, layout: false }\n"
       code << "    format.json { render json: items.collect{|item| {label: #{item_label}, id: item.id}} }\n"
       code << "    format.xml  { render  xml: items.collect{|item| {label: #{item_label}, id: item.id}} }\n"
       code << "  end\n"
       code << "end"
-      # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+      # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l.blue)}
       class_eval(code)
       return :unroll
+    end
+
+    private
+
+    # Converts parameters to a list of value
+    def filterify(object, model, parents = [])
+      if object.is_a?(Array)
+        object.map{|o| filterify(o, model, parents) }.flatten
+      elsif object.is_a?(Hash)
+        object.map do |k, v|
+          unless reflection = model.reflections[k.to_sym]
+            raise "Cannot find a reflection #{k} for #{model.name}"
+          end
+          fmodel = reflection.class_name.constantize
+          filterify(v, fmodel, parents + [k.to_sym])
+        end.flatten
+      elsif object.is_a?(Symbol) or object.is_a?(String)
+        infos = object.to_s.split(":")
+        definition = model.columns_definition[infos.first]
+        name = infos[2] || [parents.last, infos.first].compact.join('_')
+        test = parents.each_with_index.map do |parent, index|
+          "item." + parents[0..index].join('.')
+        end
+        test << "item." + (parents + [infos.first]).join('.')
+        return {
+          name: name.to_sym,
+          search: "#{model.table_name}.#{infos.first}",
+          expression: "((#{test.join(' and ')}) ? #{test.last}.l : '')",
+          pattern: infos.second || "X%",
+          column_name: definition.name,
+          column_type: definition.type,
+          root: parents.empty?
+        }
+      else
+        raise "What a parameter? #{object.inspect}"
+      end
+    end
+
+    # Converts parameters to a valid :includes option for ARel
+    def includify(object)
+      if object.is_a?(Array)
+        a = object.map{|o| includify(o)}.compact
+        return (a.size == 1 ? a.first : a)
+      elsif object.is_a?(Hash)
+        n = object.inject({}) do |h, pair|
+          h[pair.first] = includify(pair.second)
+          h
+        end
+        return n.inject([]) do |a, pair|
+          a << (pair.second.nil? ? pair.first : {pair.first => pair.second})
+          a
+        end
+      elsif object.is_a?(Symbol) or object.is_a?(String)
+        return nil
+      else
+        raise "What a parameter? #{object.inspect}"
+      end
     end
 
   end

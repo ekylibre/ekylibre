@@ -20,7 +20,7 @@
 class Backend::IncomingPaymentsController < BackendController
   manage_restfully to_bank_at: "Date.today".c, paid_at: "Date.today".c, responsible_id: "current_user.id".c, mode_id: "params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
 
-  unroll includes: [:mode, :payer]
+  unroll :number, :amount, :currency, mode: :name, payer: :full_name
 
   def self.incoming_payments_conditions(options={})
     code = search_conditions(:incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:number, :full_name])+"||=[]\n"

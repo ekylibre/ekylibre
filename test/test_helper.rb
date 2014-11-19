@@ -363,35 +363,37 @@ class ActionController::TestCase
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
         elsif mode == :unroll
-          test_code << "assert_nothing_raised do\n"
-          test_code << "  xhr :get, :#{action}, #{sanitized_params[]}\n"
-          test_code << "end\n"
-          test_code << "assert_nothing_raised do\n"
-          test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
-          test_code << "end\n"
-          test_code << "assert_nothing_raised do\n"
-          test_code << "  xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
-          test_code << "end\n"
-          if model
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          [:eng, :fra].each do |locale|
             test_code << "assert_nothing_raised do\n"
-            test_code << "  xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale]}\n"
             test_code << "end\n"
-            for scope in model.simple_scopes
+            test_code << "assert_nothing_raised do\n"
+            test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, format: :json]}\n"
+            test_code << "end\n"
+            test_code << "assert_nothing_raised do\n"
+            test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, format: :xml]}\n"
+            test_code << "end\n"
+            if model
+              test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
               test_code << "assert_nothing_raised do\n"
-              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name]}\n"
+              test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, id: 'RECORD.id'.c]}\n"
               test_code << "end\n"
-              test_code << "assert_nothing_raised do\n"
-              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :json]}\n"
-              test_code << "end\n"
-              test_code << "assert_nothing_raised do\n"
-              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :xml]}\n"
-              test_code << "end\n"
-              test_code << "assert_nothing_raised do\n"
-              test_code << "  xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}\n"
-              test_code << "end\n"
+              for scope in model.simple_scopes
+                test_code << "assert_nothing_raised do\n"
+                test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, scopes: scope.name]}\n"
+                test_code << "end\n"
+                test_code << "assert_nothing_raised do\n"
+                test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, scopes: scope.name, format: :json]}\n"
+                test_code << "end\n"
+                test_code << "assert_nothing_raised do\n"
+                test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, scopes: scope.name, format: :xml]}\n"
+                test_code << "end\n"
+                test_code << "assert_nothing_raised do\n"
+                test_code << "  xhr :get, :#{action}, #{sanitized_params[locale: locale, scopes: scope.name, id: 'RECORD.id'.c]}\n"
+                test_code << "end\n"
+              end
+              # TODO test complex scopes
             end
-            # TODO test complex scopes
           end
         elsif mode == :get
           test_code << "get :#{action}, #{sanitized_params[]}\n"
