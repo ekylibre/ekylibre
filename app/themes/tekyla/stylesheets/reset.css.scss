@@ -19,13 +19,13 @@ td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
 small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus {
   &, h1, h2, h3, h4, h5, h6 {
-    color: $link-color;
+    color: $active-link-color;
     text-decoration: none;
   }
 }
 
 
-// a:hover { color: $link-color; text-decoration: underline;}
+// a:hover { color: $active-link-color; text-decoration: underline;}
 
 
 // color, date, datetime, datetime-local, email, month, number, range, search, tel, time, url, week,

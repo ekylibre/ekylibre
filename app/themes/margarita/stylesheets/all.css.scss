@@ -8,22 +8,25 @@
 $base-color: #60AD60;
 
 // Core variables and mixins
-@import "variables";
-@import "mixins";
+@import "themes/tekyla/variables";
+@import "themes/tekyla/mixins";
 
 // Reset
-@import "reset";
-@import "fonts";
-@import "print";
+@import "themes/tekyla/reset";
+@import "themes/tekyla/fonts";
+@import "themes/tekyla/print";
+
+// Plugins
+@import "themes/tekyla/plugins";
 
 // Specific
-@import "buttons";
-@import "beehives";
-@import "accesses";
-@import "leaflet";
-@import "tables";
-@import "datetimepickers";
-@import "main";
+@import "themes/tekyla/buttons";
+@import "themes/tekyla/beehives";
+@import "themes/tekyla/accesses";
+@import "themes/tekyla/leaflet";
+@import "themes/tekyla/tables";
+@import "themes/tekyla/datetimepickers";
+@import "themes/tekyla/main";
 
 // Optimisation
-@import "symbolic_icons";
+@import "themes/tekyla/symbolic_icons";

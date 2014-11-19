@@ -890,7 +890,7 @@ form.search {
     dt { margin-top: .2em; font-weight: bold; color: #210 }
     dd { margin-bottom: .2em; margin-left: 1em; }
   }
-  a img { border: $menu-border-width solid $link-color; padding: $menu-border-width; }
+  a img { border: $menu-border-width solid $active-link-color; padding: $menu-border-width; }
   p {
     /*@include text-align(justify);*/
     margin: 0 0 $default-gap 0;
@@ -2317,7 +2317,7 @@ svg.map {
   color: white;
   white-space: nowrap;
   a > & {
-    background-color: $link-color;
+    background-color: $active-link-color;
   }
 }
 

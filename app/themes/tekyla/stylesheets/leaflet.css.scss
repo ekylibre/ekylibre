@@ -243,7 +243,7 @@ $map-button-size: round(2 * $fs-normal);
     display: block;
     @include text-align(center);
     text-decoration: none;
-    color: $link-color;
+    color: $active-link-color;
     @include transition(background 0.2s);
     &:hover {
       outline: none;
@@ -310,7 +310,7 @@ $map-button-size: round(2 * $fs-normal);
 .leaflet-control-layers {
   @include menu-box;
   .leaflet-control-layers-toggle {
-    color: $link-color;
+    color: $active-link-color;
     @include is-icon;
     @include use-icon(layers);
     @include text-align(center);

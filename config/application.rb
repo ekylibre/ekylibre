@@ -1,3 +1,4 @@
+# coding: utf-8
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -45,5 +46,18 @@ module Ekylibre
       Devise::UnlocksController.layout "authentication"
       Devise::PasswordsController.layout "authentication"
     end
+
+    initializer :after_append_asset_paths, group: :all, after: :append_assets_path do
+      { "jquery-ui-rails" => ["app/assets/images"],
+        "active_list" => ["app/assets/images"],
+        "bootstrap-sass" => ["assets/images", "assets/fonts"]
+      }.each do |gem, paths|
+        root = Pathname.new(Gem.loaded_specs[gem].full_gem_path)
+        paths.each do |path|
+          config.assets.paths.delete_if{|p| p.to_s == root.join(path).to_s}
+        end
+      end
+    end
+    
   end
 end
