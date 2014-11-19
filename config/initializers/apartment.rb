@@ -38,8 +38,12 @@ end
 # # TODO: supply generic implementation
 # }
 
-if Rails.env.test?
-  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', Proc.new { |request| "test" }
+if Rails.env.test? 
+  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', 
+                                           Proc.new { |request| "test" }
+elsif Rails.env.development?
+  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', 
+                                           Proc.new { |request| "localhost" }
 else
   Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
 end
