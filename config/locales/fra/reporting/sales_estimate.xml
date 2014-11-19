@@ -49,8 +49,8 @@
 	<field name="created-on" class="java.util.Date">
 		<fieldDescription><![CDATA[created-at]]></fieldDescription>
 	</field>
-	<field name="label" class="java.lang.String">
-		<fieldDescription><![CDATA[label]]></fieldDescription>
+	<field name="subject" class="java.lang.String">
+		<fieldDescription><![CDATA[subject]]></fieldDescription>
 	</field>
 	<field name="quantity" class="java.lang.String">
 		<fieldDescription><![CDATA[quantity]]></fieldDescription>
@@ -64,8 +64,8 @@
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[items/item/product/name]]></fieldDescription>
 	</field>
-	<field name="annotation" class="java.lang.String">
-		<fieldDescription><![CDATA[annotation]]></fieldDescription>
+	<field name="function-title" class="java.lang.String">
+		<fieldDescription><![CDATA[function-title]]></fieldDescription>
 	</field>
 	<field name="conclusion" class="java.lang.String">
 		<fieldDescription><![CDATA[conclusion]]></fieldDescription>
@@ -193,9 +193,9 @@
 		<band height="141" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="-1" y="77" width="546" height="64" isRemoveLineWhenBlank="true" uuid="21707c3a-b932-43d3-8098-660716e50ed4">
-					<printWhenExpression><![CDATA[$F{annotation}.toString() != false]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{introduction}.toString() != false && $F{letter-format} == "true"]]></printWhenExpression>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{annotation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{introduction}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement positionType="Float" x="0" y="10" width="546" height="67" uuid="f4e8fe19-70f2-4a67-95b9-93fd245cf6a2"/>
@@ -228,6 +228,18 @@
 					<textFieldExpression><![CDATA[( $F{credit}== "true" ? ("Avoir "+$F{number}) : ("Devis "+$F{number}) )]]></textFieldExpression>
 				</textField>
 			</frame>
+                        <textField>
+                                <reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="53" width="543" height="24" isRemoveLineWhenBlank="true" uuid="a89864a6-b1c3-4e36-b72d-06a4d46e73d1">
+                                        <printWhenExpression><![CDATA[$F{subject} != null && $F{letter-format} == "true"]]></printWhenExpression>
+                                </reportElement>
+                                <textFieldExpression><![CDATA["Objet: " + $F{subject}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                                <reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="77" width="543" height="24" isRemoveLineWhenBlank="true" uuid="a89864a6-b1c3-4e36-b72d-06a4d46e73d0">
+                                        <printWhenExpression><![CDATA[$F{function-title} != null && $F{letter-format} == "true"]]></printWhenExpression>
+                                </reportElement>
+                                <textFieldExpression><![CDATA[$F{function-title}]]></textFieldExpression>
+                        </textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -401,6 +413,18 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
+                        <rectangle radius="2">
+                                <reportElement style="strong" mode="Transparent" x="258" y="11" width="285" height="62" forecolor="#000000" uuid="84b93687-691b-4769-9980-be1d6a9bdf9c"/>
+                                <graphicElement>
+                                        <pen lineWidth="1.0"/>
+                                </graphicElement>
+                        </rectangle>
+                        <textField isStretchWithOverflow="true" isBlankWhenNull="true">
+                                <reportElement style="base" isPrintRepeatedValues="false" x="3" y="94" width="540" height="30" isRemoveLineWhenBlank="true" uuid="4349374d-ab46-4d2a-aeee-6b8804906201">
+                                        <printWhenExpression><![CDATA[$F{conclusion} != null && $F{letter-format} == "true"]]></printWhenExpression>
+                                </reportElement>
+                                <textFieldExpression><![CDATA[$F{conclusion}]]></textFieldExpression>
+                        </textField>
 			<staticText>
 				<reportElement style="error" x="10" y="10" width="226" height="62" uuid="261156b8-12ff-4dd0-a589-73b721464300">
 					<printWhenExpression><![CDATA[$F{state} == "refused"]]></printWhenExpression>

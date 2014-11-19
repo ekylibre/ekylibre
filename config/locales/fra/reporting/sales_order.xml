@@ -49,8 +49,8 @@
 	<field name="created-on" class="java.util.Date">
 		<fieldDescription><![CDATA[created-at]]></fieldDescription>
 	</field>
-	<field name="label" class="java.lang.String">
-		<fieldDescription><![CDATA[label]]></fieldDescription>
+	<field name="subject" class="java.lang.String">
+		<fieldDescription><![CDATA[subject]]></fieldDescription>
 	</field>
 	<field name="quantity" class="java.lang.String">
 		<fieldDescription><![CDATA[quantity]]></fieldDescription>
@@ -64,8 +64,8 @@
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[items/item/product/name]]></fieldDescription>
 	</field>
-	<field name="annotation" class="java.lang.String">
-		<fieldDescription><![CDATA[annotation]]></fieldDescription>
+	<field name="function-title" class="java.lang.String">
+		<fieldDescription><![CDATA[function-title]]></fieldDescription>
 	</field>
 	<field name="conclusion" class="java.lang.String">
 		<fieldDescription><![CDATA[conclusion]]></fieldDescription>
@@ -193,9 +193,9 @@
 		<band height="141" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="-1" y="101" width="546" height="40" isRemoveLineWhenBlank="true" uuid="21707c3a-b932-43d3-8098-660716e50ed4">
-					<printWhenExpression><![CDATA[$F{annotation}.toString() != false]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{introduction}.toString() != false && $F{letter-format} == "true"]]></printWhenExpression>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{annotation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{introduction}]]></textFieldExpression>
 			</textField>
 			<frame>
 				<reportElement positionType="Float" x="0" y="10" width="546" height="67" uuid="f4e8fe19-70f2-4a67-95b9-93fd245cf6a2"/>
@@ -229,10 +229,16 @@
 				</textField>
 			</frame>
 			<textField>
-				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="77" width="543" height="24" isRemoveLineWhenBlank="true" uuid="a89864a6-b1c3-4e36-b72d-06a4d46e73d0">
-					<printWhenExpression><![CDATA[$F{introduction} != null && $F{letter-format} == "true"]]></printWhenExpression>
+				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="53" width="543" height="24" isRemoveLineWhenBlank="true" uuid="a89864a6-b1c3-4e36-b72d-06a4d46e73d1">
+					<printWhenExpression><![CDATA[$F{subject} != null && $F{letter-format} == "true"]]></printWhenExpression>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{introduction}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Objet: " + $F{subject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="77" width="543" height="24" isRemoveLineWhenBlank="true" uuid="a89864a6-b1c3-4e36-b72d-06a4d46e73d0">
+					<printWhenExpression><![CDATA[$F{function-title} != null && $F{letter-format} == "true"]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{function-title}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
