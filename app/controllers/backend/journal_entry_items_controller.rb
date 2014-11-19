@@ -19,7 +19,7 @@
 
 class Backend::JournalEntryItemsController < BackendController
 
-  unroll includes: [:entry, :account]
+  unroll :entry_number, :name, :real_debit, :real_credit, :currency, account: :number
 
   def new
     @journal_entry_item = JournalEntryItem.new

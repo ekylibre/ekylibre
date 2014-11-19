@@ -99,7 +99,6 @@ module Ekylibre::Record
         unless self.class.columns.detect{|c| c.name == method_name.to_s}
           Rails.logger.warn "Reset column information"
           self.class.reset_column_information
-          # self.class.connection.execute "DEALLOCATE ALL"
         end
       end
       return super

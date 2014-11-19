@@ -19,7 +19,7 @@
 class Backend::TrackingsController < BackendController
   manage_restfully
 
-  unroll includes: [:producer]
+  unroll :serial, :name, producer: :full_name
 
   list(order: :name) do |t|
     t.column :active

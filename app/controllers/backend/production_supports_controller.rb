@@ -20,7 +20,7 @@
 class Backend::ProductionSupportsController < BackendController
   manage_restfully(t3e: {name: :name})
 
-  unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]
+  unroll production: [:name, {activity: :name, campaign: :name, variant: :name}], storage: :name
 
   list do |t|
     t.column :production, url: true

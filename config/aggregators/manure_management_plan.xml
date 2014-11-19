@@ -44,7 +44,7 @@
             <property name="sowed_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
             <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
 
-            <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
+            <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure" if="support.grains_yield"/>
 
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast('soil_enrichment-target', zone).reorder(:started_at)" of-type="record">

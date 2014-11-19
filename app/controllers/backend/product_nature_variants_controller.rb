@@ -22,7 +22,7 @@ class Backend::ProductNatureVariantsController < BackendController
 
   manage_restfully_incorporation
 
-  unroll
+  unroll :name, :unit_name, :number, :commercial_name, :commercial_description
 
   list do |t|
     t.column :name, url: true

@@ -20,8 +20,6 @@
 class Backend::AnalyticDistributionsController < BackendController
   manage_restfully state: "AnalyticDistribution.state.default_value".c
 
-  unroll
-
   list do |t|
     t.column :affected_at
     t.column :production, url: true

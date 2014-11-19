@@ -34,9 +34,8 @@
             <title name="name" of="production"/>
             <property name="started_at" of="production" type="datetime"/>
             <property name="stopped_at" of="production" type="datetime"/>
-            <property name="variant_name" value="production.variant.name"/>
-            <variable name="variant_nature" value="production.variant.nature"/>
-            <sections for="animal" in="Animal.of_nature(variant_nature)" of-type="record">
+            <property name="variant_name" value="production.variant.name" if="production.variant"/>
+            <sections for="animal" in="Animal.of_nature(production.variant.nature)" of-type="record" if="production.variant">
               <title name="name" of="animal"/>
               <property name="born_at" of="animal" if="animal.born_at" type="datetime"/>
               <property name="dead_at" of="animal" if="animal.dead_at" type="datetime"/>
@@ -61,7 +60,7 @@
                   <title name="reference_number"/>
                   <property name="name"/>
                 </section>
-                <matrix name="inputs" for="input" in="intervention.casts.of_role(:'animal_illness_treatment-input')">
+                <matrix name="inputs" for="input" in="intervention.casts.of_role('animal_illness_treatment-input').with_actor">
                   <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
                   <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
                   <cell name="id" of="input" level="api"/>

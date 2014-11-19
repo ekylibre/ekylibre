@@ -681,7 +681,7 @@ fra:
     add_variant: "Ajouter une variante" #?
     add_watching: "Ajouter un produit de référence" #?
     add_website: "Ajouter un site web"
-    add_x: "Ajouter «\_%{x}\_»" #?
+    add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
     address: "Adresse" #?
     affair: "Affaire"
@@ -711,16 +711,16 @@ fra:
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
     archives: "Archives"
-    are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
+    are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela\_?"
     are_you_sure_you_want_to:
-      abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
-      close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
-      reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
-    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande ?"
-    are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
-    are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
-    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer ?"
-    are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
+      abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident\_?"
+      close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident\_?"
+      reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
+    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
+    are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
+    are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport\_?"
+    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
+    are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
@@ -1877,7 +1877,7 @@ fra:
       you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
-      you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
+      you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
   preferences:
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
@@ -1947,25 +1947,25 @@ fra:
       up: "Monter"
       update: "Modifier"
   unrolls:
-    backend/accounts: "{number}. {name}"
-    backend/activities: "{name}"
-    backend/analytic_distributions: "{id}"
-    backend/animals: "{name} ‒ {work_number}"
-    backend/campaigns: "{name}"
-    backend/catalog_prices: "{name}"
-    backend/entity_links: "{started_at}"
-    backend/events: "{name}"
-    backend/incoming_payments: "{number} {mode.name} {payer.full_name} {amount} {currency}"
-    backend/journal_entry_items: "[{entry.number}] {name} ({account.number}) D{real_debit}/C{real_credit} {currency}"
-    backend/matters: "{name} ‒ {work_number}"
-    backend/observations: "{content}"
-    backend/operations: "{reference_name} ({started_at})"
-    backend/plants: "{name} ‒ {work_number}"
-    backend/prescriptions: "{reference_number}"
-    backend/product_memberships: "{started_at}"
-    backend/product_nature_variants: "{name} ({unit_name})"
-    backend/product_natures: "{name}"
-    backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
-    backend/products: "{work_number} {name} ({!population} {!unit_name})"
-    backend/trackings: "{serial} ‒ {name} ‒ {producer.full_name}"
-    backend/users: "{first_name} {last_name}"
+    backend/accounts: "%{number}. %{name}"
+    backend/activities: "%{name}"
+    backend/analytic_distributions: "%{id}"
+    backend/animals: "%{name} ‒ %{work_number}"
+    backend/campaigns: "%{name}"
+    backend/catalog_prices: "%{name}"
+    backend/entity_links: "%{started_at}"
+    backend/events: "%{name}"
+    backend/incoming_payments: "%{number} %{mode_name} %{payer_full_name} %{amount} %{currency}"
+    backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
+    backend/matters: "%{name} ‒ %{work_number}"
+    backend/observations: "%{content}"
+    backend/operations: "%{reference_name} (%{started_at})"
+    backend/plants: "%{name} ‒ %{work_number}"
+    backend/prescriptions: "%{reference_number}"
+    backend/product_memberships: "%{started_at}"
+    backend/product_nature_variants: "%{name} (%{unit_name})"
+    backend/product_natures: "%{name}"
+    backend/production_supports: "%{storage_name} ‒ %{variant_name} (%{activity_name} %{campaign_name})"
+    backend/products: "%{work_number} %{name} (%{!population} %{!unit_name})"
+    backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
+    backend/users: "%{first_name} %{last_name}"

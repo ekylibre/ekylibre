@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::ObservationsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions new: {subject_type: "Person", subject_id: identify(:people_001)}
 end

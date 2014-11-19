@@ -79,6 +79,7 @@ class InterventionCast < Ekylibre::Record::Base
   }
 
   scope :of_actor, lambda { |actor| where(actor_id: actor.id) }
+  scope :with_actor, -> { where.not(actor_id: nil) }
 
   before_validation do
     if self.reference
