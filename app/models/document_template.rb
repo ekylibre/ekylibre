@@ -56,9 +56,12 @@ class DocumentTemplate < Ekylibre::Record::Base
   selects_among_all scope: :nature
 
   # default_scope order(:name)
-  scope :of_nature, lambda { |nature|
-    raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless self.nature.values.include?(nature.to_s)
-    where(:nature => nature.to_s, :active => true).order(:name)
+  scope :of_nature, lambda { |*natures|
+    invalids = natures.flatten!.select{ |nature| Nomen::DocumentNatures[nature].nil? }
+    if invalids.any?
+      raise ArgumentError, "Unknown nature(s) for a DocumentTemplate: #{invalids.map(&:inspect).to_sentence}"
+    end
+    where(nature: natures, active: true).order(:name)
   }
 
   protect(on: :destroy) do
