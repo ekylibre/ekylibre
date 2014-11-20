@@ -585,7 +585,7 @@ eng:
     included: "Included"
     incoming_deliveries: "Incoming deliveries"
     incoming_delivery_item: "Incoming delivery item"
-    incoming_delivery_items: "Incoming delivery items"
+    incoming_delivery_items: "Incoming delivery items" #?
     incoming_payment_modes: "Incoming payment modes"
     incoming_payments: "Incoming payments"
     indicator: "Indicator"

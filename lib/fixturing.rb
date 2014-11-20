@@ -20,31 +20,39 @@ module Fixturing
     end
 
     def up_to_date?
-      current_version == ActiveRecord::Migrator.current_version
+      current_version == ActiveRecord::Migrator.last_version
     end
 
     def restore(tenant)
-      Ekylibre::Tenant.check!(tenant)
-      if Ekylibre::Tenant.exist?(tenant)
-        Ekylibre::Tenant.drop(tenant, keep_files: true)
-      end
-      # Apartment.connection.execute(%{CREATE SCHEMA "#{tenant}"})
-      Ekylibre::Tenant.create(tenant)
+      # Ekylibre::Tenant.check!(tenant)
+      # if Ekylibre::Tenant.exist?(tenant)
+      #   Ekylibre::Tenant.drop(tenant, keep_files: true)
+      # end
+      Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
+      Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
+      Ekylibre::Tenant.add(tenant)
+      # Ekylibre::Tenant.create(tenant)
+      Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
+      # Ekylibre::Tenant.switch(tenant)
+      # ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, current_version)
       Ekylibre::Tenant.migrate(tenant, to: current_version)
       # columnize_keys # Simple IDs
-      Ekylibre::Tenant.switch(tenant)
+      # Ekylibre::Tenant.switch(tenant)
+      say "Load fixtures"
       ActiveRecord::FixtureSet.create_fixtures(directory, Ekylibre::Schema.table_names)
       # reflectionize_keys # Back to simple reading
       unless up_to_date?
-        migrate
+        # say "Migrate with new migrations"
+        migrate(tenant)
       end
     end
 
     # Dump data of database into fixtures
     def dump(tenant = nil)
-      Ekylibre::Tenant.switch(tenant) if tenant
-
-      migrate unless up_to_date?
+      if tenant
+        Ekylibre::Tenant.switch(tenant)
+        migrate(tenant) unless up_to_date?
+      end
 
       # ActiveRecord::Base.establish_connection(:development)
       Ekylibre::Schema.tables.each do |table, columns|
@@ -80,9 +88,21 @@ module Fixturing
 
 
     def migrate(tenant)
-      puts "Migrate fixture from " + current_version.inspect.red +
-        " to " + ActiveRecord::Migrator.current_version.inspect.green
-      Ekylibre::Tenant.migrate(tenant, to: ActiveRecord::Migrator.current_version)
+      target = ActiveRecord::Migrator.last_version
+      origin = current_version
+      if target != origin
+        say "Migrate fixtures from " + origin.inspect + " to " + target.inspect
+        Ekylibre::Tenant.switch(tenant)
+        ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, target)
+      else
+        say "No more migrations", :green
+      end
+      # Ekylibre::Tenant.migrate(tenant, to: ActiveRecord::Migrator.last_version)
+    end
+
+    def say(text, color = :yellow)
+      size = text.size
+      puts "== " + text.send(color) + " " + "=" * (79 - size - 4) + "\n\n"
     end
 
 

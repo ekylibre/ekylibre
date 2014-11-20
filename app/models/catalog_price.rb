@@ -42,15 +42,13 @@
 #
 
 
-# CatalogPrice stores.all the prices used in sales and purchases.
+# CatalogPrice stores all the prices used in sales and purchases.
 class CatalogPrice < Ekylibre::Record::Base
   enumerize :indicator_name, in: Nomen::Indicators.all
   enumerize :currency, in: Nomen::Currencies.all
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :reference_tax, class_name: "Tax"
   belongs_to :catalog
-  has_many :incoming_delivery_items, foreign_key: :price_id
-  has_many :outgoing_delivery_items, foreign_key: :price_id
   # has_many :purchase_items, foreign_key: :price_id
   has_many :sale_items, foreign_key: :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

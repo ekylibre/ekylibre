@@ -34,7 +34,7 @@ class Backend::CatalogsController < BackendController
     t.action :destroy
   end
 
-  list(:prices, model: :catalog_prices, conditions: {:catalog_id => 'params[:id]'.c}) do |t|
+  list(:prices, model: :catalog_prices, conditions: {catalog_id: 'params[:id]'.c}, order: {stopped_at: :desc, started_at: :asc}, line_class: "RECORD.stopped_at ? 'disabled' : ''".c) do |t|
     t.column :variant, url: true
     # t.column :pretax_amount
     t.column :amount, currency: true

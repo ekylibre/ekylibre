@@ -42,7 +42,7 @@ module Ekylibre
         Ekylibre.root.join("private", name || current)
       end
 
-      # Create a new tenant
+      # Create a new tenant with tables and co
       def create(name)
         name = name.to_s
         check!(name)
@@ -50,8 +50,14 @@ module Ekylibre
           raise TenantError, "Already existing tenant"
         end
         Apartment::Tenant.create(name)
-        @list[env] ||= []
-        @list[env] << name
+        add(name)
+      end
+
+      # Adds a tenant in config. No schema are created.
+      def add(name)
+        unless list.include?(name)
+          list << name
+        end
         write
       end
 
@@ -83,13 +89,15 @@ module Ekylibre
 
       # Migrate tenant to wanted version
       def migrate(name, options = {})
-        if options[:to] ||= options[:up_to]
-          Apartment::Migrator.run(:up, name, options[:to])
-        elsif options[:down_to]
-          Apartment::Migrator.run(:down, name, options[:down_to])
-        else
-          Apartment::Migrator.migrate(name)
-        end
+        switch(name)
+        ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, options[:to])
+        # if options[:to] ||= options[:up_to]
+        #   Apartment::Migrator.run(:up, name, options[:to])
+        # elsif options[:down_to]
+        #   Apartment::Migrator.run(:down, name, options[:down_to])
+        # else
+        #   Apartment::Migrator.migrate(name)
+        # end
       end
 
 
@@ -128,8 +136,8 @@ module Ekylibre
         unless @list
           @list = (File.exist?(config_file) ? YAML.load_file(config_file) : {})
           @list ||= {}
-          @list[env] ||= []
         end
+        @list[env] ||= []
         return @list[env]
       end
 
