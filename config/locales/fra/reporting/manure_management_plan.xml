@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="375"/>
+	<property name="ireport.y" value="514"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="manure_management_plan"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -142,8 +142,8 @@
 	</subDataset>
 	<subDataset name="bilan" uuid="b9450742-4a92-44ae-b742-9182b879ca1d">
 		<parameter name="zone_id" class="java.lang.String"/>
-		<parameter name="nitrogen_input_prev" class="java.lang.Double" isForPrompting="false">
-			<defaultValueExpression><![CDATA[new Double(0.0)]]></defaultValueExpression>
+		<parameter name="nitrogen_input_prev" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 		</parameter>
 		<queryString language="xPath">
 			<![CDATA[//intervention[ancestor::zone/@id=$P{zone_id}]/inputs/input | //pasturing[ancestor::zone/@id=$P{zone_id}]]]>
@@ -169,7 +169,7 @@
 			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
 		<variable name="provisional_balance" class="java.lang.Double">
-			<variableExpression><![CDATA[($P{nitrogen_input_prev} == null ? new Double(0.0) : $P{nitrogen_input_prev}.doubleValue())  - ( ($V{n_animal} == null ? new Double(0.0) : $V{n_animal}.doubleValue()) + ($V{n_intervention} == null ? new Double(0.0) : $V{n_intervention}.doubleValue()) )]]></variableExpression>
+			<variableExpression><![CDATA[($P{nitrogen_input_prev}.isEmpty() ? new Double(0.0) : Double.valueOf($P{nitrogen_input_prev}))  - ( ($V{n_animal} == null ? new Double(0.0) : $V{n_animal}.doubleValue()) + ($V{n_intervention} == null ? new Double(0.0) : $V{n_intervention}.doubleValue()) )]]></variableExpression>
 			<initialValueExpression><![CDATA[]]></initialValueExpression>
 		</variable>
 		<variable name="sum_input_n" class="java.lang.Double">
@@ -251,7 +251,7 @@
 	<field name="manure_management_plan_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaign/@manure-management-plan-name]]></fieldDescription>
 	</field>
-	<field name="nitrogen_input_prev" class="java.lang.Double">
+	<field name="nitrogen_input_prev" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@nitrogen-input-prev]]></fieldDescription>
 	</field>
 	<group name="campaign" isStartNewPage="true" keepTogether="true">
@@ -721,7 +721,7 @@
 								</staticText>
 							</jr:columnHeader>
 							<jr:detailCell height="20" rowSpan="1">
-								<textField>
+								<textField isBlankWhenNull="true">
 									<reportElement style="table-td" x="0" y="0" width="116" height="20" uuid="22c29f43-18e3-4a14-8d9d-accbdda67653"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_nature}]]></textFieldExpression>
