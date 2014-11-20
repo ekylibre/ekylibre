@@ -184,17 +184,17 @@ sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
   creator_id: 1
   id: 9
-  last_cweek: 45
+  last_cweek: 47
   last_month: 11
-  last_number: 2
+  last_number: 3
   last_year: 2014
-  lock_version: 4
+  lock_version: 5
   name: Document
   number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-05 09:58:37.412746000 Z
+  updated_at: 2014-11-20 10:29:54.657688000 Z
   updater_id: 1
   usage: documents
 sequences_010:

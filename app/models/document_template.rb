@@ -89,6 +89,9 @@ class DocumentTemplate < Ekylibre::Record::Base
         document = Nokogiri::XML(@source) do |config|
           config.noblanks.nonet.strict
         end
+        # Removes comments
+        document.xpath('//comment()').remove
+        # Updates template
         if document.root and document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
           if template = document.root.xpath('xmlns:template').first
             logger.info "NOTICE: Update <template> for document template #{self.nature}"
@@ -97,15 +100,17 @@ class DocumentTemplate < Ekylibre::Record::Base
             unless style_file.exist?
               style_file = Rails.root.join("config", "corporate_identity", "reporting_style.xml")
             end
-            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.to_s.inspect)) # .relative_path_from(self.source_path.dirname)
+            template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(self.source_path.dirname).to_s.inspect))
           else
             logger.info "WARNING: Cannot find and update <template> in document template #{self.nature}"
           end
         end
-
-        # Write source
-        # f.write(@source.read)
+        # Writes source
         f.write(document.to_s)
+      end
+      # Remove .jasper file to force reloading
+      Dir.glob(self.source_path.dirname.join("*.jasper")).each do |file|
+        FileUtils.rm_f(file)
       end
     end
   end

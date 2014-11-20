@@ -8,7 +8,7 @@
   <import value="net.sf.jasperreports.engine.*"/>
   <import value="java.util.*"/>
   <import value="net.sf.jasperreports.engine.data.*"/>
-  <template><![CDATA["/home/brice/Projets/ekylibre/erp/config/corporate_identity/reporting_style.xml"]]></template>
+  <template><![CDATA["../../../../config/corporate_identity/reporting_style.xml"]]></template>
   <queryString language="xPath"><![CDATA[/deposit/payments/payment]]></queryString>
   <field name="number" class="java.lang.String">
     <fieldDescription><![CDATA[ancestor::deposit/number]]></fieldDescription>

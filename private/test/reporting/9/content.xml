@@ -3,7 +3,7 @@
   <property name="ireport.zoom" value="1.0000000000000009"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="0"/>
-  <template><![CDATA["/home/brice/Projets/ekylibre/erp/config/corporate_identity/reporting_style.xml"]]></template>
+  <template><![CDATA["../../../../config/corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
   <style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>

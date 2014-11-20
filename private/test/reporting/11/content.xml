@@ -3,7 +3,7 @@
   <property name="ireport.zoom" value="1.4641000000000006"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="0"/>
-  <template><![CDATA["/home/brice/Projets/ekylibre/erp/config/corporate_identity/reporting_style.xml"]]></template>
+  <template><![CDATA["../../../../config/corporate_identity/reporting_style.xml"]]></template>
   <style name="state" mode="Opaque">
     <conditionalStyle>
       <conditionExpression><![CDATA[$F{state} == "done" && $F{status} == "go"]]></conditionExpression>
