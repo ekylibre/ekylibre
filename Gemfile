@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.8'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
@@ -27,11 +27,11 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.3.0'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 5.0.0'
 # gem 'jquery_mobile_rails'
 gem "jquery-scrollto-rails"
 
@@ -40,7 +40,7 @@ gem 'formize', '~> 2.1.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.1.3'
 # gem 'rails-api'
 
 # Freeze time for demo and/or tests
@@ -70,15 +70,15 @@ gem "simple_calendar", "~> 0.1"
 gem "active_list", '>= 6.4.0' #, path: "../active_list" #
 
 # Models helpers
-gem 'acts_as_list'
+gem 'acts_as_list', '~> 0.4.0'
 gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0.rc3'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
 
 # Authentication & Authorization
-gem 'devise'
-gem 'devise-i18n-views'
+gem 'devise', '~> 3.3.0'
+gem 'devise-i18n-views', '~> 0.3.1'
 
 # Attachments
 gem 'paperclip'
@@ -93,7 +93,7 @@ gem 'i18n-complements', '>= 0.0.12'
 gem 'http_accept_language'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.6.0'
+gem 'nokogiri', '~> 1.6.3.1'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -119,14 +119,15 @@ gem 'rubyzip'
 gem 'ffaker', require: false
 
 # Reading RSS feeds
-gem 'feedjira', require: false
+gem 'feedjira', '~> 1.4.0', require: false
 
 # Adds colors in terminal
 gem 'colored', require: false
 
 # Compass
 gem 'compass-rails'
-gem 'bootstrap-sass', '~> 3.1'
+gem 'compass', '~> 0.12.7'
+gem 'bootstrap-sass', '~> 3.2.0'
 gem 'oily_png'
 
 # Iconic font
@@ -149,11 +150,11 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  # gem 'factory_girl_rails'
   gem 'shoulda-context'
 
-  gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara', '~> 2.4.3'
+  gem 'capybara-webkit', '~> 1.3.0'
   gem 'selenium-webdriver'
 
   # gem 'awesome_print'
