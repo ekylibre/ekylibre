@@ -35,7 +35,7 @@ class ::Symbol
         end
       end
     end
-    ::I18n.translate('labels.' + self.to_s, *args).html_safe
+    tl(*args).html_safe
   end
 
 end

@@ -74,7 +74,7 @@ module Unrollable
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
         haml << "    - unless search.blank?\n"
-        haml << "      %li.item.special{data: {new_item: search, new_item_parameter: '#{fill_in}'}}= 'labels.add_x'.th(x: search).html_safe\n"
+        haml << "      %li.item.special{data: {new_item: search, new_item_parameter: '#{fill_in}'}}= :add_x.th(x: search).html_safe\n"
       end
       haml << "    %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
       haml << "- else\n"

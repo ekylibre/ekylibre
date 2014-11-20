@@ -142,7 +142,7 @@ module Clean
         for path in paths.flatten
           for file in Dir.glob(path)
             source = File.read(file)
-            source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.tl/) do |exp|
+            source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.(tl|th)/) do |exp|
               exp.gsub!(/\.tl\z/, '')
               exp.gsub!(/\A\:/, '')
               exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/

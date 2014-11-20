@@ -970,6 +970,7 @@ spa:
     # depreciations: "Depreciations"
     description: "Descripción general"
     # destroy: "Destroy"
+    # destroyed_at_by: "Destroyed at %{at} by %{by}"
     # details: "Details"
     # discount: "Discount (%)"
     # display: "Display"
@@ -1584,6 +1585,7 @@ spa:
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario" #?
     user_update: "Modificar las informaciones del utilizador" #?
+    # users: "Users"
     # valid: "Valid"
     validate: "Validar"
     validate_selected_entries: "Validar la escrituras seleccionadas"

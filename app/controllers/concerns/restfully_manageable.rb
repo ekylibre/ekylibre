@@ -77,7 +77,6 @@ module RestfullyManageable
         if Dir.glob(lookup.join("show.*")).any?
           if options[:subclass_inheritance]
             code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
-            # code << "    notify :redirected_to_best_page\n"
             code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
             code << "    return\n"
             code << "  end\n"

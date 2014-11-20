@@ -882,7 +882,7 @@ fra:
     depreciations: "Dépréciations"
     description: "Description"
     destroy: "Supprimer"
-    destroyed_at_by: "Supprimé le %{at} par %{by}" #?
+    destroyed_at_by: "Supprimé le %{at} par %{by}"
     details: "Informations complémentaires"
     discount: "Réduc. (%)"
     display: "Afficher"
@@ -1608,7 +1608,7 @@ fra:
     use_renew: "Sélectionnez un journal pour reporter les à nouveaux"
     used_accounts: "Comptes utilisés seulement"
     user_name: "Nom d’utilisateur" #?
-    users: "Compte utilisateur" #?
+    users: "Compte utilisateur"
     uses: "Matériel" #?
     valid: "Valider"
     validate: "Valider"

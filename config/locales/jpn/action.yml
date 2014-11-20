@@ -747,6 +747,7 @@ jpn:
     # depreciations: "Depreciations"
     # description: "Description"
     # destroy: "Destroy"
+    # destroyed_at_by: "Destroyed at %{at} by %{by}"
     # details: "Details"
     # discount: "Discount (%)"
     # display: "Display"
@@ -1249,6 +1250,7 @@ jpn:
     # use_renew: "Select the journal to carry over"
     # used_accounts: "Used accounts only"
     user_name: "ユーザー名" #?
+    # users: "Users"
     # valid: "Valid"
     # validate: "Validate"
     # validate_selected_entries: "Validate selected entries"

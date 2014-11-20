@@ -774,7 +774,7 @@ eng:
     create: "Create"
     create_journal: "— Create journal —"
     created_at: "Created on" #?
-    created_at_by: "Created at %{at} by %{by}." #?
+    created_at_by: "Created at %{at} by %{by}."
     created_between: "Created between %{started_at} and %{stopped_at}"
     credit: "Credit" #?
     credits: "Credits"
@@ -812,6 +812,7 @@ eng:
     depreciations: "Depreciations"
     description: "Description" #?
     destroy: "Destroy"
+    destroyed_at_by: "Destroyed at %{at} by %{by}"
     details: "Details"
     discount: "Discount (%)" #?!
     display: "Display" #?
@@ -1292,14 +1293,14 @@ eng:
     up: "Up" #?
     update: "Update"
     update_params: "Update params" #?
-    updated_at_by: "Updated at %{at} by %{by}:" #?
+    updated_at_by: "Updated at %{at} by %{by}:"
     upload: "Upload"
     uploading_unicoque_traceability: "Uploading unicoque traceability" #?!
     usage: "Usage" #?
     use_incoming_payment: "Add incoming payment %{payment}" #?
     use_renew: "Select the journal to carry over"
     used_accounts: "Used accounts only" #?
-    # users: "Users"
+    users: "Users"
     valid: "Valid" #?
     validate: "Validate"
     validate_selected_entries: "Validate selected entries"
@@ -1489,7 +1490,6 @@ eng:
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
       record_not_found: "Record not found"
-      # redirected_to_best_page: "Redirected to best page"
       select_entry_items_to_mark_together: "Select entry items to mark together"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"

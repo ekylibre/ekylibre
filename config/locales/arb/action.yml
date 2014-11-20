@@ -1159,6 +1159,7 @@ arb:
     # depreciations: "Depreciations"
     description: "الوصف"
     # destroy: "Destroy"
+    # destroyed_at_by: "Destroyed at %{at} by %{by}"
     details: "معلومات اضافية"
     discount: "الخصم (%)"
     display: "عرض"
@@ -1926,6 +1927,7 @@ arb:
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم" #?
     user_update: "تعديل معلومات المستخدم" #?
+    # users: "Users"
     uses: "المادة" #?
     valid: "الصلاحية"
     validate: "التعديل"
