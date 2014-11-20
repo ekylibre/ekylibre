@@ -255,11 +255,11 @@ jpn:
       # new: "New identifier"
       # show: "Identifier: %{name}"
     backend/imports:
-      # edit: "Edit import: %{name}"
+      # edit: "Edit import: %{nature}"
       # index: "Imports"
       # new: "New import"
-      # run: "Run import: %{name}"
-      # show: "Import: %{name}"
+      # run: "Run import"
+      # show: "Import: %{nature}"
     backend/incoming_deliveries:
       # confirm: "Confirm incoming delivery"
       # edit: "Edit incoming delivery: %{number} (%{reference_number})"
