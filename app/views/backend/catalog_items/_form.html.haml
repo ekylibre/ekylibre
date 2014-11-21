@@ -3,12 +3,10 @@
   = f.referenced_association :variant
   = f.input :amount
   -# = f.input :currency
-  = f.input :indicator_name
-  - if resource.new_record?
-    = f.input :started_at
-  -# = f.input :stopped_at
   = f.input :all_taxes_included, show: :taxes
+  #taxes= f.referenced_association :reference_tax
   = f.custom_fields
 
-= field_set(:taxes) do
-  = f.referenced_association :reference_tax
+= field_set :details do
+  = f.input :commercial_name
+  = f.input :commercial_description

@@ -1260,7 +1260,7 @@ fra:
         campaigns: "Campagnes"
         cash_transfers: "Virements internes"
         cashes: "Trésoreries"
-        catalog_prices: "Prix"
+        catalog_prices: "Prix" #?
         catalogs: "Catalogues"
         cultivable_zones: "Zones cultivables"
         custom_fields: "Champs personnalisés"

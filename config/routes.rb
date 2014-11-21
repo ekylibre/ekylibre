@@ -243,7 +243,7 @@ Ekylibre::Application.routes.draw do
 
     resources :cash_transfers, concerns: [:list, :unroll]
 
-    resources :catalog_prices, concerns: [:list, :unroll] do
+    resources :catalog_items, concerns: [:list, :unroll] do
       member do
         post :stop
       end
@@ -251,7 +251,7 @@ Ekylibre::Application.routes.draw do
 
     resources :catalogs, concerns: [:list, :unroll] do
       member do
-        get :list_prices
+        get :list_items
       end
     end
 
@@ -590,9 +590,9 @@ Ekylibre::Application.routes.draw do
 
     resources :product_nature_variants, concerns: [:incorporate, :list, :picture, :unroll] do
       member do
+        get :detail
+        get :list_catalog_items
         get :list_products
-        get :list_prices
-        get :last_purchase_item
       end
     end
 

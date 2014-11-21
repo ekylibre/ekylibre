@@ -1,0 +1,14 @@
+- main_toolbar do |t|
+  - t.edit resource
+
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :catalog, url: true
+      - l.attribute :amount, currency: true
+      - l.attribute :all_taxes_included
+      - if resource.all_taxes_included
+        - l.attribute :reference_tax, url: true
+      - l.attribute :name
+      - l.attribute :commercial_name
+      - l.attribute :commercial_description

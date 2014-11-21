@@ -22,27 +22,25 @@
 #
 # == Table: product_nature_variants
 #
-#  active                 :boolean          not null
-#  category_id            :integer          not null
-#  commercial_description :text
-#  commercial_name        :string(255)      not null
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  derivative_of          :string(120)
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
-#  name                   :string(255)
-#  nature_id              :integer          not null
-#  number                 :string(255)
-#  picture_content_type   :string(255)
-#  picture_file_name      :string(255)
-#  picture_file_size      :integer
-#  picture_updated_at     :datetime
-#  reference_name         :string(255)
-#  unit_name              :string(255)      not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  variety                :string(120)      not null
+#  active               :boolean          not null
+#  category_id          :integer          not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  derivative_of        :string(120)
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)
+#  nature_id            :integer          not null
+#  number               :string(255)
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
+#  picture_file_size    :integer
+#  picture_updated_at   :datetime
+#  reference_name       :string(255)
+#  unit_name            :string(255)      not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variety              :string(120)      not null
 #
 #
 # == Fixture: product_nature_variants
@@ -50,7 +48,6 @@
 # product_nature_variants_001:
 #   active: true
 #   category: categories_001
-#   commercial_name: "Lorem ipsum"
 #   creator: users_001
 #   nature: natures_001
 #   unit_name: "Lorem ipsum"
@@ -61,7 +58,6 @@
 product_nature_variants_001:
   active: true
   category_id: 1
-  commercial_name: Generic Product Variant
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
@@ -76,7 +72,6 @@ product_nature_variants_001:
 product_nature_variants_002:
   active: true
   category_id: 1
-  commercial_name: Lorem ipsum 2
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 2
@@ -91,7 +86,6 @@ product_nature_variants_002:
 product_nature_variants_003:
   active: true
   category_id: 1
-  commercial_name: Building
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 3
@@ -106,7 +100,6 @@ product_nature_variants_003:
 product_nature_variants_004:
   active: true
   category_id: 1
-  commercial_name: Dry matter
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 4
@@ -121,7 +114,6 @@ product_nature_variants_004:
 product_nature_variants_005:
   active: true
   category_id: 1
-  commercial_name: Cow
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 5
@@ -136,7 +128,6 @@ product_nature_variants_005:
 product_nature_variants_006:
   active: true
   category_id: 1
-  commercial_name: Herd
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 7
@@ -151,7 +142,6 @@ product_nature_variants_006:
 product_nature_variants_007:
   active: true
   category_id: 3
-  commercial_name: Adexar 5 l
   created_at: 2014-10-31 20:11:19.901366000 Z
   creator_id: 1
   id: 8
@@ -167,7 +157,6 @@ product_nature_variants_007:
 product_nature_variants_008:
   active: true
   category_id: 4
-  commercial_name: Botte de paille de blé ‒ balle ronde
   created_at: 2014-10-31 20:11:30.483301000 Z
   creator_id: 1
   derivative_of: triticum
@@ -184,7 +173,6 @@ product_nature_variants_008:
 product_nature_variants_009:
   active: true
   category_id: 5
-  commercial_name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
   created_at: 2014-10-31 20:11:42.154937000 Z
   creator_id: 1
   derivative_of: triticum_aestivum_rubisko
@@ -201,7 +189,6 @@ product_nature_variants_009:
 product_nature_variants_010:
   active: true
   category_id: 5
-  commercial_name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   created_at: 2014-10-31 20:11:53.428269000 Z
   creator_id: 1
   derivative_of: avena_une_de_mai
@@ -218,7 +205,6 @@ product_nature_variants_010:
 product_nature_variants_011:
   active: true
   category_id: 6
-  commercial_name: Bâtiment d’accueil pour les animaux
   created_at: 2014-10-31 20:13:23.333612000 Z
   creator_id: 1
   id: 12
@@ -234,7 +220,6 @@ product_nature_variants_011:
 product_nature_variants_012:
   active: true
   category_id: 7
-  commercial_name: Emplacement de stockage du matériel
   created_at: 2014-10-31 20:13:55.113547000 Z
   creator_id: 1
   id: 13
@@ -250,7 +235,6 @@ product_nature_variants_012:
 product_nature_variants_013:
   active: true
   category_id: 7
-  commercial_name: Zone de stockage des aliments et du matériels
   created_at: 2014-10-31 20:21:52.492960000 Z
   creator_id: 1
   id: 14
@@ -266,7 +250,6 @@ product_nature_variants_013:
 product_nature_variants_014:
   active: true
   category_id: 7
-  commercial_name: Pièce ou zone d’un bâtiment
   created_at: 2014-10-31 20:25:22.980248000 Z
   creator_id: 1
   id: 15
@@ -282,7 +265,6 @@ product_nature_variants_014:
 product_nature_variants_015:
   active: true
   category_id: 8
-  commercial_name: Culture de blé
   created_at: 2014-11-01 19:06:50.064047000 Z
   creator_id: 1
   id: 16
@@ -298,7 +280,6 @@ product_nature_variants_015:
 product_nature_variants_016:
   active: true
   category_id: 9
-  commercial_name: Vache
   created_at: 2014-11-01 19:08:36.236984000 Z
   creator_id: 1
   id: 17
@@ -314,7 +295,6 @@ product_nature_variants_016:
 product_nature_variants_017:
   active: true
   category_id: 10
-  commercial_name: Lait de vache
   created_at: 2014-11-01 19:09:20.953489000 Z
   creator_id: 1
   derivative_of: bos
@@ -331,7 +311,6 @@ product_nature_variants_017:
 product_nature_variants_018:
   active: true
   category_id: 11
-  commercial_name: Graine de blé
   created_at: 2014-11-01 19:10:35.097658000 Z
   creator_id: 1
   derivative_of: triticum_aestivum
@@ -348,7 +327,6 @@ product_nature_variants_018:
 product_nature_variants_019:
   active: true
   category_id: 3
-  commercial_name: Microthiol sp disp
   created_at: 2014-11-01 20:17:55.024266000 Z
   creator_id: 1
   id: 20
@@ -364,7 +342,6 @@ product_nature_variants_019:
 product_nature_variants_020:
   active: true
   category_id: 12
-  commercial_name: Acetal
   created_at: 2014-11-01 20:20:57.147222000 Z
   creator_id: 1
   id: 21
@@ -380,7 +357,6 @@ product_nature_variants_020:
 product_nature_variants_021:
   active: true
   category_id: 12
-  commercial_name: Riflexine
   created_at: 2014-11-01 20:21:07.072559000 Z
   creator_id: 1
   id: 22
@@ -396,7 +372,6 @@ product_nature_variants_021:
 product_nature_variants_022:
   active: true
   category_id: 13
-  commercial_name: Employé
   created_at: 2014-11-01 20:26:13.069661000 Z
   creator_id: 1
   id: 23
@@ -412,7 +387,6 @@ product_nature_variants_022:
 product_nature_variants_023:
   active: true
   category_id: 14
-  commercial_name: Tracteur
   created_at: 2014-11-02 18:19:37.982583000 Z
   creator_id: 1
   id: 24
@@ -428,7 +402,6 @@ product_nature_variants_023:
 product_nature_variants_024:
   active: true
   category_id: 14
-  commercial_name: Broyeur
   created_at: 2014-11-02 18:19:51.698049000 Z
   creator_id: 1
   id: 25
@@ -444,7 +417,6 @@ product_nature_variants_024:
 product_nature_variants_025:
   active: true
   category_id: 14
-  commercial_name: Tracteur
   created_at: 2014-11-02 18:20:34.104515000 Z
   creator_id: 1
   id: 26
@@ -460,7 +432,6 @@ product_nature_variants_025:
 product_nature_variants_026:
   active: true
   category_id: 14
-  commercial_name: Charrue
   created_at: 2014-11-02 18:29:03.433574000 Z
   creator_id: 1
   id: 27
@@ -476,7 +447,6 @@ product_nature_variants_026:
 product_nature_variants_027:
   active: true
   category_id: 15
-  commercial_name: Zone cultivable
   created_at: 2014-11-02 18:31:53.744596000 Z
   creator_id: 1
   id: 28
@@ -492,7 +462,6 @@ product_nature_variants_027:
 product_nature_variants_028:
   active: true
   category_id: 14
-  commercial_name: Semoir
   created_at: 2014-11-02 18:36:36.382111000 Z
   creator_id: 1
   id: 29
@@ -508,7 +477,6 @@ product_nature_variants_028:
 product_nature_variants_029:
   active: true
   category_id: 16
-  commercial_name: Troupeau de vaches laitières
   created_at: 2014-11-04 17:27:32.663559000 Z
   creator_id: 1
   derivative_of: bos
@@ -525,7 +493,6 @@ product_nature_variants_029:
 product_nature_variants_030:
   active: true
   category_id: 16
-  commercial_name: Troupeau de bovins
   created_at: 2014-11-04 17:27:59.316996000 Z
   creator_id: 1
   derivative_of: bos
@@ -542,7 +509,6 @@ product_nature_variants_030:
 product_nature_variants_031:
   active: true
   category_id: 8
-  commercial_name: Culture de maïs
   created_at: 2014-11-04 18:17:16.166463000 Z
   creator_id: 1
   id: 32
@@ -558,7 +524,6 @@ product_nature_variants_031:
 product_nature_variants_032:
   active: true
   category_id: 14
-  commercial_name: Cultipacker
   created_at: 2014-11-04 18:38:32.203593000 Z
   creator_id: 1
   id: 33
@@ -574,7 +539,6 @@ product_nature_variants_032:
 product_nature_variants_033:
   active: true
   category_id: 14
-  commercial_name: Bineuse
   created_at: 2014-11-04 18:40:21.570497000 Z
   creator_id: 1
   id: 34
@@ -590,7 +554,6 @@ product_nature_variants_033:
 product_nature_variants_034:
   active: true
   category_id: 1
-  commercial_name: Zone accueillant des animaux
   created_at: 2014-11-07 14:30:38.001685000 Z
   creator_id: 1
   id: 35
@@ -606,7 +569,6 @@ product_nature_variants_034:
 product_nature_variants_035:
   active: true
   category_id: 14
-  commercial_name: Pulvérisateur
   created_at: 2014-11-07 15:00:45.280360000 Z
   creator_id: 1
   id: 36
@@ -622,7 +584,6 @@ product_nature_variants_035:
 product_nature_variants_036:
   active: true
   category_id: 14
-  commercial_name: "Épandeur à engrais"
   created_at: 2014-11-07 15:22:23.973592000 Z
   creator_id: 1
   id: 37
@@ -638,7 +599,6 @@ product_nature_variants_036:
 product_nature_variants_037:
   active: true
   category_id: 14
-  commercial_name: "Épandeur à fumier"
   created_at: 2014-11-07 15:22:31.413012000 Z
   creator_id: 1
   id: 38
@@ -654,7 +614,6 @@ product_nature_variants_037:
 product_nature_variants_038:
   active: true
   category_id: 17
-  commercial_name: Ammonitre 33,5%  Big Bag
   created_at: 2014-11-07 15:24:11.146570000 Z
   creator_id: 1
   id: 39
@@ -670,7 +629,6 @@ product_nature_variants_038:
 product_nature_variants_039:
   active: true
   category_id: 8
-  commercial_name: Culture de prairie permanente
   created_at: 2014-11-07 15:40:58.381670000 Z
   creator_id: 1
   id: 40
@@ -686,7 +644,6 @@ product_nature_variants_039:
 product_nature_variants_040:
   active: true
   category_id: 5
-  commercial_name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
   created_at: 2014-11-07 15:41:47.838001000 Z
   creator_id: 1
   derivative_of: trifolium_pratense
@@ -703,7 +660,6 @@ product_nature_variants_040:
 product_nature_variants_041:
   active: true
   category_id: 5
-  commercial_name: Semence mixte
   created_at: 2014-11-07 15:43:46.298740000 Z
   creator_id: 1
   derivative_of: poa
@@ -720,7 +676,6 @@ product_nature_variants_041:
 product_nature_variants_042:
   active: true
   category_id: 18
-  commercial_name: Herbe de prairie
   created_at: 2014-11-07 15:46:45.156611000 Z
   creator_id: 1
   derivative_of: poa
@@ -737,7 +692,6 @@ product_nature_variants_042:
 product_nature_variants_043:
   active: true
   category_id: 8
-  commercial_name: Culture de vigne
   created_at: 2014-11-07 16:33:48.624554000 Z
   creator_id: 1
   id: 44
@@ -753,7 +707,6 @@ product_nature_variants_043:
 product_nature_variants_044:
   active: true
   category_id: 19
-  commercial_name: Plant de vigne standard (So4)
   created_at: 2014-11-07 16:33:59.265372000 Z
   creator_id: 1
   derivative_of: vitis
@@ -770,7 +723,6 @@ product_nature_variants_044:
 product_nature_variants_045:
   active: true
   category_id: 14
-  commercial_name: Planteuse
   created_at: 2014-11-07 16:48:34.937972000 Z
   creator_id: 1
   id: 46
@@ -786,7 +738,6 @@ product_nature_variants_045:
 product_nature_variants_046:
   active: true
   category_id: 14
-  commercial_name: Machine à vendanger
   created_at: 2014-11-07 17:04:02.267331000 Z
   creator_id: 1
   id: 47
@@ -802,7 +753,6 @@ product_nature_variants_046:
 product_nature_variants_047:
   active: true
   category_id: 20
-  commercial_name: Grappe de raisin
   created_at: 2014-11-07 17:05:38.082911000 Z
   creator_id: 1
   derivative_of: vitis_vinifera
@@ -819,7 +769,6 @@ product_nature_variants_047:
 product_nature_variants_048:
   active: true
   category_id: 21
-  commercial_name: Vin
   created_at: 2014-11-07 17:10:23.486489000 Z
   creator_id: 1
   derivative_of: grape
@@ -836,7 +785,6 @@ product_nature_variants_048:
 product_nature_variants_049:
   active: true
   category_id: 14
-  commercial_name: Cuve en acier inox
   created_at: 2014-11-07 17:14:18.214538000 Z
   creator_id: 1
   id: 50
@@ -852,7 +800,6 @@ product_nature_variants_049:
 product_nature_variants_050:
   active: true
   category_id: 6
-  commercial_name: Bâtiment
   created_at: 2014-11-07 17:16:15.471031000 Z
   creator_id: 1
   id: 51
@@ -868,7 +815,6 @@ product_nature_variants_050:
 product_nature_variants_051:
   active: true
   category_id: 14
-  commercial_name: Pressoir
   created_at: 2014-11-07 17:23:08.062270000 Z
   creator_id: 1
   id: 52
@@ -884,7 +830,6 @@ product_nature_variants_051:
 product_nature_variants_052:
   active: true
   category_id: 20
-  commercial_name: Moût de raisin
   created_at: 2014-11-07 17:25:14.424939000 Z
   creator_id: 1
   derivative_of: grape
@@ -901,7 +846,6 @@ product_nature_variants_052:
 product_nature_variants_053:
   active: true
   category_id: 4
-  commercial_name: Résidu de culture
   created_at: 2014-11-07 17:25:46.208771000 Z
   creator_id: 1
   derivative_of: plant
@@ -918,7 +862,6 @@ product_nature_variants_053:
 product_nature_variants_054:
   active: true
   category_id: 20
-  commercial_name: Co-produit du raisin
   created_at: 2014-11-07 17:27:02.369419000 Z
   creator_id: 1
   derivative_of: vitis_vinifera
@@ -935,7 +878,6 @@ product_nature_variants_054:
 product_nature_variants_055:
   active: true
   category_id: 20
-  commercial_name: Jus de raisin
   created_at: 2014-11-07 18:58:14.622969000 Z
   creator_id: 1
   derivative_of: grape
@@ -952,7 +894,6 @@ product_nature_variants_055:
 product_nature_variants_056:
   active: true
   category_id: 22
-  commercial_name: Acide lactique ‒ 25kg
   created_at: 2014-11-07 19:03:43.671512000 Z
   creator_id: 1
   id: 57
@@ -968,7 +909,6 @@ product_nature_variants_056:
 product_nature_variants_057:
   active: true
   category_id: 22
-  commercial_name: Acide malique ‒ 25kg
   created_at: 2014-11-07 19:03:55.045552000 Z
   creator_id: 1
   id: 58
@@ -984,7 +924,6 @@ product_nature_variants_057:
 product_nature_variants_058:
   active: true
   category_id: 22
-  commercial_name: Levure œnologique ‒ sachet de 500g
   created_at: 2014-11-07 19:05:20.510880000 Z
   creator_id: 1
   derivative_of: saccharomyces_cerevisiae
@@ -1001,7 +940,6 @@ product_nature_variants_058:
 product_nature_variants_059:
   active: true
   category_id: 22
-  commercial_name: Sucre blanc ‒ 25kg
   created_at: 2014-11-07 19:10:37.826371000 Z
   creator_id: 1
   id: 60
@@ -1017,7 +955,6 @@ product_nature_variants_059:
 product_nature_variants_060:
   active: true
   category_id: 22
-  commercial_name: Ferrocyanide de potassium ‒ 25kg
   created_at: 2014-11-07 19:16:38.635536000 Z
   creator_id: 1
   id: 61
@@ -1033,7 +970,6 @@ product_nature_variants_060:
 product_nature_variants_061:
   active: true
   category_id: 22
-  commercial_name: So2 liquide 10%
   created_at: 2014-11-07 19:18:50.775331000 Z
   creator_id: 1
   id: 62
@@ -1049,7 +985,6 @@ product_nature_variants_061:
 product_nature_variants_062:
   active: true
   category_id: 23
-  commercial_name: Bouteille Bordelaise 75cl
   created_at: 2014-11-07 19:29:27.409413000 Z
   creator_id: 1
   id: 63
@@ -1065,7 +1000,6 @@ product_nature_variants_062:
 product_nature_variants_063:
   active: true
   category_id: 23
-  commercial_name: Bouchon naturel
   created_at: 2014-11-07 19:29:44.237224000 Z
   creator_id: 1
   id: 64
@@ -1081,7 +1015,6 @@ product_nature_variants_063:
 product_nature_variants_064:
   active: true
   category_id: 21
-  commercial_name: Bouteille de vin (75cl)
   created_at: 2014-11-07 19:29:57.758780000 Z
   creator_id: 1
   derivative_of: grape
@@ -1098,7 +1031,6 @@ product_nature_variants_064:
 product_nature_variants_065:
   active: true
   category_id: 14
-  commercial_name: Tireuse
   created_at: 2014-11-07 19:35:20.887953000 Z
   creator_id: 1
   id: 66
@@ -1114,7 +1046,6 @@ product_nature_variants_065:
 product_nature_variants_066:
   active: true
   category_id: 14
-  commercial_name: Boucheuse
   created_at: 2014-11-07 19:35:28.672313000 Z
   creator_id: 1
   id: 67

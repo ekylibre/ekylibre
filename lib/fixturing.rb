@@ -11,6 +11,16 @@ module Fixturing
       Rails.root.join("test", "fixtures")
     end
 
+    def table_names
+      list = []
+      Dir.chdir(directory) do
+        list = Dir["*.yml"].map do |f|
+          f.gsub(/\.yml$/, '').to_sym
+        end
+      end
+      return list
+    end
+
     def migrations_file
       directory.join(migrations_table)
     end
@@ -39,7 +49,7 @@ module Fixturing
       # columnize_keys # Simple IDs
       # Ekylibre::Tenant.switch(tenant)
       say "Load fixtures"
-      ActiveRecord::FixtureSet.create_fixtures(directory, Ekylibre::Schema.table_names)
+      ActiveRecord::FixtureSet.create_fixtures(directory, table_names)
       # reflectionize_keys # Back to simple reading
       unless up_to_date?
         # say "Migrate with new migrations"

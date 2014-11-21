@@ -60,6 +60,8 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
+#     - "backend/product_nature_variants#detail"
+#     - "backend/product_nature_variants#list_catalog_items"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#run"
@@ -381,36 +383,27 @@ cashes:
     - "backend/cashes#new"
     - "backend/cashes#update"
 
-catalog_prices:
-  read:
-    actions:
-    - "backend/catalog_prices#index"
-    - "backend/catalog_prices#list"
-    - "backend/catalog_prices#show"
-    - "backend/catalog_prices#unroll"
-  write:
-    depend-on:
-    - read-catalog_prices
-    actions:
-    - "backend/catalog_prices#create"
-    - "backend/catalog_prices#destroy"
-    - "backend/catalog_prices#edit"
-    - "backend/catalog_prices#new"
-    - "backend/catalog_prices#stop"
-    - "backend/catalog_prices#update"
-
 catalogs:
   read:
     actions:
+    - "backend/catalog_items#index"
+    - "backend/catalog_items#list"
+    - "backend/catalog_items#show"
+    - "backend/catalog_items#unroll"
     - "backend/catalogs#index"
     - "backend/catalogs#list"
-    - "backend/catalogs#list_prices"
+    - "backend/catalogs#list_items"
     - "backend/catalogs#show"
     - "backend/catalogs#unroll"
   write:
     depend-on:
     - read-catalogs
     actions:
+    - "backend/catalog_items#create"
+    - "backend/catalog_items#destroy"
+    - "backend/catalog_items#edit"
+    - "backend/catalog_items#new"
+    - "backend/catalog_items#update"
     - "backend/catalogs#create"
     - "backend/catalogs#destroy"
     - "backend/catalogs#edit"
@@ -1513,9 +1506,8 @@ product_nature_variants:
   read:
     actions:
     - "backend/product_nature_variants#index"
-    - "backend/product_nature_variants#last_purchase_item"
     - "backend/product_nature_variants#list"
-    - "backend/product_nature_variants#list_prices"
+    - "backend/product_nature_variants#list_items" #?
     - "backend/product_nature_variants#list_products"
     - "backend/product_nature_variants#show"
     - "backend/product_nature_variants#unroll"

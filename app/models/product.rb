@@ -372,9 +372,9 @@ class Product < Ekylibre::Record::Base
 
 
   # Returns the price for the product.
-  # It's a shortcut for CatalogPrice::give
+  # It's a shortcut for CatalogItem::give
   def price(options = {})
-    return CatalogPrice.price(self, options)
+    return CatalogItem.price(self, options)
   end
 
 
@@ -401,17 +401,16 @@ class Product < Ekylibre::Record::Base
 
     if incoming_purchase_item
       # search a price in purchase item via incoming item price
-      price = incoming_purchase_item.unit_price_amount
+      price = incoming_purchase_item.unit_pretax_amount
     elsif outgoing_sale_item
       # search a price in sale item via outgoing item price
-      price = outgoing_sale_item.unit_price_amount
-    elsif price_object = CatalogPrice.actives_at(options[:at] || Time.now).where(filter).first
+      price = outgoing_sale_item.unit_pretax_amount
+    elsif catalog_item = CatalogItem.where(filter).first
       # search a price in catalog price
-      if price_object.all_taxes_included == true
-        tax = Tax.find(price_object.reference_tax_id)
-        price = tax.pretax_amount_of(price_object.amount)
+      if catalog_item.all_taxes_included == true
+        price = catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)
       else
-        price = price_object.amount
+        price = catalog_item.amount
       end
     else
       price = nil

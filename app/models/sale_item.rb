@@ -22,54 +22,50 @@
 #
 # == Table: sale_items
 #
-#  account_id           :integer
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  annotation           :text
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  credited_item_id     :integer
-#  currency             :string(3)        not null
-#  id                   :integer          not null, primary key
-#  indicator_name       :string(120)      not null
-#  label                :text
-#  lock_version         :integer          default(0), not null
-#  position             :integer
-#  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  price_id             :integer          not null
-#  quantity             :decimal(19, 4)   default(1.0), not null
-#  reduced_item_id      :integer
-#  reduction_percentage :decimal(19, 4)   default(0.0), not null
-#  sale_id              :integer          not null
-#  tax_id               :integer
-#  unit_price_amount    :decimal(19, 4)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variant_id           :integer          not null
+#  account_id                 :integer
+#  all_taxes_included         :boolean          not null
+#  amount                     :decimal(19, 4)   default(0.0), not null
+#  annotation                 :text
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credited_item_id           :integer
+#  currency                   :string(3)        not null
+#  id                         :integer          not null, primary key
+#  label                      :text
+#  lock_version               :integer          default(0), not null
+#  position                   :integer
+#  pretax_amount              :decimal(19, 4)   default(0.0), not null
+#  quantity                   :decimal(19, 4)   default(1.0), not null
+#  reduced_unit_amount        :decimal(19, 4)   default(0.0), not null
+#  reduced_unit_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  reduction_percentage       :decimal(19, 4)   default(0.0), not null
+#  sale_id                    :integer          not null
+#  tax_id                     :integer
+#  unit_amount                :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount         :decimal(19, 4)
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
+#  variant_id                 :integer          not null
 #
 
 
 class SaleItem < Ekylibre::Record::Base
   include PeriodicCalculable
   attr_readonly :sale_id
-  enumerize :indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}, default: :population
   belongs_to :account
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: "SaleItem"
-  belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
-  belongs_to :reduced_item, class_name: "SaleItem"
   belongs_to :tax
   # belongs_to :tracking
   has_many :delivery_items, class_name: "OutgoingDeliveryItem", foreign_key: :sale_item_id
-  has_one :reduction, class_name: "SaleItem", foreign_key: :reduced_item_id
   has_many :credits, class_name: "SaleItem", foreign_key: :credited_item_id
-  has_many :reductions, class_name: "SaleItem", foreign_key: :reduced_item_id, dependent: :delete_all
   has_many :subscriptions, dependent: :destroy
+  has_one :sale_nature, through: :sale, source: :nature
 
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, to: :sale
   delegate :currency, to: :sale, prefix: true
-  delegate :all_taxes_included?, to: :price
   delegate :name, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
   delegate :unit_name, :name, to: :variant
@@ -79,20 +75,17 @@ class SaleItem < Ekylibre::Record::Base
   alias :product_nature :variant_nature
 
   acts_as_list :scope => :sale
-  after_save :set_reduction
 
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, allow_nil: true
+  validates_numericality_of :amount, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :indicator_name, allow_nil: true, maximum: 120
-  validates_presence_of :amount, :currency, :indicator_name, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
+  validates_inclusion_of :all_taxes_included, in: [true, false]
+  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :sale, :unit_amount, :variant
   #]VALIDATORS]
   validates_presence_of :tax
-  # validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
 
-  scope :not_reduction, -> { where(reduced_item_id: nil) }
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
     joins(:sale).merge(Sale.invoiced_between(started_at, stopped_at))
@@ -108,26 +101,25 @@ class SaleItem < Ekylibre::Record::Base
     self.pretax_amount ||= 0
     self.amount ||= 0
 
-    if self.price
-      self.variant ||= self.price.variant
-      self.indicator_name = self.price.indicator_name
-      self.unit_price_amount ||= self.price.amount
-      self.currency = self.price.currency
-      amount = self.quantity * self.unit_price_amount
-      if self.tax
-        tax_amount = self.tax.compute(amount, self.all_taxes_included?)
-        if self.all_taxes_included?
-          self.amount = amount
-          self.pretax_amount = (self.amount - tax_amount).round(2)
-        else
-          self.pretax_amount = amount
-          self.amount = (self.pretax_amount + tax_amount).round(2)
-        end
-      else
-        self.amount = self.pretax_amount = amount
-      end
-    elsif self.sale
+    if self.sale
       self.currency = self.sale.currency
+    end
+
+    precision = 2
+    if self.currency
+      precision = Nomen::Currencies[self.currency].precision
+    end
+
+    self.reduction_percentage ||= 0
+    if self.quantity and self.unit_pretax_amount and self.tax
+      self.reduced_unit_pretax_amount = (self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0)
+      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+      self.reduced_unit_amount = (self.unit_amount * (100.0 - self.reduction_percentage) / 100.0)
+      self.pretax_amount = (self.quantity * self.reduced_unit_pretax_amount).round(precision)
+      self.amount = (self.quantity * self.reduced_unit_amount).round(precision)
+      self.reduced_unit_pretax_amount = self.reduced_unit_pretax_amount.round(2)
+      self.reduced_unit_amount = self.reduced_unit_amount.round(2)
+      self.unit_pretax_amount = self.unit_pretax_amount.round(2)
     end
 
     if self.variant
@@ -149,24 +141,11 @@ class SaleItem < Ekylibre::Record::Base
 
     # return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
     errors.add(:quantity, :invalid) if self.quantity.zero?
-    if self.price and self.sale
-      errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
-    end
     # TODO validates responsible can make reduction and reduction percentage is convenient
   end
 
   protect(on: :update) do
     !self.sale.draft?
-  end
-
-  def set_reduction
-    if self.reduction_percentage > 0 and self.product_nature.reduction_submissive and self.reduced_item_id.nil?
-      reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:reduced_item_id => self.id, :price_id => self.price_id, :variant_id => self.variant_id, :sale_id => self.sale_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_at', :product => self.variant.commercial_name, :percentage => self.reduction_percentage)}
-      reduction.save!
-    elsif self.reduction
-      self.reduction.destroy
-    end
   end
 
   def undelivered_quantity

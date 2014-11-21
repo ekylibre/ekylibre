@@ -23,46 +23,49 @@
 #
 # == Table: sales
 #
-#  accounted_at        :datetime
-#  address_id          :integer
-#  affair_id           :integer
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text
-#  client_id           :integer          not null
-#  conclusion          :text
-#  confirmed_at        :datetime
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  credit              :boolean          not null
-#  currency            :string(3)        not null
-#  delivery_address_id :integer
-#  description         :text
-#  downpayment_amount  :decimal(19, 4)   default(0.0), not null
-#  expiration_delay    :string(255)
-#  expired_at          :datetime
-#  function_title      :string(255)
-#  has_downpayment     :boolean          not null
-#  id                  :integer          not null, primary key
-#  initial_number      :string(60)
-#  introduction        :text
-#  invoice_address_id  :integer
-#  invoiced_at         :datetime
-#  journal_entry_id    :integer
-#  letter_format       :boolean          default(TRUE), not null
-#  lock_version        :integer          default(0), not null
-#  nature_id           :integer
-#  number              :string(60)       not null
-#  origin_id           :integer
-#  payment_at          :datetime
-#  payment_delay       :string(255)      not null
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string(255)
-#  responsible_id      :integer
-#  state               :string(60)       not null
-#  subject             :string(255)
-#  transporter_id      :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  accounted_at               :datetime
+#  address_id                 :integer
+#  affair_id                  :integer
+#  amount                     :decimal(19, 4)   default(0.0), not null
+#  annotation                 :text
+#  client_id                  :integer          not null
+#  conclusion                 :text
+#  confirmed_at               :datetime
+#  created_at                 :datetime         not null
+#  creator_id                 :integer
+#  credit                     :boolean          not null
+#  credited_sale_id           :integer
+#  currency                   :string(3)        not null
+#  delivery_address_id        :integer
+#  description                :text
+#  downpayment_amount         :decimal(19, 4)   default(0.0), not null
+#  expiration_delay           :string(255)
+#  expired_at                 :datetime
+#  function_title             :string(255)
+#  has_downpayment            :boolean          not null
+#  id                         :integer          not null, primary key
+#  initial_number             :string(60)
+#  introduction               :text
+#  invoice_address_id         :integer
+#  invoiced_at                :datetime
+#  journal_entry_id           :integer
+#  letter_format              :boolean          default(TRUE), not null
+#  lock_version               :integer          default(0), not null
+#  nature_id                  :integer
+#  number                     :string(60)       not null
+#  payment_at                 :datetime
+#  payment_delay              :string(255)      not null
+#  prereduction_amount        :decimal(19, 4)   default(0.0), not null
+#  prereduction_pretax_amount :decimal(19, 4)   default(0.0), not null
+#  pretax_amount              :decimal(19, 4)   default(0.0), not null
+#  reduction_percentage       :decimal(19, 4)   default(0.0), not null
+#  reference_number           :string(255)
+#  responsible_id             :integer
+#  state                      :string(60)       not null
+#  subject                    :string(255)
+#  transporter_id             :integer
+#  updated_at                 :datetime         not null
+#  updater_id                 :integer
 #
 
 
@@ -76,10 +79,10 @@ class Sale < Ekylibre::Record::Base
   belongs_to :invoice_address, class_name: "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, class_name: "SaleNature"
-  belongs_to :origin, class_name: "Sale"
+  belongs_to :credited_sale, class_name: "Sale"
   belongs_to :responsible, class_name: "Person"
   belongs_to :transporter, class_name: "Entity"
-  has_many :credits, class_name: "Sale", foreign_key: :origin_id
+  has_many :credits, class_name: "Sale", foreign_key: :credited_sale_id
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :destroy, inverse_of: :sale
   has_many :documents, :as => :owner
   has_many :items, -> { order("position, id") }, class_name: "SaleItem", dependent: :destroy, inverse_of: :sale
@@ -87,12 +90,12 @@ class Sale < Ekylibre::Record::Base
   has_many :subscriptions, class_name: "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
+  validates_numericality_of :amount, :downpayment_amount, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
   validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, allow_nil: true, maximum: 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
-  validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
+  validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, :state
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_at, if: :invoice?
@@ -438,7 +441,7 @@ class Sale < Ekylibre::Record::Base
   # def cancel(items = {}, options = {})
   #   items = items.delete_if{|k,v| v.zero?}
   #   return false if !self.cancelable? or items.size.zero?
-  #   credit = self.class.new(origin: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair)
+  #   credit = self.class.new(credited_sale: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair)
   #   ActiveRecord::Base.transaction do
   #     if saved = credit.save
   #       for item in self.items.where(:id => items.keys)
@@ -471,7 +474,7 @@ class Sale < Ekylibre::Record::Base
   def cancel(items = {}, options = {})
     items = items.delete_if{|k,v| v.zero?}
     return false unless self.cancelable? and items.any?
-    attributes = {origin: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair, items: []}
+    attributes = {credited_sale: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair, items: []}
     for item in self.items.where(id: items.keys)
       attributes[:items] << SaleItem.new(quantity: -items[item.id.to_s].abs, credited_item: item, variant: item.variant, price: item.price, reduction_percentage: item.reduction_percentage, tax: item.tax)
     end

@@ -78,8 +78,8 @@ class Tax < Ekylibre::Record::Base
   # Compute the tax amount
   # If +with_taxes+ is true, it's considered that the given amount
   # is an amount with tax
-  def compute(amount, all_tax_included = false)
-    if self.percentage? and all_tax_included
+  def compute(amount, all_taxes_included = false)
+    if self.percentage? and all_taxes_included
       amount.to_d / (1 + 100/self.amount.to_d)
     elsif self.percentage?
       amount.to_d * self.amount.to_d/100

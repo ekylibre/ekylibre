@@ -13,7 +13,7 @@ spa:
 
     building_division:
 
-    catalog_price:
+    catalog_item:
       currency:
         AED: "Dirham de los Emiratos Árabes Unidos"
         AFN: "Afgani afgano"
@@ -671,8 +671,6 @@ spa:
     production_support:
 
     production_support_marker:
-
-    sale_item:
 
     subscription_nature:
 

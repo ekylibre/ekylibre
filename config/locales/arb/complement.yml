@@ -13,7 +13,7 @@ arb:
 
     building_division:
 
-    catalog_price:
+    catalog_item:
       currency:
         AED: "درهم إماراتي"
         AFN: "أفغاني"
@@ -746,8 +746,6 @@ arb:
     production_support:
 
     production_support_marker:
-
-    sale_item:
 
     subscription_nature:
 

@@ -40,8 +40,8 @@
 
 class Catalog < Ekylibre::Record::Base
   enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
-  has_many :active_prices, -> { where(active: true) }, class_name: "CatalogPrice"
-  has_many :prices, class_name: "CatalogPrice", dependent: :destroy, inverse_of: :catalog
+  # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
+  has_many :items, class_name: "CatalogItem", dependent: :destroy, inverse_of: :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, :usage, allow_nil: true, maximum: 20
@@ -61,10 +61,6 @@ class Catalog < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..19]
-  end
-
-  protect(on: :destroy) do
-    self.prices.any?
   end
 
 end

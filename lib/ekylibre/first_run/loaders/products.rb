@@ -24,7 +24,7 @@ Ekylibre::FirstRun.add_loader :products do |first_run|
                              },
                              :owner_name => row[6].blank? ? nil : row[6].to_s,
                              :notes => row[8].blank? ? nil : row[8].to_s,
-                             :unit_price => row[9].blank? ? nil : row[9].to_d
+                             :unit_pretax_amount => row[9].blank? ? nil : row[9].to_d
                              )
 
           # find or import from variant reference_nameclature the correct ProductNatureVariant
@@ -32,8 +32,8 @@ Ekylibre::FirstRun.add_loader :products do |first_run|
           pmodel = variant.nature.matching_model
 
           # create a price
-          if r.unit_price
-            variant.prices.create!(catalog_id: Catalog.where(usage: :cost).first.id, all_taxes_included: false, amount: r.unit_price, currency: "EUR")
+          if r.unit_pretax_amount and catalog = Catalog.where(usage: :cost).first and variant.catalog_items.where(catalog_id: catalog.id).empty?
+            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: "EUR")
           end
 
           # create the owner if not exist

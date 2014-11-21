@@ -22,25 +22,26 @@
 #
 # == Table: purchase_items
 #
-#  account_id        :integer          not null
-#  amount            :decimal(19, 4)   default(0.0), not null
-#  annotation        :text
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  currency          :string(3)        not null
-#  id                :integer          not null, primary key
-#  indicator_name    :string(120)      not null
-#  label             :text
-#  lock_version      :integer          default(0), not null
-#  position          :integer
-#  pretax_amount     :decimal(19, 4)   default(0.0), not null
-#  purchase_id       :integer          not null
-#  quantity          :decimal(19, 4)   default(1.0), not null
-#  tax_id            :integer          not null
-#  unit_price_amount :decimal(19, 4)   not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  variant_id        :integer          not null
+#  account_id         :integer          not null
+#  all_taxes_included :boolean          not null
+#  amount             :decimal(19, 4)   default(0.0), not null
+#  annotation         :text
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(3)        not null
+#  id                 :integer          not null, primary key
+#  label              :text
+#  lock_version       :integer          default(0), not null
+#  position           :integer
+#  pretax_amount      :decimal(19, 4)   default(0.0), not null
+#  purchase_id        :integer          not null
+#  quantity           :decimal(19, 4)   default(1.0), not null
+#  tax_id             :integer          not null
+#  unit_amount        :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount :decimal(19, 4)   not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer          not null
 #
 
 

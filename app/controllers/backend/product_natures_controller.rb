@@ -27,7 +27,7 @@ class Backend::ProductNaturesController < BackendController
   # management -> product_conditions
   def self.product_natures_conditions(options={})
     code = ""
-    code = search_conditions(:product_natures => [:number, :name, :commercial_name, :description, :commercial_description])+"\n"
+    code = search_conditions(:product_natures => [:number, :name, :description])+"\n"
     code << "if params[:s] == 'active'\n"
     code << "  c[0] += ' AND active = ?'\n"
     code << "  c << true\n"

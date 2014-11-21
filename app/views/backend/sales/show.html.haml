@@ -40,7 +40,7 @@
         - l.attribute :created_at
         - l.attribute :confirmed_at if resource.confirmed_at?
         - l.attribute :invoiced_at if resource.invoiced_at?
-        - l.attribute :origin, url: true if resource.invoice? and resource.origin
+        - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
         - l.attribute :payment_delay, :label => :name
         - l.attribute :nature
         - l.attribute :currency unless resource.currency == Entity.of_company.currency

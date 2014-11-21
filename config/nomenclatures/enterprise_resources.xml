@@ -21,7 +21,6 @@
       <item name="campaigns"/>
       <item name="cashes"/>
       <item name="cash_transfers"/>
-      <item name="catalog_prices"/>
       <item name="catalogs"/>
       <item name="cultivable_zones"/>
       <item name="custom_fields"/>

@@ -22,7 +22,7 @@ class Backend::ProductNatureVariantsController < BackendController
 
   manage_restfully_incorporation
 
-  unroll :name, :unit_name, :number, :commercial_name, :commercial_description
+  unroll :name, :unit_name, :number
 
   list do |t|
     t.column :name, url: true
@@ -32,15 +32,13 @@ class Backend::ProductNatureVariantsController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:prices, model: :catalog_prices, conditions: {variant_id: 'params[:id]'.c}, order: {stopped_at: :desc, started_at: :asc}, line_class: "RECORD.stopped_at ? 'disabled' : ''".c) do |t|
+  list(:catalog_items, conditions: {variant_id: 'params[:id]'.c}) do |t|
+    t.column :name, url: true
     t.column :amount, url: true, currency: true
     t.column :all_taxes_included
-    t.column :started_at
-    t.column :stopped_at
     t.column :catalog, url: true
-    t.action :stop, method: :post, confirm: true, url: {redirect: "backend_product_nature_variant_path(params[:id])".c}
-    t.action :edit, url: {redirect: "backend_product_nature_variant_path(params[:id])".c}
-    t.action :destroy, url: {redirect: "backend_product_nature_variant_path(params[:id])".c}
+    t.action :edit
+    t.action :destroy
   end
 
   list(:products, conditions: {variant_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|
@@ -52,15 +50,54 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :population
   end
 
-  def last_purchase_item
+  def detail
     return unless @product_nature_variant = find_and_check
-    begin
-      last_purchase_item = @product_nature_variant.last_purchase_item_for(params[:supplier_id])
-      render json: last_purchase_item
-    rescue
-      notify_error :record_not_found
-      redirect_to_back
+    infos = {
+      name: @product_nature_variant.name,
+      number: @product_nature_variant.number,
+      unit: {
+        name: @product_nature_variant.unit_name
+      }
+    }
+    if @product_nature_variant.picture.file?
+      infos[:picture] = @product_nature_variant.picture.url(:thumb)
     end
+    if pictogram = @product_nature_variant.category.pictogram
+      infos[:pictogram] = pictogram
+    end
+    catalog = nil
+    if params[:catalog_id]
+      catalog = Catalog.find(params[:catalog_id])
+    elsif params[:sale_nature_id]
+      catalog = SaleNature.find(params[:sale_nature_id]).catalog
+    end
+    if catalog and item = catalog.items.find_by(variant_id: @product_nature_variant.id)
+      infos[:all_taxes_included] = item.all_taxes_included
+      unless infos[:tax_id] = item.reference_tax
+        if items = SaleItem.where(variant_id: @product_nature_variant.id) and items.any?
+          infos[:tax_id] = items.order(id: :desc).first.tax_id
+        else
+          infos[:tax_id] = Tax.first.id
+        end
+      end
+      if tax = Tax.find_by(id: infos[:tax_id])
+        if item.all_taxes_included
+          infos[:unit][:pretax_amount] = tax.pretax_amount_of(item.amount)
+          infos[:unit][:amount] = item.amount
+        else
+          infos[:unit][:pretax_amount] = item.amount
+          infos[:unit][:amount] = tax.amount_of(item.amount)
+        end
+      end
+    elsif params[:mode] == "last_purchase_item"
+      if items = PurchaseItem.where(variant_id: @product_nature_variant.id) and items.any?
+        item = items.order(id: :desc).first
+        infos[:tax_id] = item.tax_id
+        infos[:unit][:pretax_amount] = item.pretax_amount
+        infos[:unit][:amount] = item.amount
+      end
+    end
+    render json: infos
   end
 
 end

@@ -5,6 +5,7 @@ require 'active_support/core_ext'
 require 'optparse'
 require 'pathname'
 require 'fileutils'
+require 'yaml'
 
 STDOUT.sync = true
 

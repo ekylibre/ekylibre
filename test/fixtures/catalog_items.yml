@@ -1,0 +1,145 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre ERP - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: catalog_items
+#
+#  all_taxes_included     :boolean          not null
+#  amount                 :decimal(19, 4)   not null
+#  catalog_id             :integer          not null
+#  commercial_description :text
+#  commercial_name        :string(255)
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  currency               :string(3)        not null
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)      not null
+#  reference_tax_id       :integer
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer          not null
+#
+#
+# == Fixture: catalog_items
+#
+# catalog_items_001:
+#   all_taxes_included: true
+#   amount: 0
+#   catalog: catalogs_001
+#   creator: users_001
+#   currency: "Lorem ipsum"
+#   name: "Lorem ipsum"
+#   updater: users_001
+#   variant: variants_001
+#
+---
+catalog_items_001:
+  all_taxes_included: false
+  amount: 25.3
+  catalog_id: 1
+  created_at: 2014-11-05 09:42:34.140270000 Z
+  creator_id: 1
+  currency: EUR
+  id: 7
+  lock_version: 0
+  name: Acetal
+  updated_at: 2014-11-05 09:42:34.140270000 Z
+  updater_id: 1
+  variant_id: 21
+catalog_items_002:
+  all_taxes_included: false
+  amount: 70.0
+  catalog_id: 1
+  created_at: 2014-11-05 09:43:01.454470000 Z
+  creator_id: 1
+  currency: EUR
+  id: 9
+  lock_version: 0
+  name: Botte de paille de blé ‒ balle ronde
+  updated_at: 2014-11-05 09:43:01.454470000 Z
+  updater_id: 1
+  variant_id: 9
+catalog_items_003:
+  all_taxes_included: false
+  amount: 845.0
+  catalog_id: 1
+  created_at: 2014-11-05 09:44:02.471908000 Z
+  creator_id: 1
+  currency: EUR
+  id: 11
+  lock_version: 0
+  name: Cow
+  updated_at: 2014-11-05 09:44:02.471908000 Z
+  updater_id: 1
+  variant_id: 5
+catalog_items_004:
+  all_taxes_included: false
+  amount: 1.56
+  catalog_id: 1
+  created_at: 2014-11-05 09:44:38.200592000 Z
+  creator_id: 1
+  currency: EUR
+  id: 13
+  lock_version: 0
+  name: Lait de vache
+  updated_at: 2014-11-05 09:44:38.200592000 Z
+  updater_id: 1
+  variant_id: 18
+catalog_items_005:
+  all_taxes_included: false
+  amount: 215.0
+  catalog_id: 1
+  created_at: 2014-11-05 09:45:47.114736000 Z
+  creator_id: 1
+  currency: EUR
+  id: 15
+  lock_version: 0
+  name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
+  updated_at: 2014-11-05 09:45:47.114736000 Z
+  updater_id: 1
+  variant_id: 11
+catalog_items_006:
+  all_taxes_included: false
+  amount: 198.0
+  catalog_id: 1
+  created_at: 2014-11-05 09:46:14.685730000 Z
+  creator_id: 1
+  currency: EUR
+  id: 17
+  lock_version: 0
+  name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
+  updated_at: 2014-11-05 09:46:14.685730000 Z
+  updater_id: 1
+  variant_id: 10
+catalog_items_007:
+  all_taxes_included: false
+  amount: 180.0
+  catalog_id: 1
+  created_at: 2014-11-05 09:46:51.845876000 Z
+  creator_id: 1
+  currency: EUR
+  id: 19
+  lock_version: 0
+  name: Graine de blé
+  updated_at: 2014-11-05 09:46:51.845876000 Z
+  updater_id: 1
+  variant_id: 19

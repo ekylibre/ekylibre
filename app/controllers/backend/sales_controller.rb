@@ -73,7 +73,7 @@ class Backend::SalesController < BackendController
     end
   end
 
-  list(:credits, model: :sales, conditions: {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
+  list(:credits, model: :sales, conditions: {:credited_sale_id => 'params[:id]'.c }, :children => :items) do |t|
     t.column :number, url: true, :children => :designation
     t.column :client, children: false
     t.column :created_at, children: false
@@ -125,7 +125,8 @@ class Backend::SalesController < BackendController
     # t.column :serial_number, through: :variant, url: true
     t.column :quantity
     t.column :unit_name
-    t.column :unit_price_amount
+    t.column :unit_pretax_amount, currency: true
+    t.column :unit_amount, currency: true
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
     # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
@@ -142,7 +143,7 @@ class Backend::SalesController < BackendController
                                      :credits => {},
                                      :affair => {:methods => [:balance], :include => {}},
                                      :invoice_address => {:methods => [:mail_coordinate]},
-                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant, :price]}
+                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant]}
                                      }
                                      ) do |format|
       format.html do
@@ -190,7 +191,7 @@ class Backend::SalesController < BackendController
     redirect_to_back
   end
 
-  list(:creditable_items, model: :sale_items, conditions: ["sale_id=? AND reduced_item_id IS NULL", 'params[:id]'.c]) do |t|
+  list(:creditable_items, model: :sale_items, conditions: {sale_id: 'params[:id]'.c}) do |t|
     t.column :label
     t.column :annotation
     t.column :variant

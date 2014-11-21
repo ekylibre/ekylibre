@@ -21,10 +21,10 @@
       %thead
         %tr
           %th= SaleItem.human_attribute_name(:variant)
+          %th= SaleItem.human_attribute_name(:unit_pretax_amount)
+          %th= SaleItem.human_attribute_name(:tax)
+          %th= SaleItem.human_attribute_name(:unit_amount)
           %th= SaleItem.human_attribute_name(:quantity)
-          -#%th= SaleItem.human_attribute_name(:indicator)
-          %th= SaleItem.human_attribute_name(:price) # Custom price
-          %th= SaleItem.human_attribute_name(:tax) # Custom price
           %th= SaleItem.human_attribute_name(:pretax_amount)
           %th= SaleItem.human_attribute_name(:amount)
           %th= SaleItem.human_attribute_name(:currency)
@@ -32,11 +32,12 @@
       %tbody#items
         = f.simple_fields_for :items, resource.items do |item|
           = render 'item_fields', f: item
+      - precision = Nomen::Currencies[resource.currency].precision
       %tfoot
         %tr.total
           %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
-          %th{colspan: 3}= :total.tl
-          %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: "#{Nomen::Currencies[resource.currency].precision}"}}= resource.pretax_amount
-          %td#wta.decimal{data: {use: ".wta", calculate: "sum", calculate_round: "#{Nomen::Currencies[resource.currency].precision}"}}= resource.amount
+          %th{colspan: 4}= :total.tl
+          %td#pta.decimal{data: {use: ".pta", calculate: "sum", calculate_round: precision}}= resource.pretax_amount
+          %td#wta.decimal{data: {use: ".wta", calculate: "sum", calculate_round: precision}}= resource.amount
           %td= resource.currency
           %th

@@ -42,25 +42,15 @@ module Ekylibre::FirstRun
     return true
   end
 
-  def self.find_or_create_price(catalog, variant, amount, d, options = {})
-    options[:indicator_name] ||= :population
+  def self.find_or_create_catalog_item(catalog, variant, amount, d, options = {})
     options[:currency] ||= Preference[:currency]
     options[:amount]  = amount
     options[:variant] = variant
     options[:catalog] = catalog
-    unless price = catalog.prices.where(variant_id: variant.id, indicator_name: options[:indicator_name], amount: amount).at(d).first
-      Timecop.travel(d) do
-        if sibling = catalog.prices.where(variant_id: variant.id, indicator_name: options[:indicator_name]).where("started_at < ?", d).reorder(started_at: :desc).first
-          options[:thread] = sibling.thread
-          sibling.update_column(:stopped_at, d)
-        elsif sibling = catalog.prices.where(variant_id: variant.id, indicator_name: options[:indicator_name]).where("started_at > ?", d).reorder(started_at: :asc).first
-          options[:thread] = sibling.thread
-          options[:stopped_at] = sibling.started_at
-        end
-        price = catalog.prices.create!(options)
-      end
+    unless item = catalog.items.where(variant_id: variant.id).first
+      item = catalog.items.create!(options)
     end
-    return price
+    return item
   end
 
 end
@@ -132,8 +122,8 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
         # Sale items
         (rand(5) + 1).times do
-          price = Ekylibre::FirstRun.find_or_create_price(catalog, wheat, rand(60) + 180, d, reference_tax: wheat_taxes.sample)
-          sale.items.create!(quantity: rand(12.5) + 0.5, tax: wheat_taxes.sample, price: price)
+          catalog_item = Ekylibre::FirstRun.find_or_create_catalog_item(catalog, wheat, rand(60) + 180, d, reference_tax: wheat_taxes.sample)
+          sale.items.create!(quantity: rand(12.5) + 0.5, tax: wheat_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
@@ -167,7 +157,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
       cow = ProductNatureVariant.find_by(:reference_name => 'calf')
       cow ||= ProductNatureVariant.import_from_nomenclature(:calf)
       catalog = Catalog.first
-      cow_price_template_taxes = Tax.all
+      cow_catalog_item_template_taxes = Tax.all
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
@@ -178,8 +168,8 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
         # Sale items
         (rand(5) + 1).times do
-          price = Ekylibre::FirstRun.find_or_create_price(catalog, cow, rand(40) + 140, d, reference_tax: cow_price_template_taxes.sample)
-          sale.items.create!(quantity: rand(4) + 1, price: price, tax: cow_price_template_taxes.sample)
+          catalog_item = Ekylibre::FirstRun.find_or_create_catalog_item(catalog, cow, rand(40) + 140, d, reference_tax: cow_catalog_item_template_taxes.sample)
+          sale.items.create!(quantity: rand(4) + 1, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: cow_catalog_item_template_taxes.sample)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
@@ -211,7 +201,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
       # Create milk product
       milk = ProductNatureVariant.import_from_nomenclature(:cow_milk)
       catalog = Catalog.find_by(:usage => 'sale')
-      milk_price_template_tax = Tax.find_by(:reference_name => 'fr_vat_reduced')
+      milk_catalog_item_template_tax = Tax.find_by(:reference_name => 'fr_vat_reduced')
 
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
@@ -220,8 +210,8 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
         d = Time.now - i.months
         sale = Sale.create!(created_at: d, client: cooperative, nature: sale_nature)
         # Sale items
-        price = Ekylibre::FirstRun.find_or_create_price(catalog, milk, rand(0.04)+0.300, d, reference_tax: milk_price_template_tax)
-        sale.items.create!(quantity: rand(5000) + 30000, price: price, tax: milk_price_template_tax)
+        catalog_item = Ekylibre::FirstRun.find_or_create_catalog_item(catalog, milk, rand(0.04)+0.300, d, reference_tax: milk_catalog_item_template_tax)
+        sale.items.create!(quantity: rand(5000) + 30000, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant, tax: milk_catalog_item_template_tax)
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
       end
@@ -267,8 +257,8 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
         # Sale items
         (rand(5) + 1).times do
-          price = Ekylibre::FirstRun.find_or_create_price(catalog, wine, rand(2.8) + 8, d, reference_tax: wine_taxes.sample)
-          sale.items.create!(quantity: rand(120) + 60, tax: wine_taxes.sample, price: price)
+          catalog_item = Ekylibre::FirstRun.find_or_create_catalog_item(catalog, wine, rand(2.8) + 8, d, reference_tax: wine_taxes.sample)
+          sale.items.create!(quantity: rand(120) + 60, tax: wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point
@@ -314,21 +304,18 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
         sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
         # Sale items
         (rand(5) + 1).times do
-          # # find or create a price
-          # # @FIXME = waiting for a working method in ProductPrice.price
-          # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
-          price = catalog.prices.find_by(:variant_id => wine.id, :amount => 850.00)
-          price ||= catalog.prices.create!(:currency => Preference[:currency],
-                                           :started_at => d.to_time,
-                                           :amount => rand(130) + 850,
-                                           :indicator_name => :population,
-                                           :reference_tax => wine_taxes.sample,
-                                           :variant_id => wine.id
-                                           )
+          # # find or create a catalog_item
+          # # @FIXME = waiting for a working method in ProductCatalog_Item.catalog_item
+          # catalog_item = ble.catalog_item(:amount => rand(150)+25, :tax => wheat_tax)
+          catalog_item = catalog.items.find_by(variant_id: wine.id)
+          catalog_item ||= catalog.items.create!(:currency => Preference[:currency],
+                                          :amount => rand(130) + 850,
+                                          :reference_tax => wine_taxes.sample,
+                                          :variant_id => wine.id
+                                         )
 
           sale.items.create!(:quantity => rand(25) + 10,
-                             :tax => wine_taxes.sample,
-                             :price => price)
+                             :tax => wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)
         end
         Ekylibre::FirstRun.generate_sale_cycle(sale, d)
         w.check_point

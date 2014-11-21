@@ -22,40 +22,41 @@
 #
 # == Table: purchase_items
 #
-#  account_id        :integer          not null
-#  amount            :decimal(19, 4)   default(0.0), not null
-#  annotation        :text
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  currency          :string(3)        not null
-#  id                :integer          not null, primary key
-#  indicator_name    :string(120)      not null
-#  label             :text
-#  lock_version      :integer          default(0), not null
-#  position          :integer
-#  pretax_amount     :decimal(19, 4)   default(0.0), not null
-#  purchase_id       :integer          not null
-#  quantity          :decimal(19, 4)   default(1.0), not null
-#  tax_id            :integer          not null
-#  unit_price_amount :decimal(19, 4)   not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  variant_id        :integer          not null
+#  account_id         :integer          not null
+#  all_taxes_included :boolean          not null
+#  amount             :decimal(19, 4)   default(0.0), not null
+#  annotation         :text
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(3)        not null
+#  id                 :integer          not null, primary key
+#  label              :text
+#  lock_version       :integer          default(0), not null
+#  position           :integer
+#  pretax_amount      :decimal(19, 4)   default(0.0), not null
+#  purchase_id        :integer          not null
+#  quantity           :decimal(19, 4)   default(1.0), not null
+#  tax_id             :integer          not null
+#  unit_amount        :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount :decimal(19, 4)   not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer          not null
 #
 
 
 class PurchaseItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
-  # belongs_to :price, class_name: "CatalogPrice"
+  # belongs_to :price, class_name: "CatalogItem"
   belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, allow_nil: true
+  validates_numericality_of :amount, :pretax_amount, :quantity, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :indicator_name, allow_nil: true, maximum: 120
-  validates_presence_of :account, :amount, :currency, :indicator_name, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
+  validates_inclusion_of :all_taxes_included, in: [true, false]
+  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :tax, :unit_amount, :unit_pretax_amount, :variant
   #]VALIDATORS]
   validates_presence_of :account, :tax
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
@@ -81,17 +82,11 @@ class PurchaseItem < Ekylibre::Record::Base
       self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)
       self.label     ||= self.variant.commercial_name
       self.currency  ||= Preference.get(:currency).value
-      self.indicator_name ||= :population.to_s
     end
-    if self.quantity and self.unit_price_amount
-      amount = self.quantity * self.unit_price_amount
-      if self.tax
-        tax_amount = self.tax.compute(amount, false)
-        self.pretax_amount = amount
-        self.amount = (self.pretax_amount + tax_amount).round(2)
-      else
-        self.amount = self.pretax_amount = amount
-      end
+    if self.quantity and self.unit_pretax_amount and self.tax
+      self.pretax_amount = self.quantity * self.unit_pretax_amount
+      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount)
+      self.amount = self.quantity * self.unit_amount
     end
   end
 

@@ -129,9 +129,8 @@ class IncomingDelivery < Ekylibre::Record::Base
         for item in delivery.items
           next unless item.population > 0
           item.purchase_item = purchase.items.create!(variant: item.variant,
-                                                      unit_price_amount: (item.variant.prices.any? ? item.variant.prices.first.amount : 0.0),
+                                                      unit_pretax_amount: (item.variant.catalog_items.any? ? item.variant.catalog_items.order(id: :desc).first.amount : 0.0),
                                                       tax: item.variant.category.purchase_taxes.first || Tax.first,
-                                                      indicator_name: "population",
                                                       quantity: item.population)
           item.save!
         end

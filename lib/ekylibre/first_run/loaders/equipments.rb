@@ -24,7 +24,7 @@ Ekylibre::FirstRun.add_loader :equipments do |first_run|
                                h
                              },
                              :notes => row[9].blank? ? nil : row[9].to_s,
-                             :unit_price => row[10].blank? ? nil : row[10].to_d,
+                             :unit_pretax_amount => row[10].blank? ? nil : row[10].to_d,
                              :price_indicator => row[11].blank? ? nil : row[11].to_sym
                              )
 
@@ -33,8 +33,8 @@ Ekylibre::FirstRun.add_loader :equipments do |first_run|
           pmodel = variant.matching_model
 
           # create a price
-          if r.unit_price
-            variant.prices.create!(catalog: Catalog.where(usage: :cost).first, all_taxes_included: false, amount: r.unit_price, currency: "EUR", indicator_name: r.price_indicator.to_s)
+          if r.unit_pretax_amount and catalog = Catalog.where(usage: :cost).first and variant.catalog_items.where(catalog_id: catalog.id).empty?
+            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: "EUR") # , indicator_name: r.price_indicator.to_s
           end
 
           # create the owner if not exist
@@ -120,7 +120,7 @@ Ekylibre::FirstRun.add_loader :equipments do |first_run|
                              place_code: row[5],
                              born_at: (row[6].blank? ? Date.civil(1980, 2, 2) : Date.new(*(row[6].split('-').map(&:to_i)))).to_datetime,
                              notes: row[7].to_s,
-                             unit_price: row[8].blank? ? nil : row[8].to_d,
+                             unit_pretax_amount: row[8].blank? ? nil : row[8].to_d,
                              price_indicator: row[9].blank? ? nil : row[9].to_sym,
                              email: row[10]
                              )
@@ -132,8 +132,8 @@ Ekylibre::FirstRun.add_loader :equipments do |first_run|
           pmodel = variant.matching_model
 
           # create a price
-          if r.unit_price
-            variant.prices.create!(catalog: Catalog.where(usage: :cost).first, all_taxes_included: false, amount: r.unit_price, currency: "EUR", indicator_name: r.price_indicator.to_s)
+          if r.unit_pretax_amount and catalog = Catalog.where(usage: :cost).first and variant.catalog_items.where(catalog_id: catalog.id).empty?
+            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: "EUR") # , indicator_name: r.price_indicator.to_s
           end
 
           # create the owner if not exist

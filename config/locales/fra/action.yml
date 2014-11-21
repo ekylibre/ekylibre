@@ -94,7 +94,7 @@ fra:
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
-    backend/catalog_prices:
+    backend/catalog_items:
       edit: "Modifier un prix"
       index: "Prix"
       new: "Nouveau prix"

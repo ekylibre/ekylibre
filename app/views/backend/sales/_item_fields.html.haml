@@ -1,10 +1,13 @@
 - item ||= f.object
 %tr.nested-fields
-  %td= f.referenced_association(:price, wrapper: :nested, source: {scope: :saleables}, input_html: {data:{priced_item: {url: backend_catalog_price_url("PRICE_ID"), amount: ".amount", tax: ".tax", scope: ".nested-fields"}}})
+  %td
+    = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_url("RECORD_ID", sale_nature_id: f.object.sale.nature_id)}}})
+    = f.input :all_taxes_included, as: :hidden, input_html: {class: "all-taxes-included"}
+  %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {class: "unit-pretax-amount item-pta"})
+  %td.decimal= f.select(:tax_id, Tax.order(:name).collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "tax")
+  %td= f.input(:unit_amount, wrapper: :nested, input_html: {class: "unit-amount item-wta"})
   %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
-  %td= f.input(:unit_price_amount, wrapper: :nested, input_html: {class: "amount item-pta item-wta"})
-  %td.decimal= f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "item-wta tax")
-  %td.decimal.pta{data: {use: ".item-pta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.pretax_amount
-  %td.decimal.wta{data: {use: ".item-wta", use_closest: "tr", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.amount
+  %td.decimal.pta{data: {use: ".item-pta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.pretax_amount
+  %td.decimal.wta{data: {use: ".item-wta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.amount
   %td.currency= f.object.sale_currency
   %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

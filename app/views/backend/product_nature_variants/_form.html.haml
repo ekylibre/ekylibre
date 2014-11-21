@@ -1,13 +1,9 @@
 = field_set do
   = f.referenced_association :nature
   = f.input :name
-  = f.input :commercial_name
   = f.input :active
-  = f.custom_fields
-
-= field_set(:details) do
   = f.picture
-  = f.input :commercial_description
+  = f.custom_fields
 
 = field_set(:indicators) do
   = f.nested_association(:readings, new: false)

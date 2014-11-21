@@ -22,53 +22,55 @@
 #
 # == Table: purchase_items
 #
-#  account_id        :integer          not null
-#  amount            :decimal(19, 4)   default(0.0), not null
-#  annotation        :text
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  currency          :string(3)        not null
-#  id                :integer          not null, primary key
-#  indicator_name    :string(120)      not null
-#  label             :text
-#  lock_version      :integer          default(0), not null
-#  position          :integer
-#  pretax_amount     :decimal(19, 4)   default(0.0), not null
-#  purchase_id       :integer          not null
-#  quantity          :decimal(19, 4)   default(1.0), not null
-#  tax_id            :integer          not null
-#  unit_price_amount :decimal(19, 4)   not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  variant_id        :integer          not null
+#  account_id         :integer          not null
+#  all_taxes_included :boolean          not null
+#  amount             :decimal(19, 4)   default(0.0), not null
+#  annotation         :text
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(3)        not null
+#  id                 :integer          not null, primary key
+#  label              :text
+#  lock_version       :integer          default(0), not null
+#  position           :integer
+#  pretax_amount      :decimal(19, 4)   default(0.0), not null
+#  purchase_id        :integer          not null
+#  quantity           :decimal(19, 4)   default(1.0), not null
+#  tax_id             :integer          not null
+#  unit_amount        :decimal(19, 4)   default(0.0), not null
+#  unit_pretax_amount :decimal(19, 4)   not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer          not null
 #
 #
 # == Fixture: purchase_items
 #
 # purchase_items_001:
 #   account: accounts_001
+#   all_taxes_included: true
 #   amount: 0
 #   creator: users_001
 #   currency: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
 #   pretax_amount: 0
 #   purchase: purchases_001
 #   quantity: 0
 #   tax: taxes_001
-#   unit_price_amount: 0
+#   unit_amount: 0
+#   unit_pretax_amount: 0
 #   updater: users_001
 #   variant: variants_001
 #
 ---
 purchase_items_001:
   account_id: 140
+  all_taxes_included: false
   amount: 126.0
   annotation: ''
   created_at: 2014-11-05 10:44:42.253242000 Z
   creator_id: 1
   currency: EUR
   id: 8
-  indicator_name: population
   label: Adexar 5 l
   lock_version: 1
   position: 1
@@ -76,18 +78,19 @@ purchase_items_001:
   purchase_id: 6
   quantity: 3.0
   tax_id: 3
-  unit_price_amount: 35.0
+  unit_amount: 42.0
+  unit_pretax_amount: 35.0
   updated_at: 2014-11-14 20:35:09.552121000 Z
   updater_id: 1
   variant_id: 8
 purchase_items_002:
   account_id: 47
+  all_taxes_included: false
   amount: 1850.0
   created_at: 2014-11-05 10:46:06.137764000 Z
   creator_id: 1
   currency: USD
   id: 9
-  indicator_name: population
   label: Broyeur
   lock_version: 0
   position: 1
@@ -95,19 +98,20 @@ purchase_items_002:
   purchase_id: 7
   quantity: 1.0
   tax_id: 2
-  unit_price_amount: 1850.0
+  unit_amount: 1850.0
+  unit_pretax_amount: 1850.0
   updated_at: 2014-11-05 10:46:06.137764000 Z
   updater_id: 1
   variant_id: 25
 purchase_items_003:
   account_id: 16
+  all_taxes_included: false
   amount: 50.16
   annotation: ''
   created_at: 2014-11-05 13:40:18.865125000 Z
   creator_id: 1
   currency: EUR
   id: 10
-  indicator_name: population
   label: Riflexine
   lock_version: 2
   position: 2
@@ -115,18 +119,19 @@ purchase_items_003:
   purchase_id: 6
   quantity: 11.0
   tax_id: 3
-  unit_price_amount: 3.8
+  unit_amount: 4.56
+  unit_pretax_amount: 3.8
   updated_at: 2014-11-14 20:49:41.747668000 Z
   updater_id: 1
   variant_id: 22
 purchase_items_004:
   account_id: 54
+  all_taxes_included: false
   amount: 1848.0
   created_at: 2014-11-07 15:58:10.829987000 Z
   creator_id: 1
   currency: EUR
   id: 11
-  indicator_name: population
   label: Ammonitre 33,5%  Big Bag
   lock_version: 0
   position: 1
@@ -134,18 +139,19 @@ purchase_items_004:
   purchase_id: 8
   quantity: 10.0
   tax_id: 3
-  unit_price_amount: 154.0
+  unit_amount: 184.8
+  unit_pretax_amount: 154.0
   updated_at: 2014-11-07 15:58:10.829987000 Z
   updater_id: 1
   variant_id: 39
 purchase_items_005:
   account_id: 154
+  all_taxes_included: false
   amount: 20520.0
   created_at: 2014-11-07 16:52:05.379280000 Z
   creator_id: 1
   currency: EUR
   id: 12
-  indicator_name: population
   label: Plant de vigne standard (So4)
   lock_version: 1
   position: 1
@@ -153,7 +159,8 @@ purchase_items_005:
   purchase_id: 11
   quantity: 5000.0
   tax_id: 3
-  unit_price_amount: 3.42
+  unit_amount: 4.104
+  unit_pretax_amount: 3.42
   updated_at: 2014-11-07 16:52:45.891094000 Z
   updater_id: 1
   variant_id: 45

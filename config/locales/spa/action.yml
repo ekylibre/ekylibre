@@ -105,11 +105,12 @@ spa:
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
       show: "%{nature}\_: %{name}"
-    backend/catalog_prices:
+    backend/catalog_items:
       # edit: "Edit catalog price: %{name}"
       # index: "Catalog prices"
       # new: "New catalog price"
       # show: "Catalog price: %{name}"
+    backend/catalog_prices: #?
     backend/catalogs:
       # edit: "Edit catalog: %{name}"
       # index: "Catalogs"

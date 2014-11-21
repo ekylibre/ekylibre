@@ -215,16 +215,15 @@ class OutgoingDelivery < Ekylibre::Record::Base
             item.category.saleable = true
           end
           next unless item.population > 0
-          unless price = item.variant.prices.first
+          unless catalog_item = item.variant.catalog_items.first
             unless catalog = Catalog.of_usage(:sale).first
               catalog = Catalog.create!(name: Catalog.enumerized_attributes[:usage].human_value_name(:sales), usage: :sales)
             end
-            price = catalog.prices.create!(amount: 0, variant: item.variant)
+            catalog_item = catalog.items.create!(amount: 0, variant: item.variant)
           end
           item.sale_item = sale.items.create!(variant: item.variant,
-                                              price: price,
+                                              unit_pretax_amount: catalog_item.amount,
                                               tax: item.variant.category.sale_taxes.first || Tax.first,
-                                              indicator_name: "population",
                                               quantity: item.population)
           item.save!
         end

@@ -88,12 +88,11 @@ eng:
       index: "Cashes"
       new: "New cash"
       show: "%{nature}: %{name}"
-    backend/catalog_prices:
+    backend/catalog_items:
       edit: "Edit catalog price: %{name}"
       index: "Catalog prices"
       new: "New catalog price"
       show: "Catalog price: %{name}"
-      # stop: "Stop catalog price: %{name}"
     backend/catalogs:
       edit: "Edit catalog: %{name}"
       index: "Catalogs"
@@ -478,10 +477,10 @@ eng:
       # edit: "Edit product nature variant reading: %{name}"
       # new: "New product nature variant reading"
     backend/product_nature_variants:
+      # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
       # incorporate: "Incorporate product nature variant: %{name}"
       index: "Product variant"
-      # last_purchase_item: "Last purchase item product nature variant: %{name}"
       new: "New product variant"
       pick: "Pick product nature variant"
       show: "Product variant: %{name}"
@@ -734,6 +733,7 @@ eng:
     casting: "Casting"
     casts: "Casts"
     catalog: "Catalog" #?
+    # catalog_items: "Catalog items"
     category: "Category"
     category_name: "Category" #?
     centralize: "Centralize account"
@@ -1108,9 +1108,9 @@ eng:
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
     previous_bank_statement: "Previous account statement N°%{number}"
-    price: "Price"
-    prices: "Prices"
-    prices_evolutions: "Prices evolutions"
+    price: "Price" #?
+    prices: "Prices" #?
+    prices_evolutions: "Prices evolutions" #?!
     print: "Print"
     print_at: "Print at" #?
     procedures: "Procedures"
@@ -1240,7 +1240,7 @@ eng:
     supports: "Supports"
     target: "Target" #?
     taxations: "Taxations"
-    taxes: "Taxes"
+    taxes: "Taxes" #?
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
@@ -1489,7 +1489,7 @@ eng:
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
-      record_not_found: "Record not found"
+      record_not_found: "Record not found" #?
       select_entry_items_to_mark_together: "Select entry items to mark together"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
@@ -1534,6 +1534,7 @@ eng:
       decrement: "Decrement"
       destroy: "Destroy"
       detach: "Detach"
+      # detail: "Detail"
       down: "Down"
       # draft: "Draft"
       duplicate: "Duplicate"
@@ -1548,7 +1549,6 @@ eng:
       increment: "Increment"
       index: "Index"
       invoice: "Invoice"
-      # last_purchase_item: "Last purchase item"
       list: "List"
       load: "Load"
       lock: "Lock"
@@ -1572,7 +1572,7 @@ eng:
       ship: "Ship"
       show: "Show"
       sort: "Sort"
-      stop: "Stop"
+      stop: "Stop" #?
       toggle: "Toggle"
       unlock: "Unlock"
       unmark: "Unmark"
@@ -1586,7 +1586,7 @@ eng:
     backend/analytic_distributions: "%{id}"
     backend/animals: "%{name} #%{work_number}"
     backend/campaigns: "%{name}"
-    backend/catalog_prices: "%{name}"
+    backend/catalog_prices: "%{name}" #?
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number} %{mode_name} %{payer_full_name} %{amount} %{currency}"

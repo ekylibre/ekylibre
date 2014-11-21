@@ -396,6 +396,22 @@
   }
 }
 
+@mixin respond-to-smaller-than($screen-size) {
+  @if $screen-size == small {
+    @media screen and (max-width: $small-screen - 1px) { @content; }
+  }
+  @else if $screen-size == medium {
+    @media screen and (max-width: $medium-screen - 1px) { @content; }
+  }
+  @else if $screen-size == normal {
+    @media screen and (max-width: $large-screen - 1px) { @content; }
+  }
+  @else {
+    @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
+    @content;
+  }
+}
+
 @mixin description-list {
   padding: round($default-gap * 0.3);
   & > li {

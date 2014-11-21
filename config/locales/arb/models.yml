@@ -792,7 +792,7 @@ arb:
       cash: "الخزينة"
       # cash_transfer: "Cash transfer"
       catalog: "فئة الفرد"
-      # catalog_price: "Catalog price"
+      # catalog_item: "Catalog price"
       company: "الشركة" #?
       contact: "الاتصالات" #?
       # crumb: "Crumb"
@@ -982,7 +982,6 @@ arb:
     # achieved_at: "Achieved at"
     acquisition_amount: "قيمة الاقتناء" #?
     active: "فعال"
-    # active_prices: "Active prices"
     # activity: "Activity"
     activity_code: "APE/NAF رمز"
     # actor: "Actor"
@@ -1071,6 +1070,7 @@ arb:
     # casts: "Casts"
     # catalog: "Catalog"
     catalog_description: "مواصفات للدليل" #?
+    # catalog_items: "Catalog items"
     catalog_name: "اسم للدليل" #?
     category: "الفئة"
     category_id: "الفئة" #?
@@ -1158,6 +1158,7 @@ arb:
     credit_items: "اساليب الائتمانات" #?
     # credited_item: "Credited item"
     credited_quantity: "كمية الائتمان "
+    # credited_sale: "Credited sale"
     credits: "الائتمانات"
     critic_quantity_min: "الكمية المنتفدة كحد ادنى" #?
     # crumbs: "Crumbs"
@@ -1547,6 +1548,7 @@ arb:
     # maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     # maximal_length: "Maximal length"
     # maximal_value: "Maximal value"
+    # maximum_nitrogen_input: "Maximum nitrogen input"
     # meadow_humus_mineralization: "Meadow humus mineralization"
     # measure_value: "Measure value"
     # measure_value_unit: "Measure value unit"
@@ -1688,6 +1690,8 @@ arb:
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
     preferences: "الاعدادات"
+    # prereduction_amount: "Prereduction amount"
+    # prereduction_pretax_amount: "Prereduction pretax amount"
     # prescription: "Prescription"
     # prescriptor: "Prescriptor"
     # pretax_amount: "Pre-tax amount"
@@ -1794,16 +1798,17 @@ arb:
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
     record_value_type: "نوع التسجيل"
-    # reduced_item: "Reduced item"
+    # reduced_unit_amount: "Reduced unit amount"
+    # reduced_unit_pretax_amount: "Reduced unit pretax amount"
     reductible: "ناقص"
-    reduction: "طريقة الخصم"
+    reduction: "طريقة الخصم" #?
     reduction_origin: "طرق قابلة للخصم" #?
     reduction_origin_id: "الطررق القابلة للخصم" #?
     reduction_percent: "(%)معدل الخصم المسموح" #?
     # reduction_percentage: "Reduction percentage"
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
-    reductions: "طرق الخصومات"
+    reductions: "طرق الخصومات" #?
     # reference_name: "Reference name"
     # reference_number: "Reference number"
     # reference_tax: "Reference tax"
@@ -1844,6 +1849,7 @@ arb:
     # sale_item: "Sale item"
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
+    # sale_nature: "Sale nature"
     sale_natures: "انواع البيع" #?
     # sale_taxations: "Sale taxations"
     # sale_taxes: "Sale taxes"
@@ -1989,9 +1995,10 @@ arb:
     # unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
+    # unit_amount: "Unit amount"
     unit_id: "وحدة" #?
     # unit_name: "Unit name"
-    # unit_price_amount: "Unit price amount"
+    # unit_pretax_amount: "Unit pretax amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     # unlock_token: "Unlock token"
@@ -2070,7 +2077,7 @@ arb:
         # name: "Purchase prices catalog"
       sale:
         # name: "Sales prices catalog"
-    catalog_price:
+    catalog_item:
       name: "%{product} / %{amount} %{currency}"
       no_range: "ليس هناك من فترة استراحة" #?
       range: "من %{min} الى %{max}" #?

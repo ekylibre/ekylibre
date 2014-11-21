@@ -13,7 +13,7 @@ jpn:
 
     building_division:
 
-    catalog_price:
+    catalog_item:
       currency:
         AED: "UAE ディルハム"
         AFN: "アフガニ"
@@ -662,8 +662,6 @@ jpn:
     production_support:
 
     production_support_marker:
-
-    sale_item:
 
     subscription_nature:
 

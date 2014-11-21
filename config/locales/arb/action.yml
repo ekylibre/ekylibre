@@ -106,11 +106,12 @@ arb:
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
-    backend/catalog_prices:
+    backend/catalog_items:
       # edit: "Edit catalog price: %{name}"
       # index: "Catalog prices"
       # new: "New catalog price"
       # show: "Catalog price: %{name}"
+    backend/catalog_prices: #?
     backend/catalogs:
       # edit: "Edit catalog: %{name}"
       # index: "Catalogs"

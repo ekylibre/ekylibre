@@ -27,7 +27,7 @@ module Unrollable
       end
 
       if columns.blank?
-        raise "Cannot unroll #{model.name} records. No column available."
+        raise "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
       end
 
       # Normalize parameters
@@ -166,7 +166,9 @@ module Unrollable
         end.flatten
       elsif object.is_a?(Symbol) or object.is_a?(String)
         infos = object.to_s.split(":")
-        definition = model.columns_definition[infos.first]
+        unless definition = model.columns_definition[infos.first]
+          raise "Cannot find column definition for #{model.table_name}##{infos.first}"
+        end
         name = infos[2] || [parents.last, infos.first].compact.join('_')
         test = parents.each_with_index.map do |parent, index|
           "item." + parents[0..index].join('.')

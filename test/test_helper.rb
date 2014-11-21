@@ -439,7 +439,7 @@ class ActionController::TestCase
       /\Abackend\/cells\/.*\#show\z/ => :get,
       # /\Abackend\/cells\/.*\#list\z/ => :index_xhr,
       /\#(index|new|pick|set)\z/   => :index,
-      /\#(show|edit)\z/   => :show,
+      /\#(show|edit|detail)\z/   => :show,
       /\#picture\z/       => :picture,
       /\#list\_\w+\z/     => :list_things,
       /\#list\z/          => :list,

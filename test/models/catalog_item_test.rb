@@ -20,28 +20,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: catalog_prices
+# == Table: catalog_items
 #
-#  all_taxes_included :boolean          not null
-#  amount             :decimal(19, 4)   not null
-#  catalog_id         :integer          not null
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  currency           :string(3)        not null
-#  id                 :integer          not null, primary key
-#  indicator_name     :string(120)      not null
-#  lock_version       :integer          default(0), not null
-#  name               :string(255)      not null
-#  reference_tax_id   :integer
-#  started_at         :datetime
-#  stopped_at         :datetime
-#  thread             :string(120)      not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  variant_id         :integer          not null
+#  all_taxes_included     :boolean          not null
+#  amount                 :decimal(19, 4)   not null
+#  catalog_id             :integer          not null
+#  commercial_description :text
+#  commercial_name        :string(255)
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  currency               :string(3)        not null
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)      not null
+#  reference_tax_id       :integer
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer          not null
 #
 require 'test_helper'
 
-class CatalogPriceTest < ActiveSupport::TestCase
+class CatalogItemTest < ActiveSupport::TestCase
   test_fixtures
 end

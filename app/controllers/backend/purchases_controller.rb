@@ -45,9 +45,9 @@ class Backend::PurchasesController < BackendController
     t.column :annotation
     #t.column :tracking_serial
     t.column :quantity
-    t.column :unit_price_amount
-    t.column :indicator_name
-    # t.column :pretax_amount, currency: true, through: :price
+    t.column :unit_pretax_amount, currency: true
+    t.column :unit_amount, currency: true
+    # t.column :indicator_name
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
     # t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?

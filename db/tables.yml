@@ -200,21 +200,19 @@ cashes:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
-catalog_prices:
+catalog_items:
   all_taxes_included: {type: boolean, required: true, default: false}
   amount: {type: decimal, precision: 19, scale: 4, required: true}
   catalog_id: {type: integer, references: catalog, required: true}
+  commercial_description: {type: text}
+  commercial_name: {type: string}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   id: {type: integer, required: true}
-  indicator_name: {type: string, limit: 120, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
   reference_tax_id: {type: integer, references: tax}
-  started_at: {type: datetime}
-  stopped_at: {type: datetime}
-  thread: {type: string, limit: 120, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
   variant_id: {type: integer, references: product_nature_variant, required: true}
@@ -1345,8 +1343,6 @@ product_nature_variant_readings:
 product_nature_variants:
   active: {type: boolean, required: true, default: false}
   category_id: {type: integer, references: product_nature_category, required: true}
-  commercial_description: {type: text}
-  commercial_name: {type: string, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   derivative_of: {type: string, limit: 120}
@@ -1580,13 +1576,13 @@ products:
 
 purchase_items:
   account_id: {type: integer, references: account, required: true}
+  all_taxes_included: {type: boolean, required: true, default: false}
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   annotation: {type: text}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   id: {type: integer, required: true}
-  indicator_name: {type: string, limit: 120, required: true}
   label: {type: text}
   lock_version: {type: integer, required: true, default: 0}
   position: {type: integer}
@@ -1594,7 +1590,8 @@ purchase_items:
   purchase_id: {type: integer, references: purchase, required: true}
   quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
   tax_id: {type: integer, references: tax, required: true}
-  unit_price_amount: {type: decimal, precision: 19, scale: 4, required: true}
+  unit_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  unit_pretax_amount: {type: decimal, precision: 19, scale: 4, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
   variant_id: {type: integer, references: product_nature_variant, required: true}
@@ -1652,6 +1649,7 @@ roles:
 
 sale_items:
   account_id: {type: integer, references: account}
+  all_taxes_included: {type: boolean, required: true, default: false}
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   annotation: {type: text}
   created_at: {type: datetime, required: true}
@@ -1659,18 +1657,18 @@ sale_items:
   credited_item_id: {type: integer, references: sale_item}
   currency: {type: string, limit: 3, required: true}
   id: {type: integer, required: true}
-  indicator_name: {type: string, limit: 120, required: true}
   label: {type: text}
   lock_version: {type: integer, required: true, default: 0}
   position: {type: integer}
   pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
-  price_id: {type: integer, references: catalog_price, required: true}
   quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
-  reduced_item_id: {type: integer, references: sale_item}
+  reduced_unit_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  reduced_unit_pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   reduction_percentage: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   sale_id: {type: integer, references: sale, required: true}
   tax_id: {type: integer, references: tax}
-  unit_price_amount: {type: decimal, precision: 19, scale: 4}
+  unit_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  unit_pretax_amount: {type: decimal, precision: 19, scale: 4}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
   variant_id: {type: integer, references: product_nature_variant, required: true}
@@ -1711,6 +1709,7 @@ sales:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   credit: {type: boolean, required: true, default: false}
+  credited_sale_id: {type: integer, references: sale}
   currency: {type: string, limit: 3, required: true}
   delivery_address_id: {type: integer, references: entity_address}
   description: {type: text}
@@ -1729,10 +1728,12 @@ sales:
   lock_version: {type: integer, required: true, default: 0}
   nature_id: {type: integer, references: sale_nature}
   number: {type: string, limit: 60, required: true}
-  origin_id: {type: integer, references: sale}
   payment_at: {type: datetime}
   payment_delay: {type: string, required: true}
+  prereduction_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  prereduction_pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  reduction_percentage: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   reference_number: {type: string}
   responsible_id: {type: integer, references: person}
   state: {type: string, limit: 60, required: true}

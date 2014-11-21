@@ -1,14 +1,17 @@
 - main_toolbar do |t|
-  - t.edit @catalog
+  - t.edit resource
 
 = beehive do |b|
   - b.cell do
     = attributes_list do |l|
-      - l.attribute :name
+      - l.attribute :code
+      - l.attribute :currency
+      - l.attribute :usage
       - l.attribute :by_default
+      - l.attribute :all_taxes_included
       - l.attribute :description
 
-  - b.cell :prices do
+  - b.cell :items do
     = toolbar do |t|
-      - t.new(params: {controller: :catalog_prices, :catalog_id => @catalog.id})
-    = list :prices
+      - t.new(params: {controller: :catalog_items, catalog_id: resource.id})
+    = list :items

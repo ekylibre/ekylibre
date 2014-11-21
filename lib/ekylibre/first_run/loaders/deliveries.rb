@@ -64,9 +64,8 @@ Ekylibre::FirstRun.add_loader :deliveries do |first_run|
           end
           # find a price from current supplier for a consider variant
           # @ TODO waiting for a product price capitalization method
-          product_nature_variant_price = catalog.prices.find_by(variant_id: product_nature_variant.id, amount: r.product_unit_price)
-          product_nature_variant_price ||= catalog.prices.create!(:started_at => r.ordered_on,
-                                                                  :currency => "EUR",
+          product_nature_variant_price = catalog.items.find_by(variant_id: product_nature_variant.id)
+          product_nature_variant_price ||= catalog.items.create!(:currency => "EUR",
                                                                   :reference_tax_id => appro_price_template_tax.id,
                                                                   :amount => appro_price_template_tax.amount_of(r.product_unit_price),
                                                                   :variant_id => product_nature_variant.id
@@ -258,12 +257,13 @@ Ekylibre::FirstRun.add_loader :deliveries do |first_run|
         sale_price_template_tax = Tax.find_by_reference_name('fr_vat_reduced')
         product_unit_price = (r.total_value_in_euro / r.total_quantity_in_kg).to_f
 
-        catalog.prices.create!(:variant_id => variant.id,
-                               :started_at => born_at,
-                               :currency => "EUR",
-                               :reference_tax_id => sale_price_template_tax.id,
-                               :amount => sale_price_template_tax.amount_of(product_unit_price)
+        unless catalog.items.where(variant_id: variant.id).any?
+          catalog.items.create!(:variant_id => variant.id,
+                                :currency => "EUR",
+                                :reference_tax_id => sale_price_template_tax.id,
+                                :amount => sale_price_template_tax.amount_of(product_unit_price)
                                )
+        end
 
         # create an outgoing_delivery from company to cooperative
         outgoing_delivery = OutgoingDelivery.create!(mode: :delivered_at_place,

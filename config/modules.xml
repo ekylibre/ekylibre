@@ -1356,6 +1356,7 @@
         <page to="backend/product_nature_variants#index"/>
         <page to="backend/product_nature_variants#create"/>
         <page to="backend/product_nature_variants#destroy"/>
+        <page to="backend/product_nature_variants#detail"/>
         <page to="backend/product_nature_variants#edit"/>
         <page to="backend/product_nature_variants#incorporate"/>
         <page to="backend/product_nature_variants#list"/>
@@ -1363,7 +1364,7 @@
         <page to="backend/product_nature_variants#pick"/>
         <page to="backend/product_nature_variants#show"/>
         <page to="backend/product_nature_variants#update"/>
-        <page to="backend/product_nature_variants#list_prices"/>
+        <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>
         <page to="backend/product_nature_variants#unroll"/>
         <page to="backend/product_nature_variant_readings#create"/>
@@ -1378,24 +1379,24 @@
         <page to="backend/catalogs#destroy"/>
         <page to="backend/catalogs#edit"/>
         <page to="backend/catalogs#list"/>
-        <page to="backend/catalogs#list_prices"/>
+        <page to="backend/catalogs#list_items"/>
         <page to="backend/catalogs#new"/>
         <page to="backend/catalogs#show"/>
         <page to="backend/catalogs#unroll"/>
         <page to="backend/catalogs#update"/>
-        <page to="backend/catalog_prices#index"/>
-        <page to="backend/catalog_prices#create"/>
-        <page to="backend/catalog_prices#destroy"/>
-        <page to="backend/catalog_prices#edit"/>
-        <page to="backend/catalog_prices#export"/>
-        <page to="backend/catalog_prices#find"/>
-        <page to="backend/catalog_prices#stop"/>
-        <page to="backend/catalog_prices#import"/>
-        <page to="backend/catalog_prices#list"/>
-        <page to="backend/catalog_prices#new"/>
-        <page to="backend/catalog_prices#show"/>
-        <page to="backend/catalog_prices#unroll"/>
-        <page to="backend/catalog_prices#update"/>
+        <page to="backend/catalog_items#index"/>
+        <page to="backend/catalog_items#create"/>
+        <page to="backend/catalog_items#destroy"/>
+        <page to="backend/catalog_items#edit"/>
+        <page to="backend/catalog_items#export"/>
+        <page to="backend/catalog_items#find"/>
+        <page to="backend/catalog_items#stop"/>
+        <page to="backend/catalog_items#import"/>
+        <page to="backend/catalog_items#list"/>
+        <page to="backend/catalog_items#new"/>
+        <page to="backend/catalog_items#show"/>
+        <page to="backend/catalog_items#unroll"/>
+        <page to="backend/catalog_items#update"/>
       </item>
     </group>
     <group name="production" icon="cogs">

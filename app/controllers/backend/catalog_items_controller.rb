@@ -17,28 +17,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CatalogPricesController < BackendController
-  manage_restfully indicator_name: "params[:indicator_name] || 'population'".c, started_at: "params[:started_at] || Time.now".c
+class Backend::CatalogItemsController < BackendController
+  manage_restfully
 
-  unroll scope: :actives
+  unroll
 
   list do |t|
+    t.column :name, url: true
     t.column :variant, url: true
-    t.column :amount
-    t.column :started_at
-    t.column :stopped_at
+    t.column :amount, currency: true
     t.column :reference_tax, url: true
     t.column :all_taxes_included
     t.column :catalog, url: true
-    t.action :stop, method: :post, confirm: true
     t.action :edit
-    t.action :destroy, if: :destroyable?
-  end
-
-  def stop
-    return unless @catalog_price = find_and_check
-    @catalog_price.stop
-    redirect_to params[:redirect] || {action: :show, id: @catalog_price.id}
+    t.action :destroy
   end
 
 end

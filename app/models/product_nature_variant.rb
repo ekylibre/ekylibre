@@ -22,27 +22,25 @@
 #
 # == Table: product_nature_variants
 #
-#  active                 :boolean          not null
-#  category_id            :integer          not null
-#  commercial_description :text
-#  commercial_name        :string(255)      not null
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  derivative_of          :string(120)
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
-#  name                   :string(255)
-#  nature_id              :integer          not null
-#  number                 :string(255)
-#  picture_content_type   :string(255)
-#  picture_file_name      :string(255)
-#  picture_file_size      :integer
-#  picture_updated_at     :datetime
-#  reference_name         :string(255)
-#  unit_name              :string(255)      not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  variety                :string(120)      not null
+#  active               :boolean          not null
+#  category_id          :integer          not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  derivative_of        :string(120)
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)
+#  nature_id            :integer          not null
+#  number               :string(255)
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
+#  picture_file_size    :integer
+#  picture_updated_at   :datetime
+#  reference_name       :string(255)
+#  unit_name            :string(255)      not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variety              :string(120)      not null
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
@@ -50,7 +48,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
   belongs_to :category, class_name: "ProductNatureCategory", inverse_of: :variants
-  has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
+  has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
   has_many :products, foreign_key: :variant_id
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
   has_many :readings, class_name: "ProductNatureVariantReading", foreign_key: :variant_id, inverse_of: :variant
@@ -60,12 +58,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_length_of :commercial_name, :name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255
+  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, in: [true, false]
-  validates_presence_of :category, :commercial_name, :nature, :unit_name, :variety
+  validates_presence_of :category, :nature, :unit_name, :variety
   #]VALIDATORS]
   validates_attachment_content_type :picture, content_type: /image/
 
+  alias_attribute :commercial_name, :name
 
   delegate :able_to?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, :name, to: :nature, prefix: true
@@ -73,11 +72,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :readings, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :prices, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :catalog_items, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered
 
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
+  scope :purchaseables, -> { joins(:nature).merge(ProductNature.purchaseables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :of_variety, Proc.new { |*varieties|
     where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
@@ -104,7 +104,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.products.any? or self.prices.any?
+    self.products.any?
   end
 
   before_validation on: :create do
@@ -118,7 +118,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
         self.derivative_of ||= self.nature.derivative_of
       end
     end
-    self.commercial_name ||= self.name
   end
 
   validate do

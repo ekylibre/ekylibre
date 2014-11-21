@@ -274,7 +274,7 @@ fra:
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
       catalog: "Liste de prix"
-      catalog_price: "Prix"
+      catalog_item: "Prix"
       crumb: "Miette"
       cultivable_zone: "Parcelle culturale"
       cultivable_zone_membership: "Membre d’une zone cultivable"
@@ -420,7 +420,7 @@ fra:
     accuracy: "Précision"
     achieved_at: "Achevé le"
     active: "Actif"
-    active_prices: "Prix actifs"
+    active_prices: "Prix actifs" #?
     activity: "Activité"
     activity_code: "Code APE/NAF"
     actor: "Acteur"
@@ -489,7 +489,8 @@ fra:
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
     casts: "Acteurs"
-    catalog: "Liste de prix"
+    catalog: "Catalogue de prix"
+    catalog_items: "Entrées de catalogue"
     category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
@@ -563,6 +564,7 @@ fra:
     credit_lines: "Lignes d’avoir" #?
     credited_item: "Élément annulé"
     credited_quantity: "Quantité déjà passée en avoir"
+    credited_sale: "Facture mise en avoir"
     credits: "Avoirs"
     crumbs: "Miettes"
     cultivable_zone: "Zone cultivable"
@@ -861,6 +863,7 @@ fra:
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
     maximal_value: "Valeur maximale"
+    maximum_nitrogen_input: "Apport maximum d’azote"
     meadow_humus_mineralization: "Minéralisation nette due à un retournement de prairie (Mhp)"
     measure_value: "Valeur de la mesure"
     measure_value_unit: "Unité de la mesure"
@@ -965,6 +968,8 @@ fra:
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
     preferences: "Préférences"
+    prereduction_amount: "Montant TTC avant réduction"
+    prereduction_pretax_amount: "Montant HT avant réduction"
     prescription: "Prescription"
     prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
@@ -1054,11 +1059,13 @@ fra:
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
-    reduced_item: "Élément réduit"
+    reduced_item: "Élément réduit" #?
+    reduced_unit_amount: "PU TTC réduit"
+    reduced_unit_pretax_amount: "PU HT réduit"
     reductible: "Soumis à réduction"
-    reduction: "Ligne de réduction"
+    reduction: "Ligne de réduction" #?
     reduction_percentage: "Pourcentage de réduction"
-    reductions: "Lignes de réductions"
+    reductions: "Lignes de réductions" #?
     reference: "Référence" #?
     reference_name: "Référence"
     reference_number: "N°Référence"
@@ -1091,6 +1098,7 @@ fra:
     sale: "Vente"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
+    sale_nature: "Type de vente"
     sale_taxations: "Taxations de vente"
     sale_taxes: "Taxes de vente"
     saleable: "Vendable"
@@ -1182,8 +1190,9 @@ fra:
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité" #?
+    unit_amount: "PU TTC"
     unit_name: "Unité"
-    unit_price_amount: "Prix unitaire"
+    unit_pretax_amount: "PU HT"
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"
@@ -1233,7 +1242,7 @@ fra:
         name: "Catalogue d’achat"
       sale:
         name: "Catalogue de vente"
-    catalog_price:
+    catalog_item:
       name: "%{variant} %{amount}/%{unit}"
     deposit:
       bookkeep:
