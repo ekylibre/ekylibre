@@ -45,6 +45,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   validates_inclusion_of :active, :with_accounting, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]
+  validates_presence_of :cash
 
   delegate :currency, to: :cash
 

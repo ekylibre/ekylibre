@@ -1589,11 +1589,12 @@ eng:
     backend/catalog_prices: "%{name}" #?
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
-    backend/incoming_payments: "%{number} %{mode_name} %{payer_full_name} %{amount} %{currency}"
+    backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
     backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
     backend/operations: "%{nature} (%{created_at})"
+    backend/outgoing_payments: "%{number}. %{mode_name} to %{payee_full_name} of %{amount} %{currency}"
     backend/plants: "%{name} ‒ %{work_number}"
     backend/prescriptions: "%{reference_number}"
     backend/product_memberships: "%{started_at}"
