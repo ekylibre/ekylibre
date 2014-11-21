@@ -5,7 +5,8 @@ class AddAnAnimalTest < CapybaraIntegrationTest
 
   setup do
     # Need to go on page to set tenant
-    visit('/authentication/sign_in')
+    I18n.locale = @locale = ENV["LOCALE"] || I18n.default_locale
+    visit("/authentication/sign_in?locale=#{@locale}")
     resize_window(1366, 768)
     shoot_screen "authentication/sign_in"
     login_as(users(:users_001), scope: :user) # , run_callbacks: false

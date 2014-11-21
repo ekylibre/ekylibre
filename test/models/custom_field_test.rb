@@ -59,6 +59,7 @@ class CustomFieldTest < ActiveSupport::TestCase
 
   Ekylibre::Record::Base.descendants.each do |model|
     test "manage custom field on #{model.name.underscore}" do
+      I18n.locale = ENV["LOCALE"]
       if !CustomField.customized_type.values.include?(model.name)
         assert_raise ActiveRecord::RecordInvalid, "Cannot add custom field on not customizable models like #{model.name}" do
           CustomField.create!(name: "たてがみ", nature: :text, customized_type: model.name)

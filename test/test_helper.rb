@@ -184,9 +184,10 @@ class ActionController::TestCase
       code << "setup do\n"
       code << "  Ekylibre::Tenant.switch('test')\n"
       # Check locale
-      code << "  I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
-      code << "  assert_not_nil I18n.locale\n"
-      code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
+      # code << "  @locale = I18n.locale = ENV['LOCALE'] || I18n.default_locale\n"
+      code << "  @locale = ENV['LOCALE'] || I18n.default_locale\n"
+      # code << "  assert_not_nil I18n.locale\n"
+      # code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
       # Check document templates
       # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
       # Connect user
@@ -251,178 +252,175 @@ class ActionController::TestCase
 
         params.deep_symbolize_keys!
         fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture))
-        [:eng, :fra].each do |locale|
-          test_code = ""
+        test_code = ""
 
-          sanitized_params = Proc.new { |p = {}|
-            p.deep_symbolize_keys
-              .merge(locale: locale)
-              .deep_merge(params)
-              .inspect
-              .gsub('OTHER_RECORD', other_record)
-              .gsub('RECORD', record)
-          }
-          if mode == :index
-            test_code << "get :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
-            if params[:format] == :json
-            # TODO: JSON parsing test
-            else
-              test_code << "assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
-            end
-          elsif mode == :new_product
-            test_code << "get :#{action}, #{sanitized_params[]}\n"
-            test_code << "if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
-            test_code << "  assert_response :success, #{context}\n"
-            test_code << "else\n"
-            test_code << "  assert_response :redirect, #{context}\n"
-            test_code << "end\n"
-          elsif mode == :show_sti_record
-            test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-            test_code << "assert_redirected_to root_url\n"
+        sanitized_params = Proc.new { |p = {}|
+          p.deep_symbolize_keys
+            .merge(locale: "@locale".c)
+            .deep_merge(params)
+            .inspect
+            .gsub('OTHER_RECORD', other_record)
+            .gsub('RECORD', record)
+        }
+        if mode == :index
+          test_code << "get :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
+          if params[:format] == :json
+          # TODO: JSON parsing test
+          else
+            test_code << "assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
+          end
+        elsif mode == :new_product
+          test_code << "get :#{action}, #{sanitized_params[]}\n"
+          test_code << "if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
+          test_code << "  assert_response :success, #{context}\n"
+          test_code << "else\n"
+          test_code << "  assert_response :redirect, #{context}\n"
+          test_code << "end\n"
+        elsif mode == :show_sti_record
+          test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
+          test_code << "assert_redirected_to root_url\n"
+          test_code << "#{model}.find_each do |record|\n"
+          test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}\n"
+          test_code << "  if record.type and record.type != '#{model.name}'\n"
+          test_code << "    assert_redirected_to({controller: record.class.name.tableize, action: :show, id: record.id})\n" # , #{context}
+          test_code << "  else\n"
+          test_code << "    assert_response :success, #{context}\n"
+          test_code << "    assert_not_nil assigns(:#{record})\n"
+          test_code << "  end\n"
+          test_code << "end\n"
+        elsif mode == :show
+          test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
+          test_code << "assert_redirected_to root_url\n" # , #{context}
+          if model
             test_code << "#{model}.find_each do |record|\n"
-            test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c, redirect: 'root_url'.c]}\n"
-            test_code << "  if record.type and record.type != '#{model.name}'\n"
-            test_code << "    assert_redirected_to({controller: record.class.name.tableize, action: :show, id: record.id})\n" # , #{context}
-            test_code << "  else\n"
-            test_code << "    assert_response :success, #{context}\n"
-            test_code << "    assert_not_nil assigns(:#{record})\n"
-            test_code << "  end\n"
-            test_code << "end\n"
-          elsif mode == :show
-            test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-            test_code << "assert_redirected_to root_url\n" # , #{context}
-            if model
-              test_code << "#{model}.find_each do |record|\n"
-              test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
-              test_code << "  assert_response :success, #{context}\n"
-              test_code << "  assert_not_nil assigns(:#{record})\n"
-              test_code << "end\n"
-            end
-          elsif mode == :picture
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "if #{record}.picture.file?\n"
+            test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
             test_code << "  assert_response :success, #{context}\n"
             test_code << "  assert_not_nil assigns(:#{record})\n"
             test_code << "end\n"
-          elsif mode == :list_things
+          end
+        elsif mode == :picture
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
+          test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "if #{record}.picture.file?\n"
+          test_code << "  assert_response :success, #{context}\n"
+          test_code << "  assert_not_nil assigns(:#{record})\n"
+          test_code << "end\n"
+        elsif mode == :list_things
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
+          test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :success, #{context}\n"
+          for format in [:csv, :ods] # :xcsv,
+            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
+            test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
+          end
+        elsif mode == :create
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "post :#{action}, #{sanitized_params[record => attributes]}\n"
+        elsif mode == :update
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "patch :#{action}, #{sanitized_params[id: 'RECORD.id'.c, record => attributes]}\n"
+          test_code << "assert_response :redirect, \"After update on record ID=\#{#{record}.id} we should be redirected to another page. \" + #{context}\n"
+        elsif mode == :destroy
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first, :second)}\n"
+          test_code << "delete :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+        elsif mode == :list
+          test_code << "get :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
+          for format in [:csv, :ods] # , :xcsv
+            test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
+            test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
+          end
+        elsif mode == :touch
+          test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+        elsif mode == :soft_touch
+          test_code << "post :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, #{context}\n"
+        elsif mode == :multi_touch
+          test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+          # Multi IDS
+          test_code << "#{other_record} = #{fixtures_to_use.retrieve(:second)}\n"
+          test_code << "post :#{action}, " + sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c] + "\n"
+          test_code << "assert_response :redirect, #{context}\n"
+        elsif mode == :redirected_get # with ID
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+        elsif mode == :get_and_post # with ID
+          test_code << "get :#{action}, #{sanitized_params[id: 'NaID']}\n"
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :success, #{context}\n"
+        elsif mode == :index_xhr
+          test_code << "get :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, #{context}\n"
+        elsif mode == :show_xhr
+          test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
+          test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          test_code << "assert_not_nil assigns(:#{record})\n"
+        elsif mode == :unroll
+          test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo)bar']}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo(bar']}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo"bar\'qux']}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[q: '"; DROP TABLE ' + model.table_name + ';']}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo bar qux']}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
+          test_code << "assert_response :success, #{context}\n"
+          test_code << "xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
+          test_code << "assert_response :success, #{context}\n"
+          if model
             test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
-            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :success, #{context}\n"
-            for format in [:csv, :ods] # :xcsv,
-              test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
-              test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
-            end
-          elsif mode == :create
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, #{sanitized_params[record => attributes]}\n"
-          elsif mode == :update
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "patch :#{action}, #{sanitized_params[id: 'RECORD.id'.c, record => attributes]}\n"
-            test_code << "assert_response :redirect, \"After update on record ID=\#{#{record}.id} we should be redirected to another page. \" + #{context}\n"
-          elsif mode == :destroy
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first, :second)}\n"
-            test_code << "delete :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
-          elsif mode == :list
-            test_code << "get :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-            for format in [:csv, :ods] # , :xcsv
-              test_code << "get :#{action}, #{sanitized_params[format: format]}\n"
-              test_code << "assert_response :success, 'Action #{action} does not export in format #{format}'\n"
-            end
-          elsif mode == :touch
-            test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
-          elsif mode == :soft_touch
-            test_code << "post :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :success, #{context}\n"
-          elsif mode == :multi_touch
-            test_code << "post :#{action}, #{sanitized_params[id: 'NaID']}\n"
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
-            # Multi IDS
-            test_code << "#{other_record} = #{fixtures_to_use.retrieve(:second)}\n"
-            test_code << "post :#{action}, " + sanitized_params[id: '[RECORD.id, OTHER_RECORD.id].join(", ")'.c] + "\n"
-            test_code << "assert_response :redirect, #{context}\n"
-          elsif mode == :redirected_get # with ID
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
-          elsif mode == :get_and_post # with ID
-            test_code << "get :#{action}, #{sanitized_params[id: 'NaID']}\n"
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :success, #{context}\n"
-          elsif mode == :index_xhr
-            test_code << "get :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :success, #{context}\n"
-          elsif mode == :show_xhr
-            test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-            test_code << "get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
             test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            test_code << "assert_not_nil assigns(:#{record})\n"
-          elsif mode == :unroll
-            test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
             test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo)bar']}\n"
-            test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo(bar']}\n"
-            test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo"bar\'qux']}\n"
-            test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[q: '"; DROP TABLE ' + model.table_name + ';']}\n"
-            test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[q: 'foo bar qux']}\n"
-            test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
-            test_code << "assert_response :success, #{context}\n"
-            test_code << "xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
-            test_code << "assert_response :success, #{context}\n"
-            if model
-              test_code << "#{record} = #{fixtures_to_use.retrieve(:first)}\n"
-              test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            for scope in model.simple_scopes
+              test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name]}\n"
               test_code << "assert_response :success, #{context}\n"
-              for scope in model.simple_scopes
-                test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name]}\n"
-                test_code << "assert_response :success, #{context}\n"
-                test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :json]}\n"
-                test_code << "assert_response :success, #{context}\n"
-                test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :xml]}\n"
-                test_code << "assert_response :success, #{context}\n"
-                test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}\n"
-                test_code << "assert_response :success, #{context}\n"
-              end
-              # TODO test complex scopes
+              test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :json]}\n"
+              test_code << "assert_response :success, #{context}\n"
+              test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, format: :xml]}\n"
+              test_code << "assert_response :success, #{context}\n"
+              test_code << "xhr :get, :#{action}, #{sanitized_params[scopes: scope.name, id: 'RECORD.id'.c]}\n"
+              test_code << "assert_response :success, #{context}\n"
             end
-          elsif mode == :get
-            test_code << "get :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :success, #{context}\n"
-          elsif mode == :redirect
-            test_code << "get :#{action}, #{sanitized_params[]}\n"
-            test_code << "assert_response :redirect, #{context}\n"
-          else
-            test_code << "raise StandardError, 'What is this mode? #{mode.inspect}'\n"
+            # TODO test complex scopes
           end
-
-          locale_label = Nomen::Languages[locale].human_name.downcase
-          if action != mode
-            code << "test '#{action} action in #{mode} mode in #{locale_label}' do\n"
-          else
-            code << "test '#{action} action in #{locale_label}' do\n"
-          end
-          code << test_code.dig
-          code << "end\n\n"
+        elsif mode == :get
+          test_code << "get :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :success, #{context}\n"
+        elsif mode == :redirect
+          test_code << "get :#{action}, #{sanitized_params[]}\n"
+          test_code << "assert_response :redirect, #{context}\n"
+        else
+          test_code << "raise StandardError, 'What is this mode? #{mode.inspect}'\n"
         end
+
+        if action != mode
+          code << "test '#{action} action in #{mode} mode' do\n"
+        else
+          code << "test '#{action} action' do\n"
+        end
+        code << test_code.dig
+        code << "end\n\n"
       end
       # code << "end\n"
 
