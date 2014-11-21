@@ -53,6 +53,10 @@ class Import < Ekylibre::Record::Base
   validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
   do_not_validate_attachment_file_type :archive
 
+  def name
+    self.nature ? self.nature.text : :unknown.tl
+  end
+
 
   # Run an import.
   # The optional code block permit have access to progression on each check point

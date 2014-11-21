@@ -18,7 +18,7 @@
 #
 
 class Backend::ImportsController < BackendController
-  manage_restfully
+  manage_restfully t3e: {name: :name}
 
   list line_class: "RECORD.errored? ? 'error' : ''".c do |t|
     t.column :nature
