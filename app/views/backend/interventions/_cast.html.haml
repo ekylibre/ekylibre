@@ -36,6 +36,10 @@
                         thing: variant.unit_name.mb_chars.downcase)
 
   - else
-    .picto{class: "picto-question"}
+    .picture
+      .picto{class: "picto-question"}
+    .details
+      %h3= cast.name
+      %p= cast.human_roles
 
 
