@@ -89,7 +89,7 @@ gem 'simple_form', '~> 3.0.0'
 gem 'cocoon'
 
 # I18n and localeapp
-gem 'i18n-complements', '>= 0.0.12'
+gem 'i18n-complements', '>= 0.0.14'
 gem 'http_accept_language'
 
 # XML Parsing/Writing, HTML extraction
