@@ -713,7 +713,7 @@
                 </staticText>
               </jr:columnHeader>
               <jr:detailCell height="20" rowSpan="1">
-                <textField>
+                <textField isBlankWhenNull="true">
                   <reportElement style="table-td" x="0" y="0" width="116" height="20" uuid="22c29f43-18e3-4a14-8d9d-accbdda67653"/>
                   <textElement textAlignment="Center" verticalAlignment="Middle"/>
                   <textFieldExpression><![CDATA[$F{input_nature}]]></textFieldExpression>
