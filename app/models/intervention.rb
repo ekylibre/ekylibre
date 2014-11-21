@@ -77,7 +77,7 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
   validates_inclusion_of :reference_name, in: self.reference_name.values
-  validates_presence_of  :started_at, :stopped_at
+  validates_presence_of  :started_at, :stopped_at, :production_support
   validates_presence_of :recommender, if: :recommended?
 
   serialize :parameters, HashWithIndifferentAccess
