@@ -21,8 +21,8 @@
           <property name="area" value="plant.net_surface_area" type="measure"/>
           <property name="area_in_hectare" value="plant.net_surface_area.to_d(:hectare)" level="api"/>
           <property name="id" of="plant" level="api"/>
-          <property name="cluster_pac_number" value="plant.current_localization.container.clusters_work_number" if="plant.current_localization.container"/>
-          <property name="cultivable_zone" value="plant.current_localization.container.name" if="plant.current_localization.container"/>
+          <property name="cluster_pac_number" value="plant.current_localization.container.clusters_work_number" if="plant.current_localization and plant.current_localization.container"/>
+          <property name="cultivable_zone" value="plant.current_localization.container.name" if="plant.current_localization and plant.current_localization.container"/>
           <property name="shape_svg" value="plant.current_localization.container.shape_svg(srid: 2154)" type="svg" level="api" if="plant.current_localization.container"/>
           <!-- looking for all Production in current cultivable_zone and campaign -->
           <sections for="intervention" in="Intervention.real.where(state: 'done').of_nature(:plant_illness_treatment).with_cast('plant_illness_treatment-target', plant)" of-type="record">
