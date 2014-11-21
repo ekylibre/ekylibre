@@ -264,11 +264,11 @@ fra:
       new: "Nouvel identifiant"
       show: "Identifiant\_: %{name}"
     backend/imports:
-      edit: "Modifier l’import: %{nature}"
+      edit: "Modifier l’import\_: %{name}"
       index: "Imports"
       new: "Nouvel import"
-      run: "Exécuter l’import: %{nature}"
-      show: "Import: %{nature}"
+      run: "Exécuter l’import\_: %{name}"
+      show: "Import\_: %{name}"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
       edit: "Modifier l’approvisionnement: %{number}"
