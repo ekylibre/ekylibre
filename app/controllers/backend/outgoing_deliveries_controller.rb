@@ -64,7 +64,7 @@ class Backend::OutgoingDeliveriesController < BackendController
       return unless delivery = find_and_check(id: id)
       deliveries << delivery
     end
-    if params[:transporter_id]
+    if params[:transporter_id].to_i > 0
       transport = OutgoingDelivery.ship(deliveries, params.slice(:transporter_id, :responsible_id))
       redirect_to backend_transport_url(transport)
     elsif OutgoingDelivery.transporters_of(deliveries).uniq.count == 1

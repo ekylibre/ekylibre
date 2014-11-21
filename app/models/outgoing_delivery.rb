@@ -159,7 +159,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   def self.ship(deliveries, options = {})
     transport = nil
     transaction do
-      unless Entity.find_by(id: options[:transporter_id])
+      unless options[:transporter_id] and Entity.find_by(id: options[:transporter_id])
         transporter_ids = transporters_of(deliveries).uniq
         if transporter_ids.size == 1
           options[:transporter_id] = transporter_ids.first
