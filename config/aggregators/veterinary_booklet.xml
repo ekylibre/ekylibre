@@ -48,7 +48,7 @@
             <title name="reference_number"/>
             <property name="name"/>
           </section>
-          <matrix name="inputs" for="input" in="intervention.casts.of_generic_role(:input)">
+          <matrix name="inputs" for="input" in="intervention.casts.of_generic_role(:input).with_actor">
             <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
             <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
 
