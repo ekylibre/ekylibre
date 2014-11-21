@@ -5,10 +5,9 @@ fra:
     iso2: "fr"
     name: "Français"
   boolean:
-    formats:
-      default:
-        false: "Faux"
-        true: "Vrai"
+    human:
+      false_class: "Faux"
+      true_class: "Vrai"
   date:
     abbr_day_names: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
     abbr_month_names: ["", "janv", "févr", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"]
