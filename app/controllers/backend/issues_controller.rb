@@ -28,7 +28,7 @@ class Backend::IssuesController < BackendController
   unroll
 
   list do |t|
-    t.column :target_name, url: true
+    t.column :name, url: true
     t.column :nature
     t.column :observed_at
     t.status
