@@ -154,6 +154,18 @@ module Nomen
       end
     end
 
+    # Returns a list for select, without specified items
+    def select_without(already_imported)
+      selection = @items.values.collect do |item|
+        [item.human_name, item.name.to_s] unless already_imported[item.name.to_s]
+      end
+      selection.compact!
+      selection.sort! do |a, b|
+        a.first <=> b.first
+      end
+      selection
+    end
+
     # Return first item name
     def first(item_name = nil)
       all(item_name).first
