@@ -5,10 +5,9 @@ eng:
     iso2: "en"
     name: "English"
   boolean:
-    formats:
-      default:
-        false: "False"
-        true: "True"
+    human:
+      false_class: "False"
+      true_class: "Truedd"
   date:
     abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
