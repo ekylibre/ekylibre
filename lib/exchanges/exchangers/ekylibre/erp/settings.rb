@@ -167,7 +167,15 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   w.check_point
 
   # Load accounts
+  if manifest.can_load_default?(:accounts)
+    manifest[:accounts] = Cash.nature.values.inject({}) do |hash, nature|
+      hash[nature] = {name: "enumerize.cash.nature.#{nature}".t,
+                      number:  sprintf('%08d', rand(10**7))}
+      hash
+    end
+  end
   manifest.create_records(:accounts)
+
   w.check_point
 
   # Load financial_years
@@ -197,6 +205,21 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   w.check_point
 
   # Load cashes
+  if manifest.can_load_default?(:cashes)
+    manifest[:cashes] = Cash.nature.values.inject({}) do |hash, nature|
+      journal_nature = case nature
+                         when 'bank_account' then 'bank'
+                         when 'cash_box' then 'cash'
+                         else raise 'unknown cash2journal nature'
+                        end
+      journal = Journal.find_by(nature: journal_nature)
+      account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
+      hash[nature] = {name: "enumerize.cash.nature.#{nature}".t, nature: nature.to_s,
+                      account: account, journal: journal}
+      hash[nature].merge!(iban: 'FR7611111222223333333333391') if nature == 'bank_account'
+      hash
+    end
+  end
   manifest.create_records(:cashes)
   w.check_point
 
@@ -221,7 +244,10 @@ Exchanges.add_importer :ekylibre_erp_settings do |file, w|
   # Load outgoing payment modes
   if manifest.can_load_default?(:outgoing_payment_modes)
     manifest[:outgoing_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
-      hash[nature] = {name: OutgoingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)}
+      hash[nature] = {name: OutgoingPaymentMode.tc("default.#{nature}.name"),
+                      with_accounting: true,
+                      cash: Cash.find_by(nature:
+                        Cash.nature.values.include?(nature) ? nature : :bank_account) }
       hash
     end
   end
