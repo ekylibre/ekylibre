@@ -80,7 +80,9 @@ module Indicateable
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
     read_at = options[:at] || Time.now
-    return self.readings.where(indicator_name: indicator.name).where("read_at <= ?", read_at).reorder(read_at: :desc).first
+    indicator_name = indicator.name
+    results = self.readings.select {|r| r.indicator_name == indicator_name and r.read_at <= read_at }
+    return results.max{ |a, b| a.read_at <=> b.read_at }
   end
 
   # Get indicator value

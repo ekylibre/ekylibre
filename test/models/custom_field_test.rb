@@ -74,7 +74,7 @@ class CustomFieldTest < ActiveSupport::TestCase
           assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
 
           if field.choice?
-            15.times do |index|
+            5.times do |index|
               field.choices.create!(name: "Marvelous ##{index}")
             end
           end

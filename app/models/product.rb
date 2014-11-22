@@ -212,11 +212,11 @@ class Product < Ekylibre::Record::Base
       end
     end
     if self.variant
-      unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
+      unless Nomen::Varieties[self.variant_variety].include? self.variety.to_s
         errors.add(:variety, :invalid)
       end
       if self.derivative_of
-        unless Nomen::Varieties.all(self.variant_derivative_of).include?(self.derivative_of.to_s)
+        unless Nomen::Varieties[self.variant_derivative_of].include? self.derivative_of.to_s
           errors.add(:derivative_of, :invalid)
         end
       end
@@ -340,28 +340,29 @@ class Product < Ekylibre::Record::Base
   # Sets nature and variety from variant
   def set_default_values
     if self.variant
-      self.nature    = self.variant_nature
-      self.variety ||= self.variant_variety
-      if self.derivative_of.blank? and not self.variant_derivative_of.blank?
-        self.derivative_of = self.variant_derivative_of
+      self.nature_id    = self.variant.nature_id
+      self.variety ||= self.variant.variety
+      if self.derivative_of.blank? and not self.variant.derivative_of.blank?
+        self.derivative_of = self.variant.derivative_of
       end
     end
     if self.nature
-      self.category = self.nature.category
+      self.category_id = self.nature.category_id
     end
   end
 
   # Update nature and variety and variant from phase
   def update_default_values
     if self.current_phase
-      self.nature    = self.current_phase.variant_nature
-      self.variety ||= self.current_phase.variant_variety
-      if self.derivative_of.blank? and not self.current_phase.variant_derivative_of.blank?
-        self.derivative_of = self.current_phase.variant_derivative_of
+      phase_variant = self.current_phase.variant
+      self.nature_id    = phase_variant.nature_id
+      self.variety    ||= phase_variant.variety
+      if self.derivative_of.blank? and not phase_variant.derivative_of.nil?
+        self.derivative_of = phase_variant.derivative_of
       end
     end
     if self.nature
-      self.category = self.nature.category
+      self.category_id = self.nature.category_id
     end
   end
 
@@ -394,9 +395,9 @@ class Product < Ekylibre::Record::Base
     filter = {
       variant_id: self.variant_id
     }
-    incoming_item = IncomingDeliveryItem.where(product_id: self.id).first
+    incoming_item = self.incoming_delivery_item
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = OutgoingDeliveryItem.where(product_id: self.id).first
+    outgoing_item = self.outgoing_delivery_items.first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     if incoming_purchase_item
@@ -405,7 +406,7 @@ class Product < Ekylibre::Record::Base
     elsif outgoing_sale_item
       # search a price in sale item via outgoing item price
       price = outgoing_sale_item.unit_pretax_amount
-    elsif catalog_item = CatalogItem.where(filter).first
+    elsif catalog_item = self.variant.catalog_items.limit(1).first
       # search a price in catalog price
       if catalog_item.all_taxes_included == true
         price = catalog_item.reference_tax.pretax_amount_of(catalog_item.amount)

@@ -100,7 +100,7 @@ class ActiveSupport::TestCase
     test "validity of fixtures" do
       invalids = []
       reflections = model.reflections.values.select{|r| r.macro == :belongs_to }.delete_if{|r| r.name.to_s == "item" and model == Version }
-      model.find_each do |record|
+      model.includes(reflections.collect(&:name)).find_each do |record|
         unless record.valid?
           invalids << "##{record.id}: #{record.errors.full_messages.to_sentence}"
         end
