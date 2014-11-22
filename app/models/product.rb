@@ -212,11 +212,11 @@ class Product < Ekylibre::Record::Base
       end
     end
     if self.variant
-      unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
+      unless Nomen::Varieties[self.variant_variety].include? self.variety.to_s
         errors.add(:variety, :invalid)
       end
       if self.derivative_of
-        unless Nomen::Varieties.all(self.variant_derivative_of).include?(self.derivative_of.to_s)
+        unless Nomen::Varieties[self.variant_derivative_of].include? self.derivative_of.to_s
           errors.add(:derivative_of, :invalid)
         end
       end
