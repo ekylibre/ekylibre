@@ -1,7 +1,10 @@
 - if @campaigns
   :ruby
     data = []
-    ProductionSupport.of_campaign(@campaigns).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+    ProductionSupport.of_campaign(@campaigns).includes(
+         interventions: [casts: [actor: [:incoming_delivery_item, :outgoing_delivery_items]]],
+         production: [:activity, :campaign, :variant], 
+         storage: [:readings]).find_each do |support|
 
       popup_content = []
 
@@ -43,11 +46,13 @@
         popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
       end
 
-      if interventions = Intervention.where(production_support: support).reorder(:started_at)
-        popup_content << {label: :interventions_count.tl, value: interventions.count }
+      if support.interventions.any?
+        popup_content << {label: :interventions_count.tl, value: support.interventions.count }
       end
 
-      if interventions.count > 0 and last_intervention = interventions.last
+      interventions = support.interventions
+      if interventions.any?
+        last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
         popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
       end
 

@@ -195,8 +195,11 @@ class Intervention < Ekylibre::Record::Base
 
   # Sums all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
   def cost(role = :input)
-    if self.casts.of_generic_role(role).any?
-      self.casts.of_generic_role(role).where.not(actor_id: nil).map(&:cost).compact.sum
+    selected_casts = self.casts.select{|c| c.roles =~ /.*-#{role}$/ and c.actor_id }
+    if selected_casts.any?
+      selected_casts = selected_casts.map(&:cost)
+      selected_casts.compact!
+      selected_casts.sum
     else
       return nil
     end
