@@ -20,13 +20,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: budgets
+# == Table: budget_items
 #
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  updated_at :datetime
+#  amount       :float
+#  created_at   :datetime
+#  direction    :string(255)
+#  id           :integer          not null, primary key
+#  measure_unit :string(255)
+#  unit_amount  :float
+#  updated_at   :datetime
 #
-class Budget < ActiveRecord::Base
-  has_many :items, class_name: "BudgetItem"
+require 'test_helper'
+
+class BudgetItemTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

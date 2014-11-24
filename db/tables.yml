@@ -141,6 +141,15 @@ bank_statements:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+budget_items:
+  amount: {type: float}
+  created_at: {type: datetime}
+  direction: {type: string}
+  id: {type: integer, required: true}
+  measure_unit: {type: string}
+  unit_amount: {type: float}
+  updated_at: {type: datetime}
+
 budgets:
   created_at: {type: datetime}
   id: {type: integer, required: true}

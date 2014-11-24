@@ -32,8 +32,6 @@
 #
 # budgets_001:
 #
----
-budgets_001:
-  id: 1
-  name: FOO
+--- {}
+
 
