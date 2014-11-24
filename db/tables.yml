@@ -141,6 +141,12 @@ bank_statements:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+budgets:
+  created_at: {type: datetime}
+  id: {type: integer, required: true}
+  name: {type: string}
+  updated_at: {type: datetime}
+
 campaigns:
   closed: {type: boolean, required: true, default: false}
   closed_at: {type: datetime}

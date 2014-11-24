@@ -145,6 +145,7 @@ eng:
       animal_group: "Animal group"
       bank_statement: "Bank statement"
       bioproduct: "Living product"
+      # budget: "Budget"
       building: "Building"
       building_division: "Room / Zone"
       campaign: "Campaign"

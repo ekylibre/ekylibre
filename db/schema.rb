@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120134356) do
+ActiveRecord::Schema.define(version: 20141124110155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,12 @@ ActiveRecord::Schema.define(version: 20141120134356) do
   add_index "bank_statements", ["creator_id"], :name => "index_bank_statements_on_creator_id"
   add_index "bank_statements", ["updated_at"], :name => "index_bank_statements_on_updated_at"
   add_index "bank_statements", ["updater_id"], :name => "index_bank_statements_on_updater_id"
+
+  create_table "budgets", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "campaigns", force: true do |t|
     t.string   "name",                                    null: false
