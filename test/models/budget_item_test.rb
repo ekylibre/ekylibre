@@ -23,12 +23,16 @@
 # == Table: budget_items
 #
 #  amount       :float
-#  created_at   :datetime
+#  budget_id    :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
 #  direction    :string(255)
 #  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
 #  measure_unit :string(255)
 #  unit_amount  :float
-#  updated_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 

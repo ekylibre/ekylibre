@@ -224,15 +224,32 @@ ActiveRecord::Schema.define(version: 20141124152831) do
     t.float    "amount"
     t.float    "unit_amount"
     t.string   "measure_unit"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "budget_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
   end
+
+  add_index "budget_items", ["created_at"], :name => "index_budget_items_on_created_at"
+  add_index "budget_items", ["creator_id"], :name => "index_budget_items_on_creator_id"
+  add_index "budget_items", ["updated_at"], :name => "index_budget_items_on_updated_at"
+  add_index "budget_items", ["updater_id"], :name => "index_budget_items_on_updater_id"
 
   create_table "budgets", force: true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
   end
+
+  add_index "budgets", ["created_at"], :name => "index_budgets_on_created_at"
+  add_index "budgets", ["creator_id"], :name => "index_budgets_on_creator_id"
+  add_index "budgets", ["updated_at"], :name => "index_budgets_on_updated_at"
+  add_index "budgets", ["updater_id"], :name => "index_budgets_on_updater_id"
 
   create_table "campaigns", force: true do |t|
     t.string   "name",                                    null: false

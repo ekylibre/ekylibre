@@ -23,13 +23,22 @@
 # == Table: budget_items
 #
 #  amount       :float
-#  created_at   :datetime
+#  budget_id    :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
 #  direction    :string(255)
 #  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
 #  measure_unit :string(255)
 #  unit_amount  :float
-#  updated_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
-class BudgetItem < ActiveRecord::Base
+class BudgetItem < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :unit_amount, allow_nil: true
+  validates_length_of :direction, :measure_unit, allow_nil: true, maximum: 255
+  #]VALIDATORS]
+  enumerize :direction, in: [:revenue, :expense]
   belongs_to :budget, inverse_of: :items
 end

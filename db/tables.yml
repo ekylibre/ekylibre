@@ -143,18 +143,25 @@ bank_statements:
 
 budget_items:
   amount: {type: float}
-  created_at: {type: datetime}
+  budget_id: {type: integer, references: budget}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
   direction: {type: string}
   id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
   measure_unit: {type: string}
   unit_amount: {type: float}
-  updated_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
 
 budgets:
-  created_at: {type: datetime}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
   name: {type: string}
-  updated_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
 
 campaigns:
   closed: {type: boolean, required: true, default: false}

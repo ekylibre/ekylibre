@@ -22,11 +22,17 @@
 #
 # == Table: budgets
 #
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  updated_at :datetime
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
-class Budget < ActiveRecord::Base
+class Budget < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, allow_nil: true, maximum: 255
+  #]VALIDATORS]
   has_many :items, class_name: "BudgetItem"
 end
