@@ -144,6 +144,7 @@ bank_statements:
 budget_items:
   amount: {type: float}
   budget_id: {type: integer, references: budget}
+  computation_method: {type: string}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   direction: {type: string}
@@ -153,6 +154,7 @@ budget_items:
   unit_amount: {type: float}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
+  working_unit: {type: string}
 
 budgets:
   created_at: {type: datetime, required: true}

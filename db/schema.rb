@@ -224,12 +224,14 @@ ActiveRecord::Schema.define(version: 20141124152831) do
     t.float    "amount"
     t.float    "unit_amount"
     t.string   "measure_unit"
+    t.string   "working_unit"
+    t.string   "computation_method"
     t.integer  "budget_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version",       default: 0, null: false
   end
 
   add_index "budget_items", ["created_at"], :name => "index_budget_items_on_created_at"

@@ -22,17 +22,19 @@
 #
 # == Table: budget_items
 #
-#  amount       :float
-#  budget_id    :integer
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  direction    :string(255)
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  measure_unit :string(255)
-#  unit_amount  :float
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  amount             :float
+#  budget_id          :integer
+#  computation_method :string(255)
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  direction          :string(255)
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  measure_unit       :string(255)
+#  unit_amount        :float
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  working_unit       :string(255)
 #
 require 'test_helper'
 
