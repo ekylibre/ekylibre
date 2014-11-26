@@ -11,3 +11,5 @@
       - l.attribute :active
       - l.attribute :category, url: true
       - l.attribute :description
+  - b.cell ProductNature.human_attribute_name(:variants) do
+    = list :variants

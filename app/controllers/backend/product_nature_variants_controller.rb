@@ -18,7 +18,7 @@
 #
 
 class Backend::ProductNatureVariantsController < BackendController
-  manage_restfully
+  manage_restfully active: true
 
   manage_restfully_incorporation
 

@@ -1,0 +1,23 @@
+.abilities-list {
+  *[data-ability] {
+    padding: round(0.5 * $default-gap);
+    label {
+      @include inline-block;
+      min-width: 10em;
+    }
+  }
+}
+
+.nomenclature-item {
+  @include inline-block;
+  width: 20em;
+  @include ellipsis;
+  padding: round(0.33 * $default-gap) $default-gap;
+  input {
+    @include margin-right($default-gap)
+  }
+  &.checked {
+    font-weight: bold;
+    background: $success-color;
+  }
+}

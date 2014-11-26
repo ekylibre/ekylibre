@@ -1348,8 +1348,7 @@
         <page to="backend/product_natures#show"/>
         <page to="backend/product_natures#update"/>
         <page to="backend/product_natures#list_prices"/>
-        <page to="backend/product_natures#list_product_nature_variants"/>
-        <page to="backend/product_natures#list_products"/>
+        <page to="backend/product_natures#list_variants"/>
         <page to="backend/product_natures#unroll"/>
       </item>
       <item name="product_nature_variants">

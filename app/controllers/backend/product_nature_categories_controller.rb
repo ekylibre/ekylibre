@@ -18,7 +18,7 @@
 #
 
 class Backend::ProductNatureCategoriesController < BackendController
-  manage_restfully
+  manage_restfully active: true, pictogram: :undefined
 
   manage_restfully_incorporation
 

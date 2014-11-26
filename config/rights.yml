@@ -62,6 +62,7 @@
 #     - "backend/kujakus#toggle"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#list_catalog_items"
+#     - "backend/product_natures#list_variants"
 #     - "backend/snippets#toggle"
 #     - "backend/synchronizations#index"
 #     - "backend/synchronizations#run"
@@ -1533,8 +1534,8 @@ product_natures:
     actions:
     - "backend/product_natures#index"
     - "backend/product_natures#list"
-    - "backend/product_natures#list_product_nature_variants"
-    - "backend/product_natures#list_products"
+    - "backend/product_natures#list_product_nature_variants" #?
+    - "backend/product_natures#list_products" #?
     - "backend/product_natures#show"
     - "backend/product_natures#unroll"
   write:

@@ -59,6 +59,16 @@ module Nomen
       end
     end
 
+    def selection
+      if inline_choices?
+        return choices.collect do |c|
+          [c, c]
+        end
+      else
+        return Nomen[@choices.to_s].selection
+      end
+    end
+
     # Return human name of property
     def human_name
       "nomenclatures.#{nomenclature.name}.property_natures.#{name}".t(:default => ["nomenclatures.#{nomenclature.name}.properties.#{name}".to_sym, "properties.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])

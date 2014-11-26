@@ -18,7 +18,7 @@
 #
 
 class Backend::ProductNaturesController < BackendController
-  manage_restfully
+  manage_restfully population_counting: :decimal, active: true
 
   manage_restfully_incorporation
 
@@ -50,17 +50,16 @@ class Backend::ProductNaturesController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
-  list(:products, conditions: {nature_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|
+  list(:variants, model: :product_nature_variants, conditions: {nature_id: 'params[:id]'.c}, order: :name) do |t|
+    t.column :active
+    t.column :number, url: true
     t.column :name, url: true
-    t.column :identification_number
-    t.column :born_at
-    t.column :net_mass
-    t.column :net_volume
-    t.column :population
-  end
-
-  list(:product_nature_variants, conditions: {nature_id: 'params[:id]'.c}, order: :name) do |t|
-    t.column :name, url: true
+    t.column :variety
+    t.column :derivative_of
+    t.column :unit_name
+    t.action :new, on: :none, url: {nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c}
+    t.action :edit
+    t.action :destroy
   end
 
 end

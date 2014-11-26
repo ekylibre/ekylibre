@@ -19933,6 +19933,7 @@ fra:
         road: "Route"
         tractor: "Tracteur"
         truck: "Camion"
+        undefined: "Indéfini"
         user: "Personne"
         wheat: "Blé"
         wrench: "Clé à molette"

@@ -2041,6 +2041,7 @@ spa:
           # road: "Road"
           # tractor: "Tractor"
           # truck: "Truck"
+          # undefined: "Undefined"
           # user: "User"
           # wheat: "Wheat"
           # wrench: "Wrench"
