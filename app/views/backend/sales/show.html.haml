@@ -25,10 +25,9 @@
     - b.cell Sale.human_attribute_name(:items) do
       = list :items do
         %tr.total
-          %th{colspan: 4}= :total.tl
+          %th{colspan: 5}= :total.tl
           %td= resource.pretax_amount.l(currency: resource.currency)
           %td= resource.amount.l(currency: resource.currency)
-          %th
 
     - b.cell do
       = attributes_list do |l|
