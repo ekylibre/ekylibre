@@ -1344,7 +1344,7 @@ fra:
       all: "Tous"
       inactive: "Inactifs"
     profit_and_loss_statement: "Compte de résultat" #?
-    profitability: "Rentabilité"
+    profitability: "Rentabilité" #?
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     purchase: "Achat"

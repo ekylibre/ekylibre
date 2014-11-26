@@ -96,7 +96,7 @@ $map-button-size: round(2 * $fs-normal);
 
 .leaflet-top, .leaflet-bottom {
   position: absolute;
-  z-index: 1000;
+  z-index: 10;
   pointer-events: none;
 }
 
@@ -483,7 +483,7 @@ $map-button-size: round(2 * $fs-normal);
       padding: 1px;
       margin: -10px auto 0;
       position: relative;
-      z-index: 10000;
+      z-index: 11;
       @include rotate(45deg);
       border-right: $menu-border;
       border-top: $menu-border;
