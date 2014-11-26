@@ -1366,7 +1366,6 @@ spa:
       # active: "Active"
       # all: "All"
       # inactive: "Inactive"
-    # profitability: "Profitability"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
     purchase_steps:  #?

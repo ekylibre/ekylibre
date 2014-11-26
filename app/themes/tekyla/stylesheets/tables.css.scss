@@ -180,7 +180,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
         @include margin-right($default-gap);
       }
       @include menu;
-      z-index: 1000;
+      z-index: 15;
       li {
         @include menu-item;
         ul {

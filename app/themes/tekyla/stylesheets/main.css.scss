@@ -31,7 +31,7 @@
 ul.dropdown-menu {
 @include dropdown-menu;
 }
-*/
+ */
   .collapse {
     > ul {
       @include float(left);
@@ -106,7 +106,6 @@ ul.dropdown-menu {
     }
     #user-menu {
       @include dropdown-menu(bottom, end);
-      z-index: 7;
       margin-top: 0;
       .user    i { @include use-icon(user) };
       .signout i { @include use-icon(sign-out) };
@@ -670,11 +669,11 @@ form.search {
 
   .title {
     // margin-bottom: -2 * $default-gap;
-        display: block;
-        color: #777;
-        font-size: $fs-large;
-        line-height: $lh-large;
-        @include text-align(center);
+    display: block;
+    color: #777;
+    font-size: $fs-large;
+    line-height: $lh-large;
+    @include text-align(center);
   }
   .value {
     white-space: nowrap;
@@ -771,7 +770,7 @@ form.search {
   }
   //  @include respond-to(large) {
     //    @include column-count(4);
-//  }
+    //  }
   $attribute-label-width: 40%;
   margin: 0 $default-gap 1em;
   &:last-child {
@@ -956,14 +955,14 @@ form.search {
     }
   }
   @each $level in (error $invalid-color times-circle), (warning $caution-color exclamation-circle), (success $success-color check-circle), (information $active-color info-circle) {
-    $level-name: nth($level, 1);
-    $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
-    &.#{$level-name} {
-      @include background(linear-gradient(top, lighten($level-color, $default-lightness-variation), $level-color, darken($level-color, $default-lightness-variation)));
-      &, & * { color: visible-color($level-color); }
-      .icon { @include use-icon(nth($level, 3)); }
-    }
-  }
+                                                                                                                                             $level-name: nth($level, 1);
+                                                                                                                                             $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
+                                                                                                                                             &.#{$level-name} {
+                                                                                                                                               @include background(linear-gradient(top, lighten($level-color, $default-lightness-variation), $level-color, darken($level-color, $default-lightness-variation)));
+                                                                                                                                               &, & * { color: visible-color($level-color); }
+                                                                                                                                               .icon { @include use-icon(nth($level, 3)); }
+                                                                                                                                             }
+                                                                                                                                           }
   .close {
     opacity: 0.6;
     display: block;
@@ -1189,7 +1188,7 @@ $controls-margin-left: round($label-width * 1.1);
   }
   //  &.selector .controls .input {
     //    @include toolbar;
-//   }
+    //   }
   &.hidden {
     display: none;
   }
@@ -1254,7 +1253,7 @@ span.rad, label.radio {
 
 
 .inline-form {
-   @include inline-block;
+  @include inline-block;
 }
 
 $form-actions-height: 48px;
@@ -1401,8 +1400,8 @@ $form-actions-height: 48px;
         display: none;
       }
       &:focus, &:active, &:hover {
-        @include opacity(0.8);
-      }
+                           @include opacity(0.8);
+                         }
     }
   }
   .ui-dialog-content {
@@ -1588,7 +1587,7 @@ $form-actions-height: 48px;
   @include float(left);
   background: white;
   border: 1px solid #AAA;
-  z-index: 10;
+  z-index: 12;
   @include incrust-shadow;
   .items-list {
     $item-padding: round($default-gap / 2);
@@ -2350,9 +2349,9 @@ svg.map {
     $color: rgba(nth($light, 2), 0.8);
     &.lights-#{$name} {
       & > .#{$name} {
-        @include background(linear-gradient(top, lighten($color, $light-darken), $color, darken($color, $light-darken)));
-        @include box-shadow(0 0 round($fs-normal*0.3) rgba(lighten($color, $light-darken), 0.7));
-      }
+      @include background(linear-gradient(top, lighten($color, $light-darken), $color, darken($color, $light-darken)));
+      @include box-shadow(0 0 round($fs-normal*0.3) rgba(lighten($color, $light-darken), 0.7));
+    }
     }
   }
 

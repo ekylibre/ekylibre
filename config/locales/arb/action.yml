@@ -1659,7 +1659,6 @@ arb:
       # active: "Active"
       # all: "All"
       # inactive: "Inactive"
-    # profitability: "Profitability"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
     # purchase_items: "Purchase items"
