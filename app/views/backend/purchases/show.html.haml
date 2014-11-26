@@ -12,6 +12,13 @@
 = beehive do |b|
 
   - b.hbox do
+    - b.cell Purchase.human_attribute_name(:items) do
+      = list :items do
+        %tr.total
+          %th{colspan: 5}
+          %td= resource.pretax_amount.l(currency: resource.currency)
+          %td= resource.amount.l(currency: resource.currency)
+
     - b.cell do
       = attributes_list do |l|
         - l.attribute :supplier, :label => :label, url: true
@@ -27,13 +34,6 @@
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :journal_entry, url: true
 
-  - b.cell Purchase.human_attribute_name(:items) do
-    = list :items do
-      %tr.total
-        %th{colspan: 5}
-        %td= resource.pretax_amount.l(currency: resource.currency)
-        %td= resource.amount.l(currency: resource.currency)
-        %th
 
   - b.cell :affair do
     = affair_of(resource)
