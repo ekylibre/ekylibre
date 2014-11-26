@@ -35,7 +35,7 @@ module Unrollable
       includes = includify(columns)
 
       unless order = options[:order]
-        order = filters.map{|f| f[:search] }
+        order = filters.map{|f| f[:search] }.compact
         order ||= :id
       end
 
@@ -47,7 +47,7 @@ module Unrollable
         raise StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
 
-      searchable_filters = filters.select{ |c| c[:column_type] != :boolean }
+      searchable_filters = filters.select{ |c| c[:pattern] and c[:column_type] != :boolean }
       unless searchable_filters.any?
         raise "No searchable filters for #{self.controller_path}#unroll.\nFilters: #{filters.inspect}\nColumns: #{columns.inspect}"
       end
@@ -166,23 +166,25 @@ module Unrollable
         end.flatten
       elsif object.is_a?(Symbol) or object.is_a?(String)
         infos = object.to_s.split(":")
-        unless definition = model.columns_definition[infos.first]
-          raise "Cannot find column definition for #{model.table_name}##{infos.first}"
-        end
         name = infos[2] || [parents.last, infos.first].compact.join('_')
         test = parents.each_with_index.map do |parent, index|
           "item." + parents[0..index].join('.')
         end
         test << "item." + (parents + [infos.first]).join('.')
-        return {
+        filter = {
           name: name.to_sym,
-          search: "#{model.table_name}.#{infos.first}",
           expression: "((#{test.join(' and ')}) ? #{test.last}.l : '')",
-          pattern: infos.second || "%X%",
-          column_name: definition.name,
-          column_type: definition.type,
           root: parents.empty?
         }
+        return filter if infos.second == "!"
+        unless definition = model.columns_definition[infos.first]
+          raise "Cannot find column definition for #{model.table_name}##{infos.first}"
+        end
+        filter[:search]  = "#{model.table_name}.#{infos.first}"
+        filter[:pattern] = infos.second || "%X%"
+        filter[:column_name] = definition.name
+        filter[:column_type] = definition.type
+        return filter
       else
         raise "What a parameter? #{object.inspect}"
       end
