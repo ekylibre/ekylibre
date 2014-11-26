@@ -1600,6 +1600,6 @@ eng:
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
     backend/production_supports: "%{storage_name} ‒ %{variant_name} (%{activity_name} %{campaign_name})"
-    backend/products: "%{work_number} %{name}"
+    backend/products: "%{work_number} %{name} (%{population} %{unit_name})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"
