@@ -569,12 +569,8 @@ Ekylibre::Application.routes.draw do
     # resources :product_localizations, concerns: [:list, :unroll]
 
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
-      collection do
-        get :change_quantities
-      end
       member do
-        get :list_products
-        get :list_product_nature_variants
+        get :list_variants
       end
     end
 

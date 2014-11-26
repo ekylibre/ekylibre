@@ -1687,6 +1687,13 @@ $form-actions-height: 48px;
   }
 }
 
+a[data-remove-closest], a[data-remove] {
+  i {
+    @include is-icon;
+    @include use-icon(times);
+  }
+}
+
 
 .sale-items {
   .sale-item {

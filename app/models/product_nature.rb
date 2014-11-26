@@ -273,6 +273,12 @@ class ProductNature < Ekylibre::Record::Base
     end.compact
   end
 
+  def ability(name)
+    self.abilities_list.select do |a|
+      a.to_s.split(/\(/).first == name.to_s
+    end
+  end
+
   def able_to?(ability)
     exp = nil
     if ability =~ /\(.*\)\z/

@@ -2,7 +2,7 @@ module Nomen
 
   # An item of a nomenclature is the core data.
   class Item
-    attr_reader :nomenclature, :name, :properties, :children, :parent, :left, :right, :depth
+    attr_reader :nomenclature, :name, :properties, :parent, :left, :right, :depth
 
     # New item
     def initialize(nomenclature, element, options = {})
@@ -26,13 +26,14 @@ module Nomen
 
     # Returns children recursively by default
     def children(recursively = true)
-      @children ||= nomenclature.items.values.select do |item|
+      if recursively
+        return @children ||= nomenclature.list.select do |item|
+          @left <= item.left and item.right <= @right
+        end
+      end
+      return nomenclature.list.select do |item|
         (item.parent == self)
       end
-      if recursively
-        return @children + @children.map(&:children).flatten
-      end
-      return @children
     end
 
     # Returns direct parents from the closest to the farthest

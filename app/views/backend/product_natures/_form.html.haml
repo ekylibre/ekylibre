@@ -5,17 +5,12 @@
   = f.input :variety
   = f.input :derivative_of
   = f.input :population_counting, as: :radio_buttons
+  = f.picture
+  = f.input :description
   = f.custom_fields
 
-= field_set(:details) do
-  = f.input :description
-  = f.picture
-
--#= field_set(:variants) do
-  = f.nested_association(:variants)
-
 = field_set(:definition) do
-  = f.input :abilities_list, :disabled => true
-  = f.input :frozen_indicators_list, :disabled => true
-  = f.input :variable_indicators_list, :disabled => true
-  = f.input :linkage_points_list, :disabled => true
+  = f.abilities_list
+  = f.items_list :frozen_indicators_list, of: :indicators
+  = f.items_list :variable_indicators_list, of: :indicators
+  = f.items_list :linkage_points_list, of: "product_natures#linkage_points"

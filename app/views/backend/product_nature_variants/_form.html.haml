@@ -1,9 +1,27 @@
+:ruby
+  if nature = f.object.nature
+    f.object.name ||= nature.name
+    f.object.unit_name ||= Nomen::Varieties[nature.variety].human_name
+    nature.frozen_indicators.each do |indicator|
+      unless f.object.readings.find_by(indicator_name: indicator.name)
+        f.object.readings.build(indicator_name: indicator.name)
+      end
+    end
+  end
+
 = field_set do
-  = f.referenced_association :nature
+  - if f.object.new_record? and nature.nil?
+    = f.referenced_association :nature
+  - else
+    = f.association :nature, as: :hidden
+  - unless f.object.products.any? or nature.nil?
+    = f.variety scope: nature
   = f.input :name
   = f.input :active
+  = f.input :unit_name
   = f.picture
   = f.custom_fields
 
-= field_set(:indicators) do
-  = f.nested_association(:readings, new: false)
+- if f.object.readings.any?
+  = field_set(:indicators) do
+    = f.nested_association(:readings, new: false)

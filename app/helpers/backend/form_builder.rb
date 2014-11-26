@@ -145,6 +145,87 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
+
+  def items_list(attribute_name, options = {}, &block)
+    prefix = @lookup_model_names.first +
+             @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join +
+             "[#{attribute_name}][]"
+    options[:of] ||= :languages
+    selection = []
+    if options[:of].to_s =~ /\#/
+      array = options[:of].to_s.split("#")
+      selection = Nomen[array.first].property_natures[array.second].selection
+    else
+      selection = Nomen[options[:of]].selection
+    end
+    list = @object.send(attribute_name) || []
+    return self.input(attribute_name, options) do
+      @template.content_tag(:span, class: "control-group symbol-list") do
+        selection.collect do |human_name, name|
+          checked = list.include?(name.to_sym)
+          @template.label_tag(nil, class: "nomenclature-item#{' checked' if checked}") do
+            @template.check_box_tag(prefix, name, checked) +
+              @template.content_tag(:span, human_name)
+          end
+        end.join.html_safe
+      end
+    end
+  end
+
+
+  def abilities_list(attribute_name = :abilities_list, options = {}, &block)
+    prefix = @lookup_model_names.first +
+             @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join +
+             "[#{attribute_name}][]"
+    return self.input(attribute_name, options) do
+      data_lists = {}
+      @template.content_tag(:span, class: "control-group abilities-list") do
+        abilities_for_select = Nomen::Abilities.list.sort { |a, b| a.human_name <=> b.human_name }.map do |a|
+          attrs = {value: a.name}
+          if a.parameters
+            a.parameters.each do |parameter|
+              if parameter == :variety
+                data_lists[parameter] ||= Nomen::Varieties.selection
+              else
+                raise "Unknown parameter type for an ability: #{parameter.inspect}"
+              end
+            end
+            attrs[:data] = {ability_parameters: a.parameters.join(", ")}
+          end
+          @template.content_tag(:option, a.human_name, attrs)
+        end.join.html_safe
+        widget  = @template.content_tag(:span, class: "abilities") do
+          if list = @object.send(attribute_name)
+            list.collect do |a|
+              ar = a.to_s.split(/[\(\,\s\)]+/).compact
+              ability = Nomen::Abilities[ar.shift]
+              @template.content_tag(:div, data: {ability: ability.name}, class: :ability) do
+                html  = @template.label_tag ability.human_name
+                html << @template.hidden_field_tag(prefix, a, class: "ability-value")
+                ar.each_with_index do |p, index|
+                  html << @template.select_tag(nil, @template.options_for_select(data_lists[ability.parameters[index]], p), data: {ability_parameter: index})
+                end
+                html << @template.link_to("#", data: {remove_closest: ".ability"}) do
+                  @template.content_tag(:i)
+                end
+                html
+              end
+            end.join.html_safe
+          end
+        end
+        attrs = {}
+        widget << @template.select_tag("ability-creator", abilities_for_select, name: nil)
+        widget << " ".html_safe
+        widget << @template.link_to(:add.tl, "#ability-creator", data: {add_ability: prefix})
+        data_lists.each do |key, selection|
+          widget << @template.content_tag(:datalist, @template.options_for_select(selection), data: {ability_parameter_list: key})
+        end
+        widget
+      end
+    end
+  end
+
+
   def shape(attribute_name = :shape, options = {})
     # raise @object.send(attribute_name)
     editor = {}
@@ -255,27 +336,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         # Add name
         fs << self.input(:name)
         # Add variant selector
-        if variant.derivative_of
-          varieties        = Nomen::Varieties.selection(variant.variety)
-          derivatives      = Nomen::Varieties.selection(variant.derivative_of)
-          @object.variety  ||= varieties.first.last if varieties.first
-          fs << self.input(:variety, wrapper: :append, :class => :inline) do
-            field = ('<span class="add-on">' <<
-               ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) <<
-               '</span>')
-            field.gsub!("{@@", '</span>')
-            field.gsub!("@@}", '<span class="add-on">')
-            field.gsub!('<span class="add-on"></span>', '')
-            field.gsub!("@@VARIETY@@", self.input_field(:variety, as: :select, collection: varieties))
-            field.gsub!("@@DERIVATIVE@@", self.input_field(:derivative_of, as: :select, collection: derivatives))
-            field.html_safe
-          end
-        else
-          # Add variety selector
-          varieties       = Nomen::Varieties.selection(variant.variety)
-          @object.variety ||= varieties.first.last if varieties.first
-          fs << self.input(:variety, collection: varieties)
-        end
+        fs << self.variety(scope: variant)
 
         # error message for indicators
         if Rails.env.development?
@@ -364,6 +425,29 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     return html
   end
 
+
+  def variety(options = {})
+    scope = options[:scope]
+    varieties         = Nomen::Varieties.selection(scope ? scope.variety : nil)
+    @object.variety ||= (scope ? scope.variety : varieties.first ? varieties.first.last : nil)
+    if options[:derivative_of] or (scope and scope.derivative_of)
+      derivatives     = Nomen::Varieties.selection(scope ? scope.derivative_of : nil)
+      @object.derivative_of ||= (scope ? scope.derivative_of : derivatives.first ? derivatives.first.last : nil)
+      return self.input(:variety, wrapper: :append, :class => :inline) do
+        field = ('<span class="add-on">' <<
+                 ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) <<
+                 '</span>')
+        field.gsub!("{@@", '</span>')
+        field.gsub!("@@}", '<span class="add-on">')
+        field.gsub!('<span class="add-on"></span>', '')
+        field.gsub!("@@VARIETY@@", self.input_field(:variety, as: :select, collection: varieties))
+        field.gsub!("@@DERIVATIVE@@", self.input_field(:derivative_of, as: :select, collection: derivatives))
+        field.html_safe
+      end
+    else
+      return self.input(:variety, collection: varieties)
+    end
+  end
 
 
   def access_control_list(name = :rights)

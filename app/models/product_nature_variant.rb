@@ -71,7 +71,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   delegate :deliverable?, :purchasable?, :saleable?, :subscribing?, :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :readings, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :readings, reject_if: Proc.new{ |params| params["measure_value_value"].blank?  }, :allow_destroy => true
   accepts_nested_attributes_for :catalog_items, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered
 

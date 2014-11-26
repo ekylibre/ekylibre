@@ -1305,7 +1305,7 @@ eng:
     validate_selected_entries: "Validate selected entries"
     values: "Values" #?
     variable_indicators: "Variable indicators"
-    variants: "Variants"
+    variants: "Variants" #?
     view: "View"
     weather: "Weather"
     wind_speed: "Wind speed"
