@@ -178,7 +178,7 @@ module Unrollable
           name: name.to_sym,
           search: "#{model.table_name}.#{infos.first}",
           expression: "((#{test.join(' and ')}) ? #{test.last}.l : '')",
-          pattern: infos.second || "X%",
+          pattern: infos.second || "%X%",
           column_name: definition.name,
           column_type: definition.type,
           root: parents.empty?
