@@ -142,28 +142,37 @@ bank_statements:
   updater_id: {type: integer, references: user}
 
 budget_items:
-  amount: {type: float}
   budget_id: {type: integer, references: budget}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string}
+  global_amount: {type: float}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  production_support_id: {type: integer, references: production_support}
+  quantity: {type: float}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+budgets:
   computation_method: {type: string}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  direction: {type: string}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  measure_unit: {type: string}
-  unit_amount: {type: float}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-  working_unit: {type: string}
-
-budgets:
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
+  currency: {type: string}
+  direction: {type: string, required: true}
+  global_amount: {type: float}
+  global_quantity: {type: float}
+  homogeneous_values: {type: boolean}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string}
+  production_id: {type: integer, references: production}
+  unit_amount: {type: float}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
+  variant_id: {type: integer, references: variant}
+  working_indicator: {type: string}
+  working_unit: {type: string}
 
 campaigns:
   closed: {type: boolean, required: true, default: false}
@@ -1545,6 +1554,8 @@ productions:
   campaign_id: {type: integer, references: campaign, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
+  homogeneous_charges: {type: boolean, default: false}
+  homogeneous_expenses: {type: boolean, default: false}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
@@ -1553,9 +1564,12 @@ productions:
   state: {type: string, required: true}
   static_support: {type: boolean, required: true, default: false}
   stopped_at: {type: datetime}
+  support_variant_id: {type: integer, references: product_nature_variant}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-  variant_id: {type: integer, references: product_nature_variant}
+  variant_id: {type: integer, references: product_nature_variant, required: true}
+  working_indicator: {type: string}
+  working_unit: {type: string}
 
 products:
   address_id: {type: integer, references: entity_address}

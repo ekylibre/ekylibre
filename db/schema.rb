@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124152831) do
+ActiveRecord::Schema.define(version: 20141127105457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,18 +220,16 @@ ActiveRecord::Schema.define(version: 20141124152831) do
   add_index "bank_statements", ["updater_id"], :name => "index_bank_statements_on_updater_id"
 
   create_table "budget_items", force: true do |t|
-    t.string   "direction"
-    t.float    "amount"
-    t.float    "unit_amount"
-    t.string   "measure_unit"
-    t.string   "working_unit"
-    t.string   "computation_method"
+    t.float    "quantity"
+    t.float    "global_amount"
+    t.string   "currency"
     t.integer  "budget_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.integer  "production_support_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",       default: 0, null: false
+    t.integer  "lock_version",          default: 0, null: false
   end
 
   add_index "budget_items", ["created_at"], :name => "index_budget_items_on_created_at"
@@ -241,11 +239,22 @@ ActiveRecord::Schema.define(version: 20141124152831) do
 
   create_table "budgets", force: true do |t|
     t.string   "name"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "direction",                      null: false
+    t.float    "global_amount"
+    t.float    "unit_amount"
+    t.float    "global_quantity"
+    t.string   "working_indicator"
+    t.string   "working_unit"
+    t.string   "computation_method"
+    t.boolean  "homogeneous_values"
+    t.string   "currency"
+    t.integer  "variant_id"
+    t.integer  "production_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version",       default: 0, null: false
   end
 
   add_index "budgets", ["created_at"], :name => "index_budgets_on_created_at"
@@ -2268,20 +2277,25 @@ ActiveRecord::Schema.define(version: 20141124152831) do
   add_index "production_supports", ["updater_id"], :name => "index_production_supports_on_updater_id"
 
   create_table "productions", force: true do |t|
-    t.integer  "activity_id",                    null: false
-    t.integer  "campaign_id",                    null: false
-    t.integer  "variant_id"
-    t.string   "name",                           null: false
-    t.string   "state",                          null: false
-    t.boolean  "static_support", default: false, null: false
+    t.integer  "activity_id",                          null: false
+    t.integer  "campaign_id",                          null: false
+    t.integer  "variant_id",                           null: false
+    t.string   "name",                                 null: false
+    t.string   "state",                                null: false
+    t.boolean  "static_support",       default: false, null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.integer  "position"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",   default: 0,     null: false
+    t.integer  "lock_version",         default: 0,     null: false
+    t.string   "working_indicator"
+    t.string   "working_unit"
+    t.integer  "support_variant_id"
+    t.boolean  "homogeneous_expenses", default: false
+    t.boolean  "homogeneous_charges",  default: false
   end
 
   add_index "productions", ["activity_id"], :name => "index_productions_on_activity_id"
@@ -2291,6 +2305,7 @@ ActiveRecord::Schema.define(version: 20141124152831) do
   add_index "productions", ["name"], :name => "index_productions_on_name"
   add_index "productions", ["started_at"], :name => "index_productions_on_started_at"
   add_index "productions", ["stopped_at"], :name => "index_productions_on_stopped_at"
+  add_index "productions", ["support_variant_id"], :name => "index_productions_on_support_variant_id"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
   add_index "productions", ["variant_id"], :name => "index_productions_on_variant_id"
