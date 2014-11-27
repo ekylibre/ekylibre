@@ -22,13 +22,24 @@
 #
 # == Table: budgets
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  computation_method :string(255)
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(255)
+#  direction          :string(255)      not null
+#  global_amount      :float
+#  global_quantity    :float
+#  homogeneous_values :boolean
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  name               :string(255)
+#  production_id      :integer
+#  unit_amount        :float
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer
+#  working_indicator  :string(255)
+#  working_unit       :string(255)
 #
 require 'test_helper'
 

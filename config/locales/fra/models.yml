@@ -731,6 +731,7 @@ fra:
     gaps: "Écarts"
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
+    # global_amount: "Global amount"
     global_balance: "Solde global"
     global_count: "Population globale"
     global_credit: "Crédit global"
@@ -1224,6 +1225,8 @@ fra:
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
     worker: "Travailleur"
+    # working_indicator: "Working indicator"
+    # working_unit: "Working unit"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:

@@ -22,21 +22,26 @@
 #
 # == Table: productions
 #
-#  activity_id    :integer          not null
-#  campaign_id    :integer          not null
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  name           :string(255)      not null
-#  position       :integer
-#  started_at     :datetime
-#  state          :string(255)      not null
-#  static_support :boolean          not null
-#  stopped_at     :datetime
-#  updated_at     :datetime         not null
-#  updater_id     :integer
-#  variant_id     :integer
+#  activity_id          :integer          not null
+#  campaign_id          :integer          not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  homogeneous_charges  :boolean
+#  homogeneous_expenses :boolean
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)      not null
+#  position             :integer
+#  started_at           :datetime
+#  state                :string(255)      not null
+#  static_support       :boolean          not null
+#  stopped_at           :datetime
+#  support_variant_id   :integer
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variant_id           :integer          not null
+#  working_indicator    :string(255)
+#  working_unit         :string(255)
 #
 require 'test_helper'
 

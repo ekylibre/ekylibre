@@ -22,26 +22,26 @@
 #
 # == Table: budget_items
 #
-#  amount             :float
-#  budget_id          :integer
-#  computation_method :string(255)
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  direction          :string(255)
-#  id                 :integer          not null, primary key
-#  lock_version       :integer          default(0), not null
-#  measure_unit       :string(255)
-#  unit_amount        :float
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  working_unit       :string(255)
+#  budget_id             :integer
+#  created_at            :datetime         not null
+#  creator_id            :integer
+#  currency              :string(255)
+#  global_amount         :float
+#  id                    :integer          not null, primary key
+#  lock_version          :integer          default(0), not null
+#  production_support_id :integer
+#  quantity              :float
+#  updated_at            :datetime         not null
+#  updater_id            :integer
 #
 class BudgetItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :unit_amount, allow_nil: true
-  validates_length_of :computation_method, :direction, :measure_unit, :working_unit, allow_nil: true, maximum: 255
+  validates_numericality_of :global_amount, :quantity, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 255
   #]VALIDATORS]
   enumerize :direction, in: [:revenue, :expense]
-  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit]
+  enumerize :computation_method, in: [:per_production_support, :per_working_unit]
+
   belongs_to :budget, inverse_of: :items
+  belongs_to :production_support
 end

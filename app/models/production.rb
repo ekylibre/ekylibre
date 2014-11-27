@@ -22,28 +22,35 @@
 #
 # == Table: productions
 #
-#  activity_id    :integer          not null
-#  campaign_id    :integer          not null
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  name           :string(255)      not null
-#  position       :integer
-#  started_at     :datetime
-#  state          :string(255)      not null
-#  static_support :boolean          not null
-#  stopped_at     :datetime
-#  updated_at     :datetime         not null
-#  updater_id     :integer
-#  variant_id     :integer
+#  activity_id          :integer          not null
+#  campaign_id          :integer          not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  homogeneous_charges  :boolean
+#  homogeneous_expenses :boolean
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)      not null
+#  position             :integer
+#  started_at           :datetime
+#  state                :string(255)      not null
+#  static_support       :boolean          not null
+#  stopped_at           :datetime
+#  support_variant_id   :integer
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variant_id           :integer          not null
+#  working_indicator    :string(255)
+#  working_unit         :string(255)
 #
 class Production < Ekylibre::Record::Base
   enumerize :state, in: [:draft, :validated], default: :draft
   belongs_to :activity
   belongs_to :campaign
   belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :support_variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
+  has_many :budgets
   has_many :distributions, class_name: "AnalyticDistribution"
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
@@ -55,13 +62,14 @@ class Production < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :name, :state, allow_nil: true, maximum: 255
+  validates_length_of :name, :state, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :static_support, in: [true, false]
-  validates_presence_of :activity, :campaign, :name, :state
+  validates_presence_of :activity, :campaign, :name, :state, :variant
   #]VALIDATORS]
   # validates_presence_of :product_nature, if: :activity_main?
 
   alias_attribute :label, :name
+  alias_attribute :product_variant, :variant
 
   delegate :name, :variety, to: :variant, prefix: true
 

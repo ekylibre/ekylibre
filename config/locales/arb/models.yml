@@ -1385,6 +1385,7 @@ arb:
     generated: "ولدت" #?
     # geolocation: "Geolocation"
     # geometry_value: "Geometry value"
+    # global_amount: "Global amount"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
     global_credit: "الائتمان العالمي"
@@ -2045,6 +2046,8 @@ arb:
     # with_transport: "With transport"
     # work_number: "Work number"
     # worker: "Worker"
+    # working_indicator: "Working indicator"
+    # working_unit: "Working unit"
     # zone_memberships: "Zone memberships"
     # zones: "Zones"
   models:

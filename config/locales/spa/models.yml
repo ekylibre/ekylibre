@@ -643,6 +643,7 @@ spa:
     # gaps: "Gaps"
     # geolocation: "Geolocation"
     # geometry_value: "Geometry value"
+    # global_amount: "Global amount"
     # global_balance: "Global balance"
     # global_count: "Global count"
     # global_credit: "Global credit"
@@ -1092,6 +1093,8 @@ spa:
     # with_transport: "With transport"
     # work_number: "Work number"
     # worker: "Worker"
+    # working_indicator: "Working indicator"
+    # working_unit: "Working unit"
     # zone_memberships: "Zone memberships"
     # zones: "Zones"
   models:

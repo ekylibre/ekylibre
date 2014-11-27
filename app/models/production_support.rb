@@ -43,6 +43,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   belongs_to :production, inverse_of: :supports
   belongs_to :storage, class_name: "Product", inverse_of: :supports
+  has_many :budget_items
   has_many :interventions
   has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support, dependent: :destroy
