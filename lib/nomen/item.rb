@@ -28,7 +28,7 @@ module Nomen
     def children(recursively = true)
       if recursively
         return @children ||= nomenclature.list.select do |item|
-          @left <= item.left and item.right <= @right
+          item != self and @left <= item.left and item.right <= @right
         end
       end
       return nomenclature.list.select do |item|
