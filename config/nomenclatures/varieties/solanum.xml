@@ -192,7 +192,6 @@
   </nomenclature>
   <nomenclature name="varieties-solanum_lycopersicum" hierarchical="true">
     <items>
-      <item name="solanum_lycopersicum_cersasiforme" itis_tsn="566309"/>
       <item name="solanum_lycopersicum_abraham_lincoln" itis_tsn="566310"/>
       <item name="solanum_lycopersicum_ace" itis_tsn="521671"/>
       <item name="solanum_lycopersicum_ananas" itis_tsn="521671"/>

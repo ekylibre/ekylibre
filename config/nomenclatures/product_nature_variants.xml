@@ -548,12 +548,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <item name="strawberry_crop"
-            nature="crop"
-            variety="fragaria"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
-            />
+      <!-- <item name="strawberry_crop" -->
+      <!--       nature="crop" -->
+      <!--       variety="fragaria" -->
+      <!--       unit_name="hectare" -->
+      <!--       frozen_indicators_values="net_surface_area: 1.00hectare" -->
+      <!--       /> -->
       <item name="carrot_crop"
             nature="crop"
             variety="daucus"
@@ -2162,7 +2162,7 @@
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 1.2gram"
             />
-      <item name="coop:ray_g__hyb__bahial_10kg"
+      <item name="coop:ray_g_hyb_bahial_10kg"
             nature="seed"
             derivative_of="lolium_hybridum_bahial"
             unit_name="10kg_bag"
@@ -2180,7 +2180,7 @@
             unit_name="10kg_bag"
             frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
             />
-      <item name="coop:trefle_v__segur_s10k"
+      <item name="coop:trefle_v_segur_s10k"
             nature="seed"
             derivative_of="trifolium_pratense"
             unit_name="10kg_bag"
@@ -2273,12 +2273,6 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_ascott_r1_gau__red_s25kg"
-            nature="seed"
-            derivative_of="triticum_aestivum_ascott"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
-            />
       <item name="coop:bth_s_ascott_r1_gau_red_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_ascott"
@@ -2321,7 +2315,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_rubisko_r1_gau___red_s25kg"
+      <item name="coop:bth_s_rubisko_r1_gau_red_s25kg"
             nature="seed"
             derivative_of="triticum_aestivum_rubisko"
             unit_name="25kg_bag"
@@ -2365,17 +2359,17 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, nitrogen_concentration: 13percent, phosphorus_concentration: 5percent"
             />
-      <item name="coop:ammonitre_27_____vr"
+      <item name="coop:ammonitre_27_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 27percent"
             />
-      <item name="coop:ammonitre_33_5_____vr"
+      <item name="coop:ammonitre_33_5_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent"
             />
-      <item name="coop:ammonitre_33_5_____bb"
+      <item name="coop:ammonitre_33_5_bb"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent"
@@ -2385,12 +2379,12 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent"
             />
-      <item name="coop:super_46__gr__vr"
+      <item name="coop:super_46_gr_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, phosphorus_concentration: 46percent"
             />
-      <item name="coop:chlorure_60__gr____vr"
+      <item name="coop:chlorure_60_gr_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent"
@@ -2536,7 +2530,7 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="coop:kalao_d__5_l"
+      <item name="coop:kalao_d_5_l"
             nature="herbicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"

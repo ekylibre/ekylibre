@@ -1010,7 +1010,7 @@ fra:
     in_production: "En production" #?
     incident: "Incident"
     include_blank: "— Aucune organisation —"
-    income_statement: "Comptes de résultats"
+    income_statement: "Compte de résultat"
     incoming_payment_conditions: "Conditions d’encaissement"
     incoming_payments: "Encaissements"
     incoming_payments_states:
@@ -1343,7 +1343,6 @@ fra:
       active: "Actifs"
       all: "Tous"
       inactive: "Inactifs"
-    profit_and_loss_statement: "Compte de résultat" #?
     profitability: "Rentabilité" #?
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?

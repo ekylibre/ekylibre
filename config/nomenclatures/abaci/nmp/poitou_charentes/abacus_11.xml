@@ -13,7 +13,7 @@
     </property-natures>
     <items>
       <!-- Seigle et Phacélie -->
-      <item name="secale_phacelia_low" intermediate_crop_variety="secale_phacelia"
+      <item name="late_secale_phacelia_low" intermediate_crop_variety="secale_phacelia"
         growth_level="low"
         intermediate_crop_destruction_period_start="1101"
         intermediate_crop_destruction_period_stop="1231"
@@ -32,7 +32,7 @@
         mrci="10"
       />
       <!-- Graminée -->
-       <item name="grass_low" intermediate_crop_variety="grass"
+       <item name="late_grass_low" intermediate_crop_variety="grass"
         growth_level="low"
         intermediate_crop_destruction_period_start="1101"
         intermediate_crop_destruction_period_stop="1231"
@@ -44,7 +44,7 @@
         intermediate_crop_destruction_period_stop="1031"
         mrci="15"
       />
-      <item name="grass_high" intermediate_crop_variety="grass"
+      <item name="late_grass_high" intermediate_crop_variety="grass"
         growth_level="high"
         intermediate_crop_destruction_period_start="1101"
         intermediate_crop_destruction_period_stop="1231"
@@ -57,7 +57,7 @@
         mrci="20"
       />
       <!-- Crucifères -->
-       <item name="crucifers_low" intermediate_crop_variety="crucifers"
+       <item name="late_crucifers_low" intermediate_crop_variety="crucifers"
         growth_level="low"
         intermediate_crop_destruction_period_start="1101"
         intermediate_crop_destruction_period_stop="1231"
@@ -69,7 +69,7 @@
         intermediate_crop_destruction_period_stop="1031"
         mrci="15"
       />
-      <item name="crucifers_high" intermediate_crop_variety="crucifers"
+      <item name="late_crucifers_high" intermediate_crop_variety="crucifers"
         growth_level="high"
         intermediate_crop_destruction_period_start="1101"
         intermediate_crop_destruction_period_stop="1231"
@@ -82,7 +82,7 @@
         mrci="20"
       />
       <!-- Légumineuses -->
-       <item name="leguminosae_low" intermediate_crop_variety="leguminosae"
+       <item name="late_leguminosae_low" intermediate_crop_variety="leguminosae"
         growth_level="low"
         intermediate_crop_destruction_period_start="1101"
         intermediate_crop_destruction_period_stop="1231"

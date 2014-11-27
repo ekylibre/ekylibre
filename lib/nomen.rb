@@ -30,6 +30,15 @@ module Nomen
       @@list[name]
     end
 
+    # Browse all nomenclatures
+    def each(&block)
+      if block.arity == 2
+        @@list.each(&block)
+      else
+        @@list.values.each(&block)
+      end
+    end
+
     # Load all files
     def load
       sets = HashWithIndifferentAccess.new

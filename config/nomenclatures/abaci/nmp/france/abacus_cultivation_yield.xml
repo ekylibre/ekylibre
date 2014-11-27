@@ -97,11 +97,11 @@
 
       <!-- Maïs grain irrigué-->
 
-      <item name="grain_corn_yield_24" cultivation_variety="zea" administrative_area="france_department_dordogne" irrigated="true" expected_yield="93"/>
-      <item name="grain_corn_yield_33" cultivation_variety="zea" administrative_area="france_department_gironde" irrigated="true" expected_yield="106"/>
-      <item name="grain_corn_yield_40" cultivation_variety="zea" administrative_area="france_department_landes" irrigated="true" expected_yield="113"/>
-      <item name="grain_corn_yield_47" cultivation_variety="zea" administrative_area="france_department_lot_et_garonne" irrigated="true" expected_yield="98"/>
-      <item name="grain_corn_yield_64" cultivation_variety="zea" administrative_area="france_department_pyrenees_atlantiques" irrigated="true" expected_yield="110"/>
+      <item name="irrigated_grain_corn_yield_24" cultivation_variety="zea" administrative_area="france_department_dordogne" irrigated="true" expected_yield="93"/>
+      <item name="irrigated_grain_corn_yield_33" cultivation_variety="zea" administrative_area="france_department_gironde" irrigated="true" expected_yield="106"/>
+      <item name="irrigated_grain_corn_yield_40" cultivation_variety="zea" administrative_area="france_department_landes" irrigated="true" expected_yield="113"/>
+      <item name="irrigated_grain_corn_yield_47" cultivation_variety="zea" administrative_area="france_department_lot_et_garonne" irrigated="true" expected_yield="98"/>
+      <item name="irrigated_grain_corn_yield_64" cultivation_variety="zea" administrative_area="france_department_pyrenees_atlantiques" irrigated="true" expected_yield="110"/>
 
       <!-- Maïs doux -->
 

@@ -68,6 +68,9 @@ module Nomen
     # Add an item to the nomenclature
     def add_item(element, options = {})
       i = Item.new(self, element, options)
+      if @items[i.name]
+        raise "Item #{i.name} is already defined in nomenclature #{self.name}"
+      end
       @items[i.name] = i
       return i
     end
