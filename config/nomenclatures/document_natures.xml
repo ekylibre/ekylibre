@@ -17,7 +17,6 @@
       <item name="balance_sheet" category="accountancy"/>
       <item name="income_statement" category="accountancy"/>
       <item name="journal" category="accountancy"/>
-      <item name="profit_and_loss_statement" category="accountancy"/>
       <item name="exchange_accountancy_file_fr" category="accountancy"/>
       <item name="general_journal" category="accountancy"/>
       <item name="general_ledger" category="accountancy"/>

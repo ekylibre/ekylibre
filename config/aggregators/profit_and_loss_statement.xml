@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
-  <aggregator name="profit_and_loss_statement" version="0.0" category="exploitation">
+  <aggregator name="income_statement" version="0.0" category="exploitation">
     <parameters>
       <parameter name="started_on" type="date" default="2013-01-01"/>
       <parameter name="stopped_on" type="date" default="2013-12-31"/>

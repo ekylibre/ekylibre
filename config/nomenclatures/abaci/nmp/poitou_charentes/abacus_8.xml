@@ -16,135 +16,135 @@
       <!-- Tableau Grandes cultures -->
       <!-- FUMIER DE BOVIN -->
       <item name="cattle_manure_on_spring_straw_cereal_1" variant="cattle_manure" crop="spring_straw_cereal"
-      input_period_start="03" input_period_stop="06" keq="0.3"
-      />
+            input_period_start="03" input_period_stop="06" keq="0.3"
+            />
       <item name="cattle_manure_on_spring_straw_cereal_2" variant="cattle_manure" crop="spring_straw_cereal"
-      input_period_start="06" input_period_stop="12" keq="0.2"
-      />
+            input_period_start="06" input_period_stop="12" keq="0.2"
+            />
       <!-- COMPOST DE BOVIN -->
       <item name="cattle_compost_on_spring_straw_cereal_1" variant="cattle_compost" crop="spring_straw_cereal"
-      input_period_start="03" input_period_stop="06" keq="0.3"
-      />
+            input_period_start="03" input_period_stop="06" keq="0.3"
+            />
       <item name="cattle_compost_on_spring_straw_cereal_2" variant="cattle_compost" crop="spring_straw_cereal"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.15"
-      />
-      <!-- FUMIER DE VOLLAILE -->
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.15"
+            />
+      <!-- FUMIER DE VOLAILLE -->
       <item name="hen_manure_on_straw_cereal" variant="hen_manure" crop="straw_cereal"
-      input_period_start="03" input_period_stop="06" keq="0.55"
-      />
+            input_period_start="03" input_period_stop="06" keq="0.55"
+            />
       <item name="hen_manure_on_rape" variant="hen_manure" crop="rape"
-      input_period_start="08" input_period_stop="10" keq="0.2"
-      />
+            input_period_start="08" input_period_stop="10" keq="0.2"
+            />
       <item name="hen_manure_on_spring_straw_cereal" variant="hen_manure" crop="spring_straw_cereal"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.16"
-      />
-      <!-- COMPOST DE VOLLAILE -->
-      <item name="hen_compost_on_spring_straw_cereal" variant="hen_compost" crop="spring_straw_cereal"
-      input_period_start="03" input_period_stop="06" keq="0.4"
-      />
-      <item name="hen_compost_on_spring_straw_cereal" variant="hen_compost" crop="spring_straw_cereal"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.15"
-      />
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.16"
+            />
+      <!-- COMPOST DE VOLAILLE -->
+      <item name="hen_compost_on_spring_straw_cereal_s1" variant="hen_compost" crop="spring_straw_cereal"
+            input_period_start="03" input_period_stop="06" keq="0.4"
+            />
+      <item name="hen_compost_on_spring_straw_cereal_s2" variant="hen_compost" crop="spring_straw_cereal"
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.15"
+            />
       <!-- FIENTES SECHES -->
       <item name="hen_guano_on_straw_cereal" variant="hen_guano" crop="straw_cereal"
-      input_period_start="03" input_period_stop="06" keq="0.7"
-      />
+            input_period_start="03" input_period_stop="06" keq="0.7"
+            />
       <item name="hen_guano_on_rape" variant="hen_guano" crop="rape"
-      input_period_start="08" input_period_stop="10" keq="0.1"
-      />
+            input_period_start="08" input_period_stop="10" keq="0.1"
+            />
       <item name="hen_guano_on_spring_straw_cereal" variant="hen_guano" crop="spring_straw_cereal"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.16"
-      />
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.16"
+            />
       <!-- LISIER DE PORC -->
       <item name="pig_slurry_on_straw_cereal" variant="pig_slurry" crop="straw_cereal"
-      input_period_start="03" input_period_stop="06" keq="0.75"
-      />
+            input_period_start="03" input_period_stop="06" keq="0.75"
+            />
       <item name="pig_slurry_on_rape" variant="pig_slurry" crop="rape"
-      input_period_start="08" input_period_stop="10" keq="0.10"
-      />
+            input_period_start="08" input_period_stop="10" keq="0.10"
+            />
       <item name="pig_slurry_on_spring_straw_cereal" variant="pig_slurry" crop="spring_straw_cereal"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.10"
-      />
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.10"
+            />
       <!-- LISIER DE BOVINS -->
       <item name="cattle_slurry_on_spring_crop_1" variant="cattle_slurry" crop="spring_crop"
-      input_period_start="03" input_period_stop="07" keq="0.55"
-      />
+            input_period_start="03" input_period_stop="07" keq="0.55"
+            />
       <item name="cattle_slurry_on_autumn_crop" variant="cattle_slurry" crop="autumn_crop"
-      input_period_start="08" input_period_stop="10" keq="0.15"
-      />
+            input_period_start="08" input_period_stop="10" keq="0.15"
+            />
       <item name="cattle_slurry_on_spring_crop_2" variant="cattle_slurry" crop="spring_crop"
-      input_period_start="08" input_period_stop="12" input_method="before_cipan" keq="0.15"
-      />
+            input_period_start="08" input_period_stop="12" input_method="before_cipan" keq="0.15"
+            />
       <!-- COMPOST URBAIN -->
       <item name="urban_compost_on_spring_crop" variant="urban_compost" crop="spring_crop"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.3"
-      />
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.3"
+            />
       <!-- VINASSE DE SUCRERIE -->
       <item name="sugar_vinasse_on_spring_crop_1" variant="sugar_vinasse" crop="spring_crop"
-      input_period_start="06" input_period_stop="10" input_method="before_cipan" keq="0.15"
-      />
+            input_period_start="06" input_period_stop="10" input_method="before_cipan" keq="0.15"
+            />
       <item name="sugar_vinasse_on_spring_crop_2" variant="sugar_vinasse" crop="spring_crop"
-      input_period_start="10" input_period_stop="01" keq="0.3"
-      />
+            input_period_start="10" input_period_stop="01" keq="0.3"
+            />
       <item name="sugar_vinasse_on_spring_crop_3" variant="sugar_vinasse" crop="spring_crop"
-      input_period_start="03" input_period_stop="07" keq="0.6"
-      />
+            input_period_start="03" input_period_stop="07" keq="0.6"
+            />
       <!-- BOUE URBAINE ( représente tout le tableau)-->
       <item name="mud_on_spring_crop_1" variant="mud" crop="spring_crop"
-      input_period_start="03" input_period_stop="06" keq="0.38"
-      />
+            input_period_start="03" input_period_stop="06" keq="0.38"
+            />
       <item name="mud_on_spring_crop_2" variant="mud" crop="spring_crop"
-      input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.01"
-      />
+            input_period_start="06" input_period_stop="12" input_method="before_cipan" keq="0.01"
+            />
       <item name="mud_on_autumn_crop" variant="mud" crop="autumn_crop"
-      input_period_start="08" input_period_stop="10" keq="0.01"
-      />
+            input_period_start="08" input_period_stop="10" keq="0.01"
+            />
       <!-- Tableau Prairie -->
       <!-- FUMIER DE BOVIN -->
       <item name="cattle_manure_on_grass_1" variant="cattle_manure" crop="grass"
-      input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.2"
-      />
+            input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.2"
+            />
       <item name="cattle_manure_on_grass_2" variant="cattle_manure" crop="grass"
-      input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.05"
-      />
+            input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.05"
+            />
       <!-- COMPOST DE BOVIN -->
       <item name="cattle_compost_on_grass_1" variant="cattle_compost" crop="grass"
-      input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.15"
-      />
+            input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.15"
+            />
       <item name="cattle_compost_on_grass_2" variant="cattle_compost" crop="grass"
-      input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.0"
-      />
+            input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.0"
+            />
       <!-- FUMIER DE PORC -->
       <item name="pig_manure_on_grass_1" variant="pig_manure" crop="grass"
-      input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.4"
-      />
+            input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.4"
+            />
       <item name="pig_manure_on_grass_2" variant="pig_manure" crop="grass"
-      input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.4"
-      />
+            input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.4"
+            />
       <!-- COMPOST DE PORC -->
       <item name="pig_compost_on_grass_1" variant="pig_compost" crop="grass"
-      input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.2"
-      />
+            input_period_start="09" input_period_stop="03" input_method="on_top" keq="0.2"
+            />
       <item name="pig_compost_on_grass_2" variant="pig_compost" crop="grass"
-      input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.2"
-      />
-       <!-- LISIER DE BOVIN -->
+            input_period_start="03" input_period_stop="07" input_method="on_top" keq="0.2"
+            />
+      <!-- LISIER DE BOVIN -->
       <item name="cattle_slurry_on_grass_1" variant="cattle_slurry" crop="grass"
-      input_period_start="03" input_period_stop="08" input_method="on_top" keq="0.4"
-      />
+            input_period_start="03" input_period_stop="08" input_method="on_top" keq="0.4"
+            />
       <item name="cattle_slurry_on_grass_2" variant="cattle_slurry" crop="grass"
-      input_period_start="03" input_period_stop="06" input_method="buried" keq="0.5"
-      />
+            input_period_start="03" input_period_stop="06" input_method="buried" keq="0.5"
+            />
       <!-- LISIER DE PORC -->
       <item name="pig_slurry_on_grass_1" variant="pig_slurry" crop="grass"
-      input_period_start="03" input_period_stop="06" input_method="on_top" keq="0.5"
-      />
+            input_period_start="03" input_period_stop="06" input_method="on_top" keq="0.5"
+            />
       <item name="pig_slurry_on_grass_2" variant="pig_slurry" crop="grass"
-      input_period_start="03" input_period_stop="06" input_method="buried" keq="0.6"
-      />
+            input_period_start="03" input_period_stop="06" input_method="buried" keq="0.6"
+            />
       <item name="pig_slurry_on_grass_3" variant="pig_slurry" crop="grass"
-      input_period_start="08" input_period_stop="10" input_method="on_top" keq="0.3"
-      />
+            input_period_start="08" input_period_stop="10" input_method="on_top" keq="0.3"
+            />
     </items>
   </nomenclature>
 </nomenclatures>
