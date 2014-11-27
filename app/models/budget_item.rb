@@ -39,8 +39,6 @@ class BudgetItem < Ekylibre::Record::Base
   validates_numericality_of :global_amount, :quantity, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 255
   #]VALIDATORS]
-  enumerize :direction, in: [:revenue, :expense]
-  enumerize :computation_method, in: [:per_production_support, :per_working_unit]
 
   belongs_to :budget, inverse_of: :items
   belongs_to :production_support

@@ -239,22 +239,22 @@ ActiveRecord::Schema.define(version: 20141127105457) do
 
   create_table "budgets", force: true do |t|
     t.string   "name"
-    t.string   "direction",                      null: false
+    t.string   "direction",                          null: false
     t.float    "global_amount"
     t.float    "unit_amount"
     t.float    "global_quantity"
     t.string   "working_indicator"
     t.string   "working_unit"
     t.string   "computation_method"
-    t.boolean  "homogeneous_values"
+    t.boolean  "homogeneous_values", default: false, null: false
     t.string   "currency"
     t.integer  "variant_id"
     t.integer  "production_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",       default: 0, null: false
+    t.integer  "lock_version",       default: 0,     null: false
   end
 
   add_index "budgets", ["created_at"], :name => "index_budgets_on_created_at"

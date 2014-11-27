@@ -29,7 +29,7 @@
 #  direction          :string(255)      not null
 #  global_amount      :float
 #  global_quantity    :float
-#  homogeneous_values :boolean
+#  homogeneous_values :boolean          not null
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
 #  name               :string(255)
@@ -45,9 +45,13 @@ class Budget < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
+  validates_inclusion_of :homogeneous_values, in: [true, false]
   validates_presence_of :direction
   #]VALIDATORS]
   has_many :items, class_name: "BudgetItem"
   belongs_to :production
   belongs_to :variant
+
+  enumerize :direction, in: [:revenue, :expense]
+  enumerize :computation_method, in: [:per_production_support, :per_working_unit]
 end

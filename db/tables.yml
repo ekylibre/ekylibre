@@ -162,7 +162,7 @@ budgets:
   direction: {type: string, required: true}
   global_amount: {type: float}
   global_quantity: {type: float}
-  homogeneous_values: {type: boolean}
+  homogeneous_values: {type: boolean, required: true, default: false}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string}

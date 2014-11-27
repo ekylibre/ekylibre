@@ -29,7 +29,7 @@
 #  direction          :string(255)      not null
 #  global_amount      :float
 #  global_quantity    :float
-#  homogeneous_values :boolean
+#  homogeneous_values :boolean          not null
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
 #  name               :string(255)
