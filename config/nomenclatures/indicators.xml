@@ -32,6 +32,7 @@
       <item name="figure"              datatype="choice" choices="figures"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit"      datatype="decimal" gathering="proportional_to_population"/>
+      <item name="work_duration"    datatype="measure"      unit="hour" />
 
       <!-- for product capacity -->
       <item name="maximal_storable_net_mass"       datatype="measure" unit="kilogram" />

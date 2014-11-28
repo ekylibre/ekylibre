@@ -1618,6 +1618,7 @@ arb:
         # water_content_rate: "Water content rate"
         # width: "Width"
         # woodstock_variety: "Woodstock variety"
+        # work_duration: "Work duration"
         # zinc_concentration: "Zinc concentration"
       # name: "Name"
       property_natures:
