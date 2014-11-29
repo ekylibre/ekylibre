@@ -5,7 +5,7 @@
       <variable name="tank" variety="tank" abilities="store_liquid" roles="fermentation-tool" default-actor="storage"/>
       <variable name="juice_to_ferment"  variety="juice" derivative-of="fruit" roles="fermentation-target" default-actor="first-localized-in: tank" read-only="true" />
 
-      <variable name="oenological_intrant"        variety="matter" abilities="fermentize(wine)"/>
+      <variable name="oenological_intrant"        variety="matter"  roles="fermentation-input_origin"     abilities="fermentize(wine)"/>
       <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="fermentation-input" need="population">
         <handler indicator="population" />
       <handler indicator="mass_volume_density"   unit="gram_per_hectoliter"   to="population" if="tank? &amp; juice_to_ferment?"

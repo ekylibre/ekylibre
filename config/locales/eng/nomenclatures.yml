@@ -1958,6 +1958,7 @@ eng:
         mixing: "Mixing"                                   #< transformation
         moving: "Moving"
         nuts_harvest: "Nuts harvest"                       #< harvest
+        # nuts_transport: "Nuts transport"                 #< transport
         oviparous_birth: "Oviparous birth"
         pasturing: "Pasturing"                             #< animal_nutrition
         physical_weed_killing: "Physical weed killing"     #< weed_killing
@@ -1976,6 +1977,7 @@ eng:
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"
         sowing: "Sowing"                                   #< implantation
+        straw_transport: "Straw transport"                 #< transport
         thermal_weed_killing: "Thermal weed killing"       #< weed_killing
         tillage: "Tillage"
         transfer: "Transfer"                               #< transformation

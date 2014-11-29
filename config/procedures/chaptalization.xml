@@ -5,7 +5,7 @@
       <variable name="tank"   variety="equipment" abilities="store(wine)" default-actor="storage"/>
       <variable name="wine_to_treat" variety="wine" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" />
 
-      <variable name="oenological_intrant" variety="matter" abilities="chaptelise(wine)"/>
+      <variable name="oenological_intrant" variety="matter" roles="addition-input_origin" abilities="chaptelise(wine)"/>
       <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_volume"            unit="liter"               to="population" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_volume(liter) > 0"

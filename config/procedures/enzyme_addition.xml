@@ -5,7 +5,7 @@
       <variable name="tank"          variety="tank" abilities="store_liquid" default-actor="storage"/>
       <variable name="wine_to_treat" variety="wine" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" /> <!--  derivative-of="vitis" -->
 
-      <variable name="oenological_intrant"        variety="matter" abilities="catalyze(wine)"/>
+      <variable name="oenological_intrant"        variety="matter"   roles="addition-input_origin"   abilities="catalyze(wine)"/>
       <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" need="population"/>
 
       <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>
