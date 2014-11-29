@@ -213,6 +213,7 @@ eng:
     wine_to_pack: "Wine_to_pack"
     wine_to_treat: "Wine_to_treat"
     worker: "Worker"
+    zone: "Zone"
   procedures:
     base-administrative_task: "Administrative task"
     base-all_in_one_sowing: "All in one sowing"

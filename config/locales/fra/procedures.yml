@@ -223,6 +223,7 @@ fra:
     wine_to_pack: "Vin à embouteiller"
     wine_to_treat: "Vin à traiter"
     worker: "Travailleur"
+    zone: "Zone"
   procedures:
     base-administrative_task: "Tâche administrative générale"
     base-all_in_one_sowing: "Semis «\_tout-en-un\_»"
