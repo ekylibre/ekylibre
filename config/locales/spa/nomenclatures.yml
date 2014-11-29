@@ -1986,6 +1986,7 @@ spa:
         # soil_cleaning: "Soil cleaning"
         # soil_enrichment: "Soil enrichment"
         # sowing: "Sowing"
+        # straw_transport: "Straw transport"
         # thermal_weed_killing: "Thermal weed killing"
         # tillage: "Tillage"
         # transfer: "Transfer"

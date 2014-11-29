@@ -5,7 +5,7 @@
       <variable name="tank"          variety="equipment" abilities="store(wine)" default-actor="storage"/>
       <variable name="wine_to_treat" variety="wine" derivative-of="grape" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" />
 
-      <variable name="oenological_intrant"        variety="matter" abilities="sulfurize(wine)"/>
+      <variable name="oenological_intrant"        variety="matter" roles="addition-input_origin" abilities="sulfurize(wine)"/>
       <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" need="population">
       <handler indicator="population" />
       <handler indicator="mass_volume_density"   unit="gram_per_hectoliter"   to="population" if="tank? &amp; wine_to_treat?"

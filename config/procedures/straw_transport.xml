@@ -1,28 +1,22 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grape_transport" natures="grape_transport" version="0" status="frozen">
+  <procedure name="straw_transport" natures="straw_transport" version="0" status="frozen">
     <variables>
       <variable name="zone"  variety="cultivable_zone" default-actor="storage"/>
-      <variable name="grape" variety="grape" default-actor="first-localized-in: zone" read-only="true"/>
-      <variable name="grape_to_deliver" new="parted-from: grape" roles="grape_transport-target" default-population=":grape" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="straw" variety="silage" default-actor="first-localized-in: zone" read-only="true"/>
+      <variable name="straw_to_deliver" new="parted-from: straw" roles="straw_transport-target" default-population=":straw" default-name="{{variant}} {{birth_year}} ({{container}})">
      <handler indicator="population" />
-     <handler indicator="net_mass"   unit="kilogram"   to="population"
-                 forward="(value / self..net_mass(kilogram))"
-                 backward="(value * self..net_mass(kilogram))"
-                 /> <!-- kg -->
      <handler indicator="net_mass"   unit="ton"   to="population"
                  forward="(value / self..net_mass(ton))"
                  backward="(value * self..net_mass(ton))"
                  /> <!-- t -->
       </variable>
-      <variable name="trailer" variety="trailer" abilities="store(grape)" roles="grape_transport-tool"/>
-      <variable name="driver"  abilities="drive(tractor)" roles="grape_transport-doer"/>
-      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="grape_transport-tool"/>
-      <variable name="silo"    abilities="store(grape)" roles="grape_transport-container"/>
+      <variable name="trailer" variety="trailer" abilities="store(straw)" roles="straw_transport-tool"/>
+      <variable name="driver"  abilities="drive(tractor)" roles="straw_transport-doer"/>
+      <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="straw_transport-tool"/>
+      <variable name="silo"    abilities="store(straw)" roles="straw_transport-container"/>
     </variables>
     <operations>
-
-
      <operation id="100" duration="4 minutes">
         <task do="[driver] moves in [tractor]"/>
       </operation>
@@ -33,20 +27,19 @@
         <task do="[tractor] catches [trailer]"/>
       </operation>
       <operation id="400" duration="4 minutes">
-        <task do="[tractor] moves at [grape]"/>
+        <task do="[tractor] moves at [straw]"/>
       </operation>
       <operation id="500" duration="1 minutes">
-        <task do="[grape] parts with [grape_to_deliver]"/>
+        <task do="[straw] parts with [straw_to_deliver]"/>
       </operation>
       <operation id="600" duration="4 minutes">
-        <task do="[grape_to_deliver] moves in [trailer]"/>
+        <task do="[straw_to_deliver] moves in [trailer]"/>
       </operation>
       <operation id="700" duration="18 minutes">
         <task do="[tractor] moves at [silo]"/>
       </operation>
       <operation id="800" repeatable="true">
-        <task do="[grape_to_deliver] moves in [silo]"/>
-        <task do="grape_to_deliver|sucrose_concentration is measured"/>
+        <task do="[straw_to_deliver] moves in [silo]"/>
       </operation>
       <operation id="900" duration="18 minutes">
         <task do="[tractor] moves in default storage of [trailer]"/>

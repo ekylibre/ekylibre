@@ -63,18 +63,20 @@
 
   <nomenclature name="procedure_natures-transport">
     <items>
-      <item name="grape_transport"      roles="input, doer, input_origin, tool, target" activity_families="vines"/>
+      <item name="grape_transport"      roles="doer, tool, target, container" activity_families="vines"/>
       <item name="grain_transport"      roles="doer, tool, target, container" activity_families="cereal_crops"/>
+      <item name="nuts_transport"        roles="doer, tool, target, container" activity_families="orchard_crops"/>
+      <item name="straw_transport"      roles="doer, tool, target, container" activity_families="cereal_crops, fodder_crops, meadow"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-transformation">
     <items>
       <item name="transfer"             roles="container, target, doer"             activity_families="processing"/>
-      <item name="fermentation"         roles="input, target, output, doer, tool" activity_families="processing"/>
-      <item name="pressing"             roles="input, target, output, doer, tool" activity_families="processing"/>
-      <item name="blending"             roles="input, output, doer, container"     activity_families="processing"/>
-      <item name="addition"             roles="input, target, doer"             activity_families="processing"/>
+      <item name="fermentation"         roles="input_origin, input, target, output, doer, tool" activity_families="processing"/>
+      <item name="pressing"             roles="input_origin, input, target, output, doer, tool" activity_families="processing"/>
+      <item name="blending"             roles="input_origin, input, output, doer, container"     activity_families="processing"/>
+      <item name="addition"             roles="input_origin, input, target, doer"             activity_families="processing"/>
       <item name="filtration"           roles="input, target, output, doer, tool" activity_families="processing"/>
       <item name="bottling"             roles="target, input, output, doer, tool" activity_families="processing"/>
       <item name="mixing"               roles="input, output, doer"             activity_families="processing"/>

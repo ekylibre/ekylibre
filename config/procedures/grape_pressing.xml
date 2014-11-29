@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="grape_pressing" natures="pressing" version="0" status="frozen">
     <variables>
-      <variable name="grape"        variety="grape" derivative-of="vitis" />
+      <variable name="grape"          variety="grape" roles="pressing-input_origin" derivative-of="vitis" />
       <variable name="grape_to_press" new="parted-from: grape" roles="pressing-input" need="population"/>
       <!-- <variable name="tank"         variety="tank" abilities="store_liquid" roles="pressing-target" default-actor="storage"/> -->
       <variable name="tank_for_wine"         variety="tank" abilities="store_liquid" roles="pressing-target" default-actor="storage"/>

@@ -553,7 +553,7 @@
             derivative_of="corylus"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, water_content_rate"
+            variable_indicators="population, water_content_rate, impurity_concentration"
             frozen_indicators="net_mass"
             />
        <item name="walnut"
@@ -562,7 +562,7 @@
             derivative_of="juglans"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, water_content_rate"
+            variable_indicators="population, water_content_rate, impurity_concentration"
             frozen_indicators="net_mass"
             />
       <!-- PROCESS PRODUCT  -->
@@ -948,7 +948,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store_fluid, store(grain), store(grass), store(raw_matter), move"
+            abilities="store_fluid, store(grain), store(grass), store(raw_matter), store(silage), move"
             variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation"
             frozen_indicators="population"
             />
@@ -1036,7 +1036,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store(excrement), move, spread(excrement), store_fluid"
+            abilities="store(excrement), move, spread(excrement), store(raw_matter), store_fluid"
             variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume, geolocation"
             frozen_indicators="population"
             />

@@ -1982,6 +1982,7 @@ fra:
         soil_cleaning: "Désinfection du sol"
         soil_enrichment: "Amendement"
         sowing: "Semis"
+        # straw_transport: "Straw transport"
         thermal_weed_killing: "Désherbage thermique"
         tillage: "Travail du sol"
         transfer: "Transfert"
