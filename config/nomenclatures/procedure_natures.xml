@@ -64,7 +64,7 @@
   <nomenclature name="procedure_natures-transport">
     <items>
       <item name="grape_transport"      roles="input, doer, input_origin, tool, target" activity_families="vines"/>
-      <item name="grain_transport"      roles="input, doer, input_origin, tool, target" activity_families="cereal_crops"/>
+      <item name="grain_transport"      roles="doer, tool, target, container" activity_families="cereal_crops"/>
     </items>
   </nomenclature>
 
