@@ -41,14 +41,9 @@ We encourage you to contribute to Ekylibre.
 * Make sure to add tests for it. This is important so we don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so we can cherry-pick around it.
 
-Some additional tools are needed to manipulate some images of the project:
-
-  sudo apt-get install icoutils inkscape
-
 == See also
 
 * {Forum}[http://forum.ekylibre.org]
-* {MindMeister}[http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013]
 * {Documentation}[https://github.com/ekylibre/erp/wiki]
 * {Demo}[https://www.ekylibre.org]
 
@@ -61,4 +56,4 @@ Some additional tools are needed to manipulate some images of the project:
 
 == License
 
-Ekylibre is released under the {GNU/GPL3}[http://opensource.org/licenses/GPL-3.0] license.
+Ekylibre is released under the {GNU/AGPLv3}[http://opensource.org/licenses/AGPL-3.0] license.
