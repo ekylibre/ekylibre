@@ -38,6 +38,7 @@
       <item name="harvest"    parameters="variety"/>
       <item name="pick"       parameters="variety"/>
       <item name="move"/>
+      <item name="enclose"/> <!-- clôturer des champs  -->
       <!-- store matter  -->
       <item name="store"      parameters="variety"/>
       <item name="store_fluid"/>

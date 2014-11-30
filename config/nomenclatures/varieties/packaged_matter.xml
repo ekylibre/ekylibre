@@ -5,6 +5,9 @@
       <item name="cork"/>
       <item name="cap"/>
       <item name="label"/>
+      <item name="stake"/>
+      <item name="wire"/>
+
     </items>
   </nomenclature>
 

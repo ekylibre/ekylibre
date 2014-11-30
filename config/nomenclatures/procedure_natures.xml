@@ -18,8 +18,10 @@
       <item name="harvest"              roles="target, output, doer, tool"      activity_families="vegetal_crops"/>
       <item name="haymaking"            roles="target, output, doer, tool"      activity_families="vegetal_crops"/>
       <item name="transformation"       roles="input, output, doer, tool"       activity_families="processing"/>
+      <item name="enclosing"            roles="input_origin, input, target, doer" activity_families="vegetal_crops, animal_farming, arboriculture, fruits_crops"/>
       <item name="filling"              roles="input, input_origin, doer, target" activity_families="vegetal_crops, exploitation"/>
       <item name="coupling"             roles="doer, tool"                      activity_families="vegetal_crops, exploitation"/>
+      <item name="ground_arrangement"   roles="target, doer, tool"              activity_families="arboriculture, fruits_crops, aromatic_and_medicinal_plants"/>
       <item name="moving"               roles="doer, tool, target"              activity_families="vegetal_crops, animal_farming, exploitation"/>
       <item name="transport"            roles="input, doer, input_origin, tool, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
       <item name="tillage"              roles="target"                          activity_families="vegetal_crops"/>

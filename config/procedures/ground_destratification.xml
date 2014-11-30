@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="ground_destratification" natures="ground_arrangement" version="0" status="frozen">
+    <!-- Tour de déstratification dans une zone cultivable -->
+    <variables>
+      <variable name="land_parcel" variety="cultivable_zone" roles="ground_arrangement-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+      <variable name="driver" abilities="move, drive(tractor)" roles="ground_arrangement-doer"/>
+      <variable name="tractor" variety="equipment" abilities="catch(equipment)" roles="ground_arrangement-tool"/>
+    </variables>
+    <operations>
+      <operation id="400" duration="18 minutes">
+        <task do="[tractor] moves in [land_parcel]"/>
+      </operation>
+      <operation id="500">
+        <task do="[tractor] acts on [land_parcel]"/>
+        <task do="[driver] measures [land_parcel|soil_cultural_state]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

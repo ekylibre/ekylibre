@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="standard_enclosing" natures="enclosing" version="0" status="frozen">
+    <!-- Pose d'une cloture (piquet + fil) autour d'une zone cultivable -->
+    <variables>
+      <variable name="land_parcel" variety="cultivable_zone" roles="enclosing-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+      <variable name="doer" variety="worker" abilities="move" roles="enclosing-doer"/>
+
+      <variable name="stakes" variety="stake" abilities="enclose" roles="enclosing-input_origin"/>
+
+      <variable name="stakes_to_plant" new="parted-from: stakes" roles="enclosing-input" default-population=":stakes">
+		<handler indicator="population" />
+	    <handler indicator="stakes_count"   unit="unity_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1"
+                 forward="(value * land_parcel.net_surface_area(hectare))"
+                 backward="(value / land_parcel.net_surface_area(hectare))"
+                 /> <!-- unité/ha -->
+                 <!-- TODO Need to add an handler by linear meter of perimeter instead of hectare of area (method by Postgis maybe) -->
+	  </variable>
+
+      <variable name="wire_fence" variety="wire" abilities="enclose" roles="enclosing-input_origin"/>
+
+      <variable name="wire_fence_to_put" new="parted-from: wire_fence" roles="enclosing-input" default-population=":wire_fence">
+		<handler indicator="population" />
+	    <handler indicator="length"   unit="meter"   to="population" if="wire_fence? &amp; wire_fence.length(meter) >= 0.1"
+                 forward="(value / wire_fence.length(meter))"
+                 backward="(value * wire_fence.length(meter))"
+                 /> <!--meter -->
+	  </variable>
+    </variables>
+    <operations>
+      <operation id="400" duration="18 minutes">
+        <task do="[doer] moves in [land_parcel]"/>
+      </operation>
+      <operation id="500">
+        <task do="[stakes] parts with [stakes_to_plant]"/>
+        <task do="[wire_fence] parts with [wire_fence_to_put]"/>
+        <task do="[land_parcel] consumes [stakes_to_plant]"/>
+        <task do="[land_parcel] consumes [wire_fence_to_put]"/>
+        <task do="[doer] measures [land_parcel|fence_perimeter]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
