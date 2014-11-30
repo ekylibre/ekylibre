@@ -743,6 +743,30 @@
             variable_indicators="population, width, length"
             frozen_indicators=""
             />
+      <item name="stake"
+            category="small_equipment"
+            variety="stake"
+            population_counting="integer"
+            abilities="enclose"
+            variable_indicators="population"
+            frozen_indicators="height, diameter"
+            />
+       <item name="wire"
+            category="small_equipment"
+            variety="wire"
+            population_counting="integer"
+            abilities="enclose"
+            variable_indicators="population"
+            frozen_indicators="diameter, length"
+            />
+        <item name="fence"
+            category="small_equipment"
+            variety="wire"
+            population_counting="integer"
+            abilities="enclose"
+            variable_indicators="population"
+            frozen_indicators="diameter, length, height"
+            />
       <!-- TREE INPLANT -->
       <item name="seedling"
             category="plant"
@@ -835,7 +859,7 @@
             variety="cultivable_zone"
             population_counting="decimal"
             abilities="consume(water), consume(seed), produce(plant), store(plant), store(animal), store(fungus)"
-            variable_indicators="population, shape, soil_cultural_state"
+            variable_indicators="population, shape, soil_cultural_state, fence_perimeter"
             frozen_indicators="net_surface_area"
             />
       <item name="building"

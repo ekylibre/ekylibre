@@ -29,6 +29,7 @@
       <item name="width"          datatype="measure" unit="meter"/>
       <item name="length"         datatype="measure" unit="meter"/>
       <item name="height"         datatype="measure" unit="meter"/>
+      <item name="diameter"         datatype="measure" unit="meter"/>
       <item name="figure"              datatype="choice" choices="figures"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit"      datatype="decimal" gathering="proportional_to_population"/>
@@ -50,6 +51,8 @@
 
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
+      <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
+
       <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
       <item name="grains_count" datatype="measure" unit="thousand"/>
       <item name="grains_area_density" datatype="measure" unit="unity_per_square_meter"/>
@@ -193,6 +196,7 @@
       <item name="fresh_mass"        datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="woodstock_variety" datatype="choice"  choices="varieties"/>
       <item name="plants_count"      datatype="integer" gathering="proportional_to_population"/>
+      <item name="stakes_count"      datatype="integer" gathering="proportional_to_population"/>
       <item name="rows_interval"     datatype="measure" unit="meter"/>   <!-- distance between 2 rows -->
       <item name="plants_interval"   datatype="measure" unit="meter"/> <!-- distance between 2 plants (in rows) -->
       <item name="rows_orientation"  datatype="measure" unit="degree"/>
