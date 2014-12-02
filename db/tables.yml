@@ -1567,7 +1567,7 @@ productions:
   support_variant_id: {type: integer, references: product_nature_variant}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-  variant_id: {type: integer, references: product_nature_variant, required: true}
+  variant_id: {type: integer, references: product_nature_variant}
   working_indicator: {type: string}
   working_unit: {type: string}
 
