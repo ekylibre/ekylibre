@@ -54,4 +54,8 @@ class Budget < Ekylibre::Record::Base
 
   enumerize :direction, in: [:revenue, :expense]
   enumerize :computation_method, in: [:per_production_support, :per_working_unit]
+
+  validate do
+    global_amount = items.map(&:global_amount).inject(:+)
+  end
 end
