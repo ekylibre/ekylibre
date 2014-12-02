@@ -46,11 +46,8 @@ class BudgetItem < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
   validate do
-    if budget.computation_method == :per_production_support
-      quantity = 1
-    else
-      quantity = support.send(budget.working_indicator.to_sym).to_f
-    end
+    quantity = 1 if budget.computation_method == :per_production_support
+    #todo: fetch quantity value in production_support
     global_amount = budget.unit_amount * quantity
   end
 end
