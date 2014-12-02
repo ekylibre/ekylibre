@@ -39,7 +39,7 @@
 #  support_variant_id   :integer
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variant_id           :integer          not null
+#  variant_id           :integer
 #  working_indicator    :string(255)
 #  working_unit         :string(255)
 #
@@ -64,7 +64,7 @@ class Production < Ekylibre::Record::Base
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_length_of :name, :state, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :static_support, in: [true, false]
-  validates_presence_of :activity, :campaign, :name, :state, :variant
+  validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   # validates_presence_of :product_nature, if: :activity_main?
 
