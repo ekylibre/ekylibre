@@ -1619,7 +1619,6 @@ fra:
         water_content_rate: "Teneur en eau"
         width: "Largeur"
         woodstock_variety: "Variété du porte-greffe"
-        work_duration: "Temps de travail"
         zinc_concentration: "Teneur en zinc"
       name: "Indicateurs"
       property_natures:
