@@ -39,7 +39,7 @@
 #  support_variant_id   :integer
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variant_id           :integer          not null
+#  variant_id           :integer
 #  working_indicator    :string(255)
 #  working_unit         :string(255)
 #
