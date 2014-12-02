@@ -52,6 +52,7 @@ class Budget < Ekylibre::Record::Base
   belongs_to :production
   belongs_to :variant
 
+  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense]
   enumerize :computation_method, in: [:per_production_support, :per_working_unit]
   enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration')
