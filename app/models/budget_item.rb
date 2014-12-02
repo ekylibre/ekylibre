@@ -42,4 +42,10 @@ class BudgetItem < Ekylibre::Record::Base
 
   belongs_to :budget, inverse_of: :items
   belongs_to :production_support
+
+  validate do
+    quantity = 1 if budget.computation_method == :per_production_support
+    #todo: fetch quantity value in production_support
+    global_amount = budget.unit_amount * quantity
+  end
 end
