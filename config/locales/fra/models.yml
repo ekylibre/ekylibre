@@ -1225,8 +1225,8 @@ fra:
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
     worker: "Travailleur"
-    # working_indicator: "Working indicator"
-    # working_unit: "Working unit"
+    working_indicator: "Indicateur d'œuvre"
+    working_unit: "Unité d'œuvre"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:
