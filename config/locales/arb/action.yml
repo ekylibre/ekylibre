@@ -814,6 +814,7 @@ arb:
     devise/registrations: #?
     devise/sessions: #?
     devise/unlocks: #?
+    pasteque/v5/versions: #?
     public:
       # index: "Home"
   controllers:  #?

@@ -86,6 +86,7 @@
 #     - "devise/unlocks#create"
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
+#     - "pasteque/v5/versions#version"
 #     - "public#index"
 
 accounts:

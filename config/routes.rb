@@ -752,5 +752,11 @@ Ekylibre::Application.routes.draw do
     root to: "dashboards#index"
   end
 
+  namespace :pasteque do
+    namespace :v5 do
+      match "version", to: "versions#version", via: :all
+    end
+  end
+
   root to: "public#index"
 end

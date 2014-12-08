@@ -1774,6 +1774,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="versions">
+        <page to="pasteque/v5/versions#version"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

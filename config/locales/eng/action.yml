@@ -632,6 +632,8 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    pasteque/v5/versions:
+      # version: "Version version: %{name}"
     public:
       index: "Home"
   errors:
@@ -1579,6 +1581,7 @@ eng:
       # unvalidateds: "Unvalidateds"
       up: "Up"
       update: "Update"
+      # version: "Version"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
