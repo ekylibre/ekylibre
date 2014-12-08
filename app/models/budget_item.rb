@@ -42,7 +42,7 @@ class BudgetItem < Ekylibre::Record::Base
 
   belongs_to :budget, inverse_of: :items
   belongs_to :production_support
-  
+
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
   validate do
