@@ -1,6 +1,6 @@
 class Pasteque::V5::BaseController < ActionController::Base
   before_action :authenticate_user
-  
+
   hide_action :authenticate_user
   def authenticate_user
     user, password = params[:user], params[:password]
@@ -18,6 +18,6 @@ class Pasteque::V5::BaseController < ActionController::Base
     unless @user.valid_password?(password)
       render status: :unauthorized, json: {message: "Invalid user or password."}
       return
-    end    
+    end
   end
 end
