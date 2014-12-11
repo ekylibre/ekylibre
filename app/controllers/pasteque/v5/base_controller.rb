@@ -1,4 +1,6 @@
 class Pasteque::V5::BaseController < ActionController::Base
+  include ExternalApiAdaptable
+
   before_action :authenticate_user
 
   hide_action :authenticate_user

@@ -717,6 +717,10 @@ spa:
     devise/registrations: #?
     devise/sessions: #?
     devise/unlocks: #?
+    pasteque/v5/cashes: #?
+    pasteque/v5/roles: #?
+    pasteque/v5/taxes: #?
+    pasteque/v5/users: #?
     pasteque/v5/versions: #?
     public:
       # index: "Home"

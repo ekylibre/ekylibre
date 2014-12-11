@@ -1,0 +1,5 @@
+{"#{@records.first.class.to_s.pluralize.downcase}":[
+- @records.each_with_index do |record, index|
+  = render record
+  = "," unless (index + 1) == @records.size
+]}
