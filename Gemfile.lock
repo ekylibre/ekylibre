@@ -259,7 +259,7 @@ GEM
     rgeo-shapefile (0.2.3)
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
-    rjb (1.5.1)
+    rjb (1.5.2)
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
