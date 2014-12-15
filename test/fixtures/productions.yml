@@ -26,8 +26,8 @@
 #  campaign_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  homogeneous_charges  :boolean
 #  homogeneous_expenses :boolean
+#  homogeneous_revenues :boolean
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null

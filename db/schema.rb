@@ -2295,7 +2295,7 @@ ActiveRecord::Schema.define(version: 20141127105457) do
     t.string   "working_unit"
     t.integer  "support_variant_id"
     t.boolean  "homogeneous_expenses", default: false
-    t.boolean  "homogeneous_charges",  default: false
+    t.boolean  "homogeneous_revenues", default: false
   end
 
   add_index "productions", ["activity_id"], :name => "index_productions_on_activity_id"

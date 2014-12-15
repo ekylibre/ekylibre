@@ -1554,8 +1554,8 @@ productions:
   campaign_id: {type: integer, references: campaign, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  homogeneous_charges: {type: boolean, default: false}
   homogeneous_expenses: {type: boolean, default: false}
+  homogeneous_revenues: {type: boolean, default: false}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
