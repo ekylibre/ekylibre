@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="tax_natures">
+    <property-natures>
+      <property-nature name="computation_method" type="choice"  choices="percentage, amount" required="true" default="percentage"/>
+      <property-nature name="deduction_account" type="choice" nomenclature="accounts" required="true"/>
+      <property-nature name="collect_account" type="choice" nomenclature="accounts" required="true"/>
+      <property-nature name="suffix" type="string" required="false"/>
+    </property-natures>
+    <items>
+      <item name="null_vat"         computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="9"/>
+      <item name="particular_vat"   computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="1"/>
+      <item name="reduced_vat"      computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="2"/>
+      <item name="intermediate_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="3"/>
+      <item name="normal_vat"       computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4"/>
+      <item name="inflated_vat"     computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="8"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
