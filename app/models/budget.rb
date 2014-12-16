@@ -27,14 +27,14 @@
 #  creator_id         :integer
 #  currency           :string(255)
 #  direction          :string(255)      not null
-#  global_amount      :float
-#  global_quantity    :float
+#  global_amount      :float            default(0.0)
+#  global_quantity    :float            default(0.0)
 #  homogeneous_values :boolean          not null
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
 #  name               :string(255)
 #  production_id      :integer
-#  unit_amount        :float
+#  unit_amount        :float            default(0.0)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer
@@ -48,7 +48,8 @@ class Budget < Ekylibre::Record::Base
   validates_inclusion_of :homogeneous_values, in: [true, false]
   validates_presence_of :direction
   #]VALIDATORS]
-  has_many :items, class_name: "BudgetItem"
+  has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id
+  has_many :supports, through: :production
   belongs_to :production
   belongs_to :variant
 
@@ -58,7 +59,12 @@ class Budget < Ekylibre::Record::Base
   enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration')
   enumerize :working_unit, in: Nomen::Units.all
 
+  accepts_nested_attributes_for :items
+
   validate do
-    global_amount = items.map(&:global_amount).inject(:+)
+    true
   end
+
+  scope :revenues, -> {where direction: :revenue}
+  scope :expenses, -> {where direction: :expense}
 end

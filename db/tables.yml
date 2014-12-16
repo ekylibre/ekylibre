@@ -146,11 +146,11 @@ budget_items:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string}
-  global_amount: {type: float}
+  global_amount: {type: float, default: 0.0}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   production_support_id: {type: integer, references: production_support}
-  quantity: {type: float}
+  quantity: {type: float, default: 0.0}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -160,14 +160,14 @@ budgets:
   creator_id: {type: integer, references: user}
   currency: {type: string}
   direction: {type: string, required: true}
-  global_amount: {type: float}
-  global_quantity: {type: float}
+  global_amount: {type: float, default: 0.0}
+  global_quantity: {type: float, default: 0.0}
   homogeneous_values: {type: boolean, required: true, default: false}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string}
   production_id: {type: integer, references: production}
-  unit_amount: {type: float}
+  unit_amount: {type: float, default: 0.0}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
   variant_id: {type: integer, references: variant}

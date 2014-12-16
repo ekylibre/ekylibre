@@ -26,11 +26,11 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string(255)
-#  global_amount         :float
+#  global_amount         :float            default(0.0)
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  production_support_id :integer
-#  quantity              :float
+#  quantity              :float            default(0.0)
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #

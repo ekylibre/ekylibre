@@ -86,8 +86,6 @@
 #     - "devise/unlocks#create"
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
-#     - "pasteque/v5/cashes#index"
-#     - "pasteque/v5/cashes#show"
 #     - "pasteque/v5/roles#index"
 #     - "pasteque/v5/roles#show"
 #     - "pasteque/v5/taxes#index"

@@ -1775,10 +1775,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="cashes">
-        <page to="pasteque/v5/cashes#index"/>
-        <page to="pasteque/v5/cashes#show"/>
-      </item>
       <item name="roles">
         <page to="pasteque/v5/roles#index"/>
         <page to="pasteque/v5/roles#show"/>

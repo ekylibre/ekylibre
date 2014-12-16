@@ -26,11 +26,11 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string(255)
-#  global_amount         :float
+#  global_amount         :float            default(0.0)
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  production_support_id :integer
-#  quantity              :float
+#  quantity              :float            default(0.0)
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -39,15 +39,20 @@ class BudgetItem < Ekylibre::Record::Base
   validates_numericality_of :global_amount, :quantity, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 255
   #]VALIDATORS]
+  validates_uniqueness_of :production_support_id, scope: :budget_id
 
   belongs_to :budget, inverse_of: :items
   belongs_to :production_support
 
+  delegate :computation_method, to: :budget
+
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
+  before_validation do
+    quantity = 1 if computation_method == :per_production_support
+  end
+
   validate do
-    quantity = 1 if budget.computation_method == :per_production_support
-    #todo: fetch quantity value in production_support
     global_amount = budget.unit_amount * quantity
   end
 end

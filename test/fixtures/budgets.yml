@@ -27,14 +27,14 @@
 #  creator_id         :integer
 #  currency           :string(255)
 #  direction          :string(255)      not null
-#  global_amount      :float
-#  global_quantity    :float
+#  global_amount      :float            default(0.0)
+#  global_quantity    :float            default(0.0)
 #  homogeneous_values :boolean          not null
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
 #  name               :string(255)
 #  production_id      :integer
-#  unit_amount        :float
+#  unit_amount        :float            default(0.0)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer

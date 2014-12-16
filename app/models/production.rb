@@ -96,6 +96,7 @@ class Production < Ekylibre::Record::Base
 
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :budgets
 
   state_machine :state, :initial => :draft do
     state :draft

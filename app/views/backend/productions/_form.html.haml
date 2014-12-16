@@ -13,3 +13,6 @@
 
 = field_set(:supports) do
   = f.nested_association(:supports)
+
+= field_set(:budgets) do
+  = render 'budget_form', f: f

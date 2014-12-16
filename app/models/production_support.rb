@@ -61,11 +61,13 @@ class ProductionSupport < Ekylibre::Record::Base
   validates_uniqueness_of :storage_id, scope: :production_id
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
+  # alias :net_surface_area :storage_net_surface_area
   delegate :name, :variant, to: :production, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :storage
   delegate :name, to: :activity, prefix: true
   delegate :name, to: :campaign, prefix: true
   delegate :name, to: :variant,  prefix: true
+  delegate :working_indicator, :working_unit, to: :production
 
   accepts_nested_attributes_for :markers, reject_if: :all_blank, allow_destroy: true
 
@@ -302,17 +304,26 @@ class ProductionSupport < Ekylibre::Record::Base
     nil
   end
 
-  def get(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    options = args.extract_options!
-    aim = args.shift || options[:aim] || :perfect
-    markers = self.markers.where(indicator_name: indicator.name.to_s, aim: aim)
-    if markers.any?
-      return markers.first.value
-    end
-    return nil
+  #def get(indicator, *args)
+    #unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      #raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    #end
+    #options = args.extract_options!
+    #aim = args.shift || options[:aim] || :perfect
+    #markers = self.markers.where(indicator_name: indicator.name.to_s, aim: aim)
+    #if markers.any?
+      #return markers.first.value
+    #end
+    #return nil
+  #end
+
+  def get(*args)
+    raise StandardError, "no storage defined" unless self.storage.present?
+    self.storage.get(*args)
+  end
+
+  def working_indicator_value
+    send(working_indicator) rescue nil
   end
 
   # Returns value of an indicator if its name correspond to

@@ -1,0 +1,47 @@
+%table.budget{data: {production_id: f.object.id}}
+  %tr.appendable
+    %td
+    - f.object.supports.each do |support|
+      %td
+        = support.name
+        = support.working_indicator_value
+    %td
+      = link_to '+', "#budget", data:{budget_add: :support}
+  %tr
+    %td{colspan: '100%'}
+      = f.input :homogeneous_expenses, wrapper: :nested
+      = :expenses
+  - f.object.budgets.expenses.each do |expense|
+    %tr.appendable{data: {budget_id: expense.id, direction: :expense}}
+      %td
+        = expense
+      - f.object.supports.size.times do
+        %td
+          = :empty
+      %td
+        = :total
+  %tr.empty_budget_line.appendable
+    %td.add_budget
+      add budget
+    -f.object.supports.each do |support|
+      %td{data: {support_id: support.id}}
+    %td
+  %tr
+    %td{colspan: '100%'}
+      = f.input :homogeneous_revenues, wrapper: :nested
+      = :revenues
+  - f.object.budgets.revenues.each do |revenue|
+    %tr.appendable{data: {budget_id: revenue.id, direction: :revenue}}
+      %td
+        = revenue
+      - f.object.supports.size.times do
+        %td
+          = :empty
+      %td
+        = :total
+  %tr.empty_budget_line.appendable
+    %td.add_budget
+      add revenue
+    -f.object.supports.each do |support|
+      %td{data: {support_id: support.id}}
+    %td

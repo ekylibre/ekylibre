@@ -632,9 +632,6 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
-    pasteque/v5/cashes:
-      # index: "Cashes"
-      # show: "Cash: %{name}"
     pasteque/v5/roles:
       # index: "Roles"
       # show: "Role: %{name}"
@@ -733,6 +730,7 @@ eng:
     body: "Body of the message"
     bookkeep: "Bookkeep" #?
     bookkeep_with_payment: "Bookkeep with payment" #?
+    # budgets: "Budgets"
     building_name: "Building name" #?
     calculate: "Calculate" #?
     calculators: "Calculators"
