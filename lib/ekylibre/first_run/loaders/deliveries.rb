@@ -254,7 +254,7 @@ Ekylibre::FirstRun.add_loader :deliveries do |first_run|
 
         # set a price from current cooperative for the consider variant
         catalog = Catalog.find_by_code("VENTE")
-        sale_price_template_tax = Tax.find_by_reference_name('fr_vat_reduced')
+        sale_price_template_tax = Tax.find_by_reference_name('french_vat_reduced')
         product_unit_price = (r.total_value_in_euro / r.total_quantity_in_kg).to_f
 
         unless catalog.items.where(variant_id: variant.id).any?

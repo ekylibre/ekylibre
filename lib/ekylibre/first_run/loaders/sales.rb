@@ -201,7 +201,7 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
       # Create milk product
       milk = ProductNatureVariant.import_from_nomenclature(:cow_milk)
       catalog = Catalog.find_by(:usage => 'sale')
-      milk_catalog_item_template_tax = Tax.find_by(:reference_name => 'fr_vat_reduced')
+      milk_catalog_item_template_tax = Tax.find_by(:reference_name => 'french_vat_reduced')
 
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => Preference[:currency], :active => true)
