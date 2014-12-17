@@ -3,7 +3,7 @@
     %td
     - f.object.supports.each do |support|
       %td
-        = support.name
+        = collection_select(:production, :supports, ProductionSupport.all, :id, :name, {selected: support.id})
         = support.working_indicator_value
     %td
       = link_to '+', "#budget", data:{budget_add: :support}
