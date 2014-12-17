@@ -758,6 +758,7 @@ Ekylibre::Application.routes.draw do
       resources :users, only: [:index, :show]
       resources :roles, only: [:index, :show]
       resources :cash_registers, only: [:index, :show]
+      resources :places, only: [:index, :show]
     end
   end
 

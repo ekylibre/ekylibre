@@ -17,6 +17,8 @@ module ExternalApiAdaptable
 
       name = self.controller_name
       model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize
+      model = model.send defaults[:scope] if defaults[:scope].present?
+
       output_name = name
 
       methods =

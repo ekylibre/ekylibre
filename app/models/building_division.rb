@@ -75,5 +75,7 @@ class BuildingDivision < SubZone
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
+  
+  scope :restaurant_places, -> {where variety: :restaurant_place}
 
 end
