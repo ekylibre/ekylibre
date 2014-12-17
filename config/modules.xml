@@ -1775,6 +1775,18 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="cash_registers">
+        <page to="pasteque/v5/cash_registers#index"/>
+        <page to="pasteque/v5/cash_registers#show"/>
+      </item>
+      <item name="customers">
+        <page to="pasteque/v5/customers#index"/>
+        <page to="pasteque/v5/customers#show"/>
+      </item>
+      <item name="places">
+        <page to="pasteque/v5/places#index"/>
+        <page to="pasteque/v5/places#show"/>
+      </item>
       <item name="roles">
         <page to="pasteque/v5/roles#index"/>
         <page to="pasteque/v5/roles#show"/>

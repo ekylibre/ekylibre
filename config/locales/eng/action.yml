@@ -632,6 +632,15 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    pasteque/v5/cash_registers:
+      # index: "Cash registers"
+      # show: "Cash register: %{name}"
+    pasteque/v5/customers:
+      # index: "Customers"
+      # show: "Customer: %{name}"
+    pasteque/v5/places:
+      # index: "Places"
+      # show: "Place: %{name}"
     pasteque/v5/roles:
       # index: "Roles"
       # show: "Role: %{name}"
