@@ -757,6 +757,7 @@ Ekylibre::Application.routes.draw do
       match "version", to: "versions#version", via: :all
       resources :users, only: [:index, :show]
       resources :roles, only: [:index, :show]
+      resources :cash_registers, only: [:index, :show]
     end
   end
 
