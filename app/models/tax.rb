@@ -117,17 +117,17 @@ class Tax < Ekylibre::Record::Base
     end
     unless tax = Tax.find_by_reference_name(reference_name)
       attributes = {
-        :computation_method => item.computation_method,
+        :computation_method => Nomen::TaxNatures[item.nature].computation_method,
         :amount => item.amount,
         :name => item.human_name,
         :reference_name => item.name
       }
       for account in [:deduction, :collect]
-        if name = item.send("#{account}_account")
+        if name = Nomen::TaxNatures[item.nature].send("#{account}_account")
           # find the relative account tax  by name
           tax_radical = Account.find_or_create_in_chart(name)
           # find if already account tax  by number was created
-          tax_account = Account.find_or_create_by!(:number => tax_radical.number + item.suffix.to_s) do |a|
+          tax_account = Account.find_or_create_by!(:number => tax_radical.number + Nomen::TaxNatures[item.nature].suffix.to_s) do |a|
             a.name = tax_radical.name + " - " + item.human_name
             a.usages = tax_radical.usages
           end
