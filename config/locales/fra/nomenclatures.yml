@@ -2984,28 +2984,58 @@ fra:
       name: "Types de sols"
     spatial_reference_systems:
       name: "Systèmes de coordonnées spatiales"
-    taxes:
+    tax_natures:
       choices:
         computation_method:
           amount: "Montant fixe"
           percentage: "Pourcentage"
       items:
-        fr_vat_intermediate: "TVA 10.00%"
-        fr_vat_normal: "TVA 20.00%"
-        fr_vat_null: "TVA 0.00%"
-        fr_vat_particular: "TVA 2.10%"
-        fr_vat_reduced: "TVA 5.50%"
+        inflated_vat: "TVA augmentée"
+        intermediate_vat: "TVA intermédiaire"
+        normal_vat: "TVA normale"
+        null_vat: "TVA nulle"
+        particular_vat: "TVA particulière"
+        reduced_vat: "TVA réduite"
+      name: "Types de taxe"
+      property_natures:
+        collect_account: "Compte de collecte"
+        computation_method: "Méthode de calcul"
+        deduction_account: "Compte de déduction"
+        suffix: "Suffixe"
+    taxes:
+      choices:  #?
+        computation_method: #?
+          amount: "Montant fixe" #?
+          percentage: "Pourcentage" #?
+      items:
+        fr_vat_intermediate: "TVA 10.00%" #?
+        fr_vat_normal: "TVA 20.00%" #?
+        fr_vat_null: "TVA 0.00%" #?
+        fr_vat_particular: "TVA 2.10%" #?
+        fr_vat_reduced: "TVA 5.50%" #?
+        french_vat_intermediate_2012: "TVA française intermédiaire 2012"
+        french_vat_intermediate_2014: "TVA française intermédiaire 2014"
+        french_vat_normal_1966: "TVA française normale 1966"
+        french_vat_normal_1982: "TVA française normale 1982"
+        french_vat_normal_1995: "TVA française normale 1995"
+        french_vat_normal_2000: "TVA française normale 2000"
+        french_vat_normal_2014: "TVA française normale 2014"
+        french_vat_null: "TVA française null"
+        french_vat_particular_1982: "TVA française particulière 1982"
+        french_vat_particular_1989: "TVA française particulière 1989"
+        french_vat_reduced: "TVA française réduite"
       name: "Taxes"
       property_natures:
-        active: "actif"
+        active: "actif" #?
         amount: "valeur"
-        collect_account: "compte de TVA collectée (radical)"
-        computation_method: "Methode de calcul"
+        collect_account: "compte de TVA collectée (radical)" #?
+        computation_method: "Methode de calcul" #?
         country: "pays"
-        deduction_account: "compte de TVA déductible (radical)"
+        deduction_account: "compte de TVA déductible (radical)" #?
+        nature: "Type"
         started_on: "Débutée le"
         stopped_on: "Arrêté le"
-        suffix: "suffixe du compte comptable"
+        suffix: "suffixe du compte comptable" #?
     units:
       items:
         acre: "Acre"

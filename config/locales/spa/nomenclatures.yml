@@ -2987,28 +2987,45 @@ spa:
       # name: "Soil natures"
     spatial_reference_systems:
       # name: "Spatial reference systems"
-    taxes:
+    tax_natures:
       choices:
         computation_method:
           # amount: "Amount"
           # percentage: "Percentage"
       items:
-        # fr_vat_intermediate: "Fr vat intermediate"
-        # fr_vat_normal: "Fr vat normal"
-        # fr_vat_null: "Fr vat null"
-        # fr_vat_particular: "Fr vat particular"
-        # fr_vat_reduced: "Fr vat reduced"
-      # name: "Taxes"
+        # inflated_vat: "Inflated VAT"
+        # intermediate_vat: "Intermediate VAT"
+        # normal_vat: "Normal VAT"
+        # null_vat: "Null VAT"
+        # particular_vat: "Particular VAT"
+        # reduced_vat: "Reduced VAT"
+      # name: "Tax natures"
       property_natures:
-        # active: "Active"
-        # amount: "Amount"
         # collect_account: "Collect account"
         # computation_method: "Computation method"
-        # country: "Country"
         # deduction_account: "Deduction account"
+        # suffix: "Suffix"
+    taxes:
+      choices: #?
+      items:
+        # french_vat_intermediate_2012: "French vat intermediate 2012"
+        # french_vat_intermediate_2014: "French vat intermediate 2014"
+        # french_vat_normal_1966: "French vat normal 1966"
+        # french_vat_normal_1982: "French vat normal 1982"
+        # french_vat_normal_1995: "French vat normal 1995"
+        # french_vat_normal_2000: "French vat normal 2000"
+        # french_vat_normal_2014: "French vat normal 2014"
+        # french_vat_null: "French vat null"
+        # french_vat_particular_1982: "French vat particular 1982"
+        # french_vat_particular_1989: "French vat particular 1989"
+        # french_vat_reduced: "French vat reduced"
+      # name: "Taxes"
+      property_natures:
+        # amount: "Amount"
+        # country: "Country"
+        # nature: "Nature"
         # started_on: "Started on"
         # stopped_on: "Stopped on"
-        # suffix: "Suffix"
     units:
       items:
         # acre: "Acre"
