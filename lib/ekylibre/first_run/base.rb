@@ -173,6 +173,7 @@ module Ekylibre
 
       # Launch the execution of the loaders
       def launch
+        Rails.logger.info "Import first run of #{@name} from #{@folder_path.to_s} in #{@mode} mode " + (@max > 0 ? "with max of #{@max}" : 'without max') + "."
         if hard? or Rails.env.production?
           puts "No global transaction".red
           execute
