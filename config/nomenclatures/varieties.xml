@@ -9,7 +9,7 @@
       <property-nature name="itis_tsn" type="integer"/>
       <!-- http://ec.europa.eu/food/plant/propagation/catalogues/database/public/index.cfm?event=SearchForm&cat=A -->
       <property-nature name="europa_tsn" type="string" required="false"/>
-
+      <property-nature name="french_race_code" type="string" required="false"/>
     </property-natures>
     <items>
       <item name="product"/>

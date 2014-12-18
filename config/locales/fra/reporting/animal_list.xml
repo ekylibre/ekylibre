@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0000000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="288"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -13,7 +13,7 @@
 			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{race-name}.contains("CROISE")]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{race-name}.contains("croise")]]></conditionExpression>
 			<style mode="Opaque" backcolor="#FFFF00" fill="Solid" vAlign="Top" isBlankWhenNull="false" isBold="false" isItalic="false" isUnderline="false"/>
 		</conditionalStyle>
 	</style>
@@ -21,8 +21,10 @@
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="entity_of_company_full_name" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="entity_of_company_id" class="java.lang.Integer"/>
 	<queryString language="xPath">
-		<![CDATA[/animals/animal[external='false']]]>
+		<![CDATA[/animals/animal]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[name]]></fieldDescription>
@@ -34,7 +36,7 @@
 		<fieldDescription><![CDATA[born-at]]></fieldDescription>
 	</field>
 	<field name="sex" class="java.lang.String">
-		<fieldDescription><![CDATA[sex/@name]]></fieldDescription>
+		<fieldDescription><![CDATA[sex-text]]></fieldDescription>
 	</field>
 	<field name="picture-file-name" class="java.lang.String">
 		<fieldDescription><![CDATA[picture-file-name]]></fieldDescription>
@@ -69,17 +71,24 @@
 	<field name="dead-at" class="java.lang.String">
 		<fieldDescription><![CDATA[dead-at]]></fieldDescription>
 	</field>
+	<field name="initial-container-id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[initial-container-id]]></fieldDescription>
+	</field>
+	<field name="initial-owner-id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[initial-owner-id]]></fieldDescription>
+	</field>
 	<sortField name="born-at" order="Descending"/>
 	<sortField name="work-number" order="Descending"/>
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="year" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
+	<filterExpression><![CDATA[$F{initial-owner-id} == $P{entity_of_company_id}]]></filterExpression>
 	<group name="year" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{born-at}.getYear()+1900]]></groupExpression>
 		<groupHeader>
 			<band height="29">
 				<textField evaluationTime="Group" evaluationGroup="year">
-					<reportElement uuid="33c30a13-a8f4-405d-82fc-26f60aad7e10" style="label-strong" mode="Opaque" x="2" y="2" width="100" height="26"/>
+					<reportElement style="label-strong" mode="Opaque" x="2" y="2" width="100" height="26" uuid="33c30a13-a8f4-405d-82fc-26f60aad7e10"/>
 					<box>
 						<pen lineWidth="0.0" lineColor="#7F4D15"/>
 						<topPen lineWidth="0.0" lineColor="#7F4D15"/>
@@ -91,21 +100,21 @@
 					<textFieldExpression><![CDATA[$F{born-at}.getYear()+1900]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="27" width="411" height="1" forecolor="#7F4D15"/>
+					<reportElement x="-21" y="27" width="411" height="1" forecolor="#7F4D15" uuid="5abae6f2-281f-493a-b567-f347b80e42b3"/>
 				</line>
 			</band>
 		</groupHeader>
 		<groupFooter>
 			<band height="88">
 				<staticText>
-					<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="10" y="10" width="121" height="20"/>
+					<reportElement style="label-strong" x="10" y="10" width="121" height="20" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans"/>
 					</textElement>
 					<text><![CDATA[Total naissance :]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="year">
-					<reportElement uuid="9272f55e-4ea7-4a42-9e94-e425cbe67701" style="strong" x="131" y="10" width="77" height="20"/>
+					<reportElement style="strong" x="131" y="10" width="77" height="20" uuid="9272f55e-4ea7-4a42-9e94-e425cbe67701"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{id_1}]]></textFieldExpression>
 				</textField>
@@ -118,14 +127,14 @@
 	<title>
 		<band height="39" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a" style="strong" mode="Opaque" x="2" y="29" width="800" height="2" backcolor="#7C9DDD"/>
+				<reportElement style="strong" mode="Opaque" x="2" y="29" width="800" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dc35e306-d03e-4288-b40e-74e3bb33d471" style="title" x="0" y="0" width="425" height="29"/>
+				<reportElement style="title" x="0" y="0" width="425" height="29" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
 				<textElement>
 					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
 				</textElement>
@@ -139,48 +148,48 @@
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="113" y="0" width="54" height="22"/>
+				<reportElement style="label-strong" x="113" y="0" width="54" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[né(e) le]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="1a8fa9c0-eac8-4ea0-a29e-72273e994335" positionType="FixRelativeToBottom" x="0" y="20" width="802" height="2"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="802" height="2" uuid="1a8fa9c0-eac8-4ea0-a29e-72273e994335"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="0" y="0" width="73" height="22"/>
+				<reportElement style="label-strong" x="0" y="0" width="73" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[nom]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="73" y="0" width="40" height="22"/>
+				<reportElement style="label-strong" x="73" y="0" width="40" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[n°]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="167" y="0" width="41" height="22"/>
+				<reportElement style="label-strong" x="167" y="0" width="41" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[sexe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="208" y="0" width="92" height="22"/>
+				<reportElement style="label-strong" x="208" y="0" width="92" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[mère]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="300" y="0" width="90" height="22"/>
+				<reportElement style="label-strong" x="300" y="0" width="90" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
@@ -191,49 +200,49 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" style="base" mode="Opaque" x="300" y="0" width="90" height="21"/>
+				<reportElement style="base" mode="Opaque" x="300" y="0" width="90" height="21" uuid="dba1a483-6562-4082-a5d2-a0dd845fe182"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{father-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" style="base" mode="Opaque" x="208" y="0" width="92" height="21"/>
+				<reportElement style="base" mode="Opaque" x="208" y="0" width="92" height="21" uuid="42865504-0435-4a06-9df0-2151563c4fea"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mother-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" style="base" mode="Opaque" x="113" y="0" width="54" height="21"/>
+				<reportElement style="base" mode="Opaque" x="113" y="0" width="54" height="21" uuid="b8637e72-0dab-486c-980e-630dbe469547"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" style="base" mode="Opaque" x="1" y="0" width="72" height="21"/>
+				<reportElement style="base" mode="Opaque" x="1" y="0" width="72" height="21" uuid="e39cad02-7296-4b15-be64-83e1005f9da2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" style="base" mode="Opaque" x="73" y="0" width="40" height="21"/>
+				<reportElement style="base" mode="Opaque" x="73" y="0" width="40" height="21" uuid="14106f98-080d-4ea6-9add-6ce992833746"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" style="base" mode="Opaque" x="167" y="0" width="41" height="21"/>
+				<reportElement style="base" mode="Opaque" x="167" y="0" width="41" height="21" uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[( $F{sex} == "female" ? "F" : "M" )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{sex} == "Femelle" ? "F" : "M" )]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="388" height="1"/>
+				<reportElement x="2" y="20" width="388" height="1" uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a"/>
 			</line>
 		</band>
 	</detail>
@@ -243,35 +252,35 @@
 	<pageFooter>
 		<band height="26" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement uuid="50272410-1b25-4669-88c3-3be64f156f82" style="base" x="761" y="3" width="40" height="22" forecolor="#000000"/>
+				<reportElement style="base" x="761" y="3" width="40" height="22" forecolor="#000000" uuid="50272410-1b25-4669-88c3-3be64f156f82"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811" style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000"/>
+				<reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed" style="base" x="708" y="3" width="54" height="22" forecolor="#000000"/>
+				<reportElement style="base" x="708" y="3" width="54" height="22" forecolor="#000000" uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3740387f-1656-45d4-b5a7-a671b9df52d6" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="09502309-a48d-4de7-a65d-8e0643856d5d" mode="Opaque" x="300" y="5" width="90" height="20" backcolor="#FFFF00"/>
+				<reportElement mode="Opaque" x="300" y="5" width="90" height="20" backcolor="#FFFF00" uuid="09502309-a48d-4de7-a65d-8e0643856d5d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Race croisée]]></text>
 			</staticText>
@@ -280,35 +289,35 @@
 	<lastPageFooter>
 		<band height="26">
 			<staticText>
-				<reportElement uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement uuid="c5669d5d-31af-4dd7-bf88-534422b21b01" style="base" x="761" y="3" width="40" height="22" forecolor="#000000"/>
+				<reportElement style="base" x="761" y="3" width="40" height="22" forecolor="#000000" uuid="c5669d5d-31af-4dd7-bf88-534422b21b01"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="a98f0540-b3f2-4380-aab0-f9d96ea72b6e" style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000"/>
+				<reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="a98f0540-b3f2-4380-aab0-f9d96ea72b6e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5de70a0c-bd99-4937-84fa-c172a5df272f" style="base" x="708" y="3" width="54" height="22" forecolor="#000000"/>
+				<reportElement style="base" x="708" y="3" width="54" height="22" forecolor="#000000" uuid="5de70a0c-bd99-4937-84fa-c172a5df272f"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="572665e0-a042-44c7-b043-305939d63f18" mode="Opaque" x="300" y="5" width="90" height="20" backcolor="#FFFF00"/>
+				<reportElement mode="Opaque" x="300" y="5" width="90" height="20" backcolor="#FFFF00" uuid="572665e0-a042-44c7-b043-305939d63f18"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Race croisée]]></text>
 			</staticText>
@@ -317,7 +326,7 @@
 	<summary>
 		<band height="555" splitType="Stretch">
 			<crosstab>
-				<reportElement uuid="3a63daa9-0c7d-47af-8955-adba1729221c" x="0" y="71" width="802" height="91"/>
+				<reportElement x="0" y="71" width="802" height="91" uuid="3a63daa9-0c7d-47af-8955-adba1729221c"/>
 				<rowGroup name="sex" width="70" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{sex}]]></bucketExpression>
@@ -328,7 +337,7 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement uuid="a2d756c8-f47d-4ced-a84a-21170fb52af5" style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="a2d756c8-f47d-4ced-a84a-21170fb52af5"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Open Sans"/>
 								</textElement>
@@ -342,7 +351,7 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement uuid="437902e2-e4b9-4923-8319-f041f225affd" x="0" y="0" width="70" height="25"/>
+								<reportElement x="0" y="0" width="70" height="25" uuid="437902e2-e4b9-4923-8319-f041f225affd"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Open Sans"/>
 								</textElement>
@@ -361,7 +370,7 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textField>
-								<reportElement uuid="ddd851e2-0585-4157-a264-342d71a53646" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="ddd851e2-0585-4157-a264-342d71a53646"/>
 								<textElement verticalAlignment="Middle">
 									<font fontName="Open Sans"/>
 								</textElement>
@@ -375,7 +384,7 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement uuid="c40a9a5b-89fd-4c7f-871d-c85718aaddf6" x="0" y="0" width="50" height="30"/>
+								<reportElement x="0" y="0" width="50" height="30" uuid="c40a9a5b-89fd-4c7f-871d-c85718aaddf6"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="Open Sans"/>
 								</textElement>
@@ -393,7 +402,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement uuid="2b2fb7f5-9b00-4c5b-9672-475d3974fb99" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="2b2fb7f5-9b00-4c5b-9672-475d3974fb99"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="Open Sans"/>
 							</textElement>
@@ -407,7 +416,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement uuid="80f81929-7eb7-485c-b86b-8c948e2af9ca" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="80f81929-7eb7-485c-b86b-8c948e2af9ca"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="Open Sans"/>
 							</textElement>
@@ -421,7 +430,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement uuid="2d32c978-f3cf-4e5f-b146-9406a6af543c" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="2d32c978-f3cf-4e5f-b146-9406a6af543c"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="Open Sans"/>
 							</textElement>
@@ -435,7 +444,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement uuid="3db008a7-8475-49b9-b985-e38f04715a42" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="3db008a7-8475-49b9-b985-e38f04715a42"/>
 							<textElement verticalAlignment="Middle">
 								<font fontName="Open Sans"/>
 							</textElement>
@@ -445,14 +454,14 @@
 				</crosstabCell>
 			</crosstab>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="sub-title" x="2" y="29" width="229" height="24" forecolor="#688ED8"/>
+				<reportElement style="sub-title" x="2" y="29" width="229" height="24" forecolor="#688ED8" uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b"/>
 				<textElement>
 					<font fontName="Open Sans" pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[Naissance / sexe / an]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="sub-title" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24" forecolor="#688ED8"/>
+				<reportElement style="sub-title" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24" forecolor="#688ED8" uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b"/>
 				<textElement>
 					<font fontName="Open Sans" pdfFontName="Open Sans"/>
 				</textElement>
@@ -460,7 +469,7 @@
 			</staticText>
 			<stackedBarChart>
 				<chart>
-					<reportElement uuid="35ef500d-73e4-42e9-8281-62216ff62942" positionType="Float" stretchType="RelativeToBandHeight" x="1" y="268" width="801" height="262"/>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="1" y="268" width="801" height="262" uuid="35ef500d-73e4-42e9-8281-62216ff62942"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -484,14 +493,14 @@
 				</barPlot>
 			</stackedBarChart>
 			<staticText>
-				<reportElement uuid="898b506b-f8e9-4577-90d6-3887f2e6553a" style="strong" mode="Opaque" x="2" y="53" width="799" height="2" backcolor="#7C9DDD"/>
+				<reportElement style="strong" mode="Opaque" x="2" y="53" width="799" height="2" backcolor="#7C9DDD" uuid="898b506b-f8e9-4577-90d6-3887f2e6553a"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a5102868-7f30-42b0-8965-4bd359da71e6" style="strong" positionType="Float" mode="Opaque" x="2" y="247" width="800" height="2" backcolor="#7C9DDD"/>
+				<reportElement style="strong" positionType="Float" mode="Opaque" x="2" y="247" width="800" height="2" backcolor="#7C9DDD" uuid="a5102868-7f30-42b0-8965-4bd359da71e6"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>

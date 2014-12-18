@@ -3102,6 +3102,7 @@ eng:
       property_natures:
         derivative_of: "Derivative of"
         europa_tsn: "Europa number id"
+        french_race_code: "French race code"
         itis_tsn: "Itis number id"
       items:
         allium: "Garlic"                                   #< amaryllidaceae
@@ -3150,13 +3151,19 @@ eng:
         beta_vulgaris_vulgaris: "Beetroot"                 #< beta_vulgaris
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Bioproduct"                           #< matter
+        bison: "Bison"                                     #< bovidae
+        bison_bison: "American Bison"                      #< bison
+        bison_bonasus: "European Bison"                    #< bison
+        bison_bonasus_bonasus: "Common european bison"     #< bison_bonasus
         boraginaceae: "Boraginaceae"                       #< plant
-        bos: "Bos"                                         #< mammalia
+        bos: "Bos"                                         #< bovidae
         bos_taurus: "Cow"                                  #< bos
         bos_taurus_abondance: "Cow abondance"              #< bos_taurus
+        bos_taurus_angus: "Cow angus"                      #< bos_taurus
         bos_taurus_armoricaine: "Cow armoricaine"          #< bos_taurus
         bos_taurus_aubrac: "Cow aubrac"                    #< bos_taurus
         bos_taurus_aurochs: "Aurochs"                      #< bos_taurus
+        bos_taurus_ayrshire: "Cow ayrshire"                #< bos_taurus
         bos_taurus_bazadaise: "Cow bazadaise"              #< bos_taurus
         bos_taurus_bearnaise: "Cow bearnaise"              #< bos_taurus
         bos_taurus_betizu: "Cow betizu"                    #< bos_taurus
@@ -3165,34 +3172,44 @@ eng:
         bos_taurus_bleu_du_nord: "Cow bleu du nord"        #< bos_taurus
         bos_taurus_blonde_aquitaine: "Cow blonde aquitaine" #< bos_taurus
         bos_taurus_bordelaise: "Cow bordelaise"            #< bos_taurus
-        bos_taurus_brahman: "Cow brahman"                  #< bos_taurus
+        bos_taurus_brahma: "Cow brahma"                    #< bos_taurus
         bos_taurus_bretonne_pie_noire: "Cow bretonne pie noire" #< bos_taurus
         bos_taurus_brune: "Cow brune"                      #< bos_taurus
         bos_taurus_canadienne: "Cow canadienne"            #< bos_taurus
         bos_taurus_casta: "Cow casta"                      #< bos_taurus
         bos_taurus_charolaise: "Cow charolaise"            #< bos_taurus
-        bos_taurus_combat: "Cow combat"                    #< bos_taurus
+        bos_taurus_chianina: "Cow chianina"                #< bos_taurus
         bos_taurus_corse: "Cow corse"                      #< bos_taurus
         bos_taurus_creole_guadeloupe: "Cow creole guadeloupe" #< bos_taurus
         bos_taurus_creole_martinique: "Cow creole martinique" #< bos_taurus
+        bos_taurus_croise: "Cow croise"                    #< bos_taurus
+        bos_taurus_dairy_shorthorn: "Cow dairy shorthorn"  #< bos_taurus
+        bos_taurus_de_combat: "Cow de combat"              #< bos_taurus
         bos_taurus_ferrandaise: "Cow ferrandaise"          #< bos_taurus
         bos_taurus_flamande_originelle: "Cow flamande originelle" #< bos_taurus
         bos_taurus_froment_du_leon: "Cow froment du leon"  #< bos_taurus
+        bos_taurus_galloway: "Cow galloway"                #< bos_taurus
         bos_taurus_gasconne: "Cow gasconne"                #< bos_taurus
+        bos_taurus_gelbvieh: "Cow gelbvieh"                #< bos_taurus
+        bos_taurus_guernesey: "Cow guernesey"              #< bos_taurus
         bos_taurus_herefort: "Cow herefort"                #< bos_taurus
         bos_taurus_herens: "Cow herens"                    #< bos_taurus
+        bos_taurus_highland_cattle: "Cow highland cattle"  #< bos_taurus
         bos_taurus_inra_95: "Cow inra 95"                  #< bos_taurus
         bos_taurus_jersiaise: "Cow jersiaise"              #< bos_taurus
         bos_taurus_limousine: "Cow limousine"              #< bos_taurus
         bos_taurus_lourdaise: "Cow lourdaise"              #< bos_taurus
         bos_taurus_maraichine: "Cow maraichine"            #< bos_taurus
+        bos_taurus_marchigiana: "Cow marchigiana"          #< bos_taurus
         bos_taurus_marine_landaise: "Cow marine landaise"  #< bos_taurus
         bos_taurus_mirandaise: "Cow mirandaise"            #< bos_taurus
         bos_taurus_montbeliarde: "Cow montbeliarde"        #< bos_taurus
+        bos_taurus_n_dama: "Cow n dama"                    #< bos_taurus
         bos_taurus_nantaise: "Cow nantaise"                #< bos_taurus
         bos_taurus_normande: "Cow normande"                #< bos_taurus
         bos_taurus_parthenaise: "Cow parthenaise"          #< bos_taurus
         bos_taurus_pie_rouge_des_plaines: "Cow pie rouge des plaines" #< bos_taurus
+        bos_taurus_piemontaise: "Cow piemontaise"          #< bos_taurus
         bos_taurus_prim_holstein: "Cow prim holstein"      #< bos_taurus
         bos_taurus_raco_di_biou: "Cow raco di biou"        #< bos_taurus
         bos_taurus_rouge_des_pres: "Cow rouge des pres"    #< bos_taurus
@@ -3200,6 +3217,7 @@ eng:
         bos_taurus_salers: "Cow salers"                    #< bos_taurus
         bos_taurus_saosnoise: "Cow saosnoise"              #< bos_taurus
         bos_taurus_simmental_francaise: "Cow simmental francaise" #< bos_taurus
+        bos_taurus_south_devon: "Cow south devon"          #< bos_taurus
         bos_taurus_tarentaise: "Cow tarentaise"            #< bos_taurus
         bos_taurus_villars_de_lans: "Cow villars de lans"  #< bos_taurus
         bos_taurus_vosgienne: "Cow vosgienne"              #< bos_taurus
@@ -3207,6 +3225,7 @@ eng:
         botrytis_cinerea: "Botrytis cinerea"               #< botrytis
         bottle: "Bottle"                                   #< packaged_matter
         bottler: "Bottler"                                 #< equipment
+        bovidae: "Bovidae"                                 #< mammalia
         brassica: "Brassica"                               #< brassicaceae
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_napus_rapifera: "Rutabaga"                #< brassica_napus
@@ -3362,6 +3381,7 @@ eng:
         cynara: "Artichoke"                                #< asteraceae
         dactylis: "Dactylis"                               #< poa
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
+        damaliscus: "Damaliscus"                           #< bovidae
         daucus: "Daucus"                                   #< apiaceae
         daucus_carota: "Carrot"                            #< daucus
         daucus_carota_carentan: "Carentan Carrot"          #< daucus_carota

@@ -22,10 +22,31 @@ class Backend::AnimalsController < Backend::MattersController
   # params:
   #   :q Text search
   #   :s State search
+  #   :period Two Dates with _ separator
   #   :variant_id
   def self.animals_conditions
     code = ""
-    code = search_conditions(:product_nature_variants => [:name]) + " ||= []\n"
+    code = search_conditions(product_nature_variants: [:name]) + " ||= []\n"
+    code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
+    code << "  if params[:period] != 'all'\n"
+    code << "    interval = params[:period].split('_')\n"
+    code << "    first_date = interval.first\n"
+    code << "    last_date = interval.last\n"
+    code << "    c[0] << \" AND #{Animal.table_name}.born_at BETWEEN ? AND ?\"\n"
+    code << "    c << first_date\n"
+    code << "    c << last_date\n"
+    code << "  end\n "
+    code << "end\n "
+    # code << "unless (params[:s].blank? or params[:s].is_a? Symbol)\n"
+    # code << "  if params[:s] != 'all'\n"
+    # code << "    if params[:s] == 'healthy'\n"
+    # code << "      c[0] << \" AND #{ProductReading.table_name}.product_id=#{Animal.table_name}.id AND #{ProductReading.table_name}.indicator_name='healthy' AND #{ProductReading.table_name}.boolean_value=true\"\n"
+    # code << "    end\n "
+    # code << "    if params[:s] == 'illness'\n"
+    # code << "      c[0] << \" AND #{ProductReading.table_name}.product_id=#{Animal.table_name}.id AND #{ProductReading.table_name}.indicator_name='healthy' AND #{ProductReading.table_name}.boolean_value=false\"\n"
+    # code << "    end\n "
+    # code << "  end\n "
+    # code << "end\n "
     code << "  if params[:variant_id].to_i > 0\n"
     code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
     code << "    c << params[:variant_id].to_i\n"
@@ -34,7 +55,7 @@ class Backend::AnimalsController < Backend::MattersController
     return code.c
   end
 
-  list(conditions: animals_conditions, joins: :variant) do |t|
+  list(conditions: animals_conditions, joins: :variants) do |t|
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at
@@ -57,10 +78,11 @@ class Backend::AnimalsController < Backend::MattersController
 
   def index
     @animals = Animal.all
-    # passing a parameter to Jasper for company full name
-    @entity_full_name = Entity.of_company.full_name
+    # passing a parameter to Jasper for company full name and id
+    @entity_of_company_full_name = Entity.of_company.full_name
+    @entity_of_company_id = Entity.of_company.id
     # respond with associated models to simplify quering in Ireport
-    respond_with @animals, :include => [:father, :mother, :variety, :nature]
+    respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
   end
 
    # Liste des enfants de l'animal considéré
@@ -74,7 +96,7 @@ class Backend::AnimalsController < Backend::MattersController
   def show
     return unless @animal = find_and_check
     t3e @animal, nature: @animal.nature_name
-    respond_with(@animal, :methods => [:picture_path, :sex_text], :include => [:father, :mother, :variant, :nature, :variety,
+    respond_with(@animal, :methods => [:picture_path, :sex_text, :variety_text], :include => [:father, :mother, :variant, :nature, :variety,
                                                                   {:readings => {}},
                                                                   {:intervention_casts => {:include => :intervention}},
                                                                   {:memberships => {:include => :group}},
