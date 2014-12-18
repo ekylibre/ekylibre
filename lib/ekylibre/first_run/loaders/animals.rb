@@ -124,6 +124,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              )
           animal = Animal.create!(:variant_id => male_adult_cow.id,
                                   :name => r.name, :variety => 'bos_taurus_normande',
+                                  :born_at => '1900-01-01 01:00',
                                   :identification_number => r.identification_number[-10..-1],
                                   :initial_owner => owners.sample)
           # set default indicators

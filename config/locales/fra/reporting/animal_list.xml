@@ -60,7 +60,7 @@
 		<fieldDescription><![CDATA[work-number]]></fieldDescription>
 	</field>
 	<field name="race-name" class="java.lang.String">
-		<fieldDescription><![CDATA[variety/@name]]></fieldDescription>
+		<fieldDescription><![CDATA[variety-text]]></fieldDescription>
 	</field>
 	<field name="father-name" class="java.lang.String">
 		<fieldDescription><![CDATA[father/name]]></fieldDescription>
@@ -82,7 +82,7 @@
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="year" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
-	<filterExpression><![CDATA[$F{initial-owner-id} == $P{entity_of_company_id}]]></filterExpression>
+	<filterExpression><![CDATA[$F{initial-container-id}.intValue() > 0]]></filterExpression>
 	<group name="year" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{born-at}.getYear()+1900]]></groupExpression>
 		<groupHeader>
@@ -140,6 +140,14 @@
 				</textElement>
 				<text><![CDATA[Inventaire animal]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="425" y="0" width="189" height="20" uuid="d9dcd076-909c-4cde-8ca0-545c9b1cd02b"/>
+				<textFieldExpression><![CDATA[$P{entity_of_company_full_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="637" y="0" width="100" height="20" uuid="e264d454-8b1e-4788-ae65-ad686a493147"/>
+				<textFieldExpression><![CDATA[$P{entity_of_company_id}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -221,7 +229,7 @@
 				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="base" mode="Opaque" x="1" y="0" width="72" height="21" uuid="e39cad02-7296-4b15-be64-83e1005f9da2"/>
+				<reportElement style="Detail" mode="Opaque" x="1" y="0" width="72" height="21" uuid="e39cad02-7296-4b15-be64-83e1005f9da2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
 				</textElement>
@@ -341,7 +349,7 @@
 								<textElement verticalAlignment="Middle">
 									<font fontName="Open Sans"/>
 								</textElement>
-								<textFieldExpression><![CDATA[( $V{sex} == 'female' ? "Femelle" : "Mâle" )]]></textFieldExpression>
+								<textFieldExpression><![CDATA[( $V{sex} == 'Femelle' ? "Femelle" : "Mâle" )]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
