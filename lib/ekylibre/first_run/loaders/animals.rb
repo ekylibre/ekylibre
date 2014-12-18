@@ -201,13 +201,18 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
             variants[group.member_nature] ||= ProductNatureVariant.import_from_nomenclature(group.member_nature)
             variant = variants[group.member_nature]
             
-            #find correct variety with nomen
-            bos_variety_items = Nomen::Varieties.where()
+            # find a bos variety from corabo field in file
+            items = Nomen::Varieties.where(french_race_code: r.corabo)
+            if items
+              bos_variety = items.first.name
+            else
+              bos_variety = variant.variety
+            end
             
             animal = Animal.create!(
                variant: variant,
                name: r.name,
-               variety: variant.variety,
+               variety: bos_variety,
                identification_number: r.identification_number,
                work_number: r.work_number,
                initial_born_at: r.born_at,
@@ -236,7 +241,6 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
               end
               #animal.read!(:healthy, true,  at: (now - 3.days))
               #animal.read!(:healthy, false, at: (now - 2.days))
-              animal.read!(:healthy, true,  at: now)
             end
   
             group.record.add(animal, r.arrived_on)
@@ -262,6 +266,8 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
           r = OpenStruct.new(:work_number => row[0],
                              :identification_number => (row[0] ? cattling_root_number+row[0].to_s : nil),
                              :name => (row[1].blank? ? Faker::Name.first_name+" (MN)" : row[1].capitalize),
+                             :mother_variety_code => (row[13].blank? ? nil : row[13]),
+                             :father_variety_code => (row[14].blank? ? nil : row[14]),
                              :sex => (row[3].blank? ? nil : (row[3] == "F" ? :female : :male)),
                              :born_on => born_on,
                              born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
@@ -281,21 +287,30 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
           # check if animal is present in DB
           next unless animal = Animal.find_by(identification_number: r.identification_number)
 
-          # Find or create mother
+          # Find mother
           unless r.mother_identification_number.blank? and Animal.find_by(identification_number: r.mother_identification_number)
             parents[:mother][r.mother_identification_number] ||= Animal.find_by(identification_number: r.mother_identification_number)
             link = animal.links.new(nature: :mother,  started_at: animal.born_at)
             link.linked = parents[:mother][r.mother_identification_number]
             link.save
           end
+          
+          # find a the father variety from field in file
+            father_items = Nomen::Varieties.where(french_race_code: r.father_variety_code)
+            if father_items
+              father_bos_variety = father_items.first.name
+            else
+              father_bos_variety = "bos"
+            end
 
+          
           # Find or create father
           unless r.father_identification_number.blank?
             parents[:father][r.father_identification_number] ||=
               Animal.find_by(identification_number: r.father_identification_number) ||
               Animal.create!(:variant_id => male_adult_cow.id,
                              :name => r.father_name,
-                             :variety => "bos",
+                             :variety => father_bos_variety,
                              :identification_number => r.father_identification_number,
                              work_number: r.father_work_number,
                              :initial_owner => owners.sample,
