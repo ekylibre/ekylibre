@@ -105,6 +105,39 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
     place   = BuildingDivision.last # find_by_work_number("B07_D2")
     owners = Entity.where(:of_company => false).all
 
+    file = first_run.path("alamano", "liste_males_reproducteurs.txt")
+    if file.exist?
+      first_run.count :upra_reproductor_list_import do |w|
+        now = Time.now - 2.months
+        CSV.foreach(file, encoding: "CP1252", col_sep: "\t", headers: true) do |row|
+          next if row[4].blank?
+          r = OpenStruct.new(:order => row[0],
+                             :name => row[1],
+                             :identification_number => row[2],
+                             #:work_number => row[2][-4..-1],
+                             #:father => row[3],
+                             #:provider => row[4],
+                             :isu => row[5].to_i,
+                             :inel => row[9].to_i,
+                             :tp => row[10].to_f,
+                             :tb => row[11].to_f
+                             )
+          animal = Animal.create!(:variant_id => male_adult_cow.id,
+                                  :name => r.name, :variety => 'bos_taurus_normande',
+                                  :identification_number => r.identification_number[-10..-1],
+                                  :initial_owner => owners.sample)
+          # set default indicators
+          animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
+          animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
+          animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: now)
+          animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
+          # put in an external localization
+          animal.localizations.create!(nature: :exterior)
+          w.check_point
+        end
+      end
+    end
+
     # attach picture if exist for each group
     for group in AnimalGroup.all
       picture_path = first_run.path("alamano", "animal_groups_pictures", "#{group.work_number}.jpg")
@@ -156,33 +189,25 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              :departed_on => dead_on,
                              dead_at: (dead_on ? dead_on.to_datetime : nil)
                              )
-          unless group = groups.detect do |g|
-              (g.sex.blank? or g.sex == r.sex) and
-              (g.minimum_age.blank? or r.age >= g.minimum_age) and
-              (g.maximum_age.blank? or r.age < g.maximum_age)
+          unless animal = Animal.find_by(identification_number: r.identification_number)                 
+            unless group = groups.detect do |g|
+                (g.sex.blank? or g.sex == r.sex) and
+                (g.minimum_age.blank? or r.age >= g.minimum_age) and
+                (g.maximum_age.blank? or r.age < g.maximum_age)
+              end
+              raise "Cannot find a valid group for the given (for #{r.inspect})"
             end
-            raise "Cannot find a valid group for the given (for #{r.inspect})"
-          end
-
-          variants[group.member_nature] ||= ProductNatureVariant.import_from_nomenclature(group.member_nature)
-          variant = variants[group.member_nature]
-
-          # if animal exist don't import it
-          unless animal = Animal.find_by(identification_number: r.identification_number)
-
-            # find a bos variety from corabo field in file
-            items = Nomen::Varieties.where(french_race_code: r.corabo)
-            if items
-              bos_variety = items.first.name
-            else
-              bos_variety = variant.variety
-            end
-
-            # create animal
+  
+            variants[group.member_nature] ||= ProductNatureVariant.import_from_nomenclature(group.member_nature)
+            variant = variants[group.member_nature]
+            
+            #find correct variety with nomen
+            bos_variety_items = Nomen::Varieties.where()
+            
             animal = Animal.create!(
                variant: variant,
                name: r.name,
-               variety: bos_variety,
+               variety: variant.variety,
                identification_number: r.identification_number,
                work_number: r.work_number,
                initial_born_at: r.born_at,
@@ -191,35 +216,34 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                # initial_container: group.record.default_storage,
                default_storage: group.record.default_storage
                )
-
+  
             # Sex is already known but not if the group has no sex
             animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
             animal.read!(:healthy, true,  at: r.born_at)
-
+            
+            # load demo data weight and state
+            if is_a_demo_instance
+              weighted_at = r.born_at
+              if weighted_at and weighted_at < Time.now
+                variation = 0.02
+                while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
+                  age = (weighted_at - r.born_at).to_f
+                  weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
+                  weight += rand(weight * variation * 2) - (weight * variation)
+                  animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
+                  weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
+                end
+              end
+              #animal.read!(:healthy, true,  at: (now - 3.days))
+              #animal.read!(:healthy, false, at: (now - 2.days))
+              animal.read!(:healthy, true,  at: now)
+            end
+  
             group.record.add(animal, r.arrived_on)
             group.record.remove(animal, r.departed_on) if r.departed_on
-
+  
+            w.check_point
           end
-
-          # load demo data weight and state
-          if is_a_demo_instance
-            weighted_at = r.born_at
-            if weighted_at and weighted_at < Time.now
-              variation = 0.02
-              while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
-                age = (weighted_at - r.born_at).to_f
-                weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
-                weight += rand(weight * variation * 2) - (weight * variation)
-                animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
-                weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
-              end
-            end
-            #animal.read!(:healthy, true,  at: (now - 3.days))
-            #animal.read!(:healthy, false, at: (now - 2.days))
-
-          end
-
-          w.check_point
         end
       end
     end
@@ -238,8 +262,6 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
           r = OpenStruct.new(:work_number => row[0],
                              :identification_number => (row[0] ? cattling_root_number+row[0].to_s : nil),
                              :name => (row[1].blank? ? Faker::Name.first_name+" (MN)" : row[1].capitalize),
-                             :mother_variety_code => (row[13].blank? ? nil : row[13]),
-                             :father_variety_code => (row[14].blank? ? nil : row[14]),
                              :sex => (row[3].blank? ? nil : (row[3] == "F" ? :female : :male)),
                              :born_on => born_on,
                              born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
@@ -258,54 +280,29 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              )
           # check if animal is present in DB
           next unless animal = Animal.find_by(identification_number: r.identification_number)
-          
-          # find a the mother variety from field in file
-            mother_items = Nomen::Varieties.where(french_race_code: r.mother_variety_code)
-            if mother_items
-              mother_bos_variety = mother_items.first.name
-            else
-              mother_bos_variety = "bos"
-            end
 
           # Find or create mother
-          unless r.mother_identification_number.blank?
-            parents[:mother][r.mother_identification_number] ||=
-              Animal.find_by(identification_number: r.mother_identification_number) ||
-              Animal.create!(:variant_id => female_adult_cow.id,
-                             :name => r.mother_name,
-                             :variety => mother_bos_variety,
-                             :identification_number => r.mother_identification_number,
-                             work_number: r.mother_work_number,
-                             :initial_owner => owner,
-                             :initial_container => place,
-                             :default_storage => place)
+          unless r.mother_identification_number.blank? and Animal.find_by(identification_number: r.mother_identification_number)
+            parents[:mother][r.mother_identification_number] ||= Animal.find_by(identification_number: r.mother_identification_number)
             link = animal.links.new(nature: :mother,  started_at: animal.born_at)
             link.linked = parents[:mother][r.mother_identification_number]
             link.save
           end
-          
-          # find a the father variety from field in file
-            father_items = Nomen::Varieties.where(french_race_code: r.father_variety_code)
-            if father_items
-              father_bos_variety = father_items.first.name
-            else
-              father_bos_variety = "bos"
-            end
 
           # Find or create father
           unless r.father_identification_number.blank?
             parents[:father][r.father_identification_number] ||=
               Animal.find_by(identification_number: r.father_identification_number) ||
-              Animal.create!(:variant_id => female_adult_cow.id,
-                             :name => r.mother_name,
-                             :variety => father_bos_variety,
+              Animal.create!(:variant_id => male_adult_cow.id,
+                             :name => r.father_name,
+                             :variety => "bos",
                              :identification_number => r.father_identification_number,
-                             work_number: r.mother_work_number,
+                             work_number: r.father_work_number,
                              :initial_owner => owners.sample,
                              :initial_container => place,
                              :default_storage => place)
             link = animal.links.new(nature: :father,  started_at: animal.born_at)
-            link.linked = parents[:father][r.mother_identification_number]
+            link.linked = parents[:father][r.father_identification_number]
             link.save
           end
           w.check_point
@@ -314,48 +311,9 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
       end
     end
 
-    # import 'normandes' reproductors 
-    file = first_run.path("alamano", "liste_males_reproducteurs.txt")
-    if file.exist?
-      first_run.count :upra_reproductor_list_import do |w|
-        now = Time.now - 2.months
-        CSV.foreach(file, encoding: "CP1252", col_sep: "\t", headers: true) do |row|
-          next if row[4].blank?
-          r = OpenStruct.new(:order => row[0],
-                             :name => row[1],
-                             :identification_number => row[2],
-                             #:work_number => row[2][-4..-1],
-                             #:father => row[3],
-                             #:provider => row[4],
-                             :isu => row[5].to_i,
-                             :inel => row[9].to_i,
-                             :tp => row[10].to_f,
-                             :tb => row[11].to_f
-                             )
-          unless animal = Animal.find_by(identification_number: r.identification_number[-10..-1])                   
-            animal = Animal.create!(:variant_id => male_adult_cow.id,
-                                  :name => r.name, :variety => 'bos_taurus_normande',
-                                  :identification_number => r.identification_number[-10..-1],
-                                  :initial_owner => owners.sample)
-            
-          end
-          animal.localizations.create!(nature: :exterior)
-          
-          # set default indicators
-          animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
-          animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
-          animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: now)
-          animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
-          # put in an external localization
-          
-          w.check_point
-        end
-      end
-    end
-    
-     groups, male_adult_cow, female_adult_cow, place, owners, is_a_demo_instance, variants, owner = nil
+    groups, male_adult_cow, female_adult_cow, place, owners, is_a_demo_instance, variants, owner = nil
     GC.start
-    
+
     # attach picture if exist for each animal
     Animal.find_each do |animal|
       picture_path = first_run.path("alamano", "animals_pictures", "#{animal.work_number}.jpg")
