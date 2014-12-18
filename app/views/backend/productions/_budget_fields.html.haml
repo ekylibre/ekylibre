@@ -1,4 +1,9 @@
 .nested_fields
-  = f.input :variant
+= backend_fields_for budget, wrapper: :nested do |f|
+  = f.referenced_association :variant, wrapper: :nested
   = f.input :computation_method
+  = f.input :unit_amount
+  = f.input :currency
+  = f.input :working_indicator
+  = f.input :working_unit
 

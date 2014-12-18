@@ -11,8 +11,5 @@
   = f.input :working_unit
   = f.custom_fields
 
-= field_set(:supports) do
-  = f.nested_association(:supports)
-
 = field_set(:budgets) do
   = render 'budget_form', f: f

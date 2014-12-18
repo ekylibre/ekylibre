@@ -2,8 +2,8 @@
   %tr.appendable
     %td
     - f.object.supports.each do |support|
-      %td
-        = collection_select(:production, :supports, ProductionSupport.all, :id, :name, {selected: support.id})
+      %td{data:{support_id: support.id}}
+        = render 'support_fields', support: support
         = support.working_indicator_value
     %td
       = link_to '+', "#budget", data:{budget_add: :support}
@@ -14,7 +14,7 @@
   - f.object.budgets.expenses.each do |expense|
     %tr.appendable{data: {budget_id: expense.id, direction: :expense}}
       %td
-        = expense
+        = render 'budget_fields', budget: expense
       - f.object.supports.size.times do
         %td
           = :empty
@@ -33,7 +33,7 @@
   - f.object.budgets.revenues.each do |revenue|
     %tr.appendable{data: {budget_id: revenue.id, direction: :revenue}}
       %td
-        = revenue
+        = render 'budget_fields', budget: revenue
       - f.object.supports.size.times do
         %td
           = :empty

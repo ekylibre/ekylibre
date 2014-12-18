@@ -170,7 +170,7 @@ budgets:
   unit_amount: {type: float, default: 0.0}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-  variant_id: {type: integer, references: variant}
+  variant_id: {type: integer, references: product_nature_variant}
   working_indicator: {type: string}
   working_unit: {type: string}
 

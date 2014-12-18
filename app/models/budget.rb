@@ -51,7 +51,7 @@ class Budget < Ekylibre::Record::Base
   has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id
   has_many :supports, through: :production
   belongs_to :production
-  belongs_to :variant
+  belongs_to :variant, class_name: 'ProductNatureVariant'
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense]
