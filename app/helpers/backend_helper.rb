@@ -351,9 +351,9 @@ module BackendHelper
     end
     return content_tag(:span, html_options) do
       content_tag(:span, nil, class: "go") +
-                  content_tag(:span, nil, class: "caution") +
-                              content_tag(:span, nil, class: "stop")
-                                        end
-                            end
+        content_tag(:span, nil, class: "caution") +
+        content_tag(:span, nil, class: "stop")
+    end
+  end
 
-                end
+end
