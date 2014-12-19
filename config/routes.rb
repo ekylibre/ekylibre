@@ -760,6 +760,7 @@ Ekylibre::Application.routes.draw do
       resources :cash_registers, only: [:index, :show]
       resources :places, only: [:index, :show]
       resources :customers, only: [:index, :show]
+      resources :currencies, only: [:index, :show]
     end
   end
 

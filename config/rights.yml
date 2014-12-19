@@ -88,6 +88,8 @@
 #     - "devise/unlocks#show"
 #     - "pasteque/v5/cash_registers#index"
 #     - "pasteque/v5/cash_registers#show"
+#     - "pasteque/v5/currencies#index"
+#     - "pasteque/v5/currencies#show"
 #     - "pasteque/v5/customers#index"
 #     - "pasteque/v5/customers#show"
 #     - "pasteque/v5/places#index"
