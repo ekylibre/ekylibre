@@ -190,7 +190,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                              :departed_on => dead_on,
                              dead_at: (dead_on ? dead_on.to_datetime : nil)
                              )
-          unless animal = Animal.find_by(identification_number: r.identification_number)                 
+          unless animal = Animal.find_by(identification_number: r.identification_number)
             unless group = groups.detect do |g|
                 (g.sex.blank? or g.sex == r.sex) and
                 (g.minimum_age.blank? or r.age >= g.minimum_age) and
@@ -198,10 +198,10 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
               end
               raise "Cannot find a valid group for the given (for #{r.inspect})"
             end
-  
+
             variants[group.member_nature] ||= ProductNatureVariant.import_from_nomenclature(group.member_nature)
             variant = variants[group.member_nature]
-            
+
             # find a bos variety from corabo field in file
             items = Nomen::Varieties.where(french_race_code: r.corabo)
             if items
@@ -209,7 +209,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
             else
               bos_variety = variant.variety
             end
-            
+
             animal = Animal.create!(
                variant: variant,
                name: r.name,
@@ -222,11 +222,11 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
                # initial_container: group.record.default_storage,
                default_storage: group.record.default_storage
                )
-  
+
             # Sex is already known but not if the group has no sex
             animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
             animal.read!(:healthy, true,  at: r.born_at)
-            
+
             # load demo data weight and state
             if is_a_demo_instance
               weighted_at = r.born_at
@@ -243,10 +243,10 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
               #animal.read!(:healthy, true,  at: (now - 3.days))
               #animal.read!(:healthy, false, at: (now - 2.days))
             end
-  
+
             group.record.add(animal, r.arrived_on)
             group.record.remove(animal, r.departed_on) if r.departed_on
-  
+
             w.check_point
           end
         end
@@ -295,7 +295,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
             link.linked = parents[:mother][r.mother_identification_number]
             link.save
           end
-          
+
           # find a the father variety from field in file
             father_items = Nomen::Varieties.where(french_race_code: r.father_variety_code)
             if father_items
@@ -304,7 +304,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
               father_bos_variety = "bos"
             end
 
-          
+
           # Find or create father
           unless r.father_identification_number.blank?
             parents[:father][r.father_identification_number] ||=
