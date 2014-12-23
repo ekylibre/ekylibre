@@ -22,30 +22,32 @@
 #
 # == Table: product_nature_categories
 #
-#  active                     :boolean          not null
-#  charge_account_id          :integer
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  depreciable                :boolean          not null
-#  description                :text
-#  financial_asset_account_id :integer
-#  id                         :integer          not null, primary key
-#  lock_version               :integer          default(0), not null
-#  name                       :string(255)      not null
-#  number                     :string(30)       not null
-#  pictogram                  :string(120)
-#  product_account_id         :integer
-#  purchasable                :boolean          not null
-#  reductible                 :boolean          not null
-#  reference_name             :string(255)
-#  saleable                   :boolean          not null
-#  stock_account_id           :integer
-#  storable                   :boolean          not null
-#  subscribing                :boolean          not null
-#  subscription_duration      :string(255)
-#  subscription_nature_id     :integer
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  active                                                        :boolean          not null
+#  charge_account_id                                             :integer
+#  created_at                                                    :datetime         not null
+#  creator_id                                                    :integer
+#  depreciable                                                   :boolean          not null
+#  description                                                   :text
+#  financial_asset_account_id                                    :integer
+#  financial_asset_depreciations_account_id                      :integer
+#  financial_asset_depreciations_inputations_expenses_account_id :integer
+#  id                                                            :integer          not null, primary key
+#  lock_version                                                  :integer          default(0), not null
+#  name                                                          :string(255)      not null
+#  number                                                        :string(30)       not null
+#  pictogram                                                     :string(120)
+#  product_account_id                                            :integer
+#  purchasable                                                   :boolean          not null
+#  reductible                                                    :boolean          not null
+#  reference_name                                                :string(255)
+#  saleable                                                      :boolean          not null
+#  stock_account_id                                              :integer
+#  storable                                                      :boolean          not null
+#  subscribing                                                   :boolean          not null
+#  subscription_duration                                         :string(255)
+#  subscription_nature_id                                        :integer
+#  updated_at                                                    :datetime         not null
+#  updater_id                                                    :integer
 #
 #
 # == Fixture: product_nature_categories
@@ -71,6 +73,8 @@ product_nature_categories_001:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 1
+  financial_asset_depreciations_account_id: 10
+  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 1
   lock_version: 0
   name: Generic Product Nature Category
@@ -91,6 +95,8 @@ product_nature_categories_002:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 1
+  financial_asset_depreciations_account_id: 10
+  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 2
   lock_version: 0
   name: Obsolete Product Nature Category
@@ -173,6 +179,8 @@ product_nature_categories_006:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 28
+  financial_asset_depreciations_account_id: 10
+  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 6
   lock_version: 0
   name: Bâtiment
@@ -232,6 +240,8 @@ product_nature_categories_009:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 10
+  financial_asset_depreciations_account_id: 10
+  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 9
   lock_version: 0
   name: Vache
@@ -336,6 +346,8 @@ product_nature_categories_014:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 45
+  financial_asset_depreciations_account_id: 10
+  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 14
   lock_version: 0
   name: "Équipement"
@@ -435,6 +447,8 @@ product_nature_categories_019:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 184
+  financial_asset_depreciations_account_id: 10
+  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 19
   lock_version: 0
   name: Plant

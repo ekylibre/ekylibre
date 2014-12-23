@@ -10,8 +10,7 @@
 
 = field_set(:nature) do
   = f.input :reductible
-  = f.input :depreciable, :show => :financial_asset_account_field_zone
-  = f.referenced_association :financial_asset_account, wrapper_html: {id: :financial_asset_account_field_zone}
+  = f.input :depreciable, :show => :financials_assets
   = f.input :saleable, :show => :sales
   = f.input :purchasable, :show => :purchases
   = f.input :storable, :show => :stock_account_field_zone
@@ -21,6 +20,11 @@
 = field_set(:subscriptions) do
   = f.referenced_association :subscription_nature
   = f.input :subscription_duration
+
+= field_set(:financials_assets) do
+  = f.referenced_association :financial_asset_account
+  = f.referenced_association :financial_asset_depreciations_account, :source => :assets_depreciations
+  = f.referenced_association :financial_asset_depreciations_inputations_expenses_account, :source => :asset_depreciations_inputations_expenses
 
 = field_set(:sales) do
   = f.referenced_association :product_account

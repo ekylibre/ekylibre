@@ -28,6 +28,13 @@ eng:
       product_nature:
         duration: "Quantity OR period"
         price: "Cost price"
+      product_nature_category:
+        depreciable: "Depreciable"
+        duration: "Duration"
+        financial_asset_depreciations_account: "Financial asset depreciations account"
+        financial_asset_depreciations_inputations_expenses_account: "financial asset depreciations inputations expenses account"
+        price: "Price"
+        subscribing: "Subscribing ?"
       production_support:
         production_usage: "Production usage"
       purchase:
@@ -542,7 +549,11 @@ eng:
     financial_asset: "Financial asset"
     financial_asset_account: "Financial asset account"
     financial_asset_depreciations: "Financial asset depreciations"
+    # financial_asset_depreciations_account: "Financial asset depreciations account"
+    # financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"
+    # financial_asset_depreciations_inputations_expenses_categories: "Financial asset depreciations inputations expenses categories"
     financial_assets_categories: "Financial assets categories"
+    # financial_assets_depreciations: "Financial assets depreciations"
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
     finish: "Finish"

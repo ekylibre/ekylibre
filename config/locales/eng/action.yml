@@ -863,6 +863,7 @@ eng:
     financial_asset_depreciations: "Financial asset depreciations"
     financial_assets: "Financial assets"
     financial_state: "Financial state" #?
+    financials_assets: "Financials assets"
     finish: "Finish" #?
     finished_sum: "Total Income" #?!
     first_line_as_title: "First line as title"

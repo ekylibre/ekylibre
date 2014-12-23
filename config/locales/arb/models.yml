@@ -400,12 +400,18 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-      product_nature_category:  #?
+      product_nature_category:
         catalog_description: "الوصف" #?
         children: "دلائل فرعية" #?
         creator_id: "المننتج" #?
+        # depreciable: "Depreciable"
+        # duration: "Duration"
+        # financial_asset_depreciations_account: "Financial asset depreciations account"
+        # financial_asset_depreciations_inputations_expenses_account: "financial asset depreciations inputations expenses account"
+        # price: "Price"
         published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
+        # subscribing: "Subscribing ?"
       product_nature_component:  #?
         building: "مكان التخزين" #?
         building_id: "مكان التخزين" #?

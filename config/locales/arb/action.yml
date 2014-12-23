@@ -1246,6 +1246,7 @@ arb:
     # financial_assets: "Financial assets"
     financial_state: "الوضع المالي"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
+    # financials_assets: "Financials assets"
     finish: "انهاء"
     finished_income_statement: "المنتجات" #?
     finished_sum: "مجموع منتجات الاستثمار"

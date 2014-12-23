@@ -958,6 +958,7 @@ fra:
     financial_asset_depreciations: "Dépréciations d’immobilisation"
     financial_assets: "Immobilisations"
     financial_state: "État financier"
+    financials_assets: "Immobilisations"
     finish: "Terminer"
     finished_income_statement: "Produits" #?
     finished_sum: "Total produits d’exploitation"

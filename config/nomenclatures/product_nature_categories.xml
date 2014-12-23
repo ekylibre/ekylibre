@@ -393,7 +393,7 @@
             product_account="land_parcel_sell_revenues"
             purchasable="true"
             saleable="true"
-            depreciable="true"
+            depreciable="false"
             storable="false"
             pictogram="land_parcels"
             />
