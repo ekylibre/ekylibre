@@ -309,10 +309,10 @@ Ekylibre::FirstRun.add_loader :sales do |first_run|
           # catalog_item = ble.catalog_item(:amount => rand(150)+25, :tax => wheat_tax)
           catalog_item = catalog.items.find_by(variant_id: wine.id)
           catalog_item ||= catalog.items.create!(:currency => Preference[:currency],
-                                          :amount => rand(130) + 850,
-                                          :reference_tax => wine_taxes.sample,
-                                          :variant_id => wine.id
-                                         )
+                                                 :amount => rand(130) + 850,
+                                                 :reference_tax => wine_taxes.sample,
+                                                 :variant_id => wine.id
+                                                )
 
           sale.items.create!(:quantity => rand(25) + 10,
                              :tax => wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)

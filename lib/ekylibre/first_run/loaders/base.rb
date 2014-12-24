@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :base do |first_run|
 
   path = first_run.path("manifest.yml")

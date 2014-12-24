@@ -121,7 +121,7 @@ module Ekylibre
       def import(nature, file, options = {})
         last = ""
         start = Time.now
-        length = %x{stty size}.split[1].to_i
+        length =  %x{echo $-}.strip =~ /i/ ? %{stty size}.split[1].to_i : 80
         basename = nature.to_s.humanize+ " (" + Pathname.new(file).basename.to_s + ") "
         total = 0
         max = options[:max] || @max
