@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223102001) do
+ActiveRecord::Schema.define(version: 20141224091401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,47 +220,52 @@ ActiveRecord::Schema.define(version: 20141223102001) do
   add_index "bank_statements", ["updater_id"], :name => "index_bank_statements_on_updater_id"
 
   create_table "budget_items", force: true do |t|
-    t.float    "quantity",              default: 0.0
-    t.float    "global_amount",         default: 0.0
-    t.string   "currency"
-    t.integer  "budget_id"
-    t.integer  "production_support_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "budget_id",                                                    null: false
+    t.integer  "production_support_id",                                        null: false
+    t.decimal  "quantity",              precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "global_amount",         precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "currency",                                                     null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",          default: 0,   null: false
+    t.integer  "lock_version",                                   default: 0,   null: false
   end
 
+  add_index "budget_items", ["budget_id"], :name => "index_budget_items_on_budget_id"
   add_index "budget_items", ["created_at"], :name => "index_budget_items_on_created_at"
   add_index "budget_items", ["creator_id"], :name => "index_budget_items_on_creator_id"
+  add_index "budget_items", ["production_support_id"], :name => "index_budget_items_on_production_support_id"
   add_index "budget_items", ["updated_at"], :name => "index_budget_items_on_updated_at"
   add_index "budget_items", ["updater_id"], :name => "index_budget_items_on_updater_id"
 
   create_table "budgets", force: true do |t|
-    t.string   "name"
-    t.string   "direction",                          null: false
-    t.float    "global_amount",      default: 0.0
-    t.float    "unit_amount",        default: 0.0
-    t.float    "global_quantity",    default: 0.0
+    t.integer  "variant_id",                                                  null: false
+    t.integer  "production_id",                                               null: false
+    t.string   "name",                                                        null: false
+    t.string   "direction",                                                   null: false
+    t.decimal  "global_amount",      precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "global_quantity",    precision: 19, scale: 4, default: 0.0,   null: false
     t.string   "working_indicator"
     t.string   "working_unit"
     t.string   "computation_method"
-    t.boolean  "homogeneous_values", default: false, null: false
-    t.string   "currency"
-    t.integer  "variant_id"
-    t.integer  "production_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.boolean  "homogeneous_values",                          default: false, null: false
+    t.string   "currency",                                                    null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",       default: 0,     null: false
+    t.integer  "lock_version",                                default: 0,     null: false
   end
 
   add_index "budgets", ["created_at"], :name => "index_budgets_on_created_at"
   add_index "budgets", ["creator_id"], :name => "index_budgets_on_creator_id"
+  add_index "budgets", ["name"], :name => "index_budgets_on_name"
+  add_index "budgets", ["production_id"], :name => "index_budgets_on_production_id"
   add_index "budgets", ["updated_at"], :name => "index_budgets_on_updated_at"
   add_index "budgets", ["updater_id"], :name => "index_budgets_on_updater_id"
+  add_index "budgets", ["variant_id"], :name => "index_budgets_on_variant_id"
 
   create_table "campaigns", force: true do |t|
     t.string   "name",                                    null: false
@@ -2307,7 +2312,6 @@ ActiveRecord::Schema.define(version: 20141223102001) do
   add_index "productions", ["name"], :name => "index_productions_on_name"
   add_index "productions", ["started_at"], :name => "index_productions_on_started_at"
   add_index "productions", ["stopped_at"], :name => "index_productions_on_stopped_at"
-  add_index "productions", ["support_variant_id"], :name => "index_productions_on_support_variant_id"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
   add_index "productions", ["variant_id"], :name => "index_productions_on_variant_id"
