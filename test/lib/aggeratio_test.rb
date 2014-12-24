@@ -4,6 +4,7 @@ require 'test_helper'
 class AggeratioTest < ActiveSupport::TestCase
 
   setup do
+    Ekylibre::Tenant.setup!("test", keep_files: true)
     # All document template should be loaded already
     # DocumentTemplate.load_defaults
     @parameters = {
