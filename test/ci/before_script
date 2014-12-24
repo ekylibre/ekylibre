@@ -5,4 +5,4 @@ psql -U postgres -d ekylibre_test -c "CREATE EXTENSION postgis SCHEMA postgis;"
 
 cp -f test/ci/database.yml config/database.yml
 
-bundle exec rake db:schema:load RAILS_ENV=test
+bundle exec rake db:migrate RAILS_ENV=test
