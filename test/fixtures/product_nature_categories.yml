@@ -73,8 +73,6 @@ product_nature_categories_001:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 1
-  financial_asset_depreciations_account_id: 10
-  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 1
   lock_version: 0
   name: Generic Product Nature Category
@@ -95,8 +93,6 @@ product_nature_categories_002:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 1
-  financial_asset_depreciations_account_id: 10
-  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 2
   lock_version: 0
   name: Obsolete Product Nature Category
@@ -179,8 +175,6 @@ product_nature_categories_006:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 28
-  financial_asset_depreciations_account_id: 10
-  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 6
   lock_version: 0
   name: Bâtiment
@@ -240,8 +234,6 @@ product_nature_categories_009:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 10
-  financial_asset_depreciations_account_id: 10
-  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 9
   lock_version: 0
   name: Vache
@@ -346,8 +338,6 @@ product_nature_categories_014:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 45
-  financial_asset_depreciations_account_id: 10
-  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 14
   lock_version: 0
   name: "Équipement"
@@ -447,8 +437,6 @@ product_nature_categories_019:
   creator_id: 1
   depreciable: true
   financial_asset_account_id: 184
-  financial_asset_depreciations_account_id: 10
-  financial_asset_depreciations_inputations_expenses_account_id: 3
   id: 19
   lock_version: 0
   name: Plant
