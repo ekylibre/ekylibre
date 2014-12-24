@@ -68,23 +68,27 @@
 ---
 product_nature_categories_001:
   active: true
-  charge_account_id: 1
+  charge_account_id: 115
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   depreciable: true
+  description: ''
   financial_asset_account_id: 1
+  financial_asset_depreciations_account_id: 450
+  financial_asset_depreciations_inputations_expenses_account_id: 451
   id: 1
-  lock_version: 0
+  lock_version: 2
   name: Generic Product Nature Category
   number: PNC001
-  product_account_id: 1
+  product_account_id: 152
   purchasable: true
   reductible: true
   saleable: true
   stock_account_id: 1
   storable: true
   subscribing: false
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  subscription_duration: ''
+  updated_at: 2014-12-24 11:11:19.130401000 Z
   updater_id: 1
 product_nature_categories_002:
   active: true
@@ -92,9 +96,12 @@ product_nature_categories_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   depreciable: true
+  description: ''
   financial_asset_account_id: 1
+  financial_asset_depreciations_account_id: 450
+  financial_asset_depreciations_inputations_expenses_account_id: 510
   id: 2
-  lock_version: 0
+  lock_version: 1
   name: Obsolete Product Nature Category
   number: PNC002
   product_account_id: 1
@@ -104,7 +111,8 @@ product_nature_categories_002:
   stock_account_id: 1
   storable: true
   subscribing: false
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  subscription_duration: ''
+  updated_at: 2014-12-24 11:11:43.081342000 Z
   updater_id: 1
 product_nature_categories_003:
   active: true
@@ -174,9 +182,12 @@ product_nature_categories_006:
   created_at: 2014-10-31 20:13:23.311480000 Z
   creator_id: 1
   depreciable: true
+  description: ''
   financial_asset_account_id: 28
+  financial_asset_depreciations_account_id: 416
+  financial_asset_depreciations_inputations_expenses_account_id: 410
   id: 6
-  lock_version: 0
+  lock_version: 1
   name: Bâtiment
   number: PNC006
   pictogram: building
@@ -187,7 +198,8 @@ product_nature_categories_006:
   saleable: true
   storable: false
   subscribing: false
-  updated_at: 2014-10-31 20:13:23.311480000 Z
+  subscription_duration: ''
+  updated_at: 2014-12-24 11:13:37.552871000 Z
   updater_id: 1
 product_nature_categories_007:
   active: true
@@ -233,9 +245,12 @@ product_nature_categories_009:
   created_at: 2014-11-01 19:08:36.210197000 Z
   creator_id: 1
   depreciable: true
+  description: ''
   financial_asset_account_id: 10
+  financial_asset_depreciations_account_id: 398
+  financial_asset_depreciations_inputations_expenses_account_id: 403
   id: 9
-  lock_version: 0
+  lock_version: 1
   name: Vache
   number: PNC009
   pictogram: cow
@@ -247,7 +262,8 @@ product_nature_categories_009:
   stock_account_id: 99
   storable: true
   subscribing: false
-  updated_at: 2014-11-01 19:08:36.210197000 Z
+  subscription_duration: ''
+  updated_at: 2014-12-24 11:14:06.381046000 Z
   updater_id: 1
 product_nature_categories_010:
   active: true
@@ -337,9 +353,12 @@ product_nature_categories_014:
   created_at: 2014-11-02 18:19:37.942990000 Z
   creator_id: 1
   depreciable: true
+  description: ''
   financial_asset_account_id: 45
+  financial_asset_depreciations_account_id: 424
+  financial_asset_depreciations_inputations_expenses_account_id: 428
   id: 14
-  lock_version: 0
+  lock_version: 1
   name: "Équipement"
   number: PNC014
   pictogram: tractor
@@ -350,7 +369,8 @@ product_nature_categories_014:
   saleable: true
   storable: false
   subscribing: false
-  updated_at: 2014-11-02 18:19:37.942990000 Z
+  subscription_duration: ''
+  updated_at: 2014-12-24 11:14:29.601420000 Z
   updater_id: 1
 product_nature_categories_015:
   active: true
@@ -436,9 +456,12 @@ product_nature_categories_019:
   created_at: 2014-11-07 16:33:59.239806000 Z
   creator_id: 1
   depreciable: true
+  description: ''
   financial_asset_account_id: 184
+  financial_asset_depreciations_account_id: 424
+  financial_asset_depreciations_inputations_expenses_account_id: 510
   id: 19
-  lock_version: 0
+  lock_version: 1
   name: Plant
   number: PNC019
   pictogram: matter
@@ -450,7 +473,8 @@ product_nature_categories_019:
   stock_account_id: 155
   storable: true
   subscribing: false
-  updated_at: 2014-11-07 16:33:59.239806000 Z
+  subscription_duration: ''
+  updated_at: 2014-12-24 11:15:41.250449000 Z
   updater_id: 1
 product_nature_categories_020:
   active: true

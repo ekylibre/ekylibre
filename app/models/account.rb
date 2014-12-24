@@ -104,17 +104,17 @@ class Account < Ekylibre::Record::Base
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
   scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associated_accounts, :attorneys, :compensation_operations) }
 
-  #scope :assets_depreciations, -> { where('number LIKE ?', '28%').order(:number, :name) }
+  # scope :assets_depreciations, -> { where('number LIKE ?', '28%').order(:number, :name) }
   scope :assets_depreciations, -> { of_usages(:incorporeal_asset_depreciations, :other_incorporeal_asset_depreciations, :corporeal_asset_depreciations,
-     :land_parcel_asset_depreciations, :land_parcel_construction_asset_depreciations, :own_building_asset_depreciations,
-     :other_building_asset_depreciations, :equipment_asset_depreciations, :other_corporeal_asset_depreciations,
-      :general_installation_asset_depreciations, :transport_vehicle_asset_depreciations,
-      :office_equipment_asset_depreciations, :office_furniture_asset_depreciations,
-      :sustainable_packaging_asset_depreciations, :other_asset_depreciations,
-      :biocorporeal_asset_depreciations, :adult_animal_asset_depreciations, :young_animal_asset_depreciations, :sustainables_plants_asset_depreciations) }
+                                              :land_parcel_asset_depreciations, :land_parcel_construction_asset_depreciations, :own_building_asset_depreciations,
+                                              :other_building_asset_depreciations, :equipment_asset_depreciations, :other_corporeal_asset_depreciations,
+                                              :general_installation_asset_depreciations, :transport_vehicle_asset_depreciations,
+                                              :office_equipment_asset_depreciations, :office_furniture_asset_depreciations,
+                                              :sustainable_packaging_asset_depreciations, :other_asset_depreciations,
+                                              :biocorporeal_asset_depreciations, :adult_animal_asset_depreciations, :young_animal_asset_depreciations, :sustainables_plants_asset_depreciations) }
 
 
-  #scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
+  # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
 
   # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
