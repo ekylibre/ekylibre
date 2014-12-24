@@ -6,6 +6,7 @@ require 'optparse'
 require 'pathname'
 require 'fileutils'
 require 'yaml'
+require 'colored'
 
 STDOUT.sync = true
 
@@ -223,30 +224,38 @@ end
 
 # config/modules
 nf = config.join("modules.xml")
-puts "Update #{nf}"
-source = nil
-File.open(nf, "rb") do |f|
-  source = f.read
-end
-unless @simulate
-  source.gsub!(/(\"backend\/)#{old_table}(\#)/, '\1' + new_table + '\2')
-  File.open(nf, "wb") do |f|
-    f.write source
+if nf.exist?
+  puts "Update #{nf}"
+  source = nil
+  File.open(nf, "rb") do |f|
+    source = f.read
   end
+  unless @simulate
+    source.gsub!(/(\"backend\/)#{old_table}(\#)/, '\1' + new_table + '\2')
+    File.open(nf, "wb") do |f|
+      f.write source
+    end
+  end
+else
+  puts "Cannot update #{nf}".yellow
 end
 
 # config/rights
 nf = config.join("rights.yml")
-puts "Update #{nf}"
-source = nil
-File.open(nf, "rb") do |f|
-  source = f.read
-end
-unless @simulate
-  source.gsub!(/(\backend\/")#{old_table}(\#)/, '\1' + new_table + '\2')
-  File.open(nf, "wb") do |f|
-    f.write source
+if nf.exist?
+  puts "Update #{nf}"
+  source = nil
+  File.open(nf, "rb") do |f|
+    source = f.read
   end
+  unless @simulate
+    source.gsub!(/(\backend\/")#{old_table}(\#)/, '\1' + new_table + '\2')
+    File.open(nf, "wb") do |f|
+      f.write source
+    end
+  end
+else
+  puts "Cannot update #{nf}".yellow
 end
 
 # config/routes.rb

@@ -16,7 +16,8 @@ class Releaser
     exec "RAILS_ENV=production rake assets:precompile"
 
     desc "Create and load schema"
-    exec "RAILS_ENV=production rake db:drop db:create db:schema:load"
+    # exec "RAILS_ENV=production rake db:drop db:create db:schema:load"
+    exec "RAILS_ENV=production rake db:drop db:create db:migrate"
 
     # TODO: Check schema and table presences
 

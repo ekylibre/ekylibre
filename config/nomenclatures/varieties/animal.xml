@@ -46,10 +46,6 @@
       <item name="croesus_septentrionalis"/>
       <item name="cerambycidae"/>
       <item name="zeuzera_pyrina"/>
-
-
-
-
     </items>
   </nomenclature>
 
@@ -57,7 +53,7 @@
     <items>
       <item name="capra"/>
       <item name="ovis"/>
-      <item name="bos"/>
+      <item name="bovidae" itis_tsn="552332" />
       <item name="sus"/>
       <item name="lepus"/>
       <item name="oryctolagus"/>

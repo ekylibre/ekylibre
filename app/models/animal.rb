@@ -146,4 +146,8 @@ class Animal < Bioproduct
     "nomenclatures.sexes.items.#{self.sex}".t
   end
 
+  def variety_text
+    "nomenclatures.varieties.items.#{self.variety}".t
+  end
+
 end

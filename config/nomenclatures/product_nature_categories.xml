@@ -4,7 +4,9 @@
   <nomenclature name="product_nature_categories">
     <property-natures>
       <!-- Inside the model-->
-      <property-nature name="financial_asset_account" type="choice" nomenclature="accounts" required="false"/>
+      <property-nature name="financial_asset_account" type="choice" nomenclature="accounts" required="false"/> <!-- 2X -->
+      <property-nature name="financial_asset_depreciations_account" type="choice" nomenclature="accounts" required="false"/> <!-- 28X -->
+      <property-nature name="financial_asset_depreciations_inputations_expenses_account" type="choice" nomenclature="accounts" required="false"/> <!-- 68X -->
       <property-nature name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="stock_account" type="choice" nomenclature="accounts" required="false"/>
@@ -26,6 +28,8 @@
             />
       <item name="female_adult_cow"
             financial_asset_account="adult_animal_assets"
+            financial_asset_depreciations_account="adult_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -37,6 +41,8 @@
             />
       <item name="male_adult_cow"
             financial_asset_account="adult_animal_assets"
+            financial_asset_depreciations_account="adult_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -57,6 +63,8 @@
             />
       <item name="female_young_cow"
             financial_asset_account="young_animal_assets"
+            financial_asset_depreciations_account="young_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="young_animal_expenses"
             product_account="young_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -68,6 +76,8 @@
             />
       <item name="male_young_cow"
             financial_asset_account="young_animal_assets"
+            financial_asset_depreciations_account="young_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="young_animal_expenses"
             product_account="young_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -89,6 +99,8 @@
             />
       <item name="long_time_animal"
             financial_asset_account="adult_animal_assets"
+            financial_asset_depreciations_account="adult_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -136,6 +148,8 @@
               />
       <item name="female_adult_pig"
             financial_asset_account="adult_animal_assets"
+            financial_asset_depreciations_account="adult_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -147,6 +161,8 @@
               />
       <item name="male_adult_pig"
             financial_asset_account="adult_animal_assets"
+            financial_asset_depreciations_account="adult_animal_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="animals_depreciations_inputations_expenses"
             charge_account="adult_animal_expenses"
             product_account="adult_animal_revenues"
             stock_account="long_time_animal_stock"
@@ -282,6 +298,8 @@
             />
        <item name="plant"
             financial_asset_account="sustainables_plants_assets"
+            financial_asset_depreciations_account="sustainables_plants_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="others_corporeals_depreciations_inputations_expenses"
             charge_account="seed_expenses"
             product_account="revenues"
             stock_account="seed_stock"
@@ -371,12 +389,11 @@
             pictogram="wrench"
             />
       <item name="land_parcel"
-            financial_asset_account="land_parcel_assets"
             charge_account="land_parcel_rent_expenses"
             product_account="land_parcel_sell_revenues"
             purchasable="true"
             saleable="true"
-            depreciable="true"
+            depreciable="false"
             storable="false"
             pictogram="land_parcels"
             />
@@ -396,6 +413,8 @@
             />
       <item name="building"
             financial_asset_account="building_assets"
+            financial_asset_depreciations_account="own_building_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="building_depreciations_inputations_expenses"
             charge_account="own_building_expenses"
             product_account="sales_assets_revenues"
             purchasable="true"
@@ -405,6 +424,8 @@
             />
       <item name="settlement"
             financial_asset_account="general_installation_assets"
+            financial_asset_depreciations_account="general_installation_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="land_parcel_construction_depreciations_inputations_expenses"
             product_account="sales_assets_revenues"
             purchasable="false"
             saleable="true"
@@ -420,6 +441,8 @@
             />
       <item name="equipment"
             financial_asset_account="equipment_assets"
+            financial_asset_depreciations_account="equipment_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="equipments_depreciations_inputations_expenses"
             charge_account="equipment_expenses"
             product_account="sales_assets_revenues"
             purchasable="true"
@@ -429,7 +452,9 @@
             pictogram="tractor"
             />
       <item name="installation"
-            financial_asset_account="equipment_assets"
+            financial_asset_account="general_installation_assets"
+            financial_asset_depreciations_account="general_installation_asset_depreciations"
+            financial_asset_depreciations_inputations_expenses_account="equipments_depreciations_inputations_expenses"
             charge_account="equipment_expenses"
             product_account="sales_assets_revenues"
             purchasable="true"

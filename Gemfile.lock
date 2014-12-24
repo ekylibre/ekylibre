@@ -393,7 +393,7 @@ DEPENDENCIES
   nokogiri (~> 1.6.0)
   ofx-parser
   oily_png
-  paperclip
+  paperclip (= 4.2.0)
   paperclip-document (>= 0.0.8)
   pg
   quiet_assets

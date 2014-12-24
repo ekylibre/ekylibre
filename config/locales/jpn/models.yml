@@ -28,6 +28,13 @@ jpn:
       product_nature:
         # duration: "Quantity OR period"
         # price: "Cost price"
+      product_nature_category:
+        # depreciable: "Depreciable"
+        # duration: "Duration"
+        # financial_asset_depreciations_account: "Financial asset depreciations account"
+        # financial_asset_depreciations_inputations_expenses_account: "financial asset depreciations inputations expenses account"
+        # price: "Price"
+        # subscribing: "Subscribing ?"
       production_support:
         # production_usage: "Production usage"
       purchase:

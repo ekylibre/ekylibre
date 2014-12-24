@@ -16,7 +16,6 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
-/db/migrate
 
 # Ignore the default first run files
 db/first_runs

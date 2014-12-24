@@ -22,35 +22,39 @@
 #
 # == Table: product_nature_categories
 #
-#  active                     :boolean          not null
-#  charge_account_id          :integer
-#  created_at                 :datetime         not null
-#  creator_id                 :integer
-#  depreciable                :boolean          not null
-#  description                :text
-#  financial_asset_account_id :integer
-#  id                         :integer          not null, primary key
-#  lock_version               :integer          default(0), not null
-#  name                       :string(255)      not null
-#  number                     :string(30)       not null
-#  pictogram                  :string(120)
-#  product_account_id         :integer
-#  purchasable                :boolean          not null
-#  reductible                 :boolean          not null
-#  reference_name             :string(255)
-#  saleable                   :boolean          not null
-#  stock_account_id           :integer
-#  storable                   :boolean          not null
-#  subscribing                :boolean          not null
-#  subscription_duration      :string(255)
-#  subscription_nature_id     :integer
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer
+#  active                                                        :boolean          not null
+#  charge_account_id                                             :integer
+#  created_at                                                    :datetime         not null
+#  creator_id                                                    :integer
+#  depreciable                                                   :boolean          not null
+#  description                                                   :text
+#  financial_asset_account_id                                    :integer
+#  financial_asset_depreciations_account_id                      :integer
+#  financial_asset_depreciations_inputations_expenses_account_id :integer
+#  id                                                            :integer          not null, primary key
+#  lock_version                                                  :integer          default(0), not null
+#  name                                                          :string(255)      not null
+#  number                                                        :string(30)       not null
+#  pictogram                                                     :string(120)
+#  product_account_id                                            :integer
+#  purchasable                                                   :boolean          not null
+#  reductible                                                    :boolean          not null
+#  reference_name                                                :string(255)
+#  saleable                                                      :boolean          not null
+#  stock_account_id                                              :integer
+#  storable                                                      :boolean          not null
+#  subscribing                                                   :boolean          not null
+#  subscription_duration                                         :string(255)
+#  subscription_nature_id                                        :integer
+#  updated_at                                                    :datetime         not null
+#  updater_id                                                    :integer
 #
 class ProductNatureCategory < Ekylibre::Record::Base
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: {prefix: true}
   belongs_to :financial_asset_account, class_name: "Account"
+  belongs_to :financial_asset_depreciations_account, class_name: "Account"
+  belongs_to :financial_asset_depreciations_inputations_expenses_account, class_name: "Account"
   belongs_to :charge_account,  class_name: "Account"
   belongs_to :product_account, class_name: "Account"
   belongs_to :stock_account,   class_name: "Account"
@@ -77,7 +81,9 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates_presence_of :product_account, if: :saleable?
   validates_presence_of :charge_account,  if: :purchasable?
   validates_presence_of :stock_account,   if: :storable?
-  validates_presence_of :financial_asset_account,   if: :depreciable?
+  validates_presence_of :financial_asset_account,  if: :depreciable?
+  validates_presence_of :financial_asset_depreciations_account, if: :depreciable?
+  validates_presence_of :financial_asset_depreciations_inputations_expenses_account, if: :depreciable?
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
@@ -179,7 +185,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
       :saleable => item.saleable,
       :storable => item.storable
     }.with_indifferent_access
-    for account in [:financial_asset, :charge, :product, :stock]
+    for account in [:financial_asset, :financial_asset_depreciations, :financial_asset_depreciations_inputations_expenses, :charge, :product, :stock]
       name = item.send("#{account}_account")
       unless name.blank?
         attributes["#{account}_account"] = Account.find_or_create_in_chart(name)

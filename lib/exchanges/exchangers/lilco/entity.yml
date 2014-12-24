@@ -1,0 +1,25 @@
+---
+last_name: Lilco
+nature: cooperative
+siren: 395345283
+supplier: true
+client: false
+phones_attributes:
+  0:
+    canal: phone
+    coordinate:  "+33546075800"
+mails_attributes:
+  0:
+    canal: mail
+    mail_line_4: 44 Rue Jean Jaurès
+    mail_line_5: BP 18
+    mail_line_6: 17700 Surgères
+    mail_country: fr
+emails_attributes:
+  0:
+    canal: email
+    coordinate: lilco@lilco-s.com
+websites_attributes:
+  0:
+    canal: website
+    coordinate: "http://www.lilco-s.com"

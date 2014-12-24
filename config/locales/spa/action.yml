@@ -1043,6 +1043,7 @@ spa:
     # financial_assets: "Financial assets"
     # financial_state: "Financial state"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
+    # financials_assets: "Financials assets"
     # finish: "Finish"
     finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación"

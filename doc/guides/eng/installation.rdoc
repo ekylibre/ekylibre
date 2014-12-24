@@ -37,6 +37,12 @@ This a short explanation on installation steps for developers.
     Or in one line:
       wget http://download.osgeo.org/postgis/source/postgis-2.1.4.tar.gz && tar xzvf postgis-2.1.4.tar.gz && cd postgis-2.1.4 && ./configure && make && sudo make install
 
+=== Ubuntu 14.04
+
+You can install postgresql-9.3-postgis-2.1 and libgeos-dev packages to get all directly. But you need to ensure that libgeos.so exist, by default you'll need to link the existing lib:
+
+  ln -s /usr/lib/libgeos-3.4.2.so /usr/lib/libgeos.so
+
 == 2. Ruby
 
 * Install Ruby 2.0 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RbEnv}[https://github.com/sstephenson/rbenv] to install the good version, else:

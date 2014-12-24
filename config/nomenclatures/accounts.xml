@@ -35,8 +35,9 @@
       <item name="financial_assets" fr_pcg82="2"/>
       <item name="other_incorporeal_assets" fr_pcga="208"/>
       <item name="land_parcel_assets" fr_pcga="2111"/>
-      <item name="building_assets" fr_pcga="2141"/>
-      <item name="general_installation_assets" fr_pcga="2145"/>
+      <item name="land_parcel_construction_assets" fr_pcga="212"/>
+      <item name="building_assets" fr_pcga="2131"/>
+      <item name="general_installation_assets" fr_pcga="2135"/>
       <item name="equipment_assets" fr_pcga="2154"/>
       <item name="other_general_installation_assets" fr_pcga="2181"/>
       <item name="transport_vehicle_assets" fr_pcga="2182"/>
@@ -63,6 +64,7 @@
       <item name="other_incorporeal_asset_depreciations" fr_pcga="2808"/>
       <item name="corporeal_asset_depreciations" fr_pcga="281"/>
       <item name="land_parcel_asset_depreciations" fr_pcga="2811"/>
+      <item name="land_parcel_construction_asset_depreciations" fr_pcga="2812"/>
       <item name="own_building_asset_depreciations" fr_pcga="2813"/>
       <item name="other_building_asset_depreciations" fr_pcga="2814"/>
       <item name="equipment_asset_depreciations" fr_pcga="2815"/>
@@ -75,6 +77,7 @@
       <item name="other_asset_depreciations" fr_pcga="28188"/>
       <item name="biocorporeal_asset_depreciations" fr_pcga="284"/>
       <item name="adult_animal_asset_depreciations" fr_pcga="2841"/>
+      <item name="young_animal_asset_depreciations" fr_pcga="2842"/>
       <item name="service_animal_asset_depreciations" fr_pcga="2843"/>
       <item name="sustainables_plants_asset_depreciations" fr_pcga="2846"/>
 
@@ -195,6 +198,12 @@
       <item name="financial_assets_values" fr_pcg82="675"/>
       <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>
+      <item name="incorporeals_depreciations_inputations_expenses" fr_pcga="68111"/>
+      <item name="land_parcel_construction_depreciations_inputations_expenses" fr_pcga="68112"/>
+      <item name="building_depreciations_inputations_expenses" fr_pcga="68113"/>
+      <item name="animals_depreciations_inputations_expenses" fr_pcga="68114"/>
+      <item name="equipments_depreciations_inputations_expenses" fr_pcga="68115"/>
+      <item name="others_corporeals_depreciations_inputations_expenses" fr_pcga="68118"/>
 
       <!--                      REVENUES              -->
       <item name="revenues" fr_pcg82="7"/>

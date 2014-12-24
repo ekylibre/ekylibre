@@ -5,8 +5,8 @@ module Ekylibre
     class Base
 
       def initialize(options = {})
-	require 'ffaker' unless defined? Faker
-	require 'colored' unless defined? Colored
+	      require 'ffaker' unless defined? Faker
+	      require 'colored' unless defined? Colored
 
         @verbose = !options[:verbose].is_a?(FalseClass)
         @mode = options[:mode].to_s.downcase
@@ -105,7 +105,7 @@ module Ekylibre
                 zile.add(dest, source)
               end
             end
-            # Zip Library can throw an us-ascii string error with utf-8 inside
+          # Zip Library can throw an us-ascii string error with utf-8 inside
           rescue Exception => e
             puts "Cannot create #{target_path}".red
             puts "Caused by: #{e.to_s.force_encoding('utf-8')}".blue
@@ -121,7 +121,7 @@ module Ekylibre
       def import(nature, file, options = {})
         last = ""
         start = Time.now
-        length = %x{stty size}.split[1].to_i
+        length =  %x{echo $-}.strip =~ /i/ ? %{stty size}.split[1].to_i : 80
         basename = nature.to_s.humanize+ " (" + Pathname.new(file).basename.to_s + ") "
         total = 0
         max = options[:max] || @max
@@ -173,6 +173,7 @@ module Ekylibre
 
       # Launch the execution of the loaders
       def launch
+        Rails.logger.info "Import first run of #{@name} from #{@folder_path.to_s} in #{@mode} mode " + (@max > 0 ? "with max of #{@max}" : 'without max') + "."
         if hard? or Rails.env.production?
           puts "No global transaction".red
           execute

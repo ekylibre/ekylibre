@@ -94,10 +94,15 @@ fra:
         stopped_at: "Sortie" #?
       product_move: #?
       product_nature:
-        depreciable: "Ammortissable" #?
+        # duration: "Quantity OR period"
+        # price: "Cost price"
+      product_nature_category:
+        depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
+        financial_asset_depreciations_account: "Compte d'ammortissement"
+        financial_asset_depreciations_inputations_expenses_account: "Compte de dotation aux ammortissements"
         price: "Prix de revient"
-        subscribing: "Abonnement ?" #?
+        subscribing: "Abonnement ?"
       product_nature_price: #?
       product_nature_variant:  #?
         contour: "Contour de la forme" #?

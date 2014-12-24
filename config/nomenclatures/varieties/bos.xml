@@ -7,59 +7,76 @@
   </nomenclature>
 
   <!-- http://www.brg.prd.fr/brg/pages/les_rg_en_france/rga_ruminants_Bd.php?espece=bovine&page=1 -->
+  <!-- For french race code see IDELE -->
+  <!-- http://idele.fr/fileadmin/medias/Documents/Tables_de_reference_SIIB_v74.pdf -->
 
   <nomenclature name="varieties-bos_taurus" hierarchical="true">
     <items>
-      <item name="bos_taurus_abondance" />
-      <item name="bos_taurus_armoricaine" />
-      <item name="bos_taurus_aubrac" />
-      <item name="bos_taurus_aurochs" />
-      <item name="bos_taurus_bazadaise" />
-      <item name="bos_taurus_bearnaise" />
+      <item name="bos_taurus_abondance" french_race_code="12"/>
+      <item name="bos_taurus_angus" french_race_code="17"/>
+      <item name="bos_taurus_armoricaine" french_race_code="43"/>
+      <item name="bos_taurus_aubrac" french_race_code="14"/>
+      <item name="bos_taurus_aurochs" french_race_code="30"/>
+      <item name="bos_taurus_ayrshire" french_race_code="18"/>
+      <item name="bos_taurus_bazadaise" french_race_code="24"/>
+      <item name="bos_taurus_bearnaise" french_race_code="61"/>
       <item name="bos_taurus_betizu" />
-      <item name="bos_taurus_blanc_bleu" />
-      <item name="bos_taurus_bleu_de_bazougers" />
-      <item name="bos_taurus_bleu_du_nord" />
-      <item name="bos_taurus_blonde_aquitaine" />
-      <item name="bos_taurus_bordelaise" />
-      <item name="bos_taurus_brahman" />
-      <item name="bos_taurus_bretonne_pie_noire" />
-      <item name="bos_taurus_brune" />
-      <item name="bos_taurus_canadienne" />
-      <item name="bos_taurus_casta" />
-      <item name="bos_taurus_charolaise" />
-      <item name="bos_taurus_combat" />
-      <item name="bos_taurus_corse" />
-      <item name="bos_taurus_creole_guadeloupe" />
-      <item name="bos_taurus_creole_martinique" />
-      <item name="bos_taurus_ferrandaise" />
-      <item name="bos_taurus_flamande_originelle" />
-      <item name="bos_taurus_froment_du_leon" />
-      <item name="bos_taurus_gasconne" />
-      <item name="bos_taurus_herefort" />
-      <item name="bos_taurus_herens" />
-      <item name="bos_taurus_inra_95" />
-      <item name="bos_taurus_jersiaise" />
-      <item name="bos_taurus_limousine" />
-      <item name="bos_taurus_lourdaise" />
-      <item name="bos_taurus_maraichine" />
-      <item name="bos_taurus_marine_landaise" />
-      <item name="bos_taurus_mirandaise" />
-      <item name="bos_taurus_montbeliarde" />
-      <item name="bos_taurus_nantaise" />
-      <item name="bos_taurus_normande" />
-      <item name="bos_taurus_parthenaise" />
-      <item name="bos_taurus_pie_rouge_des_plaines" />
-      <item name="bos_taurus_prim_holstein" />
-      <item name="bos_taurus_raco_di_biou" />
-      <item name="bos_taurus_rouge_des_pres" />
-      <item name="bos_taurus_rouge_flamande" />
-      <item name="bos_taurus_salers" />
-      <item name="bos_taurus_saosnoise" />
-      <item name="bos_taurus_simmental_francaise" />
-      <item name="bos_taurus_tarentaise" />
-      <item name="bos_taurus_villars_de_lans" />
-      <item name="bos_taurus_vosgienne" />
+      <item name="bos_taurus_blanc_bleu" french_race_code="25"/>
+      <item name="bos_taurus_bleu_de_bazougers" french_race_code=""/>
+      <item name="bos_taurus_bleu_du_nord" french_race_code="52"/>
+      <item name="bos_taurus_blonde_aquitaine" french_race_code="79"/>
+      <item name="bos_taurus_bordelaise" french_race_code="26"/>
+      <item name="bos_taurus_brahma" french_race_code="81"/>
+      <item name="bos_taurus_bretonne_pie_noire" french_race_code="29"/>
+      <item name="bos_taurus_brune" french_race_code="21"/>
+      <item name="bos_taurus_canadienne" french_race_code="92"/>
+      <item name="bos_taurus_casta" french_race_code="97"/>
+      <item name="bos_taurus_charolaise" french_race_code="38"/>
+      <item name="bos_taurus_chianina" french_race_code="32"/>
+      <item name="bos_taurus_de_combat" french_race_code="51"/>
+      <item name="bos_taurus_corse" french_race_code="36"/>
+      <item name="bos_taurus_creole_guadeloupe" french_race_code="55"/>
+      <item name="bos_taurus_creole_martinique" french_race_code="55"/>
+      <item name="bos_taurus_dairy_shorthorn" french_race_code="42"/>
+      <item name="bos_taurus_ferrandaise" french_race_code="65"/>
+      <item name="bos_taurus_flamande_originelle" french_race_code=""/>
+      <item name="bos_taurus_froment_du_leon" french_race_code="69"/>
+      <item name="bos_taurus_galloway" french_race_code="73"/>
+      <item name="bos_taurus_gasconne" french_race_code="72"/>
+      <item name="bos_taurus_gelbvieh" french_race_code="78"/>
+      <item name="bos_taurus_guernesey" french_race_code="74"/>
+      <item name="bos_taurus_herefort" french_race_code="85"/>
+      <item name="bos_taurus_herens" french_race_code="82"/>
+      <item name="bos_taurus_highland_cattle" french_race_code="86"/>
+      <item name="bos_taurus_inra_95" french_race_code="95"/>
+      <item name="bos_taurus_jersiaise" french_race_code="15"/>
+      <item name="bos_taurus_limousine" french_race_code="34"/>
+      <item name="bos_taurus_lourdaise" french_race_code="33"/>
+      <item name="bos_taurus_maraichine" french_race_code="58"/>
+      <item name="bos_taurus_marchigiana" french_race_code="49"/>
+      <item name="bos_taurus_marine_landaise" french_race_code=""/>
+      <item name="bos_taurus_mirandaise" french_race_code="77"/>
+      <item name="bos_taurus_montbeliarde" french_race_code="46"/>
+      <item name="bos_taurus_n_dama" french_race_code="54"/>
+      <item name="bos_taurus_nantaise" french_race_code="76"/>
+      <item name="bos_taurus_normande" french_race_code="56"/>
+      <item name="bos_taurus_parthenaise" french_race_code="71"/>
+      <item name="bos_taurus_piemontaise" french_race_code="75"/>
+      <item name="bos_taurus_pie_rouge_des_plaines" french_race_code="19"/>
+      <item name="bos_taurus_prim_holstein" french_race_code="66"/>
+      <item name="bos_taurus_raco_di_biou" french_race_code="37"/>
+      <item name="bos_taurus_rouge_des_pres" french_race_code="41"/>
+      <item name="bos_taurus_rouge_flamande" french_race_code="63"/>
+      <item name="bos_taurus_salers" french_race_code="23"/>
+      <item name="bos_taurus_saosnoise" french_race_code="88"/>
+      <item name="bos_taurus_south_devon" french_race_code="45"/>
+      <item name="bos_taurus_simmental_francaise" french_race_code="35"/>
+      <item name="bos_taurus_tarentaise" french_race_code="31"/>
+      <item name="bos_taurus_villars_de_lans" french_race_code="53"/>
+      <item name="bos_taurus_vosgienne" french_race_code="57"/>
+
+      <item name="bos_taurus_croise" french_race_code="39"/>
+
     </items>
   </nomenclature>
 </nomenclatures>
