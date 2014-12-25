@@ -1,8 +1,11 @@
 - main_toolbar do |t|
-  - t.export :purchase, resource
+  - t.export do |e|
+    - e.purchases_invoice resource.number, resource
   - t.edit resource if resource.draft?
   - if resource.can_confirm?
     - t.confirm resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_confirm.tl
+  - if resource.can_propose?
+    - t.propose_and_invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
   - if resource.can_invoice?
     - t.invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
   - for event in [:propose, :correct, :refuse]
