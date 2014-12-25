@@ -8,9 +8,9 @@
       <item name="sales_order" category="marketing"/>
       <item name="sales_estimate" category="marketing"/>
       <item name="sales_invoice" category="marketing"/>
-      <item name="purchase_order" category="exploitation"/>
-      <item name="purchase_estimate" category="exploitation"/>
-      <item name="purchase_invoice" category="exploitation"/>
+      <item name="purchases_order" category="exploitation"/>
+      <item name="purchases_estimate" category="exploitation"/>
+      <item name="purchases_invoice" category="exploitation"/>
 
       <item name="deposit_list" category="exploitation"/>
 

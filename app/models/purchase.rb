@@ -50,6 +50,7 @@
 
 class Purchase < Ekylibre::Record::Base
   attr_readonly :currency
+  belongs_to :affair
   belongs_to :delivery_address, class_name: "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, class_name: "PurchaseNature"
@@ -75,6 +76,9 @@ class Purchase < Ekylibre::Record::Base
   acts_as_numbered
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items
+  
+  delegate :closed, to: :affair, prefix: true
+  
   state_machine :state, :initial => :draft do
     state :draft
     state :estimate
@@ -214,11 +218,15 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def status
-    if self.accounted_at == nil
-      return (self.invoice? ? :caution : :stop)
-    elsif self.accounted_at
-      return :go
+    #if self.accounted_at == nil
+    #  return (self.invoice? ? :caution : :stop)
+    #elsif self.accounted_at
+    #  return :go
+    #end
+    if self.invoice?
+      return self.affair.status
     end
+    return :stop
   end
 
   def supplier_address

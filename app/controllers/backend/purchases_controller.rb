@@ -19,7 +19,9 @@
 
 class Backend::PurchasesController < BackendController
   manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id"}'.c, except: :new
-
+  
+  respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
+  
   unroll
 
   list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
@@ -81,12 +83,16 @@ class Backend::PurchasesController < BackendController
   # Displays details of one purchase selected with +params[:id]+
   def show
     return unless @purchase = find_and_check
-    respond_to do |format|
+    respond_with(@purchase, :methods => [:taxes_amount, :affair_closed],
+                        :include => {:delivery_address => {:methods => [:mail_coordinate]},
+                                     :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
+                                     :affair => {:methods => [:balance], :include => {}},
+                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant]}
+                                     }
+                                     ) do |format|
       format.html do
-        t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label
+        t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label, label: @purchase.label
       end
-      format.xml { render :xml => @purchase.to_xml }
-      format.pdf { render_print_purchase(@purchase) }
     end
   end
 
