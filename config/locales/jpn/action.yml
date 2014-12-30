@@ -566,6 +566,7 @@ jpn:
     devise/unlocks: #?
     pasteque/v5/cash_registers: #?
     pasteque/v5/cashes: #?
+    pasteque/v5/categories: #?
     pasteque/v5/currencies: #?
     pasteque/v5/customers: #?
     pasteque/v5/places: #?

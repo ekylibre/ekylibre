@@ -635,6 +635,9 @@ eng:
     pasteque/v5/cash_registers:
       # index: "Cash registers"
       # show: "Cash register: %{name}"
+    pasteque/v5/categories:
+      # index: "Categories"
+      # show: "Category: %{name}"
     pasteque/v5/currencies:
       # index: "Currencies"
       # show: "Currency: %{name}"

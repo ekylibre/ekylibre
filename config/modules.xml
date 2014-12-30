@@ -1779,6 +1779,10 @@
         <page to="pasteque/v5/cash_registers#index"/>
         <page to="pasteque/v5/cash_registers#show"/>
       </item>
+      <item name="categories">
+        <page to="pasteque/v5/categories#index"/>
+        <page to="pasteque/v5/categories#show"/>
+      </item>
       <item name="currencies">
         <page to="pasteque/v5/currencies#index"/>
         <page to="pasteque/v5/currencies#show"/>

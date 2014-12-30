@@ -762,6 +762,8 @@ Ekylibre::Application.routes.draw do
       resources :customers, only: [:index, :show]
       resources :currencies, only: [:index, :show]
       resources :taxes, only: [:index, :show]
+      resources :categories, only: [:index, :show]
+      resources :products, only: [:index, :show]
     end
   end
 
