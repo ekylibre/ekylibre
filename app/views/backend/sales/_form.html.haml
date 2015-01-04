@@ -1,7 +1,8 @@
 = field_set do
   = f.referenced_association :client # , source: :clients
   = f.subset :addresses, :depend_on => :client
-
+  = f.input :expired_at
+  = f.input :invoiced_at
   = f.association :nature, as: :hidden
   = f.referenced_association :responsible, source: {scope: :users}, new: {employed: 1}
   = f.referenced_association :transporter, source: :transporters
