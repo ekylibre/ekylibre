@@ -84,8 +84,8 @@ class PurchaseItem < Ekylibre::Record::Base
       self.currency  ||= Preference.get(:currency).value
     end
     if self.quantity and self.unit_pretax_amount and self.tax
+      #self.unit_amount = self.tax.amount_of(self.unit_pretax_amount)
       self.pretax_amount = self.quantity * self.unit_pretax_amount
-      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount)
       self.amount = self.quantity * self.unit_amount
     end
   end
