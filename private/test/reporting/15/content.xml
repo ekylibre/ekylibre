@@ -3,7 +3,7 @@
   <property name="ireport.zoom" value="1.0000000000000002"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="667"/>
-  <template><![CDATA["../../../../config/corporate_identity/reporting_style.xml"]]></template>
+  <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="table">
     <box>
       <pen lineWidth="1.0" lineColor="#000000"/>

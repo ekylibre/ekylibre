@@ -25,9 +25,7 @@ jpn:
         # delivered: "Given to recipient"
       plant:
         # born_at: "Planted at"
-      product_nature:
-        # duration: "Quantity OR period"
-        # price: "Cost price"
+      product_nature: #?
       product_nature_category:
         # depreciable: "Depreciable"
         # duration: "Duration"

@@ -387,14 +387,13 @@ arb:
         product: "المنتج" #?
         second_building_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
-      product_nature:
+      product_nature:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
         comment: "تعليق" #?
-        duration: "عدد ارقام او مدة الاشتراك"
+        duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
         mass: "(الوزن(كغ" #?
-        # price: "Cost price"
         published: "نشر" #?
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?

@@ -5,7 +5,7 @@
 # Ekylibre ERP - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -43,7 +43,7 @@
 # == Fixture: document_archives
 #
 # document_archives_001:
-#   archived_at: 2013-10-26 18:34:04 +02:00
+#   archived_at: 2014-11-27 19:35:05 +02:00
 #   creator: users_001
 #   document: documents_001
 #   updater: users_001
@@ -117,4 +117,26 @@ document_archives_003:
   lock_version: 0
   template_id: 18
   updated_at: 2014-11-20 10:29:55.426142000 Z
+  updater_id: 1
+document_archives_004:
+  archived_at: 2015-01-04 14:28:55.604899000 Z
+  created_at: 2015-01-04 14:28:55.625318000 Z
+  creator_id: 1
+  document_id: 6
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\n\nFacture F2014000002\n\nCode\n\nDésignation\n\nRYVPNV00000 Lait
+    de vache\n\n05/11/2014\n\nQté.\n\nUnité\n\n6.0\n\nLitre\n\nPrix\nunitaire\n\nTotaux\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux
+    TVA\n\n9.36\n\n1.87\n\n20% VAT\n\n9.36\n\n1.87\n\nACQUITÉE\nNet à payer ( EUR
+    )\n\nAffaires\nA000000000008\n\n04/01/2015 15.28.54\n\n11.23\n\nDébit\n\nCrédit\n\n11.23\n\n11.23\n0.0\n\n1
+    /1\nN° TVA Intracommunautaire : FR00123456789\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_nhnpk4_784wjag.pdf
+  file_file_size: 37683
+  file_fingerprint: 16bed2b8d2ee7dc6e5597a2861a414d2
+  file_pages_count: 1
+  file_updated_at: 2015-01-04 14:28:55.252059000 Z
+  id: 8
+  lock_version: 0
+  template_id: 3
+  updated_at: 2015-01-04 14:28:55.625318000 Z
   updater_id: 1
