@@ -6,3 +6,4 @@ Un type de produit possède un ou plusieurs produits via une ou plusieurs varian
 
 Le type de produit porte les informations de gestion comptable, de gestion de stocks, de variété racine des produits qu'il peut contenir.
 
+>>> Ex  : Engrais minéral, Engrais organique qui sont des types rattachés à la catégorie Engrais

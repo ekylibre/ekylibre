@@ -2,4 +2,4 @@
 
 Ces catégories permettent de "ranger" les produits pour les retrouver plus facilement ainsi que de définir les caractéristiques comptables.
 
-
+>>> Ex  : Engrais, Semences, Animaux, Matières sèches, Bâtiments...
