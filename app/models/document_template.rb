@@ -6,7 +6,7 @@
 # Ekylibre ERP - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -98,7 +98,8 @@ class DocumentTemplate < Ekylibre::Record::Base
             template.children.remove
             style_file = Ekylibre::Tenant.private_directory.join("corporate_identity", "reporting_style.xml")
             unless style_file.exist?
-              style_file = Rails.root.join("config", "corporate_identity", "reporting_style.xml")
+              FileUtils.mkdir_p(style_file.dirname)
+              FileUtils.cp(Rails.root.join("config", "corporate_identity", "reporting_style.xml"), style_file)
             end
             template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(self.source_path.dirname).to_s.inspect))
           else
