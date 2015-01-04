@@ -18,13 +18,8 @@ class ExchangesTest < ActiveSupport::TestCase
 
   teardown do
     Ekylibre::Tenant.drop(:sekindovall)
+    Ekylibre::Tenant.switch(:test)
   end
-
-  #~ for importer, path in IMPORTS
-    #~ test "import of a #{importer} file" do
-      #~ Exchanges.import(importer, path)
-    #~ end
-  #~ end
 
   test "import of a ekylibre_erp_settings file" do
     Exchanges.import(:ekylibre_erp_settings, FIRST_RUN.join("manifest"))
