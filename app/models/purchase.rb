@@ -5,7 +5,7 @@
 # Ekylibre ERP - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2014 Brice Texier, David Joulin
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,9 +76,9 @@ class Purchase < Ekylibre::Record::Base
   acts_as_numbered
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items
-  
+
   delegate :closed, to: :affair, prefix: true
-  
+
   state_machine :state, :initial => :draft do
     state :draft
     state :estimate

@@ -443,7 +443,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         end
       end
     end
-    
+
     # populate crumbs for ticsad simulation
     # shape file with attributes for spraying
     ## Technical attributes
@@ -473,7 +473,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
             metadata.store(moisture_level, record.attributes['moisture_p'].to_s  + "percentage" ) if record.attributes['moisture_p']
             metadata.store(left_flow, record.attributes['left_flow'].to_s  + "liter_per_hectare" ) if record.attributes['left_flow']
             metadata.store(right_flow, record.attributes['right_flow'].to_s  + "liter_per_hectare" ) if record.attributes['right_flow']
-            
+
             Crumb.create!(accuracy: 1,
                           geolocation: record.geometry,
                           metadata: metadata,
@@ -487,7 +487,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         end
       end
     end
-    
+
   end
 
 end

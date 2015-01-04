@@ -19,9 +19,9 @@
 
 class Backend::PurchasesController < BackendController
   manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id"}'.c, except: :new
-  
+
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
-  
+
   unroll
 
   list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|

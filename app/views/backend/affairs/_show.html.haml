@@ -31,7 +31,7 @@
                   = link_to({controller: :affairs, action: :finish, id: affair.id, redirect: request.fullpath}, method: :post, class: "btn btn-check primary") do
                     %i
                     = "convert_balance_into_#{affair.losing? ? :loss : :profit}".tl
-        - if affair            
+        - if affair
           %td.total.amount.sum{class: (affair.balance == 0 ? "debit" : "credit")}= affair.balance.l(currency: affair.currency)
           %td.act
     %tbody
