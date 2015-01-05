@@ -25,8 +25,8 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* {English}[https://github.com/ekylibre/erp/blob/master/doc/guides/eng/installation.rdoc]
-* {Français}[https://github.com/ekylibre/erp/wiki/Installation-Ekylibre]
+* {English}[https://github.com/ekylibre/erp/blob/1-0-stable/doc/guides/installation.rdoc]
+* {Français}[https://wiki.ekylibre.org/fr/guides/install_erp]
 
 == Contributing
 
@@ -44,8 +44,8 @@ We encourage you to contribute to Ekylibre.
 == See also
 
 * {Forum}[http://forum.ekylibre.org]
-* {Documentation}[https://github.com/ekylibre/erp/wiki]
-* {Demo}[https://www.ekylibre.org]
+* {Documentation}[http://wiki.ekylibre.org]
+* {Demo}[http://demo.ekylibre.org]
 
 == Follow us
 
