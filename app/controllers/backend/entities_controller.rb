@@ -41,7 +41,7 @@ class Backend::EntitiesController < BackendController
     t.column :state, hidden: true
     # t.column :duration
     t.column :place, through: :event, hidden: true
-    t.column :started_at, through: :event
+    t.column :started_at, through: :event, datatype: :datetime
     t.action :edit
     # t.action :destroy
   end

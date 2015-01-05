@@ -88,7 +88,7 @@ class Backend::AnimalsController < Backend::MattersController
    # Liste des enfants de l'animal considéré
   list(:children, model: :product_links, conditions: {linked_id: 'params[:id]'.c, nature: %w(father mother)}, order: {started_at: :desc}) do |t|
     t.column :name, through: :product, url: true
-    t.column :born_at, through: :product
+    t.column :born_at, through: :product, datatype: :datetime
     t.column :sex, through: :product
   end
 

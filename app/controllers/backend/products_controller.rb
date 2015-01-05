@@ -63,8 +63,8 @@ class Backend::ProductsController < BackendController
     t.column :point
     t.column :nature
     t.column :intervention, url: true
-    t.column :started_at, through: :intervention
-    t.column :stopped_at, through: :intervention
+    t.column :started_at, through: :intervention, datatype: :datetime
+    t.column :stopped_at, through: :intervention, datatype: :datetime
   end
 
   # Lists carrier linkages of the current product
