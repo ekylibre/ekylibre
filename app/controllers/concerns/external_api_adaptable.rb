@@ -20,11 +20,15 @@ module ExternalApiAdaptable
       model = model.send defaults[:scope] if defaults[:scope].present?
 
       output_name = name
+      locals = {}
+      locals[:output_name] = output_name
+      locals[:partial_path] = defaults[:partial_path] if defaults[:partial_path]
+      locals[:record] = defaults[:record] if defaults[:record]
 
       methods =
         {
-          index:  lambda{@records = model.all; render template: 'layouts/json/index', locals:{output_name: output_name}},
-          show:   lambda{@record = model.find(permitted_params[:id]); render template: 'layouts/json/show', locals:{output_name: output_name.to_s.singularize}}
+          index:  lambda{@records = model.all; render template: 'layouts/json/index', locals: locals},
+          show:   lambda{@record = model.find(permitted_params[:id]); render template: 'layouts/json/show', locals:{output_name: output_name.to_s.singularize}.merge(locals)}
         }
 
       actions.each do |action|
