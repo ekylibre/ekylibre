@@ -647,6 +647,9 @@ eng:
     pasteque/v5/places:
       # index: "Places"
       # show: "Place: %{name}"
+    pasteque/v5/products:
+      # index: "Products"
+      # show: "Product: %{name}"
     pasteque/v5/roles:
       # index: "Roles"
       # show: "Role: %{name}"

@@ -1795,6 +1795,10 @@
         <page to="pasteque/v5/places#index"/>
         <page to="pasteque/v5/places#show"/>
       </item>
+      <item name="products">
+        <page to="pasteque/v5/products#index"/>
+        <page to="pasteque/v5/products#show"/>
+      </item>
       <item name="roles">
         <page to="pasteque/v5/roles#index"/>
         <page to="pasteque/v5/roles#show"/>

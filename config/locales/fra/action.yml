@@ -607,6 +607,7 @@ fra:
     pasteque/v5/currencies: #?
     pasteque/v5/customers: #?
     pasteque/v5/places: #?
+    pasteque/v5/products: #?
     pasteque/v5/roles: #?
     pasteque/v5/taxes: #?
     pasteque/v5/users: #?

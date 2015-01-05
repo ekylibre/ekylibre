@@ -96,6 +96,8 @@
 #     - "pasteque/v5/customers#show"
 #     - "pasteque/v5/places#index"
 #     - "pasteque/v5/places#show"
+#     - "pasteque/v5/products#index"
+#     - "pasteque/v5/products#show"
 #     - "pasteque/v5/roles#index"
 #     - "pasteque/v5/roles#show"
 #     - "pasteque/v5/taxes#index"
