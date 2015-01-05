@@ -82,7 +82,7 @@ class IncomingPayment < Ekylibre::Record::Base
     deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
     where("to_bank_at <= ?", Time.now).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))
   }
-  scope :last_updateds, -> { order("updated_at DESC") }
+  scope :last_updateds, -> { order(updated_at: :desc) }
 
   before_validation(on: :create) do
     self.to_bank_at ||= Time.now
@@ -117,15 +117,15 @@ class IncomingPayment < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     mode = self.mode
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.bank_check_number)
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, payer: self.payer.full_name, mode: mode.name, check_number: self.bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, unless: (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_on: self.to_bank_at.to_date, unless: (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
@@ -146,7 +146,7 @@ class IncomingPayment < Ekylibre::Record::Base
 
   # Build and return a label for the payment
   def label
-    tc(:label, :amount => I18n.localize(self.amount, currency: self.mode.cash.currency), :date => I18n.localize(self.to_bank_at), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, currency: self.mode.cash.currency)
+    tc(:label, amount: self.amount.l(currency: self.mode.cash.currency), date: self.to_bank_at.l, mode: self.mode.name, payer: self.payer.full_name, number: self.number)
   end
 
 end
