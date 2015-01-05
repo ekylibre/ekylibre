@@ -467,12 +467,12 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
               h
             }
             # add technical attributes into metadata with correct unity measurement
-            metadata.store(wind_speed, record.attributes['wind_speed'].to_s + "meter_per_second" ) if record.attributes['wind_speed']
-            metadata.store(wind_direction, record.attributes['wind_direc'] ) if record.attributes['wind_direc']
-            metadata.store(tank_level, record.attributes['tank_level'].to_s  + "liter" ) if record.attributes['tank_level']
-            metadata.store(moisture_level, record.attributes['moisture_p'].to_s  + "percentage" ) if record.attributes['moisture_p']
-            metadata.store(left_flow, record.attributes['left_flow'].to_s  + "liter_per_hectare" ) if record.attributes['left_flow']
-            metadata.store(right_flow, record.attributes['right_flow'].to_s  + "liter_per_hectare" ) if record.attributes['right_flow']
+            metadata.store('wind_speed', record.attributes['wind_speed'].to_s + "meter_per_second" ) if record.attributes['wind_speed']
+            metadata.store('wind_direction', record.attributes['wind_direc'] ) if record.attributes['wind_direc']
+            metadata.store('tank_level', record.attributes['tank_level'].to_s  + "liter" ) if record.attributes['tank_level']
+            metadata.store('moisture_level', record.attributes['moisture_p'].to_s  + "percentage" ) if record.attributes['moisture_p']
+            metadata.store('left_flow', record.attributes['left_flow'].to_s  + "liter_per_hectare" ) if record.attributes['left_flow']
+            metadata.store('right_flow', record.attributes['right_flow'].to_s  + "liter_per_hectare" ) if record.attributes['right_flow']
 
             Crumb.create!(accuracy: 1,
                           geolocation: record.geometry,
