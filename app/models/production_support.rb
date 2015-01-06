@@ -131,7 +131,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return cost.compact.sum
   end
-  
+
   # return the spreaded quantity of one chemicals components (N, P, K) per area unit
   def soil_enrichment_indicator_content_per_area(indicator, from=nil, to=nil, area_unit=:hectare)
     balance = []
@@ -160,7 +160,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return indicator_unity_per_hectare
   end
-  
+
   # @TODO for nitrogen balance but will be refactorize for any chemical components
   def nitrogen_balance
     # B = O - I
