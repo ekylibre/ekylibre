@@ -80,18 +80,15 @@ class OutgoingPayment < Ekylibre::Record::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    # attorney_amount = self.attorney_amount
-    supplier_amount = self.amount #  - attorney_amount
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payee => self.payee.full_name, :mode => self.mode.name, :check_number => self.bank_check_number) # , :expenses => self.uses.collect{|p| p.expense.number}.to_sentence
-    b.journal_entry(self.mode.cash.journal, printed_on: self.to_bank_at.to_date, :unless => (!self.mode.with_accounting? or !self.delivered)) do |entry|
-      entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
-      # entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, payee: self.payee.full_name, mode: self.mode.name, check_number: self.bank_check_number)
+    b.journal_entry(self.mode.cash.journal, printed_on: self.to_bank_at.to_date, if: (self.mode.with_accounting? and self.delivered)) do |entry|
+      entry.add_debit(label, self.payee.account(:supplier).id, self.amount)
       entry.add_credit(label, self.mode.cash.account_id, self.amount)
     end
   end
 
   def label
-    tc(:label, :amount => self.amount.l(currency: self.currency), :date => self.to_bank_at.l, :mode => self.mode.name, :payee => self.payee.full_name, :number => self.number)
+    tc(:label, amount: self.amount.l(currency: self.currency), date: self.to_bank_at.l, mode: self.mode.name, payee: self.payee.full_name, number: self.number)
   end
 
 end

@@ -519,7 +519,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
 
   def clean_targets(targets)
-    if targets.is_a?(Symbol)
+    if targets.is_a?(String)
+      return targets
+    elsif targets.is_a?(Symbol)
       return "##{targets}"
     elsif targets.is_a?(Array)
       return targets.collect{|t| clean_targets(t)}.join(", ")
