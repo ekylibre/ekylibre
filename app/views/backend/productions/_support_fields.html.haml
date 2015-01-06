@@ -1,7 +1,9 @@
 .nested-fields
 = backend_fields_for support, wrapper: :nested do |f|
-  = collection_select(:production, :supports, ProductionSupport.all, :id, :name, {selected: support.id})
+  -#= collection_select(:production, :supports, ProductionSupport.all, :id, :name, {selected: support.id})
+  = f.input :name
   = f.input :started_at
   = f.input :stopped_at
   = f.input :nature
   = f.input :irrigated
+  = link_to_remove_nested_association(:support, f)

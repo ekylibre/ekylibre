@@ -1,4 +1,4 @@
 json.id cash.id
 json.label cash.name
-json.locationId cash.account_id
+json.locationId nil
 json.nextTicketId nil

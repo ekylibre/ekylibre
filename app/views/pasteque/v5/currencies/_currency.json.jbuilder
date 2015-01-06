@@ -1,10 +1,9 @@
-currency = Nomen::Currencies[currency]
 json.null! unless currency.present?
-json.id currency.number
-json.label currency.name
+json.id currency.name
+json.label currency.human_name
 json.symbol currency.symbol
-json.decimalSeparator nil
-json.thousandsSeparator nil
+json.decimalSeparator '.'
+json.thousandsSeparator ''
 json.format nil
 json.isMain (currency.name == Preference[:currency])
 json.isActive currency.active

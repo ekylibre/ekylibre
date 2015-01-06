@@ -1,4 +1,4 @@
-partial_path ||= @record.to_partial_path
+partial_path ||= @record.to_partial_path rescue nil
 record ||= @record.class.name.underscore.downcase.to_sym
 json.set! output_name do
   if @record.nil?

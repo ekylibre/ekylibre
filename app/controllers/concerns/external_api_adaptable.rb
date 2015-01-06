@@ -28,7 +28,7 @@ module ExternalApiAdaptable
       methods =
         {
           index:  lambda{@records = model.all; render template: 'layouts/json/index', locals: locals},
-          show:   lambda{@record = model.find(permitted_params[:id]); render template: 'layouts/json/show', locals:{output_name: output_name.to_s.singularize}.merge(locals)}
+          show:   lambda{@record = model.find(permitted_params[:id]) rescue nil; render template: 'layouts/json/show', locals:{output_name: output_name.to_s.singularize}.merge(locals)}
         }
 
       actions.each do |action|

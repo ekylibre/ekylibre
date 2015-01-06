@@ -6,6 +6,7 @@
         = render 'support_fields', support: support
         = support.working_indicator_value
     %td
+      -#= link_to_add_association :add_budget, f, :budget, partial: 'budget_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
       = link_to '+', "#budget", data:{budget_add: :support}
   %tr
     %td{colspan: '100%'}
