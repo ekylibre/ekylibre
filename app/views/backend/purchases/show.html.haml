@@ -3,6 +3,8 @@
   - t.edit resource if resource.draft?
   - if resource.can_confirm?
     - t.confirm resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_confirm.tl
+  - if resource.can_propose?
+    - t.propose_and_invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
   - if resource.can_invoice?
     - t.invoice resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_invoice.tl
   - for event in [:propose, :correct, :refuse]
@@ -28,6 +30,7 @@
         - l.attribute :responsible, :label => :full_name
         - l.attribute :created_at
         - l.attribute :confirmed_at
+        - l.attribute :invoiced_at
         - l.attribute :planned_at
         - l.attribute :currency unless resource.currency == Entity.of_company.currency
         - l.attribute :description

@@ -69,7 +69,7 @@ class Purchase < Ekylibre::Record::Base
   validates_length_of :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
-  validates_presence_of :planned_at, :created_at, :currency, :state, :nature
+  validates_presence_of :created_at, :currency, :state, :nature
   validates_uniqueness_of :number
 
   acts_as_numbered
@@ -111,9 +111,15 @@ class Purchase < Ekylibre::Record::Base
   before_validation do
     self.created_at ||= Time.now
     self.planned_at ||= self.created_at
-    self.currency ||= Preference[:currency]
+    self.currency = self.nature.currency # Preference[:currency]
     self.pretax_amount = self.items.sum(:pretax_amount)
     self.amount = self.items.sum(:amount)
+  end
+
+  validate do
+    if self.invoiced_at
+      errors.add(:invoiced_at, :before, restriction: Time.now.l) if self.invoiced_at > Time.now
+    end
   end
 
   after_create do
@@ -185,17 +191,20 @@ class Purchase < Ekylibre::Record::Base
   end
 
   # Save the last date when the purchase was confirmed
-  def confirm(validated_at = Time.now, *args)
+  def confirm(confirmed_at = Time.now)
     return false unless self.can_confirm?
-    self.reload.update_attributes!(confirmed_at: validated_at)
+    self.reload
+    self.confirmed_at ||= confirmed_at
+    self.save!
     return super
   end
 
   # Save the last date when the invoice of purchase was received
-  def invoice(invoiced_at = nil, *args)
+  def invoice(invoiced_at = Time.now)
     return false unless self.can_invoice?
-    invoiced_at ||= self.planned_at
-    self.reload.update_attributes!(invoiced_at: invoiced_at)
+    self.reload
+    self.invoiced_at ||= invoiced_at
+    self.save!
     return super
   end
 
@@ -232,14 +241,5 @@ class Purchase < Ekylibre::Record::Base
   def taxes_amount
     self.amount - self.pretax_amount
   end
-
-  # # Produces some amounts about the purchase order.
-  # def stats(options={})
-  #   array = []
-  #   array << [:amount, self.amount]
-  #   array << [:paid_amount, self.paid_amount]
-  #   array << [:unpaid_amount, self.unpaid_amount]
-  #   array
-  # end
 
 end
