@@ -75,18 +75,25 @@ class PurchaseItem < Ekylibre::Record::Base
   before_validation do
     self.pretax_amount ||= 0
     self.amount ||= 0
+
     if self.purchase
       self.currency = self.purchase_currency
     end
+
+    precision = 2
+    if self.currency
+      precision = Nomen::Currencies[self.currency].precision
+    end
+
+    if self.quantity and self.unit_pretax_amount and self.tax
+      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+      self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
+      self.amount = (self.quantity * self.unit_amount).round(precision)
+    end
+
     if self.variant
       self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)
       self.label     ||= self.variant.commercial_name
-      self.currency  ||= Preference.get(:currency).value
-    end
-    if self.quantity and self.unit_pretax_amount and self.tax
-      self.pretax_amount = self.quantity * self.unit_pretax_amount
-      self.unit_amount = self.tax.amount_of(self.unit_pretax_amount)
-      self.amount = self.quantity * self.unit_amount
     end
   end
 

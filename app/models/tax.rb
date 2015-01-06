@@ -107,7 +107,7 @@ class Tax < Ekylibre::Record::Base
   # where pretax_amount * k = amount_with_tax
   def coefficient
     raise StandardError("Can only use coefficient method with percentage taxes") unless self.percentage?
-    return (1.0 + 0.01*self.amount.to_d)
+    return (100 + self.amount)/100
   end
 
   # Load a tax from tax nomenclature
