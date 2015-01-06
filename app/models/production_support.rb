@@ -131,14 +131,38 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return cost.compact.sum
   end
-
+  
+  # return the spreaded quantity of one chemicals components (N, P, K) per area unit
+  def soil_enrichment_indicator_content_per_area(indicator, from=nil, to=nil, area_unit=:hectare)
+    balance = []
+    # indicator could be (:potassium_concentration, :nitrogen_concentration, :phosphorus_concentration)
+    # area_unit could be (:hectare, :square_meter)
+    # from and to used to select intervention
+    # get all intervention of nature 'soil_enrichment' and sum all indicator unity spreaded
+    # m = net_mass of the input at intervention time
+    # n = indicator (in %) of the input at intervention time
+    if from and to
+      interventions = self.interventions.real.of_nature(:soil_enrichment).between(from, to)
+    else
+      interventions = self.interventions.real.of_nature(:soil_enrichment)
+    end
+    for intervention in interventions
+      for input in intervention.casts.of_role('soil_enrichment-input')
+        m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+        # TODO for method phosphorus_concentration(input)
+        n = (input.actor ? input.actor.send(indicator).to_d(:unity) : 0.0)
+        balance <<  m * n
+      end
+    end
+    # if net_surface_area, make the division
+    if surface_area = self.storage_net_surface_area(self.started_at)
+      indicator_unity_per_hectare = (balance.compact.sum / surface_area.to_d(area_unit))
+    end
+    return indicator_unity_per_hectare
+  end
+  
   # @TODO for nitrogen balance but will be refactorize for any chemical components
   def nitrogen_balance
-    #
-    # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
-    # m = net_mass of the input at intervention time
-    # n = nitrogen concentration (in %) of the input at intervention time
-    #
     # B = O - I
     balance = 0.0
     nitrogen_mass = []
@@ -146,20 +170,9 @@ class ProductionSupport < Ekylibre::Record::Base
     if self.selected_manure_management_plan_zone
       # get the output O aka nitrogen_input from opened_at (in kg N / Ha )
       o = self.selected_manure_management_plan_zone.nitrogen_input || 0.0
-      opened_at = self.selected_manure_management_plan_zone.opened_at
       # get the nitrogen input I from opened_at to now (in kg N / Ha )
-      for intervention in self.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now)
-        for input in intervention.casts.of_role('soil_enrichment-input')
-          m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-          # TODO for method phosphorus_concentration(input)
-          n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
-          nitrogen_mass <<  m * n
-        end
-      end
-      # if net_surface_area, make the division
-      if surface_area = self.storage_net_surface_area(self.started_at)
-        i = (nitrogen_mass.compact.sum / surface_area.to_d(:hectare)).to_d
-      end
+      opened_at = self.selected_manure_management_plan_zone.opened_at
+      i = self.soil_enrichment_indicator_content_per_area(:nitrogen_concentration, opened_at, Time.now)
       if i and o
         balance = o - i
       end
@@ -168,43 +181,11 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def potassium_balance
-    balance = []
-    # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
-    # m = net_mass of the input at intervention time
-    # n = nitrogen concentration (in %) of the input at intervention time
-    for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      for input in intervention.casts.of_role('soil_enrichment-input')
-        m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-        # TODO for method phosphorus_concentration(input)
-        n = (input.actor ? input.actor.potassium_concentration.to_d(:unity) : 0.0)
-        balance <<  m * n
-      end
-    end
-    # if net_surface_area, make the division
-    if surface_area = self.storage_net_surface_area(self.started_at)
-      potassium_unity_per_hectare = (balance.compact.sum / surface_area.to_d(:hectare))
-    end
-    return potassium_unity_per_hectare
+    self.soil_enrichment_indicator_content_per_area(:potassium_concentration)
   end
 
   def phosphorus_balance
-    balance = []
-    # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
-    # m = net_mass of the input at intervention time
-    # n = nitrogen concentration (in %) of the input at intervention time
-    for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      for input in intervention.casts.of_role('soil_enrichment-input')
-        m = (input.actor ? input.actor.net_mass(input).to_f(:kilogram) : 0.0)
-        # TODO for method phosphorus_concentration(input)
-        n = (input.actor ? input.actor.phosphorus_concentration.to_f(:unity) : 0.0)
-        balance <<  m * n
-      end
-    end
-    # if net_surface_area, make the division
-    if surface_area = self.storage_net_surface_area(self.started_at)
-      phosphorus_unity_per_hectare = (balance.compact.sum / surface_area.to_f(:hectare))
-    end
-    return phosphorus_unity_per_hectare
+    self.soil_enrichment_indicator_content_per_area(:phosphorus_concentration)
   end
 
 
