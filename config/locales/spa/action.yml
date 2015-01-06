@@ -1858,6 +1858,7 @@ spa:
     # country: "Country"
     # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
+    # host: "Host"
     # language: "Language"
     # map_measure_srs: "Map measure SRS"
     # sales_conditions: "Sales conditions"

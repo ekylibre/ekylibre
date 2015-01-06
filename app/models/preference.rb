@@ -79,6 +79,7 @@ class Preference < Ekylibre::Record::Base
   prefer :bookkeep_automatically, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
+  prefer :host, :string, "erp.example.com"
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ""
   prefer :chart_of_accounts, :chart_of_accounts, Nomen::ChartsOfAccounts.default

@@ -2244,6 +2244,7 @@ arb:
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     general:  #?
       language: "اللغة المفترضة" #?
+    # host: "Host"
     # language: "Language"
     management:  #?
       deposits: #?
