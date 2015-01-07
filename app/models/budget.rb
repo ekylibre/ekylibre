@@ -25,19 +25,19 @@
 #  computation_method :string(255)
 #  created_at         :datetime         not null
 #  creator_id         :integer
-#  currency           :string(255)      not null
-#  direction          :string(255)      not null
-#  global_amount      :decimal(19, 4)   default(0.0), not null
-#  global_quantity    :decimal(19, 4)   default(0.0), not null
-#  homogeneous_values :boolean          not null
+#  currency           :string(255)
+#  direction          :string(255)
+#  global_amount      :decimal(19, 4)   default(0.0)
+#  global_quantity    :decimal(19, 4)   default(0.0)
+#  homogeneous_values :boolean
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
-#  name               :string(255)      not null
-#  production_id      :integer          not null
-#  unit_amount        :decimal(19, 4)   default(0.0), not null
+#  name               :string(255)
+#  production_id      :integer
+#  unit_amount        :decimal(19, 4)   default(0.0)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
-#  variant_id         :integer          not null
+#  variant_id         :integer
 #  working_indicator  :string(255)
 #  working_unit       :string(255)
 #
@@ -45,8 +45,6 @@ class Budget < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
-  validates_inclusion_of :homogeneous_values, in: [true, false]
-  validates_presence_of :currency, :direction, :global_amount, :global_quantity, :name, :production, :unit_amount, :variant
   #]VALIDATORS]
   has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id
   has_many :supports, through: :production

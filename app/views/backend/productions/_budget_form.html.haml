@@ -1,4 +1,5 @@
 %table.budget{data: {production_id: f.object.id}}
+  -# supports
   %tr.appendable
     %td
     - f.object.supports.each do |support|
@@ -8,6 +9,8 @@
     %td
       -#= link_to_add_association :add_budget, f, :budget, partial: 'budget_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
       = link_to '+', "#budget", data:{budget_add: :support}
+  -# budgets
+  -# expenses
   %tr
     %td{colspan: '100%'}
       = f.input :homogeneous_expenses, wrapper: :nested
@@ -15,18 +18,18 @@
   - f.object.budgets.expenses.each do |expense|
     %tr.appendable{data: {budget_id: expense.id, direction: :expense}}
       %td
-        = render 'budget_fields', budget: expense
+        = render 'budget_fields', budget: expense, f: f
       - f.object.supports.size.times do
         %td
-          = :empty
+          = render 'budget_item_fields_template', f: f
       %td
         = :total
   %tr.budget_line_template.appendable
     %td
-      = render 'budget_fields_template', direction: :expense
+      = render 'budget_fields_template', direction: :expense, f: f
     - f.object.supports.size.times do
       %td
-        = render 'budget_item_fields_template'
+        = render 'budget_item_fields_template', f: f
     %td
       = :total
   %tr.empty_budget_line.appendable
@@ -42,10 +45,10 @@
   - f.object.budgets.revenues.each do |revenue|
     %tr.appendable{data: {budget_id: revenue.id, direction: :revenue}}
       %td
-        = render 'budget_fields', budget: revenue
+        = render 'budget_fields', budget: revenue, f: f
       - f.object.supports.size.times do
         %td
-          = render 'budget_item_fields'
+          = render 'budget_item_fields', f: f
       %td
         = :total
   %tr.budget_line_template.appendable
@@ -53,7 +56,7 @@
       = render 'budget_fields_template', direction: :revenue
     - f.object.supports.size.times do
       %td
-        = render 'budget_item_fields_template'
+        = render 'budget_item_fields_template', f: f
     %td
       = :total
   %tr.empty_budget_line.appendable

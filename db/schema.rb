@@ -224,7 +224,7 @@ ActiveRecord::Schema.define(version: 20141224091401) do
     t.integer  "production_support_id",                                        null: false
     t.decimal  "quantity",              precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "global_amount",         precision: 19, scale: 4, default: 0.0, null: false
-    t.string   "currency",                                                     null: false
+    t.string   "currency"
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
     t.integer  "creator_id"
@@ -240,18 +240,18 @@ ActiveRecord::Schema.define(version: 20141224091401) do
   add_index "budget_items", ["updater_id"], :name => "index_budget_items_on_updater_id"
 
   create_table "budgets", force: true do |t|
-    t.integer  "variant_id",                                                  null: false
-    t.integer  "production_id",                                               null: false
-    t.string   "name",                                                        null: false
-    t.string   "direction",                                                   null: false
-    t.decimal  "global_amount",      precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "global_quantity",    precision: 19, scale: 4, default: 0.0,   null: false
+    t.integer  "variant_id"
+    t.integer  "production_id"
+    t.string   "name"
+    t.string   "direction"
+    t.decimal  "global_amount",      precision: 19, scale: 4, default: 0.0
+    t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0
+    t.decimal  "global_quantity",    precision: 19, scale: 4, default: 0.0
     t.string   "working_indicator"
     t.string   "working_unit"
     t.string   "computation_method"
-    t.boolean  "homogeneous_values",                          default: false, null: false
-    t.string   "currency",                                                    null: false
+    t.boolean  "homogeneous_values",                          default: false
+    t.string   "currency"
     t.datetime "created_at",                                                  null: false
     t.datetime "updated_at",                                                  null: false
     t.integer  "creator_id"

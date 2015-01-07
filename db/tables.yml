@@ -145,7 +145,7 @@ budget_items:
   budget_id: {type: integer, references: budget, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  currency: {type: string, required: true}
+  currency: {type: string}
   global_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
@@ -158,19 +158,19 @@ budgets:
   computation_method: {type: string}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  currency: {type: string, required: true}
-  direction: {type: string, required: true}
-  global_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
-  global_quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
-  homogeneous_values: {type: boolean, required: true, default: false}
+  currency: {type: string}
+  direction: {type: string}
+  global_amount: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  global_quantity: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  homogeneous_values: {type: boolean, default: false}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
-  production_id: {type: integer, references: production, required: true}
-  unit_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  name: {type: string}
+  production_id: {type: integer, references: production}
+  unit_amount: {type: decimal, precision: 19, scale: 4, default: 0.0}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-  variant_id: {type: integer, references: product_nature_variant, required: true}
+  variant_id: {type: integer, references: product_nature_variant}
   working_indicator: {type: string}
   working_unit: {type: string}
 

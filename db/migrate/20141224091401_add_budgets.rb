@@ -6,23 +6,23 @@ class AddBudgets < ActiveRecord::Migration
       t.references :production_support, null: false, index: true
       t.decimal    :quantity,           null: false, default: 0.0, precision: 19, scale: 4
       t.decimal    :global_amount,      null: false, default: 0.0, precision: 19, scale: 4
-      t.string     :currency,           null: false
+      t.string     :currency
       t.stamps
     end
 
     create_table :budgets do |t|
-      t.references :variant,         null: false, index: true
-      t.references :production,      null: false, index: true
-      t.string     :name,            null: false
-      t.string     :direction,       null: false
-      t.decimal    :global_amount,   null: false, default: 0.0, precision: 19, scale: 4
-      t.decimal    :unit_amount,     null: false, default: 0.0, precision: 19, scale: 4
-      t.decimal    :global_quantity, null: false, default: 0.0, precision: 19, scale: 4
+      t.references :variant,         index: true
+      t.references :production,      index: true
+      t.string     :name
+      t.string     :direction
+      t.decimal    :global_amount,   default: 0.0, precision: 19, scale: 4
+      t.decimal    :unit_amount,     default: 0.0, precision: 19, scale: 4
+      t.decimal    :global_quantity, default: 0.0, precision: 19, scale: 4
       t.string     :working_indicator
       t.string     :working_unit
       t.string     :computation_method
-      t.boolean    :homogeneous_values, null: false, default: false
-      t.string     :currency,        null: false
+      t.boolean    :homogeneous_values, default: false
+      t.string     :currency
       t.stamps
       t.index      :name
     end

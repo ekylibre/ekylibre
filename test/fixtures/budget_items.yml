@@ -25,7 +25,7 @@
 #  budget_id             :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string(255)      not null
+#  currency              :string(255)
 #  global_amount         :decimal(19, 4)   default(0.0), not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
@@ -40,7 +40,6 @@
 # budget_items_001:
 #   budget: budgets_001
 #   creator: users_001
-#   currency: "Lorem ipsum"
 #   global_amount: 0
 #   production_support: production_supports_001
 #   quantity: 0

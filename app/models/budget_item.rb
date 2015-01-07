@@ -25,7 +25,7 @@
 #  budget_id             :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string(255)      not null
+#  currency              :string(255)
 #  global_amount         :decimal(19, 4)   default(0.0), not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
@@ -38,7 +38,7 @@ class BudgetItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :quantity, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 255
-  validates_presence_of :budget, :currency, :global_amount, :production_support, :quantity
+  validates_presence_of :budget, :global_amount, :production_support, :quantity
   #]VALIDATORS]
   validates_uniqueness_of :production_support_id, scope: :budget_id
 
