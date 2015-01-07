@@ -65,6 +65,9 @@ class Budget < Ekylibre::Record::Base
   validate do
     Budget.all.each do |budget|
       budget.destroy unless budget.variant.present?
+      budget.supports.each do |support|
+        BudgetItem.find_or_create!(budget, support)
+      end
     end
   end
 end

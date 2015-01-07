@@ -42,7 +42,7 @@ class BudgetItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :production_support_id, scope: :budget_id
 
-  belongs_to :budget, inverse_of: :items
+  belongs_to :budget, inverse_of: :items, dependent: :destroy
   belongs_to :production_support
 
   delegate :computation_method, to: :budget
@@ -58,20 +58,26 @@ class BudgetItem < Ekylibre::Record::Base
   end
 
   def self.find_or_create!(*args)
-    puts args.inspect.green
     options = args.extract_options!
+    budget, support = nil, nil
 
-    budget = Budget.find(options.slice!(:budget_id).values.first) rescue nil
+    args.each do |arg|
+      next unless [Budget, ProductionSupport].include? arg.class
+      budget = arg if arg.is_a? Budget
+      support = arg if arg.is_a? ProductionSupport
+    end
+
+    budget ||= Budget.find(options.slice!(:budget_id).values.first) rescue nil
     budget ||= options[:budget] if options[:budget].is_a? Budget
-    budget ||= args.reject!{|arg| arg.is_a? Budget}.to_a.first
-    raise "Got #{budget.inspect}. No budget given: #{args.inspect}" unless budget.is_a? Budget
 
-    support = ProductionSupport.find(options.slice!(:support_id, :production_support_id).values.first) rescue nil
-    support ||= options.slice!(:support, :production_support).values.reject!{|value| value.is_a? ProductionSupport}.to_a.first
-    support ||= args.reject!{|arg| arg.is_a? ProductionSupport}
-    raise "Got #{support.inspect}. No production support given: #{args.inspect}" unless support.is_a? ProductionSupport
+    support ||= ProductionSupport.find(options.slice!(:support_id, :production_support_id).values.first) rescue nil
+    support ||= options.slice(:support, :production_support).values.reject!{|value| value.is_a? ProductionSupport}.to_a.first
 
-    return budget_item = BudgetItem.find(budget: budget, production_support: support).first unless budget_item.empty?
-    return BudgetItem.create!(budget: budget, production_support: support)
+    budget_item = BudgetItem.where(budget: budget, production_support: support).first
+    if budget_item.present?
+      return budget_item
+    else
+      return BudgetItem.create!(budget: budget, production_support: support)
+    end
   end
 end
