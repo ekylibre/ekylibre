@@ -1,2 +1,2 @@
--if bi = BudgetItem.create(budget: budget, production_support: support)
-  = render 'budget_item_fields', budget_item: bi
+- bi = BudgetItem.find_or_create!(budget: budget, production_support: support) rescue BudgetItem.create(budget: budget, production_support: support)
+= render 'budget_item_fields', budget_item: bi

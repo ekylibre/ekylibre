@@ -59,12 +59,12 @@ class Budget < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items
 
-  validate do
-    production.supports.each do |support|
-      BudgetItem.find_or_create!(budget: self, production_support: support)
-    end
-  end
-
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
+
+  validate do
+    Budget.all.each do |budget|
+      budget.destroy unless budget.variant.present?
+    end
+  end
 end
