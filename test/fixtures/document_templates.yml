@@ -56,34 +56,6 @@ document_templates_001:
   active: true
   archiving: last
   by_default: true
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  language: fra
-  lock_version: 0
-  managed: false
-  name: AN
-  nature: tax_assessment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-document_templates_002:
-  active: true
-  archiving: all
-  by_default: true
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  language: fra
-  lock_version: 0
-  managed: false
-  name: FA
-  nature: tax_assessment
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-document_templates_003:
-  active: true
-  archiving: last
-  by_default: true
   created_at: 2014-11-03 11:18:54.359317000 Z
   creator_id: 1
   formats: ''
@@ -95,7 +67,7 @@ document_templates_003:
   nature: sales_invoice
   updated_at: 2014-11-03 11:24:19.636925000 Z
   updater_id: 1
-document_templates_004:
+document_templates_002:
   active: true
   archiving: last
   by_default: true
@@ -110,7 +82,7 @@ document_templates_004:
   nature: activity_cost
   updated_at: 2014-11-03 11:24:19.536799000 Z
   updater_id: 1
-document_templates_005:
+document_templates_003:
   active: true
   archiving: last
   by_default: true
@@ -125,7 +97,7 @@ document_templates_005:
   nature: animal_husbandry_registry
   updated_at: 2014-11-03 11:24:19.545160000 Z
   updater_id: 1
-document_templates_006:
+document_templates_004:
   active: true
   archiving: last
   by_default: true
@@ -140,7 +112,7 @@ document_templates_006:
   nature: animal_list
   updated_at: 2014-11-03 11:24:19.551385000 Z
   updater_id: 1
-document_templates_007:
+document_templates_005:
   active: true
   archiving: last
   by_default: true
@@ -155,7 +127,7 @@ document_templates_007:
   nature: animal_sheet
   updated_at: 2014-11-03 11:24:19.558769000 Z
   updater_id: 1
-document_templates_008:
+document_templates_006:
   active: true
   archiving: last
   by_default: true
@@ -170,7 +142,7 @@ document_templates_008:
   nature: deposit_list
   updated_at: 2014-11-03 11:24:19.565921000 Z
   updater_id: 1
-document_templates_009:
+document_templates_007:
   active: true
   archiving: last
   by_default: true
@@ -185,7 +157,7 @@ document_templates_009:
   nature: general_ledger
   updated_at: 2014-11-03 11:24:19.573062000 Z
   updater_id: 1
-document_templates_010:
+document_templates_008:
   active: true
   archiving: last
   by_default: true
@@ -200,7 +172,7 @@ document_templates_010:
   nature: intervention_registry
   updated_at: 2014-11-03 11:24:19.579352000 Z
   updater_id: 1
-document_templates_011:
+document_templates_009:
   active: true
   archiving: last
   by_default: true
@@ -215,7 +187,7 @@ document_templates_011:
   nature: intervention_sheet
   updated_at: 2014-11-03 11:24:19.585408000 Z
   updater_id: 1
-document_templates_012:
+document_templates_010:
   active: true
   archiving: last
   by_default: true
@@ -230,7 +202,7 @@ document_templates_012:
   nature: inventory_sheet
   updated_at: 2014-11-03 11:24:19.591229000 Z
   updater_id: 1
-document_templates_013:
+document_templates_011:
   active: true
   archiving: last
   by_default: true
@@ -245,7 +217,7 @@ document_templates_013:
   nature: land_parcel_registry
   updated_at: 2014-11-03 11:24:19.596697000 Z
   updater_id: 1
-document_templates_014:
+document_templates_012:
   active: true
   archiving: last
   by_default: true
@@ -260,7 +232,7 @@ document_templates_014:
   nature: manure_management_plan
   updated_at: 2014-11-03 11:24:19.602791000 Z
   updater_id: 1
-document_templates_015:
+document_templates_013:
   active: true
   archiving: last
   by_default: true
@@ -275,7 +247,7 @@ document_templates_015:
   nature: manure_management_plan_sheet
   updated_at: 2014-11-03 11:24:19.610129000 Z
   updater_id: 1
-document_templates_016:
+document_templates_014:
   active: true
   archiving: last
   by_default: true
@@ -290,7 +262,7 @@ document_templates_016:
   nature: phytosanitary_registry
   updated_at: 2014-11-03 11:24:19.616757000 Z
   updater_id: 1
-document_templates_017:
+document_templates_015:
   active: true
   archiving: last
   by_default: true
@@ -305,7 +277,7 @@ document_templates_017:
   nature: provisional_manure_management_plan
   updated_at: 2014-11-03 11:24:19.623299000 Z
   updater_id: 1
-document_templates_018:
+document_templates_016:
   active: true
   archiving: last
   by_default: true
@@ -320,7 +292,7 @@ document_templates_018:
   nature: sales_estimate
   updated_at: 2014-11-03 11:24:19.630599000 Z
   updater_id: 1
-document_templates_019:
+document_templates_017:
   active: true
   archiving: last
   by_default: true
@@ -335,7 +307,7 @@ document_templates_019:
   nature: sales_order
   updated_at: 2014-11-03 11:24:19.643132000 Z
   updater_id: 1
-document_templates_020:
+document_templates_018:
   active: true
   archiving: last
   by_default: true

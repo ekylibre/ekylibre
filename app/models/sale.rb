@@ -179,6 +179,9 @@ class Sale < Ekylibre::Record::Base
   end
 
   validate do
+    if self.invoiced_at
+      errors.add(:invoiced_at, :before, restriction: Time.now.l) if self.invoiced_at > Time.now
+    end
     for mail_address in [:address, :delivery_address, :invoice_address]
       if self.send(mail_address)
         unless self.send(mail_address).mail?
@@ -265,14 +268,14 @@ class Sale < Ekylibre::Record::Base
   end
 
   # Remove all bad dependencies and return at draft state with no deliveries
-  def correct(*args)
+  def correct
     return false unless self.can_correct?
     self.deliveries.clear
     return super
   end
 
   # Confirm the sale order. This permits to define deliveries and assert validity of sale
-  def confirm(confirmed_at = Time.now, *args)
+  def confirm(confirmed_at = Time.now)
     return false unless self.can_confirm?
     self.update_column(:confirmed_at, confirmed_at || Time.now)
     return super
@@ -280,11 +283,11 @@ class Sale < Ekylibre::Record::Base
 
   # Invoices all the products creating the delivery if necessary.
   # Changes number with an invoice number saving exiting number in +initial_number+.
-  def invoice(*args)
+  def invoice(invoiced_at = Time.now)
     return false unless self.can_invoice?
     ActiveRecord::Base.transaction do
       # Set values for invoice
-      self.invoiced_at = Time.now
+      self.invoiced_at ||= invoiced_at
       self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
       self.initial_number = self.number
       if sequence = Sequence.of(:sales_invoices)

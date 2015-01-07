@@ -28,15 +28,15 @@
 
       if params[:visualization] == "nitrogen_footprint"
 
-        if nitrogen_concentration = support.nitrogen_balance #and nitrogen_concentration.to_d != 0.0
+        if nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration) #and nitrogen_concentration.to_d != 0.0
           popup_content << {label: :nitrogen_concentration_per_hectare.tl, value: nitrogen_concentration.to_s.to_f.round(2)}
         end
 
-        if phosphorus_concentration = support.phosphorus_balance #and phosphorus_concentration.to_d != 0.0
+        if phosphorus_concentration = support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration) #and phosphorus_concentration.to_d != 0.0
           popup_content << {label: :phosphorus_concentration_per_hectare.tl, value: phosphorus_concentration.to_s.to_f.round(2)}
         end
 
-        if potassium_concentration = support.potassium_balance #and potassium_concentration.to_d != 0.0
+        if potassium_concentration = support.soil_enrichment_indicator_content_per_area(:potassium_concentration) #and potassium_concentration.to_d != 0.0
           popup_content << {label: :potassium_concentration_per_hectare.tl, value: potassium_concentration.to_s.to_f.round(2)}
         end
 

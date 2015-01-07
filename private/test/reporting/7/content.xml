@@ -3,7 +3,7 @@
   <property name="ireport.zoom" value="1.0"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="0"/>
-  <template><![CDATA["../../../../config/corporate_identity/reporting_style.xml"]]></template>
+  <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <subDataset name="product-localizations" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
     <queryString language="xPath"><![CDATA[/animal/product-localizations/product-localization]]></queryString>
     <field name="arrival-cause" class="java.lang.String">

@@ -107,3 +107,15 @@ documents_005:
   number: D000000000003
   updated_at: 2014-11-20 10:29:54.659461000 Z
   updater_id: 1
+documents_006:
+  archives_count: 1
+  created_at: 2015-01-04 14:28:55.133954000 Z
+  creator_id: 1
+  id: 6
+  key: F2014000002
+  lock_version: 1
+  name: Facture de vente F2014000002
+  nature: sales_invoice
+  number: D000000000004
+  updated_at: 2015-01-04 14:28:55.133954000 Z
+  updater_id: 1

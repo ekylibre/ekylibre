@@ -65,7 +65,6 @@ fra:
         children: "Sous-îlots" #?
         identification_number: "Numéro d’îlots PAC" #?
         real_quantity: "Surface" #?
-      mandate: #?
       matter:  #?
         born_at: "Fabriqué le" #?
         dead_at: "Détruit/consommé le" #?
@@ -92,10 +91,6 @@ fra:
         container: "Contenant" #?
         started_at: "Entrée" #?
         stopped_at: "Sortie" #?
-      product_move: #?
-      product_nature:
-        # duration: "Quantity OR period"
-        # price: "Cost price"
       product_nature_category:
         depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"

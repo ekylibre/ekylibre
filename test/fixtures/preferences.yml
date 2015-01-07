@@ -2575,3 +2575,14 @@ preferences_218:
   updated_at: 2014-11-07 19:13:42.663726000 Z
   updater_id: 1
   user_id: 1
+preferences_219:
+  created_at: 2014-12-24 11:05:52.595411000 Z
+  creator_id: 1
+  id: 219
+  lock_version: 0
+  name: list._product_nature_categories_list_product_nature_categories_tag
+  nature: string
+  string_value: {}
+  updated_at: 2014-12-24 11:05:52.595411000 Z
+  updater_id: 1
+  user_id: 1

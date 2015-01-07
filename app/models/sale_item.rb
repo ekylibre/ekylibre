@@ -117,9 +117,9 @@ class SaleItem < Ekylibre::Record::Base
       self.reduced_unit_amount = (self.unit_amount * (100.0 - self.reduction_percentage) / 100.0)
       self.pretax_amount = (self.quantity * self.reduced_unit_pretax_amount).round(precision)
       self.amount = (self.quantity * self.reduced_unit_amount).round(precision)
-      self.reduced_unit_pretax_amount = self.reduced_unit_pretax_amount.round(2)
-      self.reduced_unit_amount = self.reduced_unit_amount.round(2)
-      self.unit_pretax_amount = self.unit_pretax_amount.round(2)
+      self.reduced_unit_pretax_amount = self.reduced_unit_pretax_amount.round(precision)
+      self.reduced_unit_amount = self.reduced_unit_amount.round(precision)
+      self.unit_pretax_amount = self.unit_pretax_amount.round(precision)
     end
 
     if self.variant

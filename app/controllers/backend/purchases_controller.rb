@@ -22,7 +22,7 @@ class Backend::PurchasesController < BackendController
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
-  unroll
+  unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
   list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
     t.column :number, url: {action: :show, step: :default}

@@ -17,15 +17,4 @@ sudo apt-cache search postgis
 echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Install packages:"
-sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.1-postgis-2.1 libmagic-dev graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript
-
-echo ""
-echo "--------------------------------------------------------------------------------"
-echo "Show Firefox version:"
-firefox --version
-
-# echo ""
-# echo "--------------------------------------------------------------------------------"
-# echo "Configure XVFB:"
-# # export DISPLAY=:99.0
-
+sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.3-postgis-2.1 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript

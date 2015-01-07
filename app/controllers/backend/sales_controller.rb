@@ -22,7 +22,7 @@ class Backend::SalesController < BackendController
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
-  unroll
+  unroll :number, :amount, :currency, :created_at, client: :full_name
 
   # management -> sales_conditions
   def self.sales_conditions

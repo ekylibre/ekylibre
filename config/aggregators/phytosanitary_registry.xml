@@ -28,7 +28,7 @@
           <sections for="intervention" in="Intervention.real.where(state: 'done').of_nature(:plant_illness_treatment).with_cast('plant_illness_treatment-target', plant)" of-type="record">
             <title name="name" of="intervention"/>
             <property name="id" of="intervention" level="api"/>
-            <property name="url" value="&quot;/backend/interventions/#{intervention.id}&quot;" level="api"/>
+            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
             <property name="started_at" of="intervention" type="datetime"/>
             <property name="stopped_at" of="intervention" type="datetime"/>
             <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>

@@ -1899,6 +1899,7 @@ fra:
     country: "Pays"
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
+    host: "Adresse hôte"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"
     sales_conditions: "Conditions de vente"

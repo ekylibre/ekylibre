@@ -3,7 +3,7 @@
   <property name="ireport.zoom" value="1.4019755979255695"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="528"/>
-  <template><![CDATA["../../../../config/corporate_identity/reporting_style.xml"]]></template>
+  <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
   <style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>

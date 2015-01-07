@@ -1,5 +1,5 @@
 language: ruby
-bundler_args: --without 'development doc' --full-index
+bundler_args: --full-index
 rvm:
   - 2.0.0
   - 2.1.5

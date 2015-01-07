@@ -100,10 +100,12 @@ class Cash < Ekylibre::Record::Base
     end
     if self.mode_iban?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
-    elsif self.mode_bban?
+    elsif self.mode_bban? and self.bank_code? and self.bank_agency_code? and self.bank_account_number? and self.bank_account_key
       self.iban = self.class.generate_iban(self.country, self.bank_code + self.bank_agency_code + self.bank_account_number + self.bank_account_key)
     end
-    self.spaced_iban = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
+    unless self.iban.blank?
+      self.spaced_iban = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
+    end
   end
 
   # IBAN have to be checked before saved.
@@ -115,9 +117,11 @@ class Cash < Ekylibre::Record::Base
     end
     if self.bank_account?
       if self.mode_bban?
-        errors.add(:key, :unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
+        errors.add(:bank_account_key, :unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
       end
-      errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban)
+      unless self.iban.blank?
+        errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban)
+      end
     end
   end
 
