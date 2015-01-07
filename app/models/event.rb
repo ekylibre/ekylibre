@@ -66,7 +66,11 @@ class Event < Ekylibre::Record::Base
   scope :with_participant, lambda { |*entities|
     where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.flatten.map(&:id))
   }
-
+  
+  protect(on: :destroy) do
+    self.intervention
+  end
+  
   before_validation do
     self.started_at ||= Time.now
     if nature = Nomen::EventNatures[self.nature]
