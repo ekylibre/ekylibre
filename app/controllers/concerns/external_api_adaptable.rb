@@ -19,6 +19,8 @@ module ExternalApiAdaptable
       model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize
       model = model.send defaults[:scope] if defaults[:scope].present?
 
+      api_path = self.controller_path.split('/')[0..-2].join('/')
+
       output_name = name
       locals = {}
       locals[:output_name] = output_name
@@ -27,8 +29,8 @@ module ExternalApiAdaptable
 
       methods =
         {
-          index:  lambda{@records = model.all; render template: 'layouts/json/index', locals: locals},
-          show:   lambda{@record = model.find(permitted_params[:id]) rescue nil; render template: 'layouts/json/show', locals:{output_name: output_name.to_s.singularize}.merge(locals)}
+          index:  lambda{@records = model.all; render template: "layouts/#{api_path}/index", locals: locals},
+          show:   lambda{@record = model.find(permitted_params[:id]) rescue nil; render template: "layouts/#{api_path}/show", locals:{output_name: output_name.to_s.singularize}.merge(locals)}
         }
 
       actions.each do |action|
