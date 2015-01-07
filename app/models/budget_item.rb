@@ -56,4 +56,19 @@ class BudgetItem < Ekylibre::Record::Base
   validate do
     global_amount = budget.unit_amount * quantity
   end
+  
+  def self.find_or_create!(*args)
+    options = args.extract_options!
+    
+    budget = Budget.find(options.slice!(:budget, :budget_id).values.first)
+    budget ||= args.reject!{|arg| arg.is_a? Budget}.to_a.first
+    raise "no budget given" unless budget.is_a? Budget
+    
+    support = ProductionSupport.find(options.slice!(:support, :support_id, :production_support, :production_support_id).values.first)
+    support ||= args.reject!{|arg| arg.is_a? ProductionSupport}
+    raise "no production support given" unless support.is_a? ProductionSupport
+    
+    return budget_item = BudgetItem.find(budget: budget, production_support: support).first unless budget_item.empty?
+    return BudgetItem.create!(budget: budget, production_support: support)
+  end  
 end
