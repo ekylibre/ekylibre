@@ -25,5 +25,9 @@
     template.before(new_revenue)
     return false
 
+  $(document).on 'click keyup', "a[data-budget='remove']", ->
+    $(this).closest('tr').remove()
+    false
+
   return
 ) jQuery
