@@ -764,6 +764,15 @@ Ekylibre::Application.routes.draw do
       resources :taxes, only: [:index, :show]
       resources :categories, only: [:index, :show]
       resources :products, only: [:index, :show]
+      resources :attributes, only: [:index, :show]
+      resources :tariff_areas, only: [:index, :show]
+      resources :cash_movements, only: [:index, :show]
+      resources :cashes, only: [:index, :show]
+      resources :compositions, only: [:index, :show]
+      resources :discount_profiles, only: [:index, :show]
+      resources :locations, only: [:index, :show]
+      resources :resources, only: [:index, :show]
+      resources :stocks, only: [:index, :show]
     end
   end
 

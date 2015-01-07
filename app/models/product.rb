@@ -170,6 +170,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports,  -> { where(variety: ["cultivable_zone"]) }
   scope :supporters,  -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
+  scope :locations, -> { where(id: nil)}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
