@@ -8555,6 +8555,7 @@ eng:
         base-cutting: "Cutting"
         base-detach: "Detach"
         base-direct_silage: "Direct silage"
+        base-double_chemical_mixing: "Chemical mix with two elements"
         base-double_food_mixing: "Food mix with two elements"
         base-double_seed_mixing: "Seed mix with two elements"
         base-egg_production: "Egg production"
