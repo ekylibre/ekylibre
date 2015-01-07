@@ -21,9 +21,17 @@
           = :empty
       %td
         = :total
+  %tr.budget_line_template.appendable
+    %td
+      = render 'budget_fields_template', direction: :expense
+    - f.object.supports.size.times do
+      %td
+        = render 'budget_item_fields_template'
+    %td
+      = :total
   %tr.empty_budget_line.appendable
     %td.add_budget
-      add budget
+      add expense
     -f.object.supports.each do |support|
       %td{data: {support_id: support.id}}
     %td
@@ -37,9 +45,17 @@
         = render 'budget_fields', budget: revenue
       - f.object.supports.size.times do
         %td
-          = :empty
+          = render 'budget_item_fields'
       %td
         = :total
+  %tr.budget_line_template.appendable
+    %td
+      = render 'budget_fields_template', direction: :revenue
+    - f.object.supports.size.times do
+      %td
+        = render 'budget_item_fields_template'
+    %td
+      = :total
   %tr.empty_budget_line.appendable
     %td.add_budget
       add revenue
