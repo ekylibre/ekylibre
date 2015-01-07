@@ -23,7 +23,7 @@
           = render 'budget_item_fields_template', f: f, support: support, budget: expense
       %td
         = :total
-  %tr.budget_line_template.appendable
+  %tr.expense_template.appendable
     %td
       - b = Budget.create(direction: :expense, production: f.object)
       = render 'budget_fields', budget: b, f: f
@@ -34,7 +34,7 @@
       = :total
   %tr.empty_budget_line.appendable
     %td.add_budget
-      add expense
+      = link_to 'add expense', '#budget', data:{budget_add: :expense}
     -f.object.supports.each do |support|
       %td{data: {support_id: support.id}}
     %td
@@ -51,7 +51,7 @@
           = render 'budget_item_fields_template', f: f, support: support, budget: revenue
       %td
         = :total
-  %tr.budget_line_template.appendable
+  %tr.revenue_template.appendable
     %td
       - b = Budget.create(direction: :revenue, production: f.object)
       = render 'budget_fields', budget: b
@@ -62,7 +62,7 @@
       = :total
   %tr.empty_budget_line.appendable
     %td.add_budget
-      add revenue
+      = link_to 'add revenue', '#budget', data:{budget_add: :revenue}
     -f.object.supports.each do |support|
       %td{data: {support_id: support.id}}
     %td

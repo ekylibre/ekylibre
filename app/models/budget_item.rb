@@ -71,7 +71,7 @@ class BudgetItem < Ekylibre::Record::Base
     budget ||= options[:budget] if options[:budget].is_a? Budget
 
     support ||= ProductionSupport.find(options.slice!(:support_id, :production_support_id).values.first) rescue nil
-    support ||= options.slice(:support, :production_support).values.reject!{|value| value.is_a? ProductionSupport}.to_a.first
+    support ||= options.slice!(:support, :production_support).values.reject!{|value| value.is_a? ProductionSupport}.to_a.compact.first
 
     budget_item = BudgetItem.where(budget: budget, production_support: support).first
     if budget_item.present?
