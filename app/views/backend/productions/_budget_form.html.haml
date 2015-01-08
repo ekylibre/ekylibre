@@ -2,10 +2,8 @@
   -# supports
   %tr.appendable
     %td
-    - f.object.supports.each do |support|
-      %td{data:{support_id: support.id}}
-        = render 'support_fields', support: support
-        = support.working_indicator_value
+    = f.backend_fields_for :supports do |support_form|
+      = render 'support_fields', f: support_form
     %td
       = link_to '+', "#budget", data:{budget_add: :support}
   -# budgets
