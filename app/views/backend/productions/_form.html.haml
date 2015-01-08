@@ -34,6 +34,6 @@
         = :revenues
     = f.backend_fields_for :budgets, show: :revenues do |revenue_form|
       = render 'budget_fields', f: revenue_form
-    %tr#revenues
+    %tr
       %td
-        = link_to_add_association :add_revenue, f, :budgets, partial: 'budget_fields', data:{association_insertion_node: '#revenues', association_insertion_method: :before}
+        = link_to_add_association :add_revenue, f, :budgets, partial: 'budget_fields', data:{association_insertion_node: 'this'}
