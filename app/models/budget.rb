@@ -64,12 +64,9 @@ class Budget < Ekylibre::Record::Base
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
 
-  validate do
-    Budget.all.each do |budget|
-      budget.destroy unless budget.variant.present?
-      budget.supports.each do |support|
-        BudgetItem.find_or_create!(budget, support)
-      end
+  before_validation on: :create do
+    supports.pluck(:id).each do |support_id|
+      BudgetItem.find_or_create! budget_id: id, support_id: support_id
     end
   end
 end
