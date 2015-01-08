@@ -1,9 +1,10 @@
-%tr.appendable.nested_fields
+%tr.nested-fields
   %td
-    -#= f.referenced_association :variant, wrapper: :nested
+    = f.referenced_association :variant
     = f.input :computation_method
     = f.input :unit_amount
     = f.input :currency
     = f.input :working_indicator
     = f.input :working_unit
-    = link_to :remove, "#budget", class: :destroy, data:{budget: :remove}
+    = f.input :direction
+    = link_to_remove_nested_association(:budget, f)

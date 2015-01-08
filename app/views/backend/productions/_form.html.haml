@@ -13,12 +13,13 @@
 
 = field_set(:budgets) do
   %table
-    %tr.appendable
+    %tr
       %td
         = :void
+      = f.backend_fields_for :supports do |support_form|
+        = render 'support_fields', f: support_form
       %td
-        = f.backend_fields_for :supports do |support_form|
-          = render 'support_fields', f: support_form
+        = link_to_add_association :add_support, f, :supports, partial: 'support_fields'
     %tr
       %td{colspan: '100%'}
         = f.input :homogeneous_expenses, wrapper: :nested
@@ -27,5 +28,8 @@
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
         = :revenues
-  -#= f.nested_association :budgets do |expense_form|
-    = render 'budget_form', f: expense_form
+    -#= f.backend_fields_for :budgets do |budget_form|
+      = render 'budget_fields', f: budget_form
+    %tr
+      %td
+        = link_to_add_association :add_budget, f, :budgets, partial: 'budget_fields'
