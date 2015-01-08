@@ -23,7 +23,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll
 
-  list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :code])) do |t|
+  list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :number])) do |t|
     t.column :number, url: true
     t.column :recipient, url: true
     t.column :with_transport

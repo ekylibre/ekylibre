@@ -8575,6 +8575,7 @@ fra:
         base-cutting: "Taille"
         base-detach: "Détellage"
         base-direct_silage: "Ensilage direct"
+        base-double_chemical_mixing: "Mélange d'intrants de protection des végétaux avec deux produits"
         base-double_food_mixing: "Mélange alimentaire avec deux ingrédients"
         base-double_seed_mixing: "Mélange de semences avec deux semences"
         base-egg_production: "Production d'oeufs"

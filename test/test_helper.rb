@@ -265,6 +265,8 @@ class ActionController::TestCase
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
+          test_code << "get :#{action}, #{sanitized_params[q: 'abc']}\n"
+          test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
           if params[:format] == :json
           # TODO: JSON parsing test
           else

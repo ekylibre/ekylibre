@@ -45,6 +45,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :sale_item
   has_one :category, through: :variant
+  has_one :product_ownership, as: :originator, dependent: :destroy
   has_one :variant, through: :product
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

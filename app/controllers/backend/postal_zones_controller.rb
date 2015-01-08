@@ -24,7 +24,7 @@ class Backend::PostalZonesController < BackendController
 
   autocomplete_for :name
 
-  list(conditions: search_conditions(postal_zones: [:postcode, :name]), order: :name) do |t|
+  list(conditions: search_conditions(postal_zones: [:postal_code, :name]), order: :name) do |t|
     t.column :name
     t.column :postal_code
     t.column :city

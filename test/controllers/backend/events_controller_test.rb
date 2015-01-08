@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::EventsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :except=>[:change_minutes]
+  test_restfully_all_actions except: [:change_minutes]
 end
