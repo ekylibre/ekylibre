@@ -21,27 +21,37 @@ class Backend::InterventionsController < BackendController
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll
-
+  
+  # params:
+  #   :q Text search
+  #   :state State search
+  #   :campaign_id
+  #   :product_nature_id
+  #   :storage_id
   def self.interventions_conditions
     code = ""
-    code = search_conditions(:interventions => [:state], :activities => [:name], :campaigns => [:name], :productions => [:name], :products => [:name]) + " ||= []\n"
+    code = search_conditions(:interventions => [:state, :number], :activities => [:name], :campaigns => [:name], :productions => [:name], :products => [:name]) + " ||= []\n"
     code << "unless params[:state].blank?\n"
-    code << "  c[0] << ' AND state IN ?'\n"
+    code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
     code << "  c << params[:state].flatten\n"
     code << "end\n"
     code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
-    code << "if params[:mode] == 'next'\n"
-    code << "elsif params[:mode] == 'previous'\n"
-    code << "elsif params[:mode] != 'all'\n" # currents
+    code << "if params[:campaign_id].to_i > 0\n"
+    code << "  c[0] << ' AND #{Intervention.table_name}.production_id IN (SELECT id FROM #{Production.table_name} WHERE campaign_id IN (?))'\n"
+    code << "  c << params[:campaign_id].to_i\n"
     code << "end\n"
+    code << "if params[:storage_id].to_i > 0\n"
+    code << "  c[0] << ' AND production_support_id IN (SELECT id FROM #{ProductionSupport.table_name} WHERE storage_id IN (?))'\n"
+    code << "  c << params[:storage_id].to_i\n"
+    code << "end\n"   
     code << "c\n "
     return code.c
   end
-
+  
   # INDEX
   # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
 
-  list(order: {started_at: :desc}, line_class: :status) do |t|
+  list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: {started_at: :desc}, line_class: :status) do |t|
     t.column :name, sort: :reference_name, url: true
     t.column :production, url: true, hidden: true
     t.column :campaign, url: true
@@ -51,7 +61,7 @@ class Backend::InterventionsController < BackendController
     t.column :stopped_at, hidden: true
     t.status
     t.column :issue, url: true
-    t.column :casting
+    t.column :casting, hidden: true
     t.action :new,  on: :none
     t.action :run,  if: :runnable?, method: :post, confirm: true
     t.action :edit, if: :updateable?

@@ -168,7 +168,8 @@ class Product < Ekylibre::Record::Base
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_zone"]) }
-  scope :supporters,  -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
+  scope :supportables,  -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
+  scope :supporters,  -> { where(id: ProductionSupport.pluck(:storage_id)) }
   scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -249,6 +250,9 @@ class Product < Ekylibre::Record::Base
     self.dead_at.nil? and !self.population.zero?
   end
 
+  def unroll_name
+    return "unrolls.backend/products".t(self.attributes.symbolize_keys.merge(population: self.population, unit_name: self.unit_name))
+  end
 
   # set initial owner and localization
   def set_initial_values
