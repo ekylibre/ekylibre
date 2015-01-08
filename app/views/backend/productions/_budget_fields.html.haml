@@ -1,9 +1,9 @@
-.nested_fields
-= backend_fields_for budget, wrapper: :nested do |f|
-  = f.referenced_association :variant, wrapper: :nested
-  = f.input :computation_method
-  = f.input :unit_amount
-  = f.input :currency
-  = f.input :working_indicator
-  = f.input :working_unit
-  = link_to :remove, "#budget", class: :destroy, data:{budget: :remove}
+%tr.appendable.nested_fields
+  %td
+    -#= f.referenced_association :variant, wrapper: :nested
+    = f.input :computation_method
+    = f.input :unit_amount
+    = f.input :currency
+    = f.input :working_indicator
+    = f.input :working_unit
+    = link_to :remove, "#budget", class: :destroy, data:{budget: :remove}

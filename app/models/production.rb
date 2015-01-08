@@ -53,6 +53,9 @@ class Production < Ekylibre::Record::Base
   belongs_to :support_variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
   has_many :budgets
+  has_many :expenses, -> {budgets.where(direction: :expense)}
+  has_many :revenues, -> {budgets.where(direction: :revenue)}
+
   has_many :distributions, class_name: "AnalyticDistribution"
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :markers, through: :supports, class_name: "ProductionSupportMarker"

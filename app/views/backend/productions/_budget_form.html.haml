@@ -1,18 +1,11 @@
 %table.budget{data: {production_id: f.object.id}}
-  -# supports
-  %tr.appendable
-    %td
-    = f.backend_fields_for :supports do |support_form|
-      = render 'support_fields', f: support_form
-    %td
-      = link_to '+', "#budget", data:{budget_add: :support}
-  -# budgets
-  -# expenses
   %tr
     %td{colspan: '100%'}
       = f.input :homogeneous_expenses, wrapper: :nested
       = :expenses
-  - f.object.budgets.expenses.each do |expense|
+  -#= f.backend_fields_for :budgets do |expense_form|
+    = render 'budget_fields', f: expense_form
+  -# f.object.budgets.expenses.each do |expense|
     %tr.appendable{data: {budget_id: expense.id, direction: :expense}}
       %td
         = render 'budget_fields', budget: expense, f: f
