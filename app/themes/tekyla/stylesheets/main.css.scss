@@ -663,12 +663,11 @@ form.search {
   height: 300px;
 }
 
-.big-info {
+.big-info, .med-info {
   padding: 3 * $default-gap $default-gap;
   @include box-sizing(border-box);
 
   .title {
-    // margin-bottom: -2 * $default-gap;
     display: block;
     color: #777;
     font-size: $fs-large;
@@ -717,11 +716,30 @@ form.search {
 
 }
 
+.med-info {
+  padding: 1.5 * $default-gap $default-gap;
+
+  .title {
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+  }
+  .value {
+    &, * {
+      font-family: $awesome-font-family;
+      font-size: $fs-very-huge;
+      line-height: $lh-very-huge;
+    }
+    .picto {
+      @include is-icon(48px);
+    }
+  }
+}
+
 
 .big-infos {
   @include respond-to-bigger-than(medium) {
     @include clearfix;
-    .big-info {
+    .big-info, med-info {
       width: 50%;
       @include float(left);
     }
