@@ -1,3 +1,4 @@
+- direction ||= f.object.direction
 %tr.budget_nested_fields
   %td
     = link_to_remove_association(:remove_budget, f, wrapper_class: :budget_nested_fields)
@@ -8,5 +9,5 @@
     = f.input :currency
     = f.input :working_indicator
     = f.input :working_unit
-    = f.input :direction
+    = f.input :direction, selected: direction, as: :hidden
   = f.backend_fields_for :items
