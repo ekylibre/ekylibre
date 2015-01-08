@@ -40,22 +40,15 @@ class BudgetItem < Ekylibre::Record::Base
   validates_length_of :currency, allow_nil: true, maximum: 255
   validates_presence_of :budget, :global_amount, :production_support, :quantity
   #]VALIDATORS]
+  validates_presence_of :budget, :production_support
   validates_uniqueness_of :production_support_id, scope: :budget_id
 
   belongs_to :budget, inverse_of: :items, dependent: :destroy
   belongs_to :production_support
 
-  delegate :computation_method, to: :budget
+  #delegate :computation_method, to: :budget
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
-
-  before_validation do
-    quantity = 1 if computation_method == :per_production_support
-  end
-
-  validate do
-    global_amount = budget.unit_amount * quantity
-  end
 
   def self.find_or_create!(*args)
     options = args.extract_options!

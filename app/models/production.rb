@@ -53,8 +53,8 @@ class Production < Ekylibre::Record::Base
   belongs_to :support_variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
   has_many :budgets
-  has_many :expenses, -> {budgets.where(direction: :expense)}
-  has_many :revenues, -> {budgets.where(direction: :revenue)}
+  has_many :expenses, -> {where(direction: :expense)}, class_name: 'Budget'
+  has_many :revenues, -> {where(direction: :revenue)}, class_name: 'Budget'
 
   has_many :distributions, class_name: "AnalyticDistribution"
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
@@ -98,8 +98,8 @@ class Production < Ekylibre::Record::Base
   }
 
 
-  accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :budgets, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :supports, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :budgets, :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
 
   state_machine :state, :initial => :draft do
     state :draft

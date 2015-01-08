@@ -64,9 +64,4 @@ class Budget < Ekylibre::Record::Base
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
 
-  before_validation on: :create do
-    supports.pluck(:id).each do |support_id|
-      BudgetItem.find_or_create! budget_id: id, support_id: support_id
-    end
-  end
 end
