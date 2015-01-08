@@ -1962,6 +1962,7 @@ eng:
         fermentation: "Fermentation"                       #< transformation
         filling: "Filling"
         filtration: "Filtration"                           #< transformation
+        food_mixing: "Food mixing"                         #< animal_nutrition
         food_supply: "Food supply"                         #< animal_nutrition
         grain_transport: "Grain transport"                 #< transport
         grains_harvest: "Grains harvest"                   #< harvest
@@ -1986,6 +1987,7 @@ eng:
         physical_weed_killing: "Physical weed killing"     #< weed_killing
         piece_replacement: "Piece replacement"             #< maintenance_task
         plant_care: "Plant care"
+        plant_chemical_mixing: "Plant chemical mixing"     #< plant_care
         plant_fertilisation: "Plant fertilisation"         #< plant_nutrition
         plant_illness_treatment: "Plant illness treatment" #< plant_care
         plant_irrigation: "Plant irrigation"               #< plant_nutrition
@@ -1995,10 +1997,12 @@ eng:
         pruning: "Pruning"
         raking: "Raking"                                   #< tillage
         remontage: "Remontage"                             #< transformation
+        seed_mixing: "Seed mixing"                         #< implantation
         silage: "Silage"                                   #< harvest
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"
         sowing: "Sowing"                                   #< implantation
+        straw_processing: "Straw processing"               #< harvest
         straw_transport: "Straw transport"                 #< transport
         thermal_weed_killing: "Thermal weed killing"       #< weed_killing
         tillage: "Tillage"

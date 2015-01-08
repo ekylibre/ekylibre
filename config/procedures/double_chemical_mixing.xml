@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="double_chemical_mixing" natures="mixing" version="0" status="frozen">
+  <procedure name="double_chemical_mixing" natures="plant_chemical_mixing" version="0" status="frozen">
     <variables>
       <variable name="first_chemical_input" variety="preparation" abilities="care(plant)"/>
-      <variable name="first_chemical_input_to_use" new="parted-from: first_chemical_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="first_chemical_input_to_use" new="parted-from: first_chemical_input" roles="plant_chemical_mixing-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass" unit="kilogram"   to="population" if="first_chemical_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
@@ -15,7 +15,7 @@
                  /> <!-- l    -->
       </variable>
       <variable name="second_chemical_input"        variety="preparation" abilities="care(plant)"/>
-      <variable name="second_chemical_input_to_use" new="parted-from: second_chemical_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="second_chemical_input_to_use" new="parted-from: second_chemical_input" roles="plant_chemical_mixing-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass" unit="kilogram"   to="population" if="second_chemical_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
@@ -26,8 +26,8 @@
                  backward="value * self..net_volume(liter)"
                  /> <!-- l    -->
       </variable>
-      <variable name="worker"       variety="worker" roles="mixing-doer"/>
-      <variable name="chemical_mix"  variety="preparation" new="produced-by: first_chemical_input" roles="mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
+      <variable name="worker"       variety="worker" roles="plant_chemical_mixing-doer"/>
+      <variable name="chemical_mix"  variety="preparation" new="produced-by: first_chemical_input" roles="plant_chemical_mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
 	<handler indicator="population" />
       </variable>
     <variable name="chemical_storage" abilities="store(preparation)" />

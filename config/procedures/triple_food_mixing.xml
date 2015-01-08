@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="triple_food_mixing" natures="mixing" version="0" status="frozen">
+  <procedure name="triple_food_mixing" natures="food_mixing" version="0" status="frozen">
     <variables>
       <variable name="first_food_input"        variety="mix" abilities="feed(animal)"/>
-      <variable name="first_food_input_to_use" new="parted-from: first_food_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="first_food_input_to_use" new="parted-from: first_food_input" roles="food_mixing-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass" unit="kilogram"   to="population" if="first_food_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
@@ -15,7 +15,7 @@
                  /> <!-- t    -->
       </variable>
       <variable name="second_food_input"        variety="mix" abilities="feed(animal)"/>
-      <variable name="second_food_input_to_use" new="parted-from: second_food_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="second_food_input_to_use" new="parted-from: second_food_input" roles="food_mixing-input" default-name="{{variant}} ({{container}})">
       	<handler indicator="population" />
       	<handler indicator="net_mass" unit="kilogram"   to="population" if="second_food_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
@@ -27,7 +27,7 @@
                  /> <!-- t    -->
       </variable>
       <variable name="third_food_input"        variety="mix" abilities="feed(animal)"/>
-      <variable name="third_food_input_to_use" new="parted-from: third_food_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="third_food_input_to_use" new="parted-from: third_food_input" roles="food_mixing-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass" unit="kilogram"   to="population" if="third_food_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
@@ -38,8 +38,8 @@
                  backward="value * self..net_mass(ton)"
                  /> <!-- t    -->
       </variable>
-      <variable name="worker"       variety="worker" roles="mixing-doer"/>
-      <variable name="food_mix"  variety="mix" new="produced-by: first_food_input" roles="mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
+      <variable name="worker"       variety="worker" roles="food_mixing-doer"/>
+      <variable name="food_mix"  variety="mix" new="produced-by: first_food_input" roles="food_mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
 	<handler indicator="population" />
       </variable>
     <variable name="food_storage" abilities="store(mix)" />
