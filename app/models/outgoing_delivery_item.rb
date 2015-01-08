@@ -64,7 +64,21 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
     end
     true
   end
-
+  
+  after_create do
+    if self.delivery.done?
+      self.create_product_ownership!(product_id: self.product_id, started_at: self.delivery.sent_at, owner_id: self.delivery.recipient_id)
+    end
+  end
+  
+  after_update do
+    if self.delivery.done?
+      self.product_ownership.update_attributes!(product_id: self.product_id, started_at: self.delivery.sent_at, owner_id: self.delivery.recipient_id)
+    else
+      self.product_ownership.destroy!
+    end
+  end
+  
   # validate(on: :create) do
   #   if self.source_product
   #     maximum = self.source_product.population || 0

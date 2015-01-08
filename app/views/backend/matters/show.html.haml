@@ -25,6 +25,10 @@
         .big-info.important
           %span.title= Matter.human_attribute_name(:net_mass)
           %span.value= resource.net_mass.l
+      - if resource.current_ownership and resource.current_ownership.owner_id != Entity.of_company.id
+        .med-info.important
+          %span.title= Product.human_attribute_name(:owner)
+          %span.value= Entity.find(resource.current_ownership.owner_id).name
       = attributes_list do |l| # liste des champs à afficher
         - l.attribute :name
         - l.attribute :variety, url: true
@@ -68,7 +72,7 @@
         - t.new(params: {controller: :interventions})
       = list(:intervention_casts)
 
-  - b.hbox do
+  -# b.hbox do
     - b.cell(:groups) do
       = list(:groups)
 

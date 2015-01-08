@@ -90,7 +90,11 @@ class OutgoingDelivery < Ekylibre::Record::Base
       end
     end
   end
-
+  
+  after_update do
+    self.items.each(&:save!)
+  end
+  
   # protect do
   #   self.with_transport and self.transporter
   # end
@@ -125,7 +129,11 @@ class OutgoingDelivery < Ekylibre::Record::Base
   # def quantity
   #   0
   # end
-
+  
+  def done?
+    self.sent_at.present?
+  end
+  
   def address_coordinate
     self.address.coordinate if self.address
   end
