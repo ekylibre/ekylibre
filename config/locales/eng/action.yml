@@ -930,11 +930,11 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths"
-    interventions_selections:
-      done: "Done"
-      provisional: "Provisional"
-      recommended: "Recommended"
-      undone: "Undone"
+    interventions_selections: #?!
+      done: "Done" #?!
+      provisional: "Provisional" #?!
+      recommended: "Recommended" #?!
+      undone: "Undone" #?!
     inventories: "Inventories"
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?

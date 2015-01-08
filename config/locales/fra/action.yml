@@ -762,6 +762,7 @@ fra:
     casting: "Casting"
     casts: "Intervenants"
     catalog: "Description pour catalogue"
+    # catalog_items: "Catalog items"
     category: "Catégorie"
     category_name: "Catégorie"
     cells_concentration: "Dénombrement des cellules somatiques" #?
@@ -1040,6 +1041,11 @@ fra:
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
+    interventions_selections:
+      done: "Fait"
+      provisional: "Prévisionnelle"
+      recommended: "Préconisée"
+      undone: "En attente"
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?

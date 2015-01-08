@@ -55,7 +55,7 @@ class Journal < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_uniqueness_of :name
-  validates_format_of :code, with: /\A[\dA-Z]+\z/ 
+  validates_format_of :code, with: /\A[\dA-Z]+\z/
 
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 

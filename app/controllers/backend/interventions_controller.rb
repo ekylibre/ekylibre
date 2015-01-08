@@ -21,7 +21,7 @@ class Backend::InterventionsController < BackendController
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll
-  
+
   # params:
   #   :q Text search
   #   :state State search
@@ -43,11 +43,11 @@ class Backend::InterventionsController < BackendController
     code << "if params[:storage_id].to_i > 0\n"
     code << "  c[0] << ' AND production_support_id IN (SELECT id FROM #{ProductionSupport.table_name} WHERE storage_id IN (?))'\n"
     code << "  c << params[:storage_id].to_i\n"
-    code << "end\n"   
+    code << "end\n"
     code << "c\n "
     return code.c
   end
-  
+
   # INDEX
   # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
 

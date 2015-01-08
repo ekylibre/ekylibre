@@ -1045,6 +1045,7 @@ arb:
     # casting: "Casting"
     # casts: "Casts"
     catalog: "مواصفات للفهرس"
+    # catalog_items: "Catalog items"
     # category: "Category"
     # category_name: "Category"
     centralize: "مركزية حسابات المحاسب"
@@ -1327,6 +1328,11 @@ arb:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
+    interventions_selections:
+      # done: "Done"
+      # provisional: "Provisional"
+      # recommended: "Recommended"
+      # undone: "Undone"
     # inventories: "Inventories"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
