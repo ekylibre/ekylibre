@@ -46,8 +46,10 @@ class Budget < Ekylibre::Record::Base
   validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   #]VALIDATORS]
+  validates_presence_of :variant
+
   has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id
-  has_many :supports, through: :production
+  has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
 
@@ -57,7 +59,7 @@ class Budget < Ekylibre::Record::Base
   enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration')
   enumerize :working_unit, in: Nomen::Units.all
 
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, allow_destroy: true
 
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}

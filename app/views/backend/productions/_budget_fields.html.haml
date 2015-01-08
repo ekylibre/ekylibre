@@ -1,5 +1,6 @@
 %tr.nested-fields
   %td
+    = link_to_remove_nested_association(:budget, f)
     = f.referenced_association :variant
     = f.input :computation_method
     = f.input :unit_amount
@@ -7,4 +8,4 @@
     = f.input :working_indicator
     = f.input :working_unit
     = f.input :direction
-    = link_to_remove_nested_association(:budget, f)
+  -#= f.backend_fields_for :items

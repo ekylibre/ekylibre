@@ -70,6 +70,7 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :working_indicator, :working_unit, to: :production
 
   accepts_nested_attributes_for :markers, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :budget_items, allow_destroy: true
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!

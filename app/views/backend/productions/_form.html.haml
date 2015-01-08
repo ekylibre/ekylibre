@@ -24,12 +24,17 @@
       %td{colspan: '100%'}
         = f.input :homogeneous_expenses, wrapper: :nested
         = :expenses
+    = f.backend_fields_for :budgets, show: :expenses do |expense_form|
+      = render 'budget_fields', f: expense_form
+    %tr#expenses
+      %td
+        = link_to_add_association :add_expense, f, :budgets, partial: 'budget_fields', data:{association_insertion_node: '#expenses', association_insertion_method: :before}
     %tr
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
         = :revenues
-    -#= f.backend_fields_for :budgets do |budget_form|
-      = render 'budget_fields', f: budget_form
-    %tr
+    = f.backend_fields_for :budgets, show: :revenues do |revenue_form|
+      = render 'budget_fields', f: revenue_form
+    %tr#revenues
       %td
-        = link_to_add_association :add_budget, f, :budgets, partial: 'budget_fields'
+        = link_to_add_association :add_revenue, f, :budgets, partial: 'budget_fields', data:{association_insertion_node: '#revenues', association_insertion_method: :before}
