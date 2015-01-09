@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # Depends-on: icoutils inkscape
 
+script=`readlink -f $0`
+here=`dirname $script`
+
+cd $here/../app/assets/images/icon/
+
 for size in 16 48 57 72 114 144 512 720 1024
 do
     inkscape -z --export-png=icon-${size}px.png --export-width=${size} --export-height=${size} icon.svg
