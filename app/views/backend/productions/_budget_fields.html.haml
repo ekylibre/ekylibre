@@ -10,4 +10,5 @@
     = f.input :working_indicator
     = f.input :working_unit
     = f.input :direction, selected: direction
-  = f.backend_fields_for :items
+  = f.fields_for :items do |item_form|
+    = render 'item_fields', f: item_form
