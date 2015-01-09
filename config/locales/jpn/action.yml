@@ -503,7 +503,7 @@ jpn:
       # load: "Load missing sequences"
       # new: "New sequence"
     backend/settings:
-      # about: "About Ekylibre ERP"
+      # about: "About Ekylibre"
       # edit: "Configuration"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
@@ -687,6 +687,7 @@ jpn:
     # casting: "Casting"
     # casts: "Casts"
     # catalog: "Catalog"
+    # catalog_items: "Catalog items"
     # category: "Category"
     # category_name: "Category"
     # centralize: "Centralize account"
@@ -887,6 +888,11 @@ jpn:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
+    interventions_selections:
+      # done: "Done"
+      # provisional: "Provisional"
+      # recommended: "Recommended"
+      # undone: "Undone"
     # inventories: "Inventories"
     # inventory: "Inventory"
     # invoiced_amount: "Sales invoiced amount"
@@ -952,7 +958,7 @@ jpn:
       # finances: "Finances"
       # general: "General"
       # home: "Home"
-      # index: "Ekylibre ERP"
+      # index: "Ekylibre"
       # mandates: "Responsibilities"
       # production: "Production"
       # purchases: "Purchases"

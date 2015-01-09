@@ -556,7 +556,7 @@ eng:
       new: "New sequence"
       # show: "Sequence: %{name}"
     backend/settings:
-      about: "About Ekylibre ERP"
+      about: "About Ekylibre"
       edit: "Configuration"
     backend/settlements:
       edit: "Edit settlement: %{name}"
@@ -793,7 +793,7 @@ eng:
     casting: "Casting"
     casts: "Casts"
     catalog: "Catalog" #?
-    # catalog_items: "Catalog items"
+    catalog_items: "Catalog items"
     category: "Category"
     category_name: "Category" #?
     centralize: "Centralize account"
@@ -990,6 +990,11 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths"
+    interventions_selections: #?!
+      done: "Done" #?!
+      provisional: "Provisional" #?!
+      recommended: "Recommended" #?!
+      undone: "Undone" #?!
     inventories: "Inventories"
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?
@@ -1050,7 +1055,7 @@ eng:
       finances: "Finances"
       general: "General"
       home: "Home"
-      index: "Ekylibre ERP"
+      index: "Ekylibre"
       mandates: "Responsibilities"
       production: "Production"
       purchases: "Purchases"
@@ -1123,7 +1128,7 @@ eng:
       unparted: "Unused" #?!
       waiting: "To deposit later" #?!
     page_title: "%{company_code} · %{menu} · %{action}"
-    page_title_by_default: "Ekylibre ERP · %{action}"
+    page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?

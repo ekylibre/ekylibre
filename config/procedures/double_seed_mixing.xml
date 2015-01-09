@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="double_seed_mixing" natures="mixing" version="0" status="frozen">
+  <procedure name="double_seed_mixing" natures="seed_mixing" version="0" status="frozen">
     <variables>
       <variable name="first_seed_input"        variety="seed" abilities="grow"/>
-      <variable name="first_seed_input_to_use" new="parted-from: first_seed_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="first_seed_input_to_use" new="parted-from: first_seed_input" roles="seed_mixing-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass" unit="kilogram"   to="population" if="first_seed_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
@@ -11,15 +11,15 @@
                  /> <!-- kg    -->
       </variable>
       <variable name="second_seed_input"        variety="seed" abilities="grow"/>
-      <variable name="second_seed_input_to_use" new="parted-from: second_seed_input" roles="mixing-input" default-name="{{variant}} ({{container}})">
+      <variable name="second_seed_input_to_use" new="parted-from: second_seed_input" roles="seed_mixing-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass" unit="kilogram"   to="population" if="second_seed_input.net_mass(kilogram) > 0"
                  forward="value / self..net_mass(kilogram)"
                  backward="value * self..net_mass(kilogram)"
                  /> <!-- kg    -->
       </variable>
-      <variable name="worker"       variety="worker" roles="mixing-doer"/>
-      <variable name="seed_mix"  variety="seed" new="produced-by: first_seed_input" roles="mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
+      <variable name="worker"       variety="worker" roles="seed_mixing-doer"/>
+      <variable name="seed_mix"  variety="seed" new="produced-by: first_seed_input" roles="seed_mixing-output" hidden="true" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" >
 	<handler indicator="population" />
       </variable>
     <variable name="seed_storage" abilities="store(seed)" />

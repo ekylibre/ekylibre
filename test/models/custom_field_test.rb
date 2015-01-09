@@ -3,7 +3,7 @@
 #
 # == License
 #
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2015 Brice Texier, David Joulin

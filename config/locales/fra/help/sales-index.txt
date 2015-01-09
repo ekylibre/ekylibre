@@ -1,7 +1,7 @@
 ====== Les ventes ======
 
 ===== Qu'est-ce qu'une vente ? =====
-Sous Ekylibre ERP, la vente est le processus qui part du devis, en passant par la commande avec ou sans livraison, puis la facturation et enfin le règlement de cette dernière.
+Sous Ekylibre, la vente est le processus qui part du devis, en passant par la commande avec ou sans livraison, puis la facturation et enfin le règlement de cette dernière.
 
 ===== La liste des ventes =====
 La liste des ventes répertorie toutes les ventes réalisées pour vos différents clients. Vous pouvez **rechercher** une vente par son **numéro**, **montant HT et TTC**, **nom et code client**, ainsi que sélectionner uniquement les **ventes en cours** ou **impayées**.

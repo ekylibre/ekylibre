@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # == License
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ class Backend::PurchasesController < BackendController
 
   unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
-  list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
+  list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:number, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
     t.column :number, url: {action: :show, step: :default}
     t.column :reference_number, url: {action: :show, step: :products}
     t.column :created_at

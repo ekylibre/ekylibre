@@ -782,6 +782,7 @@ fra:
     casting: "Casting"
     casts: "Intervenants"
     catalog: "Description pour catalogue"
+    catalog_items: "Éléments de catalogue"
     category: "Catégorie"
     category_name: "Catégorie"
     cells_concentration: "Dénombrement des cellules somatiques" #?
@@ -1060,6 +1061,11 @@ fra:
     interventions: "Interventions"
     interventions_count: "Nombre d’interventions"
     interventions_paths: "Chemins d’interventions"
+    interventions_selections:
+      done: "Fait"
+      provisional: "Prévisionnelle"
+      recommended: "Préconisée"
+      undone: "En attente"
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
@@ -1167,7 +1173,7 @@ fra:
       finances: "Finances"
       general: "Général"
       home: "Accueil"
-      index: "Ekylibre ERP"
+      index: "Ekylibre"
       mandates: "Responsabilités"
       production: "Production"
       purchases: "Achats"
@@ -1276,7 +1282,7 @@ fra:
       unparted: "Non affectés"
       waiting: "À décaisser plus tard"
     page_title: "%{company_code} · %{menu} · %{action}"
-    page_title_by_default: "Ekylibre ERP · %{action}"
+    page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"

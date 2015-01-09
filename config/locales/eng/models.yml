@@ -832,6 +832,7 @@ eng:
     product_nature_categories: "Product type categories"
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
+    # product_ownership: "Product ownership"
     product_ownerships: "Product ownerships"
     product_phases: "Product phases"
     product_quadruple_mixings: "Product quadruple mixings"

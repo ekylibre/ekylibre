@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2015 Brice Texier, David Joulin
@@ -66,7 +66,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   validates_presence_of :sent_at, unless: :with_transport
   validates_presence_of :transporter, if: :with_transport
 
-  accepts_nested_attributes_for :items, reject_if: :all_blank
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   # autosave :transport
   acts_as_numbered
@@ -89,6 +89,10 @@ class OutgoingDelivery < Ekylibre::Record::Base
         errors.add :transporter_id, :invalid
       end
     end
+  end
+
+  after_update do
+    self.items.each(&:save!)
   end
 
   # protect do
@@ -125,6 +129,10 @@ class OutgoingDelivery < Ekylibre::Record::Base
   # def quantity
   #   0
   # end
+
+  def done?
+    self.sent_at.present?
+  end
 
   def address_coordinate
     self.address.coordinate if self.address

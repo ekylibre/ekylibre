@@ -1,5 +1,5 @@
 # Create or updates cultivable zones
-Exchanges.add_importer :ekylibre_erp_cultivable_zones do |file, w|
+Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
 
   rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
   w.count = rows.size

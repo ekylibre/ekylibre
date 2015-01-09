@@ -1,8 +1,8 @@
 %td.nested-fields
   = link_to_remove_nested_association(:support, f)
-  = f.referenced_association :storage
-  = f.input :started_at
-  = f.input :stopped_at
+  = f.referenced_association(:storage, :source => :supportables)
+  = f.input(:started_at)
+  = f.input(:stopped_at)
   = f.input :nature
   = f.input :irrigated
   = f.object.working_indicator_value

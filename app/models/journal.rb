@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2015 Brice Texier, David Joulin
@@ -55,6 +55,7 @@ class Journal < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_uniqueness_of :name
+  validates_format_of :code, with: /\A[\dA-Z]+\z/
 
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 

@@ -893,6 +893,7 @@ spa:
     # casting: "Casting"
     # casts: "Casts"
     # catalog: "Catalog"
+    # catalog_items: "Catalog items"
     # category: "Category"
     # category_name: "Category"
     centralize: "Cuentos contables centralizadores"
@@ -1128,6 +1129,11 @@ spa:
     # interventions: "Interventions"
     # interventions_count: "Interventions count"
     # interventions_paths: "Interventions paths"
+    interventions_selections:
+      # done: "Done"
+      # provisional: "Provisional"
+      # recommended: "Recommended"
+      # undone: "Undone"
     # inventories: "Inventories"
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
@@ -1210,7 +1216,7 @@ spa:
       # finances: "Finances"
       # general: "General"
       # home: "Home"
-      # index: "Ekylibre ERP"
+      # index: "Ekylibre"
       # mandates: "Responsibilities"
       # production: "Production"
       # purchases: "Purchases"

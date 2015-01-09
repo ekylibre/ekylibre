@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2015 Brice Texier, David Joulin
@@ -45,6 +45,8 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :sale_item
   has_one :category, through: :variant
+  has_one :product_ownership, as: :originator, dependent: :destroy
+  has_one :recipient, through: :delivery
   has_one :variant, through: :product
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -53,6 +55,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   delegate :net_mass, to: :product
+  delegate :sent_at, to: :delivery
 
   sums :delivery, :items, :net_mass, from: :measure
 
@@ -62,6 +65,24 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
       self.shape = self.product.shape if self.product.shape
     end
     true
+  end
+
+  # Create product ownership linked to product
+  after_save do
+    if self.delivery.done?
+      attributes = {
+        product_id: self.product_id,
+        started_at: self.sent_at,
+        owner_id: self.recipient.id
+      }
+      if self.product_ownership
+        self.product_ownership.update_attributes!(attributes)
+      else
+        self.create_product_ownership!(attributes)
+      end
+    else
+      self.product_ownership.destroy!
+    end
   end
 
   # validate(on: :create) do

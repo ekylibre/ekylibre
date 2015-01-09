@@ -1,5 +1,5 @@
 # Create or updates entities
-Exchanges.add_importer :ekylibre_erp_settings do |file, w|
+Exchanges.add_importer :ekylibre_settings do |file, w|
 
   manifest = YAML.load_file(file) || {}
   manifest.deep_symbolize_keys!

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # == License
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 #
 
 class Backend::OutgoingPaymentsController < BackendController
-  manage_restfully :to_bank_at => "Date.today".c, :paid_at => "Date.today".c, :responsible_id => "current_user.id".c, :payee_id => "params[:payee_id]".c, :amount => "params[:amount].to_f".c, t3e: {payee: "RECORD.payee.full_name".c}
+  manage_restfully :to_bank_at => "Date.today".c, :paid_at => "Date.today".c, :responsible_id => "current_user.id".c, :amount => "params[:amount].to_f".c, t3e: {payee: "RECORD.payee.full_name".c}
 
   unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
 

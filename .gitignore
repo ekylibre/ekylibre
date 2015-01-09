@@ -7,6 +7,7 @@
 # Ignore bundler config.
 .bundle
 .rspec
+.settings
 /pkg
  
 # Ignore IDE files

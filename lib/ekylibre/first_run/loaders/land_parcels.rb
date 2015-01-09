@@ -27,7 +27,7 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
         FileUtils.rm_rf(mimefile)
 
         if file.exist?
-          first_run.import(:ekylibre_erp_georeadings, file)
+          first_run.import(:ekylibre_georeadings, file)
         end
       end
     end
@@ -35,23 +35,23 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
 
   path = first_run.path("alamano", "land_parcels.csv")
   if path.exist?
-    first_run.import(:ekylibre_erp_land_parcels, path)
+    first_run.import(:ekylibre_land_parcels, path)
   end
 
   path = first_run.path("alamano", "cultivable_zones.csv")
   if path.exist?
-    first_run.import(:ekylibre_erp_cultivable_zones, path)
+    first_run.import(:ekylibre_cultivable_zones, path)
   end
 
   # TODO: Remove this file. Use plants instead.
   path = first_run.path("alamano", "cultivations.csv")
   if path.exist?
-    first_run.import(:ekylibre_erp_plants, path)
+    first_run.import(:ekylibre_plants, path)
   end
 
   path = first_run.path("alamano", "plants.csv")
   if path.exist?
-    first_run.import(:ekylibre_erp_plants, path)
+    first_run.import(:ekylibre_plants, path)
   end
 
 

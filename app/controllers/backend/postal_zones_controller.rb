@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # == License
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ class Backend::PostalZonesController < BackendController
 
   autocomplete_for :name
 
-  list(conditions: search_conditions(postal_zones: [:postcode, :name]), order: :name) do |t|
+  list(conditions: search_conditions(postal_zones: [:postal_code, :name]), order: :name) do |t|
     t.column :name
     t.column :postal_code
     t.column :city

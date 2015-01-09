@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # == License
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll
 
-  list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :code])) do |t|
+  list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :number])) do |t|
     t.column :number, url: true
     t.column :recipient, url: true
     t.column :with_transport

@@ -2,7 +2,7 @@
 #
 # == License
 #
-# Ekylibre ERP - Simple agricultural ERP
+# Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
 # Copyright (C) 2012-2015 Brice Texier, David Joulin
@@ -49,8 +49,7 @@
 
 
 class Purchase < Ekylibre::Record::Base
-  attr_readonly :currency
-  belongs_to :affair
+  attr_readonly :currency, :nature_id
   belongs_to :delivery_address, class_name: "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, class_name: "PurchaseNature"
@@ -115,7 +114,6 @@ class Purchase < Ekylibre::Record::Base
   before_validation do
     self.created_at ||= Time.now
     self.planned_at ||= self.created_at
-    self.currency = self.nature.currency # Preference[:currency]
     self.pretax_amount = self.items.sum(:pretax_amount)
     self.amount = self.items.sum(:amount)
   end
