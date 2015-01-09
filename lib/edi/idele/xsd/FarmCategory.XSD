@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by adrien (Institut De L'Elevage) -->
+<!-- version 1.0 modifiée du 26/11/2009 -->
+<xsd:schema xmlns="urn:fr:agri:elevage:codelist:FarmCategory:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:fr:agri:elevage:codelist:FarmCategory:1">
+	<xsd:simpleType name="FarmCategoryType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[Categorie exploitation]]></xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="10">
+				<xsd:annotation>
+					<xsd:documentation>Exploitation elevage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="31">
+				<xsd:annotation>
+					<xsd:documentation>Centre de rassemblement</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="32">
+				<xsd:annotation>
+					<xsd:documentation>Marche</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="34">
+				<xsd:annotation>
+					<xsd:documentation>Exploitation de negoce</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="40">
+				<xsd:annotation>
+					<xsd:documentation>Etablissement abattage</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
