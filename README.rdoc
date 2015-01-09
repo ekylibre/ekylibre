@@ -5,7 +5,7 @@ Ekylibre is a simple enterprise management web application written with Ruby on 
 More details can be found at in the doc directory or on the official website http://www.ekylibre.org
 
 
-== Contributing {<img src="https://secure.travis-ci.org/ekylibre/erp.png?branch=0-3-2-stable" alt="Build Status" />}[http://travis-ci.org/ekylibre/erp]
+== Contributing {<img src="https://secure.travis-ci.org/ekylibre/ekylibre.png?branch=0-3-2-stable" alt="Build Status" />}[http://travis-ci.org/ekylibre/ekylibre]
 
 
 We encourage you to contribute to Ekylibre.
