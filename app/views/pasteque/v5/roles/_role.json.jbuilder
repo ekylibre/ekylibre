@@ -1,3 +1,4 @@
 json.id role.id
 json.label role.name
-json.permissions role.use_permissions.to_xml skip_types: true, root: 'use_permissions'
+xml = Builder::XmlMarkup.new
+json.permissions role.uses_permissions.to_xml root: 'uses-permissions', skip_types: true
