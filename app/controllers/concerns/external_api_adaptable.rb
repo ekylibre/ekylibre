@@ -27,10 +27,21 @@ module ExternalApiAdaptable
       locals[:partial_path] = defaults[:partial_path] if defaults[:partial_path]
       locals[:record] = defaults[:record] if defaults[:record]
 
+      index = lambda do
+        @records = model.all rescue []
+        render template: "layouts/#{api_path}/index", locals: locals
+      end
+
+      show = lambda do
+        @record = model.find(params[:id]) rescue nil
+        render template: "layouts/#{api_path}/show", locals:{output_name: output_name.to_s.singularize}.merge(locals)
+      end
+
       methods =
         {
-          index:  lambda{@records = model.all rescue []; render template: "layouts/#{api_path}/index", locals: locals},
-          show:   lambda{@record = model.find(permitted_params[:id]) rescue nil; render template: "layouts/#{api_path}/show", locals:{output_name: output_name.to_s.singularize}.merge(locals)}
+          index:  index,
+          show:   show,
+          update: nil
         }
 
       actions.each do |action|

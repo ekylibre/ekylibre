@@ -1,3 +1,3 @@
 class Pasteque::V5::CashesController < Pasteque::V5::BaseController
-  manage_restfully only: [:index, :show], model: :nil
+  manage_restfully only: [:show, :update], model: :cash_session
 end
