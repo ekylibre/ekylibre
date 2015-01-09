@@ -297,6 +297,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="arezzo_wheat_crop"
+            nature="cereal_crop"
+            variety="triticum_aestivum_arezzo"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="ascott_wheat_crop"
             nature="cereal_crop"
             variety="triticum_aestivum_ascott"
@@ -312,6 +318,12 @@
       <item name="euclide_wheat_crop"
             nature="cereal_crop"
             variety="triticum_aestivum_euclide"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="rubisko_wheat_crop"
+            nature="cereal_crop"
+            variety="triticum_aestivum_rubisko"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
