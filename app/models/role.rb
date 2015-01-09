@@ -113,6 +113,6 @@ class Role < Ekylibre::Record::Base
   end
 
   def use_permissions
-    rights
+    rights.to_a
   end
 end
