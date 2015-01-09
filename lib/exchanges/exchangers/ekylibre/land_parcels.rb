@@ -1,4 +1,4 @@
-Exchanges.add_importer :ekylibre_erp_land_parcels do |file, w|
+Exchanges.add_importer :ekylibre_land_parcels do |file, w|
   # Set count of rows
   rows = CSV.read(file, headers: true)
   w.count = rows.size

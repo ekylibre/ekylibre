@@ -1,4 +1,4 @@
-Exchanges.add_importer :ekylibre_erp_georeadings do |file, w|
+Exchanges.add_importer :ekylibre_georeadings do |file, w|
 
   # Unzip file
   dir = w.tmp_dir

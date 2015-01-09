@@ -1,5 +1,5 @@
 # Create or updates entities
-Exchanges.add_importer :ekylibre_erp_entities do |file, w|
+Exchanges.add_importer :ekylibre_entities do |file, w|
 
   rows = CSV.read(file, headers: true)
   w.count = rows.size

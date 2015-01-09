@@ -1,1 +1,7 @@
-require_relative 'ekylibre/erp'
+require_relative 'ekylibre/cultivable_zones'
+require_relative 'ekylibre/entities'
+require_relative 'ekylibre/georeadings'
+require_relative 'ekylibre/land_parcels'
+require_relative 'ekylibre/plants'
+require_relative 'ekylibre/settings'
+require_relative 'ekylibre/visuals'

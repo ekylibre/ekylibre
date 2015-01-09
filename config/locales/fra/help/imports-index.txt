@@ -1,6 +1,6 @@
 ====== Importer des données ======
 
-Vous pouvez importer des données provenant de diverses sources (TelePAC, comptabilité au format EDI, données générées par Ekylibre ERP, etc.).
+Vous pouvez importer des données provenant de diverses sources (TelePAC, comptabilité au format EDI, données générées par Ekylibre, etc.).
 
 ===== Comment importer des données ? =====
 

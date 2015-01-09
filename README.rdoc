@@ -1,38 +1,38 @@
-= Ekylibre ERP
+= Ekylibre
 
-Ekylibre ERP is a simple enterprise management web application for farmers and small enterprises.
-Ekylibre ERP is written with Ruby on Rails framework and use PostgreSQL/PostGIS stack.
+Ekylibre is a simple enterprise management web application for farmers and small enterprises.
+Ekylibre is written with Ruby on Rails framework and use PostgreSQL/PostGIS stack.
 More details can be found on the official website http://ekylibre.org.
 
 == Code status
 
-{<img src="https://api.travis-ci.org/ekylibre/erp.png?branch=1-0-stable"/>}[https://travis-ci.org/ekylibre/erp]
-{<img src="https://gemnasium.com/ekylibre/erp.png"/>}[https://gemnasium.com/ekylibre/erp]
-{<img src="https://codeclimate.com/github/ekylibre/erp.png" />}[https://codeclimate.com/github/ekylibre/erp]
-{<img src="https://coveralls.io/repos/ekylibre/erp/badge.png?branch=1-0-stable" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/erp]
+{<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=1-0-stable"/>}[https://travis-ci.org/ekylibre/ekylibre]
+{<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
+{<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
+{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=1-0-stable" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
 
 == Guides
 
 You can learn how to contribute in Ekylibre by following our official guide:
 
-* {Guide (Français)}[https://github.com/ekylibre/erp/wiki/Une-semaine-en-Ekylibre]
+* {Guide (Français)}[https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre]
 
 == Screenshot
 
-{<img src="https://raw.github.com/ekylibre/erp/1-0-stable/doc/screenshots/screens.jpg" />}[https://raw.github.com/ekylibre/erp/1-0-stable/doc/screenshots/screens.png]
+{<img src="https://raw.github.com/ekylibre/ekylibre/1-0-stable/doc/screenshots/screens.jpg" />}[https://raw.github.com/ekylibre/ekylibre/1-0-stable/doc/screenshots/screens.png]
 
 == Installation
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* {English}[https://github.com/ekylibre/erp/blob/1-0-stable/doc/guides/installation.rdoc]
+* {English}[https://github.com/ekylibre/ekylibre/blob/1-0-stable/doc/guides/installation.rdoc]
 * {Français}[https://wiki.ekylibre.org/fr/guides/install_erp]
 
 == Contributing
 
 We encourage you to contribute to Ekylibre.
 
-* See our conventions ({Français}[https://github.com/ekylibre/erp/wiki/Conventions-de-d%C3%A9veloppement])
+* See our conventions ({Français}[https://github.com/ekylibre/ekylibre/wiki/Conventions-de-d%C3%A9veloppement])
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -49,7 +49,7 @@ We encourage you to contribute to Ekylibre.
 
 == Follow us
 
-* {Twitter}[https://twitter.com/EkylibreERP]
+* {Twitter}[https://twitter.com/Ekylibre]
 * {Facebook}[https://www.facebook.com/ekylibre]
 * {Google+}[https://plus.google.com/106303796269953490281/about]
 * {YouTube}[http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g]

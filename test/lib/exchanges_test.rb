@@ -7,8 +7,8 @@ class ExchangesTest < ActiveSupport::TestCase
 
   # TODO fix use of manifest.yml which used for fixtures...
   IMPORTS = {
-    ekylibre_erp_settings: FIRST_RUN.join("manifest"),
-    ekylibre_erp_visuals: FIRST_RUN.dirname.join("sample_image.png")
+    ekylibre_settings: FIRST_RUN.join("manifest"),
+    ekylibre_visuals: FIRST_RUN.dirname.join("sample_image.png")
   }
 
   setup do
@@ -21,12 +21,12 @@ class ExchangesTest < ActiveSupport::TestCase
     Ekylibre::Tenant.switch(:test)
   end
 
-  test "import of a ekylibre_erp_settings file" do
-    Exchanges.import(:ekylibre_erp_settings, FIRST_RUN.join("manifest"))
+  test "import of a ekylibre_settings file" do
+    Exchanges.import(:ekylibre_settings, FIRST_RUN.join("manifest"))
   end
 
-  test "import of a ekylibre_erp_visuals file" do
-    Exchanges.import(:ekylibre_erp_visuals, FIRST_RUN.dirname.join("sample_image.png"))
+  test "import of a ekylibre_visuals file" do
+    Exchanges.import(:ekylibre_visuals, FIRST_RUN.dirname.join("sample_image.png"))
   end
 
   test "import of a legrain_epicea_accounts file" do

@@ -503,7 +503,7 @@ jpn:
       # load: "Load missing sequences"
       # new: "New sequence"
     backend/settings:
-      # about: "About Ekylibre ERP"
+      # about: "About Ekylibre"
       # edit: "Configuration"
     backend/settlements:
       # edit: "Edit settlement: %{name}"
@@ -938,7 +938,7 @@ jpn:
       # finances: "Finances"
       # general: "General"
       # home: "Home"
-      # index: "Ekylibre ERP"
+      # index: "Ekylibre"
       # mandates: "Responsibilities"
       # production: "Production"
       # purchases: "Purchases"

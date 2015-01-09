@@ -556,7 +556,7 @@ eng:
       new: "New sequence"
       # show: "Sequence: %{name}"
     backend/settings:
-      about: "About Ekylibre ERP"
+      about: "About Ekylibre"
       edit: "Configuration"
     backend/settlements:
       edit: "Edit settlement: %{name}"
@@ -995,7 +995,7 @@ eng:
       finances: "Finances"
       general: "General"
       home: "Home"
-      index: "Ekylibre ERP"
+      index: "Ekylibre"
       mandates: "Responsibilities"
       production: "Production"
       purchases: "Purchases"
@@ -1068,7 +1068,7 @@ eng:
       unparted: "Unused" #?!
       waiting: "To deposit later" #?!
     page_title: "%{company_code} · %{menu} · %{action}"
-    page_title_by_default: "Ekylibre ERP · %{action}"
+    page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?

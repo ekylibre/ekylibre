@@ -1,6 +1,6 @@
 ====== Bienvenue dans l'aide d'Ekylibre ======
 
-**Ekylibre ERP** est un //logiciel de gestion intégré//. Il comprend différents modules qui permettent de traiter plusieurs aspects de la gestion d'une entreprise.
+**Ekylibre** est un //logiciel de gestion intégré//. Il comprend différents modules qui permettent de traiter plusieurs aspects de la gestion d'une entreprise.
 
 ===== Présentation de la page =====
 Vous trouverez en haut le menu principal :
