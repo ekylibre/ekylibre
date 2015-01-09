@@ -72,6 +72,7 @@ class Production < Ekylibre::Record::Base
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   # validates_presence_of :product_nature, if: :activity_main?
+  validates_associated :budgets
 
   alias_attribute :label, :name
   alias_attribute :product_variant, :variant

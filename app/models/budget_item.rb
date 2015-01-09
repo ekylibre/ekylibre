@@ -43,11 +43,13 @@ class BudgetItem < Ekylibre::Record::Base
   validates_presence_of :budget, :production_support
   validates_uniqueness_of :production_support_id, scope: :budget_id
 
-  belongs_to :budget, inverse_of: :items, dependent: :destroy
+  belongs_to :budget, inverse_of: :items
   belongs_to :production_support
 
   delegate :computation_method, to: :budget
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
+  scope :of_budgets, -> (budgets){where('budget_id IN (?)', budgets)}
+  scope :of_supports, -> (supports){where('production_support_id IN (?)', supports)}
 end

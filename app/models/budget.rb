@@ -47,8 +47,9 @@ class Budget < Ekylibre::Record::Base
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   #]VALIDATORS]
   validates_presence_of :variant
+  validates_associated :items
 
-  has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id
+  has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
@@ -64,7 +65,7 @@ class Budget < Ekylibre::Record::Base
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
 
-  validate on: [:create, :update] do
+  validate do
     #ensures there is a budget item for each budget and each support
     possible_items = Budget.all.inject([]) do |array, budget|
       array << [budget.id, budget.supports.pluck(:id)]
