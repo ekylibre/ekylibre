@@ -47,7 +47,8 @@ class Backend::ProductionSupportsController < BackendController
   list(:markers, model: :production_support_markers, conditions: {support_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name, url: true
     t.column :aim
-    t.column :value
+    t.column :value, datatype: :measure
+    t.column :subject_label
   end
 
 end

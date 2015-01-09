@@ -24,7 +24,10 @@
             %span.title= :harvested_at.tl
             %span.value= resource.harvested_at.l
 
-      - b.cell :weather, params: {id: resource.storage.id}
+      - b.cell(:markers) do
+        = toolbar do |t|
+          - t.new(params: {controller: :production_support_markers, :support_id => resource.id})
+        = list(:markers)
 
   - if resource.selected_manure_management_plan_zone
     - b.cell :manure_management_plan_chart do
@@ -69,7 +72,7 @@
       - else
         = no_data
 
-  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety] <= :plant
+  - if resource.interventions.count > 0 and Nomen::Varieties[resource.production.variant.variety] <= :plant
     - b.cell :production_cost do
       :ruby
         # prepare an array of hash
