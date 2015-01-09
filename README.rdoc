@@ -6,10 +6,10 @@ More details can be found on the official website http://ekylibre.org.
 
 == Code status
 
-{<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=1-0-stable"/>}[https://travis-ci.org/ekylibre/ekylibre]
+{<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master"/>}[https://travis-ci.org/ekylibre/ekylibre]
 {<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
 {<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
-{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=1-0-stable" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
+{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
 
 == Guides
 
@@ -19,13 +19,13 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 == Screenshot
 
-{<img src="https://raw.github.com/ekylibre/ekylibre/1-0-stable/doc/screenshots/screens.jpg" />}[https://raw.github.com/ekylibre/ekylibre/1-0-stable/doc/screenshots/screens.png]
+{<img src="https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.jpg" />}[https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png]
 
 == Installation
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* {English}[https://github.com/ekylibre/ekylibre/blob/1-0-stable/doc/guides/installation.rdoc]
+* {English}[https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.rdoc]
 * {Français}[https://wiki.ekylibre.org/fr/guides/install_erp]
 
 == Contributing
