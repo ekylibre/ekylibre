@@ -29,6 +29,9 @@
       <!-- GENERIC -->
       <item name="msa_username" />
       <item name="password" password="true"/>
+      <!-- IDELE -->
+      <item name="idele_login" />
+      <item name="idele_password" password="true"/>
     </items>
   </nomenclature>
 

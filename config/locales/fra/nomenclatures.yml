@@ -1475,6 +1475,8 @@ fra:
         pacage_number: "Numéro de PACAGE"
         password: "Mot de passe"
         synel_username: "Login Synel"
+        idele_login: "Login Idele"
+        idele_password: "Mot de passe Idele"
       name: "Types d’identifiants"
       property_natures:
         fallbacks: "Recours"

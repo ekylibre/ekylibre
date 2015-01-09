@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns="urn:fr:agri:elevage:codelist:CauseEntreeOC:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:fr:agri:elevage:codelist:CauseEntreeOC:1">
+	<xsd:annotation>
+		<xsd:documentation><![CDATA[Cause entree des ovins caprins]]></xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="CauseEntreeOCType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="P">
+				<xsd:annotation>
+					<xsd:documentation>PRET OU PENSION</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="A">
+				<xsd:annotation>
+					<xsd:documentation>ACHAT</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="N">
+				<xsd:annotation>
+					<xsd:documentation>NAISSANCE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Z">
+				<xsd:annotation>
+					<xsd:documentation>INCONNUE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

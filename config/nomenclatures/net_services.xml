@@ -23,6 +23,12 @@
           identifiers="cartodb_login, password"
           />
       <!-- ANIMAL FARMING -->
+      <item name="idele"
+            nature="exploitation"
+            url="http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl"
+            approach="human"
+            identifiers="idele_login, idele_password"
+              />
       <!-- ANIMAL IDENTIFICATION -->
       <item name="synel"
           nature="animal_farming"

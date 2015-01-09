@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by adrien (Institut De L'Elevage) -->
+<!-- version 1.1 modifiée du 15/12/2009 -->
+<xsd:schema xmlns="urn:fr:agri:elevage:codelist:OCRegistrationIdentifiantType:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:fr:agri:elevage:codelist:OCRegistrationIdentifiantType:1">
+	<xsd:simpleType name="OCRegistrationIdentifiantTypeType">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="NumeroExploitation"/>
+			<xsd:enumeration value="CodeMOIPG"/>
+			<xsd:enumeration value="BLIPG"/>
+			<xsd:enumeration value="BNOVINFOS"/>
+			<xsd:enumeration value="BOPAV"/>
+			<xsd:enumeration value="BDELG"/>
+			<xsd:enumeration value="BNSIMOC"/>
+			<xsd:enumeration value="BDNI"/>
+			<xsd:enumeration value="BELVR"/>
+			<xsd:enumeration value="BPOVINFOS"/>
+			<xsd:enumeration value="NumeroSIRET"/>
+			<xsd:enumeration value="NumeroAgrementSanitaire"/>
+			<xsd:enumeration value="NumeroSIREN"/>
+			<xsd:enumeration value="NumeroDDSV"/>
+			<xsd:enumeration value="NumeroDetenteur"/>
+			<xsd:enumeration value="NumeroStructureDelegataire"/>
+			<xsd:enumeration value="CertificatUE"/>
+			<xsd:enumeration value="CertificatPaysTiers"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

@@ -1,9 +1,0 @@
-<?xml version='1.0'?>
-<xsd:schema targetNamespace="urn:fr:agri:elevage:codelist:CodeModeConservation:1" xmlns="urn:fr:agri:elevage:codelist:CodeModeConservation:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:simpleType name="TypeCodeModeConservation">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="2"/>
-      <xsd:enumeration value="3"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-</xsd:schema>

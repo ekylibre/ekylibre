@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns="urn:fr:agri:elevage:codelist:CategorieBovinIPG:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:fr:agri:elevage:codelist:CategorieBovinIPG:1">
+	<xsd:simpleType name="CategorieBovinIPGType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[Type Categorie Bovin IPG]]></xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="BO">
+				<xsd:annotation>
+					<xsd:documentation>Boeuf</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="BR">
+				<xsd:annotation>
+					<xsd:documentation>Broutard</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="FE">
+				<xsd:annotation>
+					<xsd:documentation>Femelle à l'engraissement</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GL">
+				<xsd:annotation>
+					<xsd:documentation>Génisse laitière</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="GV">
+				<xsd:annotation>
+					<xsd:documentation>Génisse viande</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MA">
+				<xsd:annotation>
+					<xsd:documentation>Mâle</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MR">
+				<xsd:annotation>
+					<xsd:documentation>Mâle reproducteur</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="TA">
+				<xsd:annotation>
+					<xsd:documentation>Taurillon</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VA">
+				<xsd:annotation>
+					<xsd:documentation>Vache allaitante</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VB">
+				<xsd:annotation>
+					<xsd:documentation>Veau de boucherie</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VE">
+				<xsd:annotation>
+					<xsd:documentation>Veau</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VL">
+				<xsd:annotation>
+					<xsd:documentation>Vache laitière</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="VR">
+				<xsd:annotation>
+					<xsd:documentation>Vache de réforme</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

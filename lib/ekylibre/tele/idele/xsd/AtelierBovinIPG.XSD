@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns="urn:fr:agri:elevage:codelist:AtelierBovinIPG:1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:fr:agri:elevage:codelist:AtelierBovinIPG:1">
+	<xsd:simpleType name="AtelierBovinIPGType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[Type d'atelier bovins]]></xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="L[1-9]">
+				<xsd:annotation>
+					<xsd:documentation>Lait</xsd:documentation>
+				</xsd:annotation>
+			</xsd:pattern>
+			<xsd:pattern value="A[1-9]">
+				<xsd:annotation>
+					<xsd:documentation>Allaitant</xsd:documentation>
+				</xsd:annotation>
+			</xsd:pattern>
+			<xsd:pattern value="B[1-9]">
+				<xsd:annotation>
+					<xsd:documentation>Veaux de boucherie</xsd:documentation>
+				</xsd:annotation>
+			</xsd:pattern>
+			<xsd:pattern value="E[1-9]">
+				<xsd:annotation>
+					<xsd:documentation>Engraissement autre</xsd:documentation>
+				</xsd:annotation>
+			</xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>
