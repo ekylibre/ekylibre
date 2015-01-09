@@ -1,3 +1,3 @@
 json.id role.id
 json.label role.name
-json.permissions role.rights.to_a.to_xml
+json.permissions role.use_permissions.to_xml skip_types: true, root: 'use_permissions'

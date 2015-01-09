@@ -112,4 +112,7 @@ class Role < Ekylibre::Record::Base
     return role
   end
 
+  def use_permissions
+    rights
+  end
 end
