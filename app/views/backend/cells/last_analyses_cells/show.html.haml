@@ -28,9 +28,15 @@
     series = []
     for item in @nature.items
       item = Nomen::Indicators[item]
-      series << {type: item.curve, name: item.human_name, data: data[item.name]}
+      if item.unit
+        unit_name_value = Nomen::Units[item.unit].human_name
+        unit_name = " #{unit_name_value}"
+      else
+        unit_name = ""
+      end
+      series << {type: item.curve, name: item.human_name, data: data[item.name], tooltip: {value_suffix: unit_name , x_date_format: '%d/%m/%Y'}}
     end
 
-  = spline_chart(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: true)
+  = spline_chart(series, y_axis: {title: {text: :indicator_value.tl}, opposite: true}, x_axis: {type: 'datetime'}, legend: true)
 - else
   = no_data
