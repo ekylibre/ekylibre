@@ -762,7 +762,7 @@ fra:
     casting: "Casting"
     casts: "Intervenants"
     catalog: "Description pour catalogue"
-    # catalog_items: "Catalog items"
+    catalog_items: "Éléments de catalogue"
     category: "Catégorie"
     category_name: "Catégorie"
     cells_concentration: "Dénombrement des cellules somatiques" #?

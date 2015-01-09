@@ -46,6 +46,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :sale_item
   has_one :category, through: :variant
   has_one :product_ownership, as: :originator, dependent: :destroy
+  has_one :recipient, through: :delivery
   has_one :variant, through: :product
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -54,6 +55,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   delegate :net_mass, to: :product
+  delegate :sent_at, to: :delivery
 
   sums :delivery, :items, :net_mass, from: :measure
 
@@ -65,15 +67,19 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
     true
   end
 
-  after_create do
+  # Create product ownership linked to product
+  after_save do
     if self.delivery.done?
-      self.create_product_ownership!(product_id: self.product_id, started_at: self.delivery.sent_at, owner_id: self.delivery.recipient_id)
-    end
-  end
-
-  after_update do
-    if self.delivery.done?
-      self.product_ownership.update_attributes!(product_id: self.product_id, started_at: self.delivery.sent_at, owner_id: self.delivery.recipient_id)
+      attributes = {
+        product_id: self.product_id,
+        started_at: self.sent_at,
+        owner_id: self.recipient.id
+      }
+      if self.product_ownership
+        self.product_ownership.update_attributes!(attributes)
+      else
+        self.create_product_ownership!(attributes)
+      end
     else
       self.product_ownership.destroy!
     end
