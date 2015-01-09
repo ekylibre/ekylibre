@@ -755,7 +755,9 @@ Ekylibre::Application.routes.draw do
   namespace :pasteque, defaults: {format: :json} do
     namespace :v5 do
       match "version", to: "versions#version", via: :all
-      resources :users, only: [:index, :show]
+      resources :users, only: [:index, :show] do
+        post :update_password
+      end
       resources :roles, only: [:index, :show]
       resources :cash_registers, only: [:index, :show]
       resources :places, only: [:index, :show]

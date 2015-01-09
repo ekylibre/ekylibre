@@ -19,6 +19,8 @@ module ExternalApiAdaptable
       model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue []
       model = model.send defaults[:scope] if defaults[:scope].present?
 
+      search_filters = defaults[:search_filters] || :id
+
       api_path = self.controller_path.split('/')[0..-2].join('/')
 
       output_name = name
@@ -37,11 +39,20 @@ module ExternalApiAdaptable
         render template: "layouts/#{api_path}/show", locals:{output_name: output_name.to_s.singularize}.merge(locals)
       end
 
+      update = lambda do
+        @record = model.find(params[:id])
+        if @record.update(permitted_params)
+          render true.to_json
+        else
+          render false.to_json
+        end
+      end
+
       methods =
         {
           index:  index,
           show:   show,
-          update: nil
+          update: update
         }
 
       actions.each do |action|

@@ -1,6 +1,5 @@
-class Pasteque::V5::BaseController < BaseController
+class Pasteque::V5::BaseController < ActionController::Base
   include ExternalApiAdaptable
-  skip_before_action :set_theme, :set_locale, :set_time_zone
   before_action :authenticate_user
 
   hide_action :authenticate_user
