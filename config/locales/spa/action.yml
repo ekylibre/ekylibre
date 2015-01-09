@@ -717,15 +717,24 @@ spa:
     devise/registrations: #?
     devise/sessions: #?
     devise/unlocks: #?
+    pasteque/v5/attributes: #?
+    pasteque/v5/cash_movements: #?
     pasteque/v5/cash_registers: #?
     pasteque/v5/cashes: #?
     pasteque/v5/categories: #?
+    pasteque/v5/compositions: #?
     pasteque/v5/currencies: #?
     pasteque/v5/customers: #?
+    pasteque/v5/discount_profiles: #?
+    pasteque/v5/locations: #?
     pasteque/v5/places: #?
     pasteque/v5/products: #?
+    pasteque/v5/resources: #?
     pasteque/v5/roles: #?
+    pasteque/v5/stocks: #?
+    pasteque/v5/tariff_areas: #?
     pasteque/v5/taxes: #?
+    pasteque/v5/tickets: #?
     pasteque/v5/users: #?
     pasteque/v5/versions: #?
     public:

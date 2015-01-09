@@ -632,30 +632,60 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    pasteque/v5/attributes:
+      # index: "Attributes"
+      # show: "Attribute: %{name}"
+    pasteque/v5/cash_movements:
+      # index: "Cash movements"
+      # show: "Cash movement: %{name}"
     pasteque/v5/cash_registers:
       # index: "Cash registers"
       # show: "Cash register: %{name}"
+    pasteque/v5/cashes:
+      # index: "Cashes"
+      # show: "Cash: %{name}"
     pasteque/v5/categories:
       # index: "Categories"
       # show: "Category: %{name}"
+    pasteque/v5/compositions:
+      # index: "Compositions"
+      # show: "Composition: %{name}"
     pasteque/v5/currencies:
       # index: "Currencies"
       # show: "Currency: %{name}"
     pasteque/v5/customers:
       # index: "Customers"
       # show: "Customer: %{name}"
+    pasteque/v5/discount_profiles:
+      # index: "Discount profiles"
+      # show: "Discount profile: %{name}"
+    pasteque/v5/locations:
+      # index: "Locations"
+      # show: "Location: %{name}"
     pasteque/v5/places:
       # index: "Places"
       # show: "Place: %{name}"
     pasteque/v5/products:
       # index: "Products"
       # show: "Product: %{name}"
+    pasteque/v5/resources:
+      # index: "Resources"
+      # show: "Resource: %{name}"
     pasteque/v5/roles:
       # index: "Roles"
       # show: "Role: %{name}"
+    pasteque/v5/stocks:
+      # index: "Stocks"
+      # show: "Stock: %{name}"
+    pasteque/v5/tariff_areas:
+      # index: "Tariff areas"
+      # show: "Tariff area: %{name}"
     pasteque/v5/taxes:
       # index: "Taxes"
       # show: "Tax: %{name}"
+    pasteque/v5/tickets:
+      # index: "Tickets"
+      # show: "Ticket: %{name}"
     pasteque/v5/users:
       # index: "Users"
       # show: "User: %{name}"
@@ -844,7 +874,7 @@ eng:
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{by}"
     details: "Details"
-    discount: "Discount (%)" #?!
+    discount: "Discount (%)" #?
     display: "Display" #?
     divide: "Divide"
     division: "Division"

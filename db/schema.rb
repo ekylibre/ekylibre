@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224091401) do
+ActiveRecord::Schema.define(version: 20150109085549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,6 +285,29 @@ ActiveRecord::Schema.define(version: 20141224091401) do
   add_index "campaigns", ["creator_id"], :name => "index_campaigns_on_creator_id"
   add_index "campaigns", ["updated_at"], :name => "index_campaigns_on_updated_at"
   add_index "campaigns", ["updater_id"], :name => "index_campaigns_on_updater_id"
+
+  create_table "cash_sessions", force: true do |t|
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.string   "currency"
+    t.float    "noticed_start_amount"
+    t.float    "noticed_stop_amount"
+    t.float    "expected_stop_amount"
+    t.integer  "sequence_id"
+    t.integer  "affair_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",         default: 0, null: false
+  end
+
+  add_index "cash_sessions", ["affair_id"], :name => "index_cash_sessions_on_affair_id"
+  add_index "cash_sessions", ["created_at"], :name => "index_cash_sessions_on_created_at"
+  add_index "cash_sessions", ["creator_id"], :name => "index_cash_sessions_on_creator_id"
+  add_index "cash_sessions", ["sequence_id"], :name => "index_cash_sessions_on_sequence_id"
+  add_index "cash_sessions", ["updated_at"], :name => "index_cash_sessions_on_updated_at"
+  add_index "cash_sessions", ["updater_id"], :name => "index_cash_sessions_on_updater_id"
 
   create_table "cash_transfers", force: true do |t|
     t.string   "number",                                                                     null: false

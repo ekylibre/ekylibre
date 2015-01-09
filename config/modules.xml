@@ -1775,13 +1775,29 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="attributes">
+        <page to="pasteque/v5/attributes#index"/>
+        <page to="pasteque/v5/attributes#show"/>
+      </item>
+      <item name="cash_movements">
+        <page to="pasteque/v5/cash_movements#index"/>
+        <page to="pasteque/v5/cash_movements#show"/>
+      </item>
       <item name="cash_registers">
         <page to="pasteque/v5/cash_registers#index"/>
         <page to="pasteque/v5/cash_registers#show"/>
       </item>
+      <item name="cashes">
+        <page to="pasteque/v5/cashes#index"/>
+        <page to="pasteque/v5/cashes#show"/>
+      </item>
       <item name="categories">
         <page to="pasteque/v5/categories#index"/>
         <page to="pasteque/v5/categories#show"/>
+      </item>
+      <item name="compositions">
+        <page to="pasteque/v5/compositions#index"/>
+        <page to="pasteque/v5/compositions#show"/>
       </item>
       <item name="currencies">
         <page to="pasteque/v5/currencies#index"/>
@@ -1791,6 +1807,14 @@
         <page to="pasteque/v5/customers#index"/>
         <page to="pasteque/v5/customers#show"/>
       </item>
+      <item name="discount_profiles">
+        <page to="pasteque/v5/discount_profiles#index"/>
+        <page to="pasteque/v5/discount_profiles#show"/>
+      </item>
+      <item name="locations">
+        <page to="pasteque/v5/locations#index"/>
+        <page to="pasteque/v5/locations#show"/>
+      </item>
       <item name="places">
         <page to="pasteque/v5/places#index"/>
         <page to="pasteque/v5/places#show"/>
@@ -1799,13 +1823,29 @@
         <page to="pasteque/v5/products#index"/>
         <page to="pasteque/v5/products#show"/>
       </item>
+      <item name="resources">
+        <page to="pasteque/v5/resources#index"/>
+        <page to="pasteque/v5/resources#show"/>
+      </item>
       <item name="roles">
         <page to="pasteque/v5/roles#index"/>
         <page to="pasteque/v5/roles#show"/>
       </item>
+      <item name="stocks">
+        <page to="pasteque/v5/stocks#index"/>
+        <page to="pasteque/v5/stocks#show"/>
+      </item>
+      <item name="tariff_areas">
+        <page to="pasteque/v5/tariff_areas#index"/>
+        <page to="pasteque/v5/tariff_areas#show"/>
+      </item>
       <item name="taxes">
         <page to="pasteque/v5/taxes#index"/>
         <page to="pasteque/v5/taxes#show"/>
+      </item>
+      <item name="tickets">
+        <page to="pasteque/v5/tickets#index"/>
+        <page to="pasteque/v5/tickets#show"/>
       </item>
       <item name="users">
         <page to="pasteque/v5/users#index"/>
