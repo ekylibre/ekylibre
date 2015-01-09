@@ -119,11 +119,9 @@ class Role < Ekylibre::Record::Base
       :'sales-write'          =>  'perm-fr.pasteque.pos.sales.JPanelTicketEdits',
       :'sales-read'           =>  'perm-fr.pasteque.pos.sales.JPanelTicketSales'
     }.with_indifferent_access
-    uses_permissions = rights_array.inject([]) do |array, right|
+    rights_array.inject([]) do |array, right|
       array << correspondence[right] if correspondence[right].present?
       array
     end
-    puts uses_permissions.inspect.blue
-    uses_permissions
   end
 end
