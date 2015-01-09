@@ -77,6 +77,7 @@ class Affair < Ekylibre::Record::Base
   # validates_inclusion_of :third_role, in: self.third_role.values
 
   acts_as_numbered
+  scope :tickets, -> { where(true)}
 
   before_validation do
     if self.originator

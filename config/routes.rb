@@ -773,8 +773,9 @@ Ekylibre::Application.routes.draw do
       resources :compositions, only: [:index, :show]
       resources :discount_profiles, only: [:index, :show]
       resources :locations, only: [:index, :show]
-      resources :resources, only: [:index, :show]
+      resources :resources, only: [:show, :update]
       resources :stocks, only: [:index, :show]
+      resources :tickets, only: [:index, :show]
     end
   end
 
