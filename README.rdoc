@@ -4,6 +4,18 @@ Ekylibre is a simple enterprise management web application written with Ruby on 
 
 More details can be found at in the doc directory or on the official website http://www.ekylibre.org
 
+== Installation
+
+Install manual dependencies:
+
+  gem install rake  -v=0.9.6
+  gem install pg    -v=0.17.1
+  gem install rails -v=2.3.2
+
+And install other gems
+
+  rake _0.9.6_ gems:install
+
 == Contributing
 
 We encourage you to contribute to Ekylibre.
