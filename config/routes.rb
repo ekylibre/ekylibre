@@ -768,8 +768,10 @@ Ekylibre::Application.routes.draw do
       resources :products, only: [:index, :show]
       resources :attributes, only: [:index]
       resources :tariff_areas, only: [:index]
-      resources :cash_movements do
-        post :move
+      resources :cash_movements, only: [] do
+        collection do
+          post :move
+        end
       end
       resources :cashes, only: [:index, :show]
       resources :compositions, only: [:index, :show]
