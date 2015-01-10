@@ -7980,6 +7980,8 @@ fra:
         cooperative_cartodb_account: "Compte coopérative CartoDB"
         cooperative_cartodb_key: "Clé coopérative CartoDB"
         husbandry_owner_number: "Code éleveur propriétaire"
+        idele_login: "Login Idele"
+        idele_password: "Mot de passe Idele"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
         pacage_number: "Numéro de PACAGE"

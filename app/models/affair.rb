@@ -38,6 +38,7 @@
 #  originator_id    :integer          not null
 #  originator_type  :string(255)      not null
 #  third_id         :integer          not null
+#  ticket           :boolean          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -71,13 +72,13 @@ class Affair < Ekylibre::Record::Base
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, :originator_type, allow_nil: true, maximum: 255
-  validates_inclusion_of :closed, in: [true, false]
+  validates_inclusion_of :closed, :ticket, in: [true, false]
   validates_presence_of :credit, :currency, :debit, :number, :originator, :originator_type, :third
   #]VALIDATORS]
   # validates_inclusion_of :third_role, in: self.third_role.values
 
   acts_as_numbered
-  scope :tickets, -> { where(true)}
+  scope :tickets, -> { where(ticket: true)}
 
   before_validation do
     if self.originator

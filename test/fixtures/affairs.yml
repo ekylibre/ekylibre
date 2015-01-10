@@ -38,6 +38,7 @@
 #  originator_id    :integer          not null
 #  originator_type  :string(255)      not null
 #  third_id         :integer          not null
+#  ticket           :boolean          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -54,6 +55,7 @@
 #   number: "Lorem ipsum"
 #   originator: originators_001 (Model)
 #   third: thirds_001
+#   ticket: true
 #   updater: users_001
 #
 ---

@@ -68,6 +68,7 @@ affairs:
   originator_id: {type: integer, references: ~originator_type, required: true}
   originator_type: {type: string, required: true}
   third_id: {type: integer, references: entity, required: true}
+  ticket: {type: boolean, required: true, default: false}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

@@ -16,7 +16,7 @@ module ExternalApiAdaptable
       actions -= [options[:except]].flatten if options[:except]
 
       name = self.controller_name
-      model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue []
+      model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue nil
       model = model.send defaults[:scope] if defaults[:scope].present?
 
       search_filters = defaults[:search_filters] || :id
@@ -34,7 +34,11 @@ module ExternalApiAdaptable
 
       show = lambda do
         @record = model.find(params[:id]) rescue nil
-        render partial: "#{api_path}/#{locals[:partial_path]}", locals:{name.singularize.to_sym => @record}
+        if @record.present?
+          render partial: "#{api_path}/#{locals[:partial_path]}", locals:{name.singularize.to_sym => @record}
+        else
+          render status: :not_found, json: nil
+        end
       end
 
       update = lambda do

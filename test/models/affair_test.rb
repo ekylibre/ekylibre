@@ -38,6 +38,7 @@
 #  originator_id    :integer          not null
 #  originator_type  :string(255)      not null
 #  third_id         :integer          not null
+#  ticket           :boolean          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

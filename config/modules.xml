@@ -1777,19 +1777,17 @@
     <group>
       <item name="attributes">
         <page to="pasteque/v5/attributes#index"/>
-        <page to="pasteque/v5/attributes#show"/>
       </item>
       <item name="cash_movements">
-        <page to="pasteque/v5/cash_movements#index"/>
-        <page to="pasteque/v5/cash_movements#show"/>
+        <page to="pasteque/v5/cash_movements#move"/>
       </item>
       <item name="cash_registers">
         <page to="pasteque/v5/cash_registers#index"/>
         <page to="pasteque/v5/cash_registers#show"/>
       </item>
       <item name="cashes">
-        <page to="pasteque/v5/cashes#index"/>
         <page to="pasteque/v5/cashes#show"/>
+        <page to="pasteque/v5/cashes#update"/>
       </item>
       <item name="categories">
         <page to="pasteque/v5/categories#index"/>
@@ -1809,7 +1807,6 @@
       </item>
       <item name="discount_profiles">
         <page to="pasteque/v5/discount_profiles#index"/>
-        <page to="pasteque/v5/discount_profiles#show"/>
       </item>
       <item name="locations">
         <page to="pasteque/v5/locations#index"/>
@@ -1833,11 +1830,9 @@
       </item>
       <item name="stocks">
         <page to="pasteque/v5/stocks#index"/>
-        <page to="pasteque/v5/stocks#show"/>
       </item>
       <item name="tariff_areas">
         <page to="pasteque/v5/tariff_areas#index"/>
-        <page to="pasteque/v5/tariff_areas#show"/>
       </item>
       <item name="taxes">
         <page to="pasteque/v5/taxes#index"/>
@@ -1850,6 +1845,7 @@
       <item name="users">
         <page to="pasteque/v5/users#index"/>
         <page to="pasteque/v5/users#show"/>
+        <page to="pasteque/v5/users#update_password"/>
       </item>
       <item name="versions">
         <page to="pasteque/v5/versions#version"/>

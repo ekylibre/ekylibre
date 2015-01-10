@@ -634,15 +634,12 @@ eng:
       # show: "Unlock: %{name}"
     pasteque/v5/attributes:
       # index: "Attributes"
-      # show: "Attribute: %{name}"
     pasteque/v5/cash_movements:
-      # index: "Cash movements"
-      # show: "Cash movement: %{name}"
+      # move: "Move cash movement: %{name}"
     pasteque/v5/cash_registers:
       # index: "Cash registers"
       # show: "Cash register: %{name}"
     pasteque/v5/cashes:
-      # index: "Cashes"
       # show: "Cash: %{name}"
     pasteque/v5/categories:
       # index: "Categories"
@@ -658,7 +655,6 @@ eng:
       # show: "Customer: %{name}"
     pasteque/v5/discount_profiles:
       # index: "Discount profiles"
-      # show: "Discount profile: %{name}"
     pasteque/v5/locations:
       # index: "Locations"
       # show: "Location: %{name}"
@@ -676,10 +672,8 @@ eng:
       # show: "Role: %{name}"
     pasteque/v5/stocks:
       # index: "Stocks"
-      # show: "Stock: %{name}"
     pasteque/v5/tariff_areas:
       # index: "Tariff areas"
-      # show: "Tariff area: %{name}"
     pasteque/v5/taxes:
       # index: "Taxes"
       # show: "Tax: %{name}"
@@ -689,6 +683,7 @@ eng:
     pasteque/v5/users:
       # index: "Users"
       # show: "User: %{name}"
+      # update_password: "Update password user: %{name}"
     pasteque/v5/versions:
       # version: "Version version: %{name}"
     public:
@@ -1621,6 +1616,7 @@ eng:
       mail: "Mail"
       mark: "Mark"
       merge: "Merge"
+      # move: "Move"
       new: "New"
       pick: "Pick"
       # picture: "Picture"
@@ -1646,6 +1642,7 @@ eng:
       # unvalidateds: "Unvalidateds"
       up: "Up"
       update: "Update"
+      # update_password: "Update password"
       # version: "Version"
   unrolls:
     backend/accounts: "%{number}. %{name}"
