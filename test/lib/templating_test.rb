@@ -1,10 +1,10 @@
-# encoding: UTF-8
+# encoding: utf-8
 require 'test_helper'
 
 class TemplatingTest < Test::Unit::TestCase
 
   def test_hello_world
-    Templating::Writer.generate_file("hello_world.pdf", :debug=>true, :title=>"Hello World!", :author=>"Brice Texier") do |doc|
+    Templating::Writer.generate_file("tmp/hello_world.pdf", :debug=>true, :title=>"Hello World!", :author=>"Brice Texier") do |doc|
       doc.font_family("LiberationSans", Templating.fonts_dir.join("LiberationSans-Regular.ttf").to_s,
                Templating.fonts_dir.join("LiberationSans-Bold.ttf").to_s,
                Templating.fonts_dir.join("LiberationSans-Italic.ttf").to_s,

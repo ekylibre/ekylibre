@@ -1,11 +1,15 @@
 require 'test_helper'
 
+class MockedUser < Struct.new("MockedUser", :name, :comment)
+  
+end
+
 class UserTest < ActionController::IntegrationTest
   fixtures :all
 
   context "A valid user" do
     setup do
-      @user = Struct.new("MockedUser", :name, :comment).new('gendo', 'secret') # users(:users_001)
+      @user = MockedUser.new('gendo', 'secret') # users(:users_001)
       @company = companies(:companies_001)
     end
     
