@@ -99,7 +99,7 @@ GEM
     state_machine (0.9.4)
     thor (0.14.6)
     tilt (2.0.1)
-    timecop (0.7.1)
+    timecop (0.6.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)

@@ -25,7 +25,7 @@ gem 'formize', '~> 0.0.20'
 gem 'prawn', '~> 0.12.0'
 
 gem 'colored'
-gem 'timecop'
+gem 'timecop', '0.6.1'
 
 group :development do
   # gem 'ruby-prof'
