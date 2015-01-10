@@ -1,0 +1,48 @@
+- if @variety and BuildingDivision.all.map(&:shape).count > 0
+  :ruby
+    #data_pn = []
+    # find all ProductNature (PN) corresponding to variety
+    #product_natures = ProductNature.stockables.of_variety(@variety.to_s).reorder(:id)
+
+
+    data = []
+    # get all BuildingDivision
+    BuildingDivision.all.each do |building_division|
+      if building_division.shape and building_division.containeds.count > 0
+        popup_content = []
+        ids = []
+        ids = building_division.containeds.uniq.map(&:id)
+        # if there something in building_division
+        if ids.count > 0
+          # limit to 10 the product list for visualization popup reason
+          # TODO make a better method for this with a link_to list with parameter in product#index
+          popup_content << {label: :products.tl}
+          popup_content << {value: ids.count}
+          popup_content << {label: :net_surface_area.tl, value: building_division.net_surface_area.l}
+          popup_content << {label: :nominal_storable_easement_area.tl, value: building_division.nominal_storable_easement_area.l}
+          popup_content << render('popup', support: building_division)
+          item = {
+            name:       building_division.unroll_name,
+            building_division_nature_name: building_division.nature_name,
+            shape:      building_division.shape,
+            popup: {header: true, content: popup_content}
+          }
+          data << item
+        end
+      end
+    end
+  end
+
+  = visualization do |v|
+    - v.serie :main, data
+    - v.background "OpenStreetMap.HOT"
+    - v.background "OpenStreetMap.Mapnik"
+    - v.background "Esri.WorldImagery"
+    - v.categories :building_division_nature_name, :main
+    - v.control :zoom
+    - v.control :scale
+    - v.control :fullscreen
+    - v.control :layer_selector
+
+- else
+  = no_data

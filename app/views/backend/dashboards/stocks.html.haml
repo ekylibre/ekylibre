@@ -3,6 +3,8 @@
     - cell :last_outgoing_deliveries
     - cell :last_incoming_deliveries
   - hbox do
+    - cell :stock_container_map, params: {variety: 'raw_matter'}
+  -# hbox do
     - if Product.of_variety('raw_matter').collect(&:net_mass).sum.in_gram > 0.in_gram
       - cell :current_stocks_by_variety, params: {variety: 'raw_matter', unit: 'ton'}
     - if Product.of_variety('excrement').collect(&:net_mass).sum.in_gram > 0.in_gram

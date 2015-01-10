@@ -129,6 +129,8 @@ fra:
     backend/cells/placeholder_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/stock_container_map_cells: #?
+    backend/cells/stock_map_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
     backend/crumbs:
@@ -1209,7 +1211,7 @@ fra:
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
     net_mass: "Masse nette"
-    net_surface_area: "Surface net" #?
+    net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
@@ -1255,6 +1257,7 @@ fra:
     no_right_defined_for_this_part_of_the_application_and_this_user: "Aucun droit défini pour cette partie de l’application et l’utilisateur"
     no_tracking: "Aucun lot"
     no_transfers: "Aucun transfert à réaliser" #?
+    nominal_storable_easement_area: "Surface de stockage au sol"
     none: "Aucun"
     normal: "Régime du réel normal"
     not_assessable_operations: "Opérations non imposables" #?
@@ -1533,6 +1536,7 @@ fra:
     statistics: "Statistiques"
     status: "État" #?
     stock: "Stock"
+    stock_container_map: "Carte des lieux de stockage"
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"

@@ -1778,6 +1778,9 @@
       <item name="expenses_by_product_nature_category_cells">
         <page to="backend/cells/expenses_by_product_nature_category_cells#show"/>
       </item>
+      <item name="stock_container_map_cells">
+        <page to="backend/cells/stock_container_map_cells#show"/>
+      </item>
       <item name="productions">
         <page to="backend/productions#indicator_measure"/>
       </item>

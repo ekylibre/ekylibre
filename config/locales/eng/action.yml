@@ -148,6 +148,8 @@ eng:
       # show: "Revenues by product nature cell: %{name}"
     backend/cells/rss_cells:
       # show: "Rss cell: %{name}"
+    backend/cells/stock_container_map_cells:
+      # show: "Stock container map cell: %{name}"
     backend/cells/weather_cells:
       # show: "Weather cell: %{name}"
     backend/cells/working_sets_stocks_cells:
@@ -1087,6 +1089,7 @@ eng:
     nature: "Type"
     natures: "Natures"
     net_mass: "Net mass"
+    net_surface_area: "Net surface area"
     new: "New" #?
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
@@ -1113,6 +1116,7 @@ eng:
     no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     no_tracking: "No tracking" #?
+    nominal_storable_easement_area: "Nominal storable easement area"
     none: "None"
     normal: "Normal" #?
     number: "Number" #?
@@ -1297,6 +1301,7 @@ eng:
     state: "State"
     statistics: "Statistics"
     stock: "Stock" #?
+    stock_container_map: "Stock map"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?

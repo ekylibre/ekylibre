@@ -459,7 +459,7 @@ class Product < Ekylibre::Record::Base
     self.containeds.map(&:name).compact.to_sentence
   end
 
-  # Returns the current container for the product
+  # Returns the current ownership for the product
   def owner
     if o = self.current_ownership
       return o.owner
