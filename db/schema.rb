@@ -1279,7 +1279,7 @@ ActiveRecord::Schema.define(:version => 20100131171216) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "entity_id"
-    t.date     "to_bank_on",                                    :default => '2013-12-03', :null => false
+    t.date     "to_bank_on",                                    :default => '1900-01-01', :null => false
     t.integer  "embankment_id"
     t.integer  "embanker_id"
     t.boolean  "scheduled",                                     :default => false,        :null => false

@@ -1,3 +1,4 @@
+# coding: utf-8
 class Jun2t1 < ActiveRecord::Migration
   def self.up
     
@@ -13,7 +14,7 @@ class Jun2t1 < ActiveRecord::Migration
 
     add_column :invoices, :created_on, :date
     
-    add_column :payments, :to_bank_on, :date, :null=>false, :default=>Date.today
+    add_column :payments, :to_bank_on, :date, :null=>false, :default=>'1900-01-01'
  
     
     EntityCategory.find(:all).each do |category|
