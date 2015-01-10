@@ -1,9 +1,5 @@
-partial_path ||= @record.to_partial_path rescue nil
-record ||= @record.class.name.underscore.downcase.to_sym
-json.set! output_name do
-  if @record.nil?
-    json.null!
-  else
-    json.partial! "pasteque/v5/#{partial_path}", record => @record, as: record
-  end
+partial_path ||= @record.to_partial_path rescue "#{output_name.pluralize}/#{output_name.singularize}"
+json.set! output_name.singularize do
+  json.foo @record.inspect
+  render partial: "pasteque/v5/#{partial_path}", locals:{output_name.singularize.to_sym => @record}
 end

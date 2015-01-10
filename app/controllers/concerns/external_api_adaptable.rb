@@ -26,9 +26,7 @@ module ExternalApiAdaptable
       output_name = name
       locals = {}
       locals[:output_name] = output_name
-      locals[:partial_path] = defaults[:partial_path] if defaults[:partial_path]
-      locals[:record] = defaults[:record] if defaults[:record]
-
+      locals[:partial_path] = defaults[:partial_path] || "#{output_name.pluralize}/#{output_name.singularize}"
       index = lambda do
         @records = model.all rescue []
         render template: "layouts/#{api_path}/index", locals: locals
@@ -36,19 +34,15 @@ module ExternalApiAdaptable
 
       show = lambda do
         @record = model.find(params[:id]) rescue nil
-        render template: "layouts/#{api_path}/show", locals:{output_name: output_name.to_s.singularize}.merge(locals)
+        render partial: "#{api_path}/#{locals[:partial_path]}", locals:{name.singularize.to_sym => @record}
       end
 
       update = lambda do
         @record = model.find(params[:id])
-        if @record.update(permitted_params)
-          render true.to_json
-        else
-          render false.to_json
-        end
+        render :json, @record.update(permitted_params)
       end
 
-      methods =
+      method_for =
         {
           index:  index,
           show:   show,
@@ -56,7 +50,7 @@ module ExternalApiAdaptable
         }
 
       actions.each do |action|
-        define_method action, methods[action]
+        define_method action, method_for[action]
       end
 
       define_method :permitted_params do
