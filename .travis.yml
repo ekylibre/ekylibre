@@ -8,7 +8,7 @@ env:
 before_install:
   - "ci/setup" 
   - "gem update --system 1.3.7"
-  - "rvm @global do gem uninstall -ax rubygems-bundler"
+  # - "rvm @global do gem uninstall -ax rubygems-bundler"
   - "gem install rake -v=0.9.6 --no-ri --no-rdoc"
   - "gem install pg mysql sqlite3 --no-ri --no-rdoc"
   - "gem install rails -v=2.3.2 --no-ri --no-rdoc"
