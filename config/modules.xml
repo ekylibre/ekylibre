@@ -1774,6 +1774,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="stock_container_map_cells">
+        <page to="backend/cells/stock_container_map_cells#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

@@ -159,6 +159,8 @@ arb:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/stock_container_map_cells: #?
+    backend/cells/stock_map_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
     backend/companies:  #?
@@ -1489,6 +1491,7 @@ arb:
       zero: "لم يتم تسجيل اي منتج" #?
     nb_purchases: #?
     # net_mass: "Net mass"
+    # net_surface_area: "Net surface area"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
     new_deposit:
@@ -1527,6 +1530,7 @@ arb:
     # no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     no_tracking: "ولا اي مسار"
     no_transfers: "لم يتم اي عملية نقل" #?
+    # nominal_storable_easement_area: "Nominal storable easement area"
     # none: "None"
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
@@ -1818,6 +1822,7 @@ arb:
     state: "الحالة"
     # statistics: "Statistics"
     # stock: "Stock"
+    # stock_container_map: "Stock map"
     stock_max: "الحد الاقصى للاسهم" #?
     stock_min: "الحد الادنى للاسهم" #?
     stock_move_create: "اضافة حركة جديدة للاسهم" #?

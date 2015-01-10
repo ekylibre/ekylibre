@@ -129,6 +129,8 @@ jpn:
     backend/cells/placeholder_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/stock_container_map_cells: #?
+    backend/cells/stock_map_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
     backend/crumbs:
@@ -969,6 +971,7 @@ jpn:
     nb_products: #?
     nb_purchases: #?
     # net_mass: "Net mass"
+    # net_surface_area: "Net surface area"
     # new: "New"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
@@ -995,6 +998,7 @@ jpn:
     # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application (%{controller}#%{action})"
     # no_right_defined_for_this_part_of_the_application_and_this_user: "No right defined for this part of the application and this user"
     # no_tracking: "No tracking"
+    # nominal_storable_easement_area: "Nominal storable easement area"
     # none: "None"
     # normal: "Normal"
     notifications: #?
@@ -1176,6 +1180,7 @@ jpn:
     # state: "State"
     # statistics: "Statistics"
     # stock: "Stock"
+    # stock_container_map: "Stock map"
     # stock_of_x: "Stock of %{x}"
     # stocks: "Stocks"
     # stop: "Stop"

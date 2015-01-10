@@ -145,6 +145,7 @@ Ekylibre::Application.routes.draw do
       resource :purchases_expense_bar_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
+      resource :stock_container_map_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
 
