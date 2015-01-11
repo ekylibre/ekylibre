@@ -9,6 +9,7 @@ class CreateCashSessions < ActiveRecord::Migration
       t.float :expected_stop_amount
       t.references :sequence, index: true
       t.references :affair, index: true
+      t.references :cash, index: true
 
       t.stamps
     end

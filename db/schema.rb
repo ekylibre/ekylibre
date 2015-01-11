@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(version: 20150110223621) do
     t.float    "expected_stop_amount"
     t.integer  "sequence_id"
     t.integer  "affair_id"
+    t.integer  "cash_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "creator_id"
@@ -304,6 +305,7 @@ ActiveRecord::Schema.define(version: 20150110223621) do
   end
 
   add_index "cash_sessions", ["affair_id"], :name => "index_cash_sessions_on_affair_id"
+  add_index "cash_sessions", ["cash_id"], :name => "index_cash_sessions_on_cash_id"
   add_index "cash_sessions", ["created_at"], :name => "index_cash_sessions_on_created_at"
   add_index "cash_sessions", ["creator_id"], :name => "index_cash_sessions_on_creator_id"
   add_index "cash_sessions", ["sequence_id"], :name => "index_cash_sessions_on_sequence_id"

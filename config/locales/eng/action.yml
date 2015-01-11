@@ -662,6 +662,7 @@ eng:
       # index: "Places"
       # show: "Place: %{name}"
     pasteque/v5/products:
+      # category: "Category product: %{name}"
       # index: "Products"
       # show: "Product: %{name}"
     pasteque/v5/resources:
@@ -1583,6 +1584,7 @@ eng:
       # balance: "Balance"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
+      # category: "Category"
       # change_minutes: "Change minutes"
       close: "Close"
       compute: "Compute"

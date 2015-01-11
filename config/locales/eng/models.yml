@@ -360,6 +360,7 @@ eng:
     carrier: "Carrier"
     carrier_linkages: "Carrier linkages"
     cash: "Cash"
+    # cash_sessions: "Cash sessions"
     cashes: "Bank accounts"
     casts: "Casts"
     catalog: "Catalog"

@@ -23,6 +23,7 @@
 # == Table: cash_sessions
 #
 #  affair_id            :integer
+#  cash_id              :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  currency             :string(255)
@@ -43,4 +44,6 @@ class CashSession < Ekylibre::Record::Base
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 255
   #]VALIDATORS]
+  belongs_to :affair
+  belongs_to :cash
 end

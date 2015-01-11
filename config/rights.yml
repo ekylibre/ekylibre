@@ -105,6 +105,7 @@
 #     - "pasteque/v5/locations#show"
 #     - "pasteque/v5/places#index"
 #     - "pasteque/v5/places#show"
+#     - "pasteque/v5/products#category"
 #     - "pasteque/v5/products#index"
 #     - "pasteque/v5/products#show"
 #     - "pasteque/v5/resources#index"

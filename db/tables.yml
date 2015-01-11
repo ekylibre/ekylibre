@@ -191,6 +191,7 @@ campaigns:
 
 cash_sessions:
   affair_id: {type: integer, references: affair}
+  cash_id: {type: integer, references: cash}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string}

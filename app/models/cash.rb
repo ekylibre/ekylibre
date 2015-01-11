@@ -57,6 +57,7 @@ class Cash < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :journal
   has_many :bank_statements, dependent: :destroy
+  has_many :cashes
   has_many :deposits
   has_many :journal_entry_items, through: :account
   has_many :outgoing_payment_modes

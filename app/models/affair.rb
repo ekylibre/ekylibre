@@ -62,6 +62,7 @@ class Affair < Ekylibre::Record::Base
   belongs_to :originator, polymorphic: true
   belongs_to :journal_entry
   # FIXME: Gap#affair_id MUST NOT be mandatory
+  has_many :cash_sessions,     inverse_of: :affair
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify
