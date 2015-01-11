@@ -768,7 +768,9 @@ Ekylibre::Application.routes.draw do
         match "label(/:label)", on: :collection, via: [:get, :post], action: :show
       end
       resources :places, only: [:index, :show]
-      resources :customers, only: [:index, :show]
+      resources :customers, only: [:index, :show, :update] do
+        match "update_prepaid", on: :member, via: [:get, :post], action: :update
+      end
       resources :currencies, only: [:index, :show]
       resources :taxes, only: [:index, :show]
       resources :categories, only: [:index, :show]

@@ -1,5 +1,5 @@
 class Pasteque::V5::CustomersController < Pasteque::V5::BaseController
-  manage_restfully only: [:show], model: :entity, scope: :clients
+  manage_restfully only: [:show, :update], model: :entity, scope: :clients
 
   def index
     if params[:mode] == 'top'
