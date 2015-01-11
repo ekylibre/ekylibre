@@ -1,6 +1,6 @@
-json.locationId stock.location_id
+json.locationId stock.default_storage.id rescue nil
 json.productId stock.variant_id
 json.attrSetInstId nil
-json.qty stock.quantity
-json.security stock.security_level
-json.max stock.max
+json.qty stock.contents.count
+json.security stock.security_level rescue nil
+json.max stock.max rescue nil
