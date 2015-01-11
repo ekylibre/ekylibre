@@ -38,6 +38,8 @@ module ExternalApiAdaptable
       # in Ekylibre.
       search_filters = defaults[:search_filters] || {id: :id}
 
+      model_fields = model.column_names -['created_at', 'updated_at', 'creator_id', 'updater_id', 'lock_version', 'left', 'right'] rescue nil
+
       show = lambda do
         api_key = params.slice(*search_filters.keys).keys.first
         key = search_filters[api_key.to_sym]
@@ -66,7 +68,7 @@ module ExternalApiAdaptable
       end
 
       define_method :permitted_params do
-        params.permit!
+        params.require(model.name.underscore).permit(model_fields) rescue params.permit!
       end
       private :permitted_params
     end
