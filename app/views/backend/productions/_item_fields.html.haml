@@ -1,2 +1,4 @@
 %td.nested-fields
   = f.input :quantity
+  = f.referenced_association :production_support
+  = link_to_remove_nested_association(:item, f)

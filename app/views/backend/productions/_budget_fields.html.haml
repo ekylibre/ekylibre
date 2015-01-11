@@ -12,3 +12,6 @@
     = f.input :direction, selected: direction
   = f.fields_for :items do |item_form|
     = render 'item_fields', f: item_form
+  %td
+    = :total
+    = link_to_add_association :add_item, f, :items, partial: 'item_fields'
