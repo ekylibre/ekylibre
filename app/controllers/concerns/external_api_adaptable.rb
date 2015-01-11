@@ -25,6 +25,7 @@ module ExternalApiAdaptable
       locals = {}
       locals[:output_name] = output_name
       locals[:partial_path] = defaults[:partial_path] || "#{output_name.pluralize}/#{output_name.singularize}"
+
       index = lambda do
         @records = model.all rescue []
         render template: "layouts/#{api_path}/index", locals: locals

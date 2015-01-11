@@ -767,7 +767,9 @@ Ekylibre::Application.routes.draw do
       resources :currencies, only: [:index, :show]
       resources :taxes, only: [:index, :show]
       resources :categories, only: [:index, :show]
-      resources :products, only: [:index, :show]
+      resources :products, only: [:index, :show] do
+        get 'category(/:id)', on: :collection, action: :category
+      end
       resources :attributes, only: [:index]
       resources :tariff_areas, only: [:index]
       resources :cash_movements, only: [] do

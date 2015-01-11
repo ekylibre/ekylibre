@@ -102,6 +102,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
     where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
   }
+  scope :of_category, ->(category){where(category: category)}
 
   protect(on: :destroy) do
     self.products.any?
