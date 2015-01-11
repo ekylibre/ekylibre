@@ -48,6 +48,8 @@ class ProductOwnership < Ekylibre::Record::Base
   validates_presence_of :nature, :product
   #]VALIDATORS]
 
+  delegate :name, :full_name, to: :owner, prefix: true
+
   before_validation do
     self.nature = (self.owner.blank? ? :unknown : (self.owner == Entity.of_company) ? :own : :other)
   end

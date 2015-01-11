@@ -1711,6 +1711,9 @@
         <page to="backend/cells/last_products_cells#list"/>
         <page to="backend/cells/last_products_cells#show"/>
       </item>
+      <item name="stock_container_map_cells">
+        <page to="backend/cells/stock_container_map_cells#show"/>
+      </item>
       <item name="placeholder_cells">
         <page to="backend/cells/placeholder_cells#show"/>
       </item>
@@ -1774,10 +1777,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="stock_container_map_cells">
-        <page to="backend/cells/stock_container_map_cells#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

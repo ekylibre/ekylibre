@@ -3,7 +3,7 @@
   - t.export do |e|
     - e.intervention_sheet resource.number, resource
   - if resource.destroyable?
-    - t.destroy resource, method: :delete, "data-confirm" => :are_you_sure.tl
+    - t.destroy resource, method: :delete, "data-confirm" => :are_you_sure.tl, params: {redirect: backend_interventions_path}
   - if resource.runnable?
     - t.run resource, method: :post, "data-confirm" => :are_you_sure.tl
 

@@ -67,12 +67,12 @@ class Event < Ekylibre::Record::Base
     where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.flatten.map(&:id))
   }
 
-  protect(on: :destroy) do
-    unless self.destroyed_by_association
-      return self.intervention
-    end
-    return false
-  end
+  # protect(on: :destroy) do
+  #   unless self.destroyed_by_association
+  #     return self.intervention
+  #   end
+  #   return false
+  # end
 
   before_validation do
     self.started_at ||= Time.now
