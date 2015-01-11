@@ -4,5 +4,5 @@ json.password user.password
 json.roleId user.role_id
 json.visible true
 json.hasImage user.picture.present?
-json.card nil
+json.card user.card
 

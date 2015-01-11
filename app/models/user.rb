@@ -235,9 +235,9 @@ class User < Ekylibre::Record::Base
     return crumbs.order(read_at: :asc).map(&:intervention_path)
   end
 
-
-
-
+  def card
+    nil
+  end
 
   def self.generate_authentication_token
     loop do

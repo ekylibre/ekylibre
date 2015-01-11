@@ -34,7 +34,7 @@ module ExternalApiAdaptable
       # as names or any value that might be a key
       # a search filter is a hash associating the api key to its ekylibre equivalent.
       # Example with Pasteque API : the "label" key in Pasteque is equivalent to "name"
-      # in Ekylibre
+      # in Ekylibre.
       search_filters = defaults[:search_filters] || {id: :id}
 
       show = lambda do
