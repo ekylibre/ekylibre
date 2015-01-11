@@ -754,6 +754,11 @@ Ekylibre::Application.routes.draw do
 
   namespace :pasteque, defaults: {format: :json} do
     namespace :v5 do
+      concern :search do
+        get 'search', on: :collection
+        post 'search', on: :collection
+      end
+
       match "version", to: "versions#version", via: :all
       resources :users, only: [:index, :show] do
         post :update_password
@@ -777,13 +782,15 @@ Ekylibre::Application.routes.draw do
           post :move
         end
       end
-      resources :cashes, only: [:index, :show]
+      resources :cashes, only: [:show, :update], concerns: [:search] do
+        match 'cash_register(/:id)', on: :collection, via: [:get, :post], action: :show
+      end
       resources :compositions, only: [:index, :show]
       resources :discount_profiles, only: [:index]
       resources :locations, only: [:index, :show]
       resources :resources, only: [:show, :update]
       resources :stocks, only: [:index]
-      resources :tickets, only: [:index, :show]
+      resources :tickets, only: [:index, :show], concerns: [:search]
     end
   end
 

@@ -70,7 +70,10 @@ module ExternalApiAdaptable
       define_method :permitted_params do
         params.require(model.name.underscore).permit(model_fields) rescue params.permit!
       end
-      private :permitted_params
+      define_method :model do
+        model
+      end
+      private :permitted_params, :model
     end
   end
 end
