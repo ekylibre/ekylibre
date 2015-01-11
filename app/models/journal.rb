@@ -55,7 +55,7 @@ class Journal < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_uniqueness_of :name
-  validates_format_of :code, with: /\A[\dA-Z]+\z/
+  validates_format_of :code, with: /\A[0-9A-Z]+\z/
 
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 
@@ -83,14 +83,15 @@ class Journal < Ekylibre::Record::Base
     self.closed_on ||= Time.new(1899, 12, 31).end_of_month
   end
 
-  # this method is .alled before creation or validation method.
   before_validation do
     self.name = self.nature.l if self.name.blank? and self.nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.l.codeize if self.code.blank?
-    self.code = self.code[0..3]
+    if self.code.blank?
+      self.code = self.nature.l
+    end
+    self.code = self.code.codeize[0..3]
   end
 
   validate do
