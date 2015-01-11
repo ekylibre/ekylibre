@@ -19,8 +19,6 @@ module ExternalApiAdaptable
       model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue nil
       model = model.send defaults[:scope] if defaults[:scope].present?
 
-      search_filters = defaults[:search_filters] || :id
-
       api_path = self.controller_path.split('/')[0..-2].join('/')
 
       output_name = name
@@ -32,8 +30,17 @@ module ExternalApiAdaptable
         render template: "layouts/#{api_path}/index", locals: locals
       end
 
+      # search_filters allow to match #show via records ids or another criteria such
+      # as names or any value that might be a key
+      # a search filter is a hash associating the api key to its ekylibre equivalent.
+      # Example with Pasteque API : the "label" key in Pasteque is equivalent to "name"
+      # in Ekylibre
+      search_filters = defaults[:search_filters] || {id: :id}
+
       show = lambda do
-        @record = model.find(params[:id]) rescue nil
+        api_key = params.slice(*search_filters.keys).keys.first
+        key = search_filters[api_key.to_sym]
+        @record = model.find_by(key => params[api_key]) rescue nil
         if @record.present?
           render partial: "#{api_path}/#{locals[:partial_path]}", locals:{name.singularize.to_sym => @record}
         else

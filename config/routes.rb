@@ -759,7 +759,9 @@ Ekylibre::Application.routes.draw do
         post :update_password
       end
       resources :roles, only: [:index, :show]
-      resources :cash_registers, only: [:index, :show]
+      resources :cash_registers, only: [:index, :show] do
+        match "label(/:label)", on: :collection, via: [:get, :post], action: :show
+      end
       resources :places, only: [:index, :show]
       resources :customers, only: [:index, :show]
       resources :currencies, only: [:index, :show]
