@@ -320,9 +320,9 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
-
-
-
+  def self.best_clients(limit = -1)
+    self.clients.sort_by{|client| -client.sales.count}[0...limit]
+  end
 
   def self.importable_columns
     columns = []
@@ -431,8 +431,6 @@ class Entity < Ekylibre::Record::Base
   #   return {:errors => problems, :items_count => item_index-1}
   # end
 
-
-
   def self.export(options={})
     # entities = Entity.where(options)
     csv_string = Ekylibre::CSV.generate do |csv|
@@ -452,6 +450,4 @@ class Entity < Ekylibre::Record::Base
     end
     return csv_string
   end
-
-
 end

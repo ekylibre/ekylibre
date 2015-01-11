@@ -11,4 +11,9 @@ class Pasteque::V5::CashesController < Pasteque::V5::BaseController
     @records = model.find_by(criterias)
     render template: "layouts/pasteque/v5/index", locals:{output_name: 'cash', partial: 'cashes/cash'}
   end
+
+  def zticket
+    render json: nil
+  end
+
 end
