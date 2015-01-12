@@ -57,12 +57,19 @@ class Budget < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense]
   enumerize :computation_method, in: [:per_production_support, :per_working_unit]
-  enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration')
-  enumerize :working_unit, in: Nomen::Units.all
+  enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration').sort
+  enumerize :working_unit, in: Nomen::Units.all.sort
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
+
+  after_create do
+    supports_missing_item = (self.supports.pluck(:id) - self.items.pluck(:production_support_id)).reverse
+    self.orphaned_items.each do |item|
+      item.update(production_support_id: supports_missing_item.pop)
+    end
+  end
 
 end

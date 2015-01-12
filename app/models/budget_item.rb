@@ -44,6 +44,7 @@ class BudgetItem < Ekylibre::Record::Base
 
   belongs_to :budget, inverse_of: :items
   belongs_to :production_support
+  has_one :production, through: :production_support
 
   delegate :computation_method, to: :budget
 
@@ -51,4 +52,8 @@ class BudgetItem < Ekylibre::Record::Base
 
   scope :of_budgets, -> (budgets){where('budget_id IN (?)', budgets)}
   scope :of_supports, -> (supports){where('production_support_id IN (?)', supports)}
+
+  validate do
+    self.global_amount = self.budget.unit_amount * self.quantity * self.support.working_indicator_value rescue 0.0
+  end
 end
