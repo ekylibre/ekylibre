@@ -43,6 +43,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   belongs_to :production, inverse_of: :supports
   belongs_to :storage, class_name: "Product", inverse_of: :supports
+  has_many :budgets, through: :production
   has_many :budget_items, dependent: :destroy
   has_many :interventions
   has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
@@ -59,7 +60,6 @@ class ProductionSupport < Ekylibre::Record::Base
   validates_presence_of :nature, :production, :production_usage, :storage
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
-  validates_associated :budget_items
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
   # alias :net_surface_area :storage_net_surface_area
@@ -100,6 +100,12 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     where(production_id: productions.map(&:id))
   }
+
+  after_create do
+    budgets.each do |budget|
+      budget.orphaned_items.first.update(production_support_id: self.id)
+    end
+  end
 
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
