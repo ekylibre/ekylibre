@@ -1,4 +1,5 @@
+- support ||= f.object.production_support
 %td.nested-fields
   = f.input :quantity
-  = f.referenced_association :production_support
+  = f.referenced_association :production_support, selected: support
   = link_to_remove_nested_association(:item, f)

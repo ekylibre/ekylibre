@@ -49,7 +49,7 @@ class Budget < Ekylibre::Record::Base
   validates_presence_of :variant
   validates_associated :items
 
-  has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
+  has_many :items, ->{order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
