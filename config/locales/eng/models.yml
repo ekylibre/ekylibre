@@ -351,7 +351,7 @@ eng:
     born_at: "Born at"
     # budget: "Budget"
     # budget_items: "Budget items"
-    # budgets: "Budgets"
+    budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
     campaign: "Campaign"
@@ -756,6 +756,7 @@ eng:
     origin: "Origin" #?
     originator: "Originator"
     originator_type: "Originator type"
+    # orphaned_items: "Orphaned items"
     outgoing_deliveries: "Outgoing deliveries"
     outgoing_delivery_items: "Outgoing delivery items"
     outgoing_payment_modes: "Disbursement modes"

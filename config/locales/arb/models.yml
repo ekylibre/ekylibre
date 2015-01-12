@@ -1057,6 +1057,7 @@ arb:
     bic: "BIC" #?
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
+    # budgets: "Budgets"
     building: "موقع التخزين" #?
     building_id: "موقع التخزين" #?
     buildings: "مواقع التخزين"

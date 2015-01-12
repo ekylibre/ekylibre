@@ -429,6 +429,7 @@ spa:
     # bank_statements: "Bank statements"
     # boolean_value: "Boolean value"
     # born_at: "Born at"
+    # budgets: "Budgets"
     # buildings: "Buildings"
     # by_default: "By default"
     # campaign: "Campaign"
