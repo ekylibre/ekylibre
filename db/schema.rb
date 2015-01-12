@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 20150110223621) do
 
   create_table "budget_items", force: true do |t|
     t.integer  "budget_id",                                                    null: false
-    t.integer  "production_support_id",                                        null: false
+    t.integer  "production_support_id"
     t.decimal  "quantity",              precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "global_amount",         precision: 19, scale: 4, default: 0.0, null: false
     t.string   "currency"

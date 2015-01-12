@@ -2,5 +2,4 @@
 - index = f.object.budget.supports.index(support)
 %td.nested-fields{data:{support_destroy: "production_supports_attributes_#{index}__destroy"}}
   = f.input :quantity
-  = f.referenced_association :production_support, selected: support
   = link_to_remove_nested_association(:item, f)

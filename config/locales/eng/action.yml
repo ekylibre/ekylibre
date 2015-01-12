@@ -640,7 +640,9 @@ eng:
       # index: "Cash registers"
       # show: "Cash register: %{name}"
     pasteque/v5/cashes:
+      # search: "Search cash: %{name}"
       # show: "Cash: %{name}"
+      # zticket: "Zticket cash: %{name}"
     pasteque/v5/categories:
       # index: "Categories"
       # show: "Category: %{name}"
@@ -1631,6 +1633,7 @@ eng:
       refuse: "Refuse"
       reopen: "Reopen"
       run: "Run"
+      # search: "Search"
       select: "Select"
       set: "Set"
       ship: "Ship"
@@ -1646,6 +1649,7 @@ eng:
       update: "Update"
       # update_password: "Update password"
       # version: "Version"
+      # zticket: "Zticket"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

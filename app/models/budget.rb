@@ -47,9 +47,9 @@ class Budget < Ekylibre::Record::Base
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   #]VALIDATORS]
   validates_presence_of :variant
-  validates_associated :items
 
   has_many :items, ->{order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
+  has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
   has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
@@ -65,8 +65,15 @@ class Budget < Ekylibre::Record::Base
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
 
+  after_create do
+    # tries to give orphans a production support
+    missing_item_supports = supports.to_a.keep_if{|support| support.budget_items.where(budget_id: self.id).empty?}.map(&:id).reverse
+    orphaned_items.each do |item|
+      item.update(production_support_id: missing_item_supports.pop)
+    end
+  end
   validate do
-    #ensures there is a budget item for each budget and each support
+    # ensures there is a budget item for each budget and each support
     possible_items = Budget.all.inject([]) do |array, budget|
       array << [budget.id, budget.supports.pluck(:id)]
     end.map do |budget_id, supports_ids|
@@ -74,7 +81,7 @@ class Budget < Ekylibre::Record::Base
     end.flatten(1)
     missing_items = possible_items - BudgetItem.all.pluck(:budget_id, :production_support_id)
     missing_items.each do |budget_id, support_id|
-      BudgetItem.create!(budget_id: budget_id, production_support_id: support_id)
+      BudgetItem.create(budget_id: budget_id, production_support_id: support_id)
     end
   end
 end

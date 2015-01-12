@@ -1786,8 +1786,10 @@
         <page to="pasteque/v5/cash_registers#show"/>
       </item>
       <item name="cashes">
+        <page to="pasteque/v5/cashes#search"/>
         <page to="pasteque/v5/cashes#show"/>
         <page to="pasteque/v5/cashes#update"/>
+        <page to="pasteque/v5/cashes#zticket"/>
       </item>
       <item name="categories">
         <page to="pasteque/v5/categories#index"/>
@@ -1804,6 +1806,7 @@
       <item name="customers">
         <page to="pasteque/v5/customers#index"/>
         <page to="pasteque/v5/customers#show"/>
+        <page to="pasteque/v5/customers#update"/>
       </item>
       <item name="discount_profiles">
         <page to="pasteque/v5/discount_profiles#index"/>

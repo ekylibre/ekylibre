@@ -1,3 +1,4 @@
+= f.object.errors.inspect if f.object.errors.any?
 = field_set do
   = f.referenced_association :activity, :source => :main
   = f.referenced_association :campaign, :source => :currents

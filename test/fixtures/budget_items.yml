@@ -29,7 +29,7 @@
 #  global_amount         :decimal(19, 4)   default(0.0), not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
-#  production_support_id :integer          not null
+#  production_support_id :integer
 #  quantity              :decimal(19, 4)   default(0.0), not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
@@ -41,7 +41,6 @@
 #   budget: budgets_001
 #   creator: users_001
 #   global_amount: 0
-#   production_support: production_supports_001
 #   quantity: 0
 #   updater: users_001
 #
