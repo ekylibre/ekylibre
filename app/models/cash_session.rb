@@ -46,6 +46,9 @@ class CashSession < Ekylibre::Record::Base
   has_many :affairs
   belongs_to :cash
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
+  validate on: :create do
+    started_at ||= Time.now
+  end
   def zticket
     {
       cash_id: self.id,
