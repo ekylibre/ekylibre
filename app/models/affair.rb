@@ -81,6 +81,7 @@ class Affair < Ekylibre::Record::Base
 
   acts_as_numbered
   scope :tickets, -> { where(ticket: true)}
+  scope :open, -> {joins(:cash_session).where('cash_sessions.stopped_at IS NULL')}
 
   before_validation do
     if self.originator

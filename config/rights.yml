@@ -121,6 +121,7 @@
 #     - "pasteque/v5/taxes#show"
 #     - "pasteque/v5/tickets#destroy"
 #     - "pasteque/v5/tickets#index"
+#     - "pasteque/v5/tickets#open"
 #     - "pasteque/v5/tickets#search"
 #     - "pasteque/v5/tickets#show"
 #     - "pasteque/v5/tickets#update"

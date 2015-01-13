@@ -682,6 +682,7 @@ eng:
       # show: "Tax: %{name}"
     pasteque/v5/tickets:
       # index: "Tickets"
+      # open: "Open ticket: %{name}"
       # search: "Search ticket: %{name}"
       # show: "Ticket: %{name}"
     pasteque/v5/users:
@@ -1623,6 +1624,7 @@ eng:
       merge: "Merge"
       # move: "Move"
       new: "New"
+      # open: "Open"
       pick: "Pick"
       # picture: "Picture"
       point: "Point"

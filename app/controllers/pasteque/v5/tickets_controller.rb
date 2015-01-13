@@ -14,4 +14,8 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
     @records = model.where(criterias)
     render template: "layouts/pasteque/v5/index", locals:{output_name: 'tickets', partial_path: 'tickets/ticket'}
   end
+  def open
+    @records = model.tickets.open
+    render template: "layouts/pasteque/v5/index", locals:{output_name: 'tickets', partial_path: 'tickets/ticket'}
+  end
 end

@@ -798,6 +798,7 @@ Ekylibre::Application.routes.draw do
           match 'shared', via: [:get], action: :index
           match 'shared(/:id)', via: [:get], action: :show
           match 'shared(/:id)', via: [:delete], action: :destroy
+          get :open
         end
       end
     end
