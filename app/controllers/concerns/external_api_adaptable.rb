@@ -69,7 +69,8 @@ module ExternalApiAdaptable
         {
           index:  index,
           show:   show,
-          update: update
+          update: update,
+          destroy: destroy
         }
 
       actions.each do |action|
