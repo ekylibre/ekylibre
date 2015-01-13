@@ -1844,7 +1844,10 @@
       </item>
       <item name="tickets">
         <page to="pasteque/v5/tickets#index"/>
+        <page to="pasteque/v5/tickets#destroy"/>
+        <page to="pasteque/v5/tickets#search"/>
         <page to="pasteque/v5/tickets#show"/>
+        <page to="pasteque/v5/tickets#update"/>
       </item>
       <item name="users">
         <page to="pasteque/v5/users#index"/>

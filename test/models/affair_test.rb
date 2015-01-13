@@ -23,6 +23,7 @@
 # == Table: affairs
 #
 #  accounted_at     :datetime
+#  cash_session_id  :integer
 #  closed           :boolean          not null
 #  closed_at        :datetime
 #  created_at       :datetime         not null

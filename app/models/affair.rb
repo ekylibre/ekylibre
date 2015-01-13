@@ -23,6 +23,7 @@
 # == Table: affairs
 #
 #  accounted_at     :datetime
+#  cash_session_id  :integer
 #  closed           :boolean          not null
 #  closed_at        :datetime
 #  created_at       :datetime         not null
@@ -61,8 +62,8 @@ class Affair < Ekylibre::Record::Base
   belongs_to :third, class_name: "Entity"
   belongs_to :originator, polymorphic: true
   belongs_to :journal_entry
+  belongs_to :cash_session
   # FIXME: Gap#affair_id MUST NOT be mandatory
-  has_many :cash_sessions,     inverse_of: :affair
   has_many :gaps,              inverse_of: :affair # , dependent: :delete_all
   has_many :sales,             inverse_of: :affair, dependent: :nullify
   has_many :purchases,         inverse_of: :affair, dependent: :nullify

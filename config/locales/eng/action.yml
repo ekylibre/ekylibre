@@ -682,6 +682,7 @@ eng:
       # show: "Tax: %{name}"
     pasteque/v5/tickets:
       # index: "Tickets"
+      # search: "Search ticket: %{name}"
       # show: "Ticket: %{name}"
     pasteque/v5/users:
       # index: "Users"

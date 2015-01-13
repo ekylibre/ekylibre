@@ -22,7 +22,6 @@
 #
 # == Table: cash_sessions
 #
-#  affair_id            :integer
 #  cash_id              :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer

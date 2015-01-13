@@ -28,11 +28,11 @@ class AddBudgets < ActiveRecord::Migration
     end
 
     change_table :productions do |t|
-      t.string    :working_indicator
-      t.string    :working_unit
-      t.integer   :support_variant_id
-      t.boolean   :homogeneous_expenses, default: false
-      t.boolean   :homogeneous_revenues, default: false
+      t.string      :working_indicator
+      t.string      :working_unit
+      t.references  :support_variant,   index: true
+      t.boolean     :homogeneous_expenses, default: false
+      t.boolean     :homogeneous_revenues, default: false
     end
 
   end

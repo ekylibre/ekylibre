@@ -106,9 +106,11 @@ ActiveRecord::Schema.define(version: 20150110223621) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                        default: 0,     null: false
+    t.integer  "cash_session_id"
     t.boolean  "ticket",                                              default: false, null: false
   end
 
+  add_index "affairs", ["cash_session_id"], :name => "index_affairs_on_cash_session_id"
   add_index "affairs", ["created_at"], :name => "index_affairs_on_created_at"
   add_index "affairs", ["creator_id"], :name => "index_affairs_on_creator_id"
   add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
@@ -295,7 +297,6 @@ ActiveRecord::Schema.define(version: 20150110223621) do
     t.float    "noticed_stop_amount"
     t.float    "expected_stop_amount"
     t.integer  "sequence_id"
-    t.integer  "affair_id"
     t.integer  "cash_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -304,7 +305,6 @@ ActiveRecord::Schema.define(version: 20150110223621) do
     t.integer  "lock_version",         default: 0, null: false
   end
 
-  add_index "cash_sessions", ["affair_id"], :name => "index_cash_sessions_on_affair_id"
   add_index "cash_sessions", ["cash_id"], :name => "index_cash_sessions_on_cash_id"
   add_index "cash_sessions", ["created_at"], :name => "index_cash_sessions_on_created_at"
   add_index "cash_sessions", ["creator_id"], :name => "index_cash_sessions_on_creator_id"
@@ -2338,6 +2338,7 @@ ActiveRecord::Schema.define(version: 20150110223621) do
   add_index "productions", ["name"], :name => "index_productions_on_name"
   add_index "productions", ["started_at"], :name => "index_productions_on_started_at"
   add_index "productions", ["stopped_at"], :name => "index_productions_on_stopped_at"
+  add_index "productions", ["support_variant_id"], :name => "index_productions_on_support_variant_id"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
   add_index "productions", ["variant_id"], :name => "index_productions_on_variant_id"

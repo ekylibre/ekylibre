@@ -22,7 +22,6 @@
 #
 # == Table: cash_sessions
 #
-#  affair_id            :integer
 #  cash_id              :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -44,7 +43,7 @@ class CashSession < Ekylibre::Record::Base
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 255
   #]VALIDATORS]
-  belongs_to :affair
+  has_many :affairs
   belongs_to :cash
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   def zticket
@@ -54,17 +53,19 @@ class CashSession < Ekylibre::Record::Base
       close_cash: self.noticed_stop_amount,
       ticket_count: self.affair.deals_count,
       customers_count: 1,
-      payment_count: self.affair.incoming_payments.count,
-      consolidated_sales: self.affair.credit,
-      payments: self.affair.incoming_payments.map do |payment|
-        {
-          id: payment.id,
-          _type: payment.mode.name,
-          amount: payment.amount,
-          currency: payment.currency,
-          currency_amount: nil
-        }.to_struct
-      end,
+      payment_count: self.affairs.count,
+      consolidated_sales: self.affairs.map(&:credit).inject(:+),
+      payments: self.affairs.inject([]) do |array, affair|
+        array << affair.incoming_payments.map do |payment|
+          {
+            id: payment.id,
+            _type: payment.mode.name,
+            amount: payment.amount,
+            currency: payment.currency,
+            currency_amount: nil
+          }.to_struct
+        end
+      end.flatten,
       taxes: [],
       category_sales: []
     }.to_struct

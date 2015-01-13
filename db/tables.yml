@@ -53,6 +53,7 @@ activities:
 
 affairs:
   accounted_at: {type: datetime}
+  cash_session_id: {type: integer, references: cash_session}
   closed: {type: boolean, required: true, default: false}
   closed_at: {type: datetime}
   created_at: {type: datetime, required: true}
@@ -190,7 +191,6 @@ campaigns:
   updater_id: {type: integer, references: user}
 
 cash_sessions:
-  affair_id: {type: integer, references: affair}
   cash_id: {type: integer, references: cash}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}

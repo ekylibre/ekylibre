@@ -8,10 +8,12 @@ class CreateCashSessions < ActiveRecord::Migration
       t.float :noticed_stop_amount
       t.float :expected_stop_amount
       t.references :sequence, index: true
-      t.references :affair, index: true
       t.references :cash, index: true
 
       t.stamps
+    end
+    change_table :affairs do |t|
+      t.references :cash_session, index: true
     end
   end
 end
