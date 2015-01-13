@@ -51,7 +51,7 @@ class CashSession < Ekylibre::Record::Base
       cash_id: self.id,
       open_cash: self.noticed_start_amount,
       close_cash: self.noticed_stop_amount,
-      ticket_count: self.affair.deals_count,
+      ticket_count: self.affairs.map(&:deals_count).inject(:+),
       customers_count: 1,
       payment_count: self.affairs.count,
       consolidated_sales: self.affairs.map(&:credit).inject(:+),
