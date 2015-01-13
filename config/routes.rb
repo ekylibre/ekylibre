@@ -792,7 +792,12 @@ Ekylibre::Application.routes.draw do
       resources :locations, only: [:index, :show]
       resources :resources, only: [:show, :update]
       resources :stocks, only: [:index]
-      resources :tickets, only: [:index, :show], concerns: [:search]
+      resources :tickets, only: [], concerns: [:search] do
+        collection do
+          match 'shared', via: [:get], action: :index
+          match 'shared(/:id)', via: [:get], action: :show
+        end
+      end
     end
   end
 
