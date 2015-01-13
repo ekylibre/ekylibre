@@ -52,8 +52,10 @@ module ExternalApiAdaptable
       end
 
       update = lambda do
+        correspondence = defaults[:update_filters].with_indifferent_access
+        update_params = permitted_params.slice(*correspondence.keys).map{|k,v|[correspondence[k], v]}.to_h
         @record = model.find(params[:id])
-        render :json, @record.update(permitted_params)
+        render :json, @record.update(update_params)
       end
 
         destroy = lambda do
@@ -78,7 +80,11 @@ module ExternalApiAdaptable
       end
 
       define_method :permitted_params do
-        params.require(model.name.underscore).permit(model_fields) rescue params.permit!
+        if defaults[:update_filters].present?
+          params.require(model.name.underscore).permit(*(defaults[:update_filters].keys))
+        else
+          params.require(model.name.underscore).permit(*model_fields) rescue params.permit!
+        end
       end
       define_method :model do
         model
