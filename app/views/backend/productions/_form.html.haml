@@ -19,7 +19,7 @@
       = f.backend_fields_for :supports do |support_form|
         = render 'support_fields', f: support_form
       %td
-        = link_to_add_association :add_support, f, :supports, partial: 'support_fields'
+        = link_to_add_association :'+', f, :supports, partial: 'support_fields'
     %tr
       %td{colspan: '100%'}
         = f.input :homogeneous_expenses, wrapper: :nested
@@ -28,7 +28,7 @@
       = render 'budget_fields', f: expense_form, direction: :expense
     %tr#add_expense
       %td
-        = link_to_add_association :add_expense, f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: 'tr#add_expense', asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
+        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: 'tr#add_expense', asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
     %tr
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
@@ -37,4 +37,4 @@
       = render 'budget_fields', f: revenue_form, direction: :revenue
     %tr#add_revenue
       %td
-        = link_to_add_association :add_revenue, f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: 'tr#add_revenue', association_insertion_traversal: 'closest', association_insertion_method: :before}
+        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: 'tr#add_revenue', association_insertion_traversal: 'closest', association_insertion_method: :before}
