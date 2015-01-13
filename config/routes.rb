@@ -786,6 +786,7 @@ Ekylibre::Application.routes.draw do
       end
       resources :cashes, only: [:show, :update], concerns: [:search] do
         match 'cash_register(/:id)', on: :collection, via: [:get, :post], action: :show
+        match 'zticket', on: :member, via: [:get], action: :zticket
       end
       resources :compositions, only: [:index, :show]
       resources :discount_profiles, only: [:index]

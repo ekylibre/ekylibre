@@ -46,4 +46,27 @@ class CashSession < Ekylibre::Record::Base
   #]VALIDATORS]
   belongs_to :affair
   belongs_to :cash
+  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
+  def zticket
+    {
+      cash_id: self.id,
+      open_cash: self.noticed_start_amount,
+      close_cash: self.noticed_stop_amount,
+      ticket_count: self.affair.deals_count,
+      customers_count: 1,
+      payment_count: self.affair.incoming_payments.count,
+      consolidated_sales: self.affair.credit,
+      payments: self.affair.incoming_payments.map do |payment|
+        {
+          id: payment.id,
+          _type: payment.mode.name,
+          amount: payment.amount,
+          currency: payment.currency,
+          currency_amount: nil
+        }.to_struct
+      end,
+      taxes: [],
+      category_sales: []
+    }.to_struct
+  end
 end
