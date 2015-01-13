@@ -22,17 +22,17 @@
 #
 # == Table: cash_sessions
 #
-#  cash_id              :integer
+#  cash_id              :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(255)
-#  expected_stop_amount :float
+#  currency             :string(3)
+#  expected_stop_amount :decimal(19, 4)   default(0.0)
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  noticed_start_amount :float
-#  noticed_stop_amount  :float
+#  noticed_start_amount :decimal(19, 4)   default(0.0)
+#  noticed_stop_amount  :decimal(19, 4)   default(0.0)
 #  sequence_id          :integer
-#  started_at           :datetime
+#  started_at           :datetime         not null
 #  stopped_at           :datetime
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -41,7 +41,9 @@
 # == Fixture: cash_sessions
 #
 # cash_sessions_001:
+#   cash: cashes_001
 #   creator: users_001
+#   started_at: 2014-11-27 19:35:05 +02:00
 #   updater: users_001
 #
 --- {}

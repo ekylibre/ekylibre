@@ -191,17 +191,17 @@ campaigns:
   updater_id: {type: integer, references: user}
 
 cash_sessions:
-  cash_id: {type: integer, references: cash}
+  cash_id: {type: integer, references: cash, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  currency: {type: string}
-  expected_stop_amount: {type: float}
+  currency: {type: string, limit: 3}
+  expected_stop_amount: {type: decimal, precision: 19, scale: 4, default: 0.0}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  noticed_start_amount: {type: float}
-  noticed_stop_amount: {type: float}
+  noticed_start_amount: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  noticed_stop_amount: {type: decimal, precision: 19, scale: 4, default: 0.0}
   sequence_id: {type: integer, references: sequence}
-  started_at: {type: datetime}
+  started_at: {type: datetime, required: true}
   stopped_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}

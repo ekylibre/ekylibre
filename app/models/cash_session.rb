@@ -22,17 +22,17 @@
 #
 # == Table: cash_sessions
 #
-#  cash_id              :integer
+#  cash_id              :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(255)
-#  expected_stop_amount :float
+#  currency             :string(3)
+#  expected_stop_amount :decimal(19, 4)   default(0.0)
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  noticed_start_amount :float
-#  noticed_stop_amount  :float
+#  noticed_start_amount :decimal(19, 4)   default(0.0)
+#  noticed_stop_amount  :decimal(19, 4)   default(0.0)
 #  sequence_id          :integer
-#  started_at           :datetime
+#  started_at           :datetime         not null
 #  stopped_at           :datetime
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -41,7 +41,8 @@ class CashSession < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 255
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_presence_of :cash, :started_at
   #]VALIDATORS]
   has_many :affairs
   belongs_to :cash

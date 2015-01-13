@@ -290,19 +290,19 @@ ActiveRecord::Schema.define(version: 20150110223621) do
   add_index "campaigns", ["updater_id"], :name => "index_campaigns_on_updater_id"
 
   create_table "cash_sessions", force: true do |t|
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.string   "currency"
-    t.float    "noticed_start_amount"
-    t.float    "noticed_stop_amount"
-    t.float    "expected_stop_amount"
+    t.integer  "cash_id",                                                               null: false
     t.integer  "sequence_id"
-    t.integer  "cash_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "started_at",                                                            null: false
+    t.datetime "stopped_at"
+    t.string   "currency",             limit: 3
+    t.decimal  "noticed_start_amount",           precision: 19, scale: 4, default: 0.0
+    t.decimal  "noticed_stop_amount",            precision: 19, scale: 4, default: 0.0
+    t.decimal  "expected_stop_amount",           precision: 19, scale: 4, default: 0.0
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0, null: false
+    t.integer  "lock_version",                                            default: 0,   null: false
   end
 
   add_index "cash_sessions", ["cash_id"], :name => "index_cash_sessions_on_cash_id"
