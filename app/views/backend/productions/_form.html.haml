@@ -12,11 +12,24 @@
   = f.custom_fields
 
 = field_set(:budgets) do
-  %table
+  %table#budget_visualization
     %tr.support_nested_fields
       %td
-        = :void
-      = f.backend_fields_for :supports do |support_form|
+        %table
+          %tr
+            %td
+              = :storage
+            %td
+              = :quantity
+            %td
+              = :started_at
+            %td
+              = :stopped_at
+            %td
+              = :nature
+            %td
+              = :irrigated
+      = f.backend_fields_for :supports, wrapper: :nested do |support_form|
         = render 'support_fields', f: support_form
       %td
         = link_to_add_association :'+', f, :supports, partial: 'support_fields'

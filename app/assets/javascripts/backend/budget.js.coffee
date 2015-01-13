@@ -1,7 +1,7 @@
 (($) ->
   'use strict'
   $(document).ready ->
-    $("table").on 'cocoon:after-insert', (event, inserted) ->
+    $("table#budget_visualization").on 'cocoon:after-insert', (event, inserted) ->
       # adds items to new budget
       if inserted.hasClass("budget_nested_fields")
         link_to_add_budget_item = inserted.find("a[data-association='item']")

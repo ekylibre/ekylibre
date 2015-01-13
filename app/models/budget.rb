@@ -71,7 +71,9 @@ class Budget < Ekylibre::Record::Base
       item.update(production_support_id: supports_missing_item.pop)
     end
   end
-  validate do
-    self.items.map(&:touch)
+  after_validation do
+    self.items.each do |item|
+      item.touch unless item.new_record?
+    end
   end
 end
