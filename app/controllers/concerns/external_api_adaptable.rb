@@ -56,6 +56,15 @@ module ExternalApiAdaptable
         render :json, @record.update(permitted_params)
       end
 
+        destroy = lambda do
+          @record = model.find(params[:id])
+          if @record.destroy
+            render status: :ok, json: nil
+          else
+            render status: :method_not_allowed, json: nil
+          end
+        end
+
       method_for =
         {
           index:  index,
