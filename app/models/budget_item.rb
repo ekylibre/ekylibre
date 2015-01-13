@@ -30,7 +30,7 @@
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  production_support_id :integer
-#  quantity              :decimal(19, 4)   default(0.0), not null
+#  quantity              :decimal(19, 4)   default(1.0), not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -53,7 +53,7 @@ class BudgetItem < Ekylibre::Record::Base
   scope :of_budgets, -> (budgets){where('budget_id IN (?)', budgets)}
   scope :of_supports, -> (supports){where('production_support_id IN (?)', supports)}
 
-  validate do
+  validate on: :update do
     self.global_amount = self.budget.unit_amount * self.quantity * self.support.working_indicator_value rescue 0.0
   end
 end

@@ -4,7 +4,7 @@ class AddBudgets < ActiveRecord::Migration
     create_table :budget_items do |t|
       t.references :budget,             null: false, index: true
       t.references :production_support,              index: true
-      t.decimal    :quantity,           null: false, default: 0.0, precision: 19, scale: 4
+      t.decimal    :quantity,           null: false, default: 1.0, precision: 19, scale: 4
       t.decimal    :global_amount,      null: false, default: 0.0, precision: 19, scale: 4
       t.string     :currency
       t.stamps

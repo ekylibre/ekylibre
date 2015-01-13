@@ -151,7 +151,7 @@ budget_items:
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   production_support_id: {type: integer, references: production_support}
-  quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
