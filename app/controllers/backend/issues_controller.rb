@@ -41,11 +41,11 @@ class Backend::IssuesController < BackendController
 
   list(:interventions, conditions: {issue_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :reference_name, label_method: :name, url: true
-    t.column :casting
+    t.column :casting, hidden: true
     t.column :started_at
     t.column :stopped_at, hidden: true
-    t.column :natures
-    t.column :state
+    t.column :production, url: true, hidden: true
+    t.status
   end
 
   def close

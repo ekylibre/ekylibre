@@ -29,9 +29,11 @@
     - b.cell do
       - if resource.picture.exists?
         .picture= image_tag(resource.picture.url(:identity))
+      .big-info.important
+        %span.title= Issue.human_attribute_name(:state)
+        %span.value= lights(resource.status)
       = attributes_list do |l|
         - l.attribute :target, url: true
-        - l.attribute :state
         - l.attribute :description
 
   - b.hbox do
