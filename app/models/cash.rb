@@ -30,6 +30,7 @@
 #  bank_code            :string(255)
 #  bank_identifier_code :string(11)
 #  bank_name            :string(50)
+#  container_id         :integer
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -37,6 +38,7 @@
 #  iban                 :string(34)
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null
+#  last_number          :integer
 #  lock_version         :integer          default(0), not null
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null
@@ -55,6 +57,7 @@ class Cash < Ekylibre::Record::Base
   attr_readonly :nature
   attr_readonly :currency, if: :used?
   belongs_to :account
+  belongs_to :container, class_name: 'Product'
   belongs_to :journal
   has_many :bank_statements, dependent: :destroy
   has_many :cashes
@@ -69,6 +72,7 @@ class Cash < Ekylibre::Record::Base
   # enumerize :currency, in: Nomen::Currencies.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :last_number, allow_nil: true, only_integer: true
   validates_length_of :country, allow_nil: true, maximum: 2
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :bank_identifier_code, allow_nil: true, maximum: 11

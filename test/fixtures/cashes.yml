@@ -30,6 +30,7 @@
 #  bank_code            :string(255)
 #  bank_identifier_code :string(11)
 #  bank_name            :string(50)
+#  container_id         :integer
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -37,6 +38,7 @@
 #  iban                 :string(34)
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null
+#  last_number          :integer
 #  lock_version         :integer          default(0), not null
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null

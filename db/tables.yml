@@ -236,6 +236,7 @@ cashes:
   bank_code: {type: string}
   bank_identifier_code: {type: string, limit: 11}
   bank_name: {type: string, limit: 50}
+  container_id: {type: integer, references: product}
   country: {type: string, limit: 2}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -243,6 +244,7 @@ cashes:
   iban: {type: string, limit: 34}
   id: {type: integer, required: true}
   journal_id: {type: integer, references: journal, required: true}
+  last_number: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   mode: {type: string, required: true, default: "iban"}
   name: {type: string, required: true}
