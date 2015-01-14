@@ -30,7 +30,7 @@ namespace :clean do
           errors[:models] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
           if source.blank?
-            Clean::Tests.Clean::Tests.write_model_test_file(class_name)
+            Clean::Tests.write_model_test_file(class_name)
             log.write("   > Empty test file has been writed: #{file}\n")
           end
         end
@@ -38,7 +38,7 @@ namespace :clean do
         errors[:models] += 1
         log.write(" - Error: Test file #{file} is missing\n")
         # Create missing file
-        Clean::Tests.Clean::Tests.write_model_test_file(class_name)
+        Clean::Tests.write_model_test_file(class_name)
         log.write("   > Test file has been created: #{file}\n")
       end
       files.delete(file.to_s)
@@ -70,7 +70,7 @@ namespace :clean do
           errors[:helpers] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
           if source.blank?
-            Clean::Tests.Clean::Tests.write_helper_test_file(test_class_name)
+            Clean::Tests.write_helper_test_file(test_class_name)
             log.write("   > Empty test file has been writed: #{file}\n")
           end
         end
@@ -78,7 +78,7 @@ namespace :clean do
         errors[:helpers] += 1
         log.write(" - Error: Test file #{file} is missing\n")
         # Create missing file
-        Clean::Tests.Clean::Tests.write_helper_test_file(test_class_name)
+        Clean::Tests.write_helper_test_file(test_class_name)
         log.write("   > Test file has been created: #{file}\n")
       end
       files.delete(file.to_s)
@@ -112,7 +112,7 @@ namespace :clean do
           errors[:controllers] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
           if source.blank?
-            Clean::Tests.Clean::Tests.write_controller_test_file(class_name)
+            Clean::Tests.write_controller_test_file(class_name)
             log.write("   > Empty test file has been writed: #{file}\n")
           end
         end

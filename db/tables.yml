@@ -882,6 +882,7 @@ issues:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   description: {type: text}
+  geolocation: {type: spatial}
   gravity: {type: integer}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}

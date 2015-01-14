@@ -26,6 +26,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  description          :text
+#  geolocation          :spatial({:srid=>
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
@@ -43,6 +44,8 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
+
+
 class Issue < Ekylibre::Record::Base
   include Versionable
   enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
@@ -129,6 +132,15 @@ class Issue < Ekylibre::Record::Base
 
   def interventions_count
     self.interventions.count
+  end
+
+  def geolocation=(value)
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self["geolocation"] = value
   end
 
 end

@@ -48,3 +48,4 @@ class visualization.Choropleth extends visualization.Gradient
     html += "</div>"
     return html
 
+visualization.registerLayerType "choropleth", visualization.Choropleth

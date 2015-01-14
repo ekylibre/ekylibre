@@ -1,14 +1,29 @@
 # Add sprockets directives below:
 #= require core_ext
 #= require visualization/color
-#= require visualization/choropleth
+#= require_self
 #= require visualization/bubbles
-#= require visualization/paths
+#= require visualization/categories
+#= require visualization/choropleth
 #= require visualization/path
+#= require visualization/paths
+#= require visualization/points
 #= require visualization/simple
 
-(($) ->
+((V, $) ->
   "use strict"
+
+  V.layer = (layer, data, options) ->
+    @layerTypes ?= {}
+    if type = @layerTypes[layer.type]
+      return new type(layer, data, options)
+    else
+      console.warn "Invalid layer type: #{layer.type}"
+      return null
+
+  V.registerLayerType = (name, klass) ->
+    @layerTypes ?= {}
+    @layerTypes[name] = klass
 
   $.widget "ui.visualization",
     options:
@@ -95,7 +110,14 @@
           opacity: 0.2
           fill: true
           fillOpacity: 1
-
+        points:
+          stroke: true
+          color: "#333333"
+          weight: 2
+          opacity: 0.2
+          fill: true
+          fillOpacity: 1
+          radius: 5
       map:
         maxZoom: 25
         minZoom:2
@@ -104,6 +126,11 @@
       view:
         center:[]
         zoom : 13
+
+      # Generated colors in ruby
+      # $ p = Proc.new{[37 * rand(7), 255].min.to_i.to_s(16).rjust(2, "0")}
+      # $ (1..300).collect{|x| "##{p[]}#{p[]}#{p[]}"}.uniq
+      colors: ["#00de00", "#6f006f", "#4ade94", "#004ab9", "#de6f4a", "#b9b925", "#00b994", "#25946f", "#de00b9", "#94006f", "#de6f94", "#252594", "#dede94", "#4a2594", "#940000", "#deb9de", "#00b9b9", "#00de94", "#25254a", "#6fde6f", "#4a0094", "#256f4a", "#6f4a25", "#4a4a00", "#b9006f", "#4a6f25", "#6f946f", "#009425", "#6f4ade", "#2525de", "#b9946f", "#b9b994", "#b9de94", "#de256f", "#b900b9", "#4a4a6f", "#4a2525", "#006fde", "#940025", "#250094", "#b900de", "#4ab9b9", "#00004a", "#6f6fde", "#256fde", "#b92594", "#6f944a", "#6f6f25", "#4ab9de", "#de2525", "#2525b9", "#944a94", "#b94a94", "#946f94", "#b94a6f", "#000094", "#4a6f6f", "#006f00", "#946f4a", "#00256f", "#6f4a6f", "#de6fb9", "#6fdeb9", "#de6f00", "#94b94a", "#94b994", "#6f6fb9", "#b925de", "#de2594", "#dede25", "#6f4a94", "#946f6f", "#de25de", "#b92525", "#6fde94", "#254a25", "#4adeb9", "#00deb9", "#b9b9b9", "#6f4a4a", "#256f25", "#25deb9", "#6f25de", "#94b925", "#b9254a", "#4ade25", "#4a006f", "#25006f", "#94de00", "#6fb925", "#259425", "#6f9425", "#944a00", "#25b9b9", "#25de4a", "#00254a", "#94254a", "#4a6f94", "#002500", "#6fdede", "#deb925", "#b9b9de", "#4a4a94", "#004a4a", "#25b994", "#6f6f00", "#b92500", "#b925b9", "#940094", "#2594de", "#4ade4a", "#949400", "#256f6f", "#de00de", "#6fde25", "#4a6fde", "#4a4ab9", "#deb96f", "#6f0025", "#00b925", "#0000b9", "#254a94", "#4a25b9", "#b9004a", "#b9de00", "#6f254a", "#6f2500", "#94b96f", "#25de00", "#b99425", "#b90025", "#0094b9", "#4ab925", "#4ab96f", "#6fde00", "#b9b96f", "#94b9b9", "#de4a6f", "#4a2500", "#de0000", "#4a4a4a", "#259494", "#9400b9", "#b9deb9", "#254a00", "#0000de", "#dede4a", "#94dede", "#94de25", "#4a9494", "#4a94de", "#6fb9b9", "#dede00", "#b9256f", "#de9494", "#009494", "#006f4a", "#94944a", "#4ab900", "#6f6f4a", "#b99494", "#6f004a", "#4a256f", "#00b9de", "#b99400", "#00b96f", "#deb9b9", "#4a6f00", "#000025", "#00006f", "#00de4a", "#b96f94", "#6fb9de", "#946fde", "#deb900", "#004ade", "#254ab9", "#25de6f", "#94deb9", "#b994de", "#004a25", "#94256f", "#250025", "#6f6f6f", "#4a944a", "#4a25de", "#00b94a", "#4a4a25", "#9400de", "#94004a", "#4a94b9", "#94de94", "#6f256f", "#6fb900", "#b9944a", "#de94de", "#944a25", "#6f2594"]
 
     _create: ->
       $.extend(true, @options, @element.data("visualization"))
@@ -144,8 +171,10 @@
 
     # Displays all given controls
     _refreshControls: ->
-      console.log "Refresh controls..."
-      return false unless @options.controls?
+      console.log "Refresh controls...", @options.controls
+      unless @options and @options.controls?
+        console.log "No controls..."
+        return false
       widget = this
       for name, options of @options.controls
         console.log "Add control #{name}..."
@@ -187,23 +216,34 @@
 
       for layer in @options.layers
         if console.group isnt undefined
-          console.group "Add layer #{layer.name}..."
+          console.group "Add layer #{layer.name} (#{layer.type})..."
         else
           console.log "Add layer #{layer.name}..."
-        functionName = "_add#{layer.type.camelize()}Layer"
-        if $.isFunction this[functionName]
-          options = {} if options is true
-          if layerGroup = this[functionName].call(this, layer, legendControl)
-            overlayLayer = L.layerGroup(layerGroup)
-            overlayLayer.name = layer.name
-            layer.overlay = overlays[layer.label] = overlayLayer
-            @map.addLayer(overlayLayer)
-            group = new L.featureGroup(layerGroup)
-            @map.fitBounds(group.getBounds())
-          else
-            console.warn "Cannot add layer #{layer.type}"
+        options = {} if options is true
+
+        data = this._getSerieData(layer.serie)
+        options = $.extend true, {}, @options.layerDefaults[layer.type], layer
+        renderedLayer = V.layer(layer, data, options)
+        if renderedLayer and renderedLayer.valid()
+          # Build layer group
+          layerGroup = renderedLayer.buildLayerGroup(this, options)
+          console.log("#{layer.name} layer added")
+          # Add legend
+          legend = legendControl.getContainer()
+          legend.innerHTML += renderedLayer.buildLegend()
+          # Add layer overlay
+          overlayLayer = L.layerGroup(layerGroup)
+          overlayLayer.name = layer.name
+          layer.overlay = overlays[layer.label] = overlayLayer
+          @map.addLayer(overlayLayer)
+          group = new L.featureGroup(layerGroup)
+          bounds = group.getBounds()
+          @map.fitBounds(group.getBounds())
+          if bounds.northEast == bounds.southWest
+            @map.setZoom 18
         else
-          console.log "Unknown layer type: #{layer.type}"
+          console.warn "Cannot add layer #{layer.type}"
+
         console.groupEnd() if console.groupEnd isnt undefined
 
       @map.on "overlayadd", (event) ->
@@ -236,101 +276,6 @@
       options = $.extend true, {}, @options.controlDefaults.zoom, options
       control = new L.Control.Zoom options
       @map.addControl control
-
-    _addSimpleLayer: (layer, legendControl)->
-      data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.simple, layer
-      simple = new visualization.Simple(layer, data, options)
-      return false unless simple.valid()
-
-      layerGroup = simple.buildLayerGroup(this, options)
-      console.log("Simple layer added")
-
-      # Add legend
-      legend = legendControl.getContainer()
-      legend.innerHTML += simple.buildLegend()
-
-      return layerGroup
-      # layerGroup = []
-      # options = $.extend(true, {}, @options.layerDefaults.simple, layer)
-      # for zone in this._getSerieData(layer.serie)
-      #   zoneLayer = new L.GeoJSON(zone.shape, options)
-      #   this._bindPopup(zoneLayer, zone)
-      #   layerGroup.push(zoneLayer)
-      # return layerGroup
-
-    _addChoroplethLayer: (layer, legendControl)->
-      data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.choropleth, layer
-      choropleth = new visualization.Choropleth(layer, data, options)
-      return false unless choropleth.valid()
-
-      layerGroup = choropleth.buildLayerGroup(this, options)
-      console.log("Choropleth layer added")
-
-      # Add legend
-      legend = legendControl.getContainer()
-      legend.innerHTML += choropleth.buildLegend()
-
-      return layerGroup
-
-    _addBubblesLayer: (layer, legendControl)->
-      data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.bubbles, layer
-      bubbles = new visualization.Bubbles(layer, data, options)
-      return false unless bubbles.valid()
-
-      layerGroup = bubbles.buildLayerGroup(this, options)
-      console.log("Bubbles layer added")
-
-      # Add legend
-      legend = legendControl.getContainer()
-      legend.innerHTML += bubbles.buildLegend()
-
-      return layerGroup
-
-    _addCategoriesLayer: (layer, legendControl)->
-      data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.categories, layer
-      categories = new visualization.Categories(layer, data, options)
-      return false unless categories.valid()
-
-      layerGroup = categories.buildLayerGroup(this, options)
-      console.log("Categories layer added")
-
-      # Add legend
-      legend = legendControl.getContainer()
-      legend.innerHTML += categories.buildLegend()
-
-      return layerGroup
-
-    _addPathsLayer: (layer, legendControl)->
-      data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.paths, layer
-      paths = new visualization.Paths(layer, data, options)
-      return false unless paths.valid()
-
-      layerGroup = paths.buildLayerGroup(this, options)
-      console.log("Paths layer added")
-
-      # Add legend
-      legend = legendControl.getContainer()
-      legend.innerHTML += paths.buildLegend()
-      return layerGroup
-
-    _addPathLayer: (layer, legendControl)->
-      data = this._getSerieData(layer.serie)
-      options = $.extend true, {}, @options.layerDefaults.path, layer
-      path = new visualization.Path(layer, data, options)
-      return false unless path.valid()
-
-      layerGroup = path.buildLayerGroup(this, options)
-      console.log("Path layer added")
-
-      # Add legend
-      legend = legendControl.getContainer()
-      legend.innerHTML += path.buildLegend()
-      return layerGroup
 
 
     # Build a popup from given parameters. For now it only uses popup attribute of
@@ -379,6 +324,6 @@
   $(document).ready $.loadVisualizations
   $(document).on "page:load cocoon:after-insert cell:load", $.loadVisualizations
 
-) jQuery
+) visualization, jQuery
 
 

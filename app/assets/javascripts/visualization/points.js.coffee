@@ -1,39 +1,55 @@
-class visualization.Categories
+class visualization.Points
 
-  constructor: (@layer, @data, options = {}) ->
+  constructor: (@layer, @data, @options = {}) ->
     @items = []
-    property = @layer.reference
+    console.log "Layer: ", @layer
     for zone in @data
-      unless this.itemFor(zone[property])
-        @items.push
-          name: zone[property]
-
+      lnglat = zone.shape.coordinates
+      @items.push
+        name: zone.name
+        point: [lnglat[1], lnglat[0]]
+        radius: zone.radius ? @options.radius
     if this.valid()
       @items = @items.sort (a, b) ->
         a.name > b.name
-      @colors = options.colors ? []
+      @colors = @options.colors ? []
       if @items.length > @colors.length
         for x in [@colors.length..@items.length]
           @colors.push(visualization.colors[x] ? "#000000")
       for item, index in @items
         item.fillColor = @colors[index]
-
-      console.log "Categories computed"
+      console.log "Points computed"
     else
       console.warn "Invalid categories"
 
   # Build layer as wanted
   buildLayerGroup: (widget, globalStyle = {}) ->
     group = []
-    for zone in @data
+    # Shadow
+    if @options.stroke
+      for zone in @items
+        zoneStyle =
+          fillColor: zone.color ? @options.color
+          radius: (zone.radius ? @options.radius) + @options.weight
+          stroke: false
+          fillOpacity: 0.8
+        console.log zone.point
+        group.push new L.circleMarker(zone.point, zoneStyle)
+    # Core
+    for zone in @items
+      console.log zone
       zoneStyle =
-        fillColor: this.itemFor(zone[@layer.reference]).fillColor
-      zoneLayer = new L.GeoJSON(zone.shape, $.extend(true, {}, globalStyle, zoneStyle))
+        fillColor: zone.fillColor ? @options.fillColor
+        radius: zone.radius ? @options.radius
+        stroke: false
+        fillOpacity: 1
+      console.log zoneStyle
+      zoneLayer = new L.circleMarker(zone.point, zoneStyle)
       widget._bindPopup(zoneLayer, zone)
       group.push(zoneLayer)
     group
 
-  # Build HTML legend for given categories computed layer
+  # Build HTML legend for given points computed layer
   buildLegend: () ->
     html  = "<div class='leaflet-legend-item' id='legend-#{@layer.name}'>"
     html += "<h3>#{@layer.label}</h3>"
@@ -60,4 +76,4 @@ class visualization.Categories
   valid: () ->
     @items.length > 0
 
-visualization.registerLayerType "categories", visualization.Categories
+visualization.registerLayerType "points", visualization.Points

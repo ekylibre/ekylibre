@@ -475,7 +475,7 @@ fra:
     birth: "Naissance" #?
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
-    # budgets: "Budgets"
+    budgets: "Budgets"
     building: "Bâtiment" #?
     buildings: "Bâtiments"
     by_default: "Par défaut"

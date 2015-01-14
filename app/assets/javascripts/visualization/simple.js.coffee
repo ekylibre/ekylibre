@@ -29,3 +29,5 @@ class visualization.Simple
   # Check if categories are valid
   valid: () ->
     true
+
+visualization.registerLayerType "simple", visualization.Simple

@@ -73,3 +73,5 @@ class visualization.Bubbles extends visualization.Gradient
   _centroid: (shape) ->
     geojson = new L.GeoJSON(shape)
     return geojson.getBounds().getCenter()
+
+visualization.registerLayerType "bubbles", visualization.Bubbles

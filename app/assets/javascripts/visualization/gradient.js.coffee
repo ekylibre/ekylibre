@@ -22,9 +22,9 @@ class visualization.Gradient
           @maxValue = zone[property]
         if zone[property] < @minValue
           @minValue = zone[property]
-        if @maxValue == @minValue
-          console.warn "Force max value to be different of min value"
-          @maxValue += 1
+      if @maxValue == @minValue
+        console.warn "Force max value to be different of min value"
+        @maxValue += 1
     else
       console.warn "Sets default min and max without data"
       @maxValue = 10

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150110223621) do
+ActiveRecord::Schema.define(version: 20150114074551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1287,24 +1287,25 @@ ActiveRecord::Schema.define(version: 20150110223621) do
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
 
   create_table "issues", force: true do |t|
-    t.integer  "target_id",                        null: false
-    t.string   "target_type",                      null: false
-    t.string   "nature",                           null: false
-    t.datetime "observed_at",                      null: false
+    t.integer  "target_id",                                                              null: false
+    t.string   "target_type",                                                            null: false
+    t.string   "nature",                                                                 null: false
+    t.datetime "observed_at",                                                            null: false
     t.integer  "priority"
     t.integer  "gravity"
     t.string   "state"
-    t.string   "name",                             null: false
+    t.string   "name",                                                                   null: false
     t.text     "description"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0, null: false
+    t.integer  "lock_version",                                               default: 0, null: false
+    t.spatial  "geolocation",          limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "issues", ["created_at"], :name => "index_issues_on_created_at"

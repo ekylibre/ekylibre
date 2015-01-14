@@ -2,9 +2,9 @@
 
 class visualization.Color
   constructor: (color) ->
-    @red   = parseInt(color.slice(1,3), 16)
-    @green = parseInt(color.slice(3,5), 16)
-    @blue  = parseInt(color.slice(5,7), 16)
+    @red   = parseInt(color.slice(1, 3), 16)
+    @green = parseInt(color.slice(3, 5), 16)
+    @blue  = parseInt(color.slice(5, 7), 16)
 
   toString: () ->
     visualization.Color.toString(this)
@@ -26,9 +26,9 @@ visualization.Color.toHexCanal = (integer) ->
 
 visualization.Color.parse = (color) ->
   value =
-    red:   parseInt(color.slice(1,3), 16)
-    green: parseInt(color.slice(3,5), 16)
-    blue:  parseInt(color.slice(5,7), 16)
+    red:   parseInt(color.slice(1, 3), 16)
+    green: parseInt(color.slice(3, 5), 16)
+    blue:  parseInt(color.slice(5, 7), 16)
   return value
 
 visualization.Color.random = () ->

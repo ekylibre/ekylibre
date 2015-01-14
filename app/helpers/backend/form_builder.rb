@@ -1,7 +1,7 @@
 # encoding: utf-8
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2009 Brice Texier
+# Copyright (C) 2009-2015 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -267,6 +267,25 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_geojson}}))
     return self.input_field(attribute_name, options.merge(input_html: {data: {map_editor: {edit: geometry.to_geojson}}}))
   end
+
+
+  def geolocation(attribute_name = :geolocation, options = {})
+    # raise @object.send(attribute_name)
+    marker = {}
+    if geom = @object.send(attribute_name)
+      marker[:marker] = Charta::Geometry.new(geom).to_geojson["coordinates"].reverse
+      marker[:view] = {center: marker[:marker]}
+    else
+      if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
+        marker[:view] = {center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
+      elsif zone = CultivableZone.first
+        marker[:view] = {center: zone.shape_centroid}
+      end
+      marker[:marker] = marker[:view][:center]
+    end
+    return self.input(attribute_name, options.merge(input_html: {data: {map_marker: marker}}))
+  end
+
 
 
   def money(attribute_name, *args)

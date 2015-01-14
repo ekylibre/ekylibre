@@ -9,9 +9,9 @@
   = f.input :target_id, as: :hidden
   = f.input :target_type, as: :hidden
   = f.picture
+  = f.geolocation
 
 = field_set(:details) do
-  = f.picture
   = f.input :description, as: :text
   = f.input :priority, collection: 0..4, as: :radio_buttons
   = f.input :gravity, collection: 0..4, as: :radio_buttons

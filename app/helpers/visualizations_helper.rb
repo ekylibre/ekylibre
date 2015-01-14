@@ -1,6 +1,5 @@
-module Backend::VisualizationsHelper
-
-  class VisualizationConfiguration
+module Visualization
+  class Configuration
 
     def initialize(config = {})
       @config = config
@@ -51,12 +50,20 @@ module Backend::VisualizationsHelper
     end
 
     def paths(name, serie, options = {})
-      layer(name, serie, options.merge(type: :paths))
+      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :paths)))
     end
 
     def path(name, serie, options = {})
-      layer(name, serie, options.merge(type: :path))
+      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :path)))
     end
+
+    def points(name, serie, options = {})
+      layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :points)))
+    end
+
+    # def multi_points(name, serie, options = {})
+    #   layer(name, serie, options.merge(type: :multi_points))
+    # end
 
     # Add a serie of geo data
     def serie(name, data)
@@ -176,7 +183,9 @@ module Backend::VisualizationsHelper
 
 
   end
+end
 
+module VisualizationsHelper
 
   # Example of how to use in HAML view:
   #
@@ -192,11 +201,9 @@ module Backend::VisualizationsHelper
   #     - v.control :search
   #
   def visualization(options = {}, html_options = {})
-    config = VisualizationConfiguration.new({categories_colors: theme_colors}.merge(options))
+    config = Visualization::Configuration.new({categories_colors: theme_colors}.merge(options))
     yield config
     return content_tag(:div, nil, html_options.deep_merge(data: {visualization: config.to_json}))
   end
-
-
 
 end
