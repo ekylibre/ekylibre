@@ -187,7 +187,7 @@
       <item name="wait_before_harvest_period" datatype="measure" unit="day"/>
       <item name="approved_input_dose"        datatype="measure" unit="kilogram_per_hectare"/>
       <item name="untreated_zone_length"      datatype="measure" unit="meter"/>
-
+      <item name="wait_before_entering_period" datatype="measure" unit="day"/>
 
 
 

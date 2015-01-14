@@ -8,6 +8,7 @@
       <item name="sales_order" category="marketing"/>
       <item name="sales_estimate" category="marketing"/>
       <item name="sales_invoice" category="marketing"/>
+      
       <item name="purchases_order" category="exploitation"/>
       <item name="purchases_estimate" category="exploitation"/>
       <item name="purchases_invoice" category="exploitation"/>
@@ -35,12 +36,18 @@
 
       <item name="prescription" category="health"/>
       <item name="veterinary_booklet" category="health"/>
+      
       <item name="manure_management_plan" category="land_parcel_management"/>
       <item name="manure_management_plan_sheet" category="land_parcel_management"/>
       <item name="provisional_manure_management_plan" category="land_parcel_management"/>
       <item name="phytosanitary_registry" category="land_parcel_management"/>
       <item name="land_parcel_registry" category="land_parcel_management"/>
       <item name="vine_phytosanitary_registry" category="land_parcel_management"/>
+      
+      <item name="phytosanitary_certification" category="land_parcel_management"/>
+      <item name="equipment_certification" category="land_parcel_management"/>
+      <item name="security_data_sheet" category="land_parcel_management"/>
+      
       <item name="activity_cost" category="management"/>
       <item name="intervention_sheet" category="management"/>
       <item name="intervention_registry" category="management"/>

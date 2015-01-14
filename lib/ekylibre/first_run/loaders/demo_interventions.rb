@@ -447,28 +447,86 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     ##################################################################
     ##               DEMO SPRAYING                                  ##
     ##################################################################
-
+    
+    # Set parameters
     issue_observed_at = Time.new(2014,06,01,10,10,1)
-    cultivable_zone = CultivableZone.where(work_number: "ZC10").first
+    campaign_year = '2014'
+    cultivable_zone_work_number = "ZC10"
+    issue_nature = :chenopodium_album
+    worker_work_number = "DJ"
+    product_name = "Callisto"
+    intrant_population = 1
+    sprayer_work_number = "PULVE_01"
+    
+    # Get products
+    campaign = Campaign.where(harvest_year: campaign_year).first
+    cultivable_zone = CultivableZone.where(work_number: cultivable_zone_work_number).first
     plant = cultivable_zone.contains(:plant).first.product if cultivable_zone
-    nature = :chenopodium_album
-
+    support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first if (cultivable_zone and campaign)
+    intrant = Product.where(name: product_name).first
+    sprayer = Equipment.where(work_number: sprayer_work_number).first
+    worker = Worker.where(work_number: worker_work_number).first
+    
     # 0 - LINK DOCUMENT ON EQUIPMENT, PRODUCT
-    # TODO
-
-
-
+    
+    path = first_run.path("demo_spraying", "callisto_fds.pdf")
+    if path.exist?
+      # import prescription in PDF
+      document = Document.create!(key: "17181-54371-25023-013645", name: "fds-callisto-20140601001", nature: "security_data_sheet")
+      document.archive(file, :pdf)
+    end
+    # TODO LINK FDS ON CALLISTO
+    
+    
+    #phytosanitary_certification
+    # certiphyto.jpeg
+    path = first_run.path("demo_spraying", "certiphyto.jpeg")
+    if path.exist?
+      # import prescription in PDF
+      document = Document.create!(key: "certiphyto-2014-JOULIN-D", name: "2014-certiphyto-JOULIN-D", nature: "phytosanitary_certification")
+      document.archive(file, :jpg)
+    end
+    # TODO LINK ON JD
+    
+    #equipment_certification
+    # controle_pulverisateur.pdf
+    path = first_run.path("demo_spraying", "controle_pulverisateur.pdf")
+    if path.exist?
+      # import prescription in PDF
+      document = Document.create!(key: "2014-pulve-control", name: "2014-pulve-control", nature: "equipment_certification")
+      document.archive(file, :pdf)
+    end
+    # TODO LINK ON SPRAYING EQUIPMENT
+    
+    
+    
+    
+    
     # 1 - CREATE AN ISSUE ON A PLANT WITH GEOLOCATION
-    # TODO
+    
     issue = Issue.create!(target_type: plant.class.name,
                           target_id: plant.id,
                           priority: 3,
                           observed_at: issue_observed_at,
-                          nature: nature,
+                          nature: issue_nature,
                           state: "opened")
-
-
-
+    # link picture if exist
+    picture_path = first_run.path("demo_spraying", "chenopodium_album.jpg")
+    f = (picture_path.exist? ? File.open(picture_path) : nil)
+    if f
+      issue.update!(picture: f)
+      f.close
+    end
+    # TODO SET GEOLOCATION ISSUE ON (-0.785041, 45.830158)
+    path = first_run.path("demo_spraying", "issue_localization.shp")
+    if path.exist?
+       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+          file.each do |record|
+            issue.update!(geolocation: record.geometry)
+          end
+       end
+    end
+    
 
     # 2 - CREATE A PRESCRIPTION
     path = first_run.path("demo_spraying", "preco_phyto.pdf")
@@ -477,15 +535,33 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
         document.archive(file, :pdf)
         # get the prescriptor
-        prescriptor = Person.where(last_name: "JOUTEUX")
+        prescriptor = Entity.where(last_name: "JOUTEUX").first
         # create the prescription with PDF and prescriptor
         prescription = Prescription.create!(prescriptor: prescriptor, document: document, reference_number: "20140601001")
     end
 
-    # 3 - CREATE A PROVISIONNAL INTERVENTION
+    # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
     # TODO
-
-
+    if support and intrant
+      Ekylibre::FirstRun::Booker.production = support.production
+    # Chemical weed
+                intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 6, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
+                  i.add_cast(reference_name: 'weedkiller',      actor: intrant)
+                  i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
+                  i.add_cast(reference_name: 'sprayer',    actor: sprayer)
+                  i.add_cast(reference_name: 'driver',      actor: worker)
+                  i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
+                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+                end
+                
+          intervention.issue = issue
+          intervention.prescription = prescription
+          intervention.recommended = true
+          intervention.recommender = prescriptor
+          intervention.save!
+    end
+    
+    
 
     # 4 - COLLECT REAL INTERVENTION TRIP
     # populate crumbs for ticsad simulation
