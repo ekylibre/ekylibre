@@ -1,5 +1,5 @@
 - direction ||= f.object.direction
-%tr.budget_nested_fields
+%tr.budget_nested_fields{data:{budget_direction: direction}}
   %td
     = link_to_remove_association(:remove_budget, f, wrapper_class: :budget_nested_fields)
     = f.input :homogeneous_values
