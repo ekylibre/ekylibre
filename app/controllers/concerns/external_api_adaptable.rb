@@ -21,7 +21,7 @@ module ExternalApiAdaptable
 
       api_path = self.controller_path.split('/')[0..-2].join('/')
 
-      output_name = name
+      output_name = defaults[:output_name] || name
       locals = {}
       locals[:output_name] = output_name
       locals[:partial_path] = defaults[:partial_path] || "#{output_name.pluralize}/#{output_name.singularize}"
