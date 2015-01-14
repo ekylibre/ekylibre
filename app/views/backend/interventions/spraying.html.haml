@@ -24,8 +24,19 @@
           - count += 1
       - for cast in resource.casts
         - if cast.crumbs.any?
-          - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
-          - v.path (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
+          -# raise cast.crumbs.reorder(:read_at).collect{|c| c.metadata.symbolize_keys.merge(name: cast.name, point: [c.geolocation.y, c.geolocation.x])}.inspect
+          :ruby
+            infos = {:right_flow => "Débit droit", :left_flow => "Débit gauche", :wind_speed => "Vitesse du vent", :tank_level => "Niveau de la cuve"}
+            data = cast.crumbs.reorder(:read_at).collect do |c|
+              infos.keys.inject({}) do |h,k|
+                h[k] = Measure.new(c.metadata[k.to_s]).to_f
+                h
+              end.merge(name: cast.name, shape: c.geolocation)
+            end
+          - v.serie "heatmap_#{cast.id}", data
+          - infos.each do |info, label|
+            - v.heatmap info, "heatmap_#{cast.id}", reference: info, label: label
+          -# v.heatmap (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "heatmap_#{cast.id}", reference: :leftFlow
           - count += 1
       - v.control :zoom
       - v.control :scale

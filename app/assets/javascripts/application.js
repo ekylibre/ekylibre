@@ -36,10 +36,12 @@
 //= require selector
 //= require ui
 //= require jstz
+//= require heatmap
 //= require leaflet
 //= require leaflet/draw
 //= require leaflet/fullscreen
 //= require leaflet/providers
+//= require leaflet/heatmap
 //= require_tree .
 
 var visualization = {};

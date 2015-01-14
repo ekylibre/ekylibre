@@ -63,8 +63,11 @@ class visualization.Path
       crumbStyle =
         fillColor: this.itemFor(crumb[@layer.reference]).fillColor
         color: this.itemFor(crumb[@layer.reference]).fillColor
-        opacity: opacity
-      crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), radius, $.extend(true, {}, globalStyle, crumbStyle))
+        opacity: 1
+        radius: 5
+        weight: 4
+      # crumbLayer = new L.circle(new L.geoJson(crumb.shape).getBounds().getCenter(), radius, $.extend(true, {}, globalStyle, crumbStyle))
+      crumbLayer = new L.circleMarker(new L.geoJson(crumb.shape).getBounds().getCenter(), $.extend(true, {}, globalStyle, crumbStyle))
       widget._bindPopup(crumbLayer, crumb)
       group.push(crumbLayer)
       previous_crumb = @data[@data.indexOf(crumb) - 1]

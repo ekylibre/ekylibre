@@ -5,6 +5,7 @@
 #= require visualization/bubbles
 #= require visualization/categories
 #= require visualization/choropleth
+#= require visualization/heatmap
 #= require visualization/path
 #= require visualization/paths
 #= require visualization/points
@@ -228,19 +229,20 @@
           # Build layer group
           layerGroup = renderedLayer.buildLayerGroup(this, options)
           console.log("#{layer.name} layer added")
-          # Add legend
-          legend = legendControl.getContainer()
-          legend.innerHTML += renderedLayer.buildLegend()
           # Add layer overlay
           overlayLayer = L.layerGroup(layerGroup)
           overlayLayer.name = layer.name
           layer.overlay = overlays[layer.label] = overlayLayer
           @map.addLayer(overlayLayer)
-          group = new L.featureGroup(layerGroup)
-          bounds = group.getBounds()
-          @map.fitBounds(group.getBounds())
-          if bounds.northEast == bounds.southWest
-            @map.setZoom 18
+          try
+            group = new L.featureGroup(layerGroup)
+            bounds = group.getBounds()
+            @map.fitBounds(bounds)
+            if bounds.getNorthEast().equals bounds.getSouthWest()
+              @map.setZoom 18
+          # Add legend
+          legend = legendControl.getContainer()
+          legend.innerHTML += renderedLayer.buildLegend()
         else
           console.warn "Cannot add layer #{layer.type}"
 
