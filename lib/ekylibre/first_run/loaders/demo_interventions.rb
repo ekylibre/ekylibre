@@ -444,6 +444,50 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       end
     end
 
+    ##################################################################
+    ##               DEMO SPRAYING                                  ##
+    ##################################################################
+
+    issue_observed_at = Time.new(2014,06,01,10,10,1)
+    cultivable_zone = CultivableZone.where(work_number: "ZC10").first
+    plant = cultivable_zone.contains(:plant).first.product if cultivable_zone
+    nature = :chenopodium_album
+
+    # 0 - LINK DOCUMENT ON EQUIPMENT, PRODUCT
+    # TODO
+
+
+
+    # 1 - CREATE AN ISSUE ON A PLANT WITH GEOLOCATION
+    # TODO
+    issue = Issue.create!(target_type: plant.class.name,
+                          target_id: plant.id,
+                          priority: 3,
+                          observed_at: issue_observed_at,
+                          nature: nature,
+                          state: "opened")
+
+
+
+
+    # 2 - CREATE A PRESCRIPTION
+    path = first_run.path("demo_spraying", "preco_phyto.pdf")
+    if path.exist?
+    # import prescription in PDF
+        document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
+        document.archive(file, :pdf)
+        # get the prescriptor
+        prescriptor = Person.where(last_name: "JOUTEUX")
+        # create the prescription with PDF and prescriptor
+        prescription = Prescription.create!(prescriptor: prescriptor, document: document, reference_number: "20140601001")
+    end
+
+    # 3 - CREATE A PROVISIONNAL INTERVENTION
+    # TODO
+
+
+
+    # 4 - COLLECT REAL INTERVENTION TRIP
     # populate crumbs for ticsad simulation
     # shape file with attributes for spraying
     ## Technical attributes
@@ -454,7 +498,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     # left_flow (liter/ha)
     # right_flow (liter/ha)
     ##
-    path = first_run.path("alamano", "trips", "ticsad_simulation.shp")
+    path = first_run.path("demo_spraying", "ticsad_simulation.shp")
     if path.exist?
       first_run.count :ticsad_simulation do |w|
         #############################################################################
