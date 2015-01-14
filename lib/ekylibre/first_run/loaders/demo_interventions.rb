@@ -453,7 +453,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     campaign_year = '2014'
     cultivable_zone_work_number = "ZC10"
     issue_nature = :chenopodium_album
-    worker_work_number = "DJ"
+    worker_work_number = "CD"
     product_name = "Callisto"
     intrant_population = 1
     sprayer_work_number = "PULVE_01"
@@ -486,7 +486,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document = Document.create!(key: "certiphyto-2014-JOULIN-D", name: "2014-certiphyto-JOULIN-D", nature: "phytosanitary_certification")
       document.archive(file, :jpg)
     end
-    # TODO LINK ON JD
+    # TODO LINK ON CD
     
     #equipment_certification
     # controle_pulverisateur.pdf
@@ -579,7 +579,11 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       first_run.count :ticsad_simulation do |w|
         #############################################################################
         read_at = Time.new(2014, 5, 6, 10, 0, 0, "+00:00")
-        user = User.where(person_id: Worker.pluck(:person_id).compact).first
+        if worker
+          user = User.where(person_id: worker.person_id).first
+        else
+          user = User.where(person_id: Worker.pluck(:person_id).compact).first
+        end
         RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
           file.each do |record|
             metadata = record.attributes['metadata'].blank? ? {} : record.attributes['metadata'].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
