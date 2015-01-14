@@ -1779,7 +1779,7 @@
         <page to="pasteque/v5/attributes#index"/>
       </item>
       <item name="cash_movements">
-        <page to="pasteque/v5/cash_movements#move"/>
+        <page to="pasteque/v5/cash_movements#create"/>
       </item>
       <item name="cash_registers">
         <page to="pasteque/v5/cash_registers#index"/>
@@ -1793,6 +1793,7 @@
       </item>
       <item name="categories">
         <page to="pasteque/v5/categories#index"/>
+        <page to="pasteque/v5/categories#children"/>
         <page to="pasteque/v5/categories#show"/>
       </item>
       <item name="compositions">
@@ -1825,7 +1826,6 @@
         <page to="pasteque/v5/products#show"/>
       </item>
       <item name="resources">
-        <page to="pasteque/v5/resources#index"/>
         <page to="pasteque/v5/resources#show"/>
       </item>
       <item name="roles">
@@ -1834,6 +1834,7 @@
       </item>
       <item name="stocks">
         <page to="pasteque/v5/stocks#index"/>
+        <page to="pasteque/v5/stocks#search"/>
       </item>
       <item name="tariff_areas">
         <page to="pasteque/v5/tariff_areas#index"/>
@@ -1844,8 +1845,10 @@
       </item>
       <item name="tickets">
         <page to="pasteque/v5/tickets#index"/>
+        <page to="pasteque/v5/tickets#create"/>
         <page to="pasteque/v5/tickets#destroy"/>
         <page to="pasteque/v5/tickets#open"/>
+        <page to="pasteque/v5/tickets#permitted_params"/>
         <page to="pasteque/v5/tickets#search"/>
         <page to="pasteque/v5/tickets#show"/>
         <page to="pasteque/v5/tickets#update"/>

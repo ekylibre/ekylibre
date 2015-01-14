@@ -760,46 +760,54 @@ Ekylibre::Application.routes.draw do
       end
 
       match "version", to: "versions#version", via: :all
+      resources :cash_registers, only: [:index, :show] do
+        match "label(/:label)", on: :collection, via: [:get, :post], action: :show
+      end
       resources :users, only: [:index, :show] do
         post :update_password
       end
       resources :roles, only: [:index, :show]
-      resources :cash_registers, only: [:index, :show] do
-        match "label(/:label)", on: :collection, via: [:get, :post], action: :show
-      end
       resources :places, only: [:index, :show]
-      resources :customers, only: [:index, :show, :update] do
-        match "update_prepaid", on: :member, via: [:get, :post], action: :update
-      end
       resources :currencies, only: [:index, :show]
       resources :taxes, only: [:index, :show]
-      resources :categories, only: [:index, :show]
+      resources :tariff_areas, only: [:index]
+      resources :resources, only: [] do
+        match "label(/:label)", on: :collection, via: [:get, :post], action: :show
+      end
+      resources :categories, only: [:index, :show] do
+        get :children
+      end
       resources :products, only: [:index, :show] do
         get 'category(/:id)', on: :collection, action: :category
       end
-      resources :attributes, only: [:index]
-      resources :tariff_areas, only: [:index]
-      resources :cash_movements, only: [] do
-        collection do
-          post :move
-        end
-      end
+      resources :compositions, only: [:index, :show]
       resources :cashes, only: [:show, :update], concerns: [:search] do
         match 'cash_register(/:id)', on: :collection, via: [:get, :post], action: :show
         match 'zticket', on: :member, via: [:get], action: :zticket
       end
-      resources :compositions, only: [:index, :show]
       resources :discount_profiles, only: [:index]
+      resources :customers, only: [:index, :show, :update] do
+        match "update_prepaid", on: :member, via: [:get, :post], action: :update
+      end
       resources :locations, only: [:index, :show]
-      resources :resources, only: [:show, :update]
-      resources :stocks, only: [:index]
+      resources :stocks, only: [:index], concerns: [:search]
+      resources :attributes, only: [:index]
       resources :tickets, only: [:show, :destroy], concerns: [:search] do
         collection do
+          match 'share', via: [:post], action: :create
+          match 'save', via: [:post], action: :create
           match 'shared', via: [:get], action: :index
           match 'shared(/:id)', via: [:get], action: :show
           match 'shared(/:id)', via: [:delete], action: :destroy
           get :open
         end
+        member do
+          match 'share', via: [:post], action: :update
+          match 'save', via: [:post], action: :update
+        end
+      end
+      resources :cash_movements, only: [:update] do
+        match 'move', via: [:post], on: :collection, action: :update
       end
     end
   end

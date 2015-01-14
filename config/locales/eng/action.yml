@@ -634,8 +634,6 @@ eng:
       # show: "Unlock: %{name}"
     pasteque/v5/attributes:
       # index: "Attributes"
-    pasteque/v5/cash_movements:
-      # move: "Move cash movement: %{name}"
     pasteque/v5/cash_registers:
       # index: "Cash registers"
       # show: "Cash register: %{name}"
@@ -644,6 +642,7 @@ eng:
       # show: "Cash: %{name}"
       # zticket: "Zticket cash: %{name}"
     pasteque/v5/categories:
+      # children: "Children category: %{name}"
       # index: "Categories"
       # show: "Category: %{name}"
     pasteque/v5/compositions:
@@ -668,13 +667,13 @@ eng:
       # index: "Products"
       # show: "Product: %{name}"
     pasteque/v5/resources:
-      # index: "Resources"
       # show: "Resource: %{name}"
     pasteque/v5/roles:
       # index: "Roles"
       # show: "Role: %{name}"
     pasteque/v5/stocks:
       # index: "Stocks"
+      # search: "Search stock: %{name}"
     pasteque/v5/tariff_areas:
       # index: "Tariff areas"
     pasteque/v5/taxes:
@@ -683,6 +682,7 @@ eng:
     pasteque/v5/tickets:
       # index: "Tickets"
       # open: "Open ticket: %{name}"
+      # permitted_params: "Permitted params ticket: %{name}"
       # search: "Search ticket: %{name}"
       # show: "Ticket: %{name}"
     pasteque/v5/users:
@@ -1590,6 +1590,7 @@ eng:
       cancel: "Cancel"
       # category: "Category"
       # change_minutes: "Change minutes"
+      # children: "Children"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -1622,9 +1623,9 @@ eng:
       mail: "Mail"
       mark: "Mark"
       merge: "Merge"
-      # move: "Move"
       new: "New"
       # open: "Open"
+      # permitted_params: "Permitted params"
       pick: "Pick"
       # picture: "Picture"
       point: "Point"

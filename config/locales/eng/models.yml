@@ -987,7 +987,6 @@ eng:
     # support_variant: "Support variant"
     supports: "Supports"
     suspended: "Suspended"
-    # tables: "Tables"
     target: "Target"
     target_type: "Target type"
     tax: "Tax"

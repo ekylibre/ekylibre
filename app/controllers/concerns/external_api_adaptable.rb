@@ -45,9 +45,20 @@ module ExternalApiAdaptable
         key = get_filters[api_key.to_sym]
         @record = model.find_by(key => params[api_key]) rescue nil
         if @record.present?
-          render partial: "#{api_path}/#{locals[:partial_path]}", locals:{name.singularize.to_sym => @record}
+          render partial: "#{api_path}/#{locals[:partial_path]}", locals:{output_name.singularize.to_sym => @record}
         else
           render status: :not_found, json: nil
+        end
+      end
+
+      create = lambda do
+        correspondence = defaults[:update_filters].with_indifferent_access
+        create_params = permitted_params.slice(*correspondence.keys).map{|k,v|[correspondence[k], v]}.to_h
+        record = model.new(create_params)
+        if record.save
+          render partial: "#{api_path}/#{locals[:partial_path]}", locals:{output_name.singularize.to_sym => record}
+        else
+          render json: nil
         end
       end
 
@@ -80,7 +91,8 @@ module ExternalApiAdaptable
           show:   show,
           update: update,
           destroy: destroy,
-          search: search
+          search: search,
+          create: create
         }
 
       actions.each do |action|

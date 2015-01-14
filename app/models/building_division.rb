@@ -67,7 +67,6 @@ class BuildingDivision < SubZone
   enumerize :variety, in: Nomen::Varieties.all(:building_division), predicates: {prefix: true}
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
   has_many :productions, class_name: "Production", through: :supports
-  has_many :tables, -> {contents.of_variety('table')}, class_name: 'Product'
 
   scope :of_production, lambda { |*productions|
     productions.flatten!
@@ -78,5 +77,8 @@ class BuildingDivision < SubZone
   }
 
   scope :floors, -> {where variety: :restaurant_floor}
+  def tables
+    self.contents.where(variety: :table)
+  end
 
 end

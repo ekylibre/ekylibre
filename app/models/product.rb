@@ -530,5 +530,11 @@ class Product < Ekylibre::Record::Base
     end
     return list
   end
-
+  # methods used by Pasteque
+  def x
+    self.id % 4
+  end
+  def y
+    self.id / 4
+  end
 end
