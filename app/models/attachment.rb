@@ -20,28 +20,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: prescriptions
+# == Table: attachments
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  delivered_at     :datetime
-#  description      :text
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  prescriptor_id   :integer          not null
-#  reference_number :string(255)
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  document_id   :integer          not null
+#  expired_at    :datetime
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  nature        :string(255)      not null
+#  resource_id   :integer          not null
+#  resource_type :string(255)      not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
-class Prescription < Ekylibre::Record::Base
-  include Attachable
-  belongs_to :prescriptor, class_name: "Entity"
-  has_many :interventions
+class Attachment < Ekylibre::Record::Base
+  belongs_to :document
+  belongs_to :resource, polymorphic: true
+  has_one :archive, through: :document, source: :last_archive
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :delivered_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :reference_number, allow_nil: true, maximum: 255
-  validates_presence_of :prescriptor
+  validates_datetime :expired_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :nature, :resource_type, allow_nil: true, maximum: 255
+  validates_presence_of :document, :nature, :resource, :resource_type
   #]VALIDATORS]
-
-  delegate :name, to: :prescriptor#, prefix: true
 end

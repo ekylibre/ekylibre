@@ -1015,6 +1015,7 @@ arb:
     # analyses: "Analyses"
     # analysis: "Analysis"
     annotation: "ملاحظة"
+    # archive: "Archive"
     # archived_at: "Archived at"
     # archives: "Archives"
     # archives_count: "Archives count"
@@ -1024,6 +1025,7 @@ arb:
     area_unit_id: "وحدة مساحة" #?
     arrived_at: "وصل يوم" #?
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
+    # attachments: "Attachments"
     attorney: "الوكيل" #?
     attorney_account: "حساب مساعد الوكيل" #?
     attorney_account_id: "حساب مساعد الوكيل" #?

@@ -75,6 +75,7 @@ affairs_001:
   originator_id: 1
   originator_type: IncomingPayment
   third_id: 6
+  ticket: false
   updated_at: 2014-11-05 09:29:59.992533000 Z
   updater_id: 1
 affairs_002:
@@ -91,6 +92,7 @@ affairs_002:
   originator_id: 3
   originator_type: IncomingPayment
   third_id: 6
+  ticket: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 affairs_003:
@@ -109,6 +111,7 @@ affairs_003:
   originator_id: 7
   originator_type: Sale
   third_id: 7
+  ticket: false
   updated_at: 2014-11-05 09:58:26.794031000 Z
   updater_id: 1
 affairs_004:
@@ -126,6 +129,7 @@ affairs_004:
   originator_id: 8
   originator_type: Sale
   third_id: 13
+  ticket: false
   updated_at: 2014-11-05 10:02:28.482875000 Z
   updater_id: 1
 affairs_005:
@@ -144,6 +148,7 @@ affairs_005:
   originator_id: 9
   originator_type: Sale
   third_id: 10
+  ticket: false
   updated_at: 2014-11-05 13:35:14.615292000 Z
   updater_id: 1
 affairs_006:
@@ -162,6 +167,7 @@ affairs_006:
   originator_id: 6
   originator_type: Purchase
   third_id: 13
+  ticket: false
   updated_at: 2014-11-05 13:40:57.910272000 Z
   updater_id: 1
 affairs_007:
@@ -179,6 +185,7 @@ affairs_007:
   originator_id: 7
   originator_type: Purchase
   third_id: 4
+  ticket: false
   updated_at: 2014-11-05 10:46:06.163028000 Z
   updater_id: 1
 affairs_008:
@@ -197,6 +204,7 @@ affairs_008:
   originator_id: 10
   originator_type: Sale
   third_id: 10
+  ticket: false
   updated_at: 2014-11-05 13:36:51.542064000 Z
   updater_id: 1
 affairs_009:
@@ -213,6 +221,7 @@ affairs_009:
   originator_id: 1
   originator_type: IncomingPayment
   third_id: 6
+  ticket: false
   updated_at: 2014-11-05 14:05:57.543080000 Z
 affairs_010:
   accounted_at: 2014-11-05 14:07:45.804138000 Z
@@ -228,6 +237,7 @@ affairs_010:
   originator_id: 3
   originator_type: IncomingPayment
   third_id: 8
+  ticket: false
   updated_at: 2014-11-05 14:06:06.173578000 Z
 affairs_011:
   accounted_at: 2014-11-05 14:07:42.859080000 Z
@@ -243,6 +253,7 @@ affairs_011:
   originator_id: 4
   originator_type: IncomingPayment
   third_id: 8
+  ticket: false
   updated_at: 2014-11-05 14:06:11.334075000 Z
 affairs_012:
   accounted_at: 2014-11-07 13:58:25.770377000 Z
@@ -259,6 +270,7 @@ affairs_012:
   originator_id: 1
   originator_type: OutgoingPayment
   third_id: 6
+  ticket: false
   updated_at: 2014-11-05 14:11:50.255067000 Z
   updater_id: 1
 affairs_013:
@@ -275,6 +287,7 @@ affairs_013:
   originator_id: 2
   originator_type: IncomingPayment
   third_id: 6
+  ticket: false
   updated_at: 2014-11-07 13:55:38.866825000 Z
 affairs_014:
   accounted_at: 2014-11-07 13:58:35.237502000 Z
@@ -291,6 +304,7 @@ affairs_014:
   originator_id: 2
   originator_type: OutgoingPayment
   third_id: 6
+  ticket: false
   updated_at: 2014-11-07 13:58:35.214828000 Z
   updater_id: 1
 affairs_015:
@@ -309,6 +323,7 @@ affairs_015:
   originator_id: 8
   originator_type: Purchase
   third_id: 13
+  ticket: false
   updated_at: 2014-11-07 15:58:47.265018000 Z
   updater_id: 1
 affairs_016:
@@ -326,5 +341,6 @@ affairs_016:
   originator_id: 11
   originator_type: Purchase
   third_id: 13
+  ticket: false
   updated_at: 2014-11-07 16:53:27.399316000 Z
   updater_id: 1

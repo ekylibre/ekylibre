@@ -1064,7 +1064,7 @@ accounts_079:
   id: 422
   label: 6063 - Électricité
   lock_version: 0
-  name: "Électricité"
+  name: Électricité
   number: '6063'
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.563988000 Z
@@ -2897,7 +2897,7 @@ accounts_220:
   id: 563
   label: 445 - État ‒ Taxes sur le chiffre d’affaire
   lock_version: 0
-  name: "État ‒ Taxes sur le chiffre d’affaire"
+  name: État ‒ Taxes sur le chiffre d’affaire
   number: '445'
   reconcilable: false
   updated_at: 2014-12-24 11:08:53.220936000 Z

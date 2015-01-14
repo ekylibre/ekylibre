@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114093417) do
+ActiveRecord::Schema.define(version: 20150114144130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,26 @@ ActiveRecord::Schema.define(version: 20150114093417) do
   add_index "analytic_distributions", ["production_id"], :name => "index_analytic_distributions_on_production_id"
   add_index "analytic_distributions", ["updated_at"], :name => "index_analytic_distributions_on_updated_at"
   add_index "analytic_distributions", ["updater_id"], :name => "index_analytic_distributions_on_updater_id"
+
+  create_table "attachments", force: true do |t|
+    t.integer  "resource_id",               null: false
+    t.string   "resource_type",             null: false
+    t.integer  "document_id",               null: false
+    t.string   "nature",                    null: false
+    t.datetime "expired_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",  default: 0, null: false
+  end
+
+  add_index "attachments", ["created_at"], :name => "index_attachments_on_created_at"
+  add_index "attachments", ["creator_id"], :name => "index_attachments_on_creator_id"
+  add_index "attachments", ["document_id"], :name => "index_attachments_on_document_id"
+  add_index "attachments", ["resource_id", "resource_type"], :name => "index_attachments_on_resource_id_and_resource_type"
+  add_index "attachments", ["updated_at"], :name => "index_attachments_on_updated_at"
+  add_index "attachments", ["updater_id"], :name => "index_attachments_on_updater_id"
 
   create_table "bank_statements", force: true do |t|
     t.integer  "cash_id",                                                       null: false
@@ -1768,7 +1788,6 @@ ActiveRecord::Schema.define(version: 20150114093417) do
 
   create_table "prescriptions", force: true do |t|
     t.integer  "prescriptor_id",               null: false
-    t.integer  "document_id"
     t.string   "reference_number"
     t.datetime "delivered_at"
     t.text     "description"
@@ -1782,7 +1801,6 @@ ActiveRecord::Schema.define(version: 20150114093417) do
   add_index "prescriptions", ["created_at"], :name => "index_prescriptions_on_created_at"
   add_index "prescriptions", ["creator_id"], :name => "index_prescriptions_on_creator_id"
   add_index "prescriptions", ["delivered_at"], :name => "index_prescriptions_on_delivered_at"
-  add_index "prescriptions", ["document_id"], :name => "index_prescriptions_on_document_id"
   add_index "prescriptions", ["prescriptor_id"], :name => "index_prescriptions_on_prescriptor_id"
   add_index "prescriptions", ["reference_number"], :name => "index_prescriptions_on_reference_number"
   add_index "prescriptions", ["updated_at"], :name => "index_prescriptions_on_updated_at"

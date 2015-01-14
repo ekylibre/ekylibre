@@ -651,7 +651,7 @@ form.search {
 
 .picture {
   background: white;
-  border: 1px solid #DDDDDD;
+  border: $menu-border;
   box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
   @include float(left);
   margin: 0 $default-gap;
@@ -2503,6 +2503,44 @@ svg.map {
   #total {
     a {
       @include float(left);
+    }
+  }
+}
+
+
+.thumbs {
+  @include clearfix;
+  .thumb {
+    border: $menu-border;
+    box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
+    margin: 0 $default-gap;
+    padding: $default-gap;
+    @include respond-to-bigger-than(small) {
+      max-width: 200px;
+    }
+    &, a {
+      display: block;
+    }
+    background: white;
+    @include float(left);
+    img {
+      width: 100%;
+    }
+    .archived-at, .nature {
+      &, * {
+        color: $neutral-color;
+      }
+    }
+    .archived-at i {
+      @include is-icon($fs-small);
+      @include use-icon(save);
+    }
+    .nature i {
+      @include is-icon($fs-small);
+      @include use-icon(file);
+    }
+    &:first-child {
+      @include margin-left(0);
     }
   }
 }

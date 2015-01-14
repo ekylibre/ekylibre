@@ -126,6 +126,14 @@ module Ekylibre
         end
       end
 
+      # Browse all tenant to make actions on it
+      def switch_each(&block)
+        list.each do |tenant|
+          switch! tenant
+          yield tenant
+        end
+      end
+
       def clear!
         list unless @list
         @list[env] = []

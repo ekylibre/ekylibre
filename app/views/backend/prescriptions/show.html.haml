@@ -2,14 +2,18 @@
   - t.edit @prescription
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :reference_number
-      - l.attribute :delivered_at
-      - l.attribute :prescriptor, url: true
-      - l.attribute :document, url: true
-      - l.attribute :description
+  - b.hbox do
+    - b.cell do
+      = attributes_list do |l|
+        - l.attribute :reference_number
+        - l.attribute :delivered_at
+        - l.attribute :prescriptor, url: true
+        - l.attribute :description
+
+    - b.cell Prescription.human_attribute_name(:attachments) do
+      = attachments_of(resource)
 
   - b.hbox do
     - b.cell(:interventions) do
       = list(:interventions)
+

@@ -1,0 +1,14 @@
+.thumbs
+  - attachments.each do |attachment|
+    - next unless archive = attachment.archive
+    .thumb
+      = link_to(backend_document_archive_path(archive, format: :pdf)) do
+        = image_tag(backend_document_archive_path(archive, format: :jpg))
+      = link_to(backend_document_path(attachment.document)) do
+        .name= attachment.document.name
+        .nature
+          %i
+          = attachment.document.nature.l
+        .archived-at
+          %i
+          = archive.archived_at.l

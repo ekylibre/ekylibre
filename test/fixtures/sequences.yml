@@ -284,7 +284,7 @@ sequences_015:
   last_year: 2014
   lock_version: 30
   name: Intervention
-  number_format: "[number]"
+  number_format: '[number]'
   number_increment: 1
   number_start: 1
   period: number

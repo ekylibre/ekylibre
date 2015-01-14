@@ -46,7 +46,7 @@ class DocumentArchive < Ekylibre::Record::Base
     path: ':tenant/:class/:id_partition/:style.:extension',
     styles: {
       default:   {format: :pdf, processors: [:reader, :counter, :freezer], clean: true},
-      thumbnail: {format: :jpg, processors: [:sketcher]}
+      thumbnail: {format: :jpg, processors: [:sketcher, :thumbnail], geometry: "320x320>"}
     }
   }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2015 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,14 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DocumentArchivesController < BackendController
+module Backend::AttachmentsHelper
 
-  def show
-    return unless @document_archive = find_and_check
-    respond_to do |format|
-      format.pdf { send_file(@document_archive.file.path(:default)) }
-      format.jpg { send_file(@document_archive.file.path(:thumbnail)) }
-    end
+  def attachments_of(resource, options = {})
+    render "/backend/attachments/thumbs", attachments: resource.attachments
   end
+
 
 end

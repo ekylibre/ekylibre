@@ -647,7 +647,7 @@ product_natures_031:
   id: 31
   linkage_points_list: ''
   lock_version: 0
-  name: "Épandeur à engrais"
+  name: Épandeur à engrais
   number: BUILDIOE
   population_counting: unitary
   reference_name: spreader
@@ -667,7 +667,7 @@ product_natures_032:
   id: 32
   linkage_points_list: ''
   lock_version: 0
-  name: "Épandeur à fumier"
+  name: Épandeur à fumier
   number: BUILDIOF
   population_counting: unitary
   reference_name: spreader_trailer

@@ -20,47 +20,50 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: prescriptions
+# == Table: attachments
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  delivered_at     :datetime
-#  description      :text
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  prescriptor_id   :integer          not null
-#  reference_number :string(255)
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  document_id   :integer          not null
+#  expired_at    :datetime
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  nature        :string(255)      not null
+#  resource_id   :integer          not null
+#  resource_type :string(255)      not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 #
-# == Fixture: prescriptions
+# == Fixture: attachments
 #
-# prescriptions_001:
+# attachments_001:
 #   creator: users_001
-#   prescriptor: prescriptors_001
+#   document: documents_001
+#   nature: "Lorem ipsum"
+#   resource: resources_001 (Model)
 #   updater: users_001
 #
 ---
-prescriptions_001:
+attachments_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  delivered_at: 2013-02-05 07:40:00.000000000 Z
-  description: ''
+  document_id: 2
   id: 1
   lock_version: 1
-  prescriptor_id: 5
-  reference_number: 012382
+  nature: veterinary_booklet
+  resource_id: 1
+  resource_type: Prescription
   updated_at: 2014-11-04 15:25:09.160058000 Z
   updater_id: 1
-prescriptions_002:
+attachments_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  delivered_at: 2014-06-04 07:25:00.000000000 Z
-  description: ''
+  document_id: 1
   id: 2
   lock_version: 1
-  prescriptor_id: 5
-  reference_number: 851DF
+  nature: veterinary_booklet
+  resource_id: 2
+  resource_type: Prescription
   updated_at: 2014-11-04 15:24:42.690021000 Z
   updater_id: 1

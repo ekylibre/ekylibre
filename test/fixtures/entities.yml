@@ -405,11 +405,11 @@ people_003:
   currency: JPY
   dead_at: 2004-07-11 22:00:00.000000000 Z
   deliveries_conditions: ''
-  first_name: "ユイ"
-  full_name: "碇 ユイ"
+  first_name: ユイ
+  full_name: 碇 ユイ
   id: 11
   language: jpn
-  last_name: "碇"
+  last_name: 碇
   lock_version: 4
   locked: false
   meeting_origin: ''

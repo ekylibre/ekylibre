@@ -395,7 +395,7 @@ product_nature_variants_023:
   nature_id: 21
   number: GWNVKRYVPNV000000000009
   reference_name: tractor
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-02 18:19:37.982583000 Z
   updater_id: 1
   variety: tractor
@@ -410,7 +410,7 @@ product_nature_variants_024:
   nature_id: 22
   number: GWNVKRYVPNV000000000010
   reference_name: grinder
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-02 18:19:51.698049000 Z
   updater_id: 1
   variety: plower
@@ -425,7 +425,7 @@ product_nature_variants_025:
   nature_id: 21
   number: GWNVKRYVPNV000000000011
   reference_name: tractor
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-02 18:20:34.104515000 Z
   updater_id: 1
   variety: tractor
@@ -440,7 +440,7 @@ product_nature_variants_026:
   nature_id: 23
   number: GWNVKRYVPNV000000000012
   reference_name: plow
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-02 18:29:03.433574000 Z
   updater_id: 1
   variety: plower
@@ -470,7 +470,7 @@ product_nature_variants_028:
   nature_id: 25
   number: GWNVKRYVPNV000000000014
   reference_name: sower
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-02 18:36:36.382111000 Z
   updater_id: 1
   variety: sower
@@ -532,7 +532,7 @@ product_nature_variants_032:
   nature_id: 28
   number: GWNVKRYVPNV000000000018
   reference_name: superficial_plow
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-04 18:38:32.203593000 Z
   updater_id: 1
   variety: plower
@@ -547,7 +547,7 @@ product_nature_variants_033:
   nature_id: 29
   number: GWNVKRYVPNV000000000019
   reference_name: hoe
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-04 18:40:21.570497000 Z
   updater_id: 1
   variety: plower
@@ -577,7 +577,7 @@ product_nature_variants_035:
   nature_id: 30
   number: GWNVKRYVPNV000000000021
   reference_name: sprayer
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 15:00:45.280360000 Z
   updater_id: 1
   variety: sprayer
@@ -588,11 +588,11 @@ product_nature_variants_036:
   creator_id: 1
   id: 37
   lock_version: 0
-  name: "Épandeur à engrais"
+  name: Épandeur à engrais
   nature_id: 31
   number: GWNVKRYVPNV000000000022
   reference_name: spreader
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 15:22:23.973592000 Z
   updater_id: 1
   variety: spreader
@@ -603,11 +603,11 @@ product_nature_variants_037:
   creator_id: 1
   id: 38
   lock_version: 0
-  name: "Épandeur à fumier"
+  name: Épandeur à fumier
   nature_id: 32
   number: GWNVKRYVPNV000000000023
   reference_name: spreader_trailer
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 15:22:31.413012000 Z
   updater_id: 1
   variety: trailer
@@ -731,7 +731,7 @@ product_nature_variants_045:
   nature_id: 38
   number: GWNVKRYVPNV000000000031
   reference_name: implanter
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 16:48:34.937972000 Z
   updater_id: 1
   variety: implanter
@@ -746,7 +746,7 @@ product_nature_variants_046:
   nature_id: 39
   number: GWNVKRYVPNV000000000032
   reference_name: grape_reaper
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 17:04:02.267331000 Z
   updater_id: 1
   variety: reaper
@@ -793,7 +793,7 @@ product_nature_variants_049:
   nature_id: 42
   number: GWNVKRYVPNV000000000035
   reference_name: stainless_steel_tank
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 17:14:18.214538000 Z
   updater_id: 1
   variety: tank
@@ -823,7 +823,7 @@ product_nature_variants_051:
   nature_id: 43
   number: GWNVKRYVPNV000000000037
   reference_name: wine_press
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 17:23:08.062270000 Z
   updater_id: 1
   variety: press
@@ -1039,7 +1039,7 @@ product_nature_variants_065:
   nature_id: 56
   number: GWNVKRYVPNV000000000052
   reference_name: hand_drawn
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 19:35:20.887953000 Z
   updater_id: 1
   variety: equipment
@@ -1054,7 +1054,7 @@ product_nature_variants_066:
   nature_id: 57
   number: GWNVKRYVPNV000000000053
   reference_name: corker
-  unit_name: "Équipement"
+  unit_name: Équipement
   updated_at: 2014-11-07 19:35:28.672313000 Z
   updater_id: 1
   variety: equipment

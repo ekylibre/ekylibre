@@ -26,7 +26,6 @@
 #  creator_id       :integer
 #  delivered_at     :datetime
 #  description      :text
-#  document_id      :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  prescriptor_id   :integer          not null

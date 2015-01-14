@@ -11,15 +11,15 @@ module Fixturing
       Rails.root.join("test", "fixtures")
     end
 
-    def table_names
-      list = []
-      Dir.chdir(directory) do
-        list = Dir["*.yml"].map do |f|
-          f.gsub(/\.yml$/, '').to_sym
-        end
-      end
-      return list
-    end
+    # def table_names
+    #   list = []
+    #   Dir.chdir(directory) do
+    #     list = Dir["*.yml"].map do |f|
+    #       f.gsub(/\.yml$/, '').to_sym
+    #     end
+    #   end
+    #   return list
+    # end
 
     def migrations_file
       directory.join(migrations_table)
@@ -48,6 +48,8 @@ module Fixturing
       Ekylibre::Tenant.migrate(tenant, to: current_version)
       # columnize_keys # Simple IDs
       # Ekylibre::Tenant.switch(tenant)
+      # List tables
+      table_names = Ekylibre::Record::Base.connection.tables.delete_if{ |t| %w(schema_migrations spatial_ref_sys).include?(t) }
       say "Load fixtures"
       ActiveRecord::FixtureSet.create_fixtures(directory, table_names)
       # reflectionize_keys # Back to simple reading

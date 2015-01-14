@@ -149,7 +149,7 @@ entity_addresses_006:
 entity_addresses_007:
   by_default: true
   canal: mail
-  coordinate: "碇 ユイ, 17123 CHAR-EN-TEUX, France"
+  coordinate: 碇 ユイ, 17123 CHAR-EN-TEUX, France
   created_at: 2014-11-01 20:16:17.397421000 Z
   creator_id: 1
   entity_id: 11
@@ -157,7 +157,7 @@ entity_addresses_007:
   lock_version: 1
   mail_auto_update: true
   mail_country: fr
-  mail_line_1: "碇 ユイ"
+  mail_line_1: 碇 ユイ
   mail_line_2: ''
   mail_line_3: ''
   mail_line_4: ''

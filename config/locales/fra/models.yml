@@ -446,10 +446,12 @@ fra:
     analyses: "Analyses"
     analysis: "Analyses"
     annotation: "Annotation"
+    archive: "Archive"
     archived_at: "Archivé le"
     archives: "Archives"
     archives_count: "Nombre d’archives"
     archiving: "Méthode d’archivage"
+    attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
     attorney_journal: "Journal mandataire" #?
