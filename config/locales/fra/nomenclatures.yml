@@ -1206,6 +1206,7 @@ fra:
         deposit: "Remise en banque" #?
         deposit_list: "Remise en banque"
         entity_sheet: "Fiche tiers"
+        equipment_certification: "Certification des equipements"
         exchange_accountancy_file_fr: "Fichier des Ecritures Comptables (FEC)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
@@ -1220,15 +1221,20 @@ fra:
         manure_management_plan_sheet: "Plan prévisionnel de fumure détaillé"
         outgoing_deliveries_journal: "Journal de livraison"
         outgoing_delivery_docket: "Bon de livraison"
+        phytosanitary_certification: "Certi-Phyto"
         phytosanitary_registry: "Registre phytosanitaire"
         prescription: "Prescription vétérinaire"
         provisional_manure_management_plan: "Plan prévisionnel de fumure (PPF)"
         purchase_estimate: "Devis d’achat" #?
         purchase_invoice: "Facture d’achat" #?
         purchase_order: "Achat" #?
+        purchases_estimate: "Estimation"
+        purchases_invoice: "Facture d'achat"
+        purchases_order: "Commande d'achat"
         sales_estimate: "Devis de vente"
         sales_invoice: "Facture de vente"
         sales_order: "Commande de vente"
+        security_data_sheet: "Fiche de données de sécurité"
         stocks: "Stocks"
         tax_assessment: "Avis d’imposition"
         trial_balance: "Balance comptable"
@@ -1470,8 +1476,8 @@ fra:
         cooperative_cartodb_account: "Compte coopérative CartoDB"
         cooperative_cartodb_key: "Clé coopérative CartoDB"
         husbandry_owner_number: "Code éleveur propriétaire"
-        idele_login: "Login Idele" #?
-        idele_password: "Mot de passe Idele" #?
+        idele_login: "Login Idele"
+        idele_password: "Mot de passe Idele"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
         pacage_number: "Numéro de PACAGE"
@@ -1626,6 +1632,7 @@ fra:
         usage_duration: "Durée d’utilisation"
         volume_area_density: "Volume par surface"
         volume_density: "Concentration volumique"
+        wait_before_entering_period: "Délai De Rentrée (DDR)"
         wait_before_harvest_period: "Délai Avant Récolte (DAR)"
         water_content_rate: "Teneur en eau"
         width: "Largeur"
@@ -1678,7 +1685,7 @@ fra:
         nut_weevil: "Balanin des noisettes"
         phytophthora: "Phytophthora"
         piece_breakdown: "Défaillance d’une pièce"
-        # plant_disease: "Plant disease"
+        plant_disease: "Maladie ou adventice lieés aux plantes"
         pourridie_rot: "Pourridié"
         protozoa_disease: "Maladie virale"
         respiratory_problem: "Problème respiratoire"

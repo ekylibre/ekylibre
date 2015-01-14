@@ -540,7 +540,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       # get the prescriptor
       prescriptor = Entity.where(last_name: "JOUTEUX").first
       # create the prescription with PDF and prescriptor
-      prescription = Prescription.create!(prescriptor: prescriptor, document: document, reference_number: "20140601001")
+      prescription = Prescription.create!(prescriptor: prescriptor, reference_number: "20140601001")
       prescription.attachments.create!(document: document)
     end
 

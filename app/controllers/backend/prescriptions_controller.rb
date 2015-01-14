@@ -26,7 +26,7 @@ class Backend::PrescriptionsController < BackendController
     t.column :reference_number, url: true
     t.column :delivered_at
     t.column :prescriptor, url: true
-    t.column :document, url: true
+    #t.column :document, url: true
     t.action :edit
     t.action :destroy, if: :destroyable?
   end
