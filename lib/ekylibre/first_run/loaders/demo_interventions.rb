@@ -447,7 +447,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     ##################################################################
     ##               DEMO SPRAYING                                  ##
     ##################################################################
-    
+
     # Set parameters
     issue_observed_at = Time.new(2014,06,01,10,10,1)
     campaign_year = '2014'
@@ -457,7 +457,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     product_name = "Callisto"
     intrant_population = 1
     sprayer_work_number = "PULVE_01"
-    
+
     # Get products
     campaign = Campaign.where(harvest_year: campaign_year).first
     cultivable_zone = CultivableZone.where(work_number: cultivable_zone_work_number).first
@@ -466,9 +466,9 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     intrant = Product.where(name: product_name).first
     sprayer = Equipment.where(work_number: sprayer_work_number).first
     worker = Worker.where(work_number: worker_work_number).first
-    
+
     # 0 - LINK DOCUMENT ON EQUIPMENT, PRODUCT
-    
+
     path = first_run.path("demo_spraying", "callisto_fds.pdf")
     if path.exist?
       # import prescription in PDF
@@ -476,8 +476,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document.archive(file, :pdf)
     end
     # TODO LINK FDS ON CALLISTO
-    
-    
+
+
     #phytosanitary_certification
     # certiphyto.jpeg
     path = first_run.path("demo_spraying", "certiphyto.jpeg")
@@ -487,7 +487,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document.archive(file, :jpg)
     end
     # TODO LINK ON CD
-    
+
     #equipment_certification
     # controle_pulverisateur.pdf
     path = first_run.path("demo_spraying", "controle_pulverisateur.pdf")
@@ -497,13 +497,13 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document.archive(file, :pdf)
     end
     # TODO LINK ON SPRAYING EQUIPMENT
-    
-    
-    
-    
-    
+
+
+
+
+
     # 1 - CREATE AN ISSUE ON A PLANT WITH GEOLOCATION
-    
+
     issue = Issue.create!(target_type: plant.class.name,
                           target_id: plant.id,
                           priority: 3,
@@ -526,7 +526,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
           end
        end
     end
-    
+
 
     # 2 - CREATE A PRESCRIPTION
     path = first_run.path("demo_spraying", "preco_phyto.pdf")
@@ -553,15 +553,15 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
                   i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
                   i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
                 end
-                
+
           intervention.issue = issue
           intervention.prescription = prescription
           intervention.recommended = true
           intervention.recommender = prescriptor
           intervention.save!
     end
-    
-    
+
+
 
     # 4 - COLLECT REAL INTERVENTION TRIP
     # populate crumbs for ticsad simulation

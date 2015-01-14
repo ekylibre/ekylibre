@@ -1203,6 +1203,7 @@ eng:
         balance_sheet: "Balance sheet"
         deposit_list: "Deposit list"
         entity_sheet: "Entity sheet"
+        # equipment_certification: "Equipment certification"
         exchange_accountancy_file_fr: "Exchange accountancy file fr"
         general_journal: "General journal"
         general_ledger: "General ledger"
@@ -1217,6 +1218,7 @@ eng:
         manure_management_plan_sheet: "Manure management plan (detail)"
         outgoing_deliveries_journal: "Outgoing deliveries journal"
         outgoing_delivery_docket: "Outgoing delivery docket"
+        # phytosanitary_certification: "Phytosanitary certification"
         phytosanitary_registry: "Phytosanitary registry"
         prescription: "Prescription"
         provisional_manure_management_plan: "Provisional manure management plan"
@@ -1226,6 +1228,7 @@ eng:
         sales_estimate: "Sales estimate"
         sales_invoice: "Sales invoice"
         sales_order: "Sales order"
+        # security_data_sheet: "Security data sheet"
         stocks: "Stocks"
         tax_assessment: "Tax assessment"
         trial_balance: "Trial balance"
@@ -1627,6 +1630,7 @@ eng:
         usage_duration: "Usage duration"
         volume_area_density: "Volume area density"
         volume_density: "Volume density"
+        # wait_before_entering_period: "Wait before entering period"
         wait_before_harvest_period: "Wait before harvest period"
         water_content_rate: "Water content rate"
         width: "Width"
@@ -1645,7 +1649,7 @@ eng:
         aphid: "Aphid"                                     #< insecta_disease
         bacteria_disease: "Bacteria disease"               #< disease
         bacteriosis: "Bacteriosis"                         #< bacteria_disease
-        # chenopodium_album: "Chenopodium album"           #< plant_disease
+        chenopodium_album: "Chenopodium album"             #< plant_disease
         climate_issue: "Climate issue"                     #< issue
         codling_moth: "Codling moth"                       #< insecta_disease
         cough: "Cough"                                     #< disease
@@ -1674,7 +1678,7 @@ eng:
         nut_weevil: "Nut weevil"                           #< insecta_disease
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
-        # plant_disease: "Plant disease"                   #< disease
+        plant_disease: "Plant disease"                     #< disease
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease
@@ -3323,6 +3327,8 @@ eng:
         capsicum_frutescens: "Hot Pepper"                  #< capsicum
         capsicum_pubescens: "Rocoto"                       #< capsicum
         cerambycidae: "Cerambycidae"                       #< insecta
+        chenopodium: "Chenopodium"                         #< amaranthaceae
+        chenopodium_album: "Chenopodium album"             #< chenopodium
         cichorium: "Cichorium"                             #< asteraceae
         cichorium_endivia: "Curly chicory"                 #< cichorium
         citrullus: "Watermelon"                            #< cucurbitaceae
