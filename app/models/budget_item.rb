@@ -50,8 +50,13 @@ class BudgetItem < Ekylibre::Record::Base
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
-  scope :of_budgets, -> (budgets){where('budget_id IN (?)', budgets)}
-  scope :of_supports, -> (supports){where('production_support_id IN (?)', supports)}
+  scope :of_budgets, lambda { |budgets|
+    where('budget_id IN (?)', budgets)
+    }
+
+  scope :of_supports, lambda { |supports|
+    where('production_support_id IN (?)', supports)
+    }
 
   validate do
     self.global_amount = self.budget.unit_amount * self.quantity * self.production_support.working_indicator_measure.value if self.production_support.present?
