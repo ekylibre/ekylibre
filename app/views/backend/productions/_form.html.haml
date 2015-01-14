@@ -25,13 +25,25 @@
       %td{colspan: '100%'}
         = f.input :homogeneous_expenses, wrapper: :nested
         = :expenses
-    %tr{data:{budget_add: :expense}}
+    %tr{data:{budget_add: :expense, appendable: true}}
       %td
         = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: "tr[data-budget-add='expense']", asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
+      -f.object.supports.count.times do
+        %td{data:{supports_total: :expenses}}
     %tr#revenues
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
         = :revenues
-    %tr{data:{budget_add: :revenue}}
+    %tr{data:{budget_add: :revenue, appendable: true}}
       %td
         = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: "tr[data-budget-add='revenue']", association_insertion_traversal: 'closest', association_insertion_method: :before}
+      -f.object.supports.count.times do
+        %td{data:{supports_total: :revenues}}
+    %tr{data:{balance: true, appendable: true}}
+      %td
+        = :balance
+      -f.object.supports.count.times do
+        %td{data:{balance: :support}}
+          = :empty
+      %td{data:{balance: :global}}
+        = :globally_empty
