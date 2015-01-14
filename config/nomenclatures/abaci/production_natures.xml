@@ -107,10 +107,16 @@
             telepac_crop_code="FL"
             variant_support="horsebean_crop"
             />
-       <item name="bean"
+       <item name="marketable_bean"
             production_code="2040"
             activity="market_garden_crops"
             telepac_crop_code="HI"
+            variant_support="bean_crop"
+            />
+       <item name="bean"
+            production_code="2040"
+            activity="market_garden_crops"
+            telepac_crop_code="HA"
             variant_support="bean_crop"
             />
        <item name="lentil"
@@ -391,7 +397,12 @@
             telepac_crop_code="PV"
             variant_support="rose_crop"
             />
-
+      <item name="garden_center"
+            production_code="7500"
+            activity="vegetal_crops"
+            telepac_crop_code="BV"
+            variant_support="market_gardening_crop"
+            />
       <!-- 8 - BIG ANIMALS -->
       <item name="milk_cattle"
             production_code="8200"
@@ -448,6 +459,26 @@
       <item name="fruit_processing"
             production_code="P100"
             activity="processing"
+            />
+
+      <!-- O - OTHERS -->
+      <item name="building"
+            production_code="B000"
+            activity="exploitation"
+            telepac_crop_code="BR"
+            variant_support="building"
+            />
+      <item name="unexploited_cultivable_zone"
+            production_code="CZ000"
+            activity="exploitation"
+            telepac_crop_code="NE"
+            variant_support="cultivable_zone"
+            />
+       <item name="other_crop"
+            production_code="C000"
+            activity="market_garden_crops"
+            telepac_crop_code="AT"
+            variant_support="market_gardening_crop"
             />
     </items>
 
