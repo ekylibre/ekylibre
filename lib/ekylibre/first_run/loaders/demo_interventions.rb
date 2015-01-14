@@ -387,12 +387,12 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
         # create a veterinary
         veterinary = Person.create!(
-                                    :first_name => "Veto",
-                                    :last_name => "PONTO",
-                                    :nature => :person,
-                                    :client => false,
-                                    :supplier => false
-                                    )
+          :first_name => "Veto",
+          :last_name => "PONTO",
+          :nature => :person,
+          :client => false,
+          :supplier => false
+        )
 
         # create veterinary prescription with PDF and veterinary
         prescription = Prescription.create!(prescriptor: veterinary, reference_number: "2100000303")
@@ -440,7 +440,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
                           read_at: read_at + record.attributes['id'].to_i * 15,
                           user_id: user.id,
                           device_uid: record.attributes['device_uid'] || 'demo:123854'
-                          )
+                         )
             # w.check_point
           end
         end
@@ -523,45 +523,46 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     # TODO SET GEOLOCATION ISSUE ON (-0.785041, 45.830158)
     path = first_run.path("demo_spraying", "issue_localization.shp")
     if path.exist?
-       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
-          file.each do |record|
-            issue.update!(geolocation: record.geometry)
-          end
-       end
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+        file.each do |record|
+          issue.update!(geolocation: record.geometry)
+        end
+      end
     end
 
 
     # 2 - CREATE A PRESCRIPTION
     path = first_run.path("demo_spraying", "preco_phyto.pdf")
     if path.exist?
-    # import prescription in PDF
-        document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
-        document.archive(file, :pdf)
-        # get the prescriptor
-        prescriptor = Entity.where(last_name: "JOUTEUX").first
-        # create the prescription with PDF and prescriptor
-        prescription = Prescription.create!(prescriptor: prescriptor, document: document, reference_number: "20140601001")
+      # import prescription in PDF
+      document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
+      document.archive(file, :pdf)
+      # get the prescriptor
+      prescriptor = Entity.where(last_name: "JOUTEUX").first
+      # create the prescription with PDF and prescriptor
+      prescription = Prescription.create!(prescriptor: prescriptor, document: document, reference_number: "20140601001")
     end
 
     # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
     # TODO
+    intervention = nil
     if support and intrant
       Ekylibre::FirstRun::Booker.production = support.production
-    # Chemical weed
-                intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 6, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
-                  i.add_cast(reference_name: 'weedkiller',      actor: intrant)
-                  i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
-                  i.add_cast(reference_name: 'sprayer',    actor: sprayer)
-                  i.add_cast(reference_name: 'driver',      actor: worker)
-                  i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
-                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
-                end
+      # Chemical weed
+      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 6, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
+        i.add_cast(reference_name: 'weedkiller',      actor: intrant)
+        i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
+        i.add_cast(reference_name: 'sprayer',    actor: sprayer)
+        i.add_cast(reference_name: 'driver',      actor: worker)
+        i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
+        i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+      end
 
-          intervention.issue = issue
-          intervention.prescription = prescription
-          intervention.recommended = true
-          intervention.recommender = prescriptor
-          intervention.save!
+      intervention.issue = issue
+      intervention.prescription = prescription
+      intervention.recommended = true
+      intervention.recommender = prescriptor
+      intervention.save!
     end
 
 
@@ -578,7 +579,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     # right_flow (liter/ha)
     ##
     path = first_run.path("demo_spraying", "ticsad_simulation.shp")
-    if path.exist?
+    if path.exist? and intervention and sprayer = intervention.casts.find_by(reference_name: 'sprayer')
       first_run.count :ticsad_simulation do |w|
         #############################################################################
         read_at = Time.new(2014, 5, 6, 10, 0, 0, "+00:00")
@@ -607,12 +608,15 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
                           nature: record.attributes['nature'].to_sym,
                           read_at: read_at + record.attributes['id'].to_i,
                           user_id: user.id,
-                          device_uid: record.attributes['device_uid'] || 'demo:123854'
-                          )
+                          device_uid: record.attributes['device_uid'] || 'demo:123854',
+                          intervention_cast: sprayer
+                         )
             # w.check_point
           end
         end
       end
+    else
+      puts "Cannot import ticsad simulation".red
     end
 
   end
