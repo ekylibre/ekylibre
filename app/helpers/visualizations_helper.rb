@@ -49,6 +49,10 @@ module Visualization
       layer(name, serie, options.merge(type: :heatmap))
     end
 
+    def band(name, serie, options = {})
+      layer(name, serie, options.merge(type: :band))
+    end
+
     def categories(name, serie, options = {})
       layer(name, serie, {colors: @categories_colors}.merge(options.merge(type: :categories)))
     end

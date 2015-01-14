@@ -31,11 +31,14 @@
               infos.keys.inject({}) do |h,k|
                 h[k] = Measure.new(c.metadata[k.to_s]).to_f
                 h
-              end.merge(name: cast.name, shape: c.geolocation)
+              end.merge(name: cast.name, shape: c.geolocation, width: 12)
             end
-          - v.serie "heatmap_#{cast.id}", data
+          - v.serie "crumb_#{cast.id}", data
           - infos.each do |info, label|
-            - v.heatmap info, "heatmap_#{cast.id}", reference: info, label: label
+            - if params[:heatmap].to_i > 0
+              - v.heatmap "heatmap_#{info}", "crumb_#{cast.id}", reference: info.to_s.camelcase(:lower), label: label + " (Heatmap)"
+            - if params[:heatmap].to_i <= 0 or params[:band].to_i > 0
+              - v.band    "band_#{info}", "crumb_#{cast.id}", reference: info.to_s.camelcase(:lower), label: label + " (Bande)"
           -# v.heatmap (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "heatmap_#{cast.id}", reference: :leftFlow
           - count += 1
       - v.control :zoom

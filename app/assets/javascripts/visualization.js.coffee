@@ -2,6 +2,7 @@
 #= require core_ext
 #= require visualization/color
 #= require_self
+#= require visualization/band
 #= require visualization/bubbles
 #= require visualization/categories
 #= require visualization/choropleth
@@ -62,6 +63,18 @@
           zoomOutTitle: 'Zoom Out'
       layers: {}
       layerDefaults:
+        band:
+          stroke: true
+          color: "#333333"
+          weight: 1
+          opacity: 1
+          fill: true
+          fillColor: "blue"
+          fillOpacity: 1
+          round: 5
+          startColor: '#FFFFFF'
+          stopColor: '#910000'
+          levelNumber: 7
         bubbles:
           stroke: true
           color: "#333333"
