@@ -64,6 +64,7 @@
 #
 
 class Equipment < Matter
+  include Attachable
   has_shape
   enumerize :variety, in: Nomen::Varieties.all(:equipment), predicates: {prefix: true}
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id

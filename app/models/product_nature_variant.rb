@@ -44,6 +44,7 @@
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
+  include Attachable
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants

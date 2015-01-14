@@ -452,7 +452,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     ##################################################################
 
     # Set parameters
-    issue_observed_at = Time.new(2014,06,01,10,10,1)
+    issue_observed_at = Time.new(2014, 6, 1, 10, 0, 0, "+00:00")
     campaign_year = '2014'
     cultivable_zone_work_number = "ZC10"
     issue_nature = :chenopodium_album
@@ -476,10 +476,10 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if path.exist?
       # import prescription in PDF
       document = Document.create!(key: "17181-54371-25023-013645", name: "fds-callisto-20140601001", nature: "security_data_sheet")
-      document.archive(file, :pdf)
+      document.archive(path, :pdf)
     end
-    # TODO LINK FDS ON CALLISTO
-
+    # TODO FDS ON CALLISTO
+    intrant.variant.attachments.create!(document: document)
 
     #phytosanitary_certification
     # certiphyto.jpeg
@@ -487,9 +487,10 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if path.exist?
       # import prescription in PDF
       document = Document.create!(key: "certiphyto-2014-JOULIN-D", name: "2014-certiphyto-JOULIN-D", nature: "phytosanitary_certification")
-      document.archive(file, :jpg)
+      document.archive(path, :jpg)
     end
-    # TODO LINK ON CD
+    # LINK ON CD
+    worker.attachments.create!(document: document)
 
     #equipment_certification
     # controle_pulverisateur.pdf
@@ -497,10 +498,10 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if path.exist?
       # import prescription in PDF
       document = Document.create!(key: "2014-pulve-control", name: "2014-pulve-control", nature: "equipment_certification")
-      document.archive(file, :pdf)
+      document.archive(path, :pdf)
     end
-    # TODO LINK ON SPRAYING EQUIPMENT
-
+    # LINK ON SPRAYING EQUIPMENT
+    sprayer.attachments.create!(document: document)
 
 
 
@@ -520,7 +521,6 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       issue.update!(picture: f)
       f.close
     end
-    # TODO SET GEOLOCATION ISSUE ON (-0.785041, 45.830158)
     path = first_run.path("demo_spraying", "issue_localization.shp")
     if path.exist?
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
@@ -536,11 +536,12 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if path.exist?
       # import prescription in PDF
       document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
-      document.archive(file, :pdf)
+      document.archive(path, :pdf)
       # get the prescriptor
       prescriptor = Entity.where(last_name: "JOUTEUX").first
       # create the prescription with PDF and prescriptor
       prescription = Prescription.create!(prescriptor: prescriptor, document: document, reference_number: "20140601001")
+      prescription.attachments.create!(document: document)
     end
 
     # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
@@ -549,7 +550,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if support and intrant
       Ekylibre::FirstRun::Booker.production = support.production
       # Chemical weed
-      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 6, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
+      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 5, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
         i.add_cast(reference_name: 'weedkiller',      actor: intrant)
         i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
         i.add_cast(reference_name: 'sprayer',    actor: sprayer)
@@ -582,7 +583,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if path.exist? and intervention and sprayer = intervention.casts.find_by(reference_name: 'sprayer')
       first_run.count :ticsad_simulation do |w|
         #############################################################################
-        read_at = Time.new(2014, 5, 6, 10, 0, 0, "+00:00")
+        read_at = Time.new(2014, 6, 5, 10, 0, 0, "+00:00")
         if worker
           user = User.where(person_id: worker.person_id).first
         else
