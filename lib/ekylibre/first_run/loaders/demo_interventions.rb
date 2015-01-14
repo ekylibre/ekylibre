@@ -395,7 +395,10 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
                                     )
 
         # create veterinary prescription with PDF and veterinary
-        prescription = Prescription.create!(prescriptor: veterinary, document: document, reference_number: "2100000303")
+        prescription = Prescription.create!(prescriptor: veterinary, reference_number: "2100000303")
+
+        # Attach doc to prescription
+        prescription.attachments.create!(document: document)
 
         # create an issue for all interventions on animals and update them with prescription and recommender
         Intervention.of_nature(:animal_illness_treatment).find_each do |intervention|

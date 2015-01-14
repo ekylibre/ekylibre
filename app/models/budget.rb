@@ -48,7 +48,7 @@ class Budget < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :variant
 
-  has_many :items, -> {order "production_support_id"}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
+  has_many :items, -> {order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
   has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production

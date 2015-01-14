@@ -11,6 +11,8 @@ spa:
 
     animal_group:
 
+    attachment:
+
     budget:
       currency:
         AED: "Dirham de los Emiratos Árabes Unidos"

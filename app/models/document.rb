@@ -39,7 +39,7 @@ class Document < Ekylibre::Record::Base
   has_many :archives, class_name: "DocumentArchive", dependent: :destroy, inverse_of: :document
   has_many :attachments, dependent: :destroy
   has_many :last_archive, -> { reorder(archived_at: :desc) }, class_name: "DocumentArchive"
-  enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
+  enumerize :nature, in: Nomen::DocumentNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, allow_nil: true, maximum: 60
   validates_length_of :nature, allow_nil: true, maximum: 120

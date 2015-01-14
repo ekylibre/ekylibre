@@ -11,6 +11,8 @@ arb:
 
     animal_group:
 
+    attachment:
+
     budget:
       currency:
         AED: "درهم إماراتي"
