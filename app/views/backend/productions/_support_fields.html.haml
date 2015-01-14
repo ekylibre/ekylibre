@@ -3,7 +3,7 @@
     %tr
       = f.referenced_association(:storage, :source => :supportables)
     %tr
-      = f.object.working_indicator_value
+      = f.object.working_indicator_measure
       = link_to_remove_nested_association(:support, f)
     %tr
       = f.input(:started_at)
