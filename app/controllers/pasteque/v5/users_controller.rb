@@ -8,7 +8,7 @@ class Pasteque::V5::UsersController < Pasteque::V5::BaseController
     if user and user.valid_password?(old_password)
       user.password = new_password
       user.password_confirmation = new_password
-      render json: user.save
+      render json: user.save!
     else
       render json: false
     end
