@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114074551) do
+ActiveRecord::Schema.define(version: 20150114093417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -364,9 +364,12 @@ ActiveRecord::Schema.define(version: 20150114074551) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                    default: 0,              null: false
+    t.integer  "container_id"
+    t.integer  "last_number"
   end
 
   add_index "cashes", ["account_id"], :name => "index_cashes_on_account_id"
+  add_index "cashes", ["container_id"], :name => "index_cashes_on_container_id"
   add_index "cashes", ["created_at"], :name => "index_cashes_on_created_at"
   add_index "cashes", ["creator_id"], :name => "index_cashes_on_creator_id"
   add_index "cashes", ["journal_id"], :name => "index_cashes_on_journal_id"

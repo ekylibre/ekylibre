@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-chenopodiaceae" hierarchical="true">
+    <items>
+      <item name="chenopodium" itis_tsn="20589"/>
+    </items>
+  </nomenclature>
+
+   <nomenclature name="varieties-chenopodium" hierarchical="true">
+    <items>
+      <item name="chenopodium_album" itis_tsn="20592"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

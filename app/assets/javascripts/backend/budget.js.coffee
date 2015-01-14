@@ -1,6 +1,12 @@
 (($) ->
   'use strict'
   $(document).ready ->
+    # sorts budgets by direction
+    $("tr[data-budget-direction]").each ->
+      direction = $(this).attr('data-budget-direction')
+      target = $("tr[data-budget-add=#{direction}]")
+      $(this).insertBefore(target)
+    #adds items
     $("table#budget_visualization").on 'cocoon:after-insert', (event, inserted) ->
       # adds items to new budget
       if inserted.hasClass("budget_nested_fields")

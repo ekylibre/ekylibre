@@ -5,10 +5,10 @@ json.dispName customer.full_name
 json.card customer.card if customer.respond_to? :card
 json.custTaxId customer.vat_number
 json.discountProfiledId nil
-#json.prepaid 0.0
-#json.maxDebt 0.0
-#json.currDebt 0.0
-#json.debtDate Time.now
+json.prepaid 0.0
+json.maxDebt 0.0
+json.currDebt 0.0
+json.debtDate nil
 json.firstName customer.first_name
 json.lastName customer.last_name
 json.email customer.emails.first.coordinate rescue nil

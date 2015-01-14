@@ -15,39 +15,23 @@
   %table#budget_visualization
     %tr.support_nested_fields
       %td
-        %table
-          %tr
-            %td
-              = :storage
-            %td
-              = :quantity
-            %td
-              = :started_at
-            %td
-              = :stopped_at
-            %td
-              = :nature
-            %td
-              = :irrigated
-      = f.backend_fields_for :supports, wrapper: :nested do |support_form|
+      = f.backend_fields_for :supports do |support_form|
         = render 'support_fields', f: support_form
       %td
         = link_to_add_association :'+', f, :supports, partial: 'support_fields'
-    %tr
+    = f.backend_fields_for :budgets do |budget_form|
+      = render 'budget_fields', f: budget_form
+    %tr#expenses
       %td{colspan: '100%'}
         = f.input :homogeneous_expenses, wrapper: :nested
         = :expenses
-    = f.backend_fields_for :expenses do |expense_form|
-      = render 'budget_fields', f: expense_form, direction: :expense
-    %tr#add_expense
+    %tr{data:{budget_add: :expense}}
       %td
-        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: 'tr#add_expense', asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
-    %tr
+        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: "tr[data-budget-add='expense']", asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
+    %tr#revenues
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
         = :revenues
-    = f.backend_fields_for :revenues do |revenue_form|
-      = render 'budget_fields', f: revenue_form, direction: :revenue
-    %tr#add_revenue
+    %tr{data:{budget_add: :revenue}}
       %td
-        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: 'tr#add_revenue', association_insertion_traversal: 'closest', association_insertion_method: :before}
+        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: "tr[data-budget-add='revenue']", association_insertion_traversal: 'closest', association_insertion_method: :before}

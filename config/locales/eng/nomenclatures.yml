@@ -1645,6 +1645,7 @@ eng:
         aphid: "Aphid"                                     #< insecta_disease
         bacteria_disease: "Bacteria disease"               #< disease
         bacteriosis: "Bacteriosis"                         #< bacteria_disease
+        # chenopodium_album: "Chenopodium album"           #< plant_disease
         climate_issue: "Climate issue"                     #< issue
         codling_moth: "Codling moth"                       #< insecta_disease
         cough: "Cough"                                     #< disease
@@ -1673,6 +1674,7 @@ eng:
         nut_weevil: "Nut weevil"                           #< insecta_disease
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
+        # plant_disease: "Plant disease"                   #< disease
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease

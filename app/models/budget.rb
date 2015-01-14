@@ -48,7 +48,7 @@ class Budget < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :variant
 
-  has_many :items, ->{order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
+  has_many :items, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
   has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production
@@ -72,8 +72,8 @@ class Budget < Ekylibre::Record::Base
     end
   end
   after_validation do
-    self.items.each do |item|
-      item.touch unless item.new_record?
-    end
+    self.items.map(&:touch)
+    self.global_amount = self.items.map(&:global_amount).inject(:+)
+    self.global_quantity = self.items.map(&:quantity).inject(:+)
   end
 end
