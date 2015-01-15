@@ -3,8 +3,8 @@
   calculate = () ->
     # calculations
     # item calculation
-    $("tr.budget_nested_fields").each ->
-      $(this).find("[data-budget-item-value]").each (index) ->
+    $("tr.budget_nested_fields").filter(':visible').each ->
+      $(this).find("[data-budget-item-value]").filter(':visible').each (index) ->
         quantity = $(this).parent().find("input").val()
         unit_amount         = $(this).closest("tr.budget_nested_fields").find("input[type='number'][id$='unit_amount']").val()
         computation_method  = $(this).closest("tr.budget_nested_fields").find("select[id$='computation_method']").val()
@@ -14,16 +14,16 @@
           working_indicator_value = parseFloat($(working_indicator_value).text())
         $(this).text(quantity * unit_amount * working_indicator_value)
     #total per budget
-    $("tr.budget_nested_fields").each ->
+    $("tr.budget_nested_fields").filter(':visible').each ->
       sum = 0.0
-      $(this).find("[data-budget-item-value]").each ->
+      $(this).find("[data-budget-item-value]").filter(':visible').each ->
         sum = sum + parseFloat($(this).text())
       $(this).find("[data-budget-global-amount]").text(sum)
     #global amount for revenues/expenses
-    $("[data-budgets-global-amount]").each ->
+    $("[data-budgets-global-amount]").filter(':visible').each ->
       sum = 0.0
       direction = $(this).attr('data-budgets-global-amount')
-      $("[data-budget-global-amount=#{direction}]").each ->
+      $("[data-budget-global-amount=#{direction}]").filter(':visible').each ->
         sum = sum + parseFloat($(this).text())
       $(this).text(sum)
     # global balance
@@ -38,8 +38,8 @@
       cells.each (index) ->
         sum = 0.0
         direction = $(this).attr("data-support-total")
-        $("[data-budget-direction=#{direction}]").each ->
-          amount = $(this).find("[data-budget-item-value]")[index]
+        $("[data-budget-direction=#{direction}]").filter(':visible').each ->
+          amount = $(this).find("[data-budget-item-value]").filter(':visible')[index]
           amount = parseFloat($(amount).text())
           sum = sum + amount
         $(this).text(sum)
@@ -99,7 +99,7 @@
     return false
 
   # when updating any field
-  $(document).on 'change', "*", ->
+  $(document).on 'change emulated:change keyup cocoon:after-remove', "*", ->
     calculate()
     return false
   return
