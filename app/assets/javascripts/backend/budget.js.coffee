@@ -127,5 +127,14 @@
   $(document).on 'click keyup', "input:checked[id$='homogeneous_values']", ->
     $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').addClass('homogeneous')
     updateItems()
+  # unbinds items
+  $(document).on 'click keyup', "input:checkbox:not(:checked)[id$='homogeneous_values']", ->
+    console.log('unbinds')
+    $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').removeClass('homogeneous')
+  $(document).on 'click keyup', "input.homogeneous", ->
+    value = $(this).val()
+    siblings = $(this).closest("tr.budget_nested_fields").find("input.homogeneous").filter(":visible")
+    siblings.each ->
+      $(this).val(value)
   return
 ) jQuery
