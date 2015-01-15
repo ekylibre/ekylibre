@@ -31,6 +31,12 @@
       $("[data-budget-global-amount=#{direction}]").each ->
         sum = sum + parseFloat($(this).text())
       $(this).text(sum)
+    # global amount
+    $("[data-balance='global']").each ->
+      revenue = parseFloat($("[data-budgets-global-amount='revenue']").text())
+      expense = parseFloat($("[data-budgets-global-amount='expense']").text())
+      sum = revenue - expense
+      $(this).text(sum)
     #balance per support
   # adds a budget item when adding a support
   $(document).on 'click keyup', "a[data-association='support']", ->
