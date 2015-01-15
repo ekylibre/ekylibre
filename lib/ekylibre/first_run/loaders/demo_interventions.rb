@@ -479,7 +479,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document.archive(path, :pdf)
     end
     # TODO FDS ON CALLISTO
-    intrant.variant.attachments.create!(document: document)
+    intrant.variant.attachments.create!(document: document) if intrant
 
     #phytosanitary_certification
     # certiphyto.jpeg
@@ -490,7 +490,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document.archive(path, :jpg)
     end
     # LINK ON CD
-    worker.attachments.create!(document: document)
+    worker.attachments.create!(document: document) if document
 
     #equipment_certification
     # controle_pulverisateur.pdf
@@ -501,7 +501,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document.archive(path, :pdf)
     end
     # LINK ON SPRAYING EQUIPMENT
-    sprayer.attachments.create!(document: document)
+    sprayer.attachments.create!(document: document) if document
 
 
 
@@ -541,7 +541,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       prescriptor = Entity.where(last_name: "JOUTEUX").first
       # create the prescription with PDF and prescriptor
       prescription = Prescription.create!(prescriptor: prescriptor, reference_number: "20140601001")
-      prescription.attachments.create!(document: document)
+      prescription.attachments.create!(document: document) if document
     end
 
     # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
