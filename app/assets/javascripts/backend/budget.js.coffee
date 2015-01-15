@@ -17,6 +17,18 @@
             link_to_add_budget_item.click()
             new_item = link_to_add_budget_item.closest("td").prev()
             new_item.attr('data-support-destroy', $(this).attr('id'))
+    # calculations
+    # item calculation
+    $("tr.budget_nested_fields").each ->
+      $(this).find("[data-budget-item-value]").each (index) ->
+        quantity = $(this).parent().find("input").val()
+        unit_amount         = $(this).closest("tr.budget_nested_fields").find("input[type='number'][id$='unit_amount']").val()
+        computation_method  = $(this).closest("tr.budget_nested_fields").find("select[id$='computation_method']").val()
+        working_indicator_value = 1
+        if computation_method == 'per_working_unit'
+          working_indicator_value = $("[data-working-indicator-value]")[index]
+          working_indicator_value = parseFloat($(working_indicator_value).text())
+        $(this).text(quantity * unit_amount * working_indicator_value)
     #total per budget
     $("tr.budget_nested_fields").each ->
       sum = 0.0
