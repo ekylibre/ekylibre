@@ -2,5 +2,6 @@
 - index = f.object.budget.items.index(f.object)
 %td.nested-fields{data:{support_destroy: "production_supports_attributes_#{index}__destroy"}}
   = f.input :quantity
-  = f.object.global_amount
+  %span{data:{budget_item_value: true}}
+    = f.object.global_amount
   = link_to_remove_nested_association(:item, f)

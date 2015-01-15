@@ -30,6 +30,8 @@
         = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: "tr[data-budget-add='expense']", asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
       -f.object.supports.count.times do
         %td{data:{supports_total: :expenses}}
+      %td{data:{budgets_global_amount: :expenses}}
+        = :budgets_global_expense
     %tr#revenues
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
@@ -39,6 +41,8 @@
         = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: "tr[data-budget-add='revenue']", association_insertion_traversal: 'closest', association_insertion_method: :before}
       -f.object.supports.count.times do
         %td{data:{supports_total: :revenues}}
+      %td{data:{budgets_global_amount: :revenues}}
+        = :budgets_global_revenue
     %tr{data:{balance: true, appendable: true}}
       %td
         = :balance

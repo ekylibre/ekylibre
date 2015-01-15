@@ -59,6 +59,6 @@ class BudgetItem < Ekylibre::Record::Base
     }
 
   validate do
-    self.global_amount = self.budget.unit_amount * self.quantity * self.production_support.working_indicator_measure.value if self.production_support.present?
+    self.global_amount = self.budget.unit_amount * self.quantity * self.production_support.working_indicator_measure.value rescue 0.0
   end
 end

@@ -72,7 +72,6 @@ class Budget < Ekylibre::Record::Base
     end
   end
   after_validation do
-    self.items.map(&:touch)
     self.global_amount = self.items.map(&:global_amount).inject(:+)
     self.global_quantity = self.items.map(&:quantity).inject(:+)
   end

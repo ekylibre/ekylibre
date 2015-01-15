@@ -17,6 +17,14 @@
             link_to_add_budget_item.click()
             new_item = link_to_add_budget_item.closest("td").prev()
             new_item.attr('data-support-destroy', $(this).attr('id'))
+    #total per budget
+    $("tr.budget_nested_fields").each ->
+      sum = 0.0
+      $(this).find("[data-budget-item-value]").each ->
+        sum = sum + parseFloat($(this).text())
+        console.log(sum)
+      $(this).find("[data-budget-global-amount]").text(sum)
+    #balance per support
   # adds a budget item when adding a support
   $(document).on 'click keyup', "a[data-association='support']", ->
     support_destroy_id = $(this).closest("td").prev().find("input[id^='production_supports_attributes_'][id$='destroy'][type='hidden']").attr('id')
