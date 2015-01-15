@@ -38,20 +38,30 @@
       sum = revenue - expense
       $(this).text(sum)
     #balance per support
-  # adds a budget item when adding a support
+  # when adding a support
   $(document).on 'click keyup', "a[data-association='support']", ->
+    # adds items
     support_destroy_id = $(this).closest("td").prev().find("input[id^='production_supports_attributes_'][id$='destroy'][type='hidden']").attr('id')
     $("a[data-association='item']").each ->
       $(this).click()
       new_item = $(this).closest('td').prev()
       new_item.attr('data-support-destroy', support_destroy_id)
+    # adds total calculation cells
+    $("[data-appendable]").each ->
+      template = $(this).attr('data-appendable')
+      $(this).find("[data-append-before]").before($(template))
     return false
 
-  # removes items when removing a support
+  # when removing a support
   $(document).on 'click', "a.remove-support", ->
+    #removes items
     items_to_remove = $(this).closest('td').find("input[id^='production_supports_attributes_'][id$='destroy'][type='hidden']").attr('id')
     $("tr.budget_nested_fields").each ->
       link_to_remove_item = $(this).find("td[data-support-destroy='#{items_to_remove}']").find("a.remove-item")
       link_to_remove_item.click()
+    # removes a total calculation cell
+    $("[data-appendable]").each ->
+      $(this).find("[data-append-before]").prev().remove()
+    return false
   return
 ) jQuery
