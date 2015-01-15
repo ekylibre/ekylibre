@@ -102,5 +102,15 @@
   $(document).on 'change emulated:change keyup cocoon:after-remove', "*", ->
     calculate()
     return false
+  # check all homogeneous_values checkboxes on checking homogeneous expenses/revenues
+  $(document).on 'click', "input[id^='production_homogeneous_'][type='checkbox']", ->
+    if $(this).is(':checked')
+      direction = $(this).closest("td").attr('data-budgets-direction')
+      $("[data-budget-direction='#{direction}']").filter(':visible').each ->
+        $(this).find("input[id$='homogeneous_values'][type='checkbox']").prop('checked', true)
+  $(document).on 'click keyup', "input[id$='homogeneous_values'][type='checkbox']", ->
+    if !($(this).is(':checked'))
+      direction = $(this).closest("[data-budget-direction]").attr('data-budget-direction')
+      $("[data-budgets-direction='#{direction}']").find("input[id^='production_homogeneous_'][type='checkbox']").prop('checked', false)
   return
 ) jQuery
