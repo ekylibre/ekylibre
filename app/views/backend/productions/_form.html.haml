@@ -25,27 +25,27 @@
       %td{colspan: '100%'}
         = f.input :homogeneous_expenses, wrapper: :nested
         = :expenses
-    - template = '<td data-supports-total="expenses">inserted</td>'
+    - template = '<td data-support-total="expense">inserted</td>'
     %tr{data:{budget_add: :expense, appendable: template}}
       %td
         = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: "tr[data-budget-add='expense']", asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
       -f.object.supports.count.times do
-        %td{data:{supports_total: :expenses}}
+        %td{data:{support_total: :expense}}
       %td{data:{budgets_global_amount: :expense, append_before: true}}
         = :budgets_global_expense
     %tr#revenues
       %td{colspan: '100%'}
         = f.input :homogeneous_revenues, wrapper: :nested
         = :revenues
-    - template = '<td data-supports-total="revenues">inserted</td>'
+    - template = '<td data-support-total="revenue">inserted</td>'
     %tr{data:{budget_add: :revenue, appendable: template}}
       %td
         = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: "tr[data-budget-add='revenue']", association_insertion_traversal: 'closest', association_insertion_method: :before}
       -f.object.supports.count.times do
-        %td{data:{supports_total: :revenues}}
+        %td{data:{support_total: :revenue}}
       %td{data:{budgets_global_amount: :revenue, append_before: true}}
         = :budgets_global_revenue
-    - template = '<td data-supports-total="revenues">inserted</td>'
+    - template = '<td data-balance="support">inserted</td>'
     %tr{data:{balance: true, appendable: template}}
       %td
         = :balance
