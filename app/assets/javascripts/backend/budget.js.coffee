@@ -1,5 +1,11 @@
 (($) ->
   'use strict'
+  updateItems = () ->
+    $(".budget_nested_fields").filter(':visible').each ->
+      default_value = $(this).find("input.homogeneous").filter(':visible').first().val()
+      $(this).find("input.homogeneous").filter(':visible').each ->
+        $(this).val(default_value)
+      $(this).trigger('change')
   calculate = () ->
     # calculations
     # item calculation
@@ -107,10 +113,19 @@
     if $(this).is(':checked')
       direction = $(this).closest("td").attr('data-budgets-direction')
       $("[data-budget-direction='#{direction}']").filter(':visible').each ->
-        $(this).find("input[id$='homogeneous_values'][type='checkbox']").prop('checked', true)
+        $(this).find("input[id$='homogeneous_values'][type='checkbox']").filter(':visible').each ->
+          $(this).prop('checked', true)
+          # binds quantity inputs
+          $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').addClass('homogeneous')
+          updateItems()
+  # unchecks homogeneous expenses/revenues when unchecking a 'homogeneous values' checkbox
   $(document).on 'click keyup', "input[id$='homogeneous_values'][type='checkbox']", ->
     if !($(this).is(':checked'))
       direction = $(this).closest("[data-budget-direction]").attr('data-budget-direction')
-      $("[data-budgets-direction='#{direction}']").find("input[id^='production_homogeneous_'][type='checkbox']").prop('checked', false)
+      $("[data-budgets-direction='#{direction}']").find("input[id^='production_homogeneous_'][type='checkbox']").filter(':visible').prop('checked', false)
+  # binds items quantities when 'homogeneous values' checkbox is checked
+  $(document).on 'click keyup', "input:checked[id$='homogeneous_values']", ->
+    $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').addClass('homogeneous')
+    updateItems()
   return
 ) jQuery
