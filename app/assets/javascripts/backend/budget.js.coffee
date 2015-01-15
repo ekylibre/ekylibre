@@ -87,6 +87,7 @@
       new_item = $(this).closest('td').prev()
       if new_item.prev().hasClass('homogeneous')
         new_item.addClass('homogeneous')
+        updateItems()
       new_item.attr('data-support-destroy', support_destroy_id)
     # adds total calculation cells
     $("[data-appendable]").each ->
