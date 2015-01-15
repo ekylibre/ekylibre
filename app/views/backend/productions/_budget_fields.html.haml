@@ -13,6 +13,6 @@
   = f.fields_for :items do |item_form|
     = render 'item_fields', f: item_form
   %td
-    %span{data:{budget_global_amount: true}}
+    %span{data:{budget_global_amount: direction}}
       = f.object.global_amount
     = link_to_add_association :_, f, :items, partial: 'item_fields'
