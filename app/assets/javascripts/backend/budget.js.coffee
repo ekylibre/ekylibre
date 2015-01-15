@@ -1,22 +1,6 @@
 (($) ->
   'use strict'
-  $(document).ready ->
-    # sorts budgets by direction
-    $("tr[data-budget-direction]").each ->
-      direction = $(this).attr('data-budget-direction')
-      target = $("tr[data-budget-add=#{direction}]")
-      $(this).insertBefore(target)
-    #adds items
-    $("table#budget_visualization").on 'cocoon:after-insert', (event, inserted) ->
-      # adds items to new budget
-      if inserted.hasClass("budget_nested_fields")
-        link_to_add_budget_item = inserted.find("a[data-association='item']")
-        #adds items for supports
-        $("input[id^='production_supports_attributes_'][id$='destroy'][type='hidden']").each ->
-          if $(this).closest('td').is(':visible')
-            link_to_add_budget_item.click()
-            new_item = link_to_add_budget_item.closest("td").prev()
-            new_item.attr('data-support-destroy', $(this).attr('id'))
+  calculate = () ->
     # calculations
     # item calculation
     $("tr.budget_nested_fields").each ->
@@ -42,13 +26,13 @@
       $("[data-budget-global-amount=#{direction}]").each ->
         sum = sum + parseFloat($(this).text())
       $(this).text(sum)
-    # global amount
+    # global balance
     $("[data-balance='global']").each ->
       revenue = parseFloat($("[data-budgets-global-amount='revenue']").text())
       expense = parseFloat($("[data-budgets-global-amount='expense']").text())
       sum = revenue - expense
       $(this).text(sum)
-    #total per support
+    #total revenue/expense per support
     $("[data-budget-add]").each ->
       cells = $(this).find("[data-support-total]")
       cells.each (index) ->
@@ -66,6 +50,28 @@
       revenues = $("[data-support-total='revenue']")[index]
       revenues = parseFloat($(revenues).text())
       $(this).text(revenues - expenses)
+
+  $(document).ready ->
+    # sorts budgets by direction
+    $("tr[data-budget-direction]").each ->
+      direction = $(this).attr('data-budget-direction')
+      target = $("tr[data-budget-add=#{direction}]")
+      $(this).insertBefore(target)
+    #adds items
+    $("table#budget_visualization").on 'cocoon:after-insert', (event, inserted) ->
+      # adds items to new budget
+      if inserted.hasClass("budget_nested_fields")
+        link_to_add_budget_item = inserted.find("a[data-association='item']")
+        #adds items for supports
+        $("input[id^='production_supports_attributes_'][id$='destroy'][type='hidden']").each ->
+          if $(this).closest('td').is(':visible')
+            link_to_add_budget_item.click()
+            new_item = link_to_add_budget_item.closest("td").prev()
+            new_item.attr('data-support-destroy', $(this).attr('id'))
+    # finally calculates everything
+    calculate()
+    return false
+
   # when adding a support
   $(document).on 'click keyup', "a[data-association='support']", ->
     # adds items
@@ -90,6 +96,11 @@
     # removes a total calculation cell
     $("[data-appendable]").each ->
       $(this).find("[data-append-before]").prev().remove()
+    return false
+
+  # when updating any field
+  $(document).on 'change', "*", ->
+    calculate()
     return false
   return
 ) jQuery
