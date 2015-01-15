@@ -85,6 +85,8 @@
     $("a[data-association='item']").each ->
       $(this).click()
       new_item = $(this).closest('td').prev()
+      if new_item.prev().hasClass('homogeneous')
+        new_item.addClass('homogeneous')
       new_item.attr('data-support-destroy', support_destroy_id)
     # adds total calculation cells
     $("[data-appendable]").each ->
