@@ -47,6 +47,13 @@
           amount = parseFloat($(amount).text())
           sum = sum + amount
         $(this).text(sum)
+    # balance per support
+    $("[data-balance='support']").each (index) ->
+      expenses = $("[data-support-total='expense']")[index]
+      expenses = parseFloat($(expenses).text())
+      revenues = $("[data-support-total='revenue']")[index]
+      revenues = parseFloat($(revenues).text())
+      $(this).text(revenues - expenses)
   # when adding a support
   $(document).on 'click keyup', "a[data-association='support']", ->
     # adds items
