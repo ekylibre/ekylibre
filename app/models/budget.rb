@@ -58,7 +58,7 @@ class Budget < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense]
   enumerize :computation_method, in: [:per_production_support, :per_working_unit], default: :per_working_unit
-  enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration').sort
+  enumerize :working_indicator, in: Nomen::Indicators.all
   enumerize :working_unit, in: Nomen::Units.all.sort
 
   accepts_nested_attributes_for :items, allow_destroy: true
