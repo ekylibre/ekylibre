@@ -1,6 +1,6 @@
 ====== Trésorerie ======
 
-La trésorerie concerne tous les dépôts/réserves d'argent, c'est à dire les comptes bancaires et les caisses.
+La trésorerie concerne tous les dépôts/réserves d'argent, c'est à dire les comptes bancaires, les caisses et les comptes courants d'associés.
 Vous pouvez en définir autant que nécessaire. Ils sont aussi appelés **comptes de trésorerie**.
 
 ===== Gestion des comptes de trésorerie =====
@@ -25,3 +25,9 @@ Vous pouvez décrire le compte bancaire et notamment la banque qui le gère. Ces
 ===== Caisses =====
 Une caisse est une //banque personnelle//. Elle vous permet d'encaisser des règlements en espèces et/ou d'encaisser à la banque (comme les chèques).
 Elle ne nécessite aucune information comme les RIB.
+
+===== Compte courant d'associés =====
+Un compte courant d'associé est un //compte au sein de l'entreprise//. Il permet de comptabiliser les apports des associés au sein de la société.
+Ce compte peut être rémunéré selon les conditions fixées par la loi.
+
+!!! Le fonctionnement de ce compte est plus complexe qu'un compte de banque classique, assurez vous d'être compétent en la matière avant de paramétrer ce genre de compte.

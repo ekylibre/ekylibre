@@ -119,6 +119,7 @@
       <item name="collected_vat" fr_pcg82="44571"/>
       <item name="rectify_collected_vat" fr_pcg82="44575"/>
       <item name="waiting_vat" fr_pcg82="4458"/>
+      <item name="associated_accounts" fr_pcga="455"/>
       <item name="principal_associated_accounts" fr_pcga="4551"/>
       <item name="usual_associated_accounts" fr_pcga="4552"/>
       <item name="locked_associated_accounts" fr_pcga="4553"/>
