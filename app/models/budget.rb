@@ -46,7 +46,8 @@ class Budget < Ekylibre::Record::Base
   validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   #]VALIDATORS]
-  validates_presence_of :variant
+  validates_presence_of :variant, :production
+  validates_presence_of :homogeneous_values, default: false
 
   has_many :items, -> {order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
@@ -56,7 +57,7 @@ class Budget < Ekylibre::Record::Base
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense]
-  enumerize :computation_method, in: [:per_production_support, :per_working_unit]
+  enumerize :computation_method, in: [:per_production_support, :per_working_unit], default: :per_working_unit
   enumerize :working_indicator, in: (Nomen::Indicators.all << 'work_duration').sort
   enumerize :working_unit, in: Nomen::Units.all.sort
 
@@ -64,6 +65,12 @@ class Budget < Ekylibre::Record::Base
 
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
+
+  validate do
+    if ((self.direction == :revenue) && (self.production.homogeneous_revenues) || (self.direction == :expense) && (self.production.homogeneous_expenses))
+      self.homogeneous_values = true
+    end
+  end
 
   after_create do
     supports_missing_item = (self.supports.pluck(:id) - self.items.pluck(:production_support_id)).reverse
