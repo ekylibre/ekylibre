@@ -830,14 +830,6 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-      <item name="small_equipment"
-            category="small_equipment"
-            variety="equipment"
-            population_counting="unitary"
-            abilities=""
-            variable_indicators="net_mass"
-            frozen_indicators="population"
-            />
       <item name="land_parcel"
             category="land_parcel"
             variety="land_parcel"
@@ -1280,6 +1272,11 @@
             variable_indicators=""
             frozen_indicators="population"
             />
+
+      <!-- COMMON SERVICES -->
+      <!-- COMMON SERVICES -->
+      <!-- COMMON SERVICES -->
+
       <!-- WORKERS -->
       <item name="technician"
             category="worker"
@@ -1387,7 +1384,37 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-        <!-- SERVICES -->
+
+
+         <!-- OTHER PRODUCT -->
+
+         <!-- COMMON SERVICES -->
+         <item name="discount_and_reduction"
+            category="discount_and_reduction"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+
+        <item name="leasing"
+            category="leasing"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+
+        <item name="rent"
+            category="rent"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
         <item name="spread_renting"
             category="equipment_rent"
             variety="service"
@@ -1395,6 +1422,94 @@
             abilities="spread"
             variable_indicators="population"
             frozen_indicators="usage_duration"
+            />
+        <item name="small_equipment"
+            category="small_equipment"
+            variety="equipment"
+            population_counting="unitary"
+            abilities=""
+            variable_indicators="net_mass"
+            frozen_indicators="population"
+            />
+        <item name="maintenance"
+            category="maintenance"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="insurance"
+            category="insurance"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="fee"
+            category="fee"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="moving_travel"
+            category="travel"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="meal_travel"
+            category="travel"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="accommodation_travel"
+            category="travel"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="radio_subscription"
+            category="telecommunication"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+         <item name="mail_subscription"
+            category="telecommunication"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="bank_service"
+            category="bank_service"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+        <item name="taxe"
+            category="taxe"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators=""
+            frozen_indicators="population"
             />
         <item name="training_course"
             category="service"

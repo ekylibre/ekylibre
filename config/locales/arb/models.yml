@@ -1015,6 +1015,7 @@ arb:
     # analyses: "Analyses"
     # analysis: "Analysis"
     annotation: "ملاحظة"
+    # archive: "Archive"
     # archive_content_type: "Archive content type"
     # archive_file_name: "Archive file name"
     # archive_file_size: "Archive file size"

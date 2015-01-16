@@ -216,7 +216,7 @@ class Entity < Ekylibre::Record::Base
     amount += self.purchase_invoices.sum(:amount)
     return amount
   end
-   
+
   def associated_cash
     if self.client_account
       if cash = Cash.where(account: self.client_account)
@@ -229,8 +229,8 @@ class Entity < Ekylibre::Record::Base
     end
     return nil
   end
-   
-  
+
+
   def has_another_tracking?(serial, product_id)
     self.trackings.where("serial=? AND product_id!=? ", serial, product_id).count > 0
   end

@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, day, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL VIAL -->
@@ -297,6 +297,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="arezzo_wheat_crop"
+            nature="cereal_crop"
+            variety="triticum_aestivum_arezzo"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="ascott_wheat_crop"
             nature="cereal_crop"
             variety="triticum_aestivum_ascott"
@@ -312,6 +318,12 @@
       <item name="euclide_wheat_crop"
             nature="cereal_crop"
             variety="triticum_aestivum_euclide"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="rubisko_wheat_crop"
+            nature="cereal_crop"
+            variety="triticum_aestivum_rubisko"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -1611,12 +1623,7 @@
             unit_name="1l_dose"
             frozen_indicators_values="net_volume: 1liter, net_mass: 1kilogram, meat_withdrawal_period: 0day, milk_withdrawal_period: 0day"
             />
-      <!-- OTHER PRODUCT -->
-      <item name="small_equipment"
-            nature="small_equipment"
-            unit_name="unit"
-            frozen_indicators_values="population: 1"
-            />
+
       <!-- CLEANNING PRODUCT -->
       <item name="mineral_cleaner"
             nature="mineral_cleaner"
@@ -2023,83 +2030,6 @@
             frozen_indicators_values="population: 1"
             />
 
-
-
-
-
-      <!-- WORKER -->
-      <item name="technician"
-            nature="technician"
-            unit_name="person"
-            frozen_indicators_values="population: 1"
-            />
-      <item name="employee"
-            nature="technician"
-            unit_name="person"
-            frozen_indicators_values="population: 1"
-            />
-      <item name="manager"
-            nature="manager"
-            unit_name="person"
-            frozen_indicators_values="population: 1"
-            />
-      <item name="inseminator"
-            nature="inseminator"
-            unit_name="person"
-            frozen_indicators_values="population: 1"
-            />
-      <!-- GENERIC PRODUCT -->
-      <item name="running_water"
-            nature="running_water"
-            unit_name="cubic_meter"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
-            />
-      <item name="irrigation_water"
-            nature="irrigation_water"
-            unit_name="cubic_meter"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
-            />
-      <item name="natural_water"
-            nature="natural_water"
-            unit_name="cubic_meter"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
-            />
-      <item name="electricity"
-            nature="electricity"
-            unit_name="kilowatt_hour"
-            frozen_indicators_values="energy: 1.00kilowatt_hour"
-            />
-      <item name="gas"
-            nature="gas"
-            unit_name="kilowatt_hour"
-            frozen_indicators_values="energy: 1.00kilowatt_hour"
-            />
-      <item name="diesel"
-            nature="fuel"
-            unit_name="liter"
-            frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
-            />
-      <item name="gasoline"
-            nature="fuel"
-            unit_name="liter"
-            frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
-            />
-      <item name="motor_oil"
-            nature="motor_oil"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
-            />
-      <item name="hydraulic_oil"
-            nature="hydraulic_oil"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
-            />
-      <item name="bolt"
-            nature="mechanic_item"
-            unit_name="unit"
-            frozen_indicators_values="net_volume: 40milliliter, net_mass: 40gram"
-            />
-
       <!-- Coop variants -->
 
       <!-- SEED -->
@@ -2344,17 +2274,23 @@
             />
 
       <!-- HARD WHEAT -->
+      <item name="coop:bd_s_r1_miradoux_gau_vibrance_d500mg"
+            nature="seed"
+            derivative_of="triticum_durum_miradoux"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
+            />
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="coop:bd_s_miradoux_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="coop:bd_s_tablur_r1_gau_red_25kg"
             nature="seed"
@@ -2613,11 +2549,181 @@
             unit_name="unit"
             frozen_indicators_values="population: 1"
             />
+
+     <!-- COMMON SERVICES -->
+     <!-- COMMON SERVICES -->
+     <!-- COMMON SERVICES -->
+
+
+
+
+      <!-- WORKER -->
+      <item name="technician"
+            nature="technician"
+            unit_name="person"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="employee"
+            nature="technician"
+            unit_name="person"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="manager"
+            nature="manager"
+            unit_name="person"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="inseminator"
+            nature="inseminator"
+            unit_name="person"
+            frozen_indicators_values="population: 1"
+            />
+
+      <!-- GENERIC PRODUCT -->
+
+      <item name="running_water"
+            nature="running_water"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
+            />
+      <item name="irrigation_water"
+            nature="irrigation_water"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
+            />
+      <item name="natural_water"
+            nature="natural_water"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
+            />
+      <item name="electricity"
+            nature="electricity"
+            unit_name="kilowatt_hour"
+            frozen_indicators_values="energy: 1.00kilowatt_hour"
+            />
+      <item name="gas"
+            nature="gas"
+            unit_name="kilowatt_hour"
+            frozen_indicators_values="energy: 1.00kilowatt_hour"
+            />
+      <item name="diesel"
+            nature="fuel"
+            unit_name="liter"
+            frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
+            />
+      <item name="gasoline"
+            nature="fuel"
+            unit_name="liter"
+            frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
+            />
+      <item name="motor_oil"
+            nature="motor_oil"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
+            />
+      <item name="hydraulic_oil"
+            nature="hydraulic_oil"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
+            />
+      <item name="bolt"
+            nature="mechanic_item"
+            unit_name="unit"
+            frozen_indicators_values="net_volume: 40milliliter, net_mass: 40gram"
+            />
+
+      <!-- OTHER PRODUCT -->
+      <item name="small_equipment"
+            nature="small_equipment"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
       <!-- SERVICES -->
+      <item name="discount_and_reduction"
+            nature="discount_and_reduction"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="leasing"
+            nature="leasing"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="rent"
+            nature="rent"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
       <item name="spread_renting"
             nature="spread_renting"
             unit_name="hour"
             frozen_indicators_values="usage_duration: 1hour"
+            />
+      <item name="maintenance"
+            nature="maintenance"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="insurance"
+            nature="insurance"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="fee"
+            nature="fee"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="car_moving_travel"
+            nature="moving_travel"
+            unit_name="kilometer"
+            frozen_indicators_values="population: 1"
+            />
+        <item name="moving_travel"
+            nature="moving_travel"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+        <item name="meal_travel"
+            nature="meal_travel"
+            unit_name="meal"
+            frozen_indicators_values="population: 1"
+            />
+        <item name="accommodation_travel"
+            nature="accommodation_travel"
+            unit_name="night"
+            frozen_indicators_values="population: 1"
+            />
+
+       <item name="phone_line_subscription"
+            nature="radio_subscription"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="internet_line_subscription"
+            nature="radio_subscription"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="postal_stamp"
+            nature="mail_subscription"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="postal_charges"
+            nature="mail_subscription"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="bank_service"
+            nature="bank_service"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="taxe"
+            nature="taxe"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
             />
       <item name="daily_training_course"
             nature="training_course"

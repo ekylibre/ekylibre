@@ -167,23 +167,28 @@
       <item name="fuels_expenses" fr_pcga="6064"/>
       <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="little_office_equipment_expenses" fr_pcga="6066"/>
+      <item name="discount_and_reductions_expenses" fr_pcg82="609"/>
       <item name="leasing_expenses" fr_pcg82="612"/>
+      <item name="rent_expenses" fr_pcg82="613"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131"/>
       <item name="equipment_rent_expenses" fr_pcga="6132"/>
+      <item name="maintenance_expenses" fr_pcg82="615"/>
       <item name="own_building_expenses" fr_pcga="6153"/>
       <item name="other_building_expenses" fr_pcga="6154"/>
       <item name="equipment_expenses" fr_pcga="6155"/>
-      <item name="insurance_expenses" fr_pcga="616"/>
+      <item name="insurance_expenses" fr_pcg82="616"/>
       <item name="studies_and_research_expenses" fr_pcga="617"/>
       <item name="other_expenses" fr_pcga="618"/>
       <item name="external_staff_expenses" fr_pcga="621"/>
+      <item name="fees_expenses" fr_pcga="622"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="other_fees_expenses" fr_pcga="6226"/>
       <item name="transports_expenses" fr_pcga="624"/>
       <item name="travels_expenses" fr_pcga="625"/>
-      <item name="mails_expenses" fr_pcga="626"/>
+      <item name="telecommunications_expenses" fr_pcga="626"/>
       <item name="banks_services_expenses" fr_pcga="627"/>
       <item name="professional_subscriptions_expenses" fr_pcga="628"/>
+      <item name="taxes_expenses" fr_pcg82="63"/>
       <item name="products_specials_taxes" fr_pcga="634"/>
       <item name="other_taxes" fr_pcga="635"/>
       <item name="staff_expenses" fr_pcga="64"/>

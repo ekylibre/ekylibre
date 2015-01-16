@@ -10,7 +10,7 @@
       <property-nature name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <property-nature name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,drop,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,legal,bolt,pill,desktop,gift,road,fish,user,undefined"/>
+      <property-nature name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tasks,plane,tractor,truck,umbrella,drop,plane,phone,mushroom,medkit,matter,male,legal,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,bolt,pill,desktop,gift,road,fish,user,undefined,money,bank"/>
       <property-nature name="purchasable" type="boolean" required="true" default="false"/>
       <property-nature name="saleable"    type="boolean" required="true" default="false"/>
       <property-nature name="depreciable" type="boolean" required="true" default="false"/>
@@ -349,15 +349,7 @@
             storable="true"
             pictogram="pill"
             />
-      <item name="equipment_rent"
-            charge_account="equipment_rent_expenses"
-            product_account="revenues"
-            purchasable="true"
-            saleable="true"
-            depreciable="false"
-            storable="false"
-            pictogram="tractor"
-            />
+
       <item name="other_consumable"
             charge_account="other_consumable_matter_expenses"
             product_account="revenues"
@@ -521,29 +513,108 @@
             pictogram="bolt"
             />
          <!-- services -->
-         <item name="service"
-            charge_account="services_expenses"
-            product_account="services_revenues"
+         <item name="discount_and_reduction"
+            charge_account="discount_and_reductions_expenses"
+            product_account="discount_and_reductions_revenues"
             purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="gift"
+            />
+         <item name="leasing"
+            charge_account="leasing_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="money"
+            />
+          <item name="rent"
+            charge_account="rent_expenses"
+            product_account="revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="money"
+            />
+         <item name="equipment_rent"
+            charge_account="equipment_rent_expenses"
+            product_account="revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="tractor"
+            />
+         <item name="maintenance"
+            charge_account="maintenance_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="wrench"
+            />
+
+          <item name="insurance"
+            charge_account="insurance_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="umbrella"
+            />
+          <item name="fee"
+            charge_account="fees_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="tasks"
+            />
+         <item name="travel"
+            charge_account="travels_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="plane"
+            />
+         <item name="telecommunication"
+            charge_account="telecommunications_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="user"
+            />
+          <item name="bank_service"
+            charge_account="banks_services_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="bank"
+            />
+          <item name="taxe"
+            charge_account="taxes_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="legal"
+            />
+          <item name="service"
+            product_account="services_revenues"
+            purchasable="false"
             saleable="true"
             depreciable="false"
             storable="false"
             pictogram="user"
             />
-		<item name="building_rental"
-            charge_account="leasing_expenses"
-            purchasable="true"
-            saleable="false"
-            depreciable="false"
-            pictogram="building"
-            />
-         <item name="car_rental"
-            charge_account="leasing_expenses"
-            purchasable="true"
-            saleable="false"
-            depreciable="false"
-            pictogram="car"
-            />
+
+
     </items>
 
   </nomenclature>
