@@ -76,6 +76,7 @@ fra:
         animal_revenues: "Ventes d’animaux"
         animals_depreciations_inputations_expenses: "Dotat. aux amort. des animaux"
         animals_productions_expenses: "Achats pour productions animales"
+        # associated_accounts: "Associated accounts"
         associates_salary: "Rémunérations (administrateurs, gérants, associés)"
         attorneys: "Autres comptes débiteurs ou créditeurs"
         banks: "Banques"

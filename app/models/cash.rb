@@ -63,7 +63,7 @@ class Cash < Ekylibre::Record::Base
   has_many :incoming_payment_modes
   has_one :last_bank_statement, -> { order("stopped_at DESC") }, class_name: "BankStatement"
 
-  enumerize :nature, in: [:bank_account, :cash_box], default: :bank_account, predicates: true
+  enumerize :nature, in: [:bank_account, :cash_box, :associated_account], default: :bank_account, predicates: true
   enumerize :mode, in: [:iban, :bban], default: :iban, predicates: {prefix: true}
   # enumerize :currency, in: Nomen::Currencies.all
 
@@ -86,10 +86,11 @@ class Cash < Ekylibre::Record::Base
 
   scope :bank_accounts, -> { where(nature: "bank_account") }
   scope :cash_boxes,    -> { where(nature: "cash_box") }
+  scope :associated_accounts,    -> { where(nature: "associated_account") }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
-    self.mode.lower!
+    self.mode.lower! if !self.mode.blank?
     self.mode = self.class.mode.default_value if self.mode.blank?
     if self.currency.blank?
       if self.journal
@@ -132,7 +133,6 @@ class Cash < Ekylibre::Record::Base
   def used?
     self.deposits.any? or self.bank_statements.any? or self.outgoing_payment_modes.any? or self.incoming_payment_modes.any?
   end
-
 
   def formatted_bban(separator = " ")
     return [self.bank_code, self.bank_agency_code, self.bank_account_number, self.bank_account_key].join(separator)
