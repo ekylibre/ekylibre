@@ -3,5 +3,8 @@ class Pasteque::V5::CashMovementsController < Pasteque::V5::BaseController
     cashId: :cash_id,
     note: :comment
   }
-  manage_restfully only: [:create], model: :cash_transfer, update_filters: update_filters
+  #manage_restfully only: [:create], model: :cash_transfer, update_filters: update_filters
+  def move
+    render status: :unprocessable_entity, json: {status: :rej, content: nil}
+  end
 end
