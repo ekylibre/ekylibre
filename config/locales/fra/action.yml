@@ -620,6 +620,7 @@ fra:
     pasteque/v5/taxes: #?
     pasteque/v5/tickets: #?
     pasteque/v5/users: #?
+    pasteque/v5/version: #?
     pasteque/v5/versions: #?
     public:
       index: "Accueil"

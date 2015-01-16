@@ -1778,8 +1778,8 @@
       <item name="attributes">
         <page to="pasteque/v5/attributes#index"/>
       </item>
-      <item name="cash_movements">
-        <page to="pasteque/v5/cash_movements#create"/>
+      <item name="cash_mvts">
+        <page to="pasteque/v5/cash_mvts#create"/>
       </item>
       <item name="cash_registers">
         <page to="pasteque/v5/cash_registers#index"/>
@@ -1858,8 +1858,8 @@
         <page to="pasteque/v5/users#show"/>
         <page to="pasteque/v5/users#update_password"/>
       </item>
-      <item name="versions">
-        <page to="pasteque/v5/versions#version"/>
+      <item name="version">
+        <page to="pasteque/v5/version#index"/>
       </item>
     </group>
   </untreated-actions>

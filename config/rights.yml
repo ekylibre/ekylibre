@@ -87,7 +87,7 @@
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
 #     - "pasteque/v5/attributes#index"
-#     - "pasteque/v5/cash_movements#create"
+#     - "pasteque/v5/cash_mvts#create"
 #     - "pasteque/v5/cash_registers#index"
 #     - "pasteque/v5/cash_registers#show"
 #     - "pasteque/v5/cashes#search"
@@ -131,7 +131,7 @@
 #     - "pasteque/v5/users#index"
 #     - "pasteque/v5/users#show"
 #     - "pasteque/v5/users#update_password"
-#     - "pasteque/v5/versions#version"
+#     - "pasteque/v5/version#index"
 #     - "public#index"
 
 accounts:

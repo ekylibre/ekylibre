@@ -1,4 +1,4 @@
-class Pasteque::V5::CashMovementsController < Pasteque::V5::BaseController
+class Pasteque::V5::CashMvtsController < Pasteque::V5::BaseController
   update_filters = {
     cashId: :cash_id,
     note: :comment

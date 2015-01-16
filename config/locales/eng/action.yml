@@ -689,8 +689,8 @@ eng:
       # index: "Users"
       # show: "User: %{name}"
       # update_password: "Update password user: %{name}"
-    pasteque/v5/versions:
-      # version: "Version version: %{name}"
+    pasteque/v5/version:
+      # index: "Version"
     public:
       index: "Home"
   errors:
@@ -1652,7 +1652,6 @@ eng:
       up: "Up"
       update: "Update"
       # update_password: "Update password"
-      # version: "Version"
       # zticket: "Zticket"
   unrolls:
     backend/accounts: "%{number}. %{name}"
