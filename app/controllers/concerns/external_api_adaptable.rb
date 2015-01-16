@@ -45,9 +45,9 @@ module ExternalApiAdaptable
         key = get_filters[api_key.to_sym]
         @record = model.find_by(key => params[api_key]) rescue nil
         if @record.present?
-          render partial: "#{api_path}/#{locals[:partial_path]}", locals:{output_name.singularize.to_sym => @record}
+          render template: "layouts/#{api_path}/show", locals: locals
         else
-          render status: :not_found, json: nil
+          render status: :not_found, json: {status: :rej, content: nil}
         end
       end
 
