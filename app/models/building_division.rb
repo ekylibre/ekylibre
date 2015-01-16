@@ -78,7 +78,7 @@ class BuildingDivision < SubZone
 
   scope :floors, -> {where variety: :restaurant_floor}
   def tables
-    self.contents.where(variety: :table)
+    self.contents.of_variety :table
   end
 
 end
