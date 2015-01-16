@@ -262,6 +262,7 @@ cashes:
   mode: {type: string, required: true, default: "iban"}
   name: {type: string, required: true}
   nature: {type: string, limit: 20, required: true, default: "bank_account"}
+  owner_id: {type: integer, references: entity}
   spaced_iban: {type: string, limit: 42}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}

@@ -114,6 +114,7 @@ class Entity < Ekylibre::Record::Base
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where("sent_at IS NULL") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
+  has_one :cash, class_name: "Cash", foreign_key: :owner_id
   has_picture
 
   # # default_scope order(:last_name, :first_name)
@@ -216,20 +217,6 @@ class Entity < Ekylibre::Record::Base
     amount += self.purchase_invoices.sum(:amount)
     return amount
   end
-
-  def associated_cash
-    if self.client_account
-      if cash = Cash.where(account: self.client_account)
-        return cash.first
-      else
-        return nil
-      end
-    else
-      return nil
-    end
-    return nil
-  end
-
 
   def has_another_tracking?(serial, product_id)
     self.trackings.where("serial=? AND product_id!=? ", serial, product_id).count > 0

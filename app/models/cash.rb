@@ -43,6 +43,7 @@
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null
 #  nature               :string(20)       default("bank_account"), not null
+#  owner_id             :integer
 #  spaced_iban          :string(42)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -59,6 +60,7 @@ class Cash < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :container, class_name: 'Product'
   belongs_to :journal
+  belongs_to :owner, class_name: 'Entity'
   has_many :bank_statements, dependent: :destroy
   has_many :cashes
   has_many :deposits

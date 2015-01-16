@@ -55,12 +55,6 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
 
     # Update account name
     if r.link_nature
-      if r.link_nature.to_s.downcase == "management" and r.client_account_number and r.usages
-        associate_account = Account.find_by(number: r.client_account_number)
-        associate_account.name = person.full_name
-        associate_account.usages = r.usages
-        associate_account.save!
-      end
       person.is_linked_to!(Entity.of_company, as: r.link_nature)
     end
 

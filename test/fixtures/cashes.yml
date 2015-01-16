@@ -43,6 +43,7 @@
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null
 #  nature               :string(20)       default("bank_account"), not null
+#  owner_id             :integer
 #  spaced_iban          :string(42)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
