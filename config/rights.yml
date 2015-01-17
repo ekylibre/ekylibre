@@ -87,7 +87,7 @@
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
 #     - "pasteque/v5/attributes#index"
-#     - "pasteque/v5/cash_mvts#create"
+#     - "pasteque/v5/cash_mvts#move"
 #     - "pasteque/v5/cash_registers#index"
 #     - "pasteque/v5/cash_registers#show"
 #     - "pasteque/v5/cashes#search"

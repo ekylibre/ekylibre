@@ -10,7 +10,7 @@
       <property-nature name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <property-nature name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tasks,plane,tractor,truck,umbrella,drop,plane,phone,mushroom,medkit,matter,male,legal,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,bolt,pill,desktop,gift,road,fish,user,undefined,money,bank"/>
+      <property-nature name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tasks,subscription,plane,tractor,truck,umbrella,drop,plane,phone,mushroom,medkit,matter,male,legal,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,bolt,pill,desktop,gift,road,fish,user,undefined,money,bank"/>
       <property-nature name="purchasable" type="boolean" required="true" default="false"/>
       <property-nature name="saleable"    type="boolean" required="true" default="false"/>
       <property-nature name="depreciable" type="boolean" required="true" default="false"/>
@@ -604,6 +604,24 @@
             depreciable="false"
             storable="false"
             pictogram="legal"
+            />
+
+          <item name="rent_hosting_service"
+            charge_account="rent_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="subscription"
+            />
+
+          <item name="licence"
+            charge_account="licences_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="subscription"
             />
           <item name="service"
             product_account="services_revenues"

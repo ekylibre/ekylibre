@@ -21,13 +21,13 @@
           %th{colspan: 5}
           %td= resource.pretax_amount.l(currency: resource.currency)
           %td= resource.amount.l(currency: resource.currency)
-          
+
     - b.cell Purchase.human_attribute_name(:attachments) do
       = attachments_of(resource)
 
   - b.cell :affair do
     = affair_of(resource)
-    
+
   - b.hbox do
     - b.cell do
       = attributes_list do |l|
@@ -44,7 +44,7 @@
         - l.attribute :description
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :journal_entry, url: true
-  
+
   - if resource.deliveries.any?
     - b.cell Purchase.human_attribute_name(:deliveries) do
       = list :deliveries

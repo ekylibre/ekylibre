@@ -1511,6 +1511,23 @@
             variable_indicators="population"
             frozen_indicators=""
             />
+         <item name="numeric_subscription"
+            category="licence"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+          <item name="numeric_hosting_rental"
+            category="rent_hosting_service"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
         <item name="training_course"
             category="service"
             variety="service"

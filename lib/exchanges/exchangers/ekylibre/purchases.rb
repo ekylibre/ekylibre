@@ -36,7 +36,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
     if r.variant_nomen
      variant = ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
     end
-    
+
     # find or create a purchase
     if entity and purchase_invoiced_at and purchase_reference_number
       # see if purchase exist anyway
@@ -56,7 +56,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
       purchase_item_tax = Tax.where(amount: r.vat_rate).first
     end
 
-    # find or create a purchase line 
+    # find or create a purchase line
     if purchase and variant and r.unit_pretax_amount and r.quantity and purchase_item_tax
       unless purchase_item = PurchaseItem.where(purchase_id: purchase.id, pretax_amount: r.pretax_amount, variant_id: variant.id).first
         purchase.items.create!(quantity: r.quantity, tax: purchase_item_tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant)

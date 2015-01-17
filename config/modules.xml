@@ -1779,7 +1779,7 @@
         <page to="pasteque/v5/attributes#index"/>
       </item>
       <item name="cash_mvts">
-        <page to="pasteque/v5/cash_mvts#create"/>
+        <page to="pasteque/v5/cash_mvts#move"/>
       </item>
       <item name="cash_registers">
         <page to="pasteque/v5/cash_registers#index"/>

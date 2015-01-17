@@ -634,6 +634,8 @@ eng:
       # show: "Unlock: %{name}"
     pasteque/v5/attributes:
       # index: "Attributes"
+    pasteque/v5/cash_mvts:
+      # move: "Move cash mvt: %{name}"
     pasteque/v5/cash_registers:
       # index: "Cash registers"
       # show: "Cash register: %{name}"
@@ -874,7 +876,7 @@ eng:
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{by}"
     details: "Details"
-    discount: "Discount (%)" #?
+    discount: "Discount (%)" #?!
     display: "Display" #?
     divide: "Divide"
     division: "Division"
@@ -1623,6 +1625,7 @@ eng:
       mail: "Mail"
       mark: "Mark"
       merge: "Merge"
+      # move: "Move"
       new: "New"
       # open: "Open"
       # permitted_params: "Permitted params"

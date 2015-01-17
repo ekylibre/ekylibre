@@ -195,6 +195,7 @@
       <item name="staff_salary" fr_pcga="6411"/>
       <item name="associates_salary" fr_pcga="6413"/>
       <item name="other_staff_expenses" fr_pcga="648"/>
+      <item name="licences_expenses" fr_pcga="651"/>
       <item name="other_usual_running_expenses" fr_pcga="658"/>
       <item name="land_loans_interests" fr_pcg82="6611"/>
       <item name="long_term_loans_interests" fr_pcg82="6612"/>

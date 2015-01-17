@@ -816,6 +816,7 @@ arb:
     devise/unlocks: #?
     pasteque/v5/attributes: #?
     pasteque/v5/cash_movements: #?
+    pasteque/v5/cash_mvts: #?
     pasteque/v5/cash_registers: #?
     pasteque/v5/cashes: #?
     pasteque/v5/categories: #?

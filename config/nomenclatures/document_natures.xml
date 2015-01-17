@@ -13,7 +13,7 @@
       <item name="purchases_estimate" category="exploitation"/>
       <item name="purchases_invoice" category="exploitation"/>
       <item name="purchases_original" category="exploitation"/>
-      
+
       <item name="deposit_list" category="exploitation"/>
 
       <item name="balance_sheet" category="accountancy"/>
