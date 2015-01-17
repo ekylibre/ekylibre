@@ -167,7 +167,10 @@
       <item name="fuels_expenses" fr_pcga="6064"/>
       <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="little_office_equipment_expenses" fr_pcga="6066"/>
+      <item name="merchandising_expenses" fr_pcg82="607"/>
+      <item name="merchandising_accessory_expenses" fr_pcg82="608"/>
       <item name="discount_and_reductions_expenses" fr_pcg82="609"/>
+      <item name="subcontracting_expenses" fr_pcg82="611"/>
       <item name="leasing_expenses" fr_pcg82="612"/>
       <item name="rent_expenses" fr_pcg82="613"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131"/>
@@ -222,6 +225,7 @@
       <item name="other_animal_revenues" fr_pcga="7045"/>
       <item name="services_revenues" fr_pcg82="706"/>
       <item name="merchandising_revenues" fr_pcg82="707"/>
+      <item name="merchandising_accessory_revenues" fr_pcg82="7085"/>
       <item name="fill_up_price_revenues" fr_pcga="7087"/>
       <item name="discount_and_reductions_revenues" fr_pcg82="709"/>
       <item name="inventory_variations" fr_pcga="71"/>

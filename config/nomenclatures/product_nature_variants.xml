@@ -2644,6 +2644,12 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+       <item name="carriage"
+            nature="carriage"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="leasing"
             nature="leasing"
             unit_name="unit"
@@ -2753,6 +2759,42 @@
             unit_name="server"
             frozen_indicators_values=""
             />
+
+        <item name="portable_computer"
+            nature="computer"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+         <item name="computer_mouse"
+            nature="computer_device"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+        <item name="computer_item"
+            nature="computer_device"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+         <item name="computer_display"
+            nature="computer_device"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+         <item name="portable_hard_disk"
+            nature="computer_device"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+         <item name="eco_participation"
+            nature="recycling_contribution"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+
 
 
     </items>

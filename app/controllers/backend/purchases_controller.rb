@@ -28,8 +28,8 @@ class Backend::PurchasesController < BackendController
     t.column :number, url: {action: :show, step: :default}
     t.column :reference_number, url: {action: :show, step: :products}
     t.column :created_at
-    # t.column :planned_at
-    # t.column :moved_at
+    t.column :planned_at, hidden: true
+    t.column :invoiced_at
     t.column :supplier, url: true
     t.column :description
     # t.column :shipped

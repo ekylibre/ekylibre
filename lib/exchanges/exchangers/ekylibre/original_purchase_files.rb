@@ -10,7 +10,7 @@ Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
       path = dir.join(entry.name)
       arr = e.name.strip.split('_')
       ar = arr[2].split('.')
-      reference_number = ar[0]
+      reference_number = ar[0].upcase
       extension = ar[1]
       key = e.time.to_s + " " + e.size.to_s
 
@@ -26,7 +26,6 @@ Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
       purchase = Purchase.where(reference_number: reference_number).first
       purchase.attachments.create!(document: document) if document and purchase
     end
+    w.check_point
   end
-
-
 end

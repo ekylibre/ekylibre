@@ -15,13 +15,13 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
 
     # get information from document_reference_number
     # first part = purchase_invoiced_at
-    # second part = entity_full_name
+    # second part = entity_full_name (replace - by space)
     # third part = purchase_reference_number
     if r.document_reference_number
       arr = r.document_reference_number.strip.downcase.split('_')
       purchase_invoiced_at = arr[0].to_datetime
-      entity_full_name = arr[1].to_s
-      purchase_reference_number = arr[2].to_s
+      entity_full_name = arr[1].to_s.gsub("-", " ")
+      purchase_reference_number = arr[2].to_s.upcase
       # set description
       description = r.document_reference_number + " - "
       description << Time.now.l.to_s
@@ -53,7 +53,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
 
     # find or create a tax
     if r.vat_rate
-      purchase_item_tax = Tax.where(amount: r.vat_rate).first
+      purchase_item_tax = Tax.where(amount: r.vat_rate).reorder(:name).first
     end
 
     # find or create a purchase line

@@ -1528,6 +1528,42 @@
             frozen_indicators=""
             />
 
+         <item name="computer"
+            category="electronic_equipment"
+            variety="equipment"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+         <item name="computer_device"
+            category="small_electronic_equipment"
+            variety="equipment"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+          <item name="recycling_contribution"
+            category="subcontracting"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+          <item name="carriage"
+            category="carriage"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
         <item name="training_course"
             category="service"
             variety="service"
