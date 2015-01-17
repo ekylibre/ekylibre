@@ -52,8 +52,16 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
     end
 
     # find or create a tax
+    # TODO search country before for good tax request (country and amount)
+    # country via entity if information exist
     if r.vat_rate
-      purchase_item_tax = Tax.where(amount: r.vat_rate).reorder(:name).first
+      unless purchase_item_tax = Tax.where(amount: r.vat_rate).reorder(:name).first
+        items = Nomen::Taxes.where(country: entity.country.to_sym) if entity and entity.country
+        if items
+          Tax.import_all_from_nomenclature(entity.country.to_sym)
+        end
+        purchase_item_tax = Tax.where(amount: r.vat_rate).reorder(:name).first
+      end
     end
 
     # find or create a purchase line

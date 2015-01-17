@@ -15,16 +15,15 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
       :address => row[6].to_s,
       :postal_code => row[7].blank? ? nil : row[7].to_s,
       :city => row[8].blank? ? nil : row[8].to_s,
-      country: "fr",
       :phone_number => row[9].blank? ? nil : row[9].to_s,
       :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
-      :code => row[11].blank? ? nil : row[11].to_s.downcase,
+      :country => row[11].blank? ? Preference[:country] : row[11].to_s.downcase,
       :email => row[12].blank? ? nil : row[12].to_s
     }.to_struct
 
     klass = r.nature.camelcase.constantize
     unless person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name, r.last_name).first
-      person = klass.new(first_name: r.first_name, last_name: r.last_name, nature: r.nature)
+      person = klass.new(first_name: r.first_name, last_name: r.last_name, nature: r.nature, country: r.country)
     end
     if r.client_account_number
       person.client = true

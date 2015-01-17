@@ -1,6 +1,6 @@
 # Create or updates purchases
 Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
-  
+
   # Unzip file
   dir = w.tmp_dir
   Zip::File.open(file) do |zile|
