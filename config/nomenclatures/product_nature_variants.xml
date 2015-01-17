@@ -2642,17 +2642,17 @@
       <item name="discount_and_reduction"
             nature="discount_and_reduction"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
       <item name="leasing"
             nature="leasing"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
       <item name="rent"
             nature="rent"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
       <item name="spread_renting"
             nature="spread_renting"
@@ -2662,68 +2662,68 @@
       <item name="maintenance"
             nature="maintenance"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="insurance"
             nature="insurance"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="fee"
             nature="fee"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="car_moving_travel"
             nature="moving_travel"
             unit_name="kilometer"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
         <item name="moving_travel"
             nature="moving_travel"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
         <item name="meal_travel"
             nature="meal_travel"
             unit_name="meal"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
         <item name="accommodation_travel"
             nature="accommodation_travel"
             unit_name="night"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
 
        <item name="phone_line_subscription"
             nature="radio_subscription"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="internet_line_subscription"
             nature="radio_subscription"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="postal_stamp"
             nature="mail_subscription"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="postal_charges"
             nature="mail_subscription"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="bank_service"
             nature="bank_service"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
        <item name="taxe"
             nature="taxe"
             unit_name="unit"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
       <item name="daily_training_course"
             nature="training_course"
@@ -2740,6 +2740,14 @@
             unit_name="day"
             frozen_indicators_values="usage_duration: 1day"
             />
+
+       <!-- SERVICES LINK TO NUMERIC -->
+       <item name="domain_name_subscription"
+            nature="numeric_subscription"
+            unit_name="domain"
+            frozen_indicators_values=""
+            />
+
     </items>
 
   </nomenclature>
