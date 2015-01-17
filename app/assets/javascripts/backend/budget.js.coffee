@@ -1,5 +1,17 @@
 (($) ->
   'use strict'
+  # usefull functions
+  survey = () ->
+    # triggers 'change' on interesting hidden inputs
+    $(document).on 'change', "input[data-value-parameter-name='storage_id']", ->
+      storage_input = $(this).siblings("input:hidden[data-parameter-name='storage_id']")
+      # hiddenChange(storage_input, () -> storage_input.trigger('change'))
+      old = storage_input.val()
+      setInterval () ->
+          if storage_input.val() != old
+            old = storage_input.val()
+            storage_input.trigger('change')
+        , 100
   updateItems = () ->
     $(".budget_nested_fields").filter(':visible').each ->
       default_value = $(this).find("input.homogeneous").filter(':visible').first().val()
@@ -58,6 +70,7 @@
       $(this).text(revenues - expenses)
 
   $(document).ready ->
+    survey()
     # sorts budgets by direction
     $("tr[data-budget-direction]").each ->
       direction = $(this).attr('data-budget-direction')
@@ -108,7 +121,7 @@
     return false
 
   # when updating any field
-  $(document).on 'change emulated:change keyup cocoon:after-remove', "*", ->
+  $(document).on 'change emulated:change keyup cocoon:after-remove', "table#budget_visualization", ->
     calculate()
     return false
   # check all homogeneous_values checkboxes on checking homogeneous expenses/revenues
@@ -132,12 +145,13 @@
     updateItems()
   # unbinds items
   $(document).on 'click keyup', "input:checkbox:not(:checked)[id$='homogeneous_values']", ->
-    console.log('unbinds')
     $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').removeClass('homogeneous')
   $(document).on 'click keyup', "input.homogeneous", ->
     value = $(this).val()
     siblings = $(this).closest("tr.budget_nested_fields").find("input.homogeneous").filter(":visible")
     siblings.each ->
       $(this).val(value)
-  return
+  # updates working indicator measure values
+  $(document).on 'change', "input:hidden[data-parameter-name='storage_id']", ->
+    console.log($(this))
 ) jQuery
