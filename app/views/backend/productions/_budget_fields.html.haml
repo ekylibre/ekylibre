@@ -1,4 +1,5 @@
 - f.object.direction ||= direction
+- direction ||= f.object.direction
 %tr.budget_nested_fields{data: {budget_direction: f.object.direction}}
   %td
     = link_to_remove_association(:remove_budget, f, wrapper_class: :budget_nested_fields)
