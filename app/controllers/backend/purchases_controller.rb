@@ -24,7 +24,35 @@ class Backend::PurchasesController < BackendController
 
   unroll :number, :amount, :currency, :created_at, supplier: :full_name
 
-  list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:number, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
+
+  # params:
+  #   :q Text search
+  #   :state State search
+  #   :period Two Dates with _ separator
+  def self.purchases_conditions
+    code = ""
+    code = search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], :entities => [:number, :full_name]) + " ||= []\n"
+    code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
+    code << "  if params[:period] != 'all'\n"
+    code << "    interval = params[:period].split('_')\n"
+    code << "    first_date = interval.first\n"
+    code << "    last_date = interval.last\n"
+    code << "    c[0] << \" AND #{Purchase.table_name}.invoiced_at BETWEEN ? AND ?\"\n"
+    code << "    c << first_date\n"
+    code << "    c << last_date\n"
+    code << "  end\n "
+    code << "end\n "
+    code << "unless (params[:state].blank? or params[:state].is_a? Symbol)\n"
+    code << "  if params[:state] != 'all'\n"
+    code << "    c[0] << \" AND #{Purchase.table_name}.state IN (?)\"\n"
+    code << "    c << params[:state].flatten\n"
+    code << "  end\n "
+    code << "end\n "
+    code << "c\n "
+    return code.c
+  end
+
+  list(conditions: purchases_conditions, joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
     t.column :number, url: {action: :show, step: :default}
     t.column :reference_number, url: {action: :show, step: :products}
     t.column :created_at
