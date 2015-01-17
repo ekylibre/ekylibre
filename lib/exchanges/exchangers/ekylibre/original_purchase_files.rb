@@ -1,9 +1,10 @@
 # Create or updates purchases
 Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
-
+  
   # Unzip file
   dir = w.tmp_dir
   Zip::File.open(file) do |zile|
+    #w.count = zile.count
     zile.each do |entry|
       e = entry.extract(dir.join(entry.name))
       # set parameter
@@ -26,6 +27,6 @@ Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
       purchase = Purchase.where(reference_number: reference_number).first
       purchase.attachments.create!(document: document) if document and purchase
     end
-    w.check_point
+    #w.check_point
   end
 end

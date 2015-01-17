@@ -4,7 +4,7 @@
     = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_url("RECORD_ID", mode: :last_purchase_item)}}})
     = f.input :all_taxes_included, as: :hidden, input_html: {class: "all-taxes-included"}
   %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {class: "unit-pretax-amount item-pta"})
-  %td.decimal= f.select(:tax_id, Tax.order(:name).collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "tax")
+  %td.decimal= f.select(:tax_id, Tax.order(:name).collect{|t| [t.name + " ( " + t.amount.to_s + " %)", t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "tax")
   %td= f.input(:unit_amount, wrapper: :nested, input_html: {class: "unit-amount item-wta"})
   %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
   %td.decimal.pta{data: {use: ".item-pta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.purchase_currency].precision}"}}= item.pretax_amount
