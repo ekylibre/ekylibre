@@ -1384,6 +1384,13 @@ fra:
     purchases: "Achats"
     purchases_bar: "Achats par type" #?
     purchases_expense_bar: "Dépenses par mois" #?
+    purchases_selections:
+      aborted: "Annulée"
+      draft: "Brouillon"
+      estimate: "Devis"
+      invoice: "Facture"
+      order: "Commande"
+      refused: "Refusée"
     quantity: "Quantité"
     quantity_rest: "Quantité restante"
     quantity_to_credit: "Qté. à passer en avoir"

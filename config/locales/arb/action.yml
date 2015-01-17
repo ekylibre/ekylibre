@@ -1702,6 +1702,13 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    purchases_selections:
+      # aborted: "Aborted"
+      # draft: "Draft"
+      # estimate: "Estimate"
+      # invoice: "Invoice"
+      # order: "Order"
+      # refused: "Refused"
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات"

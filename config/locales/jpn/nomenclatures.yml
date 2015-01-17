@@ -3142,6 +3142,9 @@ jpn:
         # french_vat_particular_1982: "French vat particular 1982"
         # french_vat_particular_1989: "French vat particular 1989"
         # french_vat_reduced: "French vat reduced"
+        # spain_vat_intermediate_2013: "Spain vat intermediate 2013"
+        # spain_vat_normal_2013: "Spain vat normal 2013"
+        # spain_vat_reduced_2013: "Spain vat reduced 2013"
       # name: "Taxes"
       property_natures:
         # amount: "Amount"

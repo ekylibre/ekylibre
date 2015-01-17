@@ -1401,6 +1401,13 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     # purchases: "Purchases"
+    purchases_selections:
+      # aborted: "Aborted"
+      # draft: "Draft"
+      # estimate: "Estimate"
+      # invoice: "Invoice"
+      # order: "Order"
+      # refused: "Refused"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo"

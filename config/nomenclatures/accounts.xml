@@ -182,10 +182,15 @@
       <item name="insurance_expenses" fr_pcg82="616"/>
       <item name="studies_and_research_expenses" fr_pcga="617"/>
       <item name="other_expenses" fr_pcga="618"/>
+      <item name="external_expenses" fr_pcga="62"/>
       <item name="external_staff_expenses" fr_pcga="621"/>
       <item name="fees_expenses" fr_pcga="622"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="other_fees_expenses" fr_pcga="6226"/>
+      <item name="advertising_expenses" fr_pcg82="623"/>
+      <item name="advertisement_expenses" fr_pcg82="6231"/>
+      <item name="trade_show_expenses" fr_pcg82="6233"/>
+      <item name="catalog_and_print_expenses" fr_pcg82="6236"/>
       <item name="transports_expenses" fr_pcga="624"/>
       <item name="travels_expenses" fr_pcga="625"/>
       <item name="telecommunications_expenses" fr_pcga="626"/>

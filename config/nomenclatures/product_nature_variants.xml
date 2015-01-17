@@ -2638,6 +2638,24 @@
             unit_name="unit"
             frozen_indicators_values="population: 1"
             />
+      <item name="furniture"
+            nature="office_furniture"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <item name="big_sticker"
+            nature="catalog_and_print"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <item name="small_sticker"
+            nature="catalog_and_print"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <!-- SERVICES -->
       <item name="discount_and_reduction"
             nature="discount_and_reduction"

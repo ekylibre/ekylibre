@@ -1545,6 +1545,14 @@
             variable_indicators="population"
             frozen_indicators=""
             />
+            <item name="office_furniture"
+            category="office_furniture_equipment"
+            variety="equipment"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
 
           <item name="recycling_contribution"
             category="subcontracting"
@@ -1557,6 +1565,15 @@
 
           <item name="carriage"
             category="carriage"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+         <item name="catalog_and_print"
+            category="catalog_and_print"
             variety="service"
             population_counting="integer"
             abilities=""

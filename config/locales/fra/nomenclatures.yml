@@ -3144,6 +3144,9 @@ fra:
         french_vat_particular_1982: "TVA française particulière 1982"
         french_vat_particular_1989: "TVA française particulière 1989"
         french_vat_reduced: "TVA française réduite"
+        spain_vat_intermediate_2013: "TVA espagnole intermédiaire 2013"
+        spain_vat_normal_2013: "TVA espagnole normale 2013"
+        spain_vat_reduced_2013: "TVA espagnole réduite 2013"
       name: "Taxes"
       property_natures:
         active: "actif" #?

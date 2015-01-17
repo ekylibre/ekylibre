@@ -1115,6 +1115,13 @@ jpn:
     # purchase_items: "Purchase items"
     purchase_steps: #?
     # purchases: "Purchases"
+    purchases_selections:
+      # aborted: "Aborted"
+      # draft: "Draft"
+      # estimate: "Estimate"
+      # invoice: "Invoice"
+      # order: "Order"
+      # refused: "Refused"
     # quantity: "Quantity"
     # quantity_rest: "Remaining quantity"
     # quantity_to_credit: "Quantity to credit"

@@ -1205,6 +1205,13 @@ eng:
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
     purchases: "Purchases"
+    purchases_selections: #?!
+      aborted: "Aborted" #?!
+      draft: "Draft" #?!
+      estimate: "Estimate" #?!
+      invoice: "Invoice" #?!
+      order: "Order" #?!
+      refused: "Refused" #?!
     quantity: "Quantity"
     quantity_rest: "Remaining quantity"
     quantity_to_credit: "Quantity to credit" #?
