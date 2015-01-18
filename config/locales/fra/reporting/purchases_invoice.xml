@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="192"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
+	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
@@ -29,7 +29,7 @@
 			<fieldDescription><![CDATA[pretax-amount]]></fieldDescription>
 		</field>
 		<field name="unit_price" class="java.lang.String">
-			<fieldDescription><![CDATA[unit-price-amount]]></fieldDescription>
+			<fieldDescription><![CDATA[unit-pretax-amount]]></fieldDescription>
 		</field>
 		<field name="taxes_amount" class="java.lang.String">
 			<fieldDescription><![CDATA[taxes-amount]]></fieldDescription>
@@ -69,8 +69,8 @@
 	<field name="number" class="java.lang.String">
 		<fieldDescription><![CDATA[number]]></fieldDescription>
 	</field>
-	<field name="created-on" class="java.util.Date">
-		<fieldDescription><![CDATA[created-at]]></fieldDescription>
+	<field name="invoiced-on" class="java.util.Date">
+		<fieldDescription><![CDATA[invoiced-at]]></fieldDescription>
 	</field>
 	<field name="label" class="java.lang.String">
 		<fieldDescription><![CDATA[label]]></fieldDescription>
@@ -222,7 +222,7 @@
 				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement style="base" x="462" y="0" width="81" height="31" uuid="805184f6-42a0-4444-91f4-6ec4a5abfb2c"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{created-on}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{invoiced-on}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement style="strong" mode="Opaque" x="0" y="33" width="544" height="2" backcolor="#7C9DDD" uuid="cbc83fb6-5fe3-4a5f-aaed-ad8878ca75a7"/>

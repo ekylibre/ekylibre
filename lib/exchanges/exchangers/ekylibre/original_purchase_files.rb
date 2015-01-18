@@ -13,8 +13,10 @@ Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
       ar = arr[2].split('.')
       reference_number = ar[0].upcase
       extension = ar[1]
-      key = e.time.to_s + " " + e.size.to_s
-
+      key = e.time.to_s(:number) + "-" + e.size.to_s + "-" + reference_number
+      
+      # TODO add a method to detect before importing the same key in order to avoid bad validation on key
+      # puts " #{key} - #{e.name}".red
       # create document
       if path and extension and e.name and key
         document = Document.create!(key: key, name: e.name, nature: "purchases_original")

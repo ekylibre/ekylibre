@@ -191,6 +191,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
         attributes["#{account}_account"] = Account.find_or_create_in_chart(name)
       end
     end
+    # TODO add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)
+    # puts "#{item.human_name} - #{item.name}".red
     return self.create!(attributes)
   end
 
