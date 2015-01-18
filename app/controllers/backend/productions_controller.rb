@@ -88,6 +88,11 @@ class Backend::ProductionsController < BackendController
     t.column :stopped_at, hidden: true
     # t.column :provisional
   end
-
-
+  def indicator_measure
+    storage = Product.find(params[:storage_id])
+    indicator = params[:indicator]
+    unit = params[:unit]
+    measure = storage.send(indicator)
+    render json: {value: measure.to_f, unit: measure.unit}
+  end
 end

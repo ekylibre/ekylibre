@@ -608,6 +608,7 @@ Ekylibre::Application.routes.draw do
         get :list_supports
         get :list_interventions
         get :list_markers
+        get :indicator_measure
       end
     end
 

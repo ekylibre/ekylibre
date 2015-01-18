@@ -153,5 +153,20 @@
       $(this).val(value)
   # updates working indicator measure values
   $(document).on 'change', "input:hidden[data-parameter-name='storage_id']", ->
-    console.log($(this))
+    storage_id = $(this).val()
+    working_indicator = $("select[id='production_working_indicator']").val()
+    working_unit = $("select[id='production_working_unit']").val()
+    value = $(this).closest("td").find("span[data-working-indicator-value]")
+    unit = $(this).closest("td").find("span[data-working-indicator-unit]")
+    $.ajax
+      url: "indicator_measure.json"
+      dataType: "json"
+      data:
+        storage_id:   storage_id
+        indicator:    working_indicator
+        unit:         working_unit
+      success: (data, textStatus, jqXHR) ->
+        value.text(data.value)
+        unit.text(data.unit)
+        value.trigger('change')
 ) jQuery
