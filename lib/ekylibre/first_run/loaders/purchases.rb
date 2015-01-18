@@ -7,6 +7,12 @@ Ekylibre::FirstRun.add_loader :purchases do |first_run|
     first_run.import(:ekylibre_purchases, file)
   end
 
+  #import outgoing_payments link to purchase
+  path = first_run.path("alamano", "outgoing_payments.csv")
+  if path.exist?
+    first_run.import(:ekylibre_outgoing_payments, path)
+  end
+
   #import original purchase files
   # TODO compress all files inside purchases.zip
   path = first_run.path("alamano", "documents", "purchases.zip")

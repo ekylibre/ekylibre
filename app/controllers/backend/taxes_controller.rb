@@ -23,7 +23,7 @@ class Backend::TaxesController < BackendController
   unroll
 
   list do |t|
-    t.column :name
+    t.column :name, url: true
     t.column :amount, precision: 3
     t.column :reference_name
     t.column :included

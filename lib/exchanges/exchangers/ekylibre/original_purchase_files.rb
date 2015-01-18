@@ -14,7 +14,7 @@ Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
       reference_number = ar[0].upcase
       extension = ar[1]
       key = e.time.to_s(:number) + "-" + e.size.to_s + "-" + reference_number
-      
+
       # TODO add a method to detect before importing the same key in order to avoid bad validation on key
       # puts " #{key} - #{e.name}".red
       # create document

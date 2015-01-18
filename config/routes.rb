@@ -709,7 +709,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :taxes, concerns: [:list, :unroll]
+    resources :taxes, concerns: [:list, :unroll] do
+    end
 
     resources :teams, concerns: [:list, :unroll]
 

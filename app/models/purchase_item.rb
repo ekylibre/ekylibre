@@ -120,7 +120,7 @@ class PurchaseItem < Ekylibre::Record::Base
   def taxes_amount
     self.amount - self.pretax_amount
   end
-  
+
   def tax_name
     if self.tax
       country = Nomen::Taxes.find(self.tax.reference_name).country
