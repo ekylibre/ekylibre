@@ -66,7 +66,7 @@ class SaleItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, to: :sale
   delegate :currency, to: :sale, prefix: true
-  delegate :name, to: :tax, prefix: true
+  #delegate :name, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
   delegate :unit_name, :name, to: :variant
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
@@ -152,6 +152,16 @@ class SaleItem < Ekylibre::Record::Base
     self.quantity - self.delivery_items.sum(:quantity)
   end
 
+  def tax_name
+    if self.tax
+      country = Nomen::Taxes.find(self.tax.reference_name).country
+      item = "#{self.tax.amount}% (#{country})"
+      return item
+    else
+      return nil
+    end
+  end
+  
   # def stock_id
   #   ProductStock.find_by_building_id_and_product_id_and_tracking_id(self.building_id, self.product_id, self.tracking_id).id rescue nil
   # end
