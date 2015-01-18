@@ -134,6 +134,7 @@ arb:
     backend/cells/elevage_rss_cells: #?
     backend/cells/events_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
@@ -1943,6 +1944,7 @@ arb:
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"
     # unpaid_days: "Unpaid since (in days)"
+    # unpaid_purchases: "Unpaid purchases"
     # unpaid_sales: "Unpaid sales"
     unpaid_sales_export: "csv لم يتم تسديد قائمة البيع الصادرة ضمن" #?
     unparted: "غير متضرر" #?

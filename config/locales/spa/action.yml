@@ -133,6 +133,7 @@ spa:
     backend/cells/elevage_rss_cells: #?
     backend/cells/events_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
@@ -1605,6 +1606,7 @@ spa:
     # unpaid: "Unpaid"
     # unpaid_amount: "Unpaid amount"
     # unpaid_days: "Unpaid since (in days)"
+    # unpaid_purchases: "Unpaid purchases"
     # unpaid_sales: "Unpaid sales"
     # unreceived: "Unreceived"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"

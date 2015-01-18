@@ -1775,6 +1775,12 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="expenses_by_product_nature_category_cells">
+        <page to="backend/cells/expenses_by_product_nature_category_cells#show"/>
+      </item>
+      <item name="productions">
+        <page to="backend/productions#indicator_measure"/>
+      </item>
       <item name="attributes">
         <page to="pasteque/v5/attributes#index"/>
       </item>

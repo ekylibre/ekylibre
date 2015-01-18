@@ -112,6 +112,7 @@ jpn:
     backend/cells/data_transmissions_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/events_cells: #?
+    backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
@@ -1272,6 +1273,7 @@ jpn:
     # unpaid: "Unpaid"
     # unpaid_amount: "Unpaid amount"
     # unpaid_days: "Unpaid since (in days)"
+    # unpaid_purchases: "Unpaid purchases"
     # unpaid_sales: "Unpaid sales"
     # unreceived: "Unreceived"
     # unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"

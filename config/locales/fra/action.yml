@@ -111,6 +111,7 @@ fra:
     backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/events_cells: #?
+    backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
@@ -965,6 +966,7 @@ fra:
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
     expedier: "Expéditeur"
     expense_chart: "Évolution des dépenses" #?
+    expenses_by_product_nature_category: "Achats par catégories de produit"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1622,6 +1624,7 @@ fra:
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer"
     unpaid_days: "À payer depuis (jours)"
+    unpaid_purchases: "Achats impayés"
     unpaid_sales: "Ventes impayées"
     unpaid_sales_export: "Exporter la liste des ventes impayées au format csv" #?
     unparted: "Non affectés" #?

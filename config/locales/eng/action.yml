@@ -112,6 +112,8 @@ eng:
       # show: "Elapsed interventions times by activities cell: %{name}"
     backend/cells/events_cells:
       # show: "Events cell: %{name}"
+    backend/cells/expenses_by_product_nature_category_cells:
+      # show: "Expenses by product nature category cell: %{name}"
     backend/cells/guide_evolution_cells:
       # show: "Guide evolution cell: %{name}"
     backend/cells/last_analyses_cells:
@@ -499,6 +501,7 @@ eng:
     backend/productions:
       edit: "Edit production: %{name}"
       index: "Productions"
+      # indicator_measure: "Indicator measure production: %{name}"
       new: "New production"
       show: "Production: %{name}"
     backend/products:
@@ -583,7 +586,7 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "New tax"
-      # show: "Tax: %{name}"
+      show: "Tax: %{name}"
     backend/teams:
       edit: "Edit team: %{name}"
       index: "Teams"
@@ -1361,6 +1364,7 @@ eng:
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #?
     unpaid_days: "Unpaid since (in days)" #?
+    unpaid_purchases: "Unpaid purchases"
     unpaid_sales: "Unpaid sales"
     unreceived: "Unreceived" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
@@ -1625,6 +1629,7 @@ eng:
       incorporate: "Incorporate"
       increment: "Increment"
       index: "Index"
+      # indicator_measure: "Indicator measure"
       invoice: "Invoice"
       list: "List"
       load: "Load"

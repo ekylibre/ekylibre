@@ -130,6 +130,7 @@ Ekylibre::Application.routes.draw do
       resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_variety_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
+      resource :expenses_by_product_nature_category_cells, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
       resource :last_document_archives_cell, only: :show, concerns: :list

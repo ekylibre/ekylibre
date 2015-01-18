@@ -46,6 +46,7 @@
 
 
 class PurchaseItem < Ekylibre::Record::Base
+  include PeriodicCalculable
   belongs_to :account
   belongs_to :purchase, inverse_of: :items
   # belongs_to :price, class_name: "CatalogItem"
@@ -71,6 +72,22 @@ class PurchaseItem < Ekylibre::Record::Base
 
   acts_as_list :scope => :purchase
   sums :purchase, :items, :pretax_amount, :amount
+
+  calculable period: :month, at: "invoiced_at", column: :pretax_amount
+
+  # return all purchase items  between two dates
+  scope :between, lambda { |started_at, stopped_at|
+    joins(:purchase).merge(Purchase.invoiced_between(started_at, stopped_at))
+  }
+  # return all sale items for the consider product_nature
+  scope :by_product_nature, lambda { |product_nature|
+    joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
+  }
+
+  # return all sale items for the consider product_nature
+  scope :by_product_nature_category, lambda { |product_nature_category|
+    joins(:variant).merge(ProductNatureVariant.of_categories(product_nature_category))
+  }
 
   before_validation do
     self.pretax_amount ||= 0

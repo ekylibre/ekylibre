@@ -1,0 +1,48 @@
+- if @started_at and @stopped_at
+  :ruby
+    series = []
+    categories = {}
+    date = @started_at
+    while date < @stopped_at
+      categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
+      date = date >> 1
+    end
+
+    # data for bar chart expenses by product_nature_category and by month
+    ProductNatureCategory.availables.find_each do |category|
+      purchase_items = PurchaseItem.by_product_nature_category(category).between(@started_at, @stopped_at)
+      if purchase_items.count > 0
+        item_h = purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
+          hash[pair.expr.to_i.to_s] = pair.sum.to_d
+          hash
+        end
+        series << {type: 'column', name: category.name, data: normalize_serie(item_h, categories.keys) }
+      end
+    end
+
+    # data for spline sum revenues by month
+    all_purchase_items = PurchaseItem.between(@started_at, @stopped_at)
+    if all_purchase_items.count > 0
+      item_h = all_purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
+        hash
+      end
+      series << {type: 'spline', name: :total.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+    end
+
+    # data for pie expenses by product_nature_category
+    data = []
+    ProductNatureCategory.availables.find_each do |category|
+      purchase_items = PurchaseItem.by_product_nature_category(category).between(@started_at, @stopped_at)
+      if purchase_items.count > 0
+        sum_expenses = purchase_items.sum(:pretax_amount)
+        data << {name: category.name, y: sum_expenses.to_s.to_f, url: backend_product_nature_category_path(category)}
+      end
+    end
+    series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
+
+
+  = column_chart(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)
+
+- else
+  = no_data

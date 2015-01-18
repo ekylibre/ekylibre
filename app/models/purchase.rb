@@ -75,9 +75,15 @@ class Purchase < Ekylibre::Record::Base
 
   acts_as_numbered
   acts_as_affairable :supplier
-  accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   delegate :closed, to: :affair, prefix: true
+
+  scope :invoiced_between, lambda { |started_at, stopped_at|
+    where(invoiced_at: started_at..stopped_at)
+  }
+
+  scope :unpaid, -> { where(state: ["order", "invoice"]).joins(:affair).where("NOT closed") }
 
   state_machine :state, :initial => :draft do
     state :draft

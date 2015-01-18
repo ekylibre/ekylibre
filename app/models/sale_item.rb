@@ -161,7 +161,7 @@ class SaleItem < Ekylibre::Record::Base
       return nil
     end
   end
-  
+
   # def stock_id
   #   ProductStock.find_by_building_id_and_product_id_and_tracking_id(self.building_id, self.product_id, self.tracking_id).id rescue nil
   # end

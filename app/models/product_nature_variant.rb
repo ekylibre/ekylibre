@@ -103,6 +103,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
     where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
   }
+
+  scope :of_categories, lambda { |*categories|
+    categories.flatten!
+    for category in categories
+      raise ArgumentError.new("Expected Product Nature Category, got #{category.class.name}:#{category.inspect}") unless category.is_a?(ProductNatureCategory)
+    end
+    where("#{ProductNatureVariant.table_name}.category_id IN (?)", categories.map(&:id))
+  }
+
   scope :of_category, ->(category){where(category: category)}
 
   protect(on: :destroy) do
