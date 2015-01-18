@@ -614,6 +614,14 @@
             storable="false"
             pictogram="legal"
             />
+		  <item name="duty_and_taxe"
+            charge_account="other_taxes"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="legal"
+            />
 
           <item name="rent_hosting_service"
             charge_account="rent_expenses"
@@ -649,6 +657,16 @@
             saleable="true"
             depreciable="true"
             storable="true"
+            pictogram="fax"
+            />
+
+
+		  <item name="little_office_item"
+            charge_account="little_office_equipment_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
             pictogram="fax"
             />
 
@@ -689,6 +707,23 @@
             pictogram="cc"
             />
 
+			<item name="representation"
+            charge_account="advertising_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="cc"
+            />
+
+			<item name="trade_show"
+            charge_account="trade_show_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="cc"
+            />
 
           <item name="service"
             product_account="services_revenues"

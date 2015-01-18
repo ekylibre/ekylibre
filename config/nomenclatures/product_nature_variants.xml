@@ -2644,6 +2644,24 @@
             frozen_indicators_values=""
             />
 
+      <item name="little_office_equipment"
+            nature="little_office_item"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+       <item name="little_office_good"
+            nature="little_office_item"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <item name="battery"
+            nature="office_furniture"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="big_sticker"
             nature="catalog_and_print"
             unit_name="unit"
@@ -2655,6 +2673,23 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+      <item name="hanging_scroll"
+            nature="catalog_and_print"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="rollup"
+            nature="catalog_and_print"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <item name="card"
+            nature="catalog_and_print"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
 
       <!-- SERVICES -->
       <item name="discount_and_reduction"
@@ -2719,6 +2754,12 @@
             frozen_indicators_values=""
             />
 
+        <item name="accommodation_taxe"
+            nature="accommodation_travel"
+            unit_name="night"
+            frozen_indicators_values=""
+            />
+
        <item name="phone_line_subscription"
             nature="radio_subscription"
             unit_name="unit"
@@ -2739,6 +2780,13 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+        <item name="representation_suit"
+            nature="representation_item"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+
        <item name="bank_service"
             nature="bank_service"
             unit_name="unit"
@@ -2746,6 +2794,11 @@
             />
        <item name="taxe"
             nature="taxe"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+       <item name="legal_registration"
+            nature="legal_registration"
             unit_name="unit"
             frozen_indicators_values=""
             />
@@ -2784,16 +2837,30 @@
             frozen_indicators_values=""
             />
 
+         <item name="printer"
+            nature="computer"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
          <item name="computer_mouse"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
+
         <item name="computer_item"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
+
+          <item name="ink_cartridge"
+            nature="computer_device"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
          <item name="computer_display"
             nature="computer_device"
             unit_name="unit"
@@ -2811,6 +2878,19 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+
+         <item name="product_warranty"
+            nature="product_insurance"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+           <item name="food_show"
+            nature="trade_show"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
 
 
 

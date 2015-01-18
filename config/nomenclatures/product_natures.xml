@@ -1563,6 +1563,34 @@
             frozen_indicators=""
             />
 
+            <item name="legal_registration"
+            category="duty_and_taxe"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+		  <item name="little_office_item"
+            category="little_office_item"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+          <item name="representation_item"
+            category="representation"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+
           <item name="carriage"
             category="carriage"
             variety="service"
@@ -1581,6 +1609,24 @@
             frozen_indicators=""
             />
 
+
+		<item name="trade_show"
+            category="trade_show"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+	<item name="product_insurance"
+            category="insurance"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
         <item name="training_course"
             category="service"
             variety="service"
