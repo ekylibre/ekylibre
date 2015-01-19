@@ -90,9 +90,15 @@ class Backend::ProductionsController < BackendController
   end
   def indicator_measure
     storage = Product.find(params[:storage_id])
+    variant = ProductNatureVariant.find(params[:variant_id])
     indicator = params[:indicator]
     unit = params[:unit]
-    measure = storage.send(indicator).convert(unit)
-    render json: {value: measure.to_f, unit: measure.unit}
+    if storage && indicator && unit
+      measure = storage.send(indicator).convert(unit)
+      render json: {value: measure.to_f, unit: measure.unit}
+    #elsif
+    else
+      render status: :not_found, json: nil
+    end
   end
 end

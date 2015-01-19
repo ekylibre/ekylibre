@@ -177,4 +177,11 @@
     updateIndicatorsValues()
   $(document).on 'change', "input:hidden[data-parameter-name='storage_id']", ->
     updateIndicatorValue($(this))
+
+  # manages working indicator and working unit
+  $(document).on 'change', "select[name='budget_indicator']", ->
+    indicator = $(this).val().split('-')[0]
+    unit = $(this).val().split('-')[1]
+    $(this).parent().find("select[id$='working_indicator']").val(indicator)
+    $(this).parent().find("select[id$='working_unit']").val(unit)
 ) jQuery

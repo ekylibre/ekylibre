@@ -47,7 +47,6 @@ class Budget < Ekylibre::Record::Base
   validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   #]VALIDATORS]
   validates_presence_of :variant, :production
-  validates_presence_of :homogeneous_values, default: false
 
   has_many :items, -> {order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
