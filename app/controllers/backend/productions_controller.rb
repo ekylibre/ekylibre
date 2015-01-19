@@ -89,14 +89,16 @@ class Backend::ProductionsController < BackendController
     # t.column :provisional
   end
   def indicator_measure
-    storage = Product.find(params[:storage_id])
-    variant = ProductNatureVariant.find(params[:variant_id])
+    storage = Product.find(params[:storage_id]) rescue nil
+    variant = ProductNatureVariant.find(params[:variant_id]) rescue nil
     indicator = params[:indicator]
     unit = params[:unit]
     if storage && indicator && unit
       measure = storage.send(indicator).convert(unit)
       render json: {value: measure.to_f, unit: measure.unit}
-    #elsif
+    elsif variant
+      indicators = variant.indicators.map(&:name)
+      render json: {indicators: indicators}
     else
       render status: :not_found, json: nil
     end

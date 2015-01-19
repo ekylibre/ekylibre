@@ -3,14 +3,14 @@
   # usefull functions
   survey = () ->
     # triggers 'change' on interesting hidden inputs
-    $(document).on 'change', "input[data-value-parameter-name='storage_id']", ->
-      storage_input = $(this).siblings("input:hidden[data-parameter-name='storage_id']")
-      # hiddenChange(storage_input, () -> storage_input.trigger('change'))
-      old = storage_input.val()
+    $(document).on 'change click keyup', "input[data-value-parameter-name]", ->
+      name = $(this).attr('data-value-parameter-name')
+      hidden_input = $(this).siblings("input:hidden[data-parameter-name='#{name}']")
+      old = hidden_input.val()
       setInterval () ->
-          if storage_input.val() != old
-            old = storage_input.val()
-            storage_input.trigger('change')
+          if hidden_input.val() != old
+            old = hidden_input.val()
+            hidden_input.trigger('change')
         , 100
   updateItems = () ->
     $(".budget_nested_fields").filter(':visible').each ->
@@ -184,4 +184,23 @@
     unit = $(this).val().split('-')[1]
     $(this).parent().find("select[id$='working_indicator']").val(indicator)
     $(this).parent().find("select[id$='working_unit']").val(unit)
+
+  # manages selects to show only indicators in relation with the given variant
+  $(document).on 'change', "input:hidden[data-parameter-name='variant_id']", ->
+    variant_id = $(this).attr('value')
+    console.log(variant_id)
+    indicator_select = $(this).parent().find("input[name='budget_indicator']")
+    $.ajax
+      url: "indicator_measure.json"
+      datatype: 'json'
+      data:
+        variant_id: variant_id
+      success: (data, textStatus, jqXHR) ->
+        indicator_select.children().hide()
+        for indicator in data.indicators
+          do (indicator) ->
+            indicator_select.children("option[value^='#{indicator}']").each ->
+              console.log($(this))
+      error: () -> indicator_select.children().show()
+        
 ) jQuery
