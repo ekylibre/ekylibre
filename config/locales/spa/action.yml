@@ -674,6 +674,7 @@ spa:
       edit: "Modificar la tasa\_: %{name}"
       index: "Tasas"
       new: "Añadir nueva tarifa"
+      # show: "Tax: %{name}"
     backend/teams:
       # edit: "Edit team: %{name}"
       # index: "Teams"

@@ -1627,9 +1627,18 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-            
-        <!-- SERVICES LINK TO NUMERIC -->    
-            
+
+        <item name="professional_subscription"
+            category="professional_subscription"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+        <!-- SERVICES LINK TO NUMERIC -->
+
         <item name="training_course"
             category="service"
             variety="service"
@@ -1638,7 +1647,7 @@
             variable_indicators="population"
             frozen_indicators="usage_duration"
             />
-            
+
         <item name="user_support"
             category="service"
             variety="service"
@@ -1647,7 +1656,7 @@
             variable_indicators="population"
             frozen_indicators="usage_duration"
             />
-            
+
         <item name="project_management"
             category="service"
             variety="service"
@@ -1656,7 +1665,7 @@
             variable_indicators="population"
             frozen_indicators="usage_duration"
             />
-         
+
          <item name="software_engineering"
             category="service"
             variety="service"

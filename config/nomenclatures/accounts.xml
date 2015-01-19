@@ -221,7 +221,7 @@
       <item name="others_corporeals_depreciations_inputations_expenses" fr_pcga="68118"/>
 
       <!--                      REVENUES              -->
-      
+
       <item name="revenues" fr_pcg82="7"/>
       <item name="plant_derivatives_revenues" fr_pcga="701"/>
       <item name="animal_derivatives_revenues" fr_pcga="702"/>

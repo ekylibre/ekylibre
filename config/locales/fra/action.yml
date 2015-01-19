@@ -562,6 +562,7 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Nouvelle taxe"
+      # show: "Tax: %{name}"
     backend/teams:
       edit: "Modifier l’équipe\_: %{name}"
       index: "Équipes"
@@ -966,7 +967,7 @@ fra:
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
     expedier: "Expéditeur"
     expense_chart: "Évolution des dépenses" #?
-    expenses_by_product_nature_category: "Achats par catégories de produit"
+    expenses_by_product_nature_category: "Achats par catégories de produit" #?
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?

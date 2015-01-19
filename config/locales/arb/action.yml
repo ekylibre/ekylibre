@@ -762,6 +762,7 @@ arb:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
+      # show: "Tax: %{name}"
     backend/teams:
       # edit: "Edit team: %{name}"
       # index: "Teams"

@@ -726,6 +726,15 @@
             pictogram="cc"
             />
 
+          <item name="professional_subscription"
+            charge_account="professional_subscriptions_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="cc"
+            />
+
           <item name="service"
             product_account="services_revenues"
             purchasable="false"

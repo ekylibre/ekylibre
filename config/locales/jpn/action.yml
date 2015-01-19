@@ -528,6 +528,7 @@ jpn:
       # edit: "Edit tax: %{name}"
       # index: "Taxes"
       # new: "New tax"
+      # show: "Tax: %{name}"
     backend/teams:
       # edit: "Edit team: %{name}"
       # index: "Teams"

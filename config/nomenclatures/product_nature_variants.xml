@@ -2804,7 +2804,7 @@
             />
 
 
-       
+
        <item name="domain_name_subscription"
             nature="numeric_subscription"
             unit_name="domain"
@@ -2877,9 +2877,14 @@
             frozen_indicators_values=""
             />
 
+      <item name="subscription_professional_society"
+            nature="professional_subscription"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
 
       <!-- SERVICES LINK TO NUMERIC -->
-		
+
       <item name="daily_training_course"
             nature="training_course"
             unit_name="day"
@@ -2890,7 +2895,7 @@
             unit_name="hour"
             frozen_indicators_values="usage_duration: 1hour"
             />
-            
+
       <item name="daily_project_management"
             nature="project_management"
             unit_name="day"
