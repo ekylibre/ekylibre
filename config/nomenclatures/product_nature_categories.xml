@@ -584,8 +584,9 @@
             />
          <item name="travel"
             charge_account="travels_expenses"
+            product_account="merchandising_accessory_revenues"
             purchasable="true"
-            saleable="false"
+            saleable="true"
             depreciable="false"
             storable="false"
             pictogram="plane"
