@@ -92,7 +92,7 @@ class Backend::ProductionsController < BackendController
     storage = Product.find(params[:storage_id])
     indicator = params[:indicator]
     unit = params[:unit]
-    measure = storage.send(indicator)
+    measure = storage.send(indicator).convert(unit)
     render json: {value: measure.to_f, unit: measure.unit}
   end
 end

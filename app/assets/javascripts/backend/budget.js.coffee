@@ -18,6 +18,26 @@
       $(this).find("input.homogeneous").filter(':visible').each ->
         $(this).val(default_value)
       $(this).trigger('change')
+  updateIndicatorsValues = () ->
+    $("input:hidden[data-parameter-name='storage_id']").each ->
+      updateIndicatorValue($(this))
+  updateIndicatorValue = (storageInput) ->
+    storage_id = $(storageInput).val()
+    working_indicator = $("select[id='production_working_indicator']").val()
+    working_unit = $("select[id='production_working_unit']").val()
+    value = storageInput.closest("td").find("span[data-working-indicator-value]")
+    unit = storageInput.closest("td").find("span[data-working-indicator-unit]")
+    $.ajax
+      url: "indicator_measure.json"
+      dataType: "json"
+      data:
+        storage_id:   storage_id
+        indicator:    working_indicator
+        unit:         working_unit
+      success: (data, textStatus, jqXHR) ->
+        value.text(data.value)
+        unit.text(data.unit)
+        value.trigger('change')
   calculate = () ->
     # calculations
     # item calculation
@@ -151,22 +171,10 @@
     siblings = $(this).closest("tr.budget_nested_fields").find("input.homogeneous").filter(":visible")
     siblings.each ->
       $(this).val(value)
+
   # updates working indicator measure values
+  $(document).on 'change', "select[id^='production_working_']", ->
+    updateIndicatorsValues()
   $(document).on 'change', "input:hidden[data-parameter-name='storage_id']", ->
-    storage_id = $(this).val()
-    working_indicator = $("select[id='production_working_indicator']").val()
-    working_unit = $("select[id='production_working_unit']").val()
-    value = $(this).closest("td").find("span[data-working-indicator-value]")
-    unit = $(this).closest("td").find("span[data-working-indicator-unit]")
-    $.ajax
-      url: "indicator_measure.json"
-      dataType: "json"
-      data:
-        storage_id:   storage_id
-        indicator:    working_indicator
-        unit:         working_unit
-      success: (data, textStatus, jqXHR) ->
-        value.text(data.value)
-        unit.text(data.unit)
-        value.trigger('change')
+    updateIndicatorValue($(this))
 ) jQuery
