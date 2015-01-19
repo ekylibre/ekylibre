@@ -46,7 +46,7 @@
 class Production < Ekylibre::Record::Base
   enumerize :state, in: [:draft, :validated], default: :draft
   enumerize :working_unit, in: Nomen::Units.all
-  enumerize :working_indicator, in: Nomen::Indicators.all
+  enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name)
   belongs_to :activity
   belongs_to :campaign
   belongs_to :variant, class_name: "ProductNatureVariant"

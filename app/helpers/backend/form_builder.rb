@@ -120,6 +120,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     return nil
   end
 
+  def indicator(indicator_attribute_name, unit_attribute_name, *args, &block)
+    nil
+  end
+
   # Updates default input method
   def input(attribute_name, options = {}, &block)
     if targets = options.delete(:show)
@@ -498,11 +502,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     return html
   end
 
-
-
   def fields(partial = 'form')
     @template.content_tag(:div, @template.render(partial, f: self), class: "form-fields")
-                        end
+  end
 
   def actions
     return nil unless @actions.any?
@@ -535,7 +537,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
   protected
-
 
   def clean_targets(targets)
     if targets.is_a?(String)
