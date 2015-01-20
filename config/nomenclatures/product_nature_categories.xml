@@ -735,6 +735,15 @@
             pictogram="cc"
             />
 
+            <item name="bonus_staff_expense"
+            charge_account="bonus_staff_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="user"
+            />
+
           <item name="service"
             product_account="services_revenues"
             purchasable="false"
@@ -743,6 +752,8 @@
             storable="false"
             pictogram="user"
             />
+
+
 
 
     </items>

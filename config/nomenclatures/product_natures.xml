@@ -1637,6 +1637,26 @@
             frozen_indicators=""
             />
 
+         <item name="freelance"
+            category="subcontracting"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+         <item name="bonus_staff_expense"
+            category="bonus_staff_expense"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+
+
         <!-- SERVICES LINK TO NUMERIC -->
 
         <item name="training_course"

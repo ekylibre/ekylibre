@@ -2883,6 +2883,20 @@
             frozen_indicators_values=""
             />
 
+      <item name="freelance_sofware_development"
+            nature="freelance"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+       <item name="intership"
+            nature="bonus_staff_expense"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+
+
       <!-- SERVICES LINK TO NUMERIC -->
 
       <item name="daily_training_course"
