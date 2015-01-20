@@ -1,17 +1,6 @@
 (($) ->
   'use strict'
   # usefull functions
-  survey = () ->
-    # triggers 'change' on interesting hidden inputs
-    $(document).on 'change click keyup', "input[data-value-parameter-name]", ->
-      name = $(this).attr('data-value-parameter-name')
-      hidden_input = $(this).siblings("input:hidden[data-parameter-name='#{name}']")
-      old = hidden_input.val()
-      setInterval () ->
-          if hidden_input.val() != old
-            old = hidden_input.val()
-            hidden_input.trigger('change')
-        , 100
   updateItems = () ->
     $(".budget_nested_fields").filter(':visible').each ->
       default_value = $(this).find("input.homogeneous").filter(':visible').first().val()
@@ -90,7 +79,6 @@
       $(this).text(revenues - expenses)
 
   $(document).ready ->
-    survey()
     # sorts budgets by direction
     $("tr[data-budget-direction]").each ->
       direction = $(this).attr('data-budget-direction')
@@ -175,7 +163,7 @@
   # updates working indicator measure values
   $(document).on 'change', "select[id^='production_working_']", ->
     updateIndicatorsValues()
-  $(document).on 'change', "input:hidden[data-parameter-name='storage_id']", ->
+  $(document).on 'selector:change', "input:hidden[data-parameter-name='storage_id']", ->
     updateIndicatorValue($(this))
 
   # manages working indicator and working unit
@@ -186,7 +174,7 @@
     $(this).parent().find("select[id$='working_unit']").val(unit)
 
   # manages selects to show only indicators in relation with the given variant
-  $(document).on 'change', "input:hidden[data-parameter-name='variant_id']", ->
+  $(document).on 'selector:change', "input:hidden[data-parameter-name='variant_id']", ->
     variant_id = $(this).attr('value')
     console.log(variant_id)
     indicator_select = $(this).parent().find("input[name='budget_indicator']")
