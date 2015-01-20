@@ -1445,7 +1445,7 @@ fra:
         refused: "Devis refusé %{number}"
       sale: "Vente %{number}"
       sales_conditions:
-        downpayment: "Un acompte de %{percent}% (soit %{amount}€) devra être versé à la signature du présent devis."
+        downpayment: "Un acompte de %{percentage}% (soit %{amount}€) devra être versé à la signature du présent devis."
         validity: "Ce devis et ses conditions générales sont valables jusqu’au %{expiration}."
       sales_invoice:
         label:

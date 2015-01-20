@@ -413,12 +413,22 @@ class Sale < Ekylibre::Record::Base
     self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where(currency: self.currency).order("to_bank_at")
   end
 
+  def sales_mentions
+    # get preference for sales conditions
+    preference_sales_conditions = Preference.global.where(name: :sales_conditions).first
+    if preference_sales_conditions
+      return preference_sales_conditions.value
+    else
+      return nil
+    end
+  end
+
   # Build general sales condition for the sale order
   def sales_conditions
     c = []
     c << tc('sales_conditions.downpayment', :percentage => self.nature.downpayment_percentage, :amount => (self.nature.downpayment_percentage * 0.01 * self.amount).round(2)) if self.amount > self.nature.downpayment_minimum
-    c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_at, :format => :legal))
-    c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/)
+    c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_at, :format => :default))
+    c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/) if self.nature.sales_conditions
     c += self.responsible.team.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.team
     c
   end

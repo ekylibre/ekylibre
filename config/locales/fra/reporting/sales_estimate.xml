@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_estimate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.5421731577181277"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="768"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
+	<property name="ireport.y" value="816"/>
+	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
@@ -29,7 +29,7 @@
 			<fieldDescription><![CDATA[pretax-amount]]></fieldDescription>
 		</field>
 		<field name="unit_price" class="java.lang.String">
-			<fieldDescription><![CDATA[unit-price-amount]]></fieldDescription>
+			<fieldDescription><![CDATA[unit-pretax-amount]]></fieldDescription>
 		</field>
 		<field name="taxes_amount" class="java.lang.String">
 			<fieldDescription><![CDATA[taxes-amount]]></fieldDescription>
@@ -41,6 +41,15 @@
 			<fieldDescription><![CDATA[variant/unit-name]]></fieldDescription>
 		</field>
 	</subDataset>
+	<subDataset name="sale_conditions" uuid="cffed90f-e069-4d91-8bd6-b9c624ef529b">
+		<queryString language="xPath">
+			<![CDATA[/sale/sales-conditions/sales-condition]]>
+		</queryString>
+		<field name="sales-condition" class="java.lang.String">
+			<fieldDescription><![CDATA[child::text()]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="dataset1" uuid="824e3c93-79b6-4cb3-8a9e-4753be70045f"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
@@ -417,24 +426,24 @@
 			</textField>
 			<staticText>
 				<reportElement style="label-strong" mode="Transparent" x="258" y="11" width="123" height="32" uuid="1c01c258-98f5-40a2-b54f-98d66d34e25d"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[  Totaux]]></text>
 			</staticText>
 			<textField>
 				<reportElement style="label-strong" x="258" y="42" width="123" height="31" uuid="2dd91c21-afd5-4d55-9b01-dc9356042c07"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["  Net à payer ( "+$F{currency}+" )"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[" Net à payer"]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement style="strong" x="381" y="42" width="109" height="31" uuid="124e0f89-744c-4b93-8f8a-5f19e3854ee4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{amount} + " " + $F{currency}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="error" x="10" y="10" width="226" height="62" uuid="261156b8-12ff-4dd0-a589-73b721464300">
@@ -498,37 +507,37 @@
 		</band>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="192">
+		<band height="237">
 			<textField>
-				<reportElement style="base" x="450" y="151" width="54" height="22" forecolor="#000000" uuid="8b8a16f2-5c09-4f31-96de-19a4f8bdbdba"/>
+				<reportElement style="base" x="450" y="197" width="54" height="22" forecolor="#000000" uuid="8b8a16f2-5c09-4f31-96de-19a4f8bdbdba"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="base" x="503" y="151" width="40" height="22" forecolor="#000000" uuid="d7e9fd68-7dd3-492d-b226-4a946657c07a"/>
+				<reportElement style="base" x="503" y="197" width="40" height="22" forecolor="#000000" uuid="d7e9fd68-7dd3-492d-b226-4a946657c07a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement style="base" mode="Transparent" x="3" y="150" width="115" height="22" forecolor="#000000" uuid="aa0c1394-f80c-4511-8c65-054606afc249"/>
+				<reportElement style="base" mode="Transparent" x="3" y="196" width="115" height="22" forecolor="#000000" uuid="aa0c1394-f80c-4511-8c65-054606afc249"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="118" y="162" width="332" height="2" backcolor="#7C9DDD" uuid="acaceaa4-1492-48e5-8b79-8b21447b1625"/>
+				<reportElement style="strong" mode="Opaque" x="118" y="208" width="332" height="2" backcolor="#7C9DDD" uuid="acaceaa4-1492-48e5-8b79-8b21447b1625"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="address" x="3" y="173" width="540" height="17" uuid="f2ed0a8a-6895-40e4-a004-5ab79e8273a4"/>
+				<reportElement style="address" x="3" y="219" width="540" height="17" uuid="f2ed0a8a-6895-40e4-a004-5ab79e8273a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Open Sans" size="6"/>
 				</textElement>
@@ -543,24 +552,40 @@
 				<textFieldExpression><![CDATA[$F{conclusion}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="10">
-				<reportElement x="318" y="40" width="211" height="99" uuid="57c067cd-b110-4eb9-a78f-67e6568b368e"/>
+				<reportElement x="318" y="86" width="211" height="99" uuid="57c067cd-b110-4eb9-a78f-67e6568b368e"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="base" x="135" y="40" width="163" height="99" uuid="90cef81c-83fc-4629-9978-4070d0185bbb"/>
+				<reportElement style="base" x="135" y="86" width="163" height="99" uuid="90cef81c-83fc-4629-9978-4070d0185bbb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Veuillez apposer la mention « Bon pour accord », dater et signer]]></text>
 			</staticText>
 			<elementGroup>
 				<line direction="BottomUp">
-					<reportElement x="298" y="88" width="11" height="11" uuid="d6686b88-42d4-4593-a612-ca62f66c0d9b"/>
+					<reportElement x="298" y="134" width="11" height="11" uuid="d6686b88-42d4-4593-a612-ca62f66c0d9b"/>
 				</line>
 				<line>
-					<reportElement x="297" y="78" width="1" height="21" uuid="485ef46e-2a31-4bef-854d-47e3dfc65b35"/>
+					<reportElement x="297" y="124" width="1" height="21" uuid="485ef46e-2a31-4bef-854d-47e3dfc65b35"/>
 				</line>
 				<line>
-					<reportElement x="298" y="78" width="11" height="11" uuid="a30aaec7-f3c8-443e-bb17-a505b5ff195e"/>
+					<reportElement x="298" y="124" width="11" height="11" uuid="a30aaec7-f3c8-443e-bb17-a505b5ff195e"/>
 				</line>
 			</elementGroup>
+			<componentElement>
+				<reportElement x="-1" y="35" width="544" height="14" uuid="8696a223-f5cd-409b-a9af-6e59ead64dc3"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="sale_conditions" uuid="433f2a24-2f03-461b-a030-ff5ccff144b1">
+						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="14" width="544">
+						<textField isBlankWhenNull="true">
+							<reportElement style="emphasis" x="0" y="0" width="544" height="14" uuid="01d5fc8c-599f-4a23-bdf1-93d8f73b4ae0"/>
+							<textElement textAlignment="Right" verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{sales-condition}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 		</band>
 	</lastPageFooter>
 	<summary>

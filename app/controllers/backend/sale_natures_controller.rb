@@ -18,6 +18,7 @@
 #
 
 class Backend::SaleNaturesController < BackendController
+  manage_restfully# t3e: {percent: :downpayment_percentage, amount: :downpayment}
   manage_restfully currency: "Preference[:currency]".c
 
   unroll

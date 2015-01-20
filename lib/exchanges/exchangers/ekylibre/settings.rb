@@ -58,9 +58,13 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
   language = I18n.locale = manifest[:language]
   currency = manifest[:currency] || 'EUR'
   country  = manifest[:country]  || 'fr'
+  host = manifest[:host] || 'erp.example.com'
+  sales_conditions = manifest[:sales_conditions] || ''
   Preference.set!(:language, language)
   Preference.set!(:currency, currency)
   Preference.set!(:country, country)
+  Preference.set!(:host, host)
+  Preference.set!(:sales_conditions, sales_conditions)
   if srs = manifest[:map_measure_srs]
     Preference.set!(:map_measure_srs, srs)
   elsif srid = manifest[:map_measure_srid]

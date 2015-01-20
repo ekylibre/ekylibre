@@ -2898,6 +2898,8 @@
 
       <!-- SERVICES LINK TO NUMERIC -->
 
+
+	  <!-- training course -->
       <item name="daily_training_course"
             nature="training_course"
             unit_name="day"
@@ -2909,10 +2911,24 @@
             frozen_indicators_values="usage_duration: 1hour"
             />
 
+
+      <!-- project -->
       <item name="daily_project_management"
             nature="project_management"
             unit_name="day"
             frozen_indicators_values="usage_duration: 1day"
+            />
+      <item name="daily_software_engineering"
+            nature="software_engineering"
+            unit_name="day"
+            frozen_indicators_values="usage_duration: 1day"
+            />
+
+      <!-- support -->
+      <item name="hourly_user_support"
+            nature="user_support"
+            unit_name="hour"
+            frozen_indicators_values="usage_duration: 1hour"
             />
 
 

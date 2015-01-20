@@ -137,8 +137,9 @@ class Backend::SalesController < BackendController
   def show
     return unless @sale = find_and_check
     @sale.other_deals
-    respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number],
+    respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number, :sales_conditions, :sales_mentions],
                         :include => {:address => {:methods => [:mail_coordinate]},
+                                     :nature => {},
                                      :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
                                      :credits => {},
                                      :affair => {:methods => [:balance], :include => [:incoming_payments => {:include => :mode}]},
