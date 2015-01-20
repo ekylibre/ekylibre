@@ -174,7 +174,7 @@
     $(this).parent().find("select[id$='working_unit']").val(unit)
 
   # manages selects to show only indicators in relation with the given variant
-  $(document).on 'selector:change', "input:hidden[data-parameter-name='variant_id']", ->
+  $(document).on 'selector:change', "input:hidden[data-parameter-name='variant_id'][name^='production[budgets_attributes]']", ->
     variant_id = $(this).attr('value')
     indicator_select = $(this).closest("td").find("select[data-parameter-name='indicator']")
     $.ajax
@@ -207,5 +207,5 @@
             unit_select.children("option[value='#{unit}']").attr('disabled', false)
         unit_select.val(data.default)
         unit_select.trigger('change')
-      error: () -> indicator_select.children().show()
+      error: () -> indicator_select.children("option").attr('disabled', false)
 ) jQuery
