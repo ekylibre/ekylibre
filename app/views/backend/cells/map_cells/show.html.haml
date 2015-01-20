@@ -5,76 +5,77 @@
          interventions: [casts: [actor: [:incoming_delivery_item, :outgoing_delivery_items]]],
          production: [:activity, :campaign, :variant],
          storage: [:readings]).find_each do |support|
-
-      popup_content = []
-
-      # for support
-
-      popup_content << {label: :campaign.tl, value: support.production.campaign.name}
-      popup_content << {label: :activity.tl, value: support.production.activity.name}
-      popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
-
-      if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
-        popup_content << {label: :input_cost_per_hectare.tl, value: support_input_cost.to_s.to_f.round(2)}
-      end
-
-      if support_tool_cost = support.tool_cost and support_tool_cost.to_d > 0.0
-        popup_content << {label: :tool_cost_per_hectare.tl, value: support_tool_cost.to_s.to_f.round(2)}
-      end
-
-      if support_time_cost = support.time_cost and support_time_cost.to_d > 0.0
-        popup_content << {label: :time_cost_per_hectare.tl, value: support_time_cost.to_s.to_f.round(2)}
-      end
-
-      if params[:visualization] == "nitrogen_footprint"
-
-        if nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration) #and nitrogen_concentration.to_d != 0.0
-          popup_content << {label: :nitrogen_concentration_per_hectare.tl, value: nitrogen_concentration.to_s.to_f.round(2)}
+      if support.shape
+        popup_content = []
+  
+        # for support
+  
+        popup_content << {label: :campaign.tl, value: support.production.campaign.name}
+        popup_content << {label: :activity.tl, value: support.production.activity.name}
+        popup_content << {label: :production_support.tl, value: link_to(support.name, backend_production_support_path(support))}
+  
+        if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
+          popup_content << {label: :input_cost_per_hectare.tl, value: support_input_cost.to_s.to_f.round(2)}
         end
-
-        if phosphorus_concentration = support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration) #and phosphorus_concentration.to_d != 0.0
-          popup_content << {label: :phosphorus_concentration_per_hectare.tl, value: phosphorus_concentration.to_s.to_f.round(2)}
+  
+        if support_tool_cost = support.tool_cost and support_tool_cost.to_d > 0.0
+          popup_content << {label: :tool_cost_per_hectare.tl, value: support_tool_cost.to_s.to_f.round(2)}
         end
-
-        if potassium_concentration = support.soil_enrichment_indicator_content_per_area(:potassium_concentration) #and potassium_concentration.to_d != 0.0
-          popup_content << {label: :potassium_concentration_per_hectare.tl, value: potassium_concentration.to_s.to_f.round(2)}
+  
+        if support_time_cost = support.time_cost and support_time_cost.to_d > 0.0
+          popup_content << {label: :time_cost_per_hectare.tl, value: support_time_cost.to_s.to_f.round(2)}
         end
-
+  
+        if params[:visualization] == "nitrogen_footprint"
+  
+          if nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration) #and nitrogen_concentration.to_d != 0.0
+            popup_content << {label: :nitrogen_concentration_per_hectare.tl, value: nitrogen_concentration.to_s.to_f.round(2)}
+          end
+  
+          if phosphorus_concentration = support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration) #and phosphorus_concentration.to_d != 0.0
+            popup_content << {label: :phosphorus_concentration_per_hectare.tl, value: phosphorus_concentration.to_s.to_f.round(2)}
+          end
+  
+          if potassium_concentration = support.soil_enrichment_indicator_content_per_area(:potassium_concentration) #and potassium_concentration.to_d != 0.0
+            popup_content << {label: :potassium_concentration_per_hectare.tl, value: potassium_concentration.to_s.to_f.round(2)}
+          end
+  
+        end
+  
+        if support.storage
+          popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
+        end
+  
+        if support.interventions.any?
+          popup_content << {label: :interventions_count.tl, value: support.interventions.count }
+        end
+  
+        interventions = support.interventions
+        if interventions.any?
+          last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
+          popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+        end
+  
+        popup_content << render('popup', support: support)
+  
+        item = {
+          name:       support.name,
+          shape:      support.shape,
+          campaign:   support.production.campaign.name,
+          activity:   support.production.activity.name,
+          production: support.production.name,
+          variant:    support.production.variant.name,
+          tool_cost:  support.tool_cost.to_s.to_f.round(2),
+          input_cost: support.input_cost.to_s.to_f.round(2),
+          time_cost:  support.time_cost.to_s.to_f.round(2),
+          nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
+          phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
+          potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
+          interventions_count: interventions.count,
+          popup: {header: true, content: popup_content}
+        }
+        data << item
       end
-
-      if support.storage
-        popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage.net_surface_area.in_hectare.round(2).l}
-      end
-
-      if support.interventions.any?
-        popup_content << {label: :interventions_count.tl, value: support.interventions.count }
-      end
-
-      interventions = support.interventions
-      if interventions.any?
-        last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
-        popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
-      end
-
-      popup_content << render('popup', support: support)
-
-      item = {
-        name:       support.name,
-        shape:      support.shape,
-        campaign:   support.production.campaign.name,
-        activity:   support.production.activity.name,
-        production: support.production.name,
-        variant:    support.production.variant.name,
-        tool_cost:  support.tool_cost.to_s.to_f.round(2),
-        input_cost: support.input_cost.to_s.to_f.round(2),
-        time_cost:  support.time_cost.to_s.to_f.round(2),
-        nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
-        phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
-        potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
-        interventions_count: interventions.count,
-        popup: {header: true, content: popup_content}
-      }
-      data << item
     end
   end
 
