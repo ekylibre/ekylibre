@@ -89,20 +89,30 @@ class Backend::ProductionsController < BackendController
     # t.column :provisional
   end
   def indicator_measure
-    storage = Product.find(params[:storage_id]) rescue nil
-    variant = ProductNatureVariant.find(params[:variant_id]) rescue nil
-    indicator = params[:indicator]
-    unit = params[:unit]
-    if storage && indicator && unit
-      measure = storage.send(indicator).convert(unit)
-      render json: {value: measure.to_f, unit: measure.unit}
-    elsif variant
-      indicators = variant.frozen_indicators.map(&:name)
-      variant_nomen_item = Nomen::ProductNatureVariants.where(nature: variant.reference_name.to_sym).first
-      unit = Nomen::Units[variant_nomen_item.unit_name]
-      indicator = indicators.select{|i|i.to_s.end_with? unit.dimension.to_s}.first
-      render json: {indicators: indicators, default: "#{indicator}-#{unit.name}"}
-    else
+    begin
+      storage = Product.find(params[:storage_id]) rescue nil
+      variant = ProductNatureVariant.find(params[:variant_id]) rescue nil
+      indicator = params[:indicator]
+      unit = params[:unit]
+      if storage && indicator && unit
+        measure = storage.send(indicator).convert(unit)
+        render json: {value: measure.to_f, unit: measure.unit}
+      elsif variant
+        indicators = variant.frozen_indicators.map(&:name)
+        variant_nomen_item = Nomen::ProductNatureVariants.where(nature: variant.reference_name.to_sym).first
+        unit = Nomen::Units[variant_nomen_item.unit_name]
+        indicator = indicators.select{|i|i.to_s.end_with? unit.dimension.to_s}.first
+        render json: {indicators: indicators, default: "#{indicator}-#{unit.name}"}
+      elsif params[:units_for]
+        indicator = params[:units_for]
+        indicator_item = Nomen::Indicators.where(datatype: :measure).select{|item| item.name == indicator}.first
+        units = Measure.siblings(indicator_item.unit)
+        default = indicator_item.unit
+        render json: {units: units, default: default}
+      else
+        render status: :not_found, json: nil
+      end
+    rescue
       render status: :not_found, json: nil
     end
   end

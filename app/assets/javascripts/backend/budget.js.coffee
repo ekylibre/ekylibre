@@ -182,14 +182,30 @@
       datatype: 'json'
       data:
         variant_id: variant_id
-      success: (data, textStatus, jqXHR) ->
+      success: (data, status, jqXHR) ->
         indicator_select.children().hide()
         for indicator in data.indicators
           do (indicator) ->
-            indicator_select.children("option[value^='#{indicator}']").each ->
-              $(this).show()
+            indicator_select.children("option[value^='#{indicator}']").show()
         indicator_select.val(data.default)
         indicator_select.trigger('change')
       error: () -> indicator_select.children().show()
 
+  # manages production_working_indicator select to show only units in relation with selected indicator
+  $(document).on 'change', "select[id='production_working_indicator']", ->
+    indicator = $(this).val()
+    unit_select = $(this).closest("div.fieldset-fields").find("select[id='production_working_unit']")
+    $.ajax
+      url: "indicator_measure.json"
+      datatype: 'json'
+      data:
+        units_for: indicator
+      success: (data, status, jqXHR) ->
+        unit_select.children('option').attr('disabled', true)
+        for unit in data.units
+          do (unit) ->
+            unit_select.children("option[value='#{unit}']").attr('disabled', false)
+        unit_select.val(data.default)
+        unit_select.trigger('change')
+      error: () -> indicator_select.children().show()
 ) jQuery
