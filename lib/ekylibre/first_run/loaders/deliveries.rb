@@ -25,7 +25,7 @@ Ekylibre::FirstRun.add_loader :deliveries do |first_run|
   file = first_run.path("charentes_alliance", "appros.csv")
   if file.exist?
 
-    cooperative = Entity.find_by_last_name("Charentes Alliance")
+    cooperative = Entity.find_by_last_name("CHARENTES ALLIANCE")
 
     first_run.count :cooperative_incoming_deliveries do |w|
       # map sub_family to product_nature_variant XML Nomenclature

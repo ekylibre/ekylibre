@@ -29,10 +29,11 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
       person.client = true
       person.client_account = Account.get(r.client_account_number, name: person.full_name)
       person.save!
-    end
-    if r.supplier_account_number
+    elsif r.supplier_account_number
       person.supplier = true
       person.supplier_account = Account.get(r.supplier_account_number, name: person.full_name)
+      person.save!
+    else
       person.save!
     end
 

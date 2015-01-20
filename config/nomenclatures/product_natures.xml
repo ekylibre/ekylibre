@@ -593,7 +593,7 @@
             variable_indicators="population, net_mass, net_volume"
             frozen_indicators=""
             />
-       <!-- INTRANT -->
+      <!-- INTRANT -->
       <item name="herbicide"
             category="plant_medicine"
             variety="preparation"

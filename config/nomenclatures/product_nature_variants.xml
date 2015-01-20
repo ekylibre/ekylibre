@@ -2529,6 +2529,36 @@
             unit_name="bag"
             frozen_indicators_values="net_mass: 1.00ton"
             />
+
+       <item name="coop:eca_excel_pack_protor_b_vrac"
+            nature="animal_food"
+            variety="mix"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+       <item name="coop:eca_pack_tonus_b_vrac"
+            nature="animal_food"
+            variety="mix"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+       <item name="coop:altiplus_gr_vrac"
+            nature="animal_food"
+            variety="mix"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+       <item name="coop:altacid_vrac"
+            nature="animal_food"
+            variety="mix"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+
+
       <item name="coop:ficelle_filogamm_350_bob_5kg"
             nature="small_equipment"
             unit_name="unit"

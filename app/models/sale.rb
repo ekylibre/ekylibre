@@ -489,7 +489,7 @@ class Sale < Ekylibre::Record::Base
     return false unless self.cancelable? and items.any?
     attributes = {credited_sale: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair, items: []}
     for item in self.items.where(id: items.keys)
-      attributes[:items] << SaleItem.new(quantity: -items[item.id.to_s].abs, credited_item: item, variant: item.variant, price: item.price, reduction_percentage: item.reduction_percentage, tax: item.tax)
+      attributes[:items] << SaleItem.new(quantity: -items[item.id.to_s].abs, credited_item: item, variant: item.variant, unit_pretax_amount: item.unit_pretax_amount, reduction_percentage: item.reduction_percentage, tax: item.tax)
     end
     credit = self.credits.new(attributes)
     return credit unless credit.save!

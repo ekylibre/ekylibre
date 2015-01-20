@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.1586575189467514"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="552"/>
+	<property name="ireport.y" value="48"/>
 	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -155,8 +155,8 @@
 	<field name="credit" class="java.lang.String">
 		<fieldDescription><![CDATA[credit]]></fieldDescription>
 	</field>
-	<field name="invoice-credit-number" class="java.lang.String">
-		<fieldDescription><![CDATA[credits/number]]></fieldDescription>
+	<field name="affair_number" class="java.lang.String">
+		<fieldDescription><![CDATA[affair/number]]></fieldDescription>
 	</field>
 	<field name="mail-line-1_1" class="java.lang.String">
 		<fieldDescription><![CDATA[supplier/default-mail-address/mail-line-1]]></fieldDescription>
@@ -223,6 +223,7 @@
 	</field>
 	<variable name="affair_balance" class="java.lang.Double">
 		<variableExpression><![CDATA[Double.valueOf($F{affair_balance})]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<background>
 		<band height="132">
@@ -279,7 +280,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="12" isItalic="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Lié à la facture "+$F{invoice-credit-number}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Lié à l'affaire "+$F{affair_number}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement style="title" x="32" y="0" width="430" height="31" isPrintWhenDetailOverflows="true" uuid="b09496fd-c5f7-47e8-8a78-d4543d544ccf"/>
@@ -290,15 +291,15 @@
 				</textField>
 				<ellipse>
 					<reportElement mode="Transparent" x="8" y="9" width="15" height="15" forecolor="#FF9900" uuid="518c0e0e-1c2e-4cb3-874a-f5c0547f24bb">
-						<printWhenExpression><![CDATA[$V{affair_balance} != 0.0]]></printWhenExpression>
+						<printWhenExpression><![CDATA[Double.valueOf($F{affair_balance}) != 0.0]]></printWhenExpression>
 					</reportElement>
 					<graphicElement>
 						<pen lineWidth="2.0"/>
 					</graphicElement>
 				</ellipse>
 				<ellipse>
-					<reportElement mode="Transparent" x="8" y="9" width="15" height="15" forecolor="#009900" uuid="b2e06750-3c77-4657-a53e-b632fd0f1575">
-						<printWhenExpression><![CDATA[$V{affair_balance} == 0.0]]></printWhenExpression>
+					<reportElement mode="Opaque" x="8" y="9" width="15" height="15" forecolor="#009900" uuid="b2e06750-3c77-4657-a53e-b632fd0f1575">
+						<printWhenExpression><![CDATA[Double.valueOf($F{affair_balance}) == 0.0]]></printWhenExpression>
 					</reportElement>
 					<graphicElement>
 						<pen lineWidth="2.0"/>
