@@ -5,4 +5,7 @@
     - if event.participations.any?
       %ul
         - for participation in event.participations
-          %li{class: participation.state}= participation.participant.full_name
+          - if participation.participant
+            %li{class: participation.state}= participation.participant.full_name
+          - else
+            %li{class: participation.state}= participation.name
