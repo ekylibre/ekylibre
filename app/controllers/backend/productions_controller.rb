@@ -97,8 +97,11 @@ class Backend::ProductionsController < BackendController
       measure = storage.send(indicator).convert(unit)
       render json: {value: measure.to_f, unit: measure.unit}
     elsif variant
-      indicators = variant.indicators.map(&:name)
-      render json: {indicators: indicators}
+      indicators = variant.frozen_indicators.map(&:name)
+      variant_nomen_item = Nomen::ProductNatureVariants.where(nature: variant.reference_name.to_sym).first
+      unit = Nomen::Units[variant_nomen_item.unit_name]
+      indicator = indicators.select{|i|i.to_s.end_with? unit.dimension.to_s}.first
+      render json: {indicators: indicators, default: "#{indicator}-#{unit.name}"}
     else
       render status: :not_found, json: nil
     end

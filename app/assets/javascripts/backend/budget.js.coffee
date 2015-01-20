@@ -177,7 +177,6 @@
   $(document).on 'selector:change', "input:hidden[data-parameter-name='variant_id']", ->
     variant_id = $(this).attr('value')
     indicator_select = $(this).closest("td").find("select[data-parameter-name='indicator']")
-    console.log(indicator_select.val())
     $.ajax
       url: "indicator_measure.json"
       datatype: 'json'
@@ -189,6 +188,8 @@
           do (indicator) ->
             indicator_select.children("option[value^='#{indicator}']").each ->
               $(this).show()
+        indicator_select.val(data.default)
+        indicator_select.trigger('change')
       error: () -> indicator_select.children().show()
 
 ) jQuery
