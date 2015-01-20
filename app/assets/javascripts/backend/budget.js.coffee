@@ -176,8 +176,8 @@
   # manages selects to show only indicators in relation with the given variant
   $(document).on 'selector:change', "input:hidden[data-parameter-name='variant_id']", ->
     variant_id = $(this).attr('value')
-    console.log(variant_id)
-    indicator_select = $(this).parent().find("input[name='budget_indicator']")
+    indicator_select = $(this).closest("td").find("select[data-parameter-name='indicator']")
+    console.log(indicator_select.val())
     $.ajax
       url: "indicator_measure.json"
       datatype: 'json'
@@ -188,7 +188,7 @@
         for indicator in data.indicators
           do (indicator) ->
             indicator_select.children("option[value^='#{indicator}']").each ->
-              console.log($(this))
+              $(this).show()
       error: () -> indicator_select.children().show()
-        
+
 ) jQuery

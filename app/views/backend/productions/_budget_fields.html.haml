@@ -17,7 +17,7 @@
     = f.input :computation_method
     = f.input :unit_amount
     = f.input :currency
-    = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator)
+    = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator), data:{parameter_name: :indicator}
     = f.input :working_indicator, as: :hidden
     = f.input :working_unit, as: :hidden
     = f.input :direction, as: :hidden
