@@ -20,14 +20,14 @@ module Tele
     end
 
     def Initialize
-      if service = NetService.find_by(reference_name: :synel)
-        synel_first_part = service.identifiers.find_by(nature: :synel_username).value.to_s
-        synel_second_part = Identifier.find_by(nature: :cattling_number).value.to_s
-        synel_last_part = "IP"
-        synel_file_extension = ".csv"
-      else
+      #if service = NetService.find_by(reference_name: :synel)
+      #  synel_first_part = service.identifiers.find_by(nature: :synel_username).value.to_s
+      #  synel_second_part = Identifier.find_by(nature: :cattling_number).value.to_s
+      #  synel_last_part = "IP"
+      #  synel_file_extension = ".csv"
+      #else
 
-      end
+      #end
     end
 
   end
