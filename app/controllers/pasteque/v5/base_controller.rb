@@ -1,10 +1,10 @@
 class Pasteque::V5::BaseController < ActionController::Base
   include ExternalApiAdaptable
-  before_action :authenticate_user
+  before_action :authenticate_user!
 
-  hide_action :authenticate_user
+  hide_action :authenticate_user!
   def authenticate_user
-    user, password = params[:user], params[:password]
+    user, password = params[:user] || params[:login], params[:password]
 
     if user.blank? or password.blank?
       render status: :bad_request, json: {status: :rej, content: ["blank user or password: #{params.inspect}"]}
