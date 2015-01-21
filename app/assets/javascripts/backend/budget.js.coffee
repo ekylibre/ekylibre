@@ -185,8 +185,9 @@
   $(document).on 'change', "select[name='budget_indicator']", ->
     indicator = $(this).val().split('-')[0]
     unit = $(this).val().split('-')[1]
-    $(this).parent().find("select[id$='working_indicator']").val(indicator)
-    $(this).parent().find("select[id$='working_unit']").val(unit)
+    $(this).parent().find("input:hidden[id$='working_indicator']").val(indicator)
+    $(this).parent().find("input:hidden[id$='working_unit']").val(unit)
+    $(this).parent().find("input:hidden[id$='working_unit']").trigger('change')
 
   # manages selects to show only indicators in relation with the given variant
   $(document).on 'selector:change', "input:hidden[data-parameter-name='variant_id'][name^='production[budgets_attributes]']", ->
@@ -223,5 +224,15 @@
         unit_select.val(data.default)
         unit_select.trigger('change')
       error: () -> indicator_select.children("option").attr('disabled', false)
+
+  # updates items units when changing production unit
+  $(document).on 'change', "select[id='production_working_unit']", ->
+    updateItemUnits()
+  # updates items units when changing budget unit
+  $(document).on 'change', "input:hidden[id$='working_unit']", ->
+    updateItemUnits($(this).closest("tr"))
+  # updates items units when changing computation method
+  $(document).on 'change', "select[name$='[computation_method]']", ->
+    updateItemUnits($(this).closest("tr"))
 
 ) jQuery
