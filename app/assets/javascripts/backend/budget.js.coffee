@@ -7,6 +7,19 @@
       $(this).find("input.homogeneous").filter(':visible').each ->
         $(this).val(default_value)
       $(this).trigger('change')
+  updateItemUnits = () ->
+    scope = arguments[0] || 'table#budget_visualization'
+    $(scope).find("[data-budget-item-units]").each ->
+      symbol_table = $("table#budget_visualization")
+      support_unit = $("select[id='production_working_unit']").val()
+      support_symbol = symbol_table.attr("data-#{support_unit}")
+      budget_unit = $(this).closest("tr.budget_nested_fields").find("input:hidden[name$='[working_unit]']").val()
+      budget_symbol = symbol_table.attr("data-#{budget_unit}")
+      computation_method = $(this).closest("tr.budget_nested_fields").find("select[name$='[computation_method]']").val()
+      if (computation_method == 'per_production_support')
+        $(this).text(budget_unit)
+      else
+        $(this).text("#{budget_symbol}/#{support_symbol}")
   updateIndicatorsValues = () ->
     $("input:hidden[data-parameter-name='storage_id']").each ->
       updateIndicatorValue($(this))
@@ -95,6 +108,8 @@
             link_to_add_budget_item.click()
             new_item = link_to_add_budget_item.closest("td").prev()
             new_item.attr('data-support-destroy', $(this).attr('id'))
+    # displays units
+    updateItemUnits()
     # finally calculates everything
     calculate()
     return false
@@ -208,4 +223,5 @@
         unit_select.val(data.default)
         unit_select.trigger('change')
       error: () -> indicator_select.children("option").attr('disabled', false)
+
 ) jQuery

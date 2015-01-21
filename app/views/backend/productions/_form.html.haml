@@ -1,3 +1,4 @@
+- symbols = Nomen::Units.list.map{|i|[i.name, i.symbol]}.to_h.with_indifferent_access
 = field_set do
   = f.referenced_association :activity, :source => :main
   = f.referenced_association :campaign, :source => :currents
@@ -12,7 +13,7 @@
   = f.custom_fields
 
 = field_set(:budgets) do
-  %table#budget_visualization
+  %table#budget_visualization{data: symbols}
     %tr.support_nested_fields
       %td
       = f.backend_fields_for :supports, wrapper: :nested do |support_form|
