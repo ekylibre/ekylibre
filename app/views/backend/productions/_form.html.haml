@@ -35,7 +35,9 @@
           %span{data:{support_total: :expense}}
             = 0.0
           = Nomen::Currencies[Preference[:currency]].symbol
-      %td{data:{budgets_global_amount: :expense, append_before: true}}
+      %td{data:{append_before: true}}
+        %span{data:{budgets_global_amount: :expense}}
+          = 0.0
         = Nomen::Currencies[Preference[:currency]].symbol
     %tr#revenues
       %td{colspan: '100%', data:{budgets_direction: :revenue}}
@@ -50,7 +52,9 @@
           %span{data:{support_total: :revenue}}
             = 0.0
           = Nomen::Currencies[Preference[:currency]].symbol
-      %td{data:{budgets_global_amount: :revenue, append_before: true}}
+      %td{data:{append_before: true}}
+        %span{data:{budgets_global_amount: :revenue}}
+          = 0.0
         = Nomen::Currencies[Preference[:currency]].symbol
     - template = "<td><span data-balance='support'>0.0</span>#{Nomen::Currencies[Preference[:currency]].symbol}</td>"
     %tr{data:{balance: true, appendable: template}}
