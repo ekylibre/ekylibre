@@ -15,11 +15,11 @@
   %table#budget_visualization
     %tr.support_nested_fields
       %td
-      = f.backend_fields_for :supports do |support_form|
+      = f.backend_fields_for :supports, wrapper: :nested do |support_form|
         = render 'support_fields', f: support_form
       %td
         = link_to_add_association :'+', f, :supports, partial: 'support_fields'
-    = f.backend_fields_for :budgets do |budget_form|
+    = f.backend_fields_for :budgets, wrapper: :nested do |budget_form|
       = render 'budget_fields', f: budget_form
     %tr#expenses
       %td{colspan: '100%', data:{budgets_direction: :expense}}
@@ -52,5 +52,7 @@
       -f.object.supports.count.times do
         %td{data:{balance: :support}}
           = :empty
+          = Nomen::Currencies[Preference[:currency]].symbol
       %td{data:{balance: :global, append_before: true}}
         = :globally_empty
+        = Nomen::Currencies[Preference[:currency]].symbol
