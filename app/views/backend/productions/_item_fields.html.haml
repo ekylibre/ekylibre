@@ -4,4 +4,5 @@
   = f.input :quantity
   %span{data:{budget_item_value: true}}
     = 0.0
+  = Nomen::Currencies[Preference[:currency]].symbol
   = link_to_remove_nested_association(:item, f)
