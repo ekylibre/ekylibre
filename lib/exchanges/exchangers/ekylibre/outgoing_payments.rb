@@ -57,9 +57,9 @@ Exchanges.add_importer :ekylibre_outgoing_payments do |file, w|
     end
 
     # find an affair througt purchase and link affair and payment
-    if purchase_reference_number
+    if purchase_reference_number and entity and outgoing_payment
       # see if purchase exist anyway
-      if purchase = Purchase.where(reference_number: purchase_reference_number).first
+      if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: purchase_invoiced_at, reference_number: purchase_reference_number).first
         if purchase.affair
           purchase.affair.attach(outgoing_payment)
         end

@@ -3,7 +3,8 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
 
   rows = CSV.read(file, headers: true)
   w.count = rows.size
-
+  country_preference = Preference[:country]
+  
   rows.each do |row|
     r = {
       :first_name => row[0].blank? ? "" : row[0].to_s,
@@ -17,23 +18,25 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
       :city => row[8].blank? ? nil : row[8].to_s,
       :phone_number => row[9].blank? ? nil : row[9].to_s,
       :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
-      :country => row[11].blank? ? Preference[:country] : row[11].to_s.downcase,
+      :country => row[11].blank? ? country_preference : row[11].to_s.downcase,
       :email => row[12].blank? ? nil : row[12].to_s
     }.to_struct
 
     klass = r.nature.camelcase.constantize
-    unless person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name, r.last_name).first
+    if person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name, r.last_name).first
+      person.update_attributes!(country: r.country) if person.country.blank?
+    elsif
       person = klass.new(first_name: r.first_name, last_name: r.last_name, nature: r.nature, country: r.country)
+      person.save!
     end
     if r.client_account_number
       person.client = true
       person.client_account = Account.get(r.client_account_number, name: person.full_name)
       person.save!
-    elsif r.supplier_account_number
+    end
+    if r.supplier_account_number
       person.supplier = true
       person.supplier_account = Account.get(r.supplier_account_number, name: person.full_name)
-      person.save!
-    else
       person.save!
     end
 
