@@ -63,6 +63,8 @@ class Tax < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_numericality_of :amount, in: 0..100, if: :percentage?
 
+  delegate :name, to: :collect_account, prefix: true
+  delegate :name, to: :deduction_account, prefix: true
   # selects_among_all :used_for_untaxed_deals, if: :null_amount?
 
   def self.used_for_untaxed_deals

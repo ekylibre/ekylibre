@@ -62,7 +62,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_presence_of :account, :tax
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
-
+  delegate :invoiced_at, :number, to: :purchase
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
   delegate :name, to: :variant, prefix: true
