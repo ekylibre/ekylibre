@@ -1,7 +1,7 @@
 require 'mechanize'
 
 url = 'http://idele.fr/XML/Schema/'
-subDir = './assets'
+subDir = './resources'
 
 agent = Mechanize.new
 
