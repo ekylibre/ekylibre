@@ -1,4 +1,4 @@
-- symbols = Nomen::Units.list.map{|i|[i.name, i.symbol]}.to_h.with_indifferent_access
+- symbols = Nomen::Units.list.inject({}){|h, i| h.store(i.name, i.symbol); h}.with_indifferent_access
 = field_set do
   = f.referenced_association :activity, :source => :main
   = f.referenced_association :campaign, :source => :currents
