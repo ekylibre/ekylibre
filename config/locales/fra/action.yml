@@ -771,6 +771,7 @@ fra:
     body: "Corps du message"
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Bookkeep with payment"
+    budget: "Budget"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
     buildings: "Voir la liste des lieux de stockage" #?

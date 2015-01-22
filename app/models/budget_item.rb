@@ -47,13 +47,19 @@ class BudgetItem < Ekylibre::Record::Base
   has_one :production, through: :production_support
 
   delegate :computation_method, to: :budget
-
+  delegate :direction, to: :budget
+  delegate :working_unit, :working_indicator, to: :production_support
+  
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
   scope :of_budgets, lambda { |budgets|
     where('budget_id IN (?)', budgets)
     }
-
+    
+  scope :of_budget_direction, lambda { |direction|
+    joins(:budget).where("budgets.direction" => direction.to_sym)
+    }  
+    
   scope :of_supports, lambda { |supports|
     where('production_support_id IN (?)', supports)
     }
@@ -61,4 +67,18 @@ class BudgetItem < Ekylibre::Record::Base
   validate do
     self.global_amount = self.budget.unit_amount * self.quantity * self.production_support.working_indicator_measure.value rescue 0.0
   end
+  
+  
+  def global_amount_per_working_indicator
+    if working_indicator = self.budget.production.working_indicator
+      if indicator_value = production_support.storage.send(working_indicator)
+        return self.global_amount / indicator_value.to_d(self.budget.production.working_unit)
+      end
+      return nil
+    end
+    return nil
+  end
+    
+  
+  
 end

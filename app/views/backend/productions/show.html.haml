@@ -28,7 +28,37 @@
         - l.attribute :state
         - l.attribute :campaign
         - l.attribute :activity
-
+      
+      
+  -# For budgets
+  - b.cell(:budget) do
+    - if resource.budgets.count > 0
+      :ruby
+        balance = 0
+        data_series = []
+        if resource.revenues
+          for revenue in resource.revenues
+            value = revenue.items.sum(:global_amount)
+            data_series << { name: revenue.variant.name, y: value.to_s.to_f, color: "#000077"}
+            balance += value
+          end
+        end
+        
+        if resource.expenses
+          for expense in resource.expenses
+            value = expense.items.sum(:global_amount)
+            data_series << { name: expense.variant.name, y: -value.to_s.to_f, color: "#DD0000"}
+            balance -= value
+          end
+        end
+        
+        data_series << { name: "Solde", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+        series = []
+        series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
+      = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
+    - else
+      = no_data
+      
   -# TODO need to be renovate but the idea is here
   - area_value = (resource.net_surface_area.to_d(:hectare))
   - total_earn = nil

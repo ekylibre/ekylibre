@@ -15,6 +15,10 @@
         .info
           %span.title= :production.tl
           %span.value= link_to(resource.production.name, backend_production_path(resource.production))
+        - if resource.budget_items.count > 0
+          .med-info
+            %span.title= :budget.tl
+            %span.value= resource.budgets.uniq.map(&:name).compact.to_sentence
         - if resource.implanted_at
           .info
             %span.title= :implanted_at.tl
@@ -68,7 +72,38 @@
         = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f} kg N/Ha'}, title: {text: 'Bilan azote'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N/Ha'}})
       - else
         = no_data
-
+        
+  -# For budgets
+  - b.cell(:budget_per_working_indicator) do
+    - if resource.budget_items.count > 0
+      :ruby
+        balance = 0
+        data_series = []
+        if resource.budget_items.of_budget_direction(:revenue).count > 0
+          for revenue in resource.budget_items.of_budget_direction(:revenue)
+            value = revenue.global_amount_per_working_indicator
+            data_series << { name: revenue.budget.variant.name, y: value.to_s.to_f, color: "#000077"}
+            balance += value
+          end
+        end
+        
+        if resource.budget_items.of_budget_direction(:expense).count > 0
+          for expense in resource.budget_items.of_budget_direction(:expense)
+            value = expense.global_amount_per_working_indicator
+            data_series << { name: expense.budget.variant.name, y: -value.to_s.to_f, color: "#DD0000"}
+            balance -= value
+          end
+        end
+        
+        data_series << { name: "Solde", isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+        series = []
+        series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
+       
+        
+      = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
+    - else
+      = no_data
+      
   - if resource.interventions and Nomen::Varieties[resource.production.variant.variety] <= :plant
     - b.cell :production_cost do
       :ruby
