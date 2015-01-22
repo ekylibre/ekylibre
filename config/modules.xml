@@ -1786,15 +1786,22 @@
       </item>
       <item name="attributes">
         <page to="pasteque/v5/attributes#index"/>
+        <page to="pasteque/v5/attributes#authenticate_user"/>
+      </item>
+      <item name="base">
+        <page to="pasteque/v5/base#authenticate_user"/>
       </item>
       <item name="cash_mvts">
+        <page to="pasteque/v5/cash_mvts#authenticate_user"/>
         <page to="pasteque/v5/cash_mvts#move"/>
       </item>
       <item name="cash_registers">
         <page to="pasteque/v5/cash_registers#index"/>
+        <page to="pasteque/v5/cash_registers#authenticate_user"/>
         <page to="pasteque/v5/cash_registers#show"/>
       </item>
       <item name="cashes">
+        <page to="pasteque/v5/cashes#authenticate_user"/>
         <page to="pasteque/v5/cashes#search"/>
         <page to="pasteque/v5/cashes#show"/>
         <page to="pasteque/v5/cashes#update"/>
@@ -1802,58 +1809,72 @@
       </item>
       <item name="categories">
         <page to="pasteque/v5/categories#index"/>
+        <page to="pasteque/v5/categories#authenticate_user"/>
         <page to="pasteque/v5/categories#children"/>
         <page to="pasteque/v5/categories#show"/>
       </item>
       <item name="compositions">
         <page to="pasteque/v5/compositions#index"/>
+        <page to="pasteque/v5/compositions#authenticate_user"/>
         <page to="pasteque/v5/compositions#show"/>
       </item>
       <item name="currencies">
         <page to="pasteque/v5/currencies#index"/>
+        <page to="pasteque/v5/currencies#authenticate_user"/>
         <page to="pasteque/v5/currencies#show"/>
       </item>
       <item name="customers">
         <page to="pasteque/v5/customers#index"/>
+        <page to="pasteque/v5/customers#authenticate_user"/>
         <page to="pasteque/v5/customers#show"/>
         <page to="pasteque/v5/customers#update"/>
       </item>
       <item name="discount_profiles">
         <page to="pasteque/v5/discount_profiles#index"/>
+        <page to="pasteque/v5/discount_profiles#authenticate_user"/>
       </item>
       <item name="locations">
         <page to="pasteque/v5/locations#index"/>
+        <page to="pasteque/v5/locations#authenticate_user"/>
         <page to="pasteque/v5/locations#show"/>
       </item>
       <item name="places">
         <page to="pasteque/v5/places#index"/>
+        <page to="pasteque/v5/places#authenticate_user"/>
         <page to="pasteque/v5/places#show"/>
       </item>
       <item name="products">
         <page to="pasteque/v5/products#index"/>
+        <page to="pasteque/v5/products#authenticate_user"/>
         <page to="pasteque/v5/products#category"/>
         <page to="pasteque/v5/products#show"/>
       </item>
       <item name="resources">
+        <page to="pasteque/v5/resources#authenticate_user"/>
         <page to="pasteque/v5/resources#show"/>
       </item>
       <item name="roles">
         <page to="pasteque/v5/roles#index"/>
+        <page to="pasteque/v5/roles#authenticate_user"/>
         <page to="pasteque/v5/roles#show"/>
       </item>
       <item name="stocks">
         <page to="pasteque/v5/stocks#index"/>
+        <page to="pasteque/v5/stocks#authenticate_user"/>
         <page to="pasteque/v5/stocks#search"/>
       </item>
       <item name="tariff_areas">
         <page to="pasteque/v5/tariff_areas#index"/>
+        <page to="pasteque/v5/tariff_areas#authenticate_user"/>
       </item>
       <item name="taxes">
         <page to="pasteque/v5/taxes#index"/>
+        <page to="pasteque/v5/taxes#authenticate_user"/>
         <page to="pasteque/v5/taxes#show"/>
       </item>
       <item name="tickets">
         <page to="pasteque/v5/tickets#index"/>
+        <page to="pasteque/v5/tickets#authenticate_user"/>
         <page to="pasteque/v5/tickets#create"/>
         <page to="pasteque/v5/tickets#destroy"/>
         <page to="pasteque/v5/tickets#open"/>
@@ -1864,11 +1885,13 @@
       </item>
       <item name="users">
         <page to="pasteque/v5/users#index"/>
+        <page to="pasteque/v5/users#authenticate_user"/>
         <page to="pasteque/v5/users#show"/>
         <page to="pasteque/v5/users#update_password"/>
       </item>
       <item name="version">
         <page to="pasteque/v5/version#index"/>
+        <page to="pasteque/v5/version#authenticate_user"/>
       </item>
     </group>
   </untreated-actions>

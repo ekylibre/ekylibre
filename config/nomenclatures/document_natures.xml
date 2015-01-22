@@ -24,6 +24,7 @@
       <item name="general_ledger" category="accountancy"/>
       <item name="trial_balance" category="accountancy"/>
       <item name="tax_assessment" category="accountancy"/>
+      <item name="vat_taxe_registry" category="accountancy"/>
 
       <item name="inventory_sheet" category="exploitation"/>
       <item name="stocks" category="exploitation"/>
