@@ -91,12 +91,18 @@ class SaleItem < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     joins(:sale).merge(Sale.invoiced_between(started_at, stopped_at))
   }
+  
+  # return all estimates sale items between two accounted_at dates
+  scope :estimate_between, lambda { |started_at, stopped_at|
+    joins(:sale).merge(Sale.estimate_between(started_at, stopped_at))
+  }
+  
   # return all sale items for the consider product_nature
   scope :by_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  calculable period: :month, at: "invoiced_at", column: :pretax_amount
+  calculable period: :month, column: :pretax_amount, at: "invoiced_at"
 
   before_validation do
     self.pretax_amount ||= 0

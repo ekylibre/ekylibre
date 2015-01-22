@@ -19,6 +19,18 @@
         series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
       end
     end
+    
+    # data for bar chart draft revenues by product_nature and by month
+    ProductNature.availables.find_each do |nature|
+      sale_items = SaleItem.by_product_nature(nature).estimate_between(@started_at, @stopped_at)
+      if sale_items.count > 0
+        item_h = sale_items.sums_of_periods( period: :month, column: :pretax_amount, at: "accounted_at",name: :sum).sort.inject({}) do |hash, pair|
+          hash[pair.expr.to_i.to_s] = pair.sum.to_d
+          hash
+        end
+        series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
+      end
+    end
 
     # data for spline sum revenues by month
     all_sale_items = SaleItem.between(@started_at, @stopped_at)
