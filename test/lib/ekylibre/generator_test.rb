@@ -6,12 +6,12 @@ class Ekylibre::GeneratorTest < ActiveSupport::TestCase
   setup do
   end
 
-  #test "import race code from idele csv" do
+  test "creation 2 ways transcoding files for bos taurus nomenclature" do
 
     tr = Ekylibre::Tele::Idele::Generator.new
     tr.bos_taurus
 
-  #end
+  end
 
   #test "import sex from typeSexe xsd" do
   #  tr = Ekylibre::Tele::Idele::Generator.new

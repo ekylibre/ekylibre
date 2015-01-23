@@ -13,11 +13,16 @@ module Ekylibre
         def bos_taurus
 
           csv_url = @resources_dir+'codeTypeRacial.csv'
-          transcoding_file_name = 'bos_taurus.yml'
+          transcoding_filename = 'bos_taurus.yml'
+          transcoding_exception_filename = 'bos_taurus.exception.yml'
 
           idele_race_code = {}
           out_matched_races = {}
           in_matched_races = {}
+          out_exception_races = {}
+          in_exception_races = {}
+          out_existing_exception = {}
+          in_existing_exception = {}
           nomen_varieties = {}
 
           if File.exist?(csv_url)
@@ -37,6 +42,7 @@ module Ekylibre
 
             ## OUT
             #
+
             nomen_varieties.each do |k,_|
 
               if idele_race_code.key?(k)
@@ -46,14 +52,27 @@ module Ekylibre
 
             end
 
+            if File.exist?(@transcoding_dir+@out_dir+transcoding_exception_filename)
+              out_existing_exception = YAML.load_file(@transcoding_dir+@out_dir+transcoding_exception_filename)
+
+              out_matched_races.reverse_merge!(out_existing_exception)
+
+              out_existing_exception.each do |k, _|
+                if nomen_varieties.key?(k)
+                  nomen_varieties[k][:matched] = 1
+                end
+              end
+            end
+
             results = "### Transcoding Results ###\n"
 
-            results += "**Matched Nomen bos taurus items: #{nomen_varieties.select{|k,v| v[:matched]==1}.size}/#{nomen_varieties.size}\n"
+            results += "**Matched Nomen bos taurus items: #{nomen_varieties.select{|_,v| v[:matched]==1}.size}/#{nomen_varieties.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_varieties.select{|k,v| v[:matched]==0}.size} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_varieties.select{|_,v| v[:matched]==0}.size} Missing Nomen Item Matching: \n"
 
-            nomen_varieties.select{|k,v| v[:matched]==0}.each do |k, v|
+            nomen_varieties.select{|_,v| v[:matched]==0}.each do |k, _|
               results += "#{k}\n"
+              out_exception_races[k] = nil
             end
 
             #
@@ -77,12 +96,25 @@ module Ekylibre
 
             end
 
-            results += "**Matched Idele csv race code: #{idele_race_code.select{|k,v| v[:matched]==1}.size}/#{idele_race_code.size}\n"
+            if File.exist?(@transcoding_dir+@in_dir+transcoding_exception_filename)
+              in_existing_exception = YAML.load_file(@transcoding_dir+@in_dir+transcoding_exception_filename)
 
-            results += "**#{idele_race_code.select{|k,v| v[:matched]==0}.size} Missing Idele race code Matching: \n"
+              in_matched_races.reverse_merge!(in_existing_exception)
 
-            idele_race_code.select{|k,v| v[:matched]==0}.each do |k,v|
+              in_existing_exception.each do |c, _|
+                idele_race_code.select{|_,v| v[:code]==c.to_s}.each do |k,_|
+                  idele_race_code[k][:matched] = 1
+                end
+              end
+            end
+
+            results += "**Matched Idele csv race code: #{idele_race_code.select{|_,v| v[:matched]==1}.size}/#{idele_race_code.size} (#{in_existing_exception.size} manually)\n"
+
+            results += "**#{idele_race_code.select{|_,v| v[:matched]==0}.size} Missing Idele race code Matching: \n"
+
+            idele_race_code.select{|_,v| v[:matched]==0}.each do |_,v|
               results += "Code : #{v[:code]}, Human name: #{v[:human_name]}\n"
+              in_exception_races[v[:code]] = nil
             end
 
             #
@@ -90,11 +122,20 @@ module Ekylibre
 
             ## RESULTS
             #
-            File.open(@transcoding_dir+@out_dir+transcoding_file_name, 'w') {|f| f.write(out_matched_races.to_yaml) }
+            File.open(@transcoding_dir+@out_dir+transcoding_filename, 'w') {|f| f.write(out_matched_races.to_yaml) }
 
-            File.open(@transcoding_dir+@in_dir+transcoding_file_name, 'w') {|f| f.write(in_matched_races.to_yaml) }
+            File.open(@transcoding_dir+@in_dir+transcoding_filename, 'w') {|f| f.write(in_matched_races.to_yaml) }
+
+            if out_exception_races.size > 0
+              File.open(@transcoding_dir+@out_dir+transcoding_exception_filename, 'a+') {|f| f.write(out_exception_races.to_yaml) }
+            end
+
+            if in_exception_races.size > 0
+              File.open(@transcoding_dir+@in_dir+transcoding_exception_filename, 'a+') {|f| f.write(in_exception_races.to_yaml) }
+            end
 
             print results
+            print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
             raise 'Idele codeTypeRacial.csv is missing for transcoding table generation'
