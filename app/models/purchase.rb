@@ -248,7 +248,10 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def supplier_address
-    return self.supplier.default_mail_address.mail_coordinate
+    if self.supplier.default_mail_address
+      return self.supplier.default_mail_address.mail_coordinate
+    end
+    return nil
   end
 
   def client_address

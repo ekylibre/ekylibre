@@ -59,12 +59,14 @@ class Backend::PurchasesController < BackendController
     t.column :planned_at, hidden: true
     t.column :invoiced_at
     t.column :supplier, url: true
+    t.column :supplier_address
     t.column :description
     # t.column :shipped
     t.status
     t.column :state_label
     # t.column :paid_amount, currency: true
-    t.column :amount, currency: true
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true, hidden: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
     t.action :destroy, if: :destroyable?
