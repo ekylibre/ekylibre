@@ -49,14 +49,14 @@ expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate
             # if an implantation intervention exist, get the plant output
             if previous_implantation_intervention = support.interventions.of_nature(:implantation).where(state: :done).order(:started_at).last
               if previous_cultivation = previous_implantation_intervention.casts.of_generic_role(:output).actor
-                previous_variety = previous_cultivation.variety
+                previous_variety = Nomen::Varieties.find(previous_cultivation.variety)
                 previous_cultivation_dead_at = previous_cultivation.dead_at
                 break
               end
               break if previous_variety
             # elsif get the production_variant
             elsif support.production_variant
-              previous_variety = support.production_variant.variety
+              previous_variety = Nomen::Varieties.find(support.production_variant.variety)
               break
             end
             break if previous_variety
