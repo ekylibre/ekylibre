@@ -13,7 +13,10 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
       # members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
     }.to_struct
 
-    unless zone = CultivableZone.find_by_work_number(r.code)
+    if zone = CultivableZone.find_by_work_number(r.code)
+      zone.update_attributes(name: r.name)
+      zone.save!
+    else
       zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
       attributes = {
         variant_id: zone_variant.id,
@@ -25,8 +28,8 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
       zone = zone_variant.matching_model.create!(attributes)
     end
     if georeading = Georeading.find_by(number: r.georeading_number)
-      zone.read!(:shape, georeading.content, at: zone.born_at, force: true)
-      zone.read!(:population, (zone.shape_area / zone.variant.net_surface_area.to_d(:square_meter)), at: zone.born_at, force: true)
+      zone.read!(:shape, georeading.content, at: zone.initial_born_at, force: true)
+      zone.read!(:population, (zone.shape_area.to_d / zone.variant.net_surface_area.to_d(:square_meter)), at: zone.initial_born_at, force: true)
       # zone.read!(:net_surface_area, zone.shape_area, at: zone.born_at)
     end
 
@@ -40,7 +43,7 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
               group_id: zone.id,
               member_id: land_parcel.id,
               shape: land_parcel.shape,
-              population: (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
+              population: (land_parcel.shape_area.to_d / land_parcel.variant.net_surface_area.to_d(:square_meter))
             }
             unless CultivableZoneMembership.find_by(attributes.slice(:group_id, :member_id))
               CultivableZoneMembership.create!(attributes)

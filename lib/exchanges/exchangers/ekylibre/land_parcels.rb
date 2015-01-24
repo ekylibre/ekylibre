@@ -38,7 +38,7 @@ Exchanges.add_importer :ekylibre_land_parcels do |file, w|
         zone.save!
       end
       # link a land parcel to a land parcel cluster
-      if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code)
+      if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code) and zone.clusters_work_number == nil
         land_parcel_cluster.add(zone)
       end
       if r.soil_nature

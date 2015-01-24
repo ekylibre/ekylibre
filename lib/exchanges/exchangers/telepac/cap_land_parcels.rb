@@ -23,7 +23,6 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
         work_number: record.attributes['NUMERO'].to_s,
         variant_id: land_parcel_cluster_variant.id,
         name: LandParcelCluster.model_name.human + " " + record.attributes['NUMERO'].to_s,
-        work_number: record.attributes['NUMERO'].to_s,
         variety: "land_parcel_cluster",
         initial_owner: Entity.of_company,
         identification_number: record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s
@@ -35,8 +34,10 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
         land_parcel_cluster = LandParcelCluster.create!(attributes)
       end
       land_parcel_cluster.read!(:shape, record.geometry, at: land_parcel_cluster.initial_born_at)
-      land_parcel_cluster.read!(:population, land_parcel_cluster.shape_area.in_hectare, at: land_parcel_cluster.initial_born_at)
-
+      a = (land_parcel_cluster.shape_area.to_d / land_parcel_cluster_variant.net_surface_area.to_d(:square_meter))
+      #puts a.inspect.blue
+      land_parcel_cluster.read!(:population, a, at: land_parcel_cluster.initial_born_at)
+      #puts land_parcel_cluster.population.inspect.red
       # if record.geometry
       #   shapes[record.attributes['NUMERO'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
       # end
