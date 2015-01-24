@@ -74,8 +74,8 @@
         = no_data
         
   -# For budgets
-  - b.cell(:budget_per_working_indicator) do
-    - if resource.budget_items.count > 0
+  - if resource.budget_items.count > 0
+    - b.cell(:budget_per_working_indicator) do
       :ruby
         balance = 0
         data_series = []
@@ -101,10 +101,10 @@
        
         
       = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
-    - else
-      = no_data
+  - else
+    = no_data
       
-  - if resource.interventions and Nomen::Varieties[resource.production.variant.variety] <= :plant
+  - if resource.interventions.count > 0 and Nomen::Varieties[resource.production.variant.variety] <= :plant
     - b.cell :production_cost do
       :ruby
         # prepare an array of hash

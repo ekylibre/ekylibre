@@ -82,7 +82,9 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
-
+  
+  scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns)}
+  
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
@@ -102,7 +104,14 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     where(production_id: productions.map(&:id))
   }
-
+  
+  after_validation do
+    if self.started_at.blank? and self.stopped_at.blank?
+      self.started_at = self.production.started_at if self.production.started_at
+      self.stopped_at = self.production.stopped_at if self.production.stopped_at
+    end
+  end
+  
   after_create do
     budgets.each do |budget|
       budget.orphaned_items.first.update(production_support_id: self.id)
