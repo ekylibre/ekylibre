@@ -1257,6 +1257,7 @@ fra:
         stocks: "Stocks"
         tax_assessment: "Avis d’imposition"
         trial_balance: "Balance comptable"
+        vat_taxe_registry: "Registre de TVA"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire ‒ Vigne"
         wine_bottling_registry: "Registre de conditionnement ‒ Vin"
