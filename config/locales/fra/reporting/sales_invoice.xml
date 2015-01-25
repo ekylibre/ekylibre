@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.1586575189467514"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="336"/>
+	<property name="ireport.y" value="384"/>
 	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -254,7 +254,7 @@
 	<pageHeader>
 		<band height="141" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="-1" y="77" width="546" height="64" isRemoveLineWhenBlank="true" uuid="21707c3a-b932-43d3-8098-660716e50ed4">
+				<reportElement style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="-1" y="77" width="546" height="23" isRemoveLineWhenBlank="true" uuid="21707c3a-b932-43d3-8098-660716e50ed4">
 					<printWhenExpression><![CDATA[$F{annotation}.toString() != false]]></printWhenExpression>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{annotation}]]></textFieldExpression>
@@ -306,6 +306,12 @@
 					</graphicElement>
 				</ellipse>
 			</frame>
+			<textField isBlankWhenNull="true">
+				<reportElement style="emphasis" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="100" width="544" height="41" isRemoveLineWhenBlank="true" uuid="3d351e17-1abb-4279-9dc9-375065ced0c2">
+					<printWhenExpression><![CDATA[$F{description}.toString() != false]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -391,7 +397,7 @@
 						<textField isBlankWhenNull="true">
 							<reportElement style="table-td" stretchType="RelativeToBandHeight" x="0" y="0" width="70" height="24" uuid="d0dd50da-1ed1-4fd9-b5c1-3497590208a7"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font fontName="Open Sans" size="10"/>
+								<font fontName="Open Sans" size="7"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
 						</textField>
@@ -672,7 +678,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{expired-on}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement style="address" x="0" y="117" width="543" height="17" uuid="d694908f-641a-4c60-9ee2-e9503e4977a5"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Open Sans" size="6"/>
