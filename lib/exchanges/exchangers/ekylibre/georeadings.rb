@@ -17,9 +17,14 @@ Exchanges.add_importer :ekylibre_georeadings do |file, w|
 
     file.each do |record|
       if record.geometry
+        if !record.attributes['name'].blank?
+          name = record.attributes['name'].mb_chars.downcase.capitalize
+        else
+          name = record.attributes['number'].upcase
+        end
         attributes = {
-          name: record.attributes['name'] || record.attributes['number'],
-          number: record.attributes['number'],
+          name: name,
+          number: record.attributes['number'].upcase,
           nature: nature
         }
         unless georeading = Georeading.find_by(attributes.slice(:number))

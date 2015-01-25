@@ -52,21 +52,22 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
       unless land_parcel = LandParcel.find_by(attributes.slice(:work_number, :variety, :identification_number))
         land_parcel = LandParcel.create!(attributes)
       end
-      
-      # if geometry load into georeadings
-      if record.geometry
-        geom = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
+
+      geom = Charta::Geometry.new(record.geometry).transform(:WGS84) if record.geometry
+
+      # if geometry ,load into georeadings
+      if geom and geom.area.to_d(:square_meter) > 10
         land_parcel.read!(:shape, geom, at: land_parcel.initial_born_at)
-        
+
         a = (land_parcel.shape_area.to_d / land_parcel_variant.net_surface_area.to_d(:square_meter))
-        
+
         # TODO Fix population zero?
         #puts a.inspect.blue
-        
+
         land_parcel.read!(:population, a, at: land_parcel.initial_born_at)
-        
+
         #puts land_parcel.population.inspect.red
-        
+
         geo_attributes = {
           name: land_parcel.name,
           number: land_parcel.work_number,
@@ -78,33 +79,34 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
         georeading.content = land_parcel.shape
         georeading.save!
       end
-      
-      
-      
+
+
+
       # link a land parcel to a land parcel cluster
       if land_parcel_cluster = LandParcelCluster.find_by(work_number: record.attributes['NUMERO'].to_s)
         land_parcel_cluster.add(land_parcel)
       end
-      
+
 
       # Create activities if option true
       if Preference.get!(:create_activities_from_telepac, true, :boolean).value
+        cultivable_zone = nil
+        if geom and geom.area.to_d(:square_meter) > 10
+          # Create a cultivable zone
+          attributes = {
+            variant_id: cultivable_zone_variant.id,
+            name: CultivableZone.model_name.human + " " + land_parcel.name,
+            work_number: :cultivable_zone_abbreviation.tl(default: "CZ") + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+            variety: "cultivable_zone",
+            initial_born_at: land_parcel.born_at,
+            initial_owner: Entity.of_company,
+            identification_number: :cultivable_zone_abbreviation.tl(default: "CZ") + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
+          }
+          unless cultivable_zone = CultivableZone.find_by(attributes.slice(:work_number, :variety, :identification_number))
+            cultivable_zone = CultivableZone.create!(attributes)
+          end
 
-        # Create a cultivable zone
-        attributes = {
-          variant_id: cultivable_zone_variant.id,
-          name: CultivableZone.model_name.human + " " + land_parcel.name,
-          work_number: :cultivable_zone_abbreviation.tl(default: "CZ") + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-          variety: "cultivable_zone",
-          initial_born_at: land_parcel.born_at,
-          initial_owner: Entity.of_company,
-          identification_number: :cultivable_zone_abbreviation.tl(default: "CZ") + record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s
-        }
-        unless cultivable_zone = CultivableZone.find_by(attributes.slice(:work_number, :variety, :identification_number))
-          cultivable_zone = CultivableZone.create!(attributes)
-        end
 
-        if record.geometry and geom
           # Add readings
           cultivable_zone.read!(:shape, geom, at: cultivable_zone.born_at)
           cultivable_zone.read!(:population, (cultivable_zone.shape_area.to_d / cultivable_zone_variant.net_surface_area.to_d(:square_meter)), at: cultivable_zone.born_at)

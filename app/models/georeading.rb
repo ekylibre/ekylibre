@@ -40,4 +40,20 @@ class Georeading < Ekylibre::Record::Base
   validates_length_of :name, :nature, :number, allow_nil: true, maximum: 255
   validates_presence_of :content, :name, :nature
   #]VALIDATORS]
+
+  def to_geom
+    if self.content
+     return geom = Charta::Geometry.new(self.content).transform(:WGS84)
+    end
+  end
+
+  def label_area(unit = :hectare)
+    if self.polygon?
+      value = self.to_geom.area.to_d(unit).round(3).l
+      unit = Nomen::Units[unit].human_name
+      return "#{value} #{unit}"
+    end
+  end
+
+
 end

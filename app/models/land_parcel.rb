@@ -81,7 +81,7 @@ class LandParcel < Easement
   protect(on: :destroy) do
     self.cultivable_zones.any?
   end
-  
+
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
   def clusters_work_number(viewed_at = nil)
     numbers = []
@@ -89,7 +89,7 @@ class LandParcel < Easement
     for group in groups
       if group.is_a?(LandParcelCluster)
         numbers << group.work_number
-      end  
+      end
     end
     if numbers.count > 0
       numbers.to_sentence

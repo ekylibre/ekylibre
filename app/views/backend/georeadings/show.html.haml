@@ -2,11 +2,18 @@
   - t.edit resource
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :number
-      - l.attribute :description
+  - b.hbox do
+    - b.cell do
+      .big-info
+        %span.title= Georeading.human_attribute_name(:name)
+        %span.value= resource.name
+        %span.title= Georeading.human_attribute_name(:number)
+        %span.value= resource.number
+    - if resource.polygon?
+      - b.cell do
+        .big-info
+          %span.title= CultivableZone.human_attribute_name(:net_surface_area)
+          %span.value= resource.label_area
   - b.cell :map do
     = visualization do |v|
       - v.background "OpenStreetMap.HOT"
