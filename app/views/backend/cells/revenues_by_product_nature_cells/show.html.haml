@@ -19,7 +19,7 @@
         series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
       end
     end
-    
+
     # data for bar chart draft revenues by product_nature and by month
     ProductNature.availables.find_each do |nature|
       sale_items = SaleItem.by_product_nature(nature).estimate_between(@started_at, @stopped_at)

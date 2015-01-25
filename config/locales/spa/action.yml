@@ -877,6 +877,8 @@ spa:
     body: "Cuerpo del mensaje"
     # bookkeep: "Bookkeep"
     # bookkeep_with_payment: "Bookkeep with payment"
+    # budget: "Budget"
+    # budgets: "Budgets"
     building_create: "Añadir un lugar de deposito" #?
     # building_name: "Building name"
     building_tabbox: #?

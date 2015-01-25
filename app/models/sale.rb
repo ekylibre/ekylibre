@@ -110,11 +110,11 @@ class Sale < Ekylibre::Record::Base
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
   }
-  
+
   scope :estimate_between, lambda { |started_at, stopped_at|
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
-  
+
   scope :unpaid, -> { where(state: ["order", "invoice"]).joins(:affair).where("NOT closed") }
 
   state_machine :state, :initial => :draft do

@@ -4,7 +4,7 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
   rows = CSV.read(file, headers: true)
   w.count = rows.size
   country_preference = Preference[:country]
-  
+
   rows.each do |row|
     r = {
       :first_name => row[0].blank? ? "" : row[0].to_s,

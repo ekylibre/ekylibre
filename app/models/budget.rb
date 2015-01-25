@@ -64,14 +64,14 @@ class Budget < Ekylibre::Record::Base
 
   scope :revenues, -> {where direction: :revenue}
   scope :expenses, -> {where direction: :expense}
-  
-  
+
+
   before_validation do
     if self.name.blank?
       self.name = self.production.name
     end
   end
-  
+
   validate do
     if ((self.direction == :revenue) && (self.production.homogeneous_revenues) || (self.direction == :expense) && (self.production.homogeneous_expenses))
       self.homogeneous_values = true

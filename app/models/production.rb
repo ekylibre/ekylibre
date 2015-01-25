@@ -86,9 +86,9 @@ class Production < Ekylibre::Record::Base
     end
     where(campaign_id: campaigns.map(&:id))
   }
-  
+
   scope :of_currents_campaigns, -> { joins(:campaign).merge(Campaign.currents)}
-  
+
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities

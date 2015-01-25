@@ -63,7 +63,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
   delegate :working_unit, :working_indicator, to: :production
-  
+
   # alias :net_surface_area :storage_net_surface_area
   delegate :name, :variant, to: :production, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :storage
@@ -82,9 +82,9 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
-  
+
   scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns)}
-  
+
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
@@ -104,14 +104,14 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     where(production_id: productions.map(&:id))
   }
-  
+
   after_validation do
     if self.started_at.blank? and self.stopped_at.blank?
       self.started_at = self.production.started_at if self.production.started_at
       self.stopped_at = self.production.stopped_at if self.production.stopped_at
     end
   end
-  
+
   after_create do
     budgets.each do |budget|
       budget.orphaned_items.first.update(production_support_id: self.id)

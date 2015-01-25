@@ -679,6 +679,8 @@ jpn:
     # body: "Body of the message"
     # bookkeep: "Bookkeep"
     # bookkeep_with_payment: "Bookkeep with payment"
+    # budget: "Budget"
+    # budgets: "Budgets"
     # building_name: "Building name"
     # calculate: "Calculate"
     # calculators: "Calculators"

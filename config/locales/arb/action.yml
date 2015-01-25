@@ -1049,6 +1049,8 @@ arb:
     body: "هيكل الرسالة"
     # bookkeep: "Bookkeep"
     # bookkeep_with_payment: "Bookkeep with payment"
+    # budget: "Budget"
+    # budgets: "Budgets"
     building: "مكان التخزين" #?
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج"

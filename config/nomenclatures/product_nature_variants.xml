@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="server,domain, 100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="month,server,domain, 100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL VIAL -->
@@ -2960,10 +2960,24 @@
             unit_name="day"
             frozen_indicators_values="usage_duration: 1day"
             />
+
+     <item name="hourly_project_management"
+            nature="project_management"
+            unit_name="hour"
+            frozen_indicators_values="usage_duration: 1hour"
+            />
+
+
+
       <item name="daily_software_engineering"
             nature="software_engineering"
             unit_name="day"
             frozen_indicators_values="usage_duration: 1day"
+            />
+      <item name="hourly_software_engineering"
+            nature="software_engineering"
+            unit_name="hour"
+            frozen_indicators_values="usage_duration: 1hour"
             />
 
       <!-- support -->
@@ -2971,6 +2985,11 @@
             nature="user_support"
             unit_name="hour"
             frozen_indicators_values="usage_duration: 1hour"
+            />
+      <item name="monthly_enterprise_support"
+            nature="user_support"
+            unit_name="month"
+            frozen_indicators_values="usage_duration: 30day"
             />
 
 

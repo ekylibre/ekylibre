@@ -92,9 +92,9 @@ class Intervention < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
   }
-  
+
   scope :of_currents_campaigns, -> { joins(:production).merge(Production.of_currents_campaigns)}
-  
+
   #scope :of_nature, lambda { |*natures|
   #  where("natures ~ E?", natures.collect{|n| Nomen::ProcedureNatures.all(n)}.flatten.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
   #}
