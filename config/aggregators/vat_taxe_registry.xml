@@ -19,7 +19,7 @@
           <cell name="id" of="sale_item" level="api"/>
           <cell name="number" of="sale_item"/>
           <cell name="invoiced_at" of="sale_item" type="datetime"/>
-          <cell name="pretax_amout" of="sale_item" type="number"/>
+          <cell name="pretax_amount" of="sale_item" type="number"/>
           <cell name="amount" of="sale_item" type="number"/>
           <cell name="taxes_amount" of="sale_item" type="number"/>
           <cell name="tax_name" of="sale_item"/>
