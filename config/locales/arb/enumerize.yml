@@ -17,7 +17,6 @@ arb:
         # bban: "Basic Bank Account Number (BBAN)"
         # iban: "International Bank Account Number (IBAN)"
       nature:
-        # associated_account: "Associated account"
         # bank_account: "Bank account"
         # cash_box: "Cash box"
     catalog:

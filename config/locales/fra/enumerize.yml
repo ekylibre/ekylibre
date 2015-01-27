@@ -15,7 +15,6 @@ fra:
         bban: "Relevé d’identité bancaire (RIB)"
         iban: "IBAN"
       nature:
-        associated_account: "Compte courant"
         bank_account: "Compte bancaire"
         cash_box: "Caisse"
     catalog:

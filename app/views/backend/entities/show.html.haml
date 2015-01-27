@@ -33,12 +33,6 @@
         - t.new(params: {controller: :observations, subject_id: resource.id, subject_type: resource.class.name})
       - if resource.observations.any?
         = list(:observations)
-    - if resource.associated_cash
-      - b.cell(:cash_balances) do
-        - balance = resource.associated_cash.balance
-        .big-info{class: (balance < 0 ? :positive : balance > 0 ? :negative : :caution)}
-          %span.title= resource.associated_cash.name
-          %span.value= balance.l(currency: resource.associated_cash.currency)
 
   - b.hbox do
 
