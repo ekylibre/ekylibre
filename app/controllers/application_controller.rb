@@ -97,8 +97,8 @@ class ApplicationController < ActionController::Base
   def set_locale
     session[:locale] = params[:locale] if params[:locale]
     if session[:locale].blank?
-      if locale = http_accept_language.compatible_language_from(Ekylibre::HTTP_LANGUAGES.keys)
-        session[:locale] = Ekylibre::HTTP_LANGUAGES[locale]
+      if locale = http_accept_language.compatible_language_from(Ekylibre.http_languages.keys)
+        session[:locale] = Ekylibre.http_languages[locale]
       end
     else
       session[:locale] = nil unless ::I18n.available_locales.include?(session[:locale].to_sym)

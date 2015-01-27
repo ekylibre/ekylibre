@@ -15,12 +15,14 @@ module Ekylibre
 
   CSV = ::CSV.freeze
 
-  HTTP_LANGUAGES = ::I18n.available_locales.inject({}) do |h, l|
-    h["i18n.iso2".t(locale: l)] = l
-    h
-  end.freeze
-
   class << self
+
+    def http_languages
+      ::I18n.available_locales.inject({}) do |h, l|
+        h["i18n.iso2".t(locale: l)] = l
+        h
+      end
+    end
 
     # Return root path of Ekylibre
     def root
