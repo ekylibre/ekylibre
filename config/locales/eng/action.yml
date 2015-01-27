@@ -1460,6 +1460,7 @@ eng:
     x_intervention_casts:
       one: "%{count} intervention cast"
       other: "%{count} intervention casts"
+    # x_issues: "X issues"
     x_items_remain:
       one: "%{count} item remains"
       other: "%{count} items remain"
