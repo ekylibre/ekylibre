@@ -56,7 +56,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
       geom = Charta::Geometry.new(record.geometry).transform(:WGS84) if record.geometry
 
       # if geometry ,load into georeadings
-      if geom and geom.area.to_d(:square_meter) > 10
+      if geom and geom.area.to_d(:square_meter) > 10.0
         land_parcel.read!(:shape, geom, at: land_parcel.initial_born_at)
 
         a = (land_parcel.shape_area.to_d / land_parcel_variant.net_surface_area.to_d(:square_meter))
@@ -91,7 +91,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
       # Create activities if option true
       if Preference.get!(:create_activities_from_telepac, true, :boolean).value
         cultivable_zone = nil
-        if geom and geom.area.to_d(:square_meter) > 10
+        if geom and geom.area.to_d(:square_meter) > 10.0
           # Create a cultivable zone
           attributes = {
             variant_id: cultivable_zone_variant.id,

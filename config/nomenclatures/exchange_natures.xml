@@ -22,11 +22,13 @@
       <item name="ekylibre_visuals"/>
       <item name="galactea3_monthly_unitary_milk_analyses"/>
       <item name="isagri_isacompta_export"/>
+      <item name="isagri_isaculture_csv_import"/>
       <item name="legrain_epicea_accounts" />
       <item name="legrain_epicea_journals" />
       <item name="lilco_milk_analyses"/>
       <item name="telepac_cap_land_parcels"/>
       <item name="telepac_land_parcels"/>
+      <item name="unicoque_plant_zones"/>
     </items>
   </nomenclature>
 

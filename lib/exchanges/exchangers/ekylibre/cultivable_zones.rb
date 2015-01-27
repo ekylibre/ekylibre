@@ -29,13 +29,14 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
     end
     if georeading = Georeading.find_by(number: r.georeading_number)
       zone.read!(:shape, georeading.content, at: zone.initial_born_at, force: true)
-      zone.read!(:population, (zone.shape_area.to_d / zone.variant.net_surface_area.to_d(:square_meter)), at: zone.initial_born_at, force: true)
+      a = (zone.shape_area.to_d / zone.variant.net_surface_area.to_d(:square_meter))
+      zone.read!(:population, a.to_s.to_f, at: zone.initial_born_at, force: true)
       # zone.read!(:net_surface_area, zone.shape_area, at: zone.born_at)
     end
 
     # link cultivable zone and land parcel for each entries
     if zone.shape
-      zone_shape = Charta::Geometry.new(zone.shape)
+      zone_shape = Charta::Geometry.new(zone.shape).transform(:WGS84)
       if products_around = zone_shape.actors_matching(nature: LandParcel)
         for land_parcel in products_around
           if land_parcel.shape
@@ -50,6 +51,9 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
             end
           end
         end
+        #if zc_products_around = zone_shape.actors_matching(nature: CultivableZone)
+          #puts zc_products_around.inspect.red
+        #end
       end
     end
 
