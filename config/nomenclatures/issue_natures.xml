@@ -20,8 +20,18 @@
       <item name="climate_issue"/>
       <item name="escape"/>
       <item name="mechanical_issue"/>
+      <item name="support_issue"/>
     </items>
   </nomenclature>
+
+  <!--
+  	<nomenclature name="issue_natures-support_issue">
+    <items>
+      <item name="bug" target="entity"/>
+      <item name="help" target="entity"/>
+    </items>
+  </nomenclature>
+  -->
 
   <!-- level 2 - branch 1 -->
   <nomenclature name="issue_natures-disease">

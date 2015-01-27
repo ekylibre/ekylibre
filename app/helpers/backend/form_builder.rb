@@ -285,7 +285,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       elsif zone = CultivableZone.first
         marker[:view] = {center: zone.shape_centroid}
       end
-      marker[:marker] = marker[:view][:center]
+      marker[:marker] = marker[:view][:center] if marker[:view]
     end
     return self.input(attribute_name, options.merge(input_html: {data: {map_marker: marker}}))
   end

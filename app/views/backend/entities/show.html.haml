@@ -26,13 +26,14 @@
         - if EntityLink.of_entity(resource).actives.any?
           .info
             %span.title= :related_people.tl
-            %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: p.type.tableize, action: :show, id: p.id)}.to_sentence.html_safe
+            %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: (p.type || "Entity").tableize, action: :show, id: p.id)}.to_sentence.html_safe
 
-    - b.cell(tl(:x_observations, count: resource.observations.count)) do
+    - b.cell(tl(:x_issues, count: resource.issues.count)) do
       = toolbar do |t|
-        - t.new(params: {controller: :observations, subject_id: resource.id, subject_type: resource.class.name})
-      - if resource.observations.any?
-        = list(:observations)
+        - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
+      - if resource.issues.any?
+        = list(:issues)
+
     - if resource.cash
       - b.cell(:cash_balances) do
         - balance = resource.cash.balance

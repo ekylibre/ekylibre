@@ -1781,6 +1781,15 @@
       <item name="stock_container_map_cells">
         <page to="backend/cells/stock_container_map_cells#show"/>
       </item>
+      <item name="entities">
+        <page to="backend/entities#list_issues"/>
+      </item>
+      <item name="legal_entities">
+        <page to="backend/legal_entities#list_issues"/>
+      </item>
+      <item name="people">
+        <page to="backend/people#list_issues"/>
+      </item>
       <item name="productions">
         <page to="backend/productions#indicator_measure"/>
       </item>

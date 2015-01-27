@@ -76,6 +76,16 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
+  # Lists issues of the current product
+  list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
+    t.column :nature, url: true
+    t.column :observed_at
+    t.status
+    t.column :creator
+    t.action :edit
+    t.action :destroy
+  end
+
   list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_at

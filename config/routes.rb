@@ -38,6 +38,7 @@ Ekylibre::Application.routes.draw do
       get :list_cashes
       get :list_event_participations
       get :list_incoming_payments
+      get :list_issues
       get :list_links
       get :list_purchases
       get :list_observations

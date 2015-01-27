@@ -92,6 +92,7 @@ class Entity < Ekylibre::Record::Base
   has_many :auto_updateable_addresses, -> { where(deleted_at: nil, mail_auto_update: true) }, class_name: "EntityAddress"
   has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_1_id
   has_many :gaps, dependent: :restrict_with_error
+  has_many :issues, as: :target, dependent: :destroy
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
