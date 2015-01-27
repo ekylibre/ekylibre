@@ -2,10 +2,10 @@
 
 %table
   %tr
-    -for menu, items in menus[@universe]
+    - for menu, items in menus[@universe]
       %td.menu
-        %h2=menu
+        %h2= menu
         %ul
-          -for item in items
-            =li_link_to(item)
+          - items.each do |item|
+            = li_link_to(item)
 

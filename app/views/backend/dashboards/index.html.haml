@@ -1,8 +1,8 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :modules do
-      - for mod in Ekylibre::Modules.hash.keys
-        - next unless authorized?(controller: "/backend/dashboards", action: mod)
+      - Ekylibre::Modules.hash.keys.each do |mod|
+        - next unless module_authorized?(mod)
         = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", title: Ekylibre::Modules.human_name(mod)) do
           %i
           = Ekylibre::Modules.human_name(mod)

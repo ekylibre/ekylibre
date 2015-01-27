@@ -126,7 +126,6 @@ eng:
     #~ potassium_concentration: "Potassium concentration"
     #~ prescription: "Prescription"
     #~ pretax_amount: "Pre-tax amount"
-    # pretax_amout: "Pretax amout"
     previous_production_name: "Previous production name"
     #~ printed_on: "Printed on"
     product_nature_name: "Product nature name"

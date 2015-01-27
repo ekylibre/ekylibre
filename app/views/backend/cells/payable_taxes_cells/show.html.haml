@@ -11,7 +11,7 @@
       periods[date.l(format: "%b %Y")] = [date, (date.end_of_month)]
       date = date + 1.month
     end
-    
+
     #periods = {}
     #while date < stopped_at
     #  periods[date.l(format: "%b %Y")] = [date, (date.end_of_month)]
@@ -23,9 +23,9 @@
         #collect_items   =   tax.collect_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
         #deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
         #last = {collect: 0.0, deduction: 0.0}
-        
+
         data = []
-        
+
         periods.each do |name, period|
           # categories << period[0]
           sum_vat_collected = tax.sale_items.between(period[0], period[1]).reorder('sales.invoiced_at').map(&:taxes_amount).compact.sum

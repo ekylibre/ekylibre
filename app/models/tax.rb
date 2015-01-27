@@ -111,14 +111,14 @@ class Tax < Ekylibre::Record::Base
     raise StandardError("Can only use coefficient method with percentage taxes") unless self.percentage?
     return (100 + self.amount)/100
   end
-  
+
   # Returns the short label of a tax
   def short_label
       country = Nomen::Taxes.find(self.reference_name).country
       item = "#{self.amount}% (#{country})"
       return item
   end
-  
+
   # Load a tax from tax nomenclature
   def self.import_from_nomenclature(reference_name)
     unless item = Nomen::Taxes.find(reference_name)
