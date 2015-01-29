@@ -96,7 +96,7 @@ class Entity < Ekylibre::Record::Base
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
-  has_many :ownerships, class_name: "ProductOwnership", foreign_key: :powner_id
+  has_many :ownerships, class_name: "ProductOwnership", foreign_key: :owner_id
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
   has_many :prices, class_name: "ProductPriceTemplate"
   has_many :purchase_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Purchase", foreign_key: :supplier_id
@@ -109,7 +109,6 @@ class Entity < Ekylibre::Record::Base
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id
   has_many :trackings, foreign_key: :producer_id
-  has_many :transfers, foreign_key: :supplier_id
   has_many :transports, foreign_key: :transporter_id
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id

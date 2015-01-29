@@ -357,7 +357,7 @@ fra:
       edit: "Modifier la personne morale\_: %{full_name}"
       index: "Personnes morales"
       new: "Nouvelle personne morale"
-      show: "Personne morale: %{full_name}"
+      show: "Personne morale\_: %{full_name}"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -647,6 +647,9 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    timeline_item: "%{type} %{name} ajouté par %{author} il y a %{ago}"
+    timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} il y a %{ago}"
+    timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} il y a %{ago}"
     abilities: "Compétences" #?
     access: "Accès"
     account_accruals: "Comptes de régularisation" #?

@@ -22,36 +22,41 @@ fra:
   datetime:
     distance_in_words:
       about_x_hours:
-        many: "about %{count} hours"
-        one: "about 1 hour"
+        one:   "environ une heure"
+        other: "environ %{count} heures"
       about_x_months:
-        many: "about %{count} months"
-        one: "about 1 month"
+        one:   "environ un mois"
+        other: "environ %{count} mois"
       about_x_years:
-        many: "about %{count} years"
-        one: "about 1 year"
-      half_a_minute: "demi-minute"
+        one:   "environ un an"
+        other: "environ %{count} ans"
+      almost_x_years:
+        one:   "presqu'un an"
+        other: "presque %{count} ans"
+      half_a_minute: "une demi-minute"
       less_than_x_minutes:
-        many: "less than %{count} minutes"
-        one: "less than a minute"
+        zero:  "moins d'une minute"
+        one:   "moins d'une minute"
+        other: "moins de %{count} minutes"
       less_than_x_seconds:
-        many: "moins de %{count} secondes"
-        one: "moins d’une seconde"
+        zero:  "moins d'une seconde"
+        one:   "moins d'une seconde"
+        other: "moins de %{count} secondes"
       over_x_years:
-        many: "over %{count} years"
-        one: "over 1 year"
+        one:   "plus d'un an"
+        other: "plus de %{count} ans"
       x_days:
-        many: "%{count} days"
-        one: "1 day"
+        one:   "1 jour"
+        other: "%{count} jours"
       x_minutes:
-        many: "%{count} minutes"
-        one: "1 minute"
+        one:   "1 minute"
+        other: "%{count} minutes"
       x_months:
-        many: "%{count} months"
-        one: "1 month"
+        one:   "1 mois"
+        other: "%{count} mois"
       x_seconds:
-        many: "%{count} secondes"
-        one: "1 seconde"
+        one:   "1 seconde"
+        other: "%{count} secondes"
   form:
     new: "Nouveau…"
   number:

@@ -82,7 +82,22 @@
         = list(:links)
 
   - b.hbox do
-
+    - b.cell :empty do
+      Bla
+    - b.cell :timeline do
+      = timeline(resource) do |l|
+        - l.sales
+        - l.purchases
+        - l.incoming_payments
+        - l.outgoing_payments
+        - l.observations
+        - l.direct_links
+        - l.indirect_links
+        - l.addresses
+        - l.participations
+        - l.versions
+        -# l.issues
+        
     -# b.cell(tl(:x_subscriptions, count: resource.subscriptions.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :subscriptions, entity_id: resource.id})

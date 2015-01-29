@@ -1,0 +1,44 @@
+.timeline {
+  > .timestep {
+    $size: 2 * $fs-normal;
+    .icon {
+      background: $base-color;
+      width: $size;
+      height: $size;
+      display: block;
+      @include border-radius(50%);
+      @include float(left);
+      text-align: center;
+      line-height: $size;
+      i {
+        @include is-icon(14px);
+        @include use-icon(file);
+        line-height: $size;
+        color: white;
+        @include text-shadow(0 0 1px rgba(0,0,0,0.5));
+      }
+      @include box-shadow(0 0 $default-gap rgba(0,0,0,0.2) inset);
+      @include margin-right($default-gap);
+    }
+    .content {
+      line-height: $size;
+    }
+    .status {
+      @include float(right);
+    }
+    clear: both;
+    padding: $default-gap;
+    &.incoming_payment .icon {
+      background: $success-color;
+      i {
+        @include use-icon(money);
+      }
+    }
+    &.outgoing_payment .icon {
+      background: $invalid-color;
+      i {
+        @include use-icon(money);
+      }
+    }
+  }
+}

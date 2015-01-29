@@ -22,35 +22,35 @@ eng:
   datetime:
     distance_in_words:
       about_x_hours:
-        many: "about %{count} hours"
+        other: "about %{count} hours"
         one: "about 1 hour"
       about_x_months:
-        many: "about %{count} months"
+        other: "about %{count} months"
         one: "about 1 month"
       about_x_years:
-        many: "about %{count} years"
+        other: "about %{count} years"
         one: "about 1 year"
       half_a_minute: "half a minute"
       less_than_x_minutes:
-        many: "less than %{count} minutes"
+        other: "less than %{count} minutes"
         one: "less than a minute"
       less_than_x_seconds:
-        many: "moins de %{count} secondes"
+        other: "moins de %{count} secondes"
         one: "moins d'une seconde"
       over_x_years:
-        many: "over %{count} years"
+        other: "over %{count} years"
         one: "over 1 year"
       x_days:
-        many: "%{count} days"
+        other: "%{count} days"
         one: "1 day"
       x_minutes:
-        many: "%{count} minutes"
+        other: "%{count} minutes"
         one: "1 minute"
       x_months:
-        many: "%{count} months"
+        other: "%{count} months"
         one: "1 month"
       x_seconds:
-        many: "%{count} secondes"
+        other: "%{count} secondes"
         one: "1 seconde"
   form:
     new: "New…"
