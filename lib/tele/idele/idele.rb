@@ -137,20 +137,20 @@ module Tele
     end
 
     ##
-    # create_entree: Notifier l'entrée d'un bovin sur une exploitation française
+    # create_cattle_entrance: Notifier l'entrée d'un bovin sur une exploitation française
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] animal_country_code: Code Pays UE. length: 2
     # @param [string] animal_id: Numéro national du bovin. max length: 12
     # @param [date] entry_date: Date entrée du bovin
-    # @param [string] entry_reason: Cause d'entrée. (A/P)
+    # @param [string] entry_reason: Cause d'entrée. (A/P) A=Achat, P=Prêt, pension
     # @param [string] src_country_code: Code pays de l'exploitation de provenance. length: 2
     # @param [string] src_farm_number: Numéro d'exploitation de provenance. length: 12
     # @param [string] src_owner_name: Nom du détenteur. max length: 60
     # @param [string] prod_code: Le code atelier, du type AtelierBovinIPG(cf p18). length: 2
     # @param [string] cattle_categ_code: Le code catégorie du bovin (cf p18). length: 2
-    private def create_entree( token, farm_country_code, farm_number, animal_country_code, animal_id, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code  )
+    private def create_cattle_entrance( token, farm_country_code, farm_number, animal_country_code, animal_id, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code  )
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number}, bovin: { code_pays: animal_country_code, numero_national: animal_id }, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: prod_code, code_categorie_bovin: cattle_categ_code}
 
@@ -160,18 +160,18 @@ module Tele
 
 
     ##
-    # create_sortie: Notifier la sortie d'un bovin d'une exploitation française
+    # create_cattle_exit: Notifier la sortie d'un bovin d'une exploitation française
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] animal_country_code: Code Pays UE. length: 2
     # @param [string] animal_id: Numéro national du bovin. max length: 12
     # @param [date] exit_date: Date de sortie du bovin
-    # @param [string] exit_reason: Cause de sortie. (B/C/E/H/M)
+    # @param [string] exit_reason: Cause de sortie. (B/C/E/H/M) B=boucherie, C=auto-consommation, E=vente en élevage, H=Prêt/Pension, M=Mort
     # @param [string] dest_country_code: Code pays de l'exploitation de destination. length: 2
     # @param [string] dest_farm_number: Numéro d'exploitation de destination. length: 12
     # @param [string] dest_owner_name: Nom du détenteur. max length: 60
-    private def create_sortie( token, farm_country_code, farm_number, animal_country_code, animal_id, exit_date, exit_reason, dest_country_code, dest_farm_number, dest_owner_name )
+    private def create_cattle_exit( token, farm_country_code, farm_number, animal_country_code, animal_id, exit_date, exit_reason, dest_country_code, dest_farm_number, dest_owner_name )
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number}, bovin: { code_pays: animal_country_code, numero_national: animal_id }, date_sortie: exit_date, cause_sortie: exit_reason, exploitation_destination: { exploitation: { code_pays: dest_country_code, numero_exploitation: dest_farm_number }, nom_exploitation: dest_owner_name }}
 
@@ -180,134 +180,134 @@ module Tele
 
 
     ##
-    # create_naissance: Notifier la naissance d'un bovin sur une exploitation française
+    # create_cattle_new_birth: Notifier la naissance d'un bovin sur une exploitation française
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] animal_country_code: Code Pays UE. length: 2
     # @param [string] animal_id: Numéro national du bovin. max length: 12
-    # @param [string] sexe: Sexe du bovin: length: 1
-    # @param [string] type_racial: Type racial . length: 2
-    # @param [date] date_naissance: Date de Naissance
-    # @param [number] numero_travail: Numéro de travail de bovin. length: 4
-    # @param [string] nom_bovin: Nom du bovin.
+    # @param [string] sex: Sexe du bovin: length: 1
+    # @param [string] race_code: Type racial . length: 2
+    # @param [date] birth_date: Date de Naissance
+    # @param [number] work_number: Numéro de travail de bovin. length: 4
+    # @param [string] cattle_name: Nom du bovin.
     # @param [Boolean] transplant: Si l'animal est issu d'une transplantation embryonnaire
-    # @param [Boolean] avortement:
-    # @param [Boolean] jumeau: Si l'animal est issu d'une naissance gémélaire
-    # @param [string] condition_naissance: Condition de naissance du bovin. (cf p95)
-    # @param [int] poids_naissance: Poids de naissance du bovin. (1-99)
-    # @param [Boolean] poids_pesee: Si le bovin a été pesé pour déterminer son poids
-    # @param [int] tour_poitrine: Tour de poitrine en cm. max length: 3
+    # @param [Boolean] abortion: Avortement
+    # @param [Boolean] twin: Si l'animal est issu d'une naissance gémélaire
+    # @param [string] birth_condition: Condition de naissance du bovin. (cf p95)
+    # @param [int] birth_weight: Poids de naissance du bovin. (1-99)
+    # @param [Boolean] weighed: Si le bovin a été pesé pour déterminer son poids
+    # @param [int] bust_size: Tour de poitrine en cm. max length: 3
     # @param [string] mother_animal_country_code: Code Pays de la mère porteuse. length: 2
     # @param [string] mother_animal_id: Numéro national de la mère porteuse. max length: 12
-    # @param [string] mother_type_racial: Type racial de la mère porteuse . length: 2
+    # @param [string] mother_race_code: Type racial de la mère porteuse . length: 2
     # @param [string] father_animal_country_code: Code Pays du père IPG. length: 2
     # @param [string] father_animal_id: Numéro national du père IPG. max length: 12
-    # @param [string] father_type_racial: Type racial du père IPG . length: 2
-    # @param [Boolean] demande_passeport: Indique si une demande d'édition du passeport en urgence
-    # @param [Object] code_atelier: Le type d'atelier du type AtelierBovinIPG. length: 2
-    private def create_naissance( token, farm_country_code, farm_number, animal_country_code, animal_id, sexe, type_racial, date_naissance, numero_travail, nom_bovin, transplant, avortement, jumeau, condition_naissance, poids_naissance, poids_pesee, tour_poitrine, mother_animal_country_code, mother_animal_id, mother_type_racial, father_animal_country_code, father_animal_id, father_type_racial, demande_passeport, code_atelier )
+    # @param [string] father_race_code: Type racial du père IPG . length: 2
+    # @param [Boolean] passport_ask: Indique si une demande d'édition du passeport en urgence
+    # @param [Object] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
+    private def create_cattle_new_birth( token, farm_country_code, farm_number, animal_country_code, animal_id, sex, race_code, birth_date, work_number, cattle_name, transplant, abortion, twin, birth_condition, birth_weight, weighed, bust_size, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code, passport_ask, prod_code )
 
-      { jeton_authentification: token, exploitation_naissance: { code_pays: farm_country_code, numero_exploitation: farm_number}, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sexe, type_racial: type_racial, date_naissance: date_naissance, numero_travail: numero_travail, nom_bovin: nom_bovin, filiation: { transplantation_embryonnaire: transplant, avortement: avortement, jumeau: jumeau, condition_naissance: condition_naissance, poids: '', attributes!: { poids: { poids_naissance: poids_naissance, poids_pesee: poids_pesee }}, tour_poitrine: tour_poitrine }, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_type_racial }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_type_racial }, demande_passeport: demande_passeport, code_atelier: code_atelier }
+      { jeton_authentification: token, exploitation_naissance: { code_pays: farm_country_code, numero_exploitation: farm_number}, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sex, type_racial: race_code, date_naissance: birth_date, numero_travail: work_number, nom_bovin: cattle_name, filiation: { transplantation_embryonnaire: transplant, avortement: abortion, jumeau: twin, condition_naissance: birth_condition, poids: '', attributes!: { poids: { poids_naissance: birth_weight, poids_pesee: weighed }}, tour_poitrine: bust_size }, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code }, demande_passeport: passport_ask, code_atelier: prod_code }
               #TODO
     end
 
     ##
-    # create_mort_ne: Notifier la naissance d'un bovin mort-né non bouclé sur une exploitation française
+    # create_stillbirth: Notifier la naissance d'un bovin mort-né non bouclé sur une exploitation française
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
-    # @param [string] sexe: Sexe du bovin: length: 1
-    # @param [string] type_racial: Type racial . length: 2
-    # @param [date] date_naissance: Date de Naissance
-    # @param [string] nom_bovin: Nom du bovin.
+    # @param [string] sex: Sexe du bovin: length: 1
+    # @param [string] race_code: Type racial . length: 2
+    # @param [date] birth_date: Date de Naissance
+    # @param [string] cattle_name: Nom du bovin.
     # @param [Boolean] transplant: Si l'animal est issu d'une transplantation embryonnaire
-    # @param [Boolean] avortement:
-    # @param [Boolean] jumeau: Si l'animal est issu d'une naissance gémélaire
-    # @param [string] condition_naissance: Condition de naissance du bovin. (cf p95)
-    # @param [int] poids_naissance: Poids de naissance du bovin. (1-99)
-    # @param [Boolean] poids_pesee: Si le bovin a été pesé pour déterminer son poids
-    # @param [int] tour_poitrine: Tour de poitrine en cm. max length: 3
+    # @param [Boolean] abortion: Avortement
+    # @param [Boolean] twin: Si l'animal est issu d'une naissance gémélaire
+    # @param [string] birth_condition: Condition de naissance du bovin. (cf p95)
+    # @param [int] birth_weight: Poids de naissance du bovin. (1-99)
+    # @param [Boolean] weighed: Si le bovin a été pesé pour déterminer son poids
+    # @param [int] bust_size: Tour de poitrine en cm. max length: 3
     # @param [string] mother_animal_country_code: Code Pays de la mère porteuse. length: 2
     # @param [string] mother_animal_id: Numéro national de la mère porteuse. max length: 12
-    # @param [string] mother_type_racial: Type racial de la mère porteuse . length: 2
+    # @param [string] mother_race_code: Type racial de la mère porteuse . length: 2
     # @param [string] father_animal_country_code: Code Pays du père IPG. length: 2
     # @param [string] father_animal_id: Numéro national du père IPG. max length: 12
-    # @param [string] father_type_racial: Type racial du père IPG . length: 2
-    private def create_mort_ne( token, farm_country_code, farm_number, sexe, type_racial, date_naissance, nom_bovin, transplant, avortement, jumeau, condition_naissance, poids_naissance, poids_pesee, tour_poitrine, mother_animal_country_code, mother_animal_id, mother_type_racial, father_animal_country_code, father_animal_id, father_type_racial)
+    # @param [string] father_race_code: Type racial du père IPG . length: 2
+    private def create_stillbirth( token, farm_country_code, farm_number, sex, race_code, birth_date, cattle_name, transplant, abortion, twin, birth_condition, birth_weight, weighed, bust_size, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code)
 
-      { jeton_authentification: token, exploitation_naissance: { code_pays: farm_country_code, numero_exploitation: farm_number}, sexe: sexe, type_racial: type_racial, date_naissance: date_naissance, nom_bovin: nom_bovin, filiation: { transplantation_embryonnaire: transplant, avortement: avortement, jumeau: jumeau, condition_naissance: condition_naissance, poids: '', attributes!: { poids: { poids_naissance: poids_naissance, poids_pesee: poids_pesee }}, tour_poitrine: tour_poitrine }, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_type_racial }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_type_racial } }
+      { jeton_authentification: token, exploitation_naissance: { code_pays: farm_country_code, numero_exploitation: farm_number}, sexe: sex, type_racial: race_code, date_naissance: birth_date, nom_bovin: cattle_name, filiation: { transplantation_embryonnaire: transplant, avortement: abortion, jumeau: twin, condition_naissance: birth_condition, poids: '', attributes!: { poids: { poids_naissance: birth_weight, poids_pesee: weighed }}, tour_poitrine: bust_size }, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code } }
               #TODO
     end
 
     ##
-    # create_animal_echange: notifier la première entrée en France d’un bovin échangé (né dans l’Union Européenne) sur une exploitation française
+    # create_switched_animal: notifier la première entrée en France d’un bovin échangé (né dans l’Union Européenne) sur une exploitation française
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] animal_country_code: Code Pays UE. length: 2
     # @param [string] animal_id: Numéro national du bovin. max length: 12
-    # @param [string] sexe: Sexe du bovin: length: 1
-    # @param [string] type_racial: Type racial . length: 2
-    # @param [date] date_naissance: Date de Naissance
-    # @param [string] temoin_completude: Témoin de complétude
-    # @param [number] numero_travail: Numéro de travail de bovin. length: 4
-    # @param [string] nom_bovin: Nom du bovin.
-    # @param [Boolean] statut_filie: Indique si l'animal est filié (CPB)
+    # @param [string] sex: Sexe du bovin: length: 1
+    # @param [string] race_code: Type racial . length: 2
+    # @param [date] birth_date: Date de Naissance
+    # @param [string] witness: Témoin de complétude (0/1/2) 0=date complète, 1=date incomplète sur jour, 2=date incomplète sur jour et mois
+    # @param [number] work_number: Numéro de travail de bovin. length: 4
+    # @param [string] cattle_name: Nom du bovin.
+    # @param [Boolean] status: Indique si l'animal est filié (CPB)
     # @param [string] mother_animal_country_code: Code Pays de la mère porteuse. length: 2
     # @param [string] mother_animal_id: Numéro national de la mère porteuse. max length: 12
-    # @param [string] mother_type_racial: Type racial de la mère porteuse . length: 2
+    # @param [string] mother_race_code: Type racial de la mère porteuse . length: 2
     # @param [string] father_animal_country_code: Code Pays du père IPG. length: 2
     # @param [string] father_animal_id: Numéro national du père IPG. max length: 12
-    # @param [string] father_type_racial: Type racial du père IPG . length: 2
-    # @param [string] born_farm_country_code: Code pays de l'exploitation de naissance. length: 2
-    # @param [string] born_farm_number: Numéro d'exploitation de naissance. length: 12
+    # @param [string] father_race_code: Type racial du père IPG . length: 2
+    # @param [string] birth_farm_country_code: Code pays de l'exploitation de naissance. length: 2
+    # @param [string] birth_farm_number: Numéro d'exploitation de naissance. length: 12
     # @param [string] entry_date: Date entrée du bovin
     # @param [string] entry_reason: Cause d'entrée. (A/P)
     # @param [string] src_country_code: Code pays de l'exploitation de provenance. length: 2
     # @param [string] src_farm_number: Numéro d'exploitation de provenance. length: 12
     # @param [string] src_owner_name: Nom du détenteur. max length: 60
-    # @param [string] code_atelier: Le type d'atelier du type AtelierBovinIPG. length: 2
+    # @param [string] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
     # @param [string] cattle_categ_code: Le code catégorie du bovin. length: 2
-    private def create_animal_echange( token, farm_number, animal_country_code, animal_id, sexe, type_racial, date_naissance, temoin_completude, numero_travail, nom_bovin, statut_filie, mother_animal_country_code, mother_animal_id, mother_type_racial, father_animal_country_code, father_animal_id, father_type_racial, born_farm_country_code, born_farm_number, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, code_atelier, cattle_categ_code )
+    private def create_switched_animal( token, farm_number, animal_country_code, animal_id, sex, race_code, birth_date, witness, work_number, cattle_name, status, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code, birth_farm_country_code, birth_farm_number, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code )
 
-      { jeton_authentification: token, exploitation_notification: farm_number, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sexe, type_racial: type_racial, date_naissance: '', attributes!: { date_naissance: {date: date_naissance, temoin_completude: temoin_completude }}, numero_travail: numero_travail, nom_bovin: nom_bovin, statut_filie: statut_filie, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_type_racial }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_type_racial }, exploitation_naissance: { code_pays: born_farm_country_code, numero_exploitation: born_farm_number }, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: code_atelier, code_categorie_bovin: cattle_categ_code  }
+      { jeton_authentification: token, exploitation_notification: farm_number, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sex, type_racial: race_code, date_naissance: '', attributes!: { date_naissance: {date: birth_date, temoin_completude: witness }}, numero_travail: work_number, nom_bovin: cattle_name, statut_filie: status, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code }, exploitation_naissance: { code_pays: birth_farm_country_code, numero_exploitation: birth_farm_number }, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: prod_code, code_categorie_bovin: cattle_categ_code  }
               #TODO
     end
 
     ##
-    # create_avis_animal_importe: prévenir le MOIPG qu’un animal importé (né hors Union Européenne) est entré sur l’exploitation et qu’un rebouclage selon la réglementation française est nécessaire.
+    # create_imported_animal_notice: prévenir le MOIPG qu’un animal importé (né hors Union Européenne) est entré sur l’exploitation et qu’un rebouclage selon la réglementation française est nécessaire.
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] src_animal_country_code: Code pays d'origine du bovin. length: 2
     # @param [string] src_animal_id: Numéro national d'origine du bovin. max length: 12
-    private def create_avis_animal_importe( token, farm_country_code, farm_number, src_animal_country_code, src_animal_id )
+    private def create_imported_animal_notice( token, farm_country_code, farm_number, src_animal_country_code, src_animal_id )
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays_origine_bovin: src_animal_country_code, numero_origine_bovin: src_animal_id } }
               #TODO
     end
 
     ##
-    # create_animal_importe: notifier la première entrée en France d’un bovin importé (né hors Union Européenne) sur une exploitation française.
+    # create_imported_animal: notifier la première entrée en France d’un bovin importé (né hors Union Européenne) sur une exploitation française.
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] animal_country_code: Code Pays UE. length: 2
     # @param [string] animal_id: Numéro national du bovin. max length: 12
-    # @param [string] sexe: Sexe du bovin: length: 1
-    # @param [string] type_racial: Type racial . length: 2
-    # @param [date] date_naissance: Date de Naissance
-    # @param [string] temoin_completude: Témoin de complétude
-    # @param [number] numero_travail: Numéro de travail de bovin. length: 4
-    # @param [string] nom_bovin: Nom du bovin.
-    # @param [Boolean] statut_filie: Indique si l'animal est filié (CPB)
+    # @param [string] sex: Sexe du bovin: length: 1
+    # @param [string] race_code: Type racial . length: 2
+    # @param [date] birth_date: Date de Naissance
+    # @param [string] witness: Témoin de complétude
+    # @param [number] work_number: Numéro de travail de bovin. length: 4
+    # @param [string] cattle_name: Nom du bovin.
+    # @param [Boolean] status: Indique si l'animal est filié (CPB)
     # @param [string] mother_animal_country_code: Code Pays de la mère porteuse. length: 2
     # @param [string] mother_animal_id: Numéro national de la mère porteuse. max length: 12
-    # @param [string] mother_type_racial: Type racial de la mère porteuse . length: 2
+    # @param [string] mother_race_code: Type racial de la mère porteuse . length: 2
     # @param [string] father_animal_country_code: Code Pays du père IPG. length: 2
     # @param [string] father_animal_id: Numéro national du père IPG. max length: 12
-    # @param [string] father_type_racial: Type racial du père IPG . length: 2
-    # @param [string] born_farm_country_code: Code pays de l'exploitation de naissance. length: 2
-    # @param [string] born_farm_number: Numéro d'exploitation de naissance. length: 12
+    # @param [string] father_race_code: Type racial du père IPG . length: 2
+    # @param [string] birth_farm_country_code: Code pays de l'exploitation de naissance. length: 2
+    # @param [string] birth_farm_number: Numéro d'exploitation de naissance. length: 12
     # @param [string] src_animal_country_code: Code pays d'origine du bovin. length: 2
     # @param [string] src_animal_id: Numéro national d'origine du bovin. max length: 12
     # @param [string] entry_date: Date entrée du bovin
@@ -315,47 +315,47 @@ module Tele
     # @param [string] src_country_code: Code pays de l'exploitation de provenance. length: 2
     # @param [string] src_farm_number: Numéro d'exploitation de provenance. length: 12
     # @param [string] src_owner_name: Nom du détenteur. max length: 60
-    # @param [string] code_atelier: Le type d'atelier du type AtelierBovinIPG. length: 2
+    # @param [string] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
     # @param [string] cattle_categ_code: Le code catégorie du bovin. length: 2
-    private def create_animal_importe( token, farm_number, animal_country_code, animal_id, sexe, type_racial, date_naissance, temoin_completude, numero_travail, nom_bovin, statut_filie, mother_animal_country_code, mother_animal_id, mother_type_racial, father_animal_country_code, father_animal_id, father_type_racial, born_farm_country_code, born_farm_number, src_animal_country_code, src_animal_id, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, code_atelier, cattle_categ_code )
+    private def create_imported_animal( token, farm_number, animal_country_code, animal_id, sex, race_code, birth_date, witness, work_number, cattle_name, status, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code, birth_farm_country_code, birth_farm_number, src_animal_country_code, src_animal_id, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code )
 
-      { jeton_authentification: token, exploitation_notification: farm_number, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sexe, type_racial: type_racial, date_naissance: '', attributes!: { date_naissance: { date: date_naissance, temoin_completude: temoin_completude } }, numero_travail: numero_travail, nom_bovin: nom_bovin, statut_filie: statut_filie, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_type_racial }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_type_racial }, exploitation_naissance: { code_pays: born_farm_country_code, numero_exploitation: born_farm_number }, code_pays_origine_bovin: src_animal_country_code, numero_origine_bovin: src_animal_id, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: code_atelier, code_categorie_bovin: cattle_categ_code  }
+      { jeton_authentification: token, exploitation_notification: farm_number, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sex, type_racial: race_code, date_naissance: '', attributes!: { date_naissance: { date: birth_date, temoin_completude: witness } }, numero_travail: work_number, nom_bovin: cattle_name, statut_filie: status, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code }, exploitation_naissance: { code_pays: birth_farm_country_code, numero_exploitation: birth_farm_number }, code_pays_origine_bovin: src_animal_country_code, numero_origine_bovin: src_animal_id, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: prod_code, code_categorie_bovin: cattle_categ_code  }
               #TODO
     end
 
     ##
-    # get_inventaire: fournir l’inventaire des bovins d’une exploitation entre deux dates. L’inventaire peut être complété par la liste des boucles disponibles.
+    # get_cattle_list: fournir l’inventaire des bovins d’une exploitation entre deux dates. L’inventaire peut être complété par la liste des boucles disponibles.
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [date] start_date: Date début de période de présence des bovins
     # @param [date] end_date: Date fin de période de présence des bovins
     # @param [Object] stock: Indique si le stock de boucles doit être retourné
-    private def get_inventaire( token, farm_country_code, farm_number, start_date, end_date, stock)
+    private def get_cattle_list( token, farm_country_code, farm_number, start_date, end_date, stock)
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, date_debut: start_date, date_fin: end_date, stock_boucles: stock}
               #TODO
     end
 
     ##
-    #  get_retour_dossiers: permet de fournir, pour une exploitation, les animaux ayant eu une modification d’identité ou de mouvement depuis la dernière demande effectuée
+    # get_case_feedback: permet de fournir, pour une exploitation, les animaux ayant eu une modification d’identité ou de mouvement depuis la dernière demande effectuée
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française concernée par la demande de dossiers. length: 8
     # @param [date] start_date: Date début de fourniture des dossiers
-    def get_retour_dossiers( farm_country_code, farm_number, start_date )
+    def get_case_feedback( token, farm_country_code, farm_number, start_date )
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, date_debut: start_date }
       #TODO
     end
 
     ##
-    # get_dossier_animal: permet de fournir le dossier d’un bovin (identité et mouvements) concernant une exploitation.
+    # get_animal_case: permet de fournir le dossier d’un bovin (identité et mouvements) concernant une exploitation.
     # @param [string] token: token from reswel, length: 50
     # @param [string] farm_country_code: Toujours 'FR'. length: 2
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] animal_country_code: Code Pays UE. length: 2
     # @param [string] animal_id: Numéro national du bovin. max length: 12
-    private def get_dossier_animal( token, farm_country_code, farm_number, animal_country_code, animal_id )
+    private def get_animal_case( token, farm_country_code, farm_number, animal_country_code, animal_id )
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays: animal_country_code, numero_national: animal_id } }
               #TODO
@@ -401,19 +401,30 @@ module Tele
     # @param [string] farm_number: Numéro d'exploitation française. length: 8
     # @param [string] female_animal_country_code: Code Pays UE. length: 2
     # @param [string] female_animal_id: Numéro national du bovin. max length: 12
-    # @param [date] date_insemination: Date d'insémination
-    # @param [string] taureau_animal_country_code: Code Pays. length: 2
-    # @param [string] taureau_animal_id: Numéro national du bovin. max length: 12
-    # @param [boolean] monte_publique
-    # @param [boolean] pour_collecte_embryon: Insémination réalisée pour collecte embryon
-    # @param [string] mode_insemination: Mode d'insémination. length: 1 (F/C)
+    # @param [date] insemination_date: Date d'insémination
+    # @param [string] bull_animal_country_code: Code Pays. length: 2
+    # @param [string] bull_animal_id: Numéro national du bovin. max length: 12
+    # @param [boolean] public: Monte publique
+    # @param [boolean] collect: Insémination réalisée pour collecte embryon
+    # @param [string] insemination: Mode d'insémination. length: 1 (F/C) F=Fraiche, C=Congelé
     # @param [Boolean] traitement_hormonal: Traitement hormonal prescrit à la femelle
     # @param [string] paillette_fractionnee: Nature de la paillette utilisée. length: 1
     # @param [Object] reference_paillette: Référence de la paillette. length: 2
     # @param [Object] semence_sexee: Nature du sexage de la paillette. length: 2
-    private def create_insemination( token, farm_country_code, farm_number, female_animal_country_code, female_animal_id, date_insemination, taureau_animal_country_code, taureau_animal_id, monte_publique, pour_collecte_embryon, mode_insemination, traitement_hormonal, paillette_fractionnee, reference_paillette, semence_sexee )
+    private def create_insemination( token, farm_country_code, farm_number, female_animal_country_code, female_animal_id, insemination_date, bull_animal_country_code, bull_animal_id, public, collect, insemination, traitement_hormonal, paillette_fractionnee, reference_paillette, semence_sexee )
 
-      { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, femelle: { code_pays: female_animal_country_code, numero_national: female_animal_id }, date_insemination: date_insemination, taureau: { code_pays: taureau_animal_country_code, numero_national: taureau_animal_id }, monte_publique: monte_publique, pour_collecte_embryon: pour_collecte_embryon, mode_insemination: mode_insemination, traitement_hormonal: traitement_hormonal, paillette_fractionnee: paillette_fractionnee, reference_paillette: reference_paillette, semence_sexee: semence_sexee }
+      { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, femelle: { code_pays: female_animal_country_code, numero_national: female_animal_id }, date_insemination: insemination_date, taureau: { code_pays: bull_animal_country_code, numero_national: bull_animal_id }, monte_publique: public, pour_collecte_embryon: collect, mode_insemination: insemination, traitement_hormonal: traitement_hormonal, paillette_fractionnee: paillette_fractionnee, reference_paillette: reference_paillette, semence_sexee: semence_sexee }
+              #TODO
+    end
+
+    ##
+    # get_presumed_exit: permet de fournir les sorties présumées d'un bovin d'une exploitation.
+    # @param [string] token: token from reswel, length: 50
+    # @param [string] farm_country_code: Toujours 'FR'. length: 2
+    # @param [string] farm_number: Numéro d'exploitation française. length: 8
+    private def get_presumed_exit( token, farm_country_code, farm_number )
+
+      { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number } }
               #TODO
     end
 

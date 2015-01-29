@@ -6,7 +6,7 @@ class Ekylibre::GeneratorTest < ActiveSupport::TestCase
   setup do
   end
 
-  test "creation 2 ways transcoding files for bos taurus nomenclature" do
+  test 'creation 2 ways transcoding files for bos taurus nomenclature' do
 
     tr = Ekylibre::Tele::Idele::Generator.new
     tr.bos_taurus
