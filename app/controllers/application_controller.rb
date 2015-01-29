@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   before_action :set_theme
   before_action :set_locale
   before_action :set_time_zone
+  before_action :set_mailer_host
 
   rescue_from PG::UndefinedTable, Apartment::SchemaNotFound, with: :configure_application
 
@@ -32,7 +33,11 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_theme
 
+  def set_mailer_host
+    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
+  end
 
+  
   # # Permits to redirect
   # def after_sign_in_path_for(resource)
   #   backend_root_url(:locale => params[:locale])
