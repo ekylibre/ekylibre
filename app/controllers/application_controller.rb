@@ -33,11 +33,6 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_theme
 
-  def set_mailer_host
-    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
-  end
-
-  
   # # Permits to redirect
   # def after_sign_in_path_for(resource)
   #   backend_root_url(:locale => params[:locale])
@@ -124,6 +119,10 @@ class ApplicationController < ActionController::Base
     Time.zone = session[:time_zone]
   end
 
+  # Sets mailer host on each request to ensure to get the valid domain
+  def set_mailer_host
+    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
+  end
 
   def configure_application(exception)
     title = exception.class.name.underscore.t(scope: "exceptions")

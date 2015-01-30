@@ -26,13 +26,13 @@ module Backend::TimelineHelper
 
     class Side
       attr_reader :name, :model, :label_method
-      
+
       def initialize(name, model, label_method)
         @name = name
         @model = model
         @label_method = label_method
       end
-      
+
       def at_method
         :created_at
       end
@@ -48,7 +48,7 @@ module Backend::TimelineHelper
 
     class Step
       attr_reader :side, :at, :record
-      
+
       def initialize(side, at, record)
         @side = side
         @at = at
@@ -66,11 +66,11 @@ module Backend::TimelineHelper
       def author
         @record.creator
       end
-      
+
       def inspect
         "<Step #{@side.name} #{@at.l} #{@record.id}>"
       end
-      
+
     end
 
     def initialize(object)
@@ -102,10 +102,10 @@ module Backend::TimelineHelper
     def method_missing(method_name, *args)
       side(method_name.to_sym, *args)
     end
-    
+
   end
 
-  
+
   def timeline(object, &block)
     if object
       line = Timeline.new(object)

@@ -85,6 +85,7 @@
     - b.cell :empty do
       Bla
     - b.cell :timeline do
+      = link_to "observe", new_backend_observation_path(subject_id: resource.id, subject_type: resource.class.name, redirect: request.fullpath)
       = timeline(resource) do |l|
         - l.sales
         - l.purchases
@@ -97,7 +98,7 @@
         - l.participations
         - l.versions
         -# l.issues
-        
+
     -# b.cell(tl(:x_subscriptions, count: resource.subscriptions.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :subscriptions, entity_id: resource.id})

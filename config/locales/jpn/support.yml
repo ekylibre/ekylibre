@@ -13,47 +13,49 @@ jpn:
     abbr_month_names: ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"]
     day_names: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"]
     formats:
-      default: "%Y年%m月%d日"
+      default: "%Y/%m/%d"
       legal: "%d %B %Y"
-      long: "%B %d, %Y"
+      long: "%Y年%m月%d日(%a)"
       month_letter: "%d %B %Y"
-      short: "%b %d"
+      short: "%m/%d"
     month_names: ["", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
   datetime:
     distance_in_words:
       about_x_hours:
-        many: "約%{count}時間"
-        one: "約%{count}時間"
+        one: "約1時間"
+        other: "約%{count}時間"
       about_x_months:
-        many: "約%{count}ヶ月"
-        one: "約%{count}ヶ月"
+        one: "約1ヶ月"
+        other: "約%{count}ヶ月"
       about_x_years:
-        many: "約%{count}年"
-        one: "約%{count}年"
-      half_a_minute: "分半"
+        one: "約1年"
+        other: "約%{count}年"
+      almost_x_years:
+        one: "1年弱"
+        other: "%{count}年弱"
+      half_a_minute: "30秒前後"
       less_than_x_minutes:
-        # many: "less than %{count} minutes"
-        # one: "less than a minute"
+        one: "1分以内"
+        other: "%{count}分未満"
       less_than_x_seconds:
-        # many: "moins de %{count} secondes"
-        # one: "moins d'une seconde"
+        one: "1秒以内"
+        other: "%{count}秒未満"
       over_x_years:
-        # many: "over %{count} years"
-        # one: "over 1 year"
+        one: "1年以上"
+        other: "%{count}年以上"
       x_days:
-        many: "%{count}日間"
-        one: "%{count}日間"
+        one: "1日"
+        other: "%{count}日"
       x_minutes:
-        many: "%{count}分間"
-        one: "%{count}分間"
+        one: "1分"
+        other: "%{count}分"
       x_months:
-        many: "%{count}ヶ月間"
-        one: "%{count}ヶ月間"
+        one: "1ヶ月"
+        other: "%{count}ヶ月"
       x_seconds:
-        many: "%{count}秒間"
-        one: "%{count}秒間"
-  form:
-    # new: "New…"
+        one: "1秒"
+        other: "%{count}秒"
+  form: #?
   number:
     currency:
       format:
@@ -89,7 +91,7 @@ jpn:
   time:
     am: "am"
     formats:
-      default: "%Y年%m月%d日 %H:%M:%S"
-      long: "%B %d, %Y %H:%M"
-      short: "%d %b %H:%M"
+      default: "%Y/%m/%d %H:%M:%S"
+      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      short: "%y/%m/%d %H:%M"
     pm: "pm"

@@ -22,38 +22,84 @@ arb:
   datetime:
     distance_in_words:
       about_x_hours:
-        many: "ساعة %{count} حوالي"
+        few: "حوالي %{count} ساعات" #?
+        many: "حوالي %{count} ساعة" #?
         one: "حوالي ساعة واحدة"
+        other: "حوالي %{count} ساعة"
+        two: "حوالي ساعتان" #?
+        zero: "حوالي صفر ساعات" #?
       about_x_months:
-        many: "شهر %{count} حوالي"
+        few: "حوالي %{count} أشهر" #?
+        many: "حوالي %{count} شهر" #?
         one: "حوالي شهر واحد"
+        other: "حوالي %{count} شهر"
+        two: "حوالي شهران" #?
+        zero: "حوالي صفر أشهر" #?
       about_x_years:
-        many: "سنة %{count} حوالي"
+        few: "حوالي %{count} سنوات" #?
+        many: "حوالي %{count} سنة" #?
+        one: "حوالي سنة"
+        other: "حوالي %{count} سنة"
+        two: "حوالي سنتان" #?
+        zero: "حوالي صفر سنوات" #?
+      almost_x_years:
+        few: "ما يقرب من %{count} سنوات" #?
+        many: "ما يقرب من %{count} سنة" #?
         one: "تقريبا سنة واحدة"
+        other: "ما يقرب من %{count} سنة"
+        two: "ما يقرب من سنتين" #?
+        zero: "ما يقرب من صفر سنوات" #?
       half_a_minute: "نصف دقيقة"
       less_than_x_minutes:
-        many: " دقيقة%{count}اقل من"
-        one: "اقل من دقيقة واحدة"
+        few: "أقل من %{count} دقائق" #?
+        many: "أقل من %{count} دقيقة" #?
+        one: "أقل من دقيقة"
+        other: "أقل من %{count} دقيقة"
+        two: "أقل من دقيقتان" #?
+        zero: "أقل من صفر دقائق" #?
       less_than_x_seconds:
-        many: "ثانية %{count} اقل من"
-        one: "اقل من ثانية واحدة"
+        few: "أقل من %{count} ثوان" #?
+        many: "أقل من %{count} ثانية" #?
+        one: "أقل من ثانية"
+        other: "أقل من %{count} ثانية"
+        two: "أقل من ثانيتان" #?
+        zero: "أقل من صفر ثواني" #?
       over_x_years:
-        many: "سنة %{count} اكثر من"
-        one: "اكثر من سنة"
+        few: "أكثر من %{count} سنوات" #?
+        many: "أكثر من %{count} سنة" #?
+        one: "أكثر من سنة"
+        other: "أكثر من %{count} سنة"
+        two: "أكثر من سنتين" #?
+        zero: "أكثر من صفر سنوات" #?
       x_days:
-        many: "%{count} ايام"
+        few: "%{count} أيام" #?
+        many: "%{count} يوم" #?
         one: "يوم واحد"
+        other: "%{count} يوم"
+        two: "يومان" #?
+        zero: "صفر أيام" #?
       x_minutes:
-        many: "%{count} دقائق"
+        few: "%{count} دقائق" #?
+        many: "%{count} دقيقة" #?
         one: "دقيقة واحدة"
+        other: "%{count} دقيقة"
+        two: "دقيقتان" #?
+        zero: "صفر دقائق" #?
       x_months:
-        many: "%{count} اشهر"
+        few: "%{count} أشهر" #?
+        many: "%{count} شهر" #?
         one: "شهر واحد"
+        other: "%{count} شهر"
+        two: "شهران" #?
+        zero: "صفر أشهر" #?
       x_seconds:
-        many: "%{count} ثواني"
+        few: "%{count} ثوان" #?
+        many: "%{count} ثانية" #?
         one: "ثانية واحدة"
-  form:
-    # new: "New…"
+        other: "%{count} ثانية"
+        two: "ثانيتان" #?
+        zero: "صفر ثواني" #?
+  form: #?
   number:
     currency:
       format:

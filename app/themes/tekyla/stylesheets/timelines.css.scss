@@ -1,44 +1,71 @@
 .timeline {
-  > .timestep {
-    $size: 2 * $fs-normal;
-    .icon {
-      background: $base-color;
-      width: $size;
-      height: $size;
-      display: block;
-      @include border-radius(50%);
-      @include float(left);
-      text-align: center;
-      line-height: $size;
-      i {
-        @include is-icon(14px);
-        @include use-icon(file);
-        line-height: $size;
-        color: white;
-        @include text-shadow(0 0 1px rgba(0,0,0,0.5));
+  $size: 32px;
+  > .comment {
+    padding: $default-gap 0 $default-gap ($size + $default-gap);
+    .avatar {
+      img {
+        display: block;
+        @include float(left);
+        @include margin-left(-1 * ($size + $default-gap));
       }
-      @include box-shadow(0 0 $default-gap rgba(0,0,0,0.2) inset);
-      @include margin-right($default-gap);
+    }
+    .description {
+      display: block;
+      padding: 0 $default-gap;
+      border-left: $menu-border;
+      border-right: $menu-border;
+      border-top: $menu-border;
+      @include border-top-radius($default-border-radius);
+      @include ellipsis;
+      background: #EEE;
+      &, * {
+        line-height: $size;
+        vertical-align: baseline;
+      }
     }
     .content {
+      border-left: $menu-border;
+      border-right: $menu-border;
+      border-bottom: $menu-border;
+      padding: $default-gap;
+      background: white;
+      @include border-bottom-radius($default-border-radius);
+    }
+  }
+  > .timestep {
+    padding: $default-gap 0 $default-gap ($size + $default-gap);
+    $line-height: $lh-normal;
+    clear: both;
+    i.symbol {
+      @include is-icon(0.5 * $size);
+      @include use-icon(file);
       line-height: $size;
+      color: $base-color;
+      @include margin-left(-2.2*$fs-normal);
+      @include margin-right(0.5*$fs-normal);
+      width: 1.5 * $fs-normal;
+      @include text-align(center);
+      @include display(inline-block);
+
+      // @include text-shadow(0 0 1px rgba(0,0,0,0.5));
+    }
+    .content {
+      line-height: $line-height;
+      padding: 0;
+      margin: 0;
     }
     .status {
       @include float(right);
+      line-height: $line-height;
+      margin-top: $default-gap;
     }
-    clear: both;
-    padding: $default-gap;
-    &.incoming_payment .icon {
-      background: $success-color;
-      i {
-        @include use-icon(money);
-      }
+    &.incoming_payment i.symbol {
+      color: $success-color;
+      @include use-icon(money);
     }
-    &.outgoing_payment .icon {
-      background: $invalid-color;
-      i {
+    &.outgoing_payment i.symbol {
+        color: $invalid-color;
         @include use-icon(money);
-      }
     }
   }
 }

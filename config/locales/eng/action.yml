@@ -739,9 +739,6 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
-    timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
-    timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
-    timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"    
     access: "Access"
     account_name: "Account name"
     account_number: "Account number"
@@ -930,6 +927,7 @@ eng:
     email: "Email:" #?
     employee: "Employee"
     employee_name: "Employee" #?
+    # empty: "Empty"
     end: "to" #?
     entities: "Entities"
     entity: "Person" #?
@@ -1353,6 +1351,11 @@ eng:
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
+    # timeline: "Timeline"
+    timeline_comment: "%{author} commented %{ago} ago"
+    timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
+    timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
+    timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     to: "to"
     to_deposit: "To deposit"
     today: "Today" #?

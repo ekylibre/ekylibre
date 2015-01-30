@@ -153,6 +153,13 @@ class User < Ekylibre::Record::Base
     self.name
   end
 
+  # Returns the URL of the avatar of the user
+  def avatar_url(options = {})
+    size = options[:size] || 200
+    hash = Digest::MD5.hexdigest(self.email)
+    return "https://secure.gravatar.com/avatar/#{hash}?size=#{size}"
+  end
+
   # Find or create preference for given name
   def preference(name, default_value = nil, nature = :string)
     prefs = self.preferences.select{ |p| p.name == name }

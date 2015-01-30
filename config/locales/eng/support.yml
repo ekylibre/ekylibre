@@ -22,38 +22,39 @@ eng:
   datetime:
     distance_in_words:
       about_x_hours:
-        other: "about %{count} hours"
         one: "about 1 hour"
+        other: "about %{count} hours"
       about_x_months:
-        other: "about %{count} months"
         one: "about 1 month"
+        other: "about %{count} months"
       about_x_years:
-        other: "about %{count} years"
         one: "about 1 year"
+        other: "about %{count} years"
+      almost_x_years:
+        one: "almost 1 year"
+        other: "almost %{count} years"
       half_a_minute: "half a minute"
       less_than_x_minutes:
-        other: "less than %{count} minutes"
         one: "less than a minute"
+        other: "less than %{count} minutes"
       less_than_x_seconds:
-        other: "moins de %{count} secondes"
-        one: "moins d'une seconde"
+        one: "less than 1 second"
+        other: "less than %{count} seconds"
       over_x_years:
-        other: "over %{count} years"
         one: "over 1 year"
+        other: "over %{count} years"
       x_days:
-        other: "%{count} days"
         one: "1 day"
+        other: "%{count} days"
       x_minutes:
-        other: "%{count} minutes"
         one: "1 minute"
+        other: "%{count} minutes"
       x_months:
-        other: "%{count} months"
         one: "1 month"
+        other: "%{count} months"
       x_seconds:
-        other: "%{count} secondes"
-        one: "1 seconde"
-  form:
-    new: "New…"
+        one: "1 second"
+        other: "%{count} seconds"
   number:
     currency:
       format:

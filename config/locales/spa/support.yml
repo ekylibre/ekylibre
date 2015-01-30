@@ -22,38 +22,40 @@ spa:
   datetime:
     distance_in_words:
       about_x_hours:
-        many: "alrededor de %{count} horas"
         one: "alrededor de 1 hora"
+        other: "alrededor de %{count} horas"
       about_x_months:
-        many: "alrededor de %{count} meses"
         one: "alrededor de 1 mes"
+        other: "alrededor de %{count} meses"
       about_x_years:
-        many: "alrededor de %{count} años"
         one: "alrededor de 1 año"
-      half_a_minute: "half a minuto"
+        other: "alrededor de %{count} años"
+      almost_x_years:
+        one: "casi 1 año"
+        other: "casi %{count} años"
+      half_a_minute: "medio minuto"
       less_than_x_minutes:
-        many: "menos de %{count} minutos"
         one: "menos de 1 minuto"
+        other: "menos de %{count} minutos"
       less_than_x_seconds:
-        many: "menos de %{count} segundos"
         one: "menos de 1 segundo"
+        other: "menos de %{count} segundos"
       over_x_years:
-        many: "más de %{count} años"
         one: "más de 1 año"
+        other: "más de %{count} años"
       x_days:
-        many: "%{count} días"
         one: "1 día"
+        other: "%{count} días"
       x_minutes:
-        many: "%{count} minutos"
         one: "1 minuto"
+        other: "%{count} minutos"
       x_months:
-        many: "%{count} meses"
         one: "1 mes"
+        other: "%{count} meses"
       x_seconds:
-        many: "%{count} segundos"
         one: "1 segundo"
-  form:
-    # new: "New…"
+        other: "%{count} segundos"
+  form: #?
   number:
     currency:
       format:

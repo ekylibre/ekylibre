@@ -1,6 +1,7 @@
 jpn:
   actions:
     api/v1/crumbs: #?
+    application: #?
     authentication/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -102,6 +103,7 @@ jpn:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
+    backend/cells: #?
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/cash_balances_cells: #?
@@ -282,6 +284,7 @@ jpn:
       # index: "Incoming payments"
       # new: "New incoming payment"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/intervention_casts: #?
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # index: "Interventions"
@@ -294,6 +297,7 @@ jpn:
       # index: "Inventories"
       # new: "New inventory"
       # show: "Inventory: %{name}"
+    backend/inventory_items: #?
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -341,6 +345,7 @@ jpn:
       # index: "Legal entities"
       # new: "New legal entity"
       # show: "Legal entity: %{full_name}"
+    backend/listing_node_items: #?
     backend/listing_nodes:
       # edit: "Edit listing node"
       # new: "New listing node"
@@ -379,6 +384,7 @@ jpn:
       # new: "New outgoing delivery"
       # ship: "Ship:"
       # show: "Outgoing delivery: %{number}"
+    backend/outgoing_delivery_items: #?
     backend/outgoing_delivery_modes: #?
     backend/outgoing_payment_modes:
       # edit: "Edit disbursement mode"
@@ -421,6 +427,8 @@ jpn:
       # index: "Product groups"
       # new: "New group"
       # show: "Group: %{name}"
+    backend/product_linkages: #?
+    backend/product_memberships: #?
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       # index: "Product categories"
@@ -440,6 +448,8 @@ jpn:
       # new: "New product type"
       # pick: "Pick product nature"
       # show: "Product type: %{name}"
+    backend/product_ownerships: #?
+    backend/product_phases: #?
     backend/production_support_markers: #?
     backend/production_supports:
       # edit: "Edit production support: %{name}"
@@ -554,6 +564,7 @@ jpn:
       # new: "New user"
       # show: "User: %{first_name} %{last_name}"
       # unlock: "Unlock user"
+    backend/visuals: #?
     backend/wine_tanks:
       # index: "Wine tanks"
     backend/wine_transformers:
@@ -563,6 +574,8 @@ jpn:
       # index: "Workers"
       # new: "New worker"
       # show: "Worker: %{name}"
+    base: #?
+    devise: #?
     devise/confirmations: #?
     devise/passwords: #?
     devise/registrations: #?
@@ -1239,6 +1252,10 @@ jpn:
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
+    # timeline_comment: "%{author} commented %{ago} ago"
+    # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
+    # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
+    # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
     # to: "to"
     # to_deposit: "To deposit"
     # today: "Today"

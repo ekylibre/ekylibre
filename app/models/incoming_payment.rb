@@ -75,7 +75,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_presence_of :commission_account, if: :with_commission?
 
   delegate :status, to: :affair
-  
+
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, role: "client"
 
