@@ -26,4 +26,9 @@ class Ekylibre::GeneratorTest < ActiveSupport::TestCase
   #  tr.mammalia_birth_conditions
   #end
 
+  #test 'creation 2 ways transcoding files for entry reason nomenclature' do
+  #  tr = Ekylibre::Tele::Idele::Generator.new
+  #  tr.entry_reason
+  #end
+
 end

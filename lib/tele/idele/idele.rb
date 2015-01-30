@@ -388,9 +388,10 @@ module Tele
     # @param [boolean] boucle_conventionnelle: Indique si la boucle demandée est conventionnelle
     # @param [boolean] boucle_travail: Si la boucle conventionnelle avec numéro de travail uniquement
     # @param [boolean] boucle_electronique: Indique si la boucle est electronique
-    private def create_rebouclage( token, farm_country_code, farm_number, animal_country_code, animal_id, boucle_conventionnelle, boucle_travail, boucle_electronique )
+    # @param [string] cause_remplacement: Motif de la commande de la boucle de rebouclage. length: 1 (C/E/I/L/P/X/Y/Z) Cassé/Electronisation/Illisible/électronique perdu/perdu/anomalie de commande/anomalie de pose/anomalie de fabrication
+    private def create_rebouclage( token, farm_country_code, farm_number, animal_country_code, animal_id, boucle_conventionnelle, boucle_travail, boucle_electronique, cause_remplacement )
 
-      { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays: animal_country_code, numero_national: animal_id }, rebouclage: { boucle_conventionelle: boucle_conventionnelle, attributes!: { boucle_conventionelle: { boucle_travail: boucle_travail } }, boucle_electronique: boucle_electronique } }
+      { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays: animal_country_code, numero_national: animal_id }, rebouclage: { boucle_conventionelle: boucle_conventionnelle, attributes!: { boucle_conventionelle: { boucle_travail: boucle_travail } }, boucle_electronique: boucle_electronique }, cause_remplacement: cause_remplacement }
               #TODO
     end
 
@@ -408,9 +409,9 @@ module Tele
     # @param [boolean] collect: Insémination réalisée pour collecte embryon
     # @param [string] insemination: Mode d'insémination. length: 1 (F/C) F=Fraiche, C=Congelé
     # @param [Boolean] traitement_hormonal: Traitement hormonal prescrit à la femelle
-    # @param [string] paillette_fractionnee: Nature de la paillette utilisée. length: 1
-    # @param [Object] reference_paillette: Référence de la paillette. length: 2
-    # @param [Object] semence_sexee: Nature du sexage de la paillette. length: 2
+    # @param [string] paillette_fractionnee: Nature de la paillette utilisée. length: 1 (1/2/B/D/M/P/Q/T)1: non fractionnée, 2: fractionnée, B: double dose, D: demi, M: morceau, P: entière, Q: Quart, T: tiers
+    # @param [string] reference_paillette: Référence de la paillette. length: 2
+    # @param [string] semence_sexee: Nature du sexage de la paillette. length: 2 (0/1/2) 0: non sexée, 1: sexée mâle, 2: sexée femelle
     private def create_insemination( token, farm_country_code, farm_number, female_animal_country_code, female_animal_id, insemination_date, bull_animal_country_code, bull_animal_id, public, collect, insemination, traitement_hormonal, paillette_fractionnee, reference_paillette, semence_sexee )
 
       { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, femelle: { code_pays: female_animal_country_code, numero_national: female_animal_id }, date_insemination: insemination_date, taureau: { code_pays: bull_animal_country_code, numero_national: bull_animal_id }, monte_publique: public, pour_collecte_embryon: collect, mode_insemination: insemination, traitement_hormonal: traitement_hormonal, paillette_fractionnee: paillette_fractionnee, reference_paillette: reference_paillette, semence_sexee: semence_sexee }
