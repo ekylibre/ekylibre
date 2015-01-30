@@ -6,24 +6,22 @@ class Ekylibre::GeneratorTest < ActiveSupport::TestCase
   setup do
   end
 
-  test 'creation 2 ways transcoding files for bos taurus nomenclature' do
+  #test 'creation 2 ways transcoding files for bos taurus nomenclature' do
+  #  tr = Ekylibre::Tele::Idele::Generator.new
+  #  tr.bos_taurus
+  #end
 
-    tr = Ekylibre::Tele::Idele::Generator.new
-    tr.bos_taurus
-
-  end
-
-  #test "import sex from typeSexe xsd" do
+  #test 'creation 2 ways transcoding files for sexes nomenclature' do
   #  tr = Ekylibre::Tele::Idele::Generator.new
   #  tr.sexes
   #end
 
-  #test "creation transcoding file for countries" do
+  #test 'creation 2 ways transcoding files for countries nomenclature' do
   #  tr = Ekylibre::Tele::Idele::Generator.new
   #  tr.countries
   #end
 
-  #test "creation transcoding file for birth conditions" do
+  #test 'creation 2 ways transcoding files for mammalia birth conditions nomenclature' do
   #  tr = Ekylibre::Tele::Idele::Generator.new
   #  tr.mammalia_birth_conditions
   #end
