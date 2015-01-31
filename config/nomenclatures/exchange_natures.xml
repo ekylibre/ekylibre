@@ -9,10 +9,13 @@
       <item name="bovins_croissance_cattle_performance_controls"/>
       <item name="charentes_alliance_water_analyses"/>
       <item name="ebp_edi"/>
+      <item name="ekylibre_activities"/>
       <item name="ekylibre_cultivable_zones"/>
       <item name="ekylibre_entities"/>
+      <item name="ekylibre_equipments"/>
       <item name="ekylibre_georeadings"/>
       <item name="ekylibre_land_parcels"/>
+      <item name="ekylibre_matters"/>
       <item name="ekylibre_outgoing_payments"/>
       <item name="ekylibre_original_purchase_files"/>
       <item name="ekylibre_plants"/>
@@ -20,6 +23,8 @@
       <item name="ekylibre_sales"/>
       <item name="ekylibre_settings"/>
       <item name="ekylibre_visuals"/>
+      <item name="ekylibre_workers"/>
+      <item name="ekylibre_zones"/>
       <item name="galactea3_monthly_unitary_milk_analyses"/>
       <item name="isagri_isacompta_export"/>
       <item name="isagri_isaculture_csv_import"/>
@@ -29,6 +34,7 @@
       <item name="telepac_cap_land_parcels"/>
       <item name="telepac_land_parcels"/>
       <item name="unicoque_plant_zones"/>
+      <item name="viniteca_plant_zones"/>
     </items>
   </nomenclature>
 

@@ -7,7 +7,7 @@
     <items>
       <item name="grain"     crop_sets="wheat, corn, straw_cereal, sunflower"/>
       <item name="fodder"    crop_sets="corn_sorghum, grass_leguminous, secale_phacelia"/>
-      <item name="seed"      crop_sets="wheat, corn, straw_cereal"/>
+      <item name="seed"      crop_sets="wheat, corn, straw_cereal, bean, peas"/>
       <item name="meat"      crop_sets=""/>
       <item name="milk"      crop_sets=""/>
     </items>

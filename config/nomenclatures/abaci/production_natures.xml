@@ -119,6 +119,12 @@
             telepac_crop_code="HA"
             variant_support="bean_crop"
             />
+       <item name="seed_bean"
+            production_code="2040"
+            activity="market_garden_crops"
+            telepac_crop_code="HA"
+            variant_support="bean_crop"
+            />
        <item name="lentil"
             production_code="2050"
             activity="market_garden_crops"
@@ -132,6 +138,12 @@
             variant_support="pea_crop"
             />
        <item name="winter_pea"
+            production_code="2080"
+            activity="market_garden_crops"
+            telepac_crop_code="PH"
+            variant_support="pea_crop"
+            />
+       <item name="seed_pea"
             production_code="2080"
             activity="market_garden_crops"
             telepac_crop_code="PH"
@@ -404,6 +416,11 @@
             variant_support="market_gardening_crop"
             />
       <!-- 8 - BIG ANIMALS -->
+      <item name="meat_cattle"
+            production_code="8100"
+            activity="cattle_farming"
+            variant_support="female_adult_cow"
+            />
       <item name="milk_cattle"
             production_code="8200"
             activity="cattle_farming"
