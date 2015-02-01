@@ -17,6 +17,7 @@
       <item name="pollen" derivative_of="plant"/>
       <item name="flower" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
+      <item name="vegetable" derivative_of="plant"/>
       <item name="grass" derivative_of="plant"/>
       <item name="sugar" derivative_of="plant"/>
       <!-- VEGETALS INTRANTS -->

@@ -543,20 +543,32 @@
             />
       <!-- GARDEN CROP -->
       <item name="market_gardening_crop"
-            nature="crop"
+            nature="vegetable_crop"
             variety="plant"
             unit_name="square_meter"
             frozen_indicators_values="net_surface_area: 1.00square_meter"
             />
       <item name="garlic_crop"
-            nature="crop"
+            nature="vegetable_crop"
             variety="allium"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="asparagus_crop"
-            nature="crop"
+            nature="vegetable_crop"
             variety="asparagus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="cabbage_crop"
+            nature="vegetable_crop"
+            variety="brassica_oleracea"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="leek_crop"
+            nature="vegetable_crop"
+            variety="allium_porrum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -567,13 +579,13 @@
       <!--       frozen_indicators_values="net_surface_area: 1.00hectare" -->
       <!--       /> -->
       <item name="carrot_crop"
-            nature="crop"
+            nature="vegetable_crop"
             variety="daucus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="melon_crop"
-            nature="crop"
+            nature="vegetable_crop"
             variety="cucumis"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"

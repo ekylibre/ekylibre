@@ -1436,6 +1436,7 @@ eng:
         ekylibre_entities: "Ekylibre Entities"
         ekylibre_equipments: "Ekylibre equipments"
         ekylibre_georeadings: "Ekylibre Georeadings"
+        ekylibre_interventions: "Ekylibre interventions"
         ekylibre_land_parcels: "Ekylibre Land parcels"
         ekylibre_matters: "Ekylibre matters"
         ekylibre_original_purchase_files: "Ekylibre original purchase files"
@@ -2317,6 +2318,7 @@ eng:
         bulk_urea_46: "Bulk urea 46"
         bulk_wheat_straw: "Bulk wheat straw"
         butler_hazelnut: "Butler hazelnut"
+        cabbage_crop: "Cabbage crop"
         calcium_carbonate_25kg: "Calcium carbonate 25kg"
         calf: "Calf"
         caphorn_wheat_crop: "Caphorn wheat crop"
@@ -2574,6 +2576,7 @@ eng:
         lara_walnut: "Lara walnut"
         lavender_crop: "Lavender crop"
         leasing: "Leasing"
+        leek_crop: "Leek crop"
         legal_registration: "Legal registration"
         lentil_crop: "Lentil crop"
         lewis_hazelnut: "Lewis hazelnut"
@@ -2971,6 +2974,7 @@ eng:
         training_course: "Training course"
         user_support: "User support"
         usual_vine_seedling: "Usual vine seedling"
+        vegetable_crop: "Vegetable crop"
         vial: "Vial"
         walnut: "Walnut"
         walnut_crop: "Walnut crop"
@@ -3085,6 +3089,7 @@ eng:
         meat: "Meat"
         milk: "Milk"
         seed: "Seed"
+        vegetable: "Vegetable"
     residue_elimination_methods:
       name: "Residue elimination methods"
       items:
@@ -3321,6 +3326,7 @@ eng:
         allium_ascalonicum: "Shallot"                      #< allium
         allium_cepa: "Onion"                               #< allium
         allium_oleraceum: "Field garlic"                   #< allium
+        allium_porrum: "Allium porrum"                     #< allium
         allium_sativum: "Cultivated garlic"                #< allium
         allium_scorodoprasum: "Sand leek"                  #< allium
         allium_tricoccum: "Wild leek"                      #< allium
@@ -4338,6 +4344,7 @@ eng:
         valerianaceae: "Valerianaceae"                     #< plant
         valerianella: "Valerianella"                       #< valerianaceae
         valerianella_locusta: "Corn salad"                 #< valerianella
+        vegetable: "Vegetable"                             #< raw_matter
         vial: "Vial"                                       #< raw_matter
         vicia: "Vicia"                                     #< fabaceae
         vicia_sativa: "Vicia sativa"                       #< vicia

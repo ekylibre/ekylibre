@@ -403,6 +403,15 @@
             frozen_indicators="net_surface_area"
             derivatives="grain"
             />
+      <item name="vegetable_crop"
+            category="crop"
+            variety="plant"
+            population_counting="decimal"
+            abilities="consume(water), consume(phytosanitary), produce(vegetable)"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
+            frozen_indicators="net_surface_area"
+            derivatives="vegetable"
+            />
       <item name="cereal_crop"
             category="crop"
             variety="plant"
@@ -1164,7 +1173,7 @@
             category="equipment"
             variety="plower"
             population_counting="unitary"
-            abilities="grind(plant)"
+            abilities="grind(plant), grind(cultivable_zone)"
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
