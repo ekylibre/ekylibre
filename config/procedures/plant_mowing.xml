@@ -28,9 +28,6 @@
       </variable>
     </variables>
     <operations>
-      <operation id="200" duration="18 minutes">
-        <task do="[mower] moves at [cultivation]"/>
-      </operation>
       <operation id="300">
         <task do="[mower] consumes [cultivation]"/>
         <task do="[mower] produces [straw]"/>

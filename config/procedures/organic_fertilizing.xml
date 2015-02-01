@@ -42,9 +42,6 @@
       </variable>
     </variables>
     <operations>
-      <operation id="700" duration="18 minutes">
-        <task do="[tractor] moves in [land_parcel]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
-      </operation>
       <operation id="800" repeatable="true">
         <!-- Tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, l'épandeur tourne) les task tournent -->
         <task do="[manure] parts with [manure_to_spread]"/>

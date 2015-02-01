@@ -17,9 +17,6 @@
 
     </variables>
     <operations>
-      <operation id="400" duration="18 minutes">
-        <task do="[tractor] moves in [land_parcel]"/><!-- le chauffeur + son tracteur et sa charrue se déplace vers la parcelle et rentre dedant (?) -->
-      </operation>
       <operation id="500">
         <task do="[tractor] acts on [land_parcel]"/><!-- le tracteur et le chauffeur laboure la parcelle-->
         <task do="[driver] measures [land_parcel|soil_cultural_state]"/><!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de sa surface (valeur attendue = raw)-->
