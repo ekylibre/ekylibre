@@ -23,6 +23,7 @@
       <item name="coupling"             roles="doer, tool"                      activity_families="vegetal_crops, exploitation"/>
       <item name="ground_arrangement"   roles="target, doer, tool"              activity_families="arboriculture, fruits_crops, aromatic_and_medicinal_plants"/>
       <item name="moving"               roles="doer, tool, target"              activity_families="vegetal_crops, animal_farming, exploitation"/>
+      <item name="manual_working"       roles="doer, target"                    activity_families="vegetal_crops, animal_farming, exploitation"/>
       <item name="transport"            roles="input, doer, input_origin, tool, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
       <item name="tillage"              roles="target"                          activity_families="vegetal_crops"/>
       <item name="plant_nutrition"      roles="input, target"                   activity_families="vegetal_crops"/>
@@ -45,8 +46,16 @@
       <item name="sowing"               roles="input, target, output, doer, tool, input_origin" activity_families="field_crops, market_garden_crops"/>
       <item name="seed_mixing"          roles="input, output, doer"             activity_families="cereal_crops, maize_crops, oilseed_crops, protein_crops, fodder_crops, meadow"/>
       <item name="implanting"           roles="input, target, output, doer, tool, input_origin" activity_families="arboriculture, fruits_crops, aromatic_and_medicinal_plants"/>
+      <item name="mulching"             roles="input, target, doer, tool, input_origin" activity_families="market_garden_crops"/>
     </items>
   </nomenclature>
+
+	<nomenclature name="procedure_natures-manual_working">
+    <items>
+      <item name="garden_human_working" roles="target, doer" activity_families="market_garden_crops"/>
+    </items>
+    </nomenclature>
+
 
   <nomenclature name="procedure_natures-harvest">
     <items>

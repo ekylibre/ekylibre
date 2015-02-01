@@ -27,6 +27,7 @@
       <item name="subsoil_nature" datatype="choice" choices="soil_natures"/>
       <item name="reproductor"    datatype="boolean"/>
       <item name="width"          datatype="measure" unit="meter"/>
+      <item name="net_length"     datatype="measure" unit="meter" gathering="proportional_to_population"/>
       <item name="length"         datatype="measure" unit="meter"/>
       <item name="height"         datatype="measure" unit="meter"/>
       <item name="diameter"         datatype="measure" unit="meter"/>
@@ -161,6 +162,8 @@
       <item name="mass_area_density"           datatype="measure" unit="kilogram_per_square_meter"/>
       <item name="volume_area_density"         datatype="measure" unit="liter_per_square_meter"/>
       <item name="mass_area_yield"             datatype="measure" unit="quintal_per_hectare"/>
+      <item name="surface_area_percentage"     datatype="measure" unit="percent"/>
+
       <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
 
       <item name="precocity_index"             datatype="decimal" />

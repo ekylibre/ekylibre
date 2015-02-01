@@ -26,9 +26,6 @@
       </variable>
     </variables>
     <operations>
-      <operation id="600" duration="18 minutes">
-        <task do="[tractor] moves in [land_parcel]"/>
-      </operation>
       <operation id="700">
         <task do="[plants] parts with [plants_to_fix]"/>
         <task do="[plants_to_fix] moves in [land_parcel]"/>

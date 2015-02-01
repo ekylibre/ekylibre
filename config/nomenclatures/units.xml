@@ -22,6 +22,7 @@
       <item name="millionth"  dimension="none" symbol="µ."  a="0.000001"/>
       <item name="thousandth" dimension="none" symbol="m."  a="0.001"/>
       <item name="unity"      dimension="none" symbol="."/>
+
       <!-- <item name="ten"        dimension="none" symbol="da." a="10"/> -->
       <item name="hundred"    dimension="none" symbol="h."  a="100"/>
       <item name="thousand"   dimension="none" symbol="k."  a="1000"/>

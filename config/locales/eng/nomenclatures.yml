@@ -47,6 +47,7 @@ eng:
         produce: "Produce"
         rake: "Rake"
         repair: "Repair"
+        seat: "Seat"
         sow: "Sow"
         spray: "Spray"
         spread: "Spread"
@@ -57,6 +58,7 @@ eng:
         sulfurize: "Sulfurize"
         tow: "Tow"
         uncompact: "Uncompact"
+        wrap: "Wrap"
     accounts:
       name: "Name"
       property_natures:
@@ -1457,6 +1459,7 @@ eng:
         telepac_cap_land_parcels: "Telepac cap land parcels"
         telepac_land_parcels: "Telepac land parcels"
         unicoque_plant_zones: "Unicoque plant zones"
+        viniteca_interventions: "Viniteca interventions"
         viniteca_plant_zones: "Viniteca plant zones"
     fence_perimeters:
       name: "Fence perimeters"
@@ -1609,6 +1612,7 @@ eng:
         milk_withdrawal_period: "Milk withdrawal period"
         molybdenum_concentration: "Molybdenum concentration"
         motor_power: "Motor power"
+        net_length: "Net length"
         net_mass: "Net mass"
         net_surface_area: "Net surface area"
         net_volume: "Net volume"
@@ -1652,6 +1656,7 @@ eng:
         sulfur_concentration: "Sulfur concentration"
         sulfur_dioxide_concentration: "Sulfur dioxide concentration (SO₂)"
         sulfur_trioxide_concentration: "Sulfur trioxide concentration (SO₃)"
+        surface_area_percentage: "Surface area percentage"
         temperature: "Temperature"
         thousand_grains_mass: "Thousand grains mass"
         tiller_count: "Tiller count"
@@ -1899,7 +1904,7 @@ eng:
         cartodb: "Cartodb"
         charentes_alliance_extranet: "Charentes alliance extranet"
         est_elevage: "Est elevage"
-        # idele: "Idele"
+        idele: "Idele"
         lilco: "Lilco"
         msa: "Msa"
         selso: "Selso"
@@ -2006,6 +2011,7 @@ eng:
         filtration: "Filtration"                           #< transformation
         food_mixing: "Food mixing"                         #< animal_nutrition
         food_supply: "Food supply"                         #< animal_nutrition
+        garden_human_working: "Garden human working"       #< manual_working
         grain_transport: "Grain transport"                 #< transport
         grains_harvest: "Grains harvest"                   #< harvest
         grape_harvest: "Grape harvest"                     #< harvest
@@ -2019,9 +2025,11 @@ eng:
         implantation: "Implantation"
         implanting: "Implanting"                           #< implantation
         maintenance_task: "Maintenance task"
+        manual_working: "Manual working"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
         moving: "Moving"
+        mulching: "Mulching"                               #< implantation
         nuts_harvest: "Nuts harvest"                       #< harvest
         nuts_transport: "Nuts transport"                   #< transport
         oviparous_birth: "Oviparous birth"
@@ -2448,6 +2456,7 @@ eng:
         corn_seed_crop: "Corn seed crop"
         corn_silage: "Corn silage"
         corn_silage_crop: "Corn silage crop"
+        cover_implanter: "Cover implanter"
         cow_milk: "Cow milk"
         crop_residue: "Crop residue"
         cultivable_zone: "Cultivable zone"
@@ -2656,6 +2665,7 @@ eng:
         pig_slurry: "Pig slurry"
         piglet_band: "Piglet band"
         plant_medicine_tank: "Plant medicine tank"
+        plastic_cover: "Plastic cover"
         plow: "Plow"
         plum_crop: "Plum crop"
         plum_reaper: "Plum reaper"
@@ -2823,6 +2833,7 @@ eng:
         computer_device: "Computer device"
         cork: "Cork"
         corker: "Corker"
+        cover_implanter: "Cover implanter"
         crop: "Crop"
         crop_residue: "Crop residue"
         cultivable_zone: "Cultivable zone"
@@ -2929,6 +2940,7 @@ eng:
         pig_herd: "Pig herd"
         piglet_band: "Piglet band"
         plant_medicine_tank: "Plant medicine tank"
+        plastic_cover: "Plastic cover"
         plow: "Plow"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
@@ -3476,6 +3488,7 @@ eng:
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
         cannabis_sativa: "Hemp"                            #< cannabis
+        canvas_cover: "Canvas cover"                       #< packaged_matter
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< mammalia
         capra_hircus: "Domestic goat"                      #< capra

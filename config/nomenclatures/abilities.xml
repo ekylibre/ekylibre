@@ -20,7 +20,6 @@
       <item name="feed"       parameters="variety"/>
       <item name="fertilize"/>
       <item name="catch"      parameters="variety"/>
-      <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="spread"     parameters="variety"/>
       <item name="spray"/>
       <!-- Soil working  -->
@@ -39,6 +38,9 @@
       <item name="pick"       parameters="variety"/>
       <item name="move"/>
       <item name="enclose"/> <!-- clôturer des champs  -->
+      <!-- inplanting  -->
+      <item name="wrap"       parameters="variety"/>
+      <item name="seat"       parameters="variety"/>
       <!-- store matter  -->
       <item name="store"      parameters="variety"/>
       <item name="store_fluid"/>

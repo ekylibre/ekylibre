@@ -7,7 +7,7 @@
       <item name="label"/>
       <item name="stake"/>
       <item name="wire"/>
-
+      <item name="canvas_cover"/>
     </items>
   </nomenclature>
 

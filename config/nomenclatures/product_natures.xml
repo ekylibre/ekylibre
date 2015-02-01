@@ -803,6 +803,14 @@
             variable_indicators="population"
             frozen_indicators=""
             />
+      <item name="plastic_cover"
+            category="small_equipment"
+            variety="canvas_cover"
+            population_counting="decimal"
+            abilities="wrap(cultivable_zone),wrap(equipment),wrap(silage)"
+            variable_indicators="population"
+            frozen_indicators="net_length, width"
+            />
       <!-- SEED -->
       <item name="seed"
             category="seed"
@@ -1102,6 +1110,14 @@
             variety="implanter"
             population_counting="unitary"
             abilities="implant"
+            variable_indicators="application_width, geolocation"
+            frozen_indicators="population"
+            />
+      <item name="cover_implanter"
+            category="equipment"
+            variety="implanter"
+            population_counting="unitary"
+            abilities="seat(canvas_cover)"
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />

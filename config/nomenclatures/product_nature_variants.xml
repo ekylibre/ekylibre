@@ -1691,12 +1691,17 @@
       <item name="wire_150m_roll"
             nature="wire"
             unit_name="roll"
-            frozen_indicators_values="length: 150.00meter, diameter: 1.00millimeter"
+            frozen_indicators_values="net_length: 150.00meter, diameter: 1.00millimeter"
             />
       <item name="wire_50m_roll"
             nature="wire"
             unit_name="roll"
-            frozen_indicators_values="length: 50.00meter, diameter: 1.00millimeter"
+            frozen_indicators_values="net_length: 50.00meter, diameter: 1.00millimeter"
+            />
+      <item name="plastic_cover_500m"
+            nature="plastic_cover"
+            unit_name="roll"
+            frozen_indicators_values="net_length: 500.00meter, width: 1.00meter"
             />
       <!-- LAND PARCEL -->
       <item name="land_parcel"
@@ -1832,6 +1837,11 @@
             />
       <item name="implanter"
             nature="implanter"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="cover_implanter"
+            nature="cover_implanter"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
