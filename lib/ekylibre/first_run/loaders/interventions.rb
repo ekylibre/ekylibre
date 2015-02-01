@@ -2,6 +2,12 @@
 Ekylibre::FirstRun.add_loader :interventions do |first_run|
 
 
+  # load interventions from Ekylibre conventions
+  path = first_run.path("alamano", "interventions.csv")
+  if path.exist?
+   first_run.import(:ekylibre_interventions, path)
+  end
+
   # load interventions from viniteca
 
   # get Viniteca product name and linked Ekylibre variant

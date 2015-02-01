@@ -6,12 +6,12 @@ Exchanges.add_importer :ekylibre_plants do |file, w|
 
   rows.each do |row|
     r = {
-      name: row[0].to_s,
-      work_number: row[1].to_s,
+      name: row[0].to_s.strip,
+      work_number: row[1].to_s.strip,
       variant: (row[2].blank? ? nil : row[2].to_sym),
-      container_number: (row[3].blank? ? nil : row[3].to_s),
+      container_number: (row[3].blank? ? nil : row[3].to_s.strip),
       born_at: (row[4].blank? ? nil : row[4].to_datetime),
-      variety: (row[5].blank? ? nil : row[5].to_s),
+      variety: (row[5].blank? ? nil : row[5].to_s.strip),
       indicators: row[6].blank? ? {} : row[6].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
         h[i.first.strip.downcase.to_sym] = i.second
         h

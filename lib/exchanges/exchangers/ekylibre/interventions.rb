@@ -1,0 +1,349 @@
+Exchanges.add_importer :ekylibre_interventions do |file, w|
+
+    rows = CSV.read(file, headers: true, col_sep: ";").delete_if{|r| r[0].blank?}.sort{|a,b| [a[2].split(/\D/).reverse.join,a[0]] <=> [b[2].split(/\D/).reverse.join,b[0]]}
+
+    w.count = rows.size
+
+
+      # 0 "ID intervention"
+      # 1 "campagne"
+      # 2 "date debut intervention"
+      # 3 "heure debut intervention"
+      # 4 "durée (heure)"
+      # 5 "procedure reference_name CF NOMENCLATURE"
+      # 6 "description"
+      # 7 "codes des supports travaillés [array] CF WORK_NUMBER"
+      # 8 "variant de la cible (target) CF NOMENCLATURE"
+      # 9 "variété de la cible (target) CF NOMENCLATURE"
+      # 10 "codes des equipiers [array] CF WORK_NUMBER"
+      # 11 "codes des equipments [array] CF WORK_NUMBER"
+      # --
+      # INTRANT 1
+      # 12 "code intrant CF WORK_NUMBER"
+      # 13 "quantité intrant"
+      # 14 "unité intrant CF NOMENCLATURE"
+      # 15 "diviseur de l'intrant si dose CF NOMENCLATURE"
+      # --
+      # INTRANT 2
+      # 16 "code intrant CF WORK_NUMBER"
+      # 17 "quantité intrant"
+      # 18 "unité intrant CF NOMENCLATURE"
+      # 19 "diviseur de l'intrant si dose CF NOMENCLATURE"
+      # --
+      # INTRANT 3
+      # 20 "code intrant CF WORK_NUMBER"
+      # 21 "quantité intrant"
+      # 22 "unité intrant CF NOMENCLATURE"
+      # 23 "diviseur de l'intrant si dose CF NOMENCLATURE"
+      # --
+
+      information_import_context = "Import Ekylibre interventions on #{Time.now.l}"
+
+      rows.each do |row| #
+        #CSV.foreach(path, headers: true, col_sep: ";") do |row|
+
+          r = OpenStruct.new(  intervention_number: row[0].to_i,
+                               campaign_code: row[1].to_s,
+                               intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(row[2].to_s + " " + row[3].to_s, "%d/%m/%Y %H:%M")),
+                               intervention_duration_in_hour: (row[4].blank? ? nil : row[4].gsub(",",".").to_d),
+                               procedure_name: (row[5].blank? ? nil : row[5].to_s.downcase.to_sym), # to transcode
+                               procedure_description: row[6].to_s,
+                               support_codes: (row[7].blank? ? nil : row[7].to_s.strip.delete(' ').upcase.split(',')),
+                               target_variant: (row[8].blank? ? nil : row[8].to_s.downcase.to_sym),
+                               target_variety: (row[9].blank? ? nil : row[9].to_s.downcase.to_sym),
+                               worker_codes: (row[10].blank? ? nil : row[10].to_s.strip.delete(' ').upcase.split(',')),
+                               equipment_codes: (row[11].blank? ? nil : row[11].to_s.strip.delete(' ').upcase.split(',')),
+                               ### FIRST PRODUCT
+                               first_product_code: (row[12].blank? ? nil : row[12].to_s.upcase),
+                               first_product_input_population: (row[13].blank? ? nil : row[13].gsub(",",".").to_d),
+                               first_product_input_unit_name: (row[14].blank? ? nil : row[14].to_s.downcase),
+                               first_product_input_unit_target_dose: (row[15].blank? ? nil : row[15].to_s.downcase),
+                               ### SECOND PRODUCT
+                               second_product_code: (row[16].blank? ? nil : row[16].to_s.upcase),
+                               second_product_input_population: (row[17].blank? ? nil : row[17].gsub(",",".").to_d),
+                               second_product_input_unit_name: (row[18].blank? ? nil : row[18].to_s.downcase),
+                               second_product_input_unit_target_dose: (row[19].blank? ? nil : row[19].to_s.downcase),
+                               ### THIRD PRODUCT
+                               third_product_code: (row[20].blank? ? nil : row[20].to_s.upcase),
+                               third_product_input_population: (row[21].blank? ? nil : row[21].gsub(",",".").to_d),
+                               third_product_input_unit_name: (row[22].blank? ? nil : row[22].to_s.downcase),
+                               third_product_input_unit_target_dose: (row[23].blank? ? nil : row[23].to_s.downcase)
+                               )
+
+
+          intervention_started_at = r.intervention_started_at
+          if duration_in_seconds = r.intervention_duration_in_hour.hours
+            intervention_stopped_at = intervention_started_at + duration_in_seconds
+          else
+            Rails.logger.warn "Need a duration for intervention n°#{r.intervention_number}"
+          end
+
+          intervention_year = intervention_started_at.year
+          intervention_month = intervention_started_at.month
+          intervention_day = intervention_started_at.day
+
+          # Get campaign
+          unless campaign = Campaign.find_by_name(r.campaign_code)
+            campaign = Campaign.create!(name: r.campaign_code, harvest_year: r.campaign_code)
+          end
+
+          # Get supports and existing production_supports
+          supports = Product.where(work_number: r.support_codes)
+          production_supports = ProductionSupport.of_campaign(campaign).where(storage_id: supports.pluck(:id))
+          # Get global supports area (square_meter)
+          production_supports_area = production_supports.map(&:storage_shape_area).compact.sum
+
+          # Get existing equipments and workers
+
+          if r.equipment_codes
+            equipments = Equipment.where(work_number: r.equipment_codes)
+          end
+
+          if r.worker_codes
+            workers = Worker.where(work_number: r.worker_codes)
+          end
+
+          # Get products
+          first_product = Product.find_by_work_number(r.first_product_code) if r.first_product_code
+          second_product = Product.find_by_work_number(r.second_product_code) if r.second_product_code
+          third_product = Product.find_by_work_number(r.third_product_code) if r.third_product_code
+
+          for support in production_supports
+
+              cultivable_zone = support.storage
+              plant = nil
+              # find variant link to production
+              plant_variant = support.production.variant if support
+              # try to find the current plant on cultivable zone if exist
+              cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape)
+              if product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
+                plant = product_around
+              end
+
+              duration = (duration_in_seconds * (cultivable_zone.shape_area.to_d / production_supports_area.to_d).to_d).round(2)
+
+
+            puts "----------- #{r.intervention_number} / #{support.name} -----------".blue
+            # puts r.product_name.inspect.green
+            puts " procedure : " + r.procedure_name.inspect.green
+            puts " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
+            puts " global duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
+            puts " duration : " + duration.to_f.inspect.yellow if duration
+            puts " first product : " + first_product.name.inspect.red if first_product
+            puts " first product quantity : " + r.first_product_input_population.to_s + " " + r.first_product_input_unit_name.to_s.inspect.red if r.first_product_input_population
+            puts " second product : " + second_product.name.inspect.red if second_product
+            puts " third product : " + third_product.name.inspect.red if third_product
+            puts " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
+            puts " plant : " + plant.name.inspect.yellow if plant
+            puts " support : " + support.name.inspect.yellow if support
+            puts " workers_name : " + workers.pluck(:name).inspect.yellow if workers
+            puts " equipments_name : " + equipments.pluck(:name).inspect.yellow if equipments
+
+
+
+
+          def population_conversion(product, population, unit, unit_target_dose, working_area = Measure.new(0.0, :square_meter))
+            value = population
+            unit = unit.to_sym
+            nomen_unit = Nomen::Units[unit]
+            if value > 0.0 and nomen_unit
+              measure = Measure.new(value, unit)
+              if measure
+                if unit == :liter
+                  variant_indicator = product.variant.send(:net_volume)
+                      # convert measure to variant unit and divide by variant_indicator
+                      # ex : for a wheat_seed_25kg
+                      # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
+                elsif unit == :kilogram
+                  variant_indicator = product.variant.send(:net_mass)
+                else
+                  Rails.logger.warn "Bad unit : #{unit} for intervention n°#{r.intervention_number}"
+                end
+                population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
+              end
+              if working_area.to_d(:square_meter) > 0.0
+                global_intrant_value = population_value.to_d * working_area.to_d(unit_target_dose.to_sym)
+                return global_intrant_value
+              else
+                return population_value
+              end
+            end
+          end
+
+
+            coeff = ((cultivable_zone.shape_area / 10000.0) / 6.0).to_d
+
+            if r.procedure_name and support and (coeff.to_f > 0.0)
+
+              intervention = nil
+
+              Ekylibre::FirstRun::Booker.production = support.production
+
+              ##################
+              #### SPRAYING ####
+              ##################
+
+              if r.procedure_name == :double_spraying_on_cultivation and plant and first_product and second_product
+
+                working_measure = plant.shape_area
+                puts working_measure.inspect.green
+                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                puts first_product_input_population.inspect.green
+                second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
+                puts second_product_input_population.inspect.green
+
+                # Double spraying on cultivation
+                intervention = Ekylibre::FirstRun::Booker.force(:double_spraying_on_cultivation, intervention_started_at, (duration / 3600), support: support) do |i|
+                  i.add_cast(reference_name: 'first_plant_medicine', actor: first_product)
+                  i.add_cast(reference_name: 'first_plant_medicine_to_spray', population: first_product_input_population)
+                  i.add_cast(reference_name: 'second_plant_medicine', actor: second_product)
+                  i.add_cast(reference_name: 'second_plant_medicine_to_spray', population: second_product_input_population)
+                  i.add_cast(reference_name: 'sprayer',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "spray") : i.find(Equipment, can: "spray")))
+                  i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(sprayer)") : i.find(Equipment, can: "catch(sprayer)")))
+                  i.add_cast(reference_name: 'cultivation', actor: plant)
+                end
+
+              elsif r.procedure_name == :double_spraying_on_land_parcel and cultivable_zone and first_product and second_product
+
+                working_measure = cultivable_zone.shape_area
+                puts working_measure.inspect.green
+                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                puts first_product_input_population.inspect.green
+                second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
+                puts second_product_input_population.inspect.green
+
+                # Double spraying on cultivation
+                intervention = Ekylibre::FirstRun::Booker.force(:double_spraying_on_land_parcel, intervention_started_at, (duration / 3600), support: support) do |i|
+                  i.add_cast(reference_name: 'first_plant_medicine', actor: first_product)
+                  i.add_cast(reference_name: 'first_plant_medicine_to_spray', population: first_product_input_population)
+                  i.add_cast(reference_name: 'second_plant_medicine', actor: second_product)
+                  i.add_cast(reference_name: 'second_plant_medicine_to_spray', population: second_product_input_population)
+                  i.add_cast(reference_name: 'sprayer',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "spray") : i.find(Equipment, can: "spray")))
+                  i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(sprayer)") : i.find(Equipment, can: "catch(sprayer)")))
+                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+                end
+
+
+
+               elsif r.procedure_name == :spraying_on_cultivation and plant and first_product
+
+                 working_measure = plant.shape_area
+                puts working_measure.inspect.green
+                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                puts first_product_input_population.inspect.green
+
+                # Spraying on cultivation
+                intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_cultivation, intervention_started_at, (duration / 3600), support: support) do |i|
+                  i.add_cast(reference_name: 'plant_medicine', actor: first_product)
+                  i.add_cast(reference_name: 'plant_medicine_to_spray', population: first_product_input_population)
+                  i.add_cast(reference_name: 'sprayer',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "spray") : i.find(Equipment, can: "spray")))
+                  i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(sprayer)") : i.find(Equipment, can: "catch(sprayer)")))
+                  i.add_cast(reference_name: 'cultivation', actor: plant)
+                end
+
+              elsif r.procedure_name == :spraying_on_land_parcel and cultivable_zone and first_product
+
+                working_measure = cultivable_zone.shape_area
+                puts working_measure.inspect.green
+                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                puts first_product_input_population.inspect.green
+
+                # Spraying on cultivation
+                intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_land_parcel, intervention_started_at, (duration / 3600), support: support) do |i|
+                  i.add_cast(reference_name: 'plant_medicine', actor: first_product)
+                  i.add_cast(reference_name: 'plant_medicine_to_spray', population: first_product_input_population)
+                  i.add_cast(reference_name: 'sprayer',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "spray") : i.find(Equipment, can: "spray")))
+                  i.add_cast(reference_name: 'driver',   actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',  actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(sprayer)") : i.find(Equipment, can: "catch(sprayer)")))
+                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+                end
+
+
+              ##################
+              ####  W SOIL  ####
+              ##################
+
+              elsif r.procedure_name == :raking and cultivable_zone
+
+              intervention = Ekylibre::FirstRun::Booker.force(:raking, intervention_started_at, (duration / 3600) , support: support, parameters: {readings: {"base-raking-0-500-1" => 'plowed'}}) do |i|
+                i.add_cast(reference_name: 'harrow',      actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "plow_superficially") : i.find(Equipment, can: "plow_superficially")))
+                i.add_cast(reference_name: 'driver',      actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
+                i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+              end
+
+              elsif r.procedure_name == :hoeing and cultivable_zone
+
+              intervention = Ekylibre::FirstRun::Booker.force(:hoeing, intervention_started_at, (duration / 3600) , support: support, parameters: {readings: {"base-hoeing-0-500-1" => 'plowed'}}) do |i|
+                i.add_cast(reference_name: 'cultivator',      actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "hoe") : i.find(Equipment, can: "hoe")))
+                i.add_cast(reference_name: 'driver',      actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
+                i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+              end
+              
+              
+              #######################
+              ####  FERTILIZING  ####
+              #######################
+              
+              elsif r.procedure_name == :organic_fertilizing and cultivable_zone and first_product
+                
+                working_measure = cultivable_zone.shape_area
+                puts working_measure.inspect.green
+                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                puts first_product_input_population.inspect.green
+                
+                # Organic fertilizing
+                intervention = Ekylibre::FirstRun::Booker.force(:organic_fertilizing, intervention_started_at, (duration / 3600), support: support) do |i|
+                  i.add_cast(reference_name: 'manure',      actor: first_product)
+                  i.add_cast(reference_name: 'manure_to_spread', population: first_product_input_population)
+                  i.add_cast(reference_name: 'spreader',    actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "spread(preparation)") : i.find(Equipment, can: "spread(preparation)")))
+                  i.add_cast(reference_name: 'driver',      actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(spreader)") : i.find(Equipment, can: "tow(spreader)")))
+                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+                end
+                
+                
+              elsif r.procedure_name == :mineral_fertilizing and cultivable_zone and first_product
+                
+                working_measure = cultivable_zone.shape_area
+                puts working_measure.inspect.green
+                first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
+                puts first_product_input_population.inspect.green
+                
+                # Organic fertilizing
+                intervention = Ekylibre::FirstRun::Booker.force(:mineral_fertilizing, intervention_started_at, (duration / 3600), support: support) do |i|
+                  i.add_cast(reference_name: 'fertilizer',      actor: first_product)
+                  i.add_cast(reference_name: 'fertilizer_to_spread', population: first_product_input_population)
+                  i.add_cast(reference_name: 'spreader',    actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "spread(preparation)") : i.find(Equipment, can: "spread(preparation)")))
+                  i.add_cast(reference_name: 'driver',      actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                  i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "tow(spreader)") : i.find(Equipment, can: "tow(spreader)")))
+                  i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+                end
+              
+              end
+            end
+
+
+
+              if intervention
+                intervention.description = information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
+                intervention.save!
+                puts "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
+              else
+                puts "Intervention is in a black hole".red
+              end
+
+            # for the same intervention session
+            intervention_started_at += duration.seconds
+
+          end
+
+          w.check_point
+        end
+
+
+end

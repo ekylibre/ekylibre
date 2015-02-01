@@ -14,6 +14,7 @@
       <item name="ekylibre_entities"/>
       <item name="ekylibre_equipments"/>
       <item name="ekylibre_georeadings"/>
+      <item name="ekylibre_interventions"/>
       <item name="ekylibre_land_parcels"/>
       <item name="ekylibre_matters"/>
       <item name="ekylibre_outgoing_payments"/>
