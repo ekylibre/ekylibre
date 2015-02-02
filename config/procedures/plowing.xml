@@ -14,9 +14,6 @@
       <variable name="plow" abilities="plow" roles="plowing-tool"/>
     </variables>
     <operations>
-      <operation id="400">
-        <task do="[tractor] moves in [land_parcel]"/>
-      </operation>
       <operation id="500">
         <task do="[tractor] acts on [land_parcel]"/>
         <task do="[driver] measures [land_parcel|soil_cultural_state]"/>

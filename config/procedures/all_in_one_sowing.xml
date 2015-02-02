@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="all_in_one_sowing" natures="sowing,soil_enrichment,plant_illness_treatment" version="0" status="frozen">
+  <procedure name="all_in_one_sowing" natures="sowing,manual_soil_enrichment,plant_illness_treatment" version="0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="grow" roles="sowing-input_origin"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">
@@ -26,8 +26,8 @@
                  backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
                  /> <!--  M    -->
       </variable>
-      <variable name="fertilizer"           variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
-      <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
+      <variable name="fertilizer"           variety="preparation" abilities="fertilize" roles="manual_soil_enrichment-input_origin"/>
+      <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="manual_soil_enrichment-input" default-population=":fertilizer">
         <handler indicator="population" />
   <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1"
                  forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"
@@ -90,10 +90,10 @@
 
       </variable>
 
-      <variable name="sower"        abilities="spread(preparation), sow, spray" roles="soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>
-      <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer,soil_enrichment-doer,soil_enrichment-doer,plant_illness_treatment-doer"/>
+      <variable name="sower"        abilities="spread(preparation), sow, spray" roles="manual_soil_enrichment-tool,sowing-tool,plant_illness_treatment-tool"/>
+      <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer,manual_soil_enrichment-doer,plant_illness_treatment-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
-      <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target,soil_enrichment-target" default-actor="storage"/>
+      <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target,manual_soil_enrichment-target" default-actor="storage"/>
       <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output,plant_illness_treatment-target" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
   <handler indicator="shape">
     <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>

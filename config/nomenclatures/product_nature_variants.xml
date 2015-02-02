@@ -1819,6 +1819,16 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="truck"
+            nature="truck"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="car"
+            nature="car"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="trailer"
             nature="trailer"
             unit_name="equipment"

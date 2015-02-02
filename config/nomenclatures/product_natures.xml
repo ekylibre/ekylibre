@@ -977,6 +977,24 @@
             frozen_indicators="population"
             linkage_points="rear, front"
             />
+      <item name="car"
+            category="equipment"
+            variety="tractor"
+            population_counting="unitary"
+            abilities="move, tow(matter), consume(oil), consume(fuel)"
+            variable_indicators="net_surface_area, motor_power, geolocation"
+            frozen_indicators="population"
+            linkage_points="rear"
+            />
+      <item name="truck"
+            category="equipment"
+            variety="tractor"
+            population_counting="unitary"
+            abilities="move, tow(matter), consume(oil), consume(fuel)"
+            variable_indicators="net_surface_area, motor_power, geolocation"
+            frozen_indicators="population"
+            linkage_points="rear"
+            />
       <item name="trailer"
             category="equipment"
             variety="trailer"
@@ -1297,6 +1315,9 @@
             variable_indicators=""
             frozen_indicators="population"
             />
+
+
+
 
       <!-- COMMON SERVICES -->
       <!-- COMMON SERVICES -->

@@ -173,15 +173,17 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
             end
 
             if w.count.modulo(3).zero?
-              cultivation = int.casts.find_by(reference_name: 'cultivation').actor
-              # Treatment herbicide 01-04 30-04
-              Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 5, 27, 1.07 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
-                i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + 0.9 * coeff)
-                i.add_cast(reference_name: 'sprayer',  actor: products[:sprayer].sample)
-                i.add_cast(reference_name: 'driver',   actor: workers.sample)
-                i.add_cast(reference_name: 'tractor',  actor: products[:tractor][:catcher].sample)
-                i.add_cast(reference_name: 'cultivation', actor: cultivation)
+              if int
+                cultivation = int.casts.find_by(reference_name: 'cultivation').actor
+                # Treatment herbicide 01-04 30-04
+                Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 5, 27, 1.07 * coeff, support: support) do |i|
+                  i.add_cast(reference_name: 'plant_medicine', actor: products[:plant_medicine].sample)
+                  i.add_cast(reference_name: 'plant_medicine_to_spray', population: 0.18 + 0.9 * coeff)
+                  i.add_cast(reference_name: 'sprayer',  actor: products[:sprayer].sample)
+                  i.add_cast(reference_name: 'driver',   actor: workers.sample)
+                  i.add_cast(reference_name: 'tractor',  actor: products[:tractor][:catcher].sample)
+                  i.add_cast(reference_name: 'cultivation', actor: cultivation)
+                end
               end
             end
 
@@ -218,7 +220,6 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
               i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
               i.add_cast(reference_name: 'water_to_spread', population: 200 * coeff)
               i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(water)"))
-              i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
               i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
               i.add_cast(reference_name: 'cultivation', actor: cultivation)
             end

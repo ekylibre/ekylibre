@@ -149,12 +149,12 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
             if value > 0.0 and nomen_unit
               measure = Measure.new(value, unit)
               if measure
-                if unit == :liter
+                if unit == :liter || unit == :cubic_meter || unit == :hectoliter
                   variant_indicator = product.variant.send(:net_volume)
                       # convert measure to variant unit and divide by variant_indicator
                       # ex : for a wheat_seed_25kg
                       # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
-                elsif unit == :kilogram
+                elsif unit == :kilogram || unit == :ton || unit == :quintal
                   variant_indicator = product.variant.send(:net_mass)
                 elsif unit == :meter
                   variant_indicator = product.variant.send(:net_length)
@@ -272,6 +272,15 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
 
               intervention = Ekylibre::FirstRun::Booker.force(:raking, intervention_started_at, (duration / 3600) , support: support, parameters: {readings: {"base-raking-0-500-1" => 'plowed'}}) do |i|
                 i.add_cast(reference_name: 'harrow',      actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "plow_superficially") : i.find(Equipment, can: "plow_superficially")))
+                i.add_cast(reference_name: 'driver',      actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
+                i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
+                i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
+              end
+
+              elsif r.procedure_name == :plowing and cultivable_zone
+
+              intervention = Ekylibre::FirstRun::Booker.force(:plowing, intervention_started_at, (duration / 3600) , support: support, parameters: {readings: {"base-plowing-0-500-1" => 'plowed'}}) do |i|
+                i.add_cast(reference_name: 'plow',      actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "plow") : i.find(Equipment, can: "plow")))
                 i.add_cast(reference_name: 'driver',      actor: (workers.any? ? i.find(Worker, work_number: r.worker_codes) : i.find(Worker)))
                 i.add_cast(reference_name: 'tractor',     actor: (equipments.any? ? i.find(Equipment, work_number: r.equipment_codes, can: "catch(equipment)") : i.find(Equipment, can: "catch(equipment)")))
                 i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
