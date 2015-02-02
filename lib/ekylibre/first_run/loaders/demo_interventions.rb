@@ -539,7 +539,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
       document.archive(path, :pdf)
       # get the prescriptor
-      prescriptor = Entity.where(last_name: "JOUTEUX").first
+      prescriptor = Entity.where(last_name: "JOUTANT").first
       # create the prescription with PDF and prescriptor
       prescription = Prescription.create!(prescriptor: prescriptor, reference_number: "20140601001")
       prescription.attachments.create!(document: document) if document
