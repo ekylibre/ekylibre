@@ -1,71 +1,78 @@
 .timeline {
   $size: 32px;
-  > .comment {
-    padding: $default-gap 0 $default-gap ($size + $default-gap);
-    .avatar {
-      img {
-        display: block;
-        @include float(left);
-        @include margin-left(-1 * ($size + $default-gap));
-      }
-    }
-    .description {
-      display: block;
-      padding: 0 $default-gap;
-      border-left: $menu-border;
-      border-right: $menu-border;
-      border-top: $menu-border;
-      @include border-top-radius($default-border-radius);
-      @include ellipsis;
-      background: #EEE;
-      &, * {
-        line-height: $size;
-        vertical-align: baseline;
-      }
-    }
-    .content {
-      border-left: $menu-border;
-      border-right: $menu-border;
-      border-bottom: $menu-border;
-      padding: $default-gap;
-      background: white;
-      @include border-bottom-radius($default-border-radius);
-    }
-  }
+  padding: $default-gap;
   > .timestep {
-    padding: $default-gap 0 $default-gap ($size + $default-gap);
-    $line-height: $lh-normal;
-    clear: both;
-    i.symbol {
-      @include is-icon(0.5 * $size);
-      @include use-icon(file);
-      line-height: $size;
-      color: $base-color;
-      @include margin-left(-2.2*$fs-normal);
-      @include margin-right(0.5*$fs-normal);
-      width: 1.5 * $fs-normal;
-      @include text-align(center);
-      @include display(inline-block);
+    &.hidden {
+      display: none;
+    }
+    > .comment {
+      padding: $default-gap 0 $default-gap ($size + $default-gap);
+      .avatar {
+        img {
+          display: block;
+          @include float(left);
+          @include margin-left(-1 * ($size + $default-gap));
+          @include border-radius($default-border-radius);
+        }
+      }
+      .description {
+        display: block;
+        padding: 0 $default-gap;
+        border-left: $menu-border;
+        border-right: $menu-border;
+        border-top: $menu-border;
+        @include border-top-radius($default-border-radius);
+        @include ellipsis;
+        background: #EEE;
+        &, * {
+          line-height: $size;
+          vertical-align: baseline;
+        }
+      }
+      .content {
+        border-left: $menu-border;
+        border-right: $menu-border;
+        border-bottom: $menu-border;
+        padding: $default-gap;
+        background: white;
+        @include border-bottom-radius($default-border-radius);
+      }
+    }
+    > .log {
+      padding: $default-gap 0 $default-gap ($size + $default-gap);
+      $line-height: $lh-normal;
+      clear: both;
+      i.symbol {
+        @include is-icon(14px);
+        @include use-icon(file);
+        line-height: $size;
+        color: $text-color;
+        // @include margin-left(-2.2*$fs-normal);
+        @include margin-right(0.5*$fs-normal);
+        width: 1.5 * $fs-normal;
+        @include text-align(center);
+        @include display(inline-block);
 
-      // @include text-shadow(0 0 1px rgba(0,0,0,0.5));
+        // @include text-shadow(0 0 1px rgba(0,0,0,0.5));
+      }
+      .content {
+        line-height: $line-height;
+        padding: 0;
+        margin: 0;
+      }
+      .status {
+        @include float(right);
+        line-height: $line-height;
+        margin-top: $default-gap;
+      }
     }
-    .content {
-      line-height: $line-height;
-      padding: 0;
-      margin: 0;
-    }
-    .status {
-      @include float(right);
-      line-height: $line-height;
-      margin-top: $default-gap;
-    }
-    &.incoming_payment i.symbol {
+    &.incoming_payment .log i.symbol {
       color: $success-color;
       @include use-icon(money);
     }
-    &.outgoing_payment i.symbol {
-        color: $invalid-color;
-        @include use-icon(money);
+    &.outgoing_payment .log i.symbol {
+      color: $invalid-color;
+      @include use-icon(money);
     }
   }
 }

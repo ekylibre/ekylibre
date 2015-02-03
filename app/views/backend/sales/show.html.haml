@@ -6,6 +6,7 @@
       - e.sales_order resource.number, resource
     - elsif resource.estimate? or resource.draft?
       - e.sales_estimate resource.number, resource
+  - t.duplicate resource, method: :post
   - if resource.invoice?
     - t.cancel(resource) if resource.cancelable?
   - t.edit resource if resource.draft?

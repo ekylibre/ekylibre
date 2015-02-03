@@ -23,18 +23,26 @@
 module Backend::TimelineHelper
 
   class Timeline
+    attr_reader :sides
 
     class Side
       attr_reader :name, :model, :label_method
 
-      def initialize(name, model, label_method)
+      def initialize(name, model, options = {})
         @name = name
         @model = model
-        @label_method = label_method
+        @label_method = options[:label_method]
+        @label = options[:label]
+        @new = !options[:new].is_a?(FalseClass)
+        @params = options[:params] || {}
       end
 
       def at_method
         :created_at
+      end
+
+      def human_name
+        @label
       end
 
       def model_name
@@ -43,6 +51,14 @@ module Backend::TimelineHelper
 
       def controller_name
         @controller_name ||= model.name.tableize.to_s
+      end
+
+      def new_url?
+        @new
+      end
+
+      def params
+        @params
       end
     end
 
@@ -89,14 +105,18 @@ module Backend::TimelineHelper
       return list.compact.sort.reverse
     end
 
-    def side(name)
+    def side(name, options = {})
       unless reflection = @model.reflections[name]
         raise ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
       end
       klass = reflection.class_name.constantize
       available_methods = klass.columns_hash.keys.map(&:to_sym)
-      label_method = [:label, :name, :number, :coordinates, :id].detect{|m| available_methods.include?(m) } || :id
-      @sides << Side.new(name.to_sym, klass, label_method)
+      options[:label_method] ||= [:label, :name, :number, :coordinates, :id].detect{|m| available_methods.include?(m) } || :id
+      options[:params] ||= {}
+      options[:params][reflection.foreign_key.to_sym] ||= @object.id
+      options[:params]["#{reflection.options[:as]}_type".to_sym] ||= @model.name if reflection.options[:as]
+      options[:label] ||= @model.human_attribute_name(name)
+      @sides << Side.new(name.to_sym, klass, options)
     end
 
     def method_missing(method_name, *args)

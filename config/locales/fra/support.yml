@@ -15,7 +15,7 @@ fra:
     formats:
       default: "%d/%m/%Y"
       legal: "%d %B %Y"
-      long: "%B %d, %Y"
+      long: "%A %d %B %Y"
       month_letter: "%d %B %Y"
       short: "%d %b"
     month_names: ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
@@ -92,6 +92,6 @@ fra:
     am: "am"
     formats:
       default: "%d/%m/%Y %H:%M"
-      long: "%B %d, %Y %H:%M"
+      long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"
     pm: "pm"
