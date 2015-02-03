@@ -1,8 +1,8 @@
-module Versionable
+module Versioned
   extend ActiveSupport::Concern
 
   included do
-    has_many :versions, -> { order(created_at: :desc) }, as: :item, dependent: :delete_all
+    # has_many :versions, -> { order(created_at: :desc) }, foreign_key: :item_id, dependent: :delete_all, class_name: "#{self.name}Version"
 
     after_create  :add_creation_version
     after_update  :add_update_version
@@ -17,8 +17,10 @@ module Versionable
   end
 
   def add_update_version
+    puts "Yeah #{self.class.name}?".red
     if notably_changed?
       self.versions.create!(event: :update)
+      puts "Yeah".green
     end
   end
 
@@ -28,7 +30,7 @@ module Versionable
 
   def notably_changed?
     if version = self.last_version
-      if Version.diff(self.version_object, version.item_object).empty?
+      if self.class.diff(self.version_object, version.item_object).empty?
         return false
       end
     end
@@ -46,12 +48,22 @@ module Versionable
   end
 
   module ClassMethods
-    def versionize(options = {})
+
+    def acts_as_versioned(options = {})
+      has_many :versions, -> { order(created_at: :desc) }, foreign_key: :item_id, dependent: :delete_all, class_name: "#{self.name}Version"
       if options[:exclude]
         self.versioning_excluded_attributes += [options[:exclude]].flatten
         self.versioning_excluded_attributes.uniq!
       end
     end
+
+    def diff(a, b)
+      # return a.diff(b)
+      return a.dup.
+              delete_if { |k, v| b[k] == v }.
+              merge!(b.dup.delete_if { |k, v| a.has_key?(k) })
+    end
+
   end
 
 

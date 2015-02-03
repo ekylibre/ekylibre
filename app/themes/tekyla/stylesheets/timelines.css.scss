@@ -65,6 +65,28 @@
         line-height: $line-height;
         margin-top: $default-gap;
       }
+      .changes {
+        margin-left: 4em;
+        li {
+          list-style-type: disc;
+          &, * {
+            line-height: $line-height;
+            vertical-align: baseline;
+          }
+          em {
+            font-style: italic;
+          }
+        }
+      }
+      &.create i.symbol{
+        @include use-icon(plus);
+      }
+      &.update i.symbol{
+        @include use-icon(pencil);
+      }
+      &.destroy i.symbol{
+        @include use-icon(remove);
+      }
     }
     &.incoming_payment .log i.symbol {
       color: $success-color;

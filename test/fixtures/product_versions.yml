@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: versions
+# == Table: product_versions
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
@@ -30,33 +30,30 @@
 #  item_changes :text
 #  item_id      :integer
 #  item_object  :text
-#  item_type    :string(255)
 #
 #
-# == Fixture: versions
+# == Fixture: product_versions
 #
-# versions_001:
+# product_versions_001:
 #   creator: users_001
 #   event: "Lorem ipsum"
 #
 ---
-versions_001:
+product_versions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   creator_name: Bob
   event: update
   id: 2
   item_id: 1
-  item_type: Animal
-versions_002:
+product_versions_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   creator_name: Charlene
   event: destroy
   id: 3
   item_id: 1
-  item_type: Entity
-versions_003:
+product_versions_003:
   created_at: 2014-10-31 18:58:07.372736000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -103,8 +100,7 @@ versions_003:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
-versions_004:
+product_versions_004:
   created_at: 2014-10-31 18:59:01.573980000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -151,8 +147,7 @@ versions_004:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
-versions_005:
+product_versions_005:
   created_at: 2014-10-31 19:04:00.181101000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -199,8 +194,7 @@ versions_005:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
-versions_006:
+product_versions_006:
   created_at: 2014-10-31 19:04:30.098492000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -248,8 +242,7 @@ versions_006:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
-versions_007:
+product_versions_007:
   created_at: 2014-10-31 19:04:53.822748000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -297,8 +290,7 @@ versions_007:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
-versions_008:
+product_versions_008:
   created_at: 2014-10-31 19:28:25.982446000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -345,8 +337,7 @@ versions_008:
     picture_updated_at:
     created_at: 2014-10-31 19:28:25.976860000 Z
     creator_id: 1
-  item_type: Entity
-versions_009:
+product_versions_009:
   created_at: 2014-10-31 20:09:53.272265000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -393,8 +384,7 @@ versions_009:
     picture_updated_at:
     created_at: 2014-10-31 20:09:53.266533000 Z
     creator_id: 1
-  item_type: Entity
-versions_010:
+product_versions_010:
   created_at: 2014-10-31 20:10:25.994199000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -441,8 +431,7 @@ versions_010:
     picture_updated_at:
     created_at: 2014-10-31 20:10:25.992209000 Z
     creator_id: 1
-  item_type: Entity
-versions_011:
+product_versions_011:
   created_at: 2014-10-31 20:12:30.892952000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -487,8 +476,7 @@ versions_011:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Building
-versions_012:
+product_versions_012:
   created_at: 2014-10-31 20:15:14.784345000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -555,7 +543,7 @@ versions_012:
           strict_wkt11: false
           ignore_extra_tokens: false
           default_srid:
-        wkb_parser: &1
+        wkb_parser:
           support_ewkb: false
           support_wkb12: false
           ignore_extra_bytes: false
@@ -564,8 +552,7 @@ versions_012:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8317086700117210 45.5990635462548966,
         -0.8315584663068880 45.5984855274884993, -0.8312902454053980 45.5985005410381987,
         -0.8314619067823510 45.5991160931203012, -0.8317086700117210 45.5990635462548966)))
-  item_type: Building
-versions_013:
+product_versions_013:
   created_at: 2014-10-31 20:15:42.716163000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -644,8 +631,7 @@ versions_013:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8317086700117210 45.5990635462548966,
         -0.8315584663068880 45.5984855274884993, -0.8312902454053980 45.5985005410381987,
         -0.8314619067823510 45.5991160931203012, -0.8317086700117210 45.5990635462548966)))
-  item_type: Building
-versions_014:
+product_versions_014:
   created_at: 2014-10-31 20:18:12.221051000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -721,8 +707,7 @@ versions_014:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8130317777613530 45.5987083844552004,
         -0.8128802329520110 45.5986882100715007, -0.8128581047276380 45.5987590549682977,
         -0.8130036145666960 45.5987759451291979, -0.8130317777613530 45.5987083844552004)))
-  item_type: BuildingDivision
-versions_015:
+product_versions_015:
   created_at: 2014-10-31 20:23:26.765355000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -800,8 +785,7 @@ versions_015:
         -0.8359976112842560 45.5976513308166034, -0.8359987736184850 45.5975565562820009,
         -0.8365756273269650 45.5975631248192030, -0.8365742862224580 45.5976569609819009,
         -0.8368921279907230 45.5976625911467011, -0.8368986547429810 45.5974477061239014)))
-  item_type: BuildingDivision
-versions_016:
+product_versions_016:
   created_at: 2014-10-31 20:23:37.031927000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -846,8 +830,7 @@ versions_016:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_017:
+product_versions_017:
   created_at: 2014-10-31 20:25:41.456587000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -921,8 +904,7 @@ versions_017:
           default_srid:
         auto_prepare: simple
       wkt: GEOMETRYCOLLECTION EMPTY
-  item_type: BuildingDivision
-versions_018:
+product_versions_018:
   created_at: 2014-10-31 20:26:47.174539000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1029,8 +1011,7 @@ versions_018:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
-  item_type: BuildingDivision
-versions_019:
+product_versions_019:
   created_at: 2014-10-31 20:49:21.881366000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1107,8 +1088,7 @@ versions_019:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
-  item_type: BuildingDivision
-versions_020:
+product_versions_020:
   created_at: 2014-10-31 20:49:34.041488000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1185,8 +1165,7 @@ versions_020:
       wkt: GEOMETRYCOLLECTION (POLYGON ((-0.8132189512252810 45.5985699786536998,
         -0.8131130039691929 45.5985455816635010, -0.8130053803324701 45.5987766488858028,
         -0.8131062984466551 45.5987876744045977, -0.8132189512252810 45.5985699786536998)))
-  item_type: BuildingDivision
-versions_021:
+product_versions_021:
   created_at: 2014-11-01 16:00:08.025514000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1231,8 +1210,7 @@ versions_021:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_022:
+product_versions_022:
   created_at: 2014-11-01 16:00:08.342121000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1277,8 +1255,7 @@ versions_022:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_023:
+product_versions_023:
   created_at: 2014-11-01 16:01:24.159746000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1323,8 +1300,7 @@ versions_023:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_024:
+product_versions_024:
   created_at: 2014-11-01 17:00:00.266880000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1373,8 +1349,7 @@ versions_024:
     picture_updated_at:
     created_at: 2014-10-31 20:10:25.992209000 Z
     creator_id: 1
-  item_type: Entity
-versions_025:
+product_versions_025:
   created_at: 2014-11-01 18:28:24.979924000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1421,8 +1396,7 @@ versions_025:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
-versions_026:
+product_versions_026:
   created_at: 2014-11-01 19:29:58.097653000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1467,8 +1441,7 @@ versions_026:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Animal
-versions_027:
+product_versions_027:
   created_at: 2014-11-01 19:34:28.165842000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1515,8 +1488,7 @@ versions_027:
     picture_updated_at:
     created_at: 2014-11-01 19:34:28.161304000 Z
     creator_id: 1
-  item_type: Entity
-versions_028:
+product_versions_028:
   created_at: 2014-11-01 19:35:50.375324000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1561,8 +1533,7 @@ versions_028:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Animal
-versions_029:
+product_versions_029:
   created_at: 2014-11-01 19:36:27.501722000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1587,8 +1558,7 @@ versions_029:
     picture_updated_at:
     created_at: 2014-11-01 19:36:27.498008000 Z
     creator_id: 1
-  item_type: Issue
-versions_030:
+product_versions_030:
   created_at: 2014-11-01 19:47:04.286035000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1635,8 +1605,7 @@ versions_030:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
-versions_031:
+product_versions_031:
   created_at: 2014-11-01 20:16:17.387286000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1683,8 +1652,7 @@ versions_031:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Person
-versions_032:
+product_versions_032:
   created_at: 2014-11-01 20:19:35.359776000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1729,8 +1697,7 @@ versions_032:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_033:
+product_versions_033:
   created_at: 2014-11-01 20:23:54.919029000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1775,8 +1742,7 @@ versions_033:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_034:
+product_versions_034:
   created_at: 2014-11-01 20:23:55.249770000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1821,8 +1787,7 @@ versions_034:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_035:
+product_versions_035:
   created_at: 2014-11-01 20:30:35.484926000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1867,8 +1832,7 @@ versions_035:
     creator_id: 1
     person_id: 8
     initial_shape:
-  item_type: Worker
-versions_036:
+product_versions_036:
   created_at: 2014-11-02 18:22:30.494390000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1913,8 +1877,7 @@ versions_036:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_037:
+product_versions_037:
   created_at: 2014-11-02 18:22:39.397058000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -1959,8 +1922,7 @@ versions_037:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_038:
+product_versions_038:
   created_at: 2014-11-02 18:23:23.654787000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2005,8 +1967,7 @@ versions_038:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_039:
+product_versions_039:
   created_at: 2014-11-02 18:23:36.528020000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2051,8 +2012,7 @@ versions_039:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_040:
+product_versions_040:
   created_at: 2014-11-02 18:29:41.473807000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2097,8 +2057,7 @@ versions_040:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_041:
+product_versions_041:
   created_at: 2014-11-02 18:37:22.388480000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2143,8 +2102,7 @@ versions_041:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_042:
+product_versions_042:
   created_at: 2014-11-02 18:38:47.085576000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2189,8 +2147,7 @@ versions_042:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_043:
+product_versions_043:
   created_at: 2014-11-02 18:38:47.155014000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2267,8 +2224,7 @@ versions_043:
         45.5939962959363001, -0.8178430795669560 45.5937673204872027, -0.8168962597846980
         45.5934848535846982, -0.8162477015139300 45.5944092001223993, -0.8177894353866580
         45.5943078511944009)))
-  item_type: Plant
-versions_044:
+product_versions_044:
   created_at: 2014-11-02 18:38:47.249893000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2313,8 +2269,7 @@ versions_044:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_045:
+product_versions_045:
   created_at: 2014-11-02 18:38:47.531262000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2359,8 +2314,7 @@ versions_045:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_046:
+product_versions_046:
   created_at: 2014-11-02 19:33:57.165996000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2385,8 +2339,7 @@ versions_046:
     picture_updated_at:
     created_at: 2014-11-02 19:33:57.155217000 Z
     creator_id: 1
-  item_type: Issue
-versions_047:
+product_versions_047:
   created_at: 2014-11-03 11:29:45.632781000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2433,8 +2386,7 @@ versions_047:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: LegalEntity
-versions_048:
+product_versions_048:
   created_at: 2014-11-03 11:30:58.898635000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2519,8 +2471,7 @@ versions_048:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_049:
+product_versions_049:
   created_at: 2014-11-03 11:36:22.922861000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2571,8 +2522,7 @@ versions_049:
     picture_updated_at: 2014-11-03 11:36:22.690854000 Z
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_050:
+product_versions_050:
   created_at: 2014-11-03 12:46:50.992235000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2620,8 +2570,7 @@ versions_050:
     picture_updated_at: 2014-11-03 12:46:50.797482000 Z
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_051:
+product_versions_051:
   created_at: 2014-11-03 16:19:15.118331000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2669,8 +2618,7 @@ versions_051:
     picture_updated_at: 2014-11-03 16:19:14.889629000 Z
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_052:
+product_versions_052:
   created_at: 2014-11-03 16:19:27.364736000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2718,8 +2666,7 @@ versions_052:
     picture_updated_at: 2014-11-03 16:19:14.889629000 Z
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_053:
+product_versions_053:
   created_at: 2014-11-03 16:56:06.579973000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2766,8 +2713,7 @@ versions_053:
     picture_updated_at:
     created_at: 2014-11-03 16:56:06.570291000 Z
     creator_id: 1
-  item_type: Person
-versions_054:
+product_versions_054:
   created_at: 2014-11-04 17:12:23.247694000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2845,8 +2791,7 @@ versions_054:
         -0.7962727546691890 45.8233789583431985, -0.7965946197509760 45.8217490289287994,
         -0.7976460456848140 45.8210088158703002, -0.7985687255859381 45.8212032162121972,
         -0.7995665073394780 45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
-  item_type: CultivableZone
-versions_055:
+product_versions_055:
   created_at: 2014-11-04 17:15:04.596198000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -2924,8 +2869,7 @@ versions_055:
         -0.8015057444572450 45.8212873315344993, -0.8015513420104980 45.8215415459580981,
         -0.8019107580184940 45.8223359585506032, -0.8020234107971190 45.8230051255386996,
         -0.7994645833969120 45.8229752188059010, -0.7995691895484920 45.8210648929617008)))
-  item_type: CultivableZone
-versions_056:
+product_versions_056:
   created_at: 2014-11-04 17:17:04.662296000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3002,8 +2946,7 @@ versions_056:
         -0.8017122745513910 45.8250686513037024, -0.8020234107971190 45.8230013871979978,
         -0.7994592189788819 45.8229901721743005, -0.7993036508560180 45.8255060192231980,
         -0.8003604412078860 45.8251322007020008, -0.8010685443878170 45.8251546298839969)))
-  item_type: CultivableZone
-versions_057:
+product_versions_057:
   created_at: 2014-11-04 17:19:31.124487000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3083,8 +3026,7 @@ versions_057:
         -0.7980698347091670 45.8259471218497012, -0.7980912923812870 45.8262386962433013,
         -0.7979893684387210 45.8264592450905965, -0.7977801561355590 45.8266349359198983,
         -0.7968091964721680 45.8269227686334020)))
-  item_type: CultivableZone
-versions_058:
+product_versions_058:
   created_at: 2014-11-04 17:22:31.661911000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3166,8 +3108,7 @@ versions_058:
         -0.7939231395721440 45.8206798291298014, -0.7934564352035520 45.8208069378735985,
         -0.7928019762039180 45.8209377848067021, -0.7943308353424070 45.8240069918035999,
         -0.7962137460708620 45.8235247524564997)))
-  item_type: CultivableZone
-versions_059:
+product_versions_059:
   created_at: 2014-11-04 17:28:40.068990000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3212,8 +3153,7 @@ versions_059:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: AnimalGroup
-versions_060:
+product_versions_060:
   created_at: 2014-11-04 17:32:45.769507000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3258,8 +3198,7 @@ versions_060:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: AnimalGroup
-versions_061:
+product_versions_061:
   created_at: 2014-11-04 18:38:59.527403000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3304,8 +3243,7 @@ versions_061:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_062:
+product_versions_062:
   created_at: 2014-11-04 18:39:03.486053000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3350,8 +3288,7 @@ versions_062:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_063:
+product_versions_063:
   created_at: 2014-11-04 18:39:06.807423000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3396,8 +3333,7 @@ versions_063:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_064:
+product_versions_064:
   created_at: 2014-11-04 18:39:58.306233000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3442,8 +3378,7 @@ versions_064:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_065:
+product_versions_065:
   created_at: 2014-11-04 18:41:16.420412000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3488,8 +3423,7 @@ versions_065:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_066:
+product_versions_066:
   created_at: 2014-11-04 18:41:24.701385000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3534,8 +3468,7 @@ versions_066:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_067:
+product_versions_067:
   created_at: 2014-11-05 09:14:00.843340000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3580,8 +3513,7 @@ versions_067:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Animal
-versions_068:
+product_versions_068:
   created_at: 2014-11-05 09:14:05.524619000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3626,8 +3558,7 @@ versions_068:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Animal
-versions_069:
+product_versions_069:
   created_at: 2014-11-05 09:19:17.264356000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3672,8 +3603,7 @@ versions_069:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: BuildingDivision
-versions_070:
+product_versions_070:
   created_at: 2014-11-05 09:20:13.196015000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3718,8 +3648,7 @@ versions_070:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: BuildingDivision
-versions_071:
+product_versions_071:
   created_at: 2014-11-05 09:20:16.436495000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3764,8 +3693,7 @@ versions_071:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: BuildingDivision
-versions_072:
+product_versions_072:
   created_at: 2014-11-05 09:20:19.802403000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3810,8 +3738,7 @@ versions_072:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: BuildingDivision
-versions_073:
+product_versions_073:
   created_at: 2014-11-05 10:01:10.923532000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3858,8 +3785,7 @@ versions_073:
     picture_updated_at:
     created_at: 2014-11-05 10:01:10.914643000 Z
     creator_id: 1
-  item_type: Entity
-versions_074:
+product_versions_074:
   created_at: 2014-11-05 11:32:36.959099000 Z
   event: destroy
   id: 102
@@ -3882,8 +3808,7 @@ versions_074:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Issue
-versions_075:
+product_versions_075:
   created_at: 2014-11-05 11:32:37.049627000 Z
   event: destroy
   id: 103
@@ -3906,8 +3831,7 @@ versions_075:
     picture_updated_at:
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Issue
-versions_076:
+product_versions_076:
   created_at: 2014-11-05 11:45:09.290916000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3934,8 +3858,7 @@ versions_076:
     picture_updated_at:
     created_at: 2014-11-02 19:33:57.155217000 Z
     creator_id: 1
-  item_type: Issue
-versions_077:
+product_versions_077:
   created_at: 2014-11-05 14:14:01.982704000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -3984,8 +3907,7 @@ versions_077:
     picture_updated_at:
     created_at: 2014-11-05 10:01:10.914643000 Z
     creator_id: 1
-  item_type: Entity
-versions_078:
+product_versions_078:
   created_at: 2014-11-05 15:40:15.698778000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4030,8 +3952,7 @@ versions_078:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_079:
+product_versions_079:
   created_at: 2014-11-05 15:40:15.839635000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4111,8 +4032,7 @@ versions_079:
         45.8259471218497012, -0.7980912923812870 45.8262386962433013, -0.7979893684387210
         45.8264592450905965, -0.7977801561355590 45.8266349359198983, -0.7968091964721680
         45.8269227686334020)))
-  item_type: Plant
-versions_080:
+product_versions_080:
   created_at: 2014-11-05 15:40:16.151197000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4157,8 +4077,7 @@ versions_080:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_081:
+product_versions_081:
   created_at: 2014-11-05 15:40:16.224694000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4203,8 +4122,7 @@ versions_081:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_082:
+product_versions_082:
   created_at: 2014-11-05 15:40:16.247249000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4284,8 +4202,7 @@ versions_082:
         -0.7980698347091670 45.8259471218497012, -0.7980912923812870 45.8262386962433013,
         -0.7979893684387210 45.8264592450905965, -0.7977801561355590 45.8266349359198983,
         -0.7968091964721680 45.8269227686334020)))
-  item_type: CultivableZone
-versions_083:
+product_versions_083:
   created_at: 2014-11-05 15:40:16.304828000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4365,8 +4282,7 @@ versions_083:
         -0.7980698347091670 45.8259471218497012, -0.7980912923812870 45.8262386962433013,
         -0.7979893684387210 45.8264592450905965, -0.7977801561355590 45.8266349359198983,
         -0.7968091964721680 45.8269227686334020)))
-  item_type: CultivableZone
-versions_084:
+product_versions_084:
   created_at: 2014-11-06 17:44:40.098153000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4443,8 +4359,7 @@ versions_084:
         45.5939962959363001, -0.8178430795669560 45.5937673204872027, -0.8168962597846980
         45.5934848535846982, -0.8162477015139300 45.5944092001223993, -0.8177894353866580
         45.5943078511944009)))
-  item_type: Plant
-versions_085:
+product_versions_085:
   created_at: 2014-11-06 17:44:58.881078000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4489,8 +4404,7 @@ versions_085:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Plant
-versions_086:
+product_versions_086:
   created_at: 2014-11-06 17:45:02.216489000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4535,8 +4449,7 @@ versions_086:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Plant
-versions_087:
+product_versions_087:
   created_at: 2014-11-06 17:50:06.935638000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4581,8 +4494,7 @@ versions_087:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_088:
+product_versions_088:
   created_at: 2014-11-06 17:50:07.018423000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4664,8 +4576,7 @@ versions_088:
         45.8206798291298014, -0.7934564352035520 45.8208069378735985, -0.7928019762039180
         45.8209377848067021, -0.7943308353424070 45.8240069918035999, -0.7962137460708620
         45.8235247524564997)))
-  item_type: Plant
-versions_089:
+product_versions_089:
   created_at: 2014-11-06 17:50:07.167183000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4710,8 +4621,7 @@ versions_089:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_090:
+product_versions_090:
   created_at: 2014-11-06 17:50:07.234210000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4756,8 +4666,7 @@ versions_090:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_091:
+product_versions_091:
   created_at: 2014-11-06 17:50:07.254340000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4839,8 +4748,7 @@ versions_091:
         -0.7939231395721440 45.8206798291298014, -0.7934564352035520 45.8208069378735985,
         -0.7928019762039180 45.8209377848067021, -0.7943308353424070 45.8240069918035999,
         -0.7962137460708620 45.8235247524564997)))
-  item_type: CultivableZone
-versions_092:
+product_versions_092:
   created_at: 2014-11-06 17:50:07.307666000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4922,8 +4830,7 @@ versions_092:
         -0.7939231395721440 45.8206798291298014, -0.7934564352035520 45.8208069378735985,
         -0.7928019762039180 45.8209377848067021, -0.7943308353424070 45.8240069918035999,
         -0.7962137460708620 45.8235247524564997)))
-  item_type: CultivableZone
-versions_093:
+product_versions_093:
   created_at: 2014-11-07 11:57:07.519970000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -4968,8 +4875,7 @@ versions_093:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Product
-versions_094:
+product_versions_094:
   created_at: 2014-11-07 11:58:46.761108000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5014,8 +4920,7 @@ versions_094:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Product
-versions_095:
+product_versions_095:
   created_at: 2014-11-07 14:30:00.485184000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5092,8 +4997,7 @@ versions_095:
         -0.7962700724601750 45.8260798257694972, -0.7961118221282960 45.8260929092374028,
         -0.7960528135299680 45.8258536681952009, -0.7964497804641720 45.8258088103852970,
         -0.7965517044067379 45.8262985061864967, -0.7963263988494870 45.8263246730165008)))
-  item_type: Building
-versions_096:
+product_versions_096:
   created_at: 2014-11-07 14:39:41.445673000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5138,8 +5042,7 @@ versions_096:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: BuildingDivision
-versions_097:
+product_versions_097:
   created_at: 2014-11-07 14:41:44.731840000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5218,8 +5121,7 @@ versions_097:
         POLYGON ((-0.7965509893256240 45.8263695304107017, -0.7966153623419810 45.8266162454324970,
         -0.7963954212027600 45.8266386740165999, -0.7963095905142840 45.8263956972071966,
         -0.7965509893256240 45.8263695304107017)))
-  item_type: BuildingDivision
-versions_098:
+product_versions_098:
   created_at: 2014-11-07 14:44:18.823744000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5264,8 +5166,7 @@ versions_098:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_099:
+product_versions_099:
   created_at: 2014-11-07 14:44:19.011557000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5310,8 +5211,7 @@ versions_099:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_100:
+product_versions_100:
   created_at: 2014-11-07 14:44:19.103564000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5356,8 +5256,7 @@ versions_100:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_101:
+product_versions_101:
   created_at: 2014-11-07 14:44:19.127028000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5402,8 +5301,7 @@ versions_101:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Animal
-versions_102:
+product_versions_102:
   created_at: 2014-11-07 14:56:43.431488000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5428,8 +5326,7 @@ versions_102:
     picture_updated_at:
     created_at: 2014-11-07 14:56:43.426663000 Z
     creator_id: 1
-  item_type: Issue
-versions_103:
+product_versions_103:
   created_at: 2014-11-07 14:59:10.184647000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5454,8 +5351,7 @@ versions_103:
     picture_updated_at:
     created_at: 2014-11-07 14:59:10.181688000 Z
     creator_id: 1
-  item_type: Issue
-versions_104:
+product_versions_104:
   created_at: 2014-11-07 15:01:32.289891000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5500,8 +5396,7 @@ versions_104:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_105:
+product_versions_105:
   created_at: 2014-11-07 15:02:58.663820000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5546,8 +5441,7 @@ versions_105:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_106:
+product_versions_106:
   created_at: 2014-11-07 15:02:59.127399000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5592,8 +5486,7 @@ versions_106:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_107:
+product_versions_107:
   created_at: 2014-11-07 15:02:59.202698000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5638,8 +5531,7 @@ versions_107:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_108:
+product_versions_108:
   created_at: 2014-11-07 15:02:59.222384000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5721,8 +5613,7 @@ versions_108:
         45.8206798291298014, -0.7934564352035520 45.8208069378735985, -0.7928019762039180
         45.8209377848067021, -0.7943308353424070 45.8240069918035999, -0.7962137460708620
         45.8235247524564997)))
-  item_type: Plant
-versions_109:
+product_versions_109:
   created_at: 2014-11-07 15:06:54.501221000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5770,8 +5661,7 @@ versions_109:
     picture_updated_at: 2014-11-03 16:19:14.889629000 Z
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_110:
+product_versions_110:
   created_at: 2014-11-07 15:07:07.481500000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5819,8 +5709,7 @@ versions_110:
     picture_updated_at: 2014-11-03 16:19:14.889629000 Z
     created_at: 2014-10-31 17:19:32.000000000 Z
     creator_id: 1
-  item_type: Entity
-versions_111:
+product_versions_111:
   created_at: 2014-11-07 15:23:45.093502000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5865,8 +5754,7 @@ versions_111:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_112:
+product_versions_112:
   created_at: 2014-11-07 15:25:51.200583000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5911,8 +5799,7 @@ versions_112:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_113:
+product_versions_113:
   created_at: 2014-11-07 15:26:50.527081000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -5957,8 +5844,7 @@ versions_113:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_114:
+product_versions_114:
   created_at: 2014-11-07 15:26:50.644840000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6003,8 +5889,7 @@ versions_114:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_115:
+product_versions_115:
   created_at: 2014-11-07 15:26:50.712241000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6049,8 +5934,7 @@ versions_115:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_116:
+product_versions_116:
   created_at: 2014-11-07 15:26:50.732740000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6130,8 +6014,7 @@ versions_116:
         -0.7980698347091670 45.8259471218497012, -0.7980912923812870 45.8262386962433013,
         -0.7979893684387210 45.8264592450905965, -0.7977801561355590 45.8266349359198983,
         -0.7968091964721680 45.8269227686334020)))
-  item_type: CultivableZone
-versions_117:
+product_versions_117:
   created_at: 2014-11-07 15:44:20.462118000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6176,8 +6059,7 @@ versions_117:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_118:
+product_versions_118:
   created_at: 2014-11-07 15:44:20.593716000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6222,8 +6104,7 @@ versions_118:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_119:
+product_versions_119:
   created_at: 2014-11-07 15:45:45.732566000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6268,8 +6149,7 @@ versions_119:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_120:
+product_versions_120:
   created_at: 2014-11-07 15:45:45.800101000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6347,8 +6227,7 @@ versions_120:
         45.8233789583431985, -0.7965946197509760 45.8217490289287994, -0.7976460456848140
         45.8210088158703002, -0.7985687255859381 45.8212032162121972, -0.7995665073394780
         45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
-  item_type: Plant
-versions_121:
+product_versions_121:
   created_at: 2014-11-07 15:45:45.900341000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6393,8 +6272,7 @@ versions_121:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_122:
+product_versions_122:
   created_at: 2014-11-07 15:45:45.958448000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6439,8 +6317,7 @@ versions_122:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_123:
+product_versions_123:
   created_at: 2014-11-07 15:45:45.980013000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6518,8 +6395,7 @@ versions_123:
         -0.7962727546691890 45.8233789583431985, -0.7965946197509760 45.8217490289287994,
         -0.7976460456848140 45.8210088158703002, -0.7985687255859381 45.8212032162121972,
         -0.7995665073394780 45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
-  item_type: CultivableZone
-versions_124:
+product_versions_124:
   created_at: 2014-11-07 15:45:46.036493000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6597,8 +6473,7 @@ versions_124:
         -0.7962727546691890 45.8233789583431985, -0.7965946197509760 45.8217490289287994,
         -0.7976460456848140 45.8210088158703002, -0.7985687255859381 45.8212032162121972,
         -0.7995665073394780 45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
-  item_type: CultivableZone
-versions_125:
+product_versions_125:
   created_at: 2014-11-07 15:49:47.933368000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6643,8 +6518,7 @@ versions_125:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: AnimalGroup
-versions_126:
+product_versions_126:
   created_at: 2014-11-07 15:50:04.419141000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6689,8 +6563,7 @@ versions_126:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_127:
+product_versions_127:
   created_at: 2014-11-07 15:50:04.533926000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6768,8 +6641,7 @@ versions_127:
         45.8233789583431985, -0.7965946197509760 45.8217490289287994, -0.7976460456848140
         45.8210088158703002, -0.7985687255859381 45.8212032162121972, -0.7995665073394780
         45.8210985391893999, -0.7992875576019290 45.8255247100833998)))
-  item_type: Plant
-versions_128:
+product_versions_128:
   created_at: 2014-11-07 15:50:04.576373000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6814,8 +6686,7 @@ versions_128:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_129:
+product_versions_129:
   created_at: 2014-11-07 15:50:04.599140000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6860,8 +6731,7 @@ versions_129:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: AnimalGroup
-versions_130:
+product_versions_130:
   created_at: 2014-11-07 16:26:53.126359000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6948,8 +6818,7 @@ versions_130:
         -0.7978713512420650 45.8266629716393012, -0.7980510592460630 45.8265171857444997,
         -0.7982200384140010 45.8265863406396008, -0.7983326911926270 45.8266984835302011,
         -0.7983541488647460 45.8268218404488010)))
-  item_type: CultivableZone
-versions_131:
+product_versions_131:
   created_at: 2014-11-07 16:47:34.648681000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -6994,8 +6863,7 @@ versions_131:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_132:
+product_versions_132:
   created_at: 2014-11-07 16:49:26.144601000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7040,8 +6908,7 @@ versions_132:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_133:
+product_versions_133:
   created_at: 2014-11-07 16:50:07.030791000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7086,8 +6953,7 @@ versions_133:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_134:
+product_versions_134:
   created_at: 2014-11-07 16:50:07.195779000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7174,8 +7040,7 @@ versions_134:
         45.8266629716393012, -0.7980510592460630 45.8265171857444997, -0.7982200384140010
         45.8265863406396008, -0.7983326911926270 45.8266984835302011, -0.7983541488647460
         45.8268218404488010)))
-  item_type: Plant
-versions_135:
+product_versions_135:
   created_at: 2014-11-07 16:50:07.292570000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7220,8 +7085,7 @@ versions_135:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_136:
+product_versions_136:
   created_at: 2014-11-07 16:50:07.353018000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7266,8 +7130,7 @@ versions_136:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_137:
+product_versions_137:
   created_at: 2014-11-07 16:50:07.370774000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7354,8 +7217,7 @@ versions_137:
         -0.7978713512420650 45.8266629716393012, -0.7980510592460630 45.8265171857444997,
         -0.7982200384140010 45.8265863406396008, -0.7983326911926270 45.8266984835302011,
         -0.7983541488647460 45.8268218404488010)))
-  item_type: CultivableZone
-versions_138:
+product_versions_138:
   created_at: 2014-11-07 16:50:07.421786000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7442,8 +7304,7 @@ versions_138:
         -0.7978713512420650 45.8266629716393012, -0.7980510592460630 45.8265171857444997,
         -0.7982200384140010 45.8265863406396008, -0.7983326911926270 45.8266984835302011,
         -0.7983541488647460 45.8268218404488010)))
-  item_type: CultivableZone
-versions_139:
+product_versions_139:
   created_at: 2014-11-07 16:58:41.563373000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7468,8 +7329,7 @@ versions_139:
     picture_updated_at:
     created_at: 2014-11-07 16:58:41.554270000 Z
     creator_id: 1
-  item_type: Issue
-versions_140:
+product_versions_140:
   created_at: 2014-11-07 16:59:09.710497000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7514,8 +7374,7 @@ versions_140:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_141:
+product_versions_141:
   created_at: 2014-11-07 16:59:10.078711000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7560,8 +7419,7 @@ versions_141:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_142:
+product_versions_142:
   created_at: 2014-11-07 16:59:10.154530000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7606,8 +7464,7 @@ versions_142:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_143:
+product_versions_143:
   created_at: 2014-11-07 16:59:10.174120000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7694,8 +7551,7 @@ versions_143:
         45.8266629716393012, -0.7980510592460630 45.8265171857444997, -0.7982200384140010
         45.8265863406396008, -0.7983326911926270 45.8266984835302011, -0.7983541488647460
         45.8268218404488010)))
-  item_type: Plant
-versions_144:
+product_versions_144:
   created_at: 2014-11-07 17:05:10.437803000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7740,8 +7596,7 @@ versions_144:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_145:
+product_versions_145:
   created_at: 2014-11-07 17:07:45.059189000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7786,8 +7641,7 @@ versions_145:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_146:
+product_versions_146:
   created_at: 2014-11-07 17:08:37.129756000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7832,8 +7686,7 @@ versions_146:
     creator_id: 1
     person_id: 9
     initial_shape:
-  item_type: Worker
-versions_147:
+product_versions_147:
   created_at: 2014-11-07 17:08:50.424300000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7878,8 +7731,7 @@ versions_147:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_148:
+product_versions_148:
   created_at: 2014-11-07 17:08:50.534628000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -7966,8 +7818,7 @@ versions_148:
         45.8266629716393012, -0.7980510592460630 45.8265171857444997, -0.7982200384140010
         45.8265863406396008, -0.7983326911926270 45.8266984835302011, -0.7983541488647460
         45.8268218404488010)))
-  item_type: Plant
-versions_149:
+product_versions_149:
   created_at: 2014-11-07 17:18:25.692377000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8033,7 +7884,7 @@ versions_149:
           support_wkt12: false
           strict_wkt11: false
           ignore_extra_tokens: false
-          *1:
+          default_srid:
         wkb_parser:
           support_ewkb: false
           support_wkb12: false
@@ -8046,8 +7897,7 @@ versions_149:
         -0.7960930466651920 45.8268559504575990, -0.7961433380842210 45.8268498760740002,
         -0.7961909472942350 45.8268545486767991, -0.7962868362665180 45.8268269803145003,
         -0.7963451743125920 45.8269171615169029)))
-  item_type: Building
-versions_150:
+product_versions_150:
   created_at: 2014-11-07 17:18:58.804383000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8092,8 +7942,7 @@ versions_150:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Building
-versions_151:
+product_versions_151:
   created_at: 2014-11-07 17:19:35.226620000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8138,8 +7987,7 @@ versions_151:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_152:
+product_versions_152:
   created_at: 2014-11-07 17:20:23.966589000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8184,8 +8032,7 @@ versions_152:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_153:
+product_versions_153:
   created_at: 2014-11-07 17:22:41.841164000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8230,8 +8077,7 @@ versions_153:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_154:
+product_versions_154:
   created_at: 2014-11-07 17:23:41.379183000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8276,8 +8122,7 @@ versions_154:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_155:
+product_versions_155:
   created_at: 2014-11-07 18:53:57.736676000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8322,8 +8167,7 @@ versions_155:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_156:
+product_versions_156:
   created_at: 2014-11-07 18:53:57.941773000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8368,8 +8212,7 @@ versions_156:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_157:
+product_versions_157:
   created_at: 2014-11-07 18:53:57.999059000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8414,8 +8257,7 @@ versions_157:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_158:
+product_versions_158:
   created_at: 2014-11-07 18:53:58.145289000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8460,8 +8302,7 @@ versions_158:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_159:
+product_versions_159:
   created_at: 2014-11-07 18:53:58.198500000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8506,8 +8347,7 @@ versions_159:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_160:
+product_versions_160:
   created_at: 2014-11-07 18:53:58.237406000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8552,8 +8392,7 @@ versions_160:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_161:
+product_versions_161:
   created_at: 2014-11-07 19:02:56.078649000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8598,8 +8437,7 @@ versions_161:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_162:
+product_versions_162:
   created_at: 2014-11-07 19:02:56.218868000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8644,8 +8482,7 @@ versions_162:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_163:
+product_versions_163:
   created_at: 2014-11-07 19:02:56.275468000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8690,8 +8527,7 @@ versions_163:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_164:
+product_versions_164:
   created_at: 2014-11-07 19:02:56.423084000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8736,8 +8572,7 @@ versions_164:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_165:
+product_versions_165:
   created_at: 2014-11-07 19:02:56.505796000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8782,8 +8617,7 @@ versions_165:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_166:
+product_versions_166:
   created_at: 2014-11-07 19:02:56.548839000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8828,8 +8662,7 @@ versions_166:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_167:
+product_versions_167:
   created_at: 2014-11-07 19:05:46.890990000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8874,8 +8707,7 @@ versions_167:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_168:
+product_versions_168:
   created_at: 2014-11-07 19:05:46.972785000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8920,8 +8752,7 @@ versions_168:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_169:
+product_versions_169:
   created_at: 2014-11-07 19:05:47.041939000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -8966,8 +8797,7 @@ versions_169:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_170:
+product_versions_170:
   created_at: 2014-11-07 19:08:55.102283000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9012,8 +8842,7 @@ versions_170:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_171:
+product_versions_171:
   created_at: 2014-11-07 19:08:55.240926000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9058,8 +8887,7 @@ versions_171:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_172:
+product_versions_172:
   created_at: 2014-11-07 19:08:55.399925000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9104,8 +8932,7 @@ versions_172:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_173:
+product_versions_173:
   created_at: 2014-11-07 19:08:55.475570000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9150,8 +8977,7 @@ versions_173:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_174:
+product_versions_174:
   created_at: 2014-11-07 19:08:55.493981000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9196,8 +9022,7 @@ versions_174:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_175:
+product_versions_175:
   created_at: 2014-11-07 19:08:55.522102000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9242,8 +9067,7 @@ versions_175:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_176:
+product_versions_176:
   created_at: 2014-11-07 19:08:55.570499000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9288,8 +9112,7 @@ versions_176:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_177:
+product_versions_177:
   created_at: 2014-11-07 19:08:55.621351000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9334,8 +9157,7 @@ versions_177:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_178:
+product_versions_178:
   created_at: 2014-11-07 19:12:04.944263000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9380,8 +9202,7 @@ versions_178:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_179:
+product_versions_179:
   created_at: 2014-11-07 19:12:42.847581000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9426,8 +9247,7 @@ versions_179:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_180:
+product_versions_180:
   created_at: 2014-11-07 19:12:42.947647000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9472,8 +9292,7 @@ versions_180:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_181:
+product_versions_181:
   created_at: 2014-11-07 19:12:43.003761000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9518,8 +9337,7 @@ versions_181:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_182:
+product_versions_182:
   created_at: 2014-11-07 19:12:43.022111000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9564,8 +9382,7 @@ versions_182:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_183:
+product_versions_183:
   created_at: 2014-11-07 19:22:38.087700000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9610,8 +9427,7 @@ versions_183:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_184:
+product_versions_184:
   created_at: 2014-11-07 19:24:10.213723000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9656,8 +9472,7 @@ versions_184:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_185:
+product_versions_185:
   created_at: 2014-11-07 19:24:10.349067000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9702,8 +9517,7 @@ versions_185:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_186:
+product_versions_186:
   created_at: 2014-11-07 19:24:10.418457000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9748,8 +9562,7 @@ versions_186:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_187:
+product_versions_187:
   created_at: 2014-11-07 19:24:10.437398000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9794,8 +9607,7 @@ versions_187:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_188:
+product_versions_188:
   created_at: 2014-11-07 19:27:14.240913000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9820,8 +9632,7 @@ versions_188:
     picture_updated_at:
     created_at: 2014-11-07 19:27:14.236361000 Z
     creator_id: 1
-  item_type: Issue
-versions_189:
+product_versions_189:
   created_at: 2014-11-07 19:34:09.461585000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9866,8 +9677,7 @@ versions_189:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_190:
+product_versions_190:
   created_at: 2014-11-07 19:34:09.544351000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9912,8 +9722,7 @@ versions_190:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_191:
+product_versions_191:
   created_at: 2014-11-07 19:36:09.032833000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -9958,8 +9767,7 @@ versions_191:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_192:
+product_versions_192:
   created_at: 2014-11-07 19:36:29.982387000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10004,8 +9812,7 @@ versions_192:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Equipment
-versions_193:
+product_versions_193:
   created_at: 2014-11-07 19:36:59.039132000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10050,8 +9857,7 @@ versions_193:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_194:
+product_versions_194:
   created_at: 2014-11-07 19:36:59.107723000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10096,8 +9902,7 @@ versions_194:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_195:
+product_versions_195:
   created_at: 2014-11-07 19:36:59.174117000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10142,8 +9947,7 @@ versions_195:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_196:
+product_versions_196:
   created_at: 2014-11-07 19:36:59.237912000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10188,8 +9992,7 @@ versions_196:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_197:
+product_versions_197:
   created_at: 2014-11-07 19:36:59.339962000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10234,8 +10037,7 @@ versions_197:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_198:
+product_versions_198:
   created_at: 2014-11-07 19:36:59.391233000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10280,8 +10082,7 @@ versions_198:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_199:
+product_versions_199:
   created_at: 2014-11-07 19:36:59.541173000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10326,8 +10127,7 @@ versions_199:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_200:
+product_versions_200:
   created_at: 2014-11-07 19:36:59.628435000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10372,8 +10172,7 @@ versions_200:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_201:
+product_versions_201:
   created_at: 2014-11-07 19:36:59.648884000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10418,8 +10217,7 @@ versions_201:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter
-versions_202:
+product_versions_202:
   created_at: 2014-11-07 19:36:59.668178000 Z
   creator_id: 1
   creator_name: Gendo IKARI
@@ -10464,4 +10262,3 @@ versions_202:
     creator_id: 1
     person_id:
     initial_shape:
-  item_type: Matter

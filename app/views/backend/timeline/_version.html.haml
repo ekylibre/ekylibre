@@ -1,0 +1,25 @@
+.log{class: version.event}
+  - if version.create?
+    %p.content
+      %i.symbol
+      = :created_by_ago.th(defaults)
+  - elsif version.update?
+    %p.content
+      %i.symbol
+      = :updated_by_ago.th(defaults)
+    %ul.changes
+      - for change in version.changes
+        - unless change.old_value.blank? and change.new_value.blank?
+          %li
+            %p
+              - if change.old_value.blank?
+                = :x_has_been_updated_to_a.th(x: change.human_attribute_name, a: change.human_new_value)
+              - elsif change.new_value.blank?
+                = :x_has_been_cleared.th(x: change.human_attribute_name, a: change.human_old_value)
+              - else
+                = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: change.human_old_value, b: change.human_new_value)
+
+  - elsif version.destroy?
+    %p.content
+      %i.symbol
+      = :destroyed_by_ago.th(defaults)

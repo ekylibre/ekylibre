@@ -2586,3 +2586,13 @@ preferences_219:
   updated_at: 2014-12-24 11:05:52.595411000 Z
   updater_id: 1
   user_id: 1
+preferences_220:
+  created_at: 2015-02-03 22:58:55.703921000 Z
+  creator_id: 1
+  id: 220
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/ekylibre/app/views/backend/entities/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-02-03 22:58:55.703921000 Z
+  updater_id: 1
+  user_id: 1

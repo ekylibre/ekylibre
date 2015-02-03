@@ -463,7 +463,7 @@ entities:
   picture_file_name: {type: string}
   picture_file_size: {type: integer}
   picture_updated_at: {type: datetime}
-  proposer_id: {type: integer, references: entity}
+  proposer_id: {type: integer, references: person}
   prospect: {type: boolean, required: true, default: false}
   reminder_submissive: {type: boolean, required: true, default: false}
   responsible_id: {type: integer, references: user}
@@ -517,6 +517,16 @@ entity_links:
   stopped_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
+
+entity_versions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  creator_name: {type: string}
+  event: {type: string, required: true}
+  id: {type: integer, required: true}
+  item_changes: {type: text}
+  item_id: {type: integer, references: entity}
+  item_object: {type: text}
 
 establishments:
   code: {type: string}
@@ -893,6 +903,16 @@ inventory_items:
   product_id: {type: integer, references: product, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
+
+issue_versions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  creator_name: {type: string}
+  event: {type: string, required: true}
+  id: {type: integer, required: true}
+  item_changes: {type: text}
+  item_id: {type: integer, references: issue}
+  item_object: {type: text}
 
 issues:
   created_at: {type: datetime, required: true}
@@ -1544,6 +1564,16 @@ product_readings:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+product_versions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  creator_name: {type: string}
+  event: {type: string, required: true}
+  id: {type: integer, required: true}
+  item_changes: {type: text}
+  item_id: {type: integer, references: product}
+  item_object: {type: text}
+
 production_support_markers:
   absolute_measure_value_unit: {type: string}
   absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
@@ -1973,14 +2003,3 @@ users:
   unlock_token: {type: string}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-
-versions:
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  creator_name: {type: string}
-  event: {type: string, required: true}
-  id: {type: integer, required: true}
-  item_changes: {type: text}
-  item_id: {type: integer, references: ~item_type}
-  item_object: {type: text}
-  item_type: {type: string}

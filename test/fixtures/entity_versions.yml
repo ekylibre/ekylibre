@@ -1,0 +1,1229 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2015 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: entity_versions
+#
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  creator_name :string(255)
+#  event        :string(255)      not null
+#  id           :integer          not null, primary key
+#  item_changes :text
+#  item_id      :integer
+#  item_object  :text
+#
+#
+# == Fixture: entity_versions
+#
+# entity_versions_001:
+#   creator: users_001
+#   event: "Lorem ipsum"
+#
+---
+entity_versions_001:
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  creator_name: Charlene
+  event: destroy
+  id: 1
+  item_id: 1
+entity_versions_002:
+  created_at: 2014-10-31 18:58:07.372736000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 2
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 6
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    type: LegalEntity
+    nature: company
+    last_name: Busbest
+    first_name: Andrew
+    number: '1'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: afr
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_003:
+  created_at: 2014-10-31 18:59:01.573980000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: destroy
+  id: 3
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 6
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 2
+    type: Entity
+    nature: entity
+    last_name: Toley LTD
+    first_name:
+    number: '130'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions:
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin:
+    first_met_at:
+    activity_code:
+    vat_number:
+    siren:
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_004:
+  created_at: 2014-10-31 19:04:00.181101000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 4
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 11
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: Person
+    nature: madam
+    last_name: 碇
+    first_name: ユイ
+    number: '195'
+    active: true
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country:
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_005:
+  created_at: 2014-10-31 19:04:30.098492000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 5
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    country:
+  item_id: 11
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: Person
+    nature: madam
+    last_name: 碇
+    first_name: ユイ
+    number: '195'
+    active: true
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_006:
+  created_at: 2014-10-31 19:04:53.822748000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 6
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    active: true
+  item_id: 11
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: Person
+    nature: madam
+    last_name: 碇
+    first_name: ユイ
+    number: '195'
+    active: false
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_007:
+  created_at: 2014-10-31 19:28:25.982446000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 7
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 2
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    type:
+    nature: entity
+    last_name: Gandhi
+    first_name: Mohandas Karamchand
+    number: '196'
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: hin
+    country: in
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 19:28:25.976860000 Z
+    creator_id: 1
+entity_versions_008:
+  created_at: 2014-10-31 20:09:53.272265000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 8
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 3
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    type:
+    nature: company
+    last_name: BAKTOUBI
+    first_name: ''
+    number: '197'
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: aze
+    country: az
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 20:09:53.266533000 Z
+    creator_id: 1
+entity_versions_009:
+  created_at: 2014-10-31 20:10:25.994199000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 9
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 4
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 11
+    type:
+    nature: company
+    last_name: BAKTOUBI Inc.
+    first_name: ''
+    number: '198'
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: true
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: aze
+    country: az
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 20:10:25.992209000 Z
+    creator_id: 1
+entity_versions_010:
+  created_at: 2014-11-01 17:00:00.266880000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 10
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 11
+    active: false
+  item_id: 4
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 4
+    type:
+    nature: company
+    last_name: BAKTOUBI Inc.
+    first_name: ''
+    number: '198'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: true
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: aze
+    country: az
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 20:10:25.992209000 Z
+    creator_id: 1
+entity_versions_011:
+  created_at: 2014-11-01 18:28:24.979924000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 11
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 10
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 9
+    type: Person
+    nature: sir
+    last_name: FUYUTSUKI
+    first_name: Kōzō
+    number: '194'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_012:
+  created_at: 2014-11-01 19:34:28.165842000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 12
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 5
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 11
+    type:
+    nature: company
+    last_name: Taurus Plus
+    first_name: ''
+    number: EI00000001
+    active: false
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: true
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: ind
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-01 19:34:28.161304000 Z
+    creator_id: 1
+entity_versions_013:
+  created_at: 2014-11-01 19:47:04.286035000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 13
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 7
+    type: LegalEntity
+    nature: company
+    last_name: Yuey LTD
+    first_name: ''
+    number: '3'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_014:
+  created_at: 2014-11-01 20:16:17.387286000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 14
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 11
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 10
+    type: Person
+    nature: madam
+    last_name: 碇
+    first_name: ユイ
+    number: '195'
+    active: false
+    born_at: 1977-03-29 23:00:00.000000000 Z
+    dead_at: 2004-07-11 22:00:00.000000000 Z
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: jpn
+    country: jp
+    currency: JPY
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_015:
+  created_at: 2014-11-03 11:29:45.632781000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 15
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 8
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 8
+    type: LegalEntity
+    nature: company
+    last_name: Yuey LTD
+    first_name: ''
+    number: '3'
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id: 202
+    supplier: true
+    supplier_account_id: 207
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_016:
+  created_at: 2014-11-03 11:30:58.898635000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 16
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_017:
+  created_at: 2014-11-03 11:36:22.922861000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 17
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 11:36:22.690854000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_018:
+  created_at: 2014-11-03 12:46:50.992235000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 18
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    picture_updated_at: 2014-11-03 11:36:22.690854000 Z
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 12:46:50.797482000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_019:
+  created_at: 2014-11-03 16:19:15.118331000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 19
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    picture_updated_at: 2014-11-03 12:46:50.797482000 Z
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: entity
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_020:
+  created_at: 2014-11-03 16:19:27.364736000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 20
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    nature: entity
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: company
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_021:
+  created_at: 2014-11-03 16:56:06.579973000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 21
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 12
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 12
+    type: Person
+    nature: person
+    last_name: IKARI
+    first_name: Yui
+    number: P00000002
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions:
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin:
+    first_met_at:
+    activity_code:
+    vat_number:
+    siren:
+    locked: false
+    of_company: true
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-03 16:56:06.570291000 Z
+    creator_id: 1
+entity_versions_022:
+  created_at: 2014-11-05 10:01:10.923532000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 22
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    type:
+    nature: cooperative
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: true
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: '123456789'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+entity_versions_023:
+  created_at: 2014-11-05 14:14:01.982704000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 23
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    client_account_id:
+    supplier_account_id:
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    type:
+    nature: cooperative
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id: 209
+    supplier: true
+    supplier_account_id: 211
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siren: '123456789'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+entity_versions_024:
+  created_at: 2014-11-07 15:06:54.501221000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 24
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    vat_number: ''
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: company
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country:
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: FR00123456789
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1
+entity_versions_025:
+  created_at: 2014-11-07 15:07:07.481500000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 25
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    country:
+  item_id: 1
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 1
+    type: Entity
+    nature: company
+    last_name: C. Ferstivall LTD
+    first_name: ''
+    number: '129'
+    active: true
+    born_at:
+    dead_at:
+    client: false
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: true
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: eng
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: FR00123456789
+    siren: ''
+    locked: false
+    of_company: true
+    picture_file_name: logo.png
+    picture_content_type: image/png
+    picture_file_size: 9354
+    picture_updated_at: 2014-11-03 16:19:14.889629000 Z
+    created_at: 2014-10-31 17:19:32.000000000 Z
+    creator_id: 1

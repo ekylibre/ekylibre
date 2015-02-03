@@ -146,7 +146,9 @@ class BackendController < BaseController
   end
 
   def set_versioner
-    Version.current_user = current_user
+    ProductVersion.current_user = current_user
+    EntityVersion.current_user = current_user
+    IssueVersion.current_user = current_user
   end
 
   def set_theme
