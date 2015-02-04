@@ -13,7 +13,7 @@
     end
 
     for cash in cashes
-      items = cash.account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
+      items = cash.account.journal_entry_items.between(started_at, stopped_at).reorder(created_at: :asc)
 
       data = []
       last = 0.0

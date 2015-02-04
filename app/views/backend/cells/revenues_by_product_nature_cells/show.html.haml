@@ -39,7 +39,17 @@
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
-      series << {type: 'spline', name: :total.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+      series << {type: 'spline', name: :total_pretax_revenues.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+    end
+    
+    # data for spline sum expenses by month
+    all_purchase_items = PurchaseItem.between(@started_at, @stopped_at)
+    if all_purchase_items.count > 0
+      item_h = all_purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
+        hash
+      end
+      series << {type: 'spline', name: :total_pretax_expenses.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
     end
 
     # data for pie revenues by product_nature

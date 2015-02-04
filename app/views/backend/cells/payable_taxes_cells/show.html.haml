@@ -20,8 +20,8 @@
 
     for tax in taxes
       if tax.purchase_items.count > 0 or tax.sale_items.count > 0
-        #collect_items   =   tax.collect_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
-        #deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(:printed_on)
+        #collect_items   =   tax.collect_account.journal_entry_items.between(started_at, stopped_at).reorder(created_at: :asc)
+        #deduction_items = tax.deduction_account.journal_entry_items.between(started_at, stopped_at).reorder(created_at: :asc)
         #last = {collect: 0.0, deduction: 0.0}
 
         data = []

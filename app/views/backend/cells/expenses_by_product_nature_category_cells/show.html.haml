@@ -7,18 +7,19 @@
       categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
       date = date >> 1
     end
-
+    
+    # to small to be interesting
     # data for bar chart expenses by product_nature_category and by month
-    ProductNatureCategory.availables.find_each do |category|
-      purchase_items = PurchaseItem.by_product_nature_category(category).between(@started_at, @stopped_at)
-      if purchase_items.count > 0
-        item_h = purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.sum.to_d
-          hash
-        end
-        series << {type: 'column', name: category.name, data: normalize_serie(item_h, categories.keys) }
-      end
-    end
+    #ProductNatureCategory.availables.find_each do |category|
+    #  purchase_items = PurchaseItem.by_product_nature_category(category).between(@started_at, @stopped_at)
+    #  if purchase_items.count > 0
+    #    item_h = purchase_items.sums_of_periods.sort.inject({}) do |hash, pair|
+    #     hash[pair.expr.to_i.to_s] = pair.sum.to_d
+    #      hash
+    #    end
+    #    series << {type: 'column', name: category.name, data: normalize_serie(item_h, categories.keys) }
+    #  end
+    #end
 
     # data for spline sum revenues by month
     all_purchase_items = PurchaseItem.between(@started_at, @stopped_at)
