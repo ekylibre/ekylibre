@@ -503,6 +503,11 @@ div[data-deck] > div#default {
   }
 }
 
+#dashboards-nav {
+  @include tab-pills;
+}
+
+
 #subtitle {
   padding: $default-gap;
   font-weight: bold;

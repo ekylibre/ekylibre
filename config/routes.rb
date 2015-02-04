@@ -105,7 +105,7 @@ Ekylibre::Application.routes.draw do
 
     resource :dashboards, only: [] do
       collection do
-        for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
+        for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings, :legals]
           get mod
         end
         get :sandbox
