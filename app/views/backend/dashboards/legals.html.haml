@@ -1,0 +1,12 @@
+%dl#dashboards-nav
+  %dt Tableaux de bord
+  - [:default, :legals].each do |d|
+    - if d == :default
+      %dd= link_to(d, controller: :dashboards, action: :index)
+    - else
+      %dd.active= link_to(d, controller: :dashboards, action: d)
+
+= beehive(:legals) do |b|
+  - b.hbox do
+    - b.cell :manure_management_plans do
+      %p Plans
