@@ -1,20 +1,18 @@
 = beehive do |b|
   - b.hbox do
-    - b.cell :revenues_by_product_nature
-  - b.hbox do
-    - b.cell :expenses_by_product_nature_category
-  - b.hbox do
     - b.cell :numbers do
       .big-infos
         .big-info.important
-          %span.title= :unpaid_sales.tl
-          %span.value= link_to(Sale.unpaid.count.l, backend_sales_path(state: "unpaid"))
+          %span.title= Sale.unpaid.count.l + " " + :unpaid_sales.tl
+          %span.value= link_to(Sale.unpaid.sum(:amount).round(2).l(currency: Preference[:currency]), backend_sales_path(state: "unpaid"))
         .big-info.important
-          %span.title= :unpaid_purchases.tl
-          %span.value= link_to(Purchase.unpaid.count.l, backend_purchases_path(state: "unpaid"))
+          %span.title= Purchase.unpaid.count.l + " " + :unpaid_purchases.tl
+          %span.value= link_to(Purchase.unpaid.sum(:amount).round(2).l(currency: Preference[:currency]), backend_purchases_path(state: "unpaid"))
         .big-info
           %span.title= :incoming_payments_to_deposit.tl
           %span.value= link_to(IncomingPayment.depositables.count.l, backend_incoming_payments_path(s: "undeposited"))
+  - b.hbox do
+    - b.cell :revenues_by_product_nature
   - b.hbox do
     - b.cell :last_sales
     - b.cell :last_purchases
