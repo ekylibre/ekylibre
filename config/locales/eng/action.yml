@@ -1371,6 +1371,8 @@ eng:
     total_earn_per_area: "Total earn per area"
     total_in_currency: "Total (%{currency})"
     total_paid_amount: "Total paid amount"
+    total_pretax_revenues: "Total pretax revenues"
+    total_pretax_expenses: "Total pretax expenses"
     total_quantity: "Total quantity"
     total_unpaid_amount: "Total unpaid amount"
     totals: "Totals" #?

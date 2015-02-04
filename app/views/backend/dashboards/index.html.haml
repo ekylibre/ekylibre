@@ -6,7 +6,9 @@
         = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", title: Ekylibre::Modules.human_name(mod)) do
           %i
           = Ekylibre::Modules.human_name(mod)
-    - b.cell :weather
   - b.hbox do
     - b.cell :calendar
-  - b.cell :map
+    - b.cell :weather
+  - b.hbox do  
+    - b.cell :map
+  

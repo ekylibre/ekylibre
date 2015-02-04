@@ -1618,6 +1618,8 @@ fra:
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé"
+    total_pretax_revenues: "Revenus (HT)"
+    total_pretax_expenses: "Dépenses (HT)"
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé"
     totals: "Totaux (pièces validées et brouillard)"
