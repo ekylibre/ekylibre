@@ -134,6 +134,15 @@ class Backend::PurchasesController < BackendController
     end
     @purchase = Purchase.new(nature: nature)
     @purchase.currency = @purchase.nature.currency
+    @purchase.responsible = current_user
+    @purchase.planned_at = Time.now
+    @purchase.invoiced_at = Time.now
+    if params[:supplier_id]
+      @purchase.supplier_id = params[:supplier_id]
+    end
+    if address = Entity.of_company.default_mail_address
+     @purchase.delivery_address = address
+    end
   end
 
 
