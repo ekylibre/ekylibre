@@ -71,6 +71,7 @@
       <item name="mammalia_reproduction_state" datatype="choice" choices="mammalia_reproduction_states"/>
       <item name="lactating"                datatype="boolean"/>
       <item name="healthy"                  datatype="boolean"/>
+      <!-- plant -->
       <item name="plant_life_state"         datatype="choice" choices="plant_life_states"/>
       <item name="plant_reproduction_state" datatype="choice" choices="plant_reproduction_states"/>
 

@@ -1858,8 +1858,8 @@ fra:
       items:
         caesarean: "Par césarienne"
         few_help: "Avec un peu d’aide"
-        great_help: "Avec des difficultés"
-        newborn_cutting: "En découpant le nouveau-né"
+        great_help: "Avec recours à un tiers ou moyen mécanique"
+        newborn_cutting: "Embryotomie"
         without_help: "Sans aide"
       name: "Conditions de naissance mammifère"
     mammalia_reproduction_states:
