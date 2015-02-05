@@ -5,8 +5,8 @@
 
 = beehive do |b|
   - b.hbox do
-    - if resource.addresses.any? or resource.picture.file?
-      - b.cell :coordinates do
+    - b.cell :coordinates do
+      - if resource.addresses.any? or resource.picture.file?
         - if resource.picture.file?
           .picture= image_tag(resource.picture.url(:identity))
         - for address in resource.addresses.order(:canal, :by_default)
@@ -27,34 +27,34 @@
           .info
             %span.title= :related_people.tl
             %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: (p.type || "Entity").tableize, action: :show, id: p.id)}.to_sentence.html_safe
-        .test
-          = attributes_list(resource, without_stamps: true) do |l|
-            - l.attribute :last_name
-            - l.attribute :first_name unless resource.first_name.blank?
-            - l.attribute :nature if resource.nature
-            - l.attribute :number
-            - l.attribute :active
-            - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
-            - l.attribute :siren unless resource.siren.blank?
-            - l.attribute :activity_code unless resource.activity_code.blank?
-            - l.attribute :vat_number unless resource.vat_number.blank?
-            - l.attribute :born_at unless resource.born_at.blank?
-            - l.attribute :dead_at unless resource.dead_at.blank?
-            - l.attribute :prospect
-            - l.attribute :client
-            - if resource.client
-              -#l.attribute :category, :label => :name, url: true
-              - l.attribute :first_met_at unless resource.first_met_at.blank?
-              - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
-              - l.attribute :vat_subjected
-              - l.attribute :reminder_submissive unless resource.reminder_submissive?
-              - l.attribute :authorized_payments_count unless resource.authorized_payments_count.blank?
-              - l.attribute :deliveries_conditions unless resource.deliveries_conditions.blank?
-              - l.attribute :client_account, url: true
-            - l.attribute :supplier
-            - if resource.supplier
-              - l.attribute :supplier_account, url: true
-            - l.attribute :transporter
+
+      = attributes_list(resource, without_stamps: true) do |l|
+        - l.attribute :last_name
+        - l.attribute :first_name unless resource.first_name.blank?
+        - l.attribute :nature if resource.nature
+        - l.attribute :number
+        - l.attribute :active
+        - l.custom Entity.human_attribute_name(:country), image_tag("countries/#{resource.country}.png") + " " + resource.country.l unless resource.country.blank?
+        - l.attribute :siren unless resource.siren.blank?
+        - l.attribute :activity_code unless resource.activity_code.blank?
+        - l.attribute :vat_number unless resource.vat_number.blank?
+        - l.attribute :born_at unless resource.born_at.blank?
+        - l.attribute :dead_at unless resource.dead_at.blank?
+        - l.attribute :prospect
+        - l.attribute :client
+        - if resource.client
+          -#l.attribute :category, :label => :name, url: true
+          - l.attribute :first_met_at unless resource.first_met_at.blank?
+          - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
+          - l.attribute :vat_subjected
+          - l.attribute :reminder_submissive unless resource.reminder_submissive?
+          - l.attribute :authorized_payments_count unless resource.authorized_payments_count.blank?
+          - l.attribute :deliveries_conditions unless resource.deliveries_conditions.blank?
+          - l.attribute :client_account, url: true
+        - l.attribute :supplier
+        - if resource.supplier
+          - l.attribute :supplier_account, url: true
+        - l.attribute :transporter
 
 
     - if resource.cash
