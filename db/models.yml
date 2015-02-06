@@ -35,7 +35,6 @@
 - entity
 - entity_address
 - entity_link
-- entity_version
 - equipment
 - establishment
 - event
@@ -62,7 +61,6 @@
 - inventory
 - inventory_item
 - issue
-- issue_version
 - journal
 - journal_entry
 - journal_entry_item
@@ -116,7 +114,6 @@
 - product_reading
 - product_reading_task
 - product_triple_mixing
-- product_version
 - production
 - production_support
 - production_support_marker
@@ -139,6 +136,7 @@
 - tracking
 - transport
 - user
+- version
 - worker
 - zone
 - zone_property_title

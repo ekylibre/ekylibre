@@ -70,15 +70,15 @@
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
-  include Versioned, Commentable
+  include Versionable, Commentable
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
   enumerize :country, in: Nomen::Countries.all
   enumerize :nature, in: Nomen::EntityNatures.all, default: Nomen::EntityNatures.default, predicates: {prefix: true}
-  acts_as_versioned exclude: [:full_name]
+  versionize exclude: [:full_name]
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
-  belongs_to :proposer, class_name: "Person"
+  belongs_to :proposer, class_name: "Entity"
   belongs_to :responsible, class_name: "User"
   belongs_to :supplier_account, class_name: "Account"
   has_many :clients, class_name: "Entity", foreign_key: :responsible_id, dependent: :nullify
@@ -189,18 +189,6 @@ class Entity < Ekylibre::Record::Base
 
   protect(on: :destroy) do
     (self.id == self.of_company? or self.sales_invoices.any? or self.participations.any? and self.sales.any? and self.transports.any?)
-  end
-
-  class << self
-    # Auto-cast product to best matching class with type column
-    def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
-        raise "Can not cast #{self.name} to #{klass.name}" unless klass <= self
-        return klass.new(*attributes, &block)
-      end
-      return new_without_cast(*attributes, &block)
-    end
-    alias_method_chain :new, :cast
   end
 
 

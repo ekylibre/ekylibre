@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: entity_versions
+# == Table: versions
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
@@ -30,11 +30,10 @@
 #  item_changes :text
 #  item_id      :integer
 #  item_object  :text
+#  item_type    :string(255)
 #
 require 'test_helper'
 
-class EntityVersionTest < ActiveSupport::TestCase
-
+class VersionTest < ActiveSupport::TestCase
   test_fixtures
-
 end

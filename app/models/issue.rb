@@ -47,7 +47,7 @@
 
 
 class Issue < Ekylibre::Record::Base
-  include Versioned
+  include Versionable
   enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
   has_many :interventions
   belongs_to :target , polymorphic: true
@@ -62,8 +62,6 @@ class Issue < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :priority, :gravity, in: 0..5
   validates_attachment_content_type :picture, content_type: /image/
-
-  acts_as_versioned
 
   delegate :name, to: :target, prefix: true
 

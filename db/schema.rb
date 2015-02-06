@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203212723) do
+ActiveRecord::Schema.define(version: 20150116152730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -758,16 +758,6 @@ ActiveRecord::Schema.define(version: 20150203212723) do
   add_index "entity_links", ["updated_at"], :name => "index_entity_links_on_updated_at"
   add_index "entity_links", ["updater_id"], :name => "index_entity_links_on_updater_id"
 
-  create_table "entity_versions", force: true do |t|
-    t.string   "event",        null: false
-    t.integer  "item_id"
-    t.text     "item_object"
-    t.text     "item_changes"
-    t.datetime "created_at",   null: false
-    t.integer  "creator_id"
-    t.string   "creator_name"
-  end
-
   create_table "establishments", force: true do |t|
     t.string   "name",                     null: false
     t.string   "code"
@@ -1320,16 +1310,6 @@ ActiveRecord::Schema.define(version: 20150203212723) do
   add_index "inventory_items", ["product_id"], :name => "index_inventory_items_on_product_id"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
-
-  create_table "issue_versions", force: true do |t|
-    t.string   "event",        null: false
-    t.integer  "item_id"
-    t.text     "item_object"
-    t.text     "item_changes"
-    t.datetime "created_at",   null: false
-    t.integer  "creator_id"
-    t.string   "creator_name"
-  end
 
   create_table "issues", force: true do |t|
     t.integer  "target_id",                                                              null: false
@@ -2296,19 +2276,6 @@ ActiveRecord::Schema.define(version: 20150203212723) do
   add_index "product_readings", ["updated_at"], :name => "index_product_readings_on_updated_at"
   add_index "product_readings", ["updater_id"], :name => "index_product_readings_on_updater_id"
 
-  create_table "product_versions", force: true do |t|
-    t.string   "event",        null: false
-    t.integer  "item_id"
-    t.text     "item_object"
-    t.text     "item_changes"
-    t.datetime "created_at",   null: false
-    t.integer  "creator_id"
-    t.string   "creator_name"
-  end
-
-  add_index "product_versions", ["created_at"], :name => "index_product_versions_on_created_at"
-  add_index "product_versions", ["creator_id"], :name => "index_product_versions_on_creator_id"
-
   create_table "production_support_markers", force: true do |t|
     t.integer  "support_id",                                                                                                     null: false
     t.string   "aim",                                                                                                            null: false
@@ -2920,5 +2887,20 @@ ActiveRecord::Schema.define(version: 20150203212723) do
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
   add_index "users", ["updater_id"], :name => "index_users_on_updater_id"
+
+  create_table "versions", force: true do |t|
+    t.string   "event",        null: false
+    t.integer  "item_id"
+    t.string   "item_type"
+    t.text     "item_object"
+    t.text     "item_changes"
+    t.datetime "created_at",   null: false
+    t.integer  "creator_id"
+    t.string   "creator_name"
+  end
+
+  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
+  add_index "versions", ["creator_id"], :name => "index_versions_on_creator_id"
+  add_index "versions", ["item_id", "item_type"], :name => "index_versions_on_item_id_and_item_type"
 
 end

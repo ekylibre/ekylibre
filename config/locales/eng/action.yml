@@ -865,9 +865,8 @@ eng:
     create: "Create"
     create_journal: "— Create journal —"
     created_at: "Created on" #?
-    created_at_by: "Created at %{at} by %{author}."
+    created_at_by: "Created at %{at} by %{by}."
     created_between: "Created between %{started_at} and %{stopped_at}"
-    created_by_ago: "Created by %{author} %{ago} ago."
     credit: "Credit" #?
     credits: "Credits"
     criterion_modes: #?
@@ -904,8 +903,7 @@ eng:
     depreciations: "Depreciations"
     description: "Description" #?
     destroy: "Destroy"
-    destroyed_at_by: "Destroyed at %{at} by %{author}"
-    destroyed_by_ago: "Destroyed by %{author} %{ago} ago."
+    destroyed_at_by: "Destroyed at %{at} by %{by}"
     details: "Details"
     discount: "Discount (%)" #?!
     display: "Display" #?
@@ -929,6 +927,7 @@ eng:
     email: "Email:" #?
     employee: "Employee"
     employee_name: "Employee" #?
+    # empty: "Empty"
     end: "to" #?
     entities: "Entities"
     entity: "Person" #?
@@ -1409,8 +1408,7 @@ eng:
     up: "Up" #?
     update: "Update"
     update_params: "Update params" #?
-    updated_at_by: "Updated at %{at} by %{author}:"
-    updated_by_ago: "Updated by %{author} %{ago} ago:"
+    updated_at_by: "Updated at %{at} by %{by}:"
     upload: "Upload"
     uploading_unicoque_traceability: "Uploading unicoque traceability" #?!
     usage: "Usage" #?

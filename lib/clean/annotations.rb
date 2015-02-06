@@ -110,7 +110,6 @@ module Clean
 
       def annotate_one_file(file_name, info_block)
         unless File.exist?(file_name)
-          FileUtils.mkdir_p(File.dirname(file_name))
           File.open(file_name, "w") { |f| f.puts "" }
         end
         if File.exist?(file_name)

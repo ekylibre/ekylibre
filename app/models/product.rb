@@ -66,7 +66,7 @@
 
 
 class Product < Ekylibre::Record::Base
-  include Versioned, Indicateable
+  include Versionable, Indicateable
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :address, class_name: "EntityAddress"
@@ -118,8 +118,6 @@ class Product < Ekylibre::Record::Base
   has_one :incoming_delivery_item, class_name: "IncomingDeliveryItem", foreign_key: :product_id
 
   has_picture
-
-  acts_as_versioned
 
   # find Product by work_numbers (work_numbers must be an Array)
   scope :of_work_numbers, lambda { |work_numbers|
@@ -240,6 +238,7 @@ class Product < Ekylibre::Record::Base
       return new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
   end
 
   # TODO: Removes this ASAP

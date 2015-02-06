@@ -88,7 +88,7 @@ users_001:
   confirmed_at: 2014-10-31 18:19:32.000000000 Z
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  current_sign_in_at: 2015-02-03 22:57:55.223347000 Z
+  current_sign_in_at: 2015-01-04 14:24:06.101822000 Z
   current_sign_in_ip: 127.0.0.1
   email: admin@ekylibre.org
   employed: true
@@ -99,9 +99,9 @@ users_001:
   id: 1
   language: jpn
   last_name: IKARI
-  last_sign_in_at: 2015-01-04 14:24:06.101822000 Z
+  last_sign_in_at: 2014-12-24 11:05:20.934436000 Z
   last_sign_in_ip: 127.0.0.1
-  lock_version: 8
+  lock_version: 7
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person_id: 9
@@ -109,8 +109,8 @@ users_001:
     accounts:
     - read
   role_id: 1
-  sign_in_count: 5
-  updated_at: 2015-02-03 22:57:55.528576000 Z
+  sign_in_count: 4
+  updated_at: 2015-01-04 14:24:06.106898000 Z
   updater_id: 1
 users_002:
   administrator: false
