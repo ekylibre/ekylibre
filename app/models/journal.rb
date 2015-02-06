@@ -89,8 +89,8 @@ class Journal < Ekylibre::Record::Base
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.l.codeize if self.code.blank?
-    self.code = self.code[0..3]
+    self.code = self.nature.l if self.code.blank?
+    self.code = self.code.codeize[0..3]
   end
 
   validate do

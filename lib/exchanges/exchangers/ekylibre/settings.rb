@@ -31,7 +31,13 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
             attributes[reflection.name] = get_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
           end
         end
-        @records[records][identifier.to_s] = model.create!(attributes)
+        record = model.new(attributes)
+        if record.save(attributes)
+          @records[records][identifier.to_s] = record
+        else
+          puts "\nError on #{record.inspect.red}"
+          raise ActiveRecord::RecordInvalid, record
+        end
       end
     end
   end
@@ -210,17 +216,15 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
 
   # Load cashes
   if manifest.can_load_default?(:cashes)
-    manifest[:cashes] = Cash.nature.values.inject({}) do |hash, nature|
-      journal_nature = case nature
-                         when 'bank_account' then 'bank'
-                         when 'cash_box' then 'cash'
-                         else raise 'unknown cash2journal nature'
-                        end
+    manifest[:cashes] = [:bank_account, :cash_box].inject({}) do |hash, nature|
+      unless journal_nature = {bank_account: :bank, cash_box: :cash}[nature]
+        raise StandardError, 'Need a valid journal nature to register a cash'
+      end
       journal = Journal.find_by(nature: journal_nature)
       account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
       hash[nature] = {name: "enumerize.cash.nature.#{nature}".t, nature: nature.to_s,
                       account: account, journal: journal}
-      hash[nature].merge!(iban: 'FR7611111222223333333333391') if nature == 'bank_account'
+      # hash[nature].merge!(iban: 'FR7611111222223333333333391') if nature == :bank_account
       hash
     end
   end
