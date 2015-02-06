@@ -928,7 +928,7 @@ module Ekylibre
             doc = Nokogiri::XML(File.open(xsd_url))
 
 
-            values = doc.xpath('//xsd:element[attribute::name="TemoinFinDeVie"/xsd:simpleType/xsd:restriction/xsd:enumeration[attribute::value]')
+            values = doc.xpath('//xsd:element[attribute::name="TemoinFinDeVie"]/xsd:simpleType/xsd:restriction/xsd:enumeration[attribute::value]')
             values = values.xpath('attribute::value')
 
             values.each do |v|
@@ -1339,6 +1339,303 @@ module Ekylibre
           end
 
         end
+
+        def paillette_fractionnee
+          #TODO: paillette fractionnee erp nomenclature
+
+          # dumped from doc
+          # 1 : Paillette non fractionnée
+          # 2 : Paillette fractionnée
+          # B : double dose (bis)
+          # D : Demi paillette
+          # M : Morceau de paillette
+          # P : Paillette entière
+          # Q : Quart de paillette
+          # T : Tiers de paillette
+
+
+          out_matched_paillette_fractionnee = {}
+          in_matched_paillette_fractionnee = {}
+          out_exception_paillette_fractionnee = {}
+          in_exception_paillette_fractionnee = {}
+          out_existing_exception = {}
+          in_existing_exception = {}
+          nomen_paillette_fractionnee = {}
+          idele_paillette_fractionnee = {}
+
+
+
+          xsd_url = @resources_dir+'IpBNotif_v1.xsd'
+          transcoding_filename = 'paillette_fractionnee.yml'
+          transcoding_exception_filename = 'paillette_fractionnee.exception.yml'
+
+
+          if File.exist?(xsd_url)
+
+            doc = Nokogiri::XML(File.open(xsd_url))
+
+
+            values = doc.xpath('//element[attribute::name="PailletteFractionnee"]/xsd:simpleType/xsd:restriction/xsd:enumeration[attribute::value]')
+            values = values.xpath('attribute::value')
+
+            values.each do |v|
+
+              idele_paillette_fractionnee[v.to_s] = {matched: 0}
+
+            end
+
+            print idele_paillette_fractionnee.inspect
+
+
+            #TODO
+            #Nomen::MammaliaBirthConditions.all.each do |s|
+
+            #  nomen_paillette_fractionnee[s] = {matched: 0}
+            #end
+
+            #print nomen_paillette_fractionnee.inspect
+
+
+            ## OUT
+            #
+
+
+            if File.exist?(@transcoding_dir+@out_dir+transcoding_exception_filename)
+              out_existing_exception = YAML.load_file(@transcoding_dir+@out_dir+transcoding_exception_filename)
+
+              out_matched_paillette_fractionnee.reverse_merge!(out_existing_exception)
+
+              print out_existing_exception.inspect
+
+              out_existing_exception.each do |e, _|
+                nomen_paillette_fractionnee.select{|k,_| k == e}.each do |k, _|
+                  nomen_paillette_fractionnee[k][:matched] = 1
+                end
+
+              end
+            end
+
+            results = "### Transcoding Results ###\n"
+
+            results += "**Matched Nomen Paillette fractionnee items: #{nomen_paillette_fractionnee.select{|_,v| v[:matched]==1}.size}/#{nomen_paillette_fractionnee.size} (#{out_existing_exception.size} manually)\n"
+
+            results += "**#{nomen_paillette_fractionnee.select{|_,v| v[:matched]==0}.size} Missing Nomen Item Matching: \n"
+
+            nomen_paillette_fractionnee.select{|_,v| v[:matched]==0}.each do |k, _|
+              results += "Nomenclature: #{k}\n"
+              out_exception_paillette_fractionnee[k] = nil
+            end
+
+            #
+            ##
+            ## IN
+            #
+
+            #Reset matched indicators
+            nomen_paillette_fractionnee.each_key { |k| nomen_paillette_fractionnee[k][:matched] = 0 }
+
+            idele_paillette_fractionnee.each_key { |k| idele_paillette_fractionnee[k][:matched] = 0 }
+            #
+
+
+            if File.exist?(@transcoding_dir+@in_dir+transcoding_exception_filename)
+              in_existing_exception = YAML.load_file(@transcoding_dir+@in_dir+transcoding_exception_filename)
+
+              in_matched_paillette_fractionnee.reverse_merge!(in_existing_exception)
+
+              in_existing_exception.each do |c, _|
+                idele_paillette_fractionnee.select{|k,_| k==c.to_s}.each do |k,_|
+                  idele_paillette_fractionnee[k][:matched] = 1
+                end
+              end
+            end
+
+            results += "**Matched Idele paillette_fractionnee: #{idele_paillette_fractionnee.select{|_,v| v[:matched]==1}.size}/#{idele_paillette_fractionnee.size} (#{in_existing_exception.size} manually)\n"
+
+            results += "**#{idele_paillette_fractionnee.select{|_,v| v[:matched]==0}.size} Missing Idele paillette_fractionnee Matching: \n"
+
+            idele_paillette_fractionnee.select{|_,v| v[:matched]==0}.each do |k,_|
+              results += "#{k}\n"
+              in_exception_paillette_fractionnee[k] = nil
+            end
+
+            #
+            ##
+
+            ## RESULTS
+            #
+
+            if out_matched_paillette_fractionnee.size > 0
+              File.open(@transcoding_dir+@out_dir+transcoding_filename, 'w') {|f| f.write(out_matched_paillette_fractionnee.to_yaml) }
+            end
+
+            if in_matched_paillette_fractionnee.size > 0
+              File.open(@transcoding_dir+@in_dir+transcoding_filename, 'w') {|f| f.write(in_matched_paillette_fractionnee.to_yaml) }
+            end
+
+            if out_exception_paillette_fractionnee.size > 0
+              File.open(@transcoding_dir+@out_dir+transcoding_exception_filename, 'a+') {|f| f.write(out_exception_paillette_fractionnee.to_yaml) }
+            end
+
+            if in_exception_paillette_fractionnee.size > 0
+              File.open(@transcoding_dir+@in_dir+transcoding_exception_filename, 'a+') {|f| f.write(in_exception_paillette_fractionnee.to_yaml) }
+            end
+
+            print results
+            print 'If exception is found, thanks to fill exception files before reloading that script'
+
+
+          else
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+          end
+
+        end
+        def semence_sexee
+          #TODO: semence sexee erp nomenclature
+
+          # dumped from doc
+          # 0 : non sexée
+          # 1 : sexée mâle
+          # 2 : sexée femelle
+
+
+          out_matched_semence_sexee = {}
+          in_matched_semence_sexee = {}
+          out_exception_semence_sexee = {}
+          in_exception_semence_sexee = {}
+          out_existing_exception = {}
+          in_existing_exception = {}
+          nomen_semence_sexee = {}
+          idele_semence_sexee = {}
+
+
+
+          xsd_url = @resources_dir+'IpBNotif_v1.xsd'
+          transcoding_filename = 'semence_sexee.yml'
+          transcoding_exception_filename = 'semence_sexee.exception.yml'
+
+
+          if File.exist?(xsd_url)
+
+            doc = Nokogiri::XML(File.open(xsd_url))
+
+
+            values = doc.xpath('//element[attribute::name="SemenceSexee"]/xsd:simpleType/xsd:restriction/xsd:enumeration[attribute::value]')
+            values = values.xpath('attribute::value')
+
+            values.each do |v|
+
+              idele_semence_sexee[v.to_s] = {matched: 0}
+
+            end
+
+            print idele_semence_sexee.inspect
+
+
+            #TODO
+            #Nomen::MammaliaBirthConditions.all.each do |s|
+
+            #  nomen_semence_sexee[s] = {matched: 0}
+            #end
+
+            #print nomen_semence_sexee.inspect
+
+
+            ## OUT
+            #
+
+
+            if File.exist?(@transcoding_dir+@out_dir+transcoding_exception_filename)
+              out_existing_exception = YAML.load_file(@transcoding_dir+@out_dir+transcoding_exception_filename)
+
+              out_matched_semence_sexee.reverse_merge!(out_existing_exception)
+
+              print out_existing_exception.inspect
+
+              out_existing_exception.each do |e, _|
+                nomen_semence_sexee.select{|k,_| k == e}.each do |k, _|
+                  nomen_semence_sexee[k][:matched] = 1
+                end
+
+              end
+            end
+
+            results = "### Transcoding Results ###\n"
+
+            results += "**Matched Nomen Semence Sexee items: #{nomen_semence_sexee.select{|_,v| v[:matched]==1}.size}/#{nomen_semence_sexee.size} (#{out_existing_exception.size} manually)\n"
+
+            results += "**#{nomen_semence_sexee.select{|_,v| v[:matched]==0}.size} Missing Nomen Item Matching: \n"
+
+            nomen_semence_sexee.select{|_,v| v[:matched]==0}.each do |k, _|
+              results += "Nomenclature: #{k}\n"
+              out_exception_semence_sexee[k] = nil
+            end
+
+            #
+            ##
+            ## IN
+            #
+
+            #Reset matched indicators
+            nomen_semence_sexee.each_key { |k| nomen_semence_sexee[k][:matched] = 0 }
+
+            idele_semence_sexee.each_key { |k| idele_semence_sexee[k][:matched] = 0 }
+            #
+
+
+            if File.exist?(@transcoding_dir+@in_dir+transcoding_exception_filename)
+              in_existing_exception = YAML.load_file(@transcoding_dir+@in_dir+transcoding_exception_filename)
+
+              in_matched_semence_sexee.reverse_merge!(in_existing_exception)
+
+              in_existing_exception.each do |c, _|
+                idele_semence_sexee.select{|k,_| k==c.to_s}.each do |k,_|
+                  idele_semence_sexee[k][:matched] = 1
+                end
+              end
+            end
+
+            results += "**Matched Idele semence_sexee: #{idele_semence_sexee.select{|_,v| v[:matched]==1}.size}/#{idele_semence_sexee.size} (#{in_existing_exception.size} manually)\n"
+
+            results += "**#{idele_semence_sexee.select{|_,v| v[:matched]==0}.size} Missing Idele semence_sexee Matching: \n"
+
+            idele_semence_sexee.select{|_,v| v[:matched]==0}.each do |k,_|
+              results += "#{k}\n"
+              in_exception_semence_sexee[k] = nil
+            end
+
+            #
+            ##
+
+            ## RESULTS
+            #
+
+            if out_matched_semence_sexee.size > 0
+              File.open(@transcoding_dir+@out_dir+transcoding_filename, 'w') {|f| f.write(out_matched_semence_sexee.to_yaml) }
+            end
+
+            if in_matched_semence_sexee.size > 0
+              File.open(@transcoding_dir+@in_dir+transcoding_filename, 'w') {|f| f.write(in_matched_semence_sexee.to_yaml) }
+            end
+
+            if out_exception_semence_sexee.size > 0
+              File.open(@transcoding_dir+@out_dir+transcoding_exception_filename, 'a+') {|f| f.write(out_exception_semence_sexee.to_yaml) }
+            end
+
+            if in_exception_semence_sexee.size > 0
+              File.open(@transcoding_dir+@in_dir+transcoding_exception_filename, 'a+') {|f| f.write(in_exception_semence_sexee.to_yaml) }
+            end
+
+            print results
+            print 'If exception is found, thanks to fill exception files before reloading that script'
+
+
+          else
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+          end
+
+        end
+
       end
     end
   end

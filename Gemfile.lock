@@ -456,7 +456,7 @@ DEPENDENCIES
   rubyzip
   sass (~> 3.2.19)
   sass-rails (~> 4.0.1)
-  savon (~> 2.5.1)
+  savon
   sdoc
   selenium-webdriver
   shoulda-context

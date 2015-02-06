@@ -135,7 +135,8 @@ gem 'agric'
 
 # Idele webservices
 gem 'mechanize'
-gem 'savon', '~> 2.5.1'
+gem 'savon'
+#gem 'savon', github: 'savonrb/savon'
 
 group :development do
   gem 'quiet_assets'
