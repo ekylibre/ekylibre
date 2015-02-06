@@ -24,7 +24,6 @@ class Backend::ActivitiesController < BackendController
 
   list do |t|
     t.column :name, url: true
-    t.column :parent, url: true
     t.column :nature
     t.column :family
     # t.action :show, url: {format: :pdf}, image: :print
@@ -40,6 +39,12 @@ class Backend::ActivitiesController < BackendController
     t.column :started_at
     t.column :stopped_at
     t.column :static_support
+  end
+
+  # List of distribution for one activity
+  list(:distributions, model: :activity_distributions, conditions: {activity_id: 'params[:id]'.c}) do |t|
+    t.column :affectation_percentage, percentage: true
+    t.column :main_activity, url: true
   end
 
 end

@@ -1021,7 +1021,6 @@ form.search {
   @include incrust-shadow;
   $size: $fs-normal;
   background: white;
-  @include clearfix;
   .fieldset-legend {
     padding: $vertical-gap $default-gap;
     *, label, span {

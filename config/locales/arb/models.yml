@@ -1209,6 +1209,7 @@ arb:
     # deals_count: "Deals count"
     debit: "الدين"
     # debtor: "Debtor"
+    # decimal: "Decimal"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
@@ -1330,7 +1331,7 @@ arb:
     # event: "Event"
     event_natures: "نوع الحدث" #?
     # event_participation: "Event participation"
-    events: "الاحداث" #?
+    events: "الاحداث"
     # evolvable: "Evolvable"
     excise: "عدد رسوم الدفع" #?
     # exclusive: "Exclusive"
@@ -1560,6 +1561,7 @@ arb:
     # mail_line_6: "Postal code and city"
     # mail_postal_zone: "Mail postal_zone"
     # mails: "Mails"
+    # main_activity: "Main activity"
     major_accounts: "الحسابات الئيسية" #?
     # managed: "Managed"
     # managed_sales: "Managed sales"

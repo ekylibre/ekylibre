@@ -178,6 +178,7 @@ Ekylibre::Application.routes.draw do
     resources :activities, concerns: [:list, :unroll] do
       member do
         get :list_productions
+        get :list_distributions
       end
     end
 

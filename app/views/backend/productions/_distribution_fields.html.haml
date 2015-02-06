@@ -1,0 +1,5 @@
+.nested-fields
+  = link_to_remove_nested_association(:distribution, f)
+  = f.input :distrib, label: ProductionDistribution.model_name.human, wrapper: :append  do
+    = f.input_field :affectation_percentage
+    = f.referenced_association_field :main_production, source: {scope: {main_of_campaign: campaign.id}}

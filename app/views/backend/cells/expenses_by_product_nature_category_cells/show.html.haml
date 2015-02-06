@@ -7,7 +7,7 @@
       categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
       date = date >> 1
     end
-    
+
     # to small to be interesting
     # data for bar chart expenses by product_nature_category and by month
     #ProductNatureCategory.availables.find_each do |category|

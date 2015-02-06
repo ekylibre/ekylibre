@@ -603,7 +603,7 @@ fra:
     death: "Mort" #?
     debit: "Débit"
     debtor: "Debiteur"
-    decimal: "Décimal" #?
+    decimal: "Décimal"
     decimal_value: "Valeur décimale"
     declared_at: "Déclarée le" #?
     deduction_account: "TVA déductible"
@@ -691,7 +691,7 @@ fra:
     establishment: "Établissement"
     event: "Évènement"
     event_participation: "Participation à un évènement"
-    events: "Évènements" #?
+    events: "Évènements"
     evolvable: "Évolutif"
     exclusive: "Exclusif"
     execution_number: "N° d’exécution"
@@ -873,6 +873,7 @@ fra:
     mail_line_6: "Code postal ET ville"
     mail_postal_zone: "Zone postale"
     mails: "Courriels"
+    # main_activity: "Main activity"
     managed: "Géré par le système"
     managed_sales: "Ventes gérées"
     mandates: "Responsabilités" #?

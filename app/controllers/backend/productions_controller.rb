@@ -19,7 +19,7 @@
 
 # -*- coding: utf-8 -*-
 class Backend::ProductionsController < BackendController
-  manage_restfully(t3e: {name: :name}, state: :draft)
+  manage_restfully(t3e: {name: :name}, state: :draft, except: :index)
 
   unroll
 
@@ -60,6 +60,21 @@ class Backend::ProductionsController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
+  def index
+    unless Campaign.any?
+      notify :a_campaign_must_be_opened
+      redirect_to controller: :campaigns, action: :index
+      return
+    end
+    campaign = Campaign.find_by(id: params[:campaign_id]) || Campaign.currents.last
+    params[:campaign_id] = campaign.id
+    respond_to do |format|
+      format.html { render locals: {campaign: campaign} }
+      format.xml  { render xml:  resource_model.all }
+      format.json { render json: resource_model.all }
+    end
+  end
+
   # List supports for one production
   list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :name, url: true
@@ -88,6 +103,8 @@ class Backend::ProductionsController < BackendController
     t.column :stopped_at, hidden: true
     # t.column :provisional
   end
+
+
   def indicator_measure
     begin
       storage = Product.find(params[:storage_id]) rescue nil

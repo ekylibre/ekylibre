@@ -119,7 +119,7 @@ eng:
     pasturing_period: "Pasturing period"
     pasturing_working_area: "Pasturing working area"
     #~ period: "Period"
-    #~ phosphorus_concentration: "Phosphorus concentration"
+    # phosphorus_concentration: "Phosphorus concentration"
     # picture_path: "Picture path"
     #~ plan: "Plan"
     #~ population: "Population"

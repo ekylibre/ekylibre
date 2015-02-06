@@ -4,7 +4,7 @@ eng:
       nature:
         auxiliary: "Auxiliary"
         main: "Main"
-        none: "None"
+        standalone: "Standalone"
     analytic_distribution:
       state:
         closed: "Closed"

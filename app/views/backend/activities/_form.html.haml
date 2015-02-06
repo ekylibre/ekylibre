@@ -1,10 +1,11 @@
 = field_set do
   = f.input :name
-  = f.referenced_association :parent
-  = f.input :description
-  = f.input :nature
   = f.input :family
+  = f.input :nature, as: :radio_buttons, show: ".{{value}}_options"
+  = f.input :description
   = f.custom_fields
 
--#= field_set(:productions) do
-  = f.nested_association(:productions)
+.auxiliary_options
+  = field_set(Activity.human_attribute_name(:distributions)) do
+    = f.nested_association(:distributions)
+

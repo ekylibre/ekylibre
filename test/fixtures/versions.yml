@@ -555,7 +555,7 @@ versions_012:
           strict_wkt11: false
           ignore_extra_tokens: false
           default_srid:
-        wkb_parser: &1
+        wkb_parser:
           support_ewkb: false
           support_wkb12: false
           ignore_extra_bytes: false
@@ -8033,7 +8033,7 @@ versions_149:
           support_wkt12: false
           strict_wkt11: false
           ignore_extra_tokens: false
-          *1:
+          default_srid:
         wkb_parser:
           support_ewkb: false
           support_wkb12: false

@@ -575,7 +575,7 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Nouvelle taxe"
-      # show: "Tax: %{name}"
+      show: "Taxe\_: %{name}"
     backend/teams:
       edit: "Modifier l’équipe\_: %{name}"
       index: "Équipes"
@@ -700,6 +700,7 @@ fra:
     add_conditions: "Ajoutez des conditions"
     add_delivery: "Ajouter une livraison"
     add_diagnostic: "Ajouter un diagnostic" #?
+    add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
@@ -786,7 +787,7 @@ fra:
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Bookkeep with payment"
     budget: "Budget"
-    # budgets: "Budgets"
+    budgets: "Budgets"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
     buildings: "Voir la liste des lieux de stockage" #?
@@ -872,10 +873,8 @@ fra:
     create_journal: "— Créer le journal —"
     created_at: "Créée le"
     created_at_by: "Créé le %{at} par %{author}"
-    created_by_ago: "Créé par %{author} il y a %{ago}"
-    destroyed_by_ago: "Supprimé par %{author} il y a %{ago}"
-    updated_by_ago: "Mis à jour par %{author} il y a %{ago}\_:"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
+    created_by_ago: "Créé par %{author} il y a %{ago}"
     credit: "Crédit"
     credits: "Avoirs"
     criterion_modes:
@@ -930,6 +929,7 @@ fra:
     description: "Description"
     destroy: "Supprimer"
     destroyed_at_by: "Supprimé le %{at} par %{author}"
+    destroyed_by_ago: "Supprimé par %{author} il y a %{ago}"
     details: "Informations complémentaires"
     discount: "Réduc. (%)"
     display: "Afficher"
@@ -1116,6 +1116,7 @@ fra:
       mixed: "Écritures et lignes"
     journals: "Journaux"
     label: "Libellé"
+    label_value: "%{label}\_: %{value}"
     land_parcel_abbreviation: "P"
     land_parcel_name: "Parcelle"
     land_parcels: "Parcelles"
@@ -1244,6 +1245,7 @@ fra:
     new_organization: "Nouvelle organisation" #?
     new_out_line: "Ajouter un produit sortant" #?
     new_payment: "Enregistrer un nouvel encaissement" #?
+    new_production_of_activity: "Nouvelle production de %{activity}"
     new_purchase_price: "Créer un prix d’achat" #?
     new_reservoir: "Ajouter un réservoir" #?
     new_sale: "Nouvelle vente" #?
@@ -1333,8 +1335,8 @@ fra:
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
-    phone: "Tél."
-    phosphorus_concentration: "Teneur en phosphore (P)"
+    phone: "Tél." #?
+    phosphorus_concentration: "Teneur en phosphore (P)" #?
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare"
     picture: "Photo"
     placeholder: "Espace réservé"
@@ -1596,7 +1598,7 @@ fra:
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"
     time_zone: "Fuseau horaire"
     timeline_comment: "%{author} a commenté il y a %{ago}"
-    timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} il y a %{ago}"
+    timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} il y a %{ago}" #?
     timeline_item: "%{type} %{name} ajouté par %{author} il y a %{ago}"
     timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} il y a %{ago}"
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} il y a %{ago}"
@@ -1620,8 +1622,8 @@ fra:
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé"
-    total_pretax_revenues: "Revenus (HT)"
     total_pretax_expenses: "Dépenses (HT)"
+    total_pretax_revenues: "Revenus (HT)"
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé"
     totals: "Totaux (pièces validées et brouillard)"
@@ -1669,6 +1671,7 @@ fra:
     update: "Modifier"
     update_params: "Modifier la recherche"
     updated_at_by: "Mis à jour le %{at} par %{author}\_:"
+    updated_by_ago: "Mis à jour par %{author} il y a %{ago}\_:"
     upload: "Téléversement"
     uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque"
     urea_concentration: "Teneur moyenne en urée" #?
@@ -1981,13 +1984,13 @@ fra:
       destroy: "Supprimer"
       detach: "Détacher"
       down: "Descendre"
-      # draft: "Draft"
+      draft: "Brouillon"
       duplicate: "Dupliquer"
-      edit: "Éditer"
+      edit: "Modifier"
       export: "Exporter"
       extract: "Extraire"
       finish: "Finir"
-      # general_ledger: "General ledger"
+      general_ledger: "Grand livre"
       generate_last_journal_entry: "Générer la dernière écriture"
       import: "Importer"
       incorporate: "Incorporer"
@@ -2001,8 +2004,8 @@ fra:
       mark: "Marquer"
       merge: "Fusionner"
       new: "Nouveau"
+      # open: "Open"
       pick: "Piocher"
-      # picture: "Picture"
       point: "Pointer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"

@@ -16,7 +16,6 @@
     = f.referenced_association :variant
     = f.input :computation_method
     = f.input :unit_amount
-    = Nomen::Currencies[Preference[:currency]].symbol
     = f.input :currency, as: :hidden
     = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator), data:{parameter_name: :indicator}
     = f.input :working_indicator, as: :hidden
@@ -24,8 +23,6 @@
     = f.input :direction, as: :hidden
   = f.fields_for :items, wrapper: :nested do |item_form|
     = render 'item_fields', f: item_form
-  %td
-    %span{data:{budget_global_amount: direction}}
-      = f.object.global_amount
-    = Nomen::Currencies[Preference[:currency]].symbol
+  %td{data: {budget_global_amount: direction}}
+    = f.object.global_amount
     = link_to_add_association :_, f, :items, partial: 'item_fields'

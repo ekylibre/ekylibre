@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116152730) do
+ActiveRecord::Schema.define(version: 20150206104748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,13 +66,9 @@ ActiveRecord::Schema.define(version: 20150116152730) do
 
   create_table "activities", force: true do |t|
     t.string   "name",                     null: false
-    t.string   "description"
+    t.text     "description"
     t.string   "family"
     t.string   "nature",                   null: false
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "creator_id"
@@ -82,11 +78,27 @@ ActiveRecord::Schema.define(version: 20150116152730) do
 
   add_index "activities", ["created_at"], :name => "index_activities_on_created_at"
   add_index "activities", ["creator_id"], :name => "index_activities_on_creator_id"
-  add_index "activities", ["lft", "rgt"], :name => "index_activities_on_lft_and_rgt"
   add_index "activities", ["name"], :name => "index_activities_on_name"
-  add_index "activities", ["parent_id"], :name => "index_activities_on_parent_id"
   add_index "activities", ["updated_at"], :name => "index_activities_on_updated_at"
   add_index "activities", ["updater_id"], :name => "index_activities_on_updater_id"
+
+  create_table "activity_distributions", force: true do |t|
+    t.integer  "activity_id",                                                 null: false
+    t.decimal  "affectation_percentage", precision: 19, scale: 4,             null: false
+    t.integer  "main_activity_id",                                            null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                    default: 0, null: false
+  end
+
+  add_index "activity_distributions", ["activity_id"], :name => "index_activity_distributions_on_activity_id"
+  add_index "activity_distributions", ["created_at"], :name => "index_activity_distributions_on_created_at"
+  add_index "activity_distributions", ["creator_id"], :name => "index_activity_distributions_on_creator_id"
+  add_index "activity_distributions", ["main_activity_id"], :name => "index_activity_distributions_on_main_activity_id"
+  add_index "activity_distributions", ["updated_at"], :name => "index_activity_distributions_on_updated_at"
+  add_index "activity_distributions", ["updater_id"], :name => "index_activity_distributions_on_updater_id"
 
   create_table "affairs", force: true do |t|
     t.string   "number",                                                              null: false
@@ -2275,6 +2287,24 @@ ActiveRecord::Schema.define(version: 20150116152730) do
   add_index "product_readings", ["read_at"], :name => "index_product_readings_on_read_at"
   add_index "product_readings", ["updated_at"], :name => "index_product_readings_on_updated_at"
   add_index "product_readings", ["updater_id"], :name => "index_product_readings_on_updater_id"
+
+  create_table "production_distributions", force: true do |t|
+    t.integer  "production_id",                                               null: false
+    t.decimal  "affectation_percentage", precision: 19, scale: 4,             null: false
+    t.integer  "main_production_id",                                          null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                    default: 0, null: false
+  end
+
+  add_index "production_distributions", ["created_at"], :name => "index_production_distributions_on_created_at"
+  add_index "production_distributions", ["creator_id"], :name => "index_production_distributions_on_creator_id"
+  add_index "production_distributions", ["main_production_id"], :name => "index_production_distributions_on_main_production_id"
+  add_index "production_distributions", ["production_id"], :name => "index_production_distributions_on_production_id"
+  add_index "production_distributions", ["updated_at"], :name => "index_production_distributions_on_updated_at"
+  add_index "production_distributions", ["updater_id"], :name => "index_production_distributions_on_updater_id"
 
   create_table "production_support_markers", force: true do |t|
     t.integer  "support_id",                                                                                                     null: false

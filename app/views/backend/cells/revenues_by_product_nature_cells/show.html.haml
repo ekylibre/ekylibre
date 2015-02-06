@@ -41,7 +41,7 @@
       end
       series << {type: 'spline', name: :total_pretax_revenues.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
     end
-    
+
     # data for spline sum expenses by month
     all_purchase_items = PurchaseItem.between(@started_at, @stopped_at)
     if all_purchase_items.count > 0

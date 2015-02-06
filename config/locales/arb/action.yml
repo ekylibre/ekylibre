@@ -966,6 +966,7 @@ arb:
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"
     add_delivery: "اضافة وسيلة نقل"
+    # add_distribution: "Add distribution"
     # add_email: "Add email"
     # add_fax: "Add fax"
     # add_filter: "Add filter"
@@ -1127,8 +1128,9 @@ arb:
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
     created_at: "انشأ في"
-    # created_at_by: "Created at %{at} by %{by}."
+    # created_at_by: "Created at %{at} by %{author}"
     created_between: "تم التسجيل بين %{started_at} و %{stopped_at}"
+    # created_by_ago: "Created by %{author} %{ago} ago"
     credit: "رصيد دائن"
     credits: "الائتمانات"
     criterion_modes:
@@ -1189,7 +1191,8 @@ arb:
     # depreciations: "Depreciations"
     description: "الوصف"
     # destroy: "Destroy"
-    # destroyed_at_by: "Destroyed at %{at} by %{by}"
+    # destroyed_at_by: "Destroyed at %{at} by %{author}"
+    # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "معلومات اضافية"
     discount: "الخصم (%)"
     display: "عرض"
@@ -1389,6 +1392,7 @@ arb:
     journals: "الدفاتر اليومية"
     kame: "" #?
     # label: "Label"
+    # label_value: "%{label}: %{value}"
     # land_parcel_abbreviation: "LP"
     land_parcel_create: "انشاء نظام جديد" #?
     land_parcel_name: "نظام"
@@ -1526,6 +1530,7 @@ arb:
     new_family: "اسرة جديدة" #?
     new_organization: "منظمة جديدة" #?
     new_payment: "تسجيل دفعة جديدة" #?
+    # new_production_of_activity: "New production of %{activity}"
     new_sale: "بيعة جديدة" #?
     new_title: "عنوان جديد" #?
     new_transport_of_x_deliveries:
@@ -1633,8 +1638,6 @@ arb:
     permute: "مقايضة الملفات"
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
-    # phone: "Pho."
-    # phosphorus_concentration: "Phosphorus concentration"
     # phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare"
     # picture: "Picture"
     # placeholder: "Placeholder"
@@ -1915,6 +1918,8 @@ arb:
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     # total_paid_amount: "Total paid amount"
+    # total_pretax_expenses: "Total pretax expenses"
+    # total_pretax_revenues: "Total pretax revenues"
     total_quantity: "مجموع الكمية"
     # total_unpaid_amount: "Total unpaid amount"
     totals: "(المجموع (صلاحية العينات والمسودات"
@@ -1965,7 +1970,8 @@ arb:
     up: "يرتفع"
     update: "تعديل"
     update_params: "تعديل البحث"
-    # updated_at_by: "Updated at %{at} by %{by}:"
+    # updated_at_by: "Updated at %{at} by %{author}:"
+    # updated_by_ago: "Updated by %{author} %{ago} ago:"
     upload: "تحميل الملفات"
     # uploading_unicoque_traceability: "Uploading unicoque traceability"
     # usage: "Usage"
@@ -2342,8 +2348,8 @@ arb:
       # mark: "Mark"
       # merge: "Merge"
       # new: "New"
+      # open: "Open"
       # pick: "Pick"
-      # picture: "Picture"
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"

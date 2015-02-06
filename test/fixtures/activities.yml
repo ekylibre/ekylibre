@@ -24,16 +24,12 @@
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer
-#  description  :string(255)
+#  description  :text
 #  family       :string(255)
 #  id           :integer          not null, primary key
-#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature       :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -50,7 +46,6 @@
 activities_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  depth: 0
   description: ''
   family: cereal_crops
   id: 1
@@ -62,7 +57,6 @@ activities_001:
 activities_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  depth: 0
   description: ''
   family: cattle_farming
   id: 3
@@ -84,42 +78,33 @@ activities_003:
 activities_004:
   created_at: 2014-11-04 18:16:53.454319000 Z
   creator_id: 1
-  depth: 0
   description: ''
   family: cereal_crops
   id: 5
-  lft: 1
   lock_version: 0
   name: Maïs
   nature: main
-  rgt: 2
   updated_at: 2014-11-04 18:16:53.454319000 Z
   updater_id: 1
 activities_005:
   created_at: 2014-11-07 16:28:28.828977000 Z
   creator_id: 1
-  depth: 0
   description: ''
   family: vines
   id: 6
-  lft: 1
   lock_version: 0
   name: Vignes
   nature: main
-  rgt: 2
   updated_at: 2014-11-07 16:28:28.828977000 Z
   updater_id: 1
 activities_006:
   created_at: 2014-11-07 16:28:45.261588000 Z
   creator_id: 1
-  depth: 0
   description: ''
   family: wine
   id: 7
-  lft: 1
   lock_version: 0
   name: Vin
   nature: main
-  rgt: 2
   updated_at: 2014-11-07 16:28:45.261588000 Z
   updater_id: 1

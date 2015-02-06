@@ -20,21 +20,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: activities
+# == Table: activity_distributions
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  family       :string(255)
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  activity_id            :integer          not null
+#  affectation_percentage :decimal(19, 4)   not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  main_activity_id       :integer          not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 require 'test_helper'
 
-class ActivityTest < ActiveSupport::TestCase
+class ActivityDistributionTest < ActiveSupport::TestCase
+
   test_fixtures
+
 end

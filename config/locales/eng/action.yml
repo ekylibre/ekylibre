@@ -753,6 +753,7 @@ eng:
     add_condition: "Add condition"
     add_conditions: "Add conditions"
     add_delivery: "Add delivery"
+    add_distribution: "Add distribution"
     add_email: "Add email"
     add_fax: "Add fax"
     add_filter: "Add filter"
@@ -809,7 +810,7 @@ eng:
     bookkeep_with_payment: "Bookkeep with payment" #?
     budget: "Budget"
     # budget_per_working_indicator: "Budget per working indicator"
-    budgets: "Budgets"
+    budgets: "Budgets" #?
     building_name: "Building name" #?
     calculate: "Calculate" #?
     calculators: "Calculators"
@@ -866,10 +867,8 @@ eng:
     create_journal: "— Create journal —"
     created_at: "Created on" #?
     created_at_by: "Created at %{at} by %{author}"
-    created_by_ago: "Created by %{author} %{ago} ago"
-    destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
-    updated_by_ago: "Updated by %{author} %{ago} ago:"
     created_between: "Created between %{started_at} and %{stopped_at}"
+    created_by_ago: "Created by %{author} %{ago} ago"
     credit: "Credit" #?
     credits: "Credits"
     criterion_modes: #?
@@ -907,6 +906,7 @@ eng:
     description: "Description" #?
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
+    destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "Details"
     discount: "Discount (%)" #?!
     display: "Display" #?
@@ -930,7 +930,6 @@ eng:
     email: "Email:" #?
     employee: "Employee"
     employee_name: "Employee" #?
-    # empty: "Empty"
     end: "to" #?
     entities: "Entities"
     entity: "Person" #?
@@ -951,6 +950,7 @@ eng:
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
+    # expenses: "Expenses"
     export: "Export documents"
     file_nature: "File type"
     file_to_upload: "File to upload"
@@ -1049,6 +1049,7 @@ eng:
       mixed: "Entries and items"
     journals: "Journals"
     label: "Label" #?
+    label_value: "%{label}: %{value}"
     land_parcel_abbreviation: "LP"
     land_parcel_name: "Land parcel name" #?
     land_parcels: "Land parcels"
@@ -1078,6 +1079,7 @@ eng:
     main_settings: "Main settings"
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
+    # manure_management_plans: "Manure management plans"
     map: "Map"
     margins: "Margins"
     markers: "Markers"
@@ -1123,6 +1125,7 @@ eng:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
+    new_production_of_activity: "New production of %{activity}"
     new_transport_of_x_deliveries:
       one: "New transport (%{count} delivery)"
       other: "New transport (%{count} deliveries)"
@@ -1187,8 +1190,6 @@ eng:
     permute: "Permute" #?
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
-    phone: "Pho." #?
-    phosphorus_concentration: "Phosphorus concentration" #?
     phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
@@ -1275,6 +1276,7 @@ eng:
       one: "1 result" #?
       other: "%{count} results" #?
       zero: "No results" #?
+    # revenues: "Revenues"
     reverse: "Reverse condition"
     rights: "Rights"
     role: "Role" #?
@@ -1356,6 +1358,7 @@ eng:
     time_zone: "Time zone"
     # timeline: "Timeline"
     timeline_comment: "%{author} commented %{ago} ago"
+    # timeline_entity_link: "Timeline entity link"
     timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
     timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
@@ -1373,8 +1376,8 @@ eng:
     total_earn_per_area: "Total earn per area"
     total_in_currency: "Total (%{currency})"
     total_paid_amount: "Total paid amount"
-    total_pretax_revenues: "Total pretax revenues"
     total_pretax_expenses: "Total pretax expenses"
+    total_pretax_revenues: "Total pretax revenues"
     total_quantity: "Total quantity"
     total_unpaid_amount: "Total unpaid amount"
     totals: "Totals" #?
@@ -1412,6 +1415,7 @@ eng:
     update: "Update"
     update_params: "Update params" #?
     updated_at_by: "Updated at %{at} by %{author}:"
+    updated_by_ago: "Updated by %{author} %{ago} ago:"
     upload: "Upload"
     uploading_unicoque_traceability: "Uploading unicoque traceability" #?!
     usage: "Usage" #?
@@ -1554,6 +1558,7 @@ eng:
       success: "Success"
       warning: "Warning!"
     messages:
+      # a_campaign_must_be_opened: "A campaign must be opened"
       access_denied: "Access denied. %{reason} (%{url})"
       bookkeeping_is_finished: "The commercial data transfer is finished."
       bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1681,10 +1686,10 @@ eng:
       merge: "Merge"
       # move: "Move"
       new: "New"
-      # open: "Open"
+      open: "Open"
       # permitted_params: "Permitted params"
       pick: "Pick"
-      picture: "Picture"
+      # picture: "Picture"
       point: "Point"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"

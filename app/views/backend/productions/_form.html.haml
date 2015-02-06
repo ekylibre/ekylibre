@@ -1,71 +1,29 @@
-- symbols = Nomen::Units.list.inject({}){|h, i| h.store(i.name, i.symbol); h}.with_indifferent_access
 = field_set do
-  = f.referenced_association :activity, :source => :main
-  = f.referenced_association :campaign, :source => :currents
+  = f.association :activity, as: :hidden
+  = f.association :activity, disabled: true
+  = f.association :campaign, as: :hidden
+  = f.association :campaign, disabled: true
   = f.referenced_association :variant
   = f.referenced_association :support_variant
   = f.input :static_support, :show => :supports
   = f.input :state, as: :radio_buttons
-  = f.input :started_at
-  = f.input :stopped_at
+  -#= f.input :started_at
+  -#= f.input :stopped_at
   = f.input :working_indicator
   = f.input :working_unit
   = f.custom_fields
 
-= field_set(:budgets) do
-  %table#budget_visualization{data: symbols}
-    %tr.support_nested_fields
-      %td
-      = f.backend_fields_for :supports, wrapper: :nested do |support_form|
-        = render 'support_fields', f: support_form
-      %td
-        = link_to_add_association :'+', f, :supports, partial: 'support_fields'
-    = f.backend_fields_for :budgets, wrapper: :nested do |budget_form|
-      = render 'budget_fields', f: budget_form
-    %tr#expenses
-      %td{colspan: '100%', data:{budgets_direction: :expense}}
-        = f.input :homogeneous_expenses, wrapper: :nested
-        = :expenses
-    - template = "<td><span data-support-total='expense'>0.0</span>#{Nomen::Currencies[Preference[:currency]].symbol}</td>"
-    %tr{data:{budget_add: :expense, appendable: template}}
-      %td
-        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :expense}}, data:{association_insertion_node: "tr[data-budget-add='expense']", asosciation_insertion_traversal: 'closest', association_insertion_method: :before}
-      -f.object.supports.count.times do
-        %td
-          %span{data:{support_total: :expense}}
-            = 0.0
-          = Nomen::Currencies[Preference[:currency]].symbol
-      %td{data:{append_before: true}}
-        %span{data:{budgets_global_amount: :expense}}
-          = 0.0
-        = Nomen::Currencies[Preference[:currency]].symbol
-    %tr#revenues
-      %td{colspan: '100%', data:{budgets_direction: :revenue}}
-        = f.input :homogeneous_revenues, wrapper: :nested
-        = :revenues
-    - template = "<td><spand data-support-total='revenue'>0.0</span>#{Nomen::Currencies[Preference[:currency]].symbol}</td>"
-    %tr{data:{budget_add: :revenue, appendable: template}}
-      %td
-        = link_to_add_association :'+', f, :budgets, partial: 'budget_fields', render_options:{locals:{direction: :revenue}}, data:{association_insertion_node: "tr[data-budget-add='revenue']", association_insertion_traversal: 'closest', association_insertion_method: :before}
-      -f.object.supports.count.times do
-        %td
-          %span{data:{support_total: :revenue}}
-            = 0.0
-          = Nomen::Currencies[Preference[:currency]].symbol
-      %td{data:{append_before: true}}
-        %span{data:{budgets_global_amount: :revenue}}
-          = 0.0
-        = Nomen::Currencies[Preference[:currency]].symbol
-    - template = "<td><span data-balance='support'>0.0</span>#{Nomen::Currencies[Preference[:currency]].symbol}</td>"
-    %tr{data:{balance: true, appendable: template}}
-      %td
-        = :balance
-      -f.object.supports.count.times do
-        %td
-          %span{data:{balance: :support}}
-            = 0.0
-          = Nomen::Currencies[Preference[:currency]].symbol
-      %td{data:{append_before: true}}
-        %span{data:{balance: :global}}
-          = 0.0
-        = Nomen::Currencies[Preference[:currency]].symbol
+- if f.object.activity and f.object.auxiliary?
+  :ruby
+    unless f.object.distributions.any?
+      f.object.activity_distributions.each do |distribution|
+        if production = Production.find_by(activity_id: distribution.main_activity_id, campaign_id: f.object.campaign_id)
+          f.object.distributions.build(affectation_percentage: distribution.affectation_percentage, main_production_id: production.id)
+        end
+      end
+    end
+  = field_set(Production.human_attribute_name(:distributions)) do
+    = f.nested_association(:distributions, locals: {campaign: f.object.campaign})
+
+= field_set(:budget) do
+  = render "budget_form", f: f

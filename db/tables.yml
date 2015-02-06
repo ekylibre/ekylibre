@@ -38,16 +38,23 @@ accounts:
 activities:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  depth: {type: integer}
-  description: {type: string}
+  description: {type: text}
   family: {type: string}
   id: {type: integer, required: true}
-  lft: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
   nature: {type: string, required: true}
-  parent_id: {type: integer, references: activity}
-  rgt: {type: integer}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+activity_distributions:
+  activity_id: {type: integer, references: activity, required: true}
+  affectation_percentage: {type: decimal, precision: 19, scale: 4, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  main_activity_id: {type: integer, references: activity, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -1541,6 +1548,17 @@ product_readings:
   product_id: {type: integer, references: product, required: true}
   read_at: {type: datetime, required: true}
   string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+production_distributions:
+  affectation_percentage: {type: decimal, precision: 19, scale: 4, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  main_production_id: {type: integer, references: production, required: true}
+  production_id: {type: integer, references: production, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

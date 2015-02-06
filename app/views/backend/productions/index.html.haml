@@ -1,59 +1,58 @@
 = kujaku do |k|
-  - k.text
   -# k.radio_buttons :all, :validated, :draft, :aborted, :started
   - k.criterion do
     %label= Production.human_attribute_name(:campaign)
-    = select_tag(:campaign_id, options_for_select([[]] + Campaign.all.collect{|u| [u.name, u.id]}, params[:campaign_id]))
+    = select_tag(:campaign_id, options_for_select(Campaign.all.collect{|u| [u.name, u.id]}, campaign.id))
+  - k.text
   - k.criterion do
     %label= Production.human_attribute_name(:variant)
     = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:variant_id]))
 
 :ruby
   data = []
-  if campaign = Campaign.find_by(id: params[:campaign_id]) || Campaign.reorder(harvest_year: :desc).first
-    ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
 
-      popup_content = []
+    popup_content = []
 
-      # for support
-      popup_content << {label: Campaign.model_name.human, value: support.campaign_name}
-      popup_content << {label: Activity.model_name.human, value: support.activity_name}
-      popup_content << {label: Production.model_name.human, value: link_to(support.production_name, backend_production_path(support.production))}
-      popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.name, backend_production_support_path(support))}
+    # for support
+    popup_content << {label: Campaign.model_name.human, value: support.campaign_name}
+    popup_content << {label: Activity.model_name.human, value: support.activity_name}
+    popup_content << {label: Production.model_name.human, value: link_to(support.production_name, backend_production_path(support.production))}
+    popup_content << {label: ProductionSupport.model_name.human, value: link_to(support.name, backend_production_support_path(support))}
 
-      if support.storage
-        popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage_net_surface_area.in_hectare.round(2).l}
-      end
-
-      if interventions = Intervention.where(production_support: support).reorder(:started_at)
-        popup_content << {label: :interventions_count.tl, value: interventions.count }
-      end
-
-      if interventions.any? and last_intervention = interventions.last
-        popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
-      end
-
-      popup_content << render('popup', support: support)
-
-      item = {
-        name:       support.name,
-        shape:      support.shape,
-        campaign:   support.campaign_name,
-        activity:   support.activity_name,
-        production: support.production_name,
-        variant:    support.variant_name,
-        interventions_count: interventions.count,
-        popup: {header: true, content: popup_content}
-      }
-      data << item
+    if support.storage
+      popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.storage_net_surface_area.in_hectare.round(2).l}
     end
+
+    if interventions = Intervention.where(production_support: support).reorder(:started_at)
+      popup_content << {label: :interventions_count.tl, value: interventions.count }
+    end
+
+    if interventions.any? and last_intervention = interventions.last
+      popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
+    end
+
+    popup_content << render('popup', support: support)
+
+    item = {
+      name:       support.name,
+      shape:      support.shape,
+      campaign:   support.campaign_name,
+      activity:   support.activity_name,
+      production: support.production_name,
+      variant:    support.variant_name,
+      interventions_count: interventions.count,
+      popup: {header: true, content: popup_content}
+    }
+    data << item
   end
 
-- main_toolbar do |t|
-  - t.new
+- if campaign.opened?
+  - main_toolbar do |t|
+    - t.new variants: Activity.availables.reorder(:name).to_a.inject({}){|h,n| h[:new_production_of_activity.tl(activity: n.name)] = {activity_id: n.id, campaign_id: params[:campaign_id]}; h}
 
 = beehive do |b|
-  - if campaign and data.any?
+  - if data.any?
     - b.cell :map do
       = visualization do |v|
         - v.serie :main, data

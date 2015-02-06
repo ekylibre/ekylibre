@@ -72,4 +72,8 @@ class Campaign < Ekylibre::Record::Base
     self.class.where("harvest_year < ?", self.harvest_year)
   end
 
+  def opened?
+    !self.closed
+  end
+
 end

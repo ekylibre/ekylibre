@@ -146,8 +146,8 @@ class ActionController::TestCase
     def test_restfully_all_actions(options = {}, &block)
       controller_name = self.controller_class.controller_name
       controller_path = self.controller_class.controller_path
-      table_name = controller_name
-      model_name = table_name.classify
+      table_name = options.delete(:table_name) || controller_name
+      model_name = options.delete(:class_name) || table_name.classify
       model = model_name.constantize rescue nil
       record = model_name.underscore
       other_record = "other_#{record}"

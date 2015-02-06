@@ -24,33 +24,30 @@
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer
-#  description  :string(255)
+#  description  :text
 #  family       :string(255)
 #  id           :integer          not null, primary key
-#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature       :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 class Activity < Ekylibre::Record::Base
-  enumerize :nature, in: [:main, :auxiliary, :none], default: :main
+  enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
+  has_many :distributions, -> { order(:main_activity_id) }, class_name: "ActivityDistribution", dependent: :destroy
   has_many :productions
   has_many :supports, through: :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
-  validates_length_of :description, :family, :name, :nature, allow_nil: true, maximum: 255
+  validates_length_of :family, :name, :nature, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :family, in: self.family.values, allow_nil: true
 
   scope :main, -> { where(nature: "main") }
   scope :actives, -> { where(id: Production.actives.pluck(:activity_id)) }
+  scope :availables, -> { order(:name) }
   # scope :main_activity, -> { where(nature: "main") }
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -59,7 +56,7 @@ class Activity < Ekylibre::Record::Base
     end
     # joins(:productions).merge(Production.of_campaign(campaigns))
     # where("id IN (SELECT activity_id FROM #{Production.table_name} WHERE campaign_id IN (?))", campaigns.map(&:id))
-    where("id IN (?)", Production.of_campaign(campaigns).pluck(:activity_id))
+    where(id: Production.of_campaign(campaigns).pluck(:activity_id))
   }
 
   #scope :of_families, lambda { |*families|
@@ -70,12 +67,31 @@ class Activity < Ekylibre::Record::Base
     where(:family => families.flatten.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
 
+  after_save do
+    if self.auxiliary? and self.distributions.any?
+      total = self.distributions.sum(:affectation_percentage)
+      if total != 100
+        sum = 0
+        self.distributions.each do |distribution|
+          percentage = (distribution.affectation_percentage * 100.0/total).round(2)
+          sum += percentage
+          distribution.update_column(:affectation_percentage, percentage)
+        end
+        if sum != 100
+          distribution = self.distributions.last
+          distribution.update_column(:affectation_percentage, distribution.affectation_percentage + (100 - sum))
+        end
+      end
+    else
+      self.distributions.clear
+    end
+  end
+
   protect(on: :destroy) do
     self.productions.any?
   end
 
-  accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true
-  acts_as_nested_set
+  accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
   def shape_area(*campaigns)
     return productions.of_campaign(campaigns).map(&:shape_area).compact.sum

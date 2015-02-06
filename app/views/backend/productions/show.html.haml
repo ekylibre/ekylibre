@@ -31,8 +31,8 @@
 
 
   -# For budgets
-  - b.cell(:budget) do
-    - if resource.budgets.count > 0
+  - if resource.budgets.any?
+    - b.cell(:budget) do
       :ruby
         balance = 0
         data_series = []
@@ -56,10 +56,8 @@
         series = []
         series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
       = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
-    - else
-      = no_data
 
-  -# TODO need to be renovate but the idea is here
+  -# TODO need to be renovated but the idea is here
   - area_value = (resource.net_surface_area.to_d(:hectare))
   - total_earn = nil
   - total_cost = nil
@@ -181,6 +179,17 @@
   - b.hbox do
     - b.cell Production.human_attribute_name(:supports) do
       = list :supports
+    - if resource.auxiliary?
+      - b.cell(Production.human_attribute_name(:distributions)) do
+        :ruby
+          data = []
+          resource.distributions.reorder(:affectation_percentage).find_each do |distribution|
+            y = distribution.affectation_percentage.to_s.to_f
+            data << {name: :label_value.th(label: distribution.main_production_name, value: number_to_percentage(y, precision: 2)), y: y }
+          end
+          series = [{type: 'pie', name: Production.human_attribute_name(:distributions), data: data}]
 
-    -#b.cell(:markers) do
+        = pie_chart(series, legend: true)
+
+    -# b.cell(:markers) do
       = list(:markers)

@@ -1,10 +1,7 @@
 - support ||= f.object.production_support
 - index = f.object.budget.items.index(f.object)
-%td.nested-fields{data:{support_destroy: "production_supports_attributes_#{index}__destroy"}}
+%td.nested-fields{data: {support_destroy: "production_supports_attributes_#{index}__destroy"}}
   = f.input :quantity
-  %span{data:{budget_item_units: true}}
-    = :void
-  %span{data:{budget_item_value: true}}
-    = 0.0
-  = Nomen::Currencies[Preference[:currency]].symbol
-  = link_to_remove_nested_association(:item, f)
+  %span{data: {budget_item_units: true}}= :void
+  %span{data: {budget_item_value: true}}= 0.0
+  -#= link_to_remove_nested_association(:item, f)

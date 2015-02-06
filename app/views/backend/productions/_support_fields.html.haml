@@ -1,11 +1,11 @@
 %td.nested-fields
-  = f.referenced_association(:storage, :source => :supportables)
-  %span{data:{working_indicator_value: true}}
+  = f.referenced_association :storage, :source => :supportables
+  %span{data: {working_indicator_value: true}}
     = f.object.working_indicator_measure.value.to_f rescue 0.0
-  %span{data:{working_indicator_unit: true}}
+  %span{data: {working_indicator_unit: true}}
     = f.object.working_indicator_measure.unit rescue nil
   = link_to_remove_nested_association(:support, f)
-  = f.input(:started_at)
-  = f.input(:stopped_at)
+  = f.input :started_at
+  = f.input :stopped_at
   = f.input :nature
   = f.input :irrigated

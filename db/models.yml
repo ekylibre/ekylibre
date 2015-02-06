@@ -2,6 +2,7 @@
 - account
 - account_balance
 - activity
+- activity_distribution
 - affair
 - analysis
 - analysis_item
@@ -115,6 +116,7 @@
 - product_reading_task
 - product_triple_mixing
 - production
+- production_distribution
 - production_support
 - production_support_marker
 - property_title

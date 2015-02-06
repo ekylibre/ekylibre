@@ -52,11 +52,12 @@ class Production < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :support_variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
+  has_many :analytic_distributions
+  has_many :activity_distributions, through: :activity, source: :distributions
   has_many :budgets
-  has_many :expenses, -> {where(direction: :expense)}, class_name: 'Budget'
-  has_many :revenues, -> {where(direction: :revenue)}, class_name: 'Budget'
-
-  has_many :distributions, class_name: "AnalyticDistribution"
+  has_many :expenses, -> { where(direction: :expense) }, class_name: 'Budget'
+  has_many :revenues, -> { where(direction: :revenue) }, class_name: 'Budget'
+  has_many :distributions, class_name: "ProductionDistribution", dependent: :destroy, inverse_of: :production
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
@@ -78,6 +79,7 @@ class Production < Ekylibre::Record::Base
   alias_attribute :product_variant, :variant
 
   delegate :name, :variety, to: :variant, prefix: true
+  delegate :main?, :auxiliary?, :standalone?, to: :activity
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -86,6 +88,8 @@ class Production < Ekylibre::Record::Base
     end
     where(campaign_id: campaigns.map(&:id))
   }
+
+  scope :main_of_campaign, lambda { |campaign| where(activity: Activity.main, campaign_id: (campaign.is_a?(Campaign) ? campaign.id : campaign.to_i)) }
 
   scope :of_currents_campaigns, -> { joins(:campaign).merge(Campaign.currents)}
 
@@ -104,6 +108,8 @@ class Production < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :supports, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :budgets, :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
+
 
   state_machine :state, :initial => :draft do
     state :draft
