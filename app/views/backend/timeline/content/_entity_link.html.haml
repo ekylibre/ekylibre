@@ -1,0 +1,2 @@
+- linked = side.object.id == entity_link.entity_1_id ? entity_link.entity_2 : entity_link.entity_1
+= :timeline_entity_link.th(defaults.merge(linked: link_to(linked.full_name, {controller: :entities, action: :show, id: linked.id}), nature: entity_link.nature.l))

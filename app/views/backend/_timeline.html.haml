@@ -1,19 +1,23 @@
 .timeline-tools
   - timeline.sides.each do |side|
     %span.timeline-tool
-      = link_to(side.human_name, "#", class: "btn active", data: {toggle_timesteps: side.model_name})
+      = link_to("#", class: "btn#{' active' unless side.count.zero?}", data: {toggle_timesteps: side.model_name}, disabled: side.count.zero?) do
+        = side.human_name
+        %span.badge= side.count
       - if side.new_url?
         = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-new") do
           %i
 .timeline
   - timeline.steps.each do |step|
     - side = step.side
-    - defaults = {type: h(side.model.model_name.human), name: link_to(step.name.to_s, {controller: side.controller_name, action: :show, id: step.record.id}), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), at: h(step.at.l), ago: content_tag(:span, time_ago_in_words(step.at), title: step.at.l(format: :long))}
+    - defaults = {type: h(side.model.model_name.human), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), at: h(step.at.l), ago: content_tag(:span, time_ago_in_words(step.at), title: step.at.l(format: :long))}
+    - defaults[:name] = link_to(step.name.to_s, {controller: side.controller_name, action: :show, id: step.record.id}) rescue step.name.to_s
+    
     .timestep{class: side.model_name}
       - if Rails.root.join("app", "views", "backend", "timeline", "_#{side.model_name}.html.haml").exist?
         = render "backend/timeline/#{side.model_name}", side: side, step: step, defaults: defaults, side.model_name => step.record
       - else
-        .log  
+        .log
           - if step.record.respond_to? :status
             %span.status= lights(step.record.status)
           %span.content

@@ -52,6 +52,8 @@
     - if count > 0
       - b.cell :container do
         = map
+    - b.cell :timeline do
+      = render "timeline"
 
   - b.hbox do
     - b.cell(:intervention_casts) do

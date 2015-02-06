@@ -105,6 +105,8 @@ class Issue < Ekylibre::Record::Base
     if self.target
       self.target_type = self.target.class.base_class.name
     end
+    self.priority ||= 0
+    self.gravity  ||= 0
     if self.nature
       self.name = (self.target ? tc(:name_with_target, nature: self.nature.l, target: target.name) : tc(:name_without_target, nature: self.nature.l))
     end

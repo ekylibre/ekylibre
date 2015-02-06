@@ -56,7 +56,7 @@ class Version < ActiveRecord::Base
 
   before_save do
     if self.item
-      self.item_type = self.item.class.name
+      self.item_type = self.item.class.base_class.name
     end
     self.created_at ||= Time.now
     self.creator ||= Version.current_user

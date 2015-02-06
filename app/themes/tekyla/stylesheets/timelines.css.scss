@@ -65,6 +65,41 @@
         line-height: $line-height;
         margin-top: $default-gap;
       }
+      .changes {
+        margin-left: 4em;
+        li {
+          list-style-type: disc;
+          &, * {
+            line-height: $line-height;
+            vertical-align: baseline;
+          }
+          em {
+            font-style: italic;
+          }
+        }
+      }
+      &.create i.symbol{
+        @include use-icon(plus);
+      }
+      &.update i.symbol{
+        @include use-icon(pencil);
+      }
+      &.destroy i.symbol{
+        @include use-icon(remove);
+      }
+    }
+    
+    &.entity_link .log i.symbol {
+      @include use-icon(arrows-h);
+    }
+    &.product_localization .log i.symbol {
+      @include use-icon(map-marker);
+    }
+    &.product_ownership .log i.symbol {
+      @include use-icon(key);
+    }
+    &.product_phase .log i.symbol {
+      @include use-icon(share);
     }
     &.incoming_payment .log i.symbol {
       color: $success-color;

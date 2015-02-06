@@ -2410,7 +2410,7 @@ svg.map {
   height: $fs-small;
   color: white;
   white-space: nowrap;
-  a > & {
+  a:not([disabled]) > & {
     background-color: $active-link-color;
   }
 }

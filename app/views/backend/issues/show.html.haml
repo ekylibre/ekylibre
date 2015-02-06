@@ -29,15 +29,23 @@
     - b.cell do
       - if resource.picture.exists?
         .picture= image_tag(resource.picture.url(:identity))
-      .big-info.important
-        %span.title= Issue.human_attribute_name(:state)
-        %span.value= lights(resource.status)
-      = attributes_list do |l|
-        - l.attribute :target, url: true
-        - l.attribute :description
+      .big-infos
+        .big-info.important
+          %span.title= Issue.human_attribute_name(:state)
+          %span.value= lights(resource.status)
+        .med-info.important
+          %span.title= Issue.human_attribute_name(:target)
+          %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
+        .med-info.important
+          %span.title= Issue.human_attribute_name(:description)
+          %span.value= resource.description
 
   - b.hbox do
-    - b.cell(:interventions) do
+    - b.cell :timeline do
+      = timeline(resource) do |l|
+        - l.side :interventions
+        - l.side :versions, new: false
+    -# b.cell(:interventions) do
       = toolbar do |t|
         - t.new(params: {controller: :interventions, issue_id: resource.id})
       = list(:interventions)

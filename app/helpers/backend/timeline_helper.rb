@@ -23,12 +23,13 @@
 module Backend::TimelineHelper
 
   class Timeline
-    attr_reader :sides
+    attr_reader :object, :sides
 
     class Side
       attr_reader :name, :model, :label_method
 
-      def initialize(name, model, options = {})
+      def initialize(timeline, name, model, options = {})
+        @timeline = timeline
         @name = name
         @model = model
         @label_method = options[:label_method]
@@ -55,6 +56,24 @@ module Backend::TimelineHelper
 
       def new_url?
         @new
+      end
+
+      def object
+        @timeline.object
+      end
+
+      def count
+        @count ||= records.count
+      end
+
+      def steps
+        @steps ||= records.collect do |record|
+          Step.new(self, record.send(at_method), record)
+        end
+      end
+
+      def records
+        @records ||= @timeline.object.send(@name)
       end
 
       def params
@@ -98,9 +117,7 @@ module Backend::TimelineHelper
     def steps
       list = []
       @sides.each do |side|
-        list += @object.send(side.name).collect do |record|
-          Step.new(side, record.send(side.at_method), record)
-        end
+        list += side.steps
       end
       return list.compact.sort.reverse
     end
@@ -116,7 +133,7 @@ module Backend::TimelineHelper
       options[:params][reflection.foreign_key.to_sym] ||= @object.id
       options[:params]["#{reflection.options[:as]}_type".to_sym] ||= @model.name if reflection.options[:as]
       options[:label] ||= @model.human_attribute_name(name)
-      @sides << Side.new(name.to_sym, klass, options)
+      @sides << Side.new(self, name.to_sym, klass, options)
     end
 
     def method_missing(method_name, *args)

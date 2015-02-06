@@ -90,6 +90,7 @@ class Product < Ekylibre::Record::Base
   has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id, dependent: :destroy
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor, dependent: :restrict_with_exception
+  has_many :interventions, through: :intervention_casts
   # has_many :groups, :through => :memberships
   has_many :reading_tasks, class_name: "ProductReadingTask", dependent: :destroy
   # has_many :incoming_delivery_items
