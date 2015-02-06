@@ -3,7 +3,8 @@
     %span.timeline-tool
       = link_to("#", class: "btn#{' active' unless side.count.zero?}", data: {toggle_timesteps: side.model_name}, disabled: side.count.zero?) do
         = side.human_name
-        %span.badge= side.count
+        - if side.count > 0
+          %span.badge= side.count
       - if side.new_url?
         = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-new") do
           %i
