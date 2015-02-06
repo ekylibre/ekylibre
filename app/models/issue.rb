@@ -60,7 +60,7 @@ class Issue < Ekylibre::Record::Base
   validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
   #]VALIDATORS]
-  validates_inclusion_of :priority, in: 0..5
+  validates_inclusion_of :priority, :gravity, in: 0..5
   validates_attachment_content_type :picture, content_type: /image/
 
   acts_as_versioned
@@ -105,7 +105,7 @@ class Issue < Ekylibre::Record::Base
 
   before_validation do
     if self.target
-      self.target_type = self.target.class.name
+      self.target_type = self.target.class.base_class.name
     end
     if self.nature
       self.name = (self.target ? tc(:name_with_target, nature: self.nature.l, target: target.name) : tc(:name_without_target, nature: self.nature.l))

@@ -75,7 +75,7 @@ class ProductReading < Ekylibre::Record::Base
 
   before_validation(on: :create) do
     if self.originator
-      self.originator_type = self.originator.class.name
+      self.originator_type = self.originator.class.base_class.name
     end
     if self.product and self.product.initial_born_at
       self.read_at ||= self.product.initial_born_at

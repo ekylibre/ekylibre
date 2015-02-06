@@ -1,9 +1,10 @@
-- timeline.sides.each do |side|
-  %span.btn-group
-    = link_to(side.human_name, "#", class: "btn active", data: {toggle_timesteps: side.model_name})
-    - if side.new_url?
-      = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-new") do
-        %i
+.timeline-tools
+  - timeline.sides.each do |side|
+    %span.timeline-tool
+      = link_to(side.human_name, "#", class: "btn active", data: {toggle_timesteps: side.model_name})
+      - if side.new_url?
+        = link_to({controller: side.controller_name, action: :new, redirect: request.fullpath}.merge(side.params), class: "btn btn-new") do
+          %i
 .timeline
   - timeline.steps.each do |step|
     - side = step.side

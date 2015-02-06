@@ -92,7 +92,7 @@ class Preference < Ekylibre::Record::Base
 
   before_validation do
     if self.record?
-      self.record_value_type = self.record_value.class.name
+      self.record_value_type = self.record_value.class.base_class.name
     end
   end
 

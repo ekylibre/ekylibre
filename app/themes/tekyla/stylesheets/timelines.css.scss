@@ -96,5 +96,17 @@
       color: $invalid-color;
       @include use-icon(money);
     }
+    &.issue .log i.symbol {
+      color: $caution-color;
+      @include use-icon(bug);
+    }
+  }
+}
+
+.timeline-tools {
+  padding: $default-gap*0.5;
+  .timeline-tool {
+    @include button-group;
+    margin: $default-gap*0.5;
   }
 }

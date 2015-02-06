@@ -46,6 +46,9 @@ class Attachment < Ekylibre::Record::Base
   #]VALIDATORS]
 
   before_validation do
+    if self.resource
+      self.resource_type = self.resource.class.base_class.name
+    end
     if self.document
       self.nature = self.document.nature
     end

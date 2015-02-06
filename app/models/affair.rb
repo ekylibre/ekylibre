@@ -85,7 +85,7 @@ class Affair < Ekylibre::Record::Base
 
   before_validation do
     if self.originator
-      self.originator_type = self.originator.class.name
+      self.originator_type = self.originator.class.base_class.name
     end
     deals = self.deals
     self.debit, self.credit, self.deals_count = 0, 0, deals.count

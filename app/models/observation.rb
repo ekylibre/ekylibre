@@ -50,7 +50,7 @@ class Observation < Ekylibre::Record::Base
 
   before_validation do
     if self.subject
-      self.subject_type = self.subject.class.name
+      self.subject_type = self.subject.class.base_class.name
     end
     self.importance ||= self.class.importance.default_value
     self.observed_at ||= Time.now

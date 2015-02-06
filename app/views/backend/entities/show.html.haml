@@ -67,17 +67,19 @@
   - b.hbox do
     - b.cell :timeline do
       = timeline(resource) do |l|
-        - l.sales
-        - l.purchases
-        - l.incoming_payments
-        - l.outgoing_payments
-        - l.observations
-        - l.direct_links
-        - l.indirect_links
-        -# l.addresses new: false
-        - l.participations
-        - l.issues
-        - l.versions new: false
+        - if resource.sales.any? or resource.client?
+          - l.side :sales, new: resource.client?
+        - if resource.purchases.any? or resource.supplier?
+          - l.side :purchases, new: resource.supplier?
+        - l.side :incoming_payments
+        - l.side :outgoing_payments
+        - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}
+        - l.side :observations
+        - l.side :direct_links
+        - l.side :indirect_links
+        -# l.side :addresses, new: false
+        - l.side :events
+        - l.side :versions, new: false
     -# b.cell(tl(:x_issues, count: resource.issues.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})

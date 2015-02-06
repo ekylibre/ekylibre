@@ -146,7 +146,7 @@ class JournalEntry < Ekylibre::Record::Base
   #
   before_validation do
     if self.resource
-      self.resource_type = self.resource.class.name
+      self.resource_type = self.resource.class.base_class.name
     end
     if self.journal
       self.real_currency = self.journal.currency
