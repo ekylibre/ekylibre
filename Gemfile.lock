@@ -294,6 +294,11 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
+    roo (1.13.2)
+      nokogiri
+      rubyzip
+      spreadsheet (> 0.6.4)
+    ruby-ole (1.2.11.8)
     ruby-progressbar (1.7.1)
     rubyntlm (0.3.4)
     rubyzip (1.1.7)
@@ -339,6 +344,8 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    spreadsheet (1.0.1)
+      ruby-ole (>= 1.0)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -453,6 +460,7 @@ DEPENDENCIES
   rails_best_practices (= 1.15.4)
   rgeo-geojson
   rgeo-shapefile
+  roo
   rubyzip
   sass (~> 3.2.19)
   sass-rails (~> 4.0.1)
@@ -463,6 +471,7 @@ DEPENDENCIES
   sidekiq
   simple_calendar (~> 0.1)
   simple_form (~> 3.0.0)
+  spreadsheet
   state_machine
   therubyracer
   thin

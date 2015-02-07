@@ -845,6 +845,7 @@ jpn:
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
+    # expenses: "Expenses"
     # export: "Export documents"
     # file_nature: "File type"
     # file_to_upload: "File to upload"
@@ -1131,6 +1132,7 @@ jpn:
     product_tabbox: #?
     # production: "Production management"
     # production_cost: "Production cost"
+    # production_distribution: "Production distribution"
     # production_support: "Production support"
     # productions: "Productions"
     productions_states:
@@ -1183,6 +1185,7 @@ jpn:
       # one: "1 result"
       # other: "%{count} results"
       # zero: "No results"
+    # revenues: "Revenues"
     # reverse: "Reverse condition"
     # rights: "Rights"
     # role: "Role"

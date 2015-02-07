@@ -1064,6 +1064,7 @@ spa:
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
+    # expenses: "Expenses"
     export: "Exportación de un fichero de salvaguardia"
     file_nature: "Tipo de fichero"
     file_to_import: "Fichero a importar" #?
@@ -1403,6 +1404,7 @@ spa:
     product_tabbox: #?
     production: "Administración de la producción"
     # production_cost: "Production cost"
+    # production_distribution: "Production distribution"
     # production_support: "Production support"
     # productions: "Productions"
     productions_states:
@@ -1465,6 +1467,7 @@ spa:
       one: "1 resultado"
       other: "%{count} resultado"
       zero: "Ningun resultado"
+    # revenues: "Revenues"
     # reverse: "Reverse condition"
     right_modules:  #?
       accountancy: "Derechos modulo contabilidad" #?

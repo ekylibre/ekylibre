@@ -995,6 +995,7 @@ fra:
     expected_quantity_is_x: "Quantité attendue\_: %{x}"
     expedier: "Expéditeur"
     expense_chart: "Évolution des dépenses" #?
+    expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit" #?
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
@@ -1395,6 +1396,7 @@ fra:
     product_price_templates: "Types de prix" #?
     production: "Production"
     production_cost: "Coût de production"
+    production_distribution: "Répartition de la production"
     production_support: "Support de production"
     productions: "Productions"
     productions_states:
@@ -1468,6 +1470,7 @@ fra:
       one: "%{count} résultat"
       other: "%{count} résultats"
       zero: "Aucun résultat"
+    revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit" #?
     reverse: "Appliquer la condition inverse"
     right_modules:  #?

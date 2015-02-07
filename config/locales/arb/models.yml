@@ -782,6 +782,7 @@ arb:
       account: "الحساب"
       account_balance: "رصيد الحساب"
       # activity: "Activity"
+      # activity_distribution: "Activity distribution"
       # affair: "Affair"
       # analysis: "Analysis"
       # analysis_item: "Analysis item"
@@ -791,6 +792,8 @@ arb:
       area: "المنطقة البريدية" #?
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Living product"
+      # budget: "Budget"
+      # budget_item: "Budget item"
       building: "موقع التخزين"
       # building_division: "Room / Zone"
       # campaign: "Campaign"
@@ -928,6 +931,7 @@ arb:
       product_transfer: "تحول او ضياع السهم" #?
       # product_triple_mixing: "Product triple mixing"
       # production: "Production"
+      # production_distribution: "Production distribution"
       # production_support: "Production support"
       # production_support_marker: "Production support marker"
       products_nature: "الانتاج" #?
@@ -989,6 +993,7 @@ arb:
     active: "فعال"
     # activity: "Activity"
     activity_code: "APE/NAF رمز"
+    # activity_distributions: "Activity distributions"
     # actor: "Actor"
     actual_number: "الرقم الحالي"
     # actual_population: "Actual population"
@@ -1014,6 +1019,7 @@ arb:
     # analyser: "Analyser"
     # analyses: "Analyses"
     # analysis: "Analysis"
+    # analytic_distributions: "Analytic distributions"
     annotation: "ملاحظة"
     # archive: "Archive"
     # archive_content_type: "Archive content type"
@@ -1063,6 +1069,8 @@ arb:
     bic: "BIC" #?
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
+    # budget: "Budget"
+    # budget_items: "Budget items"
     # budgets: "Budgets"
     building: "موقع التخزين" #?
     building_id: "موقع التخزين" #?
@@ -1338,10 +1346,12 @@ arb:
     # execution_number: "Execution number"
     # expected_population: "Expected population"
     # expected_shape: "Expected shape"
+    # expected_stop_amount: "Expected stop amount"
     # expected_yield: "Expected yield"
     expense: "التكلفة" #?
     expense_id: "انفاق" #?
     expense_type: "نوع التكلفة" #?
+    # expenses: "Expenses"
     expiration: "تأخير المهلة" #?
     # expiration_delay: "Expiration delay"
     expiration_id: "تأخير مهلة" #?
@@ -1414,6 +1424,7 @@ arb:
     global_count: "مجموع السكان"
     global_credit: "الائتمان العالمي"
     global_debit: "الانتاجية الاجمالية"
+    # global_quantity: "Global quantity"
     # godchildren: "Godchildren"
     # gravity: "Gravity"
     # group: "Group"
@@ -1422,6 +1433,9 @@ arb:
     # harvest_year: "Harvest year"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
+    # homogeneous_expenses: "Homogeneous expenses"
+    # homogeneous_revenues: "Homogeneous revenues"
+    # homogeneous_values: "Homogeneous values"
     hour_duration: "(ساعة (ساعات" #?
     # humus_mineralization: "Humus mineralization"
     iban: "IBAN"
@@ -1505,6 +1519,7 @@ arb:
     land_parcels: "الكتل"
     language: "اللغة"
     # last_analysis: "Last analysis"
+    # last_archive: "Last archive"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
     # last_journal_entry: "Journal entry of end of year"
@@ -1562,6 +1577,7 @@ arb:
     # mail_postal_zone: "Mail postal_zone"
     # mails: "Mails"
     # main_activity: "Main activity"
+    # main_production: "Main production"
     major_accounts: "الحسابات الئيسية" #?
     # managed: "Managed"
     # managed_sales: "Managed sales"
@@ -1613,6 +1629,8 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
+    # noticed_start_amount: "Noticed start amount"
+    # noticed_stop_amount: "Noticed stop amount"
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
@@ -1865,6 +1883,7 @@ arb:
     # ressource: "Ressource"
     # ressource_type: "Ressource type"
     # restricted: "Restricted"
+    # revenues: "Revenues"
     # rgt: "Right"
     rights: "الحقوق"
     # road: "Road"
@@ -1977,6 +1996,7 @@ arb:
     supplier_id: "ممول" #?
     suppliers: "الممولين"
     # support: "Support"
+    # support_variant: "Support variant"
     # supports: "Supports"
     surface_units: "وحدات المظهر الخارجي" #?
     suspended: "معطل"
@@ -2000,6 +2020,7 @@ arb:
     # third_producer: "Third producer"
     # third_producer_way: "Third producer way"
     # thread: "Thread"
+    # ticket: "Ticket"
     title: "اللقب" #?
     to: "ل"
     to_archive: "وثائق للارشفة" #?

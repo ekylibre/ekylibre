@@ -1272,6 +1272,7 @@ arb:
     existing_part: "استخدام الدفعات الغير متضررة" #?
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
+    # expenses: "Expenses"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     file_nature: "نوع الملف"
@@ -1693,6 +1694,7 @@ arb:
     product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
     # production_cost: "Production cost"
+    # production_distribution: "Production distribution"
     # production_support: "Production support"
     productions: "المنتجات"
     productions_states:
@@ -1764,6 +1766,7 @@ arb:
       one: "نتيجة واحدة"
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
+    # revenues: "Revenues"
     reverse: "تطبيق الحالة العكسية"
     right_modules:  #?
       accountancy: "حقوق المحاسبة" #?

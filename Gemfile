@@ -115,6 +115,8 @@ gem 'ofx-parser'
 gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'
+gem 'roo'
+gem 'spreadsheet'
 
 # Demo data
 gem 'ffaker', require: false
