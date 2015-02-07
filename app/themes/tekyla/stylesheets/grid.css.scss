@@ -1,0 +1,44 @@
+
+*[data-grid="16/9"] {
+  background: red;
+
+  $width: 32;
+  $height: 18;
+  $min-cell-size: 32px;
+  $screen-min-width: $width * $min-cell-size;
+  position: relative;
+  overflow: hidden;
+
+  *[data-cell-x], *[data-cell-y], *[data-cell-height], *[data-cell-width] {
+    display: block;
+    min-height: $min-cell-size;
+    @media screen and (min-width: $screen-min-width) {
+      position: absolute;
+      min-height: 0;
+    }
+  }
+  @media screen and (min-width: $screen-min-width) {
+    min-height: $height * $min-cell-size;
+    @for $length from 1 through $width {
+      *[data-cell-width="#{$length}"] {
+        width: percentage($length / $width);
+      }
+    }
+    @for $length from 1 through $height {
+      *[data-cell-height="#{$length}"] {
+        height: percentage($length / $height);
+      }
+    }
+    @for $x from 0 through ($width - 1) {
+      *[data-cell-x="#{$x}"] {
+        left: percentage($x/$width);
+      }    
+    }
+    @for $y from 0 through ($height - 1) {
+      *[data-cell-y="#{$y}"] {
+        top: percentage($y/$height);
+      }    
+    }
+  }
+
+}
