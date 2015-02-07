@@ -231,6 +231,12 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :beehives, only: [:update] do
+      member do
+        post :reset
+      end
+    end
+
     resources :buildings, concerns: :products do
       member do
         get :list_divisions
@@ -480,7 +486,7 @@ Ekylibre::Application.routes.draw do
 
     resources :journal_entry_items, only: [:new, :show], concerns: [:list, :unroll]
 
-    resources :kujakus, only: [], concerns: [:list, :unroll] do
+    resources :kujakus, only: [] do
       member do
         post :toggle
       end

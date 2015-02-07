@@ -1,158 +1,204 @@
 
 @include keyframes(cell-rotate) {
-   0% {
-      transform: rotate(0);
-   }
-   100% {
-      transform: rotate(360deg);
-   }
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
+$min-width: round($mini-screen * 0.3);
+
+$spacing: round($default-gap * 1);
+$configuring-min-height: 400px;
 .beehive {
-   .box {
-      $min-width: round($mini-screen * 0.3);
-      $min-height: 200px;
-      $cell-border-width: 1px;
-      $cell-border: $cell-border-width solid #DDD;
-      $cell-title-vertical-padding: round($default-gap*1);
-      $cell-title-horizontal-padding: round($default-gap*2);
-    // padding: 0 $cell-border-width;
-      margin-top: $default-gap;
-      &:first-child { margin-top: 0; }
-    // @include clearfix;
+  padding-left: $spacing;
+  padding-right: $spacing;
+  background: $desktop-background;
 
-      .cell-titles {
-         display: none;
-         li.error {
-            a.cell-title {
-               &, i {
-                  color: $invalid-color;
-               }
-            }
-         }
-      }
+  .beehive-tools {
+    display: none;
+  }
 
-      .cell-title {
-         color: $active-color;
-         font-weight: bold;
-         padding: $cell-title-vertical-padding $cell-title-vertical-padding; //$cell-title-horizontal-padding;
-         background: #FFF;
-         @include text-align(left);
-         border-top: 2px solid $active-color;
-         @include ellipsis;
-         i {
-            color: $active-color;
+  .box {
+    $min-height: 200px;
+    $cell-border-width: 1px;
+    $cell-border: $cell-border-width solid #DDD;
+    $cell-title-vertical-padding: round($default-gap*1);
+    $cell-title-horizontal-padding: round($default-gap*1.3);
+    clear: both;
+
+    .cell {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      // @include inline-block;
+      @include float(left);
+      display: block;
+      vertical-align: top;
+
+      .cell-inner {
+        background: white;
+        border: 1px solid #DDD;
+        margin: $spacing;
+        @include border-radius($default-border-radius);
+
+        .cell-title {
+          color: $text-color;
+          font-weight: bold;
+          padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
+          background: #EEE;
+          @include text-align(left);
+          // border-top: 2px solid $active-color;
+          @include ellipsis;
+          i {
+            color: $text-color;
             @include is-icon($fs-normal);
             @include use-icon(bookmark);
-         }
+          }
+          a[data-beehive-remove="cell"] {
+            @include float(right);
+            display: none;
+            width: $fs-normal;
+            @include text-align(center);
+            i {
+              @include is-icon($fs-normal);
+              @include use-icon(remove);
+            }
+          }
+        }
+
+        .cell-content {
+          padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
+          background: #FFFFFF;
+          height: auto;
+          overflow: auto;
+
+          > .cell-indicator {
+            color: $neutral-color;
+            @include is-icon(6 * $fs-normal);
+            @include inline-block;
+          }
+
+          > .toolbar {
+            @include margin-left($default-gap);
+          }
+        }
+
+        .cell-bottom {
+          clear: both;
+        }
       }
 
-      .cell {
-         &:first-child { margin-top: 0; }
-
-
-         .cell-content {
-            padding: $cell-title-vertical-padding $cell-title-vertical-padding; /*$cell-title-horizontal-padding;*/
-            background: #FFFFFF;
-            height: auto;
-
-            > .cell-indicator {
-               color: $neutral-color;
-               @include is-icon(6 * $fs-normal);
-               @include inline-block;
-            }
-
-            &.loading, &.errored, &.blank {
-               text-align: center;
-               padding: 3 * $fs-normal;
-               cursor: default;
-            }
-
-            &.loading {
-               > .cell-indicator {
-                  opacity: 0.8;
-            // @include use-icon(spinner);
-                  // @include animation(cell-rotate 1s infinite steps(8));
-                  @include use-icon(circle-o-notch);
-                  @include animation(cell-rotate 2s infinite linear);
-               }
-            }
-
-            &.errored {
-               > .cell-indicator {
-                  color: $invalid-color;
-                  @include use-icon(meh-o);
-               }
-            }
-
-            &.blank {
-               > .cell-indicator {
-                  color: $caution-color;
-                  @include use-icon(empty-o);
-               }
-            }
-
-            > .toolbar {
-               @include margin-left($default-gap);
-            }
-
-         }
-
-         .cell-bottom {
-            clear: both;
-         }
-      }
-
-      @for $i from 1 through 10 {
-         &.box-#{ $i }-cells {
-            @media screen and (min-width: round($i*$min-width) + 1px) {
-               &.box-h {
-                  .cells {
-                     .cells-bottom {
-                        clear: both;
-                     }
-                     .cell {
-                        $space: 1%;
-                        width: (100% - (($i - 1) * $space)) / $i;
-                        @include float(left);
-                        margin-top: 0;
-                        @include margin-left($space);
-                        &:first-child {
-                           @include margin-left(0);
-                        }
-                        @if $i > 1 {
-                           .cell-title {
-                              border-left: $cell-border;
-                              border-right: $cell-border;
-                           }
-                           &:first-child .cell-title { border-left: none }
-                           &:last-child  .cell-title { border-right: none }
-
-                           .cell-content {
-                              border: $cell-border;
-                              border-top: none;
-                              .rss-feed {
-                                 max-height: 20em;
-                                 overflow: auto;
-                              }
-
-                           }
-                           &:first-child .cell-content { border-left: none }
-                           &:last-child  .cell-content { border-right: none }
-                        }
-                     }
-                  }
-               }
-            }
-         }
+      &.dragging {
+        width: auto;
+        .cell-inner {
+          @include box-shadow(0 0 (3*$default-gap) rgba(black, 0.4))
+        }
       }
 
 
+      &.loading, &.errored, &.blank {
+        > .cell-inner > .cell-content {
+          text-align: center;
+          padding: 3 * $fs-normal;
+          cursor: default;
+        }
+      }
 
-   }
+      &.loading {
+        > .cell-inner > .cell-content > .cell-indicator {
+          opacity: 0.8;
+          @include use-icon(circle-o-notch);
+          @include animation(cell-rotate 2s infinite linear);
+        }
+      }
 
-   .beehive-bottom {
+      &.errored {
+        > .cell-inner > .cell-content > .cell-indicator {
+          color: $invalid-color;
+          @include use-icon(meh-o);
+        }
+      }
+
+      &.blank {
+        > .cell-inner > .cell-content > .cell-indicator {
+          color: $caution-color;
+          @include use-icon(empty-o);
+        }
+      }
+
+    }
+
+
+    .box-bottom {
       clear: both;
-   }
+    }
 
+
+
+  }
+
+  [data-beehive-task="new-box"] {
+    display: none;
+    background: #DDD;
+    margin: $spacing;
+    padding: $spacing;
+    @include text-align(center);
+  }
+
+  .beehive-bottom {
+    clear: both;
+  }
+
+  &.configuring {
+    [data-beehive-task="new-box"] {
+      display: block;
+    }
+    .beehive-tools {
+      display: inline;
+      *[data-beehive-task="new-cell"] {
+        i {
+          @include is-icon;
+          @include use-icon(plus);
+        }
+      }
+      *[data-beehive-task="reset"] {
+        i {
+          @include is-icon;
+          html[dir="ltr"] & { @include use-icon(rotate-left); }
+          html[dir="rtl"] & { @include use-icon(rotate-right); }
+        }
+      }
+    }
+    .box {
+      border: 2px dashed #DDD;
+      margin: $default-gap;
+      min-height: $configuring-min-height;
+      .cell {
+        .cell-title {
+          cursor: move;
+          a[data-beehive-remove="cell"] {
+            display: block;
+          }
+        }
+        &.cell-placeholder {
+          background: rgba($success-color, 0.2);
+          height: $configuring-min-height;
+        }
+      }
+    }
+  }
+
+}
+
+
+@for $i from 2 through 16 {
+  @media screen and (min-width: round($i*$min-width) + 1px) {
+    .cell:first-child:nth-last-child(#{$i}),
+    .cell:first-child:nth-last-child(#{$i}) ~ .cell {
+      width: floor(100000% / $i) / 1000;
+    }
+  }
 }

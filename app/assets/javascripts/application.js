@@ -46,4 +46,5 @@
 
 var visualization = {};
 var erp = {};
+var ekylibre = {};
 

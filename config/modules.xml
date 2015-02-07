@@ -1778,6 +1778,10 @@
       <item name="activities">
         <page to="backend/activities#list_distributions"/>
       </item>
+      <item name="beehives">
+        <page to="backend/beehives#reset"/>
+        <page to="backend/beehives#update"/>
+      </item>
       <item name="expenses_by_product_nature_category_cells">
         <page to="backend/cells/expenses_by_product_nature_category_cells#show"/>
       </item>

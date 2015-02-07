@@ -20,6 +20,8 @@
         %header.header
           .help-toolbar
             .btn-group.btn-group-help
+              - if content_for?(:help_toolbar)
+                = content_for(:help_toolbar)
               = tool_to(content_tag(:i) + h(" ") + h(:help.tl), toggle_backend_helps_path, data: {toggle: 'help'}, class: "btn")
           = heading_tag
         = deck(id: :content) do

@@ -78,6 +78,7 @@ arb:
       new: "الاشارة لكشف حساب جديد"
       point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
+    backend/beehives: #?
     backend/building_divisions:
       # edit: "Edit building division: %{name}"
       # index: "Building division"
@@ -1106,6 +1107,7 @@ arb:
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
+    # configure: "Configure"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول" #?
@@ -1289,6 +1291,7 @@ arb:
     from: "من"
     from_date: "من تاريخ" #?
     # full_name: "Client"
+    # fullscreen: "Fullscreen"
     # fungi: "Fungi"
     future_events: "الاحداث المستقبلية"
     # genealogy: "Genealogy"

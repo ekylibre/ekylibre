@@ -1,7 +1,7 @@
 # coding: utf-8
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2013 David Joulin, Brice Texier
+# Copyright (C) 2012-2015 David Joulin, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,5 +18,13 @@
 #
 
 class Backend::CellsController < BackendController
-  layout false
+  layout :wrap_cell
+
+  protected
+
+  # Use a cell layout if asked
+  def wrap_cell
+    (params[:layout].to_i > 0 or params[:layout] == "true") ? "cell" : false
+  end
+
 end

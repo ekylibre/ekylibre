@@ -77,6 +77,7 @@ spa:
       point: "Despuntar el leventar N°%{number}"
       show: "Leventard de cuento N°%{number}"
     backend/base: #?
+    backend/beehives: #?
     backend/building_divisions:
       # edit: "Edit building division: %{name}"
       # index: "Building division"
@@ -932,6 +933,7 @@ spa:
     conditions:
       # filter_on_attribute_of_class: "Filter on attribute of class"
       # special-subscriber: "Special-subscriber"
+    # configure: "Configure"
     confirmed: "Confirmadas" #?
     connect: "Entrar" #?
     # contained_products: "Contained products"
@@ -1078,6 +1080,7 @@ spa:
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     # full_name: "Client"
+    # fullscreen: "Fullscreen"
     # fungi: "Fungi"
     # future_events: "Future events"
     # genealogy: "Genealogy"

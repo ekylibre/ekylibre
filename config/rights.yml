@@ -11,6 +11,8 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#list_distributions"
+#     - "backend/beehives#reset"
+#     - "backend/beehives#update"
 #     - "backend/calculators#index"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cash_balances_cells#show"

@@ -1,10 +1,10 @@
-= journals_tag
+-#= journals_tag
 
 = beehive do |b|
   - if Cash.any?
-    - b.cell :cash_balances do
+    - b.cell :all_cash_balances, if: Cash.any? do
       .big-infos
-        - for cash in Cash.order(:name)
+        - Cash.order(:name).each do |cash|
           - balance = cash.balance
           .big-info{class: (balance > 0 ? :positive : balance < 0 ? :negative : :caution)}
             %span.title= cash.name
@@ -13,5 +13,3 @@
   - b.hbox do
     - b.cell :payable_taxes
     - b.cell :cash_balances
-  -#hbox do
-    -cell :rss, :title => "Actualité Gestion et Droit", params: {:url => "http://www.lafranceagricole.fr/Rss/gestion-et-droit/actu-gestion-14676.html"}

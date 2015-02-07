@@ -11,7 +11,7 @@
       chart:
         style:
           fontFamily: "\"Open Sans\", \"Droid Sans\", \"Liberation Sans\", Helvetica, sans-serif"
-          fontSize: "14px"
+          fontSize: "13px"
       credits:
         enabled: false
       tooltip:

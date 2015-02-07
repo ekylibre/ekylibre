@@ -66,6 +66,7 @@ fra:
       new: "Pointer un nouveau relevé de compte"
       point: "Pointer le relevé N°%{number}"
       show: "Relevé de compte N°%{number}"
+    backend/beehives: #?
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
       index: "Zones de bâtiments"
@@ -847,6 +848,7 @@ fra:
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
+    configure: "Configurer"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Entrer" #?
@@ -1017,6 +1019,7 @@ fra:
       iso: "(AAAA-MM-JJ)"
     from: "À partir du"
     full_name: "Client"
+    fullscreen: "Plein écran"
     fungi: "Champignons"
     future_events: "Futurs événements"
     genealogy: "Généalogie"

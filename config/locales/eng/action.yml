@@ -61,6 +61,8 @@ eng:
       new: "New bank statement"
       point: "Point bank statement %{number}"
       show: "Account statement N°%{number}"
+    backend/beehives:
+      # reset: "Reset beehive: %{name}"
     backend/building_divisions:
       edit: "Edit building division: %{name}"
       index: "Building division"
@@ -754,6 +756,7 @@ eng:
     affairs: "Affairs"
     all: "All" #?
     all_accounts: "All accounts"
+    # all_cash_balances: "All cash balances"
     all_columns: "All columns" #?
     all_conditions: "All conditions"
     all_periods: "All financial years"
@@ -830,6 +833,7 @@ eng:
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
+    configure: "Configure"
     contained_products: "Contained products"
     container: "Container"
     convert_balance_into_loss: "Convert balance into loss"
@@ -944,8 +948,9 @@ eng:
       iso: "(YYYY-MM-DD)" #?
     from: "From"
     full_name: "Client" #?
+    fullscreen: "Fullscreen"
     fungi: "Fungi"
-    future_events: "Future events"
+    future_events: "Future events" #?
     genealogy: "Genealogy"
     general: "General"
     general_informations: "General informations"
@@ -1099,6 +1104,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
+    # new_beehive_box: "New beehive box"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
@@ -1232,7 +1238,7 @@ eng:
     query: "Query:" #?
     reading_tasks: "Reading tasks"
     received: "Received" #?
-    recent_events: "Recent events"
+    recent_events: "Recent events" #?
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1674,6 +1680,7 @@ eng:
       refresh: "Refresh"
       refuse: "Refuse"
       reopen: "Reopen"
+      # reset: "Reset"
       run: "Run"
       # search: "Search"
       select: "Select"

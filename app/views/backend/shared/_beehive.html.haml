@@ -1,32 +1,25 @@
-.beehive{:class => "beehive-#{beehive.name}"}
-  - beehive.boxes.each_with_index do |box, bid|
-    - count = box.size
-    - next if count.zero?
-    - box_id = 0
-    .box{:class => "box-#{box.class.short_name} box-#{count}-cells"}
-      %ul.cell-titles>
-        - box.each_with_index do |cell, cid|
-          - activeness = (cid.zero? ? {:class => 'active'} : {})
-          %li{activeness}>
-            = link_to("#b#{bid}c#{cid}", :class => "cell-title") do
-              %i
-              = cell.title
-              - if cell.options[:counter]
-                %span.badge= cell.options[:counter]
-      .cells
-        - box.each_with_index do |cell, cid|
-          .cell{:id => "b#{bid}c#{cid}", :class => (cid.zero? ? ' active' : nil)}
-            .cell-inner
-              .cell-title
-                %i
-                = cell.title
-                - if cell.options[:counter]
-                  %span.badge= cell.options[:counter]
-                %span{"data-toggle" => "cell"}
-              - if cell.content?
-                .cell-content= cell.content
-              - else
-                .cell-content{"data-cell" => url_for((cell.options[:params]||{}).merge(:controller => "backend/cells/#{cell.type}_cells", :action => :show))}
-              .cell-bottom
-        .cells-bottom
+- content_for(:help_toolbar) do
+  = link_to("##{beehive.id}", data: {beehive_task: "configure"}, class: "btn btn-dashboard") do
+    %i
+    = :configure.tl
+  = link_to("##{beehive.id}", data: {beehive_task: "fullscreen"}, class: "btn btn-arrows-alt") do
+    %i
+    = :fullscreen.tl
+
+.beehive{id: beehive.id, data: {beehive: beehive.name, beehive_save_url: url_for(controller: :beehives, action: :update, id: beehive.name), beehive_reset_url: url_for(controller: :beehives, action: :reset, id: beehive.name)}}
+  .local-cells{style: "display: none"}
+    - beehive.local_cells.each do |cell|
+      = render "backend/shared/beehive/cell", cell: cell.to_hash, beehive: beehive
+  %span.beehive-tools
+    .btn-group
+      = select_tag(:cell, options_for_select(beehive.available_cells))
+      = link_to("##{beehive.id}", data: {beehive_task: "new-cell"}, class: "btn") do
+        %i
+    = link_to("##{beehive.id}", data: {beehive_task: "reset"}, class: "btn") do
+      %i
+  - layout[:children].each do |child|
+    = render "backend/shared/beehive/#{child[:type]}", child[:type].to_sym => child, beehive: beehive
+  = link_to("##{beehive.id}", class: "new-box", data: {beehive_task: "new-box"}) do
+    %i
+    = :new_beehive_box.tl
   .beehive-bottom

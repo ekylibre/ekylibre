@@ -32,12 +32,12 @@
     @for $x from 0 through ($width - 1) {
       *[data-cell-x="#{$x}"] {
         left: percentage($x/$width);
-      }    
+      }
     }
     @for $y from 0 through ($height - 1) {
       *[data-cell-y="#{$y}"] {
         top: percentage($y/$height);
-      }    
+      }
     }
   }
 

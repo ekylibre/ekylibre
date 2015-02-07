@@ -1,0 +1,22 @@
+.cell{data: {beehive_cell: cell[:name]}}
+  .cell-inner
+    - if beehive_cell = beehive.find_cell(cell[:name])
+      .cell-title
+        = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
+          %i
+        %i
+        = beehive_cell.title
+        - if beehive_cell.options[:counter]
+          %span.badge= beehive_cell.options[:counter]
+      - if beehive_cell.content?
+        .cell-content= beehive_cell.content
+      - else
+        .cell-content{data: {cell: url_for((beehive_cell.options[:params]||{}).merge(controller: "backend/cells/#{beehive_cell.name}_cells", action: :show))}}
+    - else
+      .cell-title
+        = link_to("##{params[:beehive]}", data: {beehive_remove: "cell"}) do
+          %i
+        %i
+        = cell[:name].tl
+      .cell-content{data: {cell: url_for(controller: "backend/cells/#{cell[:name]}_cells", action: :show)}}
+    .cell-bottom
