@@ -36,12 +36,6 @@ module Backend::BeehiveHelper
   class Beehive
     attr_reader :name, :boxes, :template
 
-    class TabBox < Array
-      def self.short_name
-        "tab"
-      end
-    end
-
     class HorizontalBox < Array
       def self.short_name
         "h"
@@ -91,11 +85,6 @@ module Backend::BeehiveHelper
 
     def hbox(&block)
       return box(:horizontal, &block)
-    end
-
-    def tabbox(&block)
-      raise "#tabbox can not be used anymore. Please use #hbox instead."
-      return box(:tab, &block)
     end
 
     protected
