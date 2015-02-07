@@ -1064,7 +1064,7 @@ fra:
     incoming_payments: "Encaissements"
     incoming_payments_states:
       all: "Tous"
-      undeposited: "Non remis en banque"
+      depositable: "À remettre en banque"
       unparted: "Non affectés"
       unreceived: "Non reçus"
       waiting: "À encaisser plus tard"
@@ -1643,7 +1643,6 @@ fra:
     treatment: "Traitement"
     true: "Vrai" #?
     undelivered: "Reste à livrer"
-    undeposited: "Non remis en banque"
     uninvoiced_amount: "Montant non facturé"
     unit: "Unité"
     unit_price_amount: "PU HT" #?

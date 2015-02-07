@@ -1333,7 +1333,7 @@ arb:
     # incoming_payments: "Incoming payments"
     incoming_payments_states:
       # all: "All"
-      # undeposited: "Undeposited"
+      # depositable: "To deposit now"
       # unparted: "Unused"
       # unreceived: "Unreceived"
       # waiting: "To deposit later"
@@ -1943,7 +1943,7 @@ arb:
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
     undelivered: "لم يتم التسليم"
-    undeposited: "لم يتم اي اقتطاع بنكي"
+    undeposited: "لم يتم اي اقتطاع بنكي" #?
     uninvoiced_amount: "قيمة غير مفوترة"
     unit: "الوحدة"
     unit_create: "اضافة وحدة قياس جديدة" #?

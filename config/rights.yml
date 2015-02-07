@@ -721,10 +721,6 @@ exports:
     - "backend/exports#index"
     - "backend/exports#show"
     - "backend/synchronizations#index"
-  execute:
-    depend-on:
-    - read-exports
-    actions:
     - "backend/synchronizations#run"
 
 financial_assets:

@@ -80,6 +80,7 @@ class IncomingPayment < Ekylibre::Record::Base
   acts_as_affairable :payer, dealt_at: :to_bank_at, role: "client"
 
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_at <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Time.now, true) }
+
   scope :depositables_for, lambda { |deposit, mode = nil|
     deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
     where("to_bank_at <= ?", Time.now).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))

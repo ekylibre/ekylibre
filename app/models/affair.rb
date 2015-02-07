@@ -80,8 +80,9 @@ class Affair < Ekylibre::Record::Base
   # validates_inclusion_of :third_role, in: self.third_role.values
 
   acts_as_numbered
-  scope :tickets, -> { where(ticket: true)}
-  scope :open, -> {joins(:cash_session).where('cash_sessions.stopped_at IS NULL')}
+  scope :closeds, -> { where(closed: true) }
+  scope :tickets, -> { where(ticket: true) }
+  scope :openeds, -> { joins(:cash_session).where('cash_sessions.stopped_at IS NULL') }
 
   before_validation do
     if self.originator

@@ -983,7 +983,7 @@ eng:
     incoming_payments: "Incoming payments"
     incoming_payments_states: #?!
       all: "All" #?!
-      undeposited: "Undeposited" #?!
+      depositable: "To deposit now" #?!
       unparted: "Unused" #?!
       unreceived: "Unreceived" #?!
       waiting: "To deposit later" #?!
@@ -1373,7 +1373,6 @@ eng:
       waiting: "Waiting" #?!
     treatment: "Treatment" #?
     undelivered: "Undelivered" #?
-    undeposited: "Undeposited" #?
     uninvoiced_amount: "Uninvoiced amount" #?
     unit: "Unit" #?
     unknown: "Unknown"

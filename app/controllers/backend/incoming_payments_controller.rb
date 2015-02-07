@@ -30,8 +30,9 @@ class Backend::IncomingPaymentsController < BackendController
     code << "elsif params[:s] == 'waiting'\n"
     code << "  c[0] += ' AND to_bank_at > ?'\n"
     code << "  c << Date.today\n"
-    code << "elsif params[:s] == 'undeposited'\n"
-    code << "  c[0] += ' AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
+    code << "elsif params[:s] == 'depositable'\n"
+    code << "  c[0] += ' AND to_bank_at <= ? AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
+    code << "  c << Time.now\n"
     # code << "elsif params[:s] == 'unparted'\n"
     # code << "  c[0] += ' AND used_amount != amount'\n"
     code << "end\n"
@@ -48,7 +49,7 @@ class Backend::IncomingPaymentsController < BackendController
     t.column :bank_check_number
     t.column :to_bank_at
     t.column :deposit, url: true
-    t.action :edit, :unless => :deposit?
+    t.action :edit, unless: :deposit?
     t.action :destroy, if: :destroyable?
   end
 
