@@ -135,7 +135,7 @@ gem 'agric'
 
 # Idele webservices
 gem 'mechanize'
-gem 'savon'
+gem 'savon', '~> 2.5.1'
 #gem 'savon', github: 'savonrb/savon'
 
 group :development do
@@ -145,7 +145,7 @@ group :development do
   # gem 'binding_of_caller'
 
   # Project management
-  gem 'rails_best_practices'
+  gem 'rails_best_practices', '1.15.4'
   # gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
