@@ -15,15 +15,15 @@
     - defaults[:name] = link_to(step.name.to_s, {controller: side.controller_name, action: :show, id: step.record.id}) rescue step.name.to_s
 
     .timestep{class: side.model_name}
-      - if Rails.root.join("app", "views", "backend", "timeline", "_#{side.model_name}.html.haml").exist?
-        = render "backend/timeline/#{side.model_name}", side: side, step: step, defaults: defaults, side.model_name => step.record
+      - if Rails.root.join("app", "views", "backend", "shared", "timeline", "_#{side.model_name}.html.haml").exist?
+        = render "backend/shared/timeline/#{side.model_name}", side: side, step: step, defaults: defaults, side.model_name => step.record
       - else
         .log
           - if step.record.respond_to? :status
             %span.status= lights(step.record.status)
           %span.content
             %i.symbol
-            - if Rails.root.join("app", "views", "backend", "timeline", "content", "_#{side.model_name}.html.haml").exist?
-              = render "backend/timeline/content/#{side.model_name}", side: side, step: step, defaults: defaults, side.model_name => step.record
+            - if Rails.root.join("app", "views", "backend", "shared", "timeline", "content", "_#{side.model_name}.html.haml").exist?
+              = render "backend/shared/timeline/content/#{side.model_name}", side: side, step: step, defaults: defaults, side.model_name => step.record
             - else
               = :timeline_item.th(defaults)

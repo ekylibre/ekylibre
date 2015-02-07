@@ -147,7 +147,7 @@ module Backend::TimelineHelper
     if object
       line = Timeline.new(object)
       yield line
-      render partial: "backend/timeline", locals: {timeline: line}
+      render partial: "backend/shared/timeline", locals: {timeline: line}
     end
   end
 
