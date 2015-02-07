@@ -71,8 +71,6 @@
 #     - "backend/product_natures#list_variants"
 #     - "backend/productions#indicator_measure"
 #     - "backend/snippets#toggle"
-#     - "backend/synchronizations#index"
-#     - "backend/synchronizations#run"
 #     - "backend/visuals#picture"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
@@ -722,6 +720,12 @@ exports:
     actions:
     - "backend/exports#index"
     - "backend/exports#show"
+    - "backend/synchronizations#index"
+  execute:
+    depend-on:
+    - read-exports
+    actions:
+    - "backend/synchronizations#run"
 
 financial_assets:
   read:
