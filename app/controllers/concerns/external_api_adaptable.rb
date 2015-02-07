@@ -9,6 +9,7 @@ module ExternalApiAdaptable
   extend ActiveSupport::Concern
 
   module ClassMethods
+
     def manage_restfully(defaults = {})
       options = defaults.extract! :only, :except
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy, :search]
@@ -38,12 +39,13 @@ module ExternalApiAdaptable
       # in Ekylibre.
       get_filters = defaults[:get_filters] || {id: :id}
 
-      model_fields = model.column_names -['created_at', 'updated_at', 'creator_id', 'updater_id', 'lock_version', 'left', 'right'] rescue nil
+      model_fields = model.column_names - ['created_at', 'updated_at', 'creator_id', 'updater_id', 'lock_version', 'left', 'right'] rescue nil
 
       show = lambda do
         api_key = params.slice(*get_filters.keys).keys.first
         key = get_filters[api_key.to_sym]
-        @record = model.find_by(key => params[api_key]) rescue nil
+        @record = model.find_by(key => params[api_key]) # rescue nil
+        # puts [key, api_key, params[api_key], @record, model].inspect.red
         if @record.present?
           render template: "layouts/#{api_path}/show", locals: locals
         else
@@ -85,15 +87,14 @@ module ExternalApiAdaptable
         render template: "layouts/#{api_path}/index", locals: locals
       end
 
-      method_for =
-        {
-          index:  index,
-          show:   show,
-          update: update,
-          destroy: destroy,
-          search: search,
-          create: create
-        }
+      method_for = {
+        index:  index,
+        show:   show,
+        update: update,
+        destroy: destroy,
+        search: search,
+        create: create
+      }
 
       actions.each do |action|
         define_method action, method_for[action]
@@ -106,10 +107,13 @@ module ExternalApiAdaptable
           params.require(model.name.underscore).permit(*model_fields) rescue params.permit!
         end
       end
+
       define_method :model do
         model
       end
+
       private :permitted_params, :model
     end
   end
+
 end

@@ -1,5 +1,5 @@
 class Pasteque::V5::CustomersController < Pasteque::V5::BaseController
-  manage_restfully only: [:show, :update], model: :entity, scope: :clients, update_filters: {amount: :amount}
+  manage_restfully only: [:show], model: :entity, scope: :clients, update_filters: {amount: :amount}
 
   def index
     if params[:mode] == 'top'
@@ -7,7 +7,7 @@ class Pasteque::V5::CustomersController < Pasteque::V5::BaseController
       render json: Entity.best_clients(params[:limit].to_i).map(&:id)
     else
       @records = model.all
-      render template: "layouts/pasteque/v5/index", locals:{output_name: 'customer', partial_path: 'customers/customer'}
+      render template: "layouts/pasteque/v5/index", locals: {output_name: 'customer', partial_path: 'customers/customer'}
     end
   end
 end

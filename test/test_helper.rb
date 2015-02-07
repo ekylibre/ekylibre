@@ -143,6 +143,12 @@ class ActionController::TestCase
 
   class << self
 
+    def test_restfully_pasteque_actions(options = {})
+      test_restfully_all_actions({strictness: :api, params: {format: :json, user: "admin@ekylibre.org", password: "12345678"}, sign_in: false}.deep_merge(options))
+    end
+
+
+
     def test_restfully_all_actions(options = {}, &block)
       controller_name = self.controller_class.controller_name
       controller_path = self.controller_class.controller_path
@@ -190,17 +196,21 @@ class ActionController::TestCase
       # code << "  assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
       # Check document templates
       # code << "  DocumentTemplate.load_defaults(locale: I18n.locale)\n"
-      # Connect user
-      code << "  @user = users(:users_001)\n"
-      code << "  sign_in(@user)\n"
+      unless options[:sign_in].is_a?(FalseClass)
+        # Connect user
+        code << "  @user = users(:users_001)\n"
+        code << "  sign_in(@user)\n"
+      end
       # Setup finished!
       code << "end\n"
       code << "\n"
 
-      code << "teardown do\n"
-      code << "  sign_out(@user)\n"
-      code << "end\n"
-      code << "\n"
+      unless options[:sign_in].is_a?(FalseClass)
+        code << "teardown do\n"
+        code << "  sign_out(@user)\n"
+        code << "end\n"
+        code << "\n"
+      end
 
       code << "def beautify(value, back = true)\n"
       code << "  if value.is_a?(Hash)\n"
@@ -235,10 +245,13 @@ class ActionController::TestCase
       context = "show_context"
       # context = infos.join(' + "\n" + ')
 
+      default_params = options[:params] || {}
+      strictness = options[:strictness] || :default
+
       actions.sort.each do |action|
         action_label = "#{controller_path}##{action}"
 
-        params, mode = {}, options[action]
+        params, mode = {}.merge(default_params), options[action]
         if mode.is_a?(Hash)
           if mode[:params].is_a?(Hash)
             params.update mode[:params]
@@ -293,11 +306,15 @@ class ActionController::TestCase
           test_code << "end\n"
         elsif mode == :show
           test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-          test_code << "assert_redirected_to root_url\n" # , #{context}
+          if strictness == :api
+            test_code << "assert_response 404\n" # , #{context}
+          else
+            test_code << "assert_redirected_to root_url\n" # , #{context}
+          end
           if model
             test_code << "#{model}.find_each do |record|\n"
             test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
-            test_code << "  assert_response :success, #{context}\n"
+            test_code << "  assert_response :success\n" # , #{context}
             test_code << "  assert_not_nil assigns(:#{record})\n"
             test_code << "end\n"
           end

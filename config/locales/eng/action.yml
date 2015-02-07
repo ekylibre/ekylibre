@@ -638,87 +638,65 @@ eng:
       # new: "New unlock"
       # show: "Unlock: %{name}"
     pasteque/v5/attributes:
-      # authenticate_user: "Authenticate user attribute: %{name}"
       # index: "Attributes"
-    pasteque/v5/base:
-      # authenticate_user: "Authenticate user base: %{name}"
     pasteque/v5/cash_mvts:
-      # authenticate_user: "Authenticate user cash mvt: %{name}"
       # move: "Move cash mvt: %{name}"
     pasteque/v5/cash_registers:
-      # authenticate_user: "Authenticate user cash register: %{name}"
       # index: "Cash registers"
       # show: "Cash register: %{name}"
     pasteque/v5/cashes:
-      # authenticate_user: "Authenticate user cash: %{name}"
       # search: "Search cash: %{name}"
       # show: "Cash: %{name}"
       # zticket: "Zticket cash: %{name}"
     pasteque/v5/categories:
-      # authenticate_user: "Authenticate user category: %{name}"
       # children: "Children category: %{name}"
       # index: "Categories"
       # show: "Category: %{name}"
     pasteque/v5/compositions:
-      # authenticate_user: "Authenticate user composition: %{name}"
       # index: "Compositions"
       # show: "Composition: %{name}"
     pasteque/v5/currencies:
-      # authenticate_user: "Authenticate user currency: %{name}"
       # index: "Currencies"
       # show: "Currency: %{name}"
     pasteque/v5/customers:
-      # authenticate_user: "Authenticate user customer: %{name}"
       # index: "Customers"
       # show: "Customer: %{name}"
     pasteque/v5/discount_profiles:
-      # authenticate_user: "Authenticate user discount profile: %{name}"
       # index: "Discount profiles"
     pasteque/v5/locations:
-      # authenticate_user: "Authenticate user location: %{name}"
       # index: "Locations"
       # show: "Location: %{name}"
     pasteque/v5/places:
-      # authenticate_user: "Authenticate user place: %{name}"
       # index: "Places"
       # show: "Place: %{name}"
     pasteque/v5/products:
-      # authenticate_user: "Authenticate user product: %{name}"
       # category: "Category product: %{name}"
       # index: "Products"
       # show: "Product: %{name}"
     pasteque/v5/resources:
-      # authenticate_user: "Authenticate user resource: %{name}"
       # show: "Resource: %{name}"
     pasteque/v5/roles:
-      # authenticate_user: "Authenticate user role: %{name}"
       # index: "Roles"
       # show: "Role: %{name}"
     pasteque/v5/stocks:
-      # authenticate_user: "Authenticate user stock: %{name}"
       # index: "Stocks"
       # search: "Search stock: %{name}"
     pasteque/v5/tariff_areas:
-      # authenticate_user: "Authenticate user tariff area: %{name}"
       # index: "Tariff areas"
     pasteque/v5/taxes:
-      # authenticate_user: "Authenticate user tax: %{name}"
       # index: "Taxes"
       # show: "Tax: %{name}"
     pasteque/v5/tickets:
-      # authenticate_user: "Authenticate user ticket: %{name}"
       # index: "Tickets"
       # open: "Open ticket: %{name}"
       # permitted_params: "Permitted params ticket: %{name}"
       # search: "Search ticket: %{name}"
       # show: "Ticket: %{name}"
     pasteque/v5/users:
-      # authenticate_user: "Authenticate user user: %{name}"
       # index: "Users"
       # show: "User: %{name}"
       # update_password: "Update password user: %{name}"
     pasteque/v5/version:
-      # authenticate_user: "Authenticate user version: %{name}"
       # index: "Version"
     public:
       index: "Home"
@@ -1641,7 +1619,6 @@ eng:
       abort: "Abort"
       about: "About"
       attach: "Attach"
-      # authenticate_user: "Authenticate user"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"
       # autocomplete_for_place: "Autocomplete for place"

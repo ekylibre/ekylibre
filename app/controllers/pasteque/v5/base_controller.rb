@@ -3,7 +3,7 @@ class Pasteque::V5::BaseController < ActionController::Base
   before_action :authenticate_user!
 
   hide_action :authenticate_user!
-  def authenticate_user
+  def authenticate_user!
     user, password = params[:user] || params[:login], params[:password]
 
     if user.blank? or password.blank?

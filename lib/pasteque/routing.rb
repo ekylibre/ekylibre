@@ -28,7 +28,7 @@ module ActionDispatch::Routing
         CategoriesAPI: [:get, :getChildren, :getAll],
         CompositionsAPI: [:getAll],
         CurrenciesAPI: [:get, :getMain, :getAll],
-        CustomersAPI: [:getAll, :getAll, :getTop, :addPrepaid],
+        CustomersAPI: [:get, :getAll, :getTop, :addPrepaid],
         DiscountProfilesAPI: [:getAll],
         LocationsAPI: [:get, :getAll],
         PlacesAPI: [:get, :getAll],
