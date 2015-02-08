@@ -1434,6 +1434,7 @@ eng:
         charentes_alliance_water_analyses: "Charentes Alliance water analyses"
         ebp_edi: "EBP EDI"
         ekylibre_activities: "Ekylibre activities"
+        ekylibre_budgets: "Ekylibre budgets"
         ekylibre_cultivable_zones: "Ekylibre Cultivable zones"
         ekylibre_entities: "Ekylibre Entities"
         ekylibre_equipments: "Ekylibre equipments"
@@ -1997,7 +1998,7 @@ eng:
         animal_nutrition: "Animal nutrition"
         animal_preventive_medicine_admission: "Animal preventive medicine admission" #< animal_illness_treatment
         animal_production: "Animal production"
-        # automatic_soil_enrichment: "Automatic soil enrichment" #< soil_enrichment
+        automatic_soil_enrichment: "Automatic soil enrichment" #< soil_enrichment
         blending: "Blending"                               #< transformation
         bottling: "Bottling"                               #< transformation
         chemical_weed_killing: "Chemical weed killing"     #< weed_killing
@@ -2026,7 +2027,7 @@ eng:
         implantation: "Implantation"
         implanting: "Implanting"                           #< implantation
         maintenance_task: "Maintenance task"
-        # manual_soil_enrichment: "Manual soil enrichment" #< soil_enrichment
+        manual_soil_enrichment: "Manual soil enrichment"   #< soil_enrichment
         manual_working: "Manual working"
         milk_production: "Milk production"                 #< animal_production
         mixing: "Mixing"                                   #< transformation
@@ -2668,7 +2669,7 @@ eng:
         pig_slurry: "Pig slurry"
         piglet_band: "Piglet band"
         plant_medicine_tank: "Plant medicine tank"
-        # plastic_cover_500m: "Plastic cover 500m"
+        plastic_cover_500m: "Plastic cover 500m"
         plow: "Plow"
         plum_crop: "Plum crop"
         plum_reaper: "Plum reaper"
@@ -3027,6 +3028,7 @@ eng:
         chicken: "Chicken"
         duck: "Duck"
         escourgeon_barley: "Escourgeon barley"
+        exploitation: "Exploitation"
         five_years_temporary_meadow: "Five years temporary meadow"
         fixed_frost_fallow_land: "Fixed frost fallow land"
         fruit_processing: "Fruit processing"

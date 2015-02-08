@@ -12,7 +12,7 @@ Ekylibre::FirstRun.add_loader :productions do |first_run|
     end
 
   end
-  
+
   # load budgets
   path = first_run.path("alamano", "budgets.ods")
   if path.exist?

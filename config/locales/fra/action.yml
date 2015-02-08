@@ -66,7 +66,8 @@ fra:
       new: "Pointer un nouveau relevé de compte"
       point: "Pointer le relevé N°%{number}"
       show: "Relevé de compte N°%{number}"
-    backend/beehives: #?
+    backend/beehives:
+      reset: "Ré-initialiser la cellule: %{name}"
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
       index: "Zones de bâtiments"
@@ -163,6 +164,7 @@ fra:
       purchases: "Tableau de bord des achats" #?
       relationship: "Tableau de bord de la gestion des relations"
       sales: "Tableau de bord des ventes" #?
+      sandbox: "Bac à sable - tableau de bord: %{name}"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
       show: "Tableau de bord\_: %{name}"
@@ -187,6 +189,7 @@ fra:
       load: "Charger les modèles de document par défaut"
       new: "Nouveau modèle de document"
       print: "Imprimer un exemple" #?
+      show: "Modèle de document: %{name}"
     backend/documents:
       edit: "Modifier le document"
       index: "Gestion électronique des documents"
@@ -296,6 +299,7 @@ fra:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
       new: "Nouveau mode d’encaissement"
+      show: "Mode d’encaissement: %{name}"
     backend/incoming_payments:
       edit: "Modifier l’encaissement n°%{number}"
       index: "Encaissements"
@@ -330,6 +334,7 @@ fra:
       show: "Écriture comptable\_: %{number}"
     backend/journal_entry_items:
       new: "Nouvelle ligne d’écriture"
+      show: "ligne d’écriture: %{name}"
     backend/journals:
       balance: "Balance"
       bookkeep: "Bascule comptable"
@@ -792,6 +797,7 @@ fra:
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Bookkeep with payment"
     budget: "Budget"
+    budget_per_working_indicator: "Budget par unité d'oeuvre"
     budgets: "Budgets"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
@@ -940,6 +946,7 @@ fra:
     discount: "Réduc. (%)"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
+    distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?
     divide: "Diviser"
     division: "Division"
@@ -1608,8 +1615,9 @@ fra:
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"
     time_zone: "Fuseau horaire"
+    # timeline: "Timeline"
     timeline_comment: "%{author} a commenté il y a %{ago}"
-    timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} il y a %{ago}" #?
+    timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} il y a %{ago}"
     timeline_item: "%{type} %{name} ajouté par %{author} il y a %{ago}"
     timeline_payment: "%{type} %{name} de %{amount} par %{mode} ajouté par %{author} il y a %{ago}"
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} il y a %{ago}"
@@ -1765,6 +1773,10 @@ fra:
       one: "%{count} intervention"
       other: "%{count} interventions"
       zero: "Aucune intervention" #?
+    x_issues:
+      one: "1 incident"
+      other: "%{count} incidents"
+      zero: "Aucun incident"
     x_items_remain:
       one: "%{count} élément restant."
       other: "%{count} éléments non visibles. Affinez votre recherche."
@@ -1855,6 +1867,7 @@ fra:
       success: "Opération réalisée avec succès"
       warning: "Attention!"
     messages:
+      a_campaign_must_be_opened: "Une campagne doit être ouverte"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
       bad_file: "Le fichier ne semble pas correspondre." #?
       bookkeeping_is_finished: "La bascule en comptabilité est finie."
@@ -1981,18 +1994,23 @@ fra:
       abort: "Annuler"
       about: "À propos"
       attach: "Attacher"
+      balance: "Balance"
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
+      category: "Categorie"
+      children: "Enfant"
       close: "Fermer"
       compute: "Calculer"
       compute_balances: "Calculer la balance"
       confirm: "Confirmer"
+      contacts: "Contacts"
       convert: "Convertir"
       correct: "Corriger"
       create: "Créer"
       decrement: "Décrementer"
       destroy: "Supprimer"
       detach: "Détacher"
+      detail: "Détail"
       down: "Descendre"
       draft: "Brouillon"
       duplicate: "Dupliquer"
@@ -2006,6 +2024,7 @@ fra:
       incorporate: "Incorporer"
       increment: "Incrémenter"
       index: "Index"
+      indicator_measure: "Indicateur de mesure"
       invoice: "Facturer"
       list: "Lister"
       load: "Charger"
@@ -2013,9 +2032,11 @@ fra:
       mail: "Écrire un courriel"
       mark: "Marquer"
       merge: "Fusionner"
+      move: "Déplacer"
       new: "Nouveau"
       open: "Ouvrir"
       pick: "Piocher"
+      picture: "Image"
       point: "Pointer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
@@ -2024,7 +2045,9 @@ fra:
       refresh: "Rafraîchir"
       refuse: "Refuser"
       reopen: "Réouvrir"
+      reset: "Ré-initialiser"
       run: "Éxécuter"
+      search: "Rechercher"
       select: "Selectionner"
       set: "Définir"
       ship: "Expédier"
@@ -2034,8 +2057,11 @@ fra:
       toggle: "Basculer"
       unlock: "Déverrouiller"
       unmark: "Dé-marquer"
+      unroll: "Unroll"
+      unvalidateds: "Invalider"
       up: "Monter"
       update: "Modifier"
+      update_password: "Modifier le mot de passe"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

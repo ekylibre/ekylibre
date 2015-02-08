@@ -77,7 +77,8 @@ spa:
       point: "Despuntar el leventar N°%{number}"
       show: "Leventard de cuento N°%{number}"
     backend/base: #?
-    backend/beehives: #?
+    backend/beehives:
+      # reset: "Reset beehive: %{name}"
     backend/building_divisions:
       # edit: "Edit building division: %{name}"
       # index: "Building division"
@@ -206,6 +207,7 @@ spa:
       # new: "New dashboard"
       # production: "Production dashboard"
       # relationship: "Relationship dashboard"
+      # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       # settings: "Settings dashboard"
       # show: "%{name} dashboard"
@@ -243,6 +245,7 @@ spa:
       index: "Modelos de documento"
       load: "Cargar los modelos de documento por defecto"
       new: "Créacion de un modelo de documento"
+      # show: "Document template: %{name}"
     backend/documents:
       # edit: "Edit document: %{name}"
       # index: "Documents management"
@@ -351,6 +354,7 @@ spa:
       # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
       # new: "New incoming payment mode"
+      # show: "Incoming payment mode: %{name}"
     backend/incoming_payment_uses: #?
     backend/incoming_payments:
       # edit: "Edit incoming payment %{number}"
@@ -387,6 +391,7 @@ spa:
       show: "Pieza contable N°%{number}"
     backend/journal_entry_items:
       # new: "New entry item"
+      # show: "Journal entry item: %{name}"
     backend/journals:
       balance: "Equilibrio"
       bookkeep: "Bascula contable"
@@ -885,6 +890,7 @@ spa:
     # bookkeep: "Bookkeep"
     # bookkeep_with_payment: "Bookkeep with payment"
     # budget: "Budget"
+    # budget_per_working_indicator: "Budget per working indicator"
     # budgets: "Budgets"
     building_create: "Añadir un lugar de deposito" #?
     # building_name: "Building name"
@@ -1015,6 +1021,7 @@ spa:
     # details: "Details"
     # discount: "Discount (%)"
     # display: "Display"
+    # distributions: "Distributions"
     # divide: "Divide"
     # division: "Division"
     # divisions: "Divisions"
@@ -1582,7 +1589,9 @@ spa:
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
+    # timeline: "Timeline"
     # timeline_comment: "%{author} commented %{ago} ago"
+    # timeline_entity_link: "Timeline entity link"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
@@ -1708,6 +1717,10 @@ spa:
     x_intervention_casts:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
+    x_issues:
+      # one: "1 issue"
+      # other: "%{count} issues"
+      # zero: "0 issue"
     x_items_remain:
       # one: "%{count} item remains"
       # other: "%{count} items remain"
@@ -1795,6 +1808,7 @@ spa:
       success: "Éxito"
       warning: "Cuidad!"
     messages:
+      # a_campaign_must_be_opened: "A campaign must be opened"
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
       bad_file: "El fichero no parece corresponder" #?
       bookkeeping_is_finished: "La basula en contabilidad esta terminada."
@@ -1931,18 +1945,23 @@ spa:
       # abort: "Abort"
       # about: "About"
       # attach: "Attach"
+      # balance: "Balance"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
+      # category: "Category"
+      # children: "Children"
       # close: "Close"
       # compute: "Compute"
       # compute_balances: "Compute balances"
       # confirm: "Confirm"
+      # contacts: "Contacts"
       # convert: "Convert"
       # correct: "Correct"
       # create: "Create"
       # decrement: "Decrement"
       # destroy: "Destroy"
       # detach: "Detach"
+      # detail: "Detail"
       # down: "Down"
       # draft: "Draft"
       # duplicate: "Duplicate"
@@ -1956,6 +1975,7 @@ spa:
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"
+      # indicator_measure: "Indicator measure"
       # invoice: "Invoice"
       # list: "List"
       # load: "Load"
@@ -1963,9 +1983,11 @@ spa:
       # mail: "Mail"
       # mark: "Mark"
       # merge: "Merge"
+      # move: "Move"
       # new: "New"
       # open: "Open"
       # pick: "Pick"
+      # picture: "Picture"
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"
@@ -1974,7 +1996,9 @@ spa:
       # refresh: "Refresh"
       # refuse: "Refuse"
       # reopen: "Reopen"
+      # reset: "Reset"
       # run: "Run"
+      # search: "Search"
       # select: "Select"
       # set: "Set"
       # ship: "Ship"
@@ -1984,8 +2008,11 @@ spa:
       # toggle: "Toggle"
       # unlock: "Unlock"
       # unmark: "Unmark"
+      # unroll: "Unroll"
+      # unvalidateds: "Unvalidateds"
       # up: "Up"
       # update: "Update"
+      # update_password: "Update password"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"

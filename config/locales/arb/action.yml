@@ -78,7 +78,8 @@ arb:
       new: "الاشارة لكشف حساب جديد"
       point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
-    backend/beehives: #?
+    backend/beehives:
+      # reset: "Reset beehive: %{name}"
     backend/building_divisions:
       # edit: "Edit building division: %{name}"
       # index: "Building division"
@@ -209,6 +210,7 @@ arb:
       # new: "New dashboard"
       # production: "Production dashboard"
       # relationship: "Relationship dashboard"
+      # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       # settings: "Settings dashboard"
       # show: "%{name} dashboard"
@@ -243,6 +245,7 @@ arb:
       index: "نماذج الوثيقة"
       load: "تحميل نموذج الوثيقة افتراضيا"
       new: "انشاء نموذج للوثيقة"
+      # show: "Document template: %{name}"
     backend/documents:
       # edit: "Edit document: %{name}"
       # index: "Documents management"
@@ -373,6 +376,7 @@ arb:
       edit: "تعديل طريقة الدفعة: %{name}"
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة جديدة لتسديد الفعة"
+      # show: "Incoming payment mode: %{name}"
     backend/incoming_payment_uses:  #?
       new: "اضافة دفعة جديدة  : %{type} رقم %{number}" #?
     backend/incoming_payments:
@@ -410,6 +414,7 @@ arb:
       show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
       # new: "New entry item"
+      # show: "Journal entry item: %{name}"
     backend/journals:
       balance: "رصيد الحساب"
       bookkeep: "نظام المحاسبة المتغير"
@@ -1055,6 +1060,7 @@ arb:
     # bookkeep: "Bookkeep"
     # bookkeep_with_payment: "Bookkeep with payment"
     # budget: "Budget"
+    # budget_per_working_indicator: "Budget per working indicator"
     # budgets: "Budgets"
     building: "مكان التخزين" #?
     building_create: "اضافة موقع تخزين" #?
@@ -1203,6 +1209,7 @@ arb:
     discount: "الخصم (%)"
     display: "عرض"
     display_help: "عرض المساعدة" #?
+    # distributions: "Distributions"
     district_create: "اضافة منطقة ادارية" #?
     district_x: "%{name} (%{code})" #?
     # divide: "Divide"
@@ -1906,7 +1913,9 @@ arb:
     # time_cost: "Time cost"
     # time_cost_per_hectare: "Time cost per hectare"
     # time_zone: "Time zone"
+    # timeline: "Timeline"
     # timeline_comment: "%{author} commented %{ago} ago"
+    # timeline_entity_link: "Timeline entity link"
     # timeline_item: "%{type} %{name} added by %{author} %{ago} ago"
     # timeline_payment: "%{type} %{name} of %{amount} by %{mode} added by %{author} %{ago} ago"
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{ago} ago"
@@ -2059,6 +2068,10 @@ arb:
     x_intervention_casts:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
+    x_issues:
+      # one: "1 issue"
+      # other: "%{count} issues"
+      # zero: "0 issue"
     x_items_remain:
       # one: "%{count} item remains"
       # other: "%{count} items remain"
@@ -2149,6 +2162,7 @@ arb:
       success: "استكملت العملية بنجاح"
       warning: "!تحذير"
     messages:
+      # a_campaign_must_be_opened: "A campaign must be opened"
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
       bookkeeping_is_finished: "نهاية نطاق المحاسبة"
@@ -2326,18 +2340,23 @@ arb:
       # abort: "Abort"
       # about: "About"
       # attach: "Attach"
+      # balance: "Balance"
       # bookkeep: "Bookkeep"
       # cancel: "Cancel"
+      # category: "Category"
+      # children: "Children"
       # close: "Close"
       # compute: "Compute"
       # compute_balances: "Compute balances"
       # confirm: "Confirm"
+      # contacts: "Contacts"
       # convert: "Convert"
       # correct: "Correct"
       # create: "Create"
       # decrement: "Decrement"
       # destroy: "Destroy"
       # detach: "Detach"
+      # detail: "Detail"
       # down: "Down"
       # draft: "Draft"
       # duplicate: "Duplicate"
@@ -2351,6 +2370,7 @@ arb:
       # incorporate: "Incorporate"
       # increment: "Increment"
       # index: "Index"
+      # indicator_measure: "Indicator measure"
       # invoice: "Invoice"
       # list: "List"
       # load: "Load"
@@ -2358,9 +2378,11 @@ arb:
       # mail: "Mail"
       # mark: "Mark"
       # merge: "Merge"
+      # move: "Move"
       # new: "New"
       # open: "Open"
       # pick: "Pick"
+      # picture: "Picture"
       # point: "Point"
       # propose: "Propose"
       # propose_and_invoice: "Propose and invoice"
@@ -2369,7 +2391,9 @@ arb:
       # refresh: "Refresh"
       # refuse: "Refuse"
       # reopen: "Reopen"
+      # reset: "Reset"
       # run: "Run"
+      # search: "Search"
       # select: "Select"
       # set: "Set"
       # ship: "Ship"
@@ -2379,8 +2403,11 @@ arb:
       # toggle: "Toggle"
       # unlock: "Unlock"
       # unmark: "Unmark"
+      # unroll: "Unroll"
+      # unvalidateds: "Unvalidateds"
       # up: "Up"
       # update: "Update"
+      # update_password: "Update password"
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
