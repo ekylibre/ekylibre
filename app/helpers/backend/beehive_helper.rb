@@ -22,13 +22,15 @@ module Backend::BeehiveHelper
   # 巣 Beehive permits to create modular interface organized in cells
   def beehive(name = nil, &block)
     html = ""
-    return html unless block_given?
+    # return html unless block_given?
     name ||= "#{controller_name}_#{action_name}".to_sym
     board = Beehive.new(name, self)
-    if block.arity < 1
-      board.instance_eval(&block)
-    else
-      block[board]
+    if block_given?
+      if block.arity < 1
+        board.instance_eval(&block)
+      else
+        block[board]
+      end
     end
     layout = board.to_hash
     if preference = current_user.preferences.find_by(name: board.preference_name)

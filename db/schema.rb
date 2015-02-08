@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206104748) do
+ActiveRecord::Schema.define(version: 20150208093000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -541,6 +541,23 @@ ActiveRecord::Schema.define(version: 20150206104748) do
   add_index "custom_fields", ["creator_id"], :name => "index_custom_fields_on_creator_id"
   add_index "custom_fields", ["updated_at"], :name => "index_custom_fields_on_updated_at"
   add_index "custom_fields", ["updater_id"], :name => "index_custom_fields_on_updater_id"
+
+  create_table "dashboards", force: true do |t|
+    t.integer  "owner_id",                 null: false
+    t.string   "name",                     null: false
+    t.text     "description"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "dashboards", ["created_at"], :name => "index_dashboards_on_created_at"
+  add_index "dashboards", ["creator_id"], :name => "index_dashboards_on_creator_id"
+  add_index "dashboards", ["owner_id"], :name => "index_dashboards_on_owner_id"
+  add_index "dashboards", ["updated_at"], :name => "index_dashboards_on_updated_at"
+  add_index "dashboards", ["updater_id"], :name => "index_dashboards_on_updater_id"
 
   create_table "deposits", force: true do |t|
     t.string   "number",                                                    null: false

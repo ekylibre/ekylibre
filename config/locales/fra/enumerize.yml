@@ -4,8 +4,7 @@ fra:
       nature:
         auxiliary: "Auxiliaire"
         main: "Principale"
-        none: "―" #?
-        # standalone: "Standalone"
+        standalone: "Indépendante"
     analytic_distribution:
       state:
         closed: "Verrouillée"

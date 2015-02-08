@@ -61,6 +61,7 @@ class ApplicationController < ActionController::Base
     return ::I18n.translate(root + action, options)
   end
 
+  helper_method :human_action_name
   def human_action_name
     return self.class.human_action_name(action_name, @title)
   end

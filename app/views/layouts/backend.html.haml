@@ -14,7 +14,13 @@
     #wrap{attrs}
       %aside#side.visible
         .inner
+          .snippet.snippet-search
+            = form_tag(backend_search_path, :method => :get, :class => "search snippet-content") do
+              = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
+
           = side_tag
+          - if content_for?(:aside)
+            = content_for(:aside)
           %footer#legals= legals_sentence
       #main
         %header.header

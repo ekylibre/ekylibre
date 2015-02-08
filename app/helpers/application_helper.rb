@@ -58,20 +58,6 @@ module ApplicationHelper
     return text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
 
-  # It's the menu generated for the current user
-  # Therefore: No current user => No menu
-  def menus
-    Ekylibre.menu
-  end
-
-  # Return an array of menu and submenu concerned by the action (controller#action)
-  def reverse_menus(action=nil)
-    # action ||= "#{self.controller.controller_name}##{action_name}"
-    # Ekylibre.reverse_menus[action]||[]
-    return []
-    Ekylibre.menu.stack(controller_name, action_name)
-  end
-
   # LEGALS_ITEMS = [h("Ekylibre " + Ekylibre.version),  h("Ruby on Rails " + Rails.version),  h("Ruby "+ RUBY_VERSION.to_s)].join(" &ndash; ".html_safe).freeze
 
   def legals_sentence

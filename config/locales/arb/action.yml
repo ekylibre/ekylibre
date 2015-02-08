@@ -203,11 +203,15 @@ arb:
       # sort: "Sort custom field choices"
     backend/dashboards:
       # accountancy: "Accountancy dashboard"
-      # index: "General dashboard"
+      # edit: "Edit dashboard: %{name}"
+      # home: "Home dashboard"
+      # index: "Dashboards"
+      # new: "New dashboard"
       # production: "Production dashboard"
       # relationship: "Relationship dashboard"
       # search: "Search for: %{searched}"
       # settings: "Settings dashboard"
+      # show: "%{name} dashboard"
       # stocks: "Stocks dashboard"
       # tools: "Tools dashboard"
       # trade: "Trade dashboard"
@@ -1526,7 +1530,7 @@ arb:
     # net_surface_area: "Net surface area"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
-    # new_bow: "New box"
+    # new_box: "New box"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"

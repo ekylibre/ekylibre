@@ -70,6 +70,7 @@ Ekylibre::Application.routes.draw do
     namespace :v5 do
       pasteque_v5
     end
+    pasteque_v5
   end
 
 
@@ -103,9 +104,9 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resource :dashboards, only: [] do
+    resources :dashboards, concerns: [:list] do
       collection do
-        for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings, :legals]
+        for mod in [:home, :relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
           get mod
         end
         get :sandbox
@@ -768,7 +769,7 @@ Ekylibre::Application.routes.draw do
 
     get :search, controller: :dashboards, as: :search
 
-    root to: "dashboards#index"
+    root to: "dashboards#home"
   end
 
   root to: "public#index"

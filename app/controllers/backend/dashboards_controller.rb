@@ -19,7 +19,13 @@
 
 class Backend::DashboardsController < Backend::BaseController
 
-  def index
+  manage_restfully
+
+  list do |t|
+    t.column :name, url: true
+    t.column :description
+    t.action :edit
+    t.action :destroy
   end
 
   for menu in Ekylibre::Modules.hash.keys
@@ -28,6 +34,9 @@ class Backend::DashboardsController < Backend::BaseController
     # code << "  render :file => 'backend/dashboards/#{menu}', :layout => dialog_or_not\n"
     code << "end\n"
     class_eval code
+  end
+
+  def home
   end
 
   def sandbox

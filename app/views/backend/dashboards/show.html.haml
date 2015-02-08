@@ -1,11 +1,3 @@
-= render @universe.to_s
+= render "menu"
 
-%table
-  %tr
-    - for menu, items in menus[@universe]
-      %td.menu
-        %h2= menu
-        %ul
-          - items.each do |item|
-            = li_link_to(item)
-
+= beehive("dashboard_#{resource.id}".to_sym)

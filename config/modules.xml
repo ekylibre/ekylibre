@@ -1057,6 +1057,15 @@
         <page to="backend/settings#edit"/>
         <page to="backend/settings#update"/>
       </item>
+      <item name="dashboards">
+        <page to="backend/dashboards#index"/>
+        <page to="backend/dashboards#create"/>
+        <page to="backend/dashboards#destroy"/>
+        <page to="backend/dashboards#edit"/>
+        <page to="backend/dashboards#list"/>
+        <page to="backend/dashboards#new"/>
+        <page to="backend/dashboards#update"/>
+      </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>
         <page to="backend/sequences#create"/>
@@ -1598,7 +1607,7 @@
         <page to="backend/guide_analyses#list_points"/>
       </item>
       <item name="dashboards">
-        <page to="backend/dashboards#index"/>
+        <page to="backend/dashboards#home"/>
         <page to="backend/dashboards#accountancy"/>
         <page to="backend/dashboards#production"/>
         <page to="backend/dashboards#relationship"/>
@@ -1606,6 +1615,7 @@
         <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
+        <page to="backend/dashboards#show"/>
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#trade"/>
       </item>

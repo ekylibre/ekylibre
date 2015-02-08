@@ -71,6 +71,7 @@ class User < Ekylibre::Record::Base
   belongs_to :person
   belongs_to :role
   has_many :crumbs
+  has_many :dashboards, foreign_key: :owner_id
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
   has_many :sales_invoices, -> { where(state: "invoice") }, through: :person, source: :managed_sales, class_name: "Sale"
   has_many :sales, through: :person, source: :managed_sales

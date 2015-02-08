@@ -63,7 +63,7 @@ module Ekylibre
 
     # Returns the name of the module corresponding to an URL
     def self.module_of(controller, action)
-      return action.to_sym if controller.to_s == "backend/dashboards"
+      return action.to_sym if controller.to_s == "backend/dashboards" and hash.keys.include?(action.to_sym)
       if r = reverse(controller, action)
         return r[0]
       end

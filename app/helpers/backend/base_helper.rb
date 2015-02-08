@@ -40,12 +40,14 @@ module Backend::BaseHelper
     render(partial: "layouts/navigation")
   end
 
-  def side_tag # (submenu = self.controller.controller_name.to_sym)
-    path = reverse_menus
-    return '' if path.nil?
-    render(partial: 'layouts/side', locals: {path: path})
-    # render_snippets(:side)
-    # render('/shared/snippet', collection: Ekylibre::SnippetManager.at(:side), path: path)
+  # It's the menu generated for the current user
+  # Therefore: No current user => No menu
+  def menus
+    Ekylibre.menu
+  end
+
+  def side_tag
+    render(partial: 'layouts/side')
   end
 
   def add_snippets(place, options = {})

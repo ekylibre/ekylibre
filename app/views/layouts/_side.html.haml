@@ -1,7 +1,3 @@
-- snippet :search, :title => false do
-  = form_tag(backend_search_path, :method => :get, :class => "search") do
-    = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
-
 - mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
 - current = Ekylibre::Modules.reverse(controller.controller_path, action_name) || []
 - for group, items in Ekylibre::Modules.groups_in(mod)
@@ -18,7 +14,3 @@
     %li= link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_path, :method => :delete)
 
 - add_snippets(:side)
-
-- if content_for?(:aside)
-  = content_for(:aside)
-

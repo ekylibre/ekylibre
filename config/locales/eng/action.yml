@@ -175,12 +175,16 @@ eng:
       sort: "Sort custom field choices"
     backend/dashboards:
       accountancy: "Accountancy dashboard"
-      index: "General dashboard"
+      edit: "Edit dashboard: %{name}"
+      home: "Home dashboard"
+      index: "Dashboards"
+      new: "New dashboard"
       production: "Production dashboard"
       relationship: "Relationship dashboard"
       # sandbox: "Sandbox dashboard: %{name}"
       search: "Search for: %{searched}"
       settings: "Settings dashboard"
+      show: "%{name} dashboard"
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       trade: "Trade dashboard"
@@ -1061,7 +1065,6 @@ eng:
     main_settings: "Main settings"
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
-    # manure_management_plans: "Manure management plans"
     map: "Map"
     margins: "Margins"
     markers: "Markers"
@@ -1103,8 +1106,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
-    new_bow: "New box" #?!
-    # new_box: "New box"
+    new_box: "New box"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"

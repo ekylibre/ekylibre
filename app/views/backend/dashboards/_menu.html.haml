@@ -1,0 +1,6 @@
+- snippet :dashboards, icon: :dashboard, title: Backend::DashboardsController.human_action_name(:index) do
+  %ul
+    - current_user.dashboards.each do |dashboard|
+      %li{class: (resource and resource.id == dashboard.id) ? "active" : "other"}= link_to(dashboard.name, backend_dashboard_url(dashboard))
+    %li= link_to(Backend::DashboardsController.human_action_name(:index), backend_dashboards_url)
+

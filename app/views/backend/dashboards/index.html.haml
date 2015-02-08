@@ -1,24 +1,4 @@
-%dl#dashboards-nav
-  %dt Tableaux de bord
-  - [:default, :legals].each do |d|
-    - if d == :default
-      %dd.active= link_to(d, controller: :dashboards, action: :index)
-    - else
-      %dd= link_to(d, controller: :dashboards, action: d)
+- main_toolbar do |t|
+  - t.new
 
--# render "grid"
-
-= beehive do |b|
-  - b.hbox do
-    - b.cell :modules do
-      - Ekylibre::Modules.hash.keys.each do |mod|
-        - next unless module_authorized?(mod)
-        = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", title: Ekylibre::Modules.human_name(mod)) do
-          %i
-          = Ekylibre::Modules.human_name(mod)
-  - b.hbox do
-    - b.cell :calendar
-    - b.cell :weather
-  - b.hbox do
-    - b.cell :map
-
+= list

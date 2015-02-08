@@ -365,6 +365,17 @@ custom_fields:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+dashboards:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  owner_id: {type: integer, references: user, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 deposits:
   accounted_at: {type: datetime}
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}

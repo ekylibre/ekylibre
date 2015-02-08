@@ -2586,3 +2586,78 @@ preferences_219:
   updated_at: 2014-12-24 11:05:52.595411000 Z
   updater_id: 1
   user_id: 1
+preferences_220:
+  boolean_value: false
+  created_at: 2015-02-08 11:57:29.282289000 Z
+  creator_id: 1
+  id: 220
+  lock_version: 0
+  name: interface.snippets.dashboards.collapsed
+  nature: boolean
+  updated_at: 2015-02-08 11:57:29.282289000 Z
+  updater_id: 1
+  user_id: 1
+preferences_221:
+  created_at: 2015-02-08 11:57:37.788798000 Z
+  creator_id: 1
+  id: 221
+  lock_version: 0
+  name: list._dashboards_list_dashboards_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-02-08 11:57:37.788798000 Z
+  updater_id: 1
+  user_id: 1
+preferences_222:
+  created_at: 2015-02-08 11:59:59.585172000 Z
+  creator_id: 1
+  id: 222
+  lock_version: 3
+  name: beehive.dashboard_1
+  nature: string
+  string_value:
+    type: root
+    children:
+    - type: hbox
+      children:
+      - type: cell
+        name: cash_balances
+      - type: cell
+        name: weather
+    - type: hbox
+      children:
+      - type: cell
+        name: last_products
+  updated_at: 2015-02-08 12:00:17.499616000 Z
+  updater_id: 1
+  user_id: 1
+preferences_223:
+  created_at: 2015-02-08 12:00:03.206344000 Z
+  creator_id: 1
+  id: 223
+  lock_version: 0
+  name: list._last_products_cells_list_last_products_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-02-08 12:00:03.206344000 Z
+  updater_id: 1
+  user_id: 1
+preferences_224:
+  created_at: 2015-02-08 12:39:45.991220000 Z
+  creator_id: 1
+  id: 224
+  lock_version: 1
+  name: beehive.dashboard_2
+  nature: string
+  string_value:
+    type: root
+    children:
+    - type: hbox
+      children:
+      - type: cell
+        name: last_entities
+      - type: cell
+        name: calendar
+  updated_at: 2015-02-08 12:39:55.553677000 Z
+  updater_id: 1
+  user_id: 1
