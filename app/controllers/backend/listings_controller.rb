@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ListingsController < BackendController
+class Backend::ListingsController < Backend::BaseController
 
   unroll
 

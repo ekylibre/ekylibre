@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IncomingDeliveryItemsController < BackendController
+class Backend::IncomingDeliveryItemsController < Backend::BaseController
 
   def new
     if request.xhr? and params[:variant_id]

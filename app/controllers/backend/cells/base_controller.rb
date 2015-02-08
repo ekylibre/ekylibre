@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::Cells::BaseController < BackendController
+class Backend::Cells::BaseController < Backend::BaseController
   layout :wrap_cell
 
   protected

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SynchronizationsController < BackendController
+class Backend::SynchronizationsController < Backend::BaseController
 
   def index
   end

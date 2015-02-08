@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SequencesController < BackendController
+class Backend::SequencesController < Backend::BaseController
   manage_restfully number_format: '[number|8]', last_number: 0
 
   unroll

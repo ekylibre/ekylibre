@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::TransformedProductsController < BackendController
+class Backend::TransformedProductsController < Backend::BaseController
 
   list model: :products, scope: [:availables, "derivative_of(:raw_matter)".c] do |t|
     t.column :number, url: true

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PurchasesController < BackendController
+class Backend::PurchasesController < Backend::BaseController
   manage_restfully planned_at: "Date.today+2".c, redirect_to: '{action: :show, id: "id"}'.c, except: :new
 
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json

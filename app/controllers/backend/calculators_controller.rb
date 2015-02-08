@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Backend::CalculatorsController < BackendController
+class Backend::CalculatorsController < Backend::BaseController
 
   LIST = {
     # nitrogen_inputs: {controller: "backend/calculators/nitrogen_inputs", action: :show},

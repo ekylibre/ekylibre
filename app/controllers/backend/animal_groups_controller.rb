@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnimalGroupsController < BackendController
+class Backend::AnimalGroupsController < Backend::BaseController
   manage_restfully
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

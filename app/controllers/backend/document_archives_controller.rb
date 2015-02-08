@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DocumentArchivesController < BackendController
+class Backend::DocumentArchivesController < Backend::BaseController
 
   def show
     return unless @document_archive = find_and_check

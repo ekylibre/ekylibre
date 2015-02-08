@@ -102,7 +102,7 @@ and we want company_id be just readable. Take care to NOT MODIFY OR ADDING DIREC
   rails g backend_scaffold Animal
 
   # app/controllers/backend/animals_controller.rb
-  class Backend::AnimalsController < BackendController
+  class Backend::AnimalsController < Backend::BaseController
     manage_restfully
   
     unroll

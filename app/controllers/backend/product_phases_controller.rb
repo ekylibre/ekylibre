@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductPhasesController < BackendController
+class Backend::ProductPhasesController < Backend::BaseController
   # manage_restfully
 end

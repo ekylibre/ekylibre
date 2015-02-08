@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IncomingPaymentModesController < BackendController
+class Backend::IncomingPaymentModesController < Backend::BaseController
   manage_restfully with_accounting: true
   manage_restfully_list :name
 

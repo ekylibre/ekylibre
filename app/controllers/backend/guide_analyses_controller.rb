@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::GuideAnalysesController < BackendController
+class Backend::GuideAnalysesController < Backend::BaseController
   manage_restfully only: [:show], t3e: {guide: :guide_name}
 
   list(:points, model: :guide_analysis_points, conditions: {analysis_id: 'params[:id]'.c}, order: :id) do |t|

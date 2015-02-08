@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::InventoriesController < BackendController
+class Backend::InventoriesController < Backend::BaseController
   manage_restfully except: [:index, :show]
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

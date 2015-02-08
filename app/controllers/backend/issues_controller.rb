@@ -18,7 +18,7 @@
 #
 
 # -*- coding: utf-8 -*-
-class Backend::IssuesController < BackendController
+class Backend::IssuesController < Backend::BaseController
 
   manage_restfully t3e: {name: :target_name}, observed_at: "Time.now".c
   manage_restfully_picture

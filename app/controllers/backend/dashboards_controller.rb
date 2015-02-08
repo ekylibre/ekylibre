@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DashboardsController < BackendController
+class Backend::DashboardsController < Backend::BaseController
 
   def index
   end

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductsController < BackendController
+class Backend::ProductsController < Backend::BaseController
   manage_restfully t3e: {nature: :nature_name}, subclass_inheritance: true
   manage_restfully_picture
 

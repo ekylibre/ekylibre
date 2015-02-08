@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SettingsController < BackendController
+class Backend::SettingsController < Backend::BaseController
 
   def edit
     Preference.check!

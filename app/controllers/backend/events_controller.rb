@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EventsController < BackendController
+class Backend::EventsController < Backend::BaseController
   manage_restfully except: :index, nature: "Event.nature.default_value".c, :started_at => "Time.now".c
 
   unroll

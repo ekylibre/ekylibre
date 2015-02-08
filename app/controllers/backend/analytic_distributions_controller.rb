@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnalyticDistributionsController < BackendController
+class Backend::AnalyticDistributionsController < Backend::BaseController
   manage_restfully state: "AnalyticDistribution.state.default_value".c
 
   list do |t|

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AccountsController < BackendController
+class Backend::AccountsController < Backend::BaseController
   manage_restfully number: "params[:number]".c
 
   unroll

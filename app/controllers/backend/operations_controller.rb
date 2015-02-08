@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::OperationsController < BackendController
+class Backend::OperationsController < Backend::BaseController
 
   def index
     redirect_to backend_interventions_url

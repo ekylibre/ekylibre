@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EventParticipationsController < BackendController
+class Backend::EventParticipationsController < Backend::BaseController
   manage_restfully except: [:index, :show], t3e: {participant_name: :participant_name}, redirect_to: {controller: :events, action: :show, id: 'RECORD.event_id'.c}, destroy_to: {controller: :events, action: :show, id: 'RECORD.event_id'.c}
 end

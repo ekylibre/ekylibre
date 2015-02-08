@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ListingNodesController < BackendController
+class Backend::ListingNodesController < Backend::BaseController
 
   def new
     return unless @listing_node = find_and_check(id: params[:parent_id])

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::JournalEntryItemsController < BackendController
+class Backend::JournalEntryItemsController < Backend::BaseController
 
   unroll :entry_number, :name, :real_debit, :real_credit, :currency, account: :number
 

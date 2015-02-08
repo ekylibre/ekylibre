@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CrumbsController < BackendController
+class Backend::CrumbsController < Backend::BaseController
   manage_restfully only: [:update, :destroy]
 
   def index

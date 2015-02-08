@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EntityLinksController < BackendController
+class Backend::EntityLinksController < Backend::BaseController
   manage_restfully entity_1_id: 'params[:entity_id]'.c, except: [:index, :show]
 
   def show

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::WineTanksController < BackendController
+class Backend::WineTanksController < Backend::BaseController
 
   list model: :products, scope: [:availables, "can('store(wine)')".c, "can('store_liquid')".c] do |t|
     t.column :work_number, url: true

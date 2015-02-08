@@ -106,7 +106,7 @@ module RestfullyManageable
       code << "private :permitted_params\n"
 
       if options[:subclass_inheritance]
-        if self != BackendController
+        if self != Backend::BaseController
           code << "def self.inherited(subclass)\n"
           # TODO inherit from superclass parameters (superclass.manage_restfully_options)
           code << "  subclass.manage_restfully(#{options.inspect})\n"

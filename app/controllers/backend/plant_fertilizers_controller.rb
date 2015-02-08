@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PlantFertilizersController < BackendController
+class Backend::PlantFertilizersController < Backend::BaseController
 
 
   list model: :products, scope: [:availables, "can('fertilize', 'feed(plant)')".c] do |t|

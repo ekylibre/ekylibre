@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class BackendController < BaseController
+class Backend::BaseController < BaseController
   include Unrollable, RestfullyManageable
   protect_from_forgery
 

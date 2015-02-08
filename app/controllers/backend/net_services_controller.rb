@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::NetServicesController < BackendController
+class Backend::NetServicesController < Backend::BaseController
   manage_restfully t3e: {name: :name}
 
   # unroll

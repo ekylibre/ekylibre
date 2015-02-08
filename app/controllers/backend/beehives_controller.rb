@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::BeehivesController < BackendController
+class Backend::BeehivesController < Backend::BaseController
 
   # Save beehive config in preferences
   def update

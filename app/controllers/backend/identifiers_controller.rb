@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IdentifiersController < BackendController
+class Backend::IdentifiersController < Backend::BaseController
   manage_restfully t3e: {name: :nature}
 
   list conditions: {net_service_id: nil} do |t|

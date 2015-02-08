@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductionSupportMarkersController < BackendController
+class Backend::ProductionSupportMarkersController < Backend::BaseController
   # manage_restfully # (:t3e => {:name => :name})
 
   # # unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]

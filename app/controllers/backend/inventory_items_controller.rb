@@ -17,5 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::InventoryItemsController < BackendController
+class Backend::InventoryItemsController < Backend::BaseController
 end

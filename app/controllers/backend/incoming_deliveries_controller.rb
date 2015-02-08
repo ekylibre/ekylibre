@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IncomingDeliveriesController < BackendController
+class Backend::IncomingDeliveriesController < Backend::BaseController
   manage_restfully
 
   unroll

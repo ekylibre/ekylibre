@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductNatureCategoriesController < BackendController
+class Backend::ProductNatureCategoriesController < Backend::BaseController
   manage_restfully active: true, pictogram: :undefined
 
   manage_restfully_incorporation

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EntityAddressesController < BackendController
+class Backend::EntityAddressesController < Backend::BaseController
   manage_restfully :mail_country => "Entity.find(params[:entity_id]).country rescue Preference[:country]".c, :t3e => {entity: "@entity_address.entity.full_name".c}, except: [:index, :show]
   unroll :coordinate
 

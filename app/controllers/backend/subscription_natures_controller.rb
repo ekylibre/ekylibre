@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SubscriptionNaturesController < BackendController
+class Backend::SubscriptionNaturesController < Backend::BaseController
   manage_restfully nature: "SubscriptionNature.nature.default_value".c, entity_link_direction: "SubscriptionNature.entity_link_direction.default_value".c
 
   unroll

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::FinancialYearsController < BackendController
+class Backend::FinancialYearsController < Backend::BaseController
   manage_restfully except: [:new, :show]
 
   unroll

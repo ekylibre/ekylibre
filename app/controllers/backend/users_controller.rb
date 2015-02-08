@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::UsersController < BackendController
+class Backend::UsersController < Backend::BaseController
   manage_restfully
 
   unroll :first_name, :last_name

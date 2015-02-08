@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::VisualsController < BackendController
+class Backend::VisualsController < Backend::BaseController
   skip_before_action :authenticate_user!
   skip_before_action :authorize_user!
 

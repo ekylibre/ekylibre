@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CatalogsController < BackendController
+class Backend::CatalogsController < Backend::BaseController
   unroll
 
   manage_restfully

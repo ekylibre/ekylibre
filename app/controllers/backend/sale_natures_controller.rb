@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SaleNaturesController < BackendController
+class Backend::SaleNaturesController < Backend::BaseController
   manage_restfully# t3e: {percent: :downpayment_percentage, amount: :downpayment}
   manage_restfully currency: "Preference[:currency]".c
 

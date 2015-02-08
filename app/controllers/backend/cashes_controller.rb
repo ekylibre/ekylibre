@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CashesController < BackendController
+class Backend::CashesController < Backend::BaseController
   manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c, t3e: {nature: 'RECORD.nature.l'.c}
 
   unroll

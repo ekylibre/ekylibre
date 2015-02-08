@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::KujakusController < BackendController
+class Backend::KujakusController < Backend::BaseController
 
   # Saves the state of the kujakus クジャク（孔雀）
   def toggle

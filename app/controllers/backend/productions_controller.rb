@@ -18,7 +18,7 @@
 #
 
 # -*- coding: utf-8 -*-
-class Backend::ProductionsController < BackendController
+class Backend::ProductionsController < Backend::BaseController
   manage_restfully(t3e: {name: :name}, state: :draft, except: :index)
 
   unroll

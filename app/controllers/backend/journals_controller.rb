@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::JournalsController < BackendController
+class Backend::JournalsController < Backend::BaseController
   manage_restfully nature: "params[:nature]".c, currency: "Preference[:currency]".c
 
   unroll

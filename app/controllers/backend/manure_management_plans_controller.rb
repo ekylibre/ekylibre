@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ManureManagementPlansController < BackendController
+class Backend::ManureManagementPlansController < Backend::BaseController
   manage_restfully redirect_to: "{action: :edit, id: 'id'}".c
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

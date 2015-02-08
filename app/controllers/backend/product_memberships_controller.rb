@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductMembershipsController < BackendController
+class Backend::ProductMembershipsController < Backend::BaseController
   # manage_restfully
 
   # unroll

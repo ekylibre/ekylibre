@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CashTransfersController < BackendController
+class Backend::CashTransfersController < Backend::BaseController
   manage_restfully transfered_at: 'Date.today'.c
 
   unroll

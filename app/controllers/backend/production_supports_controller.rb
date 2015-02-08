@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductionSupportsController < BackendController
+class Backend::ProductionSupportsController < Backend::BaseController
   manage_restfully(t3e: {name: :name})
 
   unroll production: [:name, {activity: :name, campaign: :name, variant: :name}], storage: :name

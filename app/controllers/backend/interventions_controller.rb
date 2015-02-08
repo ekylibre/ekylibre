@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Backend::InterventionsController < BackendController
+class Backend::InterventionsController < Backend::BaseController
   manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv

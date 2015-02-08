@@ -152,7 +152,6 @@ module Backend::BeehiveHelper
     end
 
     def available_cells
-      puts @cells.keys.inspect.red
       return (self.class.controller_cells + @cells.keys).map(&:to_s).uniq.map do |x|
         [x.tl, x]
       end.sort do |a,b|

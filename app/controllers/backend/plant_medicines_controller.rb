@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PlantMedicinesController < BackendController
+class Backend::PlantMedicinesController < Backend::BaseController
 
   list model: :products, scope: "can('care(plant)')".c do |t|
     t.column :name, url: true

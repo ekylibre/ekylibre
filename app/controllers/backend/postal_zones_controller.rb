@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PostalZonesController < BackendController
+class Backend::PostalZonesController < Backend::BaseController
   manage_restfully country: "Preference[:country]".c
 
   unroll

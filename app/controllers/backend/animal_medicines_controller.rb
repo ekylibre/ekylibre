@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnimalMedicinesController < BackendController
+class Backend::AnimalMedicinesController < Backend::BaseController
 
   list model: :products, scope: "of_working_set(:animal_medicines)".c do |t|
     t.column :name, url: true

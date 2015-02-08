@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ImportsController < BackendController
+class Backend::ImportsController < Backend::BaseController
   manage_restfully t3e: {name: :name}
 
   list line_class: "RECORD.errored? ? 'error' : ''".c do |t|

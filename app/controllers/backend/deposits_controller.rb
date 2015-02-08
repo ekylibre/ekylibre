@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DepositsController < BackendController
+class Backend::DepositsController < Backend::BaseController
   manage_restfully only: :destroy
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :ods, :xlsx

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::FinancialAssetsController < BackendController
+class Backend::FinancialAssetsController < Backend::BaseController
   manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
 
   unroll

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::WineTransformersController < BackendController
+class Backend::WineTransformersController < Backend::BaseController
 
   list model: :products, scope: [:availables, "can('catalyze(wine), chaptelise(wine), fermentize(wine), sulfurize(wine), acidify(fermented_juice), alkalinize(fermented_juice)')".c] do |t|
     #t.column :work_number, url: true

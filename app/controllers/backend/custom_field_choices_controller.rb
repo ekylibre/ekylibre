@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CustomFieldChoicesController < BackendController
+class Backend::CustomFieldChoicesController < Backend::BaseController
   manage_restfully custom_field_id: 'params[:custom_field_id]'.c, destroy_to: {controller: :custom_fields, action: :show, id: 'RECORD.custom_field_id'.c}, except: [:index, :show]
   manage_restfully_list
   unroll

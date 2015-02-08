@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::GapsController < BackendController
+class Backend::GapsController < Backend::BaseController
   manage_restfully only: [:index, :show, :destroy]
 
   list do |t|

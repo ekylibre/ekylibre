@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PlantProductsController < BackendController
+class Backend::PlantProductsController < Backend::BaseController
 
   list model: :products, scope: [:availables, "of_variety(:matter)".c, "derivative_of(:plant)".c] do |t|
     t.column :number, url: true

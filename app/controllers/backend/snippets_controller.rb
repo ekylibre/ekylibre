@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::SnippetsController < BackendController
+class Backend::SnippetsController < Backend::BaseController
 
   # Saves the state of the side snippets
   def toggle

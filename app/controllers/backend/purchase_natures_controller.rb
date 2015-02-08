@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PurchaseNaturesController < BackendController
+class Backend::PurchaseNaturesController < Backend::BaseController
   manage_restfully currency: "Preference[:currency]".c
 
   unroll

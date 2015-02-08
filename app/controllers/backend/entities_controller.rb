@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EntitiesController < BackendController
+class Backend::EntitiesController < Backend::BaseController
   manage_restfully subclass_inheritance: true
   manage_restfully_picture
 

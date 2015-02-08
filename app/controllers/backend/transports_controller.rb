@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::TransportsController < BackendController
+class Backend::TransportsController < Backend::BaseController
   manage_restfully only: [:index, :show, :destroy]
   unroll
 

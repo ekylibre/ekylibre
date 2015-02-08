@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::IncomingPaymentsController < BackendController
+class Backend::IncomingPaymentsController < Backend::BaseController
   manage_restfully to_bank_at: "Date.today".c, paid_at: "Date.today".c, responsible_id: "current_user.id".c, mode_id: "params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
 
   unroll :number, :amount, :currency, mode: :name, payer: :full_name

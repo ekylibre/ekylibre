@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::RolesController < BackendController
+class Backend::RolesController < Backend::BaseController
   manage_restfully
 
   manage_restfully_incorporation

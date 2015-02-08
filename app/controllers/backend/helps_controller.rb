@@ -16,7 +16,7 @@
 # along with this program.x  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::HelpsController < BackendController
+class Backend::HelpsController < Backend::BaseController
 
   helper_method :authorized?
 

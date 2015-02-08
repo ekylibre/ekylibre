@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::MyselvesController < BackendController
+class Backend::MyselvesController < Backend::BaseController
 
   def show
     params[:stopped_at] = params[:stopped_at].to_date rescue Date.today

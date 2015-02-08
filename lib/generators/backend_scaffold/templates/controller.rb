@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::<%= controller_class_name -%>Controller < BackendController
+class Backend::<%= controller_class_name -%>Controller < Backend::BaseController
   manage_restfully
 
   unroll
