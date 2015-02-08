@@ -10,7 +10,6 @@
 #     - "authentication/sessions#create"
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
-#     - "backend/activities#list_distributions"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/calculators#index"
@@ -61,16 +60,11 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/entities#list_issues"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
-#     - "backend/legal_entities#list_issues"
-#     - "backend/people#list_issues"
 #     - "backend/product_nature_variants#detail"
-#     - "backend/product_nature_variants#list_catalog_items"
-#     - "backend/product_natures#list_variants"
 #     - "backend/productions#indicator_measure"
 #     - "backend/snippets#toggle"
 #     - "backend/visuals#picture"
@@ -130,7 +124,6 @@
 #     - "pasteque/v5/tickets#destroy"
 #     - "pasteque/v5/tickets#index"
 #     - "pasteque/v5/tickets#open"
-#     - "pasteque/v5/tickets#permitted_params"
 #     - "pasteque/v5/tickets#search"
 #     - "pasteque/v5/tickets#show"
 #     - "pasteque/v5/tickets#update"
@@ -169,6 +162,7 @@ activities:
     actions:
     - "backend/activities#index"
     - "backend/activities#list"
+    - "backend/activities#list_distributions"
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
@@ -604,6 +598,7 @@ entities:
     - "backend/entities#list"
     - "backend/entities#list_event_participations"
     - "backend/entities#list_incoming_payments"
+    - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
     - "backend/entities#list_outgoing_payments"
@@ -1188,6 +1183,7 @@ legal_entities:
     - "backend/legal_entities#list"
     - "backend/legal_entities#list_event_participations"
     - "backend/legal_entities#list_incoming_payments"
+    - "backend/legal_entities#list_issues"
     - "backend/legal_entities#list_links"
     - "backend/legal_entities#list_observations"
     - "backend/legal_entities#list_outgoing_payments"
@@ -1393,6 +1389,7 @@ people:
     - "backend/people#list"
     - "backend/people#list_event_participations"
     - "backend/people#list_incoming_payments"
+    - "backend/people#list_issues"
     - "backend/people#list_links"
     - "backend/people#list_observations"
     - "backend/people#list_outgoing_payments"
@@ -1562,7 +1559,7 @@ product_nature_variants:
     actions:
     - "backend/product_nature_variants#index"
     - "backend/product_nature_variants#list"
-    - "backend/product_nature_variants#list_items" #?
+    - "backend/product_nature_variants#list_catalog_items"
     - "backend/product_nature_variants#list_products"
     - "backend/product_nature_variants#show"
     - "backend/product_nature_variants#unroll"
@@ -1588,8 +1585,7 @@ product_natures:
     actions:
     - "backend/product_natures#index"
     - "backend/product_natures#list"
-    - "backend/product_natures#list_product_nature_variants" #?
-    - "backend/product_natures#list_products" #?
+    - "backend/product_natures#list_variants"
     - "backend/product_natures#show"
     - "backend/product_natures#unroll"
   write:
@@ -1607,9 +1603,6 @@ product_natures:
 productions:
   read:
     actions:
-    - "backend/production_support_markers#index" #?
-    - "backend/production_support_markers#list" #?
-    - "backend/production_support_markers#show" #?
     - "backend/production_supports#index"
     - "backend/production_supports#list"
     - "backend/production_supports#list_interventions"
@@ -1627,11 +1620,6 @@ productions:
     depend-on:
     - read-productions
     actions:
-    - "backend/production_support_markers#create" #?
-    - "backend/production_support_markers#destroy" #?
-    - "backend/production_support_markers#edit" #?
-    - "backend/production_support_markers#new" #?
-    - "backend/production_support_markers#update" #?
     - "backend/production_supports#create"
     - "backend/production_supports#destroy"
     - "backend/production_supports#edit"

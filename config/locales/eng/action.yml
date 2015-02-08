@@ -691,7 +691,6 @@ eng:
     pasteque/v5/tickets:
       # index: "Tickets"
       # open: "Open ticket: %{name}"
-      # permitted_params: "Permitted params ticket: %{name}"
       # search: "Search ticket: %{name}"
       # show: "Ticket: %{name}"
     pasteque/v5/users:
@@ -1104,7 +1103,8 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
-    # new_beehive_box: "New beehive box"
+    new_bow: "New box" #?!
+    # new_box: "New box"
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
       other: "Make a deposit %{mode}: %{count} available payments"
@@ -1249,7 +1249,7 @@ eng:
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     report: "Report" #?
-    reset: "Reset" #?
+    reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
     rest: "Rest"
@@ -1669,7 +1669,6 @@ eng:
       # move: "Move"
       new: "New"
       open: "Open"
-      # permitted_params: "Permitted params"
       pick: "Pick"
       # picture: "Picture"
       point: "Point"

@@ -306,7 +306,7 @@ html.backend {
           }
           & > #main {
             @include calc(width, "100% - #{$help-width + $side-width}");
-            .header .btn-group-help {
+            .header .btn-group-help *[data-toggle="help"] {
               display: none;
             }
           }

@@ -1526,6 +1526,7 @@ arb:
     # net_surface_area: "Net surface area"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
+    # new_bow: "New box"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"

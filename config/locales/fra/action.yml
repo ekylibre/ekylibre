@@ -1239,6 +1239,8 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
+    # new_bow: "New box"
+    new_box: "Nouvelle boîte" #?
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"

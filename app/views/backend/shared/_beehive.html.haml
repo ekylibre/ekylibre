@@ -10,16 +10,18 @@
   .local-cells{style: "display: none"}
     - beehive.local_cells.each do |cell|
       = render "backend/shared/beehive/cell", cell: cell.to_hash, beehive: beehive
-  %span.beehive-tools
+  .beehive-tools
     .btn-group
       = select_tag(:cell, options_for_select(beehive.available_cells))
       = link_to("##{beehive.id}", data: {beehive_task: "new-cell"}, class: "btn") do
         %i
+        = :add.tl
     = link_to("##{beehive.id}", data: {beehive_task: "reset"}, class: "btn") do
       %i
+      = :reset.tl
   - layout[:children].each do |child|
     = render "backend/shared/beehive/#{child[:type]}", child[:type].to_sym => child, beehive: beehive
-  = link_to("##{beehive.id}", class: "new-box", data: {beehive_task: "new-box"}) do
+  = link_to("##{beehive.id}", class: "btn btn-new new-box", data: {beehive_task: "new-box"}) do
     %i
-    = :new_beehive_box.tl
+    = :new_box.tl
   .beehive-bottom

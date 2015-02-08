@@ -1020,6 +1020,7 @@ jpn:
     # net_mass: "Net mass"
     # net_surface_area: "Net surface area"
     # new: "New"
+    # new_bow: "New box"
     new_deposit:
       # one: "Make a deposit %{mode}: 1 available payment"
       # other: "Make a deposit %{mode}: %{count} available payments"

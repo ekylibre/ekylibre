@@ -10,15 +10,17 @@
 
 $min-width: round($mini-screen * 0.3);
 
-$spacing: round($default-gap * 1);
+$spacing: round($default-gap * 0.6);
 $configuring-min-height: 400px;
 .beehive {
-  padding-left: $spacing;
-  padding-right: $spacing;
+  padding: $spacing;
   background: $desktop-background;
 
   .beehive-tools {
     display: none;
+    padding: $default-gap;
+    margin: $spacing;
+    background: #EEE;
   }
 
   .box {
@@ -142,9 +144,9 @@ $configuring-min-height: 400px;
 
   [data-beehive-task="new-box"] {
     display: none;
-    background: #DDD;
-    margin: $spacing;
-    padding: $spacing;
+    clear: both;
+    margin: 2*$spacing $spacing $spacing;
+    padding: 2*$spacing;
     @include text-align(center);
   }
 
@@ -157,7 +159,7 @@ $configuring-min-height: 400px;
       display: block;
     }
     .beehive-tools {
-      display: inline;
+      display: block;
       *[data-beehive-task="new-cell"] {
         i {
           @include is-icon;

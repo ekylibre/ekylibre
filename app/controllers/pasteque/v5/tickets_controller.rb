@@ -26,7 +26,11 @@ class Pasteque::V5::TicketsController < Pasteque::V5::BaseController
     @records = model.tickets.openeds
     render template: "layouts/pasteque/v5/index", locals: {output_name: 'tickets', partial_path: 'tickets/ticket'}
   end
+
+  protected
+
   def permitted_params
     params.require(:ticket).permit!
   end
+
 end

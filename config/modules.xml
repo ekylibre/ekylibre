@@ -15,6 +15,7 @@
         <page to="backend/entities#list_contacts"/>
         <page to="backend/entities#list_events"/>
         <page to="backend/entities#list_incoming_payments"/>
+        <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_outgoing_payments"/>
@@ -50,11 +51,26 @@
         <page to="backend/entity_addresses#index"/>
         <page to="backend/entity_links#index"/>
         <page to="backend/entity_links#unroll"/>
+        <page to="backend/legal_entities#autocomplete_for_origin"/>
+        <page to="backend/legal_entities#export"/>
+        <page to="backend/legal_entities#import"/>
+        <page to="backend/legal_entities#merge"/>
+        <page to="backend/legal_entities#picture"/>
+        <page to="backend/legal_entities#unroll"/>
         <page to="backend/legal_entities#index"/>
         <page to="backend/legal_entities#create"/>
         <page to="backend/legal_entities#destroy"/>
         <page to="backend/legal_entities#edit"/>
         <page to="backend/legal_entities#list"/>
+        <page to="backend/legal_entities#list_event_participations"/>
+        <page to="backend/legal_entities#list_incoming_payments"/>
+        <page to="backend/legal_entities#list_issues"/>
+        <page to="backend/legal_entities#list_links"/>
+        <page to="backend/legal_entities#list_observations"/>
+        <page to="backend/legal_entities#list_outgoing_payments"/>
+        <page to="backend/legal_entities#list_purchases"/>
+        <page to="backend/legal_entities#list_sales"/>
+        <page to="backend/legal_entities#list_subscriptions"/>
         <page to="backend/legal_entities#new"/>
         <page to="backend/legal_entities#show"/>
         <page to="backend/legal_entities#update"/>
@@ -63,34 +79,21 @@
         <page to="backend/people#destroy"/>
         <page to="backend/people#edit"/>
         <page to="backend/people#list"/>
-        <page to="backend/people#new"/>
-        <page to="backend/people#show"/>
-        <page to="backend/people#update"/>
-        <page to="backend/legal_entities#autocomplete_for_origin"/>
-        <page to="backend/legal_entities#export"/>
-        <page to="backend/legal_entities#import"/>
-        <page to="backend/legal_entities#list_event_participations"/>
-        <page to="backend/legal_entities#list_incoming_payments"/>
-        <page to="backend/legal_entities#list_links"/>
-        <page to="backend/legal_entities#list_observations"/>
-        <page to="backend/legal_entities#list_outgoing_payments"/>
-        <page to="backend/legal_entities#list_purchases"/>
-        <page to="backend/legal_entities#list_sales"/>
-        <page to="backend/legal_entities#list_subscriptions"/>
-        <page to="backend/legal_entities#merge"/>
-        <page to="backend/legal_entities#picture"/>
-        <page to="backend/legal_entities#unroll"/>
-        <page to="backend/people#autocomplete_for_origin"/>
-        <page to="backend/people#export"/>
-        <page to="backend/people#import"/>
         <page to="backend/people#list_event_participations"/>
         <page to="backend/people#list_incoming_payments"/>
+        <page to="backend/people#list_issues"/>
         <page to="backend/people#list_links"/>
         <page to="backend/people#list_observations"/>
         <page to="backend/people#list_outgoing_payments"/>
         <page to="backend/people#list_purchases"/>
         <page to="backend/people#list_sales"/>
         <page to="backend/people#list_subscriptions"/>
+        <page to="backend/people#new"/>
+        <page to="backend/people#show"/>
+        <page to="backend/people#update"/>
+        <page to="backend/people#autocomplete_for_origin"/>
+        <page to="backend/people#export"/>
+        <page to="backend/people#import"/>
         <page to="backend/people#merge"/>
         <page to="backend/people#picture"/>
         <page to="backend/people#unroll"/>
@@ -187,10 +190,11 @@
         <page to="backend/activities#destroy"/>
         <page to="backend/activities#edit"/>
         <page to="backend/activities#list"/>
+        <page to="backend/activities#list_distributions"/>
+        <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
         <page to="backend/activities#update"/>
-        <page to="backend/activities#list_productions"/>
         <page to="backend/activities#unroll"/>
       </item>
       <item name="analytic_distributions">
@@ -640,6 +644,7 @@
         <page to="backend/productions#create"/>
         <page to="backend/productions#destroy"/>
         <page to="backend/productions#edit"/>
+        <page to="backend/productions#indicator_measure"/>
         <page to="backend/productions#list"/>
         <page to="backend/productions#list_interventions"/>
         <page to="backend/productions#list_markers"/>
@@ -1604,6 +1609,10 @@
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#trade"/>
       </item>
+      <item name="beehives">
+        <page to="backend/beehives#reset"/>
+        <page to="backend/beehives#update"/>
+      </item>
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
       </item>
@@ -1676,6 +1685,9 @@
       <item name="elapsed_interventions_times_by_activities_cells">
         <page to="backend/cells/elapsed_interventions_times_by_activities_cells#show"/>
       </item>
+      <item name="expenses_by_product_nature_category_cells">
+        <page to="backend/cells/expenses_by_product_nature_category_cells#show"/>
+      </item>
       <item name="last_document_archives_cells">
         <page to="backend/cells/last_document_archives_cells#list"/>
         <page to="backend/cells/last_document_archives_cells#show"/>
@@ -1716,6 +1728,9 @@
       </item>
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>
+      </item>
+      <item name="stock_container_map_cells">
+        <page to="backend/cells/stock_container_map_cells#show"/>
       </item>
       <item name="events_cells">
         <page to="backend/cells/events_cells#show"/>
@@ -1772,34 +1787,7 @@
         <page to="api/v1/tokens#destroy"/>
       </item>
     </group>
-  </inaccessible-actions>
-  <untreated-actions>
     <group>
-      <item name="activities">
-        <page to="backend/activities#list_distributions"/>
-      </item>
-      <item name="beehives">
-        <page to="backend/beehives#reset"/>
-        <page to="backend/beehives#update"/>
-      </item>
-      <item name="expenses_by_product_nature_category_cells">
-        <page to="backend/cells/expenses_by_product_nature_category_cells#show"/>
-      </item>
-      <item name="stock_container_map_cells">
-        <page to="backend/cells/stock_container_map_cells#show"/>
-      </item>
-      <item name="entities">
-        <page to="backend/entities#list_issues"/>
-      </item>
-      <item name="legal_entities">
-        <page to="backend/legal_entities#list_issues"/>
-      </item>
-      <item name="people">
-        <page to="backend/people#list_issues"/>
-      </item>
-      <item name="productions">
-        <page to="backend/productions#indicator_measure"/>
-      </item>
       <item name="attributes">
         <page to="pasteque/v5/attributes#index"/>
       </item>
@@ -1872,7 +1860,6 @@
         <page to="pasteque/v5/tickets#create"/>
         <page to="pasteque/v5/tickets#destroy"/>
         <page to="pasteque/v5/tickets#open"/>
-        <page to="pasteque/v5/tickets#permitted_params"/>
         <page to="pasteque/v5/tickets#search"/>
         <page to="pasteque/v5/tickets#show"/>
         <page to="pasteque/v5/tickets#update"/>
@@ -1886,5 +1873,8 @@
         <page to="pasteque/v5/version#index"/>
       </item>
     </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group/>
   </untreated-actions>
 </modules>
