@@ -12,7 +12,11 @@
     </property-natures>
 
     <items>
-
+	  <!-- G - GENERAL ACTIVITIES -->
+      <item name="exploitation"
+            production_code="G100"
+            activity="exploitation"
+            />
       <!-- A - ADMINISTRATIVE ACTIVITIES -->
       <item name="administrative"
             production_code="A100"
