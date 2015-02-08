@@ -1,4 +1,4 @@
-class Backend::Cells::EventsCellsController < Backend::CellsController
+class Backend::Cells::EventsCellsController < Backend::Cells::BaseController
 
   def show
     mode = (params[:mode] || :all).to_s.gsub('_', '-')

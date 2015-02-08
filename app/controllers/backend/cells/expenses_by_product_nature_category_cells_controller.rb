@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Backend::Cells::ExpensesByProductNatureCategoryCellsController < Backend::CellsController
+class Backend::Cells::ExpensesByProductNatureCategoryCellsController < Backend::Cells::BaseController
 
   def show
     @stopped_at = Date.today.end_of_month

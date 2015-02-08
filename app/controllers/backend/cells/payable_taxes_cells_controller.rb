@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Backend::Cells::PayableTaxesCellsController < Backend::CellsController
+class Backend::Cells::PayableTaxesCellsController < Backend::Cells::BaseController
 
   def show
   end

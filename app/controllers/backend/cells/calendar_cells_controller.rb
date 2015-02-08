@@ -1,4 +1,4 @@
-class Backend::Cells::CalendarCellsController < Backend::CellsController
+class Backend::Cells::CalendarCellsController < Backend::Cells::BaseController
 
   def show
     year  = params[:year]  || Date.today.year

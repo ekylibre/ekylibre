@@ -1,4 +1,4 @@
-class Backend::Cells::LastSalesCellsController < Backend::CellsController
+class Backend::Cells::LastSalesCellsController < Backend::Cells::BaseController
 
   list(:model => :sales,:order => "created_at DESC", :per_page => 5) do |t|
     t.column :number, :url => {controller: "/backend/sales"}

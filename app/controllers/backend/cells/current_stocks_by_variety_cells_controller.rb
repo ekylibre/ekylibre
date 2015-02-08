@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Backend::Cells::CurrentStocksByVarietyCellsController < Backend::CellsController
+class Backend::Cells::CurrentStocksByVarietyCellsController < Backend::Cells::BaseController
 
   def show
     @variety = params[:variety] || :product

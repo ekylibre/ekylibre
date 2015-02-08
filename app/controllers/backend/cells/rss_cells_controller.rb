@@ -1,4 +1,4 @@
-class Backend::Cells::RssCellsController < Backend::CellsController
+class Backend::Cells::RssCellsController < Backend::Cells::BaseController
 
   def show
     require 'feedjira' unless defined? Feedjira

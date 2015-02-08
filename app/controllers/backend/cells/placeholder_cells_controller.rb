@@ -1,4 +1,4 @@
-class Backend::Cells::PlaceholderCellsController < Backend::CellsController
+class Backend::Cells::PlaceholderCellsController < Backend::Cells::BaseController
 
   def show
     @count = rand(4)+1

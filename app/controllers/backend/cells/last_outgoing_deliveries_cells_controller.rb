@@ -1,4 +1,4 @@
-class Backend::Cells::LastOutgoingDeliveriesCellsController < Backend::CellsController
+class Backend::Cells::LastOutgoingDeliveriesCellsController < Backend::Cells::BaseController
 
   list(:model => :outgoing_deliveries,:order => "sent_at DESC", :per_page => 5) do |t|
     t.column :number, :url => {controller: "/backend/outgoing_deliveries"}

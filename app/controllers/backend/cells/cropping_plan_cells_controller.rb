@@ -1,4 +1,4 @@
-class Backend::Cells::CroppingPlanCellsController < Backend::CellsController
+class Backend::Cells::CroppingPlanCellsController < Backend::Cells::BaseController
 
   def show
     # GET DATA

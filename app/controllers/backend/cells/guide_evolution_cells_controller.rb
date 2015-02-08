@@ -1,4 +1,4 @@
-class Backend::Cells::GuideEvolutionCellsController < Backend::CellsController
+class Backend::Cells::GuideEvolutionCellsController < Backend::Cells::BaseController
 
   def show
     @show_title = true

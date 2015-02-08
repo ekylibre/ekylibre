@@ -1,4 +1,4 @@
-class Backend::Cells::LastAnalysesCellsController < Backend::CellsController
+class Backend::Cells::LastAnalysesCellsController < Backend::Cells::BaseController
 
   def show
     if @nature = Nomen::AnalysisNatures[params[:nature] || "cow_milk_analysis"]

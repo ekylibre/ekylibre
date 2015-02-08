@@ -1,4 +1,4 @@
-class Backend::Cells::LastInterventionsCellsController < Backend::CellsController
+class Backend::Cells::LastInterventionsCellsController < Backend::Cells::BaseController
 
   def show
     if @intervention = Intervention.last

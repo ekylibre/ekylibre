@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Backend::Cells::WorkingSetsStocksCellsController < Backend::CellsController
+class Backend::Cells::WorkingSetsStocksCellsController < Backend::Cells::BaseController
 
   def show
     @working_set = params[:working_set] || :matters

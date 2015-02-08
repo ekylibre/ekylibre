@@ -1,4 +1,4 @@
-class Backend::Cells::LastIssuesCellsController < Backend::CellsController
+class Backend::Cells::LastIssuesCellsController < Backend::Cells::BaseController
 
   list(model: :issues, :order => "observed_at DESC", :per_page => 10, line_class: :status) do |t|
     t.column :name, url: {controller: "/backend/issues"}

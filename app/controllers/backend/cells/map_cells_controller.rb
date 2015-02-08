@@ -1,4 +1,4 @@
-class Backend::Cells::MapCellsController < Backend::CellsController
+class Backend::Cells::MapCellsController < Backend::Cells::BaseController
 
   def show
     if params[:campaign_ids]

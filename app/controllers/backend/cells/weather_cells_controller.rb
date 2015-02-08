@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Backend::Cells::WeatherCellsController < Backend::CellsController
+class Backend::Cells::WeatherCellsController < Backend::Cells::BaseController
 
   def show
     if zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
