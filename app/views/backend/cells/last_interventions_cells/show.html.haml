@@ -1,6 +1,6 @@
 - if @intervention
   - if @container.is_a?(CultivableZone)
-    = map(@container)
+    = map(@container, box: {height: 240})
   .info
     %span.title= Intervention.human_attribute_name(:name)
     %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)

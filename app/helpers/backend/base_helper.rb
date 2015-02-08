@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module BackendHelper
+module Backend::BaseHelper
 
   def resource
     instance_variable_get('@' + self.controller_name.singularize)
