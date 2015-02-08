@@ -177,10 +177,10 @@
               = cost.l(currency: Preference[:currency])
 
   - b.hbox do
-    - b.cell Production.human_attribute_name(:supports) do
+    - b.cell(:supports, title: Production.human_attribute_name(:supports)) do
       = list :supports
     - if resource.auxiliary?
-      - b.cell(Production.human_attribute_name(:distributions)) do
+      - b.cell(:distributions, title: Production.human_attribute_name(:distributions)) do
         :ruby
           data = []
           resource.distributions.reorder(:affectation_percentage).find_each do |distribution|
