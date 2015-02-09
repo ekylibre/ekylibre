@@ -3,7 +3,7 @@
   - while categories.any?
     - b.hbox do
       - for category in categories.slice!(0, 3)
-        - b.cell Nomen::DocumentCategories[category].human_name do
+        - b.cell(:exports, title: Nomen::DocumentCategories[category].human_name) do
           - for aggregator in Aggeratio.of_category(category)
             = link_to({action: :show, id: aggregator.id}, class: "btn btn-big btn-#{aggregator.id}", title: aggregator.human_name) do
               %i

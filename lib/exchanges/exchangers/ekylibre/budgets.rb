@@ -71,7 +71,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
           next if s.cell('A',row_number).blank?
           r = {
             item_code_variant: s.cell('B',row_number),
-            proportion: (s.cell('C',row_number).to_s.downcase == 'uo' ? :per_working_unit : :per_production_support),
+            proportion: (s.cell('C',row_number).to_s.downcase == 'uo' ? :per_working_unit : (s.cell('C',row_number).to_s.downcase == 'support' ? :per_production_support : :per_production)),
             support_numbers: (s.cell('D',row_number).blank? ? nil : s.cell('D',row_number).to_s.strip.delete(' ').upcase.split(',')),
             item_quantity: (s.cell('E',row_number).blank? ? nil : s.cell('E',row_number).to_d),
             item_quantity_unity: (s.cell('F',row_number).blank? ? nil : s.cell('F',row_number).to_s),
@@ -96,11 +96,14 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
                                    )
           end
 
-
-
+          if budget.computation_method == 'per_production'
+            budget.global_quantity = r.item_quantity
+            budget.global_amount = budget.unit_amount * budget.global_quantity
+            budget.save!
+          end
 
           # Get supports and existing production_supports
-          if r.support_numbers
+          if r.support_numbers and ( budget.computation_method == 'per_working_unit' || budget.computation_method == 'per_production_support' )
             supports = Product.where(work_number: r.support_numbers)
             production_supports = ProductionSupport.of_campaign(campaign).where(storage_id: supports.pluck(:id))
             # Set budget item for each production_support

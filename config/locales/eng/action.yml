@@ -938,6 +938,7 @@ eng:
     expedier: "Expedier"
     expenses: "Expenses"
     export: "Export documents"
+    # exports: "Exports"
     file_nature: "File type"
     file_to_upload: "File to upload"
     filter: "Filter"
@@ -1001,6 +1002,7 @@ eng:
     indicator_value: "Indicator value"
     indicators: "Indicators"
     indicators_evolutions: "Indicators evolutions"
+    indirect_charges: "Indirect charges"
     info: "General parameters" #?
     infos: "Product and quantity" #?
     input_cost: "Input cost"
@@ -1104,6 +1106,7 @@ eng:
     name: "Name" #?
     nature: "Type"
     natures: "Natures"
+    net_margin: "Net margin"
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
@@ -1226,6 +1229,7 @@ eng:
       active: "Active" #?!
       all: "All" #?!
       inactive: "Inactive" #?!
+    provisionnal_budget: "Provisionnal budget"
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
     purchases: "Purchases"
@@ -1240,6 +1244,7 @@ eng:
     quantity_rest: "Remaining quantity"
     quantity_to_credit: "Quantity to credit" #?
     query: "Query:" #?
+    raw_margin: "Raw margin"
     reading_tasks: "Reading tasks"
     received: "Received" #?
     recent_events: "Recent events" #?

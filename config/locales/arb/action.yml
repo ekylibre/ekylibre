@@ -1534,6 +1534,7 @@ arb:
       other: "%{count} تم تسجيل منتجات اخرى" #?
       zero: "لم يتم تسجيل اي منتج" #?
     nb_purchases: #?
+    # net_margin: "Net margin"
     # net_mass: "Net mass"
     # net_surface_area: "Net surface area"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
@@ -1715,6 +1716,7 @@ arb:
       # active: "Active"
       # all: "All"
       # inactive: "Inactive"
+    # provisionnal_budget: "Provisionnal budget"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
     purchase_item_create: "اضافة طلب للمنتج" #?
@@ -1740,6 +1742,7 @@ arb:
     quantity_to_credit: "شمولية الكمية بالائتمانات"
     quarterly: "Trimestrielle" #?
     query: ": الاستعلام"
+    # raw_margin: "Raw margin"
     # reading_tasks: "Reading tasks"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"

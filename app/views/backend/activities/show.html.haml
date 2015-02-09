@@ -14,7 +14,7 @@
         - t.new(params: {controller: :productions, activity_id: resource.id})
       = list(:productions)
     - if resource.auxiliary?
-      - b.cell(Activity.human_attribute_name(:distributions)) do
+      - b.cell(:distributions, title: Activity.human_attribute_name(:distributions)) do
         :ruby
           data = []
           resource.distributions.reorder(:affectation_percentage).find_each do |distribution|

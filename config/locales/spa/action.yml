@@ -1284,6 +1284,7 @@ spa:
       one: "Una compra en espera de recepción" #?
       other: "%{count} Compras en espera de recepción" #?
       zero: "Ningunas compras en espera de recepción" #?
+    # net_margin: "Net margin"
     # net_mass: "Net mass"
     # net_surface_area: "Net surface area"
     net_vat_amount: "TVA neta deuda" #?
@@ -1425,6 +1426,7 @@ spa:
       # active: "Active"
       # all: "All"
       # inactive: "Inactive"
+    # provisionnal_budget: "Provisionnal budget"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
     purchase_steps:  #?
@@ -1443,6 +1445,7 @@ spa:
     quantity_to_credit: "Cantidad a pasar en activo"
     quarterly: "Trimestral" #?
     query: "Demanda:"
+    # raw_margin: "Raw margin"
     # reading_tasks: "Reading tasks"
     # received: "Received"
     # recent_events: "Recent events"

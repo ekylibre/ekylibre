@@ -44,4 +44,5 @@ class ProductionDistribution < Ekylibre::Record::Base
   validates_numericality_of :affectation_percentage, greater_than: 0
 
   delegate :name, to: :main_production, prefix: true
+
 end

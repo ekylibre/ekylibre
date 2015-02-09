@@ -56,7 +56,7 @@ class Budget < Ekylibre::Record::Base
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense]
-  enumerize :computation_method, in: [:per_production_support, :per_working_unit], default: :per_working_unit
+  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit
   enumerize :working_indicator, in: Production.working_indicator.values
   enumerize :working_unit, in: Nomen::Units.all.sort
 
@@ -85,7 +85,11 @@ class Budget < Ekylibre::Record::Base
     end
   end
   after_validation do
-    self.global_amount = self.items.map(&:global_amount).inject(:+)
-    self.global_quantity = self.items.map(&:quantity).inject(:+)
+    if self.computation_method.to_sym == :per_production
+      self.global_amount = self.unit_amount * self.global_quantity
+    elsif self.computation_method.to_sym == :per_working_unit
+      self.global_amount = self.items.sum(:global_amount)
+      self.global_quantity = self.items.sum(:quantity)
+    end
   end
 end

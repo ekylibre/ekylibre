@@ -100,11 +100,11 @@ class Production < Ekylibre::Record::Base
     end
     where(activity_id: activities.map(&:id))
   }
+
   scope :actives, -> {
     at = Time.now
     where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lteq(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))))
   }
-
 
   accepts_nested_attributes_for :supports, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :budgets, :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
@@ -225,6 +225,30 @@ class Production < Ekylibre::Record::Base
     end
   end
 
+  def indirect_budget_items_value
+    global_value = 0
+    for indirect_distribution in ProductionDistribution.where(main_production_id: self.id)
+      distribution_value = 0
+      distribution_percentage = indirect_distribution.affectation_percentage
+      production = indirect_distribution.production
+      #puts "Percentage : #{distribution_percentage.inspect}".red
+      # get indirect expenses and revenues on current production
+      # distribution_value - expenses
+      indirect_expenses_value = production.expenses.sum(:global_amount).to_d
+      distribution_value -= indirect_expenses_value if indirect_expenses_value > 0.0
+      #puts "Indirect expenses : #{indirect_expenses_value.inspect}".blue
+      #puts "Distribution value : #{distribution_value.inspect}".yellow
+      # distribution_value + revenues
+      indirect_revenues_value = production.revenues.sum(:global_amount).to_d
+      distribution_value += indirect_revenues_value.to_d if indirect_revenues_value > 0.0
+      #puts "Indirect revenues : #{indirect_revenues_value.inspect}".blue
+      #puts "Distribution value : #{distribution_value.inspect}".yellow
+      # distribution_value * % of distribution
+      global_value += (distribution_value.to_d * (distribution_percentage.to_d / 100))
+      #puts "Global value : #{global_value.inspect}".yellow
+    end
+    return global_value
+  end
 
   def active?
     if self.activity.fallow_land?

@@ -1089,6 +1089,7 @@ fra:
     indicator_with_unit: "%{indicator} (%{unit})" #?
     indicators: "Indicateurs"
     indicators_evolutions: "Évolutions des indicateurs"
+    indirect_charges: "Charges indirectes"
     inel_index: "Index génétique INEL" #?
     info: "Information\_: %{value}"
     infos: "Information générales"
@@ -1246,6 +1247,7 @@ fra:
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
+    net_margin: "Marge nette"
     net_mass: "Masse nette"
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
@@ -1420,6 +1422,7 @@ fra:
     profitability: "Rentabilité" #?
     protein_matters_concentration: "Teneur en matières protéïques" #?
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
+    provisionnal_budget: "Budget prévisionnel"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
     purchase_steps:  #?
@@ -1441,6 +1444,7 @@ fra:
     quantity_to_credit: "Qté. à passer en avoir"
     quarterly: "Trimestrielle" #?
     query: "Requête:"
+    raw_margin: "Marge brute"
     reading_tasks: "Relevés d’indicateur"
     received: "Reçue"
     recent_events: "Derniers événements"

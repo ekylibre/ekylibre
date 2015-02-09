@@ -1029,6 +1029,7 @@ jpn:
     nb_mandates: #?
     nb_products: #?
     nb_purchases: #?
+    # net_margin: "Net margin"
     # net_mass: "Net mass"
     # net_surface_area: "Net surface area"
     # new: "New"
@@ -1153,6 +1154,7 @@ jpn:
       # active: "Active"
       # all: "All"
       # inactive: "Inactive"
+    # provisionnal_budget: "Provisionnal budget"
     # purchase: "Purchase"
     # purchase_items: "Purchase items"
     purchase_steps: #?
@@ -1168,6 +1170,7 @@ jpn:
     # quantity_rest: "Remaining quantity"
     # quantity_to_credit: "Quantity to credit"
     # query: "Query:"
+    # raw_margin: "Raw margin"
     # reading_tasks: "Reading tasks"
     # received: "Received"
     # recent_events: "Recent events"
