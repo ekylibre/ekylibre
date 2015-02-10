@@ -20,7 +20,7 @@
             %span.value
               %i.picto{class: "picto-clock-o"}
               = human_age(resource.age, display: 2)
-    - b.cell ProductNatureVariant.human_attribute_name(:attachments) do
+    - b.cell :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
       = attachments_of(resource)
 
     - count = 0
@@ -78,7 +78,7 @@
         end
       end
 
-    - b.cell do
+    - b.cell :activities do
       = column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
   - else
     = no_data
@@ -92,5 +92,5 @@
 
   - if resource.readings.any?
     - b.hbox do
-      - b.cell(tl(:x_readings, count: resource.readings.count)) do
+      - b.cell(:readings, title: :x_readings.tl(count: resource.readings.count)) do
         = list(:readings)

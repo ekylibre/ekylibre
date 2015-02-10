@@ -1,4 +1,3 @@
-= journals_tag
 - main_toolbar do |t|
   - t.edit resource
   - t.close resource if resource.closable?
@@ -7,8 +6,10 @@
 
 
 = beehive do |b|
+  - b.cell :journals do
+    = journals_tag
   - b.hbox do
-    - b.cell Journal.human_attribute_name(:entry_items) do
+    - b.cell :entry_items, title: Journal.human_attribute_name(:entry_items) do
       = kujaku(popover: false) do |k|
         - k.text
         - k.crit :journal_entries_states

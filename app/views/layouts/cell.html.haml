@@ -1,10 +1,24 @@
-.cell{data: {beehive_cell: params[:cell]}}
+:ruby
+  names = []
+  if preference = current_user.preferences.find_by(name: "beehive.#{params[:id]}")
+    names = YAML.load(preference.value).deep_symbolize_keys[:boxes].map do |box|
+      box[:cells].map { |cell| cell[:name] }
+    end
+  end
+  i = 0
+  name = nil
+  loop do
+    i += 1
+    name = "#{params[:type]}_#{i}"
+    break unless names.include?(name)
+  end
+
+.cell{data: {beehive_cell: { name: name, type: params[:type]}.to_json }}
   .cell-inner
     .cell-title
       = link_to("##{params[:beehive]}", data: {beehive_remove: "cell"}) do
         %i
-      %i
-      = params[:cell].tl
+      = params[:type].tl
       - if @counter
         %span.badge= @counter
     .cell-content= yield

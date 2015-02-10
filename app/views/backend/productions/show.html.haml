@@ -152,7 +152,7 @@
         - b.cell(:supports) do
           = list(:supports)
       - elsif Nomen::Varieties[resource.variant.variety] <= :plant and resource.supports.any?
-        - b.cell :map do
+        - b.cell :costs_map, title: :map do
           - visualization do |v|
             - v.serie :main, data
             - v.background "OpenStreetMap.HOT"
@@ -183,7 +183,7 @@
 
         = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f} Ha'}, title: {text: (resource.net_surface_area.in_hectare.round(2)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
 
-      - b.cell :map do
+      - b.cell :concentrations_map, title: :map do
         - visualization do |v|
           - v.serie :main, data
           - v.background "OpenStreetMap.HOT"
@@ -201,7 +201,7 @@
   - b.hbox do
     - b.cell(:interventions) do
       = list(:interventions)
-    - b.cell(:costs) do
+    - b.cell(:other_costs, title: :costs) do
       .big-infos.costs
         - total = 0
         - for type in [:input, :tool, :doer]
@@ -214,7 +214,8 @@
               = cost.l(currency: Preference[:currency])
 
   - b.hbox do
-    - b.cell(:supports, title: Production.human_attribute_name(:supports)) do
+    -# FIXME Duplicate or not ?
+    -# b.cell(:supports, title: Production.human_attribute_name(:supports)) do
       = list :supports
     - if resource.auxiliary?
       - b.cell(:distributions, title: Production.human_attribute_name(:distributions)) do

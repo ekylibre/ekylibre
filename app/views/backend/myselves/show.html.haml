@@ -8,7 +8,7 @@
   current_user_sales = current_user.sales.where within_range
   currency = { currency: Preference[:currency] }
 = beehive do |b|
-  - b.cell :x_sales_invoices, count: current_user_sales.count(:id) do
+  - b.cell :invoices, title: :x_sales_invoices.tl(count: current_user_sales.count(:id)) do
     .big-infos
       .big-info
         %span.title= Sale.human_attribute_name(:pretax_amount)
@@ -31,7 +31,7 @@
           - unpaid_amount = (invoiced_amount - paid_amount)
           = unpaid_amount.l(currency) rescue "?"
       - if invoiced_amount > 0
-        .big-info
+        .big-info{class: (unpaid_amount > 0.5 ? :negative : unpaid_amount > 0 ? :caution : :positive)}
           %span.title= :unpaid_sales.tl
           %span.value
             - unpaid_sales = 100*(unpaid_amount/invoiced_amount)

@@ -19,9 +19,12 @@
     = link_to("##{beehive.id}", data: {beehive_task: "reset"}, class: "btn") do
       %i
       = :reset.tl
-  - layout[:children].each do |child|
-    = render "backend/shared/beehive/#{child[:type]}", child[:type].to_sym => child, beehive: beehive
+  - layout[:boxes].each_with_index do |box, box_index|
+    .box.box-horizontal{data: {beehive_box: box_index}}
+      - box[:cells].each_with_index do |cell, index|
+        = render "backend/shared/beehive/cell", cell: cell, beehive: beehive
   = link_to("##{beehive.id}", class: "btn btn-new new-box", data: {beehive_task: "new-box"}) do
     %i
     = :new_box.tl
   .beehive-bottom
+

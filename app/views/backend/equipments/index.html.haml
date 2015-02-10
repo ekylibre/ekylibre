@@ -1,23 +1,19 @@
 :ruby
-  #
-  equipments_geolocation = []
-  Equipment.all.each do |equipment|
-        item =  {
-                  name:         equipment.name,
-                  nature:       equipment.nature_name,
-                  shape:        equipment.shape
-                }
-        equipments_geolocation << item
+  geolocations = Equipment.all.collect do |equipment|
+    { name:         equipment.name,
+      nature:       equipment.nature_name,
+      shape:        equipment.shape
+    }
   end
 
 - main_toolbar do |t|
   - t.new
 
 = beehive do |b|
-  -b.cell :map do
+  - b.cell :resources_map, title: :map do
     = visualization do |v|
-      - v.serie :locations, equipments_geolocation
-      - v.categories :nature, :locations
+      - v.serie :geolocations, geolocations
+      - v.categories :nature, :geolocations
       - v.background 'OpenStreetMap.HOT'
       - v.background 'Thunderforest.Transport'
       - v.background 'Thunderforest.Outdoors'

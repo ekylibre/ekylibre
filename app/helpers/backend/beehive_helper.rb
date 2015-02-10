@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
-# Copyright (C) 2008-2013 Brice Texier
+# Copyright (C) 2008-2015 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,6 +19,8 @@
 
 module Backend::BeehiveHelper
 
+  FORMAT_VERSION = 1
+
   # 巣 Beehive permits to create modular interface organized in cells
   def beehive(name = nil, &block)
     html = ""
@@ -34,44 +36,60 @@ module Backend::BeehiveHelper
     end
     layout = board.to_hash
     if preference = current_user.preferences.find_by(name: board.preference_name)
-      layout = YAML.load(preference.value).deep_symbolize_keys
+      got = YAML.load(preference.value).deep_symbolize_keys
+      layout = got if got[:version] and got[:version] >= FORMAT_VERSION
     end
     return render(partial: "backend/shared/beehive", object: board, locals: {layout: layout})
   end
 
   class Beehive
+
     class Box < Array
       def self.short_name
-        raise NotImplementedError
+        "box"
       end
 
       def to_hash
-        { type: self.class.short_name, children: map(&:to_hash) }
-      end
-    end
-
-
-    class HorizontalBox < Box
-      def self.short_name
-        "hbox"
+        { cells: map(&:to_hash) }
       end
     end
 
     class Cell
-      attr_reader :content, :name, :options
+      attr_reader :content, :type, :options, :name
+
+      cattr_reader :controller_types
+      def self.controller_types
+        unless @controller_types
+          Dir.chdir(Rails.root.join('app/controllers/backend/cells')) do
+            @controller_types = Dir["*_controller.rb"].map do |path|
+              path.gsub(/_cells_controller.rb$/, '').to_sym
+            end.compact
+          end
+        end
+        return @controller_types
+      end
 
       def initialize(name, options = {})
         unless name.is_a?(Symbol)
           raise "Only symbol for cell name. Use :title option to specify title."
         end
-        @name = name
+        @name = name.to_sym
         @options = options
+        @type = @options.delete(:type) || @name
+        @has_content = @options.has_key?(:content)
         @content = @options.delete(:content)
         @i18n = @options.delete(:i18n) || @options
+        if self.class.controller_types.include?(@type)
+          if content?
+            raise "Local type cannot be: #{@type}. Already taken."
+          end
+        elsif !content?
+          raise "Invalid cell. Need content or a valid controller cell name (Not #{@name} alone)"
+        end
       end
 
       def content?
-        !@content.blank?
+        @has_content
       end
 
       def title
@@ -79,33 +97,20 @@ module Backend::BeehiveHelper
       end
 
       def to_hash
-        hash = { type: "cell", name: @name.to_s }
-        hash[:options] = @options unless @options.empty?
-        hash
+        @options.merge(name: @name.to_s, type: @type.to_s)
       end
+
     end
 
 
-    attr_reader :name, :template
+    attr_reader :name, :boxes
 
     def initialize(name, template)
       @name = name
-      @children = []
+      @boxes = []
       @cells = {}.with_indifferent_access
       @current_box = nil
       @template = template
-    end
-
-    cattr_reader :controller_cells
-    def self.controller_cells
-      unless @controller_cells
-        Dir.chdir(Rails.root.join('app/controllers/backend/cells')) do
-          @controller_cells = Dir["*_controller.rb"].map do |path|
-            path.gsub(/_cells_controller.rb$/, '').to_sym
-          end.compact
-        end
-      end
-      return @controller_cells
     end
 
     # Adds a cell in the beehive
@@ -115,8 +120,11 @@ module Backend::BeehiveHelper
         if block_given?
           options[:content] = @template.capture(&block)
         end
+        if @cells.keys.include? name.to_s
+          raise StandardError, "A cell with a given name (#{name}) has already been given."
+        end
         c = Cell.new(name, options)
-        @cells[c.name] = c
+        @cells[name] = c
         @current_box << c
       else
         hbox do
@@ -126,15 +134,11 @@ module Backend::BeehiveHelper
     end
 
     def hbox(&block)
-      return box(:horizontal, &block)
+      return box(&block)
     end
 
     def to_hash
-      { type: "root", children: @children.map(&:to_hash) }
-    end
-
-    def boxes
-      @children
+      { version: FORMAT_VERSION, boxes: @boxes.map(&:to_hash) }
     end
 
     def id
@@ -150,28 +154,28 @@ module Backend::BeehiveHelper
     end
 
     def local_cells
-      @cells.values.select{|c| c.content? }
+      @cells.values # .select{|c| c.content? }
     end
 
     def available_cells
-      return (self.class.controller_cells + @cells.keys).map(&:to_s).uniq.map do |x|
+      return (Cell.controller_types + @cells.keys).map(&:to_s).map do |x|
         [x.tl, x]
       end.sort do |a,b|
-        a.first <=> b.first
+        a.first.ascii <=> b.first.ascii
       end
     end
 
     protected
 
-    def box(type, &block)
+    def box(&block)
       if @current_box
         raise StandardError, "Cannot define box in other box"
       end
       old_current_box = @current_box
       if block_given?
-        @current_box = HorizontalBox.new
+        @current_box = Box.new
         block[self]
-        @children << @current_box unless @current_box.empty?
+        @boxes << @current_box unless @current_box.empty?
       end
       @current_box = old_current_box
     end

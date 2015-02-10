@@ -39,7 +39,7 @@
 
   - if crumbs.any?
     = beehive do |b|
-      - b.cell :map do
+      - b.cell :resources_map, title: :map do
         = visualization do |v|
           - if supports.any?
             - v.serie :production_supports, supports
@@ -58,7 +58,7 @@
       -# b.cell :interventions_paths do # TODO: implement slider
         = render 'time_slider', crumbs: crumbs
       - for intervention_path in interventions_paths
-        - b.cell intervention_path.human_name do
+        - b.cell "intervention_#{intervention_path.id}".to_sym, title: intervention_path.human_name do
           = render 'intervention', path: intervention_path
 - else
   = :no_crumbs_to_check.tl

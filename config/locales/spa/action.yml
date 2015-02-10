@@ -1141,6 +1141,7 @@ spa:
     # indicator_value: "Indicator value"
     # indicators: "Indicators"
     # indicators_evolutions: "Indicators evolutions"
+    # indirect_charges: "Indirect charges"
     # info: "General parameters"
     infos: "Informar las caracteristicas de la entrega"
     # input_cost: "Input cost"

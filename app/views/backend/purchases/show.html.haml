@@ -15,36 +15,37 @@
 = beehive do |b|
 
   - b.hbox do
-    - b.cell Purchase.human_attribute_name(:items) do
+    - b.cell :items, title: Purchase.human_attribute_name(:items) do
       = list :items do
         %tr.total
           %th{colspan: 5}
           %td= resource.pretax_amount.l(currency: resource.currency)
           %td= resource.amount.l(currency: resource.currency)
 
-    - b.cell Purchase.human_attribute_name(:attachments) do
+    - b.cell :attachments, title: Purchase.human_attribute_name(:attachments) do
       = attachments_of(resource)
+
+    - b.hbox do
+      - b.cell :details do
+        = attributes_list do |l|
+          - l.attribute :supplier, :label => :label, url: true
+          - l.attribute :number
+          - l.attribute :reference_number
+          - l.attribute :state
+          - l.attribute :responsible, :label => :full_name
+          - l.attribute :created_at
+          - l.attribute :confirmed_at
+          - l.attribute :invoiced_at
+          - l.attribute :planned_at
+          - l.attribute :currency unless resource.currency == Entity.of_company.currency
+          - l.attribute :description
+          - l.attribute :delivery_address, :label => :coordinate
+          - l.attribute :journal_entry, url: true
 
   - b.cell :affair do
     = affair_of(resource)
 
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :supplier, :label => :label, url: true
-        - l.attribute :number
-        - l.attribute :reference_number
-        - l.attribute :state
-        - l.attribute :responsible, :label => :full_name
-        - l.attribute :created_at
-        - l.attribute :confirmed_at
-        - l.attribute :invoiced_at
-        - l.attribute :planned_at
-        - l.attribute :currency unless resource.currency == Entity.of_company.currency
-        - l.attribute :description
-        - l.attribute :delivery_address, :label => :coordinate
-        - l.attribute :journal_entry, url: true
 
   - if resource.deliveries.any?
-    - b.cell Purchase.human_attribute_name(:deliveries) do
+    - b.cell :deliveries, title: Purchase.human_attribute_name(:deliveries) do
       = list :deliveries

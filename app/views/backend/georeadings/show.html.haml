@@ -3,7 +3,7 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell do
+    - b.cell :general_informations do
       .big-info
         %span.title= Georeading.human_attribute_name(:name)
         %span.value= resource.name
@@ -14,7 +14,7 @@
         .big-info
           %span.title= CultivableZone.human_attribute_name(:net_surface_area)
           %span.value= resource.label_area
-  - b.cell :map do
+  - b.cell :resource_map, title: :map do
     = visualization do |v|
       - v.background "OpenStreetMap.HOT"
       - v.background "OpenStreetMap.Mapnik"

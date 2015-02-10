@@ -10,7 +10,7 @@
         - l.attribute :prescriptor, url: true
         - l.attribute :description
 
-    - b.cell Prescription.human_attribute_name(:attachments) do
+    - b.cell :attachments, title: Prescription.human_attribute_name(:attachments) do
       = attachments_of(resource)
 
   - b.hbox do

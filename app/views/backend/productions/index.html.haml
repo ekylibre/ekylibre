@@ -53,7 +53,7 @@
 
 = beehive do |b|
   - if data.any?
-    - b.cell :map do
+    - b.cell :productions_map, title: :map do
       = visualization do |v|
         - v.serie :main, data
         - v.background "OpenStreetMap.HOT"

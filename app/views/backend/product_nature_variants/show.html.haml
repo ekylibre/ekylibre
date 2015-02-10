@@ -31,7 +31,7 @@
   - b.hbox do
     - b.cell(:products) do
       = list(:products)
-    - b.cell ProductNatureVariant.human_attribute_name(:attachments) do
+    - b.cell :attachments, title: ProductNatureVariant.human_attribute_name(:attachments) do
       = attachments_of(resource)
     - if resource.products.any?
       - b.cell(:stocks) do

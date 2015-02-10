@@ -1358,6 +1358,7 @@ arb:
     # indicator_value: "Indicator value"
     # indicators: "Indicators"
     # indicators_evolutions: "Indicators evolutions"
+    # indirect_charges: "Indirect charges"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
     # input_cost: "Input cost"

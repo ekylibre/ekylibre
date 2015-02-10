@@ -3,7 +3,7 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell :map do
+    - b.cell :buildings_map, title: :map do
       = map(Building.all)
   - b.hbox do
     - b.cell :list do

@@ -660,7 +660,6 @@ eng:
       # show: "Category: %{name}"
     pasteque/v5/compositions:
       # index: "Compositions"
-      # show: "Composition: %{name}"
     pasteque/v5/currencies:
       # index: "Currencies"
       # show: "Currency: %{name}"
@@ -686,7 +685,6 @@ eng:
       # show: "Role: %{name}"
     pasteque/v5/stocks:
       # index: "Stocks"
-      # search: "Search stock: %{name}"
     pasteque/v5/tariff_areas:
       # index: "Tariff areas"
     pasteque/v5/taxes:
@@ -730,6 +728,7 @@ eng:
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
     active: "Active" #?
+    # activities: "Activities"
     activity: "Activity"
     add: "Add"
     add_choice: "Add choice"
@@ -783,10 +782,12 @@ eng:
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     attach_deal: "Add a deal"
     attachment: "Attachment"
+    # attachments: "Attachments"
     available_columns: "Available columns: %{columns}"
     back: "Back to the previous page"
     balance: "Balance"
     bank_account: "Bank account"
+    # bank_statements: "Bank statements"
     bban: "Basic Bank Account Number (BBAN)"
     beginning: "Beginning"
     body: "Body of the message"
@@ -796,6 +797,7 @@ eng:
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
     building_name: "Building name" #?
+    # buildings_map: "Buildings map"
     calculate: "Calculate" #?
     calculators: "Calculators"
     calendar: "Calendar" #?
@@ -833,6 +835,7 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
+    # concentrations_map: "Concentrations map"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -847,6 +850,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     cost_sum: "Total Cost" #?
     costs: "Costs"
+    # costs_map: "Costs map"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_journal: "— Create journal —"
@@ -889,6 +893,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
+    # desposits: "Desposits"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
@@ -923,6 +928,7 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
+    # entry_items: "Entry items"
     equipments: "Equipments"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
@@ -955,13 +961,14 @@ eng:
     full_name: "Client" #?
     fullscreen: "Fullscreen"
     fungi: "Fungi"
-    future_events: "Future events" #?
+    future_events: "Future events"
     genealogy: "Genealogy"
     general: "General"
     general_informations: "General informations"
     general_ledger: "General ledger" #?
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
+    # geolocation: "Geolocation"
     give_discount: "Give discount" #?!
     global_margin: "Global margin"
     global_margin_per_area: "Global margin per area"
@@ -1022,6 +1029,7 @@ eng:
     inventories: "Inventories"
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?
+    # invoices: "Invoices"
     is: "Is" #?
     issue: "Issue"
     issues: "Issues"
@@ -1151,6 +1159,7 @@ eng:
     order: "Order" #?
     order_print: "Print order" #?
     organic_matter_concentration: "Organic matter concentration" #?
+    # other_costs: "Other costs"
     others: "Others"
     outgoing_payments_states: #?!
       all: "All" #?!
@@ -1218,6 +1227,7 @@ eng:
     production_distribution: "Production distribution" #?
     production_support: "Production support"
     productions: "Productions"
+    # productions_map: "Productions map"
     productions_states: #?!
       aborted: "Aborted" #?!
       all: "All" #?!
@@ -1246,8 +1256,9 @@ eng:
     query: "Query:" #?
     raw_margin: "Raw margin"
     reading_tasks: "Reading tasks"
+    # readings: "Readings"
     received: "Received" #?
-    recent_events: "Recent events" #?
+    recent_events: "Recent events"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1260,7 +1271,9 @@ eng:
     report: "Report" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
+    # resource_map: "Resource map"
     resources: "Resources management" #?
+    # resources_map: "Resources map"
     rest: "Rest"
     rest_to_pay: "Rest to pay" #?
     restore: "Restore" #?
@@ -1420,7 +1433,7 @@ eng:
     validate_selected_entries: "Validate selected entries"
     values: "Values" #?
     variable_indicators: "Variable indicators"
-    variants: "Variants" #?
+    variants: "Variants"
     view: "View"
     weather: "Weather"
     wind_speed: "Wind speed"

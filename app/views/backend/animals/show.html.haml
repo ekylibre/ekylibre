@@ -174,8 +174,8 @@
       = toolbar do |t|
         - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
       = list(:issues)
-    - b.cell(tl(:x_intervention_casts, count: resource.intervention_casts.count)) do
+    - b.cell(:intervention_casts, title: :x_intervention_casts.tl(count: resource.intervention_casts.count)) do
       = list(:intervention_casts)
 
-    -# b.cell(tl(:x_readings, count: resource.readings.count)) do
+    -# b.cell(:readings, tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

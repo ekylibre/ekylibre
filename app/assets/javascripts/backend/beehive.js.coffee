@@ -6,22 +6,19 @@
 
   $.beehive =
     save: (beehive) ->
-      children = beehive
+      boxes = beehive
         .find("*[data-beehive-box]")
         .map(->
-          type: "hbox"
-          children: $(this).find("*[data-beehive-cell]").map( ->
-            type: "cell"
-            name: $(this).data("beehive-cell")
+          cells: $(this).find("*[data-beehive-cell]").map( ->
+            $(this).data("beehive-cell")
           ).get()
         ).get()
-      console.log children
+      console.log boxes
       $.ajax
         url: beehive.data("beehive-save-url")
         type: 'patch'
         data:
-          type: "root"
-          children: children
+          boxes: boxes
 
     reset: (beehive) ->
       $.ajax
@@ -59,15 +56,22 @@
       console.log "Adding #{name} cell..."
       $.beehive.addCellProposers(beehive)
       box = beehive.find("*[data-beehive-box]").first()
-      locals = beehive.find(".local-cells .cell[data-beehive-cell='#{name}']")
+      locals = $.grep beehive.find(".local-cells .cell[data-beehive-cell]"), (item, index) ->
+        console.log $(item).data("name"), name
+        $(item).data("beehive-cell").name == name
       if locals.length > 0
-        locals.first().clone().appendTo(box)
+        clone = $(locals[0]).clone()
+        clone.appendTo(box)
+        infos = clone.data("beehive-cell")
+        infos.name = "#{name}_#{new Date().getTime()}"
+        clone.attr("data-beehive-cell", JSON.stringify(infos))
+        $.beehive.save(beehive)
       else
         $.ajax
           url: "/backend/cells/#{name}_cell"
           data:
             beehive: beehive.data("beehive")
-            cell: name
+            type: name
             layout: true
           dataType: "html"
           success: (data, status, request) ->

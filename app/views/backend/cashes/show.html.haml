@@ -27,7 +27,7 @@
   - b.hbox do
 
     - if resource.incoming_payment_modes.depositers.any?
-      - b.cell(Cash.human_attribute_name(:deposits)) do
+      - b.cell(:desposits, title: Cash.human_attribute_name(:deposits)) do
         = toolbar do |t|
           :ruby
             variants = IncomingPaymentMode.depositers.where(cash_id: resource.id).inject({}) do |hash, mode|
@@ -39,5 +39,5 @@
         = list(:deposits)
 
     - if resource.bank_account?
-      - b.cell(Cash.human_attribute_name(:bank_statements)) do
+      - b.cell(:bank_statements, title: Cash.human_attribute_name(:bank_statements)) do
         = list(:bank_statements)

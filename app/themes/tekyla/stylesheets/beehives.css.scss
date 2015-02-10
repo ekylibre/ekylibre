@@ -15,6 +15,7 @@ $configuring-min-height: 400px;
 .beehive {
   padding: $spacing;
   background: $desktop-background;
+  // background: #F0f0f0;
 
   .beehive-tools {
     display: none;
@@ -47,12 +48,13 @@ $configuring-min-height: 400px;
         @include border-radius($default-border-radius);
 
         .cell-title {
-          color: $text-color;
+          color: $neutral-color;
           font-weight: bold;
           padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
-          background: #EEE;
+          // background: #EEE;
           @include text-align(left);
           // border-top: 2px solid $active-color;
+          border-bottom: $cell-border;
           @include ellipsis;
           i {
             color: $text-color;

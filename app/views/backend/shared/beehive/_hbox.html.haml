@@ -1,3 +1,3 @@
-.box.box-horizontal{data: {beehive_box: hbox[:children].size}}
-  - hbox[:children].each do |child|
-    = render "backend/shared/beehive/#{child[:type]}", child[:type].to_sym => child, beehive: beehive
+.box.box-horizontal{data: {beehive_box: hbox[:cells].size}}
+  - hbox[:cells].each_with_index do |child, index|
+    = render "backend/shared/beehive/cell", cell: child, beehive: beehive, box_index: box_index, cell_index: index

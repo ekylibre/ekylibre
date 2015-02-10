@@ -32,7 +32,7 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell :map do
+    - b.cell :resource_map, title: :map do
       = visualization do |v|
         - v.serie :main, data
         - v.background "OpenStreetMap.HOT"

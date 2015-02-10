@@ -21,18 +21,18 @@ class Backend::BeehivesController < Backend::BaseController
 
   # Save beehive config in preferences
   def update
-    children = params["children"].sort do |a,b|
+    boxes = params["boxes"].sort do |a,b|
       a[0] <=> b[0]
     end.map do |box|
-      next unless box.second["children"]
-      cells = box.second["children"].symbolize_keys.sort do |a,b|
+      next unless box.second["cells"]
+      cells = box.second["cells"].symbolize_keys.sort do |a,b|
         a[0] <=> b[0]
       end.map do |cell|
         cell.second.symbolize_keys
       end.compact
-      cells.any? ? { type: box.second["type"], children: cells } : nil
+      cells.any? ? { cells: cells } : nil
     end.compact
-    current_user.prefer!("beehive.#{params[:id]}", {type: "root", children: children}.deep_stringify_keys.to_yaml)
+    current_user.prefer!("beehive.#{params[:id]}", {version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes}.deep_stringify_keys.to_yaml)
     head :ok
   end
 

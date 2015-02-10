@@ -13,7 +13,7 @@
         - l.attribute :analyser, url: true
         - l.attribute :analysed_at
     - if resource.geolocation
-      - b.cell do
+      - b.cell :geolocation do
         = visualization do |v|
           - v.background 'OpenStreetMap.HOT'
           - v.background "Esri.WorldImagery"

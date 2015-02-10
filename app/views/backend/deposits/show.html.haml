@@ -14,7 +14,7 @@
       - l.attribute :description
       - l.attribute :journal_entry, url: true
 
-  - b.cell Deposit.human_attribute_name(:payments) do
+  - b.cell :payments, title: Deposit.human_attribute_name(:payments) do
     = list :payments
     %table.list
       %tr.total

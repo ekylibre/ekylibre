@@ -25,7 +25,7 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell :land_parcels do
+    - b.cell :resources_map, title: :map do
       = visualization do |v|
         - v.serie :main, main_serie
         - v.background "Esri.WorldImagery"
