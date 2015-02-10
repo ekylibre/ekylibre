@@ -1250,9 +1250,6 @@ fra:
         phytosanitary_registry: "Registre phytosanitaire"
         prescription: "Prescription vétérinaire"
         provisional_manure_management_plan: "Plan prévisionnel de fumure (PPF)"
-        purchase_estimate: "Devis d’achat" #?
-        purchase_invoice: "Facture d’achat" #?
-        purchase_order: "Achat" #?
         purchases_estimate: "Estimation"
         purchases_invoice: "Facture d'achat"
         purchases_order: "Commande d'achat"
