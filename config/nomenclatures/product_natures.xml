@@ -847,6 +847,14 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
+      <item name="common_consumable"
+            category="other_consumable"
+            variety="preparation"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
       <item name="land_parcel"
             category="land_parcel"
             variety="land_parcel"
@@ -1431,6 +1439,18 @@
             frozen_indicators="net_volume, net_mass"
             />
 
+
+
+		<!-- Subsidies -->
+
+		<item name="exploitation_subsidies"
+            category="exploitation_subsidies"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
 
          <!-- OTHER PRODUCT -->
 

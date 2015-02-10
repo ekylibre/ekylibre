@@ -246,6 +246,11 @@
       <item name="agricultural_disasters_compensations" fr_pcga="743"/>
       <item name="other_compensations" fr_pcga="744"/>
       <item name="subsidies" fr_pcga="745"/>
+      <item name="plants_subsidies" fr_pcga="7451"/>
+      <item name="exploitation_subsidies" fr_pcga="7452"/>
+      <item name="revenue_subsidies" fr_pcga="7453"/>
+      <item name="animals_subsidies" fr_pcga="7454"/>
+      <item name="other_exploitation_subsidies" fr_pcga="7458"/>
       <item name="discount_from_cooperatives" fr_pcga="754"/>
       <item name="other_usual_running_profits" fr_pcga="758"/>
       <item name="financials_revenues" fr_pcga="76"/>

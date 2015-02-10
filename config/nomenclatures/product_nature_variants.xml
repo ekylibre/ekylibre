@@ -1637,6 +1637,11 @@
             />
 
       <!-- CLEANNING PRODUCT -->
+      <item name="common_consumable"
+            nature="common_consumable"
+            unit_name="liter"
+            frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter"
+            />
       <item name="mineral_cleaner"
             nature="mineral_cleaner"
             unit_name="liter"
@@ -2699,6 +2704,19 @@
             frozen_indicators_values="net_volume: 40milliliter, net_mass: 40gram"
             />
 
+
+	  <!-- Subsidies -->
+
+	  <item name="cap_subsidies"
+            nature="exploitation_subsidies"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="ichn_subsidies"
+            nature="exploitation_subsidies"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
       <!-- OTHER PRODUCT -->
       <item name="small_equipment"
             nature="small_equipment"
@@ -2790,6 +2808,21 @@
             frozen_indicators_values=""
             />
        <item name="insurance"
+            nature="insurance"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+       <item name="equipment_insurance"
+            nature="insurance"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+       <item name="building_insurance"
+            nature="insurance"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+        <item name="responsibility_insurance"
             nature="insurance"
             unit_name="unit"
             frozen_indicators_values=""
