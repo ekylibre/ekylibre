@@ -1,12 +1,14 @@
 :ruby
   names = []
-  if preference = current_user.preferences.find_by(name: "beehive.#{params[:id]}")
+  puts params[:beehive].inspect.yellow
+  if preference = current_user.preferences.find_by(name: "beehive.#{params[:beehive]}")
     names = YAML.load(preference.value).deep_symbolize_keys[:boxes].map do |box|
-      box[:cells].map { |cell| cell[:name] }
-    end
+      box[:cells].map { |cell| cell[:name].to_s }
+    end.flatten
   end
   i = 0
   name = nil
+  puts names.inspect.green
   loop do
     i += 1
     name = "#{params[:type]}_#{i}"

@@ -27,7 +27,7 @@
     - while tools.any?
       - b.hbox do
         - for theme, list in tools.slice!(0, 3)
-          - b.cell theme do
+          - b.cell "tools_#{theme.codeize.downcase}".to_sym, title: theme do
             %ul.desc-list
               - for item in list.sort{|a,b| a[:full_name] <=> b[:full_name] }
                 %li.link

@@ -1,6 +1,6 @@
 .cell{data: {beehive_cell: cell.to_json}}
   .cell-inner
-    - if beehive_cell = beehive.find_cell(cell[:name])
+    - if beehive_cell = beehive.find_by_name(cell[:name]) || beehive.find_by_type(cell[:type])
       .cell-title
         = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
           %i

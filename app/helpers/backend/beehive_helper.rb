@@ -103,7 +103,7 @@ module Backend::BeehiveHelper
     end
 
 
-    attr_reader :name, :boxes
+    attr_reader :name, :boxes, :cells
 
     def initialize(name, template)
       @name = name
@@ -149,8 +149,13 @@ module Backend::BeehiveHelper
       "beehive.#{@name}"
     end
 
-    def find_cell(name)
-      @cells[name]
+
+    def find_by_type(type)
+      @cells.values.select{ |c| c.type.to_s == type.to_s }.first
+    end
+
+    def find_by_name(name)
+      @cells.values.select{ |c| c.name.to_s == name.to_s }.first
     end
 
     def local_cells
@@ -158,9 +163,9 @@ module Backend::BeehiveHelper
     end
 
     def available_cells
-      return (Cell.controller_types + @cells.keys).map(&:to_s).map do |x|
-        [x.tl(default: x.to_s.humanize), x]
-      end.sort do |a,b|
+      externals = Cell.controller_types.collect { |c| [c.tl(default: c.to_s.humanize), c.to_s] }
+      internals = @cells.values.collect{ |c| [c.title, c.name.to_s] }
+      return (externals + internals).sort do |a,b|
         a.first.ascii <=> b.first.ascii
       end
     end
