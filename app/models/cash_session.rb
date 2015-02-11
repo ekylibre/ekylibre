@@ -38,18 +38,20 @@
 #  updater_id           :integer
 #
 class CashSession < Ekylibre::Record::Base
+  belongs_to :cash
+  has_many :affairs
+  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :cash, :started_at
   #]VALIDATORS]
-  has_many :affairs
-  belongs_to :cash
-  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
+
   validate on: :create do
     started_at ||= Time.now
   end
+
   def zticket
     {
       cash_id: self.id,

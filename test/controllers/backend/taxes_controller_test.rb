@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::TaxesControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get
+  test_restfully_all_actions
 end

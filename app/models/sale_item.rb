@@ -160,10 +160,9 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def tax_name
-    if self.tax
-      country = Nomen::Taxes.find(self.tax.reference_name).country
-      item = "#{self.tax.amount}% (#{country})"
-      return item
+    if self.tax and reference = Nomen::Taxes.find(self.tax.reference_name)
+      # FIXME Not I18nized...
+      return "#{self.tax.amount}% (#{reference.country})"
     else
       return nil
     end

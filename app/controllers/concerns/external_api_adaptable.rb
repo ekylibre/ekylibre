@@ -11,21 +11,22 @@ module ExternalApiAdaptable
   module ClassMethods
 
     def manage_restfully(defaults = {})
-      options = defaults.extract! :only, :except
+      options = defaults.extract! :except, :model, :only, :output_name, :partial_path, :resource_name, :scope
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy, :search]
       actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
       name = self.controller_name
-      model = defaults[:model].present? ? defaults[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue nil
-      model = model.send defaults[:scope] if defaults[:scope].present?
+      resource_name = options[:resource_name] || name.to_s.singularize.to_sym
+      model = options[:model].present? ? options[:model].to_s.singularize.classify.constantize : name.to_s.singularize.classify.constantize rescue nil
+      model = model.send options[:scope] if options[:scope].present?
 
       api_path = self.controller_path.split('/')[0..-2].join('/')
 
-      output_name = defaults[:output_name] || name
+      output_name = options[:output_name] || name
       locals = {}
       locals[:output_name] = output_name
-      locals[:partial_path] = defaults[:partial_path] || "#{output_name.pluralize}/#{output_name.singularize}"
+      locals[:partial_path] = options[:partial_path] || "#{output_name.pluralize}/#{output_name.singularize}"
 
       index = lambda do
         @records = model.all rescue []
@@ -54,21 +55,27 @@ module ExternalApiAdaptable
       end
 
       create = lambda do
-        correspondence = defaults[:update_filters].with_indifferent_access
-        create_params = permitted_params.slice(*correspondence.keys).map{|k,v|[correspondence[k], v]}.to_h
+        matching = defaults[:update_filters].with_indifferent_access
+        create_params = permitted_params.slice(*matching.keys).inject({}) do |h, p|
+          h[matching[p.first]] = p.second
+          h
+        end
         record = model.new(create_params)
         if record.save
-          render partial: "#{api_path}/#{locals[:partial_path]}", locals:{output_name.singularize.to_sym => record}
+          render partial: "#{api_path}/#{locals[:partial_path]}", locals: {output_name.singularize.to_sym => record}
         else
           render json: nil
         end
       end
 
       update = lambda do
-        correspondence = defaults[:update_filters].with_indifferent_access
-        update_params = permitted_params.slice(*correspondence.keys).map{|k,v|[correspondence[k], v]}.to_h
-        @record = model.find(params[:id])
-        render :json, @record.update(update_params)
+        matching = defaults[:update_filters].with_indifferent_access
+        update_params = permitted_params.slice(*matching.keys).inject({}) do |h, p|
+          h[matching[p.first]] = p.second
+          h
+        end
+        @record = model.find(params[:id]).update_attributes(update_params)
+        render :json, @record
       end
 
       destroy = lambda do
@@ -81,8 +88,11 @@ module ExternalApiAdaptable
       end
 
       search = lambda do
-        correspondence = defaults[:search_filters].with_indifferent_access
-        criterias = params.slice(*correspondence.keys).map{|k,v|[correspondence[k], v]}.to_h
+        matching = defaults[:search_filters].with_indifferent_access
+        criterias = params.slice(*matching.keys).inject({}) do |h, p|
+          h[matching[p.first]] = p.second
+          h
+        end
         @records = model.where(criterias)
         render template: "layouts/#{api_path}/index", locals: locals
       end
@@ -102,9 +112,9 @@ module ExternalApiAdaptable
 
       define_method :permitted_params do
         if defaults[:update_filters].present?
-          params.require(model.name.underscore).permit(*(defaults[:update_filters].keys))
+          params.require(resource_name).permit(*(defaults[:update_filters].keys))
         else
-          params.require(model.name.underscore).permit(*model_fields) rescue params.permit!
+          params.require(resource_name).permit(*model_fields) rescue params.permit!
         end
       end
 

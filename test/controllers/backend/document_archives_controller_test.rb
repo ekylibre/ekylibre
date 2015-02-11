@@ -1,6 +1,6 @@
 require 'test_helper'
 class Backend::DocumentArchivesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions show: {format: :pdf}
 
   FILES = {
     document_archives_001: "outgoing_deliveries.pdf",

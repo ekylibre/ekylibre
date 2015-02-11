@@ -106,9 +106,9 @@ class ProductionSupport < Ekylibre::Record::Base
   }
 
   after_validation do
-    if self.started_at.blank? and self.stopped_at.blank?
-      self.started_at = self.production.started_at if self.production.started_at
-      self.stopped_at = self.production.stopped_at if self.production.stopped_at
+    if self.production
+      self.started_at ||= self.production.started_at if self.production.started_at
+      self.stopped_at ||= self.production.stopped_at if self.production.stopped_at
     end
   end
 

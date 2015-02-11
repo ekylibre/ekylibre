@@ -854,6 +854,7 @@ eng:
     cost_sum: "Total Cost" #?
     costs: "Costs"
     # costs_map: "Costs map"
+    # counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_journal: "— Create journal —"
@@ -1154,7 +1155,7 @@ eng:
     normal: "Normal" #?
     number: "Number" #?
     number_options: "Options Numbers"
-    numbers: "Numbers"
+    numbers: "Numbers" #?
     on_account: "On account" #?
     one_condition: "One condition"
     operation_items: "Incoming and outgoing products" #?
