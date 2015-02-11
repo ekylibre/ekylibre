@@ -2511,6 +2511,10 @@ svg.map {
   }
 }
 
+.document-archives {
+  padding: $default-gap;
+}
+
 
 .thumbs {
   @include clearfix;

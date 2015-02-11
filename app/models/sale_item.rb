@@ -200,7 +200,7 @@ class SaleItem < Ekylibre::Record::Base
     if nature
       if nature.period?
         subscription.started_at ||= Date.today
-        subscription.stopped_at ||= Delay.compute((product.subscription_period||'1 year')+", 1 day ago", subscription.started_at)
+        subscription.stopped_at ||= Delay.compute((product.subscription_duration||'1 year')+", 1 day ago", subscription.started_at)
       else
         subscription.first_number ||= nature.actual_number.to_i
         subscription.last_number  ||= subscription.first_number+(product.subscription_quantity||1)-1

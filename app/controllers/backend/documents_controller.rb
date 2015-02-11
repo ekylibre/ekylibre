@@ -35,8 +35,8 @@ class Backend::DocumentsController < Backend::BaseController
   end
 
   list(:archives, model: :document_archive, conditions: {:document_id => 'params[:id]'.c}) do |t|
-    t.column :archived_at, url: true
-    t.column :template
+    t.column :archived_at, url: {format: :pdf}
+    t.column :template, url: true
     t.column :file_pages_count
     t.column :file_file_size
     t.column :file_content_text, hidden: true

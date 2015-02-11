@@ -6,5 +6,18 @@
         - l.attribute :nature
         - l.attribute :number
         - l.attribute :key
-    - b.cell :archives do
+    - b.cell :archives, title: Document.human_attribute_name(:archives) do
       = list :archives
+  - b.hbox do
+    - b.cell :archive_thumbs, title: Document.human_attribute_name(:archives) do
+      - if resource.archives.any?
+        .thumbs
+          - resource.archives.each do |archive|
+            .thumb
+              = link_to(backend_document_archive_url(archive, format: :pdf)) do
+                = image_tag(backend_document_archive_path(archive, format: :jpg))
+              .archived-at= archive.archived_at.l
+              .template-name= link_to(archive.template_name, backend_document_template_path(archive.template))
+      - else
+        = no_data
+

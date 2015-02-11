@@ -666,25 +666,21 @@ module ApplicationHelper
               end
             end.join.html_safe
           end
-          html << beehive do |b|
-            b.hbox do
-              if document = Document.of(nature.name, key)
-                b.cell :archives, :counter => document.archives_count do
-                  # list(:archives, :controller => :documents, :id => document.id)
-                  content_tag(:div, :class => :content) {
-                    content_tag(:ul) {
-                      document.archives.collect do |archive|
-                        content_tag(:li, link_to(archive.archived_at.l, backend_document_archive_url(archive)) + " ".html_safe + archive.template_name)
-                      end.join.html_safe
-                    }
-                  }
-                end
+          if document = Document.of(nature.name, key)
+            html << content_tag(:div, class: "document-archives") do
+              content_tag(:ul, class: "thumbs") do
+                document.archives.collect do |archive|
+                  content_tag(:li, class: "thumb") do
+                    link_to(backend_document_archive_url(archive, format: :pdf)) do
+                      image_tag(backend_document_archive_path(archive, format: :jpg))
+                    end +
+                      link_to(backend_document_url(document)) do
+                      content_tag(:div, archive.archived_at.l, class: "archived-at") +
+                        content_tag(:div, archive.template_name, class: "template-name")
+                    end
+                  end
+                end.join.html_safe
               end
-              # b.cell :upload do
-              #   form_tag({:controller => :document_archives, :action => :create, :document_id => document.id}, {:multipart => true}) {
-              #     file_field_tag(:file) + submit_tag
-              #   }
-              # end
             end
           end
           html

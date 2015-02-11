@@ -771,6 +771,7 @@ eng:
     analytics: "Analytics"
     animal_productions: "Animal productions"
     animals: "Animals"
+    # archive_thumbs: "Archive thumbs"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to:
@@ -1424,7 +1425,7 @@ eng:
     update_params: "Update params" #?
     updated_at_by: "Updated at %{at} by %{author}:"
     updated_by_ago: "Updated by %{author} %{ago} ago:"
-    upload: "Upload"
+    upload: "Upload" #?
     uploading_unicoque_traceability: "Uploading unicoque traceability" #?!
     usage: "Usage" #?
     use_incoming_payment: "Add incoming payment %{payment}" #?

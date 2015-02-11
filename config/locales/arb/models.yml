@@ -1980,11 +1980,10 @@ arb:
     # subject_type: "Subject type"
     # subscriber: "Subscriber"
     # subscribing: "Subscribing"
-    # subscription_duration: "Subscription duration"
+    subscription_duration: "الفترة"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
     subscription_natures: "انواع الاشتراك" #?
-    subscription_period: "الفترة" #?
     subscription_quantity: "الكمية" #?
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?

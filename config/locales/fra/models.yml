@@ -1192,9 +1192,8 @@ fra:
     subject_type: "Type de sujet"
     subscriber: "Abonné"
     subscribing: "Abonne"
-    subscription_duration: "Durée de l’abonnement"
+    subscription_duration: "Période"
     subscription_nature: "Type d’abonnement"
-    subscription_period: "Période" #?
     subscription_quantity: "Quantité" #?
     subscriptions: "Abonnements"
     supplier: "Fournisseur"
