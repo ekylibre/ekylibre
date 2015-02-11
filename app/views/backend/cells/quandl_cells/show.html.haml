@@ -1,0 +1,11 @@
+- if @data
+  :ruby
+    series = []
+    point_start = Time.new(*@data[:from_date].split("-")).to_usec
+    @data[:column_names].each_with_index do |name, index|
+      series << {name: name, point_start: point_start, point_interval: 24 * 3600 * 1000, data: @data[:data].map{ |row| row[index] }.reverse, y_axis: (index > 4 ? 1 : 0) }
+    end
+    categories = series.delete_at(0)
+  = spline_chart(series, x_axis: {type: "datetime"}, y_axis: [{title: {text: :values.tl}, labels: {format: '{value}$'}}, {title: {text: :mass.tl}, labels: {format: '{value}t'}, opposite: true}], legend: true)
+- else
+  = no_data

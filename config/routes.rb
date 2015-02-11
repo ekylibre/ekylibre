@@ -147,15 +147,16 @@ Ekylibre::Application.routes.draw do
       resource :last_purchases_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
       resource :map_cell, only: :show
-      resource :weather_cell, only: :show
       resource :placeholder_cell, only: :show
       resource :product_bar_cell, only: :show
       resource :production_cropping_plan_cell, only: :show
       resource :purchases_bar_cell, only: :show
       resource :purchases_expense_bar_cell, only: :show
+      resource :quandl_cell, only: :show
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
       resource :stock_container_map_cell, only: :show
+      resource :weather_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end
 

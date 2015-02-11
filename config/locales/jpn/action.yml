@@ -132,6 +132,7 @@ jpn:
     backend/cells/map_cells: #?
     backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
+    backend/cells/quandl_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?

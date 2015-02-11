@@ -61,7 +61,7 @@ module Backend::BeehiveHelper
       def self.controller_types
         unless @controller_types
           Dir.chdir(Rails.root.join('app/controllers/backend/cells')) do
-            @controller_types = Dir["*_controller.rb"].map do |path|
+            @controller_types = Dir["*_cells_controller.rb"].map do |path|
               path.gsub(/_cells_controller.rb$/, '').to_sym
             end.compact
           end
@@ -159,7 +159,7 @@ module Backend::BeehiveHelper
 
     def available_cells
       return (Cell.controller_types + @cells.keys).map(&:to_s).map do |x|
-        [x.tl, x]
+        [x.tl(default: x.to_s.humanize), x]
       end.sort do |a,b|
         a.first.ascii <=> b.first.ascii
       end

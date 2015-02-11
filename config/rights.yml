@@ -45,6 +45,7 @@
 #     - "backend/cells/map_cells#show"
 #     - "backend/cells/payable_taxes_cells#show"
 #     - "backend/cells/placeholder_cells#show"
+#     - "backend/cells/quandl_cells#show"
 #     - "backend/cells/revenues_by_product_nature_cells#show"
 #     - "backend/cells/rss_cells#show"
 #     - "backend/cells/stock_container_map_cells#show"
