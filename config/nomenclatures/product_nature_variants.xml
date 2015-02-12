@@ -1635,7 +1635,11 @@
             unit_name="1l_dose"
             frozen_indicators_values="net_volume: 1liter, net_mass: 1kilogram, meat_withdrawal_period: 0day, milk_withdrawal_period: 0day"
             />
-
+      <item name="generic_animal_medicine"
+            nature="animal_medicine"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 1000g, net_volume: 1000ml, meat_withdrawal_period: 1day, milk_withdrawal_period: 1day"
+            />
       <!-- CLEANNING PRODUCT -->
       <item name="common_consumable"
             nature="common_consumable"
@@ -1658,6 +1662,11 @@
             frozen_indicators_values="net_mass: 25kilogram, net_volume: 25.00liter"
             />
       <!-- PACKAGING PRODUCT -->
+      <item name="common_package"
+            nature="common_package"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
       <!-- CORK -->
       <item name="natural_cork"
             nature="cork"
@@ -1708,6 +1717,14 @@
             unit_name="roll"
             frozen_indicators_values="net_length: 500.00meter, width: 1.00meter"
             />
+
+      <!-- OTHER MATERIAL -->
+      <item name="building_material"
+            nature="raw_material"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
+            />
+
       <!-- LAND PARCEL -->
       <item name="land_parcel"
             nature="land_parcel"
@@ -2856,6 +2873,13 @@
         <item name="accommodation_taxe"
             nature="accommodation_travel"
             unit_name="night"
+            frozen_indicators_values=""
+            />
+
+
+	   <item name="congress"
+            nature="congress"
+            unit_name="unit"
             frozen_indicators_values=""
             />
 

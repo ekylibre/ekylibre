@@ -736,6 +736,14 @@
             frozen_indicators="net_mass"
             />
       <!-- PACKAGED MATTER -->
+      <item name="common_package"
+            category="package_consumable"
+            variety="packaged_matter"
+            population_counting="decimal"
+            abilities="store(raw_matter)"
+            variable_indicators="population, net_mass, length, net_volume"
+            frozen_indicators=""
+            />
       <item name="bottle"
             category="wine_package_consumable"
             variety="bottle"
@@ -821,7 +829,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass, thousand_grains_mass"
             />
-
+      <!-- FOOD -->
       <item name="animal_food"
             category="animal_food"
             variety="mix"
@@ -839,6 +847,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"
             />
+       <!-- OTHER -->
       <item name="mineral_cleaner"
             category="other_consumable"
             variety="preparation"
@@ -855,6 +864,18 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
+       <item name="raw_material"
+            category="raw_materials"
+            variety="raw_matter"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
+
+
+
+
       <item name="land_parcel"
             category="land_parcel"
             variety="land_parcel"
@@ -1680,6 +1701,16 @@
             category="trade_show"
             variety="service"
             population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+
+        <item name="congress"
+            category="congress"
+            variety="service"
+            population_counting="decimal"
             abilities=""
             variable_indicators="population"
             frozen_indicators=""

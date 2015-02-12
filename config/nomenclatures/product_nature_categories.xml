@@ -128,8 +128,8 @@
             pictogram="cow"
             />
       <item name="aves_band"
-            charge_account="young_animal_expenses"
-            product_account="young_animal_revenues"
+            charge_account="adult_animal_expenses"
+            product_account="adult_animal_revenues"
             stock_account="short_time_animal_stock"
             purchasable="true"
             saleable="true"
@@ -360,8 +360,18 @@
             storable="true"
             pictogram="matter"
             />
+      <item name="package_consumable"
+            charge_account="packaging"
+            stock_account="other_consumables_stock"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="true"
+            pictogram="matter"
+            />
+
       <item name="wine_package_consumable"
-            charge_account="other_consumable_matter_expenses"
+            charge_account="packaging"
             product_account="revenues"
             stock_account="other_consumables_stock"
             purchasable="true"
@@ -512,6 +522,18 @@
             storable="true"
             pictogram="bolt"
             />
+
+         <item name="raw_materials"
+            charge_account="materials_expenses"
+            stock_account="other_consumables_stock"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="true"
+            pictogram="matter"
+            />
+
+
           <!-- subsidies -->
          <item name="exploitation_subsidies"
             product_account="exploitation_subsidies"
@@ -596,6 +618,14 @@
             product_account="merchandising_accessory_revenues"
             purchasable="true"
             saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="plane"
+            />
+          <item name="congress"
+            charge_account="congress_and_symposium_expenses"
+            purchasable="true"
+            saleable="false"
             depreciable="false"
             storable="false"
             pictogram="plane"
