@@ -64,7 +64,8 @@ class Ekylibre::EdnotifTest < ActiveSupport::TestCase
   end
 =end
 
-  test 'automatically authentication from Reswel' do
+=begin
+  test 'automatically authentication to Reswel' do
 
     authenticated = @tr.authenticate
 
@@ -74,7 +75,59 @@ class Ekylibre::EdnotifTest < ActiveSupport::TestCase
     assert_not_empty(@tr.instance_variable_get('@token'))
 
   end
+=end
 
+  test 'raising exception animal already entered while creating cattle entrance on Ednotif' do
+
+    authenticated = @tr.authenticate
+
+    if authenticated
+
+      args = { farm_country_code: 'FR',
+               farm_number: '01999999',
+               animal_country_code: 'FR',
+               animal_id: '3312345678',
+               entry_date: '2015-02-13',
+               entry_reason: 'A',
+               src_country_code: 'FR',
+               src_farm_number: '01000000',
+               src_owner_name: 'EKYLIBRE_TEST',
+               prod_code: nil,
+               cattle_categ_code: nil
+      }
+
+      @tr.create_cattle_entrance args
+
+    end
+
+  end
+
+=begin
+  test 'successfully creation cattle entrance on Ednotif' do
+
+    authenticated = @tr.authenticate
+
+    if authenticated
+
+      args = { farm_country_code: 'FR',
+               farm_number: '01999999',
+               animal_country_code: 'FR',
+               animal_id: '3312345678',
+               entry_date: '2015-02-13',
+               entry_reason: 'A',
+               src_country_code: 'FR',
+               src_farm_number: '01000000',
+               src_owner_name: 'EKYLIBRE_TEST',
+               prod_code: nil,
+               cattle_categ_code: nil
+      }
+
+      @tr.create_cattle_entrance args
+
+    end
+
+  end
+=end
 
 
 end

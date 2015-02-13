@@ -4,6 +4,12 @@ module Tele
   module Idele
 
     class EdnotifError < StandardError
+      attr_accessor :code, :message
+      def initialize(options = {})
+        @code = options[:code] || nil
+        @message = options[:message] || nil
+      end
+
     end
 
     class Ednotif
@@ -103,24 +109,27 @@ module Tele
 
         doc = Nokogiri::XML(res.body[:tk_get_url_response].to_xml)
 
-        result = doc.at_xpath('//resultat/child::text()')
+        result = doc.at_xpath('//resultat/child::text()').to_s
         err = doc.at_xpath('//anomalie')
 
         # error level 1 : hard error
-        if result == false and err
-
-          Rails.logger.warn err['Message']
-          raise EdnotifError, err['Message']
+        if result == 'false' and err
+          code = err.at_xpath('//code/child::text()').to_s
+          message = err.at_xpath('//message/child::text()').to_s
+          Rails.logger.warn code + ': '+message
+          raise EdnotifError.new(code: code, message: message)
 
 
           # error level 2: could be sweet error or info notice
-        elsif result and err
-          Rails.logger.warn err['Message']
-          raise EdnotifError, err['Message']
+        elsif result == 'true' and err
+          code = err.at_xpath('//code/child::text()').to_s
+          message = err.at_xpath('//message/child::text()').to_s
+          Rails.logger.warn code + ': '+message
+          raise EdnotifError.new(code: code, message: message)
 
 
           # everything is good
-        elsif result
+        elsif result == 'true'
 
           business =  doc.at_xpath('//wsdl-metier/child::text()')
           customs =  doc.at_xpath('//wsdl-guichet/child::text()')
@@ -128,7 +137,7 @@ module Tele
           if business.nil? or customs.nil?
 
             Rails.logger.warn 'Missing WSDL urls in xml response'
-            raise EdnotifError,'Missing WSDL urls in xml response'
+            raise EdnotifError.new(code: 'WSRW0', message: 'Missing WSDL urls in xml from Reswel get url')
           end
 
           @business_wsdl = business.to_s
@@ -144,8 +153,8 @@ module Tele
       rescue Curl::Err::TimeoutError
         Rails.logger.warn 'Timeout'
 
-      rescue Exception => error
-        raise EdnotifError, error.message
+      rescue StandardError => error
+        raise EdnotifError.new(message: error.message)
       end
 
 
@@ -187,32 +196,35 @@ module Tele
           doc = Nokogiri::XML(res.body[:tk_create_identification_response].to_xml)
 
 
-          result = doc.at_xpath('//resultat/child::text()')
+          result = doc.at_xpath('//resultat/child::text()').to_s
           err = doc.at_xpath('//anomalie')
 
           # error level 1 : hard error
-          if result == false and err
+          if result == 'false' and err
 
-            Rails.logger.warn err['Message']
-            raise EdnotifError, err['Message']
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            Rails.logger.warn code + ': '+message
+            raise EdnotifError.new(code: code, message: message)
 
 
             # error level 2: could be sweet error or info notice
-          elsif result and err
-            Rails.logger.warn err['Message']
-            raise EdnotifError, err['Message']
-
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            Rails.logger.warn code + ': '+message
+            raise EdnotifError.new(code: code, message: message)
 
             # everything is good
-          elsif result
+          elsif result == 'true'
 
             token =  doc.at_xpath('//jeton/child::text()')
 
 
             if token.nil?
 
-              Rails.logger.warn 'Missing token from xml response'
-              raise EdnotifError,'Missing token from xml response'
+              Rails.logger.warn 'Missing token in xml from Reswel get token'
+              raise EdnotifError.new(message: 'Missing token in xml from Reswel get token')
 
             end
 
@@ -232,8 +244,8 @@ module Tele
       rescue Curl::Err::TimeoutError
         Rails.logger.warn 'Timeout'
 
-      rescue Exception => error
-        raise EdnotifError, error.message
+      rescue StandardError => error
+        raise EdnotifError.new(message: error.message)
 
       end
 
@@ -251,11 +263,109 @@ module Tele
       # @param [string] src_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le code atelier, du type AtelierBovinIPG(cf p18). length: 2
       # @param [string] cattle_categ_code: Le code catégorie du bovin (cf p18). length: 2
-      private def create_cattle_entrance( token, farm_country_code, farm_number, animal_country_code, animal_id, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code  )
+      def create_cattle_entrance( options = {} )
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number}, bovin: { code_pays: animal_country_code, numero_national: animal_id }, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: prod_code, code_categorie_bovin: cattle_categ_code}
+        unless @business_wsdl.nil?
 
-                #TODO
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_entree,
+                            message_tag: 'IpBCreateEntreeRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Bovin' => {
+                                    'sch:CodePays' => options[:animal_country_code],
+                                    'sch:NumeroNational' => options[:animal_id]
+                                },
+                                'sch:DateEntree' => options[:entry_date],
+                                'sch:CauseEntree' => options[:entry_reason],
+                                'sch:ExploitationProvenance' => {
+                                    'sch:Exploitation' => {
+                                        'sch:CodePays' => options[:src_country_code],
+                                        'sch:NumeroExploitation' => options[:src_farm_number]
+                                    },
+                                    'sch:NomExploitation' => options[:src_owner_name]
+                                },
+                                'sch:CodeAtelier' => options[:prod_code],
+                                'sch:CodeCategorieBovin' => options[:cattle_categ_code]
+                            }.reject{ |_,v| v.nil? })
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_entree_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            Rails.logger.warn code + ': '+message
+            raise EdnotifError.new(code: code, message: message)
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            Rails.logger.warn code + ': '+message
+            raise EdnotifError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            validating  = doc.at_xpath('//attente_validation_bdni/child::text()')
+            validated  = doc.at_xpath('//entree_validee/child::text()')
+
+
+            print validating
+            print validated
+
+=begin
+            if token.nil?
+
+              Rails.logger.warn 'Missing token from xml response'
+              raise EdnotifError,'Missing token from xml response'
+
+            end
+
+            @token = token.to_s
+=end
+
+          end
+
+          return true
+
+        end
+
+        return false
+
+      rescue Savon::SOAPFault, Savon::HTTPError, Curl::Err::ConnectionFailedError => error
+        Rails.logger.warn error.http.code
+
+      rescue Curl::Err::TimeoutError
+        Rails.logger.warn 'Timeout'
+
+      rescue StandardError => error
+        raise EdnotifError.new(message: error.message)
+
       end
 
 
