@@ -4,7 +4,6 @@ require 'migration_helper'
 
 # Data types and core ext
 require 'delay'
-ActiveRecord::Base.send(:include, Delay::Validation::Validator)
 ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 
 require 'safe_string'

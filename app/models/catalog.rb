@@ -24,17 +24,17 @@
 #
 #  all_taxes_included :boolean          not null
 #  by_default         :boolean          not null
-#  code               :string(20)       not null
+#  code               :string           not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
-#  currency           :string(3)        not null
+#  currency           :string           not null
 #  description        :text
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
-#  name               :string(255)      not null
+#  name               :string           not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
-#  usage              :string(20)       not null
+#  usage              :string           not null
 #
 
 
@@ -43,12 +43,11 @@ class Catalog < Ekylibre::Record::Base
   # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
   has_many :items, class_name: "CatalogItem", dependent: :destroy, inverse_of: :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :code, :usage, allow_nil: true, maximum: 20
-  validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :all_taxes_included, :by_default, in: [true, false]
   validates_presence_of :code, :currency, :name, :usage
   #]VALIDATORS]
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :code, :usage, allow_nil: true, maximum: 20
   validates_uniqueness_of :code
 
   selects_among_all scope: :usage

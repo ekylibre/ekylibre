@@ -27,14 +27,14 @@
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  currency         :string(3)        not null
-#  direction        :string(255)      not null
+#  currency         :string           not null
+#  direction        :string           not null
 #  entity_id        :integer          not null
-#  entity_role      :string(255)      not null
+#  entity_role      :string           not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
+#  number           :string           not null
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  printed_at       :datetime         not null
 #  updated_at       :datetime         not null

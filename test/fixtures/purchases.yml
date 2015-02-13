@@ -28,7 +28,7 @@
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
 #  creator_id          :integer
-#  currency            :string(3)        not null
+#  currency            :string           not null
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key
@@ -36,12 +36,12 @@
 #  journal_entry_id    :integer
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
-#  number              :string(60)       not null
+#  number              :string           not null
 #  planned_at          :datetime
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string(255)
+#  reference_number    :string
 #  responsible_id      :integer
-#  state               :string(60)
+#  state               :string
 #  supplier_id         :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer

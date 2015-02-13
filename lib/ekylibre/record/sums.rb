@@ -21,7 +21,7 @@ module Ekylibre::Record
           end
         end
         method_name = options.delete(:method) || "sums_#{children}_of_#{target}"
-        target_reflection = self.reflections[target]
+        target_reflection = self.reflect_on_association(target)
         target_id = target_reflection.foreign_key.to_sym
         record = children.to_s.singularize
         code = ""

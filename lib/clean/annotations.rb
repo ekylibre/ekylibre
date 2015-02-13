@@ -10,13 +10,23 @@ module Clean
 
 
       # Simple quoting for the default column value
+      def quote_value(value, type = :string)
+        case type
+        when :boolean                 then (value == "true" ? "TRUE" : "FALSE")
+        when :decimal, :float, :integer then value.to_s
+        else
+          value.inspect
+        end
+      end
+
+      # Simple quoting for the default column value
       def quote(value)
         case value
         when NilClass                 then "NULL"
         when TrueClass                then "TRUE"
         when FalseClass               then "FALSE"
         when Float, Fixnum, Bignum    then value.to_s
-          # BigDecimals need to be output in a non-normalized form and quoted.
+        # BigDecimals need to be output in a non-normalized form and quoted.
         when BigDecimal               then value.to_s('F')
         else
           value.inspect
@@ -38,15 +48,15 @@ module Clean
         info << "# == Table: #{klass.table_name}\n#\n"
         #    info << "# Table name: #{klass.table_name}\n#\n"
 
-        max_size = klass.column_names.collect{|name| name.size}.max + 1
-        klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
+        max_size = klass.column_names.collect{|name| name.size}.max
+        klass.columns.sort{|a,b| a.name <=> b.name}.each do |col|
           next if col.name.to_s =~ /\A\_/ # Custom fields
           attrs = []
           if col.default
             if col.default.is_a? Date
               attrs << "default(CURRENT_DATE)"
             else
-              attrs << "default(#{quote(col.default)})"
+              attrs << "default(#{quote_value(col.default, col.type)})"
             end
           end
           attrs << "not null" unless col.null
@@ -55,10 +65,11 @@ module Clean
           col_type = col.type.to_s
           if col_type == "decimal"
             col_type << "(#{col.precision}, #{col.scale})"
-          else
-            col_type << "(#{col.limit})" if col.limit
+          elsif col.limit
+            col_type << "(#{col.limit.inspect})"
           end
-          info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
+          # info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
+          info << "#  #{col.name.to_s.ljust(max_size)} :#{col_type.to_s.ljust(16)} #{attrs.join(', ')}\n"
         end
 
         # info << "#coding: utf-8 \n"

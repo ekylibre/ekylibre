@@ -22,29 +22,28 @@
 #
 # == Table: budgets
 #
-#  computation_method :string(255)
+#  computation_method :string
 #  created_at         :datetime         not null
 #  creator_id         :integer
-#  currency           :string(255)
-#  direction          :string(255)
+#  currency           :string
+#  direction          :string
 #  global_amount      :decimal(19, 4)   default(0.0)
 #  global_quantity    :decimal(19, 4)   default(0.0)
 #  homogeneous_values :boolean
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
-#  name               :string(255)
+#  name               :string
 #  production_id      :integer
 #  unit_amount        :decimal(19, 4)   default(0.0)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer
-#  working_indicator  :string(255)
-#  working_unit       :string(255)
+#  working_indicator  :string
+#  working_unit       :string
 #
 class Budget < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
-  validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   #]VALIDATORS]
   validates_presence_of :variant, :production
 

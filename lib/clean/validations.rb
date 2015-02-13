@@ -28,9 +28,11 @@ module Clean
         cs = columns.select{|c| c.number? and c.type != :integer}
         code << "  validates_numericality_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true\n" if cs.any?
 
-        limits = columns.select{|c| c.text? and c.limit}.map{|c| c.limit}.uniq.sort
+
+        cs = columns.select{|c| (c.type == :string or c.type == :text) and c.limit}
+        limits = cs.map{|c| c.limit}.uniq.sort # .delete_if{|l| l == 255}
         for limit in limits
-          cs = columns.select{|c| c.text? and c.limit == limit}
+          cs = columns.select{|c| c.limit == limit}
           code << "  validates_length_of " + cs.map{|c| ":#{c.name}"}.join(', ') + ", allow_nil: true, maximum: #{limit}\n"
         end
 

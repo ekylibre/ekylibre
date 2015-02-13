@@ -337,7 +337,7 @@ namespace :clean do
         for column in model.instance_methods
           attributes[column][1] = :used if attributes[column]
         end
-        for column in model.reflections.keys
+        for column in model.reflect_on_all_associations.map(&:name)
           attributes[column] = [column.to_s.humanize, :undefined] unless attributes[column]
         end
       end

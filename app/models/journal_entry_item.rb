@@ -23,7 +23,7 @@
 # == Table: journal_entry_items
 #
 #  absolute_credit           :decimal(19, 4)   default(0.0), not null
-#  absolute_currency         :string(3)        not null
+#  absolute_currency         :string           not null
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
 #  balance                   :decimal(19, 4)   default(0.0), not null
@@ -33,24 +33,24 @@
 #  credit                    :decimal(19, 4)   default(0.0), not null
 #  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
 #  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
-#  currency                  :string(3)        not null
+#  currency                  :string           not null
 #  debit                     :decimal(19, 4)   default(0.0), not null
 #  description               :text
 #  entry_id                  :integer          not null
-#  entry_number              :string(255)      not null
+#  entry_number              :string           not null
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
-#  letter                    :string(10)
+#  letter                    :string
 #  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
+#  name                      :string           not null
 #  position                  :integer
 #  printed_on                :date             not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
-#  real_currency             :string(3)        not null
+#  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
-#  state                     :string(30)       not null
+#  state                     :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #
@@ -72,12 +72,11 @@ class JournalEntryItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  #]VALIDATORS]
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :letter, allow_nil: true, maximum: 10
   validates_length_of :state, allow_nil: true, maximum: 30
-  validates_length_of :entry_number, :name, allow_nil: true, maximum: 255
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
-  #]VALIDATORS]
   validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}

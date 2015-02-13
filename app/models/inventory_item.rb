@@ -23,11 +23,11 @@
 # == Table: inventory_items
 #
 #  actual_population   :decimal(19, 4)   not null
-#  actual_shape        :spatial({:srid=>
+#  actual_shape        :spatial({:srid=>4326, :type=>"geometry"})
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  expected_population :decimal(19, 4)   not null
-#  expected_shape      :spatial({:srid=>
+#  expected_shape      :spatial({:srid=>4326, :type=>"geometry"})
 #  id                  :integer          not null, primary key
 #  inventory_id        :integer          not null
 #  lock_version        :integer          default(0), not null

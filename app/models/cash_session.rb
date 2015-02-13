@@ -25,7 +25,7 @@
 #  cash_id              :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(3)
+#  currency             :string
 #  expected_stop_amount :decimal(19, 4)   default(0.0)
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
@@ -44,9 +44,9 @@ class CashSession < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 3
   validates_presence_of :cash, :started_at
   #]VALIDATORS]
+  validates_length_of :currency, allow_nil: true, maximum: 3
 
   validate on: :create do
     started_at ||= Time.now

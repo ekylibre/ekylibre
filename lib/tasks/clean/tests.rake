@@ -151,18 +151,9 @@ namespace :clean do
         end
 
         model = table.singularize.camelize.constantize
-        # attributes  = columns.keys.map(&:to_s).delete_if{|c| c =~ /\_id$/ }
-        # attributes += model.reflections.keys.map(&:to_s)
         attributes  = columns.keys.map(&:to_s)
 
         required_attributes = columns.values.select{|c| !c.null? and c.default.nil?}.map(&:name).map(&:to_s)
-        #   .collect do |column|
-        #   column.name.to_s.gsub(/_id$/, '')
-        # end
-        #   .delete_if do |name|
-        #   name =~ /\_type$/ and attributes.include?(name.gsub(/\_type$/, ''))
-        # end
-        # required_attributes -= %w(created_at updated_at id)
 
         if yaml.is_a?(Hash)
           if yaml.keys.size != yaml.keys.uniq.size

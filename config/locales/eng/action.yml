@@ -948,7 +948,6 @@ eng:
     expedier: "Expedier"
     expenses: "Expenses"
     export: "Export documents"
-    # exports: "Exports"
     file_nature: "File type"
     file_to_upload: "File to upload"
     filter: "Filter"

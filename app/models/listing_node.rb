@@ -22,29 +22,29 @@
 #
 # == Table: listing_nodes
 #
-#  attribute_name       :string(255)
-#  condition_operator   :string(255)
-#  condition_value      :string(255)
+#  attribute_name       :string
+#  condition_operator   :string
+#  condition_value      :string
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  depth                :integer          default(0), not null
-#  exportable           :boolean          default(TRUE), not null
+#  exportable           :boolean          default(FALSE), not null
 #  id                   :integer          not null, primary key
 #  item_listing_id      :integer
 #  item_listing_node_id :integer
-#  item_nature          :string(10)
+#  item_nature          :string
 #  item_value           :text
-#  key                  :string(255)
-#  label                :string(255)      not null
+#  key                  :string
+#  label                :string           not null
 #  lft                  :integer
 #  listing_id           :integer          not null
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
-#  nature               :string(255)      not null
+#  name                 :string           not null
+#  nature               :string           not null
 #  parent_id            :integer
 #  position             :integer
 #  rgt                  :integer
-#  sql_type             :string(255)
+#  sql_type             :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -61,11 +61,10 @@ class ListingNode < Ekylibre::Record::Base
   has_many :items, class_name: "ListingNodeItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
-  validates_length_of :item_nature, allow_nil: true, maximum: 10
-  validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, allow_nil: true, maximum: 255
   validates_inclusion_of :exportable, in: [true, false]
   validates_presence_of :depth, :label, :listing, :name, :nature
   #]VALIDATORS]
+  validates_length_of :item_nature, allow_nil: true, maximum: 10
   validates_uniqueness_of :key
 
   autosave :listing
@@ -216,7 +215,7 @@ class ListingNode < Ekylibre::Record::Base
     if self.root?
       self.listing.root_model
     else
-      self.parent.model.reflections[self.attribute_name.to_sym].class_name
+      self.parent.model.reflect_on_association(self.attribute_name).class_name
     end.pluralize.classify.constantize rescue nil
   end
 
@@ -225,20 +224,17 @@ class ListingNode < Ekylibre::Record::Base
     if self.root?
       return nil
     else
-      return self.parent.model.reflections[self.attribute_name.to_sym]
+      return self.parent.model.reflect_on_association(self.attribute_name)
     end
   end
 
   def available_nodes
     nodes = []
-    # raise self.attribute_name.to_sym.inspect
-    # raise self.parent.model.reflections.keys.inspect
-    # raise self.parent.model.reflections[self.attribute_name.to_sym].class_name.inspect
     return nodes unless self.reflection? and model = self.model
     # Columns
     nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.select{|c| model.has_human_attribute_name?(c.name)}.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections
-    nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
+    nodes << [tc(:reflections), model.reflect_on_all_associations.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
     return nodes
   end
 

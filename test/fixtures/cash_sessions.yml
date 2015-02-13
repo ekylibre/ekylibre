@@ -25,7 +25,7 @@
 #  cash_id              :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(3)
+#  currency             :string
 #  expected_stop_amount :decimal(19, 4)   default(0.0)
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
@@ -48,32 +48,28 @@
 #
 ---
 cash_sessions_001:
- cash_id: 1
- created_at:  2014-10-31 17:19:32.000000000 Z
- creator_id: 1
- currency: EUR
- expected_stop_amount: 0
- id: 1
- lock_version: 1
- noticed_start_amount: 0
- noticed_stop_amount: 0
- started_at: 2014-10-31 17:19:32.000000000 Z
- stopped_at:
- updated_at: 2014-10-31 17:19:32.000000000 Z
- updater_id: 1
-
+  cash_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  expected_stop_amount: 0.0
+  id: 1
+  lock_version: 1
+  noticed_start_amount: 0.0
+  noticed_stop_amount: 0.0
+  started_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
 cash_sessions_002:
- cash_id: 1
- created_at:  2014-10-31 17:19:32.000000000 Z
- creator_id: 1
- currency: EUR
- expected_stop_amount: 0
- id: 2
- lock_version: 1
- noticed_start_amount: 0
- noticed_stop_amount: 0
- started_at: 2014-10-31 17:19:32.000000000 Z
- stopped_at:
- updated_at: 2014-10-31 17:19:32.000000000 Z
- updater_id: 1
-
+  cash_id: 1
+  created_at: 2014-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  currency: EUR
+  expected_stop_amount: 0.0
+  id: 2
+  lock_version: 1
+  noticed_start_amount: 0.0
+  noticed_stop_amount: 0.0
+  started_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1

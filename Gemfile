@@ -14,9 +14,9 @@ gem 'apartment'
 gem 'code_string'
 
 # Gems used only for assets and not required in production
-gem 'sass', '~> 3.2.19' # SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.1' # SCSS for stylesheets
-gem 'uglifier', '>= 1.3.0' # Compressor for JavaScript assets
+gem 'sass' # , '~> 3.2.19' # SCSS for stylesheets
+gem 'sass-rails' #, '~> 4.0.1' # SCSS for stylesheets
+gem 'uglifier' # , '>= 1.3.0' # Compressor for JavaScript assets
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.1'
@@ -125,7 +125,7 @@ gem 'ffaker', require: false
 gem 'feedjira', require: false
 
 # Adds colors in terminal
-gem 'colored', require: false
+gem 'colored' #, require: false
 
 # Compass
 gem 'compass-rails'

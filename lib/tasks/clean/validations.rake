@@ -37,7 +37,7 @@ namespace :clean do
           end
 
           # Update tag
-          content.sub!(regexp, "  "+tag_start+" Do not edit these lines directly. Use `rake clean:validations`.\n" + validations.to_s + "  "+tag_end)
+          content.sub!(regexp, "  "+tag_start+" Do not edit these lines directly. Use `rake clean:validations`.\n" + validations.to_s + "  " + tag_end)
 
           # Save file
           File.open(file, "wb") do |f|
@@ -61,6 +61,7 @@ namespace :clean do
     task :empty do
       Clean::Support.set_search_path!
       errors = []
+
       Dir[Rails.root.join("app", "models", "*.rb")].sort.each do |file|
         class_name = file.split(/\/\\/)[-1].sub(/\.rb$/,'').camelize
         begin

@@ -22,24 +22,24 @@
 #
 # == Table: product_readings
 #
-#  absolute_measure_value_unit  :string(255)
+#  absolute_measure_value_unit  :string
 #  absolute_measure_value_value :decimal(19, 4)
 #  boolean_value                :boolean          not null
-#  choice_value                 :string(255)
+#  choice_value                 :string
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  decimal_value                :decimal(19, 4)
-#  geometry_value               :spatial({:srid=>
+#  geometry_value               :spatial({:srid=>4326, :type=>"geometry"})
 #  id                           :integer          not null, primary key
-#  indicator_datatype           :string(255)      not null
-#  indicator_name               :string(255)      not null
+#  indicator_datatype           :string           not null
+#  indicator_name               :string           not null
 #  integer_value                :integer
 #  lock_version                 :integer          default(0), not null
-#  measure_value_unit           :string(255)
+#  measure_value_unit           :string
 #  measure_value_value          :decimal(19, 4)
 #  originator_id                :integer
-#  originator_type              :string(255)
-#  point_value                  :spatial({:srid=>
+#  originator_type              :string
+#  point_value                  :spatial({:srid=>4326, :type=>"point"})
 #  product_id                   :integer          not null
 #  read_at                      :datetime         not null
 #  string_value                 :text

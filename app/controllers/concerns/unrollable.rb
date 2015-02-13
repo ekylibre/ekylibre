@@ -158,7 +158,7 @@ module Unrollable
         object.map{|o| filterify(o, model, parents) }.flatten
       elsif object.is_a?(Hash)
         object.map do |k, v|
-          unless reflection = model.reflections[k.to_sym]
+          unless reflection = model.reflect_on_association(k)
             raise "Cannot find a reflection #{k} for #{model.name}"
           end
           fmodel = reflection.class_name.constantize

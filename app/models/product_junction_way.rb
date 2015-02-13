@@ -27,11 +27,11 @@
 #  id           :integer          not null, primary key
 #  junction_id  :integer          not null
 #  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
+#  nature       :string           not null
 #  population   :decimal(19, 4)
 #  road_id      :integer          not null
-#  role         :string(255)      not null
-#  shape        :spatial({:srid=>
+#  role         :string           not null
+#  shape        :spatial({:srid=>4326, :type=>"geometry"})
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -42,7 +42,6 @@ class ProductJunctionWay < Ekylibre::Record::Base
   enumerize :nature, in: [:start, :continuity, :finish], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
-  validates_length_of :nature, :role, allow_nil: true, maximum: 255
   validates_presence_of :junction, :nature, :road, :role
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values

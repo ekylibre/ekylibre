@@ -11,7 +11,7 @@ module Indicateable
       for name, value in indicator_values
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
         if data.any?
-          ids << data.pluck(:product_id)
+          ids += data.pluck(:product_id)
         end
       end
       where(id: ids)
@@ -24,7 +24,7 @@ module Indicateable
       for name, value in indicator_values
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
         if data.any?
-          ids << data.pluck(:product_id)
+          ids += data.pluck(:product_id)
         end
       end
       where.not(id: ids)

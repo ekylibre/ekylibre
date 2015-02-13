@@ -28,7 +28,7 @@
 #  category_id              :integer          not null
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  derivative_of            :string(120)
+#  derivative_of            :string
 #  derivatives_list         :text
 #  description              :text
 #  evolvable                :boolean          not null
@@ -36,18 +36,18 @@
 #  id                       :integer          not null, primary key
 #  linkage_points_list      :text
 #  lock_version             :integer          default(0), not null
-#  name                     :string(255)      not null
-#  number                   :string(30)       not null
-#  picture_content_type     :string(255)
-#  picture_file_name        :string(255)
+#  name                     :string           not null
+#  number                   :string           not null
+#  picture_content_type     :string
+#  picture_file_name        :string
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  population_counting      :string(255)      not null
-#  reference_name           :string(120)
+#  population_counting      :string           not null
+#  reference_name           :string
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variable_indicators_list :text
-#  variety                  :string(120)      not null
+#  variety                  :string           not null
 #
 
 
@@ -76,12 +76,11 @@ class ProductNature < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_length_of :number, allow_nil: true, maximum: 30
-  validates_length_of :derivative_of, :reference_name, :variety, allow_nil: true, maximum: 120
-  validates_length_of :name, :picture_content_type, :picture_file_name, :population_counting, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :evolvable, in: [true, false]
   validates_presence_of :category, :name, :number, :population_counting, :variety
   #]VALIDATORS]
+  validates_length_of :number, allow_nil: true, maximum: 30
+  validates_length_of :derivative_of, :reference_name, :variety, allow_nil: true, maximum: 120
   validates_uniqueness_of :number
   validates_uniqueness_of :name
   validates_attachment_content_type :picture, content_type: /image/

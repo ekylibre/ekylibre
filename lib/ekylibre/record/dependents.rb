@@ -7,7 +7,7 @@ module Ekylibre::Record  #:nodoc:
     module InstanceMethods
       # Look for all has_one, has_many and has_and_belongs_to_many reflections
       def has_dependents?
-        refs = self.class.reflections.values.select{|r| r.macro.to_s.match(/^has_/)}
+        refs = self.class.reflect_on_all_associations.select{|r| r.macro.to_s.match(/^has_/)}
         return false unless refs.size > 0
         method_name = "has_"+refs.collect{|r| r.name.to_s}.sort.join("_or_")+"?"
         unless self.respond_to?(method_name)

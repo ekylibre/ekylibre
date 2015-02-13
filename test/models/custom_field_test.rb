@@ -23,19 +23,19 @@
 #
 # == Table: custom_fields
 #
-#  active          :boolean          default(TRUE), not null
-#  column_name     :string(255)      not null
+#  active          :boolean          default(FALSE), not null
+#  column_name     :string           not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  customized_type :string(255)      not null
+#  customized_type :string           not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  maximal_length  :integer
 #  maximal_value   :decimal(19, 4)
 #  minimal_length  :integer
 #  minimal_value   :decimal(19, 4)
-#  name            :string(255)      not null
-#  nature          :string(20)       not null
+#  name            :string           not null
+#  nature          :string           not null
 #  position        :integer
 #  required        :boolean          not null
 #  updated_at      :datetime         not null
@@ -56,9 +56,9 @@ class CustomFieldTest < ActiveSupport::TestCase
     datetime: Time.new(1953, 3, 16, 12, 23)
   }.stringify_keys.freeze
 
-
-  Ekylibre::Record::Base.descendants.each do |model|
-    test "manage custom field on #{model.name.underscore}" do
+  Ekylibre::Schema.models.each do |model_name|
+    model = model_name.to_s.camelcase.constantize
+    test "manage custom field on #{model_name}" do
       I18n.locale = ENV["LOCALE"]
       if !CustomField.customized_type.values.include?(model.name)
         assert_raise ActiveRecord::RecordInvalid, "Cannot add custom field on not customizable models like #{model.name}" do
@@ -110,6 +110,10 @@ class CustomFieldTest < ActiveSupport::TestCase
           assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s == column_name}
           assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s =~ /^\_/}
         end
+
+        # Force reset and test again
+        model.reset_column_information
+        assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s =~ /^\_/}
       end
     end
   end

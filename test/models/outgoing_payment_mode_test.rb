@@ -28,7 +28,7 @@
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  name            :string(50)       not null
+#  name            :string           not null
 #  position        :integer
 #  updated_at      :datetime         not null
 #  updater_id      :integer

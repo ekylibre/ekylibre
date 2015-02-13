@@ -1,4 +1,3 @@
-# coding: utf-8
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -19,11 +18,16 @@ module Ekylibre
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    # config.i18n.default_locale = :de
     config.i18n.available_locales = [:arb, :eng, :fra, :jpn, :spa]
     I18n.config.enforce_available_locales = false
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :eng
     config.i18n.locale = :eng
+
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    # config.active_record.raise_in_transactional_callbacks = true
 
     # Configure defaults for generators
     config.generators do |g|

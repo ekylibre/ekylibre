@@ -27,10 +27,10 @@
 #  creator_id        :integer
 #  document_id       :integer          not null
 #  file_content_text :text
-#  file_content_type :string(255)
-#  file_file_name    :string(255)
+#  file_content_type :string
+#  file_file_name    :string
 #  file_file_size    :integer
-#  file_fingerprint  :string(255)
+#  file_fingerprint  :string
 #  file_pages_count  :integer
 #  file_updated_at   :datetime
 #  id                :integer          not null, primary key
@@ -52,7 +52,6 @@ class DocumentArchive < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :archived_at, :file_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
-  validates_length_of :file_content_type, :file_file_name, :file_fingerprint, allow_nil: true, maximum: 255
   validates_presence_of :archived_at, :document
   #]VALIDATORS]
   validates_presence_of :archived_at

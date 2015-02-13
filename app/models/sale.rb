@@ -35,34 +35,34 @@
 #  creator_id                 :integer
 #  credit                     :boolean          not null
 #  credited_sale_id           :integer
-#  currency                   :string(3)        not null
+#  currency                   :string           not null
 #  delivery_address_id        :integer
 #  description                :text
 #  downpayment_amount         :decimal(19, 4)   default(0.0), not null
-#  expiration_delay           :string(255)
+#  expiration_delay           :string
 #  expired_at                 :datetime
-#  function_title             :string(255)
+#  function_title             :string
 #  has_downpayment            :boolean          not null
 #  id                         :integer          not null, primary key
-#  initial_number             :string(60)
+#  initial_number             :string
 #  introduction               :text
 #  invoice_address_id         :integer
 #  invoiced_at                :datetime
 #  journal_entry_id           :integer
-#  letter_format              :boolean          default(TRUE), not null
+#  letter_format              :boolean          default(FALSE), not null
 #  lock_version               :integer          default(0), not null
 #  nature_id                  :integer
-#  number                     :string(60)       not null
+#  number                     :string           not null
 #  payment_at                 :datetime
-#  payment_delay              :string(255)      not null
+#  payment_delay              :string           not null
 #  prereduction_amount        :decimal(19, 4)   default(0.0), not null
 #  prereduction_pretax_amount :decimal(19, 4)   default(0.0), not null
 #  pretax_amount              :decimal(19, 4)   default(0.0), not null
 #  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_number           :string(255)
+#  reference_number           :string
 #  responsible_id             :integer
-#  state                      :string(60)       not null
-#  subject                    :string(255)
+#  state                      :string           not null
+#  subject                    :string
 #  transporter_id             :integer
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
@@ -91,12 +91,11 @@ class Sale < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :downpayment_amount, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
-  validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, allow_nil: true, maximum: 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
   validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :prereduction_amount, :prereduction_pretax_amount, :pretax_amount, :reduction_percentage, :state
   #]VALIDATORS]
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_at, if: :invoice?
   validates_delay_format_of :payment_delay, :expiration_delay

@@ -18,8 +18,9 @@ module Ekylibre::Record
 
         code << "def #{method_name}\n"
         for reflection in reflections_list
-          ref = self.reflections[reflection]
-          raise ArgumentError.new("reflection unknown (#{self.reflections.keys.to_sentence} available)") unless ref
+          unless ref = self.reflect_on_association(reflection)
+            raise ArgumentError, "Reflection #{reflection.inspect} unknown (#{self.reflect_on_all_associations.map(&:name).to_sentence} available)"
+          end
           if ref.macro == :belongs_to or ref.macro == :has_one
             code << "  if self.#{reflection} and not (self.#{reflection}.destroyed? or self.#{reflection}.marked_for_destruction?)\n"
             code << "    unless self.#{reflection}.reload.save\n"

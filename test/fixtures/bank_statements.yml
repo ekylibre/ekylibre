@@ -26,11 +26,11 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  credit       :decimal(19, 4)   default(0.0), not null
-#  currency     :string(3)        not null
+#  currency     :string           not null
 #  debit        :decimal(19, 4)   default(0.0), not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  number       :string(255)      not null
+#  number       :string           not null
 #  started_at   :datetime         not null
 #  stopped_at   :datetime         not null
 #  updated_at   :datetime         not null

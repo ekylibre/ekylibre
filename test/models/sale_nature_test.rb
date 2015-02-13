@@ -22,22 +22,22 @@
 #
 # == Table: sale_natures
 #
-#  active                  :boolean          default(TRUE), not null
+#  active                  :boolean          default(FALSE), not null
 #  by_default              :boolean          not null
 #  catalog_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(3)        not null
+#  currency                :string           not null
 #  description             :text
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0)
 #  downpayment_percentage  :decimal(19, 4)   default(0.0)
-#  expiration_delay        :string(255)      not null
+#  expiration_delay        :string           not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer
 #  lock_version            :integer          default(0), not null
-#  name                    :string(255)      not null
-#  payment_delay           :string(255)      not null
+#  name                    :string           not null
+#  payment_delay           :string           not null
 #  payment_mode_complement :text
 #  payment_mode_id         :integer
 #  sales_conditions        :text

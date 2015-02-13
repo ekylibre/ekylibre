@@ -33,18 +33,18 @@
 #  financial_asset_depreciations_inputations_expenses_account_id :integer
 #  id                                                            :integer          not null, primary key
 #  lock_version                                                  :integer          default(0), not null
-#  name                                                          :string(255)      not null
-#  number                                                        :string(30)       not null
-#  pictogram                                                     :string(120)
+#  name                                                          :string           not null
+#  number                                                        :string           not null
+#  pictogram                                                     :string
 #  product_account_id                                            :integer
 #  purchasable                                                   :boolean          not null
 #  reductible                                                    :boolean          not null
-#  reference_name                                                :string(255)
+#  reference_name                                                :string
 #  saleable                                                      :boolean          not null
 #  stock_account_id                                              :integer
 #  storable                                                      :boolean          not null
 #  subscribing                                                   :boolean          not null
-#  subscription_duration                                         :string(255)
+#  subscription_duration                                         :string
 #  subscription_nature_id                                        :integer
 #  updated_at                                                    :datetime         not null
 #  updater_id                                                    :integer

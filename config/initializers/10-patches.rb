@@ -3,6 +3,24 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
+# class ActiveRecord::ConnectionAdapters::PostGISAdapter::MainAdapter
+
+#   def quote(value, column = nil)
+#     if RGeo::Feature::Geometry.check_type(value)
+#       "'#{ RGeo::WKRep::WKBGenerator.new(hex_format: true, type_format: :ewkb, emit_ewkb_srid: true).generate(value) }'::geometry"
+#     elsif value.is_a?(RGeo::Cartesian::BoundingBox)
+#       "'#{ value.min_x },#{ value.min_y },#{ value.max_x },#{ value.max_y }'::box"
+#     elsif column and [:point].include?(column.type) and value =~ /\A\(.+\)\z/
+#       "'#{value}'::#{column.type}"
+#     elsif column and [:point, :linestring, :geometry].include?(column.type)
+#       "ST_GeomFromEWKT('#{Charta::Geometry.new(value).to_ewkt}')::#{column.type}"
+#     else
+#       super
+#     end
+#   end
+
+# end
+
 class ::String
 
   def tl(*args)

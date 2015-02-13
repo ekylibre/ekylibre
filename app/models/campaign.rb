@@ -30,8 +30,8 @@
 #  harvest_year :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  number       :string(60)       not null
+#  name         :string           not null
+#  number       :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -43,11 +43,10 @@ class Campaign < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
-  validates_length_of :number, allow_nil: true, maximum: 60
-  validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
+  validates_length_of :number, allow_nil: true, maximum: 60
   validates :harvest_year, length: {is: 4}, allow_nil: true
   validates_uniqueness_of :name
   before_validation :set_default_values, on: :create

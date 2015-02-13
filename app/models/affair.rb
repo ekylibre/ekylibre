@@ -29,15 +29,15 @@
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  credit           :decimal(19, 4)   default(0.0), not null
-#  currency         :string(3)        not null
+#  currency         :string           not null
 #  deals_count      :integer          default(0), not null
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
+#  number           :string           not null
 #  originator_id    :integer          not null
-#  originator_type  :string(255)      not null
+#  originator_type  :string           not null
 #  third_id         :integer          not null
 #  ticket           :boolean          not null
 #  updated_at       :datetime         not null
@@ -72,11 +72,10 @@ class Affair < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :credit, :debit, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :number, :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :closed, :ticket, in: [true, false]
   validates_presence_of :credit, :currency, :debit, :number, :originator, :originator_type, :third
   #]VALIDATORS]
+  validates_length_of :currency, allow_nil: true, maximum: 3
   # validates_inclusion_of :third_role, in: self.third_role.values
 
   acts_as_numbered
@@ -137,7 +136,7 @@ class Affair < Ekylibre::Record::Base
   def self.clean_deads
     self.where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + AFFAIRABLE_TYPES.collect do |type|
                  model = type.constantize
-                 " AND id NOT IN (SELECT #{model.reflections[:affair].foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
+                 " AND id NOT IN (SELECT #{model.reflect_on_association(:affair).foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
                end.join).delete_all
   end
 

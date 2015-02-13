@@ -123,7 +123,7 @@ module Backend::TimelineHelper
     end
 
     def side(name, options = {})
-      unless reflection = @model.reflections[name]
+      unless reflection = @model.reflect_on_association(name)
         raise ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
       end
       klass = reflection.class_name.constantize

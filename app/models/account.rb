@@ -27,11 +27,11 @@
 #  debtor       :boolean          not null
 #  description  :text
 #  id           :integer          not null, primary key
-#  label        :string(255)      not null
-#  last_letter  :string(10)
+#  label        :string           not null
+#  last_letter  :string
 #  lock_version :integer          default(0), not null
-#  name         :string(200)      not null
-#  number       :string(20)       not null
+#  name         :string           not null
+#  number       :string           not null
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -62,13 +62,12 @@ class Account < Ekylibre::Record::Base
   has_many :stocks_categories,    class_name: "ProductNatureCategory", foreign_key: :stock_account_id
   has_many :suppliers,            class_name: "Entity", foreign_key: :supplier_account_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :last_letter, allow_nil: true, maximum: 10
-  validates_length_of :number, allow_nil: true, maximum: 20
-  validates_length_of :name, allow_nil: true, maximum: 200
-  validates_length_of :label, allow_nil: true, maximum: 255
   validates_inclusion_of :debtor, :reconcilable, in: [true, false]
   validates_presence_of :label, :name, :number
   #]VALIDATORS]
+  validates_length_of :last_letter, allow_nil: true, maximum: 10
+  validates_length_of :number, allow_nil: true, maximum: 20
+  validates_length_of :name, allow_nil: true, maximum: 200
   validates_format_of :number, :with => /\A\d(\d(\d[0-9A-Z]*)?)?\z/
   validates_uniqueness_of :number
 
@@ -136,8 +135,8 @@ class Account < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      return true if self.send(k).any?
+    for r in self.class.reflect_on_all_associations(:has_many)
+      return true if self.send(r.name).any?
     end
     return false
   end

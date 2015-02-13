@@ -1,6 +1,6 @@
 require 'coveralls'
 Coveralls.wear!('rails')
-ENV["RAILS_ENV"] ||= "test"
+ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
@@ -70,12 +70,7 @@ end
 
 
 class ActiveSupport::TestCase
-  ActiveRecord::Migration.check_pending!
-
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
@@ -99,7 +94,7 @@ class ActiveSupport::TestCase
     record_type = model.name.underscore
     test "validity of fixtures" do
       invalids = []
-      reflections = model.reflections.values.select{|r| r.macro == :belongs_to }.delete_if{|r| r.name.to_s == "item" and model == Version }
+      reflections = model.reflect_on_all_associations(:belongs_to).delete_if{|r| r.name.to_s == "item" and model == Version }
       model.includes(reflections.collect(&:name)).find_each do |record|
         unless record.valid?
           invalids << "##{record.id}: #{record.errors.full_messages.to_sentence}"

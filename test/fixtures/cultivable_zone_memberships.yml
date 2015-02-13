@@ -29,7 +29,7 @@
 #  lock_version :integer          default(0), not null
 #  member_id    :integer          not null
 #  population   :decimal(19, 4)
-#  shape        :spatial({:srid=>
+#  shape        :spatial({:srid=>4326, :type=>"geometry"})
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

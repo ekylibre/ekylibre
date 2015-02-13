@@ -26,14 +26,14 @@
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
 #  external                      :boolean          not null
-#  frequency                     :string(255)      not null
+#  frequency                     :string           not null
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
-#  name                          :string(255)      not null
-#  nature                        :string(255)      not null
-#  reference_name                :string(255)
-#  reference_source_content_type :string(255)
-#  reference_source_file_name    :string(255)
+#  name                          :string           not null
+#  nature                        :string           not null
+#  reference_name                :string
+#  reference_source_content_type :string
+#  reference_source_file_name    :string
 #  reference_source_file_size    :integer
 #  reference_source_updated_at   :datetime
 #  updated_at                    :datetime         not null

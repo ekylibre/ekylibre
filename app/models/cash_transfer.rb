@@ -29,14 +29,14 @@
 #  description                :text
 #  emission_amount            :decimal(19, 4)   not null
 #  emission_cash_id           :integer          not null
-#  emission_currency          :string(3)        not null
+#  emission_currency          :string           not null
 #  emission_journal_entry_id  :integer
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
-#  number                     :string(255)      not null
+#  number                     :string           not null
 #  reception_amount           :decimal(19, 4)   not null
 #  reception_cash_id          :integer          not null
-#  reception_currency         :string(3)        not null
+#  reception_currency         :string           not null
 #  reception_journal_entry_id :integer
 #  transfered_at              :datetime         not null
 #  updated_at                 :datetime         not null
@@ -54,10 +54,9 @@ class CashTransfer < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
-  validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
-  validates_length_of :number, allow_nil: true, maximum: 255
   validates_presence_of :currency_rate, :emission_amount, :emission_cash, :emission_currency, :number, :reception_amount, :reception_cash, :reception_currency, :transfered_at
   #]VALIDATORS]
+  validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
   validates_numericality_of :emission_amount, greater_than: 0.0
   validates_presence_of :transfered_at
 

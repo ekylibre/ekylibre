@@ -14,3 +14,7 @@ end
 YAML.add_domain_type("wgs84.geo.ekylibre.org,2014", "point") do |type, val|
   Charta::Geometry.new({type: "Point", coordinates: val}.stringify_keys, :WGS84).to_ewkt
 end
+
+# YAML.add_domain_type("wgs84.geo.ekylibre.org,2015", "wkt") do |type, val|
+#   Charta::Geometry.new(val, :WGS84)
+# end

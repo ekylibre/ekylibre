@@ -22,8 +22,8 @@
 #
 # == Table: imports
 #
-#  archive_content_type   :string(255)
-#  archive_file_name      :string(255)
+#  archive_content_type   :string
+#  archive_file_name      :string
 #  archive_file_size      :integer
 #  archive_updated_at     :datetime
 #  created_at             :datetime         not null
@@ -32,9 +32,9 @@
 #  imported_at            :datetime
 #  importer_id            :integer
 #  lock_version           :integer          default(0), not null
-#  nature                 :string(255)      not null
+#  nature                 :string           not null
 #  progression_percentage :decimal(19, 4)
-#  state                  :string(255)      not null
+#  state                  :string           not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
@@ -47,7 +47,6 @@ class Import < Ekylibre::Record::Base
   validates_datetime :archive_updated_at, :imported_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :archive_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :progression_percentage, allow_nil: true
-  validates_length_of :archive_content_type, :archive_file_name, :nature, :state, allow_nil: true, maximum: 255
   validates_presence_of :nature, :state
   #]VALIDATORS]
   validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true

@@ -23,11 +23,11 @@
 # == Table: manure_management_plan_zones
 #
 #  absorbed_nitrogen_at_opening                    :decimal(19, 4)
-#  administrative_area                             :string(255)
-#  computation_method                              :string(255)      not null
+#  administrative_area                             :string
+#  computation_method                              :string           not null
 #  created_at                                      :datetime         not null
 #  creator_id                                      :integer
-#  cultivation_variety                             :string(255)
+#  cultivation_variety                             :string
 #  expected_yield                                  :decimal(19, 4)
 #  humus_mineralization                            :decimal(19, 4)
 #  id                                              :integer          not null, primary key
@@ -43,7 +43,7 @@
 #  organic_fertilizer_mineral_fraction             :decimal(19, 4)
 #  plan_id                                         :integer          not null
 #  previous_cultivation_residue_mineralization     :decimal(19, 4)
-#  soil_nature                                     :string(255)
+#  soil_nature                                     :string
 #  soil_production                                 :decimal(19, 4)
 #  support_id                                      :integer          not null
 #  updated_at                                      :datetime         not null
@@ -62,7 +62,6 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   enumerize :administrative_area, in: Nomen::AdministrativeAreas.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absorbed_nitrogen_at_opening, :expected_yield, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :maximum_nitrogen_input, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
-  validates_length_of :administrative_area, :computation_method, :cultivation_variety, :soil_nature, allow_nil: true, maximum: 255
   validates_presence_of :computation_method, :plan, :support
   #]VALIDATORS]
 

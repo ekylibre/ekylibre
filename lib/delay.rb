@@ -46,7 +46,9 @@ class Delay
     base = (expression.nil? ? nil : expression.dup)
     expression ||= []
     expression = expression.to_s.strip.split(/\s*\,\s*/) if expression.is_a?(String)
-    raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})") unless expression.is_a?(Array)
+    unless expression.is_a?(Array)
+      raise ArgumentError, "String or Array expected (got #{expression.class.name}:#{expression.inspect})"
+    end
     @expression = expression.collect do |step|
       # step = step.mb_chars.downcase
       if step.match(/\A(eom|end of month|fdm|fin de mois)\z/)
@@ -147,21 +149,12 @@ class Delay
   module Validation
 
     module Validator
-      class DelayFormatValidator < ActiveModel::EachValidator
-        def validate_each(record, attribute, value)
-          begin
-            Delay.new(value)
-          rescue InvalidDelayExpression => e
-            record.errors.add(attributes, :invalid, options.merge(:value => value))
-          end
-        end
-      end
     end
 
     module ClassMethods
       def validates_delay_format_of(*attr_names)
         for attr_name in attr_names
-          validate attr_name, delay: true
+          validates attr_name, delay: true
         end
         # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
       end
@@ -174,3 +167,12 @@ end
 
 
 
+class DelayValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
+    begin
+      Delay.new(value)
+    rescue InvalidDelayExpression => e
+      record.errors.add(attributes, :invalid, options.merge(:value => value))
+    end
+  end
+end

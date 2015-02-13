@@ -49,7 +49,7 @@ module ApplicationHelper
   def selector(object_name, association, choices, options = {}, html_options = {})
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
-    unless reflection = object.class.reflections[association.to_sym]
+    unless reflection = object.class.reflect_on_association(association)
       raise ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
     end
     if reflection.macro != :belongs_to

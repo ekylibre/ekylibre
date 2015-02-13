@@ -25,9 +25,9 @@ namespace :clean do
       model = table.classify.constantize rescue nil
       for column in columns
         next if column.name =~ /\A\_/
-        column_hash = {}
+        column_hash = {type: column.type.to_s}
         schema_yaml << "  #{column.name}: {type: #{column.type}"
-        column_hash[:type] = column.type.to_s
+
         if column.type == :decimal
           if column.precision
             schema_yaml << ", precision: #{column.precision}"
@@ -49,16 +49,16 @@ namespace :clean do
               val = "~#{reference_name}_type"
             elsif symodels.include? reference_name
               val = reference_name
-            elsif model and reflection = model.reflections[reference_name]
+            elsif model and reflection = model.reflect_on_association(reference_name)
               val = reflection.class_name.underscore.to_sym
             end
           end
           errors += 1 if val.nil?
           schema_yaml << ", references: #{val.to_s}"
-          column_hash[:references] = val
+          column_hash[:references] = val.to_s
         end
-        if column.type == :string and column.limit.to_i != 255
-          schema_yaml << ", limit: #{column.limit}"
+        if column.limit
+          schema_yaml << ", limit: #{column.limit.inspect}"
           column_hash[:limit] = column.limit
         end
         if column.null.is_a? FalseClass
@@ -68,18 +68,22 @@ namespace :clean do
         unless column.default.nil?
           if column.type == :string
             schema_yaml << ", default: #{column.default.inspect}"
+            column_hash[:default] = column.default
           else
             schema_yaml << ", default: #{column.default.to_s}"
           end
-          column_hash[:default] = column.default
+          if column.type == :boolean
+            column_hash[:default] = !(column.default == 'false')
+          end
         end
         schema_yaml << "}\n"
-        schema_hash[table][column.name] = column_hash
+        schema_hash[table][column.name] = column_hash.deep_stringify_keys
       end.join(",\n").dig
     end.join(",\n").dig
 
     File.open(Ekylibre::Schema.root.join("tables.yml"), "wb") do |f|
-      f.write(schema_yaml)
+      # f.write(schema_yaml)
+      f.write(schema_hash.to_yaml)
     end
 
     File.open(Ekylibre::Schema.root.join("models.yml"), "wb") do |f|

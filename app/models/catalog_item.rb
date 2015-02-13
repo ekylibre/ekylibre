@@ -26,13 +26,13 @@
 #  amount                 :decimal(19, 4)   not null
 #  catalog_id             :integer          not null
 #  commercial_description :text
-#  commercial_name        :string(255)
+#  commercial_name        :string
 #  created_at             :datetime         not null
 #  creator_id             :integer
-#  currency               :string(3)        not null
+#  currency               :string           not null
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
-#  name                   :string(255)      not null
+#  name                   :string           not null
 #  reference_tax_id       :integer
 #  updated_at             :datetime         not null
 #  updater_id             :integer
@@ -48,11 +48,10 @@ class CatalogItem < Ekylibre::Record::Base
   belongs_to :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :commercial_name, :name, allow_nil: true, maximum: 255
   validates_inclusion_of :all_taxes_included, in: [true, false]
   validates_presence_of :amount, :catalog, :currency, :name, :variant
   #]VALIDATORS]
+  validates_length_of :currency, allow_nil: true, maximum: 3
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true

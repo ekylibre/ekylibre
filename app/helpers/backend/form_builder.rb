@@ -587,7 +587,7 @@ class SimpleForm::Inputs::DateTimeInput
     super
   end
 
-  def input
+  def input(wrapper_options = nil)
     @builder.text_field(attribute_name, input_html_options)
     # @builder.send("#{input_type}_field", attribute_name, input_html_options)
   end

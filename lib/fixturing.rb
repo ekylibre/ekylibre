@@ -74,7 +74,9 @@ module Fixturing
           for attribute, value in row.sort
             if columns[attribute]
               unless value.nil?
-                record[attribute] = convert_value(value, columns[attribute][:type].to_sym)
+                type = columns[attribute].type
+                type = columns[attribute].limit[:type] if columns[attribute].limit.is_a?(Hash)
+                record[attribute] = convert_value(value, type.to_sym)
               end
             else
               puts attribute.red
@@ -335,7 +337,9 @@ module Fixturing
       value = value.to_s
       value = if type == :float
                 value.to_f
-              elsif type == :spatial
+              # elsif type == :point
+              #   Charta::Geometry.new("POINT#{value}").to_ewkt
+              elsif type == :geometry or type == :spatial
                 Charta::Geometry.new(value).to_ewkt
               elsif type == :decimal
                 value.to_f

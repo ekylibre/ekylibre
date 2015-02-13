@@ -22,16 +22,16 @@
 #
 # == Table: trackings
 #
-#  active       :boolean          default(TRUE), not null
+#  active       :boolean          default(FALSE), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  description  :text
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
+#  name         :string           not null
 #  producer_id  :integer
 #  product_id   :integer
-#  serial       :string(255)
+#  serial       :string
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

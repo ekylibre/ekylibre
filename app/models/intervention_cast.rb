@@ -30,12 +30,12 @@
 #  id                     :integer          not null, primary key
 #  intervention_id        :integer          not null
 #  lock_version           :integer          default(0), not null
-#  nature                 :string(255)      not null
+#  nature                 :string           not null
 #  population             :decimal(19, 4)
 #  position               :integer          not null
-#  reference_name         :string(255)      not null
-#  roles                  :string(320)
-#  shape                  :spatial({:srid=>
+#  reference_name         :string           not null
+#  roles                  :string
+#  shape                  :spatial({:srid=>4326, :type=>"geometry"})
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variant_id             :integer
@@ -54,10 +54,9 @@ class InterventionCast < Ekylibre::Record::Base
   has_one :event,    through: :intervention
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
-  validates_length_of :nature, :reference_name, allow_nil: true, maximum: 255
-  validates_length_of :roles, allow_nil: true, maximum: 320
   validates_presence_of :intervention, :nature, :reference_name
   #]VALIDATORS]
+  validates_length_of :roles, allow_nil: true, maximum: 320
 
   delegate :name, to: :actor, prefix: true
   delegate :name, to: :product_nature, prefix: true

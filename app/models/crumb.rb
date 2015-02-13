@@ -26,13 +26,13 @@
 #  accuracy             :decimal(19, 4)   not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  device_uid           :string(255)      not null
-#  geolocation          :spatial({:srid=> not null
+#  device_uid           :string           not null
+#  geolocation          :spatial({:srid=>4326, :type=>"point"}) not null
 #  id                   :integer          not null, primary key
 #  intervention_cast_id :integer
 #  lock_version         :integer          default(0), not null
 #  metadata             :text
-#  nature               :string(255)      not null
+#  nature               :string           not null
 #  read_at              :datetime         not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -47,7 +47,6 @@ class Crumb < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :accuracy, allow_nil: true
-  validates_length_of :device_uid, :nature, allow_nil: true, maximum: 255
   validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
   #]VALIDATORS]
   serialize :metadata, Hash

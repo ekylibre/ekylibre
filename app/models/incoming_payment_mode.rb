@@ -34,7 +34,7 @@
 #  detail_payments         :boolean          not null
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
-#  name                    :string(50)       not null
+#  name                    :string           not null
 #  position                :integer
 #  updated_at              :datetime         not null
 #  updater_id              :integer
@@ -58,10 +58,10 @@ class IncomingPaymentMode < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percentage, allow_nil: true
-  validates_length_of :name, allow_nil: true, maximum: 50
   validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, in: [true, false]
   validates_presence_of :commission_base_amount, :commission_percentage, :name
   #]VALIDATORS]
+  validates_length_of :name, allow_nil: true, maximum: 50
   validates_numericality_of :commission_percentage, :greater_than_or_equal_to => 0, if: :with_commission?
   validates_presence_of :depositables_account, if: :with_deposit?
   validates_presence_of :depositables_journal, if: :with_deposit?

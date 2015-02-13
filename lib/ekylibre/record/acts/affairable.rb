@@ -10,7 +10,7 @@ module Ekylibre::Record
 
         def acts_as_affairable(*args)
           options = args.extract_options!
-          reflection = self.reflections[options[:reflection] || :affair]
+          reflection = self.reflect_on_association(options[:reflection] || :affair)
           currency = options[:currency] || :currency
           options[:dealt_at] ||= :created_at
           options[:amount] ||= :amount
@@ -220,7 +220,7 @@ module Ekylibre::Record
           code << "end\n"
 
           code << "def self.deal_third\n"
-          code << "  return self.reflections[:#{options[:third]}]\n"
+          code << "  return self.reflect_on_association(:#{options[:third]})\n"
           code << "end\n"
 
           # Define the third of the deal

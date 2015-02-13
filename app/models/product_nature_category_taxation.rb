@@ -30,14 +30,13 @@
 #  tax_id                     :integer          not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
-#  usage                      :string(255)      not null
+#  usage                      :string           not null
 #
 class ProductNatureCategoryTaxation < Ekylibre::Record::Base
   belongs_to :product_nature_category, dependent: :destroy, inverse_of: :taxations
   belongs_to :tax
   enumerize :usage, in: [:sale, :purchase]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :usage, allow_nil: true, maximum: 255
   validates_presence_of :product_nature_category, :tax, :usage
   #]VALIDATORS]
 end

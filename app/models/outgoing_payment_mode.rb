@@ -28,7 +28,7 @@
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  name            :string(50)       not null
+#  name            :string           not null
 #  position        :integer
 #  updated_at      :datetime         not null
 #  updater_id      :integer
@@ -41,10 +41,10 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   belongs_to :cash
   has_many :payments, class_name: "OutgoingPayment", foreign_key: :mode_id, inverse_of: :mode
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, allow_nil: true, maximum: 50
   validates_inclusion_of :active, :with_accounting, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]
+  validates_length_of :name, allow_nil: true, maximum: 50
   validates_presence_of :cash
 
   delegate :currency, to: :cash
