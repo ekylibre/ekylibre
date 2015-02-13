@@ -49,15 +49,15 @@ module Tele
           if get_urls
 
             if get_token
-              #TODO
-              success = false
+
+              success = true
+
             end
 
           end
 
         else
 
-          #TODO: token could be set from previous operation
           success = true
 
         end
@@ -79,6 +79,8 @@ module Tele
           globals.env_namespace :soapenv
           globals.namespace_identifier 'tk'
           globals.namespaces 'xmlns:tk' => 'http://www.fiea.org/tk/','xmlns:typ' => 'http://www.fiea.org/types/'
+          globals.open_timeout 15
+          globals.read_timeout 15
         end
 
 
@@ -136,8 +138,13 @@ module Tele
 
         return true
 
-      rescue Savon::SOAPFault, Savon::HTTPError,Curl::Err::ConnectionFailedError => error
+      rescue Savon::SOAPFault, Savon::HTTPError, Curl::Err::ConnectionFailedError => error
         Rails.logger.warn error.http.code
+
+      rescue Curl::Err::TimeoutError
+        Rails.logger.warn 'Timeout'
+
+      rescue Exception => error
         raise EdnotifError, error.message
       end
 
@@ -148,18 +155,18 @@ module Tele
 
       def get_token
 
-        #TODO
-
         unless @customs_wsdl.nil?
 
           client = Savon.client do | globals |
             globals.wsdl @customs_wsdl
             globals.convert_request_keys_to :camelcase
-            globals.log true
+            #globals.log true
             globals.env_namespace :soapenv
             globals.namespace_identifier 'tk'
             globals.namespaces 'xmlns:tk' => 'http://www.fiea.org/tk/','xmlns:typ' => 'http://www.fiea.org/types/'
             globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
           end
 
           res = client.call(:tk_create_identification,
@@ -177,7 +184,8 @@ module Tele
                                 }
                             })
 
-          doc = Nokogiri::XML(res.body[:tk_get_identification_response].to_xml)
+          doc = Nokogiri::XML(res.body[:tk_create_identification_response].to_xml)
+
 
           result = doc.at_xpath('//resultat/child::text()')
           err = doc.at_xpath('//anomalie')
@@ -198,9 +206,8 @@ module Tele
             # everything is good
           elsif result
 
-            token =  doc.at_xpath('//Jeton/child::text()')
+            token =  doc.at_xpath('//jeton/child::text()')
 
-            print token
 
             if token.nil?
 
@@ -219,10 +226,13 @@ module Tele
 
           return false
 
-      rescue Savon::SOAPFault, Savon::HTTPError,Curl::Err::ConnectionFailedError => error
-        #logger.warn error.http.code
-        #fault_code = error.to_hash[:fault][:faultcode]
-        #raise EdnotifError, fault_code
+      rescue Savon::SOAPFault, Savon::HTTPError, Curl::Err::ConnectionFailedError => error
+        Rails.logger.warn error.http.code
+
+      rescue Curl::Err::TimeoutError
+        Rails.logger.warn 'Timeout'
+
+      rescue Exception => error
         raise EdnotifError, error.message
 
       end
@@ -236,7 +246,7 @@ module Tele
       # @param [string] animal_id: Numéro national du bovin. max length: 12
       # @param [date] entry_date: Date entrée du bovin
       # @param [string] entry_reason: Cause d'entrée. (A/P) A=Achat, P=Prêt, pension
-      # @param [string] src_country_code: Code pays de l'exploitation de provenance. length: 2
+      # @param [string] src_country_code:A Code pays de l'exploitation de provenance. length: 2
       # @param [string] src_farm_number: Numéro d'exploitation de provenance. length: 12
       # @param [string] src_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le code atelier, du type AtelierBovinIPG(cf p18). length: 2

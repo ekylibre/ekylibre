@@ -19,20 +19,22 @@ class Ekylibre::EdnotifTest < ActiveSupport::TestCase
     @tr = ::Tele::Idele::Ednotif.new args
   end
 
-  test 'retrieving urls from Reswel' do
+=begin
+  test 'manually retrieving urls from Reswel' do
     @tr.get_urls
 
     assert_not_empty(@tr.instance_variable_get('@business_wsdl'))
     assert_not_empty(@tr.instance_variable_get('@customs_wsdl'))
 
   end
+=end
 
 
 =begin
   test 'raising missing wsdl exceptions while retrieving urls from Reswel' do
 
     args = { directory_wsdl: 'http://zoe.cmre.fr:80/wsannuaire/WsAnnuaire?wsdl',
-               company_code: 'E999',
+               company_code: 'E999', #Hacked company code for throwing exception
                geo: '',
                app_name: 'Ekylibre',
                ednotif_service_name: 'IpBNotif',
@@ -52,14 +54,25 @@ class Ekylibre::EdnotifTest < ActiveSupport::TestCase
 =end
 
 
-  test 'retrieving token from Reswel' do
+=begin
+  test 'manually retrieving token from Reswel' do
 
     @tr.instance_variable_set( '@customs_wsdl', 'https://zoe.cmre.fr/wsguichet/WsGuichet?wsdl' )
     @tr.get_token
     assert_not_empty(@tr.instance_variable_get('@token'))
-    print @tr.instance_variable_get('@token')
 
-    #SSLError: Peer certificate cannot be authenticated with given CA certificates
+  end
+=end
+
+  test 'automatically authentication from Reswel' do
+
+    authenticated = @tr.authenticate
+
+    assert(authenticated)
+    assert_not_empty(@tr.instance_variable_get('@business_wsdl'))
+    assert_not_empty(@tr.instance_variable_get('@customs_wsdl'))
+    assert_not_empty(@tr.instance_variable_get('@token'))
+
   end
 
 
