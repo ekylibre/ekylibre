@@ -193,6 +193,15 @@
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
             />
+      <item name="male_adult_goat_herd"
+            category="cattle_herd"
+            variety="animal_group"
+            derivative_of="capra"
+            population_counting="integer"
+            abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement)"
+            variable_indicators="population"
+            frozen_indicators="sex, reproductor"
+            />
       <item name="male_adult_goat"
             category="male_adult_cow"
             variety="capra"

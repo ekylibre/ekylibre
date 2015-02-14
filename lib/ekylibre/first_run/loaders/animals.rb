@@ -58,7 +58,7 @@ Ekylibre::FirstRun.add_loader :animals do |first_run|
           next if row[0].blank?
           r = OpenStruct.new(name: row[0],
                              nature: row[1].to_sym,
-                             code: row[2].to_sym,
+                             code: (row[2].blank? ? nil : row[2].to_s),
                              place: (row[3].blank? ? nil : row[3].to_s),
                              group: (row[4].blank? ? nil : row[4].to_s),
                              born_at: (row[5].blank? ? (Date.today) : row[5]).to_datetime,

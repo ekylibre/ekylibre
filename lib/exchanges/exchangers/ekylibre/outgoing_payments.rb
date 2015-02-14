@@ -8,6 +8,7 @@ Exchanges.add_importer :ekylibre_outgoing_payments do |file, w|
   responsible = User.employees.first
 
   rows.each do |row|
+    next if row[2].blank?
     r = {
       document_reference_number: (row[0].blank? ? nil : row[0].to_s),
       outgoing_payment_mode_name: (row[1].blank? ? nil : row[1].to_s),

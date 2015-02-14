@@ -136,6 +136,12 @@
             unit_name="head"
             frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.17"
             />
+       <item name="male_adult_goat_herd"
+            nature="male_adult_goat_herd"
+            derivative_of="capra"
+            unit_name="band"
+            frozen_indicators_values="sex: male, reproductor: true"
+            />
       <item name="young_goat"
             nature="young_goat"
             unit_name="head"
@@ -263,8 +269,12 @@
             nature="young_rabbit"
             unit_name="head"
             />
-      <!-- HORSE -->
+      <!-- HORSE & PONY -->
       <item name="horse_herd"
+            nature="horse_herd"
+            unit_name="band"
+            />
+      <item name="pony_herd"
             nature="horse_herd"
             unit_name="band"
             />
@@ -274,6 +284,16 @@
             frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.79"
             />
       <item name="male_adult_horse"
+            nature="female_adult_horse"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.83"
+            />
+      <item name="female_adult_pony"
+            nature="female_adult_horse"
+            unit_name="head"
+            frozen_indicators_values="population: 1, sex: female, reproductor: true, livestock_unit: 0.79"
+            />
+      <item name="male_adult_pony"
             nature="female_adult_horse"
             unit_name="head"
             frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.83"
@@ -968,6 +988,24 @@
             frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 0.001cubic_meter"
             />
       <item name="25kg_bag_animal_food"
+            nature="animal_food"
+            derivative_of="plant"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.030cubic_meter"
+            />
+      <item name="25kg_bag_hen_food"
+            nature="animal_food"
+            derivative_of="plant"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.030cubic_meter"
+            />
+       <item name="25kg_bag_rabbit_food"
+            nature="animal_food"
+            derivative_of="plant"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.030cubic_meter"
+            />
+      <item name="25kg_bag_pig_food"
             nature="animal_food"
             derivative_of="plant"
             unit_name="25kg_bag"

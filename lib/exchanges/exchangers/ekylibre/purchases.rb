@@ -5,6 +5,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
   w.count = rows.size
 
   rows.each do |row|
+    next if row[1].blank?
     r = {
       document_reference_number: (row[0].blank? ? nil : row[0].to_s),
       variant_nomen: (row[1].blank? ? nil : row[1].to_sym),

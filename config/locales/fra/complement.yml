@@ -19902,6 +19902,7 @@ fra:
         maintenance: "Maintenance"
         male_adult_cow: "Taureau"
         male_adult_goat: "Bouc"
+        male_adult_goat_herd: "Groupe de bouc"
         male_adult_horse: "Etalon"
         male_adult_pig: "Vérrat"
         male_adult_sheep: "Bélier"

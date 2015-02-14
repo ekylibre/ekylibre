@@ -7,6 +7,7 @@ Exchanges.add_importer :ekylibre_matters do |file, w|
     w.count = rows.size
 
     rows.each do |row|
+      next if row[0].blank?
       r = {
         :name => row[0].blank? ? nil : row[0].to_s.strip,
                              :variant_reference_name => row[1].blank? ? nil : row[1].downcase.to_sym,
