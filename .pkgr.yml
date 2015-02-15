@@ -1,0 +1,12 @@
+build_dependencies:
+  - libgeos-dev
+  - libgeos++-dev
+  - libproj-dev
+  - libpq-dev
+  - libxml2-dev 
+  - libxslt1-dev
+  - libgdal1-dev
+  - libjson0-dev
+  - zlib1g-dev
+before_precompile: "pkg/before_precompile.sh"
+before_install: "pkg/before_install.sh"

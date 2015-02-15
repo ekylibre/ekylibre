@@ -1,2 +1,23 @@
----
-# Empty manifest for true default installation
+# Manifest with french comments
+# Manifeste avec commentaires en français
+currency: EUR                                    # Code monnaie
+country: fr                                      # Code pays
+language: fra                                    # Code langue
+map_measure_srid: 2154                           # Code référentiel spatial
+host: demo.ekylibre.lan
+sales_conditions: "Une indemnité forfaitaire de 40 € sera réclamée pour frais de recouvrement, en cas de retard de paiement"    #conditions de vente par défault
+demo: false                                       # Mode démo (oui/non)
+create_activities_from_telepac: false            # Création des activités uniquement à partir des fichiers TELEPAC
+company:
+  last_name: ENTREPRISE DEFAUT                         # Nom
+  addresses:
+    email: gaec.dupont@truc.com                  # Adresse e-mail de votre société
+    mail:
+      line_4: 8 rue du bouil bleu                # Adresse de votre société
+      line_6: 17250 SAINT-PORCHAIRE              # Code postal et ville de votre société
+users:
+  admin@ekylibre.org:                            # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Christian                        # Prénom
+    last_name: DUPONT                            # Nom de famille
+    password: 12345678                           # Mot de passe
+    employed: true
