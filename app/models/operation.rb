@@ -29,7 +29,7 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
-#  reference_name  :string           not null
+#  reference_name  :string(255)      not null
 #  started_at      :datetime         not null
 #  stopped_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -63,6 +63,7 @@ class Operation < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :duration, allow_nil: true, only_integer: true
+  validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :intervention, :reference_name, :started_at, :stopped_at
   #]VALIDATORS]
 

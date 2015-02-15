@@ -28,9 +28,9 @@
 #  id               :integer          not null, primary key
 #  irrigated        :boolean          not null
 #  lock_version     :integer          default(0), not null
-#  nature           :string           not null
+#  nature           :string(255)      not null
 #  production_id    :integer          not null
-#  production_usage :string           not null
+#  production_usage :string(255)      not null
 #  started_at       :datetime
 #  stopped_at       :datetime
 #  storage_id       :integer          not null
@@ -55,6 +55,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :nature, :production_usage, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :nature, :production, :production_usage, :storage
   #]VALIDATORS]

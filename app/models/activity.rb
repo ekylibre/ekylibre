@@ -25,11 +25,11 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  description  :text
-#  family       :string
+#  family       :string(255)
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  nature       :string           not null
+#  name         :string(255)      not null
+#  nature       :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -40,6 +40,7 @@ class Activity < Ekylibre::Record::Base
   has_many :productions
   has_many :supports, through: :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :family, :name, :nature, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :family, in: self.family.values, allow_nil: true

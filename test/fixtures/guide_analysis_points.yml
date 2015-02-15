@@ -22,14 +22,14 @@
 #
 # == Table: guide_analysis_points
 #
-#  acceptance_status     :string           not null
-#  advice_reference_name :string
+#  acceptance_status     :string(255)      not null
+#  advice_reference_name :string(255)
 #  analysis_id           :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
-#  reference_name        :string           not null
+#  reference_name        :string(255)      not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #

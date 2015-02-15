@@ -22,7 +22,7 @@
 #
 # == Table: guide_analyses
 #
-#  acceptance_status :string           not null
+#  acceptance_status :string(255)      not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  execution_number  :integer          not null
@@ -42,6 +42,7 @@ class GuideAnalysis < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :execution_number, allow_nil: true, only_integer: true
+  validates_length_of :acceptance_status, allow_nil: true, maximum: 255
   validates_inclusion_of :latest, in: [true, false]
   validates_presence_of :acceptance_status, :execution_number, :guide, :started_at, :stopped_at
   #]VALIDATORS]

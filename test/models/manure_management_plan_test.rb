@@ -26,11 +26,11 @@
 #  campaign_id                :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
-#  default_computation_method :string           not null
+#  default_computation_method :string(255)      not null
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
 #  locked                     :boolean          not null
-#  name                       :string           not null
+#  name                       :string(255)      not null
 #  opened_at                  :datetime         not null
 #  recommender_id             :integer          not null
 #  selected                   :boolean          not null

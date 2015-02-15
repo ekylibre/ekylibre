@@ -29,8 +29,8 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number           :string
+#  name             :string(255)      not null
+#  number           :string(255)
 #  reflected        :boolean          not null
 #  reflected_at     :datetime
 #  responsible_id   :integer

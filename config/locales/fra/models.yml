@@ -801,6 +801,7 @@ fra:
     initial_dead_at: "Date initiale de décès"
     initial_enjoyer: "Bénéficiaire initial"
     initial_father: "Père initial"
+    # initial_geolocation: "Initial geolocation"
     initial_mother: "Mère initiale"
     initial_number: "Numéro initial"
     initial_owner: "Propriétaire initial"

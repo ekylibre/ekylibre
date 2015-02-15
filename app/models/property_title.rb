@@ -29,38 +29,39 @@
 #  creator_id            :integer
 #  dead_at               :datetime
 #  default_storage_id    :integer
-#  derivative_of         :string
+#  derivative_of         :string(255)
 #  description           :text
 #  extjuncted            :boolean          not null
 #  financial_asset_id    :integer
 #  id                    :integer          not null, primary key
-#  identification_number :string
+#  identification_number :string(255)
 #  initial_born_at       :datetime
 #  initial_container_id  :integer
 #  initial_dead_at       :datetime
 #  initial_enjoyer_id    :integer
 #  initial_father_id     :integer
+#  initial_geolocation   :spatial({:srid=>4326, :type=>"point"})
 #  initial_mother_id     :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :spatial({:srid=>4326, :type=>"geometry"})
 #  lock_version          :integer          default(0), not null
-#  name                  :string           not null
+#  name                  :string(255)      not null
 #  nature_id             :integer          not null
-#  number                :string           not null
+#  number                :string(255)      not null
 #  parent_id             :integer
 #  person_id             :integer
-#  picture_content_type  :string
-#  picture_file_name     :string
+#  picture_content_type  :string(255)
+#  picture_file_name     :string(255)
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
 #  tracking_id           :integer
-#  type                  :string
+#  type                  :string(255)
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #  variant_id            :integer          not null
-#  variety               :string           not null
-#  work_number           :string
+#  variety               :string(255)      not null
+#  work_number           :string(255)
 #
 class PropertyTitle < Immatter
 end

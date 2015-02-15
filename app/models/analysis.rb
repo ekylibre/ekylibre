@@ -30,10 +30,10 @@
 #  geolocation      :spatial({:srid=>4326, :type=>"point"})
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  nature           :string           not null
-#  number           :string           not null
+#  nature           :string(255)      not null
+#  number           :string(255)      not null
 #  product_id       :integer
-#  reference_number :string
+#  reference_number :string(255)
 #  sampled_at       :datetime         not null
 #  sampler_id       :integer
 #  updated_at       :datetime         not null
@@ -48,6 +48,7 @@ class Analysis < Ekylibre::Record::Base
   has_many :items, class_name: "AnalysisItem", foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :analysed_at, :sampled_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :nature, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :nature, :number, :sampled_at
   #]VALIDATORS]
 
@@ -60,7 +61,7 @@ class Analysis < Ekylibre::Record::Base
   after_save do
     self.reload.items.each(&:save!)
   end
-  
+
   def geolocation=(value)
     if value.is_a?(String) and value =~ /\A\{.*\}\z/
       value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
@@ -69,7 +70,7 @@ class Analysis < Ekylibre::Record::Base
     end
     self["geolocation"] = value
   end
-  
+
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]

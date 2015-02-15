@@ -23,14 +23,14 @@
 # == Table: journals
 #
 #  closed_on        :date             not null
-#  code             :string           not null
+#  code             :string(255)      not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  currency         :string           not null
+#  currency         :string(255)      not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  nature           :string           not null
+#  name             :string(255)      not null
+#  nature           :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #  used_for_affairs :boolean          not null
@@ -46,6 +46,7 @@ class Journal < Ekylibre::Record::Base
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :closed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
+  validates_length_of :code, :currency, :name, :nature, allow_nil: true, maximum: 255
   validates_inclusion_of :used_for_affairs, :used_for_gaps, in: [true, false]
   validates_presence_of :closed_on, :code, :currency, :name, :nature
   #]VALIDATORS]

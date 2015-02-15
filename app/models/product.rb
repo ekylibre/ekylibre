@@ -30,38 +30,39 @@
 #  creator_id            :integer
 #  dead_at               :datetime
 #  default_storage_id    :integer
-#  derivative_of         :string
+#  derivative_of         :string(255)
 #  description           :text
 #  extjuncted            :boolean          not null
 #  financial_asset_id    :integer
 #  id                    :integer          not null, primary key
-#  identification_number :string
+#  identification_number :string(255)
 #  initial_born_at       :datetime
 #  initial_container_id  :integer
 #  initial_dead_at       :datetime
 #  initial_enjoyer_id    :integer
 #  initial_father_id     :integer
+#  initial_geolocation   :spatial({:srid=>4326, :type=>"point"})
 #  initial_mother_id     :integer
 #  initial_owner_id      :integer
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :spatial({:srid=>4326, :type=>"geometry"})
 #  lock_version          :integer          default(0), not null
-#  name                  :string           not null
+#  name                  :string(255)      not null
 #  nature_id             :integer          not null
-#  number                :string           not null
+#  number                :string(255)      not null
 #  parent_id             :integer
 #  person_id             :integer
-#  picture_content_type  :string
-#  picture_file_name     :string
+#  picture_content_type  :string(255)
+#  picture_file_name     :string(255)
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
 #  tracking_id           :integer
-#  type                  :string
+#  type                  :string(255)
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #  variant_id            :integer          not null
-#  variety               :string           not null
-#  work_number           :string
+#  variety               :string(255)      not null
+#  work_number           :string(255)
 #
 
 
@@ -177,6 +178,7 @@ class Product < Ekylibre::Record::Base
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :initial_population, allow_nil: true
+  validates_length_of :derivative_of, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :variety, :work_number, allow_nil: true, maximum: 255
   validates_inclusion_of :extjuncted, in: [true, false]
   validates_presence_of :category, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
@@ -487,7 +489,7 @@ class Product < Ekylibre::Record::Base
     end
     self["initial_shape"] = value
   end
-  
+
   def initial_geolocation=(value)
     if value.is_a?(String) and value =~ /\A\{.*\}\z/
       value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo

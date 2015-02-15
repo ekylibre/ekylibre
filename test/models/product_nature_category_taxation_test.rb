@@ -30,7 +30,7 @@
 #  tax_id                     :integer          not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
-#  usage                      :string           not null
+#  usage                      :string(255)      not null
 #
 require 'test_helper'
 

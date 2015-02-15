@@ -29,7 +29,7 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  prescriptor_id   :integer          not null
-#  reference_number :string
+#  reference_number :string(255)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -39,6 +39,7 @@ class Prescription < Ekylibre::Record::Base
   has_many :interventions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :delivered_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :prescriptor
   #]VALIDATORS]
 

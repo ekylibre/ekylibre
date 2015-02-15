@@ -23,8 +23,8 @@
 # == Table: entity_addresses
 #
 #  by_default          :boolean          not null
-#  canal               :string           not null
-#  coordinate          :string           not null
+#  canal               :string(255)      not null
+#  coordinate          :string(255)      not null
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  deleted_at          :datetime
@@ -32,17 +32,17 @@
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  mail_auto_update    :boolean          not null
-#  mail_country        :string
+#  mail_country        :string(255)
 #  mail_geolocation    :spatial({:srid=>4326, :type=>"point"})
-#  mail_line_1         :string
-#  mail_line_2         :string
-#  mail_line_3         :string
-#  mail_line_4         :string
-#  mail_line_5         :string
-#  mail_line_6         :string
+#  mail_line_1         :string(255)
+#  mail_line_2         :string(255)
+#  mail_line_3         :string(255)
+#  mail_line_4         :string(255)
+#  mail_line_5         :string(255)
+#  mail_line_6         :string(255)
 #  mail_postal_zone_id :integer
-#  name                :string
-#  thread              :string
+#  name                :string(255)
+#  thread              :string(255)
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
@@ -63,6 +63,7 @@ class EntityAddress < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :deleted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :canal, :coordinate, :mail_country, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :thread, allow_nil: true, maximum: 255
   validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]

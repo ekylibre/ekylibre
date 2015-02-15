@@ -26,12 +26,12 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  description           :text
-#  entity_link_direction :string
-#  entity_link_nature    :string
+#  entity_link_direction :string(255)
+#  entity_link_nature    :string(255)
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
-#  name                  :string           not null
-#  nature                :string           not null
+#  name                  :string(255)      not null
+#  nature                :string(255)      not null
 #  reduction_percentage  :decimal(19, 4)
 #  updated_at            :datetime         not null
 #  updater_id            :integer

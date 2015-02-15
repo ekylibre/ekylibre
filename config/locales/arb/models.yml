@@ -1465,6 +1465,7 @@ arb:
     # initial_dead_at: "Initial dead at"
     # initial_enjoyer: "Initial enjoyer"
     # initial_father: "Initial father"
+    # initial_geolocation: "Initial geolocation"
     # initial_mother: "Initial mother"
     # initial_number: "Initial number"
     # initial_owner: "Initial owner"

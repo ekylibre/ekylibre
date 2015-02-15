@@ -26,7 +26,7 @@
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  nature       :string           not null
+#  nature       :string(255)      not null
 #  node_id      :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
