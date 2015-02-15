@@ -3,6 +3,8 @@
   = f.input :number
   = f.input :reference_number
   = f.input :sampled_at
+  - unless params[:without_geolocation].to_i > 0
+    = f.geolocation
   = f.referenced_association :sampler
   = f.input :analysed_at
   = f.referenced_association :analyser

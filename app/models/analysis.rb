@@ -60,7 +60,16 @@ class Analysis < Ekylibre::Record::Base
   after_save do
     self.reload.items.each(&:save!)
   end
-
+  
+  def geolocation=(value)
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self["geolocation"] = value
+  end
+  
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
