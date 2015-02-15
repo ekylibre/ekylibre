@@ -9,7 +9,6 @@
 
 .rspec
 .settings
-/pkg
  
 # Ignore IDE files
 .project
