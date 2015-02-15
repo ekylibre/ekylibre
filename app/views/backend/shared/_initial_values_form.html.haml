@@ -7,14 +7,15 @@
 - else
   = f.referenced_association(:initial_owner)
 
-= f.referenced_association(:financial_asset)
-
 - if f.object.indicators_list.include? :population
   = f.input(:initial_population, wrapper: :append, class: :inline, label: Product.human_attribute_name(:population)) do
     = f.input_field(:initial_population)
     %span.add-on= f.object.variant.unit_name
 - if f.object.indicators_list.include? :shape
   = f.shape(:initial_shape, label: Product.human_attribute_name(:shape))
+
+- if f.object.indicators_list.include? :geolocation
+  = f.geolocation(:initial_geolocation, label: Product.human_attribute_name(:geolocation))
 
 = f.input(:initial_born_at, label: Product.human_attribute_name(:born_at))
 = f.input(:initial_dead_at, label: Product.human_attribute_name(:dead_at))

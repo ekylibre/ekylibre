@@ -487,6 +487,15 @@ class Product < Ekylibre::Record::Base
     end
     self["initial_shape"] = value
   end
+  
+  def initial_geolocation=(value)
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self["initial_geolocation"] = value
+  end
 
   # Returns all contained products of the given variant
   def localized_variants(variant, options = {})

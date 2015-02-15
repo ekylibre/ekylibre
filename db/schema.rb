@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212214601) do
+ActiveRecord::Schema.define(version: 20150215210401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2453,6 +2453,7 @@ ActiveRecord::Schema.define(version: 20150212214601) do
     t.integer  "lock_version",                                                                            default: 0,     null: false
     t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "person_id"
+    t.spatial  "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
