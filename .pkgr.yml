@@ -1,4 +1,22 @@
+dependencies:
+  - postgresql-9.3
+  - postgresql-9.3-postgis-2.1
+  - graphicsmagick
+  - tesseract-ocr
+  - tesseract-ocr-ara
+  - tesseract-ocr-jpn
+  - tesseract-ocr-fra
+  - tesseract-ocr-eng
+  - tesseract-ocr-spa
+  - pdftk
+  - libreoffice
+  - poppler-utils
+  - poppler-data
+  - ghostscript
+  - openjdk-7-jdk
 build_dependencies:
+  - postgresql-server-dev-9.3
+  - openjdk-7-jdk
   - libgeos-dev
   - libgeos++-dev
   - libproj-dev
@@ -8,5 +26,4 @@ build_dependencies:
   - libgdal1-dev
   - libjson0-dev
   - zlib1g-dev
-before_precompile: "pkg/before_precompile.sh"
-before_install: "pkg/before_install.sh"
+before_precompile: "config/packaging/before_precompile"
