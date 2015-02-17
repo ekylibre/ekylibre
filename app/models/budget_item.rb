@@ -37,7 +37,7 @@
 class BudgetItem < Ekylibre::Record::Base
   belongs_to :budget, inverse_of: :items
   belongs_to :production_support, inverse_of: :budget_items
-  has_one :production, through: :production_support
+  has_one :production, through: :budget
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :quantity, allow_nil: true
@@ -46,32 +46,24 @@ class BudgetItem < Ekylibre::Record::Base
   validates_uniqueness_of :production_support_id, scope: :budget_id
 
   delegate :computation_method, to: :budget
-  delegate :direction, to: :budget
+  delegate :direction, :unit_amount, to: :budget
   delegate :working_unit, :working_indicator, to: :production_support
 
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
-  scope :of_budgets, lambda { |budgets|
-    where(budget_id: budgets)
-  }
+  scope :of_budgets, lambda { |budgets| where(budget_id: budgets) }
+  scope :of_budget_direction, lambda { |direction| joins(:budget).where("budgets.direction" => direction.to_sym) }
+  scope :of_supports, lambda { |supports| where(production_support_id: supports) }
 
-  scope :of_budget_direction, lambda { |direction|
-    joins(:budget).where("budgets.direction" => direction.to_sym)
-  }
-
-  scope :of_supports, lambda { |supports|
-    where(production_support_id: supports)
-  }
-
-  validate do
-    self.global_amount = self.budget.unit_amount * self.quantity * self.production_support.working_indicator_measure.value rescue 0.0
+  before_validation do
+    self.global_amount = self.unit_amount * self.quantity * self.production_support.working_indicator_measure.value rescue 0.0
   end
 
 
   def global_amount_per_working_indicator
-    if working_indicator = self.budget.production.working_indicator
-      if indicator_value = production_support.storage.send(working_indicator)
-        return self.global_amount / indicator_value.to_d(self.budget.production.working_unit)
+    if self.production and self.production_support and working_indicator = self.production.working_indicator
+      if indicator_value = self.production_support.storage.send(working_indicator)
+        return self.global_amount / indicator_value.to_d(self.production.working_unit)
       end
       return nil
     end

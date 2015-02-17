@@ -43,16 +43,16 @@
 #
 class Budget < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
-  enumerize :direction, in: [:revenue, :expense]
-  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit
+  enumerize :direction, in: [:revenue, :expense], predicates: true
+  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit, predicates: true
   enumerize :working_indicator, in: Production.working_indicator.values
   enumerize :working_unit, in: Nomen::Units.all.sort
 
-  has_many :items, -> {order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
-  has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
-  has_many :supports, through: :production, class_name: 'ProductionSupport'
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  has_many :items, -> { order(:production_support_id) }, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
+  has_many :orphaned_items, -> { where(production_support_id: nil) }, class_name: 'BudgetItem'
+  has_many :supports, through: :production, class_name: 'ProductionSupport'
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
@@ -62,19 +62,25 @@ class Budget < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items, allow_destroy: true
 
-  scope :revenues, -> {where direction: :revenue}
-  scope :expenses, -> {where direction: :expense}
+  scope :revenues, -> { where(direction: :revenue) }
+  scope :expenses, -> { where(direction: :expense) }
 
 
   before_validation do
-    if self.name.blank?
-      self.name = self.production.name
+    if self.name.blank? and self.variant
+      self.name = self.variant.name
+    end
+    if (self.revenue? && self.production.homogeneous_revenues) || (self.expense? && self.production.homogeneous_expenses)
+      self.homogeneous_values = true
     end
   end
 
-  validate do
-    if ((self.direction == :revenue) && (self.production.homogeneous_revenues) || (self.direction == :expense) && (self.production.homogeneous_expenses))
-      self.homogeneous_values = true
+  after_validation do
+    if self.per_production?
+      self.global_amount   = self.unit_amount * self.global_quantity
+    elsif self.per_working_unit?
+      self.global_amount   = self.items.sum(:global_amount)
+      self.global_quantity = self.items.sum(:quantity)
     end
   end
 
@@ -84,12 +90,5 @@ class Budget < Ekylibre::Record::Base
       item.update(production_support_id: supports_missing_item.pop)
     end
   end
-  after_validation do
-    if self.computation_method.to_sym == :per_production
-      self.global_amount = self.unit_amount * self.global_quantity
-    elsif self.computation_method.to_sym == :per_working_unit
-      self.global_amount = self.items.sum(:global_amount)
-      self.global_quantity = self.items.sum(:quantity)
-    end
-  end
+
 end
