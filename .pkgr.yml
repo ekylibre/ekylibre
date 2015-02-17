@@ -28,4 +28,4 @@ targets:
       - libxml2-dev 
       - libxslt1-dev
       - zlib1g-dev
-before_precompile: "config/packaging/before_precompile"
+before_precompile: "packaging/before_precompile"
