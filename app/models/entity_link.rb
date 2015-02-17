@@ -26,12 +26,12 @@
 #  creator_id    :integer
 #  description   :text
 #  entity_1_id   :integer          not null
-#  entity_1_role :string(255)      not null
+#  entity_1_role :string           not null
 #  entity_2_id   :integer          not null
-#  entity_2_role :string(255)      not null
+#  entity_2_role :string           not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
-#  nature        :string(255)      not null
+#  nature        :string           not null
 #  started_at    :datetime
 #  stopped_at    :datetime
 #  updated_at    :datetime         not null
@@ -45,7 +45,6 @@ class EntityLink < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::EntityLinkNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :entity_1_role, :entity_2_role, :nature, allow_nil: true, maximum: 255
   validates_presence_of :entity_1, :entity_1_role, :entity_2, :entity_2_role, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values

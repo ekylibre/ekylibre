@@ -28,9 +28,9 @@
 #  id               :integer          not null, primary key
 #  irrigated        :boolean          not null
 #  lock_version     :integer          default(0), not null
-#  nature           :string(255)      not null
+#  nature           :string           not null
 #  production_id    :integer          not null
-#  production_usage :string(255)      not null
+#  production_usage :string           not null
 #  started_at       :datetime
 #  stopped_at       :datetime
 #  storage_id       :integer          not null

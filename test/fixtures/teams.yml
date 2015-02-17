@@ -29,7 +29,7 @@
 #  id               :integer          not null, primary key
 #  lft              :integer
 #  lock_version     :integer          default(0), not null
-#  name             :string(255)      not null
+#  name             :string           not null
 #  parent_id        :integer
 #  rgt              :integer
 #  sales_conditions :text

@@ -23,11 +23,11 @@
 # == Table: manure_management_plan_zones
 #
 #  absorbed_nitrogen_at_opening                    :decimal(19, 4)
-#  administrative_area                             :string(255)
-#  computation_method                              :string(255)      not null
+#  administrative_area                             :string
+#  computation_method                              :string           not null
 #  created_at                                      :datetime         not null
 #  creator_id                                      :integer
-#  cultivation_variety                             :string(255)
+#  cultivation_variety                             :string
 #  expected_yield                                  :decimal(19, 4)
 #  humus_mineralization                            :decimal(19, 4)
 #  id                                              :integer          not null, primary key
@@ -43,7 +43,7 @@
 #  organic_fertilizer_mineral_fraction             :decimal(19, 4)
 #  plan_id                                         :integer          not null
 #  previous_cultivation_residue_mineralization     :decimal(19, 4)
-#  soil_nature                                     :string(255)
+#  soil_nature                                     :string
 #  soil_production                                 :decimal(19, 4)
 #  support_id                                      :integer          not null
 #  updated_at                                      :datetime         not null

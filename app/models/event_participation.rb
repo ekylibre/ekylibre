@@ -28,7 +28,7 @@
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  participant_id :integer          not null
-#  state          :string(255)
+#  state          :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
@@ -38,7 +38,6 @@ class EventParticipation < Ekylibre::Record::Base
   belongs_to :participant, class_name: "Entity"
   enumerize :state, in: [:waiting, :accepted, :refused, :informative]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :state, allow_nil: true, maximum: 255
   validates_presence_of :event, :participant
   #]VALIDATORS]
 

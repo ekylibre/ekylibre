@@ -25,21 +25,21 @@
 #  accounted_at          :datetime
 #  affair_id             :integer
 #  amount                :decimal(19, 4)   not null
-#  bank_account_number   :string(255)
-#  bank_check_number     :string(255)
-#  bank_name             :string(255)
+#  bank_account_number   :string
+#  bank_check_number     :string
+#  bank_name             :string
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string(255)      not null
+#  currency              :string           not null
 #  deposit_id            :integer
 #  downpayment           :boolean          default(FALSE), not null
 #  id                    :integer          not null, primary key
 #  journal_entry_id      :integer
 #  lock_version          :integer          default(0), not null
 #  mode_id               :integer          not null
-#  number                :string(255)
+#  number                :string
 #  paid_at               :datetime
 #  payer_id              :integer
 #  receipt               :text

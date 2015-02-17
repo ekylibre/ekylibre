@@ -30,18 +30,18 @@
 #  homogeneous_revenues :boolean
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
+#  name                 :string           not null
 #  position             :integer
 #  started_at           :datetime
-#  state                :string(255)      not null
+#  state                :string           not null
 #  static_support       :boolean          not null
 #  stopped_at           :datetime
 #  support_variant_id   :integer
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  variant_id           :integer
-#  working_indicator    :string(255)
-#  working_unit         :string(255)
+#  working_indicator    :string
+#  working_unit         :string
 #
 require 'test_helper'
 

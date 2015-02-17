@@ -29,7 +29,7 @@
 #  id               :integer          not null, primary key
 #  lft              :integer
 #  lock_version     :integer          default(0), not null
-#  name             :string(255)      not null
+#  name             :string           not null
 #  parent_id        :integer
 #  rgt              :integer
 #  sales_conditions :text
@@ -42,7 +42,6 @@ class Team < Ekylibre::Record::Base
   has_many :employees, class_name: "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
-  validates_length_of :name, allow_nil: true, maximum: 255
   validates_presence_of :depth, :name
   #]VALIDATORS]
   validates_uniqueness_of :name

@@ -30,7 +30,7 @@
 #  journal_entry_item_id  :integer          not null
 #  lock_version           :integer          default(0), not null
 #  production_id          :integer          not null
-#  state                  :string(255)      not null
+#  state                  :string           not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
@@ -45,7 +45,6 @@ class AnalyticDistribution < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :affected_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :affectation_percentage, allow_nil: true
-  validates_length_of :state, allow_nil: true, maximum: 255
   validates_presence_of :affectation_percentage, :affected_at, :journal_entry_item, :production, :state
   #]VALIDATORS]
 

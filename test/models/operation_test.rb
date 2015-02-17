@@ -28,7 +28,7 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
-#  reference_name  :string(255)      not null
+#  reference_name  :string           not null
 #  started_at      :datetime         not null
 #  stopped_at      :datetime         not null
 #  updated_at      :datetime         not null

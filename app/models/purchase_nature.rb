@@ -26,12 +26,12 @@
 #  by_default      :boolean          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  currency        :string(255)      not null
+#  currency        :string           not null
 #  description     :text
 #  id              :integer          not null, primary key
 #  journal_id      :integer
 #  lock_version    :integer          default(0), not null
-#  name            :string(255)
+#  name            :string
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          not null
@@ -40,7 +40,6 @@ class PurchaseNature < Ekylibre::Record::Base
   belongs_to :journal
   has_many :purchases
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :currency, :name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :by_default, :with_accounting, in: [true, false]
   validates_presence_of :currency
   #]VALIDATORS]

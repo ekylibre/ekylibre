@@ -1,95 +1,101 @@
 (($) ->
   'use strict'
-  # usefull functions
-  updateItems = () ->
-    $(".budget_nested_fields").filter(':visible').each ->
-      default_value = $(this).find("input.homogeneous").filter(':visible').first().val()
-      $(this).find("input.homogeneous").filter(':visible').each ->
-        $(this).val(default_value)
-      $(this).trigger('change')
-  updateItemUnits = () ->
-    scope = arguments[0] || 'table#budget_visualization'
-    $(scope).find("[data-budget-item-units]").each ->
-      symbol_table = $("table#budget_visualization")
-      support_unit = $("select[id='production_working_unit']").val()
-      support_symbol = symbol_table.attr("data-#{support_unit}")
-      budget_unit = $(this).closest("tr.budget_nested_fields").find("input:hidden[name$='[working_unit]']").val()
-      budget_symbol = symbol_table.attr("data-#{budget_unit}")
-      computation_method = $(this).closest("tr.budget_nested_fields").find("select[name$='[computation_method]']").val()
-      if (computation_method == 'per_production_support')
-        $(this).text(budget_unit)
-      else
-        $(this).text("#{budget_symbol}/#{support_symbol}")
-  updateIndicatorsValues = () ->
-    $("input:hidden[data-parameter-name='storage_id']").each ->
-      updateIndicatorValue($(this))
-  updateIndicatorValue = (storageInput) ->
-    storage_id = $(storageInput).val()
-    working_indicator = $("select[id='production_working_indicator']").val()
-    working_unit = $("select[id='production_working_unit']").val()
-    value = storageInput.closest("td").find("span[data-working-indicator-value]")
-    unit = storageInput.closest("td").find("span[data-working-indicator-unit]")
-    $.ajax
-      url: "indicator_measure.json"
-      dataType: "json"
-      data:
-        storage_id:   storage_id
-        indicator:    working_indicator
-        unit:         working_unit
-      success: (data, textStatus, jqXHR) ->
-        value.text(data.value)
-        unit.text(data.unit)
-        value.trigger('change')
-  calculate = () ->
-    # calculations
-    # item calculation
-    $("tr.budget_nested_fields").filter(':visible').each ->
-      $(this).find("[data-budget-item-value]").filter(':visible').each (index) ->
-        quantity = $(this).parent().find("input").val()
-        unit_amount         = $(this).closest("tr.budget_nested_fields").find("input[type='number'][id$='unit_amount']").val()
-        computation_method  = $(this).closest("tr.budget_nested_fields").find("select[id$='computation_method']").val()
-        working_indicator_value = 1
-        if computation_method == 'per_working_unit'
-          working_indicator_value = $("[data-working-indicator-value]")[index]
-          working_indicator_value = parseFloat($(working_indicator_value).text())
-        $(this).text(quantity * unit_amount * working_indicator_value)
-    #total per budget
-    $("tr.budget_nested_fields").filter(':visible').each ->
-      sum = 0.0
-      $(this).find("[data-budget-item-value]").filter(':visible').each ->
-        sum = sum + parseFloat($(this).text())
-      $(this).find("[data-budget-global-amount]").text(sum)
-    #global amount for revenues/expenses
-    $("[data-budgets-global-amount]").filter(':visible').each ->
-      sum = 0.0
-      direction = $(this).attr('data-budgets-global-amount')
-      $("[data-budget-global-amount=#{direction}]").filter(':visible').each ->
-        sum = sum + parseFloat($(this).text())
-      $(this).text(sum)
-    # global balance
-    $("[data-balance='global']").each ->
-      revenue = parseFloat($("[data-budgets-global-amount='revenue']").text())
-      expense = parseFloat($("[data-budgets-global-amount='expense']").text())
-      sum = revenue - expense
-      $(this).text(sum)
-    #total revenue/expense per support
-    $("[data-budget-add]").each ->
-      cells = $(this).find("[data-support-total]")
-      cells.each (index) ->
+
+  # useful functions
+  $.budget =
+    updateItems: () ->
+      $(".budget_nested_fields").filter(':visible').each ->
+        default_value = $(this).find("input.homogeneous").filter(':visible').first().val()
+        $(this).find("input.homogeneous").filter(':visible').each ->
+          $(this).val(default_value)
+        $(this).trigger('change')
+
+    updateItemUnits: () ->
+      scope = arguments[0] || 'table#budget_visualization'
+      $(scope).find("[data-budget-item-units]").each ->
+        symbol_table = $("table#budget_visualization")
+        support_unit = $("select[id='production_working_unit']").val()
+        support_symbol = symbol_table.attr("data-#{support_unit}")
+        budget_unit = $(this).closest("tr.budget_nested_fields").find("input:hidden[name$='[working_unit]']").val()
+        budget_symbol = symbol_table.attr("data-#{budget_unit}")
+        computation_method = $(this).closest("tr.budget_nested_fields").find("select[name$='[computation_method]']").val()
+        if (computation_method == 'per_production_support')
+          $(this).text(budget_unit)
+        else
+          $(this).text("#{budget_symbol}/#{support_symbol}")
+
+    updateIndicatorsValues: () ->
+      $("input:hidden[data-parameter-name='storage_id']").each ->
+        $.budget.updateIndicatorValue($(this))
+
+    updateIndicatorValue: (storageInput) ->
+      storage_id = $(storageInput).val()
+      working_indicator = $("select[id='production_working_indicator']").val()
+      working_unit = $("select[id='production_working_unit']").val()
+      value = storageInput.closest("td").find("span[data-working-indicator-value]")
+      unit = storageInput.closest("td").find("span[data-working-indicator-unit]")
+      $.ajax
+        url: "indicator_measure.json"
+        dataType: "json"
+        data:
+          storage_id:   storage_id
+          indicator:    working_indicator
+          unit:         working_unit
+        success: (data, textStatus, jqXHR) ->
+          value.text(data.value)
+          unit.text(data.unit)
+          value.trigger('change')
+
+    calculate: () ->
+      # calculations
+      # item calculation
+      $("tr.budget_nested_fields").filter(':visible').each ->
+        $(this).find("[data-budget-item-value]").filter(':visible').each (index) ->
+          quantity = $(this).parent().find("input").val()
+          unit_amount         = $(this).closest("tr.budget_nested_fields").find("input[type='number'][id$='unit_amount']").val()
+          computation_method  = $(this).closest("tr.budget_nested_fields").find("select[id$='computation_method']").val()
+          working_indicator_value = 1
+          if computation_method == 'per_working_unit'
+            working_indicator_value = $("[data-working-indicator-value]")[index]
+            working_indicator_value = parseFloat($(working_indicator_value).text())
+          $(this).text(quantity * unit_amount * working_indicator_value)
+      #total per budget
+      $("tr.budget_nested_fields").filter(':visible').each ->
         sum = 0.0
-        direction = $(this).attr("data-support-total")
-        $("[data-budget-direction=#{direction}]").filter(':visible').each ->
-          amount = $(this).find("[data-budget-item-value]").filter(':visible')[index]
-          amount = parseFloat($(amount).text())
-          sum = sum + amount
+        $(this).find("[data-budget-item-value]").filter(':visible').each ->
+          sum = sum + parseFloat($(this).text())
+        $(this).find("[data-budget-global-amount]").text(sum)
+      #global amount for revenues/expenses
+      $("[data-budgets-global-amount]").filter(':visible').each ->
+        sum = 0.0
+        direction = $(this).attr('data-budgets-global-amount')
+        $("[data-budget-global-amount=#{direction}]").filter(':visible').each ->
+          sum = sum + parseFloat($(this).text())
         $(this).text(sum)
-    # balance per support
-    $("[data-balance='support']").each (index) ->
-      expenses = $("[data-support-total='expense']")[index]
-      expenses = parseFloat($(expenses).text())
-      revenues = $("[data-support-total='revenue']")[index]
-      revenues = parseFloat($(revenues).text())
-      $(this).text(revenues - expenses)
+      # global balance
+      $("[data-balance='global']").each ->
+        revenue = parseFloat($("[data-budgets-global-amount='revenue']").text())
+        expense = parseFloat($("[data-budgets-global-amount='expense']").text())
+        sum = revenue - expense
+        $(this).text(sum)
+      #total revenue/expense per support
+      $("[data-budget-add]").each ->
+        cells = $(this).find("[data-support-total]")
+        cells.each (index) ->
+          sum = 0.0
+          direction = $(this).attr("data-support-total")
+          $("[data-budget-direction=#{direction}]").filter(':visible').each ->
+            amount = $(this).find("[data-budget-item-value]").filter(':visible')[index]
+            amount = parseFloat($(amount).text())
+            sum = sum + amount
+          $(this).text(sum)
+      # balance per support
+      $("[data-balance='support']").each (index) ->
+        expenses = $("[data-support-total='expense']")[index]
+        expenses = parseFloat($(expenses).text())
+        revenues = $("[data-support-total='revenue']")[index]
+        revenues = parseFloat($(revenues).text())
+        $(this).text(revenues - expenses)
 
   $(document).ready ->
     # sorts budgets by direction
@@ -109,9 +115,9 @@
             new_item = link_to_add_budget_item.closest("td").prev()
             new_item.attr('data-support-destroy', $(this).attr('id'))
     # displays units
-    updateItemUnits()
+    $.budget.updateItemUnits()
     # finally calculates everything
-    calculate()
+    $.budget.calculate()
     return false
 
   # when adding a support
@@ -123,7 +129,7 @@
       new_item = $(this).closest('td').prev()
       if new_item.parent().find("input:checked[id$='homogeneous_values']").is(':input')
         new_item.find("input[id$='quantity']").addClass('homogeneous')
-        updateItems()
+        $.budget.updateItems()
       new_item.attr('data-support-destroy', support_destroy_id)
     # adds total calculation cells
     $("[data-appendable]").each ->
@@ -145,8 +151,9 @@
 
   # when updating any field
   $(document).on 'change emulated:change keyup cocoon:after-remove', "table#budget_visualization", ->
-    calculate()
+    $.budget.calculate()
     return false
+
   # check all homogeneous_values checkboxes on checking homogeneous expenses/revenues
   $(document).on 'click', "input[id^='production_homogeneous_'][type='checkbox']", ->
     if $(this).is(':checked')
@@ -157,15 +164,18 @@
           # binds quantity inputs
           $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').addClass('homogeneous')
           updateItems()
+
   # unchecks homogeneous expenses/revenues when unchecking a 'homogeneous values' checkbox
   $(document).on 'click keyup', "input[id$='homogeneous_values'][type='checkbox']", ->
     if !($(this).is(':checked'))
       direction = $(this).closest("[data-budget-direction]").attr('data-budget-direction')
       $("[data-budgets-direction='#{direction}']").find("input[id^='production_homogeneous_'][type='checkbox']").filter(':visible').prop('checked', false)
+
   # binds items quantities when 'homogeneous values' checkbox is checked
   $(document).on 'click keyup', "input:checked[id$='homogeneous_values']", ->
     $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').addClass('homogeneous')
     updateItems()
+
   # unbinds items
   $(document).on 'click keyup', "input:checkbox:not(:checked)[id$='homogeneous_values']", ->
     $(this).closest(".budget_nested_fields").find("input[id$='quantity']").filter(':visible').removeClass('homogeneous')
@@ -177,9 +187,9 @@
 
   # updates working indicator measure values
   $(document).on 'change', "select[id^='production_working_']", ->
-    updateIndicatorsValues()
+    $.budget.updateIndicatorsValues()
   $(document).on 'selector:change', "input:hidden[data-parameter-name='storage_id']", ->
-    updateIndicatorValue($(this))
+    $.budget.updateIndicatorValue($(this))
 
   # manages working indicator and working unit
   $(document).on 'change', "select[name='budget_indicator']", ->
@@ -225,14 +235,17 @@
         unit_select.trigger('change')
       error: () -> indicator_select.children("option").attr('disabled', false)
 
+
   # updates items units when changing production unit
   $(document).on 'change', "select[id='production_working_unit']", ->
-    updateItemUnits()
+    $.budget.updateItemUnits()
+
   # updates items units when changing budget unit
   $(document).on 'change', "input:hidden[id$='working_unit']", ->
-    updateItemUnits($(this).closest("tr"))
+    $.budget.updateItemUnits($(this).closest("tr"))
+
   # updates items units when changing computation method
   $(document).on 'change', "select[name$='[computation_method]']", ->
-    updateItemUnits($(this).closest("tr"))
+    $.budget.updateItemUnits($(this).closest("tr"))
 
 ) jQuery

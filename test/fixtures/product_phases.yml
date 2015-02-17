@@ -30,7 +30,7 @@
 #  nature_id       :integer          not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string(255)
+#  originator_type :string
 #  product_id      :integer          not null
 #  started_at      :datetime
 #  stopped_at      :datetime

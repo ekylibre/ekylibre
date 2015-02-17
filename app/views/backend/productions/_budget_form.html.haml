@@ -11,6 +11,14 @@
     = f.backend_fields_for :budgets do |budget_form|
       = render 'budget_fields', f: budget_form
 
+  %tfoot
+    - template = "<td data-balance='support'>0.0</td>"
+    %tr#balance{data: {balance: true, appendable: template}}
+      %th= :balance.tl
+      - f.object.supports.count.times do
+        %td.subtotal{data: {balance: :support}}= 0.0
+      %td.subtotal{data: {append_before: true, balance: :global}}= 0.0
+
   %tbody
 
     %tr#expenses
@@ -39,9 +47,3 @@
         %td.subtotal{data: {support_total: :revenue}}= 0.0
       %td.subtotal{data: {append_before: true, budgets_global_amount: :revenue}}= 0.0
 
-    - template = "<td data-balance='support'>0.0</td>"
-    %tr#balance{data: {balance: true, appendable: template}}
-      %th= :balance.tl
-      - f.object.supports.count.times do
-        %td.subtotal{data: {balance: :support}}= 0.0
-      %td.subtotal{data: {append_before: true, balance: :global}}= 0.0

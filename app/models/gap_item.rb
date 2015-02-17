@@ -25,7 +25,7 @@
 #  amount        :decimal(19, 4)   default(0.0), not null
 #  created_at    :datetime         not null
 #  creator_id    :integer
-#  currency      :string(255)      not null
+#  currency      :string           not null
 #  gap_id        :integer          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
@@ -39,7 +39,6 @@ class GapItem < Ekylibre::Record::Base
   belongs_to :tax
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 255
   validates_presence_of :amount, :currency, :gap, :pretax_amount
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3

@@ -26,21 +26,21 @@
 #  category_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  derivative_of        :string(255)
+#  derivative_of        :string
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)
+#  name                 :string
 #  nature_id            :integer          not null
-#  number               :string(255)
-#  picture_content_type :string(255)
-#  picture_file_name    :string(255)
+#  number               :string
+#  picture_content_type :string
+#  picture_file_name    :string
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
-#  reference_name       :string(255)
-#  unit_name            :string(255)      not null
+#  reference_name       :string
+#  unit_name            :string           not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variety              :string(255)      not null
+#  variety              :string           not null
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
@@ -58,7 +58,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_length_of :derivative_of, :name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, :variety, allow_nil: true, maximum: 255
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :category, :nature, :unit_name, :variety
   #]VALIDATORS]

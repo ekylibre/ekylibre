@@ -22,8 +22,8 @@
 #
 # == Table: imports
 #
-#  archive_content_type   :string(255)
-#  archive_file_name      :string(255)
+#  archive_content_type   :string
+#  archive_file_name      :string
 #  archive_file_size      :integer
 #  archive_updated_at     :datetime
 #  created_at             :datetime         not null
@@ -32,9 +32,9 @@
 #  imported_at            :datetime
 #  importer_id            :integer
 #  lock_version           :integer          default(0), not null
-#  nature                 :string(255)      not null
+#  nature                 :string           not null
 #  progression_percentage :decimal(19, 4)
-#  state                  :string(255)      not null
+#  state                  :string           not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
