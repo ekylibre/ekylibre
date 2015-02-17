@@ -42,11 +42,11 @@
 #  working_unit       :string(255)
 #
 class Budget < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
-  validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
-  #]VALIDATORS]
-  validates_presence_of :variant, :production
+  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
+  enumerize :direction, in: [:revenue, :expense]
+  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit
+  enumerize :working_indicator, in: Production.working_indicator.values
+  enumerize :working_unit, in: Nomen::Units.all.sort
 
   has_many :items, -> {order(:production_support_id)}, class_name: 'BudgetItem', inverse_of: :budget, foreign_key: :budget_id, dependent: :destroy
   has_many :orphaned_items, -> {where(production_support_id: nil)}, class_name: 'BudgetItem'
@@ -54,11 +54,12 @@ class Budget < Ekylibre::Record::Base
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
 
-  enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
-  enumerize :direction, in: [:revenue, :expense]
-  enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit
-  enumerize :working_indicator, in: Production.working_indicator.values
-  enumerize :working_unit, in: Nomen::Units.all.sort
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
+  validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
+  #]VALIDATORS]
+  validates_presence_of :variant, :production
+
 
   accepts_nested_attributes_for :items, allow_destroy: true
 

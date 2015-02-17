@@ -35,16 +35,16 @@
 #  updater_id            :integer
 #
 class BudgetItem < Ekylibre::Record::Base
+  belongs_to :budget, inverse_of: :items
+  belongs_to :production_support, inverse_of: :budget_items
+  has_one :production, through: :production_support
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_amount, :quantity, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 255
   validates_presence_of :budget, :global_amount, :quantity
   #]VALIDATORS]
   validates_uniqueness_of :production_support_id, scope: :budget_id
-
-  belongs_to :budget, inverse_of: :items
-  belongs_to :production_support, inverse_of: :budget_items
-  has_one :production, through: :production_support
 
   delegate :computation_method, to: :budget
   delegate :direction, to: :budget
@@ -53,16 +53,16 @@ class BudgetItem < Ekylibre::Record::Base
   enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
 
   scope :of_budgets, lambda { |budgets|
-    where('budget_id IN (?)', budgets)
-    }
+    where(budget_id: budgets)
+  }
 
   scope :of_budget_direction, lambda { |direction|
     joins(:budget).where("budgets.direction" => direction.to_sym)
-    }
+  }
 
   scope :of_supports, lambda { |supports|
-    where('production_support_id IN (?)', supports)
-    }
+    where(production_support_id: supports)
+  }
 
   validate do
     self.global_amount = self.budget.unit_amount * self.quantity * self.production_support.working_indicator_measure.value rescue 0.0
