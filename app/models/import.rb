@@ -70,7 +70,7 @@ class Import < Ekylibre::Record::Base
           end
         end
       end
-      self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper ? User.stamper.id : nil))
+      self.update_columns(state: :finished, progression_percentage: 100, imported_at: Time.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
     rescue Exchanges::Error => e
       self.update_columns(state: :errored, progression_percentage: 0)
       raise Exchanges::Error, e.message
