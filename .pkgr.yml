@@ -15,7 +15,7 @@ dependencies:
   - ghostscript
   - openjdk-7-jdk
 build_dependencies:
-  - postgresql-server-dev-9.3
+  #- postgresql-server-dev-9.3
   - openjdk-7-jdk
   - libgeos-dev
   - libgeos++-dev
@@ -23,7 +23,6 @@ build_dependencies:
   - libpq-dev
   - libxml2-dev 
   - libxslt1-dev
-  - libgdal1-dev
-  - libjson0-dev
+  - libgdal-dev
   - zlib1g-dev
 before_precompile: "config/packaging/before_precompile"
