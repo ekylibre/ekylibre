@@ -2,10 +2,22 @@
   :ruby
     series = []
     point_start = Time.new(*@data[:from_date].split("-")).to_usec
+    point_finish = Time.new(*@data[:to_date].split("-")).to_usec
+    point_interval = 24 * 3600 * 1000
+    data = @data[:data].sort{|a,b| a[0] <=> b[0] }
+    time_serie = data.map{ |row| Time.new(*row.first.split("-").map(&:to_i)).to_usec }
     @data[:column_names].each_with_index do |name, index|
-      series << {name: name, point_start: point_start, point_interval: 24 * 3600 * 1000, data: @data[:data].map{ |row| row[index] }.reverse, y_axis: (index > 4 ? 1 : 0) }
+      next if index.zero?
+      serie_data = []
+      data.each_with_index do |row, j|
+        serie_data << [time_serie[j], (row[index].to_f.zero? ? nil : row[index])]
+      end
+      series << {name: name, data: serie_data, y_axis: (index > 4 ? 1 : 0), visible: (index <= 4)}
     end
-    categories = series.delete_at(0)
-  = spline_chart(series, x_axis: {type: "datetime"}, y_axis: [{title: {text: :values.tl}, labels: {format: '{value}$'}}, {title: {text: :mass.tl}, labels: {format: '{value}t'}, opposite: true}], legend: true)
+    if params[:threshold]
+      threshold = params[:threshold].to_f
+      series << {name: "Threshold", data: [[point_start, threshold], [point_finish, threshold]], visible: true}
+    end
+  = spline_chart(series, x_axis: {type: "datetime"}, y_axis: [{title: {text: :values.tl}, labels: {format: '{value}€'}}, {title: {text: :mass.tl}, labels: {format: '{value}t'}, opposite: true}], legend: true, plot_options: {series: {marker: {enabled: false}}})
 - else
   = no_data
