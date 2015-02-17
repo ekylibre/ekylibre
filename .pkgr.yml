@@ -1,27 +1,27 @@
 targets:
-  ubuntu-14.04: true
-dependencies:
-  - postgresql-9.3-postgis-2.1
-  - graphicsmagick
-  - tesseract-ocr
-  - tesseract-ocr-ara
-  - tesseract-ocr-jpn
-  - tesseract-ocr-fra
-  - tesseract-ocr-eng
-  - tesseract-ocr-spa
-  - pdftk
-  - libreoffice
-  - poppler-utils
-  - poppler-data
-  - ghostscript
-  - openjdk-7-jdk
-build_dependencies:
-  - openjdk-7-jdk
-  - libgeos-dev
-  - libgeos++-dev
-  - libproj-dev
-  - libpq-dev
-  - libxml2-dev 
-  - libxslt1-dev
-  - zlib1g-dev
+  ubuntu-14.04:
+    dependencies:
+      - postgresql-9.3-postgis-2.1
+      - graphicsmagick
+      - tesseract-ocr
+      - tesseract-ocr-ara
+      - tesseract-ocr-jpn
+      - tesseract-ocr-fra
+      - tesseract-ocr-eng
+      - tesseract-ocr-spa
+      - pdftk
+      - libreoffice
+      - poppler-utils
+      - poppler-data
+      - ghostscript
+      - openjdk-7-jdk
+    build_dependencies:
+      - openjdk-7-jdk
+      - libgeos-dev
+      - libgeos++-dev
+      - libproj-dev
+      - libpq-dev
+      - libxml2-dev 
+      - libxslt1-dev
+      - zlib1g-dev
 before_precompile: "config/packaging/before_precompile"
