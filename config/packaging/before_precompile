@@ -8,10 +8,5 @@
 
 # cp -f config/packaging/database.yml config/database.yml
 
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
-export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
-
-JAVA_HOME=/usr/lib/jvm/java-7-openjdk sudo gem install rjb -v=1.5.3
-
 echo "Start Postgresql"
 sudo service postgresql start

@@ -1,5 +1,8 @@
 targets:
   ubuntu-14.04:
+    env:
+      - "JAVA_HOME=/usr/lib/jvm/java-7-openjdk"
+      - "NOKOGIRI_USE_SYSTEM_LIBRARIES=1"
     dependencies:
       - postgresql-9.3-postgis-2.1
       - graphicsmagick
