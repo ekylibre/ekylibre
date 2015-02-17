@@ -1614,6 +1614,13 @@
             unit_name="150tg_bag"
             frozen_indicators_values="net_mass: 7.50kilogram, thousand_grains_mass: 50gram"
             />
+      <!-- RAPE SEED -->
+      <item name="rape_seed"
+            nature="seed"
+            derivative_of="brassica_napus"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 5gram"
+            />
       <item name="pea_seed"
             nature="seed"
             derivative_of="pisum"
