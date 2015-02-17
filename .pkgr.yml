@@ -19,6 +19,7 @@ targets:
       - ghostscript
       - openjdk-7-jdk
     build_dependencies:
+      - libcurl4-openssl-dev
       - openjdk-7-jdk
       - libgeos-dev
       - libgeos++-dev
