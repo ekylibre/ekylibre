@@ -1,5 +1,6 @@
+targets:
+  ubuntu-14.04: true
 dependencies:
-  - postgresql-9.3
   - postgresql-9.3-postgis-2.1
   - graphicsmagick
   - tesseract-ocr
@@ -15,7 +16,6 @@ dependencies:
   - ghostscript
   - openjdk-7-jdk
 build_dependencies:
-  #- postgresql-server-dev-9.3
   - openjdk-7-jdk
   - libgeos-dev
   - libgeos++-dev
@@ -23,6 +23,5 @@ build_dependencies:
   - libpq-dev
   - libxml2-dev 
   - libxslt1-dev
-  - libgdal-dev
   - zlib1g-dev
 before_precompile: "config/packaging/before_precompile"
