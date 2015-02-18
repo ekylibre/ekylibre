@@ -32,6 +32,8 @@
       <!-- IDELE -->
       <item name="idele_login" />
       <item name="idele_password" password="true"/>
+      <!-- COMMODITIES -->
+      <item name="quandl_token" />
     </items>
   </nomenclature>
 
