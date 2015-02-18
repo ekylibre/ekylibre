@@ -1,4 +1,5 @@
 = render "menu"
+- productions = Production.of_activities(Activity.of_families(:cereal_crops, :oilseed_crops)).of_campaign(Campaign.currents).reorder(:name).select{|p| p.budgets.any? }
 
 = beehive(:root) do |b|
   -# b.hbox do
@@ -12,8 +13,20 @@
     - b.cell :calendar
     - b.cell :weather
   - b.hbox do
-    - productions = Production.of_activities(Activity.of_families(:cereal_crops, :oilseed_crops)).of_campaign(Campaign.currents).reorder(:name)
-    - productions.select{|p| p.budgets.any? }.each do |production|
+    - productions.each do |production|
       - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}
 
 
+  - b.cell :simulator do
+    .regulator
+      %span.name= "Salaire"
+      %span.slider.slider-salary{data: {regulator: {value: 2000, unit: "€"}.to_json}}
+      %span.value= "2000 €"
+      %span.price= "Prix d'objectif"
+    - productions.each do |production|
+      %h3= production.name  
+      .regulator
+        %span.name= "Rendement"
+        %span.slider{data: {regulator: {value: 70, unit: "qt/ha"}.to_json}, class: "slider-yield"}
+        %span.value= "70 qt/ha"
+        %span.price= "180 €/qt"

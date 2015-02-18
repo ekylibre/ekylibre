@@ -1,6 +1,7 @@
 //= require bootstrap/dropdown
 //= require bootstrap/datetimepicker
 //= require bootstrap/datetimepicker-i18n
+//= require jquery-ui/slider
 
 (function ($) {
   "use strict";
@@ -679,6 +680,7 @@
   //     $.Behave.refresh();
   // });
 
+  
   $(document).behave("load", "*[data-collapse]", function () {
     $(this).each(function () {
       if ($(this).data("collapse") == "accordion") {
@@ -692,6 +694,18 @@
   $(document).ready(function () {
     $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide], input[type='radio'][data-show], input[type='radio'][data-hide]").each($.toggleCheckboxes);
     $("select[data-auto-timezone]").val(jstz.determine().name());
+    $("*[data-regulator]").each(function () {
+      var element = $(this), options = element.data("regulator"), value = options.value, display = element.next();
+      element.slider({
+        min: 0,
+        max: value * 3,
+        value: value,
+        slide: function (event, ui) {
+          console.log(ui.value);
+          display.html(ui.value + options.unit);
+        }
+      });
+    });
 
     $("#content").scroll(function () {
       var element = $(this), body;

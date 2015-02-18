@@ -2552,3 +2552,24 @@ svg.map {
     }
   }
 }
+
+
+
+.regulator {
+  .name {
+    display: block;
+  }
+  .slider {
+    display: inline-block;
+    width: 60%;
+  }
+  .value, .price {
+    display: inline-block;
+    width: 18%;
+    font-size: $fs-large;
+  }
+  .price {
+    font-weight: bold;
+    text-align: center;
+  }
+}
