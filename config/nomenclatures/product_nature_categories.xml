@@ -783,6 +783,24 @@
             pictogram="user"
             />
 
+          <item name="salary_social_contribution"
+            charge_account="salary_social_contribution_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="user"
+            />
+
+          <item name="associate_social_contribution"
+            charge_account="associate_social_contribution_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="user"
+            />
+
           <item name="service"
             product_account="services_revenues"
             purchasable="false"

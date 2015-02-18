@@ -154,6 +154,8 @@ eng:
       # show: "Rss cell: %{name}"
     backend/cells/stock_container_map_cells:
       # show: "Stock container map cell: %{name}"
+    backend/cells/threshold_commercialization_by_production_cells:
+      # show: "Threshold commercialization by production cell: %{name}"
     backend/cells/weather_cells:
       # show: "Weather cell: %{name}"
     backend/cells/working_sets_stocks_cells:
@@ -902,6 +904,7 @@ eng:
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "Details"
+    direct_charges: "Direct charges"
     discount: "Discount (%)" #?!
     display: "Display" #?
     distributions: "Distributions"
@@ -933,6 +936,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
     # entry_items: "Entry items"
+    # equipment: "Equipment"
     equipments: "Equipments"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
@@ -971,7 +975,7 @@ eng:
     general_ledger: "General ledger" #?
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
-    # geolocation: "Geolocation"
+    geolocation: "Geolocation"
     give_discount: "Give discount" #?!
     global_margin: "Global margin"
     global_margin_per_area: "Global margin per area"
@@ -1032,7 +1036,7 @@ eng:
     inventories: "Inventories"
     inventory: "Inventory" #?
     invoiced_amount: "Sales invoiced amount" #?
-    # invoices: "Invoices"
+    invoices: "Invoices"
     is: "Is" #?
     issue: "Issue"
     issues: "Issues"
@@ -1210,6 +1214,7 @@ eng:
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
+    # preparation: "Preparation"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions"
     pretax_amount: "Pre-tax amount"
@@ -1363,6 +1368,7 @@ eng:
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
+    # threshold_commercialization_by_production: "Threshold commercialization by production"
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"
@@ -1442,6 +1448,7 @@ eng:
     weather: "Weather"
     wind_speed: "Wind speed"
     with_financial_assets_depreciations: "With financial assets depreciations"
+    # worker: "Worker"
     working_sets_stocks: "Working sets stocks"
     x_cashes:
       one: "%{count} cash"

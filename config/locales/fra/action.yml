@@ -137,6 +137,7 @@ fra:
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?
     backend/cells/stock_map_cells: #?
+    backend/cells/threshold_commercialization_by_production_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
     backend/crumbs:
@@ -944,6 +945,7 @@ fra:
     destroyed_at_by: "Supprimé le %{at} par %{author}"
     destroyed_by_ago: "Supprimé par %{author} il y a %{ago}"
     details: "Informations complémentaires"
+    direct_charges: "Charges directes"
     discount: "Réduc. (%)"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
@@ -1041,6 +1043,7 @@ fra:
     general_ledger: "Grand livre"
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
+    # geolocation: "Geolocation"
     give_discount: "Octroyer une remise"
     global_margin: "Marge brute"
     global_margin_per_area: "Marge brute par unité de surface"
@@ -1114,6 +1117,7 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invoiced_amount: "Montant facturé"
+    # invoices: "Invoices"
     invoices_only: "Utiliser seulement les factures" #?
     is: "Est"
     issue: "Incident"

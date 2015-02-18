@@ -1,0 +1,86 @@
+- if @production and @production.budgets.any?
+  :ruby
+        balance = 0
+        equipment_balance = 0
+        worker_balance = 0
+        preparation_balance = 0
+        other_balance = 0
+        divider = 1.0
+        currency = Preference[:currency]
+        title_legend_complement = ''
+        # get working indicator and unit (ex: net_surface_area and hectare)
+        production_working_indicator = @production.working_indicator
+        production_working_unit = @production.working_unit
+        production_working_unit_nomen = Nomen::Units[production_working_unit.to_sym] if production_working_unit
+
+        if production_working_unit
+          title_legend_complement = ' (' + currency + ' / ' + production_working_unit_nomen.human_name + ')'
+        end
+
+        if production_working_indicator and production_working_indicator.to_sym == :net_surface_area
+          divider = @production.net_surface_area.to_d(@production.working_unit.to_sym)
+        end
+
+
+        data_series = []
+        data_worker = []
+        data_equipment = []
+        data_preparation = []
+        data_indirect_charges = []
+        series = []
+        if @production.revenues
+          for revenue in @production.revenues
+            value = revenue.items.sum(:global_amount)
+            data_series << { name: revenue.variant.name, y: (value/divider).to_s.to_f, color: "#000077"}
+            balance += value
+          end
+        end
+
+        if @production.expenses
+          for expense in @production.expenses
+            value = expense.items.sum(:global_amount)
+            variant_variety = Nomen::Varieties.find(expense.variant.variety)
+            if variant_variety <= :worker
+              worker_balance += value
+            elsif variant_variety <= :equipment
+              equipment_balance += value
+            elsif variant_variety <= :preparation
+              preparation_balance += value
+            else
+              other_balance += value
+            end
+            balance += value
+          end
+          # add balance
+          data_worker << worker_balance.to_f
+          data_equipment << equipment_balance.to_f
+          data_preparation << preparation_balance.to_f
+          data_indirect_charges << (-1 * @production.indirect_budget_items_value.to_f)
+          # add balance per working_unit if exist
+          if divider and divider != 0
+            data_worker << (worker_balance.to_f/ divider.to_f).round(2).to_s.to_f
+            data_equipment << (equipment_balance.to_f / divider.to_f).round(2).to_s.to_f
+            data_preparation << (preparation_balance.to_f / divider.to_f).round(2).to_s.to_f
+            data_indirect_charges << (-1 * (@production.indirect_budget_items_value.to_f / divider.to_f)).round(2).to_s.to_f
+          end
+        end
+
+        series << { name: :worker.tl, data: data_worker}
+        series << { name: :equipment.tl, data: data_equipment}
+        series << { name: :preparation.tl, data: data_preparation}
+        series << { name: :indirect_charges.tl, data: data_indirect_charges}
+        #
+        direct_charges_by_working_unit = (balance.to_f/ divider.to_f).round(2).to_s.to_f
+        indirect_charges_by_working_unit = (-1 * (@production.indirect_budget_items_value.to_f / divider.to_f)).round(2).to_s.to_f
+
+  -#= column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: ['a','b']}, legend: true, plot_options: { column: {stacking: 'normal'}})
+  .med-info
+    %span.value= @production.name
+  .med-info.important
+    %span.title= :direct_charges.tl + title_legend_complement
+    %span.value= link_to(direct_charges_by_working_unit.to_s, {controller: "/backend/productions" ,action: :show, id: @production.id})
+    %span.title= :indirect_charges.tl + title_legend_complement
+    %span.value= indirect_charges_by_working_unit
+
+- else
+  = no_data

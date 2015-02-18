@@ -1888,6 +1888,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="threshold_commercialization_by_production_cells">
+        <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

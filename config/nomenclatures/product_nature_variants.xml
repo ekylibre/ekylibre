@@ -3075,6 +3075,18 @@
             frozen_indicators_values=""
             />
 
+       <item name="salary_social_contribution"
+            nature="salary_social_contribution"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+       <item name="associate_social_contribution"
+            nature="associate_social_contribution"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
 
 
       <!-- SERVICES LINK TO NUMERIC -->

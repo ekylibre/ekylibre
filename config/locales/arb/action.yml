@@ -167,6 +167,7 @@ arb:
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?
     backend/cells/stock_map_cells: #?
+    backend/cells/threshold_commercialization_by_production_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
     backend/companies:  #?
@@ -1207,6 +1208,7 @@ arb:
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "معلومات اضافية"
+    # direct_charges: "Direct charges"
     discount: "الخصم (%)"
     display: "عرض"
     display_help: "عرض المساعدة" #?
@@ -1313,6 +1315,7 @@ arb:
     general_ledger: "دفتر الحسابات"
     # generate: "Generate"
     # generate_last_journal_entry: "Generate last journal entry"
+    # geolocation: "Geolocation"
     give_discount: "منح خصومات"
     # global_margin: "Global margin"
     # global_margin_per_area: "Global margin per area"
@@ -1386,6 +1389,7 @@ arb:
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد" #?
     invoiced_amount: "قيمة الفاتورة"
+    # invoices: "Invoices"
     # is: "Is"
     # issue: "Issue"
     # issues: "Issues"

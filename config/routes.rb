@@ -156,6 +156,7 @@ Rails.application.routes.draw do
       resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
       resource :stock_container_map_cell, only: :show
+      resource :threshold_commercialization_by_production_cell, only: :show
       resource :weather_cell, only: :show
       resource :working_sets_stocks_cell, only: :show
     end

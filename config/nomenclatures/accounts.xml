@@ -205,6 +205,8 @@
       <item name="staff_salary" fr_pcga="6411"/>
       <item name="associates_salary" fr_pcga="6413"/>
       <item name="bonus_staff_expenses" fr_pcg82="6413"/>
+      <item name="salary_social_contribution_expenses" fr_pcga="645"/>
+      <item name="associate_social_contribution_expenses" fr_pcga="646"/>
       <item name="other_staff_expenses" fr_pcga="648"/>
       <item name="licences_expenses" fr_pcga="651"/>
       <item name="other_usual_running_expenses" fr_pcga="658"/>

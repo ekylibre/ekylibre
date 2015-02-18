@@ -8,9 +8,15 @@
         = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", title: Ekylibre::Modules.human_name(mod)) do
           %i
           = Ekylibre::Modules.human_name(mod)
-  - b.hbox do
+  -# b.hbox do
     - b.cell :calendar
     - b.cell :weather
   - b.hbox do
-    - b.cell :map
+    = beehive(:threshold) do |b|
+      - b.cell :threshold_commercialization_by_production, title: '1', params: {activity_ids: Activity.where("name ILIKE ?", 'Orge d\’hiver').pluck(:id), campaign_ids: Campaign.currents.last.id}
+    = beehive(:threshold) do |b|
+      - b.cell :threshold_commercialization_by_production, title: '2', params: {activity_ids: Activity.where("name ILIKE ?", 'Blé tendre d\’hiver').pluck(:id), campaign_ids: Campaign.currents.last.id}
+    = beehive(:threshold) do |b|
+      - b.cell :threshold_commercialization_by_production, title: '3', params: {activity_ids: Activity.where("name ILIKE ?", 'Colza d\’hiver').pluck(:id), campaign_ids: Campaign.currents.last.id}
+
 

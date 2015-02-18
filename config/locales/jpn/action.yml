@@ -137,6 +137,7 @@ jpn:
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?
     backend/cells/stock_map_cells: #?
+    backend/cells/threshold_commercialization_by_production_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
     backend/crumbs:
@@ -809,6 +810,7 @@ jpn:
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     # details: "Details"
+    # direct_charges: "Direct charges"
     # discount: "Discount (%)"
     # display: "Display"
     display_help: "手伝い" #?
@@ -878,6 +880,7 @@ jpn:
     # general_ledger: "General ledger"
     # generate: "Generate"
     # generate_last_journal_entry: "Generate last journal entry"
+    # geolocation: "Geolocation"
     # give_discount: "Give discount"
     # global_margin: "Global margin"
     # global_margin_per_area: "Global margin per area"
@@ -938,6 +941,7 @@ jpn:
     # inventories: "Inventories"
     # inventory: "Inventory"
     # invoiced_amount: "Sales invoiced amount"
+    # invoices: "Invoices"
     # is: "Is"
     # issue: "Issue"
     # issues: "Issues"

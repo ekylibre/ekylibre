@@ -1761,6 +1761,24 @@
             frozen_indicators=""
             />
 
+         <item name="salary_social_contribution"
+            category="salary_social_contribution"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+          <item name="associate_social_contribution"
+            category="associate_social_contribution"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
 
 
         <!-- SERVICES LINK TO NUMERIC -->
