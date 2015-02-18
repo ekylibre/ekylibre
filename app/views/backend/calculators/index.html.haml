@@ -1,8 +1,0 @@
-= beehive do |b|
-  - b.hbox do
-    - b.cell :calculators do
-      - for calculator, url in @calculators
-        - name = "actions.#{url[:controller]}.#{url[:action]}".t
-        = link_to(url, class: "btn btn-big btn-#{calculator}", title: name) do
-          %i
-          = name

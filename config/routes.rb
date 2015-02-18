@@ -120,6 +120,7 @@ Rails.application.routes.draw do
     end
 
     namespace :calculators do
+      resource :grains_commercialization_threshold_simulator, only: :show
     end
 
     resources :calculators, only: :index
