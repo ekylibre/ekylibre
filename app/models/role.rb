@@ -26,8 +26,8 @@
 #  creator_id     :integer
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  name           :string(255)      not null
-#  reference_name :string(255)
+#  name           :string           not null
+#  reference_name :string
 #  rights         :text
 #  updated_at     :datetime         not null
 #  updater_id     :integer
@@ -38,7 +38,6 @@ class Role < Ekylibre::Record::Base
   include Rightable
   has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name

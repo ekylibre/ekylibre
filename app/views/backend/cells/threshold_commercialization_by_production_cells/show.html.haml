@@ -14,7 +14,7 @@
         production_working_unit_nomen = Nomen::Units[production_working_unit.to_sym] if production_working_unit
 
         if production_working_unit
-          title_legend_complement = ' (' + currency + ' / ' + production_working_unit_nomen.human_name + ')'
+          title_legend_complement = " (#{currency}/#{production_working_unit_nomen.human_name})"
         end
 
         if production_working_indicator and production_working_indicator.to_sym == :net_surface_area
@@ -75,8 +75,6 @@
         global_charges_by_working_unit = direct_charges_by_working_unit + indirect_charges_by_working_unit
 
   -#= column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: ['a','b']}, legend: true, plot_options: { column: {stacking: 'normal'}})
-  .med-info
-    %span.value= @production.name
   .med-info.important
     %span.title= :direct_charges.tl + title_legend_complement
     %span.value= link_to(direct_charges_by_working_unit.to_s, {controller: "/backend/productions" ,action: :show, id: @production.id})

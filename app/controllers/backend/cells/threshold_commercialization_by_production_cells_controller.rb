@@ -1,8 +1,10 @@
 class Backend::Cells::ThresholdCommercializationByProductionCellsController < Backend::Cells::BaseController
 
   def show
-    if params[:activity_ids] and params[:campaign_ids]
-      @production = Production.where(campaign_id: params[:campaign_ids], activity_id: params[:activity_ids]).first rescue nil
+    if params[:production_id]
+      @production = Production.find_by(id: params[:production_id])
+    elsif params[:activity_ids] and params[:campaign_ids]
+      @production = Production.find_by(campaign_id: params[:campaign_ids], activity_id: params[:activity_ids])
     else
       @production = nil
     end

@@ -30,10 +30,10 @@
 #  geolocation      :spatial({:srid=>4326, :type=>"point"})
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  nature           :string(255)      not null
-#  number           :string(255)      not null
+#  nature           :string           not null
+#  number           :string           not null
 #  product_id       :integer
-#  reference_number :string(255)
+#  reference_number :string
 #  sampled_at       :datetime         not null
 #  sampler_id       :integer
 #  updated_at       :datetime         not null

@@ -1,7 +1,7 @@
 = render "menu"
 
 = beehive(:root) do |b|
-  - b.hbox do
+  -# b.hbox do
     - b.cell :modules do
       - Ekylibre::Modules.hash.keys.each do |mod|
         - next unless module_authorized?(mod)
@@ -12,11 +12,8 @@
     - b.cell :calendar
     - b.cell :weather
   - b.hbox do
-    = beehive(:threshold) do |b|
-      - b.cell :threshold_commercialization_by_production, title: '1', params: {activity_ids: Activity.where("name ILIKE ?", 'Orge d\’hiver').pluck(:id), campaign_ids: Campaign.currents.last.id}
-    = beehive(:threshold) do |b|
-      - b.cell :threshold_commercialization_by_production, title: '2', params: {activity_ids: Activity.where("name ILIKE ?", 'Blé tendre d\’hiver').pluck(:id), campaign_ids: Campaign.currents.last.id}
-    = beehive(:threshold) do |b|
-      - b.cell :threshold_commercialization_by_production, title: '3', params: {activity_ids: Activity.where("name ILIKE ?", 'Colza d\’hiver').pluck(:id), campaign_ids: Campaign.currents.last.id}
+    - productions = Production.of_activities(Activity.of_families(:cereal_crops, :oilseed_crops)).of_campaign(Campaign.currents).reorder(:name)
+    - productions.select{|p| p.budgets.any? }.each do |production|
+      - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}
 
 

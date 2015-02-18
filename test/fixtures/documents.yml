@@ -26,11 +26,11 @@
 #  created_at     :datetime         not null
 #  creator_id     :integer
 #  id             :integer          not null, primary key
-#  key            :string(255)      not null
+#  key            :string           not null
 #  lock_version   :integer          default(0), not null
-#  name           :string(255)      not null
-#  nature         :string(255)      not null
-#  number         :string(255)      not null
+#  name           :string           not null
+#  nature         :string           not null
+#  number         :string           not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #

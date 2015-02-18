@@ -28,9 +28,9 @@
 #  expired_at    :datetime
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
-#  nature        :string(255)      not null
+#  nature        :string           not null
 #  resource_id   :integer          not null
-#  resource_type :string(255)      not null
+#  resource_type :string           not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
@@ -41,7 +41,6 @@ class Attachment < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::DocumentNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :expired_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :nature, :resource_type, allow_nil: true, maximum: 255
   validates_presence_of :document, :nature, :resource, :resource_type
   #]VALIDATORS]
 

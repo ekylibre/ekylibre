@@ -23,8 +23,8 @@
 # == Table: entity_addresses
 #
 #  by_default          :boolean          not null
-#  canal               :string(255)      not null
-#  coordinate          :string(255)      not null
+#  canal               :string           not null
+#  coordinate          :string           not null
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  deleted_at          :datetime
@@ -32,17 +32,17 @@
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  mail_auto_update    :boolean          not null
-#  mail_country        :string(255)
+#  mail_country        :string
 #  mail_geolocation    :spatial({:srid=>4326, :type=>"point"})
-#  mail_line_1         :string(255)
-#  mail_line_2         :string(255)
-#  mail_line_3         :string(255)
-#  mail_line_4         :string(255)
-#  mail_line_5         :string(255)
-#  mail_line_6         :string(255)
+#  mail_line_1         :string
+#  mail_line_2         :string
+#  mail_line_3         :string
+#  mail_line_4         :string
+#  mail_line_5         :string
+#  mail_line_6         :string
 #  mail_postal_zone_id :integer
-#  name                :string(255)
-#  thread              :string(255)
+#  name                :string
+#  thread              :string
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #

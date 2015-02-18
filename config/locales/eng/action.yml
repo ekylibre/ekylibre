@@ -1368,7 +1368,6 @@ eng:
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
-    # threshold_commercialization_by_production: "Threshold commercialization by production"
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"

@@ -27,10 +27,10 @@
 #  creator_id        :integer
 #  document_id       :integer          not null
 #  file_content_text :text
-#  file_content_type :string(255)
-#  file_file_name    :string(255)
+#  file_content_type :string
+#  file_file_name    :string
 #  file_file_size    :integer
-#  file_fingerprint  :string(255)
+#  file_fingerprint  :string
 #  file_pages_count  :integer
 #  file_updated_at   :datetime
 #  id                :integer          not null, primary key

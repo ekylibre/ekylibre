@@ -28,18 +28,18 @@
 #  charges_account_id      :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(255)      not null
+#  currency                :string           not null
 #  current_amount          :decimal(19, 4)
 #  depreciable_amount      :decimal(19, 4)   not null
 #  depreciated_amount      :decimal(19, 4)   not null
-#  depreciation_method     :string(255)      not null
+#  depreciation_method     :string           not null
 #  depreciation_percentage :decimal(19, 4)
 #  description             :text
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          not null
 #  lock_version            :integer          default(0), not null
-#  name                    :string(255)      not null
-#  number                  :string(255)      not null
+#  name                    :string           not null
+#  number                  :string           not null
 #  purchase_amount         :decimal(19, 4)
 #  purchase_id             :integer
 #  purchase_item_id        :integer

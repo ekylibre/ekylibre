@@ -28,7 +28,7 @@
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  participant_id :integer          not null
-#  state          :string(255)
+#  state          :string
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #

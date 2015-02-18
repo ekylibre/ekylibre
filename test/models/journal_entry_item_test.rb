@@ -23,7 +23,7 @@
 # == Table: journal_entry_items
 #
 #  absolute_credit           :decimal(19, 4)   default(0.0), not null
-#  absolute_currency         :string(255)      not null
+#  absolute_currency         :string           not null
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
 #  balance                   :decimal(19, 4)   default(0.0), not null
@@ -33,24 +33,24 @@
 #  credit                    :decimal(19, 4)   default(0.0), not null
 #  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
 #  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
-#  currency                  :string(255)      not null
+#  currency                  :string           not null
 #  debit                     :decimal(19, 4)   default(0.0), not null
 #  description               :text
 #  entry_id                  :integer          not null
-#  entry_number              :string(255)      not null
+#  entry_number              :string           not null
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
-#  letter                    :string(255)
+#  letter                    :string
 #  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
+#  name                      :string           not null
 #  position                  :integer
 #  printed_on                :date             not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
-#  real_currency             :string(255)      not null
+#  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
-#  state                     :string(255)      not null
+#  state                     :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #

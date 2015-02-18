@@ -27,7 +27,7 @@
 #  category_id              :integer          not null
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  derivative_of            :string(255)
+#  derivative_of            :string
 #  derivatives_list         :text
 #  description              :text
 #  evolvable                :boolean          not null
@@ -35,18 +35,18 @@
 #  id                       :integer          not null, primary key
 #  linkage_points_list      :text
 #  lock_version             :integer          default(0), not null
-#  name                     :string(255)      not null
-#  number                   :string(255)      not null
-#  picture_content_type     :string(255)
-#  picture_file_name        :string(255)
+#  name                     :string           not null
+#  number                   :string           not null
+#  picture_content_type     :string
+#  picture_file_name        :string
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  population_counting      :string(255)      not null
-#  reference_name           :string(255)
+#  population_counting      :string           not null
+#  reference_name           :string
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variable_indicators_list :text
-#  variety                  :string(255)      not null
+#  variety                  :string           not null
 #
 require 'test_helper'
 

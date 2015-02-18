@@ -31,7 +31,7 @@
 #  last_number       :integer
 #  lock_version      :integer          default(0), not null
 #  nature_id         :integer
-#  number            :string(255)
+#  number            :string
 #  product_nature_id :integer
 #  quantity          :decimal(19, 4)
 #  sale_id           :integer

@@ -28,9 +28,9 @@
 #  duration     :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(255)      not null
-#  place        :string(255)
+#  name         :string           not null
+#  nature       :string           not null
+#  place        :string
 #  restricted   :boolean          not null
 #  started_at   :datetime         not null
 #  stopped_at   :datetime

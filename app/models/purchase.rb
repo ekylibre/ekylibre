@@ -28,7 +28,7 @@
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
 #  creator_id          :integer
-#  currency            :string(255)      not null
+#  currency            :string           not null
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key
@@ -36,12 +36,12 @@
 #  journal_entry_id    :integer
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
-#  number              :string(255)      not null
+#  number              :string           not null
 #  planned_at          :datetime
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string(255)
+#  reference_number    :string
 #  responsible_id      :integer
-#  state               :string(255)
+#  state               :string
 #  supplier_id         :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
@@ -65,7 +65,6 @@ class Purchase < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_length_of :currency, :number, :reference_number, :state, allow_nil: true, maximum: 255
   validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3

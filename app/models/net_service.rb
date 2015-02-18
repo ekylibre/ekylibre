@@ -26,7 +26,7 @@
 #  creator_id     :integer
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  reference_name :string(255)      not null
+#  reference_name :string           not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
@@ -34,7 +34,6 @@ class NetService < Ekylibre::Record::Base
   enumerize :reference_name, in: Nomen::NetServices.all
   has_many :identifiers, -> { order(:nature) }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :reference_name
   #]VALIDATORS]
   validates_uniqueness_of :reference_name
