@@ -383,10 +383,10 @@ module Tele
                                 'sch:CauseEntree' => options[:entry_reason],
                                 'sch:ExploitationProvenance' => {
                                     'sch:Exploitation' => {
-                                        'sch:CodePays' => options[:src_country_code],
+                                        'sch:CodePays' => options[:src_farm_country_code],
                                         'sch:NumeroExploitation' => options[:src_farm_number]
                                     },
-                                    'sch:NomExploitation' => options[:src_owner_name]
+                                    'sch:NomExploitation' => options[:src_farm_owner_name]
                                 },
                                 'sch:CodeAtelier' => options[:prod_code],
                                 'sch:CodeCategorieBovin' => options[:cattle_categ_code]
@@ -595,7 +595,7 @@ module Tele
           client = Savon.client do | globals |
             globals.wsdl @business_wsdl
             globals.convert_request_keys_to :camelcase
-            globals.log true
+            # globals.log true
             globals.env_namespace :soapenv
             globals.namespace_identifier 'sch'
             globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
@@ -651,7 +651,7 @@ module Tele
                                 'sch:CodeAtelier' => options[:prod_code]
                             }.reject{ |_,v| v.nil? })
 
-          doc = Nokogiri::XML(res.body[:ip_b_create_sortie_response].to_xml)
+          doc = Nokogiri::XML(res.body[:ip_b_create_naissance_response].to_xml)
 
 
           result = doc.at_xpath('//resultat/child::text()').to_s
@@ -705,7 +705,7 @@ module Tele
       end
 
       ##
-      # create_stillbirth: Notifier la naissance d'un bovin mort-né non bouclé sur une exploitation française
+      # create_cattle_new_stillbirth: Notifier la naissance d'un bovin mort-né non bouclé sur une exploitation française
       # @param [string] token: token from reswel, length: 50
       # @param [string] farm_country_code: Toujours 'FR'. length: 2
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
@@ -726,10 +726,113 @@ module Tele
       # @param [string] father_animal_country_code: Code Pays du père IPG. length: 2
       # @param [string] father_animal_id: Numéro national du père IPG. max length: 12
       # @param [string] father_race_code: Type racial du père IPG . length: 2
-      private def create_stillbirth( token, farm_country_code, farm_number, sex, race_code, birth_date, cattle_name, transplant, abortion, twin, birth_condition, birth_weight, weighed, bust_size, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code)
+      def create_cattle_new_stillbirth( options = {} )
 
-        { jeton_authentification: token, exploitation_naissance: { code_pays: farm_country_code, numero_exploitation: farm_number}, sexe: sex, type_racial: race_code, date_naissance: birth_date, nom_bovin: cattle_name, filiation: { transplantation_embryonnaire: transplant, avortement: abortion, jumeau: twin, condition_naissance: birth_condition, poids: '', attributes!: { poids: { poids_naissance: birth_weight, poids_pesee: weighed }}, tour_poitrine: bust_size }, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code } }
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_mort_ne,
+                            message_tag: 'IpBCreateMortNeRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:ExploitationNaissance' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Sexe' => options[:sex],
+                                'sch:TypeRacial' => options[:race_code],
+                                'sch:DateNaissance' => options[:birth_date],
+                                'sch:NomBovin' => options[:cattle_name],
+                                'sch:Filiation' => {
+                                    'sch:TransplantationEmbryonnaire' => options[:transplant],
+                                    'sch:Avortement' => options[:abortion],
+                                    'sch:Jumeau' => options[:twin],
+                                    'sch:ConditionNaissance' => options[:birth_condition],
+                                    'sch:Poids' => {
+                                        'sch:PoidsNaissance' => options[:birth_weight],
+                                        'sch:PoidsPese' => options[:weighed],
+                                    }.reject{ |_,v| v.nil? },
+                                    'sch:TourPoitrine' => options[:buts_size]
+                                }.reject{ |_,v| v.nil? },
+                                'sch:MerePorteuse' => {
+                                    'sch:Bovin' => {
+                                        'sch:CodePays' => options[:mother_animal_country_code],
+                                        'sch:NumeroNational' => options[:mother_animal_id]
+                                    },
+                                    'sch:TypeRacial' => options[:mother_race_code]
+                                },
+                                'sch:PereIPG' => {
+                                    'sch:Bovin' => {
+                                        'sch:CodePays' => options[:father_animal_country_code],
+                                        'sch:NumeroNational' => options[:father_animal_id]
+                                    },
+                                    'sch:TypeRacial' => options[:father_race_code]
+                                }.reject{ |_,v| v.nil? }
+                            }.reject{ |_,v| v.nil? })
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_mort_ne_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//identite-bovin').nil?
+              status = 'validated'
+            end
+
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
 
       ##
@@ -760,10 +863,126 @@ module Tele
       # @param [string] src_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
       # @param [string] cattle_categ_code: Le code catégorie du bovin. length: 2
-      private def create_switched_animal( token, farm_number, animal_country_code, animal_id, sex, race_code, birth_date, witness, work_number, cattle_name, status, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code, birth_farm_country_code, birth_farm_number, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code )
+      def create_switched_animal( options = {} )
 
-        { jeton_authentification: token, exploitation_notification: farm_number, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sex, type_racial: race_code, date_naissance: '', attributes!: { date_naissance: {date: birth_date, temoin_completude: witness }}, numero_travail: work_number, nom_bovin: cattle_name, statut_filie: status, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code }, exploitation_naissance: { code_pays: birth_farm_country_code, numero_exploitation: birth_farm_number }, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: prod_code, code_categorie_bovin: cattle_categ_code  }
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_animal_echange,
+                            message_tag: 'IpBCreateAnimalEchangeRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:ExploitationNotification' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Bovin' => {
+                                    'sch:CodePays' => options[:animal_country_code],
+                                    'sch:NumeroNational' => options[:animal_id]
+                                },
+                                'sch:Sexe' => options[:sex],
+                                'sch:TypeRacial' => options[:race_code],
+                                'sch:DateNaissance' => {
+                                    'sch:Date' => options[:birth_date],
+                                    'sch:TemoinCompletude' => options[:witness]
+                                },
+                                'sch:NumeroTravail' => options[:work_number],
+                                'sch:NomBovin' => options[:cattle_name],
+                                'sch:MerePorteuse' => {
+                                    'sch:Bovin' => {
+                                        'sch:CodePays' => options[:mother_animal_country_code],
+                                        'sch:NumeroNational' => options[:mother_animal_id]
+                                    },
+                                    'sch:TypeRacial' => options[:mother_race_code]
+                                },
+                                'sch:PereIPG' => {
+                                    'sch:Bovin' => {
+                                        'sch:CodePays' => options[:father_animal_country_code],
+                                        'sch:NumeroNational' => options[:father_animal_id]
+                                    },
+                                    'sch:TypeRacial' => options[:father_race_code]
+                                }.reject{ |_,v| v.nil? },
+                                'sch:ExploitationNaissance' => {
+                                    'sch:CodePays' => options[:birth_farm_country_code],
+                                    'sch:NumeroExploitation' => options[:birth_farm_number]
+                                },
+                                'sch:DateEntree' => options[:entry_date],
+                                'sch:CauseEntree' => options[:entry_reason],
+                                'sch:ExploitationProvenance' => {
+                                    'sch:Exploitation' => {
+                                        'sch:CodePays' => options[:src_farm_country_code],
+                                        'sch:NumeroExploitation' => options[:src_farm_number]
+                                    },
+                                    'sch:NomExploitation' => options[:src_farm_owner_name]
+                                },
+                                'sch:CodeAtelier' => options[:prod_code],
+                                'sch:CodeCategorieBovin' => options[:cattle_categ_code]
+                            }.reject{ |_,v| v.nil? })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_animal_echange_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//identite-bovin').nil?
+              status = 'validated'
+            end
+
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
 
       ##
@@ -773,10 +992,83 @@ module Tele
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
       # @param [string] src_animal_country_code: Code pays d'origine du bovin. length: 2
       # @param [string] src_animal_id: Numéro national d'origine du bovin. max length: 12
-      private def create_imported_animal_notice( token, farm_country_code, farm_number, src_animal_country_code, src_animal_id )
+      def create_imported_animal_notice( options = {} )
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays_origine_bovin: src_animal_country_code, numero_origine_bovin: src_animal_id } }
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_avis_animal_importe,
+                            message_tag: 'IpBCreateAvisAnimalImporteRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Bovin' => {
+                                    'sch:CodePaysOrigineBovin' => options[:src_animal_country_code],
+                                    'sch:NumeroOrigineBovin' => options[:src_animal_id]
+                                }
+                            })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_avis_animal_importe_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = 'validated'
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
 
       ##
@@ -804,15 +1096,133 @@ module Tele
       # @param [string] src_animal_id: Numéro national d'origine du bovin. max length: 12
       # @param [string] entry_date: Date entrée du bovin
       # @param [string] entry_reason: Cause d'entrée. (A/P)
-      # @param [string] src_country_code: Code pays de l'exploitation de provenance. length: 2
+      # @param [string] src_farm_country_code: Code pays de l'exploitation de provenance. length: 2
       # @param [string] src_farm_number: Numéro d'exploitation de provenance. length: 12
-      # @param [string] src_owner_name: Nom du détenteur. max length: 60
+      # @param [string] src_farm_owner_name: Nom du détenteur. max length: 60
       # @param [string] prod_code: Le type d'atelier du type AtelierBovinIPG. length: 2
       # @param [string] cattle_categ_code: Le code catégorie du bovin. length: 2
-      private def create_imported_animal( token, farm_number, animal_country_code, animal_id, sex, race_code, birth_date, witness, work_number, cattle_name, status, mother_animal_country_code, mother_animal_id, mother_race_code, father_animal_country_code, father_animal_id, father_race_code, birth_farm_country_code, birth_farm_number, src_animal_country_code, src_animal_id, entry_date, entry_reason, src_country_code, src_farm_number, src_owner_name, prod_code, cattle_categ_code )
+      def create_imported_animal( options = {} )
 
-        { jeton_authentification: token, exploitation_notification: farm_number, bovin: { code_pays: animal_country_code, numero_national: animal_id }, sexe: sex, type_racial: race_code, date_naissance: '', attributes!: { date_naissance: { date: birth_date, temoin_completude: witness } }, numero_travail: work_number, nom_bovin: cattle_name, statut_filie: status, mere_porteuse: { bovin: { code_pays: mother_animal_country_code, numero_national: mother_animal_id }, type_racial: mother_race_code }, pere_ipg: { bovin: { code_pays: father_animal_country_code, numero_national: father_animal_id }, type_racial: father_race_code }, exploitation_naissance: { code_pays: birth_farm_country_code, numero_exploitation: birth_farm_number }, code_pays_origine_bovin: src_animal_country_code, numero_origine_bovin: src_animal_id, date_entree: entry_date, cause_entree: entry_reason, exploitation_provenance: { exploitation: { code_pays: src_country_code, numero_exploitation: src_farm_number }, nom_exploitation: src_owner_name }, code_atelier: prod_code, code_categorie_bovin: cattle_categ_code  }
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_animal_importe,
+                            message_tag: 'IpBCreateAnimalImporteRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:ExploitationNotification' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Bovin' => {
+                                    'sch:CodePays' => options[:animal_country_code],
+                                    'sch:NumeroNational' => options[:animal_id]
+                                },
+                                'sch:Sexe' => options[:sex],
+                                'sch:TypeRacial' => options[:race_code],
+                                'sch:DateNaissance' => {
+                                    'sch:Date' => options[:birth_date],
+                                    'sch:TemoinCompletude' => options[:witness]
+                                },
+                                'sch:NumeroTravail' => options[:work_number],
+                                'sch:NomBovin' => options[:cattle_name],
+                                'sch:MerePorteuse' => {
+                                    'sch:Bovin' => {
+                                        'sch:CodePays' => options[:mother_animal_country_code],
+                                        'sch:NumeroNational' => options[:mother_animal_id]
+                                    },
+                                    'sch:TypeRacial' => options[:mother_race_code]
+                                },
+                                'sch:PereIPG' => {
+                                    'sch:Bovin' => {
+                                        'sch:CodePays' => options[:father_animal_country_code],
+                                        'sch:NumeroNational' => options[:father_animal_id]
+                                    },
+                                    'sch:TypeRacial' => options[:father_race_code]
+                                }.reject{ |_,v| v.nil? },
+                                'sch:ExploitationNaissance' => {
+                                    'sch:CodePays' => options[:birth_farm_country_code],
+                                    'sch:NumeroExploitation' => options[:birth_farm_number]
+                                },
+                                'sch:CodePaysOrigineBovin' => options[:src_animal_country_code],
+                                'sch:NumeroOrigineBovin' => options[:src_animal_id],
+                                'sch:DateEntree' => options[:entry_date],
+                                'sch:CauseEntree' => options[:entry_reason],
+                                'sch:ExploitationProvenance' => {
+                                    'sch:Exploitation' => {
+                                        'sch:CodePays' => options[:src_farm_country_code],
+                                        'sch:NumeroExploitation' => options[:src_farm_number]
+                                    },
+                                    'sch:NomExploitation' => options[:src_farm_owner_name]
+                                },
+                                'sch:CodeAtelier' => options[:prod_code],
+                                'sch:CodeCategorieBovin' => options[:cattle_categ_code]
+                            }.reject{ |_,v| v.nil? })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_animal_importe_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//identite-bovin').nil?
+              status = 'validated'
+            end
+
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
 
       ##
@@ -823,10 +1233,103 @@ module Tele
       # @param [date] start_date: Date début de période de présence des bovins
       # @param [date] end_date: Date fin de période de présence des bovins
       # @param [Object] stock: Indique si le stock de boucles doit être retourné
-      private def get_cattle_list( token, farm_country_code, farm_number, start_date, end_date, stock)
+      def get_cattle_list( options = {} )
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, date_debut: start_date, date_fin: end_date, stock_boucles: stock}
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_get_inventaire,
+                            message_tag: 'IpBGetInventaireRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:DateDebut' => options[:start_date],
+                                'sch:DateFin' => options[:end_date],
+                                'sch:StockBoucles' => options[:stock]
+                            }.reject{ |_,v| v.nil? })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_get_inventaire_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//nb-bovins').nil?
+              status = 'validated'
+
+              messageZip = doc.at_xpath('//message-zip/child::text()').to_s
+
+
+              stream = ::Base64.decode64(messageZip)
+
+              Zip::File.open_buffer(stream) do |f|
+
+                f.each do |entry|
+                  xml = Nokogiri::XML(entry.get_input_stream.read)
+                  print xml.inspect
+                end
+
+              end
+
+            end
+
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
 
       ##
