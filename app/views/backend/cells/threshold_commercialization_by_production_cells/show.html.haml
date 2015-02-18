@@ -69,10 +69,26 @@
         series << { name: :equipment.tl, data: data_equipment}
         series << { name: :preparation.tl, data: data_preparation}
         series << { name: :indirect_charges.tl, data: data_indirect_charges}
-        #
+        # 
         direct_charges_by_working_unit = (balance.to_f/ divider.to_f).round(2).to_s.to_f rescue 0.0
         indirect_charges_by_working_unit = (-1 * (@production.indirect_budget_items_value.to_f / divider.to_f)).round(2).to_s.to_f rescue 0.0
         global_charges_by_working_unit = direct_charges_by_working_unit + indirect_charges_by_working_unit
+        # équation
+        # y : prix d'objectif en [€/ton]
+        # a : quantité de budget_item du salaire de l'exploitant [mois]
+        a = 12
+        # x : salaire mensuel de l'exploitant [€] proratisé à l'unité d'oeuvre et distribué entre activités
+        # TODO
+        x = 0
+        # b : pourcentage de variation du rendement [%]
+        b = 1.0
+        # z : rendement de la prodution (budget_item, sens: revenus et varieties: grain)
+        variants = ProductNatureVariant.derivative_of(@production.variant.variety)
+        z = @production.revenues.where(variant_id: variants.pluck(:id)).items.average(:quantity)
+        # c : charges globales [global_charges_by_working_unit]
+        c = global_charges_by_working_unit
+        # y [€/ton] = (ax + c [€/Ha]) / bz[qt/Ha] * 10
+        y = ((a * x + c) / (b * z)) * 10
 
   -#= column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: ['a','b']}, legend: true, plot_options: { column: {stacking: 'normal'}})
   .med-info.important
