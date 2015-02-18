@@ -26,21 +26,21 @@
 #  category_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  derivative_of        :string
+#  derivative_of        :string(255)
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string
+#  name                 :string(255)
 #  nature_id            :integer          not null
-#  number               :string
-#  picture_content_type :string
-#  picture_file_name    :string
+#  number               :string(255)
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
-#  reference_name       :string
-#  unit_name            :string           not null
+#  reference_name       :string(255)
+#  unit_name            :string(255)      not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variety              :string           not null
+#  variety              :string(255)      not null
 #
 require 'test_helper'
 

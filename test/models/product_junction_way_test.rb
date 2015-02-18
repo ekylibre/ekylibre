@@ -27,10 +27,10 @@
 #  id           :integer          not null, primary key
 #  junction_id  :integer          not null
 #  lock_version :integer          default(0), not null
-#  nature       :string           not null
+#  nature       :string(255)      not null
 #  population   :decimal(19, 4)
 #  road_id      :integer          not null
-#  role         :string           not null
+#  role         :string(255)      not null
 #  shape        :spatial({:srid=>4326, :type=>"geometry"})
 #  updated_at   :datetime         not null
 #  updater_id   :integer

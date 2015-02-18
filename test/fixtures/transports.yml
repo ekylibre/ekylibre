@@ -29,8 +29,8 @@
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  net_mass                :decimal(19, 4)
-#  number                  :string
-#  reference_number        :string
+#  number                  :string(255)
+#  reference_number        :string(255)
 #  responsible_id          :integer
 #  transporter_id          :integer          not null
 #  transporter_purchase_id :integer

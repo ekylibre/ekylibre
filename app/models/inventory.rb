@@ -29,8 +29,8 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number           :string
+#  name             :string(255)      not null
+#  number           :string(255)
 #  reflected        :boolean          not null
 #  reflected_at     :datetime
 #  responsible_id   :integer
@@ -44,6 +44,7 @@ class Inventory < Ekylibre::Record::Base
   has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :achieved_at, :reflected_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :name, :number, allow_nil: true, maximum: 255
   validates_inclusion_of :reflected, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]

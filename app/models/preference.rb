@@ -29,10 +29,10 @@
 #  id                :integer          not null, primary key
 #  integer_value     :integer
 #  lock_version      :integer          default(0), not null
-#  name              :string           not null
-#  nature            :string           not null
+#  name              :string(255)      not null
+#  nature            :string(255)      not null
 #  record_value_id   :integer
-#  record_value_type :string
+#  record_value_type :string(255)
 #  string_value      :text
 #  updated_at        :datetime         not null
 #  updater_id        :integer
@@ -53,6 +53,7 @@ class Preference < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :decimal_value, allow_nil: true
+  validates_length_of :name, :nature, :record_value_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_length_of :nature, allow_nil: true, maximum: 60

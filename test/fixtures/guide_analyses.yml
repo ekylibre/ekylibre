@@ -22,7 +22,7 @@
 #
 # == Table: guide_analyses
 #
-#  acceptance_status :string           not null
+#  acceptance_status :string(255)      not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  execution_number  :integer          not null

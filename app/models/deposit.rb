@@ -33,7 +33,7 @@
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null
 #  mode_id          :integer          not null
-#  number           :string           not null
+#  number           :string(255)      not null
 #  payments_count   :integer          default(0), not null
 #  responsible_id   :integer
 #  updated_at       :datetime         not null
@@ -51,6 +51,7 @@ class Deposit < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, allow_nil: true
+  validates_length_of :number, allow_nil: true, maximum: 255
   validates_inclusion_of :locked, in: [true, false]
   validates_presence_of :amount, :cash, :mode, :number
   #]VALIDATORS]

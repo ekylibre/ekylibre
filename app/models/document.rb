@@ -26,11 +26,11 @@
 #  created_at     :datetime         not null
 #  creator_id     :integer
 #  id             :integer          not null, primary key
-#  key            :string           not null
+#  key            :string(255)      not null
 #  lock_version   :integer          default(0), not null
-#  name           :string           not null
-#  nature         :string           not null
-#  number         :string           not null
+#  name           :string(255)      not null
+#  nature         :string(255)      not null
+#  number         :string(255)      not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
@@ -41,6 +41,7 @@ class Document < Ekylibre::Record::Base
   has_many :last_archive, -> { reorder(archived_at: :desc) }, class_name: "DocumentArchive"
   enumerize :nature, in: Nomen::DocumentNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :key, :name, :nature, :number, allow_nil: true, maximum: 255
   validates_presence_of :key, :name, :nature, :number
   #]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 60

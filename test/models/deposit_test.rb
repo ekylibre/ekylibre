@@ -33,7 +33,7 @@
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null
 #  mode_id          :integer          not null
-#  number           :string           not null
+#  number           :string(255)      not null
 #  payments_count   :integer          default(0), not null
 #  responsible_id   :integer
 #  updated_at       :datetime         not null

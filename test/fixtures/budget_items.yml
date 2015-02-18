@@ -25,7 +25,7 @@
 #  budget_id             :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string
+#  currency              :string(255)
 #  global_amount         :decimal(19, 4)   default(0.0), not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null

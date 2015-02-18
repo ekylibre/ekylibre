@@ -23,46 +23,46 @@
 # == Table: entities
 #
 #  active                    :boolean          default(FALSE), not null
-#  activity_code             :string
+#  activity_code             :string(255)
 #  authorized_payments_count :integer
 #  born_at                   :datetime
 #  client                    :boolean          not null
 #  client_account_id         :integer
-#  country                   :string
+#  country                   :string(255)
 #  created_at                :datetime         not null
 #  creator_id                :integer
-#  currency                  :string           not null
+#  currency                  :string(255)      not null
 #  dead_at                   :datetime
-#  deliveries_conditions     :string
+#  deliveries_conditions     :string(255)
 #  description               :text
 #  first_met_at              :datetime
-#  first_name                :string
-#  full_name                 :string           not null
+#  first_name                :string(255)
+#  full_name                 :string(255)      not null
 #  id                        :integer          not null, primary key
-#  language                  :string           not null
-#  last_name                 :string           not null
+#  language                  :string(255)      not null
+#  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
-#  meeting_origin            :string
-#  nature                    :string           not null
-#  number                    :string
+#  meeting_origin            :string(255)
+#  nature                    :string(255)      not null
+#  number                    :string(255)
 #  of_company                :boolean          not null
-#  picture_content_type      :string
-#  picture_file_name         :string
+#  picture_content_type      :string(255)
+#  picture_file_name         :string(255)
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  proposer_id               :integer
 #  prospect                  :boolean          not null
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
-#  siren                     :string
+#  siren                     :string(255)
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
 #  transporter               :boolean          not null
-#  type                      :string
+#  type                      :string(255)
 #  updated_at                :datetime         not null
 #  updater_id                :integer
-#  vat_number                :string
+#  vat_number                :string(255)
 #  vat_subjected             :boolean          default(FALSE), not null
 #
 class Person < Entity

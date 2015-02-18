@@ -25,7 +25,7 @@
 #  amount        :decimal(19, 4)   default(0.0), not null
 #  created_at    :datetime         not null
 #  creator_id    :integer
-#  currency      :string           not null
+#  currency      :string(255)      not null
 #  gap_id        :integer          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null

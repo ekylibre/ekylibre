@@ -28,10 +28,10 @@
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  member_id       :integer          not null
-#  nature          :string           not null
+#  nature          :string(255)      not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string
+#  originator_type :string(255)
 #  started_at      :datetime         not null
 #  stopped_at      :datetime
 #  updated_at      :datetime         not null

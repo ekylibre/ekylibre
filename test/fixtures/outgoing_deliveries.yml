@@ -27,11 +27,11 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode             :string           not null
+#  mode             :string(255)      not null
 #  net_mass         :decimal(19, 4)
-#  number           :string           not null
+#  number           :string(255)      not null
 #  recipient_id     :integer          not null
-#  reference_number :string
+#  reference_number :string(255)
 #  sale_id          :integer
 #  sent_at          :datetime
 #  transport_id     :integer

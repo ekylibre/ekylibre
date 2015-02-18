@@ -28,10 +28,10 @@
 #  description  :text
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string           not null
+#  name         :string(255)      not null
 #  producer_id  :integer
 #  product_id   :integer
-#  serial       :string
+#  serial       :string(255)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -39,6 +39,7 @@ class Tracking < Ekylibre::Record::Base
   belongs_to :producer, class_name: "Entity"
   belongs_to :product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :serial, allow_nil: true, maximum: 255
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]

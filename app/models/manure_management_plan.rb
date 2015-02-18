@@ -26,11 +26,11 @@
 #  campaign_id                :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
-#  default_computation_method :string           not null
+#  default_computation_method :string(255)      not null
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
 #  locked                     :boolean          not null
-#  name                       :string           not null
+#  name                       :string(255)      not null
 #  opened_at                  :datetime         not null
 #  recommender_id             :integer          not null
 #  selected                   :boolean          not null
@@ -44,6 +44,7 @@ class ManureManagementPlan < Ekylibre::Record::Base
   enumerize :default_computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :opened_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :default_computation_method, :name, allow_nil: true, maximum: 255
   validates_inclusion_of :locked, :selected, in: [true, false]
   validates_presence_of :campaign, :default_computation_method, :name, :opened_at, :recommender
   #]VALIDATORS]
