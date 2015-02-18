@@ -92,6 +92,7 @@ arb:
       show: "تفاصيل عن مواقع التخزين : %{name}"
     backend/calculators:
       # index: "Calculators"
+    backend/calculators/grains_commercialization_threshold_simulator: #?
     backend/calculators/manure_management_plans: #?
     backend/calculators/nitrogen_inputs: #?
     backend/campaigns:

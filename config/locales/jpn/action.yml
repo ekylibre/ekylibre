@@ -78,6 +78,7 @@ jpn:
       # show: "Building: %{name}"
     backend/calculators:
       # index: "Calculators"
+    backend/calculators/grains_commercialization_threshold_simulator: #?
     backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"

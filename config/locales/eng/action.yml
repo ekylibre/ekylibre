@@ -73,6 +73,8 @@ eng:
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
+    backend/calculators/grains_commercialization_threshold_simulator:
+      # show: "Grains commercialization threshold simulator: %{name}"
     backend/calculators:
       index: "Calculators"
     backend/campaigns:
@@ -804,7 +806,7 @@ eng:
     building_name: "Building name" #?
     # buildings_map: "Buildings map"
     calculate: "Calculate" #?
-    calculators: "Calculators"
+    calculators: "Calculators" #?
     calendar: "Calendar" #?
     campaign: "Campaign"
     canals: "Canals" #?
@@ -936,7 +938,6 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
     # entry_items: "Entry items"
-    # equipment: "Equipment"
     equipments: "Equipments"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
@@ -1214,7 +1215,6 @@ eng:
     potential_hydrogen: "Potential hydrogen" #?
     precipitation: "Precipitation"
     preferences: "Preferences"
-    # preparation: "Preparation"
     prescription: "Prescription" #?
     prescriptions: "Prescriptions"
     pretax_amount: "Pre-tax amount"
@@ -1340,6 +1340,7 @@ eng:
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
     simplified_linear_options: "Simplified linear options"
+    # simulator: "Simulator"
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
@@ -1447,7 +1448,6 @@ eng:
     weather: "Weather"
     wind_speed: "Wind speed"
     with_financial_assets_depreciations: "With financial assets depreciations"
-    # worker: "Worker"
     working_sets_stocks: "Working sets stocks"
     x_cashes:
       one: "%{count} cash"

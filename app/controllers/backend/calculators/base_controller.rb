@@ -17,5 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::Calculators::Base < Backend::BaseController
+class Backend::Calculators::BaseController < Backend::BaseController
 end

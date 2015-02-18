@@ -248,7 +248,7 @@ class Production < Ekylibre::Record::Base
     end
     return global_value
   end
-  
+
   def direct_budget_items_value
     global_value = 0
 
@@ -261,11 +261,11 @@ class Production < Ekylibre::Record::Base
       global_value += distribution_value.to_d
     return global_value
   end
-  
+
   def global_cost
     self.direct_budget_items_value + self.indirect_budget_items_value
   end
-  
+
   def quandl_dataset
     if Nomen::Varieties[self.variant_variety.to_sym] <= :triticum_aestivum
       return 'CHRIS/LIFFE_EBM4'
@@ -275,7 +275,7 @@ class Production < Ekylibre::Record::Base
       return 'ODA/PBARL_USD'
     end
   end
-  
+
   def active?
     if self.activity.fallow_land?
       return false

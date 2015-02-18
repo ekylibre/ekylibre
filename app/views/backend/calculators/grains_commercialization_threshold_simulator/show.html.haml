@@ -27,7 +27,7 @@
       %span.value= "2000 €"
       %span.price= "Prix d'objectif"
     - productions.each do |production|
-      %h3= production.name  
+      %h3= production.name
       .regulator
         %span.name= "Rendement"
         %span.slider{data: {regulator: {value: 70, unit: "qt/ha"}.to_json}, class: "slider-yield"}

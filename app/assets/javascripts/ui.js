@@ -680,7 +680,7 @@
   //     $.Behave.refresh();
   // });
 
-  
+
   $(document).behave("load", "*[data-collapse]", function () {
     $(this).each(function () {
       if ($(this).data("collapse") == "accordion") {

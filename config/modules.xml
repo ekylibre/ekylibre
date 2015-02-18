@@ -1889,6 +1889,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="grains_commercialization_threshold_simulator">
+        <page to="backend/calculators/grains_commercialization_threshold_simulator#show"/>
+      </item>
       <item name="threshold_commercialization_by_production_cells">
         <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
       </item>
