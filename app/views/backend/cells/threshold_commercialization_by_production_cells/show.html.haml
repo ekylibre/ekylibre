@@ -70,8 +70,9 @@
         series << { name: :preparation.tl, data: data_preparation}
         series << { name: :indirect_charges.tl, data: data_indirect_charges}
         #
-        direct_charges_by_working_unit = (balance.to_f/ divider.to_f).round(2).to_s.to_f
-        indirect_charges_by_working_unit = (-1 * (@production.indirect_budget_items_value.to_f / divider.to_f)).round(2).to_s.to_f
+        direct_charges_by_working_unit = (balance.to_f/ divider.to_f).round(2).to_s.to_f rescue 0.0
+        indirect_charges_by_working_unit = (-1 * (@production.indirect_budget_items_value.to_f / divider.to_f)).round(2).to_s.to_f rescue 0.0
+        global_charges_by_working_unit = direct_charges_by_working_unit + indirect_charges_by_working_unit
 
   -#= column_chart(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total}"}, labels: { format: "{value}" }}, x_axis: { categories: ['a','b']}, legend: true, plot_options: { column: {stacking: 'normal'}})
   .med-info
