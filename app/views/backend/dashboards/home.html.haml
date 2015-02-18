@@ -1,5 +1,5 @@
 = render "menu"
-- productions = Production.of_activities(Activity.of_families(:cereal_crops, :oilseed_crops)).of_campaign(Campaign.currents).reorder(:name).select{|p| p.budgets.any? }
+- productions = Production.of_activities(Activity.of_families(:field_crops)).of_campaign(Campaign.currents).reorder(:name).select{|p| p.budgets.any? }
 
 = beehive(:root) do |b|
   -# b.hbox do
@@ -12,6 +12,9 @@
   -# b.hbox do
     - b.cell :calendar
     - b.cell :weather
+  - b.hbox do
+    - productions.each do |production|
+      - b.cell "#{production.id}_quandl".to_sym, type: :quandl, title: production.name, params: {threshold: 190, dataset: production.quandl_dataset}
   - b.hbox do
     - productions.each do |production|
       - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}

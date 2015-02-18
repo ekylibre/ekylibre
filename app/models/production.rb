@@ -248,7 +248,34 @@ class Production < Ekylibre::Record::Base
     end
     return global_value
   end
+  
+  def direct_budget_items_value
+    global_value = 0
 
+      direct_expenses_value = self.expenses.sum(:global_amount).to_d
+      distribution_value -= direct_expenses_value if direct_expenses_value > 0.0
+
+      direct_revenues_value = self.revenues.sum(:global_amount).to_d
+      distribution_value += direct_revenues_value.to_d if direct_revenues_value > 0.0
+
+      global_value += distribution_value.to_d
+    return global_value
+  end
+  
+  def global_cost
+    self.direct_budget_items_value + self.indirect_budget_items_value
+  end
+  
+  def quandl_dataset
+    if Nomen::Varieties[self.variant_variety.to_sym] <= :triticum_aestivum
+      return 'CHRIS/LIFFE_EBM4'
+    elsif Nomen::Varieties[self.variant_variety.to_sym] <= :brassica_napus
+      return 'CHRIS/LIFFE_ECO4'
+    elsif Nomen::Varieties[self.variant_variety.to_sym] <= :hordeum_vernum
+      return 'ODA/PBARL_USD'
+    end
+  end
+  
   def active?
     if self.activity.fallow_land?
       return false
