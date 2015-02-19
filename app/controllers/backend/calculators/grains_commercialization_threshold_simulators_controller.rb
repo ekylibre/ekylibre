@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::Calculators::GrainsCommercializationThresholdSimulatorController < Backend::Calculators::BaseController
+class Backend::Calculators::GrainsCommercializationThresholdSimulatorsController < Backend::Calculators::BaseController
   def show
   end
 

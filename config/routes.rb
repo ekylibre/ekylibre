@@ -123,7 +123,7 @@ Rails.application.routes.draw do
       resource :grains_commercialization_threshold_simulator, only: :show
     end
 
-    resources :calculators, only: :index
+    # resources :calculators, only: :index
 
     namespace :cells do
       resource :cash_balances_cell, only: :show, concerns: :list

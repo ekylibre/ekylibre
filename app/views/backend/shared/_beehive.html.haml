@@ -6,7 +6,7 @@
     %i
     = :fullscreen.tl
 
-.beehive{id: beehive.id, data: {beehive: beehive.name, beehive_save_url: url_for(controller: :beehives, action: :update, id: beehive.name), beehive_reset_url: url_for(controller: :beehives, action: :reset, id: beehive.name)}}
+.beehive{id: beehive.id, data: {beehive: beehive.name, beehive_save_url: url_for(controller: "/backend/beehives", action: :update, id: beehive.name), beehive_reset_url: url_for(controller: "/backend/beehives", action: :reset, id: beehive.name)}}
   .local-cells{style: "display: none"}
     - beehive.local_cells.each do |cell|
       = render "backend/shared/beehive/cell", cell: cell.to_hash, beehive: beehive

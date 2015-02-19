@@ -946,11 +946,10 @@
       </item>
     </group>
     <group name="decision_making" icon="compass">
-      <!--
-      <item name="calculators">
-        <page to="backend/calculators#index"/>
+      <page to="backend/calculators#index"/>
+      <item name="grains_commercialization_threshold_simulator">
+        <page to="backend/calculators/grains_commercialization_threshold_simulators#show"/>
       </item>
-      -->
       <!--
       <item name="guides">
         <page to="backend/guides#index"/>
@@ -1889,9 +1888,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="grains_commercialization_threshold_simulator">
-        <page to="backend/calculators/grains_commercialization_threshold_simulator#show"/>
-      </item>
       <item name="threshold_commercialization_by_production_cells">
         <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
       </item>

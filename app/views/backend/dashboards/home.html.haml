@@ -14,7 +14,7 @@
     - b.cell :weather
   - b.hbox do
     - productions.each do |production|
-      - b.cell "#{production.id}_quandl".to_sym, type: :quandl, title: production.name, params: {threshold: {11 => 218.58, 9 => 283.70}[production.id], dataset: production.quandl_dataset}
+      - b.cell "#{production.id}_quandl".to_sym, type: :quandl, title: production.name, params: {threshold: {3 => 178.58, 4 => 283.70}[production.id], dataset: production.quandl_dataset}
   - b.hbox do
     - productions.each do |production|
       - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}

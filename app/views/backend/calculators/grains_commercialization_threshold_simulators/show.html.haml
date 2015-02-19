@@ -1,30 +1,21 @@
-= render "menu"
 - productions = Production.of_activities(Activity.of_families(:field_crops)).of_campaign(Campaign.currents).reorder(:name).select{|p| p.budgets.any? }
-
-= beehive(:root) do |b|
-  -# b.hbox do
-    - b.cell :modules do
-      - Ekylibre::Modules.hash.keys.each do |mod|
-        - next unless module_authorized?(mod)
-        = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", title: Ekylibre::Modules.human_name(mod)) do
-          %i
-          = Ekylibre::Modules.human_name(mod)
-  -# b.hbox do
-    - b.cell :calendar
-    - b.cell :weather
+= beehive do |b|
   - b.hbox do
     - productions.each do |production|
-      - b.cell "#{production.id}_quandl".to_sym, type: :quandl, title: production.name, params: {threshold: {11 => 218.58, 9 => 283.70}[production.id], dataset: production.quandl_dataset}
+      - b.cell "#{production.id}_quandl".to_sym, type: :quandl, title: production.name, params: {threshold: {3 => 172.25, 4 => 283.70}[production.id], dataset: production.quandl_dataset}
   - b.hbox do
     - productions.each do |production|
       - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}
-
 
   - b.cell :simulator, removeable: false do
     .regulator
       %span.name= "Salaire"
       %span.slider.slider-salary{data: {regulator: {value: 2000, unit: "€"}.to_json}}
       %span.value= "2000 €"
+    .regulator
+      %span.name= "Provision pour trésorerie"
+      %span.slider.slider-salary{data: {regulator: {value: 5000, unit: "€"}.to_json}}
+      %span.value= "5000 €"
       %span.price= "Prix d'objectif"
     - productions.each do |production|
       %h3= production.name

@@ -22,6 +22,6 @@
     -#=Ekylibre.helps.inspect
 - unless controller_path == "backend/helps"
   #help-center
-    = link_to({controller: "helps", action: :index}, class: "btn btn-big btn-help") do
+    = link_to({controller: "/backend/helps", action: :index}, class: "btn btn-big btn-help") do
       %i
       = :help_center.tl
