@@ -1304,13 +1304,15 @@ module Tele
 
                 f.each do |entry|
                   xml = Nokogiri::XML(entry.get_input_stream.read)
-                  print xml.inspect
+
+                  res =  Hash.from_xml(xml.to_s)
                 end
 
               end
 
-            end
+              return {status: status, output_hash: res}
 
+            end
 
             return status
 
@@ -1337,10 +1339,101 @@ module Tele
       # @param [string] farm_country_code: Toujours 'FR'. length: 2
       # @param [string] farm_number: Numéro d'exploitation française concernée par la demande de dossiers. length: 8
       # @param [date] start_date: Date début de fourniture des dossiers
-      def get_case_feedback( token, farm_country_code, farm_number, start_date )
+      def get_case_feedback( options = {} )
+        unless @business_wsdl.nil?
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, date_debut: start_date }
-        #TODO
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_get_retour_dossiers,
+                            message_tag: 'IpBGetRetourDossiersRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:DateDebut' => options[:start_date]
+                            }.reject{ |_,v| v.nil? })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_get_retour_dossiers_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//nb-bovins').nil?
+              status = 'validated'
+
+              messageZip = doc.at_xpath('//message-zip/child::text()').to_s
+
+
+              stream = ::Base64.decode64(messageZip)
+
+              Zip::File.open_buffer(stream) do |f|
+
+                f.each do |entry|
+                  xml = Nokogiri::XML(entry.get_input_stream.read)
+
+                  res =  Hash.from_xml(xml.to_s)
+                end
+
+              end
+
+              return {status: status, output_hash: res}
+
+            end
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
       end
 
       ##
@@ -1350,10 +1443,90 @@ module Tele
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
       # @param [string] animal_country_code: Code Pays UE. length: 2
       # @param [string] animal_id: Numéro national du bovin. max length: 12
-      private def get_animal_case( token, farm_country_code, farm_number, animal_country_code, animal_id )
+      def get_animal_case( options = {} )
+        unless @business_wsdl.nil?
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays: animal_country_code, numero_national: animal_id } }
-                #TODO
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_get_dossier_animal,
+                            message_tag: 'IpBGetDossierAnimalRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Bovin' => {
+                                    'sch:CodePays' => options[:animal_country_code],
+                                    'sch:NumeroNational' => options[:animal_id]
+                                }
+                            }.reject{ |_,v| v.nil? })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_get_dossier_animal_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//bovin').nil?
+              status = 'validated'
+
+              return {status: status, output_hash: Hash.from_xml(doc.at_xpath('//bovin').to_s)}
+
+
+            end
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
       end
 
       ##
@@ -1361,16 +1534,96 @@ module Tele
       # @param [string] token: token from reswel, length: 50
       # @param [string] farm_country_code: Toujours 'FR'. length: 2
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
-      # @param [integer] nb_paires_boucle: Nombre de paires de boucles à commander. max: 9999
+      # @param [integer] nb_paires_boucles: Nombre de paires de boucles à commander. max: 9999
       # @param [string] reference_boucles: Code produit des boucles commandées.
       # @param [integer] nb_pinces: Nombre de paires de pinces à commander. max: 9
       # @param [string] reference_pinces: Code produit des pinces commandées.
       # @param [integer] nb_pointeaux: Nombre de pointeaux à commander. max: 9
       # @param [string] reference_pointeaux: Code produit des pointeaux commandés.
-      private def create_commande_boucles( token, farm_country_code, farm_number, nb_paires_boucle, reference_boucles, nb_pinces, reference_pinces, nb_pointeaux, reference_pointeaux)
+      def create_commande_boucles( options = {} )
 
-        { jeton_authentification: token, exploitation_notification: { code_pays: farm_country_code, numero_exploitation: farm_number }, boucle: '', pince: '', pointeau: '', attributes!: { boucle: { nb_paires_boucles: nb_paires_boucle, reference_boucles: reference_boucles }, pince: { nb_pinces: nb_pinces, reference_pinces: reference_pinces }, pointeau: { nb_pointeaux: nb_pointeaux, reference_pointeaux: reference_pointeaux } } }
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_commande_boucles,
+                            message_tag: 'IpBCreateCommandeBouclesRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:ExploitationNotification' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Boucle' => {
+                                    'sch:NbPairesBoucles' => options[:nb_paires_boucles],
+                                    'sch:ReferenceBoucles' => options[:reference_boucles]
+                                }.reject{ |_,v| v.nil? },
+                                'sch:Pince' => {
+                                    'sch:NbPinces' => options[:nb_pinces],
+                                    'sch:ReferencePinces' => options[:reference_pinces]
+                                }.reject{ |_,v| v.nil? },
+                                'sch:Pointeau' => {
+                                    'sch:NbPointeaux' => options[:nb_pointeaux],
+                                    'sch:ReferencePointeaux' => options[:reference_pointeaux]
+                                }.reject{ |_,v| v.nil? }
+                            }.reject{ |_,v| v.nil? })
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_commande_boucles_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = 'validated'
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
 
       ##
@@ -1384,12 +1637,90 @@ module Tele
       # @param [boolean] boucle_travail: Si la boucle conventionnelle avec numéro de travail uniquement
       # @param [boolean] boucle_electronique: Indique si la boucle est electronique
       # @param [string] cause_remplacement: Motif de la commande de la boucle de rebouclage. length: 1 (C/E/I/L/P/X/Y/Z) Cassé/Electronisation/Illisible/électronique perdu/perdu/anomalie de commande/anomalie de pose/anomalie de fabrication
-      private def create_rebouclage( token, farm_country_code, farm_number, animal_country_code, animal_id, boucle_conventionnelle, boucle_travail, boucle_electronique, cause_remplacement )
+      def create_rebouclage( options = {} )
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number }, bovin: { code_pays: animal_country_code, numero_national: animal_id }, rebouclage: { boucle_conventionelle: boucle_conventionnelle, attributes!: { boucle_conventionelle: { boucle_travail: boucle_travail } }, boucle_electronique: boucle_electronique }, cause_remplacement: cause_remplacement }
-                #TODO
+        unless @business_wsdl.nil?
+
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_create_rebouclage,
+                            message_tag: 'IpBCreateRebouclageRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                },
+                                'sch:Bovin' => {
+                                    'sch:CodePays' => options[:animal_country_code],
+                                    'sch:NumeroNational' => options[:animal_id]
+                                },
+                                'sch:Rebouclage' => {
+                                    'sch:BoucleConventionnelle' => {
+                                        'sch:BoucleTravail' => options[:boucle_travail]
+                                    },
+                                    'sch:BoucleElectronique' => options[:reference_pinces]
+                                }.reject{ |_,v| v.nil? },
+                                'sch:CauseRemplacement' => options[:cause_remplacement]
+                            }.reject{ |_,v| v.nil? })
+
+          doc = Nokogiri::XML(res.body[:ip_b_create_rebouclage_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = 'validated'
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+
       end
-
       ##
       # create_insemination: permet de notifier une insémination réalisée par l’éleveur (IPE).
       # @param [string] token: token from reswel, length: 50
@@ -1418,10 +1749,160 @@ module Tele
       # @param [string] token: token from reswel, length: 50
       # @param [string] farm_country_code: Toujours 'FR'. length: 2
       # @param [string] farm_number: Numéro d'exploitation française. length: 8
-      private def get_presumed_exit( token, farm_country_code, farm_number )
+      def get_presumed_exit( options = {} )
+        unless @business_wsdl.nil?
 
-        { jeton_authentification: token, exploitation: { code_pays: farm_country_code, numero_exploitation: farm_number } }
-                #TODO
+          client = Savon.client do | globals |
+            globals.wsdl @business_wsdl
+            globals.convert_request_keys_to :camelcase
+            # globals.log true
+            globals.env_namespace :soapenv
+            globals.namespace_identifier 'sch'
+            globals.namespaces 'xmlns:sch' => 'http://www.idele.fr/XML/Schema/'
+            globals.ssl_verify_mode :none
+            globals.open_timeout 15
+            globals.read_timeout 15
+          end
+
+          res = client.call(:ip_b_get_sorties_presumees,
+                            message_tag: 'IpBGetSortiesPresumeesRequest',
+                            response_parser: :nokogiri,
+                            message: {
+                                'sch:JetonAuthentification' => @token,
+                                'sch:Exploitation' => {
+                                    'sch:CodePays' => options[:farm_country_code],
+                                    'sch:NumeroExploitation' => options[:farm_number]
+                                }
+                            }.reject{ |_,v| v.nil? })
+
+
+          doc = Nokogiri::XML(res.body[:ip_b_get_sorties_presumees_response].to_xml)
+
+
+          result = doc.at_xpath('//resultat/child::text()').to_s
+          err = doc.at_xpath('//anomalie')
+
+          # error level 1 : hard error
+          if result == 'false' and err
+
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+
+            # error level 2: could be sweet error or info notice
+          elsif result == 'true' and err
+            code = err.at_xpath('//code/child::text()').to_s
+            message = err.at_xpath('//message/child::text()').to_s
+            raise ::Tele::Idele::EdnotifError::ParsingError.new(code: code, message: message)
+
+
+            # everything is good
+          elsif result == 'true'
+
+            status = false
+
+
+            unless doc.at_xpath('//nb-bovins').nil?
+              status = 'validated'
+
+              messageZip = doc.at_xpath('//message-zip/child::text()').to_s
+
+
+              stream = ::Base64.decode64(messageZip)
+
+              Zip::File.open_buffer(stream) do |f|
+
+                f.each do |entry|
+                  xml = Nokogiri::XML(entry.get_input_stream.read)
+
+                  res =  Hash.from_xml(xml.to_s)
+                end
+
+              end
+
+              return {status: status, output_hash: res}
+
+            end
+
+            return status
+
+          end
+
+          return true
+
+        end
+
+      rescue Savon::Error => error
+        raise ::Tele::Idele::EdnotifError::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+
+      rescue Curl::Err::CurlError => error
+        raise ::Tele::Idele::EdnotifError::CurlError.new(message: error.to_s)
+
+      rescue Nokogiri::XML::SyntaxError => error
+        raise ::Tele::Idele::EdnotifError::NokogiriError.new(message: error.to_s)
+
+      end
+    end
+
+    # USAGE: Hash.from_xml(YOUR_XML_STRING)
+    # modified from http://stackoverflow.com/questions/1230741/convert-a-nokogiri-document-to-a-ruby-hash/1231297#123129
+
+    class Hash
+      class << self
+        def from_xml(xml_io)
+          begin
+            result = Nokogiri::XML(xml_io)
+            return { result.root.name.to_sym => xml_node_to_hash(result.root)}
+          rescue Exception => e
+            # raise your custom exception here
+          end
+        end
+
+        def xml_node_to_hash(node)
+          # If we are at the root of the document, start the hash
+          if node.element?
+            result_hash = {}
+            if node.attributes != {}
+              attributes = {}
+              node.attributes.keys.each do |key|
+                attributes[node.attributes[key].name.to_sym] = node.attributes[key].value
+              end
+            end
+            if node.children.size > 0
+              node.children.each do |child|
+                result = xml_node_to_hash(child)
+
+                if child.name == "text"
+                  unless child.next_sibling || child.previous_sibling
+                    return result unless attributes
+                    result_hash[child.name.to_sym] = result
+                  end
+                elsif result_hash[child.name.to_sym]
+
+                  if result_hash[child.name.to_sym].is_a?(Object::Array)
+                    result_hash[child.name.to_sym] << result
+                  else
+                    result_hash[child.name.to_sym] = [result_hash[child.name.to_sym]] << result
+                  end
+                else
+                  result_hash[child.name.to_sym] = result
+                end
+              end
+              if attributes
+                #add code to remove non-data attributes e.g. xml schema, namespace here
+                #if there is a collision then node content supersets attributes
+                result_hash = attributes.merge(result_hash)
+              end
+              return result_hash
+            else
+              return attributes
+            end
+          else
+            return node.content.to_s
+          end
+        end
       end
     end
   end
