@@ -14,7 +14,7 @@
 = beehive do |b|
   - b.hbox do
     - if resource.geolocation
-      - b.cell :map do
+      - b.cell :resource_map do
         = visualization(view: {zoom: 18}) do |v|
           - v.serie :main, [{name: "origine", shape: resource.geolocation}]
           - v.background "Esri.WorldImagery"
