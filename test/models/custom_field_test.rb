@@ -59,7 +59,7 @@ class CustomFieldTest < ActiveSupport::TestCase
   Ekylibre::Schema.models.each do |model_name|
     model = model_name.to_s.camelcase.constantize
     test "manage custom field on #{model_name}" do
-      I18n.locale = ENV["LOCALE"]
+      I18n.locale = ENV["LOCALE"] || I18n.default_locale
       if !CustomField.customized_type.values.include?(model.name)
         assert_raise ActiveRecord::RecordInvalid, "Cannot add custom field on not customizable models like #{model.name}" do
           CustomField.create!(name: "たてがみ", nature: :text, customized_type: model.name)
@@ -80,7 +80,7 @@ class CustomFieldTest < ActiveSupport::TestCase
           end
 
           record = model.first
-          assert record.present?, "A #{model.name} record  must exist to test custom field on it"
+          assert record.present?, "A #{model.name} record must exist to test custom field on it"
 
           method_name = "#{field.column_name}="
           if STATIC_VALUES.has_key?(field.nature)
