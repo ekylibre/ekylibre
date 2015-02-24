@@ -74,16 +74,16 @@
     b = 1
     # z : rendement de la prodution (budget_item, sens: revenus et varieties: grain)
     budgets = @production.revenues.where(variant_id: ProductNatureVariant.of_variety(:grain).derivative_of(@production.variant.variety).pluck(:id))
-    puts budgets.inspect.yellow
+    # puts budgets.inspect.yellow
     if budgets.first
       z = budgets.first.items.average(:quantity).to_s.to_f
-      puts z.inspect.green
+      # puts z.inspect.green
       # c : charges globales [global_charges_by_working_unit]
       c = global_charges_by_working_unit.to_s.to_f
       # y [€/ton] = (ax + c [€/Ha]) / bz[qt/Ha] * 10
       y = (((a * x) + c) / (b * z)) * 10
-      puts @production.name
-      puts y.to_s.to_f.inspect.red
+      # puts @production.name
+      # puts y.to_s.to_f.inspect.red
     end
 
   .med-info.important
