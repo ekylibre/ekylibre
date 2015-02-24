@@ -13,7 +13,7 @@
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/calculators#index"
-#     - "backend/calculators/grains_commercialization_threshold_simulator#show"
+#     - "backend/calculators/grains_commercialization_threshold_simulators#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cash_balances_cells#show"
 #     - "backend/cells/cropping_plan_cells#show"

@@ -7,20 +7,27 @@
     - productions.each do |production|
       - b.cell "#{production.id}_threshold_commercialization".to_sym, type: :threshold_commercialization_by_production, title: production.name, params: {production_id: production.id}
 
-  - b.cell :simulator, removeable: false do
+  - b.cell :simulator, hideable: false do
     .regulator
       %span.name= "Salaire"
       %span.slider.slider-salary{data: {regulator: {value: 2000, unit: "€"}.to_json}}
       %span.value= "2000 €"
     .regulator
       %span.name= "Provision pour trésorerie"
-      %span.slider.slider-salary{data: {regulator: {value: 5000, unit: "€"}.to_json}}
+      %span.slider.slider-provision{data: {regulator: {value: 5000, unit: "€"}.to_json}}
       %span.value= "5000 €"
       %span.price= "Prix d'objectif"
+    - expenses = 2000 * 12 * 1.43 + 5000 + productions.collect{|production| (3*production.id.modulo(20) + 50) * (100+production.id.modulo(10)) * 7 }.sum
+    - total_work_quantity = productions.collect{|production| ((40+production.id.modulo(40))*1.21).round(3) }.sum
     - productions.each do |production|
       %h3= production.name
       .regulator
+        - work_quantity = ((40+production.id.modulo(40))*1.21).round(3)
+        - output = 3*production.id.modulo(20) + 50
+        - expense_coeff = (100+production.id.modulo(10)) * 7
+        - revenue = expenses * (work_quantity / total_work_quantity)
+        - price = (revenue / (work_quantity * 0.1 * output)).round
         %span.name= "Rendement"
-        %span.slider{data: {regulator: {value: 70, unit: "qt/ha"}.to_json}, class: "slider-yield"}
-        %span.value= "70 qt/ha"
-        %span.price= "180 €/qt"
+        %span.slider{data: {regulator: {value: output, unit: "qt/ha"}.to_json}, class: "slider-yield", id: "production-#{production.id}"}
+        %span.value= "#{output} qt/ha"
+        %span.price{data: {fake_price: "production-#{production.id}", fake_work_quantity: work_quantity, fake_expense_coeff: expense_coeff, fake_revenue: price * (work_quantity * 0.1 * output)}}= "#{price}€/t"

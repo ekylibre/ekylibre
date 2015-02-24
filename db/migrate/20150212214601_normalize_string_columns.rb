@@ -175,7 +175,9 @@ class NormalizeStringColumns < ActiveRecord::Migration
   def up
     LIMITS.each do |l|
       l.second.each do |column|
-        change_column l.first, column, :string, limit: nil
+        # change_column l.first, column, :string, limit: nil
+        # FIXME Use rails way ASAP
+        execute "ALTER TABLE \"#{l.first}\" ALTER COLUMN \"#{column}\" TYPE character varying"
       end
     end
   end

@@ -2,8 +2,9 @@
   .cell-inner
     - if beehive_cell = beehive.find_by_name(cell[:name]) || beehive.find_by_type(cell[:type])
       .cell-title
-        = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
-          %i
+        - unless beehive_cell.options[:hideable].is_a?(FalseClass)
+          = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
+            %i
         = beehive_cell.title
         - if beehive_cell.options[:counter]
           %span.badge= beehive_cell.options[:counter]

@@ -79,6 +79,8 @@ jpn:
     backend/calculators:
       # index: "Calculators"
     backend/calculators/grains_commercialization_threshold_simulator: #?
+    backend/calculators/grains_commercialization_threshold_simulators:
+      # show: "Grains commercialization threshold simulator"
     backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"

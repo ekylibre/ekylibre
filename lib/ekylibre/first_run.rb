@@ -33,7 +33,13 @@ module Ekylibre
       unless base.is_a?(Ekylibre::FirstRun::Base)
         raise "Invalid first run. Need a Ekylibre::FirstRun::Base"
       end
-      @@loaders[name].call(base)
+
+      if Preference.get!("first_run.#{name}.executed", false, :boolean).value
+        puts "Skip #{name} loader".red
+      else
+        @@loaders[name].call(base)
+        Preference.set!("first_run.#{name}.executed", true, :boolean)
+      end
     end
 
   end

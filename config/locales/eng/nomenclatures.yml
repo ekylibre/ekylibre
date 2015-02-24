@@ -1519,6 +1519,7 @@ eng:
         msa_username: "Msa username"
         pacage_number: "Pacage number"
         password: "Password"
+        # quandl_token: "Quandl token"
         synel_username: "Synel username"
     indicators:
       name: "Name"

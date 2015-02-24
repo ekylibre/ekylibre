@@ -73,8 +73,8 @@ eng:
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
-    backend/calculators/grains_commercialization_threshold_simulator:
-      # show: "Grains commercialization threshold simulator: %{name}"
+    backend/calculators/grains_commercialization_threshold_simulators:
+      show: "Grains commercialization threshold simulator"
     backend/calculators:
       index: "Calculators"
     backend/campaigns:

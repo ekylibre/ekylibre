@@ -203,7 +203,7 @@ module Ekylibre
         Ekylibre::Tenant.check!(@name)
       end
 
-      # Execute a loader in transactionnal mode
+      # Execute a loader in transactional mode
       def execute_loader(name)
         ActiveRecord::Base.transaction do
           # puts "Load #{name.to_s.red}:"

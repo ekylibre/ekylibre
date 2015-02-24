@@ -701,8 +701,8 @@
         max: value * 3,
         value: value,
         slide: function (event, ui) {
-          console.log(ui.value);
           display.html(ui.value + options.unit);
+          $(this).trigger("slided");
         }
       });
     });

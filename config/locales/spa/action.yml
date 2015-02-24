@@ -92,6 +92,8 @@ spa:
     backend/calculators:
       # index: "Calculators"
     backend/calculators/grains_commercialization_threshold_simulator: #?
+    backend/calculators/grains_commercialization_threshold_simulators:
+      # show: "Grains commercialization threshold simulator"
     backend/calculators/manure_management_plans: #?
     backend/calculators/nitrogen_inputs: #?
     backend/campaigns:

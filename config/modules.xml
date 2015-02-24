@@ -1768,6 +1768,9 @@
       <item name="revenues_by_product_nature_cells">
         <page to="backend/cells/revenues_by_product_nature_cells#show"/>
       </item>
+      <item name="threshold_commercialization_by_production_cells">
+        <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
+      </item>
       <item name="working_sets_stocks_cells">
         <page to="backend/cells/working_sets_stocks_cells#show"/>
       </item>
@@ -1887,10 +1890,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="threshold_commercialization_by_production_cells">
-        <page to="backend/cells/threshold_commercialization_by_production_cells#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>
