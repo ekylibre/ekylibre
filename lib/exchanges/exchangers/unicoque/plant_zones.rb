@@ -1,4 +1,3 @@
-# Create or updates entities
 Exchanges.add_importer :unicoque_plant_zones do |file, w|
 
   # Unzip files
@@ -8,7 +7,6 @@ Exchanges.add_importer :unicoque_plant_zones do |file, w|
       entry.extract(dir.join(entry.name))
     end
   end
-
 
   # Import and transcode variety
   varieties_transcode = {}.with_indifferent_access
@@ -39,35 +37,32 @@ Exchanges.add_importer :unicoque_plant_zones do |file, w|
         reference_variant: (record.attributes['ESPCE'].to_s == '21' ? :hazel_crop : :walnut_crop )
       }
 
-        # puts attributes.inspect.green
+      # Find or import from variant reference_nameclature the correct ProductNatureVariant
+      variant = ProductNatureVariant.find_or_import!(attributes[:variety]).first || ProductNatureVariant.import_from_nomenclature(attributes[:reference_variant])
+      pmodel = variant.nature.matching_model
 
-        # find or import from variant reference_nameclature the correct ProductNatureVariant
-        variant = ProductNatureVariant.find_or_import!(attributes[:variety]).first || ProductNatureVariant.import_from_nomenclature(attributes[:reference_variant])
-        pmodel = variant.nature.matching_model
+      # Create the plant
+      plant = pmodel.create!(:variant_id => variant.id, :work_number => "PLANT_" + attributes[:bloc],
+                             :name => attributes[:name], :initial_born_at => attributes[:born_at], :initial_owner => Entity.of_company, :variety => attributes[:variety]#, :initial_container => container
+                            )
 
-        # create the plant
-        plant = pmodel.create!(:variant_id => variant.id, :work_number => "PLANT_" + attributes[:bloc],
-                                 :name => attributes[:name], :initial_born_at => attributes[:born_at], :initial_owner => Entity.of_company, :variety => attributes[:variety]#, :initial_container => container
-                                 )
+      plant.read!(:population, attributes[:surface_area], at: attributes[:measured_at]) if attributes[:surface_area]
+      plant.read!(:rows_interval, attributes[:rows_interval].in_meter, at: attributes[:measured_at]) if attributes[:rows_interval]
+      plant.read!(:plants_interval, attributes[:plants_interval].in_meter, at: attributes[:measured_at]) if attributes[:plants_interval]
+      # Build density
+      plant.read!(:plants_count, (attributes[:plants_population] / attributes[:surface_area]).to_i, at: attributes[:measured_at]) if (attributes[:plants_population] and attributes[:surface_area])
 
-        plant.read!(:population, attributes[:surface_area], at: attributes[:measured_at]) if attributes[:surface_area]
-        plant.read!(:rows_interval, attributes[:rows_interval].in_meter, at: attributes[:measured_at]) if attributes[:rows_interval]
-        plant.read!(:plants_interval, attributes[:plants_interval].in_meter, at: attributes[:measured_at]) if attributes[:plants_interval]
-        # build density
-        plant.read!(:plants_count, (attributes[:plants_population] / attributes[:surface_area]).to_i, at: attributes[:measured_at]) if (attributes[:plants_population] and attributes[:surface_area])
-
-        if record.geometry
-          plant.read!(:shape, record.geometry, at: attributes[:born_at], force: true)
-          plant_shape = Charta::Geometry.new(record.geometry).transform(:WGS84)
-          if product_around = plant_shape.actors_matching(nature: CultivableZone).first
-            plant.initial_container = product_around
-            plant.save!
-          end
+      if record.geometry
+        plant.read!(:shape, record.geometry, at: attributes[:born_at], force: true)
+        plant_shape = Charta::Geometry.new(record.geometry).transform(:WGS84)
+        if product_around = plant_shape.actors_matching(nature: CultivableZone).first
+          plant.initial_container = product_around
+          plant.save!
         end
+      end
 
-     w.check_point
-     end
-
+      w.check_point
+    end
 
   end
 

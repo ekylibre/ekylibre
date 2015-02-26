@@ -40,11 +40,6 @@
 #
 
 class Crumb < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_numericality_of :accuracy, allow_nil: true
-  validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
-  #]VALIDATORS]
   enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop], predicates: true
   belongs_to :user
   belongs_to :intervention_cast
@@ -52,12 +47,7 @@ class Crumb < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :accuracy, allow_nil: true
-# <<<<<<< HEAD
-  validates_length_of :device_uid, :nature, allow_nil: true, maximum: 255
   validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
-# =======
-  validates_presence_of :accuracy, :device_uid, :nature, :read_at
-# >>>>>>> Replaces production_support_markers with production_budgets
   #]VALIDATORS]
   serialize :metadata, Hash
 

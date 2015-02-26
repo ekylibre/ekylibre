@@ -82,7 +82,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
         if Nomen::ProductNatureVariants[r.item_code_variant]
           item_variant = ProductNatureVariant.import_from_nomenclature(r.item_code_variant)
         else
-          puts "Cannot import budget for: #{r.item_code_variant}".red
+          w.notice "Cannot import budget for: #{r.item_code_variant}".red
           next
         end
       end

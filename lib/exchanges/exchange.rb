@@ -46,6 +46,18 @@ module Exchanges
       @cursor = 0
     end
 
+    def debug?
+      ENV["DEBUG"].to_i > 0
+    end
+
+    def log(*args)
+      puts(*args) if debug?
+    end
+
+    def notice(*args)
+      puts(*args)
+    end
+
     def tmp_dir(*subdirs)
       number = (1000 * Time.now.to_f).to_i.to_s(36) + 3.times.collect{ rand(1679616) }.sum.to_s(36)
       dir = Rails.root.join("tmp", "exchanges", number, *subdirs)

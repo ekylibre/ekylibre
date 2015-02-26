@@ -35,7 +35,7 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
         if record.save(attributes)
           @records[records][identifier.to_s] = record
         else
-          puts "\nError on #{record.inspect.red}"
+          w.log "\nError on #{record.inspect.red}"
           raise ActiveRecord::RecordInvalid, record
         end
       end
@@ -156,7 +156,7 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
       else
         attributes[:password] = User.give_password(8, :normal)
         unless Rails.env.test?
-          puts "New password for account #{attributes[:email]}: #{attributes[:password]}"
+          w.notice "New password for account #{attributes[:email]}: #{attributes[:password]}"
         end
       end
     end

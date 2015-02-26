@@ -51,9 +51,6 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
             end
           end
         end
-        #if zc_products_around = zone_shape.actors_matching(nature: CultivableZone)
-          #puts zc_products_around.inspect.red
-        #end
       end
     end
 

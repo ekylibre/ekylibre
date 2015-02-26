@@ -34,9 +34,7 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
       end
       land_parcel_cluster.read!(:shape, record.geometry, at: land_parcel_cluster.initial_born_at)
       a = (land_parcel_cluster.shape_area.to_d / land_parcel_cluster_variant.net_surface_area.to_d(:square_meter))
-      #puts a.inspect.blue
       land_parcel_cluster.read!(:population, a, at: land_parcel_cluster.initial_born_at)
-      #puts land_parcel_cluster.population.inspect.red
       # if record.geometry
       #   shapes[record.attributes['NUMERO'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
       # end

@@ -41,10 +41,6 @@
 #  working_unit         :string
 #
 class Production < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_presence_of :activity, :campaign, :name, :state
-  #]VALIDATORS]
   enumerize :state, in: [:draft, :validated], default: :draft
   enumerize :working_unit, in: Nomen::Units.all
   enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
@@ -69,11 +65,6 @@ class Production < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-# <<<<<<< HEAD
-  validates_length_of :name, :state, :working_indicator, :working_unit, allow_nil: true, maximum: 255
-  validates_inclusion_of :static_support, in: [true, false]
-# =======
-# >>>>>>> Replaces production_support_markers with production_budgets
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   # validates_presence_of :product_nature, if: :activity_main?

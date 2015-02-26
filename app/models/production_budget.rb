@@ -43,10 +43,6 @@
 #
 
 class ProductionBudget < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :quantity, :unit_amount, :unit_population, allow_nil: true
-  validates_presence_of :computation_method, :currency, :direction, :production, :unit_currency
-  #]VALIDATORS]
   # enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense], predicates: true
   enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit, predicates: true
@@ -58,13 +54,8 @@ class ProductionBudget < Ekylibre::Record::Base
   has_many :supports, through: :production, class_name: 'ProductionSupport'
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-# <<<<<<< HEAD:app/models/budget.rb
-  validates_numericality_of :global_amount, :global_quantity, :unit_amount, allow_nil: true
-  validates_length_of :computation_method, :currency, :direction, :name, :working_indicator, :working_unit, allow_nil: true, maximum: 255
-# =======
   validates_numericality_of :amount, :quantity, :unit_amount, :unit_population, allow_nil: true
   validates_presence_of :computation_method, :currency, :direction, :production, :unit_currency
-# >>>>>>> Replaces production_support_markers with production_budgets:app/models/production_budget.rb
   #]VALIDATORS]
   validates_presence_of :variant, :production
 

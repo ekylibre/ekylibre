@@ -62,11 +62,8 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
         a = (land_parcel.shape_area.to_d / land_parcel_variant.net_surface_area.to_d(:square_meter))
 
         # TODO Fix population zero?
-        #puts a.inspect.blue
 
         land_parcel.read!(:population, a, at: land_parcel.initial_born_at)
-
-        #puts land_parcel.population.inspect.red
 
         geo_attributes = {
           name: land_parcel.name,
@@ -163,7 +160,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
           end
           if cultivable_zone
             # if exist, this production has static_support
-            production.static_support = true
+            # production.static_support = true
             production.state = :validated
             production.save!
             # and create a support for this production
