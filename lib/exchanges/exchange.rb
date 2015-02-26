@@ -46,16 +46,33 @@ module Exchanges
       @cursor = 0
     end
 
-    def debug?
-      ENV["DEBUG"].to_i > 0
+    def verbose?
+      ENV["VERBOSE"].to_i > 0
     end
 
-    def log(*args)
-      puts(*args) if debug?
+    def debug(msg)
+      puts("DEBUG".white + ": " + msg) if verbose?
+      Rails.logger.debug(msg)
     end
 
-    def notice(*args)
-      puts(*args)
+    def info(msg)
+      puts("INFO".green + ": " + msg) if verbose?
+      Rails.logger.info(msg)
+    end
+
+    def warn(msg)
+      puts("WARNING".yellow + ": " + msg) if verbose?
+      Rails.logger.error(msg)
+    end
+
+    def error(msg)
+      puts("ERROR".red + ": " + msg) if verbose?
+      Rails.logger.error(msg)
+    end
+
+    def fatal(msg)
+      puts("FATAL".red + ": " + msg) if verbose?
+      Rails.logger.fatal(msg)
     end
 
     def tmp_dir(*subdirs)

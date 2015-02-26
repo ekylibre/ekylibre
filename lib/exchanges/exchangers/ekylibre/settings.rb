@@ -35,7 +35,7 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
         if record.save(attributes)
           @records[records][identifier.to_s] = record
         else
-          w.log "\nError on #{record.inspect.red}"
+          w.info "\nError on #{record.inspect.red}"
           raise ActiveRecord::RecordInvalid, record
         end
       end

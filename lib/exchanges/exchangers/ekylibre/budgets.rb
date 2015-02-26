@@ -56,7 +56,6 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     # A "Nom de l'intervention ou de intrant"
     # B "Variant reference_name CF NOMENCLATURE"
     # C "Proportionnalité" vide = support ou production_indicator_unit_reference_name
-    #   ----  D "Codes des supports travaillés [array] CF WORK_NUMBER"
     # D "Quantité"
     # E "Unité de la quantité CF NOMENCLATURE"
     # F "Prix TTC"
@@ -68,22 +67,24 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
       r = {
         item_code_variant: s.cell('B', row_number),
         computation_method: (s.cell('C', row_number).to_s.downcase == 'uo' ? :per_working_unit : (s.cell('C', row_number).to_s.downcase == 'support' ? :per_production_support : :per_production)),
-        # support_numbers: (s.cell('D', row_number).blank? ? nil : s.cell('D', row_number).to_s.strip.delete(' ').upcase.split(',')),
         item_quantity: (s.cell('D', row_number).blank? ? nil : s.cell('D', row_number).to_d),
         item_quantity_unity: s.cell('E', row_number).to_s.strip.split(/[\,\.\/\\\(\)]/),
         item_unit_price_amount: (s.cell('F', row_number).blank? ? nil : s.cell('F', row_number).to_d),
         item_direction: (s.cell('G', row_number).to_f < 0 ? :expense : :revenue)
       }.to_struct
 
-
-
-      # get variant
-      unless item_variant = ProductNatureVariant.find_by(number: r.item_code_variant) || ProductNatureVariant.find_by(reference_name: r.item_code_variant)
-        if Nomen::ProductNatureVariants[r.item_code_variant]
+      # Get variant
+      item_variant = nil
+      if r.item_code_variant.blank?
+        w.error "No variant given at row #{row_number}"
+        next
+      else
+        unless item_variant = ProductNatureVariant.find_by(number: r.item_code_variant) || ProductNatureVariant.find_by(reference_name: r.item_code_variant)
+          unless Nomen::ProductNatureVariants[r.item_code_variant]
+            w.error "Cannot find valid variant for budget: #{r.item_code_variant.inspect.red}"
+            next
+          end
           item_variant = ProductNatureVariant.import_from_nomenclature(r.item_code_variant)
-        else
-          w.notice "Cannot import budget for: #{r.item_code_variant}".red
-          next
         end
       end
 

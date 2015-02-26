@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 # To import files COFTW.isa
 Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
   default_journal_natures = {
@@ -86,9 +86,9 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
       # filters[:journal_and_code] = entries_to_import.collect{|e| "#{e.journal}-#{e.code}"}
       # for k, v in filters
       #   if v.uniq.sort == v.sort
-      #     Rails.logger.debug "Filter #{k} works"
+      #     w.debug "Filter #{k} works"
       #   else
-      #     Rails.logger.debug "Filter #{k} cannot work!"
+      #     w.debug "Filter #{k} cannot work!"
       #   end
       # end
       # raise "Stop"
@@ -143,7 +143,7 @@ Exchanges.add_importer(:isagri_isacompta_export) do |file, w|
 
 
       if unused_entries.any?
-        Rails.logger.warn "#{unused_entries.size} destroyed entries (on #{total_count})"
+        w.warn "#{unused_entries.size} destroyed entries (on #{total_count})"
         JournalEntry.destroy(unused_entries)
       end
 

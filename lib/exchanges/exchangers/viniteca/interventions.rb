@@ -76,10 +76,10 @@ Exchanges.add_importer :viniteca_interventions do |file, w|
       campaign ||= Campaign.create!(name: intervention_started_at.year, harvest_year: intervention_started_at.year)
       plant = Plant.find_by_identification_number(r.cultivable_zone_name)
 
-      w.log "----------- #{w.count} -----------".blue
-      w.log " procedure : " + procedures_transcode[r.procedure_name].inspect.green
-      w.log " variant : " + variants_transcode[r.product_name].inspect.red
-      w.log " plant : " + plant.inspect.red
+      w.info "----------- #{w.count} -----------".blue
+      w.info " procedure : " + procedures_transcode[r.procedure_name].inspect.green
+      w.info " variant : " + variants_transcode[r.product_name].inspect.red
+      w.info " plant : " + plant.inspect.red
 
 
       if plant and campaign
@@ -196,14 +196,14 @@ Exchanges.add_importer :viniteca_interventions do |file, w|
 
             else
 
-              w.log "Intervention is in a black hole".red
+              w.info "Intervention is in a black hole".red
 
             end
 
             if intervention
               intervention.description = information_import_context + " - " +  row[4].to_s + " - operation : " + row[6].to_s + " - support : " + row[1].to_s + " - intrant : " + row[7].to_s
               intervention.save!
-              w.log "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
+              w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
             end
 
 

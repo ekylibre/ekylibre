@@ -1,8 +1,7 @@
-
 Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
 
   rows = CSV.read(file, encoding: "CP1252", col_sep: ";")
-  rows.collect!do |row|
+  rows.collect! do |row|
     row << FinancialYear.at(Date.parse(row[3])).code
   end
   w.count = rows.size
@@ -39,7 +38,7 @@ Exchanges.add_importer :bordeaux_sciences_agro_istea_general_ledger do |file, w|
       if entry and entry[:items_attributes]
         je = JournalEntry.create!(entry)
         if je.real_debit != je.real_credit
-          Rails.logger.warn "Error on JournalEntry ##{entry[:number]} (D: #{je.debit}, C: #{je.credit}, B: #{je.debit - je.credit})".red
+          w.warn "Error on JournalEntry ##{entry[:number]} (D: #{je.debit}, C: #{je.credit}, B: #{je.debit - je.credit})"
         end
         entry = nil
       else

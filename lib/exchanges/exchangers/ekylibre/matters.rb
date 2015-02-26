@@ -65,12 +65,12 @@ Exchanges.add_importer :ekylibre_matters do |file, w|
 
           w.check_point
           else
-            Rails.logger.warn "Need a Variant for #{r.name}"
+            w.warn "Need a Variant for #{r.name}"
           end
     end
 
   else
-    Rails.logger.warn "Need a BuildingDivision"
+    w.warn "Need a BuildingDivision"
   end
 
 end

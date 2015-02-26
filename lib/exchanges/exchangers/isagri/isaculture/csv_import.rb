@@ -204,16 +204,16 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
           end
         end
 
-        w.log "----------- #{current_intervention} -----------".blue
-        w.log " procedure : " + procedures_transcode[r.procedure_name].inspect.green
-        w.log " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
-        w.log " duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
-        w.log " intrants : " + products_array.inspect.yellow if products_array
-        w.log " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
-        w.log " plant : " + plant.name.inspect.yellow if plant
-        w.log " support : " + support.name.inspect.yellow if support
-        w.log " workers_work_number : " + workers_work_number.inspect.yellow if workers_work_number
-        w.log " equipments_work_number : " + equipments_work_number.inspect.yellow if equipments_work_number
+        w.info "----------- #{current_intervention} -----------".blue
+        w.info " procedure : " + procedures_transcode[r.procedure_name].inspect.green
+        w.info " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
+        w.info " duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
+        w.info " intrants : " + products_array.inspect.yellow if products_array
+        w.info " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
+        w.info " plant : " + plant.name.inspect.yellow if plant
+        w.info " support : " + support.name.inspect.yellow if support
+        w.info " workers_work_number : " + workers_work_number.inspect.yellow if workers_work_number
+        w.info " equipments_work_number : " + equipments_work_number.inspect.yellow if equipments_work_number
 
         intrants = []
         for input_product in products_array
@@ -255,15 +255,15 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
               if r.working_area
                 global_intrant_value = population_value.to_d * r.working_area.to_d
               end
-              w.log " measure : " + measure.inspect.yellow
-              w.log " units_transcode[unit.to_s] : " + units_transcode[unit.to_s].inspect.yellow
-              w.log " intrant_population_value : " + population_value.inspect.yellow
-              w.log " intrant_global_population_value : " + global_intrant_value.to_f.inspect.yellow
+              w.info " measure : " + measure.inspect.yellow
+              w.info " units_transcode[unit.to_s] : " + units_transcode[unit.to_s].inspect.yellow
+              w.info " intrant_population_value : " + population_value.inspect.yellow
+              w.info " intrant_global_population_value : " + global_intrant_value.to_f.inspect.yellow
               intrant.read!(:population, global_intrant_value, :at => r.intervention_started_at.to_time + 3.hours) if global_intrant_value
               intrant.identification_number = product_input_code if product_input_code
               intrant.save!
             end
-            w.log " intrant : " + intrant.name.inspect.yellow
+            w.info " intrant : " + intrant.name.inspect.yellow
             intrants << intrant
           end
 
@@ -297,11 +297,11 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
             if r.working_area
               global_extrant_value = extrant_population_value.to_d * r.working_area.to_d
             end
-            w.log " extrant_measure : " + extrant_measure.inspect.yellow
-            w.log " extrant_population_value : " + extrant_population_value.inspect.yellow
-            w.log " global_extrant_value : " + global_extrant_value.to_f.inspect.yellow
+            w.info " extrant_measure : " + extrant_measure.inspect.yellow
+            w.info " extrant_population_value : " + extrant_population_value.inspect.yellow
+            w.info " global_extrant_value : " + global_extrant_value.to_f.inspect.yellow
 
-            w.log " extrant_variant : " + extrant_variant.name.inspect.yellow
+            w.info " extrant_variant : " + extrant_variant.name.inspect.yellow
             extrants << {extrant_variant: extrant_variant, global_extrant_value: global_extrant_value}
           end
 
@@ -417,7 +417,7 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
             elsif procedures_transcode[r.procedure_name] == :spraying_on_cultivation and intrant and plant
 
               # Spraying on cultivation
-              #w.log plant.container.inspect.red
+              #w.info plant.container.inspect.red
 
               intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_cultivation, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
                 i.add_cast(reference_name: 'plant_medicine', actor: intrant)
@@ -546,9 +546,9 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
           if intervention
             intervention.description = information_import_context + " - N° : " + r.intervention_number + " - " +  row[6].to_s + " - operation : " + row[10].to_s + " - support : " + row[1].to_s + " - intrant : " + row[15].to_s
             intervention.save!
-            w.log "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
+            w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
           else
-            w.log "Intervention is in a black hole".red
+            w.info "Intervention is in a black hole".red
           end
 
         end

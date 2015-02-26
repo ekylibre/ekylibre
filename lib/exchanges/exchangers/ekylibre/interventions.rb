@@ -76,7 +76,7 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
     if duration_in_seconds = r.intervention_duration_in_hour.hours
       intervention_stopped_at = intervention_started_at + duration_in_seconds
     else
-      Rails.logger.warn "Need a duration for intervention n°#{r.intervention_number}"
+      w.warn "Need a duration for intervention ##{r.intervention_number}"
     end
 
     intervention_year = intervention_started_at.year
@@ -124,20 +124,20 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
       duration = (duration_in_seconds * (cultivable_zone.shape_area.to_d / production_supports_area.to_d).to_d).round(2)
 
 
-      w.log "----------- #{r.intervention_number} / #{support.name} -----------".blue
-      w.log " procedure : " + r.procedure_name.inspect.green
-      w.log " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
-      w.log " global duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
-      w.log " duration : " + duration.to_f.inspect.yellow if duration
-      w.log " first product : " + first_product.name.inspect.red if first_product
-      w.log " first product quantity : " + r.first_product_input_population.to_s + " " + r.first_product_input_unit_name.to_s.inspect.red if r.first_product_input_population
-      w.log " second product : " + second_product.name.inspect.red if second_product
-      w.log " third product : " + third_product.name.inspect.red if third_product
-      w.log " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
-      w.log " plant : " + plant.name.inspect.yellow if plant
-      w.log " support : " + support.name.inspect.yellow if support
-      w.log " workers_name : " + workers.pluck(:name).inspect.yellow if workers
-      w.log " equipments_name : " + equipments.pluck(:name).inspect.yellow if equipments
+      w.info "----------- #{r.intervention_number} / #{support.name} -----------".blue
+      w.info " procedure : " + r.procedure_name.inspect.green
+      w.info " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
+      w.info " global duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
+      w.info " duration : " + duration.to_f.inspect.yellow if duration
+      w.info " first product : " + first_product.name.inspect.red if first_product
+      w.info " first product quantity : " + r.first_product_input_population.to_s + " " + r.first_product_input_unit_name.to_s.inspect.red if r.first_product_input_population
+      w.info " second product : " + second_product.name.inspect.red if second_product
+      w.info " third product : " + third_product.name.inspect.red if third_product
+      w.info " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
+      w.info " plant : " + plant.name.inspect.yellow if plant
+      w.info " support : " + support.name.inspect.yellow if support
+      w.info " workers_name : " + workers.pluck(:name).inspect.yellow if workers
+      w.info " equipments_name : " + equipments.pluck(:name).inspect.yellow if equipments
 
 
 
@@ -159,7 +159,7 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
             elsif unit == :meter
               variant_indicator = product.variant.send(:net_length)
             else
-              Rails.logger.warn "Bad unit : #{unit} for intervention n°#{r.intervention_number}"
+              w.warn "Bad unit: #{unit} for intervention ##{r.intervention_number}"
             end
             population_value = ((measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f)
           end
@@ -188,11 +188,11 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         if r.procedure_name == :double_spraying_on_cultivation and plant and first_product and second_product
 
           working_measure = plant.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
           second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
-          w.log second_product_input_population.inspect.green
+          w.info second_product_input_population.inspect.green
 
           # Double spraying on cultivation
           intervention = Ekylibre::FirstRun::Booker.force(:double_spraying_on_cultivation, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -209,11 +209,11 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         elsif r.procedure_name == :double_spraying_on_land_parcel and cultivable_zone and first_product and second_product
 
           working_measure = cultivable_zone.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
           second_product_input_population = population_conversion(second_product, r.second_product_input_population, r.second_product_input_unit_name, r.second_product_input_unit_target_dose, working_measure)
-          w.log second_product_input_population.inspect.green
+          w.info second_product_input_population.inspect.green
 
           # Double spraying on cultivation
           intervention = Ekylibre::FirstRun::Booker.force(:double_spraying_on_land_parcel, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -232,9 +232,9 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         elsif r.procedure_name == :spraying_on_cultivation and plant and first_product
 
           working_measure = plant.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
 
           # Spraying on cultivation
           intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_cultivation, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -249,9 +249,9 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         elsif r.procedure_name == :spraying_on_land_parcel and cultivable_zone and first_product
 
           working_measure = cultivable_zone.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
 
           # Spraying on cultivation
           intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_land_parcel, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -312,9 +312,9 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         elsif r.procedure_name == :organic_fertilizing and cultivable_zone and first_product
 
           working_measure = cultivable_zone.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
 
           # Organic fertilizing
           intervention = Ekylibre::FirstRun::Booker.force(:organic_fertilizing, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -330,9 +330,9 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         elsif r.procedure_name == :mineral_fertilizing and cultivable_zone and first_product
 
           working_measure = cultivable_zone.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
 
           # Organic fertilizing
           intervention = Ekylibre::FirstRun::Booker.force(:mineral_fertilizing, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -352,9 +352,9 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
         elsif r.procedure_name == :plastic_mulching and cultivable_zone and first_product
 
           working_measure = cultivable_zone.shape_area
-          w.log working_measure.inspect.green
+          w.info working_measure.inspect.green
           first_product_input_population = population_conversion(first_product, r.first_product_input_population, r.first_product_input_unit_name, r.first_product_input_unit_target_dose, working_measure)
-          w.log first_product_input_population.inspect.green
+          w.info first_product_input_population.inspect.green
 
           # Plastic mulching
           intervention = Ekylibre::FirstRun::Booker.force(:plastic_mulching, intervention_started_at, (duration / 3600), support: support) do |i|
@@ -383,9 +383,9 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
       if intervention
         intervention.description = information_import_context + " - N° : " + r.intervention_number.to_s + " - " + support.name
         intervention.save!
-        w.log "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
+        w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
       else
-        w.log "Intervention is in a black hole".red
+        w.info "Intervention is in a black hole".red
       end
 
       # for the same intervention session
