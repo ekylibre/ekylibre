@@ -22,18 +22,18 @@
 #
 # == Table: document_templates
 #
-#  active       :boolean          not null
-#  archiving    :string(255)      not null
-#  by_default   :boolean          not null
+#  active       :boolean          default(FALSE), not null
+#  archiving    :string           not null
+#  by_default   :boolean          default(FALSE), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  formats      :string(255)
+#  formats      :string
 #  id           :integer          not null, primary key
-#  language     :string(255)      not null
+#  language     :string           not null
 #  lock_version :integer          default(0), not null
-#  managed      :boolean          not null
-#  name         :string(255)      not null
-#  nature       :string(255)      not null
+#  managed      :boolean          default(FALSE), not null
+#  name         :string           not null
+#  nature       :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

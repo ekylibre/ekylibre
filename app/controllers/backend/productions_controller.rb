@@ -87,14 +87,13 @@ class Backend::ProductionsController < Backend::BaseController
     t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
   end
 
-  # List supports for one production
-  list(:markers, conditions: {production_supports: {production_id: 'params[:id]'.c}}, model: :production_support_markers, order: {created_at: :desc}) do |t|
-    t.column :name, through: :support, url: true
-    t.column :indicator_name
-    t.column :value
+  # List budgets for one production
+  list(:budgets, conditions: {production_id: 'params[:id]'.c}, model: :production_budgets, order: {direction: :desc}) do |t|
+    t.column :variant, url: true
+    t.column :amount, currency: true
   end
 
-  # List procedures for one production
+  # List interventions for one production
   list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
     t.column :name, url: true
     t.status

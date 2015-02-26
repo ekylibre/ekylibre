@@ -29,9 +29,9 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  mail         :text
-#  name         :string(255)      not null
+#  name         :string           not null
 #  query        :text
-#  root_model   :string(255)      not null
+#  root_model   :string           not null
 #  source       :text
 #  story        :text
 #  updated_at   :datetime         not null
@@ -52,7 +52,6 @@ class Listing < Ekylibre::Record::Base
   has_one :root_node, -> {where(parent_id: nil)}, class_name: "ListingNode"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :root_model, allow_nil: true, maximum: 255
   validates_presence_of :name, :root_model
   #]VALIDATORS]
   validates_format_of :query, :conditions, :with => /\A[^\;]*\z/

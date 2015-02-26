@@ -12,7 +12,6 @@ account_balances:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   financial_year_id:
     type: integer
@@ -22,7 +21,6 @@ account_balances:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   global_count:
     type: integer
@@ -31,13 +29,11 @@ account_balances:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   global_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   id:
     type: integer
@@ -46,7 +42,6 @@ account_balances:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   local_count:
     type: integer
@@ -55,13 +50,11 @@ account_balances:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   local_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   lock_version:
     type: integer
@@ -82,7 +75,7 @@ accounts:
   debtor:
     type: boolean
     required: true
-    default: true
+    default: false
   description:
     type: text
   id:
@@ -90,26 +83,22 @@ accounts:
     required: true
   label:
     type: string
-    limit: 255
     required: true
   last_letter:
     type: string
-    limit: 255
   lock_version:
     type: integer
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   reconcilable:
     type: boolean
     required: true
-    default: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -129,7 +118,6 @@ activities:
     type: text
   family:
     type: string
-    limit: 255
   id:
     type: integer
     required: true
@@ -138,11 +126,9 @@ activities:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -159,7 +145,6 @@ activity_distributions:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -192,7 +177,7 @@ affairs:
   closed:
     type: boolean
     required: true
-    default: true
+    default: false
   closed_at:
     type: datetime
   created_at:
@@ -205,11 +190,9 @@ affairs:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   currency:
     type: string
-    limit: 255
     required: true
   deals_count:
     type: integer
@@ -218,7 +201,6 @@ affairs:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   id:
     type: integer
@@ -231,7 +213,6 @@ affairs:
     required: true
   number:
     type: string
-    limit: 255
     required: true
   originator_id:
     type: integer
@@ -239,7 +220,6 @@ affairs:
     required: true
   originator_type:
     type: string
-    limit: 255
     required: true
   third_id:
     type: integer
@@ -248,7 +228,7 @@ affairs:
   ticket:
     type: boolean
     required: true
-    default: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -270,7 +250,7 @@ analyses:
   description:
     type: text
   geolocation:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -282,18 +262,15 @@ analyses:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   product_id:
     type: integer
     references: product
   reference_number:
     type: string
-    limit: 255
   sampled_at:
     type: datetime
     required: true
@@ -309,12 +286,10 @@ analyses:
 analysis_items:
   absolute_measure_value_unit:
     type: string
-    limit: 255
   absolute_measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   analysis_id:
     type: integer
     references: analysis
@@ -324,10 +299,9 @@ analysis_items:
   boolean_value:
     type: boolean
     required: true
-    default: true
+    default: false
   choice_value:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -338,9 +312,8 @@ analysis_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   geometry_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -349,11 +322,9 @@ analysis_items:
     required: true
   indicator_datatype:
     type: string
-    limit: 255
     required: true
   indicator_name:
     type: string
-    limit: 255
     required: true
   integer_value:
     type: integer
@@ -362,14 +333,12 @@ analysis_items:
     required: true
   measure_value_unit:
     type: string
-    limit: 255
   measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   point_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -389,7 +358,6 @@ analytic_distributions:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   affected_at:
     type: datetime
@@ -416,7 +384,6 @@ analytic_distributions:
     required: true
   state:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -445,7 +412,6 @@ attachments:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   resource_id:
     type: integer
@@ -453,7 +419,6 @@ attachments:
     required: true
   resource_type:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -476,17 +441,14 @@ bank_statements:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   currency:
     type: string
-    limit: 255
     required: true
   debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   id:
     type: integer
@@ -496,7 +458,6 @@ bank_statements:
     required: true
   number:
     type: string
-    limit: 255
     required: true
   started_at:
     type: datetime
@@ -510,113 +471,11 @@ bank_statements:
   updater_id:
     type: integer
     references: user
-budget_items:
-  budget_id:
-    type: integer
-    references: budget
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    limit: 255
-  global_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-    required: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  production_support_id:
-    type: integer
-    references: production_support
-  quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-budgets:
-  computation_method:
-    type: string
-    limit: 255
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  currency:
-    type: string
-    limit: 255
-  direction:
-    type: string
-    limit: 255
-  global_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-  global_quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-  homogeneous_values:
-    type: boolean
-    default: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    limit: 255
-  production_id:
-    type: integer
-    references: production
-  unit_amount:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  variant_id:
-    type: integer
-    references: product_nature_variant
-  working_indicator:
-    type: string
-    limit: 255
-  working_unit:
-    type: string
-    limit: 255
 campaigns:
   closed:
     type: boolean
     required: true
-    default: true
+    default: false
   closed_at:
     type: datetime
   created_at:
@@ -637,11 +496,9 @@ campaigns:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -662,12 +519,10 @@ cash_sessions:
     references: user
   currency:
     type: string
-    limit: 255
   expected_stop_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   id:
     type: integer
     required: true
@@ -678,12 +533,10 @@ cash_sessions:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   noticed_stop_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   sequence_id:
     type: integer
     references: sequence
@@ -711,7 +564,6 @@ cash_transfers:
     type: decimal
     precision: 19
     scale: 10
-    limit: 19
     required: true
   description:
     type: text
@@ -719,7 +571,6 @@ cash_transfers:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   emission_cash_id:
     type: integer
@@ -727,7 +578,6 @@ cash_transfers:
     required: true
   emission_currency:
     type: string
-    limit: 255
     required: true
   emission_journal_entry_id:
     type: integer
@@ -740,13 +590,11 @@ cash_transfers:
     required: true
   number:
     type: string
-    limit: 255
     required: true
   reception_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reception_cash_id:
     type: integer
@@ -754,7 +602,6 @@ cash_transfers:
     required: true
   reception_currency:
     type: string
-    limit: 255
     required: true
   reception_journal_entry_id:
     type: integer
@@ -775,30 +622,23 @@ cashes:
     required: true
   bank_account_key:
     type: string
-    limit: 255
   bank_account_number:
     type: string
-    limit: 255
   bank_agency_address:
     type: text
   bank_agency_code:
     type: string
-    limit: 255
   bank_code:
     type: string
-    limit: 255
   bank_identifier_code:
     type: string
-    limit: 255
   bank_name:
     type: string
-    limit: 255
   container_id:
     type: integer
     references: product
   country:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -807,11 +647,9 @@ cashes:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   iban:
     type: string
-    limit: 255
   id:
     type: integer
     required: true
@@ -826,16 +664,13 @@ cashes:
     required: true
   mode:
     type: string
-    limit: 255
     required: true
     default: iban
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
     default: bank_account
   owner_id:
@@ -843,7 +678,6 @@ cashes:
     references: entity
   spaced_iban:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -854,12 +688,11 @@ catalog_items:
   all_taxes_included:
     type: boolean
     required: true
-    default: true
+    default: false
   amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   catalog_id:
     type: integer
@@ -869,7 +702,6 @@ catalog_items:
     type: text
   commercial_name:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -878,7 +710,6 @@ catalog_items:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -888,7 +719,6 @@ catalog_items:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   reference_tax_id:
     type: integer
@@ -907,14 +737,13 @@ catalogs:
   all_taxes_included:
     type: boolean
     required: true
-    default: true
+    default: false
   by_default:
     type: boolean
     required: true
-    default: true
+    default: false
   code:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -924,7 +753,6 @@ catalogs:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   description:
     type: text
@@ -936,7 +764,6 @@ catalogs:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -946,14 +773,12 @@ catalogs:
     references: user
   usage:
     type: string
-    limit: 255
     required: true
 crumbs:
   accuracy:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -963,14 +788,12 @@ crumbs:
     references: user
   device_uid:
     type: string
-    limit: 255
     required: true
   geolocation:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
-    required: true
   id:
     type: integer
     required: true
@@ -984,7 +807,6 @@ crumbs:
     type: text
   nature:
     type: string
-    limit: 255
     required: true
   read_at:
     type: datetime
@@ -1023,9 +845,8 @@ cultivable_zone_memberships:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -1054,7 +875,6 @@ custom_field_choices:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   position:
     type: integer
@@ -1066,7 +886,6 @@ custom_field_choices:
     references: user
   value:
     type: string
-    limit: 255
 custom_fields:
   active:
     type: boolean
@@ -1074,7 +893,6 @@ custom_fields:
     default: true
   column_name:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -1084,7 +902,6 @@ custom_fields:
     references: user
   customized_type:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -1098,28 +915,24 @@ custom_fields:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   minimal_length:
     type: integer
   minimal_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   position:
     type: integer
   required:
     type: boolean
     required: true
-    default: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -1143,7 +956,6 @@ dashboards:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   owner_id:
     type: integer
@@ -1162,7 +974,6 @@ deposits:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   cash_id:
     type: integer
@@ -1188,14 +999,13 @@ deposits:
   locked:
     type: boolean
     required: true
-    default: true
+    default: false
   mode_id:
     type: integer
     references: incoming_payment_mode
     required: true
   number:
     type: string
-    limit: 255
     required: true
   payments_count:
     type: integer
@@ -1212,7 +1022,6 @@ deposits:
 districts:
   code:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -1227,7 +1036,6 @@ districts:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -1253,15 +1061,12 @@ document_archives:
     type: text
   file_content_type:
     type: string
-    limit: 255
   file_file_name:
     type: string
-    limit: 255
   file_file_size:
     type: integer
   file_fingerprint:
     type: string
-    limit: 255
   file_pages_count:
     type: integer
   file_updated_at:
@@ -1285,15 +1090,14 @@ document_templates:
   active:
     type: boolean
     required: true
-    default: true
+    default: false
   archiving:
     type: string
-    limit: 255
     required: true
   by_default:
     type: boolean
     required: true
-    default: true
+    default: false
   created_at:
     type: datetime
     required: true
@@ -1302,13 +1106,11 @@ document_templates:
     references: user
   formats:
     type: string
-    limit: 255
   id:
     type: integer
     required: true
   language:
     type: string
-    limit: 255
     required: true
   lock_version:
     type: integer
@@ -1316,14 +1118,12 @@ document_templates:
   managed:
     type: boolean
     required: true
-    default: true
+    default: false
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -1346,22 +1146,18 @@ documents:
     required: true
   key:
     type: string
-    limit: 255
     required: true
   lock_version:
     type: integer
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -1376,7 +1172,6 @@ entities:
     default: true
   activity_code:
     type: string
-    limit: 255
   authorized_payments_count:
     type: integer
   born_at:
@@ -1384,13 +1179,12 @@ entities:
   client:
     type: boolean
     required: true
-    default: true
+    default: false
   client_account_id:
     type: integer
     references: account
   country:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -1399,34 +1193,28 @@ entities:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   dead_at:
     type: datetime
   deliveries_conditions:
     type: string
-    limit: 255
   description:
     type: text
   first_met_at:
     type: datetime
   first_name:
     type: string
-    limit: 255
   full_name:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
     required: true
   language:
     type: string
-    limit: 255
     required: true
   last_name:
     type: string
-    limit: 255
     required: true
   lock_version:
     type: integer
@@ -1434,27 +1222,22 @@ entities:
   locked:
     type: boolean
     required: true
-    default: true
+    default: false
   meeting_origin:
     type: string
-    limit: 255
   nature:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
   of_company:
     type: boolean
     required: true
-    default: true
+    default: false
   picture_content_type:
     type: string
-    limit: 255
   picture_file_name:
     type: string
-    limit: 255
   picture_file_size:
     type: integer
   picture_updated_at:
@@ -1465,31 +1248,29 @@ entities:
   prospect:
     type: boolean
     required: true
-    default: true
+    default: false
   reminder_submissive:
     type: boolean
     required: true
-    default: true
+    default: false
   responsible_id:
     type: integer
     references: user
   siren:
     type: string
-    limit: 255
   supplier:
     type: boolean
     required: true
-    default: true
+    default: false
   supplier_account_id:
     type: integer
     references: account
   transporter:
     type: boolean
     required: true
-    default: true
+    default: false
   type:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -1498,7 +1279,6 @@ entities:
     references: user
   vat_number:
     type: string
-    limit: 255
   vat_subjected:
     type: boolean
     required: true
@@ -1507,14 +1287,12 @@ entity_addresses:
   by_default:
     type: boolean
     required: true
-    default: true
+    default: false
   canal:
     type: string
-    limit: 255
     required: true
   coordinate:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -1537,42 +1315,33 @@ entity_addresses:
   mail_auto_update:
     type: boolean
     required: true
-    default: true
+    default: false
   mail_country:
     type: string
-    limit: 255
   mail_geolocation:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
   mail_line_1:
     type: string
-    limit: 255
   mail_line_2:
     type: string
-    limit: 255
   mail_line_3:
     type: string
-    limit: 255
   mail_line_4:
     type: string
-    limit: 255
   mail_line_5:
     type: string
-    limit: 255
   mail_line_6:
     type: string
-    limit: 255
   mail_postal_zone_id:
     type: integer
     references: postal_zone
   name:
     type: string
-    limit: 255
   thread:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -1594,7 +1363,6 @@ entity_links:
     required: true
   entity_1_role:
     type: string
-    limit: 255
     required: true
   entity_2_id:
     type: integer
@@ -1602,7 +1370,6 @@ entity_links:
     required: true
   entity_2_role:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -1612,7 +1379,6 @@ entity_links:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   started_at:
     type: datetime
@@ -1627,7 +1393,6 @@ entity_links:
 establishments:
   code:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -1644,7 +1409,6 @@ establishments:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -1675,7 +1439,6 @@ event_participations:
     required: true
   state:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -1701,19 +1464,16 @@ events:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   place:
     type: string
-    limit: 255
   restricted:
     type: boolean
     required: true
-    default: true
+    default: false
   started_at:
     type: datetime
     required: true
@@ -1729,14 +1489,13 @@ financial_asset_depreciations:
   accountable:
     type: boolean
     required: true
-    default: true
+    default: false
   accounted_at:
     type: datetime
   amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -1748,12 +1507,10 @@ financial_asset_depreciations:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   depreciated_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   financial_asset_id:
     type: integer
     references: financial_asset
@@ -1773,7 +1530,7 @@ financial_asset_depreciations:
   locked:
     type: boolean
     required: true
-    default: true
+    default: false
   position:
     type: integer
   started_on:
@@ -1808,34 +1565,28 @@ financial_assets:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   current_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   depreciable_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   depreciated_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   depreciation_method:
     type: string
-    limit: 255
     required: true
   depreciation_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   description:
     type: text
   id:
@@ -1850,17 +1601,14 @@ financial_assets:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   purchase_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   purchase_id:
     type: integer
     references: purchase
@@ -1891,10 +1639,9 @@ financial_years:
   closed:
     type: boolean
     required: true
-    default: true
+    default: false
   code:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -1904,7 +1651,6 @@ financial_years:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   currency_precision:
     type: integer
@@ -1934,7 +1680,6 @@ gap_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -1944,7 +1689,6 @@ gap_items:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   gap_id:
     type: integer
@@ -1960,7 +1704,6 @@ gap_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   tax_id:
     type: integer
@@ -1982,7 +1725,6 @@ gaps:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -1992,11 +1734,9 @@ gaps:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   direction:
     type: string
-    limit: 255
     required: true
   entity_id:
     type: integer
@@ -2004,7 +1744,6 @@ gaps:
     required: true
   entity_role:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -2017,13 +1756,11 @@ gaps:
     required: true
   number:
     type: string
-    limit: 255
     required: true
   pretax_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   printed_at:
     type: datetime
@@ -2036,7 +1773,7 @@ gaps:
     references: user
 georeadings:
   content:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -2057,15 +1794,12 @@ georeadings:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -2075,7 +1809,6 @@ georeadings:
 guide_analyses:
   acceptance_status:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -2096,7 +1829,7 @@ guide_analyses:
   latest:
     type: boolean
     required: true
-    default: true
+    default: false
   lock_version:
     type: integer
     required: true
@@ -2115,11 +1848,9 @@ guide_analyses:
 guide_analysis_points:
   acceptance_status:
     type: string
-    limit: 255
     required: true
   advice_reference_name:
     type: string
-    limit: 255
   analysis_id:
     type: integer
     references: analysis
@@ -2138,7 +1869,6 @@ guide_analysis_points:
     required: true
   reference_name:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -2150,7 +1880,7 @@ guides:
   active:
     type: boolean
     required: true
-    default: true
+    default: false
   created_at:
     type: datetime
     required: true
@@ -2160,10 +1890,9 @@ guides:
   external:
     type: boolean
     required: true
-    default: true
+    default: false
   frequency:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -2173,21 +1902,16 @@ guides:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   reference_name:
     type: string
-    limit: 255
   reference_source_content_type:
     type: string
-    limit: 255
   reference_source_file_name:
     type: string
-    limit: 255
   reference_source_file_size:
     type: integer
   reference_source_updated_at:
@@ -2213,7 +1937,6 @@ identifiers:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   net_service_id:
     type: integer
@@ -2226,15 +1949,12 @@ identifiers:
     references: user
   value:
     type: string
-    limit: 255
     required: true
 imports:
   archive_content_type:
     type: string
-    limit: 255
   archive_file_name:
     type: string
-    limit: 255
   archive_file_size:
     type: integer
   archive_updated_at:
@@ -2258,16 +1978,13 @@ imports:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   progression_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   state:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -2293,15 +2010,12 @@ incoming_deliveries:
     required: true
   mode:
     type: string
-    limit: 255
   net_mass:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   number:
     type: string
-    limit: 255
     required: true
   purchase_id:
     type: integer
@@ -2310,7 +2024,6 @@ incoming_deliveries:
     type: datetime
   reference_number:
     type: string
-    limit: 255
   sender_id:
     type: integer
     references: entity
@@ -2345,12 +2058,10 @@ incoming_delivery_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   population:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   product_id:
     type: integer
     references: product
@@ -2359,7 +2070,7 @@ incoming_delivery_items:
     type: integer
     references: purchase_item
   shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -2372,7 +2083,7 @@ incoming_delivery_items:
 incoming_payment_modes:
   active:
     type: boolean
-    default: true
+    default: false
   cash_id:
     type: integer
     references: cash
@@ -2383,13 +2094,11 @@ incoming_payment_modes:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   commission_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -2406,7 +2115,7 @@ incoming_payment_modes:
   detail_payments:
     type: boolean
     required: true
-    default: true
+    default: false
   id:
     type: integer
     required: true
@@ -2415,7 +2124,6 @@ incoming_payment_modes:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   position:
     type: integer
@@ -2428,15 +2136,15 @@ incoming_payment_modes:
   with_accounting:
     type: boolean
     required: true
-    default: true
+    default: false
   with_commission:
     type: boolean
     required: true
-    default: true
+    default: false
   with_deposit:
     type: boolean
     required: true
-    default: true
+    default: false
 incoming_payments:
   accounted_at:
     type: datetime
@@ -2447,17 +2155,13 @@ incoming_payments:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   bank_account_number:
     type: string
-    limit: 255
   bank_check_number:
     type: string
-    limit: 255
   bank_name:
     type: string
-    limit: 255
   commission_account_id:
     type: integer
     references: account
@@ -2465,7 +2169,6 @@ incoming_payments:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -2475,7 +2178,6 @@ incoming_payments:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   deposit_id:
     type: integer
@@ -2499,7 +2201,6 @@ incoming_payments:
     required: true
   number:
     type: string
-    limit: 255
   paid_at:
     type: datetime
   payer_id:
@@ -2517,7 +2218,7 @@ incoming_payments:
   scheduled:
     type: boolean
     required: true
-    default: true
+    default: false
   to_bank_at:
     type: datetime
     required: true
@@ -2552,25 +2253,21 @@ intervention_casts:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   population:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   position:
     type: integer
     required: true
   reference_name:
     type: string
-    limit: 255
     required: true
   roles:
     type: string
-    limit: 255
   shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -2606,11 +2303,9 @@ interventions:
     required: true
   natures:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
   parameters:
     type: text
   prescription_id:
@@ -2626,32 +2321,29 @@ interventions:
   provisional:
     type: boolean
     required: true
-    default: true
+    default: false
   provisional_intervention_id:
     type: integer
     references: intervention
   recommended:
     type: boolean
     required: true
-    default: true
+    default: false
   recommender_id:
     type: integer
     references: entity
   reference_name:
     type: string
-    limit: 255
     required: true
   ressource_id:
     type: integer
     references: ~ressource_type
   ressource_type:
     type: string
-    limit: 255
   started_at:
     type: datetime
   state:
     type: string
-    limit: 255
     required: true
   stopped_at:
     type: datetime
@@ -2683,15 +2375,13 @@ inventories:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
   reflected:
     type: boolean
     required: true
-    default: true
+    default: false
   reflected_at:
     type: datetime
   responsible_id:
@@ -2708,10 +2398,9 @@ inventory_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   actual_shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -2725,10 +2414,9 @@ inventory_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   expected_shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -2762,7 +2450,7 @@ issues:
   description:
     type: text
   geolocation:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -2776,21 +2464,17 @@ issues:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   observed_at:
     type: datetime
     required: true
   picture_content_type:
     type: string
-    limit: 255
   picture_file_name:
     type: string
-    limit: 255
   picture_file_size:
     type: integer
   picture_updated_at:
@@ -2799,14 +2483,12 @@ issues:
     type: integer
   state:
     type: string
-    limit: 255
   target_id:
     type: integer
     references: ~target_type
     required: true
   target_type:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -2819,23 +2501,19 @@ journal_entries:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   absolute_currency:
     type: string
-    limit: 255
     required: true
   absolute_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   balance:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -2847,17 +2525,14 @@ journal_entries:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   currency:
     type: string
-    limit: 255
     required: true
   debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   financial_year_id:
     type: integer
@@ -2874,7 +2549,6 @@ journal_entries:
     required: true
   number:
     type: string
-    limit: 255
     required: true
   printed_on:
     type: date
@@ -2883,33 +2557,27 @@ journal_entries:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   real_currency:
     type: string
-    limit: 255
     required: true
   real_currency_rate:
     type: decimal
     precision: 19
     scale: 10
-    limit: 19
     required: true
   real_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   resource_id:
     type: integer
     references: ~resource_type
   resource_type:
     type: string
-    limit: 255
   state:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -2922,17 +2590,14 @@ journal_entry_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   absolute_currency:
     type: string
-    limit: 255
     required: true
   absolute_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   account_id:
     type: integer
@@ -2942,7 +2607,6 @@ journal_entry_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   bank_statement_id:
     type: integer
@@ -2957,29 +2621,24 @@ journal_entry_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   cumulated_absolute_credit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   cumulated_absolute_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   currency:
     type: string
-    limit: 255
     required: true
   debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   description:
     type: text
@@ -2989,7 +2648,6 @@ journal_entry_items:
     required: true
   entry_number:
     type: string
-    limit: 255
     required: true
   financial_year_id:
     type: integer
@@ -3004,13 +2662,11 @@ journal_entry_items:
     required: true
   letter:
     type: string
-    limit: 255
   lock_version:
     type: integer
     required: true
   name:
     type: string
-    limit: 255
     required: true
   position:
     type: integer
@@ -3021,27 +2677,22 @@ journal_entry_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   real_currency:
     type: string
-    limit: 255
     required: true
   real_currency_rate:
     type: decimal
     precision: 19
     scale: 10
-    limit: 19
     required: true
   real_debit:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   state:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -3055,7 +2706,6 @@ journals:
     required: true
   code:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -3065,7 +2715,6 @@ journals:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -3075,11 +2724,9 @@ journals:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -3090,11 +2737,11 @@ journals:
   used_for_affairs:
     type: boolean
     required: true
-    default: true
+    default: false
   used_for_gaps:
     type: boolean
     required: true
-    default: true
+    default: false
 listing_node_items:
   created_at:
     type: datetime
@@ -3110,7 +2757,6 @@ listing_node_items:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   node_id:
     type: integer
@@ -3127,13 +2773,10 @@ listing_node_items:
 listing_nodes:
   attribute_name:
     type: string
-    limit: 255
   condition_operator:
     type: string
-    limit: 255
   condition_value:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -3158,15 +2801,12 @@ listing_nodes:
     references: listing_node
   item_nature:
     type: string
-    limit: 255
   item_value:
     type: text
   key:
     type: string
-    limit: 255
   label:
     type: string
-    limit: 255
     required: true
   lft:
     type: integer
@@ -3179,11 +2819,9 @@ listing_nodes:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   parent_id:
     type: integer
@@ -3194,7 +2832,6 @@ listing_nodes:
     type: integer
   sql_type:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -3222,13 +2859,11 @@ listings:
     type: text
   name:
     type: string
-    limit: 255
     required: true
   query:
     type: text
   root_model:
     type: string
-    limit: 255
     required: true
   source:
     type: text
@@ -3245,13 +2880,10 @@ manure_management_plan_zones:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   administrative_area:
     type: string
-    limit: 255
   computation_method:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -3261,17 +2893,14 @@ manure_management_plan_zones:
     references: user
   cultivation_variety:
     type: string
-    limit: 255
   expected_yield:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   humus_mineralization:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   id:
     type: integer
     required: true
@@ -3279,12 +2908,10 @@ manure_management_plan_zones:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   irrigation_water_nitrogen:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   lock_version:
     type: integer
     required: true
@@ -3292,37 +2919,30 @@ manure_management_plan_zones:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   meadow_humus_mineralization:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   mineral_nitrogen_at_opening:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   nitrogen_at_closing:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   nitrogen_input:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   nitrogen_need:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   organic_fertilizer_mineral_fraction:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   plan_id:
     type: integer
     references: manure_management_plan
@@ -3331,15 +2951,12 @@ manure_management_plan_zones:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   soil_nature:
     type: string
-    limit: 255
   soil_production:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   support_id:
     type: integer
     references: production_support
@@ -3365,7 +2982,6 @@ manure_management_plans:
     references: user
   default_computation_method:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -3376,10 +2992,9 @@ manure_management_plans:
   locked:
     type: boolean
     required: true
-    default: true
+    default: false
   name:
     type: string
-    limit: 255
     required: true
   opened_at:
     type: datetime
@@ -3391,7 +3006,7 @@ manure_management_plans:
   selected:
     type: boolean
     required: true
-    default: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -3413,7 +3028,6 @@ net_services:
     required: true
   reference_name:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -3440,7 +3054,6 @@ observations:
     required: true
   importance:
     type: string
-    limit: 255
     required: true
   lock_version:
     type: integer
@@ -3454,7 +3067,6 @@ observations:
     required: true
   subject_type:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -3483,7 +3095,6 @@ operations:
     required: true
   reference_name:
     type: string
-    limit: 255
     required: true
   started_at:
     type: datetime
@@ -3516,16 +3127,13 @@ outgoing_deliveries:
     required: true
   mode:
     type: string
-    limit: 255
     required: true
   net_mass:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   number:
     type: string
-    limit: 255
     required: true
   recipient_id:
     type: integer
@@ -3533,7 +3141,6 @@ outgoing_deliveries:
     required: true
   reference_number:
     type: string
-    limit: 255
   sale_id:
     type: integer
     references: sale
@@ -3554,7 +3161,7 @@ outgoing_deliveries:
   with_transport:
     type: boolean
     required: true
-    default: true
+    default: false
 outgoing_delivery_items:
   container_id:
     type: integer
@@ -3579,12 +3186,10 @@ outgoing_delivery_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   population:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   product_id:
     type: integer
     references: product
@@ -3593,7 +3198,7 @@ outgoing_delivery_items:
     type: integer
     references: sale_item
   shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -3607,7 +3212,7 @@ outgoing_payment_modes:
   active:
     type: boolean
     required: true
-    default: true
+    default: false
   cash_id:
     type: integer
     references: cash
@@ -3625,7 +3230,6 @@ outgoing_payment_modes:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   position:
     type: integer
@@ -3638,7 +3242,7 @@ outgoing_payment_modes:
   with_accounting:
     type: boolean
     required: true
-    default: true
+    default: false
 outgoing_payments:
   accounted_at:
     type: datetime
@@ -3649,11 +3253,9 @@ outgoing_payments:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   bank_check_number:
     type: string
-    limit: 255
   cash_id:
     type: integer
     references: cash
@@ -3666,7 +3268,6 @@ outgoing_payments:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   delivered:
     type: boolean
@@ -3691,7 +3292,6 @@ outgoing_payments:
     required: true
   number:
     type: string
-    limit: 255
   paid_at:
     type: datetime
   payee_id:
@@ -3714,16 +3314,12 @@ outgoing_payments:
 postal_zones:
   city:
     type: string
-    limit: 255
   city_name:
     type: string
-    limit: 255
   code:
     type: string
-    limit: 255
   country:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -3742,11 +3338,9 @@ postal_zones:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   postal_code:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -3767,7 +3361,6 @@ preferences:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   id:
     type: integer
     required: true
@@ -3778,18 +3371,15 @@ preferences:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   record_value_id:
     type: integer
     references: ~record_value_type
   record_value_type:
     type: string
-    limit: 255
   string_value:
     type: text
   updated_at:
@@ -3824,7 +3414,6 @@ prescriptions:
     required: true
   reference_number:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -3849,7 +3438,6 @@ product_enjoyments:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   operation_id:
     type: integer
@@ -3859,7 +3447,6 @@ product_enjoyments:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   product_id:
     type: integer
     references: product
@@ -3893,23 +3480,20 @@ product_junction_ways:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   population:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   road_id:
     type: integer
     references: product
     required: true
   role:
     type: string
-    limit: 255
     required: true
   shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -3940,7 +3524,6 @@ product_junctions:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   started_at:
     type: datetime
   stopped_at:
@@ -3950,7 +3533,6 @@ product_junctions:
     references: product
   type:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -3979,7 +3561,6 @@ product_linkages:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   operation_id:
     type: integer
@@ -3989,10 +3570,8 @@ product_linkages:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   point:
     type: string
-    limit: 255
     required: true
   started_at:
     type: datetime
@@ -4022,7 +3601,6 @@ product_links:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   operation_id:
     type: integer
@@ -4032,7 +3610,6 @@ product_links:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   product_id:
     type: integer
     references: product
@@ -4065,7 +3642,6 @@ product_localizations:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   operation_id:
     type: integer
@@ -4075,7 +3651,6 @@ product_localizations:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   product_id:
     type: integer
     references: product
@@ -4113,7 +3688,6 @@ product_memberships:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   operation_id:
     type: integer
@@ -4123,7 +3697,6 @@ product_memberships:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   started_at:
     type: datetime
     required: true
@@ -4139,7 +3712,7 @@ product_nature_categories:
   active:
     type: boolean
     required: true
-    default: true
+    default: false
   charge_account_id:
     type: integer
     references: account
@@ -4152,7 +3725,7 @@ product_nature_categories:
   depreciable:
     type: boolean
     required: true
-    default: true
+    default: false
   description:
     type: text
   financial_asset_account_id:
@@ -4172,47 +3745,42 @@ product_nature_categories:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   pictogram:
     type: string
-    limit: 255
   product_account_id:
     type: integer
     references: account
   purchasable:
     type: boolean
     required: true
-    default: true
+    default: false
   reductible:
     type: boolean
     required: true
-    default: true
+    default: false
   reference_name:
     type: string
-    limit: 255
   saleable:
     type: boolean
     required: true
-    default: true
+    default: false
   stock_account_id:
     type: integer
     references: account
   storable:
     type: boolean
     required: true
-    default: true
+    default: false
   subscribing:
     type: boolean
     required: true
-    default: true
+    default: false
   subscription_duration:
     type: string
-    limit: 255
   subscription_nature_id:
     type: integer
     references: subscription_nature
@@ -4251,24 +3819,20 @@ product_nature_category_taxations:
     references: user
   usage:
     type: string
-    limit: 255
     required: true
 product_nature_variant_readings:
   absolute_measure_value_unit:
     type: string
-    limit: 255
   absolute_measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   boolean_value:
     type: boolean
     required: true
-    default: true
+    default: false
   choice_value:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -4279,9 +3843,8 @@ product_nature_variant_readings:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   geometry_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -4290,11 +3853,9 @@ product_nature_variant_readings:
     required: true
   indicator_datatype:
     type: string
-    limit: 255
     required: true
   indicator_name:
     type: string
-    limit: 255
     required: true
   integer_value:
     type: integer
@@ -4303,14 +3864,12 @@ product_nature_variant_readings:
     required: true
   measure_value_unit:
     type: string
-    limit: 255
   measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   point_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -4330,7 +3889,7 @@ product_nature_variants:
   active:
     type: boolean
     required: true
-    default: true
+    default: false
   category_id:
     type: integer
     references: product_nature_category
@@ -4343,7 +3902,6 @@ product_nature_variants:
     references: user
   derivative_of:
     type: string
-    limit: 255
   id:
     type: integer
     required: true
@@ -4352,30 +3910,24 @@ product_nature_variants:
     required: true
   name:
     type: string
-    limit: 255
   nature_id:
     type: integer
     references: product_nature
     required: true
   number:
     type: string
-    limit: 255
   picture_content_type:
     type: string
-    limit: 255
   picture_file_name:
     type: string
-    limit: 255
   picture_file_size:
     type: integer
   picture_updated_at:
     type: datetime
   reference_name:
     type: string
-    limit: 255
   unit_name:
     type: string
-    limit: 255
     required: true
   updated_at:
     type: datetime
@@ -4385,7 +3937,6 @@ product_nature_variants:
     references: user
   variety:
     type: string
-    limit: 255
     required: true
 product_natures:
   abilities_list:
@@ -4393,7 +3944,7 @@ product_natures:
   active:
     type: boolean
     required: true
-    default: true
+    default: false
   category_id:
     type: integer
     references: product_nature_category
@@ -4406,7 +3957,6 @@ product_natures:
     references: user
   derivative_of:
     type: string
-    limit: 255
   derivatives_list:
     type: text
   description:
@@ -4414,7 +3964,7 @@ product_natures:
   evolvable:
     type: boolean
     required: true
-    default: true
+    default: false
   frozen_indicators_list:
     type: text
   id:
@@ -4427,29 +3977,23 @@ product_natures:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number:
     type: string
-    limit: 255
     required: true
   picture_content_type:
     type: string
-    limit: 255
   picture_file_name:
     type: string
-    limit: 255
   picture_file_size:
     type: integer
   picture_updated_at:
     type: datetime
   population_counting:
     type: string
-    limit: 255
     required: true
   reference_name:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -4460,7 +4004,6 @@ product_natures:
     type: text
   variety:
     type: string
-    limit: 255
     required: true
 product_ownerships:
   created_at:
@@ -4477,7 +4020,6 @@ product_ownerships:
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   operation_id:
     type: integer
@@ -4487,7 +4029,6 @@ product_ownerships:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   owner_id:
     type: integer
     references: entity
@@ -4534,7 +4075,6 @@ product_phases:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   product_id:
     type: integer
     references: product
@@ -4556,19 +4096,16 @@ product_phases:
 product_reading_tasks:
   absolute_measure_value_unit:
     type: string
-    limit: 255
   absolute_measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   boolean_value:
     type: boolean
     required: true
-    default: true
+    default: false
   choice_value:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -4579,9 +4116,8 @@ product_reading_tasks:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   geometry_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -4590,11 +4126,9 @@ product_reading_tasks:
     required: true
   indicator_datatype:
     type: string
-    limit: 255
     required: true
   indicator_name:
     type: string
-    limit: 255
     required: true
   integer_value:
     type: integer
@@ -4603,12 +4137,10 @@ product_reading_tasks:
     required: true
   measure_value_unit:
     type: string
-    limit: 255
   measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   operation_id:
     type: integer
     references: operation
@@ -4617,9 +4149,8 @@ product_reading_tasks:
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   point_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -4649,19 +4180,16 @@ product_reading_tasks:
 product_readings:
   absolute_measure_value_unit:
     type: string
-    limit: 255
   absolute_measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   boolean_value:
     type: boolean
     required: true
-    default: true
+    default: false
   choice_value:
     type: string
-    limit: 255
   created_at:
     type: datetime
     required: true
@@ -4672,9 +4200,8 @@ product_readings:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   geometry_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -4683,11 +4210,9 @@ product_readings:
     required: true
   indicator_datatype:
     type: string
-    limit: 255
     required: true
   indicator_name:
     type: string
-    limit: 255
     required: true
   integer_value:
     type: integer
@@ -4696,20 +4221,17 @@ product_readings:
     required: true
   measure_value_unit:
     type: string
-    limit: 255
   measure_value_value:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   originator_id:
     type: integer
     references: ~originator_type
   originator_type:
     type: string
-    limit: 255
   point_value:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -4728,12 +4250,69 @@ product_readings:
   updater_id:
     type: integer
     references: user
+production_budgets:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  computation_method:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    required: true
+  direction:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  production_id:
+    type: integer
+    references: production
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+  unit_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+  unit_currency:
+    type: string
+    required: true
+  unit_indicator:
+    type: string
+  unit_population:
+    type: decimal
+    precision: 19
+    scale: 4
+  unit_unit:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
 production_distributions:
   affectation_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   created_at:
     type: datetime
@@ -4761,89 +4340,6 @@ production_distributions:
   updater_id:
     type: integer
     references: user
-production_support_markers:
-  absolute_measure_value_unit:
-    type: string
-    limit: 255
-  absolute_measure_value_value:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-  aim:
-    type: string
-    limit: 255
-    required: true
-  boolean_value:
-    type: boolean
-    required: true
-    default: true
-  choice_value:
-    type: string
-    limit: 255
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  decimal_value:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-  derivative:
-    type: string
-    limit: 255
-  geometry_value:
-    type: spatial
-    limit:
-      srid: 4326
-      type: geometry
-  id:
-    type: integer
-    required: true
-  indicator_datatype:
-    type: string
-    limit: 255
-    required: true
-  indicator_name:
-    type: string
-    limit: 255
-    required: true
-  integer_value:
-    type: integer
-  lock_version:
-    type: integer
-    required: true
-  measure_value_unit:
-    type: string
-    limit: 255
-  measure_value_value:
-    type: decimal
-    precision: 19
-    scale: 4
-    limit: 19
-  point_value:
-    type: spatial
-    limit:
-      srid: 4326
-      type: point
-  string_value:
-    type: text
-  subject:
-    type: string
-    limit: 255
-  support_id:
-    type: integer
-    references: production_support
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 production_supports:
   created_at:
     type: datetime
@@ -4854,20 +4350,19 @@ production_supports:
   exclusive:
     type: boolean
     required: true
-    default: true
+    default: false
   id:
     type: integer
     required: true
   irrigated:
     type: boolean
     required: true
-    default: true
+    default: false
   lock_version:
     type: integer
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   production_id:
     type: integer
@@ -4875,7 +4370,6 @@ production_supports:
     required: true
   production_usage:
     type: string
-    limit: 255
     required: true
   started_at:
     type: datetime
@@ -4906,12 +4400,6 @@ productions:
   creator_id:
     type: integer
     references: user
-  homogeneous_expenses:
-    type: boolean
-    default: true
-  homogeneous_revenues:
-    type: boolean
-    default: true
   id:
     type: integer
     required: true
@@ -4920,20 +4408,17 @@ productions:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   position:
     type: integer
+  producing_variant_id:
+    type: integer
+    references: product_nature_variant
   started_at:
     type: datetime
   state:
     type: string
-    limit: 255
     required: true
-  static_support:
-    type: boolean
-    required: true
-    default: true
   stopped_at:
     type: datetime
   support_variant_id:
@@ -4945,15 +4430,10 @@ productions:
   updater_id:
     type: integer
     references: user
-  variant_id:
-    type: integer
-    references: product_nature_variant
   working_indicator:
     type: string
-    limit: 255
   working_unit:
     type: string
-    limit: 255
 products:
   address_id:
     type: integer
@@ -4977,13 +4457,12 @@ products:
     references: product
   derivative_of:
     type: string
-    limit: 255
   description:
     type: text
   extjuncted:
     type: boolean
     required: true
-    default: true
+    default: false
   financial_asset_id:
     type: integer
     references: financial_asset
@@ -4992,7 +4471,6 @@ products:
     required: true
   identification_number:
     type: string
-    limit: 255
   initial_born_at:
     type: datetime
   initial_container_id:
@@ -5007,7 +4485,7 @@ products:
     type: integer
     references: product
   initial_geolocation:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: point
@@ -5021,9 +4499,8 @@ products:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   initial_shape:
-    type: spatial
+    type: geometry
     limit:
       srid: 4326
       type: geometry
@@ -5032,7 +4509,6 @@ products:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature_id:
     type: integer
@@ -5040,7 +4516,6 @@ products:
     required: true
   number:
     type: string
-    limit: 255
     required: true
   parent_id:
     type: integer
@@ -5050,10 +4525,8 @@ products:
     references: person
   picture_content_type:
     type: string
-    limit: 255
   picture_file_name:
     type: string
-    limit: 255
   picture_file_size:
     type: integer
   picture_updated_at:
@@ -5063,7 +4536,6 @@ products:
     references: tracking
   type:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -5076,11 +4548,9 @@ products:
     required: true
   variety:
     type: string
-    limit: 255
     required: true
   work_number:
     type: string
-    limit: 255
 purchase_items:
   account_id:
     type: integer
@@ -5089,12 +4559,11 @@ purchase_items:
   all_taxes_included:
     type: boolean
     required: true
-    default: true
+    default: false
   amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   annotation:
     type: text
@@ -5106,7 +4575,6 @@ purchase_items:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -5122,7 +4590,6 @@ purchase_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   purchase_id:
     type: integer
@@ -5132,7 +4599,6 @@ purchase_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   tax_id:
     type: integer
@@ -5142,13 +4608,11 @@ purchase_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   unit_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   updated_at:
     type: datetime
@@ -5168,7 +4632,7 @@ purchase_natures:
   by_default:
     type: boolean
     required: true
-    default: true
+    default: false
   created_at:
     type: datetime
     required: true
@@ -5177,7 +4641,6 @@ purchase_natures:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   description:
     type: text
@@ -5192,7 +4655,6 @@ purchase_natures:
     required: true
   name:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -5202,7 +4664,7 @@ purchase_natures:
   with_accounting:
     type: boolean
     required: true
-    default: true
+    default: false
 purchases:
   accounted_at:
     type: datetime
@@ -5213,7 +4675,6 @@ purchases:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   confirmed_at:
     type: datetime
@@ -5225,7 +4686,6 @@ purchases:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   delivery_address_id:
     type: integer
@@ -5248,7 +4708,6 @@ purchases:
     references: purchase_nature
   number:
     type: string
-    limit: 255
     required: true
   planned_at:
     type: datetime
@@ -5256,17 +4715,14 @@ purchases:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reference_number:
     type: string
-    limit: 255
   responsible_id:
     type: integer
     references: user
   state:
     type: string
-    limit: 255
   supplier_id:
     type: integer
     references: entity
@@ -5292,11 +4748,9 @@ roles:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   reference_name:
     type: string
-    limit: 255
   rights:
     type: text
   updated_at:
@@ -5312,12 +4766,11 @@ sale_items:
   all_taxes_included:
     type: boolean
     required: true
-    default: true
+    default: false
   amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   annotation:
     type: text
@@ -5332,7 +4785,6 @@ sale_items:
     references: sale_item
   currency:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -5348,31 +4800,26 @@ sale_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   quantity:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reduced_unit_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reduced_unit_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reduction_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   sale_id:
     type: integer
@@ -5385,13 +4832,11 @@ sale_items:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   unit_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   updated_at:
     type: datetime
     required: true
@@ -5410,7 +4855,7 @@ sale_natures:
   by_default:
     type: boolean
     required: true
-    default: true
+    default: false
   catalog_id:
     type: integer
     references: catalog
@@ -5423,27 +4868,23 @@ sale_natures:
     references: user
   currency:
     type: string
-    limit: 255
     required: true
   description:
     type: text
   downpayment:
     type: boolean
     required: true
-    default: true
+    default: false
   downpayment_minimum:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   downpayment_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   expiration_delay:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -5456,11 +4897,9 @@ sale_natures:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   payment_delay:
     type: string
-    limit: 255
     required: true
   payment_mode_complement:
     type: text
@@ -5478,7 +4917,7 @@ sale_natures:
   with_accounting:
     type: boolean
     required: true
-    default: true
+    default: false
 sales:
   accounted_at:
     type: datetime
@@ -5492,7 +4931,6 @@ sales:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   annotation:
     type: text
@@ -5513,13 +4951,12 @@ sales:
   credit:
     type: boolean
     required: true
-    default: true
+    default: false
   credited_sale_id:
     type: integer
     references: sale
   currency:
     type: string
-    limit: 255
     required: true
   delivery_address_id:
     type: integer
@@ -5530,26 +4967,22 @@ sales:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   expiration_delay:
     type: string
-    limit: 255
   expired_at:
     type: datetime
   function_title:
     type: string
-    limit: 255
   has_downpayment:
     type: boolean
     required: true
-    default: true
+    default: false
   id:
     type: integer
     required: true
   initial_number:
     type: string
-    limit: 255
   introduction:
     type: text
   invoice_address_id:
@@ -5572,51 +5005,42 @@ sales:
     references: sale_nature
   number:
     type: string
-    limit: 255
     required: true
   payment_at:
     type: datetime
   payment_delay:
     type: string
-    limit: 255
     required: true
   prereduction_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   prereduction_pretax_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   pretax_amount:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reduction_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   reference_number:
     type: string
-    limit: 255
   responsible_id:
     type: integer
     references: person
   state:
     type: string
-    limit: 255
     required: true
   subject:
     type: string
-    limit: 255
   transporter_id:
     type: integer
     references: entity
@@ -5649,11 +5073,9 @@ sequences:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   number_format:
     type: string
-    limit: 255
     required: true
   number_increment:
     type: integer
@@ -5663,7 +5085,6 @@ sequences:
     required: true
   period:
     type: string
-    limit: 255
     required: true
     default: number
   updated_at:
@@ -5674,7 +5095,6 @@ sequences:
     references: user
   usage:
     type: string
-    limit: 255
 subscription_natures:
   actual_number:
     type: integer
@@ -5688,10 +5108,8 @@ subscription_natures:
     type: text
   entity_link_direction:
     type: string
-    limit: 255
   entity_link_nature:
     type: string
-    limit: 255
   id:
     type: integer
     required: true
@@ -5700,17 +5118,14 @@ subscription_natures:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   nature:
     type: string
-    limit: 255
     required: true
   reduction_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   updated_at:
     type: datetime
     required: true
@@ -5744,7 +5159,6 @@ subscriptions:
     references: subscription_nature
   number:
     type: string
-    limit: 255
   product_nature_id:
     type: integer
     references: product_nature
@@ -5752,7 +5166,6 @@ subscriptions:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   sale_id:
     type: integer
     references: sale
@@ -5769,7 +5182,7 @@ subscriptions:
   suspended:
     type: boolean
     required: true
-    default: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -5781,14 +5194,12 @@ taxes:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   collect_account_id:
     type: integer
     references: account
   computation_method:
     type: string
-    limit: 255
     required: true
   created_at:
     type: datetime
@@ -5807,13 +5218,12 @@ taxes:
   included:
     type: boolean
     required: true
-    default: true
+    default: false
   lock_version:
     type: integer
     required: true
   name:
     type: string
-    limit: 255
     required: true
   reductible:
     type: boolean
@@ -5821,7 +5231,6 @@ taxes:
     default: true
   reference_name:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -5850,7 +5259,6 @@ teams:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   parent_id:
     type: integer
@@ -5886,7 +5294,6 @@ trackings:
     required: true
   name:
     type: string
-    limit: 255
     required: true
   producer_id:
     type: integer
@@ -5896,7 +5303,6 @@ trackings:
     references: product
   serial:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -5924,13 +5330,10 @@ transports:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
   number:
     type: string
-    limit: 255
   reference_number:
     type: string
-    limit: 255
   responsible_id:
     type: integer
     references: person
@@ -5954,16 +5357,14 @@ users:
     default: true
   authentication_token:
     type: string
-    limit: 255
   commercial:
     type: boolean
     required: true
-    default: true
+    default: false
   confirmation_sent_at:
     type: datetime
   confirmation_token:
     type: string
-    limit: 255
   confirmed_at:
     type: datetime
   created_at:
@@ -5976,23 +5377,19 @@ users:
     type: datetime
   current_sign_in_ip:
     type: string
-    limit: 255
   description:
     type: text
   email:
     type: string
-    limit: 255
     required: true
   employed:
     type: boolean
     required: true
-    default: true
+    default: false
   employment:
     type: string
-    limit: 255
   encrypted_password:
     type: string
-    limit: 255
     required: true
     default: ''
   establishment_id:
@@ -6002,38 +5399,33 @@ users:
     type: integer
   first_name:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
     required: true
   language:
     type: string
-    limit: 255
     required: true
   last_name:
     type: string
-    limit: 255
     required: true
   last_sign_in_at:
     type: datetime
   last_sign_in_ip:
     type: string
-    limit: 255
   lock_version:
     type: integer
     required: true
   locked:
     type: boolean
     required: true
-    default: true
+    default: false
   locked_at:
     type: datetime
   maximal_grantable_reduction_percentage:
     type: decimal
     precision: 19
     scale: 4
-    limit: 19
     required: true
   person_id:
     type: integer
@@ -6044,7 +5436,6 @@ users:
     type: datetime
   reset_password_token:
     type: string
-    limit: 255
   rights:
     type: text
   role_id:
@@ -6058,10 +5449,8 @@ users:
     references: team
   unconfirmed_email:
     type: string
-    limit: 255
   unlock_token:
     type: string
-    limit: 255
   updated_at:
     type: datetime
     required: true
@@ -6077,10 +5466,8 @@ versions:
     references: user
   creator_name:
     type: string
-    limit: 255
   event:
     type: string
-    limit: 255
     required: true
   id:
     type: integer
@@ -6094,4 +5481,3 @@ versions:
     type: text
   item_type:
     type: string
-    limit: 255

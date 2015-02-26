@@ -22,29 +22,29 @@
 #
 # == Table: listing_nodes
 #
-#  attribute_name       :string(255)
-#  condition_operator   :string(255)
-#  condition_value      :string(255)
+#  attribute_name       :string
+#  condition_operator   :string
+#  condition_value      :string
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  depth                :integer          default(0), not null
-#  exportable           :boolean          default(FALSE), not null
+#  exportable           :boolean          default(TRUE), not null
 #  id                   :integer          not null, primary key
 #  item_listing_id      :integer
 #  item_listing_node_id :integer
-#  item_nature          :string(255)
+#  item_nature          :string
 #  item_value           :text
-#  key                  :string(255)
-#  label                :string(255)      not null
+#  key                  :string
+#  label                :string           not null
 #  lft                  :integer
 #  listing_id           :integer          not null
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
-#  nature               :string(255)      not null
+#  name                 :string           not null
+#  nature               :string           not null
 #  parent_id            :integer
 #  position             :integer
 #  rgt                  :integer
-#  sql_type             :string(255)
+#  sql_type             :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #

@@ -22,17 +22,17 @@
 #
 # == Table: postal_zones
 #
-#  city         :string(255)
-#  city_name    :string(255)
-#  code         :string(255)
-#  country      :string(255)      not null
+#  city         :string
+#  city_name    :string
+#  code         :string
+#  country      :string           not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  district_id  :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  postal_code  :string(255)      not null
+#  name         :string           not null
+#  postal_code  :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

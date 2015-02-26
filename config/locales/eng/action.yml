@@ -802,7 +802,7 @@ eng:
     bookkeep_with_payment: "Bookkeep with payment" #?
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
-    budgets: "Budgets" #?
+    budgets: "Budgets"
     building_name: "Building name" #?
     # buildings_map: "Buildings map"
     calculate: "Calculate" #?

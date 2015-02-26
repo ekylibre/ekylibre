@@ -30,7 +30,7 @@
 #  nature_id       :integer          not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string(255)
+#  originator_type :string
 #  product_id      :integer          not null
 #  started_at      :datetime
 #  stopped_at      :datetime
@@ -46,7 +46,6 @@ class ProductPhase < Ekylibre::Record::Base
   belongs_to :category, class_name: "ProductNatureCategory"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :category, :nature, :product, :variant
   #]VALIDATORS]
 

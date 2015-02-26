@@ -22,18 +22,18 @@
 #
 # == Table: guides
 #
-#  active                        :boolean          not null
+#  active                        :boolean          default(FALSE), not null
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
-#  external                      :boolean          not null
-#  frequency                     :string(255)      not null
+#  external                      :boolean          default(FALSE), not null
+#  frequency                     :string           not null
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
-#  name                          :string(255)      not null
-#  nature                        :string(255)      not null
-#  reference_name                :string(255)
-#  reference_source_content_type :string(255)
-#  reference_source_file_name    :string(255)
+#  name                          :string           not null
+#  nature                        :string           not null
+#  reference_name                :string
+#  reference_source_content_type :string
+#  reference_source_file_name    :string
 #  reference_source_file_size    :integer
 #  reference_source_updated_at   :datetime
 #  updated_at                    :datetime         not null
@@ -52,7 +52,6 @@ class Guide < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :reference_source_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :reference_source_file_size, allow_nil: true, only_integer: true
-  validates_length_of :frequency, :name, :nature, :reference_name, :reference_source_content_type, :reference_source_file_name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :external, in: [true, false]
   validates_presence_of :frequency, :name, :nature
   #]VALIDATORS]

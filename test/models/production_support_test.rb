@@ -24,13 +24,13 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  exclusive        :boolean          not null
+#  exclusive        :boolean          default(FALSE), not null
 #  id               :integer          not null, primary key
-#  irrigated        :boolean          not null
+#  irrigated        :boolean          default(FALSE), not null
 #  lock_version     :integer          default(0), not null
-#  nature           :string(255)      not null
+#  nature           :string           not null
 #  production_id    :integer          not null
-#  production_usage :string(255)      not null
+#  production_usage :string           not null
 #  started_at       :datetime
 #  stopped_at       :datetime
 #  storage_id       :integer          not null
@@ -40,5 +40,7 @@
 require 'test_helper'
 
 class ProductionSupportTest < ActiveSupport::TestCase
+
   test_fixtures
+
 end

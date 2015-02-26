@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-gem 'activesupport', '~> 4.1.5'
+gem 'activesupport', '~> 4.1.8'
 require 'active_support/core_ext'
 require 'optparse'
 require 'pathname'
@@ -13,13 +13,23 @@ STDOUT.sync = true
 @simulate = false
 
 def execute(command)
-  puts command
+  puts "#{command.send(@simulate ? :yellow : :red)}"
   unless @simulate
     system(command)
   end
 end
 
-options = {}
+def update_file(file, content)
+  action = File.exist?(file) ? "update" : "write"
+  puts "#{action.send(@simulate ? :yellow : :red)} #{file}"
+  unless @simulate
+    File.open(file, "wb") do |f|
+      f.write content
+    end
+  end
+end
+
+options = {migrate: true}
 OptionParser.new do |opts|
   opts.banner = "Usage: #{$PROGRAM_NAME} [options] <old_table> <new_table>"
 
@@ -31,13 +41,23 @@ OptionParser.new do |opts|
     options[:simulate] = true
     @simulate = true
   end
-  opts.on_tail("-m", "--migration", "Generate migration file") do
-    options[:migrate] = true
+  opts.on_tail("-m", "--[no-]migration", "Generate migration file") do |migrate|
+    options[:migrate] = migrate
   end
 end.parse!
 
+# underscore / plural
 old_table = ARGV.shift
 new_table = ARGV.shift
+# camelcase / plural
+old_controller = old_table.camelcase
+new_controller = new_table.camelcase
+# camelcase / singular
+old_class = old_table.classify
+new_class = new_table.classify
+# underscore / singular
+old_record = old_class.underscore
+new_record = new_class.underscore
 
 unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
   puts "Script must be started from Rails root."
@@ -49,34 +69,90 @@ root = Pathname.new(".")
 # db/migrate
 if options[:migrate]
   name = "rename_#{old_table}_to_#{new_table}"
-  file = root.join("db", "migrate", Time.now.strftime('%Y%m%d%H%M%S') + "_" + name + ".rb")
-  puts "Write #{file}"
-  unless @simulate
-    FileUtils.mkdir_p(file.dirname)
-    File.open(file, "wb") do |f|
-      code  = "class #{name.camelcase} < ActiveRecord::Migration\n\n"
-      code << "  def up\n"      
-      code << "    rename_table :#{old_table}, :#{new_table}\n"      
-      code << "  end\n\n"      
-      code << "  def down\n"      
-      code << "    rename_table :#{new_table}, :#{old_table}\n"      
-      code << "  end\n\n"      
-      code << "end\n"      
-      f.write code
+
+  migrations = []
+  Dir.chdir(root.join("db", "migrate")) do
+    migrations += Dir.glob("*").collect{|f| f.split(/[\_\.]/)[1..-2].join("_")}
+  end
+
+  if migrations.include? name
+    puts "ERROR: A migration called #{name} already exists!".red
+    exit 1
+  end
+
+  tables = YAML.load_file(root.join("db", "tables.yml")).deep_symbolize_keys
+  file = root.join("db", "migrate", Time.now.strftime('%Y%m%d%H%M%S') + "_#{name}.rb")
+
+  code  = "class #{name.camelcase} < ActiveRecord::Migration\n\n"
+  code << "  def change\n"
+  code << "    rename_table :#{old_table}, :#{new_table}\n"
+
+  # Polymorphic columns
+  up_code = ""
+  down_code = ""
+  tables.each do |table, columns|
+    columns.each do |column, attributes|
+      if attributes[:references] =~ /^\~/
+        col = attributes[:references].gsub(/^\~/, '')
+        up_code   << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_class}' WHERE \#{quote_column_name(:#{col})}='#{old_class}'\"\n"
+        down_code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_class}' WHERE \#{quote_column_name(:#{col})}='#{new_class}'\"\n"
+      end
     end
   end
+  code << "    # Polymorphic columns\n"
+  code << "    reversible do |dir|\n"
+  code << "      dir.up do\n"
+  code << up_code
+  code << "      end\n"
+  code << "      dir.down do\n"
+  code << down_code
+  code << "      end\n"
+  code << "    end\n"
+
+  # Special columns
+  table, col = :custom_fields, :customized_type
+  code << "    # Custom fields\n"
+  code << "    reversible do |dir|\n"
+  code << "      dir.up do\n"
+  code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_class}' WHERE \#{quote_column_name(:#{col})}='#{old_class}'\"\n"
+  code << "      end\n"
+  code << "      dir.down do\n"
+  code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_class}' WHERE \#{quote_column_name(:#{col})}='#{new_class}'\"\n"
+  code << "      end\n"
+  code << "    end\n"
+
+  table, col = :listings, :root_model
+  code << "    # Listings\n"
+  code << "    reversible do |dir|\n"
+  code << "      dir.up do\n"
+  code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{new_record}' WHERE \#{quote_column_name(:#{col})}='#{old_record}'\"\n"
+  code << "      end\n"
+  code << "      dir.down do\n"
+  code << "        execute \"UPDATE \#{quote_table_name(:#{table})} SET \#{quote_column_name(:#{col})}='#{old_record}' WHERE \#{quote_column_name(:#{col})}='#{new_record}'\"\n"
+  code << "      end\n"
+  code << "    end\n"
+
+  code << "\n"
+  code << "    # Add your specific code here...\n"
+  code << "\n"
+
+  code << "  end\n\n"
+  code << "end\n"
+
+  FileUtils.mkdir_p(file.dirname)
+  update_file(file, code)
 end
 
 app = root.join("app")
 
 # app/models
-of = app.join("models", "#{old_table.singularize}.rb")
-nf = app.join("models", "#{new_table.singularize}.rb")
+of = app.join("models", "#{old_record}.rb")
+nf = app.join("models", "#{new_record}.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_table.classify} /class #{new_table.classify} /' #{nf}")  
+  execute("sed -i 's/class #{old_class} /class #{new_class} /' #{nf}")
 end
 
 # app/controllers
@@ -86,7 +162,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_table.camelcase}Controller /class #{new_table.camelcase}Controller /' #{nf}")  
+  execute("sed -i 's/class #{old_controller}Controller /class #{new_controller}Controller /' #{nf}")
 end
 
 # app/controllers/backend
@@ -96,7 +172,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::#{old_table.camelcase}Controller /class Backend::#{new_table.camelcase}Controller /' #{nf}")  
+  execute("sed -i 's/class Backend::#{old_controller}Controller /class Backend::#{new_controller}Controller /' #{nf}")
 end
 
 # app/views
@@ -120,7 +196,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/module #{old_table.camelcase}Helper/module #{new_table.camelcase}Helper/' #{nf}")  
+  execute("sed -i 's/module #{old_controller}Helper/module #{new_controller}Helper/' #{nf}")
 end
 
 # app/helpers/backend
@@ -130,7 +206,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/module Backend::#{old_table.camelcase}Helper/module Backend::#{new_table.camelcase}Helper/' #{nf}")  
+  execute("sed -i 's/module Backend::#{old_controller}Helper/module Backend::#{new_controller}Helper/' #{nf}")
 end
 
 config = root.join("config")
@@ -142,42 +218,37 @@ for file in Dir[config.join("locales", "*", "{models,enumerize}.yml")].sort
   locale = tr.keys.first
   if tr[locale]["activerecord"]
     if tr[locale]["activerecord"]["attributes"]
-      if tr[locale]["activerecord"]["attributes"][old_table.singularize]
-        tr[locale]["activerecord"]["attributes"][new_table.singularize] = tr[locale]["activerecord"]["attributes"].delete(old_table.singularize)
+      if tr[locale]["activerecord"]["attributes"][old_record]
+        tr[locale]["activerecord"]["attributes"][new_record] = tr[locale]["activerecord"]["attributes"].delete(old_record)
       end
     end
     if tr[locale]["activerecord"]["errors"]
       if tr[locale]["activerecord"]["errors"]["models"]
-        if tr[locale]["activerecord"]["errors"]["models"][old_table.singularize]
-          tr[locale]["activerecord"]["errors"]["models"][new_table.singularize] = tr[locale]["activerecord"]["errors"]["models"].delete(old_table.singularize)
+        if tr[locale]["activerecord"]["errors"]["models"][old_record]
+          tr[locale]["activerecord"]["errors"]["models"][new_record] = tr[locale]["activerecord"]["errors"]["models"].delete(old_record)
         end
       end
     end
     if tr[locale]["activerecord"]["models"]
-      if tr[locale]["activerecord"]["models"][old_table.singularize]
-        tr[locale]["activerecord"]["models"][new_table.singularize] = tr[locale]["activerecord"]["models"].delete(old_table.singularize)
+      if tr[locale]["activerecord"]["models"][old_record]
+        tr[locale]["activerecord"]["models"][new_record] = tr[locale]["activerecord"]["models"].delete(old_record)
       end
     end
   end
   if tr[locale]["enumerize"]
-    if tr[locale]["enumerize"][old_table.singularize]
-      tr[locale]["enumerize"][new_table.singularize] = tr[locale]["enumerize"].delete(old_table.singularize)
+    if tr[locale]["enumerize"][old_record]
+      tr[locale]["enumerize"][new_record] = tr[locale]["enumerize"].delete(old_record)
     end
     end
   if tr[locale]["models"]
-    if tr[locale]["models"][old_table.singularize]
-      tr[locale]["models"][new_table.singularize] = tr[locale]["models"].delete(old_table.singularize)
+    if tr[locale]["models"][old_record]
+      tr[locale]["models"][new_record] = tr[locale]["models"].delete(old_record)
     end
   end
-  
+
   code = tr.to_yaml
-  
-  puts "Update #{lf}"
-  unless @simulate
-    File.open(lf, "wb") do |f|
-      f.write code
-    end
-  end
+
+  update_file(lf, code)
 end
 
 
@@ -201,15 +272,10 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
       tr[locale]["unroll"]["backend/#{new_table}"] = tr[locale]["unroll"].delete("backend/#{old_table}")
     end
   end
-  
+
   code = tr.to_yaml
-  
-  puts "Update #{lf}"
-  unless @simulate
-    File.open(lf, "wb") do |f|
-      f.write code
-    end
-  end
+
+  update_file(lf, code)
 end
 
 # config/locales/*/help/
@@ -225,17 +291,12 @@ end
 # config/modules
 nf = config.join("modules.xml")
 if nf.exist?
-  puts "Update #{nf}"
   source = nil
   File.open(nf, "rb") do |f|
     source = f.read
   end
-  unless @simulate
-    source.gsub!(/(\"backend\/)#{old_table}(\#)/, '\1' + new_table + '\2')
-    File.open(nf, "wb") do |f|
-      f.write source
-    end
-  end
+
+  update_file(nf, source.gsub(/(\"backend\/)#{old_table}(\#)/, '\1' + new_table + '\2'))
 else
   puts "Cannot update #{nf}".yellow
 end
@@ -243,34 +304,22 @@ end
 # config/rights
 nf = config.join("rights.yml")
 if nf.exist?
-  puts "Update #{nf}"
   source = nil
   File.open(nf, "rb") do |f|
     source = f.read
   end
-  unless @simulate
-    source.gsub!(/(\backend\/")#{old_table}(\#)/, '\1' + new_table + '\2')
-    File.open(nf, "wb") do |f|
-      f.write source
-    end
-  end
+  update_file(nf, source.gsub(/(\backend\/")#{old_table}(\#)/, '\1' + new_table + '\2'))
 else
   puts "Cannot update #{nf}".yellow
 end
 
 # config/routes.rb
 nf = config.join("routes.rb")
-puts "Update #{nf}"
 source = nil
 File.open(nf, "rb") do |f|
   source = f.read
 end
-unless @simulate
-  source.gsub!(/(resources\ )+:#{old_table}(\,|\s|$)/, '\1:' + new_table + '\2')
-  File.open(nf, "wb") do |f|
-    f.write source
-  end
-end
+update_file(nf, source.gsub(/(resources\ )+:#{old_table}(\,|\s|$)/, '\1:' + new_table + '\2'))
 
 test = root.join("test")
 
@@ -294,23 +343,23 @@ if File.exist?(nf)
 end
 
 # test/models
-of = test.join("models", "#{old_table.singularize}_test.rb")
-nf = test.join("models", "#{new_table.singularize}_test.rb")
+of = test.join("models", "#{old_record}_test.rb")
+nf = test.join("models", "#{new_record}_test.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_table.classify}Test /class #{new_table.classify}Test /' #{nf}")  
+  execute("sed -i 's/class #{old_class}Test /class #{new_class}Test /' #{nf}")
 end
 
 # test/models/backend
-of = test.join("models", "backend", "#{old_table.singularize}_test.rb")
-nf = test.join("models", "backend", "#{new_table.singularize}_test.rb")
+of = test.join("models", "backend", "#{old_record}_test.rb")
+nf = test.join("models", "backend", "#{new_record}_test.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::#{old_table.classify}Test /class Backend::#{new_table.classify}Test /' #{nf}")  
+  execute("sed -i 's/class Backend::#{old_class}Test /class Backend::#{new_class}Test /' #{nf}")
 end
 
 # test/helpers
@@ -320,7 +369,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_table.camelcase}HelperTest /class #{new_table.camelcase}HelperTest /' #{nf}")  
+  execute("sed -i 's/class #{old_controller}HelperTest /class #{new_controller}HelperTest /' #{nf}")
 end
 
 # test/helpers/backend
@@ -330,7 +379,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::#{old_table.camelcase}HelperTest /class Backend::#{new_table.camelcase}HelperTest /' #{nf}")  
+  execute("sed -i 's/class Backend::#{old_controller}HelperTest /class Backend::#{new_controller}HelperTest /' #{nf}")
 end
 
 # test/controllers
@@ -340,7 +389,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_table.camelcase}ControllerTest /class #{new_table.camelcase}ControllerTest /' #{nf}")  
+  execute("sed -i 's/class #{old_controller}ControllerTest /class #{new_controller}ControllerTest /' #{nf}")
 end
 
 # test/controllers/backend
@@ -350,52 +399,45 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::#{old_table.camelcase}ControllerTest /class Backend::#{new_table.camelcase}ControllerTest /' #{nf}")  
+  execute("sed -i 's/class Backend::#{old_controller}ControllerTest /class Backend::#{new_controller}ControllerTest /' #{nf}")
 end
 
 
 
 # General replacing
-print "replace "
 for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.yml")]
   source = nil
   File.open(file, "rb") do |f|
     source = f.read
   end
   ns = source.dup
-  ns.gsub!(/([^a-zA-Z0-9\_]|^)#{old_table.classify}([^a-zA-Z0-9\_]|$)/, '\1' + new_table.classify + '\2')
-  # ns.gsub!(/^(\ +)has\_many\ \:#{old_table}(\s?)$/, '\1has_many :' + old_table + ', :class_name => "'+ new_table.classify + '"')
-  # ns.gsub!(/^(\ +)belongs\_to\ \:#{old_table.singularize}(\s?)$/, '\1belongs_to :' + old_table.singularize + ', :class_name => "'+ new_table.classify + '"')
-  ns.gsub!(/^(\ +)has\_many\ \:#{old_table}(\s?)$/, '\1has_many :' + old_table + ', class_name: "'+ new_table.classify + '"')
-  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_table.singularize}(\s?)$/, '\1belongs_to :' + old_table.singularize + ', class_name: "'+ new_table.classify + '"')
+  ns.gsub!(/([^a-zA-Z0-9\_]|^)#{old_class}([^a-zA-Z0-9\_]|$)/, '\1' + new_class + '\2')
+  # ns.gsub!(/^(\ +)has\_many\ \:#{old_table}(\s?)$/, '\1has_many :' + old_table + ', :class_name => "'+ new_class + '"')
+  # ns.gsub!(/^(\ +)belongs\_to\ \:#{old_record}(\s?)$/, '\1belongs_to :' + old_record + ', :class_name => "'+ new_class + '"')
+  ns.gsub!(/^(\ +)has\_many\ \:#{old_table}(\s?)$/, '\1has_many :' + old_table + ', class_name: "'+ new_class + '"')
+  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_record}(\s?)$/, '\1belongs_to :' + old_record + ', class_name: "'+ new_class + '"')
   ns.gsub!(/:model\ *\=\>\ *:#{old_table}([^a-z\_]|$)/, 'model: :' + new_table + '\1')
-  ns.gsub!(/:model\ *\=\>\ *:#{old_table.singularize}([^a-z\_]|$)/, 'model: :' + new_table.singularize + '\1')
+  ns.gsub!(/:model\ *\=\>\ *:#{old_record}([^a-z\_]|$)/, 'model: :' + new_record + '\1')
   ns.gsub!(/model\:\ *:#{old_table}([^a-z\_]|$)/, 'model: :' + new_table + '\1')
-  ns.gsub!(/model\:\ *:#{old_table.singularize}([^a-z\_]|$)/, 'model: :' + new_table.singularize + '\1')
+  ns.gsub!(/model\:\ *:#{old_record}([^a-z\_]|$)/, 'model: :' + new_record + '\1')
   ns.gsub!(/(search\_conditions[\ \(]+):#{old_table}(\ *\=\>)/, '\1:' + new_table + '\2')
-  ns.gsub!(/(search\_conditions[\ \(]+):#{old_table.singularize}(\ *\=\>)/, '\1:' + new_table.singularize + '\2')
+  ns.gsub!(/(search\_conditions[\ \(]+):#{old_record}(\ *\=\>)/, '\1:' + new_record + '\2')
   ns.gsub!(/(find\_and\_check[\(\ ]+):#{old_table}\s*(\)|\,|$)/, '\1:' + new_table + '\2')
-  ns.gsub!(/(find\_and\_check[\(\ ]+):#{old_table.singularize}\s*(\)|\,|$)/, '\1:' + new_table.singularize + '\2')
+  ns.gsub!(/(find\_and\_check[\(\ ]+):#{old_record}\s*(\)|\,|$)/, '\1:' + new_record + '\2')
   ns.gsub!(/(list[\(\ ]+):#{old_table}\s*(\)|\,|$)/, '\1:' + new_table + '\2')
-  ns.gsub!(/(list[\(\ ]+):#{old_table.singularize}\s*(\)|\,|$)/, '\1:' + new_table.singularize + '\2')
+  ns.gsub!(/(list[\(\ ]+):#{old_record}\s*(\)|\,|$)/, '\1:' + new_record + '\2')
 
   ns.gsub!(/^(\ +)(search\_for)/, '\1# \2')
   # ns.gsub!(/(search\_for[\(\ ]+:[a-z\_]+\ *\,)\ *#{old_table}\s*(\)|\,|$)/, '\1 ' + new_table + '\2')
-  # ns.gsub!(/(search\_for[\(\ ]+:[a-z\_]+\ *\,)\ *#{old_table.singularize}\s*(\)|\,|$)/, '\1 ' + new_table.singularize + '\2')
+  # ns.gsub!(/(search\_for[\(\ ]+:[a-z\_]+\ *\,)\ *#{old_record}\s*(\)|\,|$)/, '\1 ' + new_record + '\2')
   # ns.gsub!(/(search\_for[\(\ ]+:)#{old_table}\s*(\)|\,|$)/, '\1:' + new_table + '\2')
-  # ns.gsub!(/(search\_for[\(\ ]+:)#{old_table.singularize}\s*(\)|\,|$)/, '\1:' + new_table.singularize + '\2')
+  # ns.gsub!(/(search\_for[\(\ ]+:)#{old_record}\s*(\)|\,|$)/, '\1:' + new_record + '\2')
 
   if ns != source
-    unless @simulate
-      File.open(file, "wb") do |f|
-        f.write ns
-      end    
-    end
-    print "+"
-  else
-    print "."
+    update_file(file, ns)
   end
 end
-puts "!"
 
-puts "Clean with `rake clean` at the end"
+unless @simulate
+  puts "Clean with `rake clean` at the end".green
+end

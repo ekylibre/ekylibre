@@ -37,7 +37,6 @@ class Backend::CampaignsController < Backend::BaseController
     t.column :state
     t.column :started_at
     t.column :stopped_at
-    t.column :static_support
   end
 
 end

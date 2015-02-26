@@ -125,19 +125,6 @@ class Backend::ProductsController < Backend::BaseController
     t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
   end
 
-  # Lists supports for the current product
-  list(:markers, model: :production_support_markers, conditions: {production_supports: {storage_id: 'params[:id]'.c}}, order: {created_at: :desc}) do |t|
-    t.column :campaign, url: true
-    t.column :activity, url: true, hidden: true
-    t.column :support, url: true, hidden: true
-    t.column :indicator, datatype: :item
-    t.column :aim
-    t.column :subject_label
-    t.column :derivative, hidden: true
-    t.column :subject, hidden: true
-    t.column :value, datatype: :measure
-  end
-
   protected
 
   def check_variant_availability()

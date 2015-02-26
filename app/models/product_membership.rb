@@ -28,10 +28,10 @@
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  member_id       :integer          not null
-#  nature          :string(255)      not null
+#  nature          :string           not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string(255)
+#  originator_type :string
 #  started_at      :datetime         not null
 #  stopped_at      :datetime
 #  updated_at      :datetime         not null
@@ -42,11 +42,10 @@
 class ProductMembership < Ekylibre::Record::Base
   include Taskable, TimeLineable
   enumerize :nature, in: [:interior, :exterior], default: :interior, predicates: true
-  belongs_to :group, class_name: "ProductGroup"
-  belongs_to :member, class_name: "Product"
+  belongs_to :group, class_name: "ProductGroup", inverse_of: :memberships
+  belongs_to :member, class_name: "Product", inverse_of: :memberships
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :group, :member, :nature, :started_at
   #]VALIDATORS]
 

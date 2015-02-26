@@ -8,6 +8,7 @@ namespace :clean do
     Dir.chdir(Rails.root) do
       files += Dir["Gemfile*"]
       files += Dir["Rakefile"]
+      files += Dir["bin/*"]
       files += Dir["#{dirs}/**/*.ru"]
       files += Dir["#{dirs}/**/*.rb"]
       files += Dir["#{dirs}/**/*.rake"]

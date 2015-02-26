@@ -57,15 +57,14 @@
         data_series = []
         if resource.revenues
           for revenue in resource.revenues
-            value = revenue.items.sum(:global_amount)
-            data_series << { name: revenue.variant.name, y: (value/divider).to_s.to_f, color: "#000077"}
-            balance += value
+            data_series << { name: revenue.variant_name, y: (revenue.amount/divider).to_s.to_f, color: "#000077"}
+            balance += revenue.amount
           end
         end
 
         if resource.expenses
           for expense in resource.expenses
-            value = expense.items.sum(:global_amount)
+            value = expense.amount
             variant_variety = Nomen::Varieties.find(expense.variant.variety)
             if variant_variety <= :worker
               worker_balance -= value
@@ -86,9 +85,9 @@
 
         data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
 
-        data_series << { name: :indirect_charges.tl, y: (resource.indirect_budget_items_value/divider).to_s.to_f, color: (resource.indirect_budget_items_value >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_items_value != 0
+        data_series << { name: :indirect_charges.tl, y: (resource.indirect_budget_amount/divider).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
-        data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_items_value != 0
+        data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
         series = []
         series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}

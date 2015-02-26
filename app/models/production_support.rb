@@ -24,13 +24,13 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  exclusive        :boolean          not null
+#  exclusive        :boolean          default(FALSE), not null
 #  id               :integer          not null, primary key
-#  irrigated        :boolean          not null
+#  irrigated        :boolean          default(FALSE), not null
 #  lock_version     :integer          default(0), not null
-#  nature           :string(255)      not null
+#  nature           :string           not null
 #  production_id    :integer          not null
-#  production_usage :string(255)      not null
+#  production_usage :string           not null
 #  started_at       :datetime
 #  stopped_at       :datetime
 #  storage_id       :integer          not null
@@ -43,11 +43,8 @@ class ProductionSupport < Ekylibre::Record::Base
 
   belongs_to :production, inverse_of: :supports
   belongs_to :storage, class_name: "Product", inverse_of: :supports
-  has_many :budgets, through: :production
-  has_many :budget_items, dependent: :destroy, inverse_of: :production_support
   has_many :interventions
   has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
-  has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support, dependent: :destroy
   has_one :activity, through: :production
   has_one :campaign, through: :production
   has_one :selected_manure_management_plan_zone, -> { selecteds }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
@@ -55,7 +52,6 @@ class ProductionSupport < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_length_of :nature, :production_usage, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :nature, :production, :production_usage, :storage
   #]VALIDATORS]
@@ -71,9 +67,6 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, to: :campaign, prefix: true
   delegate :name, to: :variant,  prefix: true
   delegate :working_indicator, :working_unit, to: :production
-
-  accepts_nested_attributes_for :markers, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :budget_items, allow_destroy: true
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -112,31 +105,25 @@ class ProductionSupport < Ekylibre::Record::Base
     end
   end
 
-  after_create do
-    budgets.each do |budget|
-      budget.orphaned_items.first.update(production_support_id: self.id)
-    end
-  end
-
-  # Measure a product for a given indicator
-  def read!(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    if value.nil?
-      raise ArgumentError, "Value must be given"
-    end
-    options[:indicator_name] = indicator.name
-    options[:aim] ||= :perfect
-    options.delete(:derivative) if options[:derivative].blank?
-    options[:subject] ||= (options[:derivative] ? :derivative : :support)
-    unless marker = self.markers.find_by(options)
-      marker = self.markers.build(options)
-    end
-    marker.value = value
-    marker.save!
-    return marker
-  end
+  # # Measure a product for a given indicator
+  # def read!(indicator, value, options = {})
+  #   unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+  #     raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+  #   end
+  #   if value.nil?
+  #     raise ArgumentError, "Value must be given"
+  #   end
+  #   options[:indicator_name] = indicator.name
+  #   options[:aim] ||= :perfect
+  #   options.delete(:derivative) if options[:derivative].blank?
+  #   options[:subject] ||= (options[:derivative] ? :derivative : :support)
+  #   unless marker = self.markers.find_by(options)
+  #     marker = self.markers.build(options)
+  #   end
+  #   marker.value = value
+  #   marker.save!
+  #   return marker
+  # end
 
   def active?
     if self.activity.fallow_land?
@@ -212,16 +199,17 @@ class ProductionSupport < Ekylibre::Record::Base
 
 
   def provisional_nitrogen_input
-    balance = []
-    markers = self.markers.where(aim: 'perfect', indicator_name: 'nitrogen_input_per_area')
-    if markers.count > 0
-      for marker in markers
-        balance << marker.measure_value_value
-      end
-      return balance.compact.sum
-    else
-      return 0
-    end
+    return 0
+    # balance = []
+    # markers = self.markers.where(aim: 'perfect', indicator_name: 'nitrogen_input_per_area')
+    # if markers.count > 0
+    #   for marker in markers
+    #     balance << marker.measure_value_value
+    #   end
+    #   return balance.compact.sum
+    # else
+    #   return 0
+    # end
   end
 
   def tool_cost(surface_unit = :hectare)
@@ -304,18 +292,18 @@ class ProductionSupport < Ekylibre::Record::Base
     nil
   end
 
-  #def get(indicator, *args)
-    #unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      #raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    #end
-    #options = args.extract_options!
-    #aim = args.shift || options[:aim] || :perfect
-    #markers = self.markers.where(indicator_name: indicator.name.to_s, aim: aim)
-    #if markers.any?
-      #return markers.first.value
-    #end
-    #return nil
-  #end
+  # def get(indicator, *args)
+  #   unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+  #     raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+  #   end
+  #   options = args.extract_options!
+  #   aim = args.shift || options[:aim] || :perfect
+  #   markers = self.markers.where(indicator_name: indicator.name.to_s, aim: aim)
+  #   if markers.any?
+  #     return markers.first.value
+  #   end
+  #   return nil
+  # end
 
   def get(*args)
     raise StandardError, "no storage defined" unless self.storage.present?

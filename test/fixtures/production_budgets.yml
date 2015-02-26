@@ -20,32 +20,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: budgets
+# == Table: production_budgets
 #
-#  computation_method :string(255)
+#  amount             :decimal(19, 4)   default(0.0)
+#  computation_method :string           not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
-#  currency           :string(255)
-#  direction          :string(255)
-#  global_amount      :decimal(19, 4)   default(0.0)
-#  global_quantity    :decimal(19, 4)   default(0.0)
-#  homogeneous_values :boolean
+#  currency           :string           not null
+#  direction          :string           not null
 #  id                 :integer          not null, primary key
 #  lock_version       :integer          default(0), not null
-#  name               :string(255)
-#  production_id      :integer
+#  production_id      :integer          not null
+#  quantity           :decimal(19, 4)   default(0.0)
 #  unit_amount        :decimal(19, 4)   default(0.0)
+#  unit_currency      :string           not null
+#  unit_indicator     :string
+#  unit_population    :decimal(19, 4)
+#  unit_unit          :string
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer
-#  working_indicator  :string(255)
-#  working_unit       :string(255)
 #
 #
-# == Fixture: budgets
+# == Fixture: production_budgets
 #
-# budgets_001:
+# production_budgets_001:
+#   computation_method: "Lorem ipsum"
 #   creator: users_001
+#   currency: "Lorem ipsum"
+#   direction: "Lorem ipsum"
+#   production: productions_001
+#   unit_currency: "Lorem ipsum"
 #   updater: users_001
 #
 --- {}

@@ -26,12 +26,12 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  description           :text
-#  entity_link_direction :string(255)
-#  entity_link_nature    :string(255)
+#  entity_link_direction :string
+#  entity_link_nature    :string
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
-#  name                  :string(255)      not null
-#  nature                :string(255)      not null
+#  name                  :string           not null
+#  nature                :string           not null
 #  reduction_percentage  :decimal(19, 4)
 #  updated_at            :datetime         not null
 #  updater_id            :integer
@@ -49,7 +49,6 @@ class SubscriptionNature < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, allow_nil: true, only_integer: true
   validates_numericality_of :reduction_percentage, allow_nil: true
-  validates_length_of :entity_link_direction, :entity_link_nature, :name, :nature, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_length_of :entity_link_direction, allow_nil: true, maximum: 30

@@ -55,7 +55,7 @@ class Releaser
     text = " * " + text.to_s
     puts text.red
   end
-    
+
 end
 
 Releaser.run!

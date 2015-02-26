@@ -7,8 +7,8 @@
 
     data = []
     # get all BuildingDivision
-    BuildingDivision.all.each do |building_division|
-      if building_division.shape and building_division.containeds.count > 0
+    BuildingDivision.includes(:nature).each do |building_division|
+      if building_division.shape and building_division.containeds.any?
         popup_content = []
         ids = []
         ids = building_division.containeds.uniq.map(&:id)

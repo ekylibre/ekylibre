@@ -31,7 +31,7 @@
 #  last_number       :integer
 #  lock_version      :integer          default(0), not null
 #  nature_id         :integer
-#  number            :string(255)
+#  number            :string
 #  product_nature_id :integer
 #  quantity          :decimal(19, 4)
 #  sale_id           :integer
@@ -39,7 +39,7 @@
 #  started_at        :datetime
 #  stopped_at        :datetime
 #  subscriber_id     :integer
-#  suspended         :boolean          not null
+#  suspended         :boolean          default(FALSE), not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #

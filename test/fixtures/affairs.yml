@@ -24,22 +24,22 @@
 #
 #  accounted_at     :datetime
 #  cash_session_id  :integer
-#  closed           :boolean          not null
+#  closed           :boolean          default(FALSE), not null
 #  closed_at        :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  credit           :decimal(19, 4)   default(0.0), not null
-#  currency         :string(255)      not null
+#  currency         :string           not null
 #  deals_count      :integer          default(0), not null
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
+#  number           :string           not null
 #  originator_id    :integer          not null
-#  originator_type  :string(255)      not null
+#  originator_type  :string           not null
 #  third_id         :integer          not null
-#  ticket           :boolean          not null
+#  ticket           :boolean          default(FALSE), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

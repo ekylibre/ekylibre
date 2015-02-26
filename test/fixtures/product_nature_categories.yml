@@ -22,29 +22,29 @@
 #
 # == Table: product_nature_categories
 #
-#  active                                                        :boolean          not null
+#  active                                                        :boolean          default(FALSE), not null
 #  charge_account_id                                             :integer
 #  created_at                                                    :datetime         not null
 #  creator_id                                                    :integer
-#  depreciable                                                   :boolean          not null
+#  depreciable                                                   :boolean          default(FALSE), not null
 #  description                                                   :text
 #  financial_asset_account_id                                    :integer
 #  financial_asset_depreciations_account_id                      :integer
 #  financial_asset_depreciations_inputations_expenses_account_id :integer
 #  id                                                            :integer          not null, primary key
 #  lock_version                                                  :integer          default(0), not null
-#  name                                                          :string(255)      not null
-#  number                                                        :string(255)      not null
-#  pictogram                                                     :string(255)
+#  name                                                          :string           not null
+#  number                                                        :string           not null
+#  pictogram                                                     :string
 #  product_account_id                                            :integer
-#  purchasable                                                   :boolean          not null
-#  reductible                                                    :boolean          not null
-#  reference_name                                                :string(255)
-#  saleable                                                      :boolean          not null
+#  purchasable                                                   :boolean          default(FALSE), not null
+#  reductible                                                    :boolean          default(FALSE), not null
+#  reference_name                                                :string
+#  saleable                                                      :boolean          default(FALSE), not null
 #  stock_account_id                                              :integer
-#  storable                                                      :boolean          not null
-#  subscribing                                                   :boolean          not null
-#  subscription_duration                                         :string(255)
+#  storable                                                      :boolean          default(FALSE), not null
+#  subscribing                                                   :boolean          default(FALSE), not null
+#  subscription_duration                                         :string
 #  subscription_nature_id                                        :integer
 #  updated_at                                                    :datetime         not null
 #  updater_id                                                    :integer

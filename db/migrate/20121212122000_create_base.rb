@@ -88,7 +88,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :analysis_items do |t|
       t.references :analysis,      null: false, index: true
-      t.reading                    null: false, index: true
+      t.reading                    null: false, index: true, native_point: true
       t.text       :annotation
       t.stamps
     end
@@ -998,7 +998,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :originator,        polymorphic: true
       t.references :product,                               null: false, index: true
       t.datetime   :read_at,                               null: false
-      t.reading                                    null: false, index: true
+      t.reading                                            null: false, index: true, native_point: true
       t.stamps
       t.index      :read_at
       t.index      [:originator_id, :originator_type], name: :index_product_readings_on_originator
@@ -1008,7 +1008,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true
       t.references :product,                  null: false, index: true
-      t.reading                       null: false, index: true
+      t.reading                               null: false, index: true, native_point: true
       t.references :reporter,                              index: true
       t.references :tool,                                  index: true
       t.datetime   :started_at,               null: false
@@ -1101,7 +1101,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_nature_variant_readings do |t|
       t.references :variant, null: false, index: true
-      t.reading      null: false, index: true
+      t.reading              null: false, index: true, native_point: true
       t.stamps
     end
 
@@ -1122,7 +1122,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :aim,     null: false
       t.string     :subject
       t.string     :derivative
-      t.reading      null: false, index: true
+      t.reading              null: false, index: true, native_point: true
       # t.datetime   :started_at
       # t.datetime   :stopped_at
       t.stamps

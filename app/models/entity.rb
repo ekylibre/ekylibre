@@ -23,48 +23,48 @@
 #
 # == Table: entities
 #
-#  active                    :boolean          default(FALSE), not null
-#  activity_code             :string(255)
+#  active                    :boolean          default(TRUE), not null
+#  activity_code             :string
 #  authorized_payments_count :integer
 #  born_at                   :datetime
-#  client                    :boolean          not null
+#  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
-#  country                   :string(255)
+#  country                   :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
-#  currency                  :string(255)      not null
+#  currency                  :string           not null
 #  dead_at                   :datetime
-#  deliveries_conditions     :string(255)
+#  deliveries_conditions     :string
 #  description               :text
 #  first_met_at              :datetime
-#  first_name                :string(255)
-#  full_name                 :string(255)      not null
+#  first_name                :string
+#  full_name                 :string           not null
 #  id                        :integer          not null, primary key
-#  language                  :string(255)      not null
-#  last_name                 :string(255)      not null
+#  language                  :string           not null
+#  last_name                 :string           not null
 #  lock_version              :integer          default(0), not null
-#  locked                    :boolean          not null
-#  meeting_origin            :string(255)
-#  nature                    :string(255)      not null
-#  number                    :string(255)
-#  of_company                :boolean          not null
-#  picture_content_type      :string(255)
-#  picture_file_name         :string(255)
+#  locked                    :boolean          default(FALSE), not null
+#  meeting_origin            :string
+#  nature                    :string           not null
+#  number                    :string
+#  of_company                :boolean          default(FALSE), not null
+#  picture_content_type      :string
+#  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  proposer_id               :integer
-#  prospect                  :boolean          not null
-#  reminder_submissive       :boolean          not null
+#  prospect                  :boolean          default(FALSE), not null
+#  reminder_submissive       :boolean          default(FALSE), not null
 #  responsible_id            :integer
-#  siren                     :string(255)
-#  supplier                  :boolean          not null
+#  siren                     :string
+#  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
-#  transporter               :boolean          not null
-#  type                      :string(255)
+#  transporter               :boolean          default(FALSE), not null
+#  type                      :string
 #  updated_at                :datetime         not null
 #  updater_id                :integer
-#  vat_number                :string(255)
-#  vat_subjected             :boolean          default(FALSE), not null
+#  vat_number                :string
+#  vat_subjected             :boolean          default(TRUE), not null
 #
 
 require "digest/sha2"
@@ -130,7 +130,6 @@ class Entity < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_length_of :activity_code, :country, :currency, :deliveries_conditions, :first_name, :full_name, :language, :last_name, :meeting_origin, :nature, :number, :picture_content_type, :picture_file_name, :siren, :vat_number, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]

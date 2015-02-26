@@ -337,9 +337,7 @@ module Fixturing
       value = value.to_s
       value = if type == :float
                 value.to_f
-              # elsif type == :point
-              #   Charta::Geometry.new("POINT#{value}").to_ewkt
-              elsif type == :geometry or type == :spatial
+              elsif type == :geometry or type == :point
                 Charta::Geometry.new(value).to_ewkt
               elsif type == :decimal
                 value.to_f
@@ -352,6 +350,7 @@ module Fixturing
               elsif type == :boolean
                 (['1', 't', 'T', 'true', 'yes', 'TRUE'].include?(value) ? true : false)
               else
+                puts type.inspect.red unless type == :string or type == :text
                 value =~ /\A\-\-\-(\s+|\z)/ ? YAML.load(value) : value
               end
       return value

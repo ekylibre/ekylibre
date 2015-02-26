@@ -22,19 +22,19 @@
 #
 # == Table: purchase_natures
 #
-#  active          :boolean          default(FALSE), not null
-#  by_default      :boolean          not null
+#  active          :boolean          default(TRUE), not null
+#  by_default      :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  currency        :string(255)      not null
+#  currency        :string           not null
 #  description     :text
 #  id              :integer          not null, primary key
 #  journal_id      :integer
 #  lock_version    :integer          default(0), not null
-#  name            :string(255)
+#  name            :string
 #  updated_at      :datetime         not null
 #  updater_id      :integer
-#  with_accounting :boolean          not null
+#  with_accounting :boolean          default(FALSE), not null
 #
 require 'test_helper'
 

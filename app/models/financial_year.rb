@@ -22,11 +22,11 @@
 #
 # == Table: financial_years
 #
-#  closed                :boolean          not null
-#  code                  :string(255)      not null
+#  closed                :boolean          default(FALSE), not null
+#  code                  :string           not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string(255)      not null
+#  currency              :string           not null
 #  currency_precision    :integer
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer
@@ -46,7 +46,6 @@ class FinancialYear < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
   validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
-  validates_length_of :code, :currency, allow_nil: true, maximum: 255
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :code, :currency, :started_on, :stopped_on
   #]VALIDATORS]

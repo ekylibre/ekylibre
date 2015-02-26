@@ -5,13 +5,14 @@
   = f.association :campaign, disabled: true
   = f.referenced_association :variant
   = f.referenced_association :support_variant
-  = f.input :static_support, :show => :supports
   = f.input :state, as: :radio_buttons
   -#= f.input :started_at
   -#= f.input :stopped_at
   = f.input :working_indicator
   = f.input :working_unit
   = f.custom_fields
+
+
 
 - if f.object.activity and f.object.auxiliary?
   :ruby
@@ -25,5 +26,9 @@
   = field_set(Production.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions, locals: {campaign: f.object.campaign})
 
-= field_set(:budget) do
-  = render "budget_form", f: f
+= field_set(:supports) do
+  = f.nested_association(:supports)
+
+= field_set(:budgets) do
+  = f.nested_association(:budgets)
+  -#= render "budget_form", f: f

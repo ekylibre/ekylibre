@@ -22,7 +22,7 @@
 #
 # == Table: incoming_payment_modes
 #
-#  active                  :boolean
+#  active                  :boolean          default(FALSE)
 #  cash_id                 :integer
 #  commission_account_id   :integer
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
@@ -31,16 +31,16 @@
 #  creator_id              :integer
 #  depositables_account_id :integer
 #  depositables_journal_id :integer
-#  detail_payments         :boolean          not null
+#  detail_payments         :boolean          default(FALSE), not null
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
-#  name                    :string(255)      not null
+#  name                    :string           not null
 #  position                :integer
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  with_accounting         :boolean          not null
-#  with_commission         :boolean          not null
-#  with_deposit            :boolean          not null
+#  with_accounting         :boolean          default(FALSE), not null
+#  with_commission         :boolean          default(FALSE), not null
+#  with_deposit            :boolean          default(FALSE), not null
 #
 
 

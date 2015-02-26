@@ -27,11 +27,11 @@
 #  custom_field_id :integer          not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  name            :string(255)      not null
+#  name            :string           not null
 #  position        :integer
 #  updated_at      :datetime         not null
 #  updater_id      :integer
-#  value           :string(255)
+#  value           :string
 #
 
 
@@ -40,7 +40,6 @@ class CustomFieldChoice < Ekylibre::Record::Base
   belongs_to :custom_field, inverse_of: :choices
   acts_as_list :scope => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :value, allow_nil: true, maximum: 255
   validates_presence_of :custom_field, :name
   #]VALIDATORS]
   validates_presence_of :value

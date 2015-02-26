@@ -50,7 +50,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}Controller /class Backend::Cells::#{new_cell.camelcase}Controller /' #{nf}")  
+  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}Controller /class Backend::Cells::#{new_cell.camelcase}Controller /' #{nf}")
 end
 
 # app/views/backend
@@ -67,7 +67,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/module Backend::Cells::#{old_cell.camelcase}Helper/module Backend::Cells::#{new_cell.camelcase}Helper/' #{nf}")  
+  execute("sed -i 's/module Backend::Cells::#{old_cell.camelcase}Helper/module Backend::Cells::#{new_cell.camelcase}Helper/' #{nf}")
 end
 
 config = root.join("config")
@@ -97,9 +97,9 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
       tr[locale]["labels"][new_cell.gsub(/_cells/, '')] = tr[locale]["labels"].delete(old_cell.gsub(/_cells/, ''))
     end
   end
-  
+
   code = tr.to_yaml
-  
+
   puts "Update #{lf}"
   unless @simulate
     File.open(lf, "wb") do |f|
@@ -171,7 +171,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}HelperTest /class Backend::Cells::#{new_cell.camelcase}HelperTest /' #{nf}")  
+  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}HelperTest /class Backend::Cells::#{new_cell.camelcase}HelperTest /' #{nf}")
 end
 
 # test/controllers/backend
@@ -181,7 +181,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}ControllerTest /class Backend::Cells::#{new_cell.camelcase}ControllerTest /' #{nf}")  
+  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}ControllerTest /class Backend::Cells::#{new_cell.camelcase}ControllerTest /' #{nf}")
 end
 
 # General replacing
@@ -220,7 +220,7 @@ for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.haml")] + Dir[ap
     unless @simulate
       File.open(file, "wb") do |f|
         f.write ns
-      end    
+      end
     end
     print "+"
   else

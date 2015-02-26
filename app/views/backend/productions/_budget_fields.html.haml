@@ -1,5 +1,5 @@
 :ruby
-  f.object.direction ||= direction
+  f.object.direction ||= direction if local_assigns[:direction]
   direction ||= f.object.direction
   indicator_options = Nomen::Indicators.where(datatype: :measure).inject([]) do |options, indicator|
     indicator_name = indicator.name
@@ -9,20 +9,14 @@
     options
   end
   selected_indicator = "#{f.object.working_indicator}-#{f.object.working_unit}".to_sym
-%tr.budget_nested_fields{data: {budget_direction: f.object.direction}}
-  %td
-    = link_to_remove_association(:remove_budget, f, wrapper_class: :budget_nested_fields)
-    = f.input :homogeneous_values
-    = f.referenced_association :variant
-    = f.input :computation_method
-    = f.input :unit_amount
-    = f.input :currency, as: :hidden
-    = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator), data:{parameter_name: :indicator}
-    = f.input :working_indicator, as: :hidden
-    = f.input :working_unit, as: :hidden
-    = f.input :direction, as: :hidden
-  = f.fields_for :items, wrapper: :nested do |item_form|
-    = render 'item_fields', f: item_form
-  %td{data: {budget_global_amount: direction}}
-    = f.object.global_amount
-    = link_to_add_association :_, f, :items, partial: 'item_fields'
+.nested-fields.budget_nested_fields{data: {budget_direction: f.object.direction}}
+  = link_to_remove_nested_association(:remove_budget, f)
+  = f.referenced_association :variant
+  = f.input :quantity
+  = f.input :computation_method, as: :radio_buttons
+  = f.input :unit_amount
+  = f.input :unit_currency, as: :hidden
+  -# = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator), data:{parameter_name: :indicator}
+  -# = f.input :working_indicator, as: :hidden
+  -# = f.input :working_unit, as: :hidden
+  = f.input :direction, as: :hidden

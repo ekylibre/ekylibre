@@ -32,7 +32,7 @@
 #  population   :decimal(19, 4)
 #  product_id   :integer          not null
 #  sale_item_id :integer
-#  shape        :spatial({:srid=>4326, :type=>"geometry"})
+#  shape        :geometry({:srid=>4326, :type=>"geometry"})
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

@@ -55,7 +55,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_controller.camelcase}Controller /class #{new_controller.camelcase}Controller /' #{nf}")  
+  execute("sed -i 's/class #{old_controller.camelcase}Controller /class #{new_controller.camelcase}Controller /' #{nf}")
 end
 
 # app/views
@@ -72,7 +72,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/module #{old_controller.camelcase}Helper/module #{new_controller.camelcase}Helper/' #{nf}")  
+  execute("sed -i 's/module #{old_controller.camelcase}Helper/module #{new_controller.camelcase}Helper/' #{nf}")
 end
 
 config = root.join("config")
@@ -97,9 +97,9 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
       tr[locale]["unroll"][new_controller] = tr[locale]["unroll"].delete(old_controller)
     end
   end
-  
+
   code = tr.to_yaml
-  
+
   puts "Update #{lf}"
   unless @simulate
     File.open(lf, "wb") do |f|
@@ -169,7 +169,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_controller.camelcase}HelperTest /class #{new_controller.camelcase}HelperTest /' #{nf}")  
+  execute("sed -i 's/class #{old_controller.camelcase}HelperTest /class #{new_controller.camelcase}HelperTest /' #{nf}")
 end
 
 # test/controllers
@@ -179,7 +179,7 @@ if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
 if File.exist?(nf)
-  execute("sed -i 's/class #{old_controller.camelcase}ControllerTest /class #{new_controller.camelcase}ControllerTest /' #{nf}")  
+  execute("sed -i 's/class #{old_controller.camelcase}ControllerTest /class #{new_controller.camelcase}ControllerTest /' #{nf}")
 end
 
 # General replacing
@@ -216,7 +216,7 @@ for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.yml")]
     unless @simulate
       File.open(file, "wb") do |f|
         f.write ns
-      end    
+      end
     end
     print "+"
   else

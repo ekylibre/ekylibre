@@ -119,6 +119,7 @@ module Ekylibre
 
       # Import a given file
       def import(nature, file, options = {})
+        # puts "> import(:#{nature.to_s}, '#{file.to_s}', #{options.inspect})"
         last = ""
         start = Time.now
         length =  %x{echo $-}.strip =~ /i/ ? %{stty size}.split[1].to_i : 80
@@ -205,6 +206,7 @@ module Ekylibre
 
       # Execute a loader in transactional mode
       def execute_loader(name)
+        ::I18n.locale = Preference[:language]
         ActiveRecord::Base.transaction do
           # puts "Load #{name.to_s.red}:"
           Ekylibre::FirstRun.call_loader(name, self)

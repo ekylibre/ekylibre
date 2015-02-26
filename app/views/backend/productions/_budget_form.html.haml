@@ -1,14 +1,15 @@
 - currency = Nomen::Currencies[Preference[:currency]]
 - symbols = Nomen::Units.list.inject({}){|h, i| h.store(i.name, i.symbol); h}.with_indifferent_access
-%table#budget{data: symbols}
+%table#budget{data: {budget: "true", symbols: symbols}}
   %thead
     %tr.support_nested_fields
+      %th
       %th
         = f.backend_fields_for :supports do |support_form|
           = render 'support_fields', f: support_form
       %td.add
         = link_to_add_association '+', f, :supports, partial: 'support_fields'
-    = f.backend_fields_for :budgets do |budget_form|
+    -#= f.backend_fields_for :budgets do |budget_form|
       = render 'budget_fields', f: budget_form
 
   %tfoot

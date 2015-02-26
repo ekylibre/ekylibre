@@ -22,21 +22,21 @@
 #
 # == Table: custom_fields
 #
-#  active          :boolean          default(FALSE), not null
-#  column_name     :string(255)      not null
+#  active          :boolean          default(TRUE), not null
+#  column_name     :string           not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  customized_type :string(255)      not null
+#  customized_type :string           not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  maximal_length  :integer
 #  maximal_value   :decimal(19, 4)
 #  minimal_length  :integer
 #  minimal_value   :decimal(19, 4)
-#  name            :string(255)      not null
-#  nature          :string(255)      not null
+#  name            :string           not null
+#  nature          :string           not null
 #  position        :integer
-#  required        :boolean          not null
+#  required        :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
@@ -50,7 +50,6 @@ class CustomField < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_value, :minimal_value, allow_nil: true
-  validates_length_of :column_name, :customized_type, :name, :nature, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :required, in: [true, false]
   validates_presence_of :column_name, :customized_type, :name, :nature
   #]VALIDATORS]

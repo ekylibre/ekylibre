@@ -496,12 +496,22 @@ Capybara.javascript_driver = Capybara.default_driver
 # Capybara.default_wait_time = 5
 # Capybara.server_port = 3333
 
+
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
 
+
+  setup do
+    if Capybara.default_driver == :webkit
+      page.driver.allow_url 'a.tile.openstreetmap.fr'
+      page.driver.allow_url 'b.tile.openstreetmap.fr'
+      page.driver.allow_url 'c.tile.openstreetmap.fr'
+      page.driver.allow_url 'server.arcgisonline.com'
+    end
+  end
   # fixtures :all
 
   def wait_for_ajax

@@ -151,8 +151,7 @@ eng:
       # attachment: "Attachment"
       bank_statement: "Bank statement"
       bioproduct: "Living product"
-      budget: "Budget"
-      budget_item: "Budget item"
+      budget_item: "Budget item" #?
       building: "Building"
       building_division: "Room / Zone"
       campaign: "Campaign"
@@ -256,9 +255,10 @@ eng:
       product_reading_task: "Product reading task"
       product_triple_mixing: "Product triple mixing"
       production: "Production"
+      production_budget: "Budget"
       production_distribution: "Production distribution"
       production_support: "Production support"
-      production_support_marker: "Production support marker"
+      production_support_marker: "Production support marker" #?
       property_title: "Property title"
       purchase: "Purchase"
       purchase_item: "Purchase item"
@@ -318,7 +318,7 @@ eng:
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at"
     age: "Age"
-    aim: "Aim"
+    aim: "Aim" #?
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
@@ -357,8 +357,8 @@ eng:
     bank_statements: "Bank statements"
     boolean_value: "Boolean value"
     born_at: "Born at"
-    budget: "Budget"
-    budget_items: "Budget items"
+    budget: "Budget" #?
+    budget_items: "Budget items" #?
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
@@ -489,7 +489,7 @@ eng:
     depreciation_percentage: "Depreciation percentage"
     depreciations: "Depreciations"
     depth: "Depth"
-    derivative: "Derivative"
+    derivative: "Derivative" #?
     derivative_of: "Derivative of"
     derivatives_list: "Derivatives list"
     description: "Description"
@@ -592,12 +592,12 @@ eng:
     gaps: "Gaps"
     geolocation: "Geolocation"
     geometry_value: "Geometry value"
-    global_amount: "Global amount"
+    global_amount: "Global amount" #?
     global_balance: "Global balance"
     global_count: "Global count"
     global_credit: "Global credit"
     global_debit: "Global debit"
-    global_quantity: "Global quantity"
+    global_quantity: "Global quantity" #?
     godchildren: "Godchildren"
     gravity: "Gravity"
     group: "Group"
@@ -605,9 +605,9 @@ eng:
     guide: "Guide"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
-    homogeneous_expenses: "Homogeneous expenses"
-    homogeneous_revenues: "Homogeneous revenues"
-    homogeneous_values: "Homogeneous values"
+    homogeneous_expenses: "Homogeneous expenses" #?
+    homogeneous_revenues: "Homogeneous revenues" #?
+    homogeneous_values: "Homogeneous values" #?
     humus_mineralization: "Humus mineralization"
     iban: "IBAN"
     id: "ID"
@@ -721,7 +721,7 @@ eng:
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
-    markers: "Markers"
+    markers: "Markers" #?
     mass: "Mass (kg)"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
@@ -771,7 +771,6 @@ eng:
     origin: "Origin" #?
     originator: "Originator"
     originator_type: "Originator type"
-    # orphaned_items: "Orphaned items"
     outgoing_deliveries: "Outgoing deliveries"
     outgoing_delivery_items: "Outgoing delivery items"
     outgoing_payment_modes: "Disbursement modes"
@@ -831,6 +830,7 @@ eng:
     priority: "Priority"
     producer: "Producer"
     producer_way: "Producer way"
+    # producing_variant: "Producing variant"
     product: "Product"
     product_account: "Product account"
     product_births: "Product births"
@@ -977,7 +977,7 @@ eng:
     started_on: "Started on"
     state: "State"
     state_label: "State"
-    static_support: "Static support"
+    static_support: "Static support" #?
     status: "Status"
     stock_account: "Stock account"
     stocks_categories: "Stocks categories"
@@ -1029,8 +1029,12 @@ eng:
     unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Undelivered quantity"
     unit_amount: "Unit amount"
+    # unit_currency: "Unit currency"
+    unit_indicator: "Unit indicator"
     unit_name: "Unit name"
+    # unit_population: "Unit population"
     unit_pretax_amount: "Unit pretax amount"
+    unit_unit: "Unit unit"
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"

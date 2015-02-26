@@ -25,21 +25,21 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  description          :text
-#  geolocation          :spatial({:srid=>4326, :type=>"point"})
+#  geolocation          :geometry({:srid=>4326, :type=>"point"})
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
-#  nature               :string(255)      not null
+#  name                 :string           not null
+#  nature               :string           not null
 #  observed_at          :datetime         not null
-#  picture_content_type :string(255)
-#  picture_file_name    :string(255)
+#  picture_content_type :string
+#  picture_file_name    :string
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
 #  priority             :integer
-#  state                :string(255)
+#  state                :string
 #  target_id            :integer          not null
-#  target_type          :string(255)      not null
+#  target_type          :string           not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #

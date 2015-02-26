@@ -60,7 +60,7 @@
 
     #
     direct_charges_by_working_unit = (charges.to_f/ divider.to_f).round(2).to_s.to_f rescue 0.0
-    indirect_charges_by_working_unit = (-1 * (@production.indirect_budget_items_value.to_f / divider.to_f)).round(2).to_s.to_f rescue 0.0
+    indirect_charges_by_working_unit = (-1 * (@production.indirect_budget_amount.to_f / divider.to_f)).round(2).to_s.to_f rescue 0.0
     global_charges_by_working_unit = direct_charges_by_working_unit + indirect_charges_by_working_unit
     asset_charges = 0.32 * indirect_charges_by_working_unit.to_f
     # équation

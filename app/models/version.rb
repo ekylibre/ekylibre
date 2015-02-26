@@ -24,13 +24,13 @@
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  creator_name :string(255)
-#  event        :string(255)      not null
+#  creator_name :string
+#  event        :string           not null
 #  id           :integer          not null, primary key
 #  item_changes :text
 #  item_id      :integer
 #  item_object  :text
-#  item_type    :string(255)
+#  item_type    :string
 #
 
 class Version < ActiveRecord::Base

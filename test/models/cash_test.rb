@@ -23,28 +23,28 @@
 # == Table: cashes
 #
 #  account_id           :integer          not null
-#  bank_account_key     :string(255)
-#  bank_account_number  :string(255)
+#  bank_account_key     :string
+#  bank_account_number  :string
 #  bank_agency_address  :text
-#  bank_agency_code     :string(255)
-#  bank_code            :string(255)
-#  bank_identifier_code :string(255)
-#  bank_name            :string(255)
+#  bank_agency_code     :string
+#  bank_code            :string
+#  bank_identifier_code :string
+#  bank_name            :string
 #  container_id         :integer
-#  country              :string(255)
+#  country              :string
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(255)      not null
-#  iban                 :string(255)
+#  currency             :string           not null
+#  iban                 :string
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null
 #  last_number          :integer
 #  lock_version         :integer          default(0), not null
-#  mode                 :string(255)      default("iban"), not null
-#  name                 :string(255)      not null
-#  nature               :string(255)      default("bank_account"), not null
+#  mode                 :string           default("iban"), not null
+#  name                 :string           not null
+#  nature               :string           default("bank_account"), not null
 #  owner_id             :integer
-#  spaced_iban          :string(255)
+#  spaced_iban          :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #

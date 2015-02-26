@@ -26,40 +26,41 @@
 #  campaign_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  homogeneous_expenses :boolean
-#  homogeneous_revenues :boolean
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
+#  name                 :string           not null
 #  position             :integer
+#  producing_variant_id :integer
 #  started_at           :datetime
-#  state                :string(255)      not null
-#  static_support       :boolean          not null
+#  state                :string           not null
 #  stopped_at           :datetime
 #  support_variant_id   :integer
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variant_id           :integer
-#  working_indicator    :string(255)
-#  working_unit         :string(255)
+#  working_indicator    :string
+#  working_unit         :string
 #
 class Production < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_presence_of :activity, :campaign, :name, :state
+  #]VALIDATORS]
   enumerize :state, in: [:draft, :validated], default: :draft
   enumerize :working_unit, in: Nomen::Units.all
-  enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name)
+  enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
   belongs_to :activity
   belongs_to :campaign
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :producing_variant, class_name: "ProductNatureVariant"
   belongs_to :support_variant, class_name: "ProductNatureVariant"
-  # belongs_to :area_unit, class_name: "Unit"
+  belongs_to :variant, class_name: "ProductNatureVariant", foreign_key: :producing_variant_id
   has_many :analytic_distributions
   has_many :activity_distributions, through: :activity, source: :distributions
-  has_many :budgets
-  has_many :expenses, -> { where(direction: :expense) }, class_name: 'Budget'
-  has_many :revenues, -> { where(direction: :revenue) }, class_name: 'Budget'
+  has_many :budgets, class_name: "ProductionBudget"
+  has_many :expenses, -> { where(direction: :expense) }, class_name: 'ProductionBudget'
+  has_many :revenues, -> { where(direction: :revenue) }, class_name: 'ProductionBudget'
   has_many :distributions, class_name: "ProductionDistribution", dependent: :destroy, inverse_of: :production
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
-  has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
+  # has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
   has_many :storages, through: :supports
   has_many :casts, through: :interventions, class_name: "InterventionCast"
@@ -68,16 +69,20 @@ class Production < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+# <<<<<<< HEAD
   validates_length_of :name, :state, :working_indicator, :working_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :static_support, in: [true, false]
+# =======
+# >>>>>>> Replaces production_support_markers with production_budgets
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   # validates_presence_of :product_nature, if: :activity_main?
   validates_associated :budgets
 
   alias_attribute :label, :name
-  alias_attribute :product_variant, :variant
+  alias_attribute :product_variant, :producing_variant
 
+  delegate :name, :variety, to: :producing_variant, prefix: true
   delegate :name, :variety, to: :variant, prefix: true
   delegate :main?, :auxiliary?, :standalone?, to: :activity
 
@@ -145,12 +150,12 @@ class Production < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    self.state ||= self.class.state_machine.initial_state(self)
+    self.state ||= :draft
   end
 
   before_validation do
-    if self.activity and self.campaign and self.variant
-      self.name = tc(:name, state: self.state_label, activity: self.activity.name, variant: self.variant.name, campaign: self.campaign.name)
+    if self.activity and self.campaign and self.producing_variant
+      self.name = tc(:name, state: self.state_label, activity: self.activity.name, variant: self.producing_variant.name, campaign: self.campaign.name)
     elsif self.activity and self.campaign
       self.name = tc(:name_without_variant, state: self.state_label, activity: self.activity.name, campaign: self.campaign.name)
     end
@@ -161,7 +166,7 @@ class Production < Ekylibre::Record::Base
   end
 
   def has_active_product?
-    self.variant.nature.active?
+    self.producing_variant.nature.active?
   end
 
   def self.state_label(state)
@@ -174,18 +179,22 @@ class Production < Ekylibre::Record::Base
   end
 
   def shape_area
-    if self.static_support?
+    if self.supports.any?
       return self.supports.map(&:storage_shape_area).compact.sum
-    else
-      return 0.0.in_square_meter
     end
+    return 0.0.in_square_meter
   end
 
   def net_surface_area
-    if self.static_support? and self.supports.any?
+    if self.supports.any?
       return self.supports.map(&:storage_net_surface_area).compact.sum
     end
     return 0.0.in_square_meter
+  end
+
+  # Returns the count of supports
+  def supports_count
+    self.supports.count
   end
 
   def area
@@ -225,7 +234,7 @@ class Production < Ekylibre::Record::Base
     end
   end
 
-  def indirect_budget_items_value
+  def indirect_budget_amount
     global_value = 0
     for indirect_distribution in ProductionDistribution.where(main_production_id: self.id)
       distribution_value = 0
@@ -250,7 +259,7 @@ class Production < Ekylibre::Record::Base
     return global_value
   end
 
-  def direct_budget_items_value
+  def direct_budget_amount
     global_value = 0
 
       direct_expenses_value = self.expenses.sum(:global_amount).to_d
@@ -264,15 +273,15 @@ class Production < Ekylibre::Record::Base
   end
 
   def global_cost
-    self.direct_budget_items_value + self.indirect_budget_items_value
+    self.direct_budget_amount + self.indirect_budget_amount
   end
 
   def quandl_dataset
-    if Nomen::Varieties[self.variant_variety.to_sym] <= :triticum_aestivum
+    if Nomen::Varieties[self.producing_variant_variety.to_sym] <= :triticum_aestivum
       return 'CHRIS/LIFFE_EBM4'
-    elsif Nomen::Varieties[self.variant_variety.to_sym] <= :brassica_napus
+    elsif Nomen::Varieties[self.producing_variant_variety.to_sym] <= :brassica_napus
       return 'CHRIS/LIFFE_ECO4'
-    elsif Nomen::Varieties[self.variant_variety.to_sym] <= :hordeum_vernum
+    elsif Nomen::Varieties[self.producing_variant_variety.to_sym] <= :hordeum_vernum
       return 'ODA/PBARL_USD'
     end
   end

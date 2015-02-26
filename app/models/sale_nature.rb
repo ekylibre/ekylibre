@@ -22,28 +22,28 @@
 #
 # == Table: sale_natures
 #
-#  active                  :boolean          default(FALSE), not null
-#  by_default              :boolean          not null
+#  active                  :boolean          default(TRUE), not null
+#  by_default              :boolean          default(FALSE), not null
 #  catalog_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(255)      not null
+#  currency                :string           not null
 #  description             :text
-#  downpayment             :boolean          not null
+#  downpayment             :boolean          default(FALSE), not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0)
 #  downpayment_percentage  :decimal(19, 4)   default(0.0)
-#  expiration_delay        :string(255)      not null
+#  expiration_delay        :string           not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer
 #  lock_version            :integer          default(0), not null
-#  name                    :string(255)      not null
-#  payment_delay           :string(255)      not null
+#  name                    :string           not null
+#  payment_delay           :string           not null
 #  payment_mode_complement :text
 #  payment_mode_id         :integer
 #  sales_conditions        :text
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  with_accounting         :boolean          not null
+#  with_accounting         :boolean          default(FALSE), not null
 #
 
 
@@ -55,7 +55,6 @@ class SaleNature < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, allow_nil: true
-  validates_length_of :currency, :expiration_delay, :name, :payment_delay, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
   validates_presence_of :catalog, :currency, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]

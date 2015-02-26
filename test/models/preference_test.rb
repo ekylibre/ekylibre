@@ -29,10 +29,10 @@
 #  id                :integer          not null, primary key
 #  integer_value     :integer
 #  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  nature            :string(255)      not null
+#  name              :string           not null
+#  nature            :string           not null
 #  record_value_id   :integer
-#  record_value_type :string(255)
+#  record_value_type :string
 #  string_value      :text
 #  updated_at        :datetime         not null
 #  updater_id        :integer

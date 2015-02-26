@@ -22,12 +22,12 @@
 #
 # == Table: districts
 #
-#  code         :string(255)
+#  code         :string
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
+#  name         :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -35,7 +35,6 @@
 class District < Ekylibre::Record::Base
   has_many :postal_zones
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :name, allow_nil: true, maximum: 255
   validates_presence_of :name
   #]VALIDATORS]
 

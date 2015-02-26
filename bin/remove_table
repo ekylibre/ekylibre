@@ -4,13 +4,14 @@ require 'active_support/core_ext'
 require 'optparse'
 require 'pathname'
 require 'fileutils'
+require 'colored'
 
 STDOUT.sync = true
 
 @simulate = false
 
 def execute(command)
-  puts command
+  puts "#{command.send(@simulate ? :yellow : :red)}"
   unless @simulate
     system(command)
   end
@@ -23,7 +24,7 @@ unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
   exit 0
 end
 
-raise "Not table given" if table.blank?
+raise "No table given" if table.blank?
 
 root = Pathname.new(".")
 

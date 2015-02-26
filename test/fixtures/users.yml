@@ -22,43 +22,43 @@
 #
 # == Table: users
 #
-#  administrator                          :boolean          default(FALSE), not null
-#  authentication_token                   :string(255)
-#  commercial                             :boolean          not null
+#  administrator                          :boolean          default(TRUE), not null
+#  authentication_token                   :string
+#  commercial                             :boolean          default(FALSE), not null
 #  confirmation_sent_at                   :datetime
-#  confirmation_token                     :string(255)
+#  confirmation_token                     :string
 #  confirmed_at                           :datetime
 #  created_at                             :datetime         not null
 #  creator_id                             :integer
 #  current_sign_in_at                     :datetime
-#  current_sign_in_ip                     :string(255)
+#  current_sign_in_ip                     :string
 #  description                            :text
-#  email                                  :string(255)      not null
-#  employed                               :boolean          not null
-#  employment                             :string(255)
-#  encrypted_password                     :string(255)      default(""), not null
+#  email                                  :string           not null
+#  employed                               :boolean          default(FALSE), not null
+#  employment                             :string
+#  encrypted_password                     :string           default(""), not null
 #  establishment_id                       :integer
 #  failed_attempts                        :integer          default(0)
-#  first_name                             :string(255)      not null
+#  first_name                             :string           not null
 #  id                                     :integer          not null, primary key
-#  language                               :string(255)      not null
-#  last_name                              :string(255)      not null
+#  language                               :string           not null
+#  last_name                              :string           not null
 #  last_sign_in_at                        :datetime
-#  last_sign_in_ip                        :string(255)
+#  last_sign_in_ip                        :string
 #  lock_version                           :integer          default(0), not null
-#  locked                                 :boolean          not null
+#  locked                                 :boolean          default(FALSE), not null
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  person_id                              :integer
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
-#  reset_password_token                   :string(255)
+#  reset_password_token                   :string
 #  rights                                 :text
 #  role_id                                :integer          not null
 #  sign_in_count                          :integer          default(0)
 #  team_id                                :integer
-#  unconfirmed_email                      :string(255)
-#  unlock_token                           :string(255)
+#  unconfirmed_email                      :string
+#  unlock_token                           :string
 #  updated_at                             :datetime         not null
 #  updater_id                             :integer
 #

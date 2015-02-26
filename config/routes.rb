@@ -62,7 +62,6 @@ Rails.application.routes.draw do
       get :list_reading_tasks
       get :list_members
       get :list_places
-      get :list_markers
     end
   end
 
@@ -619,9 +618,9 @@ Rails.application.routes.draw do
 
     resources :productions, concerns: [:list, :unroll] do
       member do
-        get :list_supports
+        get :list_budgets
         get :list_interventions
-        get :list_markers
+        get :list_supports
         get :indicator_measure
       end
     end
@@ -631,11 +630,8 @@ Rails.application.routes.draw do
     resources :production_supports, concerns: [:list, :unroll] do
       member do
         get :list_interventions
-        get :list_markers
       end
     end
-
-    resources :production_support_markers, concerns: [:list, :unroll]
 
     resources :professions, concerns: [:list, :unroll]
 

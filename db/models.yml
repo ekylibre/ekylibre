@@ -12,8 +12,6 @@
 - attachment
 - bank_statement
 - bioproduct
-- budget
-- budget_item
 - building
 - building_division
 - campaign
@@ -117,9 +115,9 @@
 - product_reading_task
 - product_triple_mixing
 - production
+- production_budget
 - production_distribution
 - production_support
-- production_support_marker
 - property_title
 - purchase
 - purchase_item

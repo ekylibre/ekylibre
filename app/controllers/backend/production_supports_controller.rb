@@ -43,11 +43,4 @@ class Backend::ProductionSupportsController < Backend::BaseController
     # t.column :provisional
   end
 
-  # List markers
-  list(:markers, model: :production_support_markers, conditions: {support_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
-    t.column :indicator_name, url: true
-    t.column :aim
-    t.column :value
-  end
-
 end

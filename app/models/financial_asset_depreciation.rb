@@ -22,7 +22,7 @@
 #
 # == Table: financial_asset_depreciations
 #
-#  accountable        :boolean          not null
+#  accountable        :boolean          default(FALSE), not null
 #  accounted_at       :datetime
 #  amount             :decimal(19, 4)   not null
 #  created_at         :datetime         not null
@@ -34,7 +34,7 @@
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
 #  lock_version       :integer          default(0), not null
-#  locked             :boolean          not null
+#  locked             :boolean          default(FALSE), not null
 #  position           :integer
 #  started_on         :date             not null
 #  stopped_on         :date             not null

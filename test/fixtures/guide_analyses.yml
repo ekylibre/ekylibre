@@ -22,13 +22,13 @@
 #
 # == Table: guide_analyses
 #
-#  acceptance_status :string(255)      not null
+#  acceptance_status :string           not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  execution_number  :integer          not null
 #  guide_id          :integer          not null
 #  id                :integer          not null, primary key
-#  latest            :boolean          not null
+#  latest            :boolean          default(FALSE), not null
 #  lock_version      :integer          default(0), not null
 #  started_at        :datetime         not null
 #  stopped_at        :datetime         not null

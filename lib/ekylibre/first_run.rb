@@ -35,7 +35,7 @@ module Ekylibre
       end
 
       if Preference.get!("first_run.#{name}.executed", false, :boolean).value
-        puts "Skip #{name} loader".red
+        puts "Skip".red + " #{name} loader"
       else
         @@loaders[name].call(base)
         Preference.set!("first_run.#{name}.executed", true, :boolean)

@@ -32,36 +32,36 @@
 #  confirmed_at               :datetime
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
-#  credit                     :boolean          not null
+#  credit                     :boolean          default(FALSE), not null
 #  credited_sale_id           :integer
-#  currency                   :string(255)      not null
+#  currency                   :string           not null
 #  delivery_address_id        :integer
 #  description                :text
 #  downpayment_amount         :decimal(19, 4)   default(0.0), not null
-#  expiration_delay           :string(255)
+#  expiration_delay           :string
 #  expired_at                 :datetime
-#  function_title             :string(255)
-#  has_downpayment            :boolean          not null
+#  function_title             :string
+#  has_downpayment            :boolean          default(FALSE), not null
 #  id                         :integer          not null, primary key
-#  initial_number             :string(255)
+#  initial_number             :string
 #  introduction               :text
 #  invoice_address_id         :integer
 #  invoiced_at                :datetime
 #  journal_entry_id           :integer
-#  letter_format              :boolean          default(FALSE), not null
+#  letter_format              :boolean          default(TRUE), not null
 #  lock_version               :integer          default(0), not null
 #  nature_id                  :integer
-#  number                     :string(255)      not null
+#  number                     :string           not null
 #  payment_at                 :datetime
-#  payment_delay              :string(255)      not null
+#  payment_delay              :string           not null
 #  prereduction_amount        :decimal(19, 4)   default(0.0), not null
 #  prereduction_pretax_amount :decimal(19, 4)   default(0.0), not null
 #  pretax_amount              :decimal(19, 4)   default(0.0), not null
 #  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_number           :string(255)
+#  reference_number           :string
 #  responsible_id             :integer
-#  state                      :string(255)      not null
-#  subject                    :string(255)
+#  state                      :string           not null
+#  subject                    :string
 #  transporter_id             :integer
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer

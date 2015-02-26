@@ -22,17 +22,17 @@
 #
 # == Table: outgoing_payment_modes
 #
-#  active          :boolean          not null
+#  active          :boolean          default(FALSE), not null
 #  cash_id         :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  name            :string(255)      not null
+#  name            :string           not null
 #  position        :integer
 #  updated_at      :datetime         not null
 #  updater_id      :integer
-#  with_accounting :boolean          not null
+#  with_accounting :boolean          default(FALSE), not null
 #
 
 

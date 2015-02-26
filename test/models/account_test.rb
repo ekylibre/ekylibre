@@ -24,15 +24,15 @@
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  debtor       :boolean          not null
+#  debtor       :boolean          default(FALSE), not null
 #  description  :text
 #  id           :integer          not null, primary key
-#  label        :string(255)      not null
-#  last_letter  :string(255)
+#  label        :string           not null
+#  last_letter  :string
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  number       :string(255)      not null
-#  reconcilable :boolean          not null
+#  name         :string           not null
+#  number       :string           not null
+#  reconcilable :boolean          default(FALSE), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #  usages       :text

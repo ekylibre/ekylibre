@@ -27,11 +27,11 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
-#  importance   :string(255)      not null
+#  importance   :string           not null
 #  lock_version :integer          default(0), not null
 #  observed_at  :datetime         not null
 #  subject_id   :integer          not null
-#  subject_type :string(255)      not null
+#  subject_type :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

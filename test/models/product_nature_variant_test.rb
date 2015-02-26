@@ -22,25 +22,25 @@
 #
 # == Table: product_nature_variants
 #
-#  active               :boolean          not null
+#  active               :boolean          default(FALSE), not null
 #  category_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  derivative_of        :string(255)
+#  derivative_of        :string
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)
+#  name                 :string
 #  nature_id            :integer          not null
-#  number               :string(255)
-#  picture_content_type :string(255)
-#  picture_file_name    :string(255)
+#  number               :string
+#  picture_content_type :string
+#  picture_file_name    :string
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
-#  reference_name       :string(255)
-#  unit_name            :string(255)      not null
+#  reference_name       :string
+#  unit_name            :string           not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variety              :string(255)      not null
+#  variety              :string           not null
 #
 require 'test_helper'
 

@@ -22,7 +22,7 @@
 #
 # == Table: campaigns
 #
-#  closed       :boolean          not null
+#  closed       :boolean          default(FALSE), not null
 #  closed_at    :datetime
 #  created_at   :datetime         not null
 #  creator_id   :integer
@@ -30,8 +30,8 @@
 #  harvest_year :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  number       :string(255)      not null
+#  name         :string           not null
+#  number       :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

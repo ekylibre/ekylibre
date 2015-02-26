@@ -23,13 +23,13 @@
 # == Table: sale_items
 #
 #  account_id                 :integer
-#  all_taxes_included         :boolean          not null
+#  all_taxes_included         :boolean          default(FALSE), not null
 #  amount                     :decimal(19, 4)   default(0.0), not null
 #  annotation                 :text
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  credited_item_id           :integer
-#  currency                   :string(255)      not null
+#  currency                   :string           not null
 #  id                         :integer          not null, primary key
 #  label                      :text
 #  lock_version               :integer          default(0), not null
@@ -81,7 +81,6 @@ class SaleItem < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_length_of :currency, allow_nil: true, maximum: 255
   validates_inclusion_of :all_taxes_included, in: [true, false]
   validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduced_unit_amount, :reduced_unit_pretax_amount, :reduction_percentage, :sale, :unit_amount, :variant
   #]VALIDATORS]

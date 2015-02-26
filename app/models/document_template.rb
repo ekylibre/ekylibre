@@ -23,18 +23,18 @@
 #
 # == Table: document_templates
 #
-#  active       :boolean          not null
-#  archiving    :string(255)      not null
-#  by_default   :boolean          not null
+#  active       :boolean          default(FALSE), not null
+#  archiving    :string           not null
+#  by_default   :boolean          default(FALSE), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  formats      :string(255)
+#  formats      :string
 #  id           :integer          not null, primary key
-#  language     :string(255)      not null
+#  language     :string           not null
 #  lock_version :integer          default(0), not null
-#  managed      :boolean          not null
-#  name         :string(255)      not null
-#  nature       :string(255)      not null
+#  managed      :boolean          default(FALSE), not null
+#  name         :string           not null
+#  nature       :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -45,7 +45,6 @@ class DocumentTemplate < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
   has_many :archives, class_name: "DocumentArchive", foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :archiving, :formats, :language, :name, :nature, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :by_default, :managed, in: [true, false]
   validates_presence_of :archiving, :language, :name, :nature
   #]VALIDATORS]

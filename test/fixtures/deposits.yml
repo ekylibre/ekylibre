@@ -31,9 +31,9 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  locked           :boolean          not null
+#  locked           :boolean          default(FALSE), not null
 #  mode_id          :integer          not null
-#  number           :string(255)      not null
+#  number           :string           not null
 #  payments_count   :integer          default(0), not null
 #  responsible_id   :integer
 #  updated_at       :datetime         not null

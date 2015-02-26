@@ -24,22 +24,22 @@
 #
 #  accounted_at     :datetime
 #  cash_session_id  :integer
-#  closed           :boolean          not null
+#  closed           :boolean          default(FALSE), not null
 #  closed_at        :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  credit           :decimal(19, 4)   default(0.0), not null
-#  currency         :string(255)      not null
+#  currency         :string           not null
 #  deals_count      :integer          default(0), not null
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
+#  number           :string           not null
 #  originator_id    :integer          not null
-#  originator_type  :string(255)      not null
+#  originator_type  :string           not null
 #  third_id         :integer          not null
-#  ticket           :boolean          not null
+#  ticket           :boolean          default(FALSE), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -72,7 +72,6 @@ class Affair < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :closed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :credit, :debit, allow_nil: true
-  validates_length_of :currency, :number, :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :closed, :ticket, in: [true, false]
   validates_presence_of :credit, :currency, :debit, :number, :originator, :originator_type, :third
   #]VALIDATORS]

@@ -72,7 +72,11 @@ module MigrationHelper
         self.decimal       :measure_value_value,   precision: 19, scale: 4
         self.string        :measure_value_unit
         # self.multi_polygon :multi_polygon_value,   srid: 4326
-        self.point         :point_value,           srid: 4326
+        if options[:native_point]
+          self.point       :point_value,           srid: 4326
+        else
+          self.st_point    :point_value,           srid: 4326
+        end
         self.text          :string_value
         if options[:index]
           options[:index] = {} unless options[:index].is_a?(Hash)

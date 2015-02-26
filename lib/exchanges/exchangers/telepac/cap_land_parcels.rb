@@ -8,7 +8,6 @@ Exchanges.add_importer :telepac_cap_land_parcels do |file, w|
     end
   end
 
-
   RGeo::Shapefile::Reader.open(dir.join("ilot.shp").to_s, srid: 2154) do |file|
     # Set number of shapes
     w.count = file.size

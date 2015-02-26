@@ -647,7 +647,7 @@
         <page to="backend/productions#indicator_measure"/>
         <page to="backend/productions#list"/>
         <page to="backend/productions#list_interventions"/>
-        <page to="backend/productions#list_markers"/>
+        <page to="backend/productions#list_budgets"/>
         <page to="backend/productions#list_supports"/>
         <page to="backend/productions#new"/>
         <page to="backend/productions#show"/>
@@ -664,15 +664,15 @@
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#unroll"/>
         <page to="backend/production_supports#update"/>
-        <page to="backend/production_support_markers#index"/>
-        <page to="backend/production_support_markers#create"/>
-        <page to="backend/production_support_markers#destroy"/>
-        <page to="backend/production_support_markers#edit"/>
-        <page to="backend/production_support_markers#list"/>
-        <page to="backend/production_support_markers#new"/>
-        <page to="backend/production_support_markers#show"/>
-        <page to="backend/production_support_markers#unroll"/>
-        <page to="backend/production_support_markers#update"/>
+        <page to="backend/production_support_markers#index" nonexistent="true"/>
+        <page to="backend/production_support_markers#create" nonexistent="true"/>
+        <page to="backend/production_support_markers#destroy" nonexistent="true"/>
+        <page to="backend/production_support_markers#edit" nonexistent="true"/>
+        <page to="backend/production_support_markers#list" nonexistent="true"/>
+        <page to="backend/production_support_markers#new" nonexistent="true"/>
+        <page to="backend/production_support_markers#show" nonexistent="true"/>
+        <page to="backend/production_support_markers#unroll" nonexistent="true"/>
+        <page to="backend/production_support_markers#update" nonexistent="true"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">

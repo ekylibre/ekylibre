@@ -38,7 +38,6 @@ class Backend::ActivitiesController < Backend::BaseController
     t.column :state
     t.column :started_at
     t.column :stopped_at
-    t.column :static_support
   end
 
   # List of distribution for one activity

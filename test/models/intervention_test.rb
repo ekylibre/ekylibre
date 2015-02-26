@@ -29,21 +29,21 @@
 #  id                          :integer          not null, primary key
 #  issue_id                    :integer
 #  lock_version                :integer          default(0), not null
-#  natures                     :string(255)      not null
-#  number                      :string(255)
+#  natures                     :string           not null
+#  number                      :string
 #  parameters                  :text
 #  prescription_id             :integer
 #  production_id               :integer          not null
 #  production_support_id       :integer
-#  provisional                 :boolean          not null
+#  provisional                 :boolean          default(FALSE), not null
 #  provisional_intervention_id :integer
-#  recommended                 :boolean          not null
+#  recommended                 :boolean          default(FALSE), not null
 #  recommender_id              :integer
-#  reference_name              :string(255)      not null
+#  reference_name              :string           not null
 #  ressource_id                :integer
-#  ressource_type              :string(255)
+#  ressource_type              :string
 #  started_at                  :datetime
-#  state                       :string(255)      not null
+#  state                       :string           not null
 #  stopped_at                  :datetime
 #  updated_at                  :datetime         not null
 #  updater_id                  :integer

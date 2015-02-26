@@ -26,22 +26,19 @@
 #  campaign_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  homogeneous_expenses :boolean
-#  homogeneous_revenues :boolean
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
+#  name                 :string           not null
 #  position             :integer
+#  producing_variant_id :integer
 #  started_at           :datetime
-#  state                :string(255)      not null
-#  static_support       :boolean          not null
+#  state                :string           not null
 #  stopped_at           :datetime
 #  support_variant_id   :integer
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  variant_id           :integer
-#  working_indicator    :string(255)
-#  working_unit         :string(255)
+#  working_indicator    :string
+#  working_unit         :string
 #
 #
 # == Fixture: productions
@@ -52,7 +49,6 @@
 #   creator: users_001
 #   name: "Lorem ipsum"
 #   state: "Lorem ipsum"
-#   static_support: true
 #   updater: users_001
 #
 ---
@@ -61,147 +57,117 @@ productions_001:
   campaign_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 1
   lock_version: 3
   name: Culture de blé/Blé 2013 (Prévue)
+  producing_variant_id: 16
   state: draft
-  static_support: true
   updated_at: 2014-11-04 17:23:15.015623000 Z
   updater_id: 1
-  variant_id: 16
 productions_002:
   activity_id: 1
   campaign_id: 4
   created_at: 2014-11-04 15:26:44.662690000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 4
   lock_version: 2
   name: Culture de blé/Blé 2014 (Prévue)
+  producing_variant_id: 16
   state: draft
-  static_support: true
   updated_at: 2014-11-04 17:23:48.519311000 Z
   updater_id: 1
-  variant_id: 16
 productions_003:
   activity_id: 3
   campaign_id: 1
   created_at: 2014-11-04 17:24:51.387221000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 5
   lock_version: 1
   name: Vache/Bovins 2013 (Prévue)
+  producing_variant_id: 17
   state: draft
-  static_support: true
   updated_at: 2014-11-07 15:53:12.704285000 Z
   updater_id: 1
-  variant_id: 17
 productions_004:
   activity_id: 5
   campaign_id: 4
   created_at: 2014-11-04 18:17:39.473350000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 6
   lock_version: 0
   name: Culture de maïs/Maïs 2014 (Prévue)
+  producing_variant_id: 32
   state: draft
-  static_support: true
   updated_at: 2014-11-04 18:17:39.473350000 Z
   updater_id: 1
-  variant_id: 32
 productions_005:
   activity_id: 5
   campaign_id: 1
   created_at: 2014-11-04 18:21:43.148079000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 7
   lock_version: 1
   name: Culture de maïs/Maïs 2013 (Prévue)
+  producing_variant_id: 32
   state: draft
-  static_support: true
   updated_at: 2014-11-04 18:29:40.340837000 Z
   updater_id: 1
-  variant_id: 32
 productions_006:
   activity_id: 3
   campaign_id: 4
   created_at: 2014-11-07 14:43:13.631506000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 8
   lock_version: 0
   name: Vache/Bovins 2014 (Prévue)
+  producing_variant_id: 17
   state: draft
-  static_support: true
   updated_at: 2014-11-07 14:43:13.631506000 Z
   updater_id: 1
-  variant_id: 17
 productions_007:
   activity_id: 6
   campaign_id: 1
   created_at: 2014-11-07 16:34:30.850122000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 9
   lock_version: 0
   name: Culture de vigne/Vignes 2013 (Prévue)
+  producing_variant_id: 44
   state: draft
-  static_support: true
   updated_at: 2014-11-07 16:34:30.850122000 Z
   updater_id: 1
-  variant_id: 44
 productions_008:
   activity_id: 6
   campaign_id: 4
   created_at: 2014-11-07 16:35:00.782789000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 10
   lock_version: 0
   name: Culture de vigne/Vignes 2014 (Prévue)
+  producing_variant_id: 44
   state: draft
-  static_support: true
   updated_at: 2014-11-07 16:35:00.782789000 Z
   updater_id: 1
-  variant_id: 44
 productions_009:
   activity_id: 7
   campaign_id: 1
   created_at: 2014-11-07 17:11:38.260932000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 11
   lock_version: 1
   name: Vin/Vin 2013 (Prévue)
+  producing_variant_id: 49
   state: draft
-  static_support: true
   updated_at: 2014-11-07 17:21:46.199009000 Z
   updater_id: 1
-  variant_id: 49
 productions_010:
   activity_id: 3
   campaign_id: 2
   created_at: 2014-11-14 12:41:09.082846000 Z
   creator_id: 1
-  homogeneous_expenses: false
-  homogeneous_revenues: false
   id: 12
   lock_version: 0
   name: Bovins 1870 (Draft)
   state: draft
-  static_support: false
   updated_at: 2014-11-14 12:41:09.082846000 Z
   updater_id: 1

@@ -25,13 +25,13 @@
 #  accuracy             :decimal(19, 4)   not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  device_uid           :string(255)      not null
-#  geolocation          :spatial({:srid=>4326, :type=>"point"}) not null
+#  device_uid           :string           not null
+#  geolocation          :geometry({:srid=>4326, :type=>"point"})
 #  id                   :integer          not null, primary key
 #  intervention_cast_id :integer
 #  lock_version         :integer          default(0), not null
 #  metadata             :text
-#  nature               :string(255)      not null
+#  nature               :string           not null
 #  read_at              :datetime         not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
