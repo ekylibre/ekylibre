@@ -112,7 +112,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
           t.integer  "integer_value"
           t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
           t.string   "measure_value_unit"
-          t.point    "point_value"
+          t.st_point "point_value", srid: 4326
           t.text     "string_value"
           t.datetime "created_at",                                                                                                     null: false
           t.datetime "updated_at",                                                                                                     null: false

@@ -27,7 +27,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  device_uid           :string           not null
-#  geolocation          :geometry({:srid=>4326, :type=>"point"})
+#  geolocation          :geometry({:srid=>4326, :type=>"point"}) not null
 #  id                   :integer          not null, primary key
 #  intervention_cast_id :integer
 #  lock_version         :integer          default(0), not null
@@ -43,7 +43,7 @@ class Crumb < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :read_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :accuracy, allow_nil: true
-  validates_presence_of :accuracy, :device_uid, :nature, :read_at
+  validates_presence_of :accuracy, :device_uid, :geolocation, :nature, :read_at
   #]VALIDATORS]
   enumerize :nature, in: [:point, :start, :stop, :pause, :resume, :scan, :hard_start, :hard_stop], predicates: true
   belongs_to :user

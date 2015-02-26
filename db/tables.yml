@@ -794,6 +794,7 @@ crumbs:
     limit:
       srid: 4326
       type: point
+    required: true
   id:
     type: integer
     required: true

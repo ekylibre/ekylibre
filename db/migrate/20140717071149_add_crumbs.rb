@@ -3,7 +3,7 @@ class AddCrumbs < ActiveRecord::Migration
 
     create_table :crumbs do |t|
       t.references :user,        null: false, index: true
-      t.point      :geolocation, null: false, srid: 4326
+      t.st_point   :geolocation, null: false, srid: 4326
       t.datetime   :read_at,     null: false
       t.decimal    :accuracy,    null: false
       t.string     :nature,      null: false

@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "sampler_id"
     t.integer  "analyser_id"
     t.text     "description"
+    t.geometry "geolocation",      limit: {:srid=>4326, :type=>"point"}
     t.datetime "sampled_at",                                                         null: false
     t.datetime "analysed_at"
     t.datetime "created_at",                                                         null: false
@@ -147,7 +148,6 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                           default: 0, null: false
-    t.geometry "geolocation",      limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "analyses", ["analyser_id"], name: "index_analyses_on_analyser_id", using: :btree
@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
+    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
     t.text     "annotation"
     t.datetime "created_at",                                                                                                     null: false
@@ -182,7 +183,6 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
     t.integer  "product_reading_id"
-    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "analysis_items", ["analysis_id"], name: "index_analysis_items_on_analysis_id", using: :btree
@@ -411,6 +411,7 @@ ActiveRecord::Schema.define(version: 20150225112858) do
 
   create_table "crumbs", force: :cascade do |t|
     t.integer  "user_id"
+    t.geometry "geolocation",          limit: {:srid=>4326, :type=>"point"},                                      null: false
     t.datetime "read_at",                                                                                         null: false
     t.decimal  "accuracy",                                                   precision: 19, scale: 4,             null: false
     t.string   "nature",                                                                                          null: false
@@ -422,7 +423,6 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "lock_version",                                                                        default: 0, null: false
     t.integer  "intervention_cast_id"
     t.string   "device_uid",                                                                                      null: false
-    t.geometry "geolocation",          limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "crumbs", ["created_at"], name: "index_crumbs_on_created_at", using: :btree
@@ -695,13 +695,13 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.string   "mail_line_6"
     t.string   "mail_country"
     t.integer  "mail_postal_zone_id"
+    t.geometry "mail_geolocation",    limit: {:srid=>4326, :type=>"point"}
     t.boolean  "mail_auto_update",                                          default: false, null: false
     t.datetime "created_at",                                                                null: false
     t.datetime "updated_at",                                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                              default: 0,     null: false
-    t.geometry "mail_geolocation",    limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "entity_addresses", ["by_default"], name: "index_entity_addresses_on_by_default", using: :btree
@@ -2047,13 +2047,13 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
+    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
     t.datetime "created_at",                                                                                                     null: false
     t.datetime "updated_at",                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
-    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "product_nature_variant_readings", ["created_at"], name: "index_product_nature_variant_readings_on_created_at", using: :btree
@@ -2199,6 +2199,7 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
+    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
     t.integer  "reporter_id"
     t.integer  "tool_id"
@@ -2209,7 +2210,6 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
-    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "product_reading_tasks", ["created_at"], name: "index_product_reading_tasks_on_created_at", using: :btree
@@ -2241,13 +2241,13 @@ ActiveRecord::Schema.define(version: 20150225112858) do
     t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
+    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
     t.text     "string_value"
     t.datetime "created_at",                                                                                                     null: false
     t.datetime "updated_at",                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
-    t.geometry "point_value",                  limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "product_readings", ["created_at"], name: "index_product_readings_on_created_at", using: :btree
