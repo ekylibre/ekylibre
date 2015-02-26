@@ -64,10 +64,6 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
   path = dir.join("interventions.csv")
   if path.exist?
 
-
-    w.count = path.size
-
-
     # 0 "numero intervention"
     # 1 "code parcelle culturale"
     # 2 "parcelles cult et ateliers"
@@ -90,8 +86,27 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
 
     information_import_context = "Import from isaculture on #{Time.now.l}"
 
-    CSV.read(path, headers: true, col_sep: ";").sort{|a,b| [a[6].split(/\D/).reverse.join,a[0],a[1]] <=> [b[6].split(/\D/).reverse.join,b[0],b[1]]}.each do |row| #
-      #CSV.foreach(path, headers: true, col_sep: ";") do |row|
+    source = File.read(path)
+    detection = CharlockHolmes::EncodingDetector.detect(source)
+    w.info "Detected encoding: #{detection.inspect}"
+
+    source = File.read(path, encoding: detection[:encoding])
+    stats = ["\t", ";", ",", "|"].inject({}) do |hash, char|
+      hash[char] = source.count(char)
+      hash
+    end
+    separator = stats.sort{|a,b| b.second <=> a.second }.first.first
+    w.info "Detected separator: '#{separator}'"
+
+    rows = CSV.read(path, headers: true, col_sep: separator, encoding: detection[:encoding]).sort do |a, b|
+      [a[6].split(/\D/).reverse.join, a[0].to_s, a[1].to_s] <=> [b[6].split(/\D/).reverse.join, b[0].to_s, b[1].to_s]
+    end
+    w.count = rows.size
+
+    rows.each do |row|
+      # CSV.foreach(path, headers: true, col_sep: ";") do |row|
+      w.check_point
+      next if row[1].blank?
       if current_intervention == nil
         current_intervention = row[0] + row[1]
         buffer = row
@@ -204,16 +219,16 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
           end
         end
 
-        w.info "----------- #{current_intervention} -----------".blue
-        w.info " procedure : " + procedures_transcode[r.procedure_name].inspect.green
-        w.info " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
-        w.info " duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
-        w.info " intrants : " + products_array.inspect.yellow if products_array
-        w.info " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
-        w.info " plant : " + plant.name.inspect.yellow if plant
-        w.info " support : " + support.name.inspect.yellow if support
-        w.info " workers_work_number : " + workers_work_number.inspect.yellow if workers_work_number
-        w.info " equipments_work_number : " + equipments_work_number.inspect.yellow if equipments_work_number
+        w.debug "----------- #{current_intervention} -----------".blue
+        w.debug " procedure : " + procedures_transcode[r.procedure_name].inspect.green
+        w.debug " started_at : " + intervention_started_at.inspect.yellow if intervention_started_at
+        w.debug " duration : " + duration_in_seconds.inspect.yellow if duration_in_seconds
+        w.debug " intrants : " + products_array.inspect.yellow if products_array
+        w.debug " cultivable_zone : " + cultivable_zone.name.inspect.yellow + " - "  + cultivable_zone.work_number.inspect.yellow if cultivable_zone
+        w.debug " plant : " + plant.name.inspect.yellow if plant
+        w.debug " support : " + support.name.inspect.yellow if support
+        w.debug " workers_work_number : " + workers_work_number.inspect.yellow if workers_work_number
+        w.debug " equipments_work_number : " + equipments_work_number.inspect.yellow if equipments_work_number
 
         intrants = []
         for input_product in products_array
@@ -255,15 +270,15 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
               if r.working_area
                 global_intrant_value = population_value.to_d * r.working_area.to_d
               end
-              w.info " measure : " + measure.inspect.yellow
-              w.info " units_transcode[unit.to_s] : " + units_transcode[unit.to_s].inspect.yellow
-              w.info " intrant_population_value : " + population_value.inspect.yellow
-              w.info " intrant_global_population_value : " + global_intrant_value.to_f.inspect.yellow
+              w.debug " measure : " + measure.inspect.yellow
+              w.debug " units_transcode[unit.to_s] : " + units_transcode[unit.to_s].inspect.yellow
+              w.debug " intrant_population_value : " + population_value.inspect.yellow
+              w.debug " intrant_global_population_value : " + global_intrant_value.to_f.inspect.yellow
               intrant.read!(:population, global_intrant_value, :at => r.intervention_started_at.to_time + 3.hours) if global_intrant_value
               intrant.identification_number = product_input_code if product_input_code
               intrant.save!
             end
-            w.info " intrant : " + intrant.name.inspect.yellow
+            w.debug " intrant : " + intrant.name.inspect.yellow
             intrants << intrant
           end
 
@@ -297,11 +312,11 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
             if r.working_area
               global_extrant_value = extrant_population_value.to_d * r.working_area.to_d
             end
-            w.info " extrant_measure : " + extrant_measure.inspect.yellow
-            w.info " extrant_population_value : " + extrant_population_value.inspect.yellow
-            w.info " global_extrant_value : " + global_extrant_value.to_f.inspect.yellow
+            w.debug " extrant_measure : " + extrant_measure.inspect.yellow
+            w.debug " extrant_population_value : " + extrant_population_value.inspect.yellow
+            w.debug " global_extrant_value : " + global_extrant_value.to_f.inspect.yellow
 
-            w.info " extrant_variant : " + extrant_variant.name.inspect.yellow
+            w.debug " extrant_variant : " + extrant_variant.name.inspect.yellow
             extrants << {extrant_variant: extrant_variant, global_extrant_value: global_extrant_value}
           end
 
@@ -417,7 +432,7 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
             elsif procedures_transcode[r.procedure_name] == :spraying_on_cultivation and intrant and plant
 
               # Spraying on cultivation
-              #w.info plant.container.inspect.red
+              #w.debug plant.container.inspect.red
 
               intervention = Ekylibre::FirstRun::Booker.force(:spraying_on_cultivation, intervention_started_at, (duration_in_seconds.to_f > 0.0 ? (duration_in_seconds / 3600) : (1.07 * coeff.to_f)), support: support) do |i|
                 i.add_cast(reference_name: 'plant_medicine', actor: intrant)
@@ -553,13 +568,6 @@ Exchanges.add_importer :isagri_isaculture_csv_import do |file, w|
 
         end
 
-
-
-
-
-
-
-        w.check_point
         # then change intervention
         buffer = row
         current_intervention = row[0] + row[1]
