@@ -1233,6 +1233,11 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, phosphorus_concentration: 24percent, potassium_concentration: 5percent"
             />
+      <item name="bulk_chlorure_60_gr_vr"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent"
+            />
       <item name="liquid_10_34_d1.4"
             nature="chemical_fertilizer"
             unit_name="ton"
