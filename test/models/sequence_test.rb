@@ -30,14 +30,14 @@
 #  last_number      :integer
 #  last_year        :integer
 #  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number_format    :string           not null
+#  name             :string(255)      not null
+#  number_format    :string(255)      not null
 #  number_increment :integer          default(1), not null
 #  number_start     :integer          default(1), not null
-#  period           :string           default("number"), not null
+#  period           :string(255)      default("number"), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  usage            :string
+#  usage            :string(255)
 #
 
 

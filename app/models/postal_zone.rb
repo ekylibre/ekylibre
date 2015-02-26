@@ -22,17 +22,17 @@
 #
 # == Table: postal_zones
 #
-#  city         :string
-#  city_name    :string
-#  code         :string
-#  country      :string           not null
+#  city         :string(255)
+#  city_name    :string(255)
+#  code         :string(255)
+#  country      :string(255)      not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  district_id  :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  postal_code  :string           not null
+#  name         :string(255)      not null
+#  postal_code  :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -42,6 +42,7 @@ class PostalZone < Ekylibre::Record::Base
   belongs_to :district
   has_many :mail_addresses, class_name: "EntityAddress", foreign_key: :mail_postal_zone_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :city, :city_name, :code, :country, :name, :postal_code, allow_nil: true, maximum: 255
   validates_presence_of :country, :name, :postal_code
   #]VALIDATORS]
   validates_length_of :country, allow_nil: true, maximum: 2

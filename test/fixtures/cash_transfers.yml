@@ -29,14 +29,14 @@
 #  description                :text
 #  emission_amount            :decimal(19, 4)   not null
 #  emission_cash_id           :integer          not null
-#  emission_currency          :string           not null
+#  emission_currency          :string(255)      not null
 #  emission_journal_entry_id  :integer
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
-#  number                     :string           not null
+#  number                     :string(255)      not null
 #  reception_amount           :decimal(19, 4)   not null
 #  reception_cash_id          :integer          not null
-#  reception_currency         :string           not null
+#  reception_currency         :string(255)      not null
 #  reception_journal_entry_id :integer
 #  transfered_at              :datetime         not null
 #  updated_at                 :datetime         not null

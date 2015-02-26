@@ -30,17 +30,17 @@
 #  gravity              :integer
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  nature               :string           not null
+#  name                 :string(255)      not null
+#  nature               :string(255)      not null
 #  observed_at          :datetime         not null
-#  picture_content_type :string
-#  picture_file_name    :string
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
 #  priority             :integer
-#  state                :string
+#  state                :string(255)
 #  target_id            :integer          not null
-#  target_type          :string           not null
+#  target_type          :string(255)      not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -57,6 +57,7 @@ class Issue < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :observed_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
+  validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
   #]VALIDATORS]
   validates_inclusion_of :priority, :gravity, in: 0..5

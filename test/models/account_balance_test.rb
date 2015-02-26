@@ -25,7 +25,7 @@
 #  account_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  currency          :string           not null
+#  currency          :string(255)      not null
 #  financial_year_id :integer          not null
 #  global_balance    :decimal(19, 4)   default(0.0), not null
 #  global_count      :integer          default(0), not null

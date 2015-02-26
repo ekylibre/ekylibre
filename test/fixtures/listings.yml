@@ -29,9 +29,9 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  mail         :text
-#  name         :string           not null
+#  name         :string(255)      not null
 #  query        :text
-#  root_model   :string           not null
+#  root_model   :string(255)      not null
 #  source       :text
 #  story        :text
 #  updated_at   :datetime         not null

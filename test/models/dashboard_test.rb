@@ -27,7 +27,7 @@
 #  description  :text
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string           not null
+#  name         :string(255)      not null
 #  owner_id     :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer

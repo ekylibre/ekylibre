@@ -27,17 +27,17 @@
 #  catalog_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string           not null
+#  currency                :string(255)      not null
 #  description             :text
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0)
 #  downpayment_percentage  :decimal(19, 4)   default(0.0)
-#  expiration_delay        :string           not null
+#  expiration_delay        :string(255)      not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer
 #  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  payment_delay           :string           not null
+#  name                    :string(255)      not null
+#  payment_delay           :string(255)      not null
 #  payment_mode_complement :text
 #  payment_mode_id         :integer
 #  sales_conditions        :text
@@ -55,6 +55,7 @@ class SaleNature < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, allow_nil: true
+  validates_length_of :currency, :expiration_delay, :name, :payment_delay, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
   validates_presence_of :catalog, :currency, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]

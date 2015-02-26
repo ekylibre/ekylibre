@@ -27,10 +27,10 @@
 #  id              :integer          not null, primary key
 #  linked_id       :integer
 #  lock_version    :integer          default(0), not null
-#  nature          :string           not null
+#  nature          :string(255)      not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string
+#  originator_type :string(255)
 #  product_id      :integer          not null
 #  started_at      :datetime
 #  stopped_at      :datetime

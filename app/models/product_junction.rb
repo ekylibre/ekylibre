@@ -28,11 +28,11 @@
 #  lock_version    :integer          default(0), not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string
+#  originator_type :string(255)
 #  started_at      :datetime
 #  stopped_at      :datetime
 #  tool_id         :integer
-#  type            :string
+#  type            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
@@ -42,6 +42,7 @@ class ProductJunction < Ekylibre::Record::Base
   has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction, foreign_key: :junction_id, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :originator_type, allow_nil: true, maximum: 255
   #]VALIDATORS]
   validates_presence_of :started_at, :stopped_at
 

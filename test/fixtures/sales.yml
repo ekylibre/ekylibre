@@ -34,16 +34,16 @@
 #  creator_id                 :integer
 #  credit                     :boolean          not null
 #  credited_sale_id           :integer
-#  currency                   :string           not null
+#  currency                   :string(255)      not null
 #  delivery_address_id        :integer
 #  description                :text
 #  downpayment_amount         :decimal(19, 4)   default(0.0), not null
-#  expiration_delay           :string
+#  expiration_delay           :string(255)
 #  expired_at                 :datetime
-#  function_title             :string
+#  function_title             :string(255)
 #  has_downpayment            :boolean          not null
 #  id                         :integer          not null, primary key
-#  initial_number             :string
+#  initial_number             :string(255)
 #  introduction               :text
 #  invoice_address_id         :integer
 #  invoiced_at                :datetime
@@ -51,17 +51,17 @@
 #  letter_format              :boolean          default(FALSE), not null
 #  lock_version               :integer          default(0), not null
 #  nature_id                  :integer
-#  number                     :string           not null
+#  number                     :string(255)      not null
 #  payment_at                 :datetime
-#  payment_delay              :string           not null
+#  payment_delay              :string(255)      not null
 #  prereduction_amount        :decimal(19, 4)   default(0.0), not null
 #  prereduction_pretax_amount :decimal(19, 4)   default(0.0), not null
 #  pretax_amount              :decimal(19, 4)   default(0.0), not null
 #  reduction_percentage       :decimal(19, 4)   default(0.0), not null
-#  reference_number           :string
+#  reference_number           :string(255)
 #  responsible_id             :integer
-#  state                      :string           not null
-#  subject                    :string
+#  state                      :string(255)      not null
+#  subject                    :string(255)
 #  transporter_id             :integer
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer

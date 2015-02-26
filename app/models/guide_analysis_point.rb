@@ -22,14 +22,14 @@
 #
 # == Table: guide_analysis_points
 #
-#  acceptance_status     :string           not null
-#  advice_reference_name :string
+#  acceptance_status     :string(255)      not null
+#  advice_reference_name :string(255)
 #  analysis_id           :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
-#  reference_name        :string           not null
+#  reference_name        :string(255)      not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -37,6 +37,7 @@ class GuideAnalysisPoint < Ekylibre::Record::Base
   belongs_to :analysis, class_name: "GuideAnalysis", inverse_of: :points
   enumerize :acceptance_status, in: [:passed, :failed, :errored, :passed_with_warnings], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :acceptance_status, :advice_reference_name, :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :acceptance_status, :analysis, :reference_name
   #]VALIDATORS]
   validates_inclusion_of :acceptance_status, in: self.acceptance_status.values

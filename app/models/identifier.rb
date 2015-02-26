@@ -26,16 +26,17 @@
 #  creator_id     :integer
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  nature         :string           not null
+#  nature         :string(255)      not null
 #  net_service_id :integer
 #  updated_at     :datetime         not null
 #  updater_id     :integer
-#  value          :string           not null
+#  value          :string(255)      not null
 #
 class Identifier < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::IdentifierNatures.all
   belongs_to :net_service
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nature, :value, allow_nil: true, maximum: 255
   validates_presence_of :nature, :value
   #]VALIDATORS]
 

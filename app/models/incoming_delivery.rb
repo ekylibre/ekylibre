@@ -27,12 +27,12 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode             :string
+#  mode             :string(255)
 #  net_mass         :decimal(19, 4)
-#  number           :string           not null
+#  number           :string(255)      not null
 #  purchase_id      :integer
 #  received_at      :datetime
-#  reference_number :string
+#  reference_number :string(255)
 #  sender_id        :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -53,6 +53,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :received_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :net_mass, allow_nil: true
+  validates_length_of :mode, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :number, :sender
   #]VALIDATORS]
   validates_presence_of :received_at, :address, :mode

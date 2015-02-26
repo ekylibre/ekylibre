@@ -26,12 +26,12 @@
 #  by_default      :boolean          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  currency        :string           not null
+#  currency        :string(255)      not null
 #  description     :text
 #  id              :integer          not null, primary key
 #  journal_id      :integer
 #  lock_version    :integer          default(0), not null
-#  name            :string
+#  name            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          not null

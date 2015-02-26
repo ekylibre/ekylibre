@@ -24,7 +24,7 @@
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  collect_account_id   :integer
-#  computation_method   :string           not null
+#  computation_method   :string(255)      not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  deduction_account_id :integer
@@ -32,9 +32,9 @@
 #  id                   :integer          not null, primary key
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
-#  name                 :string           not null
+#  name                 :string(255)      not null
 #  reductible           :boolean          default(FALSE), not null
-#  reference_name       :string
+#  reference_name       :string(255)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -51,6 +51,7 @@ class Tax < Ekylibre::Record::Base
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
+  validates_length_of :computation_method, :name, :reference_name, allow_nil: true, maximum: 255
   validates_inclusion_of :included, :reductible, in: [true, false]
   validates_presence_of :amount, :computation_method, :name
   #]VALIDATORS]

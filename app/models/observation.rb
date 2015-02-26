@@ -27,11 +27,11 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
-#  importance   :string           not null
+#  importance   :string(255)      not null
 #  lock_version :integer          default(0), not null
 #  observed_at  :datetime         not null
 #  subject_id   :integer          not null
-#  subject_type :string           not null
+#  subject_type :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -43,6 +43,7 @@ class Observation < Ekylibre::Record::Base
   belongs_to :author, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :observed_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :importance, :subject_type, allow_nil: true, maximum: 255
   validates_presence_of :author, :content, :importance, :observed_at, :subject, :subject_type
   #]VALIDATORS]
   validates_length_of :importance, allow_nil: true, maximum: 10

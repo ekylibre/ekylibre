@@ -27,10 +27,10 @@
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  nature          :string           not null
+#  nature          :string(255)      not null
 #  operation_id    :integer
 #  originator_id   :integer
-#  originator_type :string
+#  originator_type :string(255)
 #  product_id      :integer          not null
 #  started_at      :datetime
 #  stopped_at      :datetime
@@ -45,6 +45,7 @@ class ProductLocalization < Ekylibre::Record::Base
   enumerize :nature, in: [:transfer, :interior, :exterior], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values

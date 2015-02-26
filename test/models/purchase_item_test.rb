@@ -28,7 +28,7 @@
 #  annotation         :text
 #  created_at         :datetime         not null
 #  creator_id         :integer
-#  currency           :string           not null
+#  currency           :string(255)      not null
 #  id                 :integer          not null, primary key
 #  label              :text
 #  lock_version       :integer          default(0), not null

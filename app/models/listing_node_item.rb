@@ -26,7 +26,7 @@
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  nature       :string           not null
+#  nature       :string(255)      not null
 #  node_id      :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -38,6 +38,7 @@ class ListingNodeItem < Ekylibre::Record::Base
   belongs_to :node, class_name: "ListingNode"
   attr_readonly :node_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nature, allow_nil: true, maximum: 255
   validates_presence_of :nature, :node
   #]VALIDATORS]
   validates_length_of :nature, allow_nil: true, maximum: 10

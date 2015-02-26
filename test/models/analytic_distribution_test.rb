@@ -30,7 +30,7 @@
 #  journal_entry_item_id  :integer          not null
 #  lock_version           :integer          default(0), not null
 #  production_id          :integer          not null
-#  state                  :string           not null
+#  state                  :string(255)      not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
