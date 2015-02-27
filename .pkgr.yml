@@ -18,6 +18,7 @@ targets:
       - poppler-data
       - ghostscript
       - openjdk-7-jdk
+      - libicu52
     build_dependencies:
       - libcurl4-openssl-dev
       - openjdk-7-jdk
@@ -28,4 +29,6 @@ targets:
       - libxml2-dev 
       - libxslt1-dev
       - zlib1g-dev
-before_precompile: "packaging/before_precompile"
+      - libicu-dev
+services:
+  - postgres
