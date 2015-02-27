@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225112858) do
+ActiveRecord::Schema.define(version: 20150225142832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -554,32 +554,6 @@ ActiveRecord::Schema.define(version: 20150225112858) do
   add_index "districts", ["updated_at"], name: "index_districts_on_updated_at", using: :btree
   add_index "districts", ["updater_id"], name: "index_districts_on_updater_id", using: :btree
 
-  create_table "document_archives", force: :cascade do |t|
-    t.integer  "document_id",                   null: false
-    t.datetime "archived_at",                   null: false
-    t.integer  "template_id"
-    t.string   "file_file_name"
-    t.integer  "file_file_size"
-    t.string   "file_content_type"
-    t.datetime "file_updated_at"
-    t.string   "file_fingerprint"
-    t.integer  "file_pages_count"
-    t.text     "file_content_text"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
-  end
-
-  add_index "document_archives", ["archived_at"], name: "index_document_archives_on_archived_at", using: :btree
-  add_index "document_archives", ["created_at"], name: "index_document_archives_on_created_at", using: :btree
-  add_index "document_archives", ["creator_id"], name: "index_document_archives_on_creator_id", using: :btree
-  add_index "document_archives", ["document_id"], name: "index_document_archives_on_document_id", using: :btree
-  add_index "document_archives", ["template_id"], name: "index_document_archives_on_template_id", using: :btree
-  add_index "document_archives", ["updated_at"], name: "index_document_archives_on_updated_at", using: :btree
-  add_index "document_archives", ["updater_id"], name: "index_document_archives_on_updater_id", using: :btree
-
   create_table "document_templates", force: :cascade do |t|
     t.string   "name",                         null: false
     t.boolean  "active",       default: false, null: false
@@ -602,16 +576,24 @@ ActiveRecord::Schema.define(version: 20150225112858) do
   add_index "document_templates", ["updater_id"], name: "index_document_templates_on_updater_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "number",                     null: false
-    t.string   "name",                       null: false
-    t.string   "nature",                     null: false
-    t.string   "key",                        null: false
-    t.integer  "archives_count", default: 0, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "number",                            null: false
+    t.string   "name",                              null: false
+    t.string   "nature",                            null: false
+    t.string   "key",                               null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",   default: 0, null: false
+    t.integer  "lock_version",      default: 0,     null: false
+    t.boolean  "uploaded",          default: false, null: false
+    t.integer  "template_id"
+    t.string   "file_file_name"
+    t.integer  "file_file_size"
+    t.string   "file_content_type"
+    t.datetime "file_updated_at"
+    t.string   "file_fingerprint"
+    t.integer  "file_pages_count"
+    t.text     "file_content_text"
   end
 
   add_index "documents", ["created_at"], name: "index_documents_on_created_at", using: :btree

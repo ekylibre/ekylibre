@@ -41,9 +41,8 @@
 
 # Sources are stored in :private/reporting/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], default: :none, predicates: {prefix: true}
+  enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: {prefix: true}
   enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
-  has_many :archives, class_name: "DocumentArchive", foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :by_default, :managed, in: [true, false]
   validates_presence_of :archiving, :language, :name, :nature
@@ -67,7 +66,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.archives.any?
+    self.any?
   end
 
   before_validation do
@@ -221,12 +220,12 @@ class DocumentTemplate < Ekylibre::Record::Base
           filter[0] << " AND template_id = ?"
           filter << self.id
         end
-        DocumentArchive.destroy_all(filter)
+        Document.destroy_all(filter)
       end
 
       # Adds the new archive if expected
-      if (self.archiving_first? and document.archives.where("template_id IS NOT NULL").empty?) or
-          (self.archiving_first_of_template? and document.archives.where(template_id: self.id).empty?) or
+      if (self.archiving_first? and document.where("template_id IS NOT NULL").empty?) or
+          (self.archiving_first_of_template? and document.where(template_id: self.id).empty?) or
           self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
         document_archive = document.archive(data_or_path, format, options.merge(template_id: self.id))
       end

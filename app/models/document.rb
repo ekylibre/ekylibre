@@ -36,9 +36,14 @@
 #
 
 class Document < Ekylibre::Record::Base
-  has_many :archives, class_name: "DocumentArchive", dependent: :destroy, inverse_of: :document
   has_many :attachments, dependent: :destroy
-  has_many :last_archive, -> { reorder(archived_at: :desc) }, class_name: "DocumentArchive"
+  has_attached_file :file, {
+       path: ':tenant/:class/:id_partition/:style.:extension',
+       styles: {
+           default:   {format: :pdf, processors: [:reader, :counter, :freezer], clean: true},
+           thumbnail: {format: :jpg, processors: [:sketcher, :thumbnail], geometry: "320x320>"}
+       }
+   }
   enumerize :nature, in: Nomen::DocumentNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :key, :name, :nature, :number
@@ -47,6 +52,10 @@ class Document < Ekylibre::Record::Base
   validates_length_of :nature, allow_nil: true, maximum: 120
   validates_uniqueness_of :key, scope: :nature
   validates_inclusion_of :nature, in: self.nature.values
+  validates_datetime :file_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
+  validates_attachment_presence :file
+  validates_attachment_content_type :file, content_type: /(application|image)/
 
   acts_as_numbered
 
@@ -55,7 +64,7 @@ class Document < Ekylibre::Record::Base
     record = nil
     if data_or_path.is_a?(Pathname)
       File.open(data_or_path, 'rb') do |f|
-        record = self.archives.create!(file: f, template_id: options[:template_id])
+        record = self.create!(file: f, template_id: options[:template_id])
       end
     else
       tmp_dir = Rails.root.join('tmp', 'archiving')
@@ -65,7 +74,7 @@ class Document < Ekylibre::Record::Base
         f.write data_or_path
       end
       File.open(path, 'rb') do |f|
-        record = self.archives.create!(file: f, template_id: options[:template_id])
+        record = self.create!(file: f, template_id: options[:template_id])
       end
       FileUtils.rm_f(path)
     end
