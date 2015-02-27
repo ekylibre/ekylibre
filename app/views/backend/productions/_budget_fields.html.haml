@@ -9,14 +9,18 @@
     options
   end
   selected_indicator = "#{f.object.working_indicator}-#{f.object.working_unit}".to_sym
-.nested-fields.budget_nested_fields{data: {budget_direction: f.object.direction}}
-  = link_to_remove_nested_association(:remove_budget, f)
-  = f.referenced_association :variant
-  = f.input :quantity
-  = f.input :computation_method, as: :radio_buttons
-  = f.input :unit_amount
-  = f.input :unit_currency, as: :hidden
-  -# = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator), data:{parameter_name: :indicator}
-  -# = f.input :working_indicator, as: :hidden
-  -# = f.input :working_unit, as: :hidden
-  = f.input :direction, as: :hidden
+%tr.nested-fields.budget_nested_fields{data: {budget_direction: f.object.direction}}
+  %td= f.referenced_association :variant, wrapper: :nested
+  %td
+    = f.input :quantity, wrapper: :nested
+    -# = select_tag :budget_indicator, options_for_select(indicator_options, selected_indicator), data:{parameter_name: :indicator}
+    -# = f.input :working_indicator, as: :hidden
+    -# = f.input :working_unit, as: :hidden
+  %td
+    = f.input :computation_method, wrapper: :nested
+  %td
+    = f.input :unit_amount, wrapper: :nested
+    = f.input :unit_currency, as: :hidden
+    = f.input :direction, as: :hidden
+  %td.decimal= f.object.amount
+  %td.action= link_to_remove_nested_association(:remove_budget, f)

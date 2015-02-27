@@ -1,4 +1,5 @@
 - item ||= f.object
+- precision = Nomen::Currencies[f.object.sale_currency].precision
 %tr.nested-fields
   %td
     = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_url("RECORD_ID", sale_nature_id: f.object.sale.nature_id)}}})
@@ -8,7 +9,7 @@
   %td.decimal= f.select(:tax_id, Tax.order(:amount).collect{|t| [t.name, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, 'data-value' => 'rate', class: "tax")
   %td= f.input(:unit_amount, wrapper: :nested, input_html: {class: "unit-amount item-wta"})
   %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
-  %td.decimal.pta{data: {use: ".item-pta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.pretax_amount
-  %td.decimal.wta{data: {use: ".item-wta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.sale_currency].precision}"}}= item.amount
+  %td.decimal.pta{data: {use: ".item-pta", use_closest: ".nested-fields", calculate: "mul", calculate_round: precision}}= item.pretax_amount
+  %td.decimal.wta{data: {use: ".item-wta", use_closest: ".nested-fields", calculate: "mul", calculate_round: precision}}= item.amount
   %td.currency= f.object.sale_currency
   %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

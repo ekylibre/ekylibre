@@ -96,7 +96,7 @@ $vertical-spacing: round($spacing*0.7);
       @include margin-right(0);
     }
 
-    .nested-fields {
+    div.nested-fields {
       padding: $spacing;
       border-left: $menu-border-width dotted $menu-border-color;
       border-right: $menu-border-width dotted $menu-border-color;

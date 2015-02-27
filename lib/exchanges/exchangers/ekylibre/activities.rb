@@ -1,11 +1,10 @@
-# coding: utf-8
-# Create or updates equipments
 Exchanges.add_importer :ekylibre_activities do |file, w|
 
   rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
   w.count = rows.size
 
-  rows.each do |row|
+  rows.each_with_index do |row, index|
+    w.debug "Row: #{index + 1}"
     r = {
       :production_nature => Nomen::ProductionNatures[row[0]],
       name: row[1].blank? ? nil : row[1].to_s,
@@ -27,9 +26,10 @@ Exchanges.add_importer :ekylibre_activities do |file, w|
         h
       }
     }.to_struct
+
     # Create a campaign if not exist
     unless r.campaign_harvest_year.present?
-      raise "No campaign given"
+      raise Exchanges::Error, "No campaign given"
     end
 
     # Get campaign
@@ -39,12 +39,10 @@ Exchanges.add_importer :ekylibre_activities do |file, w|
 
     # Create an activity if not exist with production_code
     unless activity_family = Nomen::ActivityFamilies[r.production_nature.activity]
-      raise "No activity family. (#{r.inspect})"
+      raise Exchanges::Error, "No activity family. (#{r.inspect})"
     end
 
-    unless activity = Activity.find_by(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))
-      activity = Activity.create!(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))
-    end
+    activity = Activity.find_or_create_by!(nature: r.nature, family: activity_family.name, name: (r.name.blank? ? r.production_nature.human_name : r.name))
 
     # if a variant_reference_name is present
     product_nature_variant = nil
@@ -56,25 +54,29 @@ Exchanges.add_importer :ekylibre_activities do |file, w|
       product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.production_nature.variant_support.to_s)
     end
 
+    w.debug "Activity: #{activity.name}"
+
     if product_nature_variant
+      w.debug "ProductNatureVariant: #{product_nature_variant.name}"
       # Find or create a production
-      unless production = Production.find_by(campaign_id: campaign.id, activity_id: activity.id, producing_variant_id: product_nature_variant.id)
-        production = activity.productions.create!(producing_variant_id: product_nature_variant.id, campaign_id: campaign.id, state: :validated)
-      end
+      production = Production.find_or_create_by!(campaign_id: campaign.id, activity_id: activity.id, producing_variant_id: product_nature_variant.id, name: r.name)
+      w.debug "Production: #{production.name}"
+
+      production.state = :opened
       # Find a product
       if product_support = Product.find_by(work_number: r.work_number_storage) || nil
-        # if exist, this production has static_support
-        # production.static_support = true
-        production.state = :validated
-        production.save!
         # and create a support for this production
-        support = production.supports.create!(storage_id: product_support.id, :started_at => r.started_at, :stopped_at => r.stopped_at, :nature => r.cultivation_nature, :production_usage => r.production_usage)
-        # if the support is a CultivableZone
-        if r.irrigated
-          support.irrigated = true
-          support.save!
+        production.started_at ||= r.started_at
+        production.stopped_at ||= r.stopped_at
+        if r.cultivation_nature == "nitrat_trap" or r.cultivation_nature == "nitrate_fixing"
+          production.nitrate_fixing = true
         end
+        support = production.supports.create!(storage_id: product_support.id, production_usage: r.production_usage)
+        # if the support is a CultivableZone
         if product_support.is_a?(CultivableZone)
+          if r.irrigated
+            production.irrigated = true
+          end
           # Create mass_area_yield_markers
           # @FIXME Remove column or use budget in place of markers
           # for derivative, value in r.mass_area_yield_markers
@@ -87,7 +89,10 @@ Exchanges.add_importer :ekylibre_activities do |file, w|
         # for indicator, value in r.support_markers
         #   support.read!(indicator, value)
         # end
+
       end
+      production.state = (campaign.closed? ? :closed : :opened)
+      production.save!
     end
 
     w.check_point

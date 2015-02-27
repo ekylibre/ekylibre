@@ -27,8 +27,10 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  id                   :integer          not null, primary key
+#  irrigated            :boolean          default(FALSE), not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string           not null
+#  nitrate_fixing       :boolean          default(FALSE), not null
 #  position             :integer
 #  producing_variant_id :integer
 #  started_at           :datetime
@@ -41,7 +43,6 @@
 #  working_unit         :string
 #
 class Production < Ekylibre::Record::Base
-  enumerize :state, in: [:draft, :validated], default: :draft
   enumerize :working_unit, in: Nomen::Units.all
   enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
   belongs_to :activity
@@ -56,23 +57,22 @@ class Production < Ekylibre::Record::Base
   has_many :revenues, -> { where(direction: :revenue) }, class_name: 'ProductionBudget'
   has_many :distributions, class_name: "ProductionDistribution", dependent: :destroy, inverse_of: :production
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
-  # has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
   has_many :storages, through: :supports
   has_many :casts, through: :interventions, class_name: "InterventionCast"
-  # has_many :selected_manure_management_plan_zones, class_name: "ManureManagementPlanZone", through: :supports
-  # has_many :land_parcel_groups, :through => :supports, class_name: "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
-  # validates_presence_of :product_nature, if: :activity_main?
+  validates_uniqueness_of :name, scope: :campaign_id
   validates_associated :budgets
 
   alias_attribute :label, :name
   alias_attribute :product_variant, :producing_variant
 
+  delegate :name, to: :activity, prefix: true
   delegate :name, :variety, to: :producing_variant, prefix: true
   delegate :name, :variety, to: :variant, prefix: true
   delegate :main?, :auxiliary?, :standalone?, to: :activity
@@ -107,53 +107,38 @@ class Production < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
 
-  state_machine :state, :initial => :draft do
-    state :draft
+  state_machine :state, :initial => :opened do
+    state :opened
     state :aborted
-    state :validated
-    state :started
     state :closed
 
-    event :correct do
-      transition :validated => :draft
-    end
-
     event :abort do
-      transition :draft => :aborted
-    end
-
-    event :confirm do
-      transition :draft => :validated
-    end
-
-    event :start do
-      transition :validated => :started
+      transition :opened => :aborted
     end
 
     event :close do
-      transition :started => :closed
+      transition :opened => :closed
     end
 
+    event :reopen do
+      transition :closed => :opened
+      transition :aborted => :opened
+    end
+  end
+
+  protect(on: :update) do
+    self.closed?
   end
 
   protect(on: :destroy) do
     self.interventions.any? or self.distributions.any?
   end
-
+  
   before_validation(on: :create) do
-    self.state ||= :draft
-  end
-
-  before_validation do
-    if self.activity and self.campaign and self.producing_variant
-      self.name = tc(:name, state: self.state_label, activity: self.activity.name, variant: self.producing_variant.name, campaign: self.campaign.name)
-    elsif self.activity and self.campaign
-      self.name = tc(:name_without_variant, state: self.state_label, activity: self.activity.name, campaign: self.campaign.name)
+    self.state ||= :opened
+    if self.activity
+      self.name ||= self.activity_name
     end
-  end
-
-  def activity_main?
-    self.activity and self.activity_main?
   end
 
   def has_active_product?
@@ -253,13 +238,13 @@ class Production < Ekylibre::Record::Base
   def direct_budget_amount
     global_value = 0
 
-      direct_expenses_value = self.expenses.sum(:global_amount).to_d
-      distribution_value -= direct_expenses_value if direct_expenses_value > 0.0
+    direct_expenses_value = self.expenses.sum(:global_amount).to_d
+    distribution_value -= direct_expenses_value if direct_expenses_value > 0.0
 
-      direct_revenues_value = self.revenues.sum(:global_amount).to_d
-      distribution_value += direct_revenues_value.to_d if direct_revenues_value > 0.0
+    direct_revenues_value = self.revenues.sum(:global_amount).to_d
+    distribution_value += direct_revenues_value.to_d if direct_revenues_value > 0.0
 
-      global_value += distribution_value.to_d
+    global_value += distribution_value.to_d
     return global_value
   end
 

@@ -1,18 +1,18 @@
 = field_set do
+  = f.input :name
   = f.association :activity, as: :hidden
   = f.association :activity, disabled: true
   = f.association :campaign, as: :hidden
   = f.association :campaign, disabled: true
   = f.referenced_association :variant
   = f.referenced_association :support_variant
-  = f.input :state, as: :radio_buttons
-  -#= f.input :started_at
-  -#= f.input :stopped_at
+  = f.input :started_at
+  = f.input :stopped_at
+  = f.input :irrigated
+  = f.input :nitrate_fixing
   = f.input :working_indicator
   = f.input :working_unit
   = f.custom_fields
-
-
 
 - if f.object.activity and f.object.auxiliary?
   :ruby
@@ -29,6 +29,11 @@
 = field_set(:supports) do
   = f.nested_association(:supports)
 
-= field_set(:budgets) do
+= field_set(Production.human_attribute_name(:expenses)) do
+  = render "budgets_form", direction: :expenses, f: f
+
+= field_set(Production.human_attribute_name(:revenues)) do
+  = render "budgets_form", direction: :revenues, f: f
+    
+-#= field_set(Production.human_attribute_name(:budgets)) do
   = f.nested_association(:budgets)
-  -#= render "budget_form", f: f

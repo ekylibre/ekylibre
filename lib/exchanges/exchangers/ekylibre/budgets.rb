@@ -1,5 +1,4 @@
 # coding: utf-8
-# Create or updates equipments
 Exchanges.add_importer :ekylibre_budgets do |file, w|
 
   s = Roo::OpenOffice.new(file)
@@ -12,7 +11,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     campaign_harvest_year = s.cell('A', 2)
     activity_name = s.cell('B', 2)
     production_support_numbers = (s.cell('C', 2).blank? ? [] : s.cell('C', 2).to_s.strip.upcase.split(/[\s\,]+/))
-    production_variant_reference_name = s.cell('D', 2)
+    producing_variant_reference_name = s.cell('D', 2)
     production_support_variant_reference_name = s.cell('E', 2)
     production_indicator_reference_name = s.cell('F', 2)
     production_indicator_unit_reference_name = s.cell('G', 2)
@@ -21,15 +20,16 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
 
     activity = Activity.find_or_create_by!(name: activity_name)
     campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
-    production_variant = nil
+    producing_variant = nil
 
-    if production_variant_reference_name
-      unless production_variant = ProductNatureVariant.find_by(number: production_variant_reference_name) || ProductNatureVariant.find_by(reference_name: production_variant_reference_name)
-        production_variant = ProductNatureVariant.import_from_nomenclature(production_variant_reference_name)
+    if producing_variant_reference_name
+      unless producing_variant = ProductNatureVariant.find_by(number: producing_variant_reference_name) || ProductNatureVariant.find_by(reference_name: producing_variant_reference_name)
+        producing_variant = ProductNatureVariant.import_from_nomenclature(producing_variant_reference_name)
       end
     end
 
-    production = Production.find_or_create_by!(activity: activity, campaign: campaign, variant: production_variant)
+    w.debug "Production: #{sheet_name}"
+    production = Production.find_or_create_by!(name: sheet_name, activity: activity, campaign: campaign, producing_variant: producing_variant)
 
     if production_support_variant_reference_name
       unless production_support_variant = ProductNatureVariant.find_by(number: production_support_variant_reference_name) || ProductNatureVariant.find_by(reference_name: production_support_variant_reference_name)
@@ -50,6 +50,16 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     end
 
     production.save!
+
+
+    # Create support if doesn't exist ?
+    production_support_numbers.each do |number|
+      if product = Product.find_by(number: number) || Product.find_by(identification_number: number) || Product.find_by(work_number: number)
+        production.supports.find_or_create_by!(storage_id: product.id)
+      else
+        w.warn "Cannot find support with number: #{number.inspect}"
+      end
+    end
 
 
     # file format

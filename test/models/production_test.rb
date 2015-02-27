@@ -27,8 +27,10 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  id                   :integer          not null, primary key
+#  irrigated            :boolean          default(FALSE), not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string           not null
+#  nitrate_fixing       :boolean          default(FALSE), not null
 #  position             :integer
 #  producing_variant_id :integer
 #  started_at           :datetime

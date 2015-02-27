@@ -27,8 +27,10 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  id                   :integer          not null, primary key
+#  irrigated            :boolean          default(FALSE), not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string           not null
+#  nitrate_fixing       :boolean          default(FALSE), not null
 #  position             :integer
 #  producing_variant_id :integer
 #  started_at           :datetime
@@ -47,7 +49,9 @@
 #   activity: activities_001
 #   campaign: campaigns_001
 #   creator: users_001
+#   irrigated: true
 #   name: "Lorem ipsum"
+#   nitrate_fixing: true
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
@@ -58,10 +62,12 @@ productions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
+  irrigated: false
   lock_version: 3
   name: Culture de blé/Blé 2013 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 16
-  state: draft
+  state: opened
   updated_at: 2014-11-04 17:23:15.015623000 Z
   updater_id: 1
 productions_002:
@@ -70,10 +76,12 @@ productions_002:
   created_at: 2014-11-04 15:26:44.662690000 Z
   creator_id: 1
   id: 4
+  irrigated: false
   lock_version: 2
   name: Culture de blé/Blé 2014 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 16
-  state: draft
+  state: opened
   updated_at: 2014-11-04 17:23:48.519311000 Z
   updater_id: 1
 productions_003:
@@ -82,10 +90,12 @@ productions_003:
   created_at: 2014-11-04 17:24:51.387221000 Z
   creator_id: 1
   id: 5
+  irrigated: false
   lock_version: 1
   name: Vache/Bovins 2013 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 17
-  state: draft
+  state: opened
   updated_at: 2014-11-07 15:53:12.704285000 Z
   updater_id: 1
 productions_004:
@@ -94,10 +104,12 @@ productions_004:
   created_at: 2014-11-04 18:17:39.473350000 Z
   creator_id: 1
   id: 6
+  irrigated: false
   lock_version: 0
   name: Culture de maïs/Maïs 2014 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 32
-  state: draft
+  state: opened
   updated_at: 2014-11-04 18:17:39.473350000 Z
   updater_id: 1
 productions_005:
@@ -106,10 +118,12 @@ productions_005:
   created_at: 2014-11-04 18:21:43.148079000 Z
   creator_id: 1
   id: 7
+  irrigated: false
   lock_version: 1
   name: Culture de maïs/Maïs 2013 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 32
-  state: draft
+  state: opened
   updated_at: 2014-11-04 18:29:40.340837000 Z
   updater_id: 1
 productions_006:
@@ -118,10 +132,12 @@ productions_006:
   created_at: 2014-11-07 14:43:13.631506000 Z
   creator_id: 1
   id: 8
+  irrigated: false
   lock_version: 0
   name: Vache/Bovins 2014 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 17
-  state: draft
+  state: opened
   updated_at: 2014-11-07 14:43:13.631506000 Z
   updater_id: 1
 productions_007:
@@ -130,10 +146,12 @@ productions_007:
   created_at: 2014-11-07 16:34:30.850122000 Z
   creator_id: 1
   id: 9
+  irrigated: false
   lock_version: 0
   name: Culture de vigne/Vignes 2013 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 44
-  state: draft
+  state: opened
   updated_at: 2014-11-07 16:34:30.850122000 Z
   updater_id: 1
 productions_008:
@@ -142,10 +160,12 @@ productions_008:
   created_at: 2014-11-07 16:35:00.782789000 Z
   creator_id: 1
   id: 10
+  irrigated: false
   lock_version: 0
   name: Culture de vigne/Vignes 2014 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 44
-  state: draft
+  state: opened
   updated_at: 2014-11-07 16:35:00.782789000 Z
   updater_id: 1
 productions_009:
@@ -154,10 +174,12 @@ productions_009:
   created_at: 2014-11-07 17:11:38.260932000 Z
   creator_id: 1
   id: 11
+  irrigated: false
   lock_version: 1
   name: Vin/Vin 2013 (Prévue)
+  nitrate_fixing: false
   producing_variant_id: 49
-  state: draft
+  state: opened
   updated_at: 2014-11-07 17:21:46.199009000 Z
   updater_id: 1
 productions_010:
@@ -166,8 +188,10 @@ productions_010:
   created_at: 2014-11-14 12:41:09.082846000 Z
   creator_id: 1
   id: 12
+  irrigated: false
   lock_version: 0
   name: Bovins 1870 (Draft)
-  state: draft
+  nitrate_fixing: false
+  state: opened
   updated_at: 2014-11-14 12:41:09.082846000 Z
   updater_id: 1

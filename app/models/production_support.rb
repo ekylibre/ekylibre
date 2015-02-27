@@ -24,21 +24,15 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  exclusive        :boolean          default(FALSE), not null
 #  id               :integer          not null, primary key
-#  irrigated        :boolean          default(FALSE), not null
 #  lock_version     :integer          default(0), not null
-#  nature           :string           not null
 #  production_id    :integer          not null
 #  production_usage :string           not null
-#  started_at       :datetime
-#  stopped_at       :datetime
 #  storage_id       :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  enumerize :nature, in: [:main, :secondary, :nitrate_trap], default: :main
   enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
 
   belongs_to :production, inverse_of: :supports
@@ -51,9 +45,7 @@ class ProductionSupport < Ekylibre::Record::Base
   has_one :variant, through: :production
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_inclusion_of :exclusive, :irrigated, in: [true, false]
-  validates_presence_of :nature, :production, :production_usage, :storage
+  validates_presence_of :production, :production_usage, :storage
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
@@ -66,7 +58,7 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, to: :activity, prefix: true
   delegate :name, to: :campaign, prefix: true
   delegate :name, to: :variant,  prefix: true
-  delegate :working_indicator, :working_unit, to: :production
+  delegate :irrgated, :nitrate_fixing, :started_at, :stopped_at, :working_indicator, :working_unit, to: :production
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -236,6 +228,7 @@ class ProductionSupport < Ekylibre::Record::Base
   # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production
 
   # when a plant is born in a production context ?
+  # FIXME Not generic
   def implanted_at
     # case wine or tree
     if implant_intervention = self.interventions.real.of_nature(:implanting).first
@@ -248,6 +241,7 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   # return the started_at attribute of the intervention of nature harvesting if exist and if it's a vegetal production
+  # FIXME Not generic
   def harvested_at
     if harvest_intervention = self.interventions.real.of_nature(:harvest).first
       return harvest_intervention.started_at
@@ -255,6 +249,7 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
+  # FIXME Not generic
   def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
     if self.interventions.real.of_nature(:harvest).count > 0
       total_yield = []
@@ -271,6 +266,7 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
+  # FIXME Not generic
   def vine_yield(volume_unit = :hectoliter, surface_unit = :hectare)
     if self.interventions.real.of_nature(:harvest).count > 0
       total_yield = []

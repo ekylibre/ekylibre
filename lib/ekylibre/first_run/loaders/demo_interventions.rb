@@ -203,11 +203,11 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
     first_run.count :irrigation_interventions do |w|
       a = Activity.of_families(:maize_crops)
-      Production.of_activities(a).joins(:activity,:campaign).find_each do |production|
+      Production.of_activities(a).where(irrigated: true).joins(:activity, :campaign).find_each do |production|
         next unless production.active?
         year = production.campaign.name.to_i
         Ekylibre::FirstRun::Booker.production = production
-        production.supports.joins(:storage,:activity).where(irrigated: true).find_each do |support|
+        production.supports.joins(:storage, :activity).find_each do |support|
           next unless support.active?
           land_parcel = support.storage
           next unless area = land_parcel.shape_area

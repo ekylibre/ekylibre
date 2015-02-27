@@ -66,6 +66,13 @@ module Fixturing
         migrate(tenant) unless up_to_date?
       end
 
+      backup = "#{directory.to_s}~"
+      FileUtils.rm_rf(backup)
+      FileUtils.cp_r(directory, backup)
+      Dir[directory.join("*.yml").to_s].each do |f|
+        FileUtils.rm_rf(f)
+      end
+
       # ActiveRecord::Base.establish_connection(:development)
       Ekylibre::Schema.tables.each do |table, columns|
         records = {}

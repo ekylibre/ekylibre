@@ -746,6 +746,7 @@ jpn:
     # natures: "Types"
     # net_mass: "Net mass"
     # net_service: "Net service"
+    # nitrate_fixing: "Nitrate fixing"
     # nitrogen_at_closing: "Nitrogen at closing"
     # nitrogen_input: "Nitrogen input"
     # nitrogen_need: "Nitrogen need"

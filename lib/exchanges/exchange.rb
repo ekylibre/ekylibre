@@ -51,27 +51,27 @@ module Exchanges
     end
 
     def debug(msg)
-      puts("DEBUG".white + ": " + msg) if verbose?
+      print("\n" + "DEBUG".white + ": " + msg) if verbose?
       Rails.logger.debug(msg)
     end
 
     def info(msg)
-      puts("INFO".green + ": " + msg) if verbose?
+      print("\n" + "INFO".green + ": " + msg) if verbose?
       Rails.logger.info(msg)
     end
 
     def warn(msg)
-      puts("WARNING".yellow + ": " + msg) if verbose?
+      print("\n" + "WARNING".yellow + ": " + msg) if verbose?
       Rails.logger.error(msg)
     end
 
     def error(msg)
-      puts("ERROR".red + ": " + msg) if verbose?
+      print("\n" + "ERROR".red + ": " + msg) if verbose?
       Rails.logger.error(msg)
     end
 
     def fatal(msg)
-      puts("FATAL".red + ": " + msg) if verbose?
+      print("\n" + "FATAL".red + ": " + msg) if verbose?
       Rails.logger.fatal(msg)
     end
 

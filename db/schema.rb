@@ -2305,47 +2305,42 @@ ActiveRecord::Schema.define(version: 20150225112858) do
   add_index "production_distributions", ["updater_id"], name: "index_production_distributions_on_updater_id", using: :btree
 
   create_table "production_supports", force: :cascade do |t|
-    t.integer  "production_id",                    null: false
-    t.integer  "storage_id",                       null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.boolean  "exclusive",        default: false, null: false
-    t.boolean  "irrigated",        default: false, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "production_id",                null: false
+    t.integer  "storage_id",                   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0,     null: false
-    t.string   "nature",                           null: false
-    t.string   "production_usage",                 null: false
+    t.integer  "lock_version",     default: 0, null: false
+    t.string   "production_usage",             null: false
   end
 
   add_index "production_supports", ["created_at"], name: "index_production_supports_on_created_at", using: :btree
   add_index "production_supports", ["creator_id"], name: "index_production_supports_on_creator_id", using: :btree
   add_index "production_supports", ["production_id"], name: "index_production_supports_on_production_id", using: :btree
-  add_index "production_supports", ["started_at"], name: "index_production_supports_on_started_at", using: :btree
-  add_index "production_supports", ["stopped_at"], name: "index_production_supports_on_stopped_at", using: :btree
   add_index "production_supports", ["storage_id"], name: "index_production_supports_on_storage_id", using: :btree
   add_index "production_supports", ["updated_at"], name: "index_production_supports_on_updated_at", using: :btree
   add_index "production_supports", ["updater_id"], name: "index_production_supports_on_updater_id", using: :btree
 
   create_table "productions", force: :cascade do |t|
-    t.integer  "activity_id",                      null: false
-    t.integer  "campaign_id",                      null: false
+    t.integer  "activity_id",                          null: false
+    t.integer  "campaign_id",                          null: false
     t.integer  "producing_variant_id"
-    t.string   "name",                             null: false
-    t.string   "state",                            null: false
+    t.string   "name",                                 null: false
+    t.string   "state",                                null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.integer  "position"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0, null: false
+    t.integer  "lock_version",         default: 0,     null: false
     t.string   "working_indicator"
     t.string   "working_unit"
     t.integer  "support_variant_id"
+    t.boolean  "irrigated",            default: false, null: false
+    t.boolean  "nitrate_fixing",       default: false, null: false
   end
 
   add_index "productions", ["activity_id"], name: "index_productions_on_activity_id", using: :btree

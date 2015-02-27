@@ -19,7 +19,7 @@
 
 # -*- coding: utf-8 -*-
 class Backend::ProductionsController < Backend::BaseController
-  manage_restfully(t3e: {name: :name}, state: :draft, except: :index)
+  manage_restfully(t3e: {name: :name}, except: :index)
 
   unroll
 
@@ -55,8 +55,7 @@ class Backend::ProductionsController < Backend::BaseController
     t.column :campaign, url: true
     t.column :variant, url: true
     t.column :state_label
-    t.action :edit, if: :draft?
-    # t.action :print, if: :validated?
+    t.action :edit
     t.action :destroy, if: :destroyable?
   end
 
@@ -132,4 +131,6 @@ class Backend::ProductionsController < Backend::BaseController
       render status: :not_found, json: nil
     end
   end
+
+  
 end

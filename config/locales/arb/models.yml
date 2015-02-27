@@ -1624,6 +1624,7 @@ arb:
     # net_mass: "Net mass"
     # net_service: "Net service"
     nic: "واجهة بطاقة الشبكة" #?
+    # nitrate_fixing: "Nitrate fixing"
     # nitrogen_at_closing: "Nitrogen at closing"
     # nitrogen_input: "Nitrogen input"
     # nitrogen_need: "Nitrogen need"

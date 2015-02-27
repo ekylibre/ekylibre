@@ -1,5 +1,4 @@
 = kujaku do |k|
-  -# k.radio_buttons :all, :validated, :draft, :aborted, :started
   - k.criterion do
     %label= Production.human_attribute_name(:campaign)
     = select_tag(:campaign_id, options_for_select(Campaign.all.collect{|u| [u.name, u.id]}, campaign.id))

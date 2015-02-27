@@ -24,15 +24,10 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  exclusive        :boolean          default(FALSE), not null
 #  id               :integer          not null, primary key
-#  irrigated        :boolean          default(FALSE), not null
 #  lock_version     :integer          default(0), not null
-#  nature           :string           not null
 #  production_id    :integer          not null
 #  production_usage :string           not null
-#  started_at       :datetime
-#  stopped_at       :datetime
 #  storage_id       :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -42,9 +37,6 @@
 #
 # production_supports_001:
 #   creator: users_001
-#   exclusive: true
-#   irrigated: true
-#   nature: "Lorem ipsum"
 #   production: productions_001
 #   production_usage: "Lorem ipsum"
 #   storage: storages_001
@@ -54,11 +46,8 @@
 production_supports_001:
   created_at: 2014-11-04 17:23:15.017043000 Z
   creator_id: 1
-  exclusive: false
   id: 6
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 1
   production_usage: fodder
   storage_id: 83
@@ -67,11 +56,8 @@ production_supports_001:
 production_supports_002:
   created_at: 2014-11-04 17:23:15.019045000 Z
   creator_id: 1
-  exclusive: false
   id: 7
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 1
   production_usage: fodder
   storage_id: 84
@@ -80,11 +66,8 @@ production_supports_002:
 production_supports_003:
   created_at: 2014-11-04 17:23:48.520900000 Z
   creator_id: 1
-  exclusive: false
   id: 8
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 4
   production_usage: fodder
   storage_id: 83
@@ -93,11 +76,8 @@ production_supports_003:
 production_supports_004:
   created_at: 2014-11-04 17:23:48.523744000 Z
   creator_id: 1
-  exclusive: false
   id: 9
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 4
   production_usage: fodder
   storage_id: 84
@@ -106,11 +86,8 @@ production_supports_004:
 production_supports_005:
   created_at: 2014-11-04 17:23:48.526283000 Z
   creator_id: 1
-  exclusive: false
   id: 10
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 4
   production_usage: fodder
   storage_id: 82
@@ -119,11 +96,8 @@ production_supports_005:
 production_supports_006:
   created_at: 2014-11-04 18:17:39.475733000 Z
   creator_id: 1
-  exclusive: false
   id: 11
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 6
   production_usage: fodder
   storage_id: 81
@@ -132,11 +106,8 @@ production_supports_006:
 production_supports_007:
   created_at: 2014-11-04 18:21:43.150392000 Z
   creator_id: 1
-  exclusive: false
   id: 12
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 7
   production_usage: fodder
   storage_id: 81
@@ -145,11 +116,8 @@ production_supports_007:
 production_supports_008:
   created_at: 2014-11-07 14:43:13.634171000 Z
   creator_id: 1
-  exclusive: false
   id: 13
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 8
   production_usage: fodder
   storage_id: 85
@@ -158,11 +126,8 @@ production_supports_008:
 production_supports_009:
   created_at: 2014-11-07 15:53:12.705675000 Z
   creator_id: 1
-  exclusive: false
   id: 14
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 5
   production_usage: fodder
   storage_id: 80
@@ -171,11 +136,8 @@ production_supports_009:
 production_supports_010:
   created_at: 2014-11-07 15:54:19.288354000 Z
   creator_id: 1
-  exclusive: false
   id: 15
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 8
   production_usage: fodder
   storage_id: 80
@@ -184,11 +146,8 @@ production_supports_010:
 production_supports_011:
   created_at: 2014-11-07 16:34:30.852303000 Z
   creator_id: 1
-  exclusive: false
   id: 16
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 9
   production_usage: fodder
   storage_id: 106
@@ -197,11 +156,8 @@ production_supports_011:
 production_supports_012:
   created_at: 2014-11-07 16:35:00.784356000 Z
   creator_id: 1
-  exclusive: false
   id: 17
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 10
   production_usage: fodder
   storage_id: 106
@@ -210,11 +166,8 @@ production_supports_012:
 production_supports_013:
   created_at: 2014-11-07 17:21:46.200198000 Z
   creator_id: 1
-  exclusive: false
   id: 18
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 11
   production_usage: fodder
   storage_id: 116
@@ -223,11 +176,8 @@ production_supports_013:
 production_supports_014:
   created_at: 2014-11-07 17:21:46.202297000 Z
   creator_id: 1
-  exclusive: false
   id: 19
-  irrigated: false
   lock_version: 0
-  nature: main
   production_id: 11
   production_usage: fodder
   storage_id: 117

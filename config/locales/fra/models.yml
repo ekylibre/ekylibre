@@ -933,6 +933,7 @@ fra:
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
     nic: "NIC (Numéro Interne de Classement)" #?
+    # nitrate_fixing: "Nitrate fixing"
     nitrogen_at_closing: "Azote présent dans le sol à la fermeture du bilan (Rf)"
     nitrogen_input: "Apport azoté"
     nitrogen_need: "Besoins de la culture (Pf)"

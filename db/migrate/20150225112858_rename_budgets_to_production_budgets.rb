@@ -1,5 +1,10 @@
 class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
 
+  PRODUCTION_STATES = {
+    draft: :opened,
+    validated: :closed
+  }
+
   def change
     rename_table :budgets, :production_budgets
     # Polymorphic columns
@@ -83,12 +88,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
         change_column_null :production_budgets, :unit_currency, false
         change_column_null :production_budgets, :currency, false
 
-        remove_column :production_budgets, :homogeneous_values
         remove_column :production_budgets, :name
-        remove_column :productions, :static_support
-
-        remove_column :productions, :homogeneous_expenses
-        remove_column :productions, :homogeneous_revenues
 
         drop_table :budget_items
 
@@ -128,9 +128,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
         add_index "production_support_markers", ["updated_at"], name: "index_production_support_markers_on_updated_at", using: :btree
         add_index "production_support_markers", ["updater_id"], name: "index_production_support_markers_on_updater_id", using: :btree
 
-
-
-        create_table "budget_items", force: true do |t|
+        create_table "budget_items", force: :cascade do |t|
           t.integer  "budget_id",                                                                null: false
           t.integer  "production_support_id"
           t.decimal  "quantity",                          precision: 19, scale: 4, default: 1.0, null: false
@@ -143,22 +141,69 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
           t.integer  "lock_version",                                               default: 0,   null: false
         end
 
-        add_index "budget_items", ["budget_id"], :name => "index_budget_items_on_budget_id"
-        add_index "budget_items", ["created_at"], :name => "index_budget_items_on_created_at"
-        add_index "budget_items", ["creator_id"], :name => "index_budget_items_on_creator_id"
-        add_index "budget_items", ["production_support_id"], :name => "index_budget_items_on_production_support_id"
-        add_index "budget_items", ["updated_at"], :name => "index_budget_items_on_updated_at"
-        add_index "budget_items", ["updater_id"], :name => "index_budget_items_on_updater_id"
+        add_index "budget_items", ["budget_id"], :name => "index_budget_items_on_budget_id", using: :btree
+        add_index "budget_items", ["created_at"], :name => "index_budget_items_on_created_at", using: :btree
+        add_index "budget_items", ["creator_id"], :name => "index_budget_items_on_creator_id", using: :btree
+        add_index "budget_items", ["production_support_id"], :name => "index_budget_items_on_production_support_id", using: :btree
+        add_index "budget_items", ["updated_at"], :name => "index_budget_items_on_updated_at", using: :btree
+        add_index "budget_items", ["updater_id"], :name => "index_budget_items_on_updater_id", using: :btree
 
-        add_column :productions, :homogeneous_revenues, :boolean, null: false, default: false
-        add_column :productions, :homogeneous_expenses, :boolean, null: false, default: false
-
-        add_column :productions, :static_support, :boolean, null: false, default: false
         add_column :production_budgets, :name, :string
         execute "UPDATE production_budgets SET name = v.name FROM product_nature_variants AS v WHERE v.id = variant_id"
-        add_column :production_budgets, :homogeneous_values, :boolean, null: false, default: false
       end
     end
+
+    remove_column :production_budgets, :homogeneous_values, :boolean, null: false, default: false
+    remove_column :productions, :homogeneous_expenses, :boolean, null: false, default: false
+    remove_column :productions, :homogeneous_revenues, :boolean, null: false, default: false
+    remove_column :productions, :static_support, :boolean, null: false, default: false
+
+    remove_column :production_supports, :exclusive, :boolean, null: false, default: false
+    add_column :productions, :irrigated, :boolean, null: false, default: false
+    add_column :productions, :nitrate_fixing, :boolean, null: false, default: false
+
+    # Moves columns of support to production
+    reversible do |dir|
+      dir.up do
+        %w(started_at stopped_at).each do |column|
+          execute "UPDATE productions SET #{column} = s.#{column} FROM production_supports AS s WHERE s.production_id = productions.id AND productions.#{column} IS NULL AND s.#{column} IS NOT NULL"
+        end
+        execute "UPDATE productions SET irrigated = id IN (SELECT production_id FROM production_supports WHERE irrigated)"
+        execute "UPDATE productions SET nitrate_fixing = id IN (SELECT production_id FROM production_supports WHERE nature = 'nitrat_trap')"
+        remove_column :production_supports, :nature
+        remove_column :production_supports, :irrigated
+        remove_column :production_supports, :started_at
+        remove_column :production_supports, :stopped_at
+      end
+      dir.down do
+        add_column :production_supports, :stopped_at, :datetime
+        add_column :production_supports, :started_at, :datetime
+        add_column :production_supports, :irrigated, :boolean, null: false, default: false
+        add_column :production_supports, :nature, :string
+        execute "UPDATE production_supports SET nature = CASE WHEN p.nitrate_fixing THEN 'nitrat_trap' ELSE 'main' END FROM productions AS p WHERE p.id = production_id"
+        execute "UPDATE production_supports SET irrigated = p.irrigated FROM productions AS p WHERE p.irrigated AND p.id = production_id"
+        %w(started_at stopped_at).each do |column|
+          execute "UPDATE production_supports SET #{column} = p.#{column} FROM productions AS p WHERE p.id = production_supports.production_id AND production_supports.#{column} IS NULL AND p.#{column} IS NOT NULL"
+        end
+        change_column_null :production_supports, :nature, false
+      end
+    end
+
+    # Updates states of productions
+    reversible do |dir|
+      dir.up do
+        PRODUCTION_STATES.each do |old, new|
+          execute "UPDATE productions SET state = '#{new}' WHERE state = '#{old}'"
+        end
+      end
+      dir.down do
+        PRODUCTION_STATES.each do |new, old|
+          execute "UPDATE productions SET state = '#{new}' WHERE state = '#{old}'"
+        end
+      end
+    end
+
+
 
   end
 

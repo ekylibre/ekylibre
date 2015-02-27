@@ -4348,22 +4348,11 @@ production_supports:
   creator_id:
     type: integer
     references: user
-  exclusive:
-    type: boolean
-    required: true
-    default: false
   id:
     type: integer
     required: true
-  irrigated:
-    type: boolean
-    required: true
-    default: false
   lock_version:
     type: integer
-    required: true
-  nature:
-    type: string
     required: true
   production_id:
     type: integer
@@ -4372,10 +4361,6 @@ production_supports:
   production_usage:
     type: string
     required: true
-  started_at:
-    type: datetime
-  stopped_at:
-    type: datetime
   storage_id:
     type: integer
     references: product
@@ -4404,12 +4389,20 @@ productions:
   id:
     type: integer
     required: true
+  irrigated:
+    type: boolean
+    required: true
+    default: false
   lock_version:
     type: integer
     required: true
   name:
     type: string
     required: true
+  nitrate_fixing:
+    type: boolean
+    required: true
+    default: false
   position:
     type: integer
   producing_variant_id:
