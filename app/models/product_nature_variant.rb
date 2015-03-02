@@ -189,6 +189,23 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
+  # Returns a list of couple indicator/unit usable for the given variant
+  def quantifiers
+    list = []
+    self.indicators.each do |indicator|
+      next unless indicator.gathering == :proportional_to_population
+      if indicator.datatype == :measure
+        Measure.siblings(indicator.unit).each do |unit_name|
+          unit = Nomen::Units[unit_name]
+          list << [indicator, unit]
+        end
+      end
+    end
+    puts list.inspect.red
+    return list
+  end
+
+
   # Get indicator value
   # if option :at specify at which moment
   # if option :reading is true, it returns the ProductNatureVariantReading record

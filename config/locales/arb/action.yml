@@ -1978,6 +1978,7 @@ arb:
     undeposited: "لم يتم اي اقتطاع بنكي" #?
     uninvoiced_amount: "قيمة غير مفوترة"
     unit: "الوحدة"
+    # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "اضافة وحدة قياس جديدة" #?
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?

@@ -188,8 +188,8 @@
   # updates working indicator measure values
   $(document).on 'change', "select[id^='production_working_']", ->
     $.budget.updateIndicatorsValues()
-  $(document).on 'selector:change', "input:hidden[data-parameter-name='storage_id']", ->
-    $.budget.updateIndicatorValue($(this))
+  # $(document).on 'selector:change', "input:hidden[data-parameter-name='storage_id']", ->
+  #   $.budget.updateIndicatorValue($(this))
 
   # manages working indicator and working unit
   $(document).on 'change', "select[name='budget_indicator']", ->
@@ -247,5 +247,110 @@
   # updates items units when changing computation method
   $(document).on 'change', "select[name$='[computation_method]']", ->
     $.budget.updateItemUnits($(this).closest("tr"))
+
+
+
+  # Updates indicator/units list
+  # TODO Optimize this binding only valid selectors
+  $(document).on 'selector:change', "input", ->
+    selector = $(this)
+    form = selector.closest('form')
+    name = selector.attr('name')
+    form.find("*[data-variant-quantifier='#{name}']").each ->
+      select = $(this)
+      $.ajax
+        url: "/backend/product_nature_variants/#{selector.val()}/quantifiers.json"
+        success: (data, status, request) ->
+          select.html("")
+          $.each data, (index, item) ->
+            option = $("<option></option>")
+              .html(item.label)
+              .attr("value", "#{item.indicator}-#{item.unit}")
+              .attr("data-indicator", item.indicator)
+              .attr("data-unit", item.unit)
+            select.append option
+            select.trigger("change")
+        error: () ->
+          console.error "Cannot retrieve quantifiers of variant ID=#{selector.val()}"
+    true
+
+  # Set values in hidden fields indicator/unit
+  $(document).on 'select change keyup', "select[data-variant-quantifier]", ->
+    select = $(this)
+    option = select.find("option:selected")
+    indicator = option.data("indicator")
+    unit = option.data("unit")
+    changed = false
+    # Sets valus in hidden fields
+    field = select.siblings(".quantifier-indicator").first()
+    changed = true if field.val() != indicator
+    field.val(indicator)
+
+    field = select.siblings(".quantifier-unit").first()
+    changed = true if field.val() != unit
+    field.val(unit)
+
+    # Trigger only after value are set
+    if changed
+      select.siblings(".quantifier-unit").trigger("change", [indicator, unit, option.data("unit-symbol")])
+    true
+
+  # Retrieves quantity with selected quantifier
+  # TODO Optimizes query count
+  $(document).on "change", "#production_working_unit.quantifier-unit", (event, indicator, unit, unitSymbol)->
+    form = $(this).closest("form")
+    # Set unit_label
+    form.find(".total .unit").html(unitSymbol)
+
+    form.find("#supports .support").each ->
+      support = $(this)
+      # FIXME Quite bad, do not use non-specific/generic attributes
+      id = support.find("*[data-parameter-name='storage_id']").val()
+      console.log id
+      $.ajax
+        url: "/backend/products/#{id}/take.json"
+        data:
+          indicator: indicator
+          unit: unit
+        success: (data, status, item) ->
+          support.find(".support-quantity").html(data.value)
+          support.find(".support-unit").html(unitSymbol)
+    true
+
+  # Retrieves quantity with selected quantifier
+  # TODO Optimizes query count
+  $(document).on "selector:change", "#supports .support input[data-parameter-name='storage_id']", (event)->
+    support = $(this).closest(".support")
+    form = $(this).closest("form")
+    option = form.find("select[data-variant-quantifier] option:selected")
+    indicator = option.data("indicator")
+    unit = option.data("unit")
+    unitSymbol = option.data("unit-symbol")
+    # FIXME Quite bad, do not use non-specific/generic attributes
+    id = support.find("*[data-parameter-name='storage_id']").val()
+    console.log id
+    $.ajax
+      url: "/backend/products/#{id}/take.json"
+      data:
+        indicator: indicator
+        unit: unit
+      success: (data, status, item) ->
+        support.find(".support-quantity").html(data.value)
+        support.find(".support-unit").html(unitSymbol)
+    true
+
+  # Change budget coeff on computation method change
+  $(document).on "select change keyup", ".budget .computation-method", (event)->
+    console.log("yes")
+    select = $(this)
+    coeff = 1
+    if select.val() is "per_production_support"
+      coeff = $("#supports .support").length
+    else if select.val() is "per_working_unit"
+      coeff = parseFloat $("#supports-quantity").html()
+    console.log coeff
+    select.closest(".budget").find(".budget-coeff").val(coeff).trigger("change")
+    true
+
 
 ) jQuery

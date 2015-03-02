@@ -4,14 +4,13 @@
   = f.association :activity, disabled: true
   = f.association :campaign, as: :hidden
   = f.association :campaign, disabled: true
-  = f.referenced_association :variant
+  = f.referenced_association :producing_variant
   = f.referenced_association :support_variant
+  = f.variant_quantifier_of :support_variant, indicator_column: :working_indicator, unit_column: :working_unit
   = f.input :started_at
   = f.input :stopped_at
   = f.input :irrigated
   = f.input :nitrate_fixing
-  = f.input :working_indicator
-  = f.input :working_unit
   = f.custom_fields
 
 - if f.object.activity and f.object.auxiliary?
@@ -26,14 +25,15 @@
   = field_set(Production.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions, locals: {campaign: f.object.campaign})
 
-= field_set(:supports) do
-  = f.nested_association(:supports)
+= field_set(Production.human_attribute_name(:supports)) do
+  -# = f.nested_association(:supports)
+  = render "supports_form", f: f
 
 = field_set(Production.human_attribute_name(:expenses)) do
-  = render "budgets_form", direction: :expenses, f: f
+  = render "budgets_form", direction: :expense, f: f
 
 = field_set(Production.human_attribute_name(:revenues)) do
-  = render "budgets_form", direction: :revenues, f: f
-    
+  = render "budgets_form", direction: :revenue, f: f
+
 -#= field_set(Production.human_attribute_name(:budgets)) do
   = f.nested_association(:budgets)

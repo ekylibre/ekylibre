@@ -288,21 +288,10 @@ class ProductionSupport < Ekylibre::Record::Base
     nil
   end
 
-  # def get(indicator, *args)
-  #   unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-  #     raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-  #   end
-  #   options = args.extract_options!
-  #   aim = args.shift || options[:aim] || :perfect
-  #   markers = self.markers.where(indicator_name: indicator.name.to_s, aim: aim)
-  #   if markers.any?
-  #     return markers.first.value
-  #   end
-  #   return nil
-  # end
-
   def get(*args)
-    raise StandardError, "no storage defined" unless self.storage.present?
+    unless self.storage.present?
+      raise StandardError, "No storage defined. Got: #{self.storage.inspect}"
+    end
     self.storage.get(*args)
   end
 

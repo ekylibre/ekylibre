@@ -1326,6 +1326,7 @@ jpn:
     # undelivered: "Undelivered"
     # uninvoiced_amount: "Uninvoiced amount"
     # unit: "Unit"
+    # unit_and_indicator: "%{unit} (%{indicator})"
     # unknown: "Unknown"
     # unknown_condition: "Unknown condition"
     # unknown_user: "Unknown user"

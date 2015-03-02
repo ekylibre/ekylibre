@@ -124,6 +124,40 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     nil
   end
 
+
+  def variant_quantifier_of(association, *args, &block)
+    return self.input("#{association}_quantifier", wrapper: :append) do
+      self.variant_quantifier_of_field(association, *args, &block)
+    end
+  end
+
+  def variant_quantifier_of_field(association, *args, &block)
+    options = args.extract_options!
+    unless reflection = find_association_reflection(association)
+      raise "Association #{association.inspect} not found"
+    end
+    indicator_column = options[:indicator_column] || "#{association}_indicator"
+    unit_column = options[:unit_column] || "#{association}_unit"
+    html_options = {data: {variant_quantifier: @object.class.name.underscore + "[#{reflection.foreign_key}]"}}
+    option_tags = nil
+    if variant = @object.send(association)
+      quantifier_id = "#{@object.send(indicator_column)}-#{@object.send(unit_column)}"
+      option_tags = variant.quantifiers.map do |pair|
+        indicator, unit = pair.first, pair.second
+        # Please update app/views/backend/product_nature_variants/quantifiers view if you change something here
+        attrs = {value: "#{indicator.name}-#{unit.name}", data: {indicator: indicator.name, unit: unit.name, unit_symbol: unit.symbol}}
+        attrs[:selected] = true if attrs[:value] == quantifier_id
+        @template.content_tag(:option, :unit_and_indicator.tl(indicator: indicator.human_name, unit: unit.human_name), attrs)
+      end.join.html_safe
+      # option_tags = options_for_select(, quantifier_id)
+    end
+    html  = @template.select_tag("#{association}_quantifier", option_tags, html_options)
+    html << self.input_field(indicator_column, as: :hidden, class: "quantifier-indicator")
+    html << self.input_field(unit_column, as: :hidden, class: "quantifier-unit")
+    return html
+  end
+
+
   # Updates default input method
   def input(attribute_name, options = {}, &block)
     if targets = options.delete(:show)

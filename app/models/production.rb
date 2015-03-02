@@ -43,6 +43,7 @@
 #  working_unit         :string
 #
 class Production < Ekylibre::Record::Base
+  # Working unit and indicators refers to support
   enumerize :working_unit, in: Nomen::Units.all
   enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
   belongs_to :activity
@@ -133,7 +134,7 @@ class Production < Ekylibre::Record::Base
   protect(on: :destroy) do
     self.interventions.any? or self.distributions.any?
   end
-  
+
   before_validation(on: :create) do
     self.state ||= :opened
     if self.activity

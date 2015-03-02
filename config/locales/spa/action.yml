@@ -1643,6 +1643,7 @@ spa:
     # undelivered: "Undelivered"
     # uninvoiced_amount: "Uninvoiced amount"
     unit: "Unidad"
+    # unit_and_indicator: "%{unit} (%{indicator})"
     unit_create: "Añadir una nueva unidad de medida" #?
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?

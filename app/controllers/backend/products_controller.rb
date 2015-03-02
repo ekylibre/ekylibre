@@ -125,6 +125,22 @@ class Backend::ProductsController < Backend::BaseController
     t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
   end
 
+
+  # Returns value of an indicator
+  def take
+    return unless @product = find_and_check
+    return unless indicator = Nomen::Indicators[params[:indicator]]
+
+    value = @product.get(indicator)
+    if indicator.datatype == :measure
+      if unit = Nomen::Units[params[:unit]]
+        value = value.convert(unit)
+      end
+      value = {unit: value.unit, value: value.to_d.round(4)}
+    end
+    render json: value
+  end
+
   protected
 
   def check_variant_availability()

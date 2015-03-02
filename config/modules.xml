@@ -1890,6 +1890,55 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#take"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#take"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#take"/>
+      </item>
+      <item name="cultivable_zones">
+        <page to="backend/cultivable_zones#take"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#take"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#take"/>
+      </item>
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#take"/>
+      </item>
+      <item name="land_parcel_groups">
+        <page to="backend/land_parcel_groups#take"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#take"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#take"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#take"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#take"/>
+      </item>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#quantifiers"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#take"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#take"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#take"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

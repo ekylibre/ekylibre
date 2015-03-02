@@ -50,6 +50,18 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
     t.column :population
   end
 
+
+  # Returns quantifiers for a given variant
+  def quantifiers
+    return unless @product_nature_variant = find_and_check
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
+
+
   def detail
     return unless @product_nature_variant = find_and_check
     infos = {

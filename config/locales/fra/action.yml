@@ -1675,6 +1675,7 @@ fra:
     undelivered: "Reste à livrer"
     uninvoiced_amount: "Montant non facturé"
     unit: "Unité"
+    unit_and_indicator: "%{unit} (%{indicator})"
     unit_price_amount: "PU HT" #?
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Charger les unités de base manquantes" #?

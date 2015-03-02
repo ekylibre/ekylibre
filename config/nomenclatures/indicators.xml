@@ -13,23 +13,23 @@
       <!-- <property-nature name="choices" type="list" required="false"/> -->
     </property-natures>
     <items>
-      <item name="population"     datatype="decimal" related_to="whole" curve="step"/>
-      <item name="shape"          datatype="geometry" related_to="whole" individual_identifier="true"/>
-      <item name="temperature"    datatype="measure" unit="celsius"/>
-      <item name="net_mass"       datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
-      <item name="net_volume"     datatype="measure" unit="liter" gathering="proportional_to_population"/>
+      <item name="population"       datatype="decimal" related_to="whole" curve="step"/>
+      <item name="shape"            datatype="geometry" related_to="whole" individual_identifier="true"/>
+      <item name="temperature"      datatype="measure" unit="celsius"/>
+      <item name="net_mass"         datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
+      <item name="net_volume"       datatype="measure" unit="liter" gathering="proportional_to_population"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
-      <item name="easement_area"  datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
-      <item name="geolocation"    datatype="point"/>
-      <item name="usage_duration" datatype="measure" unit="hour"/>
-      <item name="sex"            datatype="choice" choices="sexes"/>
-      <item name="soil_nature"    datatype="choice" choices="soil_natures"/>
-      <item name="subsoil_nature" datatype="choice" choices="soil_natures"/>
-      <item name="reproductor"    datatype="boolean"/>
-      <item name="width"          datatype="measure" unit="meter"/>
-      <item name="net_length"     datatype="measure" unit="meter" gathering="proportional_to_population"/>
-      <item name="length"         datatype="measure" unit="meter"/>
-      <item name="height"         datatype="measure" unit="meter"/>
+      <item name="easement_area"    datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
+      <item name="geolocation"      datatype="point"/>
+      <item name="usage_duration"   datatype="measure" unit="hour"/>
+      <item name="sex"              datatype="choice" choices="sexes"/>
+      <item name="soil_nature"      datatype="choice" choices="soil_natures"/>
+      <item name="subsoil_nature"   datatype="choice" choices="soil_natures"/>
+      <item name="reproductor"      datatype="boolean"/>
+      <item name="width"            datatype="measure" unit="meter"/>
+      <item name="net_length"       datatype="measure" unit="meter" gathering="proportional_to_population"/>
+      <item name="length"           datatype="measure" unit="meter"/>
+      <item name="height"           datatype="measure" unit="meter"/>
       <item name="diameter"         datatype="measure" unit="meter"/>
       <item name="figure"              datatype="choice" choices="figures"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
@@ -58,26 +58,26 @@
       <item name="grains_area_density" datatype="measure" unit="unity_per_square_meter"/>
 
       <!-- equipment -->
-      <item name="motor_power"              datatype="measure" unit="french_horsepower"/>
-      <item name="application_width"        datatype="measure" unit="meter" gathering="proportional_to_population"/>
+      <item name="motor_power"               datatype="measure" unit="french_horsepower"/>
+      <item name="application_width"         datatype="measure" unit="meter" gathering="proportional_to_population"/>
 
       <!-- animal -->
-      <item name="animal_life_state"        datatype="choice" choices="animal_life_states"/>
-      <item name="mammalia_birth_condition" datatype="choice" choices="mammalia_birth_conditions"/>
-      <item name="mammalia_birth_count"     datatype="integer" />
+      <item name="animal_life_state"         datatype="choice" choices="animal_life_states"/>
+      <item name="mammalia_birth_condition"  datatype="choice" choices="mammalia_birth_conditions"/>
+      <item name="mammalia_birth_count"      datatype="integer" />
       <item name="last_birth_children_count" datatype="integer"/>
       <item name="mammalia_reproduction_method_embryo_transplant" datatype="boolean" />
       <item name="mammalia_reproduction_event_abortion" datatype="boolean" />
       <item name="mammalia_reproduction_state" datatype="choice" choices="mammalia_reproduction_states"/>
-      <item name="lactating"                datatype="boolean"/>
-      <item name="healthy"                  datatype="boolean"/>
+      <item name="lactating"                 datatype="boolean"/>
+      <item name="healthy"                   datatype="boolean"/>
       <!-- plant -->
-      <item name="plant_life_state"         datatype="choice" choices="plant_life_states"/>
-      <item name="plant_reproduction_state" datatype="choice" choices="plant_reproduction_states"/>
+      <item name="plant_life_state"          datatype="choice" choices="plant_life_states"/>
+      <item name="plant_reproduction_state"  datatype="choice" choices="plant_reproduction_states"/>
 
       <!-- for product analysis -->
-      <item name="dry_matter_rate"    datatype="measure" unit="mass_percent"/>
-      <item name="water_content_rate" datatype="measure" unit="mass_percent"/>
+      <item name="dry_matter_rate"           datatype="measure" unit="mass_percent"/>
+      <item name="water_content_rate"        datatype="measure" unit="mass_percent"/>
 
       <!-- for milk analysis -->
       <item name="total_bacteria_concentration"     datatype="measure" unit="thousand_per_milliliter"/>
@@ -93,8 +93,8 @@
 
       <!-- for fertilization plant's and soil analysis -->
       <!-- macro-element -->
-      <item name="organic_matter_concentration"   datatype="measure" unit="mass_percent"/>
-      <item name="nitrogen_concentration"         datatype="measure" unit="mass_percent"/>
+      <item name="organic_matter_concentration"     datatype="measure" unit="mass_percent"/>
+      <item name="nitrogen_concentration"           datatype="measure" unit="mass_percent"/>
 
       <!-- K2O = 1.205 * K (mass approach) -->
       <item name="potash_concentration"             datatype="measure" unit="mass_percent"/>
@@ -140,12 +140,12 @@
       <item name="milk_daily_production"      datatype="measure" unit="kilogram_per_day"/>
 
       <!-- for animal medicine -->
-      <item name="meat_withdrawal_period" datatype="measure" unit="day"/>
-      <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
+      <item name="meat_withdrawal_period"     datatype="measure" unit="day"/>
+      <item name="milk_withdrawal_period"     datatype="measure" unit="day"/>
 
       <!-- for alimentary product -->
-      <item name="best_before_period" datatype="measure" unit="day"/>
-      <item name="consumption_period" datatype="measure" unit="day"/>
+      <item name="best_before_period"         datatype="measure" unit="day"/>
+      <item name="consumption_period"         datatype="measure" unit="day"/>
 
       <!-- for genetic animal's reproduction  -->
       <item name="unique_synthesis_index"         datatype="measure" unit="unity"/>
@@ -204,8 +204,8 @@
       <item name="plants_interval"   datatype="measure" unit="meter"/> <!-- distance between 2 plants (in rows) -->
       <item name="rows_orientation"  datatype="measure" unit="degree"/>
       <!-- Activate that later
-	  <item name="rows_horizontal_shift" datatype="measure" unit="meter"/>
-	  <item name="rows_vertical_shift" datatype="measure" unit="meter"/>
+	         <item name="rows_horizontal_shift" datatype="measure" unit="meter"/>
+	         <item name="rows_vertical_shift" datatype="measure" unit="meter"/>
 
       -->
     </items>

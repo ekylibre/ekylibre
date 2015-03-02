@@ -156,7 +156,7 @@
   font-size: $font-size;
   line-height: round($font-size * 1.4);
   font-weight: bold;
-  color: $title-color;
+  color: $text-color;
 }
 
 @mixin box-emphasis {

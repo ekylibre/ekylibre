@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get :list_reading_tasks
       get :list_members
       get :list_places
+      get :take
     end
   end
 
@@ -602,13 +603,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :product_nature_variant_readings
+    # resources :product_nature_variant_readings
 
     resources :product_nature_variants, concerns: [:incorporate, :list, :picture, :unroll] do
       member do
         get :detail
         get :list_catalog_items
         get :list_products
+        get :quantifiers
       end
     end
 

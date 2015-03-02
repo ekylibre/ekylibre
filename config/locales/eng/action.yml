@@ -55,6 +55,7 @@ eng:
       index: "Animals"
       new: "New animal"
       show: "%{nature}: %{name}"
+      # take: "Take animal: %{name}"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
@@ -68,11 +69,13 @@ eng:
       index: "Building division"
       new: "New building division"
       show: "Building division: %{name}"
+      # take: "Take building division: %{name}"
     backend/buildings:
       edit: "Edit building: %{name}"
       index: "Buildings"
       new: "New building"
       show: "Building: %{name}"
+      # take: "Take building: %{name}"
     backend/calculators/grains_commercialization_threshold_simulators:
       show: "Grains commercialization threshold simulator"
     backend/calculators:
@@ -170,6 +173,7 @@ eng:
       index: "Cultivable zones"
       new: "New cultivable zone"
       show: "Cultivable zone: %{name}"
+      # take: "Take cultivable zone: %{name}"
     backend/custom_field_choices:
       edit: "Edit option: %{name}"
       new: "New option for a choices list"
@@ -242,6 +246,7 @@ eng:
       index: "Equipments"
       new: "New equipment"
       show: "Equipment: %{name}"
+      # take: "Take equipment: %{name}"
     backend/establishments:
       edit: "Edit establishment: %{name}"
       index: "Establishments"
@@ -278,6 +283,7 @@ eng:
       index: "Fungi"
       new: "New fungus"
       show: "Fungus: %{name}"
+      # take: "Take fungus: %{name}"
     backend/gaps:
       index: "Gaps"
       show: "Gap: %{number}"
@@ -376,16 +382,19 @@ eng:
       index: "Land parcel clusters"
       new: "New land parcel cluster"
       show: "Land parcel cluster %{name}"
+      # take: "Take land parcel cluster: %{name}"
     backend/land_parcel_groups:
       edit: "Edit land parcel group: %{name}"
       index: "Land parcel groups"
       new: "New land parcel group"
       show: "Land parcel group %{name}"
+      # take: "Take land parcel group: %{name}"
     backend/land_parcels:
       edit: "Edit land parcel: %{name}"
       index: "Land parcels"
       new: "New land parcel"
       show: "Land parcel %{name}"
+      # take: "Take land parcel: %{name}"
     backend/legal_entities:
       # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
       edit: "Edit legal entity: %{full_name}"
@@ -414,6 +423,7 @@ eng:
       index: "Matters"
       new: "New matter"
       show: "Matter: %{name}"
+      # take: "Take matter: %{name}"
     backend/myselves:
       show: "My informations"
     backend/net_services:
@@ -466,6 +476,7 @@ eng:
       index: "Plants"
       new: "New plant"
       show: "Plant: %{name}"
+      # take: "Take plant: %{name}"
     backend/postal_zones:
       # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
@@ -482,6 +493,7 @@ eng:
       index: "Product groups"
       new: "New group"
       show: "Group: %{name}"
+      # take: "Take product group: %{name}"
     backend/product_nature_categories:
       edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
@@ -499,6 +511,7 @@ eng:
       index: "Product variant"
       new: "New product variant"
       pick: "Pick product nature variant"
+      # quantifiers: "Quantifiers product nature variant: %{name}"
       show: "Product variant: %{name}"
     backend/product_natures:
       edit: "Edit product type: %{name}"
@@ -523,6 +536,7 @@ eng:
       index: "Products"
       new: "New product"
       show: "%{nature}: %{name}"
+      # take: "Take product: %{name}"
     backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -580,6 +594,7 @@ eng:
       index: "Settlement"
       new: "New settlement"
       show: "Settlement: %{name}"
+      # take: "Take settlement: %{name}"
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
@@ -634,6 +649,7 @@ eng:
       index: "Workers"
       new: "New worker"
       show: "Worker: %{name}"
+      # take: "Take worker: %{name}"
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
@@ -802,7 +818,7 @@ eng:
     bookkeep_with_payment: "Bookkeep with payment" #?
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
-    budgets: "Budgets"
+    budgets: "Budgets" #?
     building_name: "Building name" #?
     # buildings_map: "Buildings map"
     calculate: "Calculate" #?
@@ -1413,6 +1429,7 @@ eng:
     undelivered: "Undelivered" #?
     uninvoiced_amount: "Uninvoiced amount" #?
     unit: "Unit" #?
+    unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unknown"
     unknown_condition: "Unknown condition"
     unknown_user: "Unknown user"
@@ -1709,6 +1726,7 @@ eng:
       point: "Point"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
+      # quantifiers: "Quantifiers"
       reconciliation: "Reconciliation"
       reflect: "Reflect"
       refresh: "Refresh"
@@ -1723,6 +1741,7 @@ eng:
       show: "Show"
       sort: "Sort"
       stop: "Stop" #?
+      # take: "Take"
       toggle: "Toggle"
       unlock: "Unlock"
       unmark: "Unmark"

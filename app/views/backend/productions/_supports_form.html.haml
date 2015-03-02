@@ -1,0 +1,19 @@
+.items
+  %table
+    %thead
+      %tr
+        %th= ProductionSupport.human_attribute_name(:storage)
+        %th= ProductionSupport.human_attribute_name(:production_usage)
+        %th{colspan: 2}= ProductionSupport.human_attribute_name(:quantity)
+        %th
+    %tbody#supports
+      = f.simple_fields_for :supports, resource.supports do |item|
+        = render 'support_fields', f: item
+    - precision = Nomen::Currencies[Preference[:currency]].precision
+    %tfoot
+      %tr.total
+        %th= link_to_add_association :add_item.tl, f, :supports, partial: 'support_fields', 'data-association-insertion-node' => '#supports', 'data-association-insertion-method' => :append, class: "btn"
+        %th= :total.tl
+        %td#supports-quantity.decimal{data: {use: ".support-quantity", calculate: "sum", calculate_round: precision}}
+        %td.unit
+        %td

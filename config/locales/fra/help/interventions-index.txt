@@ -10,7 +10,7 @@ Elles utilisent diverses procédures et nomenclatures métiers et enregistrent l
 
 >>> Ex 2 : Alimentation de mon troupeau de vache dans le cadre de la production "Bovins Lait 2013"
 
-le statut d'une intervention est le suivant :
+Le statut d'une intervention est le suivant :
 
 !!! **rouge** : tous les paramétres ne sont pas renseignés
 !!! **orange** : tous les paramètres sont renseignés mais l'intervention n'a pas été exécuté

@@ -161,6 +161,8 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
     remove_column :production_supports, :exclusive, :boolean, null: false, default: false
     add_column :productions, :irrigated, :boolean, null: false, default: false
     add_column :productions, :nitrate_fixing, :boolean, null: false, default: false
+    # rename_column :productions, :working_indicator, :support_variant_indicator
+    # rename_column :productions, :working_unit, :support_variant_unit
 
     # Moves columns of support to production
     reversible do |dir|

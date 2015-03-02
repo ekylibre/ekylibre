@@ -244,17 +244,22 @@ $form-actions-height: 48px;
   }
 }
 
+
 .nested-fields {
-  position: relative;
   .nested-remove {
     @include display(block);
-    position: absolute;
-    @include right($spacing);
     font-size: 0;
     i {
       @include is-icon;
       @include use-icon(times);
     }
+  }
+}
+div.nested-fields {
+  position: relative;
+  .nested-remove {
+    position: absolute;
+    @include right($spacing);
   }
 }
 
