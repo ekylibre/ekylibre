@@ -136,7 +136,7 @@ Rails.application.routes.draw do
       resource :expenses_by_product_nature_category_cell, only: :show
       resource :events_cell, only: :show
       resource :guide_evolution_cell, only: :show
-      resource :last_document_archives_cell, only: :show, concerns: :list
+      resource :last_documents_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
       resource :last_incoming_deliveries_cell, only: :show, concerns: :list

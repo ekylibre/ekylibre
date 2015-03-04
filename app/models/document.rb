@@ -22,30 +22,41 @@
 #
 # == Table: documents
 #
-#  archives_count :integer          default(0), not null
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  key            :string           not null
-#  lock_version   :integer          default(0), not null
-#  name           :string           not null
-#  nature         :string           not null
-#  number         :string           not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  file_content_text :text
+#  file_content_type :string
+#  file_file_name    :string
+#  file_file_size    :integer
+#  file_fingerprint  :string
+#  file_pages_count  :integer
+#  file_updated_at   :datetime
+#  id                :integer          not null, primary key
+#  key               :string           not null
+#  lock_version      :integer          default(0), not null
+#  name              :string           not null
+#  nature            :string           not null
+#  number            :string           not null
+#  template_id       :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
+#  uploaded          :boolean          default(FALSE), not null
 #
 
 class Document < Ekylibre::Record::Base
   has_many :attachments, dependent: :destroy
   has_attached_file :file, {
-       path: ':tenant/:class/:id_partition/:style.:extension',
-       styles: {
-           default:   {format: :pdf, processors: [:reader, :counter, :freezer], clean: true},
-           thumbnail: {format: :jpg, processors: [:sketcher, :thumbnail], geometry: "320x320>"}
-       }
-   }
+                      path: ':tenant/:class/:id_partition/:style.:extension',
+                      styles: {
+                        default:   {format: :pdf, processors: [:reader, :counter, :freezer], clean: true},
+                        thumbnail: {format: :jpg, processors: [:sketcher, :thumbnail], geometry: "320x320>"}
+                      }
+                    }
   enumerize :nature, in: Nomen::DocumentNatures.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_datetime :file_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
+  validates_inclusion_of :uploaded, in: [true, false]
   validates_presence_of :key, :name, :nature, :number
   #]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 60

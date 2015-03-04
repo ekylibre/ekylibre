@@ -27,8 +27,8 @@
 #     - "backend/cells/expenses_by_product_nature_category_cells#show"
 #     - "backend/cells/guide_evolution_cells#show"
 #     - "backend/cells/last_analyses_cells#show"
-#     - "backend/cells/last_document_archives_cells#list"
-#     - "backend/cells/last_document_archives_cells#show"
+#     - "backend/cells/last_documents_cells#list"
+#     - "backend/cells/last_documents_cells#show"
 #     - "backend/cells/last_entities_cells#list"
 #     - "backend/cells/last_entities_cells#show"
 #     - "backend/cells/last_events_cells#list"
@@ -306,7 +306,6 @@ animals:
     - "backend/animals#list_groups"
     - "backend/animals#list_intervention_casts"
     - "backend/animals#list_issues"
-    - "backend/animals#list_markers" #?
     - "backend/animals#list_members"
     - "backend/animals#list_places"
     - "backend/animals#list_reading_tasks"
@@ -354,7 +353,6 @@ building_divisions:
     - "backend/building_divisions#list_groups"
     - "backend/building_divisions#list_intervention_casts"
     - "backend/building_divisions#list_issues"
-    - "backend/building_divisions#list_markers" #?
     - "backend/building_divisions#list_members"
     - "backend/building_divisions#list_places"
     - "backend/building_divisions#list_reading_tasks"
@@ -384,7 +382,6 @@ buildings:
     - "backend/buildings#list_groups"
     - "backend/buildings#list_intervention_casts"
     - "backend/buildings#list_issues"
-    - "backend/buildings#list_markers" #?
     - "backend/buildings#list_members"
     - "backend/buildings#list_places"
     - "backend/buildings#list_reading_tasks"
@@ -494,7 +491,6 @@ cultivable_zones:
     - "backend/cultivable_zones#list_groups"
     - "backend/cultivable_zones#list_intervention_casts"
     - "backend/cultivable_zones#list_issues"
-    - "backend/cultivable_zones#list_markers" #?
     - "backend/cultivable_zones#list_members"
     - "backend/cultivable_zones#list_places"
     - "backend/cultivable_zones#list_productions"
@@ -678,7 +674,6 @@ equipments:
     - "backend/equipments#list_groups"
     - "backend/equipments#list_intervention_casts"
     - "backend/equipments#list_issues"
-    - "backend/equipments#list_markers" #?
     - "backend/equipments#list_members"
     - "backend/equipments#list_places"
     - "backend/equipments#list_reading_tasks"
@@ -813,7 +808,6 @@ fungi:
     - "backend/fungi#list_groups"
     - "backend/fungi#list_intervention_casts"
     - "backend/fungi#list_issues"
-    - "backend/fungi#list_markers" #?
     - "backend/fungi#list_members"
     - "backend/fungi#list_places"
     - "backend/fungi#list_reading_tasks"
@@ -1126,7 +1120,6 @@ land_parcel_clusters:
     - "backend/land_parcel_clusters#list_groups"
     - "backend/land_parcel_clusters#list_intervention_casts"
     - "backend/land_parcel_clusters#list_issues"
-    - "backend/land_parcel_clusters#list_markers" #?
     - "backend/land_parcel_clusters#list_members"
     - "backend/land_parcel_clusters#list_places"
     - "backend/land_parcel_clusters#list_reading_tasks"
@@ -1155,7 +1148,6 @@ land_parcel_groups:
     - "backend/land_parcel_groups#list_groups"
     - "backend/land_parcel_groups#list_intervention_casts"
     - "backend/land_parcel_groups#list_issues"
-    - "backend/land_parcel_groups#list_markers" #?
     - "backend/land_parcel_groups#list_members"
     - "backend/land_parcel_groups#list_places"
     - "backend/land_parcel_groups#list_reading_tasks"
@@ -1184,7 +1176,6 @@ land_parcels:
     - "backend/land_parcels#list_groups"
     - "backend/land_parcels#list_intervention_casts"
     - "backend/land_parcels#list_issues"
-    - "backend/land_parcels#list_markers" #?
     - "backend/land_parcels#list_members"
     - "backend/land_parcels#list_places"
     - "backend/land_parcels#list_reading_tasks"
@@ -1303,7 +1294,6 @@ matters:
     - "backend/matters#list_groups"
     - "backend/matters#list_intervention_casts"
     - "backend/matters#list_issues"
-    - "backend/matters#list_markers" #?
     - "backend/matters#list_members"
     - "backend/matters#list_places"
     - "backend/matters#list_reading_tasks"
@@ -1475,7 +1465,6 @@ plants:
     - "backend/plants#list_groups"
     - "backend/plants#list_intervention_casts"
     - "backend/plants#list_issues"
-    - "backend/plants#list_markers" #?
     - "backend/plants#list_members"
     - "backend/plants#list_places"
     - "backend/plants#list_reading_tasks"
@@ -1540,7 +1529,6 @@ product_groups:
     - "backend/product_groups#list_groups"
     - "backend/product_groups#list_intervention_casts"
     - "backend/product_groups#list_issues"
-    - "backend/product_groups#list_markers" #?
     - "backend/product_groups#list_members"
     - "backend/product_groups#list_places"
     - "backend/product_groups#list_reading_tasks"
@@ -1632,13 +1620,11 @@ productions:
     - "backend/production_supports#index"
     - "backend/production_supports#list"
     - "backend/production_supports#list_interventions"
-    - "backend/production_supports#list_markers" #?
     - "backend/production_supports#show"
     - "backend/production_supports#unroll"
     - "backend/productions#index"
     - "backend/productions#list"
     - "backend/productions#list_interventions"
-    - "backend/productions#list_markers" #?
     - "backend/productions#list_supports"
     - "backend/productions#show"
     - "backend/productions#unroll"
@@ -1668,7 +1654,6 @@ products:
     - "backend/products#list_groups"
     - "backend/products#list_intervention_casts"
     - "backend/products#list_issues"
-    - "backend/products#list_markers" #?
     - "backend/products#list_members"
     - "backend/products#list_places"
     - "backend/products#list_reading_tasks"
@@ -1841,7 +1826,6 @@ settlements:
     - "backend/settlements#list_groups"
     - "backend/settlements#list_intervention_casts"
     - "backend/settlements#list_issues"
-    - "backend/settlements#list_markers" #?
     - "backend/settlements#list_members"
     - "backend/settlements#list_places"
     - "backend/settlements#list_reading_tasks"
@@ -2019,7 +2003,6 @@ workers:
     - "backend/workers#list_groups"
     - "backend/workers#list_intervention_casts"
     - "backend/workers#list_issues"
-    - "backend/workers#list_markers" #?
     - "backend/workers#list_members"
     - "backend/workers#list_places"
     - "backend/workers#list_reading_tasks"

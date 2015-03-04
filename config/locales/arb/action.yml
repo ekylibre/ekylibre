@@ -145,6 +145,7 @@ arb:
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
+    backend/cells/last_documents_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?

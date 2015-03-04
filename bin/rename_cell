@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 require 'rubygems'
-gem 'activesupport', '~> 4.1.5'
+require 'active_support'
 require 'active_support/core_ext'
 require 'optparse'
 require 'pathname'
 require 'fileutils'
+require 'yaml'
 
 STDOUT.sync = true
 

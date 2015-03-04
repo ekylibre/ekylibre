@@ -1044,49 +1044,6 @@ districts:
   updater_id:
     type: integer
     references: user
-document_archives:
-  archived_at:
-    type: datetime
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  document_id:
-    type: integer
-    references: document
-    required: true
-  file_content_text:
-    type: text
-  file_content_type:
-    type: string
-  file_file_name:
-    type: string
-  file_file_size:
-    type: integer
-  file_fingerprint:
-    type: string
-  file_pages_count:
-    type: integer
-  file_updated_at:
-    type: datetime
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  template_id:
-    type: integer
-    references: document_template
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 document_templates:
   active:
     type: boolean
@@ -1133,15 +1090,26 @@ document_templates:
     type: integer
     references: user
 documents:
-  archives_count:
-    type: integer
-    required: true
   created_at:
     type: datetime
     required: true
   creator_id:
     type: integer
     references: user
+  file_content_text:
+    type: text
+  file_content_type:
+    type: string
+  file_file_name:
+    type: string
+  file_file_size:
+    type: integer
+  file_fingerprint:
+    type: string
+  file_pages_count:
+    type: integer
+  file_updated_at:
+    type: datetime
   id:
     type: integer
     required: true
@@ -1160,12 +1128,19 @@ documents:
   number:
     type: string
     required: true
+  template_id:
+    type: integer
+    references: ''
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+  uploaded:
+    type: boolean
+    required: true
+    default: false
 entities:
   active:
     type: boolean

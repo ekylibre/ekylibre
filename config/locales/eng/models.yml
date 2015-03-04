@@ -169,7 +169,7 @@ eng:
       deposit: "Deposit"
       district: "District"
       document: "Document"
-      document_archive: "Document archive"
+      document_archive: "Document archive" #?
       document_template: "Document template"
       easement: "Easement"
       entity: "Entity"
@@ -333,9 +333,9 @@ eng:
     archive_file_name: "Archive file name"
     archive_file_size: "Archive file size"
     archive_updated_at: "Archive updated at"
-    archived_at: "Archived at"
-    archives: "Archives"
-    archives_count: "Archives count"
+    archived_at: "Archived at" #?
+    archives: "Archives" #?
+    archives_count: "Archives count" #?
     archiving: "Archiving"
     attachments: "Attachments"
     attribute_name: "Attribute name"
@@ -455,7 +455,7 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     # dashboards: "Dashboards"
-    data: "Data"
+    data: "Data" #?
     dead_at: "Dead on"
     deals_count: "Deals count"
     debit: "Debit"
@@ -675,7 +675,7 @@ eng:
     land_parcels: "Land parcels"
     language: "Language"
     last_analysis: "Last analysis"
-    last_archive: "Last archive"
+    last_archive: "Last archive" #?
     last_bank_statement: "Last bank statement"
     last_cweek: "Last week"
     last_journal_entry: "Journal entry of end of year"
@@ -1008,7 +1008,7 @@ eng:
     tax: "Tax"
     taxations: "Taxations"
     team: "Team"
-    template: "Template"
+    template: "Template" #?
     third: "Third"
     third_producer: "Third producer"
     third_producer_way: "Third producer way"
@@ -1041,6 +1041,7 @@ eng:
     unpaid_sales: "Unpaid sales"
     updated_at: "Updated at"
     updater: "Updater"
+    # uploaded: "Uploaded"
     usable_incoming_payments: "Usable incoming payments"
     usage: "Usage"
     usages: "Usages"

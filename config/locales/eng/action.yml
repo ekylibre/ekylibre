@@ -125,8 +125,8 @@ eng:
       # show: "Guide evolution cell: %{name}"
     backend/cells/last_analyses_cells:
       # show: "Last analyses cell: %{name}"
-    backend/cells/last_document_archives_cells:
-      # show: "Last document archives cell: %{name}"
+    backend/cells/last_documents_cells:
+      # show: "Last documents cell: %{name}"
     backend/cells/last_entities_cells:
       # show: "Last entities cell: %{name}"
     backend/cells/last_events_cells:

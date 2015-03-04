@@ -664,15 +664,6 @@
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#unroll"/>
         <page to="backend/production_supports#update"/>
-        <page to="backend/production_support_markers#index" nonexistent="true"/>
-        <page to="backend/production_support_markers#create" nonexistent="true"/>
-        <page to="backend/production_support_markers#destroy" nonexistent="true"/>
-        <page to="backend/production_support_markers#edit" nonexistent="true"/>
-        <page to="backend/production_support_markers#list" nonexistent="true"/>
-        <page to="backend/production_support_markers#new" nonexistent="true"/>
-        <page to="backend/production_support_markers#show" nonexistent="true"/>
-        <page to="backend/production_support_markers#unroll" nonexistent="true"/>
-        <page to="backend/production_support_markers#update" nonexistent="true"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">
@@ -1697,9 +1688,9 @@
       <item name="expenses_by_product_nature_category_cells">
         <page to="backend/cells/expenses_by_product_nature_category_cells#show"/>
       </item>
-      <item name="last_document_archives_cells">
-        <page to="backend/cells/last_document_archives_cells#list"/>
-        <page to="backend/cells/last_document_archives_cells#show"/>
+      <item name="last_documents_cells">
+        <page to="backend/cells/last_documents_cells#list"/>
+        <page to="backend/cells/last_documents_cells#show"/>
       </item>
       <item name="last_entities_cells">
         <page to="backend/cells/last_entities_cells#list"/>
