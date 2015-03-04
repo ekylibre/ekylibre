@@ -44,6 +44,7 @@
 #
 
 class Document < Ekylibre::Record::Base
+  belongs_to :template, class_name: "DocumentTemplate"  
   has_many :attachments, dependent: :destroy
   has_attached_file :file, {
                       path: ':tenant/:class/:id_partition/:style.:extension',
@@ -63,8 +64,6 @@ class Document < Ekylibre::Record::Base
   validates_length_of :nature, allow_nil: true, maximum: 120
   validates_uniqueness_of :key, scope: :nature
   validates_inclusion_of :nature, in: self.nature.values
-  validates_datetime :file_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-  validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
   validates_attachment_presence :file
   validates_attachment_content_type :file, content_type: /(application|image)/
 
