@@ -380,11 +380,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       first_run.count :animal_prescriptions do |w|
 
         # import veterinary prescription in PDF
-        document = Document.create!(key: "2100000303_prescription_001", name: "prescription-2100000303", nature: "prescription")
-        document.archive(file, :jpg)
-        #File.open(file, "rb:ASCII-8BIT") do |f|
-        #  document.archive(f.read, :jpg)
-        #end
+        document = Document.create!(key: "2100000303_prescription_001", name: "prescription-2100000303", nature: "prescription", file: File.open(file,'rb'))
+
 
         # create a veterinary
         veterinary = Person.create!(
@@ -476,8 +473,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     path = first_run.path("demo_spraying", "callisto_fds.pdf")
     if path.exist?
       # import prescription in PDF
-      document = Document.create!(key: "17181-54371-25023-013645", name: "fds-callisto-20140601001", nature: "security_data_sheet")
-      document.archive(path, :pdf)
+      document = Document.create!(key: "17181-54371-25023-013645", name: "fds-callisto-20140601001", nature: "security_data_sheet", file: File.open(path,'rb'))
     end
     # TODO FDS ON CALLISTO
     intrant.variant.attachments.create!(document: document) if intrant
@@ -487,8 +483,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     path = first_run.path("demo_spraying", "certiphyto.jpeg")
     if path.exist?
       # import prescription in PDF
-      document = Document.create!(key: "certiphyto-2014-JOULIN-D", name: "2014-certiphyto-JOULIN-D", nature: "phytosanitary_certification")
-      document.archive(path, :jpg)
+      document = Document.create!(key: "certiphyto-2014-JOULIN-D", name: "2014-certiphyto-JOULIN-D", nature: "phytosanitary_certification", file: File.open(path,'rb'))
     end
     # LINK ON CD
     worker.attachments.create!(document: document) if document
@@ -498,8 +493,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     path = first_run.path("demo_spraying", "controle_pulverisateur.pdf")
     if path.exist?
       # import prescription in PDF
-      document = Document.create!(key: "2014-pulve-control", name: "2014-pulve-control", nature: "equipment_certification")
-      document.archive(path, :pdf)
+      document = Document.create!(key: "2014-pulve-control", name: "2014-pulve-control", nature: "equipment_certification", file: File.open(path,'rb'))
     end
     # LINK ON SPRAYING EQUIPMENT
     sprayer.attachments.create!(document: document) if document
@@ -536,8 +530,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     path = first_run.path("demo_spraying", "preco_phyto.pdf")
     if path.exist?
       # import prescription in PDF
-      document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription")
-      document.archive(path, :pdf)
+      document = Document.create!(key: "20140601001_prescription_001", name: "prescription-20140601001", nature: "prescription", file: File.open(path,'rb'))
       # get the prescriptor
       prescriptor = Entity.where(last_name: "JOUTANT").first
       # create the prescription with PDF and prescriptor

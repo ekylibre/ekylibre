@@ -17,8 +17,8 @@ Exchanges.add_importer :ekylibre_original_purchase_files do |file, w|
       # TODO add a method to detect before importing the same key in order to avoid bad validation on key
       # create document
       if path and extension and e.name and key
-        document = Document.create!(key: key, name: e.name, nature: "purchases_original")
-        document.archive(path, extension.to_sym)
+
+        document = Document.create!(key: key, name: e.name, nature: "purchases_original", file: File.open(path,'rb'))
       else
         raise StandardError, "Problem on #{e.name} purchase document"
       end

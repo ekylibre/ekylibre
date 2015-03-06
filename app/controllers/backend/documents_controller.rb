@@ -22,18 +22,15 @@ class Backend::DocumentsController < Backend::BaseController
 
   manage_restfully
 
-  respond_to :html, :json, :xml
+  # manage_restfully_picture
+
+  # respond_to :html, :json, :xml
 
   list do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :nature
     t.column :created_at
-    t.action :edit
-    t.action :destroy, if: :destroyable?
-  end
-
-  list(:archives, model: :document, conditions: {:document_id => 'params[:id]'.c}) do |t|
     t.column :file_updated_at, url: {format: :pdf}
     t.column :template, url: true
     t.column :file_pages_count
@@ -43,4 +40,15 @@ class Backend::DocumentsController < Backend::BaseController
     t.action :destroy, if: :destroyable?
   end
 
+
+  def show
+    return unless @document = find_and_check
+    respond_to do |format|
+      format.html { t3e @document}
+      format.json
+      format.xml
+      format.pdf { send_file(@document.file.path(:default),filename: @document.file_file_name) }
+      format.jpg { send_file(@document.file.path(:thumbnail)) }
+    end
+  end
 end

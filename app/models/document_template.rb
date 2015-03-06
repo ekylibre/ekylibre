@@ -43,6 +43,7 @@
 class DocumentTemplate < Ekylibre::Record::Base
   enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :none, :first, :last], default: :none, predicates: {prefix: true}
   enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
+  has_many :documents, class_name: "Document", foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :by_default, :managed, in: [true, false]
   validates_presence_of :archiving, :language, :name, :nature
@@ -66,7 +67,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.any?
+    self.documents.any?
   end
 
   before_validation do
@@ -168,8 +169,8 @@ class DocumentTemplate < Ekylibre::Record::Base
     report = Beardley::Report.new(self.source_path)
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
-    # Archive the document according to archiving method. See #archive method.
-    self.archive(data, key, format, options)
+    # Archive the document according to archiving method. See #document method.
+    self.document(data, key, format, options)
     # Returns only the data (without filename)
     return data
   end
@@ -183,10 +184,10 @@ class DocumentTemplate < Ekylibre::Record::Base
     report = Beardley::Report.new(self.source_path)
     # Call it with datasource
     path = Pathname.new(report.to_file(format, datasource))
-    # Archive the document according to archiving method. See #archive method.
-    if archive = self.archive(path, key, format, options)
+    # Archive the document according to archiving method. See #document method.
+    if document = self.document(path, key, format, options)
       FileUtils.rm_rf(path)
-      path = archive.file.path(:original)
+      path = document.file.path(:original)
     end
     # Returns only the data (without filename)
     return path
@@ -204,30 +205,15 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
   # Archive the document using the given archiving method
-  def archive(data_or_path, key, format, options = {})
+  def document(data_or_path, key, format, options = {})
     document_archive = nil
     unless self.archiving_none? or self.archiving_none_of_template?
-      # Find exisiting document
-      unless document = Document.find_by(nature: self.nature, key: key)
-        # Create document if not exist
-        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key))) # }, :without_protection => true)
-      end
-
-      # Removes old archives if only keepping last archive
-      if self.archiving_last? or self.archiving_last_of_template?
-        filter = ["template_id IS NOT NULL AND document_id = ?", document.id]
-        if self.archiving_last_of_template?
-          filter[0] << " AND template_id = ?"
-          filter << self.id
-        end
-        Document.destroy_all(filter)
-      end
 
       # Adds the new archive if expected
       if (self.archiving_first? and document.where("template_id IS NOT NULL").empty?) or
           (self.archiving_first_of_template? and document.where(template_id: self.id).empty?) or
           self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
-        document_archive = document.archive(data_or_path, format, options.merge(template_id: self.id))
+        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key)), file: File.open(data_or_path), template_id: self.id) # }, :without_protection => true)
       end
     end
     return document_archive
