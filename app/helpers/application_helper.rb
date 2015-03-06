@@ -666,23 +666,23 @@ module ApplicationHelper
               end
             end.join.html_safe
           end
-          if document = Document.of(nature.name, key)
+          # if document = Document.of(nature.name, key)
             html << content_tag(:div, class: "document-archives") do
               content_tag(:ul, class: "thumbs") do
-                document.archives.collect do |archive|
+                Document.of(nature.name, key).collect do |document|
                   content_tag(:li, class: "thumb") do
-                    link_to(backend_document_archive_url(archive, format: :pdf)) do
-                      image_tag(backend_document_archive_path(archive, format: :jpg))
+                    link_to(backend_document_url(document, format: :pdf)) do
+                      image_tag(backend_document_path(document, format: :jpg))
                     end +
                       link_to(backend_document_url(document)) do
-                      content_tag(:div, archive.archived_at.l, class: "archived-at") +
-                        content_tag(:div, archive.template_name, class: "template-name")
+                      content_tag(:div, document.updated_at.l, class: "archived-at") +
+                        content_tag(:div, document.template_name, class: "template-name")
                     end
                   end
                 end.join.html_safe
               end
             end
-          end
+          # end
           html
         end
       end

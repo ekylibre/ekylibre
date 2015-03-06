@@ -67,11 +67,12 @@ class Document < Ekylibre::Record::Base
   validates_attachment_presence :file
   validates_attachment_content_type :file, content_type: /(application|image)/
 
+  delegate :name, to: :template, prefix: true
   acts_as_numbered
 
   # Returns the matching unique document for the given nature and key
   def self.of(nature, key)
-    return self.find_by(nature: nature.to_s, key: key.to_s)
+    return self.where(nature: nature.to_s, key: key.to_s)
   end
 
 end
