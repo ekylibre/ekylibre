@@ -210,8 +210,6 @@ eng:
       index: "Districts"
       new: "New district"
       # show: "District: %{name}"
-    backend/document_archives:
-      show: "Document archive: %{name}"
     backend/document_templates:
       edit: "Edit document template: %{name}"
       index: "Document templates"
@@ -794,7 +792,6 @@ eng:
     analytics: "Analytics"
     animal_productions: "Animal productions"
     animals: "Animals"
-    # archive_thumbs: "Archive thumbs"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to:
@@ -1388,6 +1385,7 @@ eng:
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
+    # thumb: "Thumb"
     time_cost: "Time cost" #?
     time_cost_per_hectare: "Time cost per hectare"
     time_zone: "Time zone"

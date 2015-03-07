@@ -76,7 +76,7 @@
                  /> <!-- kg/ha -->
 
       </variable>
-      <variable name="molluscicide"          variety="preparation" abilities="kill(gasteropoda)" roles="plant_illness_treatment-input_origin"/>
+      <variable name="molluscicide"          variety="preparation" abilities="kill(gastropoda)" roles="plant_illness_treatment-input_origin"/>
       <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"

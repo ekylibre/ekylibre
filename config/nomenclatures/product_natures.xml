@@ -648,7 +648,7 @@
             category="plant_medicine"
             variety="preparation"
             population_counting="decimal"
-            abilities="kill(gasteropoda), care(plant)"
+            abilities="kill(gastropoda), care(plant)"
             variable_indicators="population, wait_before_harvest_period, approved_input_dose, untreated_zone_length, wait_before_entering_period"
             frozen_indicators="net_volume, net_mass"
             />

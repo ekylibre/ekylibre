@@ -244,8 +244,7 @@ arb:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
       new: "اضافة عنوان بريدي"
-    backend/document_archives:
-      # show: "Document archive: %{name}"
+    backend/document_archives: #?
     backend/document_templates:
       edit: "تعديل نموذج الوثيقة : %{name}"
       index: "نماذج الوثيقة"

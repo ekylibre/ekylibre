@@ -8,7 +8,7 @@
       <!-- all oenological regulated products -->
       <item name="oenological_regulateds" expression="can('catalyze(wine), chaptelise(wine), fermentize(wine), sulfurize(wine)') or of_variety(concentrated_rectified_must) or can(acidify) or can(alkalinize) or of_variety(potassium_ferrocyanide) " />
       <!-- all phytosanitaries products -->
-      <item name="phytosanitary_products" expression="can('kill(plant), kill(fungus), kill(insecta), kill(gasteropoda)')" />
+      <item name="phytosanitary_products" expression="can('kill(plant), kill(fungus), kill(insecta), kill(gastropoda)')" />
       <!-- all storables products -->
       <item name="matters" expression="stockables" />
       <!-- all veterinary products -->

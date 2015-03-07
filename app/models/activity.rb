@@ -106,10 +106,10 @@ class Activity < Ekylibre::Record::Base
 
   before_save do
     unless self.with_supports
-      self.support_variant = nil
+      self.support_variety = nil
     end
     unless self.with_cultivation
-      self.cultivation_variant = nil
+      self.cultivation_variety = nil
     end
   end
 

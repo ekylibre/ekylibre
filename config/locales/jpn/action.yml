@@ -185,8 +185,7 @@ jpn:
       # edit: "Edit district: %{name}"
       # index: "Districts"
       # new: "New district"
-    backend/document_archives:
-      # show: "Document archive: %{name}"
+    backend/document_archives: #?
     backend/document_templates:
       # edit: "Edit document template: %{name}"
       # index: "Document templates"

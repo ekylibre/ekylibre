@@ -598,10 +598,8 @@ document_templates:
 documents:
   read:
     actions:
-    - "backend/document_archives#show"
     - "backend/documents#index"
     - "backend/documents#list"
-    - "backend/documents#list_archives"
     - "backend/documents#show"
     - "backend/documents#unroll"
   write:

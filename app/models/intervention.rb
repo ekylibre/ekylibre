@@ -278,7 +278,9 @@ class Intervention < Ekylibre::Record::Base
         producer = self.casts.find_by!(reference_name: variable.producer_name)
         if variable.parted?
           # Parted from
-          variant = producer.variant
+          unless variant = producer.variant
+            puts "No variant given for #{variable.producer_name} in #{self.reference_name} (##{self.id})".red
+          end
           produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.actor.tracking)
           unless produced.actor.save
             logger.debug '*' * 80 + variant.matching_model.name

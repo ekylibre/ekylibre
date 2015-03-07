@@ -928,12 +928,10 @@
         <page to="backend/documents#destroy"/>
         <page to="backend/documents#edit"/>
         <page to="backend/documents#list"/>
-        <page to="backend/documents#list_archives"/>
         <page to="backend/documents#new"/>
         <page to="backend/documents#show"/>
         <page to="backend/documents#unroll"/>
         <page to="backend/documents#update"/>
-        <page to="backend/document_archives#show"/>
       </item>
     </group>
     <group name="decision_making" icon="compass">

@@ -164,7 +164,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
 
     rename_column :productions, :working_indicator, :support_variant_indicator
     rename_column :productions, :working_unit, :support_variant_unit
-    
+
     add_column :activities, :with_supports,       :boolean
     add_column :activities, :with_cultivation,    :boolean
     reversible do |dir|
@@ -173,7 +173,7 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
         execute "UPDATE activities SET with_supports = true WHERE id IN (SELECT activity_id FROM productions AS p JOIN production_supports AS s ON (s.production_id=p.id))"
         execute "UPDATE activities SET with_cultivation = true WHERE id IN (SELECT activity_id FROM productions AS p JOIN interventions AS i ON (i.production_id=p.id))"
       end
-    end      
+    end
     change_column_null :activities, :with_supports,    false
     change_column_null :activities, :with_cultivation, false
 

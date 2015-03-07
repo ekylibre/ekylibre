@@ -244,8 +244,7 @@ spa:
       # edit: "Edit district: %{name}"
       # index: "Districts"
       # new: "New district"
-    backend/document_archives:
-      # show: "Document archive: %{name}"
+    backend/document_archives: #?
     backend/document_templates:
       edit: "Modificacion del modelo de documento\_: %{name}"
       index: "Modelos de documento"

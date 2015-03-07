@@ -186,8 +186,8 @@ fra:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
       new: "Nouvelle zone administrative"
-    backend/document_archives:
-      show: "Archive\_: %{name}"
+    backend/document_archives:  #?
+      show: "Archive\_: %{name}" #?
     backend/document_templates:
       edit: "Modifier le modèle de document\_: %{name}"
       index: "Modèles de document"

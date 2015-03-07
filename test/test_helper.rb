@@ -458,7 +458,7 @@ class ActionController::TestCase
       /\#(create|load|incorporate)\z/ => :create,
       /\#update\z/        => :update,
       /\#destroy\z/       => :destroy,
-      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run)\z/ => :touch,
+      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|take)\z/ => :touch,
       /\#unroll\z/        => :unroll
     }
 

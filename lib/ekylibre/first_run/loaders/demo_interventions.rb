@@ -118,13 +118,13 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         fertilizer: Product.where(variety: :preparation).can('fertilize').all,
         plant_medicine: Product.where(variety: :preparation).can('care(plant), kill(plant)').all,
         insecticide: Product.where(variety: :preparation).can('kill(insecta)').all,
-        molluscicide: Product.where(variety: :preparation).can('kill(gasteropoda)').all,
+        molluscicide: Product.where(variety: :preparation).can('kill(gastropoda)').all,
       }
       equipments = {
         sower: Equipment.can('spread(preparation), sow, spray').all,
         hoe: Equipment.can('hoe').all
       }
-      Production.joins(:variant,:activity,:campaign).find_each do |production|
+      Production.joins(:variant, :activity, :campaign).find_each do |production|
         next unless production.active?
         variety = Nomen::Varieties[production.variant.variety]
         if later_spring_sowables.detect{|v| variety <= v}
@@ -202,7 +202,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
 
     first_run.count :irrigation_interventions do |w|
-      a = Activity.of_families(:maize_crops)
+      a = Activity.of_families(:corn_crops)
       Production.of_activities(a).where(irrigated: true).joins(:activity, :campaign).find_each do |production|
         next unless production.active?
         year = production.campaign.name.to_i
