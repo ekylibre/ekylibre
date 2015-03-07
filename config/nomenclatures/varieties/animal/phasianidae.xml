@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="varieties-phasianidae" hierarchical="true">
+    <items>
+      <item name="gallus"        itis_tsn="176085"/>
+      <item name="meleagris"     itis_tsn="176135"/>
+      <item name="pavo"          itis_tsn="176112"/>
+      <item name="phasianus"     itis_tsn="175904"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-gallus" hierarchical="true">
+    <items>
+      <item name="gallus_gallus" itis_tsn="176086"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-meleagris" hierarchical="true">
+    <items>
+      <item name="meleagris_gallopavo" itis_tsn="176136"/>
+      <item name="meleagris_ocellata"  itis_tsn="553897"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-pavo" hierarchical="true">
+    <items>
+      <item name="pavo_cristatus" itis_tsn="176113"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-phasianus" hierarchical="true">
+    <items>
+      <item name="phasianus_colchicus" itis_tsn="175905"/>
+    </items>
+  </nomenclature>
+
+  <!-- "domestiscus" seems to be unnecessary http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=176086 -->
+  <nomenclature name="varieties-gallus_gallus" hierarchical="true">
+    <items>
+      <item name="gallus_gallus_domesticus" itis_tsn="176086"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-gallus_gallus_domesticus" hierarchical="true">
+    <items>
+      <item name="gallus_gallus_domesticus_gournay" />
+      <item name="gallus_gallus_domesticus_babcock" />
+    </items>
+  </nomenclature>
+
+</nomenclatures>

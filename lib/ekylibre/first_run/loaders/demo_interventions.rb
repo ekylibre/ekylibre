@@ -118,7 +118,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         fertilizer: Product.where(variety: :preparation).can('fertilize').all,
         plant_medicine: Product.where(variety: :preparation).can('care(plant), kill(plant)').all,
         insecticide: Product.where(variety: :preparation).can('kill(insecta)').all,
-        molluscicide: Product.where(variety: :preparation).can('kill(mollusca)').all,
+        molluscicide: Product.where(variety: :preparation).can('kill(gasteropoda)').all,
       }
       equipments = {
         sower: Equipment.can('spread(preparation), sow, spray').all,

@@ -180,6 +180,9 @@ Rails.application.routes.draw do
     end
 
     resources :activities, concerns: [:list, :unroll] do
+      collection do
+        get :family
+      end
       member do
         get :list_productions
         get :list_distributions

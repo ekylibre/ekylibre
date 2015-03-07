@@ -1998,6 +1998,9 @@ arb:
     suppliers: "الممولين"
     # support: "Support"
     # support_variant: "Support variant"
+    # support_variant_indicator: "Support variant indicator"
+    # support_variant_unit: "Support variant unit"
+    # support_variety: "Support variety"
     # supports: "Supports"
     surface_units: "وحدات المظهر الخارجي" #?
     suspended: "معطل"
@@ -2080,6 +2083,8 @@ arb:
     value_format: "التصميم" #?
     # variable_indicators_list: "Variable indicators list"
     # variant: "Variant"
+    # variant_indicator: "Variant indicator"
+    # variant_unit: "Variant unit"
     # variants: "Variants"
     # variety: "Variety"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"

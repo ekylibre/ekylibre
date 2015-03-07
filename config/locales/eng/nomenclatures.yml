@@ -309,42 +309,119 @@ eng:
         young_animal_revenues: "Young animal revenues"
     activity_families:
       name: "Activity families"
+      property_natures:
+        cultivation_variety: "Cultivation variety"
+        support_variety: "Support variety"
       items:
         accountancy: "Accountancy"                         #< exploitation
+        administrative: "Administrative"                   #< exploitation
+        almond_orchards: "Almond orchards"                 #< orchard_crops
         animal_farming: "Animal farming"
+        apple_orchards: "Apple orchards"                   #< orchard_crops
         arboriculture: "Arboriculture"                     #< vegetal_crops
         aromatic_and_medicinal_plants: "Aromatic and medicinal plants" #< vegetal_crops
+        asparagus_crops: "Asparagus crops"                 #< market_garden_crops
+        barley_crops: "Barley crops"                       #< cereal_crops
+        bean_crops: "Bean crops"                           #< market_garden_crops
         beekeeping: "Beekeeping"                           #< animal_farming
         beet_crops: "Beet crops"                           #< field_crops
+        bere_crops: "Bere crops"                           #< cereal_crops
+        bison_farming: "Bison farming"                     #< animal_farming
+        black_mustard_crops: "Black mustard crops"         #< market_garden_crops
+        blackcurrant_crops: "Blackcurrant crops"           #< fruits_crops
+        cabbage_crops: "Cabbage crops"                     #< market_garden_crops
+        canary_grass_crops: "Canary grass crops"           #< cereal_crops
+        carob_orchards: "Carob orchards"                   #< orchard_crops
+        carrot_crops: "Carrot crops"                       #< market_garden_crops
         cattle_farming: "Cattle farming"                   #< animal_farming
+        celery_crops: "Celery crops"                       #< market_garden_crops
         cereal_crops: "Cereal crops"                       #< field_crops
+        chestnut_orchards: "Chestnut orchards"             #< orchard_crops
+        chickpea_crops: "Chickpea crops"                   #< protein_crops
+        cichorium_crops: "Cichorium crops"                 #< market_garden_crops
+        citrus_orchards: "Citrus orchards"                 #< orchard_crops
+        cocoa_crops: "Cocoa crops"                         #< oilseed_crops
+        common_wheat_crops: "Common wheat crops"           #< cereal_crops
+        corn_crops: "Corn crops"                           #< cereal_crops
+        cotton_crops: "Cotton crops"                       #< oilseed_crops
+        durum_wheat_crops: "Durum wheat crops"             #< cereal_crops
         exploitation: "Exploitation"
         fallow_land: "Fallow land"                         #< field_crops
         field_crops: "Field crops"                         #< vegetal_crops
-        fish_farming: "Fish farming"                       #< animal_farming
+        flax_crops: "Flax crops"                           #< oilseed_crops
+        flower_crops: "Flower crops"                       #< market_garden_crops
         fodder_crops: "Fodder crops"                       #< field_crops
         fruits_crops: "Fruits crops"                       #< vegetal_crops
+        garden_pea_crops: "Garden pea crops"               #< market_garden_crops
+        garlic_crops: "Garlic crops"                       #< market_garden_crops
         goat_farming: "Goat farming"                       #< animal_farming
-        maize_crops: "Maize crops"                         #< cereal_crops
+        hazel_orchards: "Hazel orchards"                   #< orchard_crops
+        hemp_crops: "Hemp crops"                           #< field_crops
+        hop_crops: "Hop crops"                             #< market_garden_crops
+        horsebean_crops: "Horsebean crops"                 #< protein_crops
+        lavender_crops: "Lavender crops"                   #< aromatic_and_medicinal_plants
+        leek_crops: "Leek crops"                           #< market_garden_crops
+        leguminous_crops: "Leguminous crops"               #< protein_crops
+        lentil_crops: "Lentil crops"                       #< protein_crops
+        lettuce_crops: "Lettuce crops"                     #< market_garden_crops
+        lupin_crops: "Lupin crops"                         #< protein_crops
+        # maintenance: "Maintenance"
         market_garden_crops: "Market garden crops"         #< vegetal_crops
         meadow: "Meadow"                                   #< field_crops
+        muskmelon_crops: "Muskmelon crops"                 #< fruits_crops
+        mussel_farming: "Mussel farming"                   #< animal_farming
+        oat_crops: "Oat crops"                             #< cereal_crops
         oilseed_crops: "Oilseed crops"                     #< field_crops
+        olive_orchards: "Olive orchards"                   #< orchard_crops
+        onion_crops: "Onion crops"                         #< market_garden_crops
         orchard_crops: "Orchard crops"                     #< arboriculture
+        ostrich_farming: "Ostrich farming"                 #< animal_farming
+        oyster_farming: "Oyster farming"                   #< animal_farming
         palmiped_farming: "Palmiped farming"               #< animal_farming
+        parsley_crops: "Parsley crops"                     #< market_garden_crops
+        pea_crops: "Pea crops"                             #< protein_crops
+        peach_orchards: "Peach orchards"                   #< orchard_crops
+        peanut_crops: "Peanut crops"                       #< oilseed_crops
+        pear_orchards: "Pear orchards"                     #< orchard_crops
         pig_farming: "Pig farming"                         #< animal_farming
+        pineapple_crops: "Pineapple crops"                 #< fruits_crops
+        pistachio_orchards: "Pistachio orchards"           #< orchard_crops
+        plum_orchards: "Plum orchards"                     #< orchard_crops
+        poaceae_crops: "Poaceae crops"                     #< cereal_crops
         potato_crops: "Potato crops"                       #< field_crops
         poultry_farming: "Poultry farming"                 #< animal_farming
         processing: "Processing"
         protein_crops: "Protein crops"                     #< field_crops
         purchases: "Purchases"                             #< exploitation
         rabbit_farming: "Rabbit farming"                   #< animal_farming
+        rapeseed_crops: "Rapeseed crops"                   #< oilseed_crops
+        raspberry_crops: "Raspberry crops"                 #< fruits_crops
+        redcurrant_crops: "Redcurrant crops"               #< fruits_crops
+        rice_crops: "Rice crops"                           #< cereal_crops
+        rye_crops: "Rye crops"                             #< cereal_crops
+        saffron_crops: "Saffron crops"                     #< aromatic_and_medicinal_plants
         sales: "Sales"                                     #< exploitation
+        salmon_farming: "Salmon farming"                   #< animal_farming
+        scallop_farming: "Scallop farming"                 #< animal_farming
         service: "Service"
         sheep_farming: "Sheep farming"                     #< animal_farming
+        snail_farming: "Snail farming"                     #< animal_farming
+        sorghum_crops: "Sorghum crops"                     #< cereal_crops
+        soybean_crops: "Soybean crops"                     #< oilseed_crops
         stocks: "Stocks"                                   #< exploitation
-        straw_cereal_crops: "Straw cereal crops"           #< cereal_crops
+        strawberry_crops: "Strawberry crops"               #< fruits_crops
+        sturgeon_farming: "Sturgeon farming"               #< animal_farming
+        sunflower_crops: "Sunflower crops"                 #< oilseed_crops
+        theobroma_crops: "Theobroma crops"                 #< oilseed_crops
+        tobacco_crops: "Tobacco crops"                     #< market_garden_crops
+        tomato_crops: "Tomato crops"                       #< market_garden_crops
+        triticale_crops: "Triticale crops"                 #< cereal_crops
+        turnip_crops: "Turnip crops"                       #< market_garden_crops
         vegetal_crops: "Vegetal crops"
+        vetch_crops: "Vetch crops"                         #< protein_crops
         vines: "Vines"                                     #< arboriculture
+        walnut_orchards: "Walnut orchards"                 #< orchard_crops
+        watermelon_crops: "Watermelon crops"               #< fruits_crops
         wine: "Wine"                                       #< processing
     administrative_area_natures:
       name: "Administrative area natures"
@@ -1519,7 +1596,7 @@ eng:
         msa_username: "Msa username"
         pacage_number: "Pacage number"
         password: "Password"
-        # quandl_token: "Quandl token"
+        quandl_token: "Quandl token"
         synel_username: "Synel username"
     indicators:
       name: "Name"
@@ -2343,7 +2420,7 @@ eng:
         bulk_ammonitrate_27: "Bulk ammonitrate 27"
         bulk_ammonitrate_33: "Bulk ammonitrate 33"
         bulk_animal_food: "Bulk animal food"
-        # bulk_chlorure_60_gr_vr: "Bulk chlorure 60 gr vr"
+        bulk_chlorure_60_gr_vr: "Bulk chlorure 60 gr vr"
         bulk_diammo_phosphorus_21_53_0: "Bulk diammo phosphorus 21 53 0"
         bulk_fertilizer_0_24_05: "Bulk fertilizer 0 24 05"
         bulk_fertilizer_15_15_15: "Bulk fertilizer 15 15 15"
@@ -3386,6 +3463,15 @@ eng:
         french_race_code: "French race code"
         itis_tsn: "Itis number id"
       items:
+        acipenser: "Acipenser"                             #< acipenseridae
+        acipenser_baerii: "Acipenser baerii"               #< acipenser
+        acipenser_sturio: "Acipenser sturio"               #< acipenser
+        acipenser_transmontanus: "Acipenser transmontanus" #< acipenser
+        acipenseridae: "Acipenseridae"                     #< actinopterygii
+        actinopterygii: "Actinopterygii"                   #< animal
+        aix: "Aix"                                         #< anatidae
+        aix_galericulata: "Aix galericulata"               #< aix
+        aix_sponsa: "Aix sponsa"                           #< aix
         allium: "Garlic"                                   #< amaryllidaceae
         allium_ampeloprasum: "Broadleaf wild leek"         #< allium
         allium_ascalonicum: "Shallot"                      #< allium
@@ -3399,24 +3485,43 @@ eng:
         allium_ursinum: "Bear garlic"                      #< allium
         allium_victorialis: "Victory onion"                #< allium
         allium_vineale: "Wild garlic"                      #< allium
+        althaea: "Althaea"                                 #< malvaceae
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
-        anas: "Anas"                                       #< aves
+        anacardiaceae: "Anacardiaceae"                     #< plant
+        ananas: "Ananas"                                   #< bromeliaceae
+        ananas_comosus: "Pineapple"                        #< ananas
+        anas: "Anas"                                       #< anatidae
+        anas_bahamensis: "Anas bahamensis"                 #< anas
+        anas_laysanensis: "Anas laysanensis"               #< anas
+        anas_platyrhynchos: "Anas platyrhynchos"           #< anas
+        anatidae: "Anatidae"                               #< aves
         anethum_graveolens: "Dill"                         #< apiaceae
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
+        anser: "Anser"                                     #< anatidae
+        anser_anser: "Anser anser"                         #< anser
+        anser_cygnoides: "Anser cygnoides"                 #< anser
         anthriscus: "Chervil"                              #< apiaceae
         anthriscus_cerefolium: "Garden Chervil"            #< anthriscus
         anthriscus_nitida: "Alpine Chervil"                #< anthriscus
         aphidoidea: "Aphidoidea"                           #< insecta
         apiaceae: "Apiaceae"                               #< plant
-        apis: "Apis"                                       #< insecta
+        apidae: "Apidae"                                   #< insecta
+        apis: "Apis"                                       #< apidae
+        apis_mellifera: "Apis mellifera"                   #< apis
         apium: "Celery"                                    #< apiaceae
         apium_graveolens: "Wild Celery"                    #< apium
         apium_graveolens_dulce: "Wild Celery Dulce"        #< apium_graveolens
         apium_graveolens_rapaceum: "Celeriac"              #< apium_graveolens
         apium_graveolens_secalinum: "Chinese celery"       #< apium_graveolens
-        asparagus: "Asparagus"                             #< liliaceae
+        arachis: "Arachis"                                 #< fabaceae
+        arachis_hypogaea: "Peanut"                         #< arachis
+        arachis_pintoi: "Pintoi peanut"                    #< arachis
+        asparagaceae: "Asparagaceae"                       #< plant
+        asparagus: "Asparagus"                             #< asparagaceae
+        asparagus_africanus: "Asparagus africanus"         #< asparagus
+        asparagus_officianalis: "Garden asparagus"         #< asparagus
         asteraceae: "Asteraceae"                           #< plant
         avena: "Oat"                                       #< poaceae
         avena_evora: "Oat evora"                           #< avena
@@ -3437,6 +3542,7 @@ eng:
         bison_bison: "American Bison"                      #< bison
         bison_bonasus: "European Bison"                    #< bison
         bison_bonasus_bonasus: "Common european bison"     #< bison_bonasus
+        bivalvia: "Bivalvia"                               #< animal
         boraginaceae: "Boraginaceae"                       #< plant
         bos: "Bos"                                         #< bovidae
         bos_taurus: "Cow"                                  #< bos
@@ -3534,16 +3640,18 @@ eng:
         brassica_pringlea: "Kerguelen cabbage"             #< brassica
         brassica_rapa: "Brassica rapa"                     #< brassica
         brassicaceae: "Brassicaceae"                       #< plant
+        bromeliaceae: "Bromeliaceae"                       #< plant
         building: "Building"                               #< product_group
         building_division: "Building division"             #< sub_zone
-        cairina: "Cairina"                                 #< aves
+        cairina: "Cairina"                                 #< anatidae
         cairina_moschata: "Muscovy duck"                   #< cairina
+        canidae: "Canidae"                                 #< mammalia
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
         cannabis_sativa: "Hemp"                            #< cannabis
         canvas_cover: "Canvas cover"                       #< packaged_matter
         cap: "Cap"                                         #< packaged_matter
-        capra: "Capra"                                     #< mammalia
+        capra: "Capra"                                     #< bovidae
         capra_hircus: "Domestic goat"                      #< capra
         capra_hircus_alpine: "Domestic goat alpine"        #< capra_hircus
         capra_hircus_angora: "Domestic goat angora"        #< capra_hircus
@@ -3569,9 +3677,15 @@ eng:
         capsicum_chinense: "Habanero Pepper"               #< capsicum
         capsicum_frutescens: "Hot Pepper"                  #< capsicum
         capsicum_pubescens: "Rocoto"                       #< capsicum
+        castanea: "Chestnut"                               #< fagaceae
         cerambycidae: "Cerambycidae"                       #< insecta
+        ceratonia: "Ceratonia"                             #< fabaceae
+        ceratonia_siliqua: "Carob tree"                    #< ceratonia
+        cervidae: "Cervidae"                               #< mammalia
         chenopodium: "Chenopodium"                         #< amaranthaceae
         chenopodium_album: "Chenopodium album"             #< chenopodium
+        cicer: "Cicer"                                     #< fabaceae
+        cicer_arietinum: "Chickpea"                        #< cicer
         cichorium: "Cichorium"                             #< asteraceae
         cichorium_endivia: "Curly chicory"                 #< cichorium
         citrullus: "Watermelon"                            #< cucurbitaceae
@@ -3581,6 +3695,11 @@ eng:
         citrullus_lanatus_moon_and_stars: "Watermelon Moon and Stars" #< citrullus_lanatus
         citrullus_lanatus_orangeglo: "Watermelon Orangeglo" #< citrullus_lanatus
         citrullus_lanatus_small_yellow: "Watermelon Small Yellow" #< citrullus_lanatus
+        citrus: "Citrus"                                   #< rutaceae
+        citrus_maxima: "Shaddock"                          #< citrus
+        citrus_medica: "Citron"                            #< citrus
+        citrus_reticulata: "Tangerine"                     #< citrus
+        citrus_sinensis: "Orange"                          #< citrus
         cleaner: "Cleaner"                                 #< equipment
         coccoidea: "Coccoidea"                             #< insecta
         compost: "Compost"                                 #< excrement
@@ -3608,6 +3727,10 @@ eng:
         corylus_avellana_tonda_giffoni: "Common hazel Tonda Giffoni" #< corylus_avellana
         crambe: "Crambe"                                   #< brassicaceae
         crambe_maritima: "Sea kale"                        #< crambe
+        crassostrea: "Crassostrea"                         #< ostreidae
+        crassostrea_ariakensis: "Crassostrea ariakensis"   #< crassostrea
+        crassostrea_gigas: "Crassostrea gigas"             #< crassostrea
+        crassostrea_virginica: "Crassostrea virginica"     #< crassostrea
         crocus: "Crocus"                                   #< iridaceae
         crocus_sativus: "Saffron crocus"                   #< crocus
         croesus_septentrionalis: "Croesus septentrionalis" #< insecta
@@ -3667,6 +3790,9 @@ eng:
         dactylis: "Dactylis"                               #< poa
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
         damaliscus: "Damaliscus"                           #< bovidae
+        damaliscus_korrigum: "Damaliscus korrigum"         #< damaliscus
+        damaliscus_lunatus: "Damaliscus lunatus"           #< damaliscus
+        damaliscus_pygargus: "Damaliscus pygargus"         #< damaliscus
         daucus: "Daucus"                                   #< apiaceae
         daucus_carota: "Carrot"                            #< daucus
         daucus_carota_carentan: "Carentan Carrot"          #< daucus_carota
@@ -3694,17 +3820,24 @@ eng:
         electricity: "Electricity"                         #< matter
         empoasca_vitis: "Empoasca vitis"                   #< insecta
         eotetranychus_coryli: "Eotetranychus coryli"       #< insecta
+        equidae: "Equidae"                                 #< mammalia
         equipment: "Equipment"                             #< matter
-        equus: "Equine"                                    #< mammalia
+        equus: "Equine"                                    #< equidae
+        equus_asinus: "Donkey"                             #< equus
         equus_caballus: "Horse"                            #< equus
         equus_caballus_arabe: "Horse arabe"                #< equus_caballus
         equus_caballus_camargue: "Horse camargue"          #< equus_caballus
         equus_caballus_irish_cob: "Horse irish cob"        #< equus_caballus
         equus_caballus_pur_sang: "Horse pur sang"          #< equus_caballus
         equus_caballus_shetland: "Horse shetland"          #< equus_caballus
+        equus_zebra: "Zebra"                               #< equus
         erysiphaceae: "Erysiphaceae"                       #< fungus
+        euphorbiaceae: "Euphorbiaceae"                     #< plant
         excrement: "Excrement"                             #< raw_matter
         fabaceae: "Fabaceae"                               #< plant
+        fagaceae: "Fagaceae"                               #< plant
+        fagus: "Beech"                                     #< fagaceae
+        felidae: "Felidae"                                 #< mammalia
         fermented_juice: "Fermented juice"                 #< preparation
         ficus: "Ficus"                                     #< moraceae
         ficus_carica: "Common fig"                         #< ficus
@@ -3717,19 +3850,27 @@ eng:
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
         forager: "Forager"                                 #< equipment
+        fortunella: "Fortunella"                           #< rutaceae
+        fortunella_japonica: "Round kumquat"               #< fortunella
+        fortunella_margarita: "Oval kumquat"               #< fortunella
         fragaria: "Fragaria"                               #< rosaceae
         fragaria_ananassa: "Fragaria × Ananassa"           #< fragaria
         fragaria_ananassa_mara_des_bois: "Fragaria × Ananassa Mara des bois" #< fragaria_ananassa
         fruit: "Fruit"                                     #< raw_matter
         fuel: "Fuel"                                       #< raw_matter
         fungus: "Fungus"                                   #< bioproduct
-        gallus: "Gallus"                                   #< aves
-        gallus_gallus_domesticus: "Domesticated chicken"   #< gallus
+        gallus: "Gallus"                                   #< phasianidae
+        gallus_gallus: "Gallus gallus"                     #< gallus
+        gallus_gallus_domesticus: "Domesticated chicken"   #< gallus_gallus
         gallus_gallus_domesticus_babcock: "Domesticated chicken Babcock" #< gallus_gallus_domesticus
         gallus_gallus_domesticus_gournay: "Domesticated chicken Gournay" #< gallus_gallus_domesticus
         gas: "Gas"                                         #< raw_matter
+        gastropoda: "Gastropoda"                           #< animal
         glycine: "Glycine"                                 #< fabaceae
         glycine_max: "Soy bean"                            #< glycine
+        gossypium: "Gossypium"                             #< malvaceae
+        gossypium_barbadense: "Creole cotton"              #< gossypium
+        gossypium_hirsutum: "Upland cotton"                #< gossypium
         grain: "Grain"                                     #< fruit
         grape: "Grape"                                     #< fruit
         grass: "Grass"                                     #< raw_matter
@@ -3752,6 +3893,13 @@ eng:
         helianthus_annuus_pr64h41: "Annual sunflower pr64h41" #< helianthus_annuus
         helianthus_annuus_rapala: "Annual sunflower rapala" #< helianthus_annuus
         helianthus_annuus_sy_valeo: "Annual sunflower sy valeo" #< helianthus_annuus
+        helicidae: "Helicidae"                             #< gastropoda
+        helix: "Helix"                                     #< helicidae
+        helix_aperta: "Helix aperta"                       #< helix
+        helix_aspersa: "Garden snail"                      #< helix
+        helix_pomatia: "Burgundy snail"                    #< helix
+        hevea: "Hevea"                                     #< euphorbiaceae
+        hibiscus: "Hibiscus"                               #< malvaceae
         hordeum: "Barley"                                  #< poaceae
         hordeum_hibernum: "Winter Barley"                  #< hordeum
         hordeum_hibernum_arturio: "Winter Barley arturio"  #< hordeum_hibernum
@@ -3762,6 +3910,9 @@ eng:
         hordeum_vernum_hypoproteinae: "Spring hordeum hypoproteinae" #< hordeum_vernum
         hordeum_vernum_traveler: "Spring hordeum traveler" #< hordeum_vernum
         hordeum_vulgare: "Hordeum vulgare"                 #< hordeum
+        hordeum_vulgare_hexastichum: "Bere"                #< hordeum_vulgare
+        humulus: "Humulus"                                 #< cannabaceae
+        humulus_lupulus: "Hop"                             #< humulus
         hymenochaetaceae: "Hymenochaetaceae"               #< fungus
         immatter: "Immatter"                               #< product
         implanter: "Implanter"                             #< equipment
@@ -3785,8 +3936,10 @@ eng:
         land_parcel_group: "Land parcel group"             #< product_group
         lavandula: "Lavandula"                             #< lamiaceae
         lens: "Lens"                                       #< fabaceae
-        lepus: "Lepus"                                     #< mammalia
-        liliaceae: "Liliaceae"                             #< plant
+        leporidae: "Leporidae"                             #< mammalia
+        lepus: "Lepus"                                     #< leporidae
+        lepus_europaeus: "Brown hare"                      #< lepus
+        limacidae: "Limacidae"                             #< gastropoda
         linaceae: "Linaceae"                               #< plant
         linum: "Linum"                                     #< linaceae
         liquid_slurry: "Liquid slurry"                     #< excrement
@@ -3797,39 +3950,61 @@ eng:
         lolium_perenne: "Ryegrass perenne"                 #< lolium
         lupinus: "Lupine"                                  #< fabaceae
         malus: "Malus"                                     #< rosaceae
+        malvaceae: "Malvaceae"                             #< plant
         mammalia: "Mammalia"                               #< animal
+        mangifera: "Mangifera"                             #< anacardiaceae
+        manihot: "Manioc"                                  #< euphorbiaceae
         manure: "Manure"                                   #< excrement
         matter: "Matter"                                   #< product
         meat: "Meat"                                       #< raw_matter
         medicago: "Lucerne"                                #< fabaceae
         medicago_comete: "Lucerne comete"                  #< medicago
+        meleagris: "Turkey"                                #< phasianidae
+        meleagris_gallopavo: "Domestic turkey"             #< meleagris
+        meleagris_ocellata: "Ocellated turkey"             #< meleagris
         milk: "Milk"                                       #< raw_matter
         mix: "Mix"                                         #< preparation
-        mollusca: "Mollusca"                               #< animal
         moraceae: "Moraceae"                               #< plant
         mower: "Mower"                                     #< equipment
+        myocastoridae: "Myocastoridae"                     #< mammalia
+        mytilidae: "Mytilidae"                             #< bivalvia
+        mytilus: "Mytilus"                                 #< mytilidae
+        mytilus_californianus: "California mussel"         #< mytilus
+        mytilus_edulis: "Blue mussel"                      #< mytilus
+        mytilus_galloprovincialis: "Mediterranean mussel"  #< mytilus
+        mytilus_trossulus: "Bay mussel"                    #< mytilus
         nicotiana: "Nicotiana"                             #< solanaceae
         nicotiana_tabacum: "Cultivated tobacco"            #< nicotiana
         nicotiana_tabacum_brown: "Cultivated tobacco Brown" #< nicotiana_tabacum
         nicotiana_tabacum_burley: "Cultivated tobacco Burley" #< nicotiana_tabacum
         nicotiana_tabacum_virginie: "Cultivated tobacco Virginie" #< nicotiana_tabacum
-        numida: "Helmeted Guineafowl"                      #< aves
+        numida: "Numida"                                   #< numididae
+        numida_meleagris: "Helmeted guineafowl"            #< numida
+        numididae: "Numididae"                             #< aves
         oil: "Oil"                                         #< raw_matter
+        olea: "Olea"                                       #< oleaceae
+        olea_europaea: "Olive tree"                        #< olea
+        oleaceae: "Oleaceae"                               #< plant
         operophtera_brumata: "Operophtera brumata"         #< insecta
-        oryctolagus: "Oryctolagus"                         #< mammalia
+        oryctolagus: "Oryctolagus"                         #< leporidae
         oryctolagus_cuniculus: "Common rabbit"             #< oryctolagus
         oryctolagus_cuniculus_blanc_de_vienne: "Common rabbit blanc de vienne" #< oryctolagus_cuniculus
         oryctolagus_cuniculus_bleu_de_vienne: "Common rabbit bleu de vienne" #< oryctolagus_cuniculus
         oryctolagus_cuniculus_gris_de_vienne: "Common rabbit gris de vienne" #< oryctolagus_cuniculus
         oryctolagus_cuniculus_nain_belier: "Common rabbit nain belier" #< oryctolagus_cuniculus
         oryza: "Rice"                                      #< poaceae
-        osteichthyes: "Osteichthyes"                       #< animal
-        ostreidae: "Ostreidae"                             #< mollusca
-        ovis: "Ovis"                                       #< mammalia
+        ostreidae: "Ostreidae"                             #< bivalvia
+        ovis: "Ovis"                                       #< bovidae
+        ovis_aries: "Sheep"                                #< ovis
         packaged_matter: "Packaged matter"                 #< preparation
         pastinaca_sativa: "Parsnip"                        #< apiaceae
+        pavo: "Peafowl"                                    #< phasianidae
+        pavo_cristatus: "Indian peafowl"                   #< pavo
         peach: "Peach"                                     #< fruit
         pear: "Pear"                                       #< fruit
+        pecten: "Pecten"                                   #< pectinidae
+        pecten_maximus: "Great scallop"                    #< pecten
+        pectinidae: "Pectinidae"                           #< bivalvia
         peronosporaceae: "Peronosporaceae"                 #< fungus
         petroselinum: "Parsley"                            #< apiaceae
         petroselinum_crispum: "Common Parsley"             #< petroselinum
@@ -3838,11 +4013,19 @@ eng:
         petroselinum_crispum_tuberosum: "Hamburg Parsley"  #< petroselinum_crispum
         petroselinum_segetum: "Corn Parsley"               #< petroselinum
         phacelia: "Phacelia"                               #< boraginaceae
+        phalaris: "Phalaris"                               #< poaceae
+        phalaris_canariensis: "Canary grass"               #< phalaris
         phaseolus: "Phaseolus"                             #< fabaceae
+        phasianidae: "Phasianidae"                         #< aves
+        phasianus: "Phasianus"                             #< phasianidae
+        phasianus_colchicus: "Common pheasant"             #< phasianus
         phytoptus_avellanae: "Phytoptus avellanae"         #< insecta
+        pistacia: "Pistacia"                               #< anacardiaceae
+        pistacia_vera: "Pistacia vera"                     #< pistacia
         pisum: "Pea"                                       #< fabaceae
-        pisum_hibernum: "Winter pea"                       #< pisum
-        pisum_vernum: "Spring pea"                         #< pisum
+        pisum_hibernum: "Winter pea"                       #< pisum_sativum
+        pisum_sativum: "Pea"                               #< pisum
+        pisum_vernum: "Spring pea"                         #< pisum_sativum
         pisum_vernum_astronaute: "Spring pea astronaute"   #< pisum_vernum
         pisum_vernum_audit: "Spring pea audit"             #< pisum_vernum
         pisum_vernum_kayanne: "Spring pea kayanne"         #< pisum_vernum
@@ -3872,6 +4055,7 @@ eng:
         prunus_domestica_bernardina: "Prunus domestica Bernardina" #< prunus_domestica
         prunus_domestica_bluefre: "Prunus domestica Bluefre" #< prunus_domestica
         prunus_domestica_carpatin: "Prunus domestica Carpatin" #< prunus_domestica
+        prunus_dulcis: "Almond"                            #< prunus
         prunus_persica: "Prunus persica"                   #< prunus
         prunus_persica_jh_hall: "Prunus persica JH Hall"   #< prunus_persica
         prunus_persica_madeleine: "Prunus persica Madeleine" #< prunus_persica
@@ -3886,6 +4070,7 @@ eng:
         pyrus_communis_beurre_hardy: "Pyrus communis Beurre Hardy" #< pyrus_communis
         pyrus_communis_william: "Pyrus communis William"   #< pyrus_communis
         pyrus_communis_william_bon_chretien: "Pyrus communis William Bon-Chretien" #< pyrus_communis
+        quercus: "Oak"                                     #< fagaceae
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
         reaper: "Reaper"                                   #< equipment
@@ -3895,6 +4080,7 @@ eng:
         ribes_nigrum_andega: "Blackcurrant Andega"         #< ribes_nigrum
         ribes_rubrum: "Redcurrant"                         #< ribes
         ribes_rubrum_wilder: "Redcurrant Wilder"           #< ribes_rubrum
+        ricinus: "Castor oil plant"                        #< euphorbiaceae
         rosa: "Rosa"                                       #< rosaceae
         rosa_centifolia: "Rosa centifolia"                 #< rosa
         rosa_dades: "Rosa dades"                           #< rosa
@@ -3908,12 +4094,17 @@ eng:
         rubus_idaeus_tulameen: "Red raspberry Tulameen"    #< rubus_idaeus
         rubus_idaeus_willamette: "Red raspberry Willamette" #< rubus_idaeus
         rubus_idaeus_zeva: "Red raspberry Zeva"            #< rubus_idaeus
+        rutaceae: "Rutaceae"                               #< plant
         saccharomyces: "Saccharomyces"                     #< saccharomycetaceae
         saccharomyces_cerevisiae: "Saccharomyces cerevisiae" #< saccharomyces
         saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" #< saccharomyces_cerevisiae
         saccharomycetaceae: "Saccharomycetaceae"           #< fungus
         saccharose: "Saccharose"                           #< sugar
-        salmo: "Salmo"                                     #< osteichthyes
+        salmo: "Salmo"                                     #< salmonidae
+        salmo_carpio: "Carpione"                           #< salmo
+        salmo_salar: "Atlantic salmon"                     #< salmo
+        salmo_trutta: "Brown trout"                        #< salmo
+        salmonidae: "Salmonidae"                           #< actinopterygii
         salt: "Salt"                                       #< raw_matter
         sand: "Sand"                                       #< raw_matter
         scaphoideus_titanus: "Scaphoideus titanus"         #< insecta
@@ -3921,6 +4112,7 @@ eng:
         screw_bottle: "Screw bottle"                       #< bottle
         screw_cap: "Screw cap"                             #< cap
         secale: "Secale"                                   #< poaceae
+        secale_cereale: "Rye"                              #< secale
         seed: "Seed"                                       #< raw_matter
         seedling: "Seedling"                               #< raw_matter
         service: "Service"                                 #< immatter
@@ -4277,9 +4469,13 @@ eng:
         stake: "Stake"                                     #< packaged_matter
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
+        struthio: "Struthio"                               #< struthionidae
+        struthio_camelus: "Ostrich"                        #< struthio
+        struthionidae: "Struthionidae"                     #< aves
         sub_zone: "Sub zone"                               #< zone
         sugar: "Sugar"                                     #< raw_matter
-        sus: "Sus"                                         #< mammalia
+        suidae: "Suidae"                                   #< mammalia
+        sus: "Sus"                                         #< suidae
         sus_scrofa: "Domestic pig"                         #< sus
         sus_scrofa_carelie: "Domestic pig Carelie"         #< sus_scrofa
         sus_scrofa_corse: "Domestic pig Corse"             #< sus_scrofa
@@ -4318,6 +4514,9 @@ eng:
         sus_scrofa_x70: "Domestic pig X70"                 #< sus_scrofa
         sus_scrofa_x80: "Domestic pig X80"                 #< sus_scrofa
         tank: "Tank"                                       #< equipment
+        theobroma: "Theobroma"                             #< malvaceae
+        theobroma_cacao: "Cocoa tree"                      #< theobroma
+        theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
         tractor: "Tractor"                                 #< equipment
         trailer: "Trailer"                                 #< equipment
         trifolium: "Clover"                                #< fabaceae
@@ -4413,6 +4612,7 @@ eng:
         vegetable: "Vegetable"                             #< raw_matter
         vial: "Vial"                                       #< raw_matter
         vicia: "Vicia"                                     #< fabaceae
+        vicia_faba: "Horsebean"                            #< vicia
         vicia_sativa: "Vicia sativa"                       #< vicia
         vicia_villosa: "Vicia villosa"                     #< vicia
         vicia_villosa_aneto: "Vicia villosa aneto"         #< vicia_villosa

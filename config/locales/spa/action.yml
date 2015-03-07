@@ -821,6 +821,7 @@ spa:
     # add_delivery: "Add delivery"
     # add_distribution: "Add distribution"
     # add_email: "Add email"
+    # add_expense: "Add expense"
     # add_fax: "Add fax"
     # add_filter: "Add filter"
     # add_item: "Add item"
@@ -834,6 +835,7 @@ spa:
     # add_purchase_taxation: "Add purchase taxation"
     # add_quickly_an_item: "Add quickly a line of product"
     # add_reading: "Add a value for an indicator"
+    # add_revenue: "Add revenue"
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_website: "Add website"
@@ -1689,6 +1691,7 @@ spa:
     # wind_speed: "Wind speed"
     # with_financial_assets_depreciations: "With financial assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
+    # working_duration: "Working duration"
     # working_sets_stocks: "Working sets stocks"
     x_cashes:
       # one: "%{count} cash"

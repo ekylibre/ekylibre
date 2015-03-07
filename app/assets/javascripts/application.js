@@ -21,7 +21,7 @@
 //= require turbolinks
 //= require active_list.jquery
 //= require_self
-//= require erp
+//= require ekylibre
 //= require formize/behave
 //= require formize/dialog
 //= require formize/observe
@@ -32,7 +32,7 @@
 //= require formize/autocomplete
 //= require formize/popover-form
 //= require cocoon
-//= require support
+//= require jquery/ext
 //= require selector
 //= require ui
 //= require jstz
@@ -45,6 +45,5 @@
 //= require_tree .
 
 var visualization = {};
-var erp = {};
 var ekylibre = {};
-
+var calcul = {};

@@ -151,7 +151,7 @@ class Product < Ekylibre::Record::Base
     where(nature_id: nature.id)
   }
   scope :of_variant, lambda { |variant, at = Time.now|
-    where(variant_id: variant.id)
+    where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
   scope :at, lambda { |at| where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
   scope :of_owner, lambda { |owner|

@@ -717,6 +717,7 @@ fra:
     add_diagnostic: "Ajouter un diagnostic" #?
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
+    add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
     add_item: "Ajouter un élément"
@@ -734,6 +735,7 @@ fra:
     add_purchase_taxation: "Ajouter une taxe d’achat"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_reading: "Ajouter une mesure pour un indicateur"
+    add_revenue: "Ajouter une recette"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production" #?
@@ -1738,6 +1740,7 @@ fra:
     with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
+    working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_zone: "Zone travaillée" #?
     x_cashes:

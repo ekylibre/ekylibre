@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-rutaceae" hierarchical="true">
+    <items>
+      <item name="citrus"      itis_tsn="28882"/>
+      <item name="fortunella"  itis_tsn="500284"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-citrus" hierarchical="true">
+    <items>
+      <item name="citrus_maxima" itis_tsn="501574"/>
+      <item name="citrus_medica" itis_tsn="28886"/> <!-- citron/cedrat -->
+      <item name="citrus_reticulata" itis_tsn="28888"/> <!-- tangerine/mandarine -->
+      <item name="citrus_sinensis" itis_tsn="825213"/> <!-- orange -->
+    </items>
+  </nomenclature>
+
+  <!-- kumquat -->
+  <nomenclature name="varieties-fortunella" hierarchical="true">
+    <items>
+      <item name="fortunella_japonica"  itis_tsn="502643"/>
+      <item name="fortunella_margarita" itis_tsn="502644"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

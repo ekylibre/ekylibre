@@ -1,26 +1,21 @@
 :ruby
   f.object.direction ||= direction if local_assigns[:direction]
-  direction ||= f.object.direction
-  # indicator_options = Nomen::Indicators.where(datatype: :measure).inject([]) do |options, indicator|
-  #   indicator_name = indicator.name
-  #   Measure.siblings(indicator.unit).each do |unit|
-  #     options << ["#{indicator_name}_in_#{unit}".to_sym, "#{indicator_name}-#{unit}".to_sym]
-  #   end
-  #   options
-  # end
-  # selected_indicator = "#{f.object.working_indicator}-#{f.object.working_unit}".to_sym
 %tr.nested-fields.budget
-  %td= f.referenced_association :variant, wrapper: :nested
+  %td= f.referenced_association :variant, wrapper: :nested, closest: ".nested-fields"
   %td
     = f.input :quantity, wrapper: :nested_append do
       = f.input_field :quantity, class: "budget-quantity"
-      = f.variant_quantifier_of_field :variant, indicator_column: :unit_indicator, unit_column: :unit_unit
+      = f.variant_quantifier_of_field :variant, population: true, working_duration: true
   %td
-    = f.input :computation_method, wrapper: :nested, input_html: {class: "computation-method"}
-    = hidden_field_tag(:coeff, , class: "budget-coeff")
+    - f.object.computation_method ||= :per_working_unit
+    = f.input :computation_method, wrapper: :nested, input_html: {class: "computation-method"}, include_blank: false
+    = hidden_field_tag(:coeff, f.object.coefficient, class: "budget-coeff")
   %td
-    = f.input :unit_amount, wrapper: :nested, input_html: {class: "budget-unit-amount"}
+    = f.input :unit_amount, wrapper: :nested_append do
+      = f.input_field :unit_amount, class: "budget-unit-amount"
+      %span.add-on= currency_symbol
     = f.input :unit_currency, as: :hidden
     = f.input :direction, as: :hidden
-  %td.decimal{class: "#{direction}-amount", data: {use: ".budget-quantity, .budget-unit-amount, .budget-coeff", use_closest: ".nested-fields", calculate: "mul", calculate_round: 2}}= f.object.amount.round(2)
-  %td.action= link_to_remove_nested_association(:remove_budget, f)
+  %td.decimal{class: "budget-amount #{direction}-amount", data: {use: ".budget-quantity, .budget-unit-amount, .budget-coeff", use_closest: ".nested-fields", calculate: "mul", calculate_round: 2}}= f.object.amount.round(2)
+  %td.currency= currency_symbol
+  %td.action= link_to_remove_nested_association(:budget, f)

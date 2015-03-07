@@ -86,11 +86,11 @@ fra:
         important: "Importante"
         normal: "Normale"
         notice: "Faible"
-    production_support_marker:
-      aim:
-        maximum: "Maximum"
-        minimum: "Minimum"
-        perfect: "Idéal"
+    production_budget:
+      computation_method:
+        per_production: "Par production"
+        per_production_support: "Par support de production"
+        per_working_unit: "Par unité d'œuvre"
     sequence:
       period:
         cweek: "Semaine"

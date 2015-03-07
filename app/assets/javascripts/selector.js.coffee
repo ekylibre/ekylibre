@@ -53,11 +53,11 @@
       this._on @dropDownMenu,
         "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
-      this.sourceURL = @element.data("selector")
       if @valueField.val()? and @valueField.val().length > 0
         this._set @valueField.val()
       else if @element.val()? and @element.val().length > 0
         this._set @element.val()
+      @element.prop("widgetInitialized", true)
 
     value: (newValue) ->
       if newValue is null or newValue is undefined or newValue is ""
@@ -68,8 +68,9 @@
       if id is null or id is undefined or id is ""
         return @valueField.val()
       that = this
+      url = this.sourceURL()
       $.ajax
-        url: this.sourceURL,
+        url: url
         dataType: "json"
         data:
           id: id
@@ -81,8 +82,11 @@
           else
             console.warn "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
-          alert "Cannot get details of item on #{this.sourceURL} (#{status}): #{error}"
+          alert "Cannot get details of item on #{url} (#{status}): #{error}"
       this
+
+    sourceURL: () ->
+      @element.data("selector")
 
     _select: (id, label, triggerEvents = false) ->
       # console.log "select"
@@ -98,6 +102,8 @@
       if triggerEvents is true
         @valueField.trigger "selector:change"
         @element.trigger "selector:change"
+      @valueField.trigger "selector:set"
+      @element.trigger "selector:set"
       this
 
     _openMenu: (search) ->
@@ -113,8 +119,9 @@
           if paramName?
             data[paramName] = $(this).val() || $.trim($(this).html())
       menu = @dropDownMenu
+      url = this.sourceURL()
       $.ajax
-        url: this.sourceURL
+        url: url
         dataType: "html"
         data: data
         success: (data, status, request) ->
@@ -124,7 +131,7 @@
           else
             menu.hide()
         error: (request, status, error) ->
-          alert "Selector failure on #{this.sourceURL} (#{status}): #{error}"
+          alert "Selector failure on #{url} (#{status}): #{error}"
 
     _closeMenu: ->
       # console.log "closeMenu"

@@ -75,11 +75,11 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
 
     rename_column :production_budgets, :global_amount, :amount
     rename_column :production_budgets, :global_quantity, :quantity
-    rename_column :production_budgets, :working_indicator, :unit_indicator
-    rename_column :production_budgets, :working_unit, :unit_unit
+    rename_column :production_budgets, :working_indicator, :variant_indicator
+    rename_column :production_budgets, :working_unit, :variant_unit
     add_column :production_budgets, :unit_population, :decimal, precision: 19, scale: 4
     add_column :production_budgets, :unit_currency, :string
-    rename_column :productions, :variant_id, :producing_variant_id
+    rename_column :productions, :variant_id, :cultivation_variant_id
 
     reversible do |dir|
       dir.up do
@@ -161,8 +161,25 @@ class RenameBudgetsToProductionBudgets < ActiveRecord::Migration
     remove_column :production_supports, :exclusive, :boolean, null: false, default: false
     add_column :productions, :irrigated, :boolean, null: false, default: false
     add_column :productions, :nitrate_fixing, :boolean, null: false, default: false
-    # rename_column :productions, :working_indicator, :support_variant_indicator
-    # rename_column :productions, :working_unit, :support_variant_unit
+
+    rename_column :productions, :working_indicator, :support_variant_indicator
+    rename_column :productions, :working_unit, :support_variant_unit
+    
+    add_column :activities, :with_supports,       :boolean
+    add_column :activities, :with_cultivation,    :boolean
+    reversible do |dir|
+      dir.up do
+        execute "UPDATE activities SET with_supports = false, with_cultivation = false"
+        execute "UPDATE activities SET with_supports = true WHERE id IN (SELECT activity_id FROM productions AS p JOIN production_supports AS s ON (s.production_id=p.id))"
+        execute "UPDATE activities SET with_cultivation = true WHERE id IN (SELECT activity_id FROM productions AS p JOIN interventions AS i ON (i.production_id=p.id))"
+      end
+    end      
+    change_column_null :activities, :with_supports,    false
+    change_column_null :activities, :with_cultivation, false
+
+    add_column :activities, :support_variety,     :string
+    add_column :activities, :cultivation_variety, :string
+
 
     # Moves columns of support to production
     reversible do |dir|

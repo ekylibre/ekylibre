@@ -51,6 +51,8 @@
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 1 -->
+
+  <!-- LEVELS: kingdom > class > family > genus > species -->
   <nomenclature name="varieties-bioproduct">
     <items>
       <item name="animal"/>

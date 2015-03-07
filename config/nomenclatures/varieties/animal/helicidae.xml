@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-helicidae">
+    <items>
+      <item name="helix" itis_tsn="79867"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-helix">
+    <items>
+      <item name="helix_aperta"    itis_tsn="77905"/>
+      <item name="helix_aspersa"   itis_tsn="77906"/>
+      <item name="helix_pomatia"   itis_tsn="77907"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

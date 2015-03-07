@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="varieties-struthionidae" hierarchical="true">
+    <items>
+      <item name="struthio"     itis_tsn="174374"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-struthio" hierarchical="true">
+    <items>
+      <item name="struthio_camelus"   itis_tsn="174375"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>
+

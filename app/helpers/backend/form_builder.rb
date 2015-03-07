@@ -48,6 +48,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     input_id = model.name.underscore + "_" + reflection.foreign_key.to_s
 
     html_options = options.delete(:input_html) || {}
+    html_options[:data] ||= {}
+    html_options[:data][:use_closest] = options[:closest] if options[:closest]
 
     return input(reflection.foreign_key, options.merge(wrapper: (options[:wrapper] == :nested ? :nested_append : :append), reflection: reflection)) do
       self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url), value_parameter_name: options[:value_parameter_name] || reflection.foreign_key}))
@@ -77,6 +79,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     input_id = model.name.underscore + "_" + reflection.foreign_key.to_s + "_id"
 
     html_options = options.delete(:input_html) || {}
+    html_options[:data] ||= {}
+    html_options[:data][:use_closest] = options[:closest] if options[:closest]
 
     return self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url)}))
   end
@@ -138,18 +142,22 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
     indicator_column = options[:indicator_column] || "#{association}_indicator"
     unit_column = options[:unit_column] || "#{association}_unit"
-    html_options = {data: {variant_quantifier: @object.class.name.underscore + "[#{reflection.foreign_key}]"}}
+    html_options = {data: {variant_quantifier: "#{@object.class.name.underscore}_#{reflection.foreign_key}"}}
+    # Adds quantifier
+    [:population, :working_duration].each do |quantifier|
+      html_options[:data]["quantifiers_#{quantifier}".to_sym] = true if  options[quantifier]
+    end
+    # Specify scope
+    html_options[:data][:use_closest] = options[:closest] if options[:closest]
     option_tags = nil
     if variant = @object.send(association)
       quantifier_id = "#{@object.send(indicator_column)}-#{@object.send(unit_column)}"
-      option_tags = variant.quantifiers.map do |pair|
-        indicator, unit = pair.first, pair.second
+      option_tags = variant.unified_quantifiers(options.slice(:population, :working_duration)).map do |quantifier|
         # Please update app/views/backend/product_nature_variants/quantifiers view if you change something here
-        attrs = {value: "#{indicator.name}-#{unit.name}", data: {indicator: indicator.name, unit: unit.name, unit_symbol: unit.symbol}}
+        attrs = {value: "#{quantifier[:indicator][:name]}-#{quantifier[:unit][:name]}", data: {indicator: quantifier[:indicator][:name], unit: quantifier[:unit][:name], unit_symbol: quantifier[:unit][:symbol]}}
         attrs[:selected] = true if attrs[:value] == quantifier_id
-        @template.content_tag(:option, :unit_and_indicator.tl(indicator: indicator.human_name, unit: unit.human_name), attrs)
+        @template.content_tag(:option, :unit_and_indicator.tl(indicator: quantifier[:indicator][:human_name], unit: quantifier[:unit][:human_name]), attrs)
       end.join.html_safe
-      # option_tags = options_for_select(, quantifier_id)
     end
     html  = @template.select_tag("#{association}_quantifier", option_tags, html_options)
     html << self.input_field(indicator_column, as: :hidden, class: "quantifier-indicator")

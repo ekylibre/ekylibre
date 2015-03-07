@@ -114,6 +114,8 @@ activities:
   creator_id:
     type: integer
     references: user
+  cultivation_variety:
+    type: string
   description:
     type: text
   family:
@@ -130,12 +132,20 @@ activities:
   nature:
     type: string
     required: true
+  support_variety:
+    type: string
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
+  with_cultivation:
+    type: boolean
+    required: true
+  with_supports:
+    type: boolean
+    required: true
 activity_distributions:
   activity_id:
     type: integer
@@ -1130,7 +1140,7 @@ documents:
     required: true
   template_id:
     type: integer
-    references: ''
+    references: document_template
   updated_at:
     type: datetime
     required: true
@@ -4267,14 +4277,10 @@ production_budgets:
   unit_currency:
     type: string
     required: true
-  unit_indicator:
-    type: string
   unit_population:
     type: decimal
     precision: 19
     scale: 4
-  unit_unit:
-    type: string
   updated_at:
     type: datetime
     required: true
@@ -4284,6 +4290,10 @@ production_budgets:
   variant_id:
     type: integer
     references: product_nature_variant
+  variant_indicator:
+    type: string
+  variant_unit:
+    type: string
 production_distributions:
   affectation_percentage:
     type: decimal
@@ -4361,6 +4371,9 @@ productions:
   creator_id:
     type: integer
     references: user
+  cultivation_variant_id:
+    type: integer
+    references: product_nature_variant
   id:
     type: integer
     required: true
@@ -4380,9 +4393,6 @@ productions:
     default: false
   position:
     type: integer
-  producing_variant_id:
-    type: integer
-    references: product_nature_variant
   started_at:
     type: datetime
   state:
@@ -4393,16 +4403,16 @@ productions:
   support_variant_id:
     type: integer
     references: product_nature_variant
+  support_variant_indicator:
+    type: string
+  support_variant_unit:
+    type: string
   updated_at:
     type: datetime
     required: true
   updater_id:
     type: integer
     references: user
-  working_indicator:
-    type: string
-  working_unit:
-    type: string
 products:
   address_id:
     type: integer

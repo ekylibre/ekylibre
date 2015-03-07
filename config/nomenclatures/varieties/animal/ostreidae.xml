@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-ostreidae">
+    <items>
+      <item name="crassostrea" itis_tsn="79867"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-crassostrea">
+    <items>
+      <item name="crassostrea_ariakensis" itis_tsn="693930"/>
+      <item name="crassostrea_gigas"      itis_tsn="79868"/>
+      <item name="crassostrea_virginica"  itis_tsn="79872"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

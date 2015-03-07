@@ -22,25 +22,25 @@
 #
 # == Table: productions
 #
-#  activity_id          :integer          not null
-#  campaign_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  id                   :integer          not null, primary key
-#  irrigated            :boolean          default(FALSE), not null
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  nitrate_fixing       :boolean          default(FALSE), not null
-#  position             :integer
-#  producing_variant_id :integer
-#  started_at           :datetime
-#  state                :string           not null
-#  stopped_at           :datetime
-#  support_variant_id   :integer
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  working_indicator    :string
-#  working_unit         :string
+#  activity_id               :integer          not null
+#  campaign_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  cultivation_variant_id    :integer
+#  id                        :integer          not null, primary key
+#  irrigated                 :boolean          default(FALSE), not null
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nitrate_fixing            :boolean          default(FALSE), not null
+#  position                  :integer
+#  started_at                :datetime
+#  state                     :string           not null
+#  stopped_at                :datetime
+#  support_variant_id        :integer
+#  support_variant_indicator :string
+#  support_variant_unit      :string
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 require 'test_helper'
 

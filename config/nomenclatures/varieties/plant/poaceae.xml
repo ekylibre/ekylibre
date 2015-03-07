@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-poaceae" hierarchical="true">
+    <items>
+      <item name="avena" itis_tsn="41455"/>
+      <item name="bambusa" itis_tsn="193439"/>
+      <item name="hordeum" itis_tsn="40865"/>
+      <item name="oryza" itis_tsn="41975"/>
+      <item name="phalaris" itis_tsn="41334"/>
+      <item name="poa" itis_tsn="41074"/>
+      <item name="secale" itis_tsn="41455"/>
+      <item name="setaria" itis_tsn="41229"/>
+      <item name="sorghum" itis_tsn="42106"/>
+      <item name="triticosecale" itis_tsn="41455"/>
+      <item name="triticum" itis_tsn="42236"/>
+      <item name="zea" itis_tsn="42268"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-poa" hierarchical="true">
+    <items>
+      <item name="dactylis" itis_tsn="193445"/>
+      <item name="lolium" itis_tsn="40891"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-phalaris" hierarchical="true">
+    <items>
+      <item name="phalaris_canariensis" itis_tsn="41336"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-secale" hierarchical="true">
+    <items>
+      <item name="secale_cereale" itis_tsn="42090"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-dactylis" hierarchical="true">
+    <items>
+      <item name="dactylis_lazuly" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-lolium" hierarchical="true">
+    <items>
+      <item name="lolium_perenne" itis_tsn="40893"/><!-- RGA -->
+      <item name="lolium_multiflorum" itis_tsn="40892"/><!-- RGI -->
+      <item name="lolium_hybridum" itis_tsn="783684"/><!-- RGH -->
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-lolium_hybridum" hierarchical="true">
+    <items>
+      <item name="lolium_hybridum_bahial" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+
+
+</nomenclatures>

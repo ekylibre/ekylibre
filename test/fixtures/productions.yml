@@ -22,25 +22,25 @@
 #
 # == Table: productions
 #
-#  activity_id          :integer          not null
-#  campaign_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  id                   :integer          not null, primary key
-#  irrigated            :boolean          default(FALSE), not null
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  nitrate_fixing       :boolean          default(FALSE), not null
-#  position             :integer
-#  producing_variant_id :integer
-#  started_at           :datetime
-#  state                :string           not null
-#  stopped_at           :datetime
-#  support_variant_id   :integer
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  working_indicator    :string
-#  working_unit         :string
+#  activity_id               :integer          not null
+#  campaign_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  cultivation_variant_id    :integer
+#  id                        :integer          not null, primary key
+#  irrigated                 :boolean          default(FALSE), not null
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nitrate_fixing            :boolean          default(FALSE), not null
+#  position                  :integer
+#  started_at                :datetime
+#  state                     :string           not null
+#  stopped_at                :datetime
+#  support_variant_id        :integer
+#  support_variant_indicator :string
+#  support_variant_unit      :string
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 #
 # == Fixture: productions
@@ -61,12 +61,12 @@ productions_001:
   campaign_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  cultivation_variant_id: 16
   id: 1
   irrigated: false
   lock_version: 3
   name: Culture de blé/Blé 2013 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 16
   state: opened
   updated_at: 2014-11-04 17:23:15.015623000 Z
   updater_id: 1
@@ -75,12 +75,12 @@ productions_002:
   campaign_id: 4
   created_at: 2014-11-04 15:26:44.662690000 Z
   creator_id: 1
+  cultivation_variant_id: 16
   id: 4
   irrigated: false
   lock_version: 2
   name: Culture de blé/Blé 2014 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 16
   state: opened
   updated_at: 2014-11-04 17:23:48.519311000 Z
   updater_id: 1
@@ -89,12 +89,12 @@ productions_003:
   campaign_id: 1
   created_at: 2014-11-04 17:24:51.387221000 Z
   creator_id: 1
+  cultivation_variant_id: 17
   id: 5
   irrigated: false
   lock_version: 1
   name: Vache/Bovins 2013 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 17
   state: opened
   updated_at: 2014-11-07 15:53:12.704285000 Z
   updater_id: 1
@@ -103,12 +103,12 @@ productions_004:
   campaign_id: 4
   created_at: 2014-11-04 18:17:39.473350000 Z
   creator_id: 1
+  cultivation_variant_id: 32
   id: 6
   irrigated: false
   lock_version: 0
   name: Culture de maïs/Maïs 2014 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 32
   state: opened
   updated_at: 2014-11-04 18:17:39.473350000 Z
   updater_id: 1
@@ -117,12 +117,12 @@ productions_005:
   campaign_id: 1
   created_at: 2014-11-04 18:21:43.148079000 Z
   creator_id: 1
+  cultivation_variant_id: 32
   id: 7
   irrigated: false
   lock_version: 1
   name: Culture de maïs/Maïs 2013 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 32
   state: opened
   updated_at: 2014-11-04 18:29:40.340837000 Z
   updater_id: 1
@@ -131,12 +131,12 @@ productions_006:
   campaign_id: 4
   created_at: 2014-11-07 14:43:13.631506000 Z
   creator_id: 1
+  cultivation_variant_id: 17
   id: 8
   irrigated: false
   lock_version: 0
   name: Vache/Bovins 2014 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 17
   state: opened
   updated_at: 2014-11-07 14:43:13.631506000 Z
   updater_id: 1
@@ -145,12 +145,12 @@ productions_007:
   campaign_id: 1
   created_at: 2014-11-07 16:34:30.850122000 Z
   creator_id: 1
+  cultivation_variant_id: 44
   id: 9
   irrigated: false
   lock_version: 0
   name: Culture de vigne/Vignes 2013 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 44
   state: opened
   updated_at: 2014-11-07 16:34:30.850122000 Z
   updater_id: 1
@@ -159,12 +159,12 @@ productions_008:
   campaign_id: 4
   created_at: 2014-11-07 16:35:00.782789000 Z
   creator_id: 1
+  cultivation_variant_id: 44
   id: 10
   irrigated: false
   lock_version: 0
   name: Culture de vigne/Vignes 2014 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 44
   state: opened
   updated_at: 2014-11-07 16:35:00.782789000 Z
   updater_id: 1
@@ -173,12 +173,12 @@ productions_009:
   campaign_id: 1
   created_at: 2014-11-07 17:11:38.260932000 Z
   creator_id: 1
+  cultivation_variant_id: 49
   id: 11
   irrigated: false
   lock_version: 1
   name: Vin/Vin 2013 (Prévue)
   nitrate_fixing: false
-  producing_variant_id: 49
   state: opened
   updated_at: 2014-11-07 17:21:46.199009000 Z
   updater_id: 1

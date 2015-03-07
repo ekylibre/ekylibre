@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="varieties-acipenseridae" hierarchical="true">
+    <items>
+      <item name="acipenser"               itis_tsn="161065"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-acipenser" hierarchical="true">
+    <items>
+      <item name="acipenser_baerii"          itis_tsn="161066"/>
+      <item name="acipenser_sturio"          itis_tsn="161072"/>
+      <item name="acipenser_transmontanus"   itis_tsn="161068"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>
+

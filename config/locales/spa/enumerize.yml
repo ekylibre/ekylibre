@@ -101,12 +101,13 @@ spa:
     product_localization: #?
     product_nature: #?
     product_transfer: #?
+    production_budget:
+      computation_method:
+        # per_production: "Per production"
+        # per_production_support: "Per production support"
+        # per_working_unit: "Per working unit"
     production_chain_work_center: #?
-    production_support_marker:
-      aim:
-        # maximum: "Maximum"
-        # minimum: "Minimum"
-        # perfect: "Perfect"
+    production_support_marker: #?
     products_nature: #?
     sequence:
       period:

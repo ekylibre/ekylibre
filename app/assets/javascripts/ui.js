@@ -212,82 +212,6 @@
   });
 
 
-
-  // Use element to compute a calculation
-  $(document).behave("load", "*[data-use]", function () {
-    var element = $(this);
-    if (element.isCalculationResult()) {
-      element.attr("data-auto-calculate", "true");
-    } else {
-      element.removeAttr("data-auto-calculate");
-    }
-  });
-
-  $.calculateResults = function () {
-    $("*[data-use][data-auto-calculate]").each($.calculate);
-  };
-
-  $.calculateResults();
-  window.setInterval($.calculateResults, 300);
-
-
-  $(document).behave("load", "*[data-balance]", function () {
-    var element = $(this), operands = $(this).data("balance").split(/\s\-\s/g).slice(0,2);
-    $(document).behave('change emulated:change', operands.join(", "), function () {
-      var plus = $(operands[0]).sum(), minus = $(operands[1]).sum();
-      // alert(operands[0] + " > " + plus);
-      // alert(operands[1] + " > " + minus);
-      if (plus > minus) {
-        element.numericalValue(plus - minus);
-      } else {
-        element.numericalValue(0);
-      }
-    });
-  });
-
-  $(document).behave("load keyup change emulated:change", "*[data-less-than-or-equal-to]", function () {
-    var element = $(this), maximum = parseFloat(element.data("less-than-or-equal-to"));
-    if (element.numericalValue() > maximum) {
-      //element.numericalValue(maximum);
-      element.removeClass("valid");
-      element.addClass("invalid");
-    } else {
-      element.removeClass("invalid");
-      element.addClass("valid");
-    }
-  });
-
-  $(document).behave("load", "*[data-valid-if-equality-between]", function () {
-    var element  = $(this);
-    var selector = element.data("valid-if-equality-between");
-    $(document).behave("load keyup change emulated:change remove", selector, function () {
-      var value = null, equality = true, oldEquality;
-      oldEquality = element.hasClass("valid");
-      $(selector).each(function () {
-        if (value === null) { value = $(this).numericalValue(); }
-        if (value !== $(this).numericalValue()) { equality = false; }
-      });
-      if (element.hasClass("valid") && !equality) {
-        element.removeClass("valid");
-        element.addClass("invalid");
-        element.trigger("change");
-      } else if (element.hasClass("invalid") && equality) {
-        element.removeClass("invalid");
-        element.addClass("valid");
-        element.trigger("change");
-      }
-    });
-  });
-
-  $(document).on("change", "*[data-valid-if-equality-between]", function () {
-    var element = $(this), form;
-    if (element.hasClass("valid")) {
-      form = element.closest("form");
-      if (form)
-        form.submit();
-    }
-  });
-
   // Removes DOM Element defined by the selector
   $(document).behave("click", "a[data-remove]", function () {
     $($(this).data("remove")).deepRemove();
@@ -580,15 +504,6 @@
     return false;
   });
 
-
-  $(document).on("click", "a[data-insert-into][data-insert]", function (event) {
-    var element = $(this), data, target;
-    data = element.data("insert");
-    $(element.data("insert-into")).each(function (index) {
-      insertInto(this, '', '', data);
-    });
-    return false;
-  });
 
   $(document).on("mouseenter", ".btn", function (event) {
     var button = $(this), text;

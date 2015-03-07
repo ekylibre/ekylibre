@@ -1203,6 +1203,9 @@ fra:
     suppliers: "Fournisseurs"
     support: "Support"
     # support_variant: "Support variant"
+    # support_variant_indicator: "Support variant indicator"
+    # support_variant_unit: "Support variant unit"
+    # support_variety: "Support variety"
     supports: "Supports"
     suspended: "Suspendu"
     target: "Cible"
@@ -1259,6 +1262,8 @@ fra:
     variable_indicators: "Indicateurs d’une variable" #?
     variable_indicators_list: "Liste des indicateurs de variables"
     variant: "Variante"
+    # variant_indicator: "Variant indicator"
+    # variant_unit: "Variant unit"
     variants: "Variantes"
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"

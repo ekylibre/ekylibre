@@ -59,7 +59,7 @@ Exchanges.add_importer :ekylibre_activities do |file, w|
     if product_nature_variant
       w.debug "ProductNatureVariant: #{product_nature_variant.name}"
       # Find or create a production
-      production = Production.find_or_create_by!(campaign_id: campaign.id, activity_id: activity.id, producing_variant_id: product_nature_variant.id, name: r.name)
+      production = Production.find_or_create_by!(campaign_id: campaign.id, activity_id: activity.id, cultivation_variant_id: product_nature_variant.id, name: r.name)
       w.debug "Production: #{production.name}"
 
       production.state = :opened

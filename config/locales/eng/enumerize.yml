@@ -86,11 +86,11 @@ eng:
         important: "Important"
         normal: "Normal"
         notice: "Notice"
-    production_support_marker:
-      aim:
-        maximum: "Maximum"
-        minimum: "Minimum"
-        perfect: "Perfect"
+    production_budget:
+      computation_method:
+        per_production: "Per production"
+        per_production_support: "Per production support"
+        per_working_unit: "Per working unit"
     sequence:
       period:
         cweek: "Commercial week"

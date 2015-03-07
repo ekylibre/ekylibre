@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-oleaceae" hierarchical="true">
+    <items>
+      <item name="olea"      itis_tsn="32989"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-olea" hierarchical="true">
+    <items>
+      <item name="olea_europaea"      itis_tsn="32990"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- LEVELS: class > family > genus > species -->
   <nomenclature name="varieties-animal">
     <items>
-      <item name="mammalia" itis_tsn="179913"/>
+      <!-- Only "class" level -->
+      <item name="actinopterygii" itis_tsn="161061"/>
       <item name="aves" itis_tsn="174371"/>
-      <item name="osteichthyes" itis_tsn="161030"/>
+      <item name="bivalvia"   itis_tsn="79118"/>
+      <item name="gastropoda" itis_tsn="69459"/>
       <item name="insecta" itis_tsn="99208"/>
-      <item name="mollusca" itis_tsn="69458"/>
+      <item name="mammalia" itis_tsn="179913"/>
+      <!-- <item name="osteichthyes" itis_tsn="161030"/> -->
+      <!-- <item name="mollusca" itis_tsn="69458"/> -->
     </items>
   </nomenclature>
+
+  <nomenclature name="varieties-actinopterygii">
+    <items>
+      <item name="acipenseridae" itis_tsn="161931"/>
+      <item name="salmonidae"    itis_tsn="161931"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-aves">
     <items>
-      <item name="gallus"/>
-      <item name="anas"/>
-      <item name="cairina"/>
-      <item name="numida"/>
+      <item name="anatidae"      itis_tsn="174983"/>
+      <item name="numididae"     itis_tsn="176121"/>
+      <item name="phasianidae"   itis_tsn="175861"/>
+      <item name="struthionidae" itis_tsn="174373"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="varieties-osteichthyes">
+  <nomenclature name="varieties-bivalvia">
     <items>
-      <item name="salmo"/>
+      <item name="ostreidae"  itis_tsn="79866"/>
+      <item name="mytilidae"  itis_tsn="79451"/>
+      <item name="pectinidae" itis_tsn="79611"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="varieties-mollusca">
+  <nomenclature name="varieties-gastropoda">
     <items>
-      <item name="ostreidae" itis_tsn="79866"/>
+      <item name="helicidae" itis_tsn="79866"/>
+      <item name="limacidae" itis_tsn="79451"/>
     </items>
   </nomenclature>
 
   <nomenclature name="varieties-insecta">
     <items>
-      <item name="apis"/>
+      <item name="apidae"  itis_tsn="154394"/>
       <item name="scaphoideus_titanus"/>
       <item name="empoasca_vitis"/>
       <item name="cydia_pomonella"/>
@@ -51,13 +67,14 @@
 
   <nomenclature name="varieties-mammalia">
     <items>
-      <item name="capra"/>
-      <item name="ovis"/>
-      <item name="bovidae" itis_tsn="552332" />
-      <item name="sus"/>
-      <item name="lepus"/>
-      <item name="oryctolagus"/>
-      <item name="equus"/>
+      <item name="bovidae"       itis_tsn="180704"/>
+      <item name="canidae"       itis_tsn="180594"/>
+      <item name="cervidae"      itis_tsn="180693"/>
+      <item name="equidae"       itis_tsn="180688"/>
+      <item name="felidae"       itis_tsn="180580"/>
+      <item name="leporidae"     itis_tsn="180110"/>
+      <item name="myocastoridae" itis_tsn="180400"/>
+      <item name="suidae"        itis_tsn="180720"/>
     </items>
   </nomenclature>
 </nomenclatures>

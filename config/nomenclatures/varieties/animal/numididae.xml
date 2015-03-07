@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="varieties-numididae" hierarchical="true">
+    <items>
+      <item name="numida"       itis_tsn="176125"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-numida" hierarchical="true">
+    <items>
+      <item name="numida_meleagris"   itis_tsn="175126"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>
+

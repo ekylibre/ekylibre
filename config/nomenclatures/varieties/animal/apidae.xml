@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-apidae">
+    <items>
+      <item name="apis" itis_tsn="154395"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-apis">
+    <items>
+      <item name="apis_mellifera"  itis_tsn="154396"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

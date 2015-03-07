@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-salmonidae">
+    <items>
+      <item name="salmo"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-salmo">
+    <items>
+      <item name="salmo_trutta"     itis_tsn="161997"/>
+      <item name="salmo_salar"      itis_tsn="161996"/>
+      <item name="salmo_carpio"     itis_tsn="623490"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

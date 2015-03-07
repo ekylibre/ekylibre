@@ -34,20 +34,20 @@
 #  quantity           :decimal(19, 4)   default(0.0)
 #  unit_amount        :decimal(19, 4)   default(0.0)
 #  unit_currency      :string           not null
-#  unit_indicator     :string
 #  unit_population    :decimal(19, 4)
-#  unit_unit          :string
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer
+#  variant_indicator  :string
+#  variant_unit       :string
 #
 
 class ProductionBudget < Ekylibre::Record::Base
   # enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense], predicates: true
   enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit, predicates: true
-  enumerize :unit_indicator, in: Production.working_indicator.values
-  enumerize :unit_unit, in: Nomen::Units.all.sort
+  enumerize :variant_indicator, in: Production.support_variant_indicator.values
+  enumerize :variant_unit, in: Nomen::Units.all.sort
 
   belongs_to :production
   belongs_to :variant, class_name: 'ProductNatureVariant'
@@ -59,14 +59,15 @@ class ProductionBudget < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :variant, :production
 
-  delegate :supports, :supports_count, :working_indicator, :working_unit, to: :production
+  delegate :supports, :supports_count, :support_variant_indicator, :support_variant_unit, to: :production
   delegate :name, to: :variant, prefix: true
 
   scope :revenues, -> { where(direction: :revenue) }
   scope :expenses, -> { where(direction: :expense) }
 
   before_validation do
-    self.currency ||= self.unit_currency
+    self.unit_currency = Preference[:currency] if self.unit_currency.blank?
+    self.currency = self.unit_currency if self.currency.blank?
   end
 
   validate do
@@ -76,14 +77,22 @@ class ProductionBudget < Ekylibre::Record::Base
   end
 
   after_validation do
-    self.amount = self.unit_amount * self.quantity
+    self.amount = self.unit_amount * self.quantity * self.coefficient
+  end
+
+
+  # Computes the coefficient to use for amount computation
+  def coefficient(options = {})
+    return 0 unless self.production
+    options[:at] ||= self.production ? self.production.started_at : Time.now
     if self.per_production_support?
-      self.amount *= self.supports_count
+      return self.supports_count
     elsif self.per_working_unit?
-      self.amount *= self.supports.map do |support|
-        support.get(self.working_indicator).to_d(self.working_unit)
+      return self.supports.map do |support|
+        support.get(self.support_variant_indicator, options).to_d(self.support_variant_unit)
       end.sum
     end
+    return 1
   end
 
 end

@@ -37,4 +37,4 @@
 
     return true
 
-) erp, jQuery
+) ekylibre, jQuery

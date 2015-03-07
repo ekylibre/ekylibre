@@ -7,6 +7,10 @@
       - l.attribute :name
       - l.attribute :nature
       - l.attribute :family
+      - if resource.with_cultivation
+        - l.attribute :cultivation_variety
+      - if resource.with_supports
+        - l.attribute :support_variety
 
   - b.hbox do
     - b.cell(:productions) do

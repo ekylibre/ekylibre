@@ -1,5 +1,5 @@
 - reflection = direction.to_s.pluralize
-.items
+.items.budgets
   %table
     %thead
       %tr
@@ -7,15 +7,16 @@
         %th= ProductionBudget.human_attribute_name(:quantity)
         %th= ProductionBudget.human_attribute_name(:computation_method)
         %th= ProductionBudget.human_attribute_name(:unit_price)
-        %th= ProductionBudget.human_attribute_name(:amount)
+        %th{colspan: 2}= ProductionBudget.human_attribute_name(:amount)
         %th
     %tbody{id: reflection}
       = f.simple_fields_for reflection, resource.send(reflection) do |item|
-        = render 'budget_fields', f: item, direction: direction
+        = render 'budget_fields', f: item, direction: direction, currency_symbol: currency_symbol
     - precision = Nomen::Currencies[Preference[:currency]].precision
     %tfoot
       %tr.total
-        %th= link_to_add_association :add_item.tl, f, reflection, partial: 'budget_fields', 'data-association-insertion-node' => "##{reflection}", 'data-association-insertion-method' => :append, class: "btn", render_options: {locals: {direction: direction}}
+        %th= link_to_add_association "add_#{direction}".tl, f, reflection, partial: 'budget_fields', 'data-association-insertion-node' => "##{reflection}", 'data-association-insertion-method' => :append, class: "btn", render_options: {locals: {direction: direction, currency_symbol: currency_symbol}}
         %th{colspan: 3}= :total.tl
-        %td#pta.decimal{data: {use: ".#{direction}-amount", calculate: "sum", calculate_round: precision}}= resource.send(reflection).sum(:amount)
+        %td.decimal{id: "#{reflection}-total", data: {use: ".#{direction}-amount:visible", calculate: "sum", calculate_round: precision}}= resource.send(reflection).sum(:amount)
+        %td= currency_symbol
         %th

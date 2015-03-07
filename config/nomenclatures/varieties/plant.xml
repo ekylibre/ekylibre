@@ -2,25 +2,33 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-plant" hierarchical="true">
     <items>
+      <!-- only family level -->
       <item name="amaranthaceae" itis_tsn="20714"/>
       <item name="amaryllidaceae" itis_tsn="182703"/>
+      <item name="anacardiaceae" itis_tsn=""/>
       <item name="apiaceae" itis_tsn="500042"/>
+      <item name="asparagaceae" itis_tsn="810124"/>
       <item name="asteraceae" itis_tsn="35420"/>
       <item name="betulaceae" itis_tsn="19465"/>
       <item name="boraginaceae" itis_tsn="31633"/>
       <item name="brassicaceae" itis_tsn="12345"/>
+      <item name="bromeliaceae" itis_tsn="42330"/>
       <item name="cannabaceae" itis_tsn="19118"/>
       <item name="cucurbitaceae" itis_tsn="22337"/>
+      <item name="euphorbiaceae" itis_tsn="28031"/>
       <item name="fabaceae" itis_tsn="500059"/>
+      <item name="fagaceae" itis_tsn="19275"/>
       <item name="grossulariaceae" itis_tsn="24094"/>
       <item name="iridaceae" itis_tsn="43190"/>
       <item name="juglandaceae" itis_tsn="19222"/>
       <item name="lamiaceae" itis_tsn="32251"/>
-      <item name="liliaceae" itis_tsn="42633"/>
       <item name="linaceae" itis_tsn="29200"/>
+      <item name="malvaceae" itis_tsn="21608"/>
       <item name="moraceae" itis_tsn="19063"/>
+      <item name="oleaceae" itis_tsn="32927"/>
       <item name="poaceae" itis_tsn="40351"/>
       <item name="rosaceae" itis_tsn="24538"/>
+      <item name="rutaceae" itis_tsn="28848"/>
       <item name="solanaceae" itis_tsn="30411"/>
       <item name="valerianaceae" itis_tsn="35349"/>
       <item name="vitis" itis_tsn="28606"/>

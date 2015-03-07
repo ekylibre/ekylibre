@@ -37,7 +37,7 @@ module Nomen
       @required
     end
 
-    # Returns if property is required
+    # Returns if property is inherited for child items
     def inherit?
       @inherit
     end

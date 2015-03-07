@@ -190,6 +190,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Returns a list of couple indicator/unit usable for the given variant
+  # The result is only based on measure indicators
   def quantifiers
     list = []
     self.indicators.each do |indicator|
@@ -201,7 +202,29 @@ class ProductNatureVariant < Ekylibre::Record::Base
         end
       end
     end
-    puts list.inspect.red
+    return list
+  end
+
+  # Returns a list of quantifier
+  def unified_quantifiers(options = {})
+    list = self.quantifiers.map do |pair|
+      indicator, unit = pair.first, pair.second
+      {indicator: {name: indicator.name, human_name: indicator.human_name}, unit: {name: unit.name, symbol: unit.symbol, human_name: unit.human_name}}
+    end
+
+    # Add population
+    if options[:population]
+      indicator = Nomen::Indicators[:population]
+      list << {indicator: {name: indicator.name, human_name: indicator.human_name}, unit: {name: "", symbol: self.unit_name, human_name: self.unit_name}}
+    end
+
+    # Add working duration (intervention durations)
+    if options[:working_duration]
+      Nomen::Units.where(dimension: :time).each do |unit|
+        list << {indicator: {name: :working_duration, human_name: :working_duration.tl}, unit: {name: unit.name, symbol: unit.symbol, human_name: unit.human_name}}
+      end
+    end
+
     return list
   end
 

@@ -22,16 +22,20 @@
 #
 # == Table: activities
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  family       :string
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  nature       :string           not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  cultivation_variety :string
+#  description         :text
+#  family              :string
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string           not null
+#  nature              :string           not null
+#  support_variety     :string
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  with_cultivation    :boolean          not null
+#  with_supports       :boolean          not null
 #
 require 'test_helper'
 

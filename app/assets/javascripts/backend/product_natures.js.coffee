@@ -63,4 +63,4 @@
       mirror.prop("checked", !item.prop("checked")).trigger("change")
 
 
-) erp, jQuery
+) ekylibre, jQuery

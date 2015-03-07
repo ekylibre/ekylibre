@@ -65,15 +65,19 @@ ActiveRecord::Schema.define(version: 20150225142832) do
   add_index "accounts", ["updater_id"], name: "index_accounts_on_updater_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                     null: false
+    t.string   "name",                            null: false
     t.text     "description"
     t.string   "family"
-    t.string   "nature",                   null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "nature",                          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version",        default: 0, null: false
+    t.boolean  "with_supports",                   null: false
+    t.boolean  "with_cultivation",                null: false
+    t.string   "support_variety"
+    t.string   "cultivation_variety"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -2248,8 +2252,8 @@ ActiveRecord::Schema.define(version: 20150225142832) do
     t.decimal  "amount",             precision: 19, scale: 4, default: 0.0
     t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0
     t.decimal  "quantity",           precision: 19, scale: 4, default: 0.0
-    t.string   "unit_indicator"
-    t.string   "unit_unit"
+    t.string   "variant_indicator"
+    t.string   "variant_unit"
     t.string   "computation_method",                                        null: false
     t.string   "currency",                                                  null: false
     t.datetime "created_at",                                                null: false
@@ -2305,32 +2309,32 @@ ActiveRecord::Schema.define(version: 20150225142832) do
   add_index "production_supports", ["updater_id"], name: "index_production_supports_on_updater_id", using: :btree
 
   create_table "productions", force: :cascade do |t|
-    t.integer  "activity_id",                          null: false
-    t.integer  "campaign_id",                          null: false
-    t.integer  "producing_variant_id"
-    t.string   "name",                                 null: false
-    t.string   "state",                                null: false
+    t.integer  "activity_id",                               null: false
+    t.integer  "campaign_id",                               null: false
+    t.integer  "cultivation_variant_id"
+    t.string   "name",                                      null: false
+    t.string   "state",                                     null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.integer  "position"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0,     null: false
-    t.string   "working_indicator"
-    t.string   "working_unit"
+    t.integer  "lock_version",              default: 0,     null: false
+    t.string   "support_variant_indicator"
+    t.string   "support_variant_unit"
     t.integer  "support_variant_id"
-    t.boolean  "irrigated",            default: false, null: false
-    t.boolean  "nitrate_fixing",       default: false, null: false
+    t.boolean  "irrigated",                 default: false, null: false
+    t.boolean  "nitrate_fixing",            default: false, null: false
   end
 
   add_index "productions", ["activity_id"], name: "index_productions_on_activity_id", using: :btree
   add_index "productions", ["campaign_id"], name: "index_productions_on_campaign_id", using: :btree
   add_index "productions", ["created_at"], name: "index_productions_on_created_at", using: :btree
   add_index "productions", ["creator_id"], name: "index_productions_on_creator_id", using: :btree
+  add_index "productions", ["cultivation_variant_id"], name: "index_productions_on_cultivation_variant_id", using: :btree
   add_index "productions", ["name"], name: "index_productions_on_name", using: :btree
-  add_index "productions", ["producing_variant_id"], name: "index_productions_on_producing_variant_id", using: :btree
   add_index "productions", ["started_at"], name: "index_productions_on_started_at", using: :btree
   add_index "productions", ["stopped_at"], name: "index_productions_on_stopped_at", using: :btree
   add_index "productions", ["support_variant_id"], name: "index_productions_on_support_variant_id", using: :btree

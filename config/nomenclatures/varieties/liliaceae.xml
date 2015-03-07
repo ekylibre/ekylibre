@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-liliaceae" hierarchical="true">
-    <items>
-      <item name="asparagus" itis_tsn="42782"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

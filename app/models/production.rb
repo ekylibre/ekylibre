@@ -22,35 +22,35 @@
 #
 # == Table: productions
 #
-#  activity_id          :integer          not null
-#  campaign_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  id                   :integer          not null, primary key
-#  irrigated            :boolean          default(FALSE), not null
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  nitrate_fixing       :boolean          default(FALSE), not null
-#  position             :integer
-#  producing_variant_id :integer
-#  started_at           :datetime
-#  state                :string           not null
-#  stopped_at           :datetime
-#  support_variant_id   :integer
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  working_indicator    :string
-#  working_unit         :string
+#  activity_id               :integer          not null
+#  campaign_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  cultivation_variant_id    :integer
+#  id                        :integer          not null, primary key
+#  irrigated                 :boolean          default(FALSE), not null
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  nitrate_fixing            :boolean          default(FALSE), not null
+#  position                  :integer
+#  started_at                :datetime
+#  state                     :string           not null
+#  stopped_at                :datetime
+#  support_variant_id        :integer
+#  support_variant_indicator :string
+#  support_variant_unit      :string
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 class Production < Ekylibre::Record::Base
-  # Working unit and indicators refers to support
-  enumerize :working_unit, in: Nomen::Units.all
-  enumerize :working_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
+  # Support_Variant unit and indicators refers to support
+  enumerize :support_variant_unit, in: Nomen::Units.all
+  enumerize :support_variant_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
   belongs_to :activity
   belongs_to :campaign
-  belongs_to :producing_variant, class_name: "ProductNatureVariant"
+  belongs_to :cultivation_variant, class_name: "ProductNatureVariant"
   belongs_to :support_variant, class_name: "ProductNatureVariant"
-  belongs_to :variant, class_name: "ProductNatureVariant", foreign_key: :producing_variant_id
+  belongs_to :variant, class_name: "ProductNatureVariant", foreign_key: :cultivation_variant_id
   has_many :analytic_distributions
   has_many :activity_distributions, through: :activity, source: :distributions
   has_many :budgets, class_name: "ProductionBudget"
@@ -71,10 +71,10 @@ class Production < Ekylibre::Record::Base
   validates_associated :budgets
 
   alias_attribute :label, :name
-  alias_attribute :product_variant, :producing_variant
+  alias_attribute :product_variant, :cultivation_variant
 
   delegate :name, to: :activity, prefix: true
-  delegate :name, :variety, to: :producing_variant, prefix: true
+  delegate :name, :variety, to: :cultivation_variant, prefix: true
   delegate :name, :variety, to: :variant, prefix: true
   delegate :main?, :auxiliary?, :standalone?, to: :activity
 
@@ -143,7 +143,7 @@ class Production < Ekylibre::Record::Base
   end
 
   def has_active_product?
-    self.producing_variant.nature.active?
+    self.cultivation_variant.nature.active?
   end
 
   def self.state_label(state)
@@ -254,11 +254,11 @@ class Production < Ekylibre::Record::Base
   end
 
   def quandl_dataset
-    if Nomen::Varieties[self.producing_variant_variety.to_sym] <= :triticum_aestivum
+    if Nomen::Varieties[self.cultivation_variant_variety.to_sym] <= :triticum_aestivum
       return 'CHRIS/LIFFE_EBM4'
-    elsif Nomen::Varieties[self.producing_variant_variety.to_sym] <= :brassica_napus
+    elsif Nomen::Varieties[self.cultivation_variant_variety.to_sym] <= :brassica_napus
       return 'CHRIS/LIFFE_ECO4'
-    elsif Nomen::Varieties[self.producing_variant_variety.to_sym] <= :hordeum_vernum
+    elsif Nomen::Varieties[self.cultivation_variant_variety.to_sym] <= :hordeum_vernum
       return 'ODA/PBARL_USD'
     end
   end

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-anacardiaceae" hierarchical="true">
+    <items>
+      <item name="mangifera"          itis_tsn="28802"/>
+      <item name="pistacia"           itis_tsn="28806"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-pistacia" hierarchical="true">
+    <items>
+      <item name="pistacia_vera"      itis_tsn="506470"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

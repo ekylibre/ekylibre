@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-fabaceae" hierarchical="true">
+    <items>
+      <item name="arachis"   itis_tsn="26462"/>
+      <item name="ceratonia" itis_tsn="26530"/>
+      <item name="cicer"     itis_tsn="26536"/>
+      <item name="glycine"   itis_tsn="26715"/>
+      <item name="lens"      itis_tsn="26762"/>
+      <item name="lupinus"   itis_tsn="25916"/>
+      <item name="phaseolus" itis_tsn="203844"/>
+      <item name="pisum"     itis_tsn="26866"/>
+      <item name="medicago"  itis_tsn="183622"/>
+      <item name="trifolium" itis_tsn="26204"/>
+      <item name="vicia"     itis_tsn="26329"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-arachis" hierarchical="true">
+    <items>
+      <item name="arachis_hypogaea" itis_tsn="26463"/>
+      <item name="arachis_pintoi" itis_tsn="819926"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-ceratonia" hierarchical="true">
+    <items>
+      <item name="ceratonia_siliqua" itis_tsn="26531"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-cicer" hierarchical="true">
+    <items>
+      <item name="cicer_arietinum" itis_tsn="26537"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-glycine" hierarchical="true">
+    <items>
+      <item name="glycine_max" itis_tsn="26716"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

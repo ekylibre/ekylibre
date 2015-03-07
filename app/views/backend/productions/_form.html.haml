@@ -4,14 +4,21 @@
   = f.association :activity, disabled: true
   = f.association :campaign, as: :hidden
   = f.association :campaign, disabled: true
-  = f.referenced_association :producing_variant
-  = f.referenced_association :support_variant
-  = f.variant_quantifier_of :support_variant, indicator_column: :working_indicator, unit_column: :working_unit
+  - if variety = f.object.activity.cultivation_variety
+    = f.referenced_association :cultivation_variant, source: {scope: {of_variety: variety}}
+  - if variety = f.object.activity.support_variety
+    = f.referenced_association :support_variant, source: {scope: {of_variety: variety}}
+    .with-supports= f.variant_quantifier_of :support_variant
   = f.input :started_at
   = f.input :stopped_at
   = f.input :irrigated
   = f.input :nitrate_fixing
   = f.custom_fields
+
+:ruby
+  currency = Nomen::Currencies[Preference[:currency]]
+  currency_symbol = currency.symbol || currency.name
+  precision = currency.precision
 
 - if f.object.activity and f.object.auxiliary?
   :ruby
@@ -25,15 +32,34 @@
   = field_set(Production.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions, locals: {campaign: f.object.campaign})
 
-= field_set(Production.human_attribute_name(:supports)) do
-  -# = f.nested_association(:supports)
-  = render "supports_form", f: f
+.with-supports
+  = field_set(Production.human_attribute_name(:supports)) do
+    = render "supports_form", f: f
 
-= field_set(Production.human_attribute_name(:expenses)) do
-  = render "budgets_form", direction: :expense, f: f
-
-= field_set(Production.human_attribute_name(:revenues)) do
-  = render "budgets_form", direction: :revenue, f: f
-
--#= field_set(Production.human_attribute_name(:budgets)) do
-  = f.nested_association(:budgets)
+= field_set(Production.human_attribute_name(:budget)) do
+  = render "budgets_form", direction: :expense, f: f, currency_symbol: currency_symbol
+  = render "budgets_form", direction: :revenue, f: f, currency_symbol: currency_symbol
+  %table
+    %thead
+      %tr.total
+        %th
+        %th{colspan: 2}= :expenses.tl
+        %th{colspan: 2}= :revenues.tl
+        %th{colspan: 2}= :balance.tl
+    %tbody
+      %tr.total
+        %th= "enumerize.production_budget.computation_method.per_production".t
+        %td.decimal#expenses-per-production{data: {use: "#expenses-total"}}
+        %td.currency= currency_symbol
+        %td.decimal#revenues-per-production{data: {use: "#revenues-total"}}
+        %td.currency= currency_symbol
+        %td.decimal#balance-per-production{data: {difference: "#revenues-per-production - #expenses-per-production", calculate_round: precision}}
+        %td.currency= currency_symbol
+      %tr.total.working-unit-only
+        %th= "enumerize.production_budget.computation_method.per_working_unit".t
+        %td.decimal#expenses-per-working-unit{data: {division: "#expenses-per-production / #supports-quantity", calculate_round: precision}}
+        %td.currency= currency_symbol
+        %td.decimal#revenues-per-working-unit{data: {division: "#revenues-per-production / #supports-quantity", calculate_round: precision}}
+        %td.currency= currency_symbol
+        %td.decimal#balance-per-working-unit{data: {division: "#balance-per-production / #supports-quantity", calculate_round: precision}}
+        %td.currency= currency_symbol

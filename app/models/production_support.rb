@@ -50,7 +50,7 @@ class ProductionSupport < Ekylibre::Record::Base
   validates_uniqueness_of :storage_id, scope: :production_id
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
-  delegate :working_unit, :working_indicator, to: :production
+  delegate :support_variant_unit, :support_variant_indicator, to: :production
 
   # alias :net_surface_area :storage_net_surface_area
   delegate :name, :variant, to: :production, prefix: true
@@ -58,7 +58,7 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, to: :activity, prefix: true
   delegate :name, to: :campaign, prefix: true
   delegate :name, to: :variant,  prefix: true
-  delegate :irrgated, :nitrate_fixing, :started_at, :stopped_at, :working_indicator, :working_unit, to: :production
+  delegate :irrgated, :nitrate_fixing, :started_at, :stopped_at, :support_variant_indicator, :support_variant_unit, to: :production
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -296,7 +296,7 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def working_indicator_measure
-    send(working_indicator) rescue nil
+    send(support_variant_indicator) rescue nil
   end
 
   # Returns value of an indicator if its name correspond to

@@ -31,9 +31,31 @@ class Backend::ActivitiesController < Backend::BaseController
     t.action :destroy, if: :destroyable?
   end
 
+
+  # Returns wanted varieties proposition for given family_name
+  def family
+    unless family = Nomen::ActivityFamilies[params[:name]]
+      head :not_found
+      return
+    end
+    data = {
+      label: family.human_name,
+      name: family.name
+    }
+    if family.cultivation_variety
+      data[:cultivation_varieties] = Nomen::Varieties.selection_hash(family.cultivation_variety)
+    end
+    if family.support_variety
+      data[:support_varieties] = Nomen::Varieties.selection_hash(family.support_variety)
+    end
+    render json: data
+  end
+
+
   # List of productions for one activity
   list(:productions, conditions: {activity_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :name, url: true
+    t.column :campaign, url: true
     # t.column :product_nature, url: true
     t.column :state
     t.column :started_at

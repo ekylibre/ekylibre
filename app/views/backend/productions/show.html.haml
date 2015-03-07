@@ -35,57 +35,54 @@
     - b.cell(:budget) do
       :ruby
         balance = 0
-        equipment_balance = 0
-        worker_balance = 0
-        preparation_balance = 0
-        other_balance = 0
-        divider = 1.0
+        costs = {
+          input: 0,
+          tool: 0,
+          doer: 0,
+        }
         currency = Preference[:currency]
         title_legend_complement = ''
-        # get working indicator and unit (ex: net_surface_area and hectare)
-        production_working_indicator = resource.working_indicator
-        production_working_unit = resource.working_unit
-        production_working_unit_nomen = Nomen::Units[production_working_unit.to_sym] if production_working_unit
+        # get support_variant indicator and unit (ex: net_surface_area and hectare)
+        support_variant_indicator = Nomen::Indicators[resource.support_variant_indicator]
+        support_variant_unit      = Nomen::Units[resource.support_variant_unit]
 
-        if production_working_unit
-          title_legend_complement = ' (' + currency + ' / ' + production_working_unit_nomen.human_name + ')'
+        if support_variant_unit
+          title_legend_complement = " (#{ currency }/#{ support_variant_unit.human_name })"
         end
 
-        if production_working_indicator and production_working_indicator.to_sym == :net_surface_area
-          divider = resource.net_surface_area.to_d(resource.working_unit.to_sym)
-        end
+        total_quantity = resource.supports.map do |support|
+          support.get(support_variant_indicator).to_d(support_variant_unit).round(4)
+        end.sum
+        total_quantity = 1.0 if total_quantity.zero?
+
         data_series = []
-        if resource.revenues
-          for revenue in resource.revenues
-            data_series << { name: revenue.variant_name, y: (revenue.amount/divider).to_s.to_f, color: "#000077"}
-            balance += revenue.amount
-          end
+        resource.revenues.each do |revenue|
+          puts revenue.inspect.red
+          data_series << { name: revenue.variant_name, y: (revenue.amount/total_quantity).to_s.to_f, color: "#000077"}
+          balance += revenue.amount
         end
 
-        if resource.expenses
-          for expense in resource.expenses
-            value = expense.amount
-            variant_variety = Nomen::Varieties.find(expense.variant.variety)
+        resource.expenses.each do |expense|
+          amount = expense.amount
+          variant_variety = Nomen::Varieties[expense.variant.variety]
+          if expense.variant_indicator.to_s == "working_duration"
             if variant_variety <= :worker
-              worker_balance -= value
-            elsif variant_variety <= :equipment
-              equipment_balance -= value
-            elsif variant_variety <= :preparation
-              preparation_balance -= value
+              costs[:doer] -= amount
             else
-              other_balance -= value
+              costs[:tool] -= amount
             end
-            balance -= value
+          else
+            costs[:input] -= amount
           end
+          balance -= amount
         end
-
-        data_series << { name: :evaluated_input_cost.tl , y: (preparation_balance/divider).to_s.to_f, color: "#DD0000"} if preparation_balance != 0.0
-        data_series << { name: :evaluated_tool_cost.tl, y: (equipment_balance/divider).to_s.to_f, color: "#DD0000"} if equipment_balance != 0.0
-        data_series << { name: :evaluated_doer_cost.tl, y: (worker_balance/divider).to_s.to_f, color: "#DD0000"} if worker_balance != 0.0
+        costs.each do |name, balance|
+          data_series << { name: "evaluated_#{name}_cost".tl , y: (balance/total_quantity).to_s.to_f, color: "#DD0000"} unless balance.zero?
+        end
 
         data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
 
-        data_series << { name: :indirect_charges.tl, y: (resource.indirect_budget_amount/divider).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+        data_series << { name: :indirect_charges.tl, y: (resource.indirect_budget_amount/total_quantity).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
         data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
@@ -227,6 +224,3 @@
           series = [{type: 'pie', name: Production.human_attribute_name(:distributions), data: data}]
 
         = pie_chart(series, legend: true)
-
-    -# b.cell(:markers) do
-      = list(:markers)

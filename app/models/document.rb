@@ -44,7 +44,7 @@
 #
 
 class Document < Ekylibre::Record::Base
-  belongs_to :template, class_name: "DocumentTemplate"  
+  belongs_to :template, class_name: "DocumentTemplate"
   has_many :attachments, dependent: :destroy
   has_attached_file :file, {
                       path: ':tenant/:class/:id_partition/:style.:extension',

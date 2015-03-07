@@ -155,7 +155,7 @@ class ProductNature < Ekylibre::Record::Base
       if working_set == :oenological_regulateds
         where("id IN (?) OR id IN (?)", of_variety(:saccharose, :concentrated_rectified_must, :potassium_ferrocyanide).pluck(:id), can('acidify(fermented_juice)', 'alkalinize(fermented_juice)').pluck(:id))
       elsif working_set == :phytosanitary_products
-        where(id: can('kill(plant)', 'kill(fungus)', 'kill(insecta)', 'kill(mollusca)').pluck(:id))
+        where(id: can('kill(plant)', 'kill(fungus)', 'kill(insecta)', 'kill(gasteropoda)').pluck(:id))
       elsif working_set == :animal_foods
         where(id: can('feed(animal)').pluck(:id))
       elsif working_set == :animal_medicines

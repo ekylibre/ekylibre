@@ -34,12 +34,12 @@
 #  quantity           :decimal(19, 4)   default(0.0)
 #  unit_amount        :decimal(19, 4)   default(0.0)
 #  unit_currency      :string           not null
-#  unit_indicator     :string
 #  unit_population    :decimal(19, 4)
-#  unit_unit          :string
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #  variant_id         :integer
+#  variant_indicator  :string
+#  variant_unit       :string
 #
 #
 # == Fixture: production_budgets

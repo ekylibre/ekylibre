@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-hordeum" hierarchical="true">
+    <items>
+      <item name="hordeum_hibernum"/>
+      <item name="hordeum_vernum"/>
+      <item name="hordeum_vulgare"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-hordeum_hibernum" hierarchical="true">
+    <items>
+      <item name="hordeum_hibernum_arturio"/>
+      <item name="hordeum_hibernum_cerevisiae"/>
+      <item name="hordeum_hibernum_etincel"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-hordeum_hibernum_cerevisiae" hierarchical="true">
+    <items>
+      <item name="hordeum_hibernum_cerevisiae_hypoproteinae"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-hordeum_vernum" hierarchical="true">
+    <items>
+      <item name="hordeum_vernum_hypoproteinae"/>
+      <item name="hordeum_vernum_traveler"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-hordeum_vulgare" hierarchical="true">
+    <items>
+      <item name="hordeum_vulgare_hexastichum"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

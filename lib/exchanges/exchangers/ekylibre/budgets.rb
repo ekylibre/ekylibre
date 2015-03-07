@@ -11,42 +11,64 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     campaign_harvest_year = s.cell('A', 2)
     activity_name = s.cell('B', 2)
     production_support_numbers = (s.cell('C', 2).blank? ? [] : s.cell('C', 2).to_s.strip.upcase.split(/[\s\,]+/))
-    producing_variant_reference_name = s.cell('D', 2)
-    production_support_variant_reference_name = s.cell('E', 2)
+    cultivation_variant_reference_name = s.cell('D', 2)
+    support_variant_reference_name = s.cell('E', 2)
     production_indicator_reference_name = s.cell('F', 2)
     production_indicator_unit_reference_name = s.cell('G', 2)
 
     # get budget concerning production (activty / given campaign)
 
-    activity = Activity.find_or_create_by!(name: activity_name)
     campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
-    producing_variant = nil
+    cultivation_variant = nil
 
-    if producing_variant_reference_name
-      unless producing_variant = ProductNatureVariant.find_by(number: producing_variant_reference_name) || ProductNatureVariant.find_by(reference_name: producing_variant_reference_name)
-        producing_variant = ProductNatureVariant.import_from_nomenclature(producing_variant_reference_name)
+    if cultivation_variant_reference_name
+      unless cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) || ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
+        cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
       end
     end
+
+    if support_variant_reference_name
+      unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) || ProductNatureVariant.find_by(reference_name: support_variant_reference_name)
+        support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
+      end
+    end
+
+    unless activity = Activity.find_by(name: activity_name)
+      family = Nomen::ActivityFamilies.list.detect do |item|
+        valid = true
+        if cultivation_variant
+          valid = false unless item.cultivation_variety and Nomen::Varieties[item.cultivation_variety] <= item.cultivation_variety
+        else
+          valid = false unless item.cultivation_variety.nil?
+        end
+        if support_variant
+          valid = false unless item.support_variety and Nomen::Varieties[item.support_variety] <= item.support_variety
+        else
+          valid = false unless item.support_variety.nil?
+        end
+        valid
+      end
+      unless family
+        w.error "Cannot determine activity"
+        raise Exchanges::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
+      end
+      activity = Activity.create!(name: activity_name, family: family.name)
+    end
+
 
     w.debug "Production: #{sheet_name}"
-    production = Production.find_or_create_by!(name: sheet_name, activity: activity, campaign: campaign, producing_variant: producing_variant)
+    production = Production.find_or_create_by!(name: sheet_name, activity: activity, campaign: campaign, cultivation_variant: cultivation_variant)
 
-    if production_support_variant_reference_name
-      unless production_support_variant = ProductNatureVariant.find_by(number: production_support_variant_reference_name) || ProductNatureVariant.find_by(reference_name: production_support_variant_reference_name)
-        production_support_variant = ProductNatureVariant.import_from_nomenclature(production_support_variant_reference_name)
-      end
+    if production.support_variant.blank? and support_variant
+      production.support_variant = support_variant
     end
 
-    if production.support_variant.blank? and production_support_variant
-      production.support_variant = production_support_variant
+    if production_indicator_reference_name and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator_reference_name.to_sym)
+      production.support_variant_indicator = production_indicator_reference_name.to_sym
     end
 
-    if production_indicator_reference_name and (production.working_indicator.blank? || production.working_indicator != production_indicator_reference_name.to_sym)
-      production.working_indicator = production_indicator_reference_name.to_sym
-    end
-
-    if production_indicator_unit_reference_name and (production.working_unit.blank? || production.working_unit != production_indicator_unit_reference_name.to_sym)
-      production.working_unit = production_indicator_unit_reference_name.to_sym
+    if production_indicator_unit_reference_name and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator_unit_reference_name.to_sym)
+      production.support_variant_unit = production_indicator_unit_reference_name.to_sym
     end
 
     production.save!
@@ -137,11 +159,11 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
 
       # Set budget
       budget = production.budgets.find_or_initialize_by(variant: item_variant, direction: r.item_direction, computation_method: r.computation_method)
-      budget.unit_currency  = :EUR
-      budget.unit_unit      = unit
-      budget.unit_indicator = indicator
-      budget.unit_amount    = r.item_unit_price_amount
-      budget.quantity       = r.item_quantity
+      budget.variant_unit      = unit
+      budget.variant_indicator = indicator
+      budget.unit_currency     = :EUR
+      budget.unit_amount       = r.item_unit_price_amount
+      budget.quantity          = r.item_quantity
       budget.save!
 
     end

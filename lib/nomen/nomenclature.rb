@@ -147,14 +147,21 @@ module Nomen
     end
     alias :all :to_a
 
-    # Returns a list for select
+    # Returns a list for select as an array of pair (array)
     def selection(item_name = nil)
       items = (item_name ? @items[item_name].self_and_children : @items.values)
       return items.collect do |item|
         [item.human_name, item.name.to_s]
       end.sort do |a, b|
-        a.first <=> b.first
+        a.first.lower_ascii <=> b.first.lower_ascii
       end
+    end
+
+    # Returns a list for select as an array of pair (hash)
+    def selection_hash(item_name = nil)
+      return @items[item_name].self_and_children.map do |item|
+        {label: item.human_name, value: item.name}
+      end.sort{|a,b| a[:label].lower_ascii <=> b[:label].lower_ascii }
     end
 
     # Returns a list for select, without specified items

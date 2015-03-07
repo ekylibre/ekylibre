@@ -1882,6 +1882,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="activities">
+        <page to="backend/activities#family"/>
+      </item>
       <item name="animals">
         <page to="backend/animals#take"/>
       </item>

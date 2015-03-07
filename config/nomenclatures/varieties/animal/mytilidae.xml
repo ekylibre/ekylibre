@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-mytilidae">
+    <items>
+      <item name="mytilus" itis_tsn="79452"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-mytilus">
+    <items>
+      <item name="mytilus_californianus"     itis_tsn="79455"/>
+      <item name="mytilus_edulis"            itis_tsn="79454"/>
+      <item name="mytilus_galloprovincialis" itis_tsn="79456"/>
+      <item name="mytilus_trossulus"         itis_tsn="567928"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
