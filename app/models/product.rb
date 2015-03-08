@@ -100,7 +100,6 @@ class Product < Ekylibre::Record::Base
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: "ProductLink", foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id, dependent: :destroy
-  # has_many :markers, :through => :supports
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id, dependent: :destroy
   has_many :outgoing_delivery_items, dependent: :restrict_with_exception
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id, dependent: :destroy

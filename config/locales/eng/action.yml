@@ -1103,7 +1103,7 @@ eng:
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
     margins: "Margins"
-    markers: "Markers"
+    markers: "Markers" #?
     # mass: "Mass"
     maximal_temperature: "Maximal temperature"
     members: "Members"

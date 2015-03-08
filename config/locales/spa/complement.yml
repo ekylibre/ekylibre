@@ -817,8 +817,6 @@ spa:
 
     net_service:
 
-    operation_task:
-
     outgoing_delivery:
 
     person:
@@ -844,8 +842,6 @@ spa:
     production_budget:
 
     production_support:
-
-    production_support_marker:
 
     subscription_nature:
 

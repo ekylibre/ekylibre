@@ -97,26 +97,6 @@ class ProductionSupport < Ekylibre::Record::Base
     end
   end
 
-  # # Measure a product for a given indicator
-  # def read!(indicator, value, options = {})
-  #   unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-  #     raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-  #   end
-  #   if value.nil?
-  #     raise ArgumentError, "Value must be given"
-  #   end
-  #   options[:indicator_name] = indicator.name
-  #   options[:aim] ||= :perfect
-  #   options.delete(:derivative) if options[:derivative].blank?
-  #   options[:subject] ||= (options[:derivative] ? :derivative : :support)
-  #   unless marker = self.markers.find_by(options)
-  #     marker = self.markers.build(options)
-  #   end
-  #   marker.value = value
-  #   marker.save!
-  #   return marker
-  # end
-
   def active?
     if self.activity.fallow_land?
       return false
@@ -192,16 +172,6 @@ class ProductionSupport < Ekylibre::Record::Base
 
   def provisional_nitrogen_input
     return 0
-    # balance = []
-    # markers = self.markers.where(aim: 'perfect', indicator_name: 'nitrogen_input_per_area')
-    # if markers.count > 0
-    #   for marker in markers
-    #     balance << marker.measure_value_value
-    #   end
-    #   return balance.compact.sum
-    # else
-    #   return 0
-    # end
   end
 
   def tool_cost(surface_unit = :hectare)

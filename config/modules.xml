@@ -11,9 +11,6 @@
         <page to="backend/entities#export"/>
         <page to="backend/entities#import"/>
         <page to="backend/entities#list"/>
-        <page to="backend/entities#list_cashes"/>
-        <page to="backend/entities#list_contacts"/>
-        <page to="backend/entities#list_events"/>
         <page to="backend/entities#list_incoming_payments"/>
         <page to="backend/entities#list_issues"/>
         <page to="backend/entities#list_links"/>
@@ -43,14 +40,12 @@
         <page to="backend/observations#edit"/>
         <page to="backend/observations#new"/>
         <page to="backend/observations#update"/>
-        <page to="backend/entities#list_addresses"/>
         <page to="backend/entities#picture"/>
         <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
         <page to="backend/entity_links#show"/>
         <page to="backend/entity_addresses#index"/>
         <page to="backend/entity_links#index"/>
-        <page to="backend/entity_links#unroll"/>
         <page to="backend/legal_entities#autocomplete_for_origin"/>
         <page to="backend/legal_entities#export"/>
         <page to="backend/legal_entities#import"/>
@@ -144,7 +139,6 @@
         <page to="backend/journals#destroy"/>
         <page to="backend/journals#draft"/>
         <page to="backend/journals#edit"/>
-        <page to="backend/journals#import"/>
         <page to="backend/journals#list"/>
         <page to="backend/journals#list_draft_items"/>
         <page to="backend/journals#list_entries"/>
@@ -207,7 +201,6 @@
         <page to="backend/analytic_distributions#new"/>
         <page to="backend/analytic_distributions#show"/>
         <page to="backend/analytic_distributions#update"/>
-        <page to="backend/analytic_distributions#unroll"/>
       </item>
     </group>
     <group name="financial_assets" icon="home">
@@ -284,7 +277,6 @@
         <page to="backend/sales#list_credits"/>
         <page to="backend/sales#list_deliveries"/>
         <page to="backend/sales#list_items"/>
-        <page to="backend/sales#list_payment_uses"/>
         <page to="backend/sales#list_subscriptions"/>
         <page to="backend/sales#list_undelivered_items"/>
         <page to="backend/sales#propose"/>
@@ -309,8 +301,6 @@
         <page to="backend/purchases#list"/>
         <page to="backend/purchases#list_deliveries"/>
         <page to="backend/purchases#list_items"/>
-        <page to="backend/purchases#list_payment_uses"/>
-        <page to="backend/purchases#list_undelivered_items"/>
         <page to="backend/purchases#propose"/>
         <page to="backend/purchases#propose_and_invoice"/>
         <page to="backend/purchases#refuse"/>
@@ -318,7 +308,6 @@
         <page to="backend/purchases#unroll"/>
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
-        <page to="backend/product_nature_variants#last_purchase_item"/>
       </item>
     </group>
     <group name="payments" icon="credit-card">
@@ -328,7 +317,6 @@
         <page to="backend/incoming_payments#destroy"/>
         <page to="backend/incoming_payments#edit"/>
         <page to="backend/incoming_payments#list"/>
-        <page to="backend/incoming_payments#list_sales"/>
         <page to="backend/incoming_payments#new"/>
         <page to="backend/incoming_payments#show"/>
         <page to="backend/incoming_payments#unroll"/>
@@ -340,7 +328,6 @@
         <page to="backend/outgoing_payments#destroy"/>
         <page to="backend/outgoing_payments#edit"/>
         <page to="backend/outgoing_payments#list"/>
-        <page to="backend/outgoing_payments#list_purchases"/>
         <page to="backend/outgoing_payments#new"/>
         <page to="backend/outgoing_payments#show"/>
         <page to="backend/outgoing_payments#unroll"/>
@@ -372,15 +359,10 @@
         <page to="backend/affairs#select"/>
         <page to="backend/affairs#show"/>
         <page to="backend/gaps#index"/>
-        <page to="backend/gaps#create"/>
         <page to="backend/gaps#destroy"/>
-        <page to="backend/gaps#edit"/>
         <page to="backend/gaps#list"/>
         <page to="backend/gaps#list_items"/>
-        <page to="backend/gaps#new"/>
         <page to="backend/gaps#show"/>
-        <page to="backend/gaps#unroll"/>
-        <page to="backend/gaps#update"/>
       </item>
     </group>
   </module>
@@ -406,7 +388,6 @@
         <page to="backend/products#list_places"/>
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>
-        <page to="backend/products#list_markers"/>
         <page to="backend/products#list_reading_tasks"/>
         <page to="backend/products#picture"/>
         <page to="backend/matters#index"/>
@@ -421,7 +402,6 @@
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_casts"/>
         <page to="backend/matters#list_issues"/>
-        <page to="backend/matters#list_markers"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
         <page to="backend/matters#list_reading_tasks"/>
@@ -443,7 +423,6 @@
         <page to="backend/product_groups#list_readings"/>
         <page to="backend/product_groups#list_intervention_casts"/>
         <page to="backend/product_groups#list_issues"/>
-        <page to="backend/product_groups#list_markers"/>
         <page to="backend/product_groups#list_members"/>
         <page to="backend/product_groups#list_places"/>
         <page to="backend/product_groups#list_reading_tasks"/>
@@ -521,8 +500,6 @@
         <page to="backend/inventories#edit"/>
         <page to="backend/inventories#list"/>
         <page to="backend/inventories#list_items"/>
-        <page to="backend/inventories#list_items_create"/>
-        <page to="backend/inventories#list_items_update"/>
         <page to="backend/inventories#new"/>
         <page to="backend/inventories#reflect"/>
         <page to="backend/inventories#refresh"/>
@@ -586,29 +563,10 @@
         <page to="backend/interventions#edit"/>
         <page to="backend/interventions#list"/>
         <page to="backend/interventions#new"/>
-        <page to="backend/interventions#play"/>
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
         <page to="backend/operations#index"/>
-        <page to="backend/operations#create"/>
-        <page to="backend/operations#destroy"/>
-        <page to="backend/operations#edit"/>
-        <page to="backend/operations#list"/>
-        <page to="backend/operations#list_items"/>
-        <page to="backend/operations#list_unvalidateds"/>
-        <page to="backend/operations#list_uses"/>
-        <page to="backend/operations#new"/>
         <page to="backend/operations#show"/>
-        <page to="backend/operations#unvalidateds"/>
-        <page to="backend/operations#update"/>
-        <page to="backend/intervention_casts#index"/>
-        <page to="backend/intervention_casts#create"/>
-        <page to="backend/intervention_casts#destroy"/>
-        <page to="backend/intervention_casts#edit"/>
-        <page to="backend/intervention_casts#new"/>
-        <page to="backend/intervention_casts#show"/>
-        <page to="backend/intervention_casts#unroll"/>
-        <page to="backend/intervention_casts#update"/>
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#list_operations"/>
         <page to="backend/interventions#run"/>
@@ -663,7 +621,6 @@
         <page to="backend/production_supports#edit"/>
         <page to="backend/production_supports#list"/>
         <page to="backend/production_supports#list_interventions"/>
-        <page to="backend/production_supports#list_markers"/>
         <page to="backend/production_supports#new"/>
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#unroll"/>
@@ -681,7 +638,6 @@
         <page to="backend/animal_groups#show"/>
         <page to="backend/animal_groups#update"/>
         <page to="backend/animal_groups#list_animals"/>
-        <page to="backend/animal_groups#list_place"/>
         <page to="backend/animal_groups#list_places"/>
         <page to="backend/animal_groups#unroll"/>
       </item>
@@ -695,9 +651,6 @@
         <page to="backend/animals#new"/>
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>
-        <page to="backend/animals#list_group"/>
-        <page to="backend/animals#list_indicator"/>
-        <page to="backend/animals#list_place"/>
         <page to="backend/animals#picture"/>
         <page to="backend/animals#list_contained_products"/>
         <page to="backend/animals#list_groups"/>
@@ -708,7 +661,6 @@
         <page to="backend/animals#list_places"/>
         <page to="backend/animals#list_carried_linkages"/>
         <page to="backend/animals#list_carrier_linkages"/>
-        <page to="backend/animals#list_markers"/>
         <page to="backend/animals#list_reading_tasks"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
@@ -719,27 +671,7 @@
       </item>
       <item name="animal_medicines">
         <page to="backend/animal_medicines#index"/>
-        <page to="backend/animal_medicines#create"/>
-        <page to="backend/animal_medicines#destroy"/>
-        <page to="backend/animal_medicines#edit"/>
         <page to="backend/animal_medicines#list"/>
-        <page to="backend/animal_medicines#list_operations"/>
-        <page to="backend/animal_medicines#new"/>
-        <page to="backend/animal_medicines#show"/>
-        <page to="backend/animal_medicines#update"/>
-        <page to="backend/animal_medicines#list_readings"/>
-        <page to="backend/animal_medicines#list_intervention_casts"/>
-        <page to="backend/animal_medicines#unroll"/>
-        <page to="backend/animal_medicines#list_carried_linkages"/>
-        <page to="backend/animal_medicines#list_carrier_linkages"/>
-        <page to="backend/animal_medicines#list_markers"/>
-        <page to="backend/animal_medicines#list_reading_tasks"/>
-        <page to="backend/animal_medicines#list_contained_products"/>
-        <page to="backend/animal_medicines#list_groups"/>
-        <page to="backend/animal_medicines#list_issues"/>
-        <page to="backend/animal_medicines#list_members"/>
-        <page to="backend/animal_medicines#list_places"/>
-        <page to="backend/animal_medicines#picture"/>
       </item>
       <item name="animal_products">
         <page to="backend/animal_products#index"/>
@@ -753,7 +685,6 @@
         <page to="backend/plants#destroy"/>
         <page to="backend/plants#edit"/>
         <page to="backend/plants#list"/>
-        <page to="backend/plants#list_children"/>
         <page to="backend/plants#list_carried_linkages"/>
         <page to="backend/plants#list_carrier_linkages"/>
         <page to="backend/plants#list_contained_products"/>
@@ -761,7 +692,6 @@
         <page to="backend/plants#list_readings"/>
         <page to="backend/plants#list_intervention_casts"/>
         <page to="backend/plants#list_issues"/>
-        <page to="backend/plants#list_markers"/>
         <page to="backend/plants#list_members"/>
         <page to="backend/plants#list_places"/>
         <page to="backend/plants#list_reading_tasks"/>
@@ -782,27 +712,7 @@
       </item>
       <item name="plant_medicines">
         <page to="backend/plant_medicines#index"/>
-        <page to="backend/plant_medicines#create"/>
-        <page to="backend/plant_medicines#destroy"/>
-        <page to="backend/plant_medicines#edit"/>
         <page to="backend/plant_medicines#list"/>
-        <page to="backend/plant_medicines#list_operations"/>
-        <page to="backend/plant_medicines#list_carried_linkages"/>
-        <page to="backend/plant_medicines#list_carrier_linkages"/>
-        <page to="backend/plant_medicines#list_contained_products"/>
-        <page to="backend/plant_medicines#list_groups"/>
-        <page to="backend/plant_medicines#list_readings"/>
-        <page to="backend/plant_medicines#list_intervention_casts"/>
-        <page to="backend/plant_medicines#list_issues"/>
-        <page to="backend/plant_medicines#list_markers"/>
-        <page to="backend/plant_medicines#list_members"/>
-        <page to="backend/plant_medicines#list_places"/>
-        <page to="backend/plant_medicines#list_reading_tasks"/>
-        <page to="backend/plant_medicines#picture"/>
-        <page to="backend/plant_medicines#new"/>
-        <page to="backend/plant_medicines#show"/>
-        <page to="backend/plant_medicines#unroll"/>
-        <page to="backend/plant_medicines#update"/>
       </item>
       <item name="plant_products">
         <page to="backend/plant_products#index"/>
@@ -848,7 +758,6 @@
         <page to="backend/fungi#list_groups"/>
         <page to="backend/fungi#list_intervention_casts"/>
         <page to="backend/fungi#list_issues"/>
-        <page to="backend/fungi#list_markers"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
         <page to="backend/fungi#list_reading_tasks"/>
@@ -883,7 +792,6 @@
         <page to="backend/cultivable_zones#list_places"/>
         <page to="backend/cultivable_zones#list_carried_linkages"/>
         <page to="backend/cultivable_zones#list_carrier_linkages"/>
-        <page to="backend/cultivable_zones#list_markers"/>
         <page to="backend/cultivable_zones#list_reading_tasks"/>
         <page to="backend/cultivable_zones#picture"/>
       </item>
@@ -895,7 +803,6 @@
         <page to="backend/equipments#destroy"/>
         <page to="backend/equipments#edit"/>
         <page to="backend/equipments#list"/>
-        <page to="backend/equipments#list_operations"/>
         <page to="backend/equipments#list_intervention_casts"/>
         <page to="backend/equipments#new"/>
         <page to="backend/equipments#show"/>
@@ -910,7 +817,6 @@
         <page to="backend/equipments#list_places"/>
         <page to="backend/equipments#list_carried_linkages"/>
         <page to="backend/equipments#list_carrier_linkages"/>
-        <page to="backend/equipments#list_markers"/>
         <page to="backend/equipments#list_reading_tasks"/>
         <page to="backend/equipments#picture"/>
         <page to="backend/workers#list_carried_linkages"/>
@@ -920,7 +826,6 @@
         <page to="backend/workers#list_readings"/>
         <page to="backend/workers#list_intervention_casts"/>
         <page to="backend/workers#list_issues"/>
-        <page to="backend/workers#list_markers"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#list_reading_tasks"/>
@@ -1023,7 +928,6 @@
       </item>
       <item name="imports">
         <page to="backend/imports#index"/>
-        <page to="backend/imports#ask"/>
         <page to="backend/imports#run"/>
         <page to="backend/imports#create"/>
         <page to="backend/imports#destroy"/>
@@ -1035,7 +939,6 @@
       </item>
       <item name="synchronizations">
         <page to="backend/synchronizations#index"/>
-        <page to="backend/synchronizations#show"/>
         <page to="backend/synchronizations#run"/>
       </item>
     </group>
@@ -1115,7 +1018,6 @@
         <page to="backend/net_services#list_identifiers"/>
         <page to="backend/net_services#new"/>
         <page to="backend/net_services#show"/>
-        <page to="backend/net_services#unroll"/>
         <page to="backend/net_services#update"/>
       </item>
       <item name="identifiers">
@@ -1126,7 +1028,6 @@
         <page to="backend/identifiers#list"/>
         <page to="backend/identifiers#new"/>
         <page to="backend/identifiers#show"/>
-        <page to="backend/identifiers#unroll"/>
         <page to="backend/identifiers#update"/>
       </item>
       <item name="custom_fields">
@@ -1150,8 +1051,6 @@
         <page to="backend/custom_field_choices#up"/>
         <page to="backend/custom_field_choices#update"/>
         <page to="backend/custom_fields#unroll"/>
-        <page to="backend/custom_field_choices#index"/>
-        <page to="backend/custom_field_choices#show"/>
         <page to="backend/custom_field_choices#unroll"/>
       </item>
       <item name="establishments">
@@ -1193,7 +1092,6 @@
       </item>
     </group>
     <group name="people" icon="group">
-      <page to="backend/dashboards#settings_relationship"/>
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
         <page to="backend/subscription_natures#create"/>
@@ -1344,22 +1242,15 @@
       </item>
       <item name="product_natures">
         <page to="backend/product_natures#index"/>
-        <page to="backend/product_natures#change_quantities"/>
         <page to="backend/product_natures#create"/>
         <page to="backend/product_natures#destroy"/>
         <page to="backend/product_natures#edit"/>
         <page to="backend/product_natures#incorporate"/>
         <page to="backend/product_natures#list"/>
-        <page to="backend/product_natures#list_components"/>
-        <page to="backend/product_natures#list_price_templates"/>
-        <page to="backend/product_natures#list_product_nature_prices"/>
-        <page to="backend/product_natures#list_stock_moves"/>
-        <page to="backend/product_natures#list_stocks"/>
         <page to="backend/product_natures#new"/>
         <page to="backend/product_natures#pick"/>
         <page to="backend/product_natures#show"/>
         <page to="backend/product_natures#update"/>
-        <page to="backend/product_natures#list_prices"/>
         <page to="backend/product_natures#list_variants"/>
         <page to="backend/product_natures#unroll"/>
       </item>
@@ -1400,10 +1291,6 @@
         <page to="backend/catalog_items#create"/>
         <page to="backend/catalog_items#destroy"/>
         <page to="backend/catalog_items#edit"/>
-        <page to="backend/catalog_items#export"/>
-        <page to="backend/catalog_items#find"/>
-        <page to="backend/catalog_items#stop"/>
-        <page to="backend/catalog_items#import"/>
         <page to="backend/catalog_items#list"/>
         <page to="backend/catalog_items#new"/>
         <page to="backend/catalog_items#show"/>
@@ -1456,7 +1343,6 @@
         <page to="backend/buildings#picture"/>
         <page to="backend/buildings#list_carried_linkages"/>
         <page to="backend/buildings#list_carrier_linkages"/>
-        <page to="backend/buildings#list_markers"/>
         <page to="backend/buildings#list_reading_tasks"/>
       </item>
       <item name="building_divisions">
@@ -1479,7 +1365,6 @@
         <page to="backend/building_divisions#list_places"/>
         <page to="backend/building_divisions#list_carried_linkages"/>
         <page to="backend/building_divisions#list_carrier_linkages"/>
-        <page to="backend/building_divisions#list_markers"/>
         <page to="backend/building_divisions#list_reading_tasks"/>
         <page to="backend/building_divisions#picture"/>
       </item>
@@ -1507,7 +1392,6 @@
         <page to="backend/land_parcel_clusters#list_readings"/>
         <page to="backend/land_parcel_clusters#list_intervention_casts"/>
         <page to="backend/land_parcel_clusters#list_issues"/>
-        <page to="backend/land_parcel_clusters#list_markers"/>
         <page to="backend/land_parcel_clusters#list_members"/>
         <page to="backend/land_parcel_clusters#list_places"/>
         <page to="backend/land_parcel_clusters#list_reading_tasks"/>
@@ -1529,7 +1413,6 @@
         <page to="backend/land_parcel_groups#list_readings"/>
         <page to="backend/land_parcel_groups#list_intervention_casts"/>
         <page to="backend/land_parcel_groups#list_issues"/>
-        <page to="backend/land_parcel_groups#list_markers"/>
         <page to="backend/land_parcel_groups#list_members"/>
         <page to="backend/land_parcel_groups#list_places"/>
         <page to="backend/land_parcel_groups#list_reading_tasks"/>
@@ -1544,10 +1427,8 @@
         <page to="backend/land_parcels#index"/>
         <page to="backend/land_parcels#create"/>
         <page to="backend/land_parcels#destroy"/>
-        <page to="backend/land_parcels#divide"/>
         <page to="backend/land_parcels#edit"/>
         <page to="backend/land_parcels#list"/>
-        <page to="backend/land_parcels#list_operations"/>
         <page to="backend/land_parcels#list_carried_linkages"/>
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
@@ -1555,12 +1436,10 @@
         <page to="backend/land_parcels#list_readings"/>
         <page to="backend/land_parcels#list_intervention_casts"/>
         <page to="backend/land_parcels#list_issues"/>
-        <page to="backend/land_parcels#list_markers"/>
         <page to="backend/land_parcels#list_members"/>
         <page to="backend/land_parcels#list_places"/>
         <page to="backend/land_parcels#list_reading_tasks"/>
         <page to="backend/land_parcels#picture"/>
-        <page to="backend/land_parcels#merge"/>
         <page to="backend/land_parcels#new"/>
         <page to="backend/land_parcels#show"/>
         <page to="backend/land_parcels#take"/>
@@ -1573,7 +1452,6 @@
         <page to="backend/settlements#destroy"/>
         <page to="backend/settlements#edit"/>
         <page to="backend/settlements#list"/>
-        <page to="backend/settlements#list_operations"/>
         <page to="backend/settlements#list_carried_linkages"/>
         <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
@@ -1581,7 +1459,6 @@
         <page to="backend/settlements#list_readings"/>
         <page to="backend/settlements#list_intervention_casts"/>
         <page to="backend/settlements#list_issues"/>
-        <page to="backend/settlements#list_markers"/>
         <page to="backend/settlements#list_members"/>
         <page to="backend/settlements#list_places"/>
         <page to="backend/settlements#list_reading_tasks"/>
@@ -1641,7 +1518,6 @@
         <page to="authentication/passwords#update"/>
       </item>
       <item name="sessions">
-        <page to="authentication/sessions#_callback_before_11"/>
         <page to="authentication/sessions#create"/>
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
@@ -1666,7 +1542,6 @@
         <page to="devise/registrations#update"/>
       </item>
       <item name="sessions">
-        <page to="devise/sessions#_callback_before_12"/>
         <page to="devise/sessions#create"/>
         <page to="devise/sessions#destroy"/>
         <page to="devise/sessions#new"/>
@@ -1727,7 +1602,6 @@
         <page to="backend/cells/last_interventions_cells#show"/>
       </item>
       <item name="last_analyses_cells">
-        <page to="backend/cells/last_analyses_cells#list"/>
         <page to="backend/cells/last_analyses_cells#show"/>
       </item>
       <item name="last_outgoing_deliveries_cells">
@@ -1766,7 +1640,6 @@
       </item>
       <item name="map_cells">
         <page to="backend/cells/map_cells#show"/>
-        <page to="backend/cells/map_cells#update"/>
       </item>
       <item name="weather_cells">
         <page to="backend/cells/weather_cells#show"/>
@@ -1779,11 +1652,6 @@
       </item>
       <item name="working_sets_stocks_cells">
         <page to="backend/cells/working_sets_stocks_cells#show"/>
-      </item>
-    </group>
-    <group>
-      <item name="calculators">
-        <page to="backend/calculators#index"/>
       </item>
     </group>
     <group>
@@ -1832,7 +1700,6 @@
       </item>
       <item name="compositions">
         <page to="pasteque/v5/compositions#index"/>
-        <page to="pasteque/v5/compositions#show"/>
       </item>
       <item name="currencies">
         <page to="pasteque/v5/currencies#index"/>
@@ -1867,7 +1734,6 @@
       </item>
       <item name="stocks">
         <page to="pasteque/v5/stocks#index"/>
-        <page to="pasteque/v5/stocks#search"/>
       </item>
       <item name="tariff_areas">
         <page to="pasteque/v5/tariff_areas#index"/>

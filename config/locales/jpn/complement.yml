@@ -804,8 +804,6 @@ jpn:
 
     net_service:
 
-    operation_task:
-
     outgoing_delivery:
 
     person:
@@ -831,8 +829,6 @@ jpn:
     production_budget:
 
     production_support:
-
-    production_support_marker:
 
     subscription_nature:
 

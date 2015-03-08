@@ -28,11 +28,15 @@ namespace :clean do
     for page in doc.xpath('//page')
       to = page.attr("to")
       url = to.to_s.strip.split("#")
-      if ref[url[0]]
+      if ref[url[0]] and ref[url[0]].include?(url[1])
         page.remove_attribute('nonexistent')
         ref[url[0]].delete(url[1])
       else
-        page['nonexistent'] = 'true'
+        if ENV["FORCE"]
+          page.remove
+        else
+          page['nonexistent'] = 'true'
+        end
         deleted += 1
       end
     end

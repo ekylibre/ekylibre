@@ -129,7 +129,10 @@ class Backend::ProductsController < Backend::BaseController
   # Returns value of an indicator
   def take
     return unless @product = find_and_check
-    return unless indicator = Nomen::Indicators[params[:indicator]]
+    unless indicator = Nomen::Indicators[params[:indicator]]
+      head :unprocessable_entity
+      return
+    end
 
     value = @product.get(indicator)
     if indicator.datatype == :measure
