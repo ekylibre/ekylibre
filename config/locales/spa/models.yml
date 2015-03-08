@@ -413,7 +413,6 @@ spa:
     # archive_file_name: "Archive file name"
     # archive_file_size: "Archive file size"
     # archive_updated_at: "Archive updated at"
-    # archived_at: "Archived at"
     # archiving: "Archiving"
     # attachments: "Attachments"
     # attribute_name: "Attribute name"

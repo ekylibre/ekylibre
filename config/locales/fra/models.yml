@@ -457,7 +457,7 @@ fra:
     # archive_file_name: "Archive file name"
     # archive_file_size: "Archive file size"
     # archive_updated_at: "Archive updated at"
-    archived_at: "Archivé le"
+    archived_at: "Archivé le" #?
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
