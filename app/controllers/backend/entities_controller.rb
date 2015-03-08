@@ -282,14 +282,16 @@ class Backend::EntitiesController < Backend::BaseController
 
   def merge
     if request.post?
-      return unless @master = find_and_check(id: params[:merge][:master])
-      return unless @double = find_and_check(id: params[:merge][:double])
+      return unless @master = find_and_check(id: params[:master])
+      return unless @double = find_and_check(id: params[:double])
       if @master.id == @double.id
         notify_error_now(:cannot_merge_an_entity_with_itself)
         return
       end
+      @master.merge_with(@double, current_user)
       begin
-        @master.merge(@double, true)
+        notify_success(:merge_is_done)
+        redirect_to action: :show, id: @master.id
       rescue
         notify_error_now(:cannot_merge_entities)
       end

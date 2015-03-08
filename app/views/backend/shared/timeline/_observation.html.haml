@@ -1,4 +1,4 @@
 .comment
   %span.avatar= image_tag step.author.avatar_url(size: 32)
   %span.description= :timeline_comment.th(defaults)
-  .content= observation.content
+  .content= preserve(observation.content)

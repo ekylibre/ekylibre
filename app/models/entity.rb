@@ -114,6 +114,7 @@ class Entity < Ekylibre::Record::Base
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where("sent_at IS NULL") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
+
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_one :cash, class_name: "Cash", foreign_key: :owner_id
   has_picture
@@ -298,23 +299,70 @@ class Entity < Ekylibre::Record::Base
     desc
   end
 
-  def merge_with(entity)
+  # Merge given entity into record. Alls related records of given entity will point on
+  # self.
+  def merge_with(entity, author = nil)
     raise StandardError.new("Company entity is not mergeable") if entity.of_company?
     Ekylibre::Record::Base.transaction do
-      # Classics
-      for many in [:direct_links, :events, :godchildren, :indirect_links, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_items, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
-        ref = self.class.reflect_on_association(many)
-        ref.class_name.constantize.where(ref.foreign_key => entity.id).update_all(ref.foreign_key => self.id)
-      end
       # EntityAddress
-      EntityAddress.where(:entity_id => entity.id).update_all("code = '0'||SUBSTR(code, 2, 3), entity_id=?, by_default=? ", self.id, false)
+      threads = EntityAddress.unscoped.where(entity_id: self.id).pluck(:thread).uniq
+      other_threads = EntityAddress.unscoped.where(entity_id: entity.id).pluck(:thread).uniq
+      other_threads.each do |thread|
+        while threads.include?(thread)
+          thread.succ!
+        end
+        threads << thread
+        EntityAddress.unscoped.where(entity_id: entity.id).update_all(thread: thread, by_default: false)
+      end
+
+      # Relations with DB approach to prevent missing reflection
+      connection = self.class.connection
+      base_class = self.class.base_class
+      base_model = base_class.name.underscore.to_sym
+      models_set = ([base_class] + base_class.descendants)
+      models_group = "(" + models_set.map do |model|
+        "'#{model.name}'"
+      end.join(", ") + ")"
+      Ekylibre::Schema.tables.each do |table, columns|
+        columns.each do |name, column|
+          next unless column.references
+          if column.references.is_a?(String) # Polymorphic
+            connection.execute("UPDATE #{table} SET #{column.name}=#{self.id} WHERE #{column.name}=#{entity.id} AND #{column.references} IN #{models_group}")
+          elsif column.references == base_model # Straight
+            connection.execute("UPDATE #{table} SET #{column.name}=#{self.id} WHERE #{column.name}=#{entity.id}")
+          end
+        end
+      end
+
+      # Update attributes
+      [:currency, :country, :last_name, :first_name, :activity_code, :description, :born_at, :dead_at, :deliveries_conditions, :first_met_at, :meeting_origin, :proposer, :siren, :supplier_account, :client_account, :vat_number, :language, :authorized_payments_count].each do |attr|
+        self.send("#{attr}=", entity.send(attr)) if self.send(attr).blank?
+      end
+      if entity.picture.file? and !self.picture.file?
+        self.picture = File.open(entity.picture.path(:original))
+      end
+
+      # Update custom fields
+      custom_fields = CustomField.where(customized_type: models_set.map(&:name))
+      custom_fields.each do |custom_field|
+        attr = custom_field.column_name
+        self.send("#{attr}=", entity.send(attr)) if self.send(attr).blank?
+      end
+
+      self.save!
 
       # Add observation
-      observation = "Merged entity (ID=#{entity.id}) :\n"
+      content = "Merged entity (ID=#{entity.id}):\n"
       for attr, value in entity.attributes.sort
-        observation << " - #{Entity.human_attribute_name(attr)} : #{entity.send(attr).to_s}\n"
+        value = entity.send(attr).to_s
+        content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" unless value.blank?
       end
-      self.observations.create!(description: observation, importance: "normal")
+      custom_fields.each do |custom_field|
+        value = entity.send(custom_field.column_name).to_s
+        content << "  - #{custom_field.name} : #{value}\n" unless value.blank?
+      end
+
+      self.observations.create!(content: content, importance: "normal", author: author)
 
       # Remove doublon
       entity.destroy

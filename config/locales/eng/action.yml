@@ -1630,6 +1630,7 @@ eng:
       journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
       journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"
+      # merge_is_done: "Merge is done"
       need_a_production_support: "Need a production support"
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"

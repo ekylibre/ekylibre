@@ -792,7 +792,6 @@ arb:
       area: "المنطقة البريدية" #?
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Living product"
-      # budget_item: "Budget item"
       building: "موقع التخزين"
       # building_division: "Room / Zone"
       # campaign: "Campaign"
@@ -817,7 +816,6 @@ arb:
       deposit: "الاقتطاع المصرفي"
       district: "مقاطعة"
       document: "الوثيقة"
-      # document_archive: "Document archive"
       document_template: "نموذج الوثيقة"
       # easement: "Easement"
       entity: "الفرد"
@@ -933,7 +931,6 @@ arb:
       # production_budget: "Budget"
       # production_distribution: "Production distribution"
       # production_support: "Production support"
-      # production_support_marker: "Production support marker"
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       # property_title: "Property title"
@@ -1010,7 +1007,6 @@ arb:
     # affected_at: "Affected at"
     # age: "Age"
     agency_code: "رمز الوكالة" #?
-    # aim: "Aim"
     # all_taxes_included: "All taxes included"
     # allocation_account: "Allocation account"
     amount: "القيمة من دون الضرائب"
@@ -1027,8 +1023,6 @@ arb:
     # archive_file_size: "Archive file size"
     # archive_updated_at: "Archive updated at"
     # archived_at: "Archived at"
-    # archives: "Archives"
-    # archives_count: "Archives count"
     # archiving: "Archiving"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1069,8 +1063,6 @@ arb:
     bic: "BIC" #?
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
-    # budget: "Budget"
-    # budget_items: "Budget items"
     # budgets: "Budgets"
     building: "موقع التخزين" #?
     building_id: "موقع التخزين" #?
@@ -1210,14 +1202,13 @@ arb:
     custom_fields: "الحقول الاضافية"
     # customized_type: "Customized type"
     # daily_nitrogen_production: "Daily nitrogen production"
-    data: "بيانات اضافية"
+    data: "بيانات اضافية" #?
     date_value: "قيمة التاريخ" #?
     datetime_value: "قيمة التاريخ/الساعة" #?
     dead_at: "تاريغ الوفاة"
     # deals_count: "Deals count"
     debit: "الدين"
     # debtor: "Debtor"
-    # decimal: "Decimal"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
@@ -1265,7 +1256,6 @@ arb:
     # depreciation_percentage: "Depreciation percentage"
     # depreciations: "Depreciations"
     # depth: "Depth"
-    # derivative: "Derivative"
     # derivative_of: "Derivative of"
     # derivatives_list: "Derivatives list"
     description: "الوصف"
@@ -1286,7 +1276,6 @@ arb:
     districts: "المناطق الادارية" #?
     division: "X الوضع" #?
     # document: "Document"
-    # document_archives: "Document archives"
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
     downpayment: "القسط"
@@ -1342,7 +1331,6 @@ arb:
     events: "الاحداث"
     # evolvable: "Evolvable"
     excise: "عدد رسوم الدفع" #?
-    # exclusive: "Exclusive"
     # execution_number: "Execution number"
     # expected_population: "Expected population"
     # expected_shape: "Expected shape"
@@ -1419,12 +1407,10 @@ arb:
     generated: "ولدت" #?
     # geolocation: "Geolocation"
     # geometry_value: "Geometry value"
-    # global_amount: "Global amount"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
     global_credit: "الائتمان العالمي"
     global_debit: "الانتاجية الاجمالية"
-    # global_quantity: "Global quantity"
     # godchildren: "Godchildren"
     # gravity: "Gravity"
     # group: "Group"
@@ -1433,9 +1419,6 @@ arb:
     # harvest_year: "Harvest year"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
-    # homogeneous_expenses: "Homogeneous expenses"
-    # homogeneous_revenues: "Homogeneous revenues"
-    # homogeneous_values: "Homogeneous values"
     hour_duration: "(ساعة (ساعات" #?
     # humus_mineralization: "Humus mineralization"
     iban: "IBAN"
@@ -1520,7 +1503,6 @@ arb:
     land_parcels: "الكتل"
     language: "اللغة"
     # last_analysis: "Last analysis"
-    # last_archive: "Last archive"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
     # last_journal_entry: "Journal entry of end of year"
@@ -1584,7 +1566,6 @@ arb:
     # managed_sales: "Managed sales"
     mandates: "تفويضات" #?
     # manure_management_plan_zones: "Manure management plan zones"
-    # markers: "Markers"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
@@ -1958,7 +1939,6 @@ arb:
     started_sec: "(التاريخ والوقت (بالثواني" #?
     state: "الحالة"
     state_label: "حالة النص"
-    # static_support: "Static support"
     # status: "Status"
     stock: "انتاج السهم" #?
     # stock_account: "Stock account"
@@ -2038,7 +2018,7 @@ arb:
     tracking_serial: "رقم الحصة" #?
     trackings: "الحصص"
     # transfered_at: "Transfered at"
-    transfers: "التحويلات"
+    transfers: "التحويلات" #?
     transport: "وسيلة النقل"
     transport_id: "وسيلة النقل" #?
     transporter: "الناقلة"
@@ -2053,11 +2033,9 @@ arb:
     unit: "الوحدة" #?
     # unit_amount: "Unit amount"
     unit_id: "وحدة" #?
-    # unit_indicator: "Unit indicator"
     # unit_name: "Unit name"
     # unit_pretax_amount: "Unit pretax amount"
     unit_quantity: "وحدة مساحة الكمية" #?
-    # unit_unit: "Unit unit"
     units: "الوحدات" #?
     # unlock_token: "Unlock token"
     # unlocked_payments: "Unlocked payments"
@@ -2105,7 +2083,6 @@ arb:
     # with_transport: "With transport"
     # work_number: "Work number"
     # worker: "Worker"
-    # working_unit: "Working unit"
     # zone_memberships: "Zone memberships"
     # zones: "Zones"
   models:

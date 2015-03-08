@@ -67,7 +67,6 @@ class EntityAddress < Ekylibre::Record::Base
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
   validates_length_of :mail_country, allow_nil: true, maximum: 2
-  validates_length_of :thread, allow_nil: true, maximum: 10
   validates_length_of :canal, allow_nil: true, maximum: 20
   validates_length_of :coordinate, allow_nil: true, maximum: 500
   validates_format_of :coordinate, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?

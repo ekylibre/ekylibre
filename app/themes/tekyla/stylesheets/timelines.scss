@@ -34,6 +34,7 @@
         border-right: $menu-border;
         border-bottom: $menu-border;
         padding: $default-gap;
+        white-space: pre-line;
         background: white;
         @include border-bottom-radius($default-border-radius);
       }

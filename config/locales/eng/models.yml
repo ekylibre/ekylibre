@@ -151,7 +151,6 @@ eng:
       # attachment: "Attachment"
       bank_statement: "Bank statement"
       bioproduct: "Living product"
-      budget_item: "Budget item" #?
       building: "Building"
       building_division: "Room / Zone"
       campaign: "Campaign"
@@ -169,7 +168,6 @@ eng:
       deposit: "Deposit"
       district: "District"
       document: "Document"
-      document_archive: "Document archive" #?
       document_template: "Document template"
       easement: "Easement"
       entity: "Entity"
@@ -258,7 +256,6 @@ eng:
       production_budget: "Budget"
       production_distribution: "Production distribution"
       production_support: "Production support"
-      production_support_marker: "Production support marker" #?
       property_title: "Property title"
       purchase: "Purchase"
       purchase_item: "Purchase item"
@@ -318,7 +315,6 @@ eng:
     affectation_percentage: "Affectation percentage"
     affected_at: "Affected at"
     age: "Age"
-    aim: "Aim" #?
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
@@ -334,8 +330,6 @@ eng:
     archive_file_size: "Archive file size"
     archive_updated_at: "Archive updated at"
     archived_at: "Archived at" #?
-    archives: "Archives" #?
-    archives_count: "Archives count" #?
     archiving: "Archiving"
     attachments: "Attachments"
     attribute_name: "Attribute name"
@@ -357,8 +351,6 @@ eng:
     bank_statements: "Bank statements"
     boolean_value: "Boolean value"
     born_at: "Born at"
-    budget: "Budget" #?
-    budget_items: "Budget items" #?
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
@@ -456,12 +448,10 @@ eng:
     customized_type: "Customized type"
     daily_nitrogen_production: "Daily nitrogen production"
     # dashboards: "Dashboards"
-    data: "Data" #?
     dead_at: "Dead on"
     deals_count: "Deals count"
     debit: "Debit"
     debtor: "Debtor"
-    decimal: "Decimal" #?
     decimal_value: "Decimal value"
     deduction_account: "Deduction account"
     default_computation_method: "Default computation method"
@@ -490,7 +480,6 @@ eng:
     depreciation_percentage: "Depreciation percentage"
     depreciations: "Depreciations"
     depth: "Depth"
-    derivative: "Derivative" #?
     derivative_of: "Derivative of"
     derivatives_list: "Derivatives list"
     description: "Description"
@@ -501,7 +490,6 @@ eng:
     distributions: "Distributions"
     district: "District"
     document: "Document"
-    document_archives: "Document archives" #?
     documents: "Documents"
     downpayment: "Downpayment"
     downpayment_amount: "Downpayment amount"
@@ -537,7 +525,6 @@ eng:
     event_participation: "Event participation"
     events: "Events"
     evolvable: "Evolvable"
-    exclusive: "Exclusive" #?
     execution_number: "Execution number"
     expected_population: "Expected population"
     expected_shape: "Expected shape"
@@ -593,12 +580,10 @@ eng:
     gaps: "Gaps"
     geolocation: "Geolocation"
     geometry_value: "Geometry value"
-    global_amount: "Global amount" #?
     global_balance: "Global balance"
     global_count: "Global count"
     global_credit: "Global credit"
     global_debit: "Global debit"
-    global_quantity: "Global quantity" #?
     godchildren: "Godchildren"
     gravity: "Gravity"
     group: "Group"
@@ -606,9 +591,6 @@ eng:
     guide: "Guide"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
-    homogeneous_expenses: "Homogeneous expenses" #?
-    homogeneous_revenues: "Homogeneous revenues" #?
-    homogeneous_values: "Homogeneous values" #?
     humus_mineralization: "Humus mineralization"
     iban: "IBAN"
     id: "ID"
@@ -676,7 +658,6 @@ eng:
     land_parcels: "Land parcels"
     language: "Language"
     last_analysis: "Last analysis"
-    last_archive: "Last archive" #?
     last_bank_statement: "Last bank statement"
     last_cweek: "Last week"
     last_journal_entry: "Journal entry of end of year"
@@ -722,7 +703,6 @@ eng:
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
-    markers: "Markers" #?
     mass: "Mass (kg)"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
@@ -978,7 +958,6 @@ eng:
     started_on: "Started on"
     state: "State"
     state_label: "State"
-    static_support: "Static support" #?
     status: "Status"
     stock_account: "Stock account"
     stocks_categories: "Stocks categories"
@@ -1023,7 +1002,6 @@ eng:
     tracking: "Tracking"
     trackings: "Trackings"
     transfered_at: "Transfered at"
-    transfers: "Transfers" #?
     transport: "Transport"
     transporter: "Transporter"
     transporter_purchase: "Transporter purchase"
@@ -1034,11 +1012,9 @@ eng:
     undelivered_quantity: "Undelivered quantity"
     unit_amount: "Unit amount"
     # unit_currency: "Unit currency"
-    unit_indicator: "Unit indicator" #?
     unit_name: "Unit name"
     # unit_population: "Unit population"
     unit_pretax_amount: "Unit pretax amount"
-    unit_unit: "Unit unit" #?
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"
@@ -1074,7 +1050,6 @@ eng:
     with_transport: "With transport"
     work_number: "Work number"
     worker: "Worker"
-    working_unit: "Working unit" #?
     zone_memberships: "Zone memberships"
     zones: "Zones"
   models:
