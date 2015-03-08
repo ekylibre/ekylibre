@@ -950,7 +950,7 @@ fra:
     destroyed_at_by: "Supprimé le %{at} par %{author}"
     destroyed_by_ago: "Supprimé par %{author} il y a %{ago}"
     details: "Informations complémentaires"
-    direct_charges: "Charges directes"
+    direct_expenses: "Charges directes"
     discount: "Réduc. (%)"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
@@ -1098,7 +1098,7 @@ fra:
     indicator_with_unit: "%{indicator} (%{unit})" #?
     indicators: "Indicateurs"
     indicators_evolutions: "Évolutions des indicateurs"
-    indirect_charges: "Charges indirectes"
+    indirect_expenses: "Charges indirectes"
     inel_index: "Index génétique INEL" #?
     info: "Information\_: %{value}"
     infos: "Information générales"

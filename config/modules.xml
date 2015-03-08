@@ -189,6 +189,7 @@
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
         <page to="backend/activities#edit"/>
+        <page to="backend/activities#family"/>
         <page to="backend/activities#list"/>
         <page to="backend/activities#list_distributions"/>
         <page to="backend/activities#list_productions"/>
@@ -393,6 +394,7 @@
         <page to="backend/products#edit"/>
         <page to="backend/products#list"/>
         <page to="backend/products#new"/>
+        <page to="backend/products#take"/>
         <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
         <page to="backend/products#list_contained_products"/>
@@ -426,6 +428,7 @@
         <page to="backend/matters#new"/>
         <page to="backend/matters#picture"/>
         <page to="backend/matters#show"/>
+        <page to="backend/matters#take"/>
         <page to="backend/matters#unroll"/>
         <page to="backend/matters#update"/>
         <page to="backend/product_groups#index"/>
@@ -447,6 +450,7 @@
         <page to="backend/product_groups#new"/>
         <page to="backend/product_groups#picture"/>
         <page to="backend/product_groups#show"/>
+        <page to="backend/product_groups#take"/>
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
       </item>
@@ -706,6 +710,7 @@
         <page to="backend/animals#list_carrier_linkages"/>
         <page to="backend/animals#list_markers"/>
         <page to="backend/animals#list_reading_tasks"/>
+        <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
       </item>
       <item name="animal_foods">
@@ -763,6 +768,7 @@
         <page to="backend/plants#picture"/>
         <page to="backend/plants#new"/>
         <page to="backend/plants#show"/>
+        <page to="backend/plants#take"/>
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
       </item>
@@ -850,6 +856,7 @@
         <page to="backend/fungi#new"/>
         <page to="backend/fungi#picture"/>
         <page to="backend/fungi#show"/>
+        <page to="backend/fungi#take"/>
         <page to="backend/fungi#unroll"/>
         <page to="backend/fungi#update"/>
       </item>
@@ -867,6 +874,7 @@
         <page to="backend/cultivable_zones#list_contained_products"/>
         <page to="backend/cultivable_zones#list_intervention_casts"/>
         <page to="backend/cultivable_zones#list_productions"/>
+        <page to="backend/cultivable_zones#take"/>
         <page to="backend/cultivable_zones#unroll"/>
         <page to="backend/cultivable_zones#list_groups"/>
         <page to="backend/cultivable_zones#list_issues"/>
@@ -888,11 +896,12 @@
         <page to="backend/equipments#edit"/>
         <page to="backend/equipments#list"/>
         <page to="backend/equipments#list_operations"/>
+        <page to="backend/equipments#list_intervention_casts"/>
         <page to="backend/equipments#new"/>
         <page to="backend/equipments#show"/>
-        <page to="backend/equipments#update"/>
-        <page to="backend/equipments#list_intervention_casts"/>
+        <page to="backend/equipments#take"/>
         <page to="backend/equipments#unroll"/>
+        <page to="backend/equipments#update"/>
         <page to="backend/equipments#list_contained_products"/>
         <page to="backend/equipments#list_groups"/>
         <page to="backend/equipments#list_issues"/>
@@ -916,6 +925,7 @@
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#list_reading_tasks"/>
         <page to="backend/workers#picture"/>
+        <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
       </item>
     </group>
@@ -1363,6 +1373,7 @@
         <page to="backend/product_nature_variants#list"/>
         <page to="backend/product_nature_variants#new"/>
         <page to="backend/product_nature_variants#pick"/>
+        <page to="backend/product_nature_variants#quantifiers"/>
         <page to="backend/product_nature_variants#show"/>
         <page to="backend/product_nature_variants#update"/>
         <page to="backend/product_nature_variants#list_catalog_items"/>
@@ -1433,6 +1444,7 @@
         <page to="backend/buildings#show"/>
         <page to="backend/buildings#update"/>
         <page to="backend/buildings#list_divisions"/>
+        <page to="backend/buildings#take"/>
         <page to="backend/buildings#unroll"/>
         <page to="backend/buildings#list_contained_products"/>
         <page to="backend/buildings#list_groups"/>
@@ -1456,6 +1468,7 @@
         <page to="backend/building_divisions#new"/>
         <page to="backend/building_divisions#show"/>
         <page to="backend/building_divisions#list_contained_products"/>
+        <page to="backend/building_divisions#take"/>
         <page to="backend/building_divisions#unroll"/>
         <page to="backend/building_divisions#update"/>
         <page to="backend/building_divisions#list_groups"/>
@@ -1502,6 +1515,7 @@
         <page to="backend/land_parcel_clusters#picture"/>
         <page to="backend/land_parcel_clusters#show"/>
         <page to="backend/land_parcel_clusters#update"/>
+        <page to="backend/land_parcel_clusters#take"/>
         <page to="backend/land_parcel_clusters#unroll"/>
         <page to="backend/land_parcel_groups#index"/>
         <page to="backend/land_parcel_groups#create"/>
@@ -1522,6 +1536,7 @@
         <page to="backend/land_parcel_groups#new"/>
         <page to="backend/land_parcel_groups#picture"/>
         <page to="backend/land_parcel_groups#show"/>
+        <page to="backend/land_parcel_groups#take"/>
         <page to="backend/land_parcel_groups#unroll"/>
         <page to="backend/land_parcel_groups#update"/>
       </item>
@@ -1548,6 +1563,7 @@
         <page to="backend/land_parcels#merge"/>
         <page to="backend/land_parcels#new"/>
         <page to="backend/land_parcels#show"/>
+        <page to="backend/land_parcels#take"/>
         <page to="backend/land_parcels#unroll"/>
         <page to="backend/land_parcels#update"/>
       </item>
@@ -1572,6 +1588,7 @@
         <page to="backend/settlements#picture"/>
         <page to="backend/settlements#new"/>
         <page to="backend/settlements#show"/>
+        <page to="backend/settlements#take"/>
         <page to="backend/settlements#unroll"/>
         <page to="backend/settlements#update"/>
       </item>
@@ -1879,58 +1896,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="activities">
-        <page to="backend/activities#family"/>
-      </item>
-      <item name="animals">
-        <page to="backend/animals#take"/>
-      </item>
-      <item name="building_divisions">
-        <page to="backend/building_divisions#take"/>
-      </item>
-      <item name="buildings">
-        <page to="backend/buildings#take"/>
-      </item>
-      <item name="cultivable_zones">
-        <page to="backend/cultivable_zones#take"/>
-      </item>
-      <item name="equipments">
-        <page to="backend/equipments#take"/>
-      </item>
-      <item name="fungi">
-        <page to="backend/fungi#take"/>
-      </item>
-      <item name="land_parcel_clusters">
-        <page to="backend/land_parcel_clusters#take"/>
-      </item>
-      <item name="land_parcel_groups">
-        <page to="backend/land_parcel_groups#take"/>
-      </item>
-      <item name="land_parcels">
-        <page to="backend/land_parcels#take"/>
-      </item>
-      <item name="matters">
-        <page to="backend/matters#take"/>
-      </item>
-      <item name="plants">
-        <page to="backend/plants#take"/>
-      </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#take"/>
-      </item>
-      <item name="product_nature_variants">
-        <page to="backend/product_nature_variants#quantifiers"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#take"/>
-      </item>
-      <item name="settlements">
-        <page to="backend/settlements#take"/>
-      </item>
-      <item name="workers">
-        <page to="backend/workers#take"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

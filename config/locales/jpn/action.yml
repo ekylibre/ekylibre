@@ -815,7 +815,7 @@ jpn:
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     # details: "Details"
-    # direct_charges: "Direct charges"
+    # direct_expenses: "Direct charges"
     # discount: "Discount (%)"
     # display: "Display"
     display_help: "手伝い" #?
@@ -926,7 +926,7 @@ jpn:
     # indicator_value: "Indicator value"
     # indicators: "Indicators"
     # indicators_evolutions: "Indicators evolutions"
-    # indirect_charges: "Indirect charges"
+    # indirect_expenses: "Indirect charges"
     # info: "General parameters"
     # infos: "Product and quantity"
     # input_cost: "Input cost"

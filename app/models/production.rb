@@ -187,6 +187,13 @@ class Production < Ekylibre::Record::Base
     return 0
   end
 
+  # Sums all quantity of supports
+  def total_quantity
+    return self.supports.map do |support|
+      support.get(self.support_variant_indicator).to_d(self.support_variant_unit)
+    end.sum
+  end
+
   def cost(role = :input)
     if interventions = self.interventions
       cost_array = []

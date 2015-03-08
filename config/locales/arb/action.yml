@@ -1213,7 +1213,7 @@ arb:
     # destroyed_at_by: "Destroyed at %{at} by %{author}"
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "معلومات اضافية"
-    # direct_charges: "Direct charges"
+    # direct_expenses: "Direct charges"
     discount: "الخصم (%)"
     display: "عرض"
     display_help: "عرض المساعدة" #?
@@ -1367,7 +1367,7 @@ arb:
     # indicator_value: "Indicator value"
     # indicators: "Indicators"
     # indicators_evolutions: "Indicators evolutions"
-    # indirect_charges: "Indirect charges"
+    # indirect_expenses: "Indirect charges"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
     # input_cost: "Input cost"

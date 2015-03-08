@@ -295,10 +295,6 @@ class ProductionSupport < Ekylibre::Record::Base
     self.storage.get(*args)
   end
 
-  def working_indicator_measure
-    send(support_variant_indicator) rescue nil
-  end
-
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
     if Nomen::Indicators.all.include?(method_name.to_s)

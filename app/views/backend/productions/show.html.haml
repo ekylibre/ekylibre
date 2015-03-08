@@ -50,9 +50,7 @@
           title_legend_complement = " (#{ currency }/#{ support_variant_unit.human_name })"
         end
 
-        total_quantity = resource.supports.map do |support|
-          support.get(support_variant_indicator).to_d(support_variant_unit).round(4)
-        end.sum
+        total_quantity = resource.total_quantity.round(4)
         total_quantity = 1.0 if total_quantity.zero?
 
         data_series = []
@@ -82,7 +80,7 @@
 
         data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
 
-        data_series << { name: :indirect_charges.tl, y: (resource.indirect_budget_amount/total_quantity).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+        data_series << { name: :indirect_expenses.tl, y: (resource.indirect_budget_amount/total_quantity).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
         data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
