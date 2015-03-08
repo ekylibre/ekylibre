@@ -137,11 +137,11 @@ production_supports_010:
   created_at: 2014-11-07 15:54:19.288354000 Z
   creator_id: 1
   id: 15
-  lock_version: 0
+  lock_version: 1
   production_id: 8
   production_usage: fodder
-  storage_id: 80
-  updated_at: 2014-11-07 15:54:19.288354000 Z
+  storage_id: 86
+  updated_at: 2015-03-08 16:49:28.765669000 Z
   updater_id: 1
 production_supports_011:
   created_at: 2014-11-07 16:34:30.852303000 Z

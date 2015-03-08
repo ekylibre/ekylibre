@@ -40,7 +40,7 @@
   <nomenclature name="activity_families-arboriculture">
     <items>
       <item name="orchard_crops"/>
-      <item name="vines"/>
+      <item name="vines"                         support_variety="cultivable_zone" cultivation_variety="vitis"/>
     </items>
   </nomenclature>
 

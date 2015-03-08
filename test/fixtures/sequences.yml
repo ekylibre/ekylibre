@@ -419,17 +419,17 @@ sequences_024:
   created_at: 2014-11-01 19:06:50.057606000 Z
   creator_id: 1
   id: 24
-  last_cweek: 45
-  last_month: 11
-  last_number: 53
-  last_year: 2014
-  lock_version: 53
+  last_cweek: 10
+  last_month: 3
+  last_number: 54
+  last_year: 2015
+  lock_version: 54
   name: Variante de type de produit
   number_format: GWNVKRYVPNV[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-07 19:35:28.670756000 Z
+  updated_at: 2015-03-08 16:48:51.062772000 Z
   updater_id: 1
   usage: product_nature_variants
 sequences_025:

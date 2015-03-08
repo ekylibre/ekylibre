@@ -1484,11 +1484,11 @@ preferences_125:
   created_at: 2014-10-31 20:11:11.205553000 Z
   creator_id: 1
   id: 125
-  lock_version: 6
+  lock_version: 8
   name: list._product_nature_variants_list_product_nature_variants_tag
   nature: string
   string_value:
-    page: 1
+    page: 3
     only: content
     action: list
     controller: backend/product_nature_variants
@@ -1496,7 +1496,8 @@ preferences_125:
     dir: ''
     per_page: 20
     sort: ''
-  updated_at: 2014-11-07 17:31:33.906604000 Z
+    redirect: /backend/product_nature_variants
+  updated_at: 2015-03-08 16:47:11.754369000 Z
   updater_id: 1
   user_id: 1
 preferences_126:
@@ -1557,11 +1558,21 @@ preferences_131:
   created_at: 2014-10-31 20:13:03.155072000 Z
   creator_id: 1
   id: 131
-  lock_version: 0
+  lock_version: 2
   name: list._product_natures_list_product_natures_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-10-31 20:13:03.155072000 Z
+  string_value:
+    s: all
+    page: 3
+    only: content
+    redirect: /backend/product_natures
+    controller: backend/product_natures
+    action: list
+    hidden_columns: []
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2015-03-08 16:47:43.134219000 Z
   updater_id: 1
   user_id: 1
 preferences_132:
@@ -2659,5 +2670,47 @@ preferences_224:
       - type: cell
         name: calendar
   updated_at: 2015-02-08 12:39:55.553677000 Z
+  updater_id: 1
+  user_id: 1
+preferences_225:
+  created_at: 2015-03-08 16:37:39.157350000 Z
+  creator_id: 1
+  id: 225
+  lock_version: 0
+  name: list._activities_list_productions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-03-08 16:37:39.157350000 Z
+  updater_id: 1
+  user_id: 1
+preferences_226:
+  created_at: 2015-03-08 16:45:02.292407000 Z
+  creator_id: 1
+  id: 226
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/ekylibre/app/views/backend/productions/index.html.haml:1:1.default
+  nature: string
+  updated_at: 2015-03-08 16:45:02.292407000 Z
+  updater_id: 1
+  user_id: 1
+preferences_227:
+  created_at: 2015-03-08 16:47:36.872303000 Z
+  creator_id: 1
+  id: 227
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/ekylibre/app/views/backend/product_natures/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-03-08 16:47:36.872303000 Z
+  updater_id: 1
+  user_id: 1
+preferences_228:
+  created_at: 2015-03-08 16:47:45.579742000 Z
+  creator_id: 1
+  id: 228
+  lock_version: 0
+  name: list._product_natures_list_variants_tag
+  nature: string
+  string_value: {}
+  updated_at: 2015-03-08 16:47:45.579742000 Z
   updater_id: 1
   user_id: 1

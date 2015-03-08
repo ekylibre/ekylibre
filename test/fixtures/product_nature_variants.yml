@@ -1058,3 +1058,17 @@ product_nature_variants_066:
   updated_at: 2014-11-07 19:35:28.672313000 Z
   updater_id: 1
   variety: equipment
+product_nature_variants_067:
+  active: true
+  category_id: 9
+  created_at: 2015-03-08 16:48:51.065006000 Z
+  creator_id: 1
+  id: 68
+  lock_version: 0
+  name: Blonde d'Aquitaine
+  nature_id: 16
+  number: GWNVKRYVPNV000000000054
+  unit_name: Vache
+  updated_at: 2015-03-08 16:48:51.065006000 Z
+  updater_id: 1
+  variety: bos_taurus_blonde_aquitaine
