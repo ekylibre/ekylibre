@@ -234,7 +234,7 @@ class ListingNode < Ekylibre::Record::Base
     # Columns
     nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.select{|c| model.has_human_attribute_name?(c.name)}.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections
-    nodes << [tc(:reflections), model.reflect_on_all_associations.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
+    nodes << [tc(:reflections), model.reflect_on_all_associations.select{|v| [:has_many, :belongs_to].include? v.macro}.collect{|r| [model.human_attribute_name(r.name).to_s, "#{r.macro}-#{r.name}"]}.sort ]
     return nodes
   end
 
