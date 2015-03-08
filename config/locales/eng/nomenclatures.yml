@@ -4022,7 +4022,7 @@ eng:
         phytoptus_avellanae: "Phytoptus avellanae"         #< insecta
         pistacia: "Pistacia"                               #< anacardiaceae
         pistacia_vera: "Pistacia vera"                     #< pistacia
-        pisum: "Pea"                                       #< fabaceae
+        pisum: "Pisum"                                     #< fabaceae
         pisum_hibernum: "Winter pea"                       #< pisum_sativum
         pisum_sativum: "Pea"                               #< pisum
         pisum_vernum: "Spring pea"                         #< pisum_sativum
