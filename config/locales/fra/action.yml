@@ -717,6 +717,7 @@ fra:
     add_diagnostic: "Ajouter un diagnostic" #?
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
+    add_entry: "Ajouter une écriture"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"

@@ -22,6 +22,21 @@ class Backend::JournalsController < Backend::BaseController
 
   unroll
 
+  list(order: :name) do |t|
+    t.column :name, url: true
+    t.column :code, url: true
+    t.column :nature
+    t.column :currency
+    t.column :closed_on
+    # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
+    t.action :close, if: :closable?, image: :unlock
+    t.action :reopen, if: :reopenable?, image: :lock
+    t.action :edit
+    t.action :destroy
+  end
+
+
+
   hide_action :journal_views
 
   @@journal_views = ["items", "entries", "mixed"]
@@ -102,20 +117,6 @@ class Backend::JournalsController < Backend::BaseController
     t.action :destroy, if: :destroyable?
   end
 
-  #FIXME undefined method `human_name' for nil:NilClass
-  list(order: :code) do |t|
-    t.column :name, url: true
-    t.column :code, url: true
-    t.column :nature
-    t.column :currency
-    t.column :closed_on
-    # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
-    t.action :close, if: 'RECORD.closable?(Date.today)'.c, image: :unlock
-    t.action :reopen, if: :reopenable?, image: :lock
-    t.action :edit
-    t.action :destroy
-  end
-
   # Displays details of one journal selected with +params[:id]+
   def show
     return unless @journal = find_and_check
@@ -159,10 +160,6 @@ class Backend::JournalsController < Backend::BaseController
       end
     end
     t3e @journal
-  end
-
-  # Displays the main page with the list of journals
-  def index
   end
 
 

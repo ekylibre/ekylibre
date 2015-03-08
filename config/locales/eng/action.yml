@@ -758,6 +758,7 @@ eng:
     add_delivery: "Add delivery"
     add_distribution: "Add distribution"
     add_email: "Add email"
+    add_entry: "Add entry"
     add_expense: "Add expense"
     add_fax: "Add fax"
     add_filter: "Add filter"
@@ -1413,7 +1414,7 @@ eng:
     total_pretax_revenues: "Total pretax revenues"
     total_quantity: "Total quantity"
     total_unpaid_amount: "Total unpaid amount"
-    totals: "Totals" #?
+    totals: "Totals"
     tracking: "Tracking" #?
     trade: "Trade"
     transfer: "Transfer" #?

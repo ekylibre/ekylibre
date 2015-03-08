@@ -983,6 +983,7 @@ arb:
     add_delivery: "اضافة وسيلة نقل"
     # add_distribution: "Add distribution"
     # add_email: "Add email"
+    # add_entry: "Add entry"
     # add_expense: "Add expense"
     # add_fax: "Add fax"
     # add_filter: "Add filter"

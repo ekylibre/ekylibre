@@ -127,10 +127,10 @@ class Journal < Ekylibre::Record::Base
 
 
 
-  #
+  # Test if journal is closable
   def closable?(closed_on=nil)
     closed_on ||= Date.today
-    self.class.where(:id => self.id).update_all(:closed_on => Date.civil(1900, 12, 31)) if self.closed_on.nil?
+    self.class.where(id: self.id).update_all(closed_on: Date.civil(1900, 12, 31)) if self.closed_on.nil?
     self.reload
     return false unless (closed_on << 1).end_of_month > self.closed_on
     return true

@@ -717,16 +717,14 @@ module ApplicationHelper
     url[:action] ||= action
     url[:id] = record.id if record and record.class < ActiveRecord::Base
     variants = options.delete(:variants)
-    # variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
-    variants ||= {action.to_s.t(scope: 'rest.actions') => url} if authorized?(url)
+    action_label = options[:label] || action.to_s.t(scope: 'rest.actions')
+    variants ||= {action_label => url} if authorized?(url)
     return dropdown_button do |l|
       for name, url_options in variants || {}
         variant_url = url.merge(url_options)
         l.link_to(name, variant_url, options) if authorized?(variant_url)
       end
     end
-    # return tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record ? record.attributes.symbolize_keys : {})), url, tag_options) if authorized?(url)
-    # return nil
   end
 
 

@@ -2,48 +2,55 @@
   - t.edit resource
   - t.close resource if resource.closable?
   - t.reopen resource if resource.reopenable?
-  - t.new(params: {controller: :journal_entries, :journal_id => resource.id})
+  - t.new(params: {controller: :journal_entries, journal_id: resource.id}, label: :add_entry.tl)
 
+= kujaku(popover: false) do |k|
+  - k.text
+  - k.crit :journal_entries_states
+  - k.crit :journal_period
 
 = beehive do |b|
   - b.cell :journals do
     = journals_tag
   - b.hbox do
     - b.cell :entry_items, title: Journal.human_attribute_name(:entry_items) do
-      = kujaku(popover: false) do |k|
-        - k.text
-        - k.crit :journal_entries_states
-        - k.crit :journal_period
-
       = journal_view_tag
+      = list(@journal_view.to_sym)
 
-      -#:ruby
+  - b.hbox do
+    - b.cell :totals, title: Journal.human_attribute_name(:totals) do
+      :ruby
+        absolute_currency = Preference[:currency]
         conditions = eval(controller.class.journal_entries_conditions)
         totals = {}
-        totals[:debit]  = JournalEntry.where(conditions).sum(:real_debit)
-        totals[:credit] = JournalEntry.where(conditions).sum(:real_credit)
-        totals[:balance_debit] = totals[:balance_credit] = 0.0
-        totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
-
-      .tab-content
-        = list(@journal_view.to_sym)
-        -# TODO Find a way to known shown columns or to compute sums in activelist
-          - colspans = (@journal_view == "items" ? [6, 1] : [3, 3])
+        totals[:real_debit]  = JournalEntry.where(conditions).sum(:real_debit)
+        totals[:real_credit] = JournalEntry.where(conditions).sum(:real_credit)
+        totals[:real_balance_debit] = totals[:real_balance_credit] = 0.0
+        totals["real_balance_#{totals[:real_debit]>totals[:real_credit] ? 'debit' : 'credit'}".to_sym] = (totals[:real_debit]-totals[:real_credit]).abs
+      %table
+        %tbody
           %tr.important.total
-            %th{colspan: colspans[0]}= :total.tl
-            %td= totals[:debit].l(currency: resource.currency)
-            %td= totals[:credit].l(currency: resource.currency)
-            %th{colspan: colspans[1]}
-          - if totals[:balance_debit] != totals[:balance_credit]
+            %th
+            %th= Journal.human_attribute_name(:debit)
+            %th= Journal.human_attribute_name(:credit)
+          %tr.important.total
+            %th= :total.tl
+            %td.decimal= totals[:real_debit].l(currency: resource.currency)
+            %td.decimal= totals[:real_credit].l(currency: resource.currency)
+          - if resource.currency != absolute_currency
             %tr.important.total
-              %th{colspan: colspans[0]}= :balance.tl
-              %td= totals[:balance_debit].l(currency: resource.currency)
-              %td= totals[:balance_credit].l(currency: resource.currency)
-              %th{colspan: colspans[1]}
+              %th= :total.tl
+              %td.decimal= JournalEntry.where(conditions).sum(:debit).l(currency: absolute_currency)
+              %td.decimal= JournalEntry.where(conditions).sum(:credit).l(currency: absolute_currency)
+          - if totals[:real_balance_debit] != totals[:real_balance_credit]
+            %tr.important.total
+              %th= :balance.tl
+              %td.decimal= totals[:real_balance_debit].l(currency: resource.currency)
+              %td.decimal= totals[:real_balance_credit].l(currency: resource.currency)
 
 
 
-    -# b.cell :details do
+    - b.cell :details do
       = attributes_list(resource) do |l|
         - l.attribute :name
         - l.attribute :code
