@@ -43,7 +43,9 @@
 class Tax < Ekylibre::Record::Base
   attr_readonly :computation_method, :amount
   enumerize :reference_name, in: Nomen::Taxes.all
-  enumerize :computation_method, in: [:amount, :percentage], default: :percentage, predicates: true
+  # No way to select amount until currency is not defined in tax clearly
+  # enumerize :computation_method, in: [:amount, :percentage], default: :percentage, predicates: true
+  enumerize :computation_method, in: [:percentage], default: :percentage, predicates: true
   belongs_to :collect_account, class_name: "Account"
   belongs_to :deduction_account, class_name: "Account"
   has_many :product_nature_category_taxations, dependent: :restrict_with_error
@@ -113,9 +115,12 @@ class Tax < Ekylibre::Record::Base
 
   # Returns the short label of a tax
   def short_label
-      country = Nomen::Taxes.find(self.reference_name).country
-      item = "#{self.amount}% (#{country})"
-      return item
+    label = "#{self.amount}"
+    label << (self.percentage? ? '%' : '?')
+    if reference = Nomen::Taxes[self.reference_name]
+      label << " (#{reference.country})"
+    end
+    return label
   end
 
   # Load a tax from tax nomenclature
