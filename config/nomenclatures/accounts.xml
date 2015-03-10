@@ -159,8 +159,9 @@
       <item name="young_animal_expenses" fr_pcga="6042"/>
       <item name="other_animal_expenses" fr_pcga="6045"/>
       <item name="equipments_expenses" fr_pcg82="605"/>
-      <item name="vegetals_productions_expenses" fr_pcga="6051"/>
-      <item name="animals_productions_expenses" fr_pcga="6054"/>
+      <item name="making_services_expenses" fr_pcga="605"/>
+      <item name="vegetals_making_services_expenses" fr_pcga="6051"/>
+      <item name="animals_making_expenses_expenses" fr_pcga="6054"/>
       <item name="unstorable_expenses" fr_pcg82="606"/>
       <item name="water_expenses" fr_pcga="6061"/>
       <item name="gas_expenses" fr_pcga="6062"/>
@@ -236,6 +237,7 @@
       <item name="other_animal_revenues" fr_pcga="7045"/>
       <item name="services_revenues" fr_pcg82="706"/>
       <item name="merchandising_revenues" fr_pcg82="707"/>
+      <item name="making_services_revenues" fr_pcga="7084"/>
       <item name="merchandising_accessory_revenues" fr_pcg82="7085"/>
       <item name="fill_up_price_revenues" fr_pcga="7087"/>
       <item name="discount_and_reductions_revenues" fr_pcg82="709"/>

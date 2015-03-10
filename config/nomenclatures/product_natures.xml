@@ -1354,7 +1354,25 @@
             frozen_indicators="population"
             />
 
+      <!-- agricultural service -->
 
+        <item name="vegetals_making_services"
+            category="vegetals_making_services"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+        <item name="animals_making_services"
+            category="animals_making_services"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
 
 
       <!-- COMMON SERVICES -->

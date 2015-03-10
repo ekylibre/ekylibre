@@ -534,6 +534,29 @@
             />
 
 
+		  <!-- agricultural service -->
+
+		  <item name="vegetals_making_services"
+		  	charge_account="vegetals_making_services_expenses"
+		  	product_account="making_services_revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="tractor"
+            />
+
+          <item name="animals_making_services"
+		  	charge_account="animals_making_expenses_expenses"
+		  	product_account="making_services_revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="tractor"
+            />
+
+
           <!-- subsidies -->
          <item name="exploitation_subsidies"
             product_account="exploitation_subsidies"

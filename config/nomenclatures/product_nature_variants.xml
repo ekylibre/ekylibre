@@ -2689,6 +2689,25 @@
             frozen_indicators_values="population: 1"
             />
 
+
+	 <!-- AGRICULTURAL SERVICES -->
+
+
+	 <item name="drying_making_service"
+            nature="vegetals_making_services"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+     <item name="harvesting_making_service"
+            nature="vegetals_making_services"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+
+
+
      <!-- COMMON SERVICES -->
      <!-- COMMON SERVICES -->
      <!-- COMMON SERVICES -->
