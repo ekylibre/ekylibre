@@ -8,7 +8,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     s.sheet(sheet_name)
 
     # get information for production context
-    campaign_harvest_year = s.cell('A', 2)
+    campaign_harvest_year = s.cell('A', 2).to_i
     activity_name = s.cell('B', 2)
     production_support_numbers = (s.cell('C', 2).blank? ? [] : s.cell('C', 2).to_s.strip.upcase.split(/[\s\,]+/))
     cultivation_variant_reference_name = s.cell('D', 2)
@@ -17,7 +17,6 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     production_indicator_unit_reference_name = s.cell('G', 2)
 
     # get budget concerning production (activty / given campaign)
-
     campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
     cultivation_variant = nil
 
