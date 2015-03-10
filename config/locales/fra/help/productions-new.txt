@@ -1,0 +1,24 @@
+====== Nouvelle production ======
+
+===== Informations générales =====
+
+Un production est une intention de produire déclarée permettant de prévoir l'activité de l'exploitation en liant une [[>backend/activities|activité]],
+une [[>backend/campaigns|campagne]].
+
+!!! Les dates **Débutée le** et **Arrêté le** sont facultatives.
+
+===== Supports =====
+
+Les supports correspondent aux **zones cultivables** pour les productions végétales et aux **groupe d'animaux** pour les productions animales.
+
+===== Budget =====
+
+Le budget permet de prévoir les **dépenses** et les **recettes** d'une production.
+
+La méthode de calcul permet de selectionner trois modes de proportionnalité :
+
+>>> **par unité d'oeuvre** : La ligne de budget est proportionnelle à chaque unité d'oeuvre de chaque support (exemple : 2 Litre par Hectare)
+
+>>> **par support de production** : La ligne de budget est proportionnelle à chaque support (exemple : 1 analyse de sol par zone cultivable)
+  
+>>> **par production** : La ligne de budget est proportionnelle à la production (exemple : 1 contrat par production)
