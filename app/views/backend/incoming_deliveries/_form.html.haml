@@ -1,7 +1,8 @@
 = field_set do
   - # TODO: Manage variables in :new parameters
   = f.input :reference_number
-  = f.referenced_association :sender,  source: :suppliers
+  = f.referenced_association :sender,  source: :suppliers, input_html: {data: {delivery_purchase: true}}
+  = f.referenced_association :purchase
   = f.referenced_association :address, source: :own_mails
   = f.input :mode
   = f.input :received_at

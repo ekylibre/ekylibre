@@ -8,7 +8,7 @@
     - b.cell :general do
       - if resource.picture.exists?
         .picture= image_tag(resource.picture.url(:identity))
-      .big-info.important
+      .med-info.important
         - icon = resource.category.pictogram
         %span.title= Matter.human_attribute_name(:variant)
         %span.value
@@ -25,10 +25,10 @@
         .big-info.important
           %span.title= Matter.human_attribute_name(:net_mass)
           %span.value= resource.net_mass.l
-      - if resource.current_ownership and resource.current_ownership.owner_id != Entity.of_company.id
+      - if resource.current_ownership and resource.current_ownership.owner_id != Entity.of_company.id and resource.current_ownership.owner
         .med-info.important
           %span.title= Product.human_attribute_name(:owner)
-          %span.value= Entity.find(resource.current_ownership.owner_id).name
+          %span.value= resource.current_ownership.owner.name
       = attributes_list do |l| # liste des champs à afficher
         - l.attribute :name
         - l.attribute :variety, url: true

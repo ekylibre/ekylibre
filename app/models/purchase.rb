@@ -83,6 +83,9 @@ class Purchase < Ekylibre::Record::Base
   }
 
   scope :unpaid, -> { where(state: ["order", "invoice"]).joins(:affair).where("NOT closed") }
+  scope :current, lambda { unpaid }
+  scope :current_or_self, lambda { |purchase| where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
+  scope :of_supplier, lambda { |supplier| where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
 
   state_machine :state, :initial => :draft do
     state :draft
