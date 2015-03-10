@@ -39,6 +39,7 @@
           input: 0,
           tool: 0,
           doer: 0,
+          other: 0
         }
         currency = Preference[:currency]
         title_legend_complement = ''
@@ -66,11 +67,13 @@
           if expense.variant_indicator.to_s == "working_duration"
             if variant_variety <= :worker
               costs[:doer] -= amount
-            else
+            elsif variant_variety <= :equipment
               costs[:tool] -= amount
             end
+          elsif (variant_variety <= :preparation || variant_variety <= :water)
+            costs[:input] -= amount 
           else
-            costs[:input] -= amount
+            costs[:other] -= amount
           end
           balance -= amount
         end

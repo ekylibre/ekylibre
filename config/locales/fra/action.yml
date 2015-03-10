@@ -1002,6 +1002,7 @@ fra:
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
     evaluated_tool_cost: "Coût outils"
+    evaluated_other_cost: "Coût autres"
     events: "Évènements"
     example: "Exemple\_: %{value}"
     exchange: "Échange"
