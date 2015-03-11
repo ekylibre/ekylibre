@@ -47,8 +47,12 @@
               <within of="input.actor">
                 <cell name="name"/>
                 <cell name="quantity" value="net_volume(input)" type="measure"/>
+                <cell name="quantity" value="net_mass(input)" type="measure"/>
+                <!-- TODO remove the 2 following lines if possible -->
                 <cell name="quantity_in_liter" value="net_volume(input).to_d(:liter)" level="api"/>
+                <cell name="quantity_in_kilogram" value="net_mass(input).to_d(:kilogram)" level="api"/>
                 <cell name="quantity_in_liter_per_hectare" if="working_area != 0.00" value="net_volume(input).to_d(:liter)/working_area" level="api"/>
+                <cell name="quantity_in_kilogram_per_hectare" if="working_area != 0.00" value="net_mass(input).to_d(:kilogram)/working_area" level="api"/>
                 <cell name="variant_name"/>
                 <cell name="variety" level="api"/>
               </within>
