@@ -14,7 +14,7 @@
         %th.act
 
     %tfoot
-      %tr#total.total{data: {valid_if_equality_between: "#entry-real-debit, #entry-real-credit"}}
+      %tr#total.total{data: {valid_if_equality_between: "#entry-real-debit, #entry-real-credit", submit_if_valid: false}}
         %th{colspan: 2}
           = tool_to(:new.ta, {controller: :journal_entry_items, action: :new, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
           %span= :total.tl
@@ -25,7 +25,7 @@
         %th.act
 
       - if @financial_year and @journal.currency != @financial_year.currency
-        %tr.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit"}}
+        %tr.subtotal{data: {valid_if_equality_between: "#entry-debit, #entry-credit", submit_if_valid: false}}
           %th{colspan: 2}= :total_in_currency.tl(currency: @financial_year.currency)
           %td#entry-debit.decimal{ data: {use: "td.debit",  calculate_round: Nomen::Currencies[@financial_year.currency].precision}}= @journal_entry.debit
           %td.txt= @financial_year.currency

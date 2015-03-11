@@ -213,15 +213,13 @@
   $(document).behave "load", "*[data-valid-if-equality-between]", ->
     element = $(this)
     selector = element.data("valid-if-equality-between")
-    $(document).behave "load keyup change emulated:change remove", selector, ->
+    $(document).behave "load keyup change", selector, ->
       value = null
       equality = true
-      oldEquality = undefined
-      oldEquality = element.hasClass("valid")
       $(selector).each ->
-        value = $(this).numericalValue()  if value is null
-        equality = false  if value isnt $(this).numericalValue()
-      if element.hasClass("valid") and not equality
+        value ?= $(this).numericalValue()
+        equality = false  if value != $(this).numericalValue()
+      if element.hasClass("valid") and !equality
         element.removeClass "valid"
         element.addClass "invalid"
         element.trigger "change"
@@ -229,12 +227,15 @@
         element.removeClass "invalid"
         element.addClass "valid"
         element.trigger "change"
+      else if equality
+        element.addClass("valid")
+
     return
 
   $(document).on "change", "*[data-valid-if-equality-between]", ->
     element = $(this)
     form = undefined
-    if element.hasClass("valid")
+    if element.hasClass("valid") && element.data("submit-if-valid") == true
       form = element.closest("form")
       form.submit() if form
     return

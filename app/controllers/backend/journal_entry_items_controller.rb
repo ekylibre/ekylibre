@@ -22,6 +22,7 @@ class Backend::JournalEntryItemsController < Backend::BaseController
   unroll :entry_number, :name, :real_debit, :real_credit, :currency, account: :number
 
   def new
+
     @journal_entry_item = JournalEntryItem.new
     @journal_entry_item.name = params[:name] if params[:name]
     if params["entry-real-debit"] and params["entry-real-credit"]
