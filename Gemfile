@@ -9,7 +9,7 @@ gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter', '>= 3.0.0.beta2'
 
 # Multi-tenancy
-gem 'apartment'
+gem 'apartment', '< 1.0.0'
 
 # Code manipulation
 gem 'code_string'
@@ -67,7 +67,7 @@ gem 'exception_notification'
 gem 'haml'
 gem "calendar_helper", "~> 0.2.5"
 gem "simple_calendar", "~> 0.1"
-gem "active_list", '>= 6.4.0' #, path: "../active_list" #
+gem "active_list", '>= 6.4.2' #, path: "../active_list" #
 
 # Models helpers
 gem 'acts_as_list'
