@@ -924,7 +924,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "Details"
     direct_expenses: "Direct charges"
-    discount: "Discount (%)" #?!
+    discount: "Discount (%)" #?
     display: "Display" #?
     distributions: "Distributions"
     divide: "Divide"
@@ -1344,8 +1344,8 @@ eng:
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
+    select_forward_journal: "Selected Journal to renew"
     select_number: "Select number"
-    select_renew_journal: "Selected Journal to renew"
     selection: "Selection"
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
@@ -1453,8 +1453,8 @@ eng:
     upload: "Upload" #?
     uploading_unicoque_traceability: "Uploading unicoque traceability" #?!
     usage: "Usage" #?
+    use_forward: "Select the journal to carry over" #?
     use_incoming_payment: "Add incoming payment %{payment}" #?
-    use_renew: "Select the journal to carry over"
     used_accounts: "Used accounts only" #?
     users: "Users"
     valid: "Valid" #?
@@ -1643,7 +1643,7 @@ eng:
       need_to_create_productions: "Need to create productions"
       need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
       new_actual_number: "The new number is being %{actual_number}"
-      no_authenticated: "You could not be identified. The user name or password must be incorrect."
+      no_authenticated: "You could not be identified. The user name or password must be incorrect." #?
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
       no_payment_to_deposit: "There are no payment to deposit"

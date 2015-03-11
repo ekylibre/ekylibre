@@ -47,5 +47,4 @@ class Team < Ekylibre::Record::Base
   validates_uniqueness_of :name
 
   acts_as_nested_set
-
 end

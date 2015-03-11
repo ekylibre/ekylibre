@@ -37,6 +37,8 @@ class District < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name
   #]VALIDATORS]
+  validates_uniqueness_of :name
+  validates_uniqueness_of :code, allow_blank: true
 
   def self.exportable_columns
     self.content_columns.delete_if{|c| ![:name].include?(c.name.to_sym)}

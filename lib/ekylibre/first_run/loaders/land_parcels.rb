@@ -33,33 +33,19 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
     end
   end
 
-  path = first_run.path("alamano", "land_parcels.csv")
-  if path.exist?
-    first_run.import(:ekylibre_land_parcels, path)
-  end
+  first_run.try_import(:ekylibre_land_parcels, "alamano/land_parcels.csv")
 
-  path = first_run.path("alamano", "cultivable_zones.csv")
-  if path.exist?
-    first_run.import(:ekylibre_cultivable_zones, path)
-  end
+  first_run.try_import(:ekylibre_cultivable_zones, "alamano/cultivable_zones.csv")
 
   # TODO: Remove this file. Use plants instead.
-  path = first_run.path("alamano", "cultivations.csv")
-  if path.exist?
-    first_run.import(:ekylibre_plants, path)
-  end
-
-  path = first_run.path("alamano", "plants.csv")
-  if path.exist?
-    first_run.import(:ekylibre_plants, path)
-  end
+  first_run.try_import(:ekylibre_plants, "alamano/cultivations.csv")
+  first_run.try_import(:ekylibre_plants, "alamano/plants.csv")
 
   # VINITECA vines
   file = first_run.check_archive("vines.zip", "plant.shp", "plant.dbf", "plant.shx", "plant.prj", "varieties_transcode.csv", "certifications_transcode.csv", "cultivable_zones_transcode.csv",  in: "viniteca")
   if file.exist?
     first_run.import(:viniteca_plant_zones, file)
   end
-
 
   # UNICOQUE orchards
   file = first_run.check_archive("plantation.zip", "plantation.shp", "plantation.dbf", "plantation.shx", "plantation.prj", "varieties_transcode.csv", in: "unicoque/plantation")

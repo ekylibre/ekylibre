@@ -1,19 +1,11 @@
-# -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :productions do |first_run|
 
-  #############################################################################
   unless Preference.get!(:create_activities_from_telepac, false, :boolean).value
-    # load activities
-    path = first_run.path("alamano", "activities.csv")
-    if path.exist?
-     first_run.import(:ekylibre_activities, path)
-    end
+    # Load activities
+    first_run.try_import(:ekylibre_activities, "alamano/activities.csv")
   end
 
-  # load budgets
-  path = first_run.path("alamano", "budgets.ods")
-  if path.exist?
-   first_run.import(:ekylibre_budgets, path)
-  end
+  # Load budgets
+  first_run.try_import(:ekylibre_budgets, "alamano/budgets.ods")
 
 end

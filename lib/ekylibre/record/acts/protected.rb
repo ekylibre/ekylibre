@@ -25,12 +25,40 @@ module Ekylibre::Record
 
             code << "def raise_exception_unless_#{callback}able?\n"
             code << "  unless self.#{callback}able?\n"
-            code << "    raise RecordNot#{callback.to_s.camelcase}able\n"
+            code << "    raise RecordNot#{callback.to_s.camelcase}able.new('Record cannot be #{callback}d', self)\n"
             code << "  end\n"
             code << "end\n"
 
             code << "def #{callback}able?\n"
             code << "  !#{method_name}\n"
+            code << "end\n"
+
+            if block_given?
+              define_method(method_name, &block)
+            end
+          end
+          class_eval code
+        end
+
+
+        # Blocks update or destroy if necessary
+        # If result is false, it stops intervention
+        def secure(options = {}, &block)
+          options[:on] = [:update, :destroy] unless options[:on]
+          code = "".c
+          for callback in [options[:on]].flatten
+            method_name = "secured_on_#{callback}?".to_sym
+
+            code << "before_#{callback} :secure_#{callback}ability!\n"
+
+            code << "def secure_#{callback}ability!\n"
+            code << "  unless self.#{callback}able?\n"
+            code << "    raise RecordNot#{callback.to_s.camelcase}able.new('Record cannot be #{callback}d because it is secured', self)\n"
+            code << "  end\n"
+            code << "end\n"
+
+            code << "def #{callback}able?\n"
+            code << "  #{method_name}\n"
             code << "end\n"
 
             if block_given?

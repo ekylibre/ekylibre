@@ -66,4 +66,4 @@ module Exchanges
 
 end
 
-require_relative 'exchanges/exchangers'
+require_relative 'exchanges/importers'

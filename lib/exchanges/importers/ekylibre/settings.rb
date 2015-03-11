@@ -1,4 +1,4 @@
-# Create or updates entities
+# Create or updates main settings of folder
 Exchanges.add_importer :ekylibre_settings do |file, w|
 
   manifest = YAML.load_file(file) || {}
@@ -35,7 +35,7 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
         if record.save(attributes)
           @records[records][identifier.to_s] = record
         else
-          w.info "\nError on #{record.inspect.red}"
+          puts "\nError on #{record.inspect.red}"
           raise ActiveRecord::RecordInvalid, record
         end
       end
@@ -56,9 +56,9 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
   manifest[:identifiers]  ||= {}
   manifest[:language]     ||= ::I18n.default_locale
 
-  # Manual count of check_points
-  # $ grep -rin check_point lib/exchanges/exchangers/ekylibre/erp/settings.rb | wc -l
-  w.count = 21
+  # Manual count of check points
+  # $ grep -rin check_point lib/exchanges/importers/ekylibre/settings.rb | wc -l
+  w.count = 22 - 1
 
   # Global preferences
   language = I18n.locale = manifest[:language]

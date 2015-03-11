@@ -1,6 +1,6 @@
 = form_tag() do
   = field_set :generate_last_journal_entry do
-    = field content_tag(:label, :journal.tl, :for => :journal), select_tag(:journal_id, options_for_select(Journal.various.reorder(:name).collect{|j| [j.name, j.id]}))
+    = field content_tag(:label, :journal.tl, :for => :journal), select_tag(:journal_id, options_for_select(Journal.all.reorder(:name).collect{|j| [j.name, j.id]}))
     = field content_tag(:label, :with_financial_assets_depreciations.tl, :for => :financial_assets_depreciations), check_box_tag(:financial_assets_depreciations)
   = form_actions do
     = submit_tag :generate.tl, name: nil

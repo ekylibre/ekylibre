@@ -29,6 +29,7 @@ module Ekylibre
         unless @folder_path.exist?
           raise ArgumentError, "Need a valid folder path. #{@folder_path} doesn't exist."
         end
+        @term_width = %x{echo $-}.strip =~ /i/ ? %{stty size}.split[1].to_i : 80
         ::I18n.locale = Preference[:language]
         @max = options[:max].to_i
       end
@@ -116,13 +117,25 @@ module Ekylibre
         return target_path
       end
 
+      def try_import(nature, file, options = {})
+        p = self.path(file)
+        if p.exist?
+          self.import(nature, p, options)
+        else
+          text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
+          text << " " * (@term_width - text.join.length)
+          text[1] = text[1].red
+          text[3] = text[3].yellow
+          puts text.join
+        end
+      end
+
 
       # Import a given file
       def import(nature, file, options = {})
         # puts "> import(:#{nature.to_s}, '#{file.to_s}', #{options.inspect})"
         last = ""
         start = Time.now
-        length =  %x{echo $-}.strip =~ /i/ ? %{stty size}.split[1].to_i : 80
         basename = nature.to_s.humanize+ " (" + Pathname.new(file).basename.to_s + ") "
         total = 0
         max = options[:max] || @max
@@ -134,16 +147,16 @@ module Ekylibre
               remaining = (100 - progress) * (Time.now - start) / progress
               status << " #{remaining.round.to_i}s"
             end
-            l = length - status.join.length
+            l = @term_width - status.join.length
             if l > 0
               status.insert(1, "|" * l)
             elsif l < 0
               status[0] = basename[0..(l - 4)] + "..."
             end
             line = status.join
-            done = (progress * length / 100.0).round.to_i
-            done = length if done > length
-            print "\r" * last.size + line[0..done].green + (done == length ? "" : line[(done+1)..-1])
+            done = (progress * @term_width / 100.0).round.to_i
+            done = @term_width if done > @term_width
+            print "\r" * last.size + line[0..done].green + (done == @term_width ? "" : line[(done+1)..-1])
             last = line
             total = count
           end
@@ -155,7 +168,7 @@ module Ekylibre
           status << " " + total.to_s
           status << " done in "
           status << "#{(stop - start).to_i}s"
-          l = length - status.join.length
+          l = @term_width - status.join.length
           n = 3
           if l > 0
             status.insert(1 + n, " " * l)

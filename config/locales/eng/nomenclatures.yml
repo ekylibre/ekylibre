@@ -1522,6 +1522,7 @@ eng:
         charentes_alliance_water_analyses: "Charentes Alliance water analyses"
         ebp_edi: "EBP EDI"
         ekylibre_activities: "Ekylibre activities"
+        # ekylibre_backup: "Ekylibre backup"
         ekylibre_budgets: "Ekylibre budgets"
         ekylibre_cultivable_zones: "Ekylibre Cultivable zones"
         ekylibre_entities: "Ekylibre Entities"

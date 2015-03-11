@@ -194,10 +194,8 @@ class Cash < Ekylibre::Record::Base
 
   # Returns cash balance in the global currency
   def balance(at = Time.now)
-    if item = self.journal_entry_items.where("printed_on <= ?", at.to_date).reorder(created_at: :desc).first
-      return item.cumulated_absolute_balance
-    end
-    return 0.0
+    year = FinancialYear.at(at)
+    return self.journal_entry_items.where(printed_on: year.started_on..at.to_date).sum("debit - credit") || 0.0
   end
 
 end

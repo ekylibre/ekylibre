@@ -193,7 +193,7 @@ class Entity < Ekylibre::Record::Base
 
 
   def self.exportable_columns
-    self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :deliveries_conditions].include?(c.name.to_sym)}
+    self.content_columns.delete_if{|c| [:active, :lock_version, :deliveries_conditions].include?(c.name.to_sym)}
   end
 
   # Returns an entity scope for.all other entities
@@ -378,7 +378,7 @@ class Entity < Ekylibre::Record::Base
     columns << [tc("import.dont_use"), "special-dont_use"]
     columns << [tc("import.generate_string_custom_field"), "special-generate_string_custom_field"]
     # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
-    cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
+    cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
     columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
     cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_at, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort

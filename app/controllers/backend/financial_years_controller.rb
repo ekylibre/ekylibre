@@ -80,8 +80,8 @@ class Backend::FinancialYearsController < Backend::BaseController
     # Launch close process
     return unless @financial_year = find_and_check
     if request.post?
-      params[:journal_id] = Journal.create!(:nature => "renew").id if params[:journal_id]=="0"
-      if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id => params[:journal_id])
+      params[:journal_id] = Journal.create!(nature: :forward).id if params[:journal_id] == "0"
+      if @financial_year.close(params[:financial_year][:stopped_on].to_date, journal_id: params[:journal_id])
         notify_success(:closed_financial_years)
         redirect_to(action: :index)
       end

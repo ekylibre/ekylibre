@@ -21,10 +21,7 @@ Ekylibre::FirstRun.add_loader :analyses do |first_run|
   end
 
 
-  path = first_run.path("agro_systemes", "analyses_sol.csv")
-  if path.exist?
-    first_run.import(:agro_systemes_soil_analyses, path)
-  end
+  first_run.try_import(:agro_systemes_soil_analyses, "agro_systemes/analyses_sol.csv")
 
 
   file = first_run.path("charentes_alliance", "analyses_eau.txt")
@@ -93,10 +90,7 @@ Ekylibre::FirstRun.add_loader :analyses do |first_run|
   end
 
 
-  path = first_run.path("lilco", "HistoIP_V.csv")
-  if path.exist?
-    first_run.import(:lilco_milk_analyses, path)
-  end
+  first_run.try_import(:lilco_milk_analyses, "lilco/HistoIP_V.csv")
 
   # @TODO need a method for each file in a folder like first_run.glob('lca/*.csv') do |file|
 

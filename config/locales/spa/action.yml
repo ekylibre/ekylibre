@@ -1548,8 +1548,8 @@ spa:
     select_date_generation: "Fecha limita de integración"
     # select_file_to_upload: "Select file to upload"
     select_financial_year: "Ejercicio" #?
+    select_forward_journal: "Periodico utilizado para los aplazamientos de nuevo"
     # select_number: "Select number"
-    select_renew_journal: "Periodico utilizado para los aplazamientos de nuevo"
     # selection: "Selection"
     send: "Enviar un correro electronico" #?
     # send_mail: "Send mail"
@@ -1672,8 +1672,8 @@ spa:
     upload: "Séleccionar el fichero de salvaguardia a cargar"
     # uploading_unicoque_traceability: "Uploading unicoque traceability"
     # usage: "Usage"
+    use_forward: "Seleccionar un periodico para los aplazamientos de nuevo"
     # use_incoming_payment: "Add incoming payment %{payment}"
-    use_renew: "Seleccionar un periodico para los aplazamientos de nuevo"
     used_accounts: "Cuentos utilozados unico"
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario" #?

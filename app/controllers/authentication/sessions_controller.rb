@@ -18,21 +18,4 @@
 #
 
 class Authentication::SessionsController < ::Devise::SessionsController
-
-  # # Permits to renew the session if expired
-  # def renew
-  #   if request.post?
-  #     if user = User.authenticate(params[:name], params[:password])
-  #       session[:last_query] = Time.now.to_i
-  #       head :ok, :x_return_code: "granted"
-  #       return
-  #     else
-  #       @no_authenticated = true
-  #       response.headers["X-Return-Code"] = "denied"
-  #       notify_error_now(:no_authenticated)
-  #     end
-  #   end
-  #   render :renew, layout: false
-  # end
-
 end

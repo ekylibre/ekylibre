@@ -160,6 +160,22 @@ class Journal < Ekylibre::Record::Base
     return true
   end
 
+  # Close a journal and force validation of draft entries to the given date
+  def close!(closed_on)
+    finished = false
+    ActiveRecord::Base.transaction do
+      self.entries.where(printed_on: (self.closed_on+1)..closed_on, state: :draft).find_each do |entry|
+        entry.confirm
+      end
+      self.entries.where(printed_on: (self.closed_on+1)..closed_on, state: :confirmed).find_each do |entry|
+        entry.close
+      end
+      self.update_column(:closed_on, closed_on)
+      finished = true
+    end
+    return finished
+  end
+
 
   def reopenable?
     return false unless self.reopenings.any?

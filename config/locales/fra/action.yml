@@ -1565,10 +1565,10 @@ fra:
     select_existing_payment: "Sélectionner un encaissement existant" #?
     select_file_to_upload: "Sélectionnez le fichier à importer"
     select_financial_year: "Exercice" #?
+    select_forward_journal: "Journal utilisé pour les reports à nouveaux"
     select_number: "Entrez un numéro"
     select_number_or_date: "Entrez un numéro ou une date" #?
     select_organization: "Organisation" #?
-    select_renew_journal: "Journal utilisé pour les reports à nouveaux"
     selection: "Sélection"
     send_mail: "Envoyer le mail"
     send_test_mail: "Envoyer un mail de test"
@@ -1712,8 +1712,8 @@ fra:
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation" #?
+    use_forward: "Sélectionnez un journal pour reporter les à nouveaux"
     use_incoming_payment: "Rattacher l’encaissement %{payment}"
-    use_renew: "Sélectionnez un journal pour reporter les à nouveaux"
     used_accounts: "Comptes utilisés seulement"
     user_name: "Nom d’utilisateur" #?
     users: "Compte utilisateur"

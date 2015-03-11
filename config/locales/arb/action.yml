@@ -1863,10 +1863,10 @@ arb:
     select_existing_payment: "ختيار الدفعة الموجودة" #?
     # select_file_to_upload: "Select file to upload"
     select_financial_year: "ممارسة" #?
+    select_forward_journal: "استخدام الدفاتر اليومية لتقارير جديدة"
     select_number: "ادخل رقم"
     select_number_or_date: "ادخل رقم او تاريخ" #?
     select_organization: "منظمة" #?
-    select_renew_journal: "استخدام الدفاتر اليومية لتقارير جديدة"
     # selection: "Selection"
     send: "ارسل الرسالة" #?
     # send_mail: "Send mail"
@@ -2011,8 +2011,8 @@ arb:
     upload: "تحميل الملفات"
     # uploading_unicoque_traceability: "Uploading unicoque traceability"
     # usage: "Usage"
+    use_forward: "اختر دفتر يومي للتقارير الجديدة"
     # use_incoming_payment: "Add incoming payment %{payment}"
-    use_renew: "اختر دفتر يومي للتقارير الجديدة"
     used_accounts: "الحسابات المستخدمة فقط"
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم" #?

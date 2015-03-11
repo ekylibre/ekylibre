@@ -35,13 +35,9 @@
 
 
 class Establishment < Ekylibre::Record::Base
-  # attr_accessible :name, :code, :description
-  has_many :buildings
   has_many :employees, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name
   #]VALIDATORS]
-  validates_uniqueness_of :name
-
-  # default_scope -> { order(:name) }
+  validates_uniqueness_of :name, :code
 end

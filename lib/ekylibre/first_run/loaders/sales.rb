@@ -57,11 +57,8 @@ end
 
 Ekylibre::FirstRun.add_loader :sales do |first_run|
 
-  #import sales
-  file = first_run.path("alamano", "sales.csv")
-  if file.exist?
-    first_run.import(:ekylibre_sales, file)
-  end
+  # Import sales
+  first_run.try_import(:ekylibre_sales, "alamano/sales.csv")
 
 
   if Preference.get!(:demo, false, :boolean).value

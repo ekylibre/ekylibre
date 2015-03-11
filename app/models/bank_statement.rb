@@ -47,6 +47,7 @@ class BankStatement < Ekylibre::Record::Base
   validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_uniqueness_of :number, scope: :cash_id
 
   delegate :name, :currency, :account_id, to: :cash, prefix: true
 

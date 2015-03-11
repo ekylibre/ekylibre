@@ -94,6 +94,9 @@ class FinancialYear < Ekylibre::Record::Base
 
   before_validation do
     self.currency ||= Preference[:currency]
+    if ref = Nomen::Currencies.find(self.currency)
+      self.currency_precision ||= ref.precision
+    end
     # self.started_on = self.started_on.beginning_of_day if self.started_on
     self.stopped_on = (self.started_on + 11.months).end_of_month if self.stopped_on.blank? and self.started_on
     # self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
@@ -165,41 +168,41 @@ class FinancialYear < Ekylibre::Record::Base
     to_close_on ||= self.stopped_on
 
     ActiveRecord::Base.transaction do
-      # Close.all journals to the
+      # Close all journals to the
       for journal in Journal.where("closed_on < ?", to_close_on)
-        raise false unless journal.close(to_close_on)
+        raise "Journal #{journal.name} cannot be closed on #{to_close_on}" unless journal.close!(to_close_on)
       end
 
       # Close year
-      self.update_attributes(:stopped_on => to_close_on, :closed => true)
+      self.update_attributes(stopped_on: to_close_on, closed: true)
 
       # Compute balance of closed year
       self.compute_balances!
 
       # Create first entry of the new year
-      if renew_journal = Journal.find_by_id(options[:renew_id].to_i)
+      if journal = Journal.find_by(id: options[:journal_id].to_i)
 
-        if self.account_balances.size > 0
-          entry = renew_journal.entries.create!(printed_on: to_close_on+1, :currency_id => renew_journal.currency_id)
+        if self.account_balances.any?
+          entry = journal.entries.create!(printed_on: to_close_on+1, currency: journal.currency)
           result   = 0
-          gains    = Account.find_in_chart(:financial_year_profit)
-          losses   = Account.find_in_chart(:financial_year_loss)
-          charges  = Account.find_in_chart(:charge)
-          products = Account.find_in_chart(:product)
+          profit   = Account.find_in_chart(:financial_year_result_profit)
+          losses   = Account.find_in_chart(:financial_year_result_loss)
+          expenses = Account.find_in_chart(:expenses)
+          revenues = Account.find_in_chart(:revenues)
 
           for balance in self.account_balances.joins(:account).order("number")
-            if balance.account.number.to_s.match(/^(#{charges.number}|#{products.number})/)
+            if balance.account.number.to_s.match(/^(#{expenses.number}|#{revenues.number})/)
               result += balance.balance
             elsif balance.balance != 0
               # TODO: Use currencies properly in account_balances !
-              entry.items.create!(:account_id => balance.account_id, :name => balance.account.name, :real_debit => balance.balance_debit, :real_credit => balance.balance_credit)
+              entry.items.create!(account_id: balance.account_id, name: balance.account.name, real_debit: balance.balance_debit, real_credit: balance.balance_credit)
             end
           end
 
           if result > 0
-            entry.items.create!(:account_id => losses.id, :name => losses.name, :real_debit => result, :real_credit => 0.0)
+            entry.items.create!(account_id: losses.id, name: losses.name, real_debit: result, real_credit: 0.0)
           elsif result < 0
-            entry.items.create!(:account_id => gains.id, :name => gains.name, :real_debit => 0.0, :real_credit => result.abs)
+            entry.items.create!(account_id: profit.id, name: profit.name, real_debit: 0.0, real_credit: result.abs)
           end
 
         end
@@ -290,12 +293,12 @@ class FinancialYear < Ekylibre::Record::Base
 
 
 
-  # Re-create.all account_balances record for the financial year
+  # Re-create all account_balances record for the financial year
   def compute_balances!
     results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(debit) AS debit, sum(credit) AS credit, count(id) AS count FROM #{JournalEntryItem.table_name} WHERE state != 'draft' AND printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)} GROUP BY account_id")
     self.account_balances.clear
-    for result in results
-      self.account_balances.create!(:account_id => result["account_id"].to_i, :local_count => result["count"].to_i, :local_credit => result["credit"].to_f, :local_debit => result["debit"].to_f)
+    results.each do |result|
+      self.account_balances.create!(account_id: result["account_id"].to_i, local_count: result["count"].to_i, local_credit: result["credit"].to_f, local_debit: result["debit"].to_f, currency: self.currency)
     end
     return self
   end

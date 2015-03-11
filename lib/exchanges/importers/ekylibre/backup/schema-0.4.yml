@@ -1,0 +1,5354 @@
+---
+account_balances:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  financial_year_id:
+    type: integer
+    references: financial_year
+    required: true
+  global_balance:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  global_count:
+    type: integer
+    required: true
+  global_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  global_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  id:
+    type: integer
+    required: true
+  local_balance:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  local_count:
+    type: integer
+    required: true
+  local_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  local_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+accounts:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  is_debit:
+    type: boolean
+    required: true
+    default: true
+  label:
+    type: string
+    limit: 255
+    required: true
+  last_letter:
+    type: string
+    limit: 8
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 208
+    required: true
+  number:
+    type: string
+    limit: 16
+    required: true
+  reconcilable:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+areas:
+  city:
+    type: string
+    limit: 255
+  city_name:
+    type: string
+    limit: 255
+  code:
+    type: string
+    limit: 255
+  company_id:
+    type: integer
+    references: company
+    required: true
+  country:
+    type: string
+    limit: 2
+    default: ??
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  district_id:
+    type: integer
+    references: district
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  postcode:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+asset_depreciations:
+  accountable:
+    type: boolean
+    required: true
+    default: true
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  asset_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  asset_id:
+    type: integer
+    references: asset
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  depreciated_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  depreciation:
+    type: text
+  financial_year_id:
+    type: integer
+    references: financial_year
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  position:
+    type: integer
+  protected:
+    type: boolean
+    required: true
+    default: true
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+assets:
+  allocation_account_id:
+    type: integer
+    references: account
+    required: true
+  ceded:
+    type: boolean
+  ceded_on:
+    type: date
+  charges_account_id:
+    type: integer
+    references: account
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  current_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  depreciable_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  depreciated_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  depreciation_method:
+    type: string
+    limit: 255
+    required: true
+  depreciation_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  number:
+    type: string
+    limit: 255
+    required: true
+  purchase_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  purchase_id:
+    type: integer
+    references: purchase
+  purchase_line_id:
+    type: integer
+    references: purchase_line
+  purchased_on:
+    type: date
+  sale_id:
+    type: integer
+    references: sale
+  sale_line_id:
+    type: integer
+    references: sale_line
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+bank_statements:
+  cash_id:
+    type: integer
+    references: cash
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    limit: 255
+    required: true
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cash_transfers:
+  accounted_at:
+    type: datetime
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+  creator_id:
+    type: integer
+    references: user
+  currency_rate:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+    required: true
+  emitter_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  emitter_cash_id:
+    type: integer
+    references: cash
+    required: true
+  emitter_journal_entry_id:
+    type: integer
+    references: journal_entry
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    limit: 255
+    required: true
+  receiver_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  receiver_cash_id:
+    type: integer
+    references: cash
+    required: true
+  receiver_journal_entry_id:
+    type: integer
+    references: journal_entry
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+cashes:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  address:
+    type: text
+  agency_code:
+    type: string
+    limit: 255
+  bank_code:
+    type: string
+    limit: 255
+  bank_name:
+    type: string
+    limit: 50
+  bic:
+    type: string
+    limit: 16
+  by_default:
+    type: boolean
+    required: true
+    default: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  country:
+    type: string
+    limit: 2
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  entity_id:
+    type: integer
+    references: entity
+  iban:
+    type: string
+    limit: 34
+  iban_label:
+    type: string
+    limit: 48
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+    required: true
+  key:
+    type: string
+    limit: 255
+  lock_version:
+    type: integer
+    required: true
+  mode:
+    type: string
+    limit: 255
+    required: true
+    default: IBAN
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 16
+    required: true
+    default: bank_account
+  number:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+companies:
+  born_on:
+    type: date
+  code:
+    type: string
+    limit: 16
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  entity_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  language:
+    type: string
+    limit: 255
+    required: true
+    default: eng
+  lock_version:
+    type: integer
+    required: true
+  locked:
+    type: boolean
+    required: true
+    default: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  sales_conditions:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+contacts:
+  address:
+    type: string
+    limit: 280
+  area_id:
+    type: integer
+    references: area
+  by_default:
+    type: boolean
+    required: true
+    default: true
+  code:
+    type: string
+    limit: 4
+  company_id:
+    type: integer
+    references: company
+    required: true
+  country:
+    type: string
+    limit: 2
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  deleted_at:
+    type: datetime
+  email:
+    type: string
+    limit: 255
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  fax:
+    type: string
+    limit: 32
+  id:
+    type: integer
+    required: true
+  latitude:
+    type: float
+  line_2:
+    type: string
+    limit: 38
+  line_3:
+    type: string
+    limit: 38
+  line_4:
+    type: string
+    limit: 48
+  line_5:
+    type: string
+    limit: 38
+  line_6:
+    type: string
+    limit: 255
+  lock_version:
+    type: integer
+    required: true
+  longitude:
+    type: float
+  mobile:
+    type: string
+    limit: 32
+  phone:
+    type: string
+    limit: 32
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  website:
+    type: string
+    limit: 255
+cultivations:
+  color:
+    type: string
+    limit: 6
+    required: true
+    default: FFFFFF
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+custom_field_choices:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  custom_field_id:
+    type: integer
+    references: custom_field
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  position:
+    type: integer
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  value:
+    type: string
+    limit: 255
+    required: true
+custom_field_data:
+  boolean_value:
+    type: boolean
+  choice_value_id:
+    type: integer
+    references: custom_field_choice
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  custom_field_id:
+    type: integer
+    references: custom_field
+    required: true
+  date_value:
+    type: date
+  datetime_value:
+    type: datetime
+  decimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  string_value:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+custom_fields:
+  active:
+    type: boolean
+    required: true
+    default: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  decimal_max:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  decimal_min:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  id:
+    type: integer
+    required: true
+  length_max:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+  position:
+    type: integer
+  required:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+delays:
+  active:
+    type: boolean
+    required: true
+    default: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  expression:
+    type: string
+    limit: 255
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+departments:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  parent_id:
+    type: integer
+    references: department
+  sales_conditions:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+deposit_lines:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  deposit_id:
+    type: integer
+    references: deposit
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+deposits:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  cash_id:
+    type: integer
+    references: cash
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  in_cash:
+    type: boolean
+    required: true
+    default: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  locked:
+    type: boolean
+    required: true
+    default: true
+  mode_id:
+    type: integer
+    references: incoming_payment_mode
+    required: true
+  number:
+    type: string
+    limit: 255
+  payments_count:
+    type: integer
+    required: true
+  responsible_id:
+    type: integer
+    references: user
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+districts:
+  code:
+    type: string
+    limit: 255
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+document_templates:
+  active:
+    type: boolean
+    required: true
+    default: true
+  by_default:
+    type: boolean
+    required: true
+    default: true
+  cache:
+    type: text
+  code:
+    type: string
+    limit: 32
+  company_id:
+    type: integer
+    references: company
+    required: true
+  country:
+    type: string
+    limit: 2
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  family:
+    type: string
+    limit: 32
+  filename:
+    type: string
+    limit: 255
+  id:
+    type: integer
+    required: true
+  language:
+    type: string
+    limit: 3
+    required: true
+    default: ???
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 64
+  source:
+    type: text
+  to_archive:
+    type: boolean
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+documents:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  crypt_key:
+    type: binary
+  crypt_mode:
+    type: string
+    limit: 255
+    required: true
+  extension:
+    type: string
+    limit: 255
+  filename:
+    type: string
+    limit: 255
+  filesize:
+    type: integer
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature_code:
+    type: string
+    limit: 255
+  original_name:
+    type: string
+    limit: 255
+    required: true
+  owner_id:
+    type: integer
+    references: ~owner_type
+  owner_type:
+    type: string
+    limit: 255
+  printed_at:
+    type: datetime
+  sha256:
+    type: string
+    limit: 255
+    required: true
+  subdir:
+    type: string
+    limit: 255
+  template_id:
+    type: integer
+    references: document_template
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+entities:
+  active:
+    type: boolean
+    required: true
+    default: true
+  activity_code:
+    type: string
+    limit: 32
+  attorney:
+    type: boolean
+    required: true
+    default: true
+  attorney_account_id:
+    type: integer
+    references: account
+  authorized_payments_count:
+    type: integer
+  born_on:
+    type: date
+  category_id:
+    type: integer
+    references: entity_category
+  client:
+    type: boolean
+    required: true
+    default: true
+  client_account_id:
+    type: integer
+    references: account
+  code:
+    type: string
+    limit: 64
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  country:
+    type: string
+    limit: 2
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  dead_on:
+    type: date
+  deliveries_conditions:
+    type: string
+    limit: 60
+  discount_rate:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+  ean13:
+    type: string
+    limit: 13
+  excise:
+    type: string
+    limit: 15
+  first_met_on:
+    type: date
+  first_name:
+    type: string
+    limit: 255
+  full_name:
+    type: string
+    limit: 255
+    required: true
+  hashed_password:
+    type: string
+    limit: 64
+  id:
+    type: integer
+    required: true
+  invoices_count:
+    type: integer
+  language:
+    type: string
+    limit: 3
+    required: true
+    default: ???
+  last_name:
+    type: string
+    limit: 255
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  locked:
+    type: boolean
+    required: true
+    default: true
+  name:
+    type: string
+    limit: 32
+  nature_id:
+    type: integer
+    references: entity_nature
+    required: true
+  origin:
+    type: string
+    limit: 255
+  payment_delay_id:
+    type: integer
+    references: delay
+  payment_mode_id:
+    type: integer
+    references: incoming_payment_mode
+  photo:
+    type: string
+    limit: 255
+  proposer_id:
+    type: integer
+    references: entity
+  prospect:
+    type: boolean
+    required: true
+    default: true
+  reduction_rate:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+  reflation_submissive:
+    type: boolean
+    required: true
+    default: true
+  responsible_id:
+    type: integer
+    references: user
+  salt:
+    type: string
+    limit: 64
+  siren:
+    type: string
+    limit: 9
+  soundex:
+    type: string
+    limit: 4
+  supplier:
+    type: boolean
+    required: true
+    default: true
+  supplier_account_id:
+    type: integer
+    references: account
+  transporter:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  vat_number:
+    type: string
+    limit: 15
+  vat_submissive:
+    type: boolean
+    required: true
+    default: true
+  webpass:
+    type: string
+    limit: 255
+  website:
+    type: string
+    limit: 255
+entity_categories:
+  by_default:
+    type: boolean
+    required: true
+    default: true
+  code:
+    type: string
+    limit: 8
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+entity_link_natures:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  name_1_to_2:
+    type: string
+    limit: 255
+  name_2_to_1:
+    type: string
+    limit: 255
+  propagate_contacts:
+    type: boolean
+    required: true
+    default: true
+  symmetric:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+entity_links:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_1_id:
+    type: integer
+    references: entity
+    required: true
+  entity_2_id:
+    type: integer
+    references: entity
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature_id:
+    type: integer
+    references: entity_link_nature
+    required: true
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+entity_natures:
+  active:
+    type: boolean
+    required: true
+    default: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  full_name_format:
+    type: string
+    limit: 255
+  id:
+    type: integer
+    required: true
+  in_name:
+    type: boolean
+    required: true
+    default: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  physical:
+    type: boolean
+    required: true
+    default: true
+  title:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+establishments:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nic:
+    type: string
+    limit: 5
+    required: true
+  siret:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+event_natures:
+  active:
+    type: boolean
+    required: true
+    default: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  duration:
+    type: integer
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  usage:
+    type: string
+    limit: 64
+events:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  duration:
+    type: integer
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  id:
+    type: integer
+    required: true
+  location:
+    type: string
+    limit: 255
+  lock_version:
+    type: integer
+    required: true
+  nature_id:
+    type: integer
+    references: event_nature
+    required: true
+  reason:
+    type: text
+  responsible_id:
+    type: integer
+    references: user
+    required: true
+  started_at:
+    type: datetime
+    required: true
+  started_sec:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+financial_years:
+  closed:
+    type: boolean
+    required: true
+    default: true
+  code:
+    type: string
+    limit: 12
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  currency_precision:
+    type: integer
+  id:
+    type: integer
+    required: true
+  last_journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+incoming_deliveries:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  contact_id:
+    type: integer
+    references: contact
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  mode_id:
+    type: integer
+    references: incoming_delivery_mode
+  moved_on:
+    type: date
+  number:
+    type: string
+    limit: 255
+  planned_on:
+    type: date
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  purchase_id:
+    type: integer
+    references: purchase
+  reference_number:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+incoming_delivery_lines:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  delivery_id:
+    type: integer
+    references: incoming_delivery
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  price_id:
+    type: integer
+    references: price
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  purchase_line_id:
+    type: integer
+    references: purchase_line
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  stock_move_id:
+    type: integer
+    references: stock_move
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+  weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+incoming_delivery_modes:
+  code:
+    type: string
+    limit: 8
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+incoming_payment_modes:
+  cash_id:
+    type: integer
+    references: cash
+  commission_account_id:
+    type: integer
+    references: account
+  commission_base_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  commission_percent:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  depositables_account_id:
+    type: integer
+    references: account
+  depositables_journal_id:
+    type: integer
+    references: journal
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 50
+    required: true
+  position:
+    type: integer
+  published:
+    type: boolean
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_accounting:
+    type: boolean
+    required: true
+    default: true
+  with_commission:
+    type: boolean
+    required: true
+    default: true
+  with_deposit:
+    type: boolean
+    required: true
+    default: true
+incoming_payment_uses:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  downpayment:
+    type: boolean
+    required: true
+    default: true
+  expense_id:
+    type: integer
+    references: ~expense_type
+    required: true
+  expense_type:
+    type: string
+    limit: 255
+    required: true
+    default: UnknownModel
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  payment_id:
+    type: integer
+    references: incoming_payment
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+incoming_payments:
+  account_number:
+    type: string
+    limit: 255
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  bank:
+    type: string
+    limit: 255
+  check_number:
+    type: string
+    limit: 255
+  commission_account_id:
+    type: integer
+    references: account
+  commission_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+  creator_id:
+    type: integer
+    references: user
+  deposit_id:
+    type: integer
+    references: deposit
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  mode_id:
+    type: integer
+    references: incoming_payment_mode
+    required: true
+  number:
+    type: string
+    limit: 255
+  paid_on:
+    type: date
+  payer_id:
+    type: integer
+    references: entity
+  receipt:
+    type: text
+  received:
+    type: boolean
+    required: true
+    default: true
+  responsible_id:
+    type: integer
+    references: user
+  scheduled:
+    type: boolean
+    required: true
+    default: true
+  to_bank_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  used_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+inventories:
+  accounted_at:
+    type: datetime
+  changes_reflected:
+    type: boolean
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  moved_on:
+    type: date
+  number:
+    type: string
+    limit: 16
+  responsible_id:
+    type: integer
+    references: user
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+inventory_lines:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  inventory_id:
+    type: integer
+    references: inventory
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  stock_move_id:
+    type: integer
+    references: stock_move
+  theoric_quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+    required: true
+journal_entries:
+  balance:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  financial_year_id:
+    type: integer
+    references: financial_year
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    limit: 255
+    required: true
+  original_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  original_currency:
+    type: string
+    limit: 3
+  original_currency_rate:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+    required: true
+  original_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  printed_on:
+    type: date
+    required: true
+  resource_id:
+    type: integer
+    references: ~resource_type
+  resource_type:
+    type: string
+    limit: 255
+  state:
+    type: string
+    limit: 32
+    required: true
+    default: draft
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+journal_entry_lines:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  balance:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  bank_statement_id:
+    type: integer
+    references: bank_statement
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  entry_id:
+    type: integer
+    references: journal_entry
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+  letter:
+    type: string
+    limit: 8
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  original_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  original_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  position:
+    type: integer
+  state:
+    type: string
+    limit: 32
+    required: true
+    default: draft
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+journals:
+  closed_on:
+    type: date
+    required: true
+  code:
+    type: string
+    limit: 4
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 16
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+land_parcel_groups:
+  color:
+    type: string
+    limit: 6
+    required: true
+    default: '000000'
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+land_parcel_kinships:
+  child_land_parcel_id:
+    type: integer
+    references: land_parcel
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    limit: 16
+  parent_land_parcel_id:
+    type: integer
+    references: land_parcel
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+land_parcels:
+  area_measure:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  area_unit_id:
+    type: integer
+    references: unit
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  group_id:
+    type: integer
+    references: land_parcel_group
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  number:
+    type: string
+    limit: 255
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+listing_node_items:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+  node_id:
+    type: integer
+    references: listing_node
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  value:
+    type: text
+listing_nodes:
+  attribute_name:
+    type: string
+    limit: 255
+  company_id:
+    type: integer
+    references: company
+    required: true
+  condition_operator:
+    type: string
+    limit: 255
+  condition_value:
+    type: string
+    limit: 255
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  exportable:
+    type: boolean
+    required: true
+    default: true
+  id:
+    type: integer
+    required: true
+  item_listing_id:
+    type: integer
+    references: listing
+  item_listing_node_id:
+    type: integer
+    references: listing_node
+  item_nature:
+    type: string
+    limit: 8
+  item_value:
+    type: text
+  key:
+    type: string
+    limit: 255
+  label:
+    type: string
+    limit: 255
+    required: true
+  listing_id:
+    type: integer
+    references: listing
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 255
+    required: true
+  parent_id:
+    type: integer
+    references: listing_node
+  position:
+    type: integer
+  sql_type:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+listings:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  conditions:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  mail:
+    type: text
+  name:
+    type: string
+    limit: 255
+    required: true
+  query:
+    type: text
+  root_model:
+    type: string
+    limit: 255
+    required: true
+  source:
+    type: text
+  story:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+mandates:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  family:
+    type: string
+    limit: 255
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  organization:
+    type: string
+    limit: 255
+    required: true
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  title:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+observations:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+    required: true
+  entity_id:
+    type: integer
+    references: entity
+    required: true
+  id:
+    type: integer
+    required: true
+  importance:
+    type: string
+    limit: 10
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+operation_lines:
+  area_unit_id:
+    type: integer
+    references: unit
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  direction:
+    type: string
+    limit: 4
+    required: true
+    default: in
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  operation_id:
+    type: integer
+    references: operation
+    required: true
+  product_id:
+    type: integer
+    references: product
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  stock_move_id:
+    type: integer
+    references: stock_move
+  tracking_id:
+    type: integer
+    references: tracking
+  tracking_serial:
+    type: string
+    limit: 255
+  unit_id:
+    type: integer
+    references: unit
+  unit_quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+operation_natures:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  target_type:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+operation_uses:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  operation_id:
+    type: integer
+    references: operation
+    required: true
+  tool_id:
+    type: integer
+    references: tool
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+operations:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  consumption:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  duration:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  hour_duration:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  min_duration:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  moved_on:
+    type: date
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature_id:
+    type: integer
+    references: operation_nature
+  planned_on:
+    type: date
+    required: true
+  production_chain_work_center_id:
+    type: integer
+    references: production_chain_work_center
+  responsible_id:
+    type: integer
+    references: user
+    required: true
+  started_at:
+    type: datetime
+    required: true
+  stopped_at:
+    type: datetime
+  target_id:
+    type: integer
+    references: ~target_type
+  target_type:
+    type: string
+    limit: 255
+  tools_list:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+outgoing_deliveries:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  contact_id:
+    type: integer
+    references: contact
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  mode_id:
+    type: integer
+    references: outgoing_delivery_mode
+  moved_on:
+    type: date
+  number:
+    type: string
+    limit: 255
+  planned_on:
+    type: date
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  reference_number:
+    type: string
+    limit: 255
+  sale_id:
+    type: integer
+    references: sale
+    required: true
+  transport_id:
+    type: integer
+    references: transport
+  transporter_id:
+    type: integer
+    references: entity
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+outgoing_delivery_lines:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  delivery_id:
+    type: integer
+    references: outgoing_delivery
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  price_id:
+    type: integer
+    references: price
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  sale_line_id:
+    type: integer
+    references: sale_line
+    required: true
+  stock_move_id:
+    type: integer
+    references: stock_move
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+outgoing_delivery_modes:
+  code:
+    type: string
+    limit: 8
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_transport:
+    type: boolean
+    required: true
+    default: true
+outgoing_payment_modes:
+  cash_id:
+    type: integer
+    references: cash
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 50
+    required: true
+  position:
+    type: integer
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_accounting:
+    type: boolean
+    required: true
+    default: true
+outgoing_payment_uses:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  downpayment:
+    type: boolean
+    required: true
+    default: true
+  expense_id:
+    type: integer
+    references: purchase
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  payment_id:
+    type: integer
+    references: outgoing_payment
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+outgoing_payments:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  check_number:
+    type: string
+    limit: 255
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+  creator_id:
+    type: integer
+    references: user
+  delivered:
+    type: boolean
+    required: true
+    default: true
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  mode_id:
+    type: integer
+    references: outgoing_payment_mode
+    required: true
+  number:
+    type: string
+    limit: 255
+  paid_on:
+    type: date
+  payee_id:
+    type: integer
+    references: entity
+    required: true
+  responsible_id:
+    type: integer
+    references: user
+    required: true
+  to_bank_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  used_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+preferences:
+  boolean_value:
+    type: boolean
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  decimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  id:
+    type: integer
+    required: true
+  integer_value:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+    default: u
+  record_value_id:
+    type: integer
+    references: ~record_value_type
+  record_value_type:
+    type: string
+    limit: 255
+  string_value:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  user_id:
+    type: integer
+    references: user
+prices:
+  active:
+    type: boolean
+    required: true
+    default: true
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  by_default:
+    type: boolean
+    default: true
+  category_id:
+    type: integer
+    references: entity_category
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  entity_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity_max:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  quantity_min:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  started_at:
+    type: datetime
+  stopped_at:
+    type: datetime
+  tax_id:
+    type: integer
+    references: tax
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  use_range:
+    type: boolean
+    required: true
+    default: true
+product_categories:
+  catalog_description:
+    type: text
+  catalog_name:
+    type: string
+    limit: 255
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  parent_id:
+    type: integer
+    references: product_category
+  published:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_components:
+  active:
+    type: boolean
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  component_id:
+    type: integer
+    references: product
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  started_at:
+    type: datetime
+  stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+    required: true
+production_chain_conveyors:
+  check_state:
+    type: boolean
+    required: true
+    default: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  flow:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  production_chain_id:
+    type: integer
+    references: production_chain
+    required: true
+  source_id:
+    type: integer
+    references: production_chain_work_center
+  source_quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  target_id:
+    type: integer
+    references: production_chain_work_center
+  target_quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  unique_tracking:
+    type: boolean
+    required: true
+    default: true
+  unit_id:
+    type: integer
+    references: unit
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+production_chain_work_center_uses:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  tool_id:
+    type: integer
+    references: tool
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  work_center_id:
+    type: integer
+    references: production_chain_work_center
+    required: true
+production_chain_work_centers:
+  building_id:
+    type: integer
+    references: warehouse
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 255
+    required: true
+  operation_nature_id:
+    type: integer
+    references: operation_nature
+    required: true
+  position:
+    type: integer
+  production_chain_id:
+    type: integer
+    references: production_chain
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+production_chains:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+products:
+  active:
+    type: boolean
+    required: true
+    default: true
+  catalog_description:
+    type: text
+  catalog_name:
+    type: string
+    limit: 255
+    required: true
+  category_id:
+    type: integer
+    references: product_category
+    required: true
+  code:
+    type: string
+    limit: 16
+  code2:
+    type: string
+    limit: 64
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  critic_quantity_min:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  deliverable:
+    type: boolean
+    required: true
+    default: true
+  description:
+    type: text
+  ean13:
+    type: string
+    limit: 13
+  for_immobilizations:
+    type: boolean
+    required: true
+    default: true
+  for_productions:
+    type: boolean
+    required: true
+    default: true
+  for_purchases:
+    type: boolean
+    required: true
+    default: true
+  for_sales:
+    type: boolean
+    required: true
+    default: true
+  id:
+    type: integer
+    required: true
+  immobilizations_account_id:
+    type: integer
+    references: user
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+  number:
+    type: integer
+    required: true
+  price:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  published:
+    type: boolean
+    required: true
+    default: true
+  purchases_account_id:
+    type: integer
+    references: account
+  quantity_max:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  quantity_min:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  reduction_submissive:
+    type: boolean
+    required: true
+    default: true
+  sales_account_id:
+    type: integer
+    references: account
+  service_coeff:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  stockable:
+    type: boolean
+    required: true
+    default: true
+  subscription_nature_id:
+    type: integer
+    references: subscription_nature
+  subscription_period:
+    type: string
+    limit: 255
+  subscription_quantity:
+    type: integer
+  trackable:
+    type: boolean
+    required: true
+    default: true
+  unit_id:
+    type: integer
+    references: unit
+    required: true
+  unquantifiable:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  with_tracking:
+    type: boolean
+    required: true
+    default: true
+professions:
+  code:
+    type: string
+    limit: 255
+  commercial:
+    type: boolean
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  rome:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+purchase_lines:
+  account_id:
+    type: integer
+    references: account
+    required: true
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  annotation:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  position:
+    type: integer
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  price_id:
+    type: integer
+    references: price
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  purchase_id:
+    type: integer
+    references: purchase
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  tracking_id:
+    type: integer
+    references: tracking
+  tracking_serial:
+    type: string
+    limit: 255
+  unit_id:
+    type: integer
+    references: unit
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+purchase_natures:
+  active:
+    type: boolean
+    required: true
+    default: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_accounting:
+    type: boolean
+    required: true
+    default: true
+purchases:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  confirmed_on:
+    type: date
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  delivery_contact_id:
+    type: integer
+    references: contact
+  id:
+    type: integer
+    required: true
+  invoiced_on:
+    type: date
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  nature_id:
+    type: integer
+    references: purchase_nature
+  number:
+    type: string
+    limit: 64
+    required: true
+  paid_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  planned_on:
+    type: date
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  reference_number:
+    type: string
+    limit: 255
+  responsible_id:
+    type: integer
+    references: user
+  state:
+    type: string
+    limit: 64
+  supplier_id:
+    type: integer
+    references: entity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+roles:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  rights:
+    type: text
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+sale_lines:
+  account_id:
+    type: integer
+    references: account
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  annotation:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_id:
+    type: integer
+    references: entity
+  id:
+    type: integer
+    required: true
+  label:
+    type: text
+  lock_version:
+    type: integer
+    required: true
+  origin_id:
+    type: integer
+    references: sale_line
+  position:
+    type: integer
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  price_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  price_id:
+    type: integer
+    references: price
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  reduction_origin_id:
+    type: integer
+    references: sale_line
+  reduction_percent:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  sale_id:
+    type: integer
+    references: sale
+    required: true
+  tax_id:
+    type: integer
+    references: tax
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+sale_natures:
+  active:
+    type: boolean
+    required: true
+    default: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  currency:
+    type: string
+    limit: 3
+  downpayment:
+    type: boolean
+    required: true
+    default: true
+  downpayment_minimum:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  downpayment_rate:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+    required: true
+  expiration_id:
+    type: integer
+    references: delay
+    required: true
+  id:
+    type: integer
+    required: true
+  journal_id:
+    type: integer
+    references: journal
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  payment_delay_id:
+    type: integer
+    references: delay
+    required: true
+  payment_mode_complement:
+    type: text
+  payment_mode_id:
+    type: integer
+    references: incoming_payment_mode
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  with_accounting:
+    type: boolean
+    required: true
+    default: true
+sales:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  annotation:
+    type: text
+  client_id:
+    type: integer
+    references: entity
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  conclusion:
+    type: text
+  confirmed_on:
+    type: date
+  contact_id:
+    type: integer
+    references: contact
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  credit:
+    type: boolean
+    required: true
+    default: true
+  currency:
+    type: string
+    limit: 3
+  delivery_contact_id:
+    type: integer
+    references: contact
+  downpayment_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  expiration_id:
+    type: integer
+    references: delay
+  expired_on:
+    type: date
+  function_title:
+    type: string
+    limit: 255
+  has_downpayment:
+    type: boolean
+    required: true
+    default: true
+  id:
+    type: integer
+    required: true
+  initial_number:
+    type: string
+    limit: 64
+  introduction:
+    type: text
+  invoice_contact_id:
+    type: integer
+    references: contact
+  invoiced_on:
+    type: date
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  letter_format:
+    type: boolean
+    required: true
+    default: true
+  lock_version:
+    type: integer
+    required: true
+  lost:
+    type: boolean
+    required: true
+    default: true
+  nature_id:
+    type: integer
+    references: sale_nature
+  number:
+    type: string
+    limit: 64
+    required: true
+  origin_id:
+    type: integer
+    references: sale
+  paid_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  payment_delay_id:
+    type: integer
+    references: delay
+    required: true
+  payment_on:
+    type: date
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  reference_number:
+    type: string
+    limit: 255
+  responsible_id:
+    type: integer
+    references: user
+  state:
+    type: string
+    limit: 64
+    required: true
+    default: O
+  subject:
+    type: string
+    limit: 255
+  sum_method:
+    type: string
+    limit: 8
+    required: true
+    default: wt
+  transporter_id:
+    type: integer
+    references: entity
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+sequences:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  last_cweek:
+    type: integer
+  last_month:
+    type: integer
+  last_number:
+    type: integer
+  last_year:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  number_format:
+    type: string
+    limit: 255
+    required: true
+  number_increment:
+    type: integer
+    required: true
+  number_start:
+    type: integer
+    required: true
+  period:
+    type: string
+    limit: 255
+    required: true
+    default: number
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+stock_moves:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  generated:
+    type: boolean
+    required: true
+    default: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  moved_on:
+    type: date
+  name:
+    type: string
+    limit: 255
+    required: true
+  origin_id:
+    type: integer
+    references: ~origin_type
+  origin_type:
+    type: string
+    limit: 255
+  planned_on:
+    type: date
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  stock_id:
+    type: integer
+    references: stock
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  virtual:
+    type: boolean
+    required: true
+  warehouse_id:
+    type: integer
+    references: warehouse
+    required: true
+stock_transfers:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  moved_on:
+    type: date
+  nature:
+    type: string
+    limit: 8
+    required: true
+  number:
+    type: string
+    limit: 64
+    required: true
+  planned_on:
+    type: date
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  second_stock_move_id:
+    type: integer
+    references: stock_move
+  second_warehouse_id:
+    type: integer
+    references: warehouse
+  stock_move_id:
+    type: integer
+    references: stock_move
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  warehouse_id:
+    type: integer
+    references: warehouse
+    required: true
+stocks:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  critic_quantity_min:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+  product_id:
+    type: integer
+    references: product
+    required: true
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  quantity_max:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  quantity_min:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  tracking_id:
+    type: integer
+    references: tracking
+  unit_id:
+    type: integer
+    references: unit
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  virtual_quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  warehouse_id:
+    type: integer
+    references: warehouse
+    required: true
+subscription_natures:
+  actual_number:
+    type: integer
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_link_nature_id:
+    type: integer
+    references: entity_link_nature
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+  reduction_rate:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+subscriptions:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  contact_id:
+    type: integer
+    references: contact
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  entity_id:
+    type: integer
+    references: entity
+  first_number:
+    type: integer
+  id:
+    type: integer
+    required: true
+  last_number:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  nature_id:
+    type: integer
+    references: subscription_nature
+  number:
+    type: string
+    limit: 255
+  product_id:
+    type: integer
+    references: product
+  quantity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  sale_id:
+    type: integer
+    references: sale
+  sale_line_id:
+    type: integer
+    references: sale_line
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  suspended:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tax_declarations:
+  accounted_at:
+    type: datetime
+  acquisition_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  address:
+    type: string
+    limit: 255
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  assimilated_taxes_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  balance_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  collected_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  declared_on:
+    type: date
+  deferred_payment:
+    type: boolean
+    default: true
+  financial_year_id:
+    type: integer
+    references: financial_year
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    limit: 255
+    required: true
+    default: normal
+  paid_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  paid_on:
+    type: date
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+taxes:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  collected_account_id:
+    type: integer
+    references: account
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  description:
+    type: text
+  id:
+    type: integer
+    required: true
+  included:
+    type: boolean
+    required: true
+    default: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+  paid_account_id:
+    type: integer
+    references: account
+  reductible:
+    type: boolean
+    required: true
+    default: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tools:
+  company_id:
+    type: integer
+    references: company
+    required: true
+  consumption:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  nature:
+    type: string
+    limit: 8
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+tracking_states:
+  atmospheric_pressure:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  examinated_at:
+    type: datetime
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  luminance:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  net_weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  production_chain_conveyor_id:
+    type: integer
+    references: production_chain_conveyor
+  relative_humidity:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  responsible_id:
+    type: integer
+    references: production_chain_conveyor
+    required: true
+  temperature:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  total_weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  tracking_id:
+    type: integer
+    references: tracking
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+trackings:
+  active:
+    type: boolean
+    required: true
+    default: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  producer_id:
+    type: integer
+    references: entity
+  product_id:
+    type: integer
+    references: product
+  serial:
+    type: string
+    limit: 255
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+transfers:
+  accounted_at:
+    type: datetime
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  comment:
+    type: string
+    limit: 255
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  journal_entry_id:
+    type: integer
+    references: journal_entry
+  label:
+    type: string
+    limit: 255
+  lock_version:
+    type: integer
+    required: true
+  paid_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  supplier_id:
+    type: integer
+    references: entity
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+transports:
+  amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  created_on:
+    type: date
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    limit: 255
+  pretax_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  purchase_id:
+    type: integer
+    references: purchase
+  reference_number:
+    type: string
+    limit: 255
+  responsible_id:
+    type: integer
+    references: user
+  transport_on:
+    type: date
+  transporter_id:
+    type: integer
+    references: entity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  weight:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+units:
+  base:
+    type: string
+    limit: 255
+  coefficient:
+    type: decimal
+    precision: 19
+    scale: 10
+    limit: 19
+    required: true
+  company_id:
+    type: integer
+    references: company
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  label:
+    type: string
+    limit: 255
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 8
+    required: true
+  start:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+users:
+  admin:
+    type: boolean
+    required: true
+    default: true
+  arrived_on:
+    type: date
+  comment:
+    type: text
+  commercial:
+    type: boolean
+  company_id:
+    type: integer
+    references: company
+    required: true
+  connected_at:
+    type: datetime
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  departed_on:
+    type: date
+  department_id:
+    type: integer
+    references: department
+  email:
+    type: string
+    limit: 255
+  employed:
+    type: boolean
+    required: true
+    default: true
+  employment:
+    type: string
+    limit: 255
+  establishment_id:
+    type: integer
+    references: establishment
+  first_name:
+    type: string
+    limit: 255
+    required: true
+  hashed_password:
+    type: string
+    limit: 64
+  id:
+    type: integer
+    required: true
+  language:
+    type: string
+    limit: 3
+    required: true
+    default: ???
+  last_name:
+    type: string
+    limit: 255
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  locked:
+    type: boolean
+    required: true
+    default: true
+  name:
+    type: string
+    limit: 32
+    required: true
+  office:
+    type: string
+    limit: 255
+  profession_id:
+    type: integer
+    references: profession
+  reduction_percent:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+    required: true
+  rights:
+    type: text
+  role_id:
+    type: integer
+    references: role
+    required: true
+  salt:
+    type: string
+    limit: 64
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+warehouses:
+  comment:
+    type: text
+  company_id:
+    type: integer
+    references: company
+    required: true
+  contact_id:
+    type: integer
+    references: contact
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  division:
+    type: string
+    limit: 255
+  establishment_id:
+    type: integer
+    references: establishment
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    limit: 255
+    required: true
+  number:
+    type: integer
+  parent_id:
+    type: integer
+    references: warehouse
+  product_id:
+    type: integer
+    references: product
+  quantity_max:
+    type: decimal
+    precision: 19
+    scale: 4
+    limit: 19
+  reservoir:
+    type: boolean
+    default: true
+  subdivision:
+    type: string
+    limit: 255
+  subsubdivision:
+    type: string
+    limit: 255
+  unit_id:
+    type: integer
+    references: unit
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user

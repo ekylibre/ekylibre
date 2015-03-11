@@ -75,12 +75,11 @@ class Backend::AccountsController < Backend::BaseController
     t.column :absolute_credit, currency: :absolute_currency
   end
 
-  list(:entities, conditions: ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], order: {created_at: :desc}) do |t| # , attorney_account_id
-    t.column :activity_code, url: true
+  list(:entities, conditions: ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], order: {created_at: :desc}) do |t|
+    t.column :number, url: true
     t.column :full_name, url: true
     t.column :client_account, url: true
     t.column :supplier_account, url: true
-    # t.column :label, through: :attorney_account, url: true
   end
 
   def self.account_reconciliation_conditions

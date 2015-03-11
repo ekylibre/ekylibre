@@ -1,26 +1,23 @@
 - cashes = Cash.all
 - if cashes.any?
   :ruby
-    stopped_at = Time.now
-    started_at = (stopped_at - 1.year).beginning_of_month
+    stopped_on = Date.today
+    started_on = (stopped_on - 2.year).beginning_of_month
+    if year = FinancialYear.first_of_all and year.started_on > started_on
+      started_on = year.started_on
+    end
 
     series = []
-    date = started_at
+    date = started_on
     periods = {}
-    while date < stopped_at
+    while date < stopped_on
       periods[date.l(format: "%b %Y")] = date..(date.end_of_month)
       date = date + 1.month
     end
 
-    for cash in cashes
-      items = cash.account.journal_entry_items.between(started_at, stopped_at).reorder(created_at: :asc)
-
-      data = []
-      last = 0.0
-      for name, period in periods
-        item = items.where(printed_on: period).last
-        last = (item ? item.cumulated_absolute_balance.to_f : last)
-        data << last
+    cashes.each do |cash|
+      data = periods.values.map do |period|
+        cash.balance(period.end).to_f
       end
       series << {name: cash.name, data: data }
     end

@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :equipments do |first_run|
 
-  # load equipments
-  path = first_run.path("alamano", "equipments.csv")
-  if path.exist?
-    first_run.import(:ekylibre_equipments, path)
-  end
+  # Load equipments
+  first_run.try_import(:ekylibre_equipments, "alamano/equipments.csv")
 
 
   # FIXME No more code wanted like that in loaders
@@ -20,11 +17,8 @@ Ekylibre::FirstRun.add_loader :equipments do |first_run|
     end
   end
 
-  # load workers
-  path = first_run.path("alamano", "workers.csv")
-  if path.exist?
-    first_run.import(:ekylibre_workers, path)
-  end
+  # Load workers
+  first_run.try_import(:ekylibre_workers, "alamano/workers.csv")
 
 
   # FIXME No more code wanted like that in loaders
