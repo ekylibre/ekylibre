@@ -1,6 +1,6 @@
 = kujaku do |k|
-  - for parameter in @aggregator.class.parameters
-    = render "parameter", :parameter => parameter, :k => k
+  - @aggregator.class.parameters.each do |parameter|
+    = render "parameter", parameter: parameter, k: k
 
 - main_toolbar do |t|
   - t.export do |e|

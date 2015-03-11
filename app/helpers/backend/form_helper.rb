@@ -24,6 +24,7 @@ module Backend::FormHelper
     html_options[:value] = value
     html_options[:size] ||= 10
     html_options[:type] = :date
+    html_options[:name] = name
     tag(:input, html_options)
   end
 

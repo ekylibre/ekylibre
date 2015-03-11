@@ -1,13 +1,13 @@
 - if parameter.record_list?
   - k.criterion do
     %label= parameter.human_name
-    - for item in parameter.foreign_class.all
+    - parameter.foreign_class.all.each do |item|
       %label
         - checked = !params[parameter.name][item.id.to_s].to_i.zero? rescue false
         = hidden_field_tag("#{parameter.name}[#{item.id}]", "0")
         = check_box_tag("#{parameter.name}[#{item.id}]", "1", checked)
         = item.name
 - elsif parameter.date?
-  - k.date(parameter.name)
+  - k.date(parameter.name, value: params[parameter.name], label: parameter.human_name)
 - else
-  - k.text(parameter.name)
+  - k.text(parameter.name, value: params[parameter.name], label: parameter.human_name)

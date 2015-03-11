@@ -213,8 +213,9 @@ module Backend::BaseHelper
 
       elsif c[:type] == :date
         code = content_tag(:label, opts[:label] || :select_date.tl)
-        name = c[:name]||:d
+        name = c[:name] || :d
         code << " ".html_safe << date_field_tag(name, params[name])
+
       # call methods in helpers
       elsif c[:type] == :crit
         code << send("#{c[:name]}_crit", *c[:args])

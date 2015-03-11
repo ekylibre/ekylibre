@@ -205,8 +205,7 @@ fra:
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
         application: #?
-        campaign:  #?
- #?
+        campaign: #?
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
