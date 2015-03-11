@@ -134,7 +134,7 @@ class Production < Ekylibre::Record::Base
   protect(on: :destroy) do
     self.interventions.any? or self.distributions.any?
   end
-  
+
   validate do
     if self.activity and self.activity.with_cultivation
       errors.add(:cultivation_variant_id, :blank) unless self.cultivation_variant
@@ -143,7 +143,7 @@ class Production < Ekylibre::Record::Base
       errors.add(:support_variant_id, :blank) unless self.support_variant
     end
   end
-  
+
   before_validation(on: :create) do
     self.state ||= :opened
     if self.activity

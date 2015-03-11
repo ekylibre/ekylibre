@@ -191,6 +191,7 @@ fra:
         must_be_a_mail_address: "%{attribute} doit être une adresse e-mail"
         not_a_number: "%{attribute} n’est pas un nombre"
         not_an_end_of_month: "%{attribute} doit être une fin de mois"
+        not_an_integer: "%{attribute} doit être un nombre entier"
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
@@ -204,6 +205,8 @@ fra:
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
         application: #?
+        campaign:  #?
+ #?
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
@@ -282,6 +285,7 @@ fra:
       cultivable_zone_membership: "Membre d’une zone cultivable"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
+      # dashboard: "Dashboard"
       deposit: "Remise en banque"
       district: "Zone administrative"
       document: "Document"
@@ -584,7 +588,7 @@ fra:
     crumbs: "Miettes"
     cultivable_zone: "Zone cultivable"
     cultivable_zones: "Zones cultivables"
-    cultivation_variant: "Variant produisant"
+    cultivation_variant: "Type de culture"
     cultivation_variety: "Variété de la culture"
     cumulated_absolute_credit: "Crédit absolu cumulé"
     cumulated_absolute_debit: "Débit absolu cumulé"
@@ -605,6 +609,7 @@ fra:
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
     daily_nitrogen_production: "Excrétion d’azote journalière"
+    # dashboards: "Dashboards"
     data: "Données complémentaires" #?
     dead_at: "Date de décès"
     deal_type: "Type de transaction" #?
@@ -1199,11 +1204,11 @@ fra:
     supplier_account: "Compte fournisseur associé"
     suppliers: "Fournisseurs"
     support: "Support"
-    support_variant: "Variant support"
+    support_variant: "Type de support"
     support_variant_indicator: "Indicateur d'œuvre"
-    support_variant_quantifier: "Unité d'oeuvre"
+    support_variant_quantifier: "Unité d'oeuvre" #?
     support_variant_unit: "Unité de l'indicateur"
-    # support_variety: "Support variety"
+    support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
     target: "Cible"
@@ -1246,6 +1251,7 @@ fra:
     unpaid_sales: "Ventes impayées"
     updated_at: "Mis à jour le"
     updater: "Modificateur"
+    # uploaded: "Uploaded"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usages: "Usages"
@@ -1270,7 +1276,9 @@ fra:
     websites: "Sites web"
     with_accounting: "Passer en comptabilité"
     with_commission: "Inclure une commission"
+    # with_cultivation: "With cultivation"
     with_deposit: "Utiliser les remises en banque"
+    # with_supports: "With supports"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
     worker: "Travailleur"

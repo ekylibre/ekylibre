@@ -12381,6 +12381,7 @@ eng:
         cultivable_zone_membership: "Cultivable zone membership"
         custom_field: "Custom field"
         custom_field_choice: "Custom field choice"
+        dashboard: "Dashboard"
         deposit: "Deposit"
         district: "District"
         document: "Document"

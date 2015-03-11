@@ -76,6 +76,7 @@ eng:
         must_be_a_mail_address: "%{attribute} must be a mail address"
         not_a_number: "%{attribute} is not a number"
         not_an_end_of_month: "%{attribute} must be an end of month"
+        not_an_integer: "%{attribute} must be an integer"
         nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         odd: "%{attribute} must be odd"
         on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -87,10 +88,6 @@ eng:
         too_short: "%{attribute} is too short (minimum is %{count} characters)"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
-        campaign:
-          attributes:
-            harvest_year:
-              not_an_integer: "the harvest year must be an integer"
         cash:
           currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
@@ -430,7 +427,7 @@ eng:
     crumbs: "Crumbs"
     cultivable_zone: "Cultivable zone"
     cultivable_zones: "Cultivable zones"
-    # cultivation_variant: "Cultivation variant"
+    cultivation_variant: "Cultivation variant"
     cultivation_variety: "Cultivation variety"
     cumulated_absolute_credit: "Cumulated absolute credit"
     cumulated_absolute_debit: "Cumulated absolute debit"

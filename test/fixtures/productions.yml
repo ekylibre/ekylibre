@@ -111,14 +111,14 @@ productions_004:
   cultivation_variant_id: 32
   id: 6
   irrigated: false
-  lock_version: 1
-  name: Culture de maïs/Maïs 2014 (Prévue)
+  lock_version: 2
+  name: Culture de maïs
   nitrate_fixing: false
   state: opened
   support_variant_id: 28
   support_variant_indicator: net_surface_area
   support_variant_unit: hectare
-  updated_at: 2015-03-08 16:45:33.856900000 Z
+  updated_at: 2015-03-11 01:20:30.805683000 Z
   updater_id: 1
 productions_005:
   activity_id: 5

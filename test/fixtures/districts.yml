@@ -45,7 +45,7 @@ districts_001:
   creator_id: 1
   id: 1
   lock_version: 0
-  name: Lorem ipsum
+  name: New York
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 districts_002:
@@ -53,6 +53,6 @@ districts_002:
   creator_id: 1
   id: 2
   lock_version: 0
-  name: Lorem ipsum
+  name: San Francisco
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1

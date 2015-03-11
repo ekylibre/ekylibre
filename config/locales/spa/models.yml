@@ -145,6 +145,7 @@ spa:
         # must_be_a_mail_address: "%{attribute} must be a mail address"
         # not_a_number: "%{attribute} is not a number"
         # not_an_end_of_month: "%{attribute} must be an end of month"
+        # not_an_integer: "%{attribute} must be an integer"
         # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
@@ -158,6 +159,8 @@ spa:
       models:
         application: #?
         asset: #?
+        campaign:  #?
+ #?
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           # unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
@@ -249,6 +252,7 @@ spa:
       # cultivable_zone_membership: "Cultivable zone membership"
       # custom_field: "Custom field"
       # custom_field_choice: "Custom field choice"
+      # dashboard: "Dashboard"
       # deposit: "Deposit"
       # district: "District"
       # document: "Document"
@@ -511,6 +515,7 @@ spa:
     # crumbs: "Crumbs"
     # cultivable_zone: "Cultivable zone"
     # cultivable_zones: "Cultivable zones"
+    # cultivation_variant: "Cultivation variant"
     # cultivation_variety: "Cultivation variety"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
@@ -530,6 +535,7 @@ spa:
     # custom_fields: "Custom fields"
     # customized_type: "Customized type"
     # daily_nitrogen_production: "Daily nitrogen production"
+    # dashboards: "Dashboards"
     # dead_at: "Dead on"
     # deals_count: "Deals count"
     # debit: "Debit"
@@ -1101,6 +1107,7 @@ spa:
     # unpaid_sales: "Unpaid sales"
     # updated_at: "Updated at"
     # updater: "Updater"
+    # uploaded: "Uploaded"
     # usable_incoming_payments: "Usable incoming payments"
     # usage: "Usage"
     # usages: "Usages"
@@ -1124,7 +1131,9 @@ spa:
     # websites: "Websites"
     # with_accounting: "With accounting"
     # with_commission: "With commission"
+    # with_cultivation: "With cultivation"
     # with_deposit: "With deposit"
+    # with_supports: "With supports"
     # with_transport: "With transport"
     # work_number: "Work number"
     # worker: "Worker"

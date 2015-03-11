@@ -56,30 +56,6 @@
 #
 ---
 documents_001:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 1
-  key: LK2
-  lock_version: 0
-  name: Document LK2
-  nature: veterinary_booklet
-  number: DOC001
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  uploaded: false
-documents_002:
-  created_at: 2014-10-31 17:19:32.000000000 Z
-  creator_id: 1
-  id: 2
-  key: Lorem ipsum 2
-  lock_version: 0
-  name: Lorem ipsum
-  nature: veterinary_booklet
-  number: DOC002
-  updated_at: 2014-10-31 17:19:32.000000000 Z
-  updater_id: 1
-  uploaded: false
-documents_003:
   created_at: 2014-11-03 11:27:19.575727000 Z
   creator_id: 1
   file_content_text: "Ferstivall LTD\n33000 BORDEAUX\nFrance\nYUEI LTD\n7548-454565
@@ -106,7 +82,7 @@ documents_003:
   updated_at: 2014-11-03 11:27:19.575727000 Z
   updater_id: 1
   uploaded: false
-documents_004:
+documents_002:
   created_at: 2014-11-05 09:58:37.414195000 Z
   creator_id: 1
   file_content_text: "Ferstivall LTD\n33000 BORDEAUX\nFrance\n\nFacture F2014000001\n\n05/11/2014\n\nCode\n\nDésignation\n\nQté.\n\nPrix
@@ -132,7 +108,7 @@ documents_004:
   updated_at: 2014-11-05 09:58:37.414195000 Z
   updater_id: 1
   uploaded: false
-documents_005:
+documents_003:
   created_at: 2014-11-20 10:29:54.659461000 Z
   creator_id: 1
   file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
@@ -157,7 +133,7 @@ documents_005:
   updated_at: 2014-11-20 10:29:54.659461000 Z
   updater_id: 1
   uploaded: false
-documents_006:
+documents_004:
   created_at: 2015-01-04 14:28:55.133954000 Z
   creator_id: 1
   file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
