@@ -297,14 +297,14 @@ class Account < Ekylibre::Record::Base
         return connection.quoted_true
       else
         range = clean_range_condition(range)
-        table = table_name || table_name
+        table = table_name || Account.table_name
         for expr in range.split(/\s+/)
           if expr.match(/\-/)
             start, finish = expr.split(/\-+/)[0..1]
             max = [start.length, finish.length].max
             conditions << "#{connection.substr(table+'.number', 1, max)} BETWEEN #{connection.quote(start.ljust(max, '0'))} AND #{connection.quote(finish.ljust(max, 'Z'))}"
           else
-            conditions << "#{table}.number LIKE #{connection.quote(expr + '%')}"
+            conditions << "#{table}.number LIKE #{connection.quote(expr + '%%')}"
           end
         end
       end
