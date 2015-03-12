@@ -3211,6 +3211,7 @@ eng:
         spring_oat: "Spring oat"
         spring_pea: "Spring pea"
         spring_rapeseed: "Spring rapeseed"
+        # spring_soft_wheat: "Spring soft wheat"
         strawberry: "Strawberry"
         sunflower: "Sunflower"
         temporary_meadow: "Temporary meadow"
@@ -3559,7 +3560,6 @@ eng:
         bos_taurus_angus: "Cow angus"                      #< bos_taurus
         bos_taurus_armoricaine: "Cow armoricaine"          #< bos_taurus
         bos_taurus_aubrac: "Cow aubrac"                    #< bos_taurus
-        bos_taurus_aurochs: "Aurochs"                      #< bos_taurus
         bos_taurus_ayrshire: "Cow ayrshire"                #< bos_taurus
         bos_taurus_bazadaise: "Cow bazadaise"              #< bos_taurus
         bos_taurus_bearnaise: "Cow bearnaise"              #< bos_taurus
@@ -3608,6 +3608,7 @@ eng:
         bos_taurus_pie_rouge_des_plaines: "Cow pie rouge des plaines" #< bos_taurus
         bos_taurus_piemontaise: "Cow piemontaise"          #< bos_taurus
         bos_taurus_prim_holstein: "Cow prim holstein"      #< bos_taurus
+        bos_taurus_primigenius: "Aurochs"                  #< bos_taurus
         bos_taurus_raco_di_biou: "Cow raco di biou"        #< bos_taurus
         bos_taurus_rouge_des_pres: "Cow rouge des pres"    #< bos_taurus
         bos_taurus_rouge_flamande: "Cow rouge flamande"    #< bos_taurus

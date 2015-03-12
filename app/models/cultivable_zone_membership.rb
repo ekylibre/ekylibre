@@ -48,4 +48,13 @@ class CultivableZoneMembership < Ekylibre::Record::Base
     #return self.class.where(id: self.id).select("ST_Area(shape) AS area").first.area.in_square_meter
   end
 
+  def shape=(value)
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self["shape"] = value
+  end
+
 end

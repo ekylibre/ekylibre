@@ -55,7 +55,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
 
       geom = Charta::Geometry.new(record.geometry).transform(:WGS84) if record.geometry
 
-      # if geometry ,load into georeadings
+      # if geometry, load into georeadings
       if geom and geom.area.to_d(:square_meter) > 10.0
         land_parcel.read!(:shape, geom, at: land_parcel.initial_born_at)
 
@@ -132,41 +132,57 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
         end
 
         # Create an activity if not exist with production_code
-        item = Nomen::ProductionNatures.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
-        unless item and activity_family = Nomen::ActivityFamilies[item.activity]
+        production_nature = Nomen::ProductionNatures.find_by(telepac_crop_code: record.attributes['TYPE'].to_s)
+        unless production_nature and activity_family = Nomen::ActivityFamilies[production_nature.activity]
           raise "No activity family found. (#{record.attributes['TYPE']})"
         end
 
+        name = activity_family.human_name
         attributes = {
           nature: :main,
           family: activity_family.name,
-          name: activity_family.human_name
+          name: name
         }
-        unless activity = Activity.find_by(attributes.slice(:family, :nature))
+        if activity = Activity.find_by(attributes.slice(:name))
+          i = 0
+          while activity.family.to_s != activity_family.name.to_s do
+            i += 1
+            attributes[:name] = name + " (#{i})"
+            unless activity = Activity.find_by(attributes.slice(:name))
+              activity = Activity.create!(attributes)
+            end
+          end
+        else
           activity = Activity.create!(attributes)
         end
 
-
         # Create a production if not exist
-        if product_nature_variant = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
-          attributes = {
-            campaign_id: campaign.id,
-            activity_id: activity.id,
-            variant_id: product_nature_variant.id,
-            state: :validated
-          }
-          unless production = Production.find_by(attributes.slice(:campaign_id, :activity, :variant_id))
-            production = Production.create!(attributes)
+        cultivation_variant = nil
+        if activity.with_cultivation
+          unless cultivation_variant = ProductNatureVariant.of_variety(activity.cultivation_variety).first
+            variety = Nomen::Varieties[activity.cultivation_variety]
+            item = Nomen::ProductNatureVariants.list.select{|i| i.variety.present? and variety >= i.variety }.sample
+            cultivation_variant = ProductNatureVariant.import_from_nomenclature(item.name)
           end
-          if cultivable_zone
-            # if exist, this production has static_support
-            # production.static_support = true
-            production.state = :validated
-            production.save!
-            # and create a support for this production
-            production.supports.create!(storage_id: cultivable_zone.id, started_at: Date.new(campaign.harvest_year - 1, 10, 1), stopped_at: Date.new(campaign.harvest_year, 8, 1))
-          end
+        end
+        support_variant = cultivable_zone.variant
 
+        attributes = {
+          campaign: campaign,
+          activity: activity,
+          name: activity.name,
+          cultivation_variant: cultivation_variant,
+          support_variant: cultivable_zone.variant,
+          started_at: Date.new(campaign.harvest_year - 1, 10, 1),
+          stopped_at: Date.new(campaign.harvest_year, 8, 1),
+          state: :opened
+        }
+        unless production = Production.find_by(name: name) || Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
+          production = Production.create!(attributes)
+        end
+        if cultivable_zone
+          # Create a support for this production
+          production.supports.create!(storage: cultivable_zone)
         end
 
       end

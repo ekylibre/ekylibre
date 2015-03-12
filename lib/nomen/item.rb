@@ -112,7 +112,7 @@ module Nomen
 
     def >=(other)
       unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
-        raise StandardError, "Invalid operand to compare"
+        raise StandardError, "Invalid operand to compare (#{other} not in #{self.nomenclature.name})"
       end
       # self.self_and_children.include?(other)
       return (@left <= other.left and other.right <= @right)

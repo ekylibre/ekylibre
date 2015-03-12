@@ -51,6 +51,7 @@ class Activity < Ekylibre::Record::Base
   validates_presence_of :family
   validates_presence_of :cultivation_variety, if: :with_cultivation
   validates_presence_of :support_variety, if: :with_supports
+  validates_uniqueness_of :name
   validates_associated :productions
 
   scope :main, -> { where(nature: "main") }

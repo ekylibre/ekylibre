@@ -44,6 +44,12 @@
             telepac_crop_code="BH"
             variant_support="wheat_crop"
             />
+      <item name="spring_soft_wheat"
+            production_code="1100"
+            activity="common_wheat_crops"
+            telepac_crop_code="BP"
+            variant_support="wheat_crop"
+            />
       <item name="winter_hard_wheat"
             production_code="1200"
             activity="durum_wheat_crops"
