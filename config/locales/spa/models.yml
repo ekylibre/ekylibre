@@ -1314,9 +1314,8 @@ spa:
       # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Aborted"
-        # draft: "Draft"
-        # started: "Started"
-        # validated: "Validated"
+        # closed: "Closed"
+        # opened: "Opened"
     products_nature: #?
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"

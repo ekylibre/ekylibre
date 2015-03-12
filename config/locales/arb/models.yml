@@ -2568,9 +2568,8 @@ arb:
       # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Aborted"
-        # draft: "Draft"
-        # started: "Started"
-        # validated: "Validated"
+        # closed: "Closed"
+        # opened: "Opened"
     products_nature:  #?
       informations: #?
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)" #?

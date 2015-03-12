@@ -1205,9 +1205,8 @@ eng:
       name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         aborted: "Aborted"
-        draft: "Draft"
-        started: "Started"
-        validated: "Validated"
+        closed: "Closed"
+        opened: "Opened"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       label: "%{supplier} at %{address}"

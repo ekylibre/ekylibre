@@ -1440,10 +1440,8 @@ fra:
       name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
         aborted: "Annulée"
-        draft: "Prévue"
-        started: "En cours"
-        validated: "Validée"
-    products_nature: #?
+        closed: "Fermée"
+        opened: "Ouverte"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
       label: "%{supplier} à %{address}"
