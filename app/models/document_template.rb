@@ -206,17 +206,23 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Archive the document using the given archiving method
   def document(data_or_path, key, format, options = {})
-    document_archive = nil
-    unless self.archiving_none? or self.archiving_none_of_template?
 
-      # Adds the new archive if expected
-      if (self.archiving_first? and document.where("template_id IS NOT NULL").empty?) or
-          (self.archiving_first_of_template? and document.where(template_id: self.id).empty?) or
-          self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
-        document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key)), file: File.open(data_or_path), template_id: self.id) # }, :without_protection => true)
+    document = nil
+
+    unless self.archiving_none? or self.archiving_none_of_template?
+      unless document = Document.find_by(nature: self.nature, key: key)
+          # Adds the new archive if expected
+          if (self.archiving_first? and document.where("template_id IS NOT NULL").empty?) or
+              (self.archiving_first_of_template? and document.where(template_id: self.id).empty?) or
+              self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
+
+            # Create document if not exist
+            document = Document.create!(nature: self.nature, key: key, name: (options[:name] || tc('document_name', nature: self.nature.l, key: key)), file: File.open(data_or_path), template_id: self.id) # }, :without_protection => true)
+
+          end
       end
     end
-    return document_archive
+    return document
   end
 
 
