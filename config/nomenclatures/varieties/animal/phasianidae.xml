@@ -35,7 +35,7 @@
     </items>
   </nomenclature>
 
-  <!-- "domestiscus" seems to be unnecessary http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=176086 -->
+  <!-- "gallus_gallus_domesticus" is not referenced by ITIS http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=176086 but by wikipedia http://en.wikipedia.org/wiki/Red_junglefowl -->
   <nomenclature name="varieties-gallus_gallus" hierarchical="true">
     <items>
       <item name="gallus_gallus_domesticus" itis_tsn="176086"/>
