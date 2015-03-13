@@ -106,7 +106,7 @@
         = pie_chart(series, legend: true)
 
   - b.hbox do
-    - if resource.cultivation_variant.has_indicator? :shape
+    - if resource.with_supports and resource.supports.any? and resource.support_variant.has_indicator?(:shape)
       - b.cell :costs_map, title: :map do
         - visualization do |v|
           - v.serie :main, data
@@ -126,6 +126,7 @@
     - total_earn = nil
     - total_cost = nil
     - currency = Nomen::Currencies.find(Preference[:currency])
+    - precision = currency.precision - 2
     - unit = Nomen::Units[resource.support_variant_unit]
     - b.cell(:costs) do
       .big-infos.costs
@@ -137,38 +138,38 @@
             %span.title= "evaluated_#{type}_cost".tl
             %span.value
               %i.picto{class: "picto-#{type}"}
-              = cost.l(currency: Preference[:currency])
-        - if resource.with_supports and total_quantity > 0
-          .big-info.cost.important
-            %span.title= :total_cost_per_working_unit.tl
-            %span.value= :amount_per_unit.tl(amount: (total_cost/total_quantity).round(currency.precision).l(currency: currency.name), unit: unit.symbol)
-        - else
-          .big-info.cost.important
-            %span.title= :total_cost.tl
-            %span.value= total_cost.l(currency: currency.name)
+              - if resource.with_supports and total_quantity > 0
+                = :amount_per_unit.tl(amount: (cost/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
+              - else
+                = cost.round(precision).to_i.l(currency: currency.name)
+        .big-info.cost.important
+          %span.title= :total_cost.tl
+          %span.value
+            - if resource.with_supports and total_quantity > 0
+              = :amount_per_unit.tl(amount: (total_cost/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
+            - else
+              = total_cost.round(precision).to_i.l(currency: currency.name)
 
     - if resource.earn > 0.0
       - b.cell(:earns) do
-        .big-infosa.costs
+        .big-infos-costs.costs
           - total_earn = (resource.earn || 0.0).round.to_i
-          - if resource.with_supports and total_quantity > 0
-            .big-info.cost.important
-              %span.title= :total_earn_per_working_unit.tl
-              %span.value= :amount_per_unit.tl(amount: (total_earn/total_quantity).round(currency.precision).l(currency: currency.name), unit: unit.symbol)
-          - else
-            .big-info.cost.important
-              %span.title= :total_earn.tl
-              %span.value= total_earn.l(currency: currency.name)
+          .big-info.cost.important
+            %span.title= :total_earn.tl
+            %span.value
+              - if resource.with_supports and total_quantity > 0
+                = :amount_per_unit.tl(amount: (total_earn/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
+              - else
+                = total_earn.round(precision).to_i.l(currency: currency.name)
           - if total_cost > 0.0
             - gross_profit = ((total_earn - total_cost) || 0.0).round.to_i
-            - if resource.with_supports and total_quantity > 0
-              .big-info.cost.important
-                %span.title= :gross_profit_per_working_unit.tl
-                %span.value= :amount_per_unit.tl(amount: (gross_profit/total_quantity).round(currency.precision).l(currency: currency.name), unit: unit.symbol)
-            - else
-              .big-info.cost.important
-                %span.title= :gross_profit.tl
-                %span.value= gross_profit.l(currency: currency.name)
+            .big-info.cost.important
+              %span.title= :gross_profit.tl
+              %span.value
+                - if resource.with_supports and total_quantity > 0
+                  = :amount_per_unit.tl(amount: (gross_profit/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
+                - else
+                  = gross_profit.round(precision).to_i.l(currency: currency.name)
 
 
   - b.hbox do
@@ -190,7 +191,7 @@
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
 
   - b.hbox do
-    - if resource.with_supports and variety = Nomen::Varieties[resource.support_variety] and variety <= :cultivable_zone
+    - if resource.with_supports and resource.supports.any? and variety = Nomen::Varieties[resource.support_variety] and variety <= :cultivable_zone
       - b.cell :concentrations_map, title: :map do
         - visualization do |v|
           - v.serie :main, data

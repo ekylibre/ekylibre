@@ -1,25 +1,24 @@
-:ruby
-  unless beehive.available_cell_types.include?(cell[:type].to_s)
-    raise "Unknown cell type: #{cell[:type]}"
-  end
-.cell{data: {beehive_cell: cell.to_json}}
-  .cell-inner
-    - if beehive_cell = beehive.find_by_name(cell[:name]) || beehive.find_by_type(cell[:type])
-      .cell-title
-        - unless beehive_cell.options[:hideable].is_a?(FalseClass)
+-# If a local cell has a "if" which blocked its discovery, we find it and we
+-# have errors believing that it's remote cell.
+- if beehive.available_cell_types.include?(cell[:type].to_s)
+  .cell{data: {beehive_cell: cell.to_json}}
+    .cell-inner
+      - if beehive_cell = beehive.find_by_name(cell[:name]) || beehive.find_by_type(cell[:type])
+        .cell-title
+          - unless beehive_cell.options[:hideable].is_a?(FalseClass)
+            = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
+              %i
+          = beehive_cell.title
+          - if beehive_cell.options[:counter]
+            %span.badge= beehive_cell.options[:counter]
+        - if beehive_cell.content?
+          .cell-content= beehive_cell.content
+        - else
+          .cell-content{data: {cell: url_for((beehive_cell.options[:params]||{}).merge(controller: "backend/cells/#{beehive_cell.type}_cells", action: :show))}}
+      - else
+        .cell-title
           = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
             %i
-        = beehive_cell.title
-        - if beehive_cell.options[:counter]
-          %span.badge= beehive_cell.options[:counter]
-      - if beehive_cell.content?
-        .cell-content= beehive_cell.content
-      - else
-        .cell-content{data: {cell: url_for((beehive_cell.options[:params]||{}).merge(controller: "backend/cells/#{beehive_cell.type}_cells", action: :show))}}
-    - else
-      .cell-title
-        = link_to("##{beehive.id}", data: {beehive_remove: "cell"}) do
-          %i
-        = cell[:type].tl(default: cell[:type].to_s.humanize)
-      .cell-content{data: {cell: url_for((cell[:params] || {}).merge(controller: "backend/cells/#{cell[:type]}_cells", action: :show))}}
-    .cell-bottom
+          = cell[:type].tl(default: cell[:type].to_s.humanize)
+        .cell-content{data: {cell: url_for((cell[:params] || {}).merge(controller: "backend/cells/#{cell[:type]}_cells", action: :show))}}
+      .cell-bottom

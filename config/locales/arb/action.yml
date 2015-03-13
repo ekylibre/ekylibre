@@ -1259,7 +1259,6 @@ arb:
     go: "صلاحية"
     graph_statistics: "رسومات احصائية" #?
     # gross_profit: "Gross profit"
-    # gross_profit_per_working_unit: "Gross profit per working unit"
     # group: "Group"
     # groups: "Groups"
     # guide_evolution: "Guide evolution"
@@ -1880,9 +1879,7 @@ arb:
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
     # total_cost: "Total cost"
-    # total_cost_per_working_unit: "Total cost per working unit"
     # total_earn: "Total earn"
-    # total_earn_per_working_unit: "Total earn per working unit"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     # total_paid_amount: "Total paid amount"

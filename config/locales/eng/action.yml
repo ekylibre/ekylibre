@@ -888,6 +888,7 @@ eng:
     current: "Current" #?
     current_letter: "Current letter: %{letter}" #?
     current_stocks_by_variety: "Current stocks by variety"
+    # custom_fields: "Custom fields"
     dates: "Select period start date and Period end date" #?
     deals: "Deals"
     debit: "Debit" #?
@@ -986,7 +987,6 @@ eng:
     give_discount: "Give discount" #?!
     go: "Go" #?
     gross_profit: "Gross profit"
-    gross_profit_per_working_unit: "Gross profit per working unit"
     group: "Group" #?
     groups: "Groups"
     guide_evolution: "Guide evolution"
@@ -1394,9 +1394,7 @@ eng:
     total: "Total"
     total_amount: "Total amount" #?
     total_cost: "Total cost"
-    total_cost_per_working_unit: "Total cost per working unit"
     total_earn: "Total earn"
-    total_earn_per_working_unit: "Total earn per working unit"
     total_in_currency: "Total (%{currency})"
     total_paid_amount: "Total paid amount"
     total_pretax_expenses: "Total pretax expenses"

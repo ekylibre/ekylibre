@@ -1054,7 +1054,7 @@ fra:
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques" #?
     gross_profit: "Marge brute"
-    gross_profit_per_working_unit: "Marge brute par unité d’œuvre"
+    gross_profit_per_working_unit: "Marge brute par unité d’œuvre" #?
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
     groups: "Groupes"
@@ -1649,9 +1649,9 @@ fra:
     total_amount: "Montant total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
-    total_cost_per_working_unit: "Coût total par unité d’œuvre"
+    total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
     total_earn: "Gain total"
-    total_earn_per_working_unit: "Gain total par unité d’œuvre"
+    total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé"

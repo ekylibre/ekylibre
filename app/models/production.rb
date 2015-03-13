@@ -197,6 +197,7 @@ class Production < Ekylibre::Record::Base
 
   # Sums all quantity of supports
   def total_quantity
+    return 0.0 unless self.support_variant_indicator
     return self.supports.map do |support|
       support.get(self.support_variant_indicator).to_d(self.support_variant_unit)
     end.sum
