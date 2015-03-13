@@ -256,7 +256,7 @@ eng:
       production_budget: "Budget"
       production_distribution: "Production distribution"
       production_support: "Production support"
-      property_title: "Property title"
+      property_title: "Property title" #?
       purchase: "Purchase"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"
@@ -278,7 +278,7 @@ eng:
       version: "Version"
       worker: "Worker"
       zone: "Zone"
-      zone_property_title: "Zone property title"
+      zone_property_title: "Zone property title" #?
   attributes:
     abilities_list: "Abilities list"
     absolute_credit: "Absolute credit"

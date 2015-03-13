@@ -116,7 +116,6 @@
 - production_budget
 - production_distribution
 - production_support
-- property_title
 - purchase
 - purchase_item
 - purchase_nature
@@ -138,4 +137,3 @@
 - version
 - worker
 - zone
-- zone_property_title
