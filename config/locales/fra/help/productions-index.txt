@@ -3,6 +3,8 @@
 ===== Qu'est ce qu'une production ? =====
 
 Un production est une intention de produire déclarée permettant de prévoir l'activité de l'exploitation en liant une [[>backend/activities|activité]],
-une [[>backend/campaigns|campagne]], un type de produit et optionnelement un ou plusieurs supports de production ([[>backend/cultivable_zones|zone cultivable]] par exemple).
+une [[>backend/campaigns|campagne]], un type de culture et un type de support.
+
+Il peut également ya voir un ou plusieurs supports de production ([[>backend/cultivable_zones|zone cultivable]], [[>backend/animal_groups|troupeau]] par exemple).
 
 !!! Il faut obligatoirement une production pour pouvoir effectuer des [[>backend/interventions|interventions]].

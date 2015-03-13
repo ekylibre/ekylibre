@@ -9,7 +9,7 @@ une [[>backend/campaigns|campagne]].
 
 ===== Supports =====
 
-Les supports correspondent aux **zones cultivables** pour les productions végétales et aux **groupe d'animaux** pour les productions animales.
+Les supports correspondent aux [[>backend/cultivable_zones|zones cultivables]] pour les productions végétales et aux [[>backend/animal_groups|groupe d'animaux]] pour les productions animales.
 
 ===== Budget =====
 

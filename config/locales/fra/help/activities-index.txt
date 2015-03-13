@@ -22,14 +22,12 @@ Une activité peut présenter un type de centre dit PRINCIPAL (processus product
 
 Elles interviennent :
 
-  * lors de la saisie des opérations et procédures
-  * lors de la [[>backend/journals#draft|saisie comptable]] si vous n'utilisez pas les opérations
+  * lors de la déclaration des productions
+  * lors des éditions tecnico-économiques et réglementaires
 
 ===== Comment lier des produits aux activités et répartir les charges ? =====
 
-Chaque activité peut être liée à une ou plusieurs [[>backend/productions#index|productions]].
+Chaque activité est liée à une ou plusieurs [[>backend/productions#index|productions]].
 
 >>> Ex: L'activité BLÉ TENDRE est lié à la production Grain de BLÉ TENDRE Campagne 2013 sur la parcelle "Les Palets"
 >>> Un coût de production et un prix de revient pourront être calculés pour chaque unité de grain de BLÉ TENDRE produite sur une période donnée.
-
-Chaque ligne comptable peut être liée à une ou plusieurs productions.
