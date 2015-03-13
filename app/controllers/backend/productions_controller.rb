@@ -75,14 +75,12 @@ class Backend::ProductionsController < Backend::BaseController
   end
 
   # List supports for one production
-  list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, per_page: 10) do |t|
     t.column :name, url: true
     t.column :work_number, hidden: true
     t.column :irrigated, hidden: true
     t.column :population, through: :storage, datatype: :decimal, hidden: true
     t.column :unit_name, through: :storage, hidden: true
-    t.column :started_at
-    t.column :stopped_at
     t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
   end
 
@@ -93,7 +91,7 @@ class Backend::ProductionsController < Backend::BaseController
   end
 
   # List interventions for one production
-  list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
+  list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status, per_page: 10) do |t|
     t.column :name, url: true
     t.status
     t.column :issue, url: true
@@ -101,36 +99,5 @@ class Backend::ProductionsController < Backend::BaseController
     t.column :stopped_at, hidden: true
     # t.column :provisional
   end
-
-
-  def indicator_measure
-    begin
-      storage = Product.find(params[:storage_id]) rescue nil
-      variant = ProductNatureVariant.find(params[:variant_id]) rescue nil
-      indicator = params[:indicator]
-      unit = params[:unit]
-      if storage && indicator && unit
-        measure = storage.send(indicator).convert(unit)
-        render json: {value: measure.to_f, unit: measure.unit}
-      elsif variant
-        indicators = variant.frozen_indicators.map(&:name)
-        variant_nomen_item = Nomen::ProductNatureVariants.where(nature: variant.reference_name.to_sym).first
-        unit = Nomen::Units[variant_nomen_item.unit_name]
-        indicator = indicators.select{|i|i.to_s.end_with? unit.dimension.to_s}.first
-        render json: {indicators: indicators, default: "#{indicator}-#{unit.name}"}
-      elsif params[:units_for]
-        indicator = params[:units_for]
-        indicator_item = Nomen::Indicators.where(datatype: :measure).select{|item| item.name == indicator}.first
-        units = Measure.siblings(indicator_item.unit)
-        default = indicator_item.unit
-        render json: {units: units, default: default}
-      else
-        render status: :not_found, json: nil
-      end
-    rescue
-      render status: :not_found, json: nil
-    end
-  end
-
 
 end

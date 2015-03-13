@@ -1,6 +1,3 @@
-- main_toolbar do |t|
-  - t.edit resource
-
 = beehive do |b|
   - b.hbox do
     - if resource.storage.is_a?(CultivableZone)
@@ -155,7 +152,7 @@
   - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|
-        - t.new(params: {controller: :interventions, :production_support_id => resource.id})
+        - t.new(params: {controller: :interventions, production_support_id: resource.id})
       = list(:interventions)
     - b.cell do
       = attributes_list do |l|

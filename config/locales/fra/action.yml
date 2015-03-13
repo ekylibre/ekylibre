@@ -485,9 +485,9 @@ fra:
     backend/product_phases: #?
     backend/production_support_markers: #?
     backend/production_supports:
-      edit: "Modifier un support de production"
-      index: "Supports de production"
-      new: "Nouveau support de production"
+      edit: "Modifier un support de production" #?
+      index: "Supports de production" #?
+      new: "Nouveau support de production" #?
       show: "Support de production\_: %{name}"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
@@ -754,6 +754,7 @@ fra:
     all_periods: "Tous les exercices"
     already_credited_quantity: "Qté. déjà passée en avoir" #?
     amount: "Montant"
+    amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés" #?
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés" #?
     amount_with_taxes: "Montant TTC"
@@ -802,7 +803,7 @@ fra:
     bookkeep: "Comptabiliser"
     bookkeep_with_payment: "Bookkeep with payment"
     budget: "Budget"
-    budget_per_working_indicator: "Budget par unité d'oeuvre"
+    budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
     building: "Lieu de stockage" #?
     building_name: "Sortie de"
@@ -1049,11 +1050,11 @@ fra:
     generate_last_journal_entry: "Générer la dernière écriture"
     # geolocation: "Geolocation"
     give_discount: "Octroyer une remise"
-    global_margin: "Marge brute"
-    global_margin_per_area: "Marge brute par unité de surface"
     go: "Valider"
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques" #?
+    gross_profit: "Marge brute"
+    gross_profit_per_working_unit: "Marge brute par unité d’œuvre"
     ground_appearance: "Aspect du sol" #?
     group: "Groupe"
     groups: "Groupes"
@@ -1648,9 +1649,9 @@ fra:
     total_amount: "Montant total HT"
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
-    total_cost_per_area: "Coût total par unité de surface"
+    total_cost_per_working_unit: "Coût total par unité d’œuvre"
     total_earn: "Gain total"
-    total_earn_per_area: "Gain total par unité de surface"
+    total_earn_per_working_unit: "Gain total par unité d’œuvre"
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé" #?
     total_paid_amount: "Montant total payé"
@@ -1892,7 +1893,7 @@ fra:
       cannot_find_deal_to_detach: "Impossible de trouver la transaction à détacher"
       cannot_find_document_template: "Impossible de trouver le modèle de document" #?
       cannot_finish_affair: "Impossible de terminer l’affaire"
-      cannot_import_file: "Impossible d'importer le fichier (%{message})"
+      cannot_import_file: "Impossible d’importer le fichier (%{message})"
       cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
       cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
       cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."

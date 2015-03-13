@@ -34,12 +34,7 @@ module Backend::BeehiveHelper
         block[board]
       end
     end
-    layout = board.to_hash
-    if preference = current_user.preferences.find_by(name: board.preference_name)
-      got = YAML.load(preference.value).deep_symbolize_keys
-      layout = got if got[:version] and got[:version] >= FORMAT_VERSION
-    end
-    return render(partial: "backend/shared/beehive", object: board, locals: {layout: layout})
+    return render(partial: "backend/shared/beehive", object: board)
   end
 
   class Beehive
@@ -141,6 +136,15 @@ module Backend::BeehiveHelper
       { version: FORMAT_VERSION, boxes: @boxes.map(&:to_hash) }
     end
 
+    def layout(user)
+      hash = nil
+      if preference = user.preferences.find_by(name: preference_name)
+        got = YAML.load(preference.value).deep_symbolize_keys
+        hash = got if got[:version] and got[:version] >= FORMAT_VERSION
+      end
+      return hash || self.to_hash
+    end
+
     def id
       "beehive-#{@name}"
     end
@@ -168,6 +172,10 @@ module Backend::BeehiveHelper
       return (externals + internals).sort do |a,b|
         a.first.ascii <=> b.first.ascii
       end
+    end
+
+    def available_cell_types
+      available_cells.map(&:second)
     end
 
     protected

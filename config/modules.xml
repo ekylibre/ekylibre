@@ -596,7 +596,6 @@
         <page to="backend/productions#create"/>
         <page to="backend/productions#destroy"/>
         <page to="backend/productions#edit"/>
-        <page to="backend/productions#indicator_measure"/>
         <page to="backend/productions#list"/>
         <page to="backend/productions#list_interventions"/>
         <page to="backend/productions#list_budgets"/>
@@ -605,16 +604,9 @@
         <page to="backend/productions#show"/>
         <page to="backend/productions#update"/>
         <page to="backend/productions#unroll"/>
-        <page to="backend/production_supports#index"/>
-        <page to="backend/production_supports#create"/>
-        <page to="backend/production_supports#destroy"/>
-        <page to="backend/production_supports#edit"/>
-        <page to="backend/production_supports#list"/>
         <page to="backend/production_supports#list_interventions"/>
-        <page to="backend/production_supports#new"/>
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#unroll"/>
-        <page to="backend/production_supports#update"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">
@@ -1260,11 +1252,6 @@
         <page to="backend/product_nature_variants#list_catalog_items"/>
         <page to="backend/product_nature_variants#list_products"/>
         <page to="backend/product_nature_variants#unroll"/>
-        <page to="backend/product_nature_variant_readings#create"/>
-        <page to="backend/product_nature_variant_readings#destroy"/>
-        <page to="backend/product_nature_variant_readings#edit"/>
-        <page to="backend/product_nature_variant_readings#new"/>
-        <page to="backend/product_nature_variant_readings#update"/>
       </item>
       <item name="catalogs">
         <page to="backend/catalogs#index"/>

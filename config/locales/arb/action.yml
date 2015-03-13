@@ -585,9 +585,6 @@ arb:
     backend/production_support_marker_readings: #?
     backend/production_support_markers: #?
     backend/production_supports:
-      # edit: "Edit production support: %{name}"
-      # index: "Production supports"
-      # new: "New production support"
       # show: "Production support: %{name}"
     backend/productions:
       # edit: "Edit production: %{name}"
@@ -949,6 +946,7 @@ arb:
     # all_periods: "All financial years"
     already_credited_quantity: "اشتملت الائتمانات الكمية من قبل" #?
     amount: "القيمة من دون الضرائب"
+    # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل" #?
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل" #?
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
@@ -1184,7 +1182,7 @@ arb:
     entities_export: "CSV جميع الصادرات ضمن" #?
     entities_import: "CSV استيراد سجلات" #?
     entities_merge: "دمج السجلات" #?
-    # entity: "Person"
+    # entity: "Entity"
     entity_category_create: "اضافة نوع الملف" #?
     entity_category_update: "تعديل نوع الملف" #?
     entity_create: "انشاء سجل جديد" #?
@@ -1258,10 +1256,10 @@ arb:
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"
     give_discount: "منح خصومات"
-    # global_margin: "Global margin"
-    # global_margin_per_area: "Global margin per area"
     go: "صلاحية"
     graph_statistics: "رسومات احصائية" #?
+    # gross_profit: "Gross profit"
+    # gross_profit_per_working_unit: "Gross profit per working unit"
     # group: "Group"
     # groups: "Groups"
     # guide_evolution: "Guide evolution"
@@ -1882,9 +1880,9 @@ arb:
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
     # total_cost: "Total cost"
-    # total_cost_per_area: "Total cost per area"
+    # total_cost_per_working_unit: "Total cost per working unit"
     # total_earn: "Total earn"
-    # total_earn_per_area: "Total earn per area"
+    # total_earn_per_working_unit: "Total earn per working unit"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي" #?
     # total_paid_amount: "Total paid amount"

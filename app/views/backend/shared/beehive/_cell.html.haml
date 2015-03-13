@@ -1,3 +1,7 @@
+:ruby
+  unless beehive.available_cell_types.include?(cell[:type].to_s)
+    raise "Unknown cell type: #{cell[:type]}"
+  end
 .cell{data: {beehive_cell: cell.to_json}}
   .cell-inner
     - if beehive_cell = beehive.find_by_name(cell[:name]) || beehive.find_by_type(cell[:type])

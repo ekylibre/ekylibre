@@ -537,9 +537,6 @@ spa:
     backend/production_support_marker_readings: #?
     backend/production_support_markers: #?
     backend/production_supports:
-      # edit: "Edit production support: %{name}"
-      # index: "Production supports"
-      # new: "New production support"
       # show: "Production support: %{name}"
     backend/productions:
       # edit: "Edit production: %{name}"
@@ -783,6 +780,7 @@ spa:
     # all_periods: "All financial years"
     already_credited_quantity: "Cantidad ya pasada en activo" #?
     amount: "Total TVA a pagar"
+    # amount_per_unit: "%{amount}/%{unit}"
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones" #?
     amount_with_taxes: "Total de la entrega TTC"
@@ -991,7 +989,7 @@ spa:
     # employee_name: "Employee"
     end: "al"
     # entities: "Entities"
-    # entity: "Person"
+    # entity: "Entity"
     # entity_to_delete: "Person to delete"
     # entity_to_update: "Person to update"
     entries: "Escrituras"
@@ -1046,9 +1044,9 @@ spa:
     # generate_last_journal_entry: "Generate last journal entry"
     # geolocation: "Geolocation"
     # give_discount: "Give discount"
-    # global_margin: "Global margin"
-    # global_margin_per_area: "Global margin per area"
     # go: "Go"
+    # gross_profit: "Gross profit"
+    # gross_profit_per_working_unit: "Gross profit per working unit"
     # group: "Group"
     # groups: "Groups"
     # guide_evolution: "Guide evolution"
@@ -1553,9 +1551,9 @@ spa:
     total: "Total"
     total_amount: "Total importe HT"
     # total_cost: "Total cost"
-    # total_cost_per_area: "Total cost per area"
+    # total_cost_per_working_unit: "Total cost per working unit"
     # total_earn: "Total earn"
-    # total_earn_per_area: "Total earn per area"
+    # total_earn_per_working_unit: "Total earn per working unit"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total importe facturado" #?
     # total_paid_amount: "Total paid amount"

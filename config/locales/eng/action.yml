@@ -495,9 +495,6 @@ eng:
       new: "New product category"
       pick: "Pick product nature category"
       show: "Product category: %{name}"
-    backend/product_nature_variant_readings:
-      # edit: "Edit product nature variant reading: %{name}"
-      # new: "New product nature variant reading"
     backend/product_nature_variants:
       # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
@@ -515,14 +512,10 @@ eng:
       pick: "Pick product nature"
       show: "Product type: %{name}"
     backend/production_supports:
-      edit: "Edit production support: %{name}"
-      index: "Production supports"
-      new: "New production support"
       show: "Production support: %{name}"
     backend/productions:
       edit: "Edit production: %{name}"
       index: "Productions"
-      # indicator_measure: "Indicator measure production: %{name}"
       new: "New production"
       show: "Production: %{name}"
     backend/products:
@@ -782,6 +775,7 @@ eng:
     all_conditions: "All conditions"
     all_periods: "All financial years"
     amount: "Amount with taxes" #?
+    amount_per_unit: "%{amount}/%{unit}"
     amount_with_taxes: "Amount with taxes" #?
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
@@ -884,7 +878,7 @@ eng:
       all: "All" #?
       confirmed: "Confirmed" #?
       unconfirmed: "Unconfirmed" #?
-    cropping_plan_chart: "Cropping plan chart"
+    cropping_plan_chart: "Cropping plan chart" #?!
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumb_procedure_nature: "Crumb procedure nature" #?
     crumbs: "Crumbs"
@@ -944,7 +938,7 @@ eng:
     employee_name: "Employee" #?
     end: "to" #?
     entities: "Entities"
-    entity: "Person" #?
+    entity: "Entity" #?
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
@@ -990,9 +984,9 @@ eng:
     generate_last_journal_entry: "Generate last journal entry"
     geolocation: "Geolocation"
     give_discount: "Give discount" #?!
-    global_margin: "Global margin"
-    global_margin_per_area: "Global margin per area"
     go: "Go" #?
+    gross_profit: "Gross profit"
+    gross_profit_per_working_unit: "Gross profit per working unit"
     group: "Group" #?
     groups: "Groups"
     guide_evolution: "Guide evolution"
@@ -1097,7 +1091,7 @@ eng:
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
-    margins: "Margins"
+    margins: "Margins" #?!
     markers: "Markers" #?
     # mass: "Mass"
     maximal_temperature: "Maximal temperature"
@@ -1180,7 +1174,6 @@ eng:
     order: "Order" #?
     order_print: "Print order" #?
     organic_matter_concentration: "Organic matter concentration" #?
-    # other_costs: "Other costs"
     others: "Others"
     outgoing_payments_states: #?!
       all: "All" #?!
@@ -1378,6 +1371,7 @@ eng:
     supply: "Supply" #?
     support: "Support"
     supports: "Supports"
+    # supports_chart: "Supports chart"
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
@@ -1400,9 +1394,9 @@ eng:
     total: "Total"
     total_amount: "Total amount" #?
     total_cost: "Total cost"
-    total_cost_per_area: "Total cost per area"
+    total_cost_per_working_unit: "Total cost per working unit"
     total_earn: "Total earn"
-    total_earn_per_area: "Total earn per area"
+    total_earn_per_working_unit: "Total earn per working unit"
     total_in_currency: "Total (%{currency})"
     total_paid_amount: "Total paid amount"
     total_pretax_expenses: "Total pretax expenses"
@@ -1710,7 +1704,7 @@ eng:
       incorporate: "Incorporate"
       increment: "Increment"
       index: "Index"
-      indicator_measure: "Indicator measure"
+      indicator_measure: "Indicator measure" #?
       invoice: "Invoice"
       list: "List"
       load: "Load"

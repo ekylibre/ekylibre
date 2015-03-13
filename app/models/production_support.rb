@@ -258,6 +258,13 @@ class ProductionSupport < Ekylibre::Record::Base
     nil
   end
 
+  # Compute quantity of a support as defined in production
+  def quantity(options = {})
+    value = get(self.support_variant_indicator, options)
+    value = value.convert(self.support_variant_unit) if self.support_variant_unit
+    return value
+  end
+
   def get(*args)
     unless self.storage.present?
       raise StandardError, "No storage defined. Got: #{self.storage.inspect}"

@@ -14,172 +14,183 @@
       interventions_count: support.interventions.count
     }
   end
+  total_quantity = resource.total_quantity
 
 - main_toolbar do |t|
   - t.edit resource
 
 = beehive do |b|
   -# b.hbox do
-    -# b.cell do
+    - b.cell do
       = attributes_list do |l|
         - l.attribute :name
-        - l.attribute :variant
+        - l.attribute :cultivation_variant, url: true
         - l.attribute :started_at
+        - l.attribute :stopped_at
         - l.attribute :state
-        - l.attribute :campaign
-        - l.attribute :activity
+        - l.attribute :campaign, url: true
+        - l.attribute :activity, url: true
 
 
   -# For budgets
-  - if resource.budgets.any?
-    - b.cell(:budget) do
-      :ruby
-        balance = 0
-        costs = {
-          input: 0,
-          tool: 0,
-          doer: 0,
-          other: 0
-        }
-        currency = Preference[:currency]
-        title_legend_complement = ''
-        # get support_variant indicator and unit (ex: net_surface_area and hectare)
-        support_variant_indicator = Nomen::Indicators[resource.support_variant_indicator]
-        support_variant_unit      = Nomen::Units[resource.support_variant_unit]
+  - b.hbox do
+    - if resource.budgets.any?
+      - b.cell(:budget) do
+        :ruby
+          balance = 0
+          costs = {
+            input: 0,
+            tool: 0,
+            doer: 0,
+            other: 0
+          }
+          currency = Preference[:currency]
+          title_legend_complement = ''
+          # get support_variant indicator and unit (ex: net_surface_area and hectare)
+          support_variant_indicator = Nomen::Indicators[resource.support_variant_indicator]
+          support_variant_unit      = Nomen::Units[resource.support_variant_unit]
 
-        if support_variant_unit
-          title_legend_complement = " (#{ currency }/#{ support_variant_unit.human_name })"
-        end
-
-        total_quantity = resource.total_quantity.round(4)
-        total_quantity = 1.0 if total_quantity.zero?
-
-        data_series = []
-        resource.revenues.each do |revenue|
-          puts revenue.inspect.red
-          data_series << { name: revenue.variant_name, y: (revenue.amount/total_quantity).to_s.to_f, color: "#000077"}
-          balance += revenue.amount
-        end
-
-        resource.expenses.each do |expense|
-          amount = expense.amount
-          variant_variety = Nomen::Varieties[expense.variant.variety]
-          if expense.variant_indicator.to_s == "working_duration"
-            if variant_variety <= :worker
-              costs[:doer] -= amount
-            elsif variant_variety <= :equipment
-              costs[:tool] -= amount
-            end
-          elsif (variant_variety <= :preparation || variant_variety <= :water)
-            costs[:input] -= amount
-          else
-            costs[:other] -= amount
+          if support_variant_unit
+            title_legend_complement = " (#{ currency }/#{ support_variant_unit.human_name })"
           end
-          balance -= amount
-        end
-        costs.each do |name, balance|
-          data_series << { name: "evaluated_#{name}_cost".tl , y: (balance/total_quantity).to_s.to_f, color: "#DD0000"} unless balance.zero?
-        end
 
-        data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+          divider = total_quantity.round(4)
+          divider = 1.0 if divider.zero?
 
-        data_series << { name: :indirect_expenses.tl, y: (resource.indirect_budget_amount/total_quantity).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+          data_series = []
+          resource.revenues.each do |revenue|
+            data_series << { name: revenue.variant_name, y: (revenue.amount/divider).to_s.to_f, color: "#000077"}
+            balance += revenue.amount
+          end
 
-        data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+          resource.expenses.each do |expense|
+            amount = expense.amount
+            variant_variety = Nomen::Varieties[expense.variant.variety]
+            if expense.variant_indicator.to_s == "working_duration"
+              if variant_variety <= :worker
+                costs[:doer] -= amount
+              elsif variant_variety <= :equipment
+                costs[:tool] -= amount
+              end
+            elsif (variant_variety <= :preparation || variant_variety <= :water)
+              costs[:input] -= amount
+            else
+              costs[:other] -= amount
+            end
+            balance -= amount
+          end
+          costs.each do |name, balance|
+            data_series << { name: "evaluated_#{name}_cost".tl , y: (balance/divider).to_s.to_f, color: "#DD0000"} unless balance.zero?
+          end
 
-        series = []
-        series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
-      = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.2f}'}, title: {text: :provisionnal_budget.tl + title_legend_complement}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
+          data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
 
-  -# TODO need to be renovated but the idea is here
-  - area_value = (resource.net_surface_area.to_d(:hectare))
-  - total_earn = nil
-  - total_cost = nil
-  - b.cell(:costs) do
-    .big-infos.costs
-      .big-info.cost.important
+          data_series << { name: :indirect_expenses.tl, y: (resource.indirect_budget_amount/divider).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+
+          data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+
+          series = []
+          series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
+        = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.2f}'}, title: {text: :provisionnal_budget.tl + title_legend_complement}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
+
+    - if resource.auxiliary? and resource.distributions.any?
+      - b.cell(:distributions, title: Production.human_attribute_name(:distributions)) do
+        :ruby
+          data = []
+          resource.distributions.reorder(:affectation_percentage).find_each do |distribution|
+            y = distribution.affectation_percentage.to_s.to_f
+            data << {name: :label_value.th(label: distribution.main_production_name, value: number_to_percentage(y, precision: 2)), y: y }
+          end
+          series = [{type: 'pie', name: Production.human_attribute_name(:distributions), data: data}]
+
+        = pie_chart(series, legend: true)
+
+  - b.hbox do
+    - if resource.cultivation_variant.has_indicator? :shape
+      - b.cell :costs_map, title: :map do
+        - visualization do |v|
+          - v.serie :main, data
+          - v.background "OpenStreetMap.HOT"
+          - v.background "OpenStreetMap.Mapnik"
+          - v.background "Thunderforest.Landscape"
+          - v.background "Esri.WorldImagery"
+          - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
+          - v.choropleth :input_cost, :main, stop_color: "#1122DD"
+          - v.choropleth :time_cost, :main, stop_color: "#E77000"
+          - v.control :zoom
+          - v.control :scale
+          - v.control :fullscreen
+          - v.control :layer_selector
+
+    -# TODO need to be renovated but the idea is here
+    - total_earn = nil
+    - total_cost = nil
+    - currency = Nomen::Currencies.find(Preference[:currency])
+    - unit = Nomen::Units[resource.support_variant_unit]
+    - b.cell(:costs) do
+      .big-infos.costs
         - total_cost = 0
-        - for type in [:input, :tool, :doer]
+        - [:input, :tool, :doer].each do |type|
           - cost = (resource.cost(type) || 0.0).round.to_i
           - total_cost += cost
-        %span.title= "total_cost".tl
-        %span.value= total_cost.l(currency: Preference[:currency])
-      - if resource.net_surface_area.to_d(:hectare) > 0.0
-        .big-info.cost.important
-          %span.title= "total_cost_per_area".tl
-          %span.value
-            %i.picto{class: "picto-land-parcels"}
-            = (total_cost / area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
-  - if resource.earn > 0.0
-    - b.cell(:earns) do
-      .big-infos.costs
-        .big-info.cost.important
-          - total_earn = (resource.earn || 0.0).round.to_i
-          %span.title= "total_earn".tl
-          %span.value= total_earn.l(currency: Preference[:currency])
-        - if resource.net_surface_area.to_d(:hectare) > 0.0
-          .big-info.cost.important
-            %span.title= "total_earn_per_area".tl
+          .big-info.cost
+            %span.title= "evaluated_#{type}_cost".tl
             %span.value
-              %i.picto{class: "picto-land-parcels"}
-              = (total_earn / area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
+              %i.picto{class: "picto-#{type}"}
+              = cost.l(currency: Preference[:currency])
+        - if resource.with_supports and total_quantity > 0
+          .big-info.cost.important
+            %span.title= :total_cost_per_working_unit.tl
+            %span.value= :amount_per_unit.tl(amount: (total_cost/total_quantity).round(currency.precision).l(currency: currency.name), unit: unit.symbol)
+        - else
+          .big-info.cost.important
+            %span.title= :total_cost.tl
+            %span.value= total_cost.l(currency: currency.name)
 
-  - if total_earn and total_earn > 0.0 and total_cost > 0.0
-    - b.cell(:margins) do
-      .big-infos.costs
-        .big-info.cost.important
-          - global_margin = ((total_earn - total_cost) || 0.0).round.to_i
-          %span.title= "global_margin".tl
-          %span.value= global_margin.l(currency: Preference[:currency])
-        - if resource.net_surface_area.to_d(:hectare) > 0.0
-          .big-info.cost.important
-            %span.title= "global_margin_per_area".tl
-            %span.value
-              %i.picto{class: "picto-land-parcels"}
-              = (global_margin / area_value).round(2).l(currency: Preference[:currency]) + " / Ha"
+    - if resource.earn > 0.0
+      - b.cell(:earns) do
+        .big-infosa.costs
+          - total_earn = (resource.earn || 0.0).round.to_i
+          - if resource.with_supports and total_quantity > 0
+            .big-info.cost.important
+              %span.title= :total_earn_per_working_unit.tl
+              %span.value= :amount_per_unit.tl(amount: (total_earn/total_quantity).round(currency.precision).l(currency: currency.name), unit: unit.symbol)
+          - else
+            .big-info.cost.important
+              %span.title= :total_earn.tl
+              %span.value= total_earn.l(currency: currency.name)
+          - if total_cost > 0.0
+            - gross_profit = ((total_earn - total_cost) || 0.0).round.to_i
+            - if resource.with_supports and total_quantity > 0
+              .big-info.cost.important
+                %span.title= :gross_profit_per_working_unit.tl
+                %span.value= :amount_per_unit.tl(amount: (gross_profit/total_quantity).round(currency.precision).l(currency: currency.name), unit: unit.symbol)
+            - else
+              .big-info.cost.important
+                %span.title= :gross_profit.tl
+                %span.value= gross_profit.l(currency: currency.name)
 
 
   - b.hbox do
-    - if resource.variant
-      - if Nomen::Varieties[resource.variant.variety] <= :equipment
-        - b.cell(:supports) do
-          = list(:supports)
-      - elsif Nomen::Varieties[resource.variant.variety] <= :animal
-        - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
-        - b.cell(:supports) do
-          = list(:supports)
-      - elsif Nomen::Varieties[resource.variant.variety] <= :plant and resource.supports.any?
-        - b.cell :costs_map, title: :map do
-          - visualization do |v|
-            - v.serie :main, data
-            - v.background "OpenStreetMap.HOT"
-            - v.background "OpenStreetMap.Mapnik"
-            - v.background "Thunderforest.Landscape"
-            - v.background "Esri.WorldImagery"
-            - v.choropleth :tool_cost, :main, stop_color: "#00AA00"
-            - v.choropleth :input_cost, :main, stop_color: "#1122DD"
-            - v.choropleth :time_cost, :main, stop_color: "#E77000"
-            - v.control :zoom
-            - v.control :scale
-            - v.control :fullscreen
-            - v.control :layer_selector
-
-      - b.cell :cropping_plan_chart do
-        :ruby
-
-          cultivable_zones = CultivableZone.of_production(resource).order(:id)
-
-          if cultivable_zones.any?
-            cultivable_zones_serie = cultivable_zones.collect do |cultivable_zone|
-                      { name: cultivable_zone.name, y: cultivable_zone.net_surface_area.to_s.to_f, color: cycle(*theme_colors), url: backend_cultivable_zone_path(cultivable_zone) }
+    - if resource.with_supports
+      - b.cell(:supports) do
+        = list(:supports)
+      - if resource.supports.any?
+        - b.cell(:supports_chart, title: Production.human_attribute_name(:supports)) do
+          :ruby
+            supports_serie = resource.supports.collect do |support|
+              { name: support.name, y: support.quantity.to_s.to_f, color: cycle(*theme_colors) }
             end
-          end
+            series = []
+            series << {name: resource.support_variant.name, data: supports_serie, size: "80%"}
+            support_variant_unit = Nomen::Units.find(resource.support_variant_unit)
+          = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f}#{support_variant_unit.symbol}"}, title: {text: "#{total_quantity.round(3).l}#{support_variant_unit.symbol}"}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
 
-          series = []
-          series << {name: CultivableZone.model_name.human, data: cultivable_zones_serie, size: "80%"}
+    - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] <= :animal
+      - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
 
-        = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f} Ha'}, title: {text: (resource.net_surface_area.in_hectare.round(2)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
-
+  - b.hbox do
+    - if resource.with_supports and variety = Nomen::Varieties[resource.support_variety] and variety <= :cultivable_zone
       - b.cell :concentrations_map, title: :map do
         - visualization do |v|
           - v.serie :main, data
@@ -195,33 +206,5 @@
           - v.control :fullscreen
           - v.control :layer_selector
 
-  - b.hbox do
     - b.cell(:interventions) do
       = list(:interventions)
-    - b.cell(:other_costs, title: :costs) do
-      .big-infos.costs
-        - total = 0
-        - for type in [:input, :tool, :doer]
-          - cost = (resource.cost(type) || 0.0).round.to_i
-          - total += cost
-          .big-info.cost
-            %span.title= "evaluated_#{type}_cost".tl
-            %span.value
-              %i.picto{class: "picto-#{type}"}
-              = cost.l(currency: Preference[:currency])
-
-  - b.hbox do
-    -# FIXME Duplicate or not ?
-    -# b.cell(:supports, title: Production.human_attribute_name(:supports)) do
-      = list :supports
-    - if resource.auxiliary?
-      - b.cell(:distributions, title: Production.human_attribute_name(:distributions)) do
-        :ruby
-          data = []
-          resource.distributions.reorder(:affectation_percentage).find_each do |distribution|
-            y = distribution.affectation_percentage.to_s.to_f
-            data << {name: :label_value.th(label: distribution.main_production_name, value: number_to_percentage(y, precision: 2)), y: y }
-          end
-          series = [{type: 'pie', name: Production.human_attribute_name(:distributions), data: data}]
-
-        = pie_chart(series, legend: true)

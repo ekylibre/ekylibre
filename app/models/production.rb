@@ -75,7 +75,7 @@ class Production < Ekylibre::Record::Base
   delegate :name, to: :activity, prefix: true
   delegate :name, :variety, to: :cultivation_variant, prefix: true
   delegate :name, :variety, to: :variant, prefix: true
-  delegate :main?, :auxiliary?, :standalone?, to: :activity
+  delegate :main?, :auxiliary?, :standalone?, :with_supports, :with_cultivation, :support_variety, :cultivation_variety, to: :activity
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!

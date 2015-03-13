@@ -18,22 +18,11 @@
 #
 
 class Backend::ProductionSupportsController < Backend::BaseController
-  manage_restfully(t3e: {name: :name})
+  manage_restfully(t3e: {name: :name}, only: :show)
 
   unroll production: [:name, {activity: :name, campaign: :name, variant: :name}], storage: :name
 
-  list do |t|
-    t.column :production, url: true
-    t.column :storage, url: true
-    t.column :work_number, hidden: true
-    t.column :irrigated
-    t.column :nature
-    t.column :production_usage
-    t.column :started_at
-    t.column :stopped_at
-  end
-
-  # List procedures for one production
+  # List interventions for one production support
   list(:interventions, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
     t.column :name, url: true
     t.status

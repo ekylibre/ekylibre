@@ -602,11 +602,10 @@ Rails.application.routes.draw do
         get :list_budgets
         get :list_interventions
         get :list_supports
-        get :indicator_measure
       end
     end
 
-    resources :production_supports, concerns: [:list, :unroll] do
+    resources :production_supports, only: [:show], concerns: [:unroll] do
       member do
         get :list_interventions
       end
