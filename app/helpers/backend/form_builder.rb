@@ -51,9 +51,17 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     html_options[:data] ||= {}
     html_options[:data][:use_closest] = options[:closest] if options[:closest]
 
-    return input(reflection.foreign_key, options.merge(wrapper: (options[:wrapper] == :nested ? :nested_append : :append), reflection: reflection)) do
-      self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url), value_parameter_name: options[:value_parameter_name] || reflection.foreign_key}))
+    if options[:new] == false
+      return input(reflection.foreign_key, options.merge(wrapper: (options[:wrapper] == :nested ? :nested_append : :append), reflection: reflection)) do
+        self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), value_parameter_name: options[:value_parameter_name] || reflection.foreign_key}))
+      end
+
+    else
+      return input(reflection.foreign_key, options.merge(wrapper: (options[:wrapper] == :nested ? :nested_append : :append), reflection: reflection)) do
+        self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url), value_parameter_name: options[:value_parameter_name] || reflection.foreign_key}))
+      end
     end
+
   end
 
   # Display a selector with "new" button

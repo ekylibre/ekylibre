@@ -3,7 +3,7 @@
   = hidden_field_tag nil, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
   = field_set do
     = f.input :reference_name, as: :hidden
-    = f.referenced_association :production_support, source: :of_currents_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "support", intervention_updater: "global:support"}}
+    = f.referenced_association :production_support, new: false, source: :of_currents_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "support", intervention_updater: "global:support"}}
     = f.referenced_association :issue
     = f.input :recommended, show: :prescriptions
     = f.input :provisional
