@@ -48,22 +48,22 @@
 attachments_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  document_id: 2
+  document_id: 3
   id: 1
   lock_version: 1
-  nature: veterinary_booklet
-  resource_id: 1
-  resource_type: Prescription
+  nature: sales_invoice
+  resource_id: 7
+  resource_type: Sale
   updated_at: 2014-11-04 15:25:09.160058000 Z
   updater_id: 1
 attachments_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  document_id: 1
+  document_id: 5
   id: 2
   lock_version: 1
-  nature: veterinary_booklet
-  resource_id: 2
-  resource_type: Prescription
+  nature: sales_estimate
+  resource_id: 10
+  resource_type: Sale
   updated_at: 2014-11-04 15:24:42.690021000 Z
   updater_id: 1
