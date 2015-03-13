@@ -5,11 +5,11 @@
   - k.text
   - k.criterion do
     %label= Production.human_attribute_name(:variant)
-    = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:variant_id]))
+    = select_tag(:cultivation_variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:cultivation_variant_id]))
 
 :ruby
   data = []
-  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+  ProductionSupport.of_campaign(campaign).includes({production: [:activity, :campaign, :cultivation_variant]}, :storage).find_each do |support|
 
     popup_content = []
 
@@ -39,7 +39,7 @@
       campaign:   support.campaign_name,
       activity:   support.activity_name,
       production: support.production_name,
-      variant:    support.variant_name,
+      #variant:    support.production_variant.name,
       interventions_count: interventions.count,
       popup: {header: true, content: popup_content}
     }
@@ -55,10 +55,10 @@
     - b.cell :productions_map, title: :map do
       = visualization do |v|
         - v.serie :main, data
+        - v.background "Esri.WorldImagery"
         - v.background "OpenStreetMap.HOT"
         - v.background "OpenStreetMap.Mapnik"
         - v.background "Thunderforest.Landscape"
-        - v.background "Esri.WorldImagery"
         - v.choropleth :interventions_count, :main
         - v.categories :activity, :main
         - v.control :zoom

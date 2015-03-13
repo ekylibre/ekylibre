@@ -58,7 +58,7 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, to: :activity, prefix: true
   delegate :name, to: :campaign, prefix: true
   delegate :name, to: :variant,  prefix: true
-  delegate :irrgated, :nitrate_fixing, :started_at, :stopped_at, :support_variant_indicator, :support_variant_unit, to: :production
+  delegate :irrigated, :nitrate_fixing, :started_at, :stopped_at, :support_variant_indicator, :support_variant_unit, to: :production
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!

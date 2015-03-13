@@ -27,7 +27,7 @@ class Backend::ProductionsController < Backend::BaseController
   #   :q Text search
   #   :s State search
   #   :campaign_id
-  #   :product_nature_id
+  #   :cultivation_variant_id
   def self.productions_conditions
     code = ""
     code = search_conditions(productions: [:state], activities: [:name], product_nature_variants: [:name]) + " ||= []\n"
@@ -41,9 +41,9 @@ class Backend::ProductionsController < Backend::BaseController
     code << "  c[0] << \" AND \#{Campaign.table_name}.id = ?\"\n"
     code << "  c << params[:campaign_id].to_i\n"
     code << "end\n"
-    code << "if params[:variant_id].to_i > 0\n"
+    code << "if params[:cultivation_variant_id].to_i > 0\n"
     code << "  c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
-    code << "  c << params[:variant_id].to_i\n"
+    code << "  c << params[:cultivation_variant_id].to_i\n"
     code << "end\n"
     code << "c\n "
     return code.c
@@ -53,7 +53,7 @@ class Backend::ProductionsController < Backend::BaseController
     t.column :name, url: true
     t.column :activity, url: true
     t.column :campaign, url: true
-    t.column :variant, url: true
+    t.column :cultivation_variant, url: true
     t.column :state_label
     t.action :edit
     t.action :destroy, if: :destroyable?
