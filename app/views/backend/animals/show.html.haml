@@ -79,6 +79,11 @@
 
         = spline_chart(series, legend: true, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
+    - if resource.custom_fields.any?
+      - b.cell :custom_fields do
+        = attributes_list(without_stamps: true) do |l|
+          - l.custom_fields
+
     -# b.cell :indicators_evolutions do
       - if resource.born_at
         :ruby
@@ -130,20 +135,6 @@
       - else
         = no_data
 
-
-  - b.hbox do
-
-    -# b.cell :details do
-      = attributes_list do |l| # liste des champs à afficher
-        - l.attribute :name
-        - l.attribute :variety, url: true
-        - l.attribute :born_at
-        - l.attribute :dead_at
-        - l.attribute :sex, :through => :readings
-        - l.attribute :mother, url: true
-        - l.attribute :father, url: true
-        - l.attribute :identification_number
-        - l.attribute :description
 
   - b.hbox do
     - b.cell(:children) do
