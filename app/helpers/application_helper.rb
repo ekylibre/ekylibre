@@ -553,11 +553,9 @@ module ApplicationHelper
 
 
   def notification_tag(mode)
-    # content_tag(:div, flash[mode], :class => 'flash ' << mode.to_s) unless flash[mode].blank?
     code = ''
-    if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
-      for message in flash[:notifications][mode]
-        message.force_encoding('UTF-8') if message.respond_to? :force_encoding
+    if flash[:notifications].is_a?(Hash) and flash[:notifications][mode.to_s].is_a?(Array)
+      flash[:notifications][mode.to_s].each do |message|
         code << "<div class='flash #{mode}' data-alert=\"true\"><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div><a href=\"#\" class=\"close\">&times;</a></div>" # <div class='end'></div>
       end
     end

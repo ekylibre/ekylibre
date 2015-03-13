@@ -57,7 +57,7 @@ class Backend::SubscriptionsController < Backend::BaseController
 
   # Displays the main page with the list of subscriptions
   def index
-    if SubscriptionNature.count.zero?
+    unless SubscriptionNature.any?
       notify(:need_to_create_subscription_nature)
       redirect_to controller: :subscription_natures
       return

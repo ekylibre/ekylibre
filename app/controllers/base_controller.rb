@@ -26,7 +26,8 @@ class BaseController < ApplicationController
     options[:default] = [options[:default]] unless options[:default].is_a?(Array)
     options[:default] << message.to_s.humanize
     options[:scope] = "notifications.messages"
-    notistore = (mode==:now ? flash.now : flash)
+    nature = nature.to_s
+    notistore = (mode == :now ? flash.now : flash)
     notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
     notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
     notistore[:notifications][nature] << (message.is_a?(String) ? message : message.to_s.t(options))
