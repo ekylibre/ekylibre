@@ -98,17 +98,17 @@
     var element = $(this);
     var position = $.trim(element.data("update-at")).toLowerCase();
     if (position === "top") {
-      $(element.data("update")).prepend(data);
+        $(this).closest(element.data("update")).prepend(data);
     } else if (position === "bottom") {
-      $(element.data("update")).append(data);
+        $(this).closest(element.data("update")).append(data);
     } else if (position === "before") {
-      $(element.data("update")).before(data);
+        $(this).closest(element.data("update")).before(data);
     } else if (position === "after") {
-      $(element.data("update")).after(data);
+        $(this).closest(element.data("update")).after(data);
     } else if (position === "replace") {
-      $(element.data("update")).replaceWith(data);
+        $(this).closest(element.data("update")).replaceWith(data);
     } else {
-      $(element.data("update")).html(data);
+        $(this).closest(element.data("update")).html(data);
     }
   });
 
