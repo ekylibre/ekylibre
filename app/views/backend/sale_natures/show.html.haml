@@ -13,3 +13,5 @@
   - l.attribute :with_accounting
   - if @sale_nature.with_accounting?
     - l.attribute :journal
+  - if resource.custom_fields.any?
+    - l.custom_fields

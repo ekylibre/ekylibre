@@ -9,6 +9,8 @@
         - l.attribute :delivered_at
         - l.attribute :prescriptor, url: true
         - l.attribute :description
+        - if resource.custom_fields.any?
+          - l.custom_fields
 
     - b.cell :attachments, title: Prescription.human_attribute_name(:attachments) do
       = attachments_of(resource)

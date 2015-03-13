@@ -23,7 +23,8 @@
             - l.attribute :bank_agency_code
             - l.attribute :bank_account_number
             - l.attribute :bank_account_key
-
+        - if resource.custom_fields.any?
+          - l.custom_fields
   - b.hbox do
 
     - if resource.incoming_payment_modes.depositers.any?

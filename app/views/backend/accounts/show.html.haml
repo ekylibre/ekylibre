@@ -10,6 +10,9 @@
         - l.attribute :name
         - l.attribute :reconcilable
         - l.attribute :description
+        - if resource.custom_fields.any?
+          - l.custom_fields
+
     - b.cell(:entities) do
       = list(:entities)
 

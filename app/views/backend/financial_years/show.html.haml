@@ -19,6 +19,8 @@
       - l.attribute :closed
       - l.attribute :code
       - l.attribute :last_journal_entry, url: true
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.hbox do
     - b.cell(resource.closed ? :balance : :last_computed_balance) do

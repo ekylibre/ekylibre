@@ -6,7 +6,8 @@
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :description
-
+      - if resource.custom_fields.any?
+        - l.custom_fields
   - b.hbox do
     - b.cell :divisions do
       = list(:divisions)

@@ -13,6 +13,8 @@
       - l.attribute :to_bank_at
       - l.attribute :bank_check_number
       - l.attribute :journal_entry, url: true
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.cell :affair do
     = affair_of(resource)

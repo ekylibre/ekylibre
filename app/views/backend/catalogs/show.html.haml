@@ -10,6 +10,8 @@
       - l.attribute :by_default
       - l.attribute :all_taxes_included
       - l.attribute :description
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.cell :items do
     = toolbar do |t|

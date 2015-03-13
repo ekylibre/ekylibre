@@ -12,6 +12,8 @@
         - l.attribute :sampled_at
         - l.attribute :analyser, url: true
         - l.attribute :analysed_at
+        - if resource.custom_fields.any?
+          - l.custom_fields
     - if resource.geolocation
       - b.cell :geolocation do
         = visualization do |v|

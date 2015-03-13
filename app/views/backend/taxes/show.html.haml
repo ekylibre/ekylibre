@@ -18,6 +18,8 @@
         - l.attribute :reductible
         - l.attribute :reference_name
         - l.attribute :description
+        - if resource.custom_fields.any?
+          - l.custom_fields
 
   - b.hbox do
     - if resource

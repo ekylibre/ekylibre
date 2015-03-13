@@ -10,5 +10,7 @@
         - l.attribute :started_at
         - l.attribute :nature, url: true
         - l.attribute :intervention, url: true
+        - if resource.custom_fields.any?
+          - l.custom_fields
   - b.cell :participations do
     - list :participations

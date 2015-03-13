@@ -14,6 +14,8 @@
         - l.attribute :received_at
         - l.attribute :sender, url: true
         - l.attribute :address, url: true
+        - if resource.custom_fields.any?
+          - l.custom_fields
 
     - b.cell :details do
       = attributes_list(without_custom_fields: true) do |l| # liste des champs à afficher

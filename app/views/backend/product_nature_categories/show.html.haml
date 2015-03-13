@@ -32,6 +32,8 @@
       - if resource.subscribing
         - l.attribute :subscription_duration
         - l.attribute :subscription_nature, url: true
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.cell :taxations do
     = list :taxations

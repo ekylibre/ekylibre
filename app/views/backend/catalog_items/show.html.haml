@@ -12,3 +12,5 @@
       - l.attribute :name
       - l.attribute :commercial_name
       - l.attribute :commercial_description
+      - if resource.custom_fields.any?
+        - l.custom_fields

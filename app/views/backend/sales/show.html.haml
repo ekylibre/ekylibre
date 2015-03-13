@@ -55,7 +55,8 @@
           - l.attribute :function_title
           - l.attribute :introduction, :field => :textarea
           - l.attribute :conclusion, :field => :textarea
-
+        - if resource.custom_fields.any?
+          - l.custom_fields
 
     - if resource.subscriptions.any?
       - b.cell :subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count) do

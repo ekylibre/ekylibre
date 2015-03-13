@@ -19,6 +19,8 @@
       - l.attribute :real_credit, currency: :real_currency
       - l.attribute :absolute_debit,  currency: :absolute_currency
       - l.attribute :absolute_credit, currency: :absolute_currency
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.cell :items, title: JournalEntry.human_attribute_name(:items) do
     = list(:items)

@@ -13,6 +13,8 @@
       - l.attribute :responsible
       - l.attribute :description
       - l.attribute :journal_entry, url: true
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.cell :payments, title: Deposit.human_attribute_name(:payments) do
     = list :payments

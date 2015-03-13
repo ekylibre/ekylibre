@@ -12,5 +12,8 @@
       - l.attribute :net_mass
       - l.attribute :responsible, url: true
       - l.attribute :annotation
+      - if resource.custom_fields.any?
+        - l.custom_fields
+
   - b.cell :deliveries do
     = list :deliveries

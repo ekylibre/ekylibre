@@ -12,6 +12,8 @@
       - l.attribute :started_on
       - l.attribute :stopped_on
       - l.attribute :description
+      - if resource.custom_fields.any?
+        - l.custom_fields
 
   - b.hbox do
     - b.cell(:depreciations) do

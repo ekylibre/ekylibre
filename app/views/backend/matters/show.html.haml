@@ -37,7 +37,8 @@
         - l.attribute :dead_at
         - l.attribute :identification_number
         - l.attribute :description
-
+        - if resource.custom_fields.any?
+          - l.custom_fields
   - b.hbox do
     - b.cell(:variable_indicators) do
       = variable_readings(resource)

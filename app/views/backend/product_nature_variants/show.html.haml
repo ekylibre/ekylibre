@@ -27,6 +27,8 @@
         - l.attribute :derivative_of
         - if resource.picture.exists?
           = image_tag(resource.picture.url(:thumb))
+        - if resource.custom_fields.any?
+          - l.custom_fields
 
   - b.hbox do
     - b.cell(:products) do

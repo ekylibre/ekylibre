@@ -10,6 +10,8 @@
         - l.attribute :active
         - l.attribute :nature
         - l.attribute :external
+        - if resource.custom_fields.any?
+          - l.custom_fields
     - b.cell :guide_evolution, params: {id: resource.id}
 
   - b.cell :analyses do

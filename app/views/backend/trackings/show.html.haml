@@ -8,6 +8,8 @@
         - l.attribute :name
         - l.attribute :serial
         - l.attribute :description
+        - if resource.custom_fields.any?
+          - l.custom_fields
 
 = beehive do |b|
   - b.hbox do

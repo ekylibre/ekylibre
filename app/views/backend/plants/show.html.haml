@@ -17,7 +17,8 @@
       - l.attribute :variety
       - #- l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
       - l.attribute :description
-
+      - if resource.custom_fields.any?
+        - l.custom_fields
   - b.hbox do
     - b.cell(:intervention_casts) do
       = list(:intervention_casts)

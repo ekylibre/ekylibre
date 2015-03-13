@@ -9,6 +9,8 @@
   - l.attribute(:debit)
   - l.attribute(:started_at)
   - l.attribute(:stopped_at)
+  - if resource.custom_fields.any?
+    - l.custom_fields
 
 %h2=BankStatement.human_attribute_name("items")
 =list(:items)
