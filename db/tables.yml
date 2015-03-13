@@ -226,7 +226,7 @@ affairs:
     required: true
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
     required: true
   originator_type:
     type: string
@@ -363,44 +363,6 @@ analysis_items:
   updater_id:
     type: integer
     references: user
-analytic_distributions:
-  affectation_percentage:
-    type: decimal
-    precision: 19
-    scale: 4
-    required: true
-  affected_at:
-    type: datetime
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  journal_entry_item_id:
-    type: integer
-    references: journal_entry_item
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  production_id:
-    type: integer
-    references: production
-    required: true
-  state:
-    type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 attachments:
   created_at:
     type: datetime
@@ -425,7 +387,7 @@ attachments:
     required: true
   resource_id:
     type: integer
-    references: ~resource_type
+    references: "~resource_type"
     required: true
   resource_type:
     type: string
@@ -2323,7 +2285,7 @@ interventions:
     required: true
   ressource_id:
     type: integer
-    references: ~ressource_type
+    references: "~ressource_type"
   ressource_type:
     type: string
   started_at:
@@ -2471,7 +2433,7 @@ issues:
     type: string
   target_id:
     type: integer
-    references: ~target_type
+    references: "~target_type"
     required: true
   target_type:
     type: string
@@ -2559,7 +2521,7 @@ journal_entries:
     required: true
   resource_id:
     type: integer
-    references: ~resource_type
+    references: "~resource_type"
   resource_type:
     type: string
   state:
@@ -3049,7 +3011,7 @@ observations:
     required: true
   subject_id:
     type: integer
-    references: ~subject_type
+    references: "~subject_type"
     required: true
   subject_type:
     type: string
@@ -3363,7 +3325,7 @@ preferences:
     required: true
   record_value_id:
     type: integer
-    references: ~record_value_type
+    references: "~record_value_type"
   record_value_type:
     type: string
   string_value:
@@ -3430,7 +3392,7 @@ product_enjoyments:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   product_id:
@@ -3507,7 +3469,7 @@ product_junctions:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   started_at:
@@ -3553,7 +3515,7 @@ product_linkages:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   point:
@@ -3593,7 +3555,7 @@ product_links:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   product_id:
@@ -3634,7 +3596,7 @@ product_localizations:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   product_id:
@@ -3680,7 +3642,7 @@ product_memberships:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   started_at:
@@ -4012,7 +3974,7 @@ product_ownerships:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   owner_id:
@@ -4058,7 +4020,7 @@ product_phases:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   product_id:
@@ -4132,7 +4094,7 @@ product_reading_tasks:
     references: operation
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   point_value:
@@ -4213,7 +4175,7 @@ product_readings:
     scale: 4
   originator_id:
     type: integer
-    references: ~originator_type
+    references: "~originator_type"
   originator_type:
     type: string
   point_value:
@@ -5455,7 +5417,7 @@ versions:
     type: text
   item_id:
     type: integer
-    references: ~item_type
+    references: "~item_type"
   item_object:
     type: text
   item_type:

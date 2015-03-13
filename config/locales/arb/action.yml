@@ -1,15 +1,12 @@
 arb:
   actions:
     api/v1/crumbs: #?
-    application: #?
     authentication/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
     authentication/sessions:
       destroy: "الخروج"
       new: "الدخول"
-    backend: #?
-    backend/account_balances: #?
     backend/accountancy:  #?
       balance: "رصيد الحساب" #?
       bookkeep: "نظام المحاسبة المتغير" #?
@@ -30,8 +27,6 @@ arb:
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
-    backend/activity_distributions: #?
-    backend/activity_watchings: #?
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -39,18 +34,11 @@ arb:
       # index: "Affairs"
       # select: "Select for affair %{number}"
       # show: "Affair: %{number}"
-    backend/aggregators: #?
     backend/analyses:
       # edit: "Edit analysis #%{number}"
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
-    backend/analysis_items: #?
-    backend/analytic_distributions:
-      # edit: "Edit distribution: %{id}"
-      # index: "Analytic distributions"
-      # new: "New analytic distribution"
-      # show: "Analytic distribution: %{id}"
     backend/animal_foods:
       # index: "Animal foods"
     backend/animal_groups:
@@ -67,11 +55,6 @@ arb:
       # index: "Animals"
       # new: "New animal"
       # show: "%{nature}: %{name}"
-    backend/areas:  #?
-      edit: "تعديل العنوان البريدي : %{name}" #?
-      index: "العناوين البريد" #?
-      new: "اضافة عنوان بريدي" #?
-    backend/assets: #?
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       index: "بيان الحساب المصرفي"
@@ -123,54 +106,33 @@ arb:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
-    backend/cells: #?
-    backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/cash_balances_cells: #?
-    backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
-    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
-    backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
-    backend/cells/data_transmissions_cells: #?
-    backend/cells/demo_bar_cells: #?
-    backend/cells/demo_map_cells: #?
-    backend/cells/demo_pie_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
-    backend/cells/elevage_rss_cells: #?
     backend/cells/events_cells: #?
-    backend/cells/expense_chart_cells: #?
     backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
-    backend/cells/last_document_archives_cells: #?
     backend/cells/last_documents_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
     backend/cells/last_issues_cells: #?
-    backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
-    backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/last_purchases_cells: #?
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
-    backend/cells/meteo_cells: #?
     backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
-    backend/cells/product_bar_cells: #?
-    backend/cells/product_pie_cells: #?
-    backend/cells/purchases_bar_cells: #?
-    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/quandl_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
-    backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?
-    backend/cells/stock_map_cells: #?
     backend/cells/threshold_commercialization_by_production_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
@@ -223,17 +185,11 @@ arb:
       # stocks: "Stocks dashboard"
       # tools: "Tools dashboard"
       # trade: "Trade dashboard"
-    backend/data_view/manure_management_plans: #?
-    backend/data_view/veterinary_booklets: #?
     backend/delays:  #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?
       new: "اضافة مهلة جديدة" #?
       show: "المهلة : %{name}" #?
-    backend/departments:  #?
-      edit: "تعديل الوظيفة : %{name}" #?
-      index: "الوظائف/المهام" #?
-      new: "اضافة وظيفة جديدة" #?
     backend/deposits:
       edit: "تعديل اقتطاعات البنك من %{created_at}"
       index: "اقتطاعات البنك"
@@ -244,7 +200,6 @@ arb:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
       new: "اضافة عنوان بريدي"
-    backend/document_archives: #?
     backend/document_templates:
       edit: "تعديل نموذج الوثيقة : %{name}"
       index: "نماذج الوثيقة"
@@ -376,7 +331,6 @@ arb:
       # show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
-    backend/incoming_delivery_modes: #?
     backend/incoming_payment_modes:
       edit: "تعديل طريقة الدفعة: %{name}"
       index: "طرق تسديد الدفعات"
@@ -389,8 +343,6 @@ arb:
       index: "الدفعات"
       new: "اضافة دفعة جديدة"
       show: "دفعة رقم%{number} من %{entity}"
-    backend/interfacers: #?
-    backend/intervention_casts: #?
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # index: "Interventions"
@@ -403,7 +355,6 @@ arb:
       index: "الجرد"
       new: "الجرد"
       # show: "Inventory: %{name}"
-    backend/inventory_items: #?
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -452,7 +403,6 @@ arb:
       # index: "Legal entities"
       # new: "New legal entity"
       # show: "Legal entity: %{full_name}"
-    backend/listing_node_items: #?
     backend/listing_nodes:
       # edit: "Edit listing node"
       # new: "New listing node"
@@ -486,10 +436,6 @@ arb:
       # index: "Matters"
       # new: "New matter"
       # show: "Matter: %{name}"
-    backend/medicines: #?
-    backend/meeting_natures: #?
-    backend/meetings: #?
-    backend/mineral_matters: #?
     backend/myselves:
       # show: "My informations"
       statistics: "احصائياتي" #?
@@ -505,7 +451,6 @@ arb:
       edit: "تعديل نوع العمل : %{name}" #?
       index: "اواع العمل" #?
       new: "انشاء نوع جديد من العمل" #?
-    backend/operation_tasks: #?
     backend/operations:
       edit: "تعدل العمل %{name}" #?
       index: "اعمال"
@@ -540,7 +485,6 @@ arb:
       # index: "People"
       # new: "New person"
       # show: "Person: %{full_name}"
-    backend/places: #?
     backend/plant_fertilizers:
       # index: "Plant fertilizers"
     backend/plant_medicines:
@@ -556,9 +500,9 @@ arb:
       # show: "Plant: %{name}"
     backend/posologies: #?
     backend/postal_zones:
-      # edit: "Edit postal zone: %{name}"
-      # index: "Postal zones"
-      # new: "New postal zone"
+      edit: "تعديل العنوان البريدي : %{name}"
+      index: "العناوين البريد"
+      new: "اضافة عنوان بريدي"
     backend/preferences: #?
     backend/prescriptions:
       # edit: "Edit prescription: %{reference_number}"
@@ -569,9 +513,6 @@ arb:
       import: "CSV استيراد بيان التعرفة ضمن" #?
       index: "الاسعار" #?
       new: "اضافة سعر جديد" #?
-    backend/procedure_natures: #?
-    backend/procedures: #?
-    backend/product_abilities: #?
     backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
@@ -585,14 +526,6 @@ arb:
       # index: "Product groups"
       # new: "New group"
       # show: "Group: %{name}"
-    backend/product_indicator_choices: #?
-    backend/product_indicator_nature_choices: #?
-    backend/product_indicator_natures: #?
-    backend/product_indicators: #?
-    backend/product_linkages: #?
-    backend/product_links: #?
-    backend/product_localizations: #?
-    backend/product_memberships: #?
     backend/product_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -777,9 +710,9 @@ arb:
       new: "اضافة ضريبة جديدة"
       # show: "Tax: %{name}"
     backend/teams:
-      # edit: "Edit team: %{name}"
-      # index: "Teams"
-      # new: "New team"
+      edit: "تعديل الوظيفة : %{name}"
+      index: "الوظائف/المهام"
+      new: "اضافة وظيفة جديدة"
     backend/tool_natures: #?
     backend/tools:  #?
       edit: "تعديل المادة : %{name}" #?
@@ -975,6 +908,7 @@ arb:
     active_current_sum: "مجموع الموجودات المتداولة" #?
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
+    # activities: "Activities"
     # activity: "Activity"
     add: "اضافة"
     # add_choice: "Add choice"
@@ -1009,6 +943,7 @@ arb:
     all: "جميع الاسعار"
     # all_accounts: "All accounts"
     all_areas: "--- جميع العناوين البريدية ---" #?
+    # all_cash_balances: "All cash balances"
     # all_columns: "All columns"
     all_conditions: "جميع الشروط"
     # all_periods: "All financial years"
@@ -2222,6 +2157,7 @@ arb:
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       levels: #?
       mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
+      # merge_is_done: "Merge is done"
       messages: #?
       # need_a_production_support: "Need a production support"
       # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
@@ -2428,10 +2364,9 @@ arb:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
-    # backend/analytic_distributions: "%{id}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
-    # backend/catalog_prices: "%{name}"
+    # backend/catalog_items: "%{name}"
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"

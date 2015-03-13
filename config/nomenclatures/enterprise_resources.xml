@@ -9,7 +9,6 @@
       <item name="activities"/>
       <item name="affairs"/>
       <item name="analyses"/>
-      <item name="analytic_distributions"/>
       <item name="animal_foods"/>
       <item name="animal_groups"/>
       <item name="animal_medicines" accesses="read"/>

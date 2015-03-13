@@ -359,7 +359,7 @@ product_nature_categories_014:
   financial_asset_depreciations_inputations_expenses_account_id: 428
   id: 14
   lock_version: 1
-  name: Équipement
+  name: "Équipement"
   number: PNC014
   pictogram: tractor
   product_account_id: 153

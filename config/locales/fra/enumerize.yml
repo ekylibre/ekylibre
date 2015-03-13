@@ -5,11 +5,6 @@ fra:
         auxiliary: "Auxiliaire"
         main: "Principale"
         standalone: "Indépendante"
-    analytic_distribution:
-      state:
-        closed: "Verrouillée"
-        confirmed: "Confirmée"
-        draft: "Brouillon"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"

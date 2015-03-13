@@ -8,8 +8,6 @@ spa:
     authentication/sessions:
       destroy: "Cerrar sesión"
       new: "Conexión"
-    backend: #?
-    backend/account_balances: #?
     backend/accountancy:  #?
       balance: "Equilibrio" #?
       bookkeep: "Bascula contable" #?
@@ -30,8 +28,6 @@ spa:
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
-    backend/activity_distributions: #?
-    backend/activity_watchings: #?
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -39,18 +35,11 @@ spa:
       # index: "Affairs"
       # select: "Select for affair %{number}"
       # show: "Affair: %{number}"
-    backend/aggregators: #?
     backend/analyses:
       # edit: "Edit analysis #%{number}"
       # index: "Analyses"
       # new: "New analysis"
       # show: "Analysis #%{number}"
-    backend/analysis_items: #?
-    backend/analytic_distributions:
-      # edit: "Edit distribution: %{id}"
-      # index: "Analytic distributions"
-      # new: "New analytic distribution"
-      # show: "Analytic distribution: %{id}"
     backend/animal_foods:
       # index: "Animal foods"
     backend/animal_groups:
@@ -67,16 +56,12 @@ spa:
       # index: "Animals"
       # new: "New animal"
       # show: "%{nature}: %{name}"
-    backend/application: #?
-    backend/areas: #?
-    backend/assets: #?
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
       point: "Despuntar el leventar N°%{number}"
       show: "Leventard de cuento N°%{number}"
-    backend/base: #?
     backend/beehives:
       # reset: "Reset beehive: %{name}"
     backend/building_divisions:
@@ -91,11 +76,8 @@ spa:
       show: "Detaile del lugar de deposito\_: %{name}"
     backend/calculators:
       # index: "Calculators"
-    backend/calculators/grains_commercialization_threshold_simulator: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
-    backend/calculators/manure_management_plans: #?
-    backend/calculators/nitrogen_inputs: #?
     backend/campaigns:
       # edit: "Edit campaign: %{name}"
       # index: "Campaigns"
@@ -122,59 +104,36 @@ spa:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
-    backend/cells: #?
-    backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/cash_balances_cells: #?
-    backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
-    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
-    backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
-    backend/cells/data_transmissions_cells: #?
-    backend/cells/demo_bar_cells: #?
-    backend/cells/demo_map_cells: #?
-    backend/cells/demo_pie_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
-    backend/cells/elevage_rss_cells: #?
     backend/cells/events_cells: #?
-    backend/cells/expense_chart_cells: #?
     backend/cells/expenses_by_product_nature_category_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
-    backend/cells/last_document_archives_cells: #?
     backend/cells/last_documents_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
     backend/cells/last_issues_cells: #?
-    backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
-    backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/last_purchases_cells: #?
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
-    backend/cells/meteo_cells: #?
     backend/cells/payable_taxes_cells: #?
     backend/cells/placeholder_cells: #?
-    backend/cells/product_bar_cells: #?
-    backend/cells/product_pie_cells: #?
-    backend/cells/purchases_bar_cells: #?
-    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/quandl_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
-    backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/stock_container_map_cells: #?
-    backend/cells/stock_map_cells: #?
     backend/cells/threshold_commercialization_by_production_cells: #?
     backend/cells/weather_cells: #?
     backend/cells/working_sets_stocks_cells: #?
-    backend/companies:  #?
-      register: "Registrar la sociedad" #?
     backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -193,12 +152,9 @@ spa:
       # index: "Cultivable zones"
       # new: "New cultivable zone"
       # show: "Cultivable zone: %{name}"
-    backend/cultivations: #?
-    backend/currencies: #?
     backend/custom_field_choices:
       # edit: "Edit option: %{name}"
       # new: "New option for a choices list"
-    backend/custom_field_data: #?
     backend/custom_fields:
       # edit: "Edit custom field: %{name}"
       # index: "Custom fields"
@@ -220,31 +176,21 @@ spa:
       # stocks: "Stocks dashboard"
       # tools: "Tools dashboard"
       # trade: "Trade dashboard"
-    backend/data_view/manure_management_plans: #?
-    backend/data_view/veterinary_booklets: #?
     backend/delays:  #?
       edit: "Modificacion del plazo\_: %{name}" #?
       index: "plazos" #?
       new: "Añadir un plazo" #?
       show: "plazo\_: %{name}" #?
-    backend/departments:  #?
-      edit: "Modificar el servicio\_: %{name}" #?
-      index: "Servicios" #?
-      new: "Añadido de nuevo servicio" #?
-    backend/deposit_items: #?
     backend/deposits:
       edit: "Modificacion del aposto en banco del %{created_at}"
       index: "Aposto en banco"
       new: "Crear un aposto\_: %{mode}"
       show: "Aposto en banco %{number} del %{created_at}"
       # unvalidateds: "Unvalidated deposits"
-    backend/diagnostics: #?
-    backend/diseases: #?
     backend/districts:
       # edit: "Edit district: %{name}"
       # index: "Districts"
       # new: "New district"
-    backend/document_archives: #?
     backend/document_templates:
       edit: "Modificacion del modelo de documento\_: %{name}"
       index: "Modelos de documento"
@@ -670,9 +616,6 @@ spa:
       # new: "New settlement"
       # show: "Settlement: %{name}"
     backend/snippets: #?
-    backend/stock_moves: #?
-    backend/stock_transfers: #?
-    backend/stocks: #?
     backend/subscription_natures:
       # edit: "Edit subscription type: %{name}"
       # index: "Subscription types"
@@ -691,12 +634,9 @@ spa:
       new: "Añadir nueva tarifa"
       # show: "Tax: %{name}"
     backend/teams:
-      # edit: "Edit team: %{name}"
-      # index: "Teams"
-      # new: "New team"
-    backend/tool_natures: #?
-    backend/tools: #?
-    backend/tracking_states: #?
+      edit: "Modificar el servicio\_: %{name}"
+      index: "Servicios"
+      new: "Añadido de nuevo servicio"
     backend/trackings:
       # edit: "Edit tracking: %{name}"
       # index: "Trackings"
@@ -718,8 +658,6 @@ spa:
       show: "Utilizador\_: %{first_name} %{last_name} (%{name})"
       statistics: "Mis estadisticas" #?
       # unlock: "Unlock user"
-    backend/vegetals: #?
-    backend/visuals: #?
     backend/wine_tanks:
       # index: "Wine tanks"
     backend/wine_transformers:
@@ -729,17 +667,12 @@ spa:
       # index: "Workers"
       # new: "New worker"
       # show: "Worker: %{name}"
-    backend/working_sets: #?
-    base: #?
-    devise: #?
     devise/confirmations: #?
     devise/passwords: #?
     devise/registrations: #?
     devise/sessions: #?
     devise/unlocks: #?
     pasteque/v5/attributes: #?
-    pasteque/v5/base: #?
-    pasteque/v5/cash_movements: #?
     pasteque/v5/cash_mvts: #?
     pasteque/v5/cash_registers: #?
     pasteque/v5/cashes: #?
@@ -759,7 +692,6 @@ spa:
     pasteque/v5/tickets: #?
     pasteque/v5/users: #?
     pasteque/v5/version: #?
-    pasteque/v5/versions: #?
     public:
       # index: "Home"
   errors:
@@ -812,6 +744,7 @@ spa:
     active_current_sum: "Total activos circulandos" #?
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
+    # activities: "Activities"
     # activity: "Activity"
     # add: "Add"
     # add_choice: "Add choice"
@@ -844,6 +777,7 @@ spa:
     # affairs: "Affairs"
     # all: "All"
     # all_accounts: "All accounts"
+    # all_cash_balances: "All cash balances"
     # all_columns: "All columns"
     # all_conditions: "All conditions"
     # all_periods: "All financial years"
@@ -1873,6 +1807,7 @@ spa:
       journal_reopened_at: "%{journal} ha sido re-abierto %{closed_at} correctamente." #?
       # journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "Los correos electronicos han sido enviados"
+      # merge_is_done: "Merge is done"
       # need_a_production_support: "Need a production support"
       # need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase nature to start new purchase"
       # need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale nature to start new sale"
@@ -2033,10 +1968,9 @@ spa:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
-    # backend/analytic_distributions: "%{id}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
-    # backend/catalog_prices: "%{name}"
+    # backend/catalog_items: "%{name}"
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"

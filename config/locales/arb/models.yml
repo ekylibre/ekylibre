@@ -16,10 +16,6 @@ arb:
         lock_version: "الاصدار المحلي" #?
       activity:
         # parent: "Parent activity"
-      activity_distribution: #?
-      activity_watching: #?
-      analytic_distribution: #?
-      animal: #?
       animal_group:
         # born_at: "Created at"
       animal_race: #?
@@ -788,7 +784,6 @@ arb:
       # affair: "Affair"
       # analysis: "Analysis"
       # analysis_item: "Analysis item"
-      # analytic_distribution: "Analytic distribution"
       # animal: "Animal"
       # animal_group: "Animal group"
       area: "المنطقة البريدية" #?
@@ -1018,7 +1013,6 @@ arb:
     # analyser: "Analyser"
     # analyses: "Analyses"
     # analysis: "Analysis"
-    # analytic_distributions: "Analytic distributions"
     annotation: "ملاحظة"
     # archive: "Archive"
     # archive_content_type: "Archive content type"

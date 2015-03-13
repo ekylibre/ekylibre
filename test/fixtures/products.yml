@@ -693,7 +693,7 @@ equipments_008:
   initial_container_id: 21
   initial_population: 0.0
   lock_version: 0
-  name: Épandeur ENGRAMAX 75
+  name: "Épandeur ENGRAMAX 75"
   nature_id: 31
   number: PR00000000041
   type: Equipment

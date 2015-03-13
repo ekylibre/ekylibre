@@ -51,7 +51,6 @@ class Production < Ekylibre::Record::Base
   belongs_to :cultivation_variant, class_name: "ProductNatureVariant"
   belongs_to :support_variant, class_name: "ProductNatureVariant"
   belongs_to :variant, class_name: "ProductNatureVariant", foreign_key: :cultivation_variant_id
-  has_many :analytic_distributions
   has_many :activity_distributions, through: :activity, source: :distributions
   has_many :budgets, class_name: "ProductionBudget"
   has_many :expenses, -> { where(direction: :expense) }, class_name: 'ProductionBudget'

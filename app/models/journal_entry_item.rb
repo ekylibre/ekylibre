@@ -67,7 +67,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
   belongs_to :bank_statement
-  has_many :distributions, class_name: "AnalyticDistribution", foreign_key: :journal_entry_item_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)

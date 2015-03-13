@@ -48,7 +48,7 @@ dashboards_001:
   description: Agri dashboard
   id: 1
   lock_version: 0
-  name: 農業
+  name: "農業"
   owner_id: 1
   updated_at: 2015-02-08 11:59:47.782068000 Z
   updater_id: 1

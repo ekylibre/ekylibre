@@ -1,17 +1,10 @@
 arb:
   enumerize:
     activity:
-      family: #?
       nature:
         # auxiliary: "Auxiliary"
         # main: "Main"
         # standalone: "Standalone"
-    analytic_distribution:
-      state:
-        # closed: "Closed"
-        # confirmed: "Confirmed"
-        # draft: "Draft"
-    asset: #?
     cash:
       mode:
         # bban: "Basic Bank Account Number (BBAN)"
@@ -44,9 +37,6 @@ arb:
         # last_of_template: "Last of template"
         # none: "None of type"
         # none_of_template: "None of template"
-      family: #?
-      nature: #?
-    entity: #?
     entity_address:
       canal:
         # email: "Email"
@@ -55,8 +45,6 @@ arb:
         # mobile: "Mobile phone"
         # phone: "Phone"
         # website: "Website"
-    entity_event_nature: #?
-    event_nature: #?
     event_participation:
       state:
         # accepted: "Accepted"
@@ -88,27 +76,16 @@ arb:
         # purchases: "Purchases"
         # sales: "Sales"
         # various: "Various operations"
-    meeting_nature: #?
     observation:
       importance:
         # important: "Important"
         # normal: "Normal"
         # notice: "Notice"
-    operation_item: #?
-    operation_line: #?
-    procedure: #?
-    product: #?
-    product_localization: #?
-    product_nature: #?
-    product_transfer: #?
     production_budget:
       computation_method:
         # per_production: "Per production"
         # per_production_support: "Per production support"
         # per_working_unit: "Per working unit"
-    production_chain_work_center: #?
-    production_support_marker: #?
-    products_nature: #?
     sequence:
       period:
         # cweek: "Commercial week"
@@ -141,8 +118,6 @@ arb:
         # sales_invoices: "Numeration of sales invoices"
         # subscriptions: "Numeration of subscriptions"
         # transports: "Numeration of transports"
-    sex: #?
-    stock_transfer: #?
     subscription_nature:
       entity_link_direction:
         # all: "Bidirectional"

@@ -265,7 +265,6 @@ fra:
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
-      analytic_distribution: "Répartition analytique"
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       animal_medicine: "Produits vétérinaires" #?
@@ -453,7 +452,6 @@ fra:
     analyser: "Analyseur"
     analyses: "Analyses"
     analysis: "Analyses"
-    analytic_distributions: "Répartitions analytiques "
     annotation: "Annotation"
     archive: "Archive"
     # archive_content_type: "Archive content type"

@@ -1496,7 +1496,7 @@ preferences_125:
     dir: ''
     per_page: 20
     sort: ''
-    redirect: /backend/product_nature_variants
+    redirect: "/backend/product_nature_variants"
   updated_at: 2015-03-08 16:47:11.754369000 Z
   updater_id: 1
   user_id: 1
@@ -1565,7 +1565,7 @@ preferences_131:
     s: all
     page: 3
     only: content
-    redirect: /backend/product_natures
+    redirect: "/backend/product_natures"
     controller: backend/product_natures
     action: list
     hidden_columns: []

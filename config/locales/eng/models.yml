@@ -146,7 +146,6 @@ eng:
       affair: "Affair"
       analysis: "Analysis"
       analysis_item: "Analysis item"
-      analytic_distribution: "Analytic distribution"
       animal: "Animal"
       animal_group: "Animal group"
       # attachment: "Attachment"
@@ -314,7 +313,7 @@ eng:
     affair: "Affair"
     affairs: "Affairs"
     affectation_percentage: "Affectation percentage"
-    affected_at: "Affected at"
+    affected_at: "Affected at" #?
     age: "Age"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
@@ -323,7 +322,6 @@ eng:
     analyser: "Analyser"
     analyses: "Analyses"
     analysis: "Analysis"
-    analytic_distributions: "Analytic distributions"
     annotation: "Annotation"
     archive: "Archive"
     archive_content_type: "Archive content type"
@@ -648,7 +646,7 @@ eng:
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
-    journal_entry_item: "Journal entry item"
+    journal_entry_item: "Journal entry item" #?
     journal_entry_items: "Journal entry items"
     junction: "Junction"
     junction_ways: "Junction ways"

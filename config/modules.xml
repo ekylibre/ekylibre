@@ -192,16 +192,6 @@
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
       </item>
-      <item name="analytic_distributions">
-        <page to="backend/analytic_distributions#index"/>
-        <page to="backend/analytic_distributions#create"/>
-        <page to="backend/analytic_distributions#destroy"/>
-        <page to="backend/analytic_distributions#edit"/>
-        <page to="backend/analytic_distributions#list"/>
-        <page to="backend/analytic_distributions#new"/>
-        <page to="backend/analytic_distributions#show"/>
-        <page to="backend/analytic_distributions#update"/>
-      </item>
     </group>
     <group name="financial_assets" icon="home">
       <item name="financial_assets">

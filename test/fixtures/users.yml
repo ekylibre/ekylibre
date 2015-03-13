@@ -93,7 +93,7 @@ users_001:
   email: admin@ekylibre.org
   employed: true
   employment: ''
-  encrypted_password: $2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea
+  encrypted_password: "$2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea"
   failed_attempts: 0
   first_name: Gendo
   id: 1
@@ -122,12 +122,12 @@ users_002:
   email: kozo.fuyutsuki@nerv.jp
   employed: true
   employment: ''
-  encrypted_password: $2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea
+  encrypted_password: "$2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea"
   failed_attempts: 0
   first_name: Kōzō
   id: 2
   language: fra
-  last_name: ' FUYUTSUKI'
+  last_name: " FUYUTSUKI"
   lock_version: 3
   locked: false
   maximal_grantable_reduction_percentage: 5.0
@@ -189,7 +189,7 @@ users_003:
   email: yui.ikari@nerv.jp
   employed: false
   employment: ''
-  encrypted_password: $2a$10$.t/anI3zkVJ1MTAAe8Ab/ekGl02Ynnc3LJKmXw2ruQrWn69tGl1Xe
+  encrypted_password: "$2a$10$.t/anI3zkVJ1MTAAe8Ab/ekGl02Ynnc3LJKmXw2ruQrWn69tGl1Xe"
   failed_attempts: 0
   first_name: Yui
   id: 3

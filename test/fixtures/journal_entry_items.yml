@@ -102,7 +102,7 @@ journal_entry_items_001:
   id: 13
   journal_id: 1
   lock_version: 0
-  name: '[Profit TE000000000001] Yuey LTD'
+  name: "[Profit TE000000000001] Yuey LTD"
   position: 1
   printed_on: 2014-11-01
   real_credit: 0.0
@@ -131,7 +131,7 @@ journal_entry_items_002:
   id: 14
   journal_id: 1
   lock_version: 0
-  name: '[Profit TE000000000001] Yuey LTD'
+  name: "[Profit TE000000000001] Yuey LTD"
   position: 2
   printed_on: 2014-11-01
   real_credit: 92.13
@@ -160,7 +160,7 @@ journal_entry_items_003:
   id: 15
   journal_id: 1
   lock_version: 0
-  name: '[Profit TE000000000001] Yuey LTD'
+  name: "[Profit TE000000000001] Yuey LTD"
   position: 3
   printed_on: 2014-11-01
   real_credit: 0.0
@@ -189,7 +189,7 @@ journal_entry_items_004:
   id: 16
   journal_id: 1
   lock_version: 0
-  name: '[Profit TE000000000001] Yuey LTD'
+  name: "[Profit TE000000000001] Yuey LTD"
   position: 4
   printed_on: 2014-11-01
   real_credit: 20.79
@@ -218,7 +218,7 @@ journal_entry_items_005:
   id: 17
   journal_id: 1
   lock_version: 0
-  name: '[Profit TE000000000001] Yuey LTD'
+  name: "[Profit TE000000000001] Yuey LTD"
   position: 5
   printed_on: 2014-11-01
   real_credit: 4.08
@@ -247,7 +247,7 @@ journal_entry_items_006:
   id: 18
   journal_id: 1
   lock_version: 0
-  name: '[Affaire A000003] De Busbest Andrew'
+  name: "[Affaire A000003] De Busbest Andrew"
   position: 1
   printed_on: 2014-11-01
   real_credit: 17.0
@@ -276,7 +276,7 @@ journal_entry_items_007:
   id: 19
   journal_id: 1
   lock_version: 0
-  name: '[Affaire A000003] De Busbest Andrew'
+  name: "[Affaire A000003] De Busbest Andrew"
   position: 2
   printed_on: 2014-11-01
   real_credit: 10.0
@@ -305,7 +305,7 @@ journal_entry_items_008:
   id: 20
   journal_id: 1
   lock_version: 0
-  name: '[Affaire A000003] De Busbest Andrew'
+  name: "[Affaire A000003] De Busbest Andrew"
   position: 3
   printed_on: 2014-11-01
   real_credit: 0.0
@@ -334,7 +334,7 @@ journal_entry_items_009:
   id: 25
   journal_id: 1
   lock_version: 0
-  name: '[Encaissement R2014000001] By check  de Toley LTD'
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 1
   printed_on: 2014-11-01
   real_credit: 0.0
@@ -363,7 +363,7 @@ journal_entry_items_010:
   id: 26
   journal_id: 1
   lock_version: 0
-  name: '[Encaissement R2014000001] By check  de Toley LTD'
+  name: "[Encaissement R2014000001] By check  de Toley LTD"
   position: 2
   printed_on: 2014-11-01
   real_credit: 1164.0
@@ -392,7 +392,7 @@ journal_entry_items_011:
   id: 33
   journal_id: 2
   lock_version: 0
-  name: '[Remise en banque B20140001] Aucun encaissement In cash! '
+  name: "[Remise en banque B20140001] Aucun encaissement In cash! "
   position: 1
   printed_on: 2014-11-05
   real_credit: 0.0
@@ -421,7 +421,7 @@ journal_entry_items_012:
   id: 34
   journal_id: 2
   lock_version: 0
-  name: '[Remise en banque B20140001] In cash!  de Busbest Andrew (IP001)'
+  name: "[Remise en banque B20140001] In cash!  de Busbest Andrew (IP001)"
   position: 2
   printed_on: 2014-11-05
   real_credit: 123.0
@@ -450,7 +450,7 @@ journal_entry_items_013:
   id: 35
   journal_id: 2
   lock_version: 0
-  name: '[Remise en banque B20140001] In cash!  de Yuey LTD (IP003)'
+  name: "[Remise en banque B20140001] In cash!  de Yuey LTD (IP003)"
   position: 3
   printed_on: 2014-11-05
   real_credit: 100.0
@@ -479,7 +479,7 @@ journal_entry_items_014:
   id: 38
   journal_id: 2
   lock_version: 0
-  name: '[Remise en banque B20140002] Aucun encaissement In cash! '
+  name: "[Remise en banque B20140002] Aucun encaissement In cash! "
   position: 1
   printed_on: 2014-11-05
   real_credit: 0.0
@@ -508,7 +508,7 @@ journal_entry_items_015:
   id: 39
   journal_id: 2
   lock_version: 0
-  name: '[Remise en banque B20140002] In cash!  de Busbest Andrew (IP002)'
+  name: "[Remise en banque B20140002] In cash!  de Busbest Andrew (IP002)"
   position: 2
   printed_on: 2014-11-05
   real_credit: 150.0
@@ -537,7 +537,7 @@ journal_entry_items_016:
   id: 40
   journal_id: 1
   lock_version: 0
-  name: '[Loss E000000000002] FUYUTSUKI Kōzō'
+  name: "[Loss E000000000002] FUYUTSUKI Kōzō"
   position: 1
   printed_on: 2014-11-05
   real_credit: 0.0
@@ -566,7 +566,7 @@ journal_entry_items_017:
   id: 41
   journal_id: 1
   lock_version: 0
-  name: '[Loss E000000000002] FUYUTSUKI Kōzō'
+  name: "[Loss E000000000002] FUYUTSUKI Kōzō"
   position: 2
   printed_on: 2014-11-05
   real_credit: 9.36
@@ -595,7 +595,7 @@ journal_entry_items_018:
   id: 42
   journal_id: 1
   lock_version: 0
-  name: '[Loss E000000000002] FUYUTSUKI Kōzō'
+  name: "[Loss E000000000002] FUYUTSUKI Kōzō"
   position: 3
   printed_on: 2014-11-05
   real_credit: 1.87
@@ -624,7 +624,7 @@ journal_entry_items_019:
   id: 43
   journal_id: 1
   lock_version: 0
-  name: '[Profit E000000000003] FUYUTSUKI Kōzō'
+  name: "[Profit E000000000003] FUYUTSUKI Kōzō"
   position: 1
   printed_on: 2014-11-05
   real_credit: 0.0
@@ -653,7 +653,7 @@ journal_entry_items_020:
   id: 44
   journal_id: 1
   lock_version: 0
-  name: '[Profit E000000000003] FUYUTSUKI Kōzō'
+  name: "[Profit E000000000003] FUYUTSUKI Kōzō"
   position: 2
   printed_on: 2014-11-05
   real_credit: 0.8
@@ -682,7 +682,7 @@ journal_entry_items_021:
   id: 45
   journal_id: 1
   lock_version: 0
-  name: '[Profit E000000000003] FUYUTSUKI Kōzō'
+  name: "[Profit E000000000003] FUYUTSUKI Kōzō"
   position: 3
   printed_on: 2014-11-05
   real_credit: 0.0
@@ -710,7 +710,7 @@ journal_entry_items_022:
   id: 52
   journal_id: 1
   lock_version: 0
-  name: '[Incoming payment IP003] In cash!  de Yuey LTD'
+  name: "[Incoming payment IP003] In cash!  de Yuey LTD"
   position: 1
   printed_on: 2009-07-18
   real_credit: 0.0
@@ -737,7 +737,7 @@ journal_entry_items_023:
   id: 53
   journal_id: 1
   lock_version: 0
-  name: '[Incoming payment IP003] In cash!  de Yuey LTD'
+  name: "[Incoming payment IP003] In cash!  de Yuey LTD"
   position: 2
   printed_on: 2009-07-18
   real_credit: 100.0
@@ -764,7 +764,7 @@ journal_entry_items_024:
   id: 56
   journal_id: 1
   lock_version: 0
-  name: '[Incoming payment IP001] In cash!  de Busbest Andrew'
+  name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
   position: 1
   printed_on: 2009-07-18
   real_credit: 0.0
@@ -791,7 +791,7 @@ journal_entry_items_025:
   id: 57
   journal_id: 1
   lock_version: 0
-  name: '[Incoming payment IP001] In cash!  de Busbest Andrew'
+  name: "[Incoming payment IP001] In cash!  de Busbest Andrew"
   position: 2
   printed_on: 2009-07-18
   real_credit: 123.0
@@ -819,7 +819,7 @@ journal_entry_items_026:
   id: 78
   journal_id: 6
   lock_version: 0
-  name: '[Virement interne 0001] De Caisse Accueil à GHB '
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
   position: 1
   printed_on: 2014-01-03
   real_credit: 0.0
@@ -848,7 +848,7 @@ journal_entry_items_027:
   id: 79
   journal_id: 6
   lock_version: 0
-  name: '[Virement interne 0001] De Caisse Accueil à GHB '
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
   position: 2
   printed_on: 2014-01-03
   real_credit: 112.07
@@ -877,7 +877,7 @@ journal_entry_items_028:
   id: 80
   journal_id: 2
   lock_version: 0
-  name: '[Virement interne 0001] De Caisse Accueil à GHB '
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
   position: 1
   printed_on: 2014-01-03
   real_credit: 0.0
@@ -906,7 +906,7 @@ journal_entry_items_029:
   id: 81
   journal_id: 2
   lock_version: 0
-  name: '[Virement interne 0001] De Caisse Accueil à GHB '
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
   position: 2
   printed_on: 2014-01-03
   real_credit: 112.07
@@ -935,7 +935,7 @@ journal_entry_items_030:
   id: 82
   journal_id: 2
   lock_version: 0
-  name: '[Virement interne 0002] De GHB à Caisse Accueil '
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
   position: 1
   printed_on: 2014-07-19
   real_credit: 0.0
@@ -964,7 +964,7 @@ journal_entry_items_031:
   id: 83
   journal_id: 2
   lock_version: 0
-  name: '[Virement interne 0002] De GHB à Caisse Accueil '
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
   position: 2
   printed_on: 2014-07-19
   real_credit: 28.3
@@ -993,7 +993,7 @@ journal_entry_items_032:
   id: 84
   journal_id: 6
   lock_version: 0
-  name: '[Virement interne 0002] De GHB à Caisse Accueil '
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
   position: 1
   printed_on: 2014-07-19
   real_credit: 0.0
@@ -1022,7 +1022,7 @@ journal_entry_items_033:
   id: 85
   journal_id: 6
   lock_version: 0
-  name: '[Virement interne 0002] De GHB à Caisse Accueil '
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
   position: 2
   printed_on: 2014-07-19
   real_credit: 28.3
@@ -1050,7 +1050,7 @@ journal_entry_items_034:
   id: 86
   journal_id: 1
   lock_version: 0
-  name: '[Incoming payment IP002] In cash!  de Busbest Andrew'
+  name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
   position: 1
   printed_on: 2009-07-18
   real_credit: 0.0
@@ -1077,7 +1077,7 @@ journal_entry_items_035:
   id: 87
   journal_id: 1
   lock_version: 0
-  name: '[Incoming payment IP002] In cash!  de Busbest Andrew'
+  name: "[Incoming payment IP002] In cash!  de Busbest Andrew"
   position: 2
   printed_on: 2009-07-18
   real_credit: 150.0
@@ -1105,7 +1105,7 @@ journal_entry_items_036:
   id: 88
   journal_id: 2
   lock_version: 0
-  name: '[Décaissement OP001] Par chèque  pour Busbest Andrew'
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
   position: 1
   printed_on: 2014-08-31
   real_credit: 0.0
@@ -1134,7 +1134,7 @@ journal_entry_items_037:
   id: 89
   journal_id: 2
   lock_version: 0
-  name: '[Décaissement OP001] Par chèque  pour Busbest Andrew'
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
   position: 2
   printed_on: 2014-08-31
   real_credit: 116.0
@@ -1163,7 +1163,7 @@ journal_entry_items_038:
   id: 90
   journal_id: 2
   lock_version: 0
-  name: '[Décaissement OP002] Par chèque  pour Busbest Andrew'
+  name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
   position: 1
   printed_on: 2013-07-19
   real_credit: 0.0
@@ -1192,7 +1192,7 @@ journal_entry_items_039:
   id: 91
   journal_id: 2
   lock_version: 0
-  name: '[Décaissement OP002] Par chèque  pour Busbest Andrew'
+  name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
   position: 2
   printed_on: 2013-07-19
   real_credit: 156.0
@@ -1221,7 +1221,7 @@ journal_entry_items_040:
   id: 92
   journal_id: 4
   lock_version: 0
-  name: '[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop''In'
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
   position: 1
   printed_on: 2014-11-07
   real_credit: 0.0
@@ -1250,7 +1250,7 @@ journal_entry_items_041:
   id: 93
   journal_id: 4
   lock_version: 0
-  name: '[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop''In'
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
   position: 2
   printed_on: 2014-11-07
   real_credit: 0.0
@@ -1279,7 +1279,7 @@ journal_entry_items_042:
   id: 94
   journal_id: 4
   lock_version: 0
-  name: '[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop''In'
+  name: "[Achat A201411000003] Ammonitre 33,5%  Big Bag de Coop Ain Coop'In"
   position: 3
   printed_on: 2014-11-07
   real_credit: 1848.0
@@ -1424,7 +1424,7 @@ journal_entry_items_047:
   id: 103
   journal_id: 4
   lock_version: 0
-  name: '[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop''In'
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
   position: 1
   printed_on: 2014-11-07
   real_credit: 0.0
@@ -1453,7 +1453,7 @@ journal_entry_items_048:
   id: 104
   journal_id: 4
   lock_version: 0
-  name: '[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop''In'
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
   position: 2
   printed_on: 2014-11-07
   real_credit: 0.0
@@ -1482,7 +1482,7 @@ journal_entry_items_049:
   id: 105
   journal_id: 4
   lock_version: 0
-  name: '[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop''In'
+  name: "[Achat A201411000004] Plant de vigne standard (So4) de Coop Ain Coop'In"
   position: 3
   printed_on: 2014-11-07
   real_credit: 20520.0

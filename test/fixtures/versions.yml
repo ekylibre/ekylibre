@@ -164,8 +164,8 @@ versions_005:
     id: 8
     type: Person
     nature: madam
-    last_name: 碇
-    first_name: ユイ
+    last_name: "碇"
+    first_name: "ユイ"
     number: '195'
     active: true
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -213,8 +213,8 @@ versions_006:
     id: 8
     type: Person
     nature: madam
-    last_name: 碇
-    first_name: ユイ
+    last_name: "碇"
+    first_name: "ユイ"
     number: '195'
     active: true
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -262,8 +262,8 @@ versions_007:
     id: 8
     type: Person
     nature: madam
-    last_name: 碇
-    first_name: ユイ
+    last_name: "碇"
+    first_name: "ユイ"
     number: '195'
     active: false
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -1648,8 +1648,8 @@ versions_031:
     id: 10
     type: Person
     nature: madam
-    last_name: 碇
-    first_name: ユイ
+    last_name: "碇"
+    first_name: "ユイ"
     number: '195'
     active: false
     born_at: 1977-03-29 23:00:00.000000000 Z
@@ -5831,7 +5831,7 @@ versions_111:
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 97
     type: Equipment
-    name: Épandeur ENGRAMAX 75
+    name: "Épandeur ENGRAMAX 75"
     number: PR00000000041
     variant_id: 37
     nature_id: 31

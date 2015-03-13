@@ -1371,7 +1371,7 @@ fra:
         affairs: "Affaires"
         aggregators: "Agrégateurs" #?
         analyses: "Analyses"
-        analytic_distributions: "Répartitions analytiques"
+        analytic_distributions: "Répartitions analytiques" #?
         animal_foods: "Alimentation animale"
         animal_groups: "Troupeaux"
         animal_medicines: "Médicaments vétérinaires"

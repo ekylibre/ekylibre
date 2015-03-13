@@ -162,8 +162,6 @@ Rails.application.routes.draw do
       resource :working_sets_stocks_cell, only: :show
     end
 
-    # resources :account_balances
-
     resources :accounts, concerns: [:list, :unroll] do
       collection do
         get :reconciliation
@@ -196,10 +194,6 @@ Rails.application.routes.draw do
         get :list_items
       end
     end
-
-    # resources :analysis_items, concerns: [:list, :unroll]
-
-    resources :analytic_distributions, concerns: [:list, :unroll]
 
     resources :animal_foods, only: [:index], concerns: [:list]
 
@@ -368,8 +362,6 @@ Rails.application.routes.draw do
         get  :list_products
       end
     end
-
-    # resources :financial_asset_depreciations
 
     resources :financial_years, concerns: [:list, :unroll] do
       member do
@@ -543,8 +535,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # resources :outgoing_delivery_items
-
     resources :outgoing_delivery_modes, concerns: [:list, :unroll]
 
     resources :outgoing_payments, concerns: [:list, :unroll]
@@ -574,8 +564,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # resources :preferences, concerns: [:list, :unroll]
-
     resources :prescriptions, concerns: [:list, :unroll] do
       member do
         get :list_interventions
@@ -585,12 +573,6 @@ Rails.application.routes.draw do
     resources :products, concerns: :products
 
     resources :product_groups, concerns: :products
-
-    # resources :product_readings, concerns: [:list, :unroll]
-
-    # resources :product_linkages, concerns: [:list, :unroll]
-
-    # resources :product_localizations, concerns: [:list, :unroll]
 
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       member do
@@ -606,8 +588,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # resources :product_nature_variant_readings
-
     resources :product_nature_variants, concerns: [:incorporate, :list, :picture, :unroll] do
       member do
         get :detail
@@ -617,10 +597,6 @@ Rails.application.routes.draw do
       end
     end
 
-    # resources :product_ownerships, concerns: [:list, :unroll]
-
-    # resources :product_phases, concerns: [:list, :unroll]
-
     resources :productions, concerns: [:list, :unroll] do
       member do
         get :list_budgets
@@ -629,8 +605,6 @@ Rails.application.routes.draw do
         get :indicator_measure
       end
     end
-
-    # resources :production_support_markers, concerns: [:list, :unroll]
 
     resources :production_supports, concerns: [:list, :unroll] do
       member do
@@ -733,9 +707,6 @@ Rails.application.routes.draw do
     resources :trackings, concerns: [:list, :unroll] do
       member do
         get :list_products
-        #   get :list_sale_items
-        #   get :list_purchase_items
-        #   get :list_operation_items
       end
     end
 
@@ -749,8 +720,6 @@ Rails.application.routes.draw do
         get :list_deliveries
       end
     end
-
-    # resources :transfers
 
     resources :users, concerns: [:list, :unroll] do
       member do

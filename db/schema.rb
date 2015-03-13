@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225142832) do
+ActiveRecord::Schema.define(version: 20150313100824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,26 +196,6 @@ ActiveRecord::Schema.define(version: 20150225142832) do
   add_index "analysis_items", ["product_reading_id"], name: "index_analysis_items_on_product_reading_id", using: :btree
   add_index "analysis_items", ["updated_at"], name: "index_analysis_items_on_updated_at", using: :btree
   add_index "analysis_items", ["updater_id"], name: "index_analysis_items_on_updater_id", using: :btree
-
-  create_table "analytic_distributions", force: :cascade do |t|
-    t.integer  "production_id",                                               null: false
-    t.integer  "journal_entry_item_id",                                       null: false
-    t.string   "state",                                                       null: false
-    t.datetime "affected_at",                                                 null: false
-    t.decimal  "affectation_percentage", precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                    default: 0, null: false
-  end
-
-  add_index "analytic_distributions", ["created_at"], name: "index_analytic_distributions_on_created_at", using: :btree
-  add_index "analytic_distributions", ["creator_id"], name: "index_analytic_distributions_on_creator_id", using: :btree
-  add_index "analytic_distributions", ["journal_entry_item_id"], name: "index_analytic_distributions_on_journal_entry_item_id", using: :btree
-  add_index "analytic_distributions", ["production_id"], name: "index_analytic_distributions_on_production_id", using: :btree
-  add_index "analytic_distributions", ["updated_at"], name: "index_analytic_distributions_on_updated_at", using: :btree
-  add_index "analytic_distributions", ["updater_id"], name: "index_analytic_distributions_on_updater_id", using: :btree
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "resource_id",               null: false

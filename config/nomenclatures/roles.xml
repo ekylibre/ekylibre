@@ -5,7 +5,7 @@
       <property-nature name="accesses" type="list"/>
     </property-natures>
     <items>
-      <item name="accountant" accesses="accounts-all, analytic_distributions-all, bank_statements-all, journals-all, financial_assets-all, financial_years-all"/>
+      <item name="accountant" accesses="accounts-all, bank_statements-all, journals-all, financial_assets-all, financial_years-all"/>
       <item name="farm_worker" accesses="interventions-all"/>
       <item name="farm_manager" accesses="interventions-all, incoming_deliveries-all, outgoing_deliveries-all"/>
       <item name="agricultural_advisor" accesses="interventions-read, animal_medicines-read, animals-read, plants-read, cultivable_zones-read"/>

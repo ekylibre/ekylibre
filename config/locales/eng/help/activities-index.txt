@@ -6,7 +6,7 @@ An activity unite some sets of products, some services which contribute for the 
 An activity is established for several years and correspond with an organizational choice.
 It could be active or inactive (closed).
 
-An activity is characterized by a name, an analytic code , a type of the analytic centre and a family.
+An activity is characterized by a name, an analytic code, a type of the analytic centre and a family.
 
 An activity can have a related activity  (sometimes called WORKING GROUP).
 

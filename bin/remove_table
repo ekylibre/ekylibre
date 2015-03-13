@@ -36,7 +36,7 @@ files = ["app/models/#{record}.rb",
          "app/controllers/backend/#{records}_controller.rb",
          "app/helpers/backend/#{records}_helper.rb",
          "app/views/backend/#{records}",
-         "test/fixtures/#{records}.yml",
+         # "test/fixtures/#{records}.yml", # Done where 'rake db:fixtures:restore' and 'rake db:fixtures:dump'
          "test/models/#{record}_test.rb",
          "test/controllers/backend/#{records}_controller_test.rb"]
 

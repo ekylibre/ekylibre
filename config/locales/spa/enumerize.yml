@@ -6,11 +6,7 @@ spa:
         # auxiliary: "Auxiliary"
         # main: "Main"
         # standalone: "Standalone"
-    analytic_distribution:
-      state:
-        # closed: "Closed"
-        # confirmed: "Confirmed"
-        # draft: "Draft"
+    analytic_distribution: #?
     asset: #?
     cash:
       mode:

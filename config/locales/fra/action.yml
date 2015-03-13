@@ -36,11 +36,6 @@ fra:
       index: "Analyses"
       new: "Nouvelle analyse"
       show: "Analyse N°%{number}"
-    backend/analytic_distributions:
-      edit: "Modifier la répartition analytique\_: %{id}"
-      index: "Répartitions analytiques"
-      new: "Nouvelle répartition analytique"
-      show: "Répartition analytique\_: %{id}"
     backend/animal_foods:
       index: "Alimentation animale"
     backend/animal_groups:
@@ -708,6 +703,7 @@ fra:
     active_current_sum: "Total actifs circulants" #?
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
+    # activities: "Activities"
     activity: "Activités"
     add: "Ajouter"
     add_choice: "Ajouter un choix"
@@ -752,6 +748,7 @@ fra:
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
+    # all_cash_balances: "All cash balances"
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
     all_periods: "Tous les exercices"
@@ -1926,6 +1923,7 @@ fra:
       journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"
+      # merge_is_done: "Merge is done"
       need_a_production_support: "Nécessite un support de production"
       need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
       need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"
@@ -2083,10 +2081,9 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
-    backend/analytic_distributions: "%{id}"
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"
-    backend/catalog_prices: "%{name}"
+    backend/catalog_items: "%{name}"
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
