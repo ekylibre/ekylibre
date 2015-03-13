@@ -41,7 +41,6 @@
       <item name="bos_taurus_angus" french_race_code="17"/>
       <item name="bos_taurus_armoricaine" french_race_code="43"/>
       <item name="bos_taurus_aubrac" french_race_code="14"/>
-      <item name="bos_taurus_primigenius" french_race_code="30"/>
       <item name="bos_taurus_ayrshire" french_race_code="18"/>
       <item name="bos_taurus_bazadaise" french_race_code="24"/>
       <item name="bos_taurus_bearnaise" french_race_code="61"/>
@@ -73,6 +72,7 @@
       <item name="bos_taurus_herefort" french_race_code="85"/>
       <item name="bos_taurus_herens" french_race_code="82"/>
       <item name="bos_taurus_highland_cattle" french_race_code="86"/>
+      <item name="bos_taurus_indicus"/>
       <item name="bos_taurus_inra_95" french_race_code="95"/>
       <item name="bos_taurus_jersiaise" french_race_code="15"/>
       <item name="bos_taurus_limousine" french_race_code="34"/>
@@ -88,6 +88,7 @@
       <item name="bos_taurus_parthenaise" french_race_code="71"/>
       <item name="bos_taurus_piemontaise" french_race_code="75"/>
       <item name="bos_taurus_pie_rouge_des_plaines" french_race_code="19"/>
+      <item name="bos_taurus_primigenius" french_race_code="30"/>
       <item name="bos_taurus_prim_holstein" french_race_code="66"/>
       <item name="bos_taurus_raco_di_biou" french_race_code="37"/>
       <item name="bos_taurus_rouge_des_pres" french_race_code="41"/>
