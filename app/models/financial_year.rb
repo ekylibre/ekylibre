@@ -59,37 +59,49 @@ class FinancialYear < Ekylibre::Record::Base
   scope :currents,  -> { where(closed: false).reorder(:started_on) }
   scope :closables, -> { where(closed: false).where("stopped_on < ?", Time.now).reorder(:started_on).limit(1) }
 
-  # Find or create if possible the requested financial year for the searched date
-  def self.at(searched_at = Time.now)
-    searched_on = searched_at.to_date
-    unless year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order(started_on: :desc).limit(1).first
-      # First
-      unless first = self.first_of_all
-        started_on = Date.today
-        first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
-      end
-      return nil if first.started_on > searched_on
+  class << self
 
-      # Next years
-      other = first
-      while searched_on > other.stopped_on
-        other = other.find_or_create_next!
+    # Find or create if possible the requested financial year for the searched date
+    def at(searched_at = Time.now)
+      searched_on = searched_at.to_date
+      unless year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order(started_on: :desc).limit(1).first
+        # First
+        unless first = self.first_of_all
+          started_on = Date.today
+          first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
+        end
+        return nil if first.started_on > searched_on
+
+        # Next years
+        other = first
+        while searched_on > other.stopped_on
+          other = other.find_or_create_next!
+        end
+        return other
       end
-      return other
+      return year
     end
-    return year
-  end
 
-  def self.first_of_all
-    self.reorder(:started_on).first
-  end
+    def first_of_all
+      self.reorder(:started_on).first
+    end
 
-  def self.current
-    self.currents.first
-  end
+    def current
+      self.currents.first
+    end
 
-  def self.closable
-    self.closables.first
+    def closable
+      self.closables.first
+    end
+
+    # Returns the date of the last closure if any
+    def last_closure
+      if year = self.where(closed: true).reorder(started_on: :desc).first
+        return year.stopped_on
+      end
+      return nil
+    end
+
   end
 
   before_validation do
