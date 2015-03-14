@@ -1525,7 +1525,7 @@ spa:
     # supply: "Supply"
     # support: "Support"
     # supports: "Supports"
-    synthesis: "Documentos de sintesis" #?
+    synthesis: "Documentos de sintesis"
     # target: "Target"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?

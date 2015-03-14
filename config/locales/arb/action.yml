@@ -1850,7 +1850,7 @@ arb:
     supply: "التسليم"
     # support: "Support"
     # supports: "Supports"
-    synthesis: "تجميع الوثائق" #?
+    synthesis: "تجميع الوثائق"
     # target: "Target"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?

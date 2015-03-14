@@ -164,12 +164,6 @@
         <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#unroll"/>
       </item>
-      <item name="balance">
-        <page to="backend/journals#balance"/>
-      </item>
-      <item name="general_ledger">
-        <page to="backend/journals#general_ledger"/>
-      </item>
       <item name="accounts">
         <page to="backend/accounts#reconciliation"/>
         <page to="backend/accounts#list_reconciliation"/>
@@ -177,20 +171,12 @@
         <page to="backend/accounts#unmark"/>
       </item>
     </group>
-    <group name="analytics" icon="tasks">
-      <item name="activities">
-        <page to="backend/activities#index"/>
-        <page to="backend/activities#create"/>
-        <page to="backend/activities#destroy"/>
-        <page to="backend/activities#edit"/>
-        <page to="backend/activities#family"/>
-        <page to="backend/activities#list"/>
-        <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_productions"/>
-        <page to="backend/activities#new"/>
-        <page to="backend/activities#show"/>
-        <page to="backend/activities#update"/>
-        <page to="backend/activities#unroll"/>
+    <group name="synthesis" icon="table">
+      <item name="balance">
+        <page to="backend/journals#balance"/>
+      </item>
+      <item name="general_ledger">
+        <page to="backend/journals#general_ledger"/>
       </item>
     </group>
     <group name="financial_assets" icon="home">
@@ -607,6 +593,20 @@
         <page to="backend/production_supports#list_interventions"/>
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#unroll"/>
+      </item>
+      <item name="activities">
+        <page to="backend/activities#index"/>
+        <page to="backend/activities#create"/>
+        <page to="backend/activities#destroy"/>
+        <page to="backend/activities#edit"/>
+        <page to="backend/activities#family"/>
+        <page to="backend/activities#list"/>
+        <page to="backend/activities#list_distributions"/>
+        <page to="backend/activities#list_productions"/>
+        <page to="backend/activities#new"/>
+        <page to="backend/activities#show"/>
+        <page to="backend/activities#update"/>
+        <page to="backend/activities#unroll"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">

@@ -779,7 +779,7 @@ eng:
     amount_with_taxes: "Amount with taxes" #?
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
-    analytics: "Analytics"
+    analytics: "Analytics" #?!
     animal_productions: "Animal productions"
     animals: "Animals"
     archives: "Archives"
@@ -1372,6 +1372,7 @@ eng:
     support: "Support"
     supports: "Supports"
     # supports_chart: "Supports chart"
+    synthesis: "Synthèse"
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?

@@ -1617,7 +1617,7 @@ fra:
     supply: "Livraison"
     support: "Support"
     supports: "Supports de production"
-    synthesis: "Documents de synthèse" #?
+    synthesis: "Synthèse"
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
@@ -1629,7 +1629,7 @@ fra:
     time_cost: "Coût de main d’œuvre"
     time_cost_per_hectare: "Coût de main d’œuvre par hectare"
     time_zone: "Fuseau horaire"
-    # timeline: "Timeline"
+    timeline: "Chronologie"
     timeline_comment: "%{author} a commenté il y a %{ago}"
     timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} il y a %{ago}"
     timeline_item: "%{type} %{name} ajouté par %{author} il y a %{ago}"
