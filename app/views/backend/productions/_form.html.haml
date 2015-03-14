@@ -37,29 +37,31 @@
     = render "supports_form", f: f
 
 = field_set(Production.human_attribute_name(:budget)) do
-  = render "budgets_form", direction: :expense, f: f, currency_symbol: currency_symbol
-  = render "budgets_form", direction: :revenue, f: f, currency_symbol: currency_symbol
-  %table
-    %thead
-      %tr.total
-        %th
-        %th{colspan: 2}= :expenses.tl
-        %th{colspan: 2}= :revenues.tl
-        %th{colspan: 2}= :balance.tl
-    %tbody
-      %tr.total
-        %th= "enumerize.production_budget.computation_method.per_production".t
-        %td.decimal#expenses-per-production{data: {use: "#expenses-total"}}
-        %td.currency= currency_symbol
-        %td.decimal#revenues-per-production{data: {use: "#revenues-total"}}
-        %td.currency= currency_symbol
-        %td.decimal#balance-per-production{data: {difference: "#revenues-per-production - #expenses-per-production", calculate_round: precision}}
-        %td.currency= currency_symbol
-      %tr.total.working-unit-only
-        %th= "enumerize.production_budget.computation_method.per_working_unit".t
-        %td.decimal#expenses-per-working-unit{data: {division: "#expenses-per-production / #supports-quantity", calculate_round: precision}}
-        %td.currency= currency_symbol
-        %td.decimal#revenues-per-working-unit{data: {division: "#revenues-per-production / #supports-quantity", calculate_round: precision}}
-        %td.currency= currency_symbol
-        %td.decimal#balance-per-working-unit{data: {division: "#balance-per-production / #supports-quantity", calculate_round: precision}}
-        %td.currency= currency_symbol
+  .items.budgets
+    %table.table
+      %thead
+        %tr
+          %th= ProductionBudget.human_attribute_name(:variant)
+          %th= ProductionBudget.human_attribute_name(:quantity)
+          %th= ProductionBudget.human_attribute_name(:computation_method)
+          %th= ProductionBudget.human_attribute_name(:unit_price)
+          %th= ProductionBudget.human_attribute_name(:amount)
+          %th.with-some-supports
+            %span= ProductionBudget.human_attribute_name(:amount)
+            %span= "/"
+            - unit = Nomen::Units[f.object.support_variant_unit]
+            %span.working-unit= (unit ? unit.symbol : "?")
+          %th
+      %tfoot
+        %tr.total
+          %th{colspan: 4}= :gross_profit.tl
+          %td{data: {check_positive: ".amount"}}
+            %span.amount{data: {difference: "#revenues-amount - #expenses-amount", calculate_round: precision}}
+            %span.currency= currency_symbol
+          %td.with-some-supports{data: {check_positive: ".amount"}}
+            %span.amount{data: {difference: "#revenues-amount-per-working-unit - #expenses-amount-per-working-unit", calculate_round: precision}}
+            %span.currency= currency_symbol
+          %th
+      %tbody
+        = render "budgets_form", direction: :expense, f: f, currency_symbol: currency_symbol, currency: currency
+        = render "budgets_form", direction: :revenue, f: f, currency_symbol: currency_symbol, currency: currency

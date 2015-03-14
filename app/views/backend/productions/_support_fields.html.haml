@@ -4,6 +4,7 @@
   - source[:scope][:of_variant] = variant.id if variant
   %td= f.referenced_association :storage, source: source, wrapper: :nested
   %td= f.input :production_usage, wrapper: :nested
-  %td.support-quantity.decimal= f.object.get(f.object.production.support_variant_indicator).to_d(f.object.production.support_variant_unit).round(4) rescue 0
-  %td.support-unit= Nomen::Units[f.object.production.support_variant_unit].symbol rescue "-"
+  %td.decimal
+    %span.support-quantity= f.object.get(f.object.production.support_variant_indicator).to_d(f.object.production.support_variant_unit).round(4) rescue 0
+    %span.support-unit= Nomen::Units[f.object.production.support_variant_unit].symbol rescue "-"
   %td= link_to_remove_nested_association(:support, f)

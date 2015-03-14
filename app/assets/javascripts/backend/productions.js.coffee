@@ -1,6 +1,7 @@
 #= require selector
+#= require calcul
 
-((E, $) ->
+((E, C, $) ->
   'use strict'
 
   # Updates indicator/units list
@@ -34,13 +35,14 @@
     true
 
   # Set values in hidden fields indicator/unit
-  $(document).on 'select change keyup', "select[data-variant-quantifier]", ->
+  $(document).on 'change keyup', "select[data-variant-quantifier]", ->
     select = $(this)
     option = select.find("option:selected")
     indicator = option.data("indicator")
     unit = option.data("unit")
     changed = false
-    # Sets valus in hidden fields
+
+    # Sets values in hidden fields
     field = select.siblings(".quantifier-indicator").first()
     changed = true if field.val() != indicator
     field.val(indicator)
@@ -51,18 +53,21 @@
 
     # Trigger only after value are set
     if changed
-      select.siblings(".quantifier-unit").trigger("change", [indicator, unit, option.data("unit-symbol")])
+      select.siblings(".quantifier-unit").trigger("unit:change", [indicator, unit, option.data("unit-symbol")])
     true
 
   # Retrieves quantity with selected quantifier
   # TODO Optimizes query count
-  $(document).on "change", "#production_working_unit.quantifier-unit", (event, indicator, unit, unitSymbol)->
+  $(document).on "unit:change", "#production_support_variant_unit", (event, indicator, unit, unitSymbol)->
     form = $(this).closest("form")
     # Set unit symbol
-    form.find(".total .unit").html(unitSymbol)
+    form.find(".working-unit").html(unitSymbol)
+
+    total = form.find("#supports-quantity").numericalValue()
 
     form.find("#supports .support").each ->
       support = $(this)
+      support.addClass("waiting")
       # FIXME Quite bad, do not use non-specific/generic attributes
       id = support.find("*[data-parameter-name='storage_id']").val()
       $.ajax
@@ -73,10 +78,13 @@
         success: (data, status, request) ->
           support.find(".support-quantity").html(data.value)
           support.find(".support-unit").html(unitSymbol)
+          support.removeClass("waiting")
+          if form.find("#supports .support.waiting").length == 0
+            newTotal = C.calculate.call(form.find("#supports-quantity"))
+            E.changeQuantities(form, total/newTotal)
     true
 
-  # Retrieves quantity with selected quantifier
-  # TODO Optimizes query count
+  # Retrieves quantity with selected quantifier for a given support
   $(document).on "selector:change", "#supports .support input[data-parameter-name='storage_id']", (event)->
     support = $(this).closest(".support")
     form = $(this).closest("form")
@@ -99,14 +107,11 @@
     true
 
   # Change budget coeff on computation method change
-  $(document).on "select change keyup", ".budget .computation-method", (event)->
+  $(document).on "change keyup", ".budget .computation-method", (event)->
     select = $(this)
     budget = select.closest(".budget")
-    coeff = 1
-    if select.val() is "per_production_support"
-      coeff = $("#supports .support").length
-    else if select.val() is "per_working_unit"
-      coeff = parseFloat $("#supports-quantity").html()
+    form = budget.closest("form")
+    coeff = E.coefficientValue(form, select.val())
     # Set coeff
     budget.find(".budget-coeff").numericalValue(coeff)
     # Find total
@@ -114,37 +119,67 @@
     # Adjust quantity to maintain global total
     quantity = budget.find(".budget-quantity")
     if total_quantity > 0
-      round = 2
-      round = input.data("calculate-round") if quantity.data("calculate-round")?
+      round = 3
+      round = quantity.data("calculate-round") if quantity.data("calculate-round")?
       quantity.numericalValue((total_quantity / coeff).toFixed(round))
     # Trigger event on quantity only
     quantity.trigger("change")
     true
 
-  # Change budget coeff on computation method change
+  # Change budget coeff on supports  quantity change
   $(document).on "change", "#supports-quantity", (event)->
-    coeff = $(this).numericalValue()
-    $(this).closest("form").find(".computation-method").each ->
+    form = $(this).closest("form")
+    form.find(".computation-method").each ->
       select = $(this)
-      if select.val() is "per_working_unit"
-        select.closest(".budget").find(".budget-coeff").val(coeff).trigger("change")
+      coeff = E.coefficientValue(form, select.val())
+      C.changeNumericalValue(select.closest(".budget").find(".budget-coeff"), coeff)
     true
 
-  # Show working unit dependent stuff
+  # Referesh totals after delete support
+  $(document).on "cocoon:after-remove", "#supports", (event)->
+    console.log "Delete support"
+    form = $(this).closest("form")
+    form.find(".computation-method").each ->
+      select = $(this)
+      coeff = E.coefficientValue(form, select.val())
+      C.changeNumericalValue(select.closest(".budget").find(".budget-coeff"), coeff)
+    true
+
+  # Refresh totals after insert
   $(document).on "cocoon:after-insert", ".budgets", (event)->
     $(this).find(".budget select.computation-method").each ->
       select = $(this)
-      if select.val() is "per_working_unit"
-        select.trigger("change")
+      select.trigger("change")
     true
 
   # Show working unit dependent stuff
   $(document).behave "load change", "#supports-quantity", (event)->
     quantity = $(this).numericalValue()
     if quantity > 0
-      $(".working-unit-only").show()
+      $(".with-some-supports").show()
     else
-      $(".working-unit-only").hide()
+      $(".with-some-supports").hide()
+    true
+
+  E.coefficientValue = (form, name) ->
+    coeff = 1
+    if name is "per_production_support"
+      coeff = form.find("#supports .support:visible").length
+    else if name is "per_working_unit"
+      coeff = form.find("#supports-quantity").numericalValue()
+    return coeff
+
+  E.changeQuantities = (form, coeff) ->
+    form.find(".budgets .budget").each ->
+      budget = $(this)
+      method = budget.find(".budget-computation-method").val()
+      quantity = budget.find(".budget-quantity")
+      if method == "per_working_unit"
+        qty = quantity.numericalValue()
+        round = 3
+        round = quantity.data("calculate-round") if quantity.data("calculate-round")?
+        quantity.numericalValue((qty * coeff).toFixed(round))
+        quantity.trigger("change")
     true
 
   E.updateAllProductUnrollURL = (form) ->
@@ -191,4 +226,4 @@
       form.find(".with-supports").hide()
     true
 
-) ekylibre, jQuery
+) ekylibre, calcul, jQuery

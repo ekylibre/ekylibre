@@ -64,7 +64,7 @@ $label-width: 25% !default;
 
 $default-border-radius: round($fs-normal/5);
 /* Variation from center to  */
-$default-lightness-variation: 4%;
+$default-lightness-variation: 3%;
 $default-gap: round($fs-normal * 0.55);
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);

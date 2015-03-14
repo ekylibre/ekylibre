@@ -11,6 +11,134 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 // $default-border-color: $menu-border-color;
 // $zz-menu-width: 250px;
 
+$row-border: $menu-border-width solid darken($menu-background, 2 * $default-lightness-variation);
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  th, td {
+    padding: round($default-gap * 0.7);
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+    min-height: $lh-normal;
+    color: $base-font-color;
+    a.btn.add_fields {
+      display: block;
+      @include text-align(center);
+    }
+  }
+  th {
+    font-weight: bold;
+  }
+  td {
+    font-weight: normal;
+    &.decimal {
+      @include text-align(right);
+    }
+  }
+  tbody {
+    border-top: $menu-border;
+    border-bottom: $menu-border;
+    td {
+      border-top: $row-border;
+    }
+    tr:first-child {
+      td {
+        border: none;
+      }
+    }
+    tr.empty {
+      td {
+        @include text-align(center);
+        color: rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+      }
+    }
+    tr.odd, tr.even, tr.empty {
+      td {
+        padding-top: $fs-normal*0.25;
+        padding-bottom: $fs-normal*0.25;
+      }
+    }
+    td.act {
+      width: 16px;
+      padding-bottom: 0 !important;
+      a {
+        font-size: 0;
+        i {
+          @include is-icon(18px);
+          @include use-icon(cog);
+          color: $base-color;
+        }
+        &:focus {
+          outline: none;
+          i {
+            color: darken($base-color, 10%);
+          }
+        }
+        margin: 0 auto;
+        border: none;
+      }
+
+    }
+  }
+  tr.total {
+    td, th {
+      &, span {
+        font-size: $fs-large;
+        line-height: $lh-large;
+        min-height: $lh-large;
+      }
+    }
+  }
+  tr.total, tr.subtotal {
+    td, th {
+      border: $row-border;
+      padding: round($default-gap * 0.8);
+      @include text-align(right);
+      &.txt {
+        @include text-align(left);
+      }
+    }
+    th {
+      background: $menu-background;
+      font-weight: normal;
+    }
+    td {
+      color: $text-color;
+      border-color-left: transparent;
+      border-color-right: transparent;
+      background: white;
+      font-weight: bold;
+      &.valid {
+        &, span {
+          color: $success-color;
+        }
+      }
+      &.invalid {
+        &, span {
+          color: $invalid-color;
+        }
+      }
+    }
+    &.invalid td { color: $invalid-color; }
+    &.valid   td { color: $success-color; }
+  }
+  tr.subtotal {
+    &.invalid td { color: $invalid-color; }
+    &.valid   td { color: $success-color; }
+  }
+  tr.first-line    td { border-top: 2px solid #F77; }
+  tr.last-line     td { border-bottom: 2px solid #F77; }
+  tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
+}
+
+
+
+
+
 .active-list[data-list-source], .active-list {
   table.list {
     border-collapse: collapse;
@@ -53,7 +181,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
         td {
           @include transition(background 0.2s);
           padding: round($fs-normal*0.2) round($fs-normal*0.4);
-          border-top: $menu-border-width solid mix($base-color, #FFF, 10%);
+          border-top: $row-border;
           border-bottom: none;
           border-left: none;
           border-right: none;
@@ -274,107 +402,4 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
     }
   }
 
-}
-
-
-
-
-
-
-
-.active-list[data-list-source] table.list, .active-list table.list, table.list {
-  width: 100%;
-  tr.total, tr.subtotal {
-    td, th {
-      border: $menu-border;
-      font-weight: bold;
-      padding: 2px;
-      @include text-align(right);
-      &.txt {
-        @include text-align(left);
-      }
-    }
-    th {
-      padding: 4px 6px;
-      @include background-image(linear-gradient(lighten($menu-background, 4%), darken($menu-background, 4%)));
-    }
-    td {
-      padding: 4px;
-      color: $text-color;
-      @include background-image(linear-gradient(lighten($desktop-background, 4%), darken($desktop-background, 4%)));
-    }
-    &.invalid td { color: #D20; }
-  }
-  tr.total {
-    td, th {
-      &, span {
-        font-size: $fs-large;
-      }
-    }
-  }
-  tbody {
-    tr.empty {
-      td {
-        text-align: center;
-        color: rgba(0, 0, 0, 0.3);
-        font-weight: bold;
-      /*padding: 1ex !important;*/
-      }
-    }
-    tr.odd, tr.even, tr.empty {
-      td {
-        padding-top: $fs-normal*0.25;
-        padding-bottom: $fs-normal*0.25;
-      }
-    }
-    td.act {
-      width: 16px;
-      padding-bottom: 0 !important;
-      a {
-        font-size: 0;
-        i {
-          @include is-icon(18px);
-          @include use-icon(cog);
-          color: $base-color;
-        }
-        &:focus {
-          outline: none;
-          i {
-            color: darken($base-color, 10%);
-          }
-        }
-        margin: 0 auto;
-        border: none;
-      }
-
-    }
-  }
-
-}
-
-
-table.active-list tr.total.valid   td { color: #090; }
-table.active-list tr.subtotal.invalid td { color: #D20; }
-table.active-list tr.subtotal.valid   td { color: #090; }
-table.active-list tr.first-line    td { border-top: 2px solid #F77; }
-table.active-list tr.last-line     td { border-bottom: 2px solid #F77; }
-table.active-list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
-
-.active-list {
-  // margin: 0 -15px;
-   table {
-     padding: 0;
-     width: 100%;
-     border: none;
-     border-collapse: collapse;
-     tbody {
-       border-top: 1px solid #CCC;
-       border-bottom: 1px solid #CCC;
-       tr.empty {
-         td {
-           @include text-align(center);
-         }
-       }
-     }
-   }
 }

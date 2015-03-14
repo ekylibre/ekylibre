@@ -1,34 +1,7 @@
-table#budget {
-  td, th {
-    border: $menu-border;
-    background: white;
-  }
-  thead {
+input.budget-quantity {
+  width: 5em;
+}
 
-  }
-  tbody {
-    td.subtotal {
-      @include text-align(right);
-      white-space: nowrap;
-      padding: $default-gap * 0.5;
-      &, * {
-        font-size: $fs-large;
-        line-height: $lh-large;
-        vertical-align: baseline;
-        font-weight: bold;
-      }
-    }
-  }
-
-  th.add, td.add {
-    background: $active-color;
-    padding: $default-gap;
-    a {
-      display: block;
-      color: white;
-      font-weight: bold;
-      font-size: $fs-huge;
-      text-align: center;
-    }
-  }
+input.budget-unit-amount {
+  width: 6em;
 }

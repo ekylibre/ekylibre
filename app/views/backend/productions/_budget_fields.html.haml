@@ -1,21 +1,25 @@
 :ruby
   f.object.direction ||= direction if local_assigns[:direction]
-%tr.nested-fields.budget
+%tr.nested-fields.budget{class: "budget-#{direction}"}
   %td= f.referenced_association :variant, wrapper: :nested, closest: ".nested-fields"
   %td
     = f.input :quantity, wrapper: :nested_append do
-      = f.input_field :quantity, class: "budget-quantity"
+      = f.input_field :quantity, class: "budget-quantity", data: {calculate_round: 2}, size: 5
       = f.variant_quantifier_of_field :variant, population: true, working_duration: true
   %td
     - f.object.computation_method ||= :per_working_unit
-    = f.input :computation_method, wrapper: :nested, input_html: {class: "computation-method"}, include_blank: false
+    = f.input :computation_method, wrapper: :nested, input_html: {class: "budget-computation-method computation-method"}, include_blank: false
     = hidden_field_tag(:coeff, f.object.coefficient, class: "budget-coeff")
   %td
     = f.input :unit_amount, wrapper: :nested_append do
-      = f.input_field :unit_amount, class: "budget-unit-amount"
+      = f.input_field :unit_amount, class: "budget-unit-amount", size: 6
       %span.add-on= currency_symbol
     = f.input :unit_currency, as: :hidden
     = f.input :direction, as: :hidden
-  %td.decimal{class: "budget-amount #{direction}-amount", data: {use: ".budget-quantity, .budget-unit-amount, .budget-coeff", use_closest: ".nested-fields", calculate: "mul", calculate_round: 2}}= f.object.amount.round(2)
-  %td.currency= currency_symbol
+  %td.decimal
+    %span{class: "budget-amount #{direction}-amount", data: {use: ".budget-quantity, .budget-unit-amount, .budget-coeff", use_closest: ".nested-fields", calculate: "mul", calculate_round: 2}}= f.object.amount.round(2)
+    %span.currency= currency_symbol
+  %td.decimal.with-some-supports
+    %span{class: "budget-amount-per-working-unit #{direction}-amount-per-working-unit", data: {use: ".budget-amount", use_closest: ".budget", divide_by: "#supports-quantity", calculate_round: currency.precision}}
+    %span.currency= currency_symbol
   %td.action= link_to_remove_nested_association(:budget, f)

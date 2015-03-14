@@ -1,10 +1,10 @@
 .items.supports
-  %table
+  %table.table
     %thead
       %tr
         %th= ProductionSupport.human_attribute_name(:storage)
         %th= ProductionSupport.human_attribute_name(:production_usage)
-        %th{colspan: 2}= ProductionSupport.human_attribute_name(:quantity)
+        %th= ProductionSupport.human_attribute_name(:quantity)
         %th
     %tbody#supports
       = f.simple_fields_for :supports, resource.supports do |item|
@@ -12,8 +12,10 @@
     - precision = Nomen::Currencies[Preference[:currency]].precision
     %tfoot
       %tr.total
-        %th= link_to_add_association :add_item.tl, f, :supports, partial: 'support_fields', 'data-association-insertion-node' => '#supports', 'data-association-insertion-method' => :append, class: "btn"
+        %th= link_to_add_association :add_support.tl, f, :supports, partial: 'support_fields', 'data-association-insertion-node' => '#supports', 'data-association-insertion-method' => :append, class: "btn primary"
         %th= :total.tl
-        %td#supports-quantity.decimal{data: {use: ".support-quantity:visible", calculate: "sum", calculate_round: precision, use_closest: ".fieldset-fields"}}
-        %td.unit
-        %td
+        %td.decimal
+          %span#supports-quantity{data: {use: ".support-quantity:visible", calculate: "sum", calculate_round: precision, use_closest: ".fieldset-fields"}}
+          - unit = Nomen::Units[f.object.support_variant_unit]
+          %span.working-unit= (unit ? unit.symbol : "?")
+        %th

@@ -1243,6 +1243,7 @@ fra:
     unit_amount: "PU TTC"
     unit_name: "Unité"
     unit_pretax_amount: "PU HT"
+    unit_price: "Prix unitaire"
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"

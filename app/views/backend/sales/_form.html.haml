@@ -36,7 +36,7 @@
       - precision = Nomen::Currencies[resource.currency].precision
       %tfoot
         %tr.total
-          %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
+          %th= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
           %th{colspan: 4}= :total.tl
           %td#pta.decimal{data: {use: ".pta", calculate: "sum", calculate_round: precision}}= resource.pretax_amount
           %td#wta.decimal{data: {use: ".wta", calculate: "sum", calculate_round: precision}}= resource.amount

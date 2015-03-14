@@ -59,7 +59,6 @@
   C.changeNumericalValue = (element, result) ->
     if element.numericalValue() isnt result
       element.numericalValue result
-      element.trigger "emulated:change"
       element.trigger "change"
     return element
 
@@ -136,6 +135,8 @@
         result = 0
         use.each ->
           result = result + C.calculate.call(this)
+      if element.data("divide-by")
+        result = result / C.calculate.call($(element.data("divide-by")))
 
       round = parseInt(element.data("calculate-round"))
       unless isNaN(round)
@@ -145,7 +146,7 @@
 
     C.changeNumericalValue(element, result)
 
-    result
+    return result
 
 
   # Compute the sum of the elements
@@ -168,7 +169,7 @@
   $(document).behave "load", "*[data-balance]", ->
     element = $(this)
     operands = $(this).data("balance").split(/\s\-\s/g).slice(0, 2)
-    $(document).on "change emulated:change", operands.join(", "), ->
+    $(document).on "change", operands.join(", "), ->
       plus = $(operands[0]).sum()
       minus = $(operands[1]).sum()
       if plus > minus
@@ -180,26 +181,15 @@
   $(document).behave "load", "*[data-difference]", ->
     element = $(this)
     round = parseInt(element.data("calculate-round"))
-    operands = $(this).data("difference").split(/\s\-\s/g).slice(0, 2)
-    $(document).on "change emulated:change", operands.join(", "), ->
+    operands = $(this).data("difference").split(/\s+\-\s+/g).slice(0, 2)
+    $(document).on "change", operands.join(", "), ->
       result = $(operands[0]).sum() - $(operands[1]).sum()
       unless isNaN(round)
         result = parseFloat(result.toFixed(round))
       C.changeNumericalValue(element, result)
     return
 
-  $(document).behave "load", "*[data-division]", ->
-    element = $(this)
-    round = parseInt(element.data("calculate-round"))
-    operands = $(this).data("division").split(/\s\/\s/g).slice(0, 2)
-    $(document).on "change emulated:change", operands.join(", "), ->
-      result = $(operands[0]).sum() / $(operands[1]).sum()
-      unless isNaN(round)
-        result = parseFloat(result.toFixed(round))
-      C.changeNumericalValue(element, result)
-    return
-
-  $(document).behave "load keyup change emulated:change", "*[data-less-than-or-equal-to]", ->
+  $(document).behave "load keyup change", "*[data-less-than-or-equal-to]", ->
     element = $(this)
     maximum = parseFloat(element.data("less-than-or-equal-to"))
     if element.numericalValue() > maximum
@@ -208,6 +198,20 @@
     else
       element.removeClass "invalid"
       element.addClass "valid"
+    return
+
+  $(document).behave "load keyup change", "*[data-check-positive]", ->
+    element = $(this)
+    value = element.find(element.data("check-positive")).numericalValue()
+    if value < 0
+      element.removeClass "valid"
+      element.addClass "invalid"
+    else if value > 0
+      element.removeClass "invalid"
+      element.addClass "valid"
+    else
+      element.removeClass "invalid"
+      element.removeClass "valid"
     return
 
   $(document).behave "load", "*[data-valid-if-equality-between]", ->

@@ -1013,6 +1013,7 @@ eng:
     unit_name: "Unit name"
     # unit_population: "Unit population"
     unit_pretax_amount: "Unit pretax amount"
+    unit_price: "Unit price" #?
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"

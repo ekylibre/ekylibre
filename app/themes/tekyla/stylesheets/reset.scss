@@ -38,13 +38,14 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
   padding: round($fs-normal * 0.2);
   @include box-sizing(content-box);
   @include border-radius($default-border-radius);
-  background: #F9F9F9;
+  background: $desktop-background;
   font-size: $fs-normal;
   line-height: $lh-normal;
   height: $lh-normal;
   vertical-align: middle;
   //  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset, 0 0 round($fs-normal*0.6) rgba(white, 0.6));
-  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
+  // @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
+  @include box-shadow(0 0 0 rgba(black, 0.1));
   @include transition(box-shadow 0.2s, border-color 0.2s);
   &:focus {
     background: #FFF;
@@ -73,54 +74,4 @@ input[type="datetime"] {
 
 textarea {
   min-height: 3em;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  th, td {
-    padding: round($default-gap * 0.4);
-    font-size: $fs-normal;
-    line-height: $lh-normal;
-    min-height: $lh-normal;
-  }
-  th {
-    font-weight: bold;
-    color: $base-font-color;
-  }
-  td {
-    font-weight: normal;
-    color: $base-font-color;
-    &.decimal {
-      @include text-align(right);
-    }
-  }
-  /*
-    thead {
-    tr:last-child {
-    th, td {
-    border-bottom: 1px solid $base-color;
-    }
-    }
-    }
-    */
-  tbody {
-    td {
-      border-top: 1px solid #AAA;
-    }
-    tr:first-child {
-      td {
-        border: none;
-      }
-    }
-  }
-  tr.total {
-    td, th {
-      font-size: $fs-large;
-      line-height: $lh-large;
-      min-height: $lh-large;
-    }
-  }
 }

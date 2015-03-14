@@ -43,7 +43,6 @@
 #  updater_id                :integer
 #
 class Production < Ekylibre::Record::Base
-  # Support_Variant unit and indicators refers to support
   enumerize :support_variant_unit, in: Nomen::Units.all
   enumerize :support_variant_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
   belongs_to :activity
@@ -53,8 +52,8 @@ class Production < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant", foreign_key: :cultivation_variant_id
   has_many :activity_distributions, through: :activity, source: :distributions
   has_many :budgets, class_name: "ProductionBudget"
-  has_many :expenses, -> { where(direction: :expense) }, class_name: 'ProductionBudget'
-  has_many :revenues, -> { where(direction: :revenue) }, class_name: 'ProductionBudget'
+  has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ProductionBudget'
+  has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ProductionBudget'
   has_many :distributions, class_name: "ProductionDistribution", dependent: :destroy, inverse_of: :production
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :interventions, inverse_of: :production
@@ -67,7 +66,7 @@ class Production < Ekylibre::Record::Base
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   validates_uniqueness_of :name, scope: :campaign_id
-  validates_associated :budgets
+  validates_associated :expenses, :revenues
 
   alias_attribute :label, :name
   alias_attribute :product_variant, :cultivation_variant
@@ -103,7 +102,7 @@ class Production < Ekylibre::Record::Base
   }
 
   accepts_nested_attributes_for :supports, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :budgets, :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :expenses, :revenues, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
 
 

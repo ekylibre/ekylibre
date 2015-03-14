@@ -2033,6 +2033,7 @@ arb:
     unit_id: "وحدة" #?
     # unit_name: "Unit name"
     # unit_pretax_amount: "Unit pretax amount"
+    # unit_price: "Unit price"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     # unlock_token: "Unlock token"
