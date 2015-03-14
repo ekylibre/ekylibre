@@ -108,6 +108,15 @@ module Ekylibre::Record
 
     class << self
 
+      def reset_schema
+        # self.reset_column_information
+        # self.descendants.each(&:reset_column_information)
+        self.connection.clear_cache!
+        self.base_class.reset_column_information
+        self.base_class.descendants.each(&:reset_column_information)
+      end
+
+
       def has_picture
         has_attached_file :picture, {
           url: '/backend/:class/:id/picture/:style',

@@ -36,7 +36,6 @@
 
 
 class CustomFieldChoice < Ekylibre::Record::Base
-  # attr_accessible :name, :custom_field_id, :position
   belongs_to :custom_field, inverse_of: :choices
   acts_as_list :scope => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -67,7 +66,7 @@ class CustomFieldChoice < Ekylibre::Record::Base
     return self.records.any?
   end
 
-  # Returns.all linked records for the given model
+  # Returns all linked records for the given model
   def records
     return self.custom_field.customized_model.where(self.custom_field.column_name => self.value)
   end

@@ -121,7 +121,7 @@ module Ekylibre
         p = self.path(file)
         if p.exist?
           self.import(nature, p, options)
-        else
+        elsif @verbose
           text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
           text << " " * (@term_width - text.join.length)
           text[1] = text[1].red

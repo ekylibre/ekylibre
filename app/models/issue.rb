@@ -47,7 +47,7 @@
 
 
 class Issue < Ekylibre::Record::Base
-  include Versionable
+  include Versionable, Commentable
   enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
   has_many :interventions
   belongs_to :target , polymorphic: true

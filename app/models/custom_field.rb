@@ -108,8 +108,7 @@ class CustomField < Ekylibre::Record::Base
   end
 
   def reset_schema
-    self.customized_model.reset_column_information
-    self.customized_model.descendants.each(&:reset_column_information)
+    self.customized_model.reset_schema
   end
 
   def choices_count

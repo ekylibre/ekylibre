@@ -93,6 +93,7 @@ class ActiveSupport::TestCase
     model = self.name.gsub(/Test$/, '').constantize
     record_type = model.name.underscore
     test "validity of fixtures" do
+      # print "#{model.name.green}"
       invalids = []
       reflections = model.reflect_on_all_associations(:belongs_to).delete_if{|r| r.name.to_s == "item" and model == Version }
       model.includes(reflections.collect(&:name)).find_each do |record|
@@ -441,6 +442,7 @@ class ActionController::TestCase
         else
           code << "test '#{action} action' do\n"
         end
+        # code << "  print '#{controller_path.to_s.yellow}##{action.to_s.red}'\n"
         code << test_code.dig
         code << "end\n\n"
       end
@@ -514,7 +516,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 
 
   setup do
-    if Capybara.default_driver == :webkit
+    if page and page.driver and page.driver.respond_to? :allow_url
       page.driver.allow_url 'a.tile.openstreetmap.fr'
       page.driver.allow_url 'b.tile.openstreetmap.fr'
       page.driver.allow_url 'c.tile.openstreetmap.fr'

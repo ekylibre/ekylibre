@@ -3,19 +3,19 @@ require 'test_helper'
 
 class AddACustomFieldTest < CapybaraIntegrationTest
 
-  setup do
-    # Need to go on page to set tenant
-    visit('/authentication/sign_in')
-    resize_window(1366, 768)
-    # shoot_screen "authentication/sign_in"
-    login_as(users(:users_001), scope: :user, run_callbacks: false) #
-    visit('/backend/custom_fields/new')
-  end
+  # setup do
+  #   # Need to go on page to set tenant
+  #   visit('/authentication/sign_in')
+  #   resize_window(1366, 768)
+  #   # shoot_screen "authentication/sign_in"
+  #   login_as(users(:users_001), scope: :user, run_callbacks: false) #
+  #   visit('/backend/custom_fields/new')
+  # end
 
-  teardown do
-    CustomField.destroy_all
-    Warden.test_reset!
-  end
+  # teardown do
+  #   CustomField.destroy_all
+  #   Warden.test_reset!
+  # end
 
   # # tests 15% of models randomly. For local tests, set manually this value
   # coverage_percent = 0.15
