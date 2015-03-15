@@ -450,8 +450,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     ##################################################################
 
     # Set parameters
-    issue_observed_at = Time.new(2014, 6, 1, 10, 0, 0, "+00:00")
-    campaign_year = '2014'
+    issue_observed_at = Time.new(2015, 3, 10, 10, 0, 0, "+00:00")
+    campaign_year = '2015'
     cultivable_zone_work_number = "ZC10"
     issue_nature = :chenopodium_album
     worker_work_number = "CD"
@@ -462,7 +462,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     # Get products
     campaign = Campaign.where(harvest_year: campaign_year).first
     cultivable_zone = CultivableZone.where(work_number: cultivable_zone_work_number).first
-    plant = cultivable_zone.contains(:plant).first.product if cultivable_zone
+    plant = cultivable_zone.contains(:plant).first.product if cultivable_zone and cultivable_zone.contains(:plant) != nil
     support = ProductionSupport.where(storage: cultivable_zone).of_campaign(campaign).first if (cultivable_zone and campaign)
     intrant = Product.where(name: product_name).first
     sprayer = Equipment.where(work_number: sprayer_work_number).first
@@ -502,29 +502,29 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
 
     # 1 - CREATE AN ISSUE ON A PLANT WITH GEOLOCATION
-
-    issue = Issue.create!(target_type: plant.class.name,
-                          target_id: plant.id,
-                          priority: 3,
-                          observed_at: issue_observed_at,
-                          nature: issue_nature,
-                          state: "opened")
-    # link picture if exist
-    picture_path = first_run.path("demo_spraying", "chenopodium_album.jpg")
-    f = (picture_path.exist? ? File.open(picture_path) : nil)
-    if f
-      issue.update!(picture: f)
-      f.close
-    end
-    path = first_run.path("demo_spraying", "issue_localization.shp")
-    if path.exist?
-      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
-        file.each do |record|
-          issue.update!(geolocation: record.geometry)
+    if plant
+      issue = Issue.create!(target_type: plant.class.name,
+                            target_id: plant.id,
+                            priority: 3,
+                            observed_at: issue_observed_at,
+                            nature: issue_nature,
+                            state: "opened")
+      # link picture if exist
+      picture_path = first_run.path("demo_spraying", "chenopodium_album.jpg")
+      f = (picture_path.exist? ? File.open(picture_path) : nil)
+      if f
+        issue.update!(picture: f)
+        f.close
+      end
+      path = first_run.path("demo_spraying", "issue_localization.shp")
+      if path.exist?
+        RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+          file.each do |record|
+            issue.update!(geolocation: record.geometry)
+          end
         end
       end
     end
-
 
     # 2 - CREATE A PRESCRIPTION
     path = first_run.path("demo_spraying", "preco_phyto.pdf")
@@ -534,8 +534,8 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
       # get the prescriptor
       prescriptor = Entity.where(last_name: "JOUTANT").first
       # create the prescription with PDF and prescriptor
-      prescription = Prescription.create!(prescriptor: prescriptor, reference_number: "20140601001")
-      prescription.attachments.create!(document: document) if document
+      prescription = Prescription.create!(prescriptor: prescriptor, reference_number: "20140601001") if prescriptor
+      prescription.attachments.create!(document: document) if prescription and document
     end
 
     # 3 - CREATE A PROVISIONNAL SPRAYING INTERVENTION
@@ -544,7 +544,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if support and intrant
       Ekylibre::FirstRun::Booker.production = support.production
       # Chemical weed
-      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2014, 6, 5, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
+      intervention = Ekylibre::FirstRun::Booker.intervene(:chemical_weed_killing, 2015, 6, 5, 1.07, support: support, parameters: {readings: {"base-chemical_weed_killing-0-800-2" => "covered"}}) do |i|
         i.add_cast(reference_name: 'weedkiller',      actor: intrant)
         i.add_cast(reference_name: 'weedkiller_to_spray', population: intrant_population)
         i.add_cast(reference_name: 'sprayer',    actor: sprayer)
@@ -552,12 +552,13 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
         i.add_cast(reference_name: 'tractor',     actor: i.find(Product, can: "catch"))
         i.add_cast(reference_name: 'land_parcel', actor: cultivable_zone)
       end
-
-      intervention.issue = issue
-      intervention.prescription = prescription
-      intervention.recommended = true
-      intervention.recommender = prescriptor
-      intervention.save!
+      if intervention
+        intervention.issue = issue if issue
+        intervention.prescription = prescription if prescription
+        intervention.recommended = true if prescriptor
+        intervention.recommender = prescriptor if prescriptor
+        intervention.save!
+      end
     end
 
 
@@ -577,7 +578,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
     if path.exist? and intervention and sprayer = intervention.casts.find_by(reference_name: 'sprayer')
       first_run.count :ticsad_simulation do |w|
         #############################################################################
-        read_at = Time.new(2014, 6, 5, 10, 0, 0, "+00:00")
+        read_at = Time.new(2015, 6, 5, 10, 0, 0, "+00:00")
         if worker
           user = User.where(person_id: worker.person_id).first
         else

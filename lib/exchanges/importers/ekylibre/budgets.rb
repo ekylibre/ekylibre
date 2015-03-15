@@ -60,25 +60,23 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
       activity = Activity.create!(name: activity_name[0], family: family.name, nature: family.nature)
     end
 
-
     w.debug "Production: #{sheet_name}"
     
-    production = Production.find_or_create_by!(name: production_name, activity: activity, campaign: campaign, cultivation_variant: cultivation_variant)
-
+    # Find or (initialize and create) a production
+    production = Production.find_or_initialize_by(name: production_name, activity: activity, campaign: campaign) 
+    if production.cultivation_variant.blank? and cultivation_variant
+      production.cultivation_variant = cultivation_variant
+    end
     if production.support_variant.blank? and support_variant
       production.support_variant = support_variant
     end
-
     if production_indicator[0] and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].to_sym)
       production.support_variant_indicator = production_indicator[0].to_sym
     end
-
     if production_indicator[1] and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].to_sym)
       production.support_variant_unit = production_indicator[1].to_sym
     end
-
     production.save!
-
 
     # Create support if doesn't exist ?
     production_support_numbers.each do |number|
