@@ -51,7 +51,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
         w.error "Cannot determine activity"
         raise Exchanges::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
       end
-      activity = Activity.create!(name: activity_name, family: family.name)
+      activity = Activity.create!(name: activity_name, family: family.name, nature: family.nature)
     end
 
 

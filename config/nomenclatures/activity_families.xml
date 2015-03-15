@@ -5,25 +5,26 @@
     <property-natures>
       <property-nature name="cultivation_variety" type="choice" nomenclature="varieties" required="false" inherit="true"/>
       <property-nature name="support_variety"   type="choice" nomenclature="varieties" required="false" inherit="true"/>
+      <property-nature name="nature" type="choice" choices="main,auxiliary,standalone" required="true" default="main"/>
     </property-natures>
     <items>
-      <item name="exploitation"/>
+      <item name="exploitation" nature="auxiliary"/>
       <item name="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="animal_farming"/>
       <item name="processing"/>
       <!-- <item name="handicraft"/> -->
       <item name="service"/>
-      <item name="maintenance" cultivation_variety="equipment"/>
+      <item name="maintenance" nature="auxiliary" cultivation_variety="equipment"/>
     </items>
   </nomenclature>
 
   <nomenclature name="activity_families-exploitation">
     <items>
-      <item name="accountancy"/>
-      <item name="administrative"/>
+      <item name="accountancy" nature="auxiliary"/>
+      <item name="administrative" nature="auxiliary"/>
       <item name="sales"/>
-      <item name="purchases"/>
-      <item name="stocks"/>
+      <item name="purchases" nature="auxiliary"/>
+      <item name="stocks" nature="auxiliary"/>
     </items>
   </nomenclature>
 
