@@ -9,12 +9,14 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
 
     # get information for production context
     campaign_harvest_year = s.cell('A', 2).to_i
-    activity_name = s.cell('B', 2)
-    production_support_numbers = (s.cell('C', 2).blank? ? [] : s.cell('C', 2).to_s.strip.upcase.split(/[\s\,]+/))
-    cultivation_variant_reference_name = s.cell('D', 2)
-    support_variant_reference_name = s.cell('E', 2)
-    production_indicator_reference_name = s.cell('F', 2)
-    production_indicator_unit_reference_name = s.cell('G', 2)
+    activity_name = (s.cell('B', 2).blank? ? [] : s.cell('B', 2).to_s.strip.downcase.delete(' ').split('/'))
+    # activity_name[0] : activity_name, ex : 'Les papiers'
+    # activity_name[1] : Nomen::ActivityFamilies code, ex : administrative
+    production_name = s.cell('C', 2)
+    production_support_numbers = (s.cell('D', 2).blank? ? [] : s.cell('D', 2).to_s.strip.upcase.split(/[\s\,]+/))
+    cultivation_variant_reference_name = s.cell('E', 2)
+    support_variant_reference_name = s.cell('F', 2)
+    production_indicator = (s.cell('G', 2).blank? ? [] : s.cell('G', 2).to_s.strip.downcase.delete(' ').split('/'))
 
     # get budget concerning production (activty / given campaign)
     campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
@@ -32,42 +34,47 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
       end
     end
 
-    unless activity = Activity.find_by(name: activity_name)
-      family = Nomen::ActivityFamilies.list.detect do |item|
-        valid = true
-        if cultivation_variant
-          valid = false unless item.cultivation_variety and Nomen::Varieties[item.cultivation_variety] <= item.cultivation_variety
-        else
-          valid = false unless item.cultivation_variety.nil?
+    unless activity = Activity.find_by(name: activity_name[0])
+      if activity_name[1]
+        family = Nomen::ActivityFamilies[activity_name[1]]
+      else
+        family = Nomen::ActivityFamilies.list.detect do |item|
+          valid = true
+          if cultivation_variant
+            valid = false unless item.cultivation_variety and Nomen::Varieties[item.cultivation_variety] <= item.cultivation_variety
+          else
+            valid = false unless item.cultivation_variety.nil?
+          end
+          if support_variant
+            valid = false unless item.support_variety and Nomen::Varieties[item.support_variety] <= item.support_variety
+          else
+            valid = false unless item.support_variety.nil?
+          end
+          valid
         end
-        if support_variant
-          valid = false unless item.support_variety and Nomen::Varieties[item.support_variety] <= item.support_variety
-        else
-          valid = false unless item.support_variety.nil?
-        end
-        valid
       end
       unless family
         w.error "Cannot determine activity"
         raise Exchanges::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
       end
-      activity = Activity.create!(name: activity_name, family: family.name, nature: family.nature)
+      activity = Activity.create!(name: activity_name[0], family: family.name, nature: family.nature)
     end
 
 
     w.debug "Production: #{sheet_name}"
-    production = Production.find_or_create_by!(name: sheet_name, activity: activity, campaign: campaign, cultivation_variant: cultivation_variant)
+    
+    production = Production.find_or_create_by!(name: production_name, activity: activity, campaign: campaign, cultivation_variant: cultivation_variant)
 
     if production.support_variant.blank? and support_variant
       production.support_variant = support_variant
     end
 
-    if production_indicator_reference_name and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator_reference_name.to_sym)
-      production.support_variant_indicator = production_indicator_reference_name.to_sym
+    if production_indicator[0] and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].to_sym)
+      production.support_variant_indicator = production_indicator[0].to_sym
     end
 
-    if production_indicator_unit_reference_name and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator_unit_reference_name.to_sym)
-      production.support_variant_unit = production_indicator_unit_reference_name.to_sym
+    if production_indicator[1] and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].to_sym)
+      production.support_variant_unit = production_indicator[1].to_sym
     end
 
     production.save!
