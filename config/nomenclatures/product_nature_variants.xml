@@ -2705,7 +2705,11 @@
             frozen_indicators_values=""
             />
 
-
+     <item name="equipment_repair_service"
+            nature="equipment_repair_services"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
 
 
      <!-- COMMON SERVICES -->

@@ -556,7 +556,15 @@
             pictogram="tractor"
             />
 
-
+		  <item name="equipment_repair_services"
+            charge_account="equipment_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="wrench"
+            />
+		  
           <!-- subsidies -->
          <item name="exploitation_subsidies"
             product_account="exploitation_subsidies"
