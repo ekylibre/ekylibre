@@ -182,7 +182,7 @@ GEM
       loofah (~> 2.0)
       sax-machine (~> 1.0)
     ffaker (1.32.1)
-    ffi (1.9.7)
+    ffi (1.9.8)
     formize (2.1.0)
       jquery-rails (>= 3)
       jquery-ui-rails (>= 5)
