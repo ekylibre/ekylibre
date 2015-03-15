@@ -135,11 +135,14 @@ class Backend::ProductsController < Backend::BaseController
     end
 
     value = @product.get(indicator)
+    puts value.inspect.red
     if indicator.datatype == :measure
       if unit = Nomen::Units[params[:unit]]
         value = value.convert(unit)
       end
       value = {unit: value.unit, value: value.to_d.round(4)}
+    elsif [:integer, :decimal].include? indicator.datatype
+      value = {value: value.to_d.round(4)}
     end
     render json: value
   end

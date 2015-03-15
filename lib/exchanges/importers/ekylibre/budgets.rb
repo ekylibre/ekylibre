@@ -61,12 +61,25 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     end
 
     w.debug "Production: #{sheet_name}"
-    
-    # Find or (initialize and create) a production
-    production = Production.find_or_initialize_by(name: production_name, activity: activity, campaign: campaign) 
-    if production.cultivation_variant.blank? and cultivation_variant
-      production.cultivation_variant = cultivation_variant
+    attributes = {
+      campaign: campaign,
+      activity: activity,
+      name: sheet_name,
+      cultivation_variant: cultivation_variant,
+      support_variant: support_variant,
+      started_at: Date.new(campaign.harvest_year - 1, 10, 1),
+      stopped_at: Date.new(campaign.harvest_year, 8, 1),
+      state: :opened
+    }
+    if activity.with_supports and  Nomen::Varieties.find(:cultivable_zone) <= support_variant.variety
+      attributes[:support_variant_indicator] = :net_surface_area
+      attributes[:support_variant_unit] = :hectare
     end
+
+    unless production = Production.find_by(attributes.slice(:name, :campaign)) || Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
+      production = Production.create! attributes
+    end
+
     if production.support_variant.blank? and support_variant
       production.support_variant = support_variant
     end
@@ -86,7 +99,6 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
         w.warn "Cannot find support with number: #{number.inspect}"
       end
     end
-
 
     # file format
     # A "Nom de l'intervention ou de intrant"

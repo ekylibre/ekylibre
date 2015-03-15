@@ -22,15 +22,18 @@
 #
 # == Table: production_supports
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  production_id    :integer          not null
-#  production_usage :string           not null
-#  storage_id       :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  production_id      :integer          not null
+#  production_usage   :string           not null
+#  quantity           :decimal(19, 4)   not null
+#  quantity_indicator :string           not null
+#  quantity_unit      :string
+#  storage_id         :integer          not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
   enumerize :production_usage, in: Nomen::ProductionUsages.all, default: Nomen::ProductionUsages.default
@@ -45,7 +48,8 @@ class ProductionSupport < Ekylibre::Record::Base
   has_one :variant, through: :production
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :production, :production_usage, :storage
+  validates_numericality_of :quantity, allow_nil: true
+  validates_presence_of :production, :production_usage, :quantity, :quantity_indicator, :storage
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
@@ -89,6 +93,25 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     where(production_id: productions.map(&:id))
   }
+
+  before_validation do
+    if self.production
+      self.quantity_indicator = self.support_variant_indicator
+      self.quantity_unit      = self.support_variant_unit
+    end
+    if self.storage and self.quantity_indicator
+      self.quantity ||= self.current_quantity
+    end
+  end
+
+  validate do
+    if self.production
+      errors.add(:quantity_indicator, :invalid) unless self.quantity_indicator == self.support_variant_indicator
+      if self.support_variant_unit
+        errors.add(:quantity_unit, :invalid) unless self.quantity_unit == self.support_variant_unit
+      end
+    end
+  end
 
   after_validation do
     if self.production
@@ -259,10 +282,10 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   # Compute quantity of a support as defined in production
-  def quantity(options = {})
-    value = get(self.support_variant_indicator, options)
-    value = value.convert(self.support_variant_unit) if self.support_variant_unit
-    return value
+  def current_quantity(options = {})
+    value = get(self.quantity_indicator, options)
+    value = value.convert(self.quantity_unit) if self.quantity_unit
+    return value.to_d
   end
 
   def get(*args)

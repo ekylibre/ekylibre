@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313100824) do
+ActiveRecord::Schema.define(version: 20150315115732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20150313100824) do
   create_table "activities", force: :cascade do |t|
     t.string   "name",                            null: false
     t.text     "description"
-    t.string   "family"
+    t.string   "family",                          null: false
     t.string   "nature",                          null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
@@ -2271,14 +2271,17 @@ ActiveRecord::Schema.define(version: 20150313100824) do
   add_index "production_distributions", ["updater_id"], name: "index_production_distributions_on_updater_id", using: :btree
 
   create_table "production_supports", force: :cascade do |t|
-    t.integer  "production_id",                null: false
-    t.integer  "storage_id",                   null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "production_id",                                           null: false
+    t.integer  "storage_id",                                              null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
-    t.string   "production_usage",             null: false
+    t.integer  "lock_version",                                default: 0, null: false
+    t.string   "production_usage",                                        null: false
+    t.decimal  "quantity",           precision: 19, scale: 4,             null: false
+    t.string   "quantity_indicator",                                      null: false
+    t.string   "quantity_unit"
   end
 
   add_index "production_supports", ["created_at"], name: "index_production_supports_on_created_at", using: :btree

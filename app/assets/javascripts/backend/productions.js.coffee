@@ -76,12 +76,11 @@
           indicator: indicator
           unit: unit
         success: (data, status, request) ->
-          support.find(".support-quantity").html(data.value)
-          support.find(".support-unit").html(unitSymbol)
+          E.updateSupportQuantity(support, data.value, unitSymbol)
           support.removeClass("waiting")
           if form.find("#supports .support.waiting").length == 0
             newTotal = C.calculate.call(form.find("#supports-quantity"))
-            E.changeQuantities(form, total/newTotal)
+            E.changeBudgetQuantities(form, total/newTotal)
     true
 
   # Retrieves quantity with selected quantifier for a given support
@@ -102,8 +101,7 @@
         indicator: indicator
         unit: unit
       success: (data, status, request) ->
-        support.find(".support-quantity").html(data.value)
-        support.find(".support-unit").html(unitSymbol)
+        E.updateSupportQuantity(support, data.value, unitSymbol)
     true
 
   # Change budget coeff on computation method change
@@ -155,10 +153,11 @@
   # Show working unit dependent stuff
   $(document).behave "load change", "#supports-quantity", (event)->
     quantity = $(this).numericalValue()
+    form = $(this).closest("form")
     if quantity > 0
-      $(".with-some-supports").show()
+      form.addClass("with-some-supports")
     else
-      $(".with-some-supports").hide()
+      form.removeClass("with-some-supports")
     true
 
   E.coefficientValue = (form, name) ->
@@ -169,7 +168,28 @@
       coeff = form.find("#supports-quantity").numericalValue()
     return coeff
 
-  E.changeQuantities = (form, coeff) ->
+  # Set the quantity for a support keepping the choosen ratio on quantity
+  # in order to maintain global amount
+  E.updateSupportQuantity = (support, newRefValue, newRefUnit) ->
+    ref   = support.find(".support-current-quantity")
+    input = support.find(".support-quantity")
+    oldRefValue = ref.numericalValue()
+    k = 1
+    k = newRefValue / oldRefValue if oldRefValue != 0
+    ref.numericalValue(newRefValue)
+    round = 3
+    round = input.data("calculate-round") if input.data("calculate-round")?
+    inputValue = input.numericalValue()
+    if inputValue == "" or inputValue == 0
+      inputValue = parseFloat(newRefValue)
+    else
+      inputValue *= k
+    input.numericalValue(inputValue.toFixed(round))
+    support.find(".support-unit").html(newRefUnit)
+    true
+
+  # Changes budget quantities with new coeff
+  E.changeBudgetQuantities = (form, coeff) ->
     form.find(".budgets .budget").each ->
       budget = $(this)
       method = budget.find(".budget-computation-method").val()
@@ -215,15 +235,15 @@
     E.updateAllProductUnrollURL $(this).closest('form')
 
   # Show working unit dependent stuff
-  $(document).behave "selector:set", "#production_support_variant_id", (event)->
+  $(document).behave "load selector:set", "#production_support_variant_id", (event)->
     variant = $(this)
     id = variant.selector('value')
     form = variant.closest('form')
     if /^\d+$/.test(id)
-      form.find(".with-supports").show()
+      form.addClass("with-supports")
       E.updateAllProductUnrollURL(form)
     else
-      form.find(".with-supports").hide()
+      form.removeClass("with-supports")
     true
 
 ) ekylibre, calcul, jQuery

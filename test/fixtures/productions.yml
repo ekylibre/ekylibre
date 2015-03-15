@@ -64,11 +64,14 @@ productions_001:
   cultivation_variant_id: 16
   id: 1
   irrigated: false
-  lock_version: 3
+  lock_version: 4
   name: Culture de blé/Blé 2013 (Prévue)
   nitrate_fixing: false
   state: opened
-  updated_at: 2014-11-04 17:23:15.015623000 Z
+  support_variant_id: 28
+  support_variant_indicator: net_surface_area
+  support_variant_unit: hectare
+  updated_at: 2015-03-15 16:39:18.198884000 Z
   updater_id: 1
 productions_002:
   activity_id: 1
@@ -97,11 +100,13 @@ productions_003:
   cultivation_variant_id: 17
   id: 5
   irrigated: false
-  lock_version: 1
+  lock_version: 2
   name: Vache/Bovins 2013 (Prévue)
   nitrate_fixing: false
   state: opened
-  updated_at: 2014-11-07 15:53:12.704285000 Z
+  support_variant_id: 7
+  support_variant_indicator: members_population
+  updated_at: 2015-03-15 16:39:18.350662000 Z
   updater_id: 1
 productions_004:
   activity_id: 5
@@ -128,11 +133,14 @@ productions_005:
   cultivation_variant_id: 32
   id: 7
   irrigated: false
-  lock_version: 1
+  lock_version: 2
   name: Culture de maïs/Maïs 2013 (Prévue)
   nitrate_fixing: false
   state: opened
-  updated_at: 2014-11-04 18:29:40.340837000 Z
+  support_variant_id: 28
+  support_variant_indicator: net_surface_area
+  support_variant_unit: hectare
+  updated_at: 2015-03-15 16:39:18.380276000 Z
   updater_id: 1
 productions_006:
   activity_id: 3
@@ -142,12 +150,13 @@ productions_006:
   cultivation_variant_id: 68
   id: 8
   irrigated: false
-  lock_version: 1
+  lock_version: 2
   name: Vache/Bovins 2014 (Prévue)
   nitrate_fixing: false
   state: opened
   support_variant_id: 31
-  updated_at: 2015-03-08 16:49:28.764340000 Z
+  support_variant_indicator: members_population
+  updated_at: 2015-03-15 16:39:18.417696000 Z
   updater_id: 1
 productions_007:
   activity_id: 6
@@ -157,11 +166,14 @@ productions_007:
   cultivation_variant_id: 44
   id: 9
   irrigated: false
-  lock_version: 0
+  lock_version: 1
   name: Culture de vigne/Vignes 2013 (Prévue)
   nitrate_fixing: false
   state: opened
-  updated_at: 2014-11-07 16:34:30.850122000 Z
+  support_variant_id: 28
+  support_variant_indicator: net_surface_area
+  support_variant_unit: hectare
+  updated_at: 2015-03-15 16:39:18.431252000 Z
   updater_id: 1
 productions_008:
   activity_id: 6
@@ -188,22 +200,26 @@ productions_009:
   cultivation_variant_id: 49
   id: 11
   irrigated: false
-  lock_version: 1
+  lock_version: 2
   name: Vin/Vin 2013 (Prévue)
   nitrate_fixing: false
   state: opened
-  updated_at: 2014-11-07 17:21:46.199009000 Z
+  support_variant_id: 50
+  updated_at: 2015-03-15 16:39:18.482583000 Z
   updater_id: 1
 productions_010:
   activity_id: 3
   campaign_id: 2
   created_at: 2014-11-14 12:41:09.082846000 Z
   creator_id: 1
+  cultivation_variant_id: 2
   id: 12
   irrigated: false
-  lock_version: 0
+  lock_version: 1
   name: Bovins 1870 (Draft)
   nitrate_fixing: false
   state: opened
-  updated_at: 2014-11-14 12:41:09.082846000 Z
+  support_variant_id: 7
+  support_variant_indicator: members_population
+  updated_at: 2015-03-15 16:39:18.491847000 Z
   updater_id: 1

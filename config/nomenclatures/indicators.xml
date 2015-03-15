@@ -2,22 +2,22 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
     <property-natures>
-      <property-nature name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry" required="true"/>
-      <property-nature name="related_to" type="choice" choices="whole, individual" default="individual"/>
+      <property-nature name="datatype"      type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry" required="true"/>
+      <property-nature name="related_to"    type="choice" choices="whole, individual" default="individual"/>
       <property-nature name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
-      <property-nature name="gathering" type="choice" choices="proportional_to_population"/>
+      <property-nature name="gathering"     type="choice" choices="proportional_to_population"/>
       <property-nature name="individual_identifier" type="boolean"/>
-      <property-nature name="unit" type="choice" nomenclature="units" required="false"/>
-      <property-nature name="choices" type="nomenclature" required="false"/>
-      <property-nature name="curve" type="choice" default="spline" choices="line, spline, step, bar" required="false"/>
-      <!-- <property-nature name="choices" type="list" required="false"/> -->
+      <property-nature name="unit"          type="choice"  nomenclature="units" required="false"/>
+      <property-nature name="choices"       type="nomenclature" required="false"/>
+      <property-nature name="curve"         type="choice"  default="spline" choices="line, spline, step, bar" required="false"/>
+      <property-nature name="probe"         type="boolean" default="false" required="true"/>
     </property-natures>
     <items>
-      <item name="population"       datatype="decimal" related_to="whole" curve="step"/>
+      <item name="population"       datatype="decimal"  related_to="whole" curve="step"/>
       <item name="shape"            datatype="geometry" related_to="whole" individual_identifier="true"/>
       <item name="temperature"      datatype="measure" unit="celsius"/>
-      <item name="net_mass"         datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
-      <item name="net_volume"       datatype="measure" unit="liter" gathering="proportional_to_population"/>
+      <item name="net_mass"         datatype="measure" unit="kilogram"     gathering="proportional_to_population"/>
+      <item name="net_volume"       datatype="measure" unit="liter"        gathering="proportional_to_population"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="easement_area"    datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="geolocation"      datatype="point"/>
@@ -35,7 +35,12 @@
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit"      datatype="decimal" gathering="proportional_to_population"/>
 
-      <!-- for product capacity -->
+      <!-- Group-specific -->
+      <item name="members_count"          datatype="integer" probe="true"/>
+      <item name="members_population"     datatype="decimal" probe="true"/>
+      <item name="members_livestock_unit" datatype="decimal" probe="true"/>
+
+      <!-- Storage capacity -->
       <item name="maximal_storable_net_mass"       datatype="measure" unit="kilogram" />
       <item name="nominal_storable_net_mass"       datatype="measure" unit="kilogram" />
       <item name="maximal_storable_net_volume"     datatype="measure" unit="liter" />
@@ -47,21 +52,21 @@
       <item name="reference_year"       datatype="integer"/><!-- for "millesime" -->
       <item name="certification"        datatype="choice" choices="certifications"/><!-- for "appellation" -->
       <item name="cells_mass_concentration" datatype="measure" unit="billion_per_gram"/>
-      <item name="cells_concentration" datatype="measure" unit="million_per_liter"/>
+      <item name="cells_concentration"  datatype="measure" unit="million_per_liter"/>
 
       <!-- state of cultivable_zone -->
-      <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
-      <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
+      <item name="soil_cultural_state"  datatype="choice" choices="soil_cultural_states"/>
+      <item name="fence_perimeter"      datatype="choice" choices="fence_perimeters"/>
 
       <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
-      <item name="grains_count" datatype="measure" unit="thousand"/>
-      <item name="grains_area_density" datatype="measure" unit="unity_per_square_meter"/>
+      <item name="grains_count"         datatype="measure" unit="thousand"/>
+      <item name="grains_area_density"  datatype="measure" unit="unity_per_square_meter"/>
 
-      <!-- equipment -->
+      <!-- Mechanical equipment -->
       <item name="motor_power"               datatype="measure" unit="french_horsepower"/>
       <item name="application_width"         datatype="measure" unit="meter" gathering="proportional_to_population"/>
 
-      <!-- animal -->
+      <!-- Animal -->
       <item name="animal_life_state"         datatype="choice" choices="animal_life_states"/>
       <item name="mammalia_birth_condition"  datatype="choice" choices="mammalia_birth_conditions"/>
       <item name="mammalia_birth_count"      datatype="integer" />
@@ -71,7 +76,7 @@
       <item name="mammalia_reproduction_state" datatype="choice" choices="mammalia_reproduction_states"/>
       <item name="lactating"                 datatype="boolean"/>
       <item name="healthy"                   datatype="boolean"/>
-      <!-- plant -->
+      <!-- Plant -->
       <item name="plant_life_state"          datatype="choice" choices="plant_life_states"/>
       <item name="plant_reproduction_state"  datatype="choice" choices="plant_reproduction_states"/>
 
@@ -96,13 +101,13 @@
       <item name="organic_matter_concentration"     datatype="measure" unit="mass_percent"/>
       <item name="nitrogen_concentration"           datatype="measure" unit="mass_percent"/>
 
-      <!-- K2O = 1.205 * K (mass approach) -->
+      <!-- K₂O = 1.205 * K (mass approach) -->
       <item name="potash_concentration"             datatype="measure" unit="mass_percent"/>
-      <!-- K = 0.83 * K2O  (mass approach) -->
+      <!-- K = 0.83 * K₂O  (mass approach) -->
       <item name="potassium_concentration"          datatype="measure" unit="mass_percent"/>
-      <!-- P2O5 = 2.291 * P (mass approach) -->
+      <!-- P₂O₅ = 2.291 * P (mass approach) -->
       <item name="phosphate_concentration"          datatype="measure" unit="mass_percent"/>
-      <!-- P = 0.436 * P2O5 (mass approach) -->
+      <!-- P = 0.436 * P₂O₅ (mass approach) -->
       <item name="phosphorus_concentration"         datatype="measure" unit="mass_percent"/>
       <item name="calcium_concentration"            datatype="measure" unit="mass_percent"/>
       <item name="magnesium_concentration"          datatype="measure" unit="mass_percent"/>
@@ -125,27 +130,27 @@
       <item name="cation_exchange_capacity" datatype="measure" unit="milliequivalent_per_hundred_gram"/>
       <!-- analysis_method -->
       <item name="cation_exchange_capacity_analysis_method" datatype="choice" choices="cation_exchange_capacity_analysis_methods"/>
-      <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
+      <item name="phosphorus_analysis_method"     datatype="choice" choices="phosphorus_analysis_methods"/>
 
       <!-- for grain analysis -->
-      <item name="protein_concentration"      datatype="measure" unit="mass_percent"/>
-      <item name="impurity_concentration"     datatype="measure" unit="mass_percent"/>
-      <item name="specific_weight"            datatype="measure" unit="kilogram_per_hectoliter"/>
-      <item name="hagberg_falling_number"     datatype="measure" unit="second"/>
+      <item name="protein_concentration"          datatype="measure" unit="mass_percent"/>
+      <item name="impurity_concentration"         datatype="measure" unit="mass_percent"/>
+      <item name="specific_weight"                datatype="measure" unit="kilogram_per_hectoliter"/>
+      <item name="hagberg_falling_number"         datatype="measure" unit="second"/>
 
       <!-- for wine analysis -->
-      <item name="sucrose_concentration"      datatype="measure" unit="mass_percent"/>
+      <item name="sucrose_concentration"          datatype="measure" unit="mass_percent"/>
 
       <!-- for milk unitary animal analysis -->
-      <item name="milk_daily_production"      datatype="measure" unit="kilogram_per_day"/>
+      <item name="milk_daily_production"          datatype="measure" unit="kilogram_per_day"/>
 
       <!-- for animal medicine -->
-      <item name="meat_withdrawal_period"     datatype="measure" unit="day"/>
-      <item name="milk_withdrawal_period"     datatype="measure" unit="day"/>
+      <item name="meat_withdrawal_period"         datatype="measure" unit="day"/>
+      <item name="milk_withdrawal_period"         datatype="measure" unit="day"/>
 
       <!-- for alimentary product -->
-      <item name="best_before_period"         datatype="measure" unit="day"/>
-      <item name="consumption_period"         datatype="measure" unit="day"/>
+      <item name="best_before_period"             datatype="measure" unit="day"/>
+      <item name="consumption_period"             datatype="measure" unit="day"/>
 
       <!-- for genetic animal's reproduction  -->
       <item name="unique_synthesis_index"         datatype="measure" unit="unity"/>
@@ -159,18 +164,18 @@
       <!-- for support markers -->
       <!-- <item name="nitrogen_input_per_area" datatype="measure" unit="kilogram_per_hectare"/> -->
       <!-- <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/> -->
-      <item name="nitrogen_area_density"       datatype="measure" unit="kilogram_per_hectare"/>
-      <item name="mass_area_density"           datatype="measure" unit="kilogram_per_square_meter"/>
-      <item name="volume_area_density"         datatype="measure" unit="liter_per_square_meter"/>
-      <item name="mass_area_yield"             datatype="measure" unit="quintal_per_hectare"/>
-      <item name="surface_area_percentage"     datatype="measure" unit="percent"/>
+      <item name="nitrogen_area_density"          datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="mass_area_density"              datatype="measure" unit="kilogram_per_square_meter"/>
+      <item name="volume_area_density"            datatype="measure" unit="liter_per_square_meter"/>
+      <item name="mass_area_yield"                datatype="measure" unit="quintal_per_hectare"/>
+      <item name="surface_area_percentage"        datatype="measure" unit="percent"/>
 
-      <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
+      <item name="residue_elimination_method"     datatype="choice" choices="residue_elimination_methods"/>
 
-      <item name="precocity_index"             datatype="decimal" />
-      <item name="plant_growth_level"          datatype="choice"  choices="plants_growth_levels"/>
-      <item name="mass_volume_density"         datatype="measure" unit="kilogram_per_liter"/>
-      <item name="volume_density"              datatype="measure" unit="centiliter_per_hectoliter"/>
+      <item name="precocity_index"                datatype="decimal" />
+      <item name="plant_growth_level"             datatype="choice"  choices="plants_growth_levels"/>
+      <item name="mass_volume_density"            datatype="measure" unit="kilogram_per_liter"/>
+      <item name="volume_density"                 datatype="measure" unit="centiliter_per_hectoliter"/>
 
 
 
@@ -188,10 +193,10 @@
       <item name="energy"            datatype="measure" unit="kilowatt_hour"/>
 
       <!--  for plant treatment @TODO link with ephy database for 1.0 -->
-      <item name="wait_before_harvest_period" datatype="measure" unit="day"/>
-      <item name="approved_input_dose"        datatype="measure" unit="kilogram_per_hectare"/>
-      <item name="untreated_zone_length"      datatype="measure" unit="meter"/>
-      <item name="wait_before_entering_period" datatype="measure" unit="day"/>
+      <item name="wait_before_harvest_period"    datatype="measure" unit="day"/>
+      <item name="approved_input_dose"           datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="untreated_zone_length"         datatype="measure" unit="meter"/>
+      <item name="wait_before_entering_period"   datatype="measure" unit="day"/>
 
 
 

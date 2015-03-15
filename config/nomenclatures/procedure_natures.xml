@@ -44,7 +44,7 @@
   <nomenclature name="procedure_natures-implantation">
     <items>
       <item name="sowing"               roles="input, target, output, doer, tool, input_origin" activity_families="field_crops, market_garden_crops"/>
-      <item name="seed_mixing"          roles="input, output, doer"             activity_families="cereal_crops, corn_crops, oilseed_crops, protein_crops, fodder_crops, meadow"/>
+      <item name="seed_mixing"          roles="input, output, doer"             activity_families="cereal_crops, maize_crops, oilseed_crops, protein_crops, fodder_crops, meadow"/>
       <item name="implanting"           roles="input, target, output, doer, tool, input_origin" activity_families="arboriculture, fruits_crops, aromatic_and_medicinal_plants"/>
       <item name="mulching"             roles="input, target, doer, tool, input_origin" activity_families="market_garden_crops"/>
     </items>
@@ -59,8 +59,8 @@
 
   <nomenclature name="procedure_natures-harvest">
     <items>
-      <item name="grains_harvest"        roles="target, output, doer, tool"      activity_families="cereal_crops, corn_crops"/>
-      <item name="silage"               roles="target, output, doer, tool"       activity_families="corn_crops, fodder_crops, meadow, fallow_land"/>
+      <item name="grains_harvest"        roles="target, output, doer, tool"      activity_families="cereal_crops, maize_crops"/>
+      <item name="silage"               roles="target, output, doer, tool"       activity_families="maize_crops, fodder_crops, meadow, fallow_land"/>
       <item name="grape_harvest"        roles="target, output, doer, tool"       activity_families="vines"/>
       <item name="nuts_harvest"        roles="target, output, doer, tool"        activity_families="orchard_crops"/>
       <item name="straw_processing"      roles="input, output, doer, tool"         activity_families="cereal_crops, fodder_crops, meadow, fallow_land"/>

@@ -5,3 +5,25 @@ input.budget-quantity {
 input.budget-unit-amount {
   width: 6em;
 }
+
+form {
+  .with-supports, .with-some-supports {
+    display: none,
+  }
+  &.with-supports {
+    .with-supports {
+      display: block;
+    }
+  }
+  &.with-some-supports {
+    .with-some-supports {
+      display: block;
+    }
+  }
+
+  .production_supports_quantity {
+    .input-append {
+      @include text-align(right)
+    }
+  }
+}

@@ -197,19 +197,39 @@ class ProductNatureVariant < Ekylibre::Record::Base
       next unless indicator.gathering == :proportional_to_population
       if indicator.datatype == :measure
         Measure.siblings(indicator.unit).each do |unit_name|
-          unit = Nomen::Units[unit_name]
-          list << [indicator, unit]
+          list << "#{indicator.name}/#{unit_name}"
         end
+      elsif indicator.datatype == :integer or indicator.datatype == :decimal
+        list << indicator.name.to_s
       end
+    end
+    variety = Nomen::Varieties.find(self.variety)
+    # Specials indicators
+    if variety <= :product_group
+      list << "members_count"      unless list.include?("members_count")
+      if variety <= :animal_group
+        list << "members_livestock_unit" unless list.include?("members_livestock_unit")
+      end
+      list << "members_population" unless list.include?("members_population")
     end
     return list
   end
 
   # Returns a list of quantifier
   def unified_quantifiers(options = {})
-    list = self.quantifiers.map do |pair|
-      indicator, unit = pair.first, pair.second
-      {indicator: {name: indicator.name, human_name: indicator.human_name}, unit: {name: unit.name, symbol: unit.symbol, human_name: unit.human_name}}
+    list = self.quantifiers.map do |quantifier|
+      pair = quantifier.split('/')
+      indicator, unit = Nomen::Indicators.find(pair.first), (pair.second.blank? ? nil : Nomen::Units.find(pair.second))
+      hash = {indicator: {name: indicator.name, human_name: indicator.human_name}}
+      hash[:unit] =  if unit
+                       {name: unit.name, symbol: unit.symbol, human_name: unit.human_name}
+                     elsif indicator.name =~ /^members\_/
+                       unit = Nomen::Units.find(:unity)
+                       {name: "", symbol: unit.symbol, human_name: unit.human_name}
+                     else
+                       {name: "", symbol: self.unit_name, human_name: self.unit_name}
+                     end
+      hash
     end
 
     # Add population

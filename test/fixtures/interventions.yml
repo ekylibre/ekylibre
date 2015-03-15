@@ -382,7 +382,6 @@ interventions_016:
   number: '25'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   production_id: 11
-  production_support_id: 18
   provisional: false
   recommended: false
   reference_name: base-grape_pressing-0
@@ -401,7 +400,6 @@ interventions_017:
   number: '26'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   production_id: 11
-  production_support_id: 18
   provisional: false
   recommended: false
   reference_name: base-fermentation-0
@@ -420,7 +418,6 @@ interventions_018:
   number: '27'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   production_id: 11
-  production_support_id: 18
   provisional: false
   recommended: false
   reference_name: base-chaptalization-0
@@ -440,7 +437,6 @@ interventions_019:
   number: '28'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   production_id: 11
-  production_support_id: 18
   provisional: false
   recommended: false
   reference_name: base-sulfur_addition-0
@@ -459,7 +455,6 @@ interventions_020:
   number: '29'
   parameters: !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}
   production_id: 11
-  production_support_id: 18
   provisional: false
   recommended: false
   reference_name: base-wine_bottling-0

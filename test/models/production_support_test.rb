@@ -22,15 +22,18 @@
 #
 # == Table: production_supports
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  production_id    :integer          not null
-#  production_usage :string           not null
-#  storage_id       :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  production_id      :integer          not null
+#  production_usage   :string           not null
+#  quantity           :decimal(19, 4)   not null
+#  quantity_indicator :string           not null
+#  quantity_unit      :string
+#  storage_id         :integer          not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
 #
 require 'test_helper'
 

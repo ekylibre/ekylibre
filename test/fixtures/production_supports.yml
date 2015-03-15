@@ -22,15 +22,18 @@
 #
 # == Table: production_supports
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  production_id    :integer          not null
-#  production_usage :string           not null
-#  storage_id       :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  production_id      :integer          not null
+#  production_usage   :string           not null
+#  quantity           :decimal(19, 4)   not null
+#  quantity_indicator :string           not null
+#  quantity_unit      :string
+#  storage_id         :integer          not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
 #
 #
 # == Fixture: production_supports
@@ -39,6 +42,8 @@
 #   creator: users_001
 #   production: productions_001
 #   production_usage: "Lorem ipsum"
+#   quantity: 0
+#   quantity_indicator: "Lorem ipsum"
 #   storage: storages_001
 #   updater: users_001
 #
@@ -50,6 +55,9 @@ production_supports_001:
   lock_version: 0
   production_id: 1
   production_usage: fodder
+  quantity: 5.3806
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 83
   updated_at: 2014-11-04 17:23:15.017043000 Z
   updater_id: 1
@@ -60,6 +68,9 @@ production_supports_002:
   lock_version: 0
   production_id: 1
   production_usage: fodder
+  quantity: 8.349
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 84
   updated_at: 2014-11-04 17:23:15.019045000 Z
   updater_id: 1
@@ -70,6 +81,9 @@ production_supports_003:
   lock_version: 0
   production_id: 4
   production_usage: fodder
+  quantity: 5.3806
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 83
   updated_at: 2014-11-04 17:23:48.520900000 Z
   updater_id: 1
@@ -80,6 +94,9 @@ production_supports_004:
   lock_version: 0
   production_id: 4
   production_usage: fodder
+  quantity: 8.349
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 84
   updated_at: 2014-11-04 17:23:48.523744000 Z
   updater_id: 1
@@ -90,6 +107,9 @@ production_supports_005:
   lock_version: 0
   production_id: 4
   production_usage: fodder
+  quantity: 4.7133
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 82
   updated_at: 2014-11-04 17:23:48.526283000 Z
   updater_id: 1
@@ -100,6 +120,9 @@ production_supports_006:
   lock_version: 0
   production_id: 6
   production_usage: fodder
+  quantity: 3.9989
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 81
   updated_at: 2014-11-04 18:17:39.475733000 Z
   updater_id: 1
@@ -110,6 +133,9 @@ production_supports_007:
   lock_version: 0
   production_id: 7
   production_usage: fodder
+  quantity: 3.9989
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 81
   updated_at: 2014-11-04 18:21:43.150392000 Z
   updater_id: 1
@@ -120,6 +146,9 @@ production_supports_008:
   lock_version: 0
   production_id: 8
   production_usage: fodder
+  quantity: 0.0
+  quantity_indicator: members_population
+  quantity_unit: ''
   storage_id: 85
   updated_at: 2014-11-07 14:43:13.634171000 Z
   updater_id: 1
@@ -130,6 +159,9 @@ production_supports_009:
   lock_version: 0
   production_id: 5
   production_usage: fodder
+  quantity: 0.0
+  quantity_indicator: members_population
+  quantity_unit: ''
   storage_id: 80
   updated_at: 2014-11-07 15:53:12.705675000 Z
   updater_id: 1
@@ -140,6 +172,9 @@ production_supports_010:
   lock_version: 1
   production_id: 8
   production_usage: fodder
+  quantity: 0.0
+  quantity_indicator: members_population
+  quantity_unit: ''
   storage_id: 86
   updated_at: 2015-03-08 16:49:28.765669000 Z
   updater_id: 1
@@ -150,6 +185,9 @@ production_supports_011:
   lock_version: 0
   production_id: 9
   production_usage: fodder
+  quantity: 5.3954
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 106
   updated_at: 2014-11-07 16:34:30.852303000 Z
   updater_id: 1
@@ -160,26 +198,9 @@ production_supports_012:
   lock_version: 0
   production_id: 10
   production_usage: fodder
+  quantity: 5.3954
+  quantity_indicator: net_surface_area
+  quantity_unit: hectare
   storage_id: 106
   updated_at: 2014-11-07 16:35:00.784356000 Z
-  updater_id: 1
-production_supports_013:
-  created_at: 2014-11-07 17:21:46.200198000 Z
-  creator_id: 1
-  id: 18
-  lock_version: 0
-  production_id: 11
-  production_usage: fodder
-  storage_id: 116
-  updated_at: 2014-11-07 17:21:46.200198000 Z
-  updater_id: 1
-production_supports_014:
-  created_at: 2014-11-07 17:21:46.202297000 Z
-  creator_id: 1
-  id: 19
-  lock_version: 0
-  production_id: 11
-  production_usage: fodder
-  storage_id: 117
-  updated_at: 2014-11-07 17:21:46.202297000 Z
   updater_id: 1

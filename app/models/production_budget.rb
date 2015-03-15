@@ -46,10 +46,10 @@ class ProductionBudget < Ekylibre::Record::Base
   # enumerize :currency, in: Nomen::Currencies.all, default: Preference[:currency]
   enumerize :direction, in: [:revenue, :expense], predicates: true
   enumerize :computation_method, in: [:per_production, :per_production_support, :per_working_unit], default: :per_working_unit, predicates: true
-  enumerize :variant_indicator, in: Production.support_variant_indicator.values
-  enumerize :variant_unit, in: Nomen::Units.all.sort
+  # enumerize :variant_indicator, in: Production.support_variant_indicator.values
+  # enumerize :variant_unit, in: Nomen::Units.all.sort
 
-  belongs_to :production
+  belongs_to :production, inverse_of: :budgets
   belongs_to :variant, class_name: 'ProductNatureVariant'
   has_many :supports, through: :production, class_name: 'ProductionSupport'
 

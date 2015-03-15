@@ -10,7 +10,7 @@
     <items>
       <item name="exploitation" nature="auxiliary"/>
       <item name="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="animal_farming"/>
+      <item name="animal_farming" support_variety="animal_group" cultivation_variety="animal"/>
       <item name="processing"/>
       <!-- <item name="handicraft"/> -->
       <item name="service"/>
@@ -40,20 +40,20 @@
 
   <nomenclature name="activity_families-arboriculture">
     <items>
-      <item name="orchard_crops"/>
+      <item name="orchard_crops"                 support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="vines"                         support_variety="cultivable_zone" cultivation_variety="vitis"/>
     </items>
   </nomenclature>
 
   <nomenclature name="activity_families-field_crops">
     <items>
-      <item name="cereal_crops"  support_variety="cultivable_zone"/>
-      <item name="oilseed_crops" support_variety="cultivable_zone"/>
-      <item name="protein_crops" support_variety="cultivable_zone"/>
+      <item name="cereal_crops"  support_variety="cultivable_zone" cultivation_variety="poaceae"/>
+      <item name="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <item name="protein_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="potato_crops"  support_variety="cultivable_zone" cultivation_variety="solanum_tuberosum"/>
       <item name="beet_crops"    support_variety="cultivable_zone" cultivation_variety="beta"/>
       <item name="hemp_crops"    support_variety="cultivable_zone" cultivation_variety="cannabaceae"/>
-      <item name="fallow_land"   support_variety="cultivable_zone"/>
+      <item name="fallow_land"   support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="fodder_crops"  support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="meadow"        support_variety="cultivable_zone" cultivation_variety="plant"/>
     </items>
@@ -68,7 +68,7 @@
       <item name="barley_crops"              support_variety="cultivable_zone" cultivation_variety="hordeum"/>
       <item name="bere_crops"                support_variety="cultivable_zone" cultivation_variety="hordeum_vulgare_hexastichum"/>
       <item name="oat_crops"                 support_variety="cultivable_zone" cultivation_variety="avena"/>
-      <item name="corn_crops"                support_variety="cultivable_zone" cultivation_variety="zea"/>
+      <item name="maize_crops"               support_variety="cultivable_zone" cultivation_variety="zea"/>
       <item name="triticale_crops"           support_variety="cultivable_zone" cultivation_variety="triticosecale"/>
       <item name="rice_crops"                support_variety="cultivable_zone" cultivation_variety="oryza"/>
       <item name="canary_grass_crops"        support_variety="cultivable_zone" cultivation_variety="phalaris"/>

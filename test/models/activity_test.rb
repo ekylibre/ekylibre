@@ -26,7 +26,7 @@
 #  creator_id          :integer
 #  cultivation_variety :string
 #  description         :text
-#  family              :string
+#  family              :string           not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null

@@ -861,6 +861,8 @@ eng:
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
     quantity: "Quantity"
+    # quantity_indicator: "Quantity indicator"
+    # quantity_unit: "Quantity unit"
     query: "Query"
     read_at: "Read at"
     reading_tasks: "Reading tasks"

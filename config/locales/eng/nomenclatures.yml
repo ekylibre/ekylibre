@@ -344,7 +344,6 @@ eng:
         citrus_orchards: "Citrus orchards"                 #< orchard_crops
         cocoa_crops: "Cocoa crops"                         #< oilseed_crops
         common_wheat_crops: "Common wheat crops"           #< cereal_crops
-        corn_crops: "Corn crops"                           #< cereal_crops
         cotton_crops: "Cotton crops"                       #< oilseed_crops
         durum_wheat_crops: "Durum wheat crops"             #< cereal_crops
         exploitation: "Exploitation"
@@ -368,6 +367,7 @@ eng:
         lettuce_crops: "Lettuce crops"                     #< market_garden_crops
         lupin_crops: "Lupin crops"                         #< protein_crops
         maintenance: "Maintenance"
+        maize_crops: "Corn crops"                          #< cereal_crops
         market_garden_crops: "Market garden crops"         #< vegetal_crops
         meadow: "Meadow"                                   #< field_crops
         muskmelon_crops: "Muskmelon crops"                 #< fruits_crops
@@ -1609,6 +1609,7 @@ eng:
         gathering: "Gathering"
         individual_identifier: "Individual identifier"
         interpolation: "Interpolation"
+        probe: "Probe"
         related_to: "Related to"
         unit: "Unit"
       choices:
@@ -1698,6 +1699,9 @@ eng:
         maximal_storable_net_mass: "Maximal storable net mass"
         maximal_storable_net_volume: "Maximal storable net volume"
         meat_withdrawal_period: "Meat withdrawal period"
+        members_count: "Members count"
+        members_livestock_unit: "Members livestock unit"
+        members_population: "Members population"
         milk_daily_production: "Milk daily production"
         milk_withdrawal_period: "Milk withdrawal period"
         molybdenum_concentration: "Molybdenum concentration"

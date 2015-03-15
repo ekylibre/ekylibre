@@ -94,13 +94,13 @@
             />
       <item name="grain_corn"
             production_code="1710"
-            activity="corn_crops"
+            activity="maize_crops"
             telepac_crop_code="MA"
             variant_support="corn_grain_crop"
             />
       <item name="seed_corn"
             production_code="1712"
-            activity="corn_crops"
+            activity="maize_crops"
             telepac_crop_code="MS"
             variant_support="corn_seed_crop"
             />
@@ -216,7 +216,7 @@
       <!-- 3 - FODDER CROP -->
       <item name="silage_corn"
             production_code="3150"
-            activity="corn_crops"
+            activity="maize_crops"
             telepac_crop_code="ME"
             variant_support="corn_silage_crop"
             />

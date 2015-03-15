@@ -43,8 +43,8 @@
 #  updater_id                :integer
 #
 class Production < Ekylibre::Record::Base
-  enumerize :support_variant_unit, in: Nomen::Units.all
-  enumerize :support_variant_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
+  # enumerize :support_variant_unit, in: Nomen::Units.all
+  # enumerize :support_variant_indicator, in: Nomen::Indicators.where(datatype: :measure).map(&:name) + [:population, :working_duration]
   belongs_to :activity
   belongs_to :campaign
   belongs_to :cultivation_variant, class_name: "ProductNatureVariant"
@@ -52,8 +52,8 @@ class Production < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant", foreign_key: :cultivation_variant_id
   has_many :activity_distributions, through: :activity, source: :distributions
   has_many :budgets, class_name: "ProductionBudget"
-  has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ProductionBudget'
-  has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ProductionBudget'
+  has_many :expenses, -> { where(direction: :expense).includes(:variant) }, class_name: 'ProductionBudget', inverse_of: :production
+  has_many :revenues, -> { where(direction: :revenue).includes(:variant) }, class_name: 'ProductionBudget', inverse_of: :production
   has_many :distributions, class_name: "ProductionDistribution", dependent: :destroy, inverse_of: :production
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production, dependent: :destroy
   has_many :interventions, inverse_of: :production
@@ -133,19 +133,46 @@ class Production < Ekylibre::Record::Base
     self.interventions.any? or self.distributions.any?
   end
 
-  validate do
-    if self.activity and self.activity.with_cultivation
-      errors.add(:cultivation_variant_id, :blank) unless self.cultivation_variant
-    end
-    if self.activity and self.activity.with_supports
-      errors.add(:support_variant_id, :blank) unless self.support_variant
-    end
-  end
-
   before_validation(on: :create) do
     self.state ||= :opened
     if self.activity
       self.name ||= self.activity_name
+      if self.support_variant
+        unless self.support_variant_indicator
+          if quantifier = self.support_variant.quantifiers.last
+            pair = quantifier.split('/')
+            self.support_variant_indicator = pair.first
+            self.support_variant_unit = pair.second
+          end
+        end
+      end
+    end
+  end
+
+  validate do
+    if self.activity
+      if self.with_cultivation
+        errors.add(:cultivation_variant_id, :blank) unless self.cultivation_variant
+      end
+      if self.with_supports
+        if self.support_variant
+          if indicator = Nomen::Indicators[self.support_variant_indicator]
+            if indicator.datatype == :measure
+              if unit = Nomen::Units[self.support_variant_unit]
+                if unit.dimension.to_s != Nomen::Units[indicator.unit].dimension.to_s
+                  errors.add(:support_variant_unit, :invalid)
+                end
+              else
+                errors.add(:support_variant_unit, :blank)
+              end
+            end
+          else
+            errors.add(:support_variant_indicator, :blank)
+          end
+        else
+          errors.add(:support_variant_id, :blank)
+        end
+      end
     end
   end
 
@@ -197,9 +224,7 @@ class Production < Ekylibre::Record::Base
   # Sums all quantity of supports
   def total_quantity
     return 0.0 unless self.support_variant_indicator
-    return self.supports.map do |support|
-      support.get(self.support_variant_indicator).to_d(self.support_variant_unit)
-    end.sum
+    return self.supports.sum(:quantity)
   end
 
   def cost(role = :input)

@@ -26,7 +26,7 @@
 #  creator_id          :integer
 #  cultivation_variety :string
 #  description         :text
-#  family              :string
+#  family              :string           not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string           not null
@@ -42,6 +42,7 @@
 #
 # activities_001:
 #   creator: users_001
+#   family: "Lorem ipsum"
 #   name: "Lorem ipsum"
 #   nature: "Lorem ipsum"
 #   updater: users_001
@@ -67,7 +68,7 @@ activities_001:
 activities_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
-  cultivation_variety: bos_taurus
+  cultivation_variety: bos
   description: ''
   family: cattle_farming
   id: 3
@@ -96,7 +97,7 @@ activities_004:
   creator_id: 1
   cultivation_variety: zea
   description: ''
-  family: corn_crops
+  family: maize_crops
   id: 5
   lock_version: 1
   name: Maïs

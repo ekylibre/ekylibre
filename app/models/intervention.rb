@@ -76,7 +76,7 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
   validates_inclusion_of :reference_name, in: self.reference_name.values
-  validates_presence_of  :started_at, :stopped_at, :production_support
+  validates_presence_of  :started_at, :stopped_at
   validates_presence_of :recommender, if: :recommended?
 
   serialize :parameters, HashWithIndifferentAccess
@@ -144,8 +144,12 @@ class Intervention < Ekylibre::Record::Base
   end
 
   validate do
-    if self.production_support and self.production
-      errors.add(:production_id, :invalid) if self.production_support.production != self.production
+    if self.production
+      if self.production_support
+        errors.add(:production_id, :invalid) if self.production_support.production != self.production
+      else
+        errors.add(:production_support_id, :blank) if self.production.with_supports
+      end
     end
     if self.started_at and self.stopped_at
       if self.stopped_at <= self.started_at

@@ -202,7 +202,7 @@ Ekylibre::FirstRun.add_loader :demo_interventions do |first_run|
 
 
     first_run.count :irrigation_interventions do |w|
-      a = Activity.of_families(:corn_crops)
+      a = Activity.of_families(:maize_crops)
       Production.of_activities(a).where(irrigated: true).joins(:activity, :campaign).find_each do |production|
         next unless production.active?
         year = production.campaign.name.to_i
