@@ -260,12 +260,12 @@ class Production < Ekylibre::Record::Base
       #puts "Percentage : #{distribution_percentage.inspect}".red
       # get indirect expenses and revenues on current production
       # distribution_value - expenses
-      indirect_expenses_value = production.expenses.sum(:global_amount).to_d
+      indirect_expenses_value = production.expenses.sum(:amount).to_d
       distribution_value -= indirect_expenses_value if indirect_expenses_value > 0.0
       #puts "Indirect expenses : #{indirect_expenses_value.inspect}".blue
       #puts "Distribution value : #{distribution_value.inspect}".yellow
       # distribution_value + revenues
-      indirect_revenues_value = production.revenues.sum(:global_amount).to_d
+      indirect_revenues_value = production.revenues.sum(:amount).to_d
       distribution_value += indirect_revenues_value.to_d if indirect_revenues_value > 0.0
       #puts "Indirect revenues : #{indirect_revenues_value.inspect}".blue
       #puts "Distribution value : #{distribution_value.inspect}".yellow
@@ -279,10 +279,10 @@ class Production < Ekylibre::Record::Base
   def direct_budget_amount
     global_value = 0
 
-    direct_expenses_value = self.expenses.sum(:global_amount).to_d
+    direct_expenses_value = self.expenses.sum(:amount).to_d
     distribution_value -= direct_expenses_value if direct_expenses_value > 0.0
 
-    direct_revenues_value = self.revenues.sum(:global_amount).to_d
+    direct_revenues_value = self.revenues.sum(:amount).to_d
     distribution_value += direct_revenues_value.to_d if direct_revenues_value > 0.0
 
     global_value += distribution_value.to_d

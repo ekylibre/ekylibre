@@ -915,6 +915,7 @@ eng:
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "Details"
     direct_expenses: "Direct charges"
+    direct_margin: "Direct margin"
     discount: "Discount (%)" #?
     display: "Display" #?
     distributions: "Distributions"

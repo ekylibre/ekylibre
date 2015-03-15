@@ -950,6 +950,7 @@ fra:
     destroyed_by_ago: "Supprimé par %{author} il y a %{ago}"
     details: "Informations complémentaires"
     direct_expenses: "Charges directes"
+    direct_margin: "Marge directe"
     discount: "Réduc. (%)"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
@@ -1048,7 +1049,7 @@ fra:
     general_ledger: "Grand livre"
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
-    # geolocation: "Geolocation"
+    geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise"
     go: "Valider"
     grains_yield: "Rendement grains" #?

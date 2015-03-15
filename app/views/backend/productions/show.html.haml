@@ -79,15 +79,20 @@
             end
             balance -= amount
           end
-          costs.each do |name, balance|
-            data_series << { name: "evaluated_#{name}_cost".tl , y: (balance/divider).to_s.to_f, color: "#DD0000"} unless balance.zero?
-          end
-
+          
+          data_series << { name: "evaluated_input_cost".tl , y: (costs[:input]/divider).to_s.to_f, color: "#DD0000"} unless costs[:input].zero?
+          data_series << { name: "evaluated_other_cost".tl , y: (costs[:other]/divider).to_s.to_f, color: "#DD0000"} unless costs[:other].zero?
+          
           data_series << { name: :raw_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
+          
+          data_series << { name: "evaluated_tool_cost".tl , y: (costs[:tool]/divider).to_s.to_f, color: "#DD0000"} unless costs[:tool].zero?
+          data_series << { name: "evaluated_doer_cost".tl , y: (costs[:doer]/divider).to_s.to_f, color: "#DD0000"} unless costs[:doer].zero?
+
+          data_series << { name: :direct_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")}
 
           data_series << { name: :indirect_expenses.tl, y: (resource.indirect_budget_amount/divider).to_s.to_f, color: (resource.indirect_budget_amount >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
 
-          data_series << { name: :net_margin.tl, isSum: true, color: (balance >= 0 ? "#35DD00" : "#DD0000")} if resource.indirect_budget_amount != 0
+          data_series << { name: :net_margin.tl, isSum: true, color: "#ed9440"} if resource.indirect_budget_amount != 0
 
           series = []
           series << {up_color: cycle(*theme_colors), color: cycle(*theme_colors), data: data_series, data_labels: {enabled: false}}
@@ -138,14 +143,14 @@
             %span.title= "evaluated_#{type}_cost".tl
             %span.value
               %i.picto{class: "picto-#{type}"}
-              - if resource.with_supports and total_quantity > 0
+              - if resource.with_supports and total_quantity > 0 and unit
                 = :amount_per_unit.tl(amount: (cost/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
               - else
                 = cost.round(precision).to_i.l(currency: currency.name)
         .big-info.cost.important
           %span.title= :total_cost.tl
           %span.value
-            - if resource.with_supports and total_quantity > 0
+            - if resource.with_supports and total_quantity > 0 and unit
               = :amount_per_unit.tl(amount: (total_cost/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
             - else
               = total_cost.round(precision).to_i.l(currency: currency.name)
@@ -157,7 +162,7 @@
           .big-info.cost.important
             %span.title= :total_earn.tl
             %span.value
-              - if resource.with_supports and total_quantity > 0
+              - if resource.with_supports and total_quantity > 0 and unit
                 = :amount_per_unit.tl(amount: (total_earn/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
               - else
                 = total_earn.round(precision).to_i.l(currency: currency.name)
@@ -166,7 +171,7 @@
             .big-info.cost.important
               %span.title= :gross_profit.tl
               %span.value
-                - if resource.with_supports and total_quantity > 0
+                - if resource.with_supports and total_quantity > 0 and unit
                   = :amount_per_unit.tl(amount: (gross_profit/total_quantity).round(precision).to_i.l(currency: currency.name), unit: unit.symbol)
                 - else
                   = gross_profit.round(precision).to_i.l(currency: currency.name)
@@ -184,7 +189,13 @@
             end
             series = []
             series << {name: resource.support_variant.name, data: supports_serie, size: "80%"}
-            support_variant_unit = Nomen::Units.find(resource.support_variant_unit)
+            
+            if resource.support_variant_unit
+              support_variant_unit = Nomen::Units.find(resource.support_variant_unit)
+            else
+              support_variant_unit = Nomen::Units[:unity]
+            end
+
           = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f}#{support_variant_unit.symbol}"}, title: {text: "#{total_quantity.round(3).l}#{support_variant_unit.symbol}"}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
 
     - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] <= :animal

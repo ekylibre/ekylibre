@@ -9,7 +9,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
 
     # get information for production context
     campaign_harvest_year = s.cell('A', 2).to_i
-    activity_name = (s.cell('B', 2).blank? ? [] : s.cell('B', 2).to_s.strip.downcase.delete(' ').split('/'))
+    activity_name = (s.cell('B', 2).blank? ? [] : s.cell('B', 2).to_s.strip.split('/'))
     # activity_name[0] : activity_name, ex : 'Les papiers'
     # activity_name[1] : Nomen::ActivityFamilies code, ex : administrative
     production_name = s.cell('C', 2)
@@ -34,10 +34,11 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
       end
     end
 
-    unless activity = Activity.find_by(name: activity_name[0])
+    unless activity = Activity.find_by(name: activity_name[0].strip)
       if activity_name[1]
-        family = Nomen::ActivityFamilies[activity_name[1]]
+        family = Nomen::ActivityFamilies[activity_name[1].strip]
       else
+        #FIXME #369 all activities have the same family when imported
         family = Nomen::ActivityFamilies.list.detect do |item|
           valid = true
           if cultivation_variant
@@ -57,14 +58,14 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
         w.error "Cannot determine activity"
         raise Exchanges::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
       end
-      activity = Activity.create!(name: activity_name[0], family: family.name, nature: family.nature)
+      activity = Activity.create!(name: activity_name[0].strip, family: family.name, nature: family.nature)
     end
 
     w.debug "Production: #{sheet_name}"
     attributes = {
       campaign: campaign,
       activity: activity,
-      name: sheet_name,
+      name: production_name,
       cultivation_variant: cultivation_variant,
       support_variant: support_variant,
       started_at: Date.new(campaign.harvest_year - 1, 10, 1),
@@ -83,11 +84,11 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     if production.support_variant.blank? and support_variant
       production.support_variant = support_variant
     end
-    if production_indicator[0] and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].to_sym)
-      production.support_variant_indicator = production_indicator[0].to_sym
+    if production_indicator[0] and (production.support_variant_indicator.blank? || production.support_variant_indicator != production_indicator[0].strip.to_sym)
+      production.support_variant_indicator = production_indicator[0].strip.to_sym
     end
-    if production_indicator[1] and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].to_sym)
-      production.support_variant_unit = production_indicator[1].to_sym
+    if production_indicator[1] and (production.support_variant_unit.blank? || production.support_variant_unit != production_indicator[1].strip.to_sym)
+      production.support_variant_unit = production_indicator[1].strip.to_sym
     end
     production.save!
 
