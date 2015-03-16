@@ -1373,7 +1373,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-            
+
         <item name="equipment_repair_services"
             category="equipment_repair_services"
             variety="service"
@@ -1382,9 +1382,9 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-      
-      
-      
+
+
+
       <!-- COMMON SERVICES -->
       <!-- COMMON SERVICES -->
       <!-- COMMON SERVICES -->

@@ -59,7 +59,7 @@ class ProductionBudget < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :variant, :production
 
-  delegate :supports, :supports_count, :support_variant_indicator, :support_variant_unit, to: :production
+  delegate :supports, :supports_quantity, :supports_count, :support_variant_indicator, :support_variant_unit, to: :production
   delegate :name, to: :variant, prefix: true
 
   scope :revenues, -> { where(direction: :revenue) }
@@ -88,7 +88,7 @@ class ProductionBudget < Ekylibre::Record::Base
     if self.per_production_support?
       return self.supports_count
     elsif self.per_working_unit?
-      return self.total_quantity
+      return self.supports_quantity
     end
     return 1
   end

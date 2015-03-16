@@ -564,7 +564,7 @@
             storable="false"
             pictogram="wrench"
             />
-		  
+
           <!-- subsidies -->
          <item name="exploitation_subsidies"
             product_account="exploitation_subsidies"

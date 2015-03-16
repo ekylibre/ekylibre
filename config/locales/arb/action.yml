@@ -1148,6 +1148,7 @@ arb:
     # destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
     details: "معلومات اضافية"
     # direct_expenses: "Direct charges"
+    # direct_margin: "Direct margin"
     discount: "الخصم (%)"
     display: "عرض"
     display_help: "عرض المساعدة" #?

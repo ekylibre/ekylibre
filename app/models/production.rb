@@ -222,7 +222,7 @@ class Production < Ekylibre::Record::Base
   end
 
   # Sums all quantity of supports
-  def total_quantity
+  def supports_quantity
     return 0.0 unless self.support_variant_indicator
     return self.supports.sum(:quantity)
   end

@@ -206,11 +206,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
     variety = Nomen::Varieties.find(self.variety)
     # Specials indicators
     if variety <= :product_group
-      list << "members_count"      unless list.include?("members_count")
+      list << "members_count"      unless list.include?("members_count/unity")
       if variety <= :animal_group
-        list << "members_livestock_unit" unless list.include?("members_livestock_unit")
+        list << "members_livestock_unit" unless list.include?("members_livestock_unit/unity")
       end
-      list << "members_population" unless list.include?("members_population")
+      list << "members_population" unless list.include?("members_population/unity")
     end
     return list
   end

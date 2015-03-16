@@ -311,6 +311,8 @@ jpn:
         # fr_pcg82: "French PCG82"
         # fr_pcga: "French PCGA"
     activity_families:
+      choices:
+        nature: #?
       items:
         # accountancy: "Accountancy"
         # administrative: "Administrative"

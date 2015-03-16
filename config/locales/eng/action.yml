@@ -953,6 +953,7 @@ eng:
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     evaluated_doer_cost: "Evaluated labor cost"
     evaluated_input_cost: "Evaluated input cost"
+    # evaluated_other_cost: "Evaluated other cost"
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     example: "Example: %{value}" #?

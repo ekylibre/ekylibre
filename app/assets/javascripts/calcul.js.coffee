@@ -56,8 +56,8 @@
     return
 
   # Test change on value and trigger change event if value is really different
-  C.changeNumericalValue = (element, result) ->
-    if element.numericalValue() isnt result
+  C.changeNumericalValue = (element, result, force = false) ->
+    if element.numericalValue() isnt result or force
       element.numericalValue result
       element.trigger "change"
     return element
@@ -116,7 +116,7 @@
     neverUsed
 
   # Calculate result base on markup
-  C.calculate = ->
+  C.calculate = (force = false)->
     element = $(this)
     result = null
     use = element.data("use")
@@ -144,7 +144,7 @@
     else
       return element.numericalValue()
 
-    C.changeNumericalValue(element, result)
+    C.changeNumericalValue(element, result, force)
 
     return result
 

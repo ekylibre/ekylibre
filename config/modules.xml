@@ -594,20 +594,6 @@
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#unroll"/>
       </item>
-      <item name="activities">
-        <page to="backend/activities#index"/>
-        <page to="backend/activities#create"/>
-        <page to="backend/activities#destroy"/>
-        <page to="backend/activities#edit"/>
-        <page to="backend/activities#family"/>
-        <page to="backend/activities#list"/>
-        <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_productions"/>
-        <page to="backend/activities#new"/>
-        <page to="backend/activities#show"/>
-        <page to="backend/activities#update"/>
-        <page to="backend/activities#unroll"/>
-      </item>
     </group>
     <group name="animal_productions" icon="cow">
       <item name="animal_groups">
@@ -1276,6 +1262,20 @@
       </item>
     </group>
     <group name="production" icon="cogs">
+      <item name="activities">
+        <page to="backend/activities#index"/>
+        <page to="backend/activities#create"/>
+        <page to="backend/activities#destroy"/>
+        <page to="backend/activities#edit"/>
+        <page to="backend/activities#family"/>
+        <page to="backend/activities#list"/>
+        <page to="backend/activities#list_distributions"/>
+        <page to="backend/activities#list_productions"/>
+        <page to="backend/activities#new"/>
+        <page to="backend/activities#show"/>
+        <page to="backend/activities#update"/>
+        <page to="backend/activities#unroll"/>
+      </item>
       <item name="backend/campaigns">
         <page to="backend/campaigns#index"/>
         <page to="backend/campaigns#create"/>

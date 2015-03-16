@@ -312,6 +312,8 @@ fra:
         fr_pcg82: "Numéro dans le PCG1982"
         fr_pcga: "Numéro dans le PCGA"
     activity_families:
+      choices:
+        nature: #?
       items:
         accountancy: "Comptabilité"
         administrative: "Administratif"

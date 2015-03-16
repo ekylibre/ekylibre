@@ -281,10 +281,14 @@ class ProductionSupport < Ekylibre::Record::Base
     nil
   end
 
+  def unified_quantity_unit
+    self.quantity_unit.blank? ? :unity : self.quantity_unit
+  end
+
   # Compute quantity of a support as defined in production
   def current_quantity(options = {})
     value = get(self.quantity_indicator, options)
-    value = value.convert(self.quantity_unit) if self.quantity_unit
+    value = value.in(self.quantity_unit) unless self.quantity_unit.blank?
     return value.to_d
   end
 

@@ -14,8 +14,8 @@
       title_legend_complement = " (#{currency}/#{support_variant_unit.human_name})"
     end
 
-    total_quantity = @production.total_quantity.round(4)
-    total_quantity = 1.0 if total_quantity.zero?
+    supports_quantity = @production.supports_quantity.round(4)
+    supports_quantity = 1.0 if supports_quantity.zero?
 
     data_series = []
     data_worker = []
@@ -25,7 +25,7 @@
     series = []
     @production.revenues.each do |revenue|
       value = revenue.amount
-      data_series << { name: revenue.variant.name, y: (value/total_quantity).to_s.to_f, color: "#000077"}
+      data_series << { name: revenue.variant.name, y: (value/supports_quantity).to_s.to_f, color: "#000077"}
       revenues += value
       balance += value
     end
@@ -47,8 +47,8 @@
     end
 
     #
-    direct_expenses_by_support_variant_unit = (expenses.to_f/ total_quantity.to_f).round(2).to_s.to_f rescue 0.0
-    indirect_expenses_by_support_variant_unit = (-1 * (@production.indirect_budget_amount.to_f / total_quantity.to_f)).round(2).to_s.to_f rescue 0.0
+    direct_expenses_by_support_variant_unit = (expenses.to_f/ supports_quantity.to_f).round(2).to_s.to_f rescue 0.0
+    indirect_expenses_by_support_variant_unit = (-1 * (@production.indirect_budget_amount.to_f / supports_quantity.to_f)).round(2).to_s.to_f rescue 0.0
     global_expenses_by_support_variant_unit = direct_expenses_by_support_variant_unit + indirect_expenses_by_support_variant_unit
     asset_expenses = 0.32 * indirect_expenses_by_support_variant_unit.to_f
     # équation

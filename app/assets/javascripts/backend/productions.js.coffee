@@ -113,13 +113,13 @@
     # Set coeff
     budget.find(".budget-coeff").numericalValue(coeff)
     # Find total
-    total_quantity = budget.find(".budget-amount").numericalValue() / budget.find(".budget-unit-amount").numericalValue()
+    quantityValue = budget.find(".budget-amount").numericalValue() / budget.find(".budget-unit-amount").numericalValue()
     # Adjust quantity to maintain global total
     quantity = budget.find(".budget-quantity")
-    if total_quantity > 0
+    if quantityValue > 0
       round = 3
       round = quantity.data("calculate-round") if quantity.data("calculate-round")?
-      quantity.numericalValue((total_quantity / coeff).toFixed(round))
+      quantity.numericalValue((quantityValue / coeff).toFixed(round))
     # Trigger event on quantity only
     quantity.trigger("change")
     true
@@ -245,5 +245,10 @@
     else
       form.removeClass("with-supports")
     true
+
+  # Force calculation of final values to ensure that all numbers are clear
+  $(document).behave "load", ".budgets *[data-check-positive] .amount", ->
+    $(this).each () ->
+      C.calculate.call $(this), true
 
 ) ekylibre, calcul, jQuery
