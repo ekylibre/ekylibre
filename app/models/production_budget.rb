@@ -88,11 +88,7 @@ class ProductionBudget < Ekylibre::Record::Base
     if self.per_production_support?
       return self.supports_count
     elsif self.per_working_unit?
-      return 0 unless self.support_variant_indicator and self.support_variant_unit
-      #FIXME #370
-      return self.supports.map do |support|
-        support.get(self.support_variant_indicator, options).to_d(self.support_variant_unit)
-      end.sum
+      return self.total_quantity
     end
     return 1
   end
