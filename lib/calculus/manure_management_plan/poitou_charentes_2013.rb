@@ -60,7 +60,7 @@ module Calculus
         if @cultivation.blank? and @variety and (@variety <= :zea or @variety <= :sorghum or @variety <= :helianthus or @variety <= :linum or @variety <= :cannabis or @variety <= :nicotiana)
           quantity = 0.in_kilogram_per_hectare
         elsif @cultivation
-          if count = @cultivation.leaf_count(at: @opened_at) and activity.nature.to_sym == :straw_cereal_crops
+          if count = @cultivation.leaf_count(at: @opened_at) and activity.nature.to_sym == :cereal_crops
             items = Nomen::NmpPoitouCharentesAbacusFour.list.select do |item|
               item.minimum_leaf_count <= count and count <= item.minimum_leaf_count
             end
@@ -113,7 +113,7 @@ module Calculus
                 typology = :husbandry
               end
             # elsif all production on the campagin is link to a crop_set :cereals then :cereal_crop
-            elsif Activity.of_campaign(campaigns).of_families(:straw_cereal_crops).count == Activity.of_campaign(campaigns).of_families(:vegetal_crops).count
+            elsif Activity.of_campaign(campaigns).of_families(:cereal_crops).count == Activity.of_campaign(campaigns).of_families(:vegetal_crops).count
               typology = :cereal_crop
             else
               typology = :mixed_crop
@@ -283,11 +283,20 @@ module Calculus
       # Estimate Nirr
       def estimate_irrigation_water_nitrogen
         quantity = 0.in_kilogram_per_hectare
-        if input_water = @support.get(:irrigation_water_input_area_density)
-          if input_water.to_d(:liter_per_square_meter) >= 100.00
+        if @support.production.irrigated?
+          water_budget_items = ProductionBudget.where(production: @support.production, variant_id: ProductNatureVariant.of_variety(:water).map(&:id))
+          s = Measure.new(1.00, @support.quantity_unit)
+          v = 0
+          for item in water_budget_items
+            m = Measure.new(item.quantity, item.variant_unit)
+            if item.computation_method == :per_working_unit
+             input_water = (m.to_d(:liter) / s.to_d(:square_meter))
+            end
+            v += input_water.to_d.round(2)
+          end 
+          if v >= 100.00
             # TODO find an analysis for nitrogen concentration of input water for irrigation 'c'
             c = 40
-            v = input_water.to_d(:liter_per_square_meter)
             quantity = ((v / 100) * (c / 4.43)).in_kilogram_per_hectare
           end
         end
@@ -499,7 +508,18 @@ module Calculus
           values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
         end
         # @zone.mark(:nitrogen_area_density, nitrogen_input.round(3), subject: :support)
-
+        
+        # if values[:nitrogen_input] < 0 then 0
+        if values[:nitrogen_input].to_d < 0.0
+          values[:nitrogen_input] = 0.in_kilogram_per_hectare
+        end
+        
+        # if values[:nitrogen_input] > MAX then MAX
+        if values[:nitrogen_input].to_d > values[:maximum_nitrogen_input].to_d
+          values[:nitrogen_input] = values[:maximum_nitrogen_input]
+        end
+        
+        
         return values
       end
 
