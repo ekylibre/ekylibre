@@ -293,7 +293,7 @@ module Calculus
              input_water = (m.to_d(:liter) / s.to_d(:square_meter))
             end
             v += input_water.to_d.round(2)
-          end 
+          end
           if v >= 100.00
             # TODO find an analysis for nitrogen concentration of input water for irrigation 'c'
             c = 40
@@ -508,18 +508,18 @@ module Calculus
           values[:nitrogen_input] = values[:maximum_nitrogen_input] - values[:irrigation_water_nitrogen] - values[:organic_fertilizer_mineral_fraction]
         end
         # @zone.mark(:nitrogen_area_density, nitrogen_input.round(3), subject: :support)
-        
+
         # if values[:nitrogen_input] < 0 then 0
         if values[:nitrogen_input].to_d < 0.0
           values[:nitrogen_input] = 0.in_kilogram_per_hectare
         end
-        
+
         # if values[:nitrogen_input] > MAX then MAX
         if values[:nitrogen_input].to_d > values[:maximum_nitrogen_input].to_d
           values[:nitrogen_input] = values[:maximum_nitrogen_input]
         end
-        
-        
+
+
         return values
       end
 

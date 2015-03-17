@@ -64,7 +64,7 @@ class ProductionBudget < Ekylibre::Record::Base
 
   scope :revenues, -> { where(direction: :revenue) }
   scope :expenses, -> { where(direction: :expense) }
-  
+
   before_validation do
     self.unit_currency = Preference[:currency] if self.unit_currency.blank?
     self.currency = self.unit_currency if self.currency.blank?

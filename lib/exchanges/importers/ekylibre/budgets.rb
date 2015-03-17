@@ -38,21 +38,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
       if activity_name[1]
         family = Nomen::ActivityFamilies[activity_name[1].strip]
       else
-        #FIXME #369 all activities have the same family when imported
-        family = Nomen::ActivityFamilies.list.detect do |item|
-          valid = true
-          if cultivation_variant
-            valid = false unless item.cultivation_variety and Nomen::Varieties[item.cultivation_variety] <= item.cultivation_variety
-          else
-            valid = false unless item.cultivation_variety.nil?
-          end
-          if support_variant
-            valid = false unless item.support_variety and Nomen::Varieties[item.support_variety] <= item.support_variety
-          else
-            valid = false unless item.support_variety.nil?
-          end
-          valid
-        end
+        family = Activity.find_best_family((cultivation_variant ? cultivation_variant.variety : nil), (support_variant ? support_variant.variety : nil))
       end
       unless family
         w.error "Cannot determine activity"

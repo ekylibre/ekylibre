@@ -139,6 +139,39 @@ class Activity < Ekylibre::Record::Base
     self.productions.any?
   end
 
+  class << self
+
+    def find_best_family(cultivation_variety, support_variety)
+      rankings = Nomen::ActivityFamilies.list.inject({}) do |hash, item|
+        valid = true
+        valid = false unless !cultivation_variety == !item.cultivation_variety
+        distance = 0
+        if valid and cultivation_variety
+          if Nomen::Varieties[cultivation_variety] <= item.cultivation_variety
+            distance += Nomen::Varieties[cultivation_variety].depth - Nomen::Varieties[item.cultivation_variety].depth
+          else
+            valid = false
+          end
+        end
+        if valid and support_variety
+          if Nomen::Varieties[support_variety] <= item.support_variety
+            distance += Nomen::Varieties[support_variety].depth - Nomen::Varieties[item.support_variety].depth
+          else
+            valid = false
+          end
+        end
+        hash[item.name] = distance if valid
+        hash
+      end.sort{ |a,b| a.second <=> b.second }
+      if best_choice = rankings.first
+        return Nomen::ActivityFamilies.find(best_choice.first)
+      end
+      return nil
+    end
+
+  end
+
+
   def shape_area(*campaigns)
     return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
