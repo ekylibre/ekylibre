@@ -281,8 +281,22 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
 
   def shape(attribute_name = :shape, options = {})
-    # raise @object.send(attribute_name)
-    editor = {}
+    geometry(attribute_name, options)
+  end
+
+  def polygon(attribute_name, options = {})
+    geometry(attribute_name, options)
+  end
+
+  def linestring(attribute_name, options = {})
+    geometry(attribute_name, options.merge(draw: {polygon: false, polyline: true}))
+  end
+
+  def geometry(attribute_name, options = {})
+    editor = options[:editor] || {}
+    editor[:controls] ||= {}
+    editor[:controls][:draw] ||= {}
+    editor[:controls][:draw][:draw] = options[:draw] || {}
     if geom = @object.send(attribute_name)
       editor[:edit] = Charta::Geometry.new(geom).to_geojson
     else
@@ -324,7 +338,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
 
   def geolocation(attribute_name = :geolocation, options = {})
-    # raise @object.send(attribute_name)
+    point(attribute_name, options = {})
+  end
+
+
+  def point(attribute_name, options = {})
     marker = {}
     if geom = @object.send(attribute_name)
       marker[:marker] = Charta::Geometry.new(geom).to_geojson["coordinates"].reverse
@@ -339,6 +357,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
     return self.input(attribute_name, options.merge(input_html: {data: {map_marker: marker}}))
   end
+
 
 
 

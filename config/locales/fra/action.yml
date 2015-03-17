@@ -718,6 +718,7 @@ fra:
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
     add_item: "Ajouter un élément"
+    add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
     add_marker: "Ajouter un objectif" #?
     add_mobile: "Ajouter un n° de portable"
@@ -726,6 +727,8 @@ fra:
     add_passage: "Ajouter un produit" #?
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
+    add_point: "Ajouter un point"
+    add_polygon: "Ajouter un polygone"
     add_posology: "Ajouter une posologie" #?
     add_product: "Ajouter un produit" #?
     add_production: "Ajouter une production"

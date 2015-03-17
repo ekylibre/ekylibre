@@ -1,18 +1,19 @@
 - main_toolbar do |t|
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  - if resource.destroyable?
+    - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
 
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
       = mini_map(resource)
-      .info
+      .med-info
         %span.title= CultivableZone.human_attribute_name(:work_number)
         %span.value= resource.work_number
-      .info
+      .med-info
         %span.title= CultivableZone.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in_hectare.round(2).l
-      .info
+      .med-info
         %span.title= LandParcelGroup.human_attribute_name(:identification_number)
         %span.value= resource.clusters_work_number
 

@@ -4,29 +4,30 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :general_informations do
-      .big-info
-        %span.title= Georeading.human_attribute_name(:name)
-        %span.value= resource.name
-        %span.title= Georeading.human_attribute_name(:number)
-        %span.value= resource.number
-    - if resource.polygon?
-      - b.cell do
+      .big-infos
         .big-info
-          %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-          %span.value= resource.label_area
-  - b.cell :resource_map, title: :map do
-    = visualization do |v|
-      - v.background "OpenStreetMap.HOT"
-      - v.background "OpenStreetMap.Mapnik"
-      - v.background "Thunderforest.Landscape"
-      - v.background "Esri.WorldImagery"
-      - if resource.point?
+          %span.title= Georeading.human_attribute_name(:number)
+          %span.value= resource.number
+        .med-info
+          %span.title= Georeading.human_attribute_name(:name)
+          %span.value= resource.name
+        - if resource.polygon?
+          .med-info
+            %span.title= Georeading.human_attribute_name(:net_surface_area)
+            %span.value= Charta::Geometry.new(resource.content).area.round(3).l
+    - b.cell :resource_map, title: :map do
+      = visualization do |v|
+        - v.background "OpenStreetMap.HOT"
+        - v.background "OpenStreetMap.Mapnik"
+        - v.background "Thunderforest.Landscape"
+        - v.background "Esri.WorldImagery"
         - v.serie resource.id, [{name: resource.number, shape: resource.content}]
-        - v.path resource.number, resource.id, fill_color: cycle(theme_colors)
-      - elsif resource.polygon?
-        - v.serie resource.id, [{name: resource.number, shape: resource.content}]
-        - v.simple resource.number, resource.id, fill_color: cycle(theme_colors)
-      - v.control :zoom
-      - v.control :scale
-      - v.control :fullscreen
-      - v.control :layer_selector
+        - options = {fill_opacity: 0}
+        - if resource.polygon?
+          - options[:fill_opacity] = 0.9
+          - options[:fill_color] = cycle(theme_colors)
+        - v.simple resource.number, resource.id, options
+        - v.control :zoom
+        - v.control :scale
+        - v.control :fullscreen
+        - v.control :layer_selector

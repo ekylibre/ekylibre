@@ -39,6 +39,8 @@ class Georeading < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :content, :name, :nature
   #]VALIDATORS]
+  validates_presence_of :number
+  validates_uniqueness_of :number
 
   def to_geom
     if self.content
@@ -54,5 +56,13 @@ class Georeading < Ekylibre::Record::Base
     end
   end
 
+  def content=(value)
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self["content"] = value
+  end
 
 end

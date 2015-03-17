@@ -1,5 +1,7 @@
 = field_set do
   = f.input :name
+  = f.input :number
   = f.input :description
-  = f.input :content
+  = f.input :nature, as: :hidden
   = f.custom_fields
+  = f.send(f.object.nature, :content)
