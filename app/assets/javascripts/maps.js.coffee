@@ -36,12 +36,12 @@
             layer.addTo map
           return
 
-        # Zoom
-        map.addControl L.control.zoom(
-          position: "topleft"
-          zoomInText: ""
-          zoomOutText: ""
-        )
+        # # Zoom
+        # map.addControl L.control.zoom(
+        #   position: "topleft"
+        #   zoomInText: ""
+        #   zoomOutText: ""
+        # )
         # Scale
         map.addControl new L.Control.Scale(
           imperial: false
