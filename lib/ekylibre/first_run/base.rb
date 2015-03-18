@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 module Ekylibre
   module FirstRun
 
     class Base
+
+      attr_reader :max
 
       def initialize(options = {})
 	      require 'ffaker' unless defined? Faker
@@ -39,42 +41,64 @@ module Ekylibre
         return @folder_path.join(*args)
       end
 
-      def count(name, options = {}, &block)
-        STDOUT.sync = true
-        f = Counter.new(@max) do |count, increment|
-          print "."
-        end
-        start = Time.now
-        label_size = options[:label_size] || 21
-        label = name.to_s.humanize.rjust(label_size)
-        label = self.class.ellipse(label, label_size)
-        # ellipsis = "…"
-        # if label.size > label_size
-        #   first = ((label_size - ellipsis.size).to_f / 2).round
-        #   label = label[0..(first-1)] + ellipsis + label[-(label_size - first - ellipsis.size)..-1]
-        # end
-        print "[#{@name.green}] #{label.blue}: "
-        begin
-          yield(f)
-          print " " * (@max - f.count) if 0 < @max and @max > f.count
-          print "  "
-        rescue Counter::CountExceeded => e
-          print "! "
-        end
-        puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
-      end
-
       def hard?
         @mode == :hard
       end
 
+      def import_pictures(base, type, identifier, options = {})
+        if path("#{base}/pictures").exist?
+          file = path("#{base}/pictures.zip")
+          FileUtils.rm_rf file
+          
+          mimefile = path.join("#{base}/pictures.mimetype")
+          File.write(mimefile, "application/vnd.ekylibre.pictures.#{type}")
 
+          idenfile = path.join("#{base}/pictures.identifier")
+          File.write(idenfile, identifier.to_s)
+          
+          files = {
+            "mimetype" => "pictures.mimetype",
+            "identifier" => "pictures.identifier"
+          }
+          Dir.chdir(path("#{base}")) do
+            Dir.glob("pictures/*").each do |picture|
+              p = Pathname.new(picture).basename.to_s
+              files[picture] = "pictures/#{p}"
+            end
+          end
+          check_archive(file, files.merge(in: "#{base}"))
+
+          FileUtils.rm_f mimefile
+          FileUtils.rm_f idenfile
+        end
+        import_file(:ekylibre_pictures, "#{base}/pictures.zip")
+      end
+      
+      def import_file(nature, file, options = {})
+        p = self.path(file)
+        if p.exist?
+          self.import(nature, p, options)
+        elsif @verbose
+          text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
+          text << " " * (@term_width - text.join.length)
+          text[1] = text[1].yellow
+          text[3] = text[3].red
+          puts text.join
+        end
+      end
+      
+      def import_archive(nature, target, *files)
+        file = check_archive(target, *files)
+        import_file(nature, file)
+      end
+      
       # Check that archive exist if not try to build one if existing file
       # Given files must exist
       def check_archive(target, *files)
         files.flatten!
         options = files.extract_options!
         working_path = @folder_path.join(options[:in] ? options.delete(:in) : ".")
+        prevent = options.delete(:prevent).is_a?(FalseClass)
         target_path = working_path.join(target)
         map = options
         files.each { |file| map[file] = file }
@@ -84,16 +108,6 @@ module Ekylibre
         if target_path.exist?
           FileUtils.rm_rf(target_path)
         end
-        # expected = map.keys.map(&:to_s)
-        # Zip::File.open(target_path) do |zile|
-        #   zile.each do |entry|
-        #     expected.delete(entry.name)
-        #   end
-        # end
-        # if expected.any?
-        #   raise "Missing files in archive #{target}: #{expected.to_sentence}"
-        # end
-        # else
         expected = map.values.select{|source| !source.exist?}
         if expected.any?
           if expected.size != map.values.size
@@ -110,29 +124,16 @@ module Ekylibre
           rescue Exception => e
             puts "Cannot create #{target_path}".red
             puts "Caused by: #{e.to_s.force_encoding('utf-8')}".blue
-            System.exit 1
+            ::Kernel.exit 1
           end
         end
         # end
         return target_path
       end
 
-      def try_import(nature, file, options = {})
-        p = self.path(file)
-        if p.exist?
-          self.import(nature, p, options)
-        elsif @verbose
-          text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
-          text << " " * (@term_width - text.join.length)
-          text[1] = text[1].yellow
-          text[3] = text[3].red
-          puts text.join
-        end
-      end
-
 
       # Import a given file
-      def import(nature, file, options = {})
+      def import!(nature, file, options = {})
         # puts "> import(:#{nature.to_s}, '#{file.to_s}', #{options.inspect})"
         last = ""
         start = Time.now
@@ -183,6 +184,10 @@ module Ekylibre
           status[0 + n] = status[0 + n].blue
           puts "\r" * last.size + status.join
         end
+      end
+
+      def import(nature, file, options = {})
+        import!(nature, file, options)
       end
 
       # Launch the execution of the loaders

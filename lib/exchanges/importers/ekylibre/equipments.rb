@@ -65,8 +65,11 @@ Exchanges.add_importer :ekylibre_equipments do |file, w|
 
         # attach georeading if exist for equipment
         if equipment
-          if georeading = Georeading.find_by(number: r.work_number)
+          if georeading = Georeading.find_by(number: r.work_number, nature: :polygon)
             equipment.read!(:shape, georeading.content, at: r.born_at, force: true)
+          end
+          if georeading = Georeading.find_by(number: r.work_number, nature: :point)
+            equipment.read!(:geolocation, georeading.content, at: r.born_at, force: true)
           end
         end
 

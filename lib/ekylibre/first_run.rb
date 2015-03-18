@@ -6,6 +6,7 @@ module Ekylibre
     autoload :Counter, 'ekylibre/first_run/counter'
     autoload :Booker,  'ekylibre/first_run/booker'
     autoload :Base,    'ekylibre/first_run/base'
+    autoload :Faker,   'ekylibre/first_run/faker'
 
     @@loaders = {}
 

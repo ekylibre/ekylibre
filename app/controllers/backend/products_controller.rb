@@ -135,7 +135,6 @@ class Backend::ProductsController < Backend::BaseController
     end
 
     value = @product.get(indicator)
-    puts value.inspect.red
     if indicator.datatype == :measure
       if unit = Nomen::Units[params[:unit]]
         value = value.convert(unit)

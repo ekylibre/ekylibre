@@ -59,6 +59,13 @@ Exchanges.add_importer :ekylibre_workers do |file, w|
       # create the worker
       worker = pmodel.create!(variant: variant, name: r.name, initial_born_at: r.born_at, initial_owner: owner, default_storage: container, work_number: r.work_number, person: person)
 
+      # attach georeading if exist for worker
+      if worker
+        if georeading = Georeading.find_by(number: r.work_number, nature: :point)
+          worker.read!(:geolocation, georeading.content, at: r.born_at, force: true)
+        end
+      end
+      
 
       w.check_point
     end

@@ -1,56 +1,35 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
 
-  shapes = {}.with_indifferent_access
+  first_run.import_archive(:telepac_cap_land_parcels, "ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", in: "telepac")
 
-  file = first_run.check_archive("ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", in: "telepac")
-  if file.exist?
-    first_run.import(:telepac_cap_land_parcels, file)
+  first_run.import_archive(:telepac_land_parcels, "parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", in: "telepac")
+
+  # TODO removes zones which means nothing...
+  {equipments: :polygon, cultivable_zones: :polygon, geolocations: :point, building_divisions: :polygon, buildings: :polygon, roads: :linestring, hedges: :linestring, water: :polygon, zones: :polygon}.each do |name, nature|
+    dir = first_run.path.join("alamano", "georeadings")
+    next unless dir.join("#{name}.shp").exist?
+
+    puts "WARNING: You should rename zones.shp to building_divisions.shp".red if name == :zones
+      
+    mimefile = dir.join("#{name}.mimetype")
+    File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
+      
+    first_run.import_archive(:ekylibre_georeadings, "#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/georeadings", prevent: false)
+      
+    FileUtils.rm_rf(mimefile)    
   end
 
-  file = first_run.check_archive("parcelle.zip", "parcelle.shp", "parcelle.dbf", "parcelle.shx", in: "telepac")
-  if file.exist?
-    first_run.import(:telepac_land_parcels, file)
-  end
+  first_run.import_file(:ekylibre_land_parcels, "alamano/land_parcels.csv")
 
-  # TODO: Removes zones level, zones and initial_geolocations
-  for level in [:georeadings, :zones]
-    for name, nature in {equipments: :polygon, cultivable_zones: :polygon, geolocations: :point, initial_geolocations: :point, building_divisions: :polygon, buildings: :polygon, zones: :polygon, roads: :linestring, hedges: :linestring, water: :polygon}
-      dir = first_run.path.join("alamano/#{level}")
-      if dir.join("#{name}.shp").exist?
+  first_run.import_file(:ekylibre_cultivable_zones, "alamano/cultivable_zones.csv")
 
-        mimefile = dir.join("#{name}.mimetype")
-        File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
-
-        file = first_run.check_archive("#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/#{level}") # , "georeading.prj" => "#{name}.prj"
-
-        FileUtils.rm_rf(mimefile)
-
-        if file.exist?
-          first_run.import(:ekylibre_georeadings, file)
-        end
-      end
-    end
-  end
-
-  first_run.try_import(:ekylibre_land_parcels, "alamano/land_parcels.csv")
-
-  first_run.try_import(:ekylibre_cultivable_zones, "alamano/cultivable_zones.csv")
-
-  # TODO: Remove this file. Use plants instead.
-  first_run.try_import(:ekylibre_plants, "alamano/cultivations.csv")
-  first_run.try_import(:ekylibre_plants, "alamano/plants.csv")
+  first_run.import_file(:ekylibre_plants, "alamano/plants.csv")
 
   # VINITECA vines
-  file = first_run.check_archive("vines.zip", "plant.shp", "plant.dbf", "plant.shx", "plant.prj", "varieties_transcode.csv", "certifications_transcode.csv", "cultivable_zones_transcode.csv",  in: "viniteca")
-  if file.exist?
-    first_run.import(:viniteca_plant_zones, file)
-  end
+  first_run.import_archive(:viniteca_plant_zones, "vines.zip", "plant.shp", "plant.dbf", "plant.shx", "plant.prj", "varieties_transcode.csv", "certifications_transcode.csv", "cultivable_zones_transcode.csv",  in: "viniteca")
 
   # UNICOQUE orchards
-  file = first_run.check_archive("plantation.zip", "plantation.shp", "plantation.dbf", "plantation.shx", "plantation.prj", "varieties_transcode.csv", in: "unicoque/plantation")
-  if file.exist?
-    first_run.import(:unicoque_plant_zones, file)
-  end
+  first_run.import_archive(:unicoque_plant_zones, "plantation.zip", "plantation.shp", "plantation.dbf", "plantation.shx", "plantation.prj", "varieties_transcode.csv", in: "unicoque/plantation")
 
 end

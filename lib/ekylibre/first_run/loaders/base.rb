@@ -1,10 +1,10 @@
 Ekylibre::FirstRun.add_loader :base do |first_run|
 
-  first_run.try_import(:ekylibre_settings, "manifest.yml", max: 0)
+  first_run.import_file(:ekylibre_settings, "manifest.yml", max: 0)
 
-  first_run.try_import(:ekylibre_visuals, "alamano/background.jpg")
+  first_run.import_file(:ekylibre_visuals, "alamano/background.jpg")
 
-  first_run.try_import(:ekylibre_backup, "ekylibre/backup.zip")
+  first_run.import_file(:ekylibre_backup, "ekylibre/backup.zip")
 
   # set extensions
   extensions = ['jpeg','jpg','png']
