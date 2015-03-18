@@ -154,5 +154,19 @@
     $(this).each ->
       $.interventions.refreshHard $(this).data('procedure-computing')
 
+  $(document).behave "load selector:set", "*[data-intervention-updater='global:production']", (event) ->
+    production = $(this)
+    id = production.selector('value')
+    form = production.closest('form')
+    url = "/backend/production_supports/unroll?scope[of_currents_campaigns]=true"
+    support = form.find("*[data-intervention-updater='global:support']").first()
+    if /^\d+$/.test(id)
+      url += "&scope[of_productions]=#{id}"
+      form.addClass("with-supports")
+    else
+      form.removeClass("with-supports")
+    support.attr("data-selector", url)
+    support.data("selector", url)
+
   true
 ) jQuery

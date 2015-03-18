@@ -21,7 +21,7 @@
 class Backend::ProductionsController < Backend::BaseController
   manage_restfully(t3e: {name: :name}, except: :index)
 
-  unroll
+  unroll :name, {activity: :name, campaign: :name, cultivation_variant: :name}, order: :name
 
   # params:
   #   :q Text search

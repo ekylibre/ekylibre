@@ -7,8 +7,8 @@ module Unrollable
     # including the default scope
     def unroll(*columns)
       available_options = [:model, :max, :order, :partial, :fill_in, :scope]
-      if columns[-1].is_a?(Hash) and (columns[-1].keys - available_options).empty?
-        options = columns[-1].slice!(available_options)
+      if columns.last.is_a?(Hash) and (columns.last.keys - available_options).empty?
+        options = columns.last.slice!(available_options)
       else
         options = {}
       end
@@ -27,7 +27,7 @@ module Unrollable
       end
 
       if columns.blank?
-        raise "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
+        raise  "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
       end
 
       # Normalize parameters
@@ -100,7 +100,7 @@ module Unrollable
         code << ".includes(#{includes.inspect})"
         code << ".references(#{includes.inspect})"
       end
-      code <<  ".order(#{order.inspect})\n"
+      code <<  ".reorder(#{order.inspect})\n"
       code << "  if scopes = params[:scope]\n"
       code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String) or scopes.is_a?(Symbol)\n"
       code << "    for scope, parameters in scopes.symbolize_keys\n"

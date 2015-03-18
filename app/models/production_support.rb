@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -88,10 +89,11 @@ class ProductionSupport < Ekylibre::Record::Base
 
   scope :of_productions, lambda { |*productions|
     productions.flatten!
-    for production in productions
-      raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+    ids = productions.map do |production|
+      # raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+      (production.is_a?(Production) ? production.id : production.to_i)
     end
-    where(production_id: productions.map(&:id))
+    where(production_id: ids)
   }
 
   before_validation do
