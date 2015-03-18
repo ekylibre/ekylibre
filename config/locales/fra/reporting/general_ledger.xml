@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="general_ledger" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.0000000000000009"/>
+	<property name="ireport.zoom" value="1.4641000000000015"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
+	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
@@ -33,7 +33,7 @@
 		<fieldDescription><![CDATA[number]]></fieldDescription>
 	</field>
 	<field name="journal_name" class="java.lang.String">
-		<fieldDescription><![CDATA[name]]></fieldDescription>
+		<fieldDescription><![CDATA[journal]]></fieldDescription>
 	</field>
 	<field name="debit" class="java.lang.Double">
 		<fieldDescription><![CDATA[debit]]></fieldDescription>
@@ -68,6 +68,12 @@
 	<field name="cumulated-absolute-credit" class="java.lang.String">
 		<fieldDescription><![CDATA[cumulated-absolute-credit]]></fieldDescription>
 	</field>
+	<field name="started_on_period" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::financial-years/@started-on-period]]></fieldDescription>
+	</field>
+	<field name="stopped_on_period" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::financial-years/@stopped-on-period]]></fieldDescription>
+	</field>
 	<sortField name="account_number"/>
 	<sortField name="entry_printed-on"/>
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="account" calculation="Count">
@@ -95,7 +101,7 @@
 		<groupFooter>
 			<band height="42">
 				<staticText>
-					<reportElement style="label-strong" x="10" y="10" width="121" height="20" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
+					<reportElement style="label-strong" x="298" y="10" width="47" height="20" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans"/>
 					</textElement>
@@ -103,12 +109,16 @@
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="account" pattern="###0.00" isBlankWhenNull="true">
 					<reportElement x="395" y="10" width="56" height="20" uuid="b6d0c75f-3f1b-4e56-b1cc-00ccbf357120"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{credit_1}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="account" pattern="###0.00" isBlankWhenNull="true">
 					<reportElement x="345" y="10" width="50" height="20" uuid="437422a6-84dc-4c9b-88fd-6ade5c9cabfc"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<paragraph rightIndent="5"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$V{debit_1}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -133,6 +143,19 @@
 				</textElement>
 				<text><![CDATA[Grand Livre]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="394" y="0" width="87" height="29" uuid="1f767bc7-77fd-43fa-856a-11aa51382e90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Période]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="label" x="481" y="0" width="73" height="15" uuid="4d907b10-d5e8-4bd3-9d40-5d9b30b59dc4"/>
+				<textFieldExpression><![CDATA[$F{started_on_period}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="label" x="481" y="14" width="74" height="15" uuid="da2b48f3-7ab6-4a98-a57c-7f3fe47f151f"/>
+				<textFieldExpression><![CDATA[$F{stopped_on_period}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -141,121 +164,143 @@
 	<columnHeader>
 		<band height="40" splitType="Stretch">
 			<staticText>
-				<reportElement style="table-th" x="198" y="0" width="67" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
+				<reportElement style="table-th" x="131" y="0" width="113" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+					<font fontName="Open Sans" size="8"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[journal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table-th" x="1" y="0" width="130" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
+				<reportElement style="table-th" x="0" y="0" width="67" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<text><![CDATA[écriture]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="table-th" x="131" y="0" width="67" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+					<font fontName="Open Sans" size="8"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table-th" x="264" y="0" width="81" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+				<reportElement style="table-th" x="67" y="0" width="64" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[pièce]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" x="345" y="0" width="46" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[débit]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" x="391" y="0" width="56" height="40" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[crédit]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" x="447" y="0" width="47" height="40" uuid="bdad3ca1-179e-4136-9b1e-bf4d6851a998"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[débit cumulé]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" x="494" y="0" width="60" height="40" uuid="ddaed708-520c-4a0b-b8be-9bfcde3bf0e4"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<text><![CDATA[crédit cumulé]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table-th" x="244" y="0" width="101" height="40" uuid="7dc4f371-8856-4e25-a8f5-bcb5c1ec2d49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="8"/>
+				</textElement>
+				<text><![CDATA[libéllé]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" mode="Opaque" x="395" y="0" width="56" height="21" uuid="dba1a483-6562-4082-a5d2-a0dd845fe182"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement style="base" mode="Opaque" x="395" y="0" width="56" height="21" uuid="dba1a483-6562-4082-a5d2-a0dd845fe182">
+					<printWhenExpression><![CDATA[$F{credit}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" mode="Opaque" x="349" y="0" width="46" height="21" uuid="42865504-0435-4a06-9df0-2151563c4fea"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement style="base" mode="Opaque" x="349" y="0" width="46" height="21" uuid="42865504-0435-4a06-9df0-2151563c4fea">
+					<printWhenExpression><![CDATA[$F{debit}.doubleValue() != 0.0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement style="table-td" mode="Opaque" x="198" y="0" width="70" height="21" uuid="b8637e72-0dab-486c-980e-630dbe469547"/>
+				<reportElement style="base" mode="Opaque" x="131" y="0" width="113" height="21" uuid="b8637e72-0dab-486c-980e-630dbe469547"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{journal_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="table-td" mode="Opaque" x="268" y="0" width="81" height="21" uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement style="base" mode="Opaque" x="67" y="0" width="64" height="21" uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entry_number}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="table-td" mode="Opaque" x="1" y="0" width="130" height="21" uuid="e39cad02-7296-4b15-be64-83e1005f9da2"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}.toLowerCase()]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement style="table-td" mode="Opaque" x="131" y="0" width="67" height="21" uuid="14106f98-080d-4ea6-9add-6ce992833746"/>
+				<reportElement style="base" mode="Opaque" x="0" y="0" width="67" height="21" uuid="14106f98-080d-4ea6-9add-6ce992833746"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entry_printed-on}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" mode="Opaque" x="451" y="0" width="43" height="21" uuid="866a80ea-bfc0-4037-88cb-2322a902423a"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement style="base" mode="Opaque" x="451" y="0" width="43" height="21" uuid="866a80ea-bfc0-4037-88cb-2322a902423a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cumulated-absolute-debit}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" mode="Opaque" x="494" y="0" width="61" height="21" uuid="5bc1b13b-ee0b-4a6b-ac77-6686955890c6"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement style="base" mode="Opaque" x="494" y="0" width="61" height="21" uuid="5bc1b13b-ee0b-4a6b-ac77-6686955890c6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="9"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cumulated-absolute-credit}]]></textFieldExpression>
 			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement style="base" mode="Opaque" x="244" y="0" width="101" height="21" uuid="6f15b30c-b415-4ec9-98ad-36b2d393033f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="7"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="acefb1fc-7bbc-4826-b5df-9850682f6099"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
