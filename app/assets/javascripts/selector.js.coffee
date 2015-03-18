@@ -53,10 +53,13 @@
       this._on @dropDownMenu,
         "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
+      @initializing = true
       if @valueField.val()? and @valueField.val().length > 0
         this._set @valueField.val()
       else if @element.val()? and @element.val().length > 0
         this._set @element.val()
+      else
+        @initializing = false
       @element.prop("widgetInitialized", true)
 
     value: (newValue) ->
@@ -66,6 +69,7 @@
 
     _set: (id, triggerEvents = false) ->
       if id is null or id is undefined or id is ""
+        @initializing = false
         return @valueField.val()
       that = this
       url = this.sourceURL()
@@ -102,6 +106,10 @@
       if triggerEvents is true
         @valueField.trigger "selector:change"
         @element.trigger "selector:change"
+      if @initializing
+        @valueField.trigger "selector:initialized"
+        @element.trigger "selector:initialized"
+        @initializing = false
       @valueField.trigger "selector:set"
       @element.trigger "selector:set"
       this

@@ -1,7 +1,7 @@
 # This module permits to execute an procedure to generate operations
 # with the user interaction.
 
-(($) ->
+((E, $) ->
   'use strict'
 
   $.value = (element) ->
@@ -80,13 +80,10 @@
               else
                 element.closest(".handler").hide()
               if element.is(":ui-mapeditor")
-                console.log "Yeah?"
-                console.log value
                 element.mapeditor "show", value
                 element.mapeditor "edit", value
                 try
                   element.mapeditor "view", "edit"
-                console.log "Yeah!!!"
               else if value != parseFloat element.val()
                 unless updater == element.data('intervention-updater')
                   element.val(value)
@@ -142,7 +139,7 @@
     $(this).each ->
       $.interventions.refresh $(this)
 
-  $(document).on 'selector:change', '*[data-variable-actor], *[data-variable-variant], *[data-procedure-global="support"]', ->
+  $(document).on 'selector:change selector:initialized', '*[data-variable-actor], *[data-variable-variant], *[data-procedure-global="support"]', ->
     $(this).each ->
       $.interventions.refresh $(this)
 
@@ -154,6 +151,8 @@
     $(this).each ->
       $.interventions.refreshHard $(this).data('procedure-computing')
 
+  # Filters supports with given production
+  # Hides supports line if needed
   $(document).behave "load selector:set", "*[data-intervention-updater='global:production']", (event) ->
     production = $(this)
     id = production.selector('value')
@@ -169,4 +168,4 @@
     support.data("selector", url)
 
   true
-) jQuery
+) ekylibre, jQuery

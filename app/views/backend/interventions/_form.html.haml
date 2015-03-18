@@ -1,5 +1,7 @@
 - if procedure = f.object.reference
   = hidden_field_tag nil, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
+  - if !f.object.production and params[:production_support_id] and support = ProductionSupport.find_by(id: params[:production_support_id])
+    - f.object.production = support.production
   = field_set do
     = f.input :reference_name, as: :hidden
     = f.referenced_association :production, new: false, source: :of_currents_campaigns, input_html: {data: {procedure: procedure.name, procedure_global: "production", intervention_updater: "global:production"}}
