@@ -58,12 +58,12 @@
         - if resource.custom_fields.any?
           - l.custom_fields
 
-    - if resource.cash
-      - b.cell(:cash_balances) do
-        - balance = resource.cash.balance
+    - if cash = resource.cash
+      - b.cell(:cash_balance) do
+        - balance = cash.balance
         .big-info{class: (balance < 0 ? :positive : balance > 0 ? :negative : :caution)}
-          %span.title= resource.cash.name
-          %span.value= balance.l(currency: resource.cash.currency)
+          %span.title= cash.name
+          %span.value= balance.l(currency: cash.currency)
 
   - b.hbox do
     - b.cell :timeline do
