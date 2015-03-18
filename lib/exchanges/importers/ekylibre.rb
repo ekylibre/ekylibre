@@ -1,4 +1,3 @@
-require_relative 'ekylibre/activities'
 require_relative 'ekylibre/backup'
 require_relative 'ekylibre/budgets'
 require_relative 'ekylibre/cultivable_zones'
