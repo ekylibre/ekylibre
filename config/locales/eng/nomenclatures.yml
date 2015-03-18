@@ -313,13 +313,13 @@ eng:
       name: "Activity families"
       property_natures:
         cultivation_variety: "Cultivation variety"
-        # nature: "Nature"
+        nature: "Nature"
         support_variety: "Support variety"
       choices:
         nature:
-          # auxiliary: "Auxiliary"
-          # main: "Main"
-          # standalone: "Standalone"
+          auxiliary: "Auxiliary"
+          main: "Main"
+          standalone: "Standalone"
       items:
         accountancy: "Accountancy"                         #< exploitation
         administrative: "Administrative"                   #< exploitation
@@ -2126,6 +2126,7 @@ eng:
         implantation: "Implantation"
         implanting: "Implanting"                           #< implantation
         maintenance_task: "Maintenance task"
+        # manual_food_supply: "Manual food supply"         #< animal_nutrition
         manual_soil_enrichment: "Manual soil enrichment"   #< soil_enrichment
         manual_working: "Manual working"
         milk_production: "Milk production"                 #< animal_production
@@ -2260,7 +2261,7 @@ eng:
         electronic_equipment: "Electronic equipment"
         equipment: "Equipment"
         equipment_rent: "Equipment rent"
-        # equipment_repair_services: "Equipment repair services"
+        equipment_repair_services: "Equipment repair services"
         exploitation_subsidies: "Exploitation subsidies"
         fee: "Fee"
         female_adult_cow: "Female adult cow"
@@ -2602,7 +2603,7 @@ eng:
         equipment: "Equipment"
         equipment_building_division: "Equipment building division"
         equipment_insurance: "Equipment insurance"
-        # equipment_repair_service: "Equipment repair service"
+        equipment_repair_service: "Equipment repair service"
         escourgeon_barley_crop: "Escourgeon barley crop"
         etincel_winter_barley_crop: "Etincel winter barley crop"
         euclide_wheat_crop: "Euclide wheat crop"
@@ -2987,7 +2988,7 @@ eng:
         electricity: "Electricity"
         equipment: "Equipment"
         equipment_building_division: "Equipment building division"
-        # equipment_repair_services: "Equipment repair services"
+        equipment_repair_services: "Equipment repair services"
         exploitation_subsidies: "Exploitation subsidies"
         fee: "Fee"
         female_adult_cattle_herd: "Female adult cattle herd"

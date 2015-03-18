@@ -824,6 +824,7 @@ eng:
     cancelation: "Cancelation"
     cartography: "Cartography"
     cash: "Cash"
+    # cash_balance: "Cash balance"
     cash_balances: "Bank chart"
     casting: "Casting"
     casts: "Casts"

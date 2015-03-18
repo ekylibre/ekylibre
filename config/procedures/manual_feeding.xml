@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="silage_unload" natures="food_supply" version="0" status="frozen">
+  <procedure name="manual_feeding" natures="manual_food_supply" version="0" status="frozen">
     <variables>
-      <variable name="herd"             variety="animal_group" derivative-of="bos" roles="food_supply-target" default-actor="storage"/>
-      <variable name="silage"           variety="preparation" roles="food_supply-input_origin" abilities="feed(bos)"/>
-      <variable name="silage_to_give"   new="parted-from: silage" roles="food_supply-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      <variable name="herd"             variety="animal_group" derivative-of="bos" roles="manual_food_supply-target" default-actor="storage"/>
+      <variable name="silage"           variety="preparation" roles="manual_food_supply-input_origin" abilities="feed(bos)"/>
+      <variable name="silage_to_give"   new="parted-from: silage" roles="manual_food_supply-input" need="population" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"               to="population" if="silage.net_mass?"
                  forward="value / self..net_mass(ton)"
@@ -24,48 +24,24 @@
                  backward="value * ( self..net_mass(ton) * self.dry_matter_rate(mass_percent) / 100)"
                  /> <!-- t de MS-->
       </variable>
-      <variable name="driver"           abilities="drive(tractor), move" roles="food_supply-doer"/>
-      <variable name="tractor"          abilities="tow(equipment), move" roles="food_supply-tool"/>
-      <variable name="silage_unloader"  abilities="deliver(silage)" roles="food_supply-tool"/>
+      <variable name="caregiver"           abilities="administer_care(animal), move" roles="manual_food_supply-doer"/>
     </variables>
     <operations>
-      <operation id="100" duration="2 minutes">
-        <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
-        <task do="[driver] moves in [tractor]"/>
-      </operation>
-      <operation id="200" duration="2 minutes">
-        <!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'outil-->
-        <task do="[tractor] moves at [silage_unloader]"/>
-      </operation>
-      <operation id="300" duration="4 minutes">
-        <!-- le chauffeur attache l'outil au tracteur -->
-        <task do="[tractor] catches [silage_unloader]"/>
-      </operation>
       <operation id="400" duration="2 minutes">
-        <task do="[tractor] moves at [silage]"/>
+        <task do="[caregiver] moves at [silage]"/>
       </operation>
       <operation id="500" duration="15 minutes">
         <task do="[silage] parts with [silage_to_give]"/>
-        <task do="[silage_to_give] moves in [silage_unloader]"/>
       </operation>
        <operation id="600" duration="2 minutes">
-        <task do="[tractor] moves at [herd]"/>
+        <task do="[caregiver] moves at [herd]"/>
+        <task do="[silage_to_give] moves at [herd]"/>
       </operation>
       <operation id="700" duration="15 minutes">
-        <task do="[silage_to_give] moves at [herd]"/>
         <task do="[herd] consumes [silage_to_give]"/>
       </operation>
       <operation id="800" duration="2 minutes">
-        <task do="[tractor] moves in default storage of [silage_unloader]"/>
-      </operation>
-      <operation id="900" duration="2 minutes">
-        <task do="[tractor] releases [silage_unloader]"/>
-      </operation>
-      <operation id="1000" duration="2 minutes">
-        <task do="[tractor] moves in default storage"/>
-      </operation>
-      <operation id="1100" duration="2 minutes">
-        <task do="[driver] moves in default storage"/>
+        <task do="[caregiver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

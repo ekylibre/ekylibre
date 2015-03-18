@@ -136,7 +136,8 @@
 
   <nomenclature name="procedure_natures-animal_nutrition">
     <items>
-      <item name="food_supply"          roles="input, target, doer, tool"       activity_families="animal_farming"/>
+      <item name="food_supply"          roles="input, target, doer, tool, input_origin"       activity_families="animal_farming"/>
+      <item name="manual_food_supply"   roles="input, target, doer, input_origin"             activity_families="animal_farming"/>
       <item name="pasturing"            roles="input, target, doer"             activity_families="animal_farming"/>
       <item name="food_mixing"          roles="input, output, doer"             activity_families="animal_farming"/>
     </items>

@@ -313,7 +313,10 @@ fra:
         fr_pcga: "Numéro dans le PCGA"
     activity_families:
       choices:
-        nature: #?
+        nature:
+          # auxiliary: "Auxiliary"
+          # main: "Main"
+          # standalone: "Standalone"
       items:
         accountancy: "Comptabilité"
         administrative: "Administratif"
@@ -432,6 +435,7 @@ fra:
       name: "Familles d’activité"
       property_natures:
         cultivation_variety: "Variété de la culture"
+        # nature: "Nature"
         support_variety: "Variété du support"
     administrative_area_natures:
       items:
@@ -2256,6 +2260,7 @@ fra:
         electronic_equipment: "Equipement électronique"
         equipment: "Équipement"
         equipment_rent: "Location d’équipement"
+        # equipment_repair_services: "Equipment repair services"
         exploitation_subsidies: "Subventions d’exploitation"
         fee: "Honoraire"
         female_adult_cow: "Vache"
@@ -2606,6 +2611,7 @@ fra:
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
         equipment_insurance: "Assurance (équipement)"
+        # equipment_repair_service: "Equipment repair service"
         escourgeon_barley_crop: "Orge d’hiver Escourgeon"
         etincel_winter_barley_crop: "Orge d’hiver Etincel"
         euclide_wheat_crop: "Culture de blé tendre Euclide"
@@ -2986,6 +2992,7 @@ fra:
         electricity: "Électricité"
         equipment: "Équipement"
         equipment_building_division: "Zone de stockage des équipements"
+        # equipment_repair_services: "Equipment repair services"
         exploitation_subsidies: "Subvention d’exploitation"
         fee: "Honoraire"
         female_adult_cattle_herd: "Troupeau de vaches"

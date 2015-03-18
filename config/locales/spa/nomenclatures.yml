@@ -311,7 +311,10 @@ spa:
         # fr_pcga: "French PCGA"
     activity_families:
       choices:
-        nature: #?
+        nature:
+          # auxiliary: "Auxiliary"
+          # main: "Main"
+          # standalone: "Standalone"
       items:
         # accountancy: "Accountancy"
         # administrative: "Administrative"
@@ -426,6 +429,7 @@ spa:
       # name: "Activity families"
       property_natures:
         # cultivation_variety: "Cultivation variety"
+        # nature: "Nature"
         # support_variety: "Support variety"
     administrative_area_natures:
       items:
@@ -2255,6 +2259,7 @@ spa:
         # electronic_equipment: "Electronic equipment"
         # equipment: "Equipment"
         # equipment_rent: "Equipment rent"
+        # equipment_repair_services: "Equipment repair services"
         # exploitation_subsidies: "Exploitation subsidies"
         # fee: "Fee"
         # female_adult_cow: "Female adult cow"
@@ -2603,6 +2608,7 @@ spa:
         # equipment: "Equipment"
         # equipment_building_division: "Equipment building division"
         # equipment_insurance: "Equipment insurance"
+        # equipment_repair_service: "Equipment repair service"
         # escourgeon_barley_crop: "Escourgeon barley crop"
         # etincel_winter_barley_crop: "Etincel winter barley crop"
         # euclide_wheat_crop: "Euclide wheat crop"
@@ -2982,6 +2988,7 @@ spa:
         # electricity: "Electricity"
         # equipment: "Equipment"
         # equipment_building_division: "Equipment building division"
+        # equipment_repair_services: "Equipment repair services"
         # exploitation_subsidies: "Exploitation subsidies"
         # fee: "Fee"
         # female_adult_cattle_herd: "Female adult cattle herd"
