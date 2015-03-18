@@ -35,8 +35,7 @@
             derivative_of="bos"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)"
-            variable_indicators="population"
-            frozen_indicators="sex"
+            frozen_indicators="population, sex"
             />
       <item name="female_adult_cattle_herd"
             category="cattle_herd"
@@ -44,8 +43,7 @@
             derivative_of="bos"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)"
-            variable_indicators="population"
-            frozen_indicators="sex, reproductor"
+            frozen_indicators="sex, reproductor, population"
             />
       <item name="female_adult_cow"
             category="female_adult_cow"
@@ -108,7 +106,6 @@
             derivative_of="ovis"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)"
-            variable_indicators=""
             frozen_indicators="population"
             />
       <item name="female_adult_sheep_herd"
@@ -117,8 +114,7 @@
             derivative_of="ovis"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)"
-            variable_indicators="population"
-            frozen_indicators="sex, reproductor"
+            frozen_indicators="sex, reproductor, population"
             />
       <item name="female_adult_sheep"
             category="female_adult_cow"
@@ -147,7 +143,7 @@
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
             />
-       <item name="male_young_sheep"
+      <item name="male_young_sheep"
             category="male_adult_cow"
             variety="ovis"
             population_counting="unitary"
@@ -172,8 +168,7 @@
             derivative_of="capra"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)"
-            variable_indicators="population"
-            frozen_indicators=""
+            frozen_indicators="population"
             />
       <item name="female_adult_goat_herd"
             category="cattle_herd"
@@ -181,8 +176,7 @@
             derivative_of="capra"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk)"
-            variable_indicators="population"
-            frozen_indicators="sex, reproductor"
+            frozen_indicators="sex, reproductor, population"
             />
       <item name="female_adult_goat"
             category="female_adult_cow"
@@ -199,8 +193,7 @@
             derivative_of="capra"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement)"
-            variable_indicators="population"
-            frozen_indicators="sex, reproductor"
+            frozen_indicators="sex, reproductor, population"
             />
       <item name="male_adult_goat"
             category="male_adult_cow"
@@ -227,9 +220,8 @@
             derivative_of="sus"
             population_counting="integer"
             abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)"
-            variable_indicators=""
             frozen_indicators="population"
-              />
+            />
       <item name="pig_band"
             category="pig_band"
             variety="sus"
@@ -238,8 +230,8 @@
             variable_indicators="population"
             frozen_indicators="sex, reproductor"
             derivatives="meat"
-              />
-       <item name="piglet_band"
+            />
+      <item name="piglet_band"
             category="pig_band"
             variety="sus"
             population_counting="integer"
@@ -247,7 +239,7 @@
             variable_indicators="population"
             frozen_indicators="reproductor"
             derivatives="meat"
-              />
+            />
       <item name="female_adult_pig"
             category="female_adult_pig"
             variety="sus"
@@ -256,7 +248,7 @@
             variable_indicators="net_mass, animal_life_state, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
-              />
+            />
       <item name="male_adult_pig"
             category="male_adult_pig"
             variety="sus"
@@ -265,7 +257,7 @@
             variable_indicators="net_mass, animal_life_state, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
-              />
+            />
       <!-- DUCK -->
       <item name="duck_herd"
             category="aves_herd"
@@ -294,7 +286,7 @@
             abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)"
             variable_indicators="population"
             frozen_indicators=""
-              />
+            />
       <item name="hen_band"
             category="aves_band"
             variety="gallus"
@@ -312,7 +304,7 @@
             abilities=""
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
-              />
+            />
       <!-- RABBIT -->
       <item name="rabbit_herd"
             category="cattle_herd"
@@ -331,7 +323,7 @@
             variable_indicators="net_mass, animal_life_state, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
-              />
+            />
       <item name="male_rabbit"
             category="short_time_animal"
             variety="oryctolagus"
@@ -340,15 +332,15 @@
             variable_indicators="net_mass, animal_life_state, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
-              />
-       <item name="young_rabbit"
+            />
+      <item name="young_rabbit"
             category="short_time_animal"
             variety="oryctolagus"
             population_counting="integer"
             abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move"
             variable_indicators="population, net_mass, healthy"
             frozen_indicators=""
-              />
+            />
       <!-- HORSE -->
       <item name="horse_herd"
             category="cattle_herd"
@@ -574,7 +566,7 @@
             variable_indicators="population, water_content_rate, impurity_concentration"
             frozen_indicators="net_mass"
             />
-       <item name="walnut"
+      <item name="walnut"
             category="fruit"
             variety="walnut"
             derivative_of="juglans"
@@ -703,7 +695,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass, sulfur_dioxide_concentration"
             />
-       <item name="oenological_yeast"
+      <item name="oenological_yeast"
             category="oenological_product"
             variety="yeast"
             derivative_of="fungus"
@@ -728,7 +720,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass"
             />
-       <item name="clarification_solution"
+      <item name="clarification_solution"
             category="oenological_product"
             variety="preparation"
             population_counting="decimal"
@@ -777,7 +769,7 @@
             variable_indicators="population"
             frozen_indicators="height, diameter"
             />
-       <item name="wire"
+      <item name="wire"
             category="small_equipment"
             variety="wire"
             population_counting="integer"
@@ -785,7 +777,7 @@
             variable_indicators="population"
             frozen_indicators="diameter, length"
             />
-        <item name="fence"
+      <item name="fence"
             category="small_equipment"
             variety="wire"
             population_counting="integer"
@@ -856,7 +848,7 @@
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"
             />
-       <!-- OTHER -->
+      <!-- OTHER -->
       <item name="mineral_cleaner"
             category="other_consumable"
             variety="preparation"
@@ -873,7 +865,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="raw_material"
+      <item name="raw_material"
             category="raw_materials"
             variety="raw_matter"
             population_counting="decimal"
@@ -1041,7 +1033,7 @@
             variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass, geolocation"
             frozen_indicators="population"
             />
-       <item name="grape_trailer"
+      <item name="grape_trailer"
             category="equipment"
             variety="trailer"
             population_counting="unitary"
@@ -1217,7 +1209,7 @@
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
-       <item name="food_distributor"
+      <item name="food_distributor"
             category="equipment"
             variety="food_deliver"
             population_counting="unitary"
@@ -1273,7 +1265,7 @@
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />
-       <item name="shell_fruit_reaper"
+      <item name="shell_fruit_reaper"
             category="equipment"
             variety="reaper"
             population_counting="unitary"
@@ -1313,7 +1305,7 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
-     <item name="corker"
+      <item name="corker"
             category="equipment"
             variety="equipment"
             population_counting="unitary"
@@ -1345,7 +1337,7 @@
             variable_indicators=""
             frozen_indicators="population"
             />
-       <item name="hedge_cutter"
+      <item name="hedge_cutter"
             category="equipment"
             variety="equipment"
             population_counting="unitary"
@@ -1356,7 +1348,7 @@
 
       <!-- agricultural service -->
 
-        <item name="vegetals_making_services"
+      <item name="vegetals_making_services"
             category="vegetals_making_services"
             variety="service"
             population_counting="decimal"
@@ -1365,7 +1357,7 @@
             frozen_indicators=""
             />
 
-        <item name="animals_making_services"
+      <item name="animals_making_services"
             category="animals_making_services"
             variety="service"
             population_counting="decimal"
@@ -1374,7 +1366,7 @@
             frozen_indicators=""
             />
 
-        <item name="equipment_repair_services"
+      <item name="equipment_repair_services"
             category="equipment_repair_services"
             variety="service"
             population_counting="decimal"
@@ -1414,7 +1406,7 @@
             variable_indicators="geolocation"
             frozen_indicators="population"
             />
-       <item name="inseminator"
+      <item name="inseminator"
             category="worker"
             variety="worker"
             population_counting="unitary"
@@ -1499,9 +1491,9 @@
 
 
 
-		<!-- Subsidies -->
+		  <!-- Subsidies -->
 
-		<item name="exploitation_subsidies"
+		  <item name="exploitation_subsidies"
             category="exploitation_subsidies"
             variety="service"
             population_counting="decimal"
@@ -1510,10 +1502,10 @@
             frozen_indicators=""
             />
 
-         <!-- OTHER PRODUCT -->
+      <!-- OTHER PRODUCT -->
 
-         <!-- COMMON SERVICES -->
-         <item name="discount_and_reduction"
+      <!-- COMMON SERVICES -->
+      <item name="discount_and_reduction"
             category="discount_and_reduction"
             variety="service"
             population_counting="decimal"
@@ -1522,7 +1514,7 @@
             frozen_indicators=""
             />
 
-        <item name="leasing"
+      <item name="leasing"
             category="leasing"
             variety="service"
             population_counting="decimal"
@@ -1531,7 +1523,7 @@
             frozen_indicators=""
             />
 
-        <item name="rent"
+      <item name="rent"
             category="rent"
             variety="service"
             population_counting="decimal"
@@ -1539,7 +1531,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="spread_renting"
+      <item name="spread_renting"
             category="equipment_rent"
             variety="service"
             population_counting="decimal"
@@ -1547,7 +1539,7 @@
             variable_indicators="population"
             frozen_indicators="usage_duration"
             />
-        <item name="small_equipment"
+      <item name="small_equipment"
             category="small_equipment"
             variety="equipment"
             population_counting="unitary"
@@ -1555,7 +1547,7 @@
             variable_indicators="net_mass"
             frozen_indicators="population"
             />
-        <item name="maintenance"
+      <item name="maintenance"
             category="maintenance"
             variety="service"
             population_counting="decimal"
@@ -1563,7 +1555,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="insurance"
+      <item name="insurance"
             category="insurance"
             variety="service"
             population_counting="decimal"
@@ -1571,7 +1563,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="fee"
+      <item name="fee"
             category="fee"
             variety="service"
             population_counting="decimal"
@@ -1579,7 +1571,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="moving_travel"
+      <item name="moving_travel"
             category="travel"
             variety="service"
             population_counting="decimal"
@@ -1587,15 +1579,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="meal_travel"
-            category="travel"
-            variety="service"
-            population_counting="integer"
-            abilities=""
-            variable_indicators="population"
-            frozen_indicators=""
-            />
-        <item name="accommodation_travel"
+      <item name="meal_travel"
             category="travel"
             variety="service"
             population_counting="integer"
@@ -1603,7 +1587,15 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="radio_subscription"
+      <item name="accommodation_travel"
+            category="travel"
+            variety="service"
+            population_counting="integer"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+      <item name="radio_subscription"
             category="telecommunication"
             variety="service"
             population_counting="decimal"
@@ -1611,7 +1603,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-         <item name="mail_subscription"
+      <item name="mail_subscription"
             category="telecommunication"
             variety="service"
             population_counting="decimal"
@@ -1619,7 +1611,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="bank_service"
+      <item name="bank_service"
             category="bank_service"
             variety="service"
             population_counting="decimal"
@@ -1627,7 +1619,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-        <item name="taxe"
+      <item name="taxe"
             category="taxe"
             variety="service"
             population_counting="decimal"
@@ -1635,7 +1627,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-         <item name="numeric_subscription"
+      <item name="numeric_subscription"
             category="licence"
             variety="service"
             population_counting="decimal"
@@ -1643,7 +1635,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-          <item name="numeric_hosting_rental"
+      <item name="numeric_hosting_rental"
             category="rent_hosting_service"
             variety="service"
             population_counting="decimal"
@@ -1652,7 +1644,7 @@
             frozen_indicators=""
             />
 
-         <item name="computer"
+      <item name="computer"
             category="electronic_equipment"
             variety="equipment"
             population_counting="integer"
@@ -1661,7 +1653,7 @@
             frozen_indicators=""
             />
 
-         <item name="computer_device"
+      <item name="computer_device"
             category="small_electronic_equipment"
             variety="equipment"
             population_counting="integer"
@@ -1669,7 +1661,7 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-            <item name="office_furniture"
+      <item name="office_furniture"
             category="office_furniture_equipment"
             variety="equipment"
             population_counting="integer"
@@ -1678,7 +1670,7 @@
             frozen_indicators=""
             />
 
-          <item name="recycling_contribution"
+      <item name="recycling_contribution"
             category="subcontracting"
             variety="service"
             population_counting="integer"
@@ -1687,7 +1679,7 @@
             frozen_indicators=""
             />
 
-            <item name="legal_registration"
+      <item name="legal_registration"
             category="duty_and_taxe"
             variety="service"
             population_counting="integer"
@@ -1705,7 +1697,7 @@
             frozen_indicators=""
             />
 
-          <item name="representation_item"
+      <item name="representation_item"
             category="representation"
             variety="service"
             population_counting="integer"
@@ -1715,7 +1707,7 @@
             />
 
 
-          <item name="carriage"
+      <item name="carriage"
             category="carriage"
             variety="service"
             population_counting="integer"
@@ -1724,7 +1716,7 @@
             frozen_indicators=""
             />
 
-         <item name="catalog_and_print"
+      <item name="catalog_and_print"
             category="catalog_and_print"
             variety="service"
             population_counting="integer"
@@ -1734,7 +1726,7 @@
             />
 
 
-		<item name="trade_show"
+		  <item name="trade_show"
             category="trade_show"
             variety="service"
             population_counting="integer"
@@ -1744,7 +1736,7 @@
             />
 
 
-        <item name="congress"
+      <item name="congress"
             category="congress"
             variety="service"
             population_counting="decimal"
@@ -1753,7 +1745,7 @@
             frozen_indicators=""
             />
 
-	<item name="product_insurance"
+	    <item name="product_insurance"
             category="insurance"
             variety="service"
             population_counting="integer"
@@ -1762,7 +1754,7 @@
             frozen_indicators=""
             />
 
-        <item name="professional_subscription"
+      <item name="professional_subscription"
             category="professional_subscription"
             variety="service"
             population_counting="integer"
@@ -1771,7 +1763,7 @@
             frozen_indicators=""
             />
 
-         <item name="freelance"
+      <item name="freelance"
             category="subcontracting"
             variety="service"
             population_counting="decimal"
@@ -1780,7 +1772,7 @@
             frozen_indicators=""
             />
 
-         <item name="bonus_staff_expense"
+      <item name="bonus_staff_expense"
             category="bonus_staff_expense"
             variety="service"
             population_counting="decimal"
@@ -1789,7 +1781,7 @@
             frozen_indicators=""
             />
 
-         <item name="salary_social_contribution"
+      <item name="salary_social_contribution"
             category="salary_social_contribution"
             variety="service"
             population_counting="decimal"
@@ -1798,7 +1790,7 @@
             frozen_indicators=""
             />
 
-          <item name="associate_social_contribution"
+      <item name="associate_social_contribution"
             category="associate_social_contribution"
             variety="service"
             population_counting="decimal"
@@ -1809,9 +1801,9 @@
 
 
 
-        <!-- SERVICES LINK TO NUMERIC -->
+      <!-- SERVICES LINK TO NUMERIC -->
 
-        <item name="training_course"
+      <item name="training_course"
             category="service"
             variety="service"
             population_counting="decimal"
@@ -1820,7 +1812,7 @@
             frozen_indicators="usage_duration"
             />
 
-        <item name="user_support"
+      <item name="user_support"
             category="service"
             variety="service"
             population_counting="decimal"
@@ -1829,7 +1821,7 @@
             frozen_indicators="usage_duration"
             />
 
-        <item name="project_management"
+      <item name="project_management"
             category="service"
             variety="service"
             population_counting="decimal"
@@ -1838,7 +1830,7 @@
             frozen_indicators="usage_duration"
             />
 
-         <item name="software_engineering"
+      <item name="software_engineering"
             category="service"
             variety="service"
             population_counting="decimal"

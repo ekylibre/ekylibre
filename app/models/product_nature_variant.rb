@@ -149,9 +149,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    unless reading = self.readings.find_by(indicator_name: indicator.name)
-      reading = self.readings.build(indicator_name: indicator.name)
-    end
+    reading = self.readings.find_or_initialize_by(indicator_name: indicator.name)
     reading.value = value
     reading.save!
     return reading

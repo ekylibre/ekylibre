@@ -374,8 +374,8 @@ class ProductNature < Ekylibre::Record::Base
       :reference_name => item.name,
       :abilities_list => item.abilities.sort,
       :derivatives_list => (item.derivatives ? item.derivatives.sort : nil),
-      :frozen_indicators_list => item.frozen_indicators.sort,
-      :variable_indicators_list => item.variable_indicators.sort,
+      :frozen_indicators_list => (item.frozen_indicators ? item.frozen_indicators.sort : nil),
+      :variable_indicators_list => (item.variable_indicators ? item.variable_indicators.sort : nil),
       :active => true
     }
     attributes[:linkage_points_list] = item.linkage_points if item.linkage_points

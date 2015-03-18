@@ -24,31 +24,31 @@
             nature="cattle_herd"
             derivative_of="bos"
             unit_name="band"
-            frozen_indicators_values="sex: undefined"
+            frozen_indicators_values="sex: undefined, population: 1"
             />
       <item name="male_young_cattle_herd"
             nature="cattle_herd"
             derivative_of="bos"
             unit_name="band"
-            frozen_indicators_values="sex: male"
+            frozen_indicators_values="sex: male, population: 1"
             />
       <item name="female_young_cattle_herd"
             nature="cattle_herd"
             derivative_of="bos"
             unit_name="band"
-            frozen_indicators_values="sex: female"
+            frozen_indicators_values="sex: female, population: 1"
             />
       <item name="male_adult_cattle_herd"
             nature="cattle_herd"
             derivative_of="bos"
             unit_name="band"
-            frozen_indicators_values="sex: male"
+            frozen_indicators_values="sex: male, population: 1"
             />
       <item name="female_adult_cattle_herd"
             nature="female_adult_cattle_herd"
             derivative_of="bos"
             unit_name="band"
-            frozen_indicators_values="sex: female, reproductor: true"
+            frozen_indicators_values="sex: female, reproductor: true, population: 1"
             />
       <item name="female_adult_cow"
             nature="female_adult_cow"
@@ -136,7 +136,7 @@
             unit_name="head"
             frozen_indicators_values="population: 1, sex: male, reproductor: true, livestock_unit: 0.17"
             />
-       <item name="male_adult_goat_herd"
+      <item name="male_adult_goat_herd"
             nature="male_adult_goat_herd"
             derivative_of="capra"
             unit_name="band"
@@ -999,7 +999,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.030cubic_meter"
             />
-       <item name="25kg_bag_rabbit_food"
+      <item name="25kg_bag_rabbit_food"
             nature="animal_food"
             derivative_of="plant"
             unit_name="25kg_bag"
@@ -2639,27 +2639,27 @@
             frozen_indicators_values="net_mass: 1.00ton"
             />
 
-       <item name="coop:eca_excel_pack_protor_b_vrac"
+      <item name="coop:eca_excel_pack_protor_b_vrac"
             nature="animal_food"
             variety="mix"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
-       <item name="coop:eca_pack_tonus_b_vrac"
-            nature="animal_food"
-            variety="mix"
-            unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
-            />
-
-       <item name="coop:altiplus_gr_vrac"
+      <item name="coop:eca_pack_tonus_b_vrac"
             nature="animal_food"
             variety="mix"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
 
-       <item name="coop:altacid_vrac"
+      <item name="coop:altiplus_gr_vrac"
+            nature="animal_food"
+            variety="mix"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+
+      <item name="coop:altacid_vrac"
             nature="animal_food"
             variety="mix"
             unit_name="ton"
@@ -2690,31 +2690,31 @@
             />
 
 
-	 <!-- AGRICULTURAL SERVICES -->
+	    <!-- AGRICULTURAL SERVICES -->
 
 
-	 <item name="drying_making_service"
+	    <item name="drying_making_service"
             nature="vegetals_making_services"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-     <item name="harvesting_making_service"
+      <item name="harvesting_making_service"
             nature="vegetals_making_services"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-     <item name="equipment_repair_service"
+      <item name="equipment_repair_service"
             nature="equipment_repair_services"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
 
-     <!-- COMMON SERVICES -->
-     <!-- COMMON SERVICES -->
-     <!-- COMMON SERVICES -->
+      <!-- COMMON SERVICES -->
+      <!-- COMMON SERVICES -->
+      <!-- COMMON SERVICES -->
 
 
 
@@ -2795,9 +2795,9 @@
             />
 
 
-	  <!-- Subsidies -->
+	    <!-- Subsidies -->
 
-	  <item name="cap_subsidies"
+	    <item name="cap_subsidies"
             nature="exploitation_subsidies"
             unit_name="unit"
             frozen_indicators_values=""
@@ -2825,7 +2825,7 @@
             frozen_indicators_values=""
             />
 
-       <item name="little_office_good"
+      <item name="little_office_good"
             nature="little_office_item"
             unit_name="unit"
             frozen_indicators_values=""
@@ -2871,7 +2871,7 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="carriage"
+      <item name="carriage"
             nature="carriage"
             unit_name="unit"
             frozen_indicators_values=""
@@ -2897,103 +2897,103 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="insurance"
+      <item name="insurance"
             nature="insurance"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="equipment_insurance"
+      <item name="equipment_insurance"
             nature="insurance"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="building_insurance"
+      <item name="building_insurance"
             nature="insurance"
             unit_name="unit"
             frozen_indicators_values=""
             />
-        <item name="responsibility_insurance"
+      <item name="responsibility_insurance"
             nature="insurance"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="fee"
+      <item name="fee"
             nature="fee"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="car_moving_travel"
+      <item name="car_moving_travel"
             nature="moving_travel"
             unit_name="kilometer"
             frozen_indicators_values=""
             />
-        <item name="moving_travel"
+      <item name="moving_travel"
             nature="moving_travel"
             unit_name="unit"
             frozen_indicators_values=""
             />
-        <item name="meal_travel"
+      <item name="meal_travel"
             nature="meal_travel"
             unit_name="meal"
             frozen_indicators_values=""
             />
-        <item name="accommodation_travel"
+      <item name="accommodation_travel"
             nature="accommodation_travel"
             unit_name="night"
             frozen_indicators_values=""
             />
 
-        <item name="accommodation_taxe"
+      <item name="accommodation_taxe"
             nature="accommodation_travel"
             unit_name="night"
             frozen_indicators_values=""
             />
 
 
-	   <item name="congress"
+	    <item name="congress"
             nature="congress"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-       <item name="phone_line_subscription"
+      <item name="phone_line_subscription"
             nature="radio_subscription"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="internet_line_subscription"
+      <item name="internet_line_subscription"
             nature="radio_subscription"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="postal_stamp"
+      <item name="postal_stamp"
             nature="mail_subscription"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="postal_charges"
+      <item name="postal_charges"
             nature="mail_subscription"
             unit_name="unit"
             frozen_indicators_values=""
             />
-        <item name="representation_suit"
+      <item name="representation_suit"
             nature="representation_item"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
 
-       <item name="bank_service"
+      <item name="bank_service"
             nature="bank_service"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="taxe"
+      <item name="taxe"
             nature="taxe"
             unit_name="unit"
             frozen_indicators_values=""
             />
-       <item name="legal_registration"
+      <item name="legal_registration"
             nature="legal_registration"
             unit_name="unit"
             frozen_indicators_values=""
@@ -3001,85 +3001,85 @@
 
 
 
-       <item name="domain_name_subscription"
+      <item name="domain_name_subscription"
             nature="numeric_subscription"
             unit_name="domain"
             frozen_indicators_values=""
             />
 
-       <item name="server_certificate_subscription"
+      <item name="server_certificate_subscription"
             nature="numeric_subscription"
             unit_name="domain"
             frozen_indicators_values=""
             />
 
-        <item name="ip_address_subscription"
+      <item name="ip_address_subscription"
             nature="numeric_subscription"
             unit_name="domain"
             frozen_indicators_values=""
             />
 
-        <item name="server_rental"
+      <item name="server_rental"
             nature="numeric_hosting_rental"
             unit_name="server"
             frozen_indicators_values=""
             />
 
-        <item name="portable_computer"
+      <item name="portable_computer"
             nature="computer"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-         <item name="printer"
+      <item name="printer"
             nature="computer"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-         <item name="computer_mouse"
+      <item name="computer_mouse"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-        <item name="computer_item"
+      <item name="computer_item"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-          <item name="ink_cartridge"
+      <item name="ink_cartridge"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-         <item name="computer_display"
+      <item name="computer_display"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-         <item name="portable_hard_disk"
+      <item name="portable_hard_disk"
             nature="computer_device"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-         <item name="eco_participation"
+      <item name="eco_participation"
             nature="recycling_contribution"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-         <item name="product_warranty"
+      <item name="product_warranty"
             nature="product_insurance"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-           <item name="food_show"
+      <item name="food_show"
             nature="trade_show"
             unit_name="unit"
             frozen_indicators_values=""
@@ -3097,19 +3097,19 @@
             frozen_indicators_values=""
             />
 
-       <item name="intership"
+      <item name="intership"
             nature="bonus_staff_expense"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-       <item name="salary_social_contribution"
+      <item name="salary_social_contribution"
             nature="salary_social_contribution"
             unit_name="unit"
             frozen_indicators_values=""
             />
 
-       <item name="associate_social_contribution"
+      <item name="associate_social_contribution"
             nature="associate_social_contribution"
             unit_name="unit"
             frozen_indicators_values=""
@@ -3120,7 +3120,7 @@
       <!-- SERVICES LINK TO NUMERIC -->
 
 
-	  <!-- training course -->
+	    <!-- training course -->
       <item name="daily_training_course"
             nature="training_course"
             unit_name="day"
@@ -3140,7 +3140,7 @@
             frozen_indicators_values="usage_duration: 1day"
             />
 
-     <item name="hourly_project_management"
+      <item name="hourly_project_management"
             nature="project_management"
             unit_name="hour"
             frozen_indicators_values="usage_duration: 1hour"

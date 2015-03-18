@@ -16,6 +16,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
     production_support_numbers = (s.cell('D', 2).blank? ? [] : s.cell('D', 2).to_s.strip.upcase.split(/[\s\,]+/))
     cultivation_variant_reference_name = s.cell('E', 2)
     support_variant_reference_name = s.cell('F', 2)
+    support_variant_reference_name = nil if support_variant_reference_name.blank?
     production_indicator = (s.cell('G', 2).blank? ? [] : s.cell('G', 2).to_s.strip.downcase.delete(' ').split('/'))
 
     # get budget concerning production (activty / given campaign)

@@ -60,7 +60,7 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
     if self.variant
       unless self.variant.frozen_indicators.include?(self.indicator)
         logger.debug "#{self.indicator.inspect} not in #{self.variant.reference_name}#{self.variant.frozen_indicators.inspect}"
-        errors.add(:indicator, :invalid)
+        errors.add(:indicator, :inclusion)
       end
     end
   end

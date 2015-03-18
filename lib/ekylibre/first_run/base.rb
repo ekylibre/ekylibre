@@ -124,8 +124,8 @@ module Ekylibre
         elsif @verbose
           text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
           text << " " * (@term_width - text.join.length)
-          text[1] = text[1].red
-          text[3] = text[3].yellow
+          text[1] = text[1].yellow
+          text[3] = text[3].red
           puts text.join
         end
       end
