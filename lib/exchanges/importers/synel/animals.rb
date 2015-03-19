@@ -10,7 +10,7 @@ Exchanges.add_importer :synel_animals do |file, w|
 
   rows = CSV.read(file, encoding: "CP1252", col_sep: ";", headers: true).delete_if{|r| r[4].blank?}
   w.count = rows.size
-  
+
   rows.each do |row|
     born_on = (row[4].blank? ? nil : Date.parse(row[4]))
     dead_on = (row[10].blank? ? nil : Date.parse(row[10]))

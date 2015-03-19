@@ -3,7 +3,7 @@ module Ekylibre::FirstRun::Faker
   class Prescriptions < Base
 
     def run
-      
+
       file = files.join("prescription.jpg")
       self.count :animal_prescriptions do |w|
 
@@ -46,5 +46,5 @@ module Ekylibre::FirstRun::Faker
     end
 
   end
-  
+
 end

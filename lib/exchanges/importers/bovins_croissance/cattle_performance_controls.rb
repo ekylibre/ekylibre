@@ -2,7 +2,7 @@ Exchanges.add_importer :bovins_croissance_cattle_performance_controls do |file, 
 
   rows = CSV.read(file,  :encoding => "CP1252", :col_sep => "\t", :headers => true)
   w.count = rows.size
-  
+
   rows.each do |row|
     r = OpenStruct.new(:animal_weight_at_birth => (row[13].blank? ? nil : row[13].to_d).in_kilogram,
                        :animal_work_number => row[18].to_s,

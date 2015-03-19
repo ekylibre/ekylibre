@@ -17,7 +17,7 @@ module Ekylibre::FirstRun::Faker
     def path(*args)
       files.join(*args)
     end
-    
+
     def count(name, options = {}, &block)
       STDOUT.sync = true
       f = Ekylibre::FirstRun::Counter.new(@max) do |count, increment|
@@ -37,8 +37,8 @@ module Ekylibre::FirstRun::Faker
       end
       puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
     end
-    
-    
+
+
   end
 
 end

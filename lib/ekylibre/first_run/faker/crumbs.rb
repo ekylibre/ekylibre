@@ -199,9 +199,9 @@ module Ekylibre::FirstRun::Faker
         puts "Cannot import ticsad simulation".red
       end
 
-      
+
     end
 
-    
+
   end
 end

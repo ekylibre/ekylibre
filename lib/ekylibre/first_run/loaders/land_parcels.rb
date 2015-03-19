@@ -11,13 +11,13 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
     next unless dir.join("#{name}.shp").exist?
 
     puts "WARNING: You should rename zones.shp to building_divisions.shp".red if name == :zones
-      
+
     mimefile = dir.join("#{name}.mimetype")
     File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
-      
+
     first_run.import_archive(:ekylibre_georeadings, "#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/georeadings", prevent: false)
-      
-    FileUtils.rm_rf(mimefile)    
+
+    FileUtils.rm_rf(mimefile)
   end
 
   first_run.import_file(:ekylibre_land_parcels, "alamano/land_parcels.csv")

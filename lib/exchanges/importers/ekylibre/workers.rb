@@ -65,7 +65,7 @@ Exchanges.add_importer :ekylibre_workers do |file, w|
           worker.read!(:geolocation, georeading.content, at: r.born_at, force: true)
         end
       end
-      
+
 
       w.check_point
     end

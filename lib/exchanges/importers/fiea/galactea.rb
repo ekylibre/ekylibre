@@ -34,8 +34,8 @@ Exchanges.add_importer :fiea_galactea do |file, w|
 
   rows = CSV.read(file, col_sep: "\t", headers: true)
   w.count = rows.size
-  
-  rows.each do |row|      
+
+  rows.each do |row|
     r = OpenStruct.new(:at => (row[0].blank? ? nil : Date.civil(*row[0].to_s.split(/\//).reverse.map(&:to_i))),
                        :reference_number => row[1].to_s + "-L" + row[5].to_s + "-C" + row[6].to_s,
                        :animal_work_number => row[4].to_s,

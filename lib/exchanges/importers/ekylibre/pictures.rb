@@ -1,6 +1,6 @@
 # Create or updates pictures
 Exchanges.add_importer :ekylibre_pictures do |file, w|
-  
+
   # Unzip file
   dir = w.tmp_dir
   Zip::File.open(file) do |zile|

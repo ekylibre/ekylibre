@@ -3,7 +3,7 @@
 Exchanges.add_importer :charentes_alliance_incoming_deliveries do |file, w|
 
   here = Pathname.new(__FILE__).dirname
-  
+
   catalog = Catalog.find_by_code("ACHAT") || Catalog.first
   supplier_account = Account.find_or_create_in_chart(:suppliers)
   appro_price_template_tax = Tax.first
@@ -19,9 +19,9 @@ Exchanges.add_importer :charentes_alliance_incoming_deliveries do |file, w|
   cooperative = Entity.find_by_last_name("CHARENTES ALLIANCE")
 
   # map sub_family to product_nature_variant XML Nomenclature
-  
+
   # add Coop incoming deliveries
-  
+
   # status to map
   status = {
     "Liquidé" => :order,
@@ -31,7 +31,7 @@ Exchanges.add_importer :charentes_alliance_incoming_deliveries do |file, w|
 
   rows = CSV.read(file, encoding: "UTF-8", col_sep: ";", headers: true)
   w.count = rows.size
-  
+
   rows.each do |row|
     r = OpenStruct.new(:order_number => row[0],
                        :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),

@@ -1,6 +1,6 @@
 Exchanges.add_importer(:agro_systemes_soil_analyses) do |file, w|
   here = Pathname.new(__FILE__).dirname
-  
+
   analyser_attributes = YAML.load_file(here.join("entity.yml"))
   unless analyser = LegalEntity.find_by(siren: analyser_attributes[:siren])
     analyser = LegalEntity.create!(analyser_attributes)
@@ -10,7 +10,7 @@ Exchanges.add_importer(:agro_systemes_soil_analyses) do |file, w|
   CSV.foreach(here.join("soil_natures.csv"), headers: true) do |row|
     soil_natures_transcode[row[0]] = row[1].to_sym
   end
-  
+
   begin
     rows = CSV.read(file, encoding: "CP1252", col_sep: "\t", headers: true)
   rescue

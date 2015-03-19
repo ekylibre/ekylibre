@@ -7,7 +7,7 @@ Exchanges.add_importer :synel_inventory do |file, w|
 
   rows = CSV.read(file, encoding: "CP1252", col_sep: "\t", headers: true)
   w.count = rows.size
-  
+
   # find animals credentials in preferences
   cattling_root_number = Identifier.find_by_nature(:cattling_root_number).value
   parents = { mother: {}, father: {} }
@@ -76,5 +76,5 @@ Exchanges.add_importer :synel_inventory do |file, w|
     w.check_point
   end
   parents = nil
-  
+
 end

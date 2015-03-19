@@ -31,7 +31,7 @@ Exchanges.add_importer :unicoque_outgoing_deliveries do |file, w|
 
   rows = CSV.read(file, encoding: "UTF-8", col_sep: ";", headers: true).delete_if{|r| r[0].blank?}
   w.count = rows.size
-  
+
   rows.each do |row|
     r = OpenStruct.new(year: row[0].to_i,
                        name: row[3].to_s + ' ' + row[5].to_s + ' - ' + row[0].to_s,

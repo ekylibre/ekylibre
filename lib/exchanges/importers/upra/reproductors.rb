@@ -8,7 +8,7 @@ Exchanges.add_importer :upra_reproductors do |file, w|
 
   rows = CSV.read(file, encoding: "CP1252", col_sep: "\t", headers: true).delete_if{|r| r[4].blank?}
   w.count = rows.size
-  
+
   rows.each do |row|
     r = OpenStruct.new(:order => row[0],
                        :name => row[1],
@@ -36,5 +36,5 @@ Exchanges.add_importer :upra_reproductors do |file, w|
     animal.localizations.create!(nature: :exterior)
     w.check_point
   end
-  
+
 end

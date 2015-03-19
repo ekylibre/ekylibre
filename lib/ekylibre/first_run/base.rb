@@ -49,13 +49,13 @@ module Ekylibre
         if path("#{base}/pictures").exist?
           file = path("#{base}/pictures.zip")
           FileUtils.rm_rf file
-          
+
           mimefile = path.join("#{base}/pictures.mimetype")
           File.write(mimefile, "application/vnd.ekylibre.pictures.#{type}")
 
           idenfile = path.join("#{base}/pictures.identifier")
           File.write(idenfile, identifier.to_s)
-          
+
           files = {
             "mimetype" => "pictures.mimetype",
             "identifier" => "pictures.identifier"
@@ -73,7 +73,7 @@ module Ekylibre
         end
         import_file(:ekylibre_pictures, "#{base}/pictures.zip")
       end
-      
+
       def import_file(nature, file, options = {})
         p = self.path(file)
         if p.exist?
@@ -86,12 +86,12 @@ module Ekylibre
           puts text.join
         end
       end
-      
+
       def import_archive(nature, target, *files)
         file = check_archive(target, *files)
         import_file(nature, file)
       end
-      
+
       # Check that archive exist if not try to build one if existing file
       # Given files must exist
       def check_archive(target, *files)

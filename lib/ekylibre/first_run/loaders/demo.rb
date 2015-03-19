@@ -10,7 +10,7 @@ Ekylibre::FirstRun.add_loader :demo do |first_run|
     Ekylibre::FirstRun::Faker::Prescriptions.run(max: first_run.max)
 
     Ekylibre::FirstRun::Faker::Crumbs.run(max: first_run.max)
-    
+
   end
-  
+
 end

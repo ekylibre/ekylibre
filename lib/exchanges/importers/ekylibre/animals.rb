@@ -1,9 +1,9 @@
 # Create or updates animals
 Exchanges.add_importer :ekylibre_animals do |file, w|
-  
+
   rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
   w.count = rows.size
-  
+
   rows.each do |row|
     r = OpenStruct.new(name: row[0],
                        nature: row[1].to_sym,
@@ -44,5 +44,5 @@ Exchanges.add_importer :ekylibre_animals do |file, w|
 
     w.check_point
   end
-  
+
 end

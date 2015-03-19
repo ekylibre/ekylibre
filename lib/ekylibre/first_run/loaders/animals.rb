@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :animals do |first_run|
-  
+
   first_run.import_file(:ekylibre_animal_groups, "alamano/animal_groups.csv")
   first_run.import_pictures("alamano/animal_groups", :products, :work_number)
 
