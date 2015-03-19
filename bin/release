@@ -7,6 +7,14 @@ class Releaser
 
   def self.run!
     # TODO: Check cleaning
+    desc "General cleaning"
+    exec "rake clean"
+    desc "Private cleaning"
+    exec "rake clean:private"
+
+    desc "Fixtures restoration"
+    exec "rake db:fixtures:restore"
+
     # TODO: Check nomenclatures changes
     # TODO: Check VERSION
     # TODO: Check Travis results (or test locally ?)

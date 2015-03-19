@@ -2714,3 +2714,14 @@ preferences_228:
   updated_at: 2015-03-08 16:47:45.579742000 Z
   updater_id: 1
   user_id: 1
+preferences_229:
+  boolean_value: false
+  created_at: 2015-03-19 07:19:54.092690000 Z
+  creator_id: 1
+  id: 229
+  lock_version: 0
+  name: interface.snippets.decision_making.collapsed
+  nature: boolean
+  updated_at: 2015-03-19 07:19:54.092690000 Z
+  updater_id: 1
+  user_id: 1

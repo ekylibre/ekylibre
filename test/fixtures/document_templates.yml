@@ -322,3 +322,33 @@ document_templates_018:
   nature: veterinary_booklet
   updated_at: 2014-11-03 11:24:19.649644000 Z
   updater_id: 1
+document_templates_019:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2015-03-19 07:20:14.089619000 Z
+  creator_id: 1
+  formats: ''
+  id: 21
+  language: fra
+  lock_version: 0
+  managed: true
+  name: Facture d’achat
+  nature: purchases_invoice
+  updated_at: 2015-03-19 07:20:14.089619000 Z
+  updater_id: 1
+document_templates_020:
+  active: true
+  archiving: last
+  by_default: true
+  created_at: 2015-03-19 07:20:14.121990000 Z
+  creator_id: 1
+  formats: ''
+  id: 22
+  language: fra
+  lock_version: 0
+  managed: true
+  name: Registre de TVA
+  nature: vat_taxe_registry
+  updated_at: 2015-03-19 07:20:14.121990000 Z
+  updater_id: 1
