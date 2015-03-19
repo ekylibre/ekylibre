@@ -123,6 +123,7 @@ class Tax < Ekylibre::Record::Base
     return label
   end
 
+
   # Load a tax from tax nomenclature
   def self.import_from_nomenclature(reference_name)
     unless item = Nomen::Taxes.find(reference_name)

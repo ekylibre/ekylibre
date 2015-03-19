@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mmp_sheet" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-  <property name="ireport.zoom" value="1.0000000000000002"/>
+  <property name="ireport.zoom" value="1.1000000000000003"/>
   <property name="ireport.x" value="0"/>
-  <property name="ireport.y" value="667"/>
+  <property name="ireport.y" value="192"/>
   <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="table">
     <box>
@@ -61,7 +61,7 @@
       <fieldDescription><![CDATA[support/storage/work-number]]></fieldDescription>
     </field>
     <field name="cultivation_variety_name" class="java.lang.String">
-      <fieldDescription><![CDATA[cultivation-variety/@name]]></fieldDescription>
+      <fieldDescription><![CDATA[cultivation-variety-name]]></fieldDescription>
     </field>
     <field name="nitrogen_input" class="java.lang.Double">
       <fieldDescription><![CDATA[nitrogen-input]]></fieldDescription>
@@ -141,7 +141,7 @@
     <fieldDescription><![CDATA[activity/name]]></fieldDescription>
   </field>
   <field name="zone_soil_nature_name" class="java.lang.String">
-    <fieldDescription><![CDATA[soil-nature/@name]]></fieldDescription>
+    <fieldDescription><![CDATA[soil-nature-name]]></fieldDescription>
   </field>
   <field name="zone_cultivation_variety" class="java.lang.String">
     <fieldDescription><![CDATA[cultivation-variety/@name]]></fieldDescription>
@@ -151,6 +151,9 @@
   </field>
   <field name="storage_name" class="java.lang.String">
     <fieldDescription><![CDATA[support/storage/name]]></fieldDescription>
+  </field>
+  <field name="zone_cultivation_variety_name" class="java.lang.String">
+    <fieldDescription><![CDATA[cultivation-variety-name]]></fieldDescription>
   </field>
   <sortField name="storage_work_number"/>
   <group name="zone" isStartNewPage="true">
@@ -194,7 +197,7 @@
         </staticText>
         <textField isBlankWhenNull="true">
           <reportElement style="strong" x="340" y="64" width="212" height="19" uuid="796725e7-923c-497d-8959-e75bc9b780f5"/>
-          <textFieldExpression><![CDATA[$F{zone_cultivation_variety}]]></textFieldExpression>
+          <textFieldExpression><![CDATA[$F{zone_cultivation_variety_name}]]></textFieldExpression>
         </textField>
         <staticText>
           <reportElement style="label" x="228" y="64" width="112" height="19" uuid="4555c096-22f3-4b5f-b659-bf9d32be95ca"/>

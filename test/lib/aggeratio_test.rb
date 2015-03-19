@@ -6,6 +6,8 @@ class AggeratioTest < ActiveSupport::TestCase
   setup do
     Ekylibre::Tenant.setup!("test", keep_files: true)
     @parameters = {
+      vat_taxe_registry: {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
+      general_ledger: {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
       exchange_accountancy_file_fr: {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
       income_statement:    {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
     }.with_indifferent_access

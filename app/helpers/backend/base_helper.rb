@@ -153,7 +153,7 @@ module Backend::BaseHelper
   def kujaku(*args, &block)
     options = args.extract_options!
     url_options = options[:url] || {}
-    name = args.shift || caller.first.split(":in ").first
+    name = args.shift || Pathname.new(caller.first.split(":in ").first).relative_path_from(Rails.root).to_s
     k = Kujaku.new(name)
     if block_given?
       yield k

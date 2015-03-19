@@ -174,7 +174,6 @@ eng:
     #~ unit_name: "Unit name"
     unitary_quantity: "Unitary quantity"
     variable_name: "Variable name"
-    #~ variant: "Variant"
     variant_name: "Variant name"
     variant_variety: "Variant variety"
     #~ variety: "Variety"

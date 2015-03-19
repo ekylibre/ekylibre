@@ -10,11 +10,11 @@
       <property name="entity_name" value="company.full_name"/>
       <property name="address" if="company.default_mail_address" value="company.default_mail_address.coordinate"/>
 
-     <sections for="tax" in="Tax.all.order('reference_name, amount ASC')">
-      <title name="name" of="tax" of-type="record"/>
-      <property name="amount" of="tax" of-type="number"/>
-      <property name="reference_name" of="tax"/>
-      <!-- looking for all sale_items in the current period (started_on, stopped_on) -->
+      <sections for="tax" in="Tax.all.order('reference_name, amount ASC')">
+        <title name="name" of="tax" of-type="record"/>
+        <property name="amount" of="tax" of-type="number"/>
+        <property name="reference_name" of="tax"/>
+        <!-- looking for all sale_items in the current period (started_on, stopped_on) -->
         <matrix name="sale_items" for="sale_item" in="tax.sale_items.between(started_on.to_datetime, stopped_on.to_datetime).reorder('sales.invoiced_at')">
           <cell name="id" of="sale_item" level="api"/>
           <cell name="number" of="sale_item"/>
@@ -22,10 +22,10 @@
           <cell name="pretax_amount" of="sale_item" type="number"/>
           <cell name="amount" of="sale_item" type="number"/>
           <cell name="taxes_amount" of="sale_item" type="number"/>
-          <cell name="tax_name" of="sale_item"/>
+          <cell name="tax_name" of="sale_item" if="sale_item.tax"/>
           <cell name="currency" of="sale_item" level="api"/>
         </matrix>
-      <!-- looking for all purchase_items in the current period (started_on, stopped_on) -->
+        <!-- looking for all purchase_items in the current period (started_on, stopped_on) -->
         <matrix name="purchase_items" for="purchase_item" in="tax.purchase_items.between(started_on.to_datetime, stopped_on.to_datetime).reorder('purchases.invoiced_at')">
           <cell name="id" of="purchase_item" level="api"/>
           <cell name="number" of="purchase_item"/>
@@ -33,10 +33,10 @@
           <cell name="pretax_amount" of="purchase_item" type="number"/>
           <cell name="amount" of="purchase_item" type="number"/>
           <cell name="taxes_amount" of="purchase_item" type="number"/>
-          <cell name="tax_name" of="purchase_item"/>
+          <cell name="tax_name" of="purchase_item" if="purchase_item.tax"/>
           <cell name="currency" of="purchase_item" level="api"/>
         </matrix>
-     </sections>
+      </sections>
     </section>
   </aggregator>
 </aggregators>

@@ -67,7 +67,7 @@ class SaleItem < Ekylibre::Record::Base
   delegate :sold?, to: :sale
   delegate :invoiced_at, :number, to: :sale
   delegate :currency, to: :sale, prefix: true
-  #delegate :name, to: :tax, prefix: true
+  delegate :name, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
   delegate :unit_name, :name, to: :variant
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
@@ -159,30 +159,6 @@ class SaleItem < Ekylibre::Record::Base
     self.quantity - self.delivery_items.sum(:quantity)
   end
 
-  def tax_name
-    if self.tax and reference = Nomen::Taxes.find(self.tax.reference_name)
-      # FIXME Not I18nized...
-      return "#{self.tax.amount}% (#{reference.country})"
-    else
-      return nil
-    end
-  end
-
-  # def stock_id
-  #   ProductStock.find_by_building_id_and_product_id_and_tracking_id(self.building_id, self.product_id, self.tracking_id).id rescue nil
-  # end
-
-  # def stock_id=(value)
-  #   value = value.to_i
-  #   if value > 0 and stock = ProductStock.find_by_id(value)
-  #     self.building_id = stock.building_id
-  #     self.tracking_id = stock.tracking_id
-  #     self.product_id  = stock.product_id
-  #   elsif value < 0 and building = Building.find_by_id(value.abs)
-  #     self.building_id = value.abs
-  #   end
-  # end
-
   def designation
     d  = self.label
     d << "\n" + self.annotation.to_s unless self.annotation.blank?
@@ -223,6 +199,5 @@ class SaleItem < Ekylibre::Record::Base
   def uncredited_quantity
     self.quantity + self.credited_quantity
   end
-
 
 end

@@ -356,14 +356,14 @@ preferences_028:
   updater_id: 1
   user_id: 1
 preferences_029:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:06.216183000 Z
   creator_id: 1
   id: 29
-  lock_version: 0
+  lock_version: 1
   name: interface.kujakus.backend-sales-index-1.collapsed
   nature: boolean
-  updated_at: 2014-10-31 18:36:06.216183000 Z
+  updated_at: 2015-03-19 17:23:50.222897000 Z
   updater_id: 1
   user_id: 1
 preferences_030:
@@ -2723,5 +2723,35 @@ preferences_229:
   name: interface.snippets.decision_making.collapsed
   nature: boolean
   updated_at: 2015-03-19 07:19:54.092690000 Z
+  updater_id: 1
+  user_id: 1
+preferences_230:
+  created_at: 2015-03-19 17:07:14.125702000 Z
+  creator_id: 1
+  id: 230
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/ekylibre/app/views/backend/sales/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-03-19 17:07:14.125702000 Z
+  updater_id: 1
+  user_id: 1
+preferences_231:
+  created_at: 2015-03-19 17:17:49.636895000 Z
+  creator_id: 1
+  id: 231
+  lock_version: 0
+  name: kujaku.criteria./home/brice/Projets/ekylibre/ekylibre/app/views/backend/purchases/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-03-19 17:17:49.636895000 Z
+  updater_id: 1
+  user_id: 1
+preferences_232:
+  created_at: 2015-03-19 17:23:44.970147000 Z
+  creator_id: 1
+  id: 232
+  lock_version: 0
+  name: kujaku.criteria.app/views/backend/sales/index.html.haml:1:0.default
+  nature: string
+  updated_at: 2015-03-19 17:23:44.970147000 Z
   updater_id: 1
   user_id: 1

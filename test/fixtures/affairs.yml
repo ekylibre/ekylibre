@@ -344,3 +344,21 @@ affairs_016:
   ticket: false
   updated_at: 2014-11-07 16:53:27.399316000 Z
   updater_id: 1
+affairs_017:
+  accounted_at: 2015-03-19 17:19:00.044907000 Z
+  closed: false
+  created_at: 2015-03-19 17:18:42.077881000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: USD
+  deals_count: 1
+  debit: 1848.0
+  id: 31
+  lock_version: 0
+  number: A000000000024
+  originator_id: 12
+  originator_type: Purchase
+  third_id: 5
+  ticket: false
+  updated_at: 2015-03-19 17:18:42.077881000 Z
+  updater_id: 1

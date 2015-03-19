@@ -201,17 +201,17 @@ sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
   creator_id: 1
   id: 10
-  last_cweek: 45
-  last_month: 11
-  last_number: 23
-  last_year: 2014
-  lock_version: 26
+  last_cweek: 12
+  last_month: 3
+  last_number: 24
+  last_year: 2015
+  lock_version: 27
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2014-11-07 16:53:26.243110000 Z
+  updated_at: 2015-03-19 17:18:42.074823000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -342,17 +342,17 @@ sequences_019:
   created_at: 2014-11-01 16:25:19.021542000 Z
   creator_id: 1
   id: 19
-  last_cweek: 45
-  last_month: 11
-  last_number: 4
-  last_year: 2014
-  lock_version: 4
+  last_cweek: 12
+  last_month: 3
+  last_number: 1
+  last_year: 2015
+  lock_version: 5
   name: Achat
   number_format: A[year|4][month|2][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2014-11-07 16:52:05.067013000 Z
+  updated_at: 2015-03-19 17:18:41.989759000 Z
   updater_id: 1
   usage: purchases
 sequences_020:

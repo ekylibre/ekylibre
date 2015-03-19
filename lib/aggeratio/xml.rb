@@ -74,7 +74,7 @@ module Aggeratio
       if element.has_attribute?("in")
         code  = "for #{item} in #{element.attr("in")}\n" +
           build_elements(element.xpath('xmlns:variable')).dig +
-          "  xml.#{item} do\n" +
+          "  xml.send('#{normalize_name(item)}') do\n" +
           code.dig(2) +
           "  end\n" +
           "end\n"

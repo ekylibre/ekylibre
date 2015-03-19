@@ -1543,3 +1543,93 @@ journal_entry_items_049:
   state: draft
   updated_at: 2014-11-07 16:52:57.675741000 Z
   updater_id: 1
+journal_entry_items_050:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1447.14
+  account_id: 54
+  balance: 1447.14
+  created_at: 2015-03-19 17:18:59.959437000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2987.14
+  currency: EUR
+  debit: 1447.14
+  entry_id: 29
+  entry_number: PUD000001
+  financial_year_id: 24
+  id: 106
+  journal_id: 5
+  lock_version: 0
+  name: "[Achat A201503000001] Ammonitre 33,5%  Big Bag de Taurus Plus"
+  position: 1
+  printed_on: 2015-03-15
+  real_balance: 1540.0
+  real_credit: 0.0
+  real_currency: USD
+  real_currency_rate: 0.9397
+  real_debit: 1540.0
+  state: draft
+  updated_at: 2015-03-19 17:18:59.959437000 Z
+  updater_id: 1
+journal_entry_items_051:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 289.43
+  account_id: 39
+  balance: 289.43
+  created_at: 2015-03-19 17:18:59.988683000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 1.87
+  cumulated_absolute_debit: 4017.43
+  currency: EUR
+  debit: 289.43
+  entry_id: 29
+  entry_number: PUD000001
+  financial_year_id: 24
+  id: 107
+  journal_id: 5
+  lock_version: 0
+  name: "[Achat A201503000001] Ammonitre 33,5%  Big Bag de Taurus Plus"
+  position: 2
+  printed_on: 2015-03-15
+  real_balance: 308.0
+  real_credit: 0.0
+  real_currency: USD
+  real_currency_rate: 0.9397
+  real_debit: 308.0
+  state: draft
+  updated_at: 2015-03-19 17:18:59.988683000 Z
+  updater_id: 1
+journal_entry_items_052:
+  absolute_credit: 1736.57
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 203
+  balance: -1736.57
+  created_at: 2015-03-19 17:19:00.010334000 Z
+  creator_id: 1
+  credit: 1736.57
+  cumulated_absolute_credit: 1736.57
+  cumulated_absolute_debit: 0.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 29
+  entry_number: PUD000001
+  financial_year_id: 24
+  id: 108
+  journal_id: 5
+  lock_version: 0
+  name: "[Achat A201503000001] Ammonitre 33,5%  Big Bag de Taurus Plus"
+  position: 3
+  printed_on: 2015-03-15
+  real_balance: -1848.0
+  real_credit: 1848.0
+  real_currency: USD
+  real_currency_rate: 0.9397
+  real_debit: 0.0
+  state: draft
+  updated_at: 2015-03-19 17:19:00.010334000 Z
+  updater_id: 1

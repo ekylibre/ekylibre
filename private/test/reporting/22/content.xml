@@ -40,11 +40,11 @@
     </conditionalStyle>
   </style>
   <subDataset name="sales" uuid="f4727b5d-6769-4ffc-89f4-d36d60c94281">
-    <queryString language="xPath"><![CDATA[/financial-years/tax/sale-items/sale_item]]></queryString>
+    <queryString language="xPath"><![CDATA[/financial-years/tax/sale-items/sale-item]]></queryString>
   </subDataset>
   <subDataset name="purchases" uuid="5df066eb-23eb-4a1b-8a78-ea11d0dedb54">
     <parameter name="reference-name" class="java.lang.String"/>
-    <queryString language="xPath"><![CDATA[/financial-years/tax/purchase-items/purchase_item]]></queryString>
+    <queryString language="xPath"><![CDATA[/financial-years/tax/purchase-items/purchase-item]]></queryString>
     <field name="id" class="java.lang.String">
       <fieldDescription><![CDATA[id]]></fieldDescription>
     </field>
