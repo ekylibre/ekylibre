@@ -8,49 +8,33 @@ class ChangeBalanceToJournalEntries < ActiveRecord::Migration
 
         execute <<-SQL
           UPDATE journal_entries
-          SET balance = credit - debit
+          SET balance = debit - credit
         SQL
 
         execute <<-SQL
           UPDATE journal_entries
-          SET real_balance = real_credit - real_debit
+          SET real_balance = real_debit - real_credit
         SQL
 
         execute <<-SQL
           UPDATE journal_entry_items
-          SET balance = credit - debit
+          SET balance = debit - credit
         SQL
 
         execute <<-SQL
           UPDATE journal_entry_items
-          SET real_balance = real_credit - real_debit
+          SET real_balance = real_debit - real_credit
         SQL
 
 
       end
 
       r.down do
-
-        execute <<-SQL
-          UPDATE journal_entries
-          SET balance = 0
-        SQL
-
-        execute <<-SQL
-          UPDATE journal_entries
-          SET real_balance = 0
-        SQL
-
+        # We keep old values except on JournalEntryItem which are the only ones to be null
         execute <<-SQL
           UPDATE journal_entry_items
           SET balance = 0
         SQL
-
-        execute <<-SQL
-          UPDATE journal_entry_items
-          SET real_balance = 0
-        SQL
-
       end
 
     end

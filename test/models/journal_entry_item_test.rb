@@ -46,6 +46,7 @@
 #  name                      :string           not null
 #  position                  :integer
 #  printed_on                :date             not null
+#  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null

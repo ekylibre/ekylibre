@@ -37,6 +37,7 @@
 #  lock_version       :integer          default(0), not null
 #  number             :string           not null
 #  printed_on         :date             not null
+#  real_balance       :decimal(19, 4)   default(0.0), not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
 #  real_currency      :string           not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
@@ -69,8 +70,8 @@ class JournalEntry < Ekylibre::Record::Base
   has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: "FinancialYear", dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
-  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :state, allow_nil: true, maximum: 30
@@ -94,11 +95,6 @@ class JournalEntry < Ekylibre::Record::Base
     #     event :reopen do
     #       transition :closed => :confirmed
     #     end
-  end
-
-  before_validation do
-    self.balance = self.credit - self.debit
-    self.real_balance = self.real_credit - self.real_debit
   end
 
   # Build an SQL condition based on options which should contains acceptable states
@@ -176,10 +172,11 @@ class JournalEntry < Ekylibre::Record::Base
     else
       self.real_currency_rate = 1
     end
-    self.real_debit  = self.items.sum(:real_debit)
-    self.real_credit = self.items.sum(:real_credit)
-    self.debit  = self.items.sum(:debit)
-    self.credit = self.items.sum(:credit)
+    self.real_debit   = self.items.sum(:real_debit)
+    self.real_credit  = self.items.sum(:real_credit)
+    self.real_balance = self.real_debit - self.real_credit
+    self.debit   = self.items.sum(:debit)
+    self.credit  = self.items.sum(:credit)
     self.balance = self.debit - self.credit
     self.absolute_currency = Preference[:currency]
     if self.absolute_currency == self.currency

@@ -37,6 +37,7 @@
 #  lock_version       :integer          default(0), not null
 #  number             :string           not null
 #  printed_on         :date             not null
+#  real_balance       :decimal(19, 4)   default(0.0), not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
 #  real_currency      :string           not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
@@ -62,6 +63,7 @@
 #   journal: journals_001
 #   number: "Lorem ipsum"
 #   printed_on: 2014-11-27
+#   real_balance: 0
 #   real_credit: 0
 #   real_currency: "Lorem ipsum"
 #   real_currency_rate: 0
@@ -86,6 +88,7 @@ journal_entries_001:
   lock_version: 19
   number: XYZ0005
   printed_on: 2009-07-18
+  real_balance: 0.0
   real_credit: 150.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -111,6 +114,7 @@ journal_entries_002:
   lock_version: 15
   number: XYZ0006
   printed_on: 2009-07-18
+  real_balance: 0.0
   real_credit: 100.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -136,6 +140,7 @@ journal_entries_003:
   lock_version: 16
   number: PUR000001
   printed_on: 2014-10-31
+  real_balance: 0.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -159,6 +164,7 @@ journal_entries_004:
   lock_version: 15
   number: XYZ0007
   printed_on: 2014-11-01
+  real_balance: 0.0
   real_credit: 27.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -182,6 +188,7 @@ journal_entries_005:
   lock_version: 4
   number: XYZ0008
   printed_on: 2014-11-01
+  real_balance: 0.0
   real_credit: 117.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -207,6 +214,7 @@ journal_entries_006:
   lock_version: 0
   number: XYZ0009
   printed_on: 2014-11-01
+  real_balance: 0.0
   real_credit: 0.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -230,6 +238,7 @@ journal_entries_007:
   lock_version: 2
   number: XYZ0010
   printed_on: 2014-11-01
+  real_balance: 0.0
   real_credit: 1164.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -255,6 +264,7 @@ journal_entries_008:
   lock_version: 11
   number: XYZ0011
   printed_on: 2009-07-18
+  real_balance: 0.0
   real_credit: 123.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -280,6 +290,7 @@ journal_entries_009:
   lock_version: 3
   number: BNK000001
   printed_on: 2014-11-05
+  real_balance: 0.0
   real_credit: 223.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -305,6 +316,7 @@ journal_entries_010:
   lock_version: 2
   number: BNK000002
   printed_on: 2014-11-05
+  real_balance: 0.0
   real_credit: 150.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -330,6 +342,7 @@ journal_entries_011:
   lock_version: 3
   number: XYZ0012
   printed_on: 2014-11-05
+  real_balance: 0.0
   real_credit: 11.23
   real_currency: EUR
   real_currency_rate: 1.0
@@ -355,6 +368,7 @@ journal_entries_012:
   lock_version: 2
   number: XYZ0013
   printed_on: 2014-11-05
+  real_balance: 0.0
   real_credit: 0.8
   real_currency: EUR
   real_currency_rate: 1.0
@@ -380,6 +394,7 @@ journal_entries_013:
   lock_version: 7
   number: BNK000003
   printed_on: 2014-08-31
+  real_balance: 0.0
   real_credit: 116.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -405,6 +420,7 @@ journal_entries_014:
   lock_version: 11
   number: CUN000001
   printed_on: 2014-01-03
+  real_balance: 0.0
   real_credit: 112.07
   real_currency: EUR
   real_currency_rate: 1.0
@@ -430,6 +446,7 @@ journal_entries_015:
   lock_version: 2
   number: BNK000004
   printed_on: 2014-01-03
+  real_balance: 0.0
   real_credit: 112.07
   real_currency: EUR
   real_currency_rate: 1.0
@@ -455,6 +472,7 @@ journal_entries_016:
   lock_version: 2
   number: BNK000005
   printed_on: 2014-07-19
+  real_balance: 0.0
   real_credit: 28.3
   real_currency: EUR
   real_currency_rate: 1.0
@@ -480,6 +498,7 @@ journal_entries_017:
   lock_version: 2
   number: CUN000002
   printed_on: 2014-07-19
+  real_balance: 0.0
   real_credit: 28.3
   real_currency: EUR
   real_currency_rate: 1.0
@@ -505,6 +524,7 @@ journal_entries_018:
   lock_version: 2
   number: BNK000006
   printed_on: 2013-07-19
+  real_balance: 0.0
   real_credit: 156.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -530,6 +550,7 @@ journal_entries_019:
   lock_version: 3
   number: PUR000002
   printed_on: 2014-11-07
+  real_balance: 0.0
   real_credit: 1848.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -555,6 +576,7 @@ journal_entries_020:
   lock_version: 8
   number: XYZ0014
   printed_on: 2013-11-07
+  real_balance: 0.0
   real_credit: 14954.0
   real_currency: EUR
   real_currency_rate: 1.0
@@ -578,6 +600,7 @@ journal_entries_021:
   lock_version: 3
   number: PUR000003
   printed_on: 2014-11-07
+  real_balance: 0.0
   real_credit: 20520.0
   real_currency: EUR
   real_currency_rate: 1.0

@@ -46,6 +46,7 @@
 #  name                      :string           not null
 #  position                  :integer
 #  printed_on                :date             not null
+#  real_balance              :decimal(19, 4)   default(0.0), not null
 #  real_credit               :decimal(19, 4)   default(0.0), not null
 #  real_currency             :string           not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
@@ -70,8 +71,8 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :printed_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
-  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :letter, allow_nil: true, maximum: 10
@@ -136,8 +137,8 @@ class JournalEntryItem < Ekylibre::Record::Base
       self.cumulated_absolute_credit += previous.cumulated_absolute_credit
     end
 
-    self.balance = self.credit - self.debit
-    self.real_balance = self.real_credit - self.real_debit
+    self.balance = self.debit - self.credit
+    self.real_balance = self.real_debit - self.real_credit
   end
 
   validate(on: :update) do

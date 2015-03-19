@@ -2502,6 +2502,11 @@ journal_entries:
   printed_on:
     type: date
     required: true
+  real_balance:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   real_credit:
     type: decimal
     precision: 19
@@ -2621,6 +2626,11 @@ journal_entry_items:
     type: integer
   printed_on:
     type: date
+    required: true
+  real_balance:
+    type: decimal
+    precision: 19
+    scale: 4
     required: true
   real_credit:
     type: decimal
