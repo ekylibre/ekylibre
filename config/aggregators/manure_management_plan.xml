@@ -29,7 +29,7 @@
           <property name="shape_svg" value="zone.shape_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current zone and campaign -->
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
-            <title name="storage.name" of="support"/>
+            <title name="name" of="support"/>
             <property name="activity_family" value="support.activity.family"/>
             <property name="variant_name" if="support.production" value="support.production.variant_name"/>
             <property name="variant_variety" if="support.production" value="support.production.variant_variety"/>

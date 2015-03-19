@@ -5,13 +5,13 @@ class AggeratioTest < ActiveSupport::TestCase
 
   setup do
     Ekylibre::Tenant.setup!("test", keep_files: true)
-    # All document template should be loaded already
-    # DocumentTemplate.load_defaults
     @parameters = {
       exchange_accountancy_file_fr: {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
       income_statement:    {started_on: "2013-06-01", stopped_on: "2014-12-31"}.with_indifferent_access,
     }.with_indifferent_access
     Ekylibre::Tenant.switch(:test)
+    # All document template should be loaded already
+    DocumentTemplate.load_defaults
   end
 
 
@@ -40,6 +40,9 @@ class AggeratioTest < ActiveSupport::TestCase
 
       # Check that test data are complete to use all item of aggregators
       doc = Nokogiri::XML(xml, nil, nil, Nokogiri::XML::ParseOptions::NOBLANKS|Nokogiri::XML::ParseOptions::STRICT|Nokogiri::XML::ParseOptions::DEFAULT_XML)
+      file = Rails.root.join("tmp", "test", "aggeratio", "#{klass.aggregator_name}.xml")
+      FileUtils.mkdir_p file.dirname
+      File.write(file, xml)
       errors, queries = [], agg.queries(strict: false)
       queries.each do |query|
         errors << query unless doc.xpath(query).any?

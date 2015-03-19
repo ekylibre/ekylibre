@@ -161,7 +161,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     return nil
   end
 
-  # Print a document with the given datasource
+  # Print a document with the given datasource and return raw data
   # Store if needed by template
   # @param datasource XML representation of data used by the template
   def print(datasource, key, format = :pdf, options = {})
@@ -176,7 +176,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
 
-  # Print a document with the given datasource
+  # Export a document with the given datasource and return path file
   # Store if needed by template
   # @param datasource XML representation of data used by the template
   def export(datasource, key, format = :pdf, options = {})
@@ -189,7 +189,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       FileUtils.rm_rf(path)
       path = document.file.path(:original)
     end
-    # Returns only the data (without filename)
+    # Returns only the path
     return path
   end
 
