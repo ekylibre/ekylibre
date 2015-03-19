@@ -74,11 +74,6 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     self.locked?
   end
 
-  def expected_yield(options = {})
-    self.support.estimate_yield(options)
-  end
-
-
   def estimate_expected_yield
     if self.computation_method
       self.expected_yield = Calculus::ManureManagementPlan.estimate_expected_yield(parameters).to_f(self.plan.mass_density_unit)

@@ -8,7 +8,7 @@ module Calculus
 
       # Estimate "y"
       def estimate_expected_yield
-	require 'colored' unless defined? Colored
+	      require 'colored' unless defined? Colored
         expected_yield = Calculus::ManureManagementPlan::External.new(@options).estimate_expected_yield
         cultivation_varieties = (@variety ? @variety.self_and_parents : :undefined)
         # puts "------------------------------------------------------".red
@@ -21,9 +21,13 @@ module Calculus
         elsif capacity = @options[:available_water_capacity].in_liter_per_square_meter and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: cultivation_varieties, soil_nature: soil_natures) and items = items.select{|i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < i.maximum_available_water_capacity.in_liter_per_square_meter} and items.any?
           # puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
-        #else
-          # TODO remove this when all factor could return a value
-          #expected_yield = 30.in_quintal_per_hectare
+        else
+          if @support.production_usage == 'grain'
+            variety == :grain
+          elsif @support.production_usage == 'fodder'
+            variety == :grass
+          end
+          expected_yield = @support.estimate_yield(variety: variety)
         end
         # puts "======================================================".red
         return expected_yield

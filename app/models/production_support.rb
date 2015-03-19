@@ -283,9 +283,13 @@ class ProductionSupport < Ekylibre::Record::Base
     self.production.estimate_yield(options)
   end
 
-  def cultivation
-    # FIXME How to get cultivation ?
-    nil
+  def current_cultivation
+    # get the first object with variety 'plant', availables
+    if cultivation = self.storage.contents.where(type: Plant).of_variety(self.variant.variety).availables.reorder(:born_at).first
+      return cultivation
+    else
+      return nil
+    end
   end
 
   def unified_quantity_unit
