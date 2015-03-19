@@ -278,6 +278,11 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
+  # call method in production for instance
+  def estimate_yield(options = {})
+    self.production.estimate_yield(options)
+  end
+
   def cultivation
     # FIXME How to get cultivation ?
     nil

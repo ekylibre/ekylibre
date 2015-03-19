@@ -74,6 +74,10 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     self.locked?
   end
 
+  def expected_yield(options = {})
+    self.support.estimate_yield(options)
+  end
+
 
   def estimate_expected_yield
     if self.computation_method
@@ -121,7 +125,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   def available_water_capacity
     return 0.0.in_liter_per_hectare
   end
-  
+
   #To have human_name in report
   def soil_nature_name
     unless item = Nomen::SoilNatures[self.soil_nature].human_name
@@ -129,7 +133,7 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
     end
     return item
   end
-  
+
   def cultivation_variety_name
     unless item = Nomen::Varieties[self.cultivation_variety].human_name
       return nil

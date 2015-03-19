@@ -12,6 +12,10 @@
         .info
           %span.title= :production.tl
           %span.value= link_to(resource.production.name, backend_production_path(resource.production))
+        - if resource.estimate_yield.to_d > 0.0
+          .info
+            %span.title= :estimate_yield.tl
+            %span.value= resource.estimate_yield.l
         - if resource.implanted_at
           .info
             %span.title= :implanted_at.tl

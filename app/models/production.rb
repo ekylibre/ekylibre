@@ -184,6 +184,44 @@ class Production < Ekylibre::Record::Base
     tc('states.'+state.to_s)
   end
 
+  # return estimate_yield for output varieties and quantity_unit / support_unit
+  # return a Measure
+  # example : Wheat ( quantity_unit = :quintal, support_unit = :hectare, varieties = [:grain])
+  # will return the estimate_yield : 65.00 quintal_per_hectare
+  def estimate_yield(quantity_unity = :quintal, support_unity = :hectare, varieties = :grain, options)
+
+
+    #TODO refactorize to convert quantity_unity and support_unity into an existing unit like :quintal_per_hectare
+    if quantity_unity == :quintal and support_unity == :hectare
+      output_unit = :quintal_per_hectare
+      output_item_unit = :quintal_per_hectare
+    elsif quantity_unity == :ton and support_unity == :hectare
+      output_unit = :ton_per_hectare
+      output_item_unit = :ton_per_hectare
+    end
+
+    o = Measure.new(0, output_unit)
+
+    if self.revenues
+      product_budget_items = self.revenues.where(variant_id: ProductNatureVariant.of_variety(varieties).map(&:id))
+      for item in product_budget_items
+        # build divider
+        if item.computation_method == :per_working_unit
+          s = Measure.new(1, self.support_variant_unit)
+        elsif item.computation_method == :per_production_support
+          quantity = self.supports.sum(:quantity)
+          s = Measure.new(quantity, self.support_variant_unit)
+        end
+        # build item yield
+        m = Measure.new(item.quantity, item.variant_unit)
+        output = (m.to_d(quantity_unity) / s.to_d(support_unity))
+        output_measure = Measure.new(output, output_item_unit) if output
+        o += output_measure if output_measure
+      end
+    end
+    return o
+  end
+
   # Prints human name of current production
   def state_label
     self.class.state_label(self.state)
