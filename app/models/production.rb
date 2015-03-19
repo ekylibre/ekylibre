@@ -189,13 +189,13 @@ class Production < Ekylibre::Record::Base
   # example : Wheat ( quantity_unit = :quintal, support_unit = :hectare, varieties = [:grain])
   # will return the estimate_yield : 65.00 quintal_per_hectare
   def estimate_yield(options = {})
-    
+
     quantity_unity = options[:quantity_unit] || :quintal
     quantity_indicator = options[:quantity_indicator] || :net_mass
     support_unity = options[:support_unit] || :hectare
     support_indicator = options[:support_indicator] || :net_surface_area
     varieties = options[:variety] || :grain
-    
+
 
     #TODO refactorize to convert quantity_unity and support_unity into an existing unit like :quintal_per_hectare
     if quantity_unity == :quintal and support_unity == :hectare
