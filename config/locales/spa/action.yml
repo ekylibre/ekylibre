@@ -25,6 +25,7 @@ spa:
       # unmark: "Unmark account"
     backend/activities:
       # edit: "Edit activity: %{name}"
+      # family: "Family activity: %{name}"
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
@@ -771,6 +772,7 @@ spa:
     # add_revenue: "Add revenue"
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
+    # add_support: "Add support"
     # add_website: "Add website"
     # add_x: "Add “%{x}”"
     # affair: "Affair"
@@ -1006,6 +1008,7 @@ spa:
     establishment: "Establecimiento" #?
     establishment_create: "Añadir un nuevo establecimiento" #?
     establishments: "Establecimiento" #?
+    # estimate_yield: "Estimate yield"
     europe_out_export: "Exportaciones fuera de CC.EE" #?
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"

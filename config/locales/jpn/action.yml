@@ -18,6 +18,7 @@ jpn:
       # unmark: "Unmark account"
     backend/activities:
       # edit: "Edit activity: %{name}"
+      # family: "Family activity: %{name}"
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
@@ -635,6 +636,7 @@ jpn:
     # add_revenue: "Add revenue"
     # add_sale_taxation: "Add sale taxation"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
+    # add_support: "Add support"
     # add_website: "Add website"
     # add_x: "Add “%{x}”"
     # affair: "Affair"
@@ -818,6 +820,7 @@ jpn:
     # error: "Sorry..."
     error_no_file: "ページ(%{article})はありません。"
     # errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
+    # estimate_yield: "Estimate yield"
     # evaluated_doer_cost: "Evaluated labor cost"
     # evaluated_input_cost: "Evaluated input cost"
     # evaluated_tool_cost: "Evaluated tool cost"

@@ -21,6 +21,7 @@ fra:
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name}"
+      # family: "Family activity: %{name}"
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
@@ -703,7 +704,7 @@ fra:
     active_current_sum: "Total actifs circulants" #?
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
-    # activities: "Activities"
+    activities: "Activités"
     activity: "Activités"
     add: "Ajouter"
     add_choice: "Ajouter un choix"
@@ -738,7 +739,7 @@ fra:
     add_revenue: "Ajouter une recette"
     add_sale_taxation: "Ajouter une taxe de vente"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
-    add_support: "Ajouter un support de production" #?
+    add_support: "Ajouter un support de production"
     add_treatment: "Ajouter un traitement" #?
     add_variant: "Ajouter une variante" #?
     add_watching: "Ajouter un produit de référence" #?
@@ -1000,6 +1001,7 @@ fra:
     establishments: "Établissements" #?
     estimate: "Devis" #?
     estimate_to_order: "Passer le devis en commande" #?
+    estimate_yield: "Rendement estimé"
     europe_out_export: "Exportations hors CE" #?
     evaluated_doer_cost: "Coût main d’œuvre"
     evaluated_input_cost: "Coût intrants"
@@ -1126,7 +1128,7 @@ fra:
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
     invoiced_amount: "Montant facturé"
-    # invoices: "Invoices"
+    invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?
     is: "Est"
     issue: "Incident"
