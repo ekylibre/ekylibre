@@ -121,5 +121,20 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   def available_water_capacity
     return 0.0.in_liter_per_hectare
   end
+  
+  #To have human_name in report
+  def soil_nature_name
+    unless item = Nomen::SoilNatures[self.soil_nature].human_name
+      return nil
+    end
+    return item
+  end
+  
+  def cultivation_variety_name
+    unless item = Nomen::Varieties[self.cultivation_variety].human_name
+      return nil
+    end
+    return item
+  end
 
 end
