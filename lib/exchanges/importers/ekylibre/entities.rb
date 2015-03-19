@@ -35,13 +35,13 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
       person.update_attributes!(country: r.country) if person.country.blank?
     elsif
       person = klass.new(first_name: r.first_name,
-                          last_name: r.last_name,
-                          nature: r.nature,
-                          country: r.country,
-                          active: r.active,
-                          prospect: r.prospect,
-                          transporter: r.transporter
-                          )
+                         last_name: r.last_name,
+                         nature: r.nature,
+                         country: r.country,
+                         active: r.active,
+                         prospect: r.prospect,
+                         transporter: r.transporter
+                        )
       person.save!
     end
     if r.client_account_number
