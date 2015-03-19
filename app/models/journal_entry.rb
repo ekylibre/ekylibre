@@ -96,6 +96,11 @@ class JournalEntry < Ekylibre::Record::Base
     #     end
   end
 
+  before_validation do
+    self.balance = self.credit - self.debit
+    self.real_balance = self.real_credit - self.real_debit
+  end
+
   # Build an SQL condition based on options which should contains acceptable states
   def self.state_condition(states={}, table_name=nil)
     table = table_name || self.table_name

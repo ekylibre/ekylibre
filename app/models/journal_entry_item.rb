@@ -135,6 +135,9 @@ class JournalEntryItem < Ekylibre::Record::Base
       self.cumulated_absolute_debit  += previous.cumulated_absolute_debit
       self.cumulated_absolute_credit += previous.cumulated_absolute_credit
     end
+
+    self.balance = self.credit - self.debit
+    self.real_balance = self.real_credit - self.real_debit
   end
 
   validate(on: :update) do

@@ -28,6 +28,7 @@ class Backend::JournalEntriesController < Backend::BaseController
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
+    t.column :real_balance, currency: :real_currency
     t.column :debit,  currency: true, hidden: true
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
@@ -49,6 +50,7 @@ class Backend::JournalEntriesController < Backend::BaseController
     t.column :real_credit, currency: :real_currency
     t.column :debit,  currency: true, hidden: true
     t.column :credit, currency: true, hidden: true
+    t.column :balance, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
