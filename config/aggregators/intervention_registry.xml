@@ -21,7 +21,7 @@
             <title name="name" of="production"/>
             <property name="id" of="production"/>
             <property name="url" value="&quot;#{Preference[:host]}/backend/productions/#{production.id}&quot;" level="api"/>
-            <property name="variant" of="production"/>
+            <property name="variant_name" of="production" if="production.variant"/>
             <property name="state" of="production"/>
             <property name="cultivable_zone_svg" if="CultivableZone.of_productions(production)" value="CultivableZone.of_productions(production).shape_svg(srid: 2154)" type="svg" level="api"/>
             <property name="equipment_svg" if="Equipment.of_productions(production)" value="Equipment.of_productions(production).shape_svg(srid: 3857)" type="svg" level="api"/>
