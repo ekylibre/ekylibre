@@ -19,7 +19,7 @@ eng:
       unmark: "Unmark account"
     backend/activities:
       edit: "Edit activity: %{name}"
-      family: "Family activity: %{name}"
+      # family: "Family activity: %{name}"
       index: "Activities"
       new: "New activity"
       show: "Activity: %{name}"

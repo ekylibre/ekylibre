@@ -294,7 +294,7 @@ fra:
     base-maintenance_task: "Tâche de maintenance générale"
     base-mammal_herd_milking: "Traite d’un troupeau"
     base-mammal_milking: "Traite d’un animal"
-    # base-manual_feeding: "Manual feeding"
+    base-manual_feeding: "Alimentation manuelle"
     base-manual_vine_harvest: "Vendange manuelle" #?
     base-mecanical_vine_harvest: "Vendange mécanique" #?
     base-mineral_fertilizing: "Fertilisation minérale"

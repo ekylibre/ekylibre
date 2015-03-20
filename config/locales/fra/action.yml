@@ -21,7 +21,6 @@ fra:
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name}"
-      # family: "Family activity: %{name}"
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
@@ -752,7 +751,7 @@ fra:
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
-    # all_cash_balances: "All cash balances"
+    all_cash_balances: "Soldes des comptes"
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
     all_periods: "Tous les exercices"
@@ -1930,7 +1929,7 @@ fra:
       journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
       journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
       mails_are_sent: "Les courriels ont été envoyés"
-      # merge_is_done: "Merge is done"
+      merge_is_done: "La fusion est terminée"
       need_a_production_support: "Nécessite un support de production"
       need_a_valid_purchase_nature_to_start_new_purchase: "Nécessite un type d’achat valide pour commencer un nouvel achat"
       need_a_valid_sale_nature_to_start_new_sale: "Nécessite un type de vente valide pour commencer une nouvelle vente"
