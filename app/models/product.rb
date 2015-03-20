@@ -335,8 +335,7 @@ class Product < Ekylibre::Record::Base
       end
       if self.name.blank?
         # By default, choose a random name
-	require 'ffaker' unless defined? Faker
-        self.name = Faker::Name.first_name
+        self.name = ::Faker::Name.first_name
       end
     end
   end
@@ -438,11 +437,11 @@ class Product < Ekylibre::Record::Base
     if localizations.any?
       #object = []
       #for localization in localizations
-        #object << localization.product if localization.product.is_a?(stored_class)
+      #object << localization.product if localization.product.is_a?(stored_class)
       #end
       return localizations
-     else
-       return nil
+    else
+      return nil
     end
   end
 

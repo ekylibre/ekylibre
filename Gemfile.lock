@@ -180,7 +180,7 @@ GEM
       curb (~> 0.8)
       loofah (~> 2.0)
       sax-machine (~> 1.0)
-    ffaker (2.0.0)
+    ffaker (1.32.1)
     ffi (1.9.8)
     formize (2.1.0)
       jquery-rails (>= 3)
@@ -204,7 +204,7 @@ GEM
     i18n (0.7.0)
     i18n-complements (0.0.14)
       i18n (>= 0.6)
-    jbuilder (2.2.11)
+    jbuilder (2.2.12)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jc-validates_timeliness (3.1.1)
@@ -486,7 +486,7 @@ DEPENDENCIES
   factory_girl_rails
   fastercsv
   feedjira
-  ffaker
+  ffaker (< 2.0)
   formize (~> 2.1.0)
   haml
   http_accept_language

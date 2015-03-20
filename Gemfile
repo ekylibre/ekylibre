@@ -118,7 +118,7 @@ gem 'roo'
 gem 'spreadsheet'
 
 # Demo data
-gem 'ffaker', require: false
+gem 'ffaker', '< 2.0'
 
 # Reading RSS feeds
 gem 'feedjira', require: false
