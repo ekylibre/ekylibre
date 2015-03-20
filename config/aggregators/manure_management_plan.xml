@@ -22,7 +22,7 @@
           <title name="name" of="zone"/>
           <property name="work_number" of="zone"/>
           <property name="clusters_work_number" of="zone"/>
-          <property name="soil_varieties" of="zone"/>
+          <property name="soil_varieties_label" of="zone"/>
           <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
@@ -31,8 +31,10 @@
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
             <title name="name" of="support"/>
             <property name="activity_family" value="support.activity.family"/>
+            <property name="activity_family_label" value="support.activity.family_label"/>
             <property name="variant_name" if="support.production" value="support.production.variant_name"/>
             <property name="variant_variety" if="support.production" value="support.production.variant_variety"/>
+            <property name="variant_variety_label" if="support.production" value="support.production.variant_variety_label"/>
             <property name="started_at" if="support.started_at" of="support" type="datetime"/>
             <property name="stopped_at" if="support.stopped_at" of="support" type="datetime"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>

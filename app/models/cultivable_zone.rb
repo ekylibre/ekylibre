@@ -148,6 +148,23 @@ class CultivableZone < Zone
       return nil
     end
   end
+  
+  def soil_varieties_label(viewed_at = nil)
+    land_parcels = self.members_at(viewed_at)
+    varieties = []
+    if land_parcels.any?
+      for land_parcel in land_parcels
+        if land_parcel.soil_nature
+         if item = Nomen::SoilNatures[land_parcel.soil_nature]
+          varieties << item.human_name
+         end         
+        end
+      end
+      return varieties.to_sentence
+    else
+     return nil
+    end
+  end
 
   # return the last_production before the production in parameter where the cultivable land parcel is a support
   # @TODO replace created_at by started_at when an input field will exist

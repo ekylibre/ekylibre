@@ -22,7 +22,7 @@
           <title name="name" of="zone"/>
           <property name="work_number" of="zone"/>
           <property name="clusters_work_number" of="zone"/>
-          <property name="soil_varieties" of="zone"/>
+          <property name="soil_varieties_label" of="zone"/>
           <property name="net_surface_area" if="zone.net_surface_area" value="net_surface_area.to_d(:hectare)"  of="zone" type="measure"/>
           <property name="net_surface_area_in_hectare" if="zone.net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
@@ -31,8 +31,10 @@
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
             <title name="name" of="support"/>
             <property name="activity_family" value="support.activity.family"/>
+            <property name="activity_family_label" value="support.activity.family_label"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
+            <property name="variant_variety_label" if="support.production" value="support.production.variant_variety_label"/>
             <property name="started_at" of="support" type="datetime" if="support.started_at"/>
             <property name="stopped_at" of="support" type="datetime" if="support.stopped_at"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
@@ -68,7 +70,7 @@
                 <cell name="nitrogen_input_per_hectare" value="(original_input.actor.variant.net_mass.to_d(:kilogram) * input.population * ( original_input.actor.nitrogen_concentration.to_d(:percent) / 100 )) / intervention_working_area" level="api"/>
               </matrix>
             </sections>
-            <sections for="provisional_pasturing" in="support.interventions.provisional.of_nature(:'pasturing').reorder(:started_at)" of-type="record">
+            <sections if="support.current_cultivation" for="provisional_pasturing" in="Intervention.provisional.of_nature(:pasturing).with_cast('pasturing-target', support.current_cultivation).reorder(:started_at)" of-type="record">
               <variable name="animal_group" if="provisional_pasturing.casts.of_role(:'pasturing-doer')" value="provisional_pasturing.casts.of_role(:'pasturing-doer').first.actor"/>
               <variable name="period" value="((provisional_pasturing.stopped_at - provisional_pasturing.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
               <variable name="daily_nitrogen_production" value="animal_group.daily_nitrogen_production(provisional_pasturing.started_at)" level="api"/>

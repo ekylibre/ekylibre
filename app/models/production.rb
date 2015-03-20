@@ -175,7 +175,22 @@ class Production < Ekylibre::Record::Base
       end
     end
   end
+  
+  def variant_variety_label
+    #To have human_name in report
+    unless item = Nomen::Varieties[self.variant_variety].human_name
+      return nil
+    end
+    return item
+  end
 
+  def cultivation_variety_name
+    unless item = Nomen::Varieties[self.cultivation_variety].human_name
+      return nil
+    end
+    return item
+  end
+  
   def has_active_product?
     self.cultivation_variant.nature.active?
   end

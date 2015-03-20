@@ -138,6 +138,10 @@ class Activity < Ekylibre::Record::Base
   protect(on: :destroy) do
     self.productions.any?
   end
+  
+  def family_label
+    item = Nomen::ActivityFamilies[self.family].human_name
+  end
 
   class << self
 
