@@ -38,7 +38,9 @@ end
 # # TODO: supply generic implementation
 # }
 
-if Rails.env.test?
+if ENV["TENANT"]
+  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', Proc.new { |request| ENV["TENANT"] }
+elsif Rails.env.test?
   Rails.application.config.middleware.use 'Apartment::Elevators::Generic', Proc.new { |request| "test" }
 else
   Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
