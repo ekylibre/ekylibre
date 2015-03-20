@@ -5,7 +5,7 @@
       <variable name="tank"   variety="equipment" abilities="store(wine)" default-actor="storage"/>
       <variable name="wine"   variety="wine" default-actor="first-localized-in: tank" roles="bottling-target" read-only="true" />
       <variable name="wine_to_pack" new="parted-from: wine" roles="bottling-input" default-name="{{variant}} ({{container}})">
-	<handler indicator="population" />
+	      <handler indicator="population" />
         <handler indicator="net_volume"            unit="hectoliter"               to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
                  forward="value / self..net_volume(hectoliter)"
                  backward="value * self..net_volume(hectoliter)"
@@ -29,15 +29,15 @@
       </variable>
       <variable name="corks"        variety="cork" abilities="close(cork_bottle)"/>
       <variable name="corks_to_use" new="parted-from: corks" roles="bottling-input" default-name="{{variant}} ({{container}})">
-	<handler indicator="population" />
+	      <handler indicator="population" />
       </variable>
       <variable name="wine_man"                         abilities="drive(corker), drive(bottler), move" roles="bottling-doer"/>
       <variable name="hand_drawn"   variety="equipment" abilities="fill(bottle)" roles="bottling-tool"/>
       <variable name="corker"       variety="equipment" abilities="close(bottle)" roles="bottling-tool"/>
       <variable name="wine_bottles" variety="wine" derivative-of=":wine_to_pack" new="produced-by: wine_to_pack" roles="bottling-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" >
-	<handler indicator="population" />
+	      <handler indicator="population" />
       </variable>
-    <variable name="wine_storage" variety="building_division" abilities="store(wine)" />
+      <variable name="wine_storage" variety="building_division" abilities="store(wine)" />
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
