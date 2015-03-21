@@ -83,7 +83,6 @@
       <item name="peanut_crops"              support_variety="cultivable_zone" cultivation_variety="arachis"/>
       <item name="rapeseed_crops"            support_variety="cultivable_zone" cultivation_variety="brassica_napus"/>
       <item name="sunflower_crops"           support_variety="cultivable_zone" cultivation_variety="helianthus"/>
-      <item name="soybean_crops"             support_variety="cultivable_zone" cultivation_variety="glycine_max"/>
       <item name="theobroma_crops"           support_variety="cultivable_zone" cultivation_variety="theobroma"/>
       <item name="cocoa_crops"               support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/>
     </items>
@@ -96,6 +95,7 @@
       <item name="vetch_crops"               support_variety="cultivable_zone" cultivation_variety="vicia"/>
       <item name="horsebean_crops"           support_variety="cultivable_zone" cultivation_variety="vicia_faba"/>
       <item name="lupin_crops"               support_variety="cultivable_zone" cultivation_variety="lupinus"/>
+      <item name="soybean_crops"             support_variety="cultivable_zone" cultivation_variety="glycine_max"/>
       <item name="pea_crops"                 support_variety="cultivable_zone" cultivation_variety="pisum"/>
       <item name="lentil_crops"              support_variety="cultivable_zone" cultivation_variety="lens"/>
       <item name="chickpea_crops"            support_variety="cultivable_zone" cultivation_variety="cicer"/>

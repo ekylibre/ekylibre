@@ -138,6 +138,12 @@
       <item name="lentil"
             production_code="2050"
             activity="lentil_crops"
+            telepac_crop_code="LE"
+            variant_support="lentil_crop"
+            />
+      <item name="marketable_lentil"
+            production_code="2050"
+            activity="lentil_crops"
             telepac_crop_code="LH"
             variant_support="lentil_crop"
             />
@@ -159,10 +165,16 @@
             telepac_crop_code="PH"
             variant_support="pea_crop"
             />
-      <item name="soy"
+      <item name="marketable_soy"
             production_code="2120"
             activity="soybean_crops"
             telepac_crop_code="SJ"
+            variant_support="soy_crop"
+            />
+      <item name="soy"
+            production_code="2120"
+            activity="soybean_crops"
+            telepac_crop_code="SO"
             variant_support="soy_crop"
             />
       <item name="beet"
@@ -195,6 +207,12 @@
             telepac_crop_code="TO"
             variant_support="sunflower_crop"
             />
+      <item name="marketable_sunflower"
+            production_code="2380"
+            activity="sunflower_crops"
+            telepac_crop_code="TS"
+            variant_support="sunflower_crop"
+            />
       <item name="tobacco"
             production_code="2530"
             activity="tobacco_crops"
@@ -214,6 +232,18 @@
             variant_support="saffron_crop"
             />
       <!-- 3 - FODDER CROP -->
+      <item name="forager_lupin"
+            production_code="3140"
+            activity="lupin_crops"
+            telepac_crop_code="FO"
+            variant_support="lupin_crop"
+            />
+      <item name="marketable_forager_lupin"
+            production_code="3140"
+            activity="lupin_crops"
+            telepac_crop_code="FD"
+            variant_support="lupin_crop"
+            />
       <item name="silage_corn"
             production_code="3150"
             activity="maize_crops"
@@ -225,6 +255,18 @@
             activity="sorghum_crops"
             telepac_crop_code="SH"
             variant_support="sorghum_crop"
+            />
+      <item name="forager_soy"
+            production_code="3220"
+            activity="soybean_crops"
+            telepac_crop_code="FO"
+            variant_support="soy_crop"
+            />
+       <item name="marketable_forager_soy"
+            production_code="3220"
+            activity="soybean_crops"
+            telepac_crop_code="FD"
+            variant_support="soy_crop"
             />
       <item name="temporary_meadow"
             production_code="3400"

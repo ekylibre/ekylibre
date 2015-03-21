@@ -148,7 +148,7 @@ class CultivableZone < Zone
       return nil
     end
   end
-  
+
   def soil_varieties_label(viewed_at = nil)
     land_parcels = self.members_at(viewed_at)
     varieties = []
@@ -157,7 +157,7 @@ class CultivableZone < Zone
         if land_parcel.soil_nature
          if item = Nomen::SoilNatures[land_parcel.soil_nature]
           varieties << item.human_name
-         end         
+         end
         end
       end
       return varieties.to_sentence

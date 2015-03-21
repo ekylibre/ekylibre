@@ -472,7 +472,7 @@
             />
       <item name="soy_crop"
             nature="grain_crop"
-            variety="glycine"
+            variety="glycine_max"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -485,6 +485,12 @@
       <item name="lentil_crop"
             nature="grain_crop"
             variety="lens"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="lupin_crop"
+            nature="grain_crop"
+            variety="lupinus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -613,7 +619,7 @@
       <!-- TREE CROP -->
       <item name="plum_crop"
             nature="fruit_crop"
-            variety="prunus"
+            variety="prunus_domestica"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -809,6 +815,13 @@
             derivative_of="brassica_napus"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <!-- plum -->
+      <item name="plum"
+            nature="plum"
+            derivative_of="prunus_domestica"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram"
             />
       <!-- hazelnut -->
       <item name="hazelnut"

@@ -557,6 +557,15 @@
             variable_indicators="population, reference_year"
             frozen_indicators="net_mass, net_volume"
             />
+      <item name="plum"
+            category="fruit"
+            variety="plum"
+            derivative_of="prunus_domestica"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, water_content_rate, impurity_concentration"
+            frozen_indicators="net_mass"
+            />
       <item name="hazelnut"
             category="fruit"
             variety="hazelnut"

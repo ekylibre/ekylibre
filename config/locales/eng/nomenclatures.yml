@@ -415,7 +415,7 @@ eng:
         sheep_farming: "Sheep farming"                     #< animal_farming
         snail_farming: "Snail farming"                     #< animal_farming
         sorghum_crops: "Sorghum crops"                     #< cereal_crops
-        soybean_crops: "Soybean crops"                     #< oilseed_crops
+        soybean_crops: "Soybean crops"                     #< protein_crops
         stocks: "Stocks"                                   #< exploitation
         strawberry_crops: "Strawberry crops"               #< fruits_crops
         sturgeon_farming: "Sturgeon farming"               #< animal_farming
@@ -2134,7 +2134,7 @@ eng:
         implantation: "Implantation"
         implanting: "Implanting"                           #< implantation
         maintenance_task: "Maintenance task"
-        # manual_food_supply: "Manual food supply"         #< animal_nutrition
+        manual_food_supply: "Manual food supply"           #< animal_nutrition
         manual_soil_enrichment: "Manual soil enrichment"   #< soil_enrichment
         manual_working: "Manual working"
         milk_production: "Milk production"                 #< animal_production
@@ -2736,6 +2736,7 @@ eng:
         livestock_cleanliness_product: "Livestock cleanliness product"
         lucerne_crop: "Lucerne crop"
         lucerne_seed: "Lucerne seed"
+        lupin_crop: "Lupin crop"
         maintenance: "Maintenance"
         male_adult_cattle_herd: "Male adult cattle herd"
         male_adult_cow: "Male adult cow"
@@ -2808,6 +2809,7 @@ eng:
         plant_medicine_tank: "Plant medicine tank"
         plastic_cover_500m: "Plastic cover 500m"
         plow: "Plow"
+        plum: "Plum"
         plum_crop: "Plum crop"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
@@ -3097,6 +3099,7 @@ eng:
         plant_medicine_tank: "Plant medicine tank"
         plastic_cover: "Plastic cover"
         plow: "Plow"
+        plum: "Plum"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
         preparation_division: "Preparation division"
@@ -3183,6 +3186,8 @@ eng:
         exploitation: "Exploitation"
         five_years_temporary_meadow: "Five years temporary meadow"
         fixed_frost_fallow_land: "Fixed frost fallow land"
+        forager_lupin: "Forager lupin"
+        forager_soy: "Forager soy"
         fruit_processing: "Fruit processing"
         garden_center: "Garden center"
         garlic: "Garlic"
@@ -3199,7 +3204,12 @@ eng:
         market_gardening: "Market gardening"
         market_gardening_under_greenhouse: "Market gardening under greenhouse"
         marketable_bean: "Marketable bean"
+        marketable_forager_lupin: "Marketable forager lupin"
+        marketable_forager_soy: "Marketable forager soy"
         marketable_hazel: "Marketable hazel"
+        marketable_lentil: "Marketable lentil"
+        marketable_soy: "Marketable soy"
+        marketable_sunflower: "Marketable sunflower"
         marketable_walnut: "Marketable walnut"
         meat_cattle: "Meat cattle"
         melon: "Melon"
