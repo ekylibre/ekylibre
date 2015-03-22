@@ -70,7 +70,7 @@
                 <cell name="nitrogen_input_per_hectare" value="(original_input.actor.variant.net_mass.to_d(:kilogram) * input.population * ( original_input.actor.nitrogen_concentration.to_d(:percent) / 100 )) / intervention_working_area" level="api"/>
               </matrix>
             </sections>
-            <sections if="support.current_cultivation" for="provisional_pasturing" in="Intervention.provisional.of_nature(:pasturing).with_cast('pasturing-target', support.current_cultivation).reorder(:started_at)" of-type="record">
+            <sections if="zone.current_cultivation" for="provisional_pasturing" in="Intervention.provisional.of_nature(:pasturing).with_cast('pasturing-target', zone.current_cultivation).reorder(:started_at)" of-type="record">
               <variable name="animal_group" if="provisional_pasturing.casts.of_role(:'pasturing-doer')" value="provisional_pasturing.casts.of_role(:'pasturing-doer').first.actor"/>
               <variable name="period" value="((provisional_pasturing.stopped_at - provisional_pasturing.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
               <variable name="daily_nitrogen_production" value="animal_group.daily_nitrogen_production(provisional_pasturing.started_at)" level="api"/>

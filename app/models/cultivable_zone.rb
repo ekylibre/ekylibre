@@ -180,7 +180,15 @@ class CultivableZone < Zone
       return nil
     end
   end
-
+  
+  def current_cultivation
+    # get the first object with variety 'plant', availables
+    if cultivation = self.contents.where(type: Plant).of_variety(:plant).availables.reorder(:born_at).first
+      return cultivation
+    else
+      return nil
+    end
+  end
 
   def administrative_area
     address = Entity.of_company.default_mail_address
