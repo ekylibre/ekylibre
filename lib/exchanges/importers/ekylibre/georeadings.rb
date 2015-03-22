@@ -18,6 +18,8 @@ Exchanges.add_importer :ekylibre_georeadings do |file, w|
     file.each do |record|
       if record.geometry
         if !record.attributes['name'].blank?
+          # TODO find how to fix non UTF-8 name
+          # puts record.attributes['name'].inspect.red
           name = record.attributes['name'].mb_chars.downcase.capitalize
         else
           name = record.attributes['number'].to_s.upcase

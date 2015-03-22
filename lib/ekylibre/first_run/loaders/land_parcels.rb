@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
 
   first_run.import_archive(:telepac_cap_land_parcels, "ilot.zip", "ilot.shp", "ilot.dbf", "ilot.shx", in: "telepac")
