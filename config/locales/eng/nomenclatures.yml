@@ -2760,7 +2760,6 @@ eng:
         market_gardening_crop: "Market gardening crop"
         meadow_grass: "Meadow grass"
         meal_travel: "Meal travel"
-        melon_crop: "Melon crop"
         merlot_noir_so4_vine_seedling: "Merlot noir so4 vine seedling"
         merveille_hazelnut: "Merveille hazelnut"
         milk_tank: "Milk tank"
@@ -2779,6 +2778,7 @@ eng:
         moving_travel: "Moving travel"
         mower: "Mower"
         mud: "Mud"
+        muskmelon_crop: "Muskmelon crop"
         natural_cork: "Natural cork"
         natural_water: "Natural water"
         negret_hazelnut: "Negret hazelnut"
@@ -3076,6 +3076,8 @@ eng:
         meal_travel: "Meal travel"
         mechanic: "Mechanic"
         mechanic_item: "Mechanic item"
+        melon: "Melon"
+        melon_crop: "Melon crop"
         milk: "Milk"
         milk_tank: "Milk tank"
         mineral_cleaner: "Mineral cleaner"
@@ -4005,6 +4007,7 @@ eng:
         meleagris: "Turkey"                                #< phasianidae
         meleagris_gallopavo: "Domestic turkey"             #< meleagris
         meleagris_ocellata: "Ocellated turkey"             #< meleagris
+        melon: "Melon"                                     #< fruit
         milk: "Milk"                                       #< raw_matter
         mix: "Mix"                                         #< preparation
         moraceae: "Moraceae"                               #< plant

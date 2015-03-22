@@ -50,6 +50,7 @@
       <item name="plum" derivative_of="prunus_domestica"/>
       <item name="peach" derivative_of="prunus_persica"/>
       <item name="pear" derivative_of="pyrus"/>
+      <item name="melon" derivative_of="cucumis"/>
       <item name="raspberry" derivative_of="rubus"/>
       <item name="strawberry" derivative_of="fragaria"/>
       <item name="grain" derivative_of="plant"/>

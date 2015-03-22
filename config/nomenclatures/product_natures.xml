@@ -440,6 +440,15 @@
             frozen_indicators="net_surface_area"
             derivatives="walnut, straw"
             />
+      <item name="melon_crop"
+            category="crop"
+            variety="cucumis"
+            population_counting="decimal"
+            abilities="consume(water), consume(phytosanitary), produce(melon)"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plants_count, fresh_mass"
+            frozen_indicators="net_surface_area"
+            derivatives="melon"
+            />
       <item name="flower_crop"
             category="crop"
             variety="plant"
@@ -564,6 +573,15 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population, water_content_rate, impurity_concentration"
+            frozen_indicators="net_mass"
+            />
+      <item name="melon"
+            category="fruit"
+            variety="melon"
+            derivative_of="cucumis_melo"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, water_content_rate"
             frozen_indicators="net_mass"
             />
       <item name="hazelnut"

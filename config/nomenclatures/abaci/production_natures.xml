@@ -351,7 +351,7 @@
             production_code="4570"
             activity="muskmelon_crops"
             telepac_crop_code="MN"
-            variant_support="melon_crop"
+            variant_support="muskmelon_crop"
             />
       <item name="market_gardening"
             production_code="4999"
