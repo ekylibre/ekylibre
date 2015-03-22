@@ -1,0 +1,7 @@
+= form_tag do
+  = field_set do
+    = field AnimalGroup.human_attribute_name(:name), content_tag(:span, selector_tag(:group_id, {controller: :animal_groups, action: :unroll}, value: params[:group_id], new: backend_animal_group_url), class: "input-append")
+    = field :started_at.tl, content_tag(:span, datetime_field_tag(value: params[:started_at]), class: "input-append")
+    = field :stopped_at.tl, content_tag(:span, datetime_field_tag(value: params[:stopped_at]), class: "input-append") 
+  = form_actions do
+    = submit_tag :add_to_group.ta

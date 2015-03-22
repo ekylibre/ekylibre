@@ -68,12 +68,25 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :father, url: true, hidden: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :new,     on: :none
+    t.action :add_to_group, on: :both, method: :post
     # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
     # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
     t.action :edit
     t.action :destroy
   end
-
+  
+  def add_to_group
+    for id in ids = params[:id].split(',')
+      return unless find_and_check(id: id)
+    end
+    if params[:group_id].to_i > 0 and params[:started_at] and params[:stopped_at]
+      animal_group = Animal.add_animals_to_group(ids, params.slice(:group_id, :started_at, :stopped_at))
+      redirect_to backend_animal_group_url(animal_group)
+    else
+      #redirect to a form to select group / started_at / stopped_at
+    end
+  end
+  
   # Show a list of animal groups
 
   def index

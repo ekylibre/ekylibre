@@ -210,6 +210,7 @@ Rails.application.routes.draw do
 
     resources :animals, concerns: :products do
       member do
+        post :add_to_group
         get :list_children
       end
     end
