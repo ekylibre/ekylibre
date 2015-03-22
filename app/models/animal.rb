@@ -151,34 +151,4 @@ class Animal < Bioproduct
     "nomenclatures.varieties.items.#{self.variety}".t
   end
 
-  # Add animals to a group and return a group
-  # options:
-  #   - group_id: the group ID
-  #   - started_at: start date of presence in the group
-  #   - stopped_at: stop date of presence in the group
-  def self.add_animals_to_group(animals, options = {})
-    transaction do
-      # find the animal group with group_id
-      unless options[:group_id] and animal_group = AnimalGroup.find(options[:group_id])
-        raise StandardError, "Need an AnimalGroup to group animals"
-      end
-      # check if animals parameters are Animals or ids and return Animals sorted
-      animals = animals.flatten.collect do |a|
-        (a.is_a?(self) ? a : self.find(a))
-      end.sort{|a,b| a.name <=> b.name }
-      # add each animal to group with the correct option
-      animals.each do |animal|
-        if options[:started_at] and options[:stopped_at]
-          animal_group.add(animal, options[:started_at])
-          animal_group.remove(animal, options[:stopped_at])
-        elsif options[:started_at]
-          animal_group.add(animal, options[:started_at])
-        else
-          animal_group.add(animal)
-        end
-      end
-    end
-    return group
-  end
-
 end

@@ -9838,6 +9838,8 @@ fra:
         base-grape_transport: "Transport de raisin"
         base-grinding: "Broyage"
         base-ground_destratification: "Trou de déstratification"
+        base-group_exclusion: "Exclusion de groupe"
+        base-group_inclusion: "Inclusion de groupe"
         base-hazelnuts_harvest: "Récolte de noisettes"
         base-hazelnuts_transport: "Transport de noisettes"
         base-hoeing: "Binage"

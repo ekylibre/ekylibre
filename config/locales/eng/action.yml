@@ -47,7 +47,7 @@ eng:
     backend/animal_products:
       index: "Animal products"
     backend/animals:
-      # add_to_group: "Add to group animal: %{name}"
+      add_to_group: "Add to group"
       edit: "Edit animal: %{name}"
       index: "Animals"
       new: "New animal"
@@ -1680,7 +1680,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
-      # add_to_group: "Add to group"
+      add_to_group: "Add to group"
       attach: "Attach"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"

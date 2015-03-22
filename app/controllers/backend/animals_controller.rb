@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2012-2013 David Joulin, Brice Texier
@@ -63,32 +62,19 @@ class Backend::AnimalsController < Backend::MattersController
     t.status
     t.column :net_mass, datatype: :measure
     t.column :container, url: true
-    #t.column :groups, url: true
+    # t.column :groups, url: true
     t.column :mother, url: true, hidden: true
     t.column :father, url: true, hidden: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :new,     on: :none
-    t.action :add_to_group, on: :both, method: :post
+    t.action :add_to_group, on: :both
     # t.action :new_issue,        on: :both, url: {action: :new, controller: :issues}
     # t.action :new_intervention, on: :both, url: {action: :new, controller: :interventions}
     t.action :edit
     t.action :destroy
   end
 
-  def add_to_group
-    for id in ids = params[:id].split(',')
-      return unless find_and_check(id: id)
-    end
-    if params[:group_id].to_i > 0 and params[:started_at] and params[:stopped_at]
-      animal_group = Animal.add_animals_to_group(ids, params.slice(:group_id, :started_at, :stopped_at))
-      redirect_to backend_animal_group_url(animal_group)
-    else
-      #redirect to a form to select group / started_at / stopped_at
-    end
-  end
-
   # Show a list of animal groups
-
   def index
     @animals = Animal.all
     # passing a parameter to Jasper for company full name and id
@@ -98,7 +84,7 @@ class Backend::AnimalsController < Backend::MattersController
     respond_with @animals, :methods => [:picture_path, :sex_text, :variety_text], :include => [:initial_father, :initial_mother, :nature ,:variant]
   end
 
-   # Liste des enfants de l'animal considéré
+  # Children list
   list(:children, model: :product_links, conditions: {linked_id: 'params[:id]'.c, nature: %w(father mother)}, order: {started_at: :desc}) do |t|
     t.column :name, through: :product, url: true
     t.column :born_at, through: :product, datatype: :datetime
@@ -110,11 +96,27 @@ class Backend::AnimalsController < Backend::MattersController
     return unless @animal = find_and_check
     t3e @animal, nature: @animal.nature_name
     respond_with(@animal, :methods => [:picture_path, :sex_text, :variety_text], :include => [:father, :mother, :variant, :nature, :variety,
-                                                                  {:readings => {}},
-                                                                  {:intervention_casts => {:include => :intervention}},
-                                                                  {:memberships => {:include => :group}},
-                                                                  {:localizations => {:include => :container}}])
+                                                                                              {:readings => {}},
+                                                                                              {:intervention_casts => {:include => :intervention}},
+                                                                                              {:memberships => {:include => :group}},
+                                                                                              {:localizations => {:include => :container}}])
 
+  end
+
+  def add_to_group
+    for id in ids = params[:id].split(',')
+      return unless find_and_check(id: id)
+    end
+    if request.post?
+      if group = AnimalGroup.find(params[:group_id])  and production = Production.find_by(id: params[:production_id]) and params[:started_at]
+        group.add_animals(ids, at: params[:started_at], production: production, production_support: production.supports.find_by(id: params[:production_support_id]))
+        redirect_to params[:redirect] || backend_animal_group_url(group)
+      else
+        # redirect to a form to select group / started_at / stopped_at
+      end
+    else
+      params[:started_at] ||= Time.now
+    end
   end
 
 end

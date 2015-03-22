@@ -51,6 +51,7 @@ arb:
     backend/animal_products:
       # index: "Animal products"
     backend/animals:
+      # add_to_group: "Add to group"
       # edit: "Edit animal: %{name}"
       # index: "Animals"
       # new: "New animal"
@@ -2294,6 +2295,7 @@ arb:
     actions:
       # abort: "Abort"
       # about: "About"
+      # add_to_group: "Add to group"
       # attach: "Attach"
       # balance: "Balance"
       # bookkeep: "Bookkeep"

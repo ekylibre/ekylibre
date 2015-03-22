@@ -2138,6 +2138,8 @@ fra:
         grape_transport: "Transport de vendange"
         grinding: "Broyage"
         ground_arrangement: "Aménagement foncier"
+        group_exclusion: "Exclusion d'un groupe"
+        group_inclusion: "Inclusion dans un groupe"
         growth_control: "Contrôle de croissance"
         harvest: "Récolte"
         haymaking: "Fenaison"
@@ -2191,6 +2193,7 @@ fra:
       items:
         container: "Contenant"
         doer: "Faiseur"
+        includer: "Rassembleur"
         input: "Intrant"
         input_origin: "Origine de l’intrant"
         output: "Extrant"

@@ -1,7 +1,9 @@
 = form_tag do
   = field_set do
-    = field AnimalGroup.human_attribute_name(:name), content_tag(:span, selector_tag(:group_id, {controller: :animal_groups, action: :unroll}, value: params[:group_id], new: backend_animal_group_url), class: "input-append")
-    = field :started_at.tl, content_tag(:span, datetime_field_tag(value: params[:started_at]), class: "input-append")
-    = field :stopped_at.tl, content_tag(:span, datetime_field_tag(value: params[:stopped_at]), class: "input-append")
+    = field ProductMembership.human_attribute_name(:group), selector_tag(:group_id, {controller: :animal_groups, action: :unroll}, value: params[:group_id], new: backend_animal_group_url)
+    = field ProductMembership.human_attribute_name(:started_at), datetime_field_tag(:started_at)
+    = field Intervention.human_attribute_name(:production), selector_tag(:production_id, {controller: :productions, action: :unroll, scope: {of_currents_campaigns: true} }, value: params[:production_id])
+    .with-supports
+      = field Intervention.human_attribute_name(:production_support), selector_tag(:production_support_id, {controller: :production_supports, action: :unroll, scope: {of_currents_campaigns: true} }, value: params[:production_id])
   = form_actions do
     = submit_tag :add_to_group.ta

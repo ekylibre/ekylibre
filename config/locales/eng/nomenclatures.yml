@@ -2127,6 +2127,8 @@ eng:
         grape_transport: "Grape transport"                 #< transport
         grinding: "Grinding"
         ground_arrangement: "Ground arrangement"
+        group_exclusion: "Group exclusion"
+        group_inclusion: "Group inclusion"
         growth_control: "Growth control"
         harvest: "Harvest"
         haymaking: "Haymaking"
@@ -2177,6 +2179,7 @@ eng:
       items:
         container: "Container"
         doer: "Doer"
+        includer: "Includer"
         input: "Input"
         input_origin: "Input origin"
         output: "Output"

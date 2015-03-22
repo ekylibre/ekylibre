@@ -51,6 +51,7 @@ fra:
     backend/animal_products:
       index: "Produits animaux"
     backend/animals:
+      add_to_group: "Ajouter au groupe"
       edit: "Modifier l’animal\_: %{name}"
       index: "Animaux"
       new: "Nouvel animal"
@@ -2016,6 +2017,7 @@ fra:
     actions:
       abort: "Annuler"
       about: "À propos"
+      add_to_group: "Ajouter au groupe"
       attach: "Attacher"
       balance: "Balance"
       bookkeep: "Comptabiliser"

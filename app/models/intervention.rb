@@ -125,7 +125,7 @@ class Intervention < Ekylibre::Record::Base
   }
 
   scope :with_generic_cast, lambda { |role, object|
-     where(id: InterventionCast.of_generic_role(role).of_actor(object).pluck(:intervention_id))
+    where(id: InterventionCast.of_generic_role(role).of_actor(object).pluck(:intervention_id))
   }
 
   before_validation do
@@ -139,7 +139,7 @@ class Intervention < Ekylibre::Record::Base
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
     # set production_id
     if self.production_support
-      self.production_id = self.production_support.production.id
+      self.production_id ||= self.production_support.production_id
     end
   end
 
@@ -308,7 +308,8 @@ class Intervention < Ekylibre::Record::Base
       rep = reference.spread_time(duration)
       for name, operation in reference.operations
         d = operation.duration || rep
-        self.operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
+        operation = self.operations.create!(started_at: started_at, stopped_at: (started_at + d), reference_name: name)
+        operation.perform_all!
         started_at += d
       end
       self.reload
@@ -329,81 +330,107 @@ class Intervention < Ekylibre::Record::Base
     self.casts.create!(attributes)
   end
 
-  def self.run!(attributes, period, &block)
-    intervention = create!(attributes)
-    yield intervention
-    intervention.run!(period)
-    return intervention
-  end
+  class << self
 
-  # match
-  # Returns an array of procedures matching the given actors ordered by relevance
-  # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
-  # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
-  # matched in the procedure
-  # ==== parameters:
-  #           - actors, an array of actors identified for a given procedure
-  # ==== options:
-  #           - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
-  #             is expected. Default value: 0.
-  #           - limit: sets the number of wanted results. By default all results are returned
-  #           - history: sets the use of actors history to calculate relevance. A boolean is expected.
-  #             Default: false,since checking through history is slower
-  #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
-  # Default: false, since it's slower
-  #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false
-  def self.match(actors, options = {})
-    actors = [actors].flatten
-    limit = options[:limit].to_i - 1
-    relevance_threshold = options[:relevance].to_f
-    maximum_arity = 0
-
-    # Creating coefficients for relevance calculation for each procedure
-    # coefficients depend on provisional, actors history and actors presence in procedures
-    history = Hash.new(0)
-    provisional = []
-    actors_id = []
-    if options[:history] || options[:provisional]
-      actors_id = actors.map(&:id)
+    def run!(attributes, period, &block)
+      intervention = create!(attributes)
+      yield intervention
+      intervention.run!(period)
+      return intervention
     end
 
-    # Select interventions from all actors history
-    if options[:history]
-      history.merge!(Intervention.joins(:casts).
-          where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
-          where(started_at: (Time.now.midnight - 1.year)..(Time.now)). # history is considered relevant on 1 year
-          group('interventions.reference_name').
-          count('interventions.reference_name'))
-    end
 
-    if options[:provisional]
-      provisional.concat(Intervention.distinct.
-          joins(:casts).
-          where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
-          where(started_at: (Time.now.midnight - 1.day)..(Time.now + 3.days)).
-          pluck('interventions.reference_name')).uniq!
-    end
+    # Register and runs an intervention directly with only one operation with "100" as reference
+    # In next versions, all intervention will be considered as mono-operation and truly atomic.
+    def write(*natures)
+      options = natures.extract_options!
+      options[:reference_name] ||= "base-#{natures.first}-0"
 
-    coeff = {}
+      transaction do
+        attrs = options.slice(:reference_name, :description, :issue_id, :prescription_id, :production, :production_support, :recommender_id, :started_at, :stopped_at)
+        attrs[:started_at] ||= Time.now
+        attrs[:stopped_at] ||= Time.now
+        attrs[:natures] = natures.join(" ")
+        recorder = Intervention::Recorder.new(attrs)
 
-    history_size = 1.0 # prevents division by zero
-    history_size = history.values.reduce(:+).to_f if history.count >= 1
+        yield recorder
 
-    denominator = 1.0
-    denominator += 2.0 if options[:history] && history.present?
-    denominator += 3.0 if provisional.present? # if provisional is empty, it's pointless using it for relevance calculation
-
-    result = []
-    Procedo.list.map do |procedure_key, procedure|
-      coeff[procedure_key] = 1.0 + 2.0*(history[procedure_key].to_f/history_size) + 3.0*provisional.count(procedure_key).to_f
-      matched_variables = procedure.matching_variables_for(actors)
-      if matched_variables.count > 0
-        result << [procedure, (((matched_variables.values.count.to_f/actors.count)*coeff[procedure_key])/denominator),matched_variables.values.count]
-        maximum_arity = matched_variables.values.count if maximum_arity < matched_variables.values.count
+        recorder.write!
       end
+
     end
-    result.delete_if{|procedure, relevance, arity| relevance < relevance_threshold}
-    result.delete_if{|procedure, relevance, arity| arity < maximum_arity} if options[:max_arity]
-    return result.sort_by{|procedure, relevance, arity| -relevance}[0..limit]
+
+    # match
+    # Returns an array of procedures matching the given actors ordered by relevance
+    # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], …]
+    # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float, 'arity' is the number of actors
+    # matched in the procedure
+    # ==== parameters:
+    #           - actors, an array of actors identified for a given procedure
+    # ==== options:
+    #           - relevance: sets the relevance threshold above which results are wished. A float number between 0 and 1
+    #             is expected. Default value: 0.
+    #           - limit: sets the number of wanted results. By default all results are returned
+    #           - history: sets the use of actors history to calculate relevance. A boolean is expected.
+    #             Default: false,since checking through history is slower
+    #           - provisional: sets the use of actors provisional to calculate relevance. A boolean is expected.
+    # Default: false, since it's slower
+    #           - max_arity: limits results to procedures matching most actors. A boolean is expected. Default: false
+    def match(actors, options = {})
+      actors = [actors].flatten
+      limit = options[:limit].to_i - 1
+      relevance_threshold = options[:relevance].to_f
+      maximum_arity = 0
+
+      # Creating coefficients for relevance calculation for each procedure
+      # coefficients depend on provisional, actors history and actors presence in procedures
+      history = Hash.new(0)
+      provisional = []
+      actors_id = []
+      if options[:history] || options[:provisional]
+        actors_id = actors.map(&:id)
+      end
+
+      # Select interventions from all actors history
+      if options[:history]
+        history.merge!(Intervention.joins(:casts).
+                        where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
+                        where(started_at: (Time.now.midnight - 1.year)..(Time.now)). # history is considered relevant on 1 year
+                        group('interventions.reference_name').
+                        count('interventions.reference_name'))
+      end
+
+      if options[:provisional]
+        provisional.concat(Intervention.distinct.
+                            joins(:casts).
+                            where("intervention_casts.actor_id IN (#{actors_id.join(', ')})").
+                            where(started_at: (Time.now.midnight - 1.day)..(Time.now + 3.days)).
+                            pluck('interventions.reference_name')).uniq!
+      end
+
+      coeff = {}
+
+      history_size = 1.0 # prevents division by zero
+      history_size = history.values.reduce(:+).to_f if history.count >= 1
+
+      denominator = 1.0
+      denominator += 2.0 if options[:history] && history.present?
+      denominator += 3.0 if provisional.present? # if provisional is empty, it's pointless using it for relevance calculation
+
+      result = []
+      Procedo.list.map do |procedure_key, procedure|
+        coeff[procedure_key] = 1.0 + 2.0*(history[procedure_key].to_f/history_size) + 3.0*provisional.count(procedure_key).to_f
+        matched_variables = procedure.matching_variables_for(actors)
+        if matched_variables.count > 0
+          result << [procedure, (((matched_variables.values.count.to_f/actors.count)*coeff[procedure_key])/denominator),matched_variables.values.count]
+          maximum_arity = matched_variables.values.count if maximum_arity < matched_variables.values.count
+        end
+      end
+      result.delete_if{|procedure, relevance, arity| relevance < relevance_threshold}
+      result.delete_if{|procedure, relevance, arity| arity < maximum_arity} if options[:max_arity]
+      return result.sort_by{|procedure, relevance, arity| -relevance}[0..limit]
+    end
+
   end
+
 end

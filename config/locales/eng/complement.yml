@@ -9808,6 +9808,8 @@ eng:
         base-grape_transport: "Grape transport"
         base-grinding: "Grinding"
         base-ground_destratification: "Ground destratification"
+        base-group_exclusion: "Group exclusion"
+        base-group_inclusion: "Group inclusion"
         base-hazelnuts_harvest: "Hazelnuts harvest"
         base-hazelnuts_transport: "Hazelnuts transport"
         base-hoeing: "Hoeing"

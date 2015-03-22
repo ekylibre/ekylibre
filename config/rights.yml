@@ -302,6 +302,7 @@ animals:
     depend-on:
     - read-animals
     actions:
+    - "backend/animals#add_to_group"
     - "backend/animals#create"
     - "backend/animals#destroy"
     - "backend/animals#edit"

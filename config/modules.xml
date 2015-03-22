@@ -611,6 +611,7 @@
       </item>
       <item name="animals">
         <page to="backend/animals#index"/>
+        <page to="backend/animals#add_to_group"/>
         <page to="backend/animals#create"/>
         <page to="backend/animals#destroy"/>
         <page to="backend/animals#edit"/>

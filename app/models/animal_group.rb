@@ -71,15 +71,15 @@ class AnimalGroup < ProductGroup
   #]VALIDATORS]
 
   # Add a member to the group
-  def add(member, started_at = nil)
+  def add(member, options = {})
     raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Animal)
-    super(member, started_at)
+    super(member, options)
   end
 
   # Remove a member from the group
-  def remove(member, stopped_at = nil)
+  def remove(member, options = {})
     raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Animal)
-    super(member, stopped_at)
+    super(member, options)
   end
 
   # Returns members of the group at a given time (or now by default)
@@ -93,6 +93,18 @@ class AnimalGroup < ProductGroup
       quantity << animal.daily_nitrogen_production.to_d
     end
     return quantity.compact.sum.in_kilogram_per_day
+  end
+
+
+  def add_animals(animals, options = {})
+    Intervention.write(:group_inclusion, options) do |i|
+      i.cast :group, self, as: 'group_inclusion-target'
+      animals.each do |a|
+        animal = (a.is_a?(Animal) ? a : Animal.find(a))
+        member = i.cast :member, animal, as: 'group_inclusion-includer'
+        i.group_inclusion :group, member
+      end
+    end
   end
 
 end

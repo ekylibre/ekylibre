@@ -105,27 +105,28 @@ class Operation < Ekylibre::Record::Base
 
   validate do
     if self.started_at and self.stopped_at
-      if self.stopped_at <= self.started_at
+      if self.stopped_at < self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
     end
   end
 
-  before_update :cancel_all!
-  after_save :perform_all!
-  after_destroy :cancel_all!
+  # before_update :cancel_all!
+  # after_save :perform_all!
+  # after_destroy :cancel_all!
 
+  # Perform all tasks as defined in reference
   def perform_all!
     for task in self.reference.tasks.values
       perform(task)
     end
   end
 
-  def cancel_all!
-    for task in self.reference.tasks.values
-      cancel(task)
-    end
-  end
+  # def cancel_all!
+  #   for task in self.reference.tasks.values
+  #     cancel(task)
+  #   end
+  # end
 
   def reference
     self.intervention_reference.operations[self.reference_name]
@@ -162,12 +163,12 @@ class Operation < Ekylibre::Record::Base
     end
   end
 
-  def cancel(task)
-    method_name = "cancel_#{task.action.type}"
-    if respond_to?(method_name)
-      send(method_name, task_actors(task))
-    end
-  end
+  # def cancel(task)
+  #   method_name = "cancel_#{task.action.type}"
+  #   if respond_to?(method_name)
+  #     send(method_name, task_actors(task))
+  #   end
+  # end
 
 
   # == Localizations

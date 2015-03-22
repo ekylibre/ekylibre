@@ -82,19 +82,29 @@ class ProductGroup < Product
   #]VALIDATORS]
 
   # Add a member to the group
-  def add(member, started_at = nil)
+  def add(member, options = {})
     unless member.is_a?(Product)
       raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
-    self.memberships.create!(member: member, started_at: (started_at || Time.now), nature: :interior)
+    Intervention.write(:group_inclusion, options) do |i|
+      i.cast :group, self, as: 'group_inclusion-target'
+      i.cast :member, member, as: 'group_inclusion-includer'
+      i.group_inclusion :group, :member
+    end
+    # self.memberships.create!(member: member, started_at: (options[:at] || Time.now), nature: :interior)
   end
 
   # Remove a member from the group
-  def remove(member, stopped_at = nil)
+  def remove(member, options = {})
     unless member.is_a?(Product)
       raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
-    self.memberships.create!(member: member, started_at: (stopped_at || Time.now), nature: :exterior)
+    Intervention.write(:group_exclusion, at: started_at, production: production) do |i|
+      i.cast :group, self, as: 'group_exclusion-target'
+      i.cast :member, member, as: 'group_exclusion-includer'
+      i.group_exclusion :group, :member
+    end
+    # self.memberships.create!(member: member, started_at: (options[:at] || Time.now), nature: :exterior)
   end
 
 
