@@ -166,8 +166,8 @@ class ActionController::TestCase
           [:depth, :lft, :rgt].include?(c)
         }
         attributes += options.delete(:other_attributes) || []
-        attributes = ("{" + attributes.collect do |a|
-                        if file_columns[a.to_sym]
+        attributes = ("{" + attributes.map(&:to_sym).uniq.collect do |a|
+                        if file_columns[a]
                           "#{a}: fixture_file_upload('files/sample_image.png')"
                         else
                           "#{a}: #{record}.#{a}"

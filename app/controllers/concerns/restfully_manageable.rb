@@ -119,7 +119,7 @@ module RestfullyManageable
         # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
         columns = model.columns_definition.keys
         columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
-        values = columns.inject({}) do |hash, attr|
+        values = columns.map(&:to_sym).uniq.inject({}) do |hash, attr|
           hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
           hash
         end.merge(defaults).collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
