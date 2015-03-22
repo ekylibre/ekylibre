@@ -445,6 +445,12 @@
             telepac_crop_code="RE"
             variant_support="vine_grape_crop"
             />
+      <item name="table_grape_vine"
+            production_code="6500"
+            activity="vines"
+            telepac_crop_code="VU"
+            variant_support="vine_grape_crop"
+            />
 
       <item name="winery"
             activity="wine"
