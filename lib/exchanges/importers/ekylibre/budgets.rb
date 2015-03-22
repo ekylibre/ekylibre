@@ -64,7 +64,7 @@ Exchanges.add_importer :ekylibre_budgets do |file, w|
       attributes[:support_variant_unit] = :hectare
     end
 
-    unless production = Production.find_by(attributes.slice(:name, :campaign)) || Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
+    unless production = Production.find_by(attributes.slice(:name, :campaign)) #|| Production.find_by(attributes.slice(:campaign, :activity, :cultivation_variant))
       production = Production.create! attributes
     end
 
