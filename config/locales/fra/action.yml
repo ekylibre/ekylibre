@@ -916,6 +916,7 @@ fra:
     currency: "Devise" #?
     currency_with_code: "%{code} - %{name}" #?
     current: "En cours"
+    current_cultivation: "Culture actuelle"
     current_letter: "Lettre en cours\_: %{letter}"
     current_stocks_by_variety: "État des stocks"
     daily_nitrogen_production: "Excretion d’azote journalière" #?

@@ -756,6 +756,7 @@ jpn:
     # cultivable_zone_abbreviation: "CZ"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
     # current: "Current"
+    # current_cultivation: "Current cultivation"
     # current_letter: "Current letter: %{letter}"
     # current_stocks_by_variety: "Current stocks by variety"
     # dates: "Select period start date and Period end date"

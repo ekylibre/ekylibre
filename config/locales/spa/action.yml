@@ -925,6 +925,7 @@ spa:
     # cultivable_zone_abbreviation: "CZ"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # current: "Current"
+    # current_cultivation: "Current cultivation"
     current_letter: "Carta en curso\_: %{letter}"
     # current_stocks_by_variety: "Current stocks by variety"
     data_to_export: "Datos a exportar" #?

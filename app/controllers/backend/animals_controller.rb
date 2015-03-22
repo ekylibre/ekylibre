@@ -74,7 +74,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.action :edit
     t.action :destroy
   end
-  
+
   def add_to_group
     for id in ids = params[:id].split(',')
       return unless find_and_check(id: id)
@@ -86,7 +86,7 @@ class Backend::AnimalsController < Backend::MattersController
       #redirect to a form to select group / started_at / stopped_at
     end
   end
-  
+
   # Show a list of animal groups
 
   def index

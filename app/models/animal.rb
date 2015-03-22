@@ -150,7 +150,7 @@ class Animal < Bioproduct
   def variety_text
     "nomenclatures.varieties.items.#{self.variety}".t
   end
-  
+
   # Add animals to a group and return a group
   # options:
   #   - group_id: the group ID

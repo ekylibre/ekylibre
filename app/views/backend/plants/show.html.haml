@@ -3,22 +3,48 @@
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
 
 = beehive do |b|
-  - b.cell :details do
-    - if resource.picture.exists?
-      .picture= image_tag(resource.picture.url(:identity))
-    - else
-      = mini_map(resource)
-    .info
-      %span.title= Plant.human_attribute_name(:net_surface_area)
-      %span.value= resource.net_surface_area.in_hectare.round(2).l
-    = attributes_list do |l| # liste des champs à afficher
-      - l.attribute :name
-      - l.attribute :born_at
-      - l.attribute :variety
-      - #- l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
-      - l.attribute :description
+  - b.hbox do
+    - b.cell :general do
+      - if resource.picture.exists?
+        .picture= image_tag(resource.picture.url(:identity))
+      - else
+        = mini_map(resource)
+      .med-info.important
+        %span.title= Plant.human_attribute_name(:name)
+        %span.value= resource.name
+      .med-info.important
+        %span.title= Plant.human_attribute_name(:net_surface_area)
+        %span.value= resource.net_surface_area.in_hectare.round(2).l
+      .med-info.important
+        %span.title= Plant.human_attribute_name(:variety)
+        %span.value= Nomen::Varieties[resource.variety].human_name
+      - if resource.container
+        .med-info
+          %span.title= :container.tl
+          %span.value
+            %i.picto{class: "zone"}
+            = link_to(resource.container.name, {controller: resource.container.type.tableize, action: :show, id: resource.container.id})
+
+    - b.cell :detail do
+      .med-info.important
+        %span.title= Plant.human_attribute_name(:born_at)
+        %span.value= resource.born_at.l
+      - if resource.born_at and resource.age >= 1.day
+        .med-info
+          %span.title= Plant.human_attribute_name(:age)
+          %span.value
+            %i.picto{class: "picto-clock-o"}
+            = human_age(resource.age, display: 2)
+      .big-info.important
+        %span.title= Plant.human_attribute_name(:state)
+        %span.value= lights(resource.status)
+      - if resource.description
+        %span.title= Plant.human_attribute_name(:description)
+        %span.value= resource.description
       - if resource.custom_fields.any?
-        - l.custom_fields
+        = attributes_list do |l|
+          - l.custom_fields
+
   - b.hbox do
     - b.cell(:intervention_casts) do
       = list(:intervention_casts)
@@ -28,8 +54,8 @@
       = list(:issues)
     - b.cell(:readings, title: :x_readings.tl(count: resource.readings.count)) do
       = list(:readings)
-    - b.cell(:reading_tasks) do
+    -# b.cell(:reading_tasks) do
       = list(:reading_tasks)
-    - b.cell(:places) do
+    -# b.cell(:places) do
       = list(:places)
 

@@ -1105,6 +1105,7 @@ arb:
     # cultivable_zone_abbreviation: "CZ"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     current: "الحالية"
+    # current_cultivation: "Current cultivation"
     current_letter: "البيانات الحالية : %{letter}"
     # current_stocks_by_variety: "Current stocks by variety"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?

@@ -1739,6 +1739,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#add_to_group"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

@@ -75,4 +75,14 @@ class Plant < Bioproduct
     where('(dead_at <= ? OR dead_at IS NULL)', stopped_at)
   }
 
+  def status
+    if self.dead_at?
+      return :stop
+    elsif self.issues.count > 0
+      return (self.issues.where(status: :opened).count > 0 ? :caution : :go)
+    else
+      return :go
+    end
+  end
+
 end

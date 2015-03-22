@@ -47,6 +47,7 @@ eng:
     backend/animal_products:
       index: "Animal products"
     backend/animals:
+      # add_to_group: "Add to group animal: %{name}"
       edit: "Edit animal: %{name}"
       index: "Animals"
       new: "New animal"
@@ -891,6 +892,7 @@ eng:
     cultivable_zone_abbreviation: "CZ"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "Current" #?
+    current_cultivation: "Current cultivation"
     current_letter: "Current letter: %{letter}" #?
     current_stocks_by_variety: "Current stocks by variety"
     # custom_fields: "Custom fields"
@@ -917,6 +919,7 @@ eng:
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{ago} ago"
+    # detail: "Detail"
     details: "Details"
     direct_expenses: "Direct charges"
     direct_margin: "Direct margin"
@@ -1357,6 +1360,7 @@ eng:
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
+    # started_at: "Started at"
     state: "State"
     statistics: "Statistics"
     stock: "Stock" #?
@@ -1364,6 +1368,7 @@ eng:
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
+    # stopped_at: "Stopped at"
     storage: "Storage" #?
     string_options: "Text options"
     subject: "Subject"
@@ -1675,6 +1680,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # add_to_group: "Add to group"
       attach: "Attach"
       # autocomplete_for_name: "Autocomplete for name"
       # autocomplete_for_origin: "Autocomplete for origin"
