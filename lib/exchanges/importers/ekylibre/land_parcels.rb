@@ -33,13 +33,12 @@ Exchanges.add_importer :ekylibre_land_parcels do |file, w|
 
     if zone
       if container = Product.find_by_work_number(r.place_code)
-        # container.add(zone, zone.born_at)
         zone.update_attributes(initial_container: container)
         zone.save!
       end
       # link a land parcel to a land parcel cluster
       if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code) and zone.clusters_work_number == nil
-        land_parcel_cluster.add(zone)
+        ProductMembership.create!(member: zone, group: land_parcel_cluster, started_at: born_at, nature: :interior)
       end
       if r.soil_nature
         zone.read!(:soil_nature, r.soil_nature, at: born_at, force: true)

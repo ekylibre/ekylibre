@@ -66,12 +66,12 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :pasteque do
-    namespace :v5 do
-      pasteque_v5
-    end
-    pasteque_v5
-  end
+  # namespace :pasteque do
+  #   namespace :v5 do
+  #     pasteque_v5
+  #   end
+  #   pasteque_v5
+  # end
 
 
   namespace :api do

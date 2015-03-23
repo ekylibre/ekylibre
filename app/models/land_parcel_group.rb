@@ -72,19 +72,19 @@ class LandParcelGroup < ProductGroup
   #]VALIDATORS]
 
   # Add a member to the group
-  def add(member, started_at = nil)
+  def add(member, options = {})
     unless member.is_a?(LandParcel)
       raise ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
     end
-    super(member, started_at)
+    super(member, options)
   end
 
   # Remove a member from the group
-  def remove(member, stopped_at = nil)
+  def remove(member, options = {})
     unless member.is_a?(LandParcel)
       raise ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
     end
-    super(member, stopped_at)
+    super(member, options)
   end
 
   # Returns members of the group at a given time (or now by default)

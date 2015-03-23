@@ -81,7 +81,7 @@ Exchanges.add_importer :telepac_land_parcels do |file, w|
 
       # link a land parcel to a land parcel cluster
       if land_parcel_cluster = LandParcelCluster.find_by(work_number: record.attributes['NUMERO'].to_s)
-        land_parcel_cluster.add(land_parcel)
+        land_parcel.memberships.create!(group: land_parcel_cluster, at: land_parcel.initial_born_at, nature: :interior)
       end
 
 

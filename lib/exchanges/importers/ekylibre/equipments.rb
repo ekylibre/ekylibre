@@ -58,7 +58,6 @@ Exchanges.add_importer :ekylibre_equipments do |file, w|
         end
 
         if container = Product.find_by_work_number(r.place_code)
-          # container.add(zone, born_at)
           equipment.update_attributes(initial_container: container)
           equipment.save!
         end

@@ -86,8 +86,8 @@ Exchanges.add_importer :synel_animals do |file, w|
     end
 
     if group
-      group.record.add(animal, r.arrived_on)
-      group.record.remove(animal, r.departed_on) if r.departed_on
+      animal.memberships.create!(group: group.record, started_at: arrived_on, nature: :interior)
+      animal.memberships.create!(started_at: departed_on, nature: :exterior) if r.departed_on
     end
 
     w.check_point

@@ -55,7 +55,7 @@ end
 
 class Intervention < Ekylibre::Record::Base
   attr_readonly :reference_name, :production_id
-  belongs_to :event, dependent: :destroy
+  belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :ressource , polymorphic: true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support

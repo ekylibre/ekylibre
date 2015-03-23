@@ -20,8 +20,8 @@ Exchanges.add_importer :ekylibre_animals do |file, w|
                        record: nil
                       )
 
-    unless r.record = Animal.find_by(work_number: r.code)
-      r.record = Animal.create!(name: r.name,
+    unless animal = Animal.find_by(work_number: r.code)
+      animal = Animal.create!(name: r.name,
                                 work_number: r.code,
                                 identification_number: r.code,
                                 initial_born_at: r.born_at,
@@ -30,16 +30,15 @@ Exchanges.add_importer :ekylibre_animals do |file, w|
                                )
       # create indicators linked to animal
       for indicator, value in r.indicators
-        r.record.read!(indicator, value, at: r.born_at, force: true)
+        animal.read!(indicator, value, at: r.born_at, force: true)
       end
-      r.record.initial_population = r.record.population
-      r.record.variety = r.variety if r.variety
-      r.record.initial_owner = r.initial_owner if r.initial_owner
-      if r.group
-        animal_group = AnimalGroup.find_by(work_number: r.group)
-        animal_group.add(r.record, r.born_at) if animal_group
+      animal.initial_population = animal.population
+      animal.variety = r.variety if r.variety
+      animal.initial_owner = r.initial_owner if r.initial_owner
+      if r.group and animal_group = AnimalGroup.find_by(work_number: r.group)
+        animal.memberships.create!(group: animal_group, started_at: r.born_at, nature: :interior)
       end
-      r.record.save!
+      animal.save!
     end
 
     w.check_point

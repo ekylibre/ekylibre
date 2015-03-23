@@ -49,11 +49,15 @@ class ProductMembership < Ekylibre::Record::Base
   validates_presence_of :group, :member, :nature, :started_at
   #]VALIDATORS]
 
+  before_validation do
+    self.nature ||= (self.group ? :interior : :exterior)
+  end
+
   private
 
   def siblings
-    # self.class.where(group: self.group, member: self.member)
-    self.member.memberships
+    # self.member.memberships
+    self.class.where(member: self.member) # group: self.group,
   end
 
 end

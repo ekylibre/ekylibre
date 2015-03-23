@@ -4,6 +4,8 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
   rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
   w.count = rows.size
 
+  born_at = Time.utc(1900, 1, 1, 0, 0, 0)
+
   rows.each do |row|
     r = {
       name: row[0].to_s,
@@ -22,7 +24,7 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
         variant_id: zone_variant.id,
         work_number: r.code,
         name: r.name,
-        initial_born_at: Time.utc(1900, 1, 1, 0, 0, 0),
+        initial_born_at: born_at,
         initial_owner: Entity.of_company
       }
       zone = zone_variant.matching_model.create!(attributes)
@@ -61,7 +63,7 @@ Exchanges.add_importer :ekylibre_cultivable_zones do |file, w|
     # end
 
     # # Add land_parcel in land_parcel_cluster group
-    # land_parcel_cluster.add(land_parcel)
+    # land_parcel.memberships.create!(group: land_parcel_cluster, started_at: born_at, nature: :interior)
 
     w.check_point
   end

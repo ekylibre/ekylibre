@@ -38,7 +38,7 @@
 #  updater_id   :integer
 #
 class Event < Ekylibre::Record::Base
-  has_one :intervention
+  has_one :intervention, inverse_of: :event
   has_many :participations, class_name: "EventParticipation", dependent: :destroy, inverse_of: :event
   has_many :participants, :through => :participations
   enumerize :nature, in: Nomen::EventNatures.all, default: Nomen::EventNatures.default
@@ -66,12 +66,11 @@ class Event < Ekylibre::Record::Base
     where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.flatten.map(&:id))
   }
 
-  protect(on: :destroy) do
-    unless self.destroyed_by_association
-      return self.intervention
-    end
-    return false
-  end
+  # protect(on: :destroy) do
+  #   puts self.destroyed_by_association.inspect.red
+  #   return self.intervention.present? unless self.destroyed_by_association
+  #   return false
+  # end
 
   before_validation do
     self.started_at ||= Time.now
