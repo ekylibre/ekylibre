@@ -34,6 +34,9 @@ db/first_runs
 /backup
 *~
 
+# Ignores datasources
+db/datasources
+
 # Ignore jasper files
 config/locales/*/prints/*.jrxml
 config/locales/*/prints/*.pdf
