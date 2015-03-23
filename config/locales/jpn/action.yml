@@ -68,8 +68,7 @@ jpn:
       # index: "Buildings"
       # new: "New building"
       # show: "Building: %{name}"
-    backend/calculators:
-      # index: "Calculators"
+    backend/calculators: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
     backend/campaigns:

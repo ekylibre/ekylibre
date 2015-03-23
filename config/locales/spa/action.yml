@@ -75,8 +75,7 @@ spa:
       index: "Lugar de deposito"
       new: "Añadir un lugar de deposito"
       show: "Detaile del lugar de deposito\_: %{name}"
-    backend/calculators:
-      # index: "Calculators"
+    backend/calculators: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
     backend/campaigns:

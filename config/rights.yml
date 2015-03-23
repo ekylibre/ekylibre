@@ -16,7 +16,6 @@
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
 #     - "backend/buildings#take"
-#     - "backend/calculators#index"
 #     - "backend/calculators/grains_commercialization_threshold_simulators#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cash_balances_cells#show"

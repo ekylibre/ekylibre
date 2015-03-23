@@ -74,13 +74,8 @@ fra:
       index: "Bâtiments"
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
-    backend/calculators:
-      index: "Calculateurs"
     backend/calculators/grains_commercialization_threshold_simulators:
       show: "Simulateur de seuil de commercialisation de grains"
-    backend/calculators/nitrogen_inputs:  #?
-      edit: "Calcul des apports d’azote" #?
-      show: "Calcul des apports d’azote" #?
     backend/campaigns:
       edit: "Campagne\_: %{name}"
       index: "Campagnes"

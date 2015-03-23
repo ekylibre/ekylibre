@@ -74,8 +74,7 @@ arb:
       index: "مواقع التخزين"
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
-    backend/calculators:
-      # index: "Calculators"
+    backend/calculators: #?
     backend/calculators/grains_commercialization_threshold_simulator: #?
     backend/calculators/grains_commercialization_threshold_simulators:
       # show: "Grains commercialization threshold simulator"
