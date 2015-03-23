@@ -1360,7 +1360,6 @@ eng:
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
-    # started_at: "Started at"
     state: "State"
     statistics: "Statistics"
     stock: "Stock" #?
@@ -1368,7 +1367,6 @@ eng:
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
-    # stopped_at: "Stopped at"
     storage: "Storage" #?
     string_options: "Text options"
     subject: "Subject"
