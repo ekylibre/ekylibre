@@ -143,8 +143,7 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
     Production.find_each do |p|
       # Select best activity
       if !p.with_supports and p.supports.any?
-        puts p.supports.map(&:storage).map(&:variety).inspect.green
-        p.support_variant = p.supports.first.storage.variant
+        p.update_column(:support_variant_id, p.supports.first.storage.variant_id)
         execute "UPDATE interventions SET production_support_id = NULL WHERE production_id = #{p.id}"
         p.supports.destroy_all
       end
@@ -157,7 +156,7 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
             support_variety >= variety
           end
           if item
-            p.support_variant = ProductNatureVariant.import_from_nomenclature(item.name)
+            p.update_column(:support_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
           else
             raise "What #{support_variety}"
           end
@@ -165,8 +164,7 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
         quantifiers = p.support_variant.quantifiers
         if p.support_variant_indicator.blank? or !quantifiers.include?("#{p.support_variant_indicator}/#{p.support_variant_unit}")
           quantifier = quantifiers.last.split('/')
-          p.support_variant_indicator = quantifier.first
-          p.support_variant_unit = quantifier.second
+          p.update_columns(support_variant_indicator: quantifier.first, support_variant_unit: quantifier.second)
         end
         p.supports.each do |support|
           value = support.storage.get(p.support_variant_indicator, at: p.started_at)
@@ -183,13 +181,12 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
             cultivation_variety >= variety
           end
           if item
-            p.cultivation_variant = ProductNatureVariant.import_from_nomenclature(item.name)
+            p.update_column(:cultivation_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
           else
             raise "What #{cultivation_variety}"
           end
         end
       end
-      p.save!
     end
 
     change_column_null :production_supports, :quantity, false
