@@ -204,13 +204,13 @@ intervention_casts_010:
   creator_id: 1
   id: 39
   intervention_id: 11
-  lock_version: 2
+  lock_version: 3
   nature: product
   population: 20.0001
   position: 2
   reference_name: seeds_to_sow
   roles: sowing-input
-  updated_at: 2014-11-06 17:48:17.039399000 Z
+  updated_at: 2015-03-23 09:36:39.560725000 Z
   updater_id: 1
   variant_id: 10
 intervention_casts_011:
@@ -285,7 +285,7 @@ intervention_casts_015:
   creator_id: 1
   id: 44
   intervention_id: 11
-  lock_version: 2
+  lock_version: 3
   nature: product
   population: 5.3806
   position: 7
@@ -296,7 +296,7 @@ intervention_casts_015:
     45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
     45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
     45.8266349359199,-0.796809196472168 45.8269227686334)))
-  updated_at: 2014-11-06 17:48:17.040692000 Z
+  updated_at: 2015-03-23 09:36:39.562573000 Z
   updater_id: 1
   variant_id: 16
 intervention_casts_016:

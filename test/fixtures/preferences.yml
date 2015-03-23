@@ -2755,3 +2755,14 @@ preferences_232:
   updated_at: 2015-03-19 17:23:44.970147000 Z
   updater_id: 1
   user_id: 1
+preferences_233:
+  created_at: 2015-03-23 09:28:24.795724000 Z
+  creator_id: 1
+  id: 233
+  lock_version: 1
+  name: kujaku.criteria.app/views/backend/productions/index.html.haml:1:1.default
+  nature: string
+  string_value: ''
+  updated_at: 2015-03-23 09:31:35.815442000 Z
+  updater_id: 1
+  user_id: 1

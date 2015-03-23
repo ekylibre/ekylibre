@@ -200,12 +200,12 @@ productions_009:
   cultivation_variant_id: 49
   id: 11
   irrigated: false
-  lock_version: 2
-  name: Vin/Vin 2013 (Prévue)
+  lock_version: 3
+  name: Vin
   nitrate_fixing: false
   state: opened
   support_variant_id: 50
-  updated_at: 2015-03-15 16:39:18.482583000 Z
+  updated_at: 2015-03-23 09:35:51.549767000 Z
   updater_id: 1
 productions_010:
   activity_id: 3

@@ -198,7 +198,7 @@
 
           = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f}#{support_variant_unit ? support_variant_unit.symbol : ''}"}, title: {text: "#{supports_quantity.round(3).l}#{support_variant_unit ? support_variant_unit.symbol : ''}"}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: true)
 
-    - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] <= :animal
+    - if resource.cultivation_variant and Nomen::Varieties[resource.cultivation_variety] and Nomen::Varieties[resource.cultivation_variety] <= :animal
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
 
   - b.hbox do
