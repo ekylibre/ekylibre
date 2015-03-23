@@ -17,7 +17,7 @@
           <title name="name" of="activity"/>
           <property name="family" of="activity"/>
           <property name="area_in_hectare" if="activity.net_surface_area(campaign)" value="activity.net_surface_area(campaign).in_hectare.round(2)" type="measure"/>
-          <property name="area_value_in_hectare" if="activity.net_surface_area(campaign)" value="activity.net_surface_area(campaign).in_hectare.round(2).value" level="api"/>
+          <property name="area_value_in_hectare" if="activity.net_surface_area(campaign)" value="activity.net_surface_area(campaign).in_hectare.round(2).value.to_f" level="api"/>
           <property name="id" of="activity" level="api"/>
           <property name="intervention_durations" if="activity.interventions_duration(campaign)" value="activity.interventions_duration(campaign).in_second.convert(:hour).round(2)" type="measure" />
 
@@ -32,7 +32,7 @@
             <cell name="casting" of="intervention" level="api"/>
             <cell name="working_area_value_in_hectare" if="intervention.working_area" value="intervention.working_area" level="api"/>
             <cell name="duration_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2)" type="measure"/>
-            <cell name="duration_value_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2).value" level="api"/>
+            <cell name="duration_value_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2).value.to_f" level="api"/>
             <cell name="input_cost" if="intervention.cost(:input)" value="intervention.cost(:input).round(2)" type="money"/>
             <cell name="doer_cost" if="intervention.cost(:doer)" value="intervention.cost(:doer).round(2)" type="money"/>
             <cell name="tool_cost" if="intervention.cost(:tool)" value="intervention.cost(:tool).round(2)" type="money"/>

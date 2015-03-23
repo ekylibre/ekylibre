@@ -80,7 +80,9 @@ module Aggeratio
 
       value = value_of(element)
       type = (element.has_attribute?("type") ? element.attr("type").to_s : :string).to_s.gsub('-', '_').to_sym
-      code = if type == :date or type == :datetime or type == :measure
+      code = if type == :date or type == :datetime
+               "xml.text(#{value}.l) unless #{value}.nil?"
+             elsif type == :measure
                "xml.text(#{value}.l) unless #{value}.nil?"
              elsif type == :url
                "xml.a(#{value}, href: #{value}) unless #{value}.blank?"
