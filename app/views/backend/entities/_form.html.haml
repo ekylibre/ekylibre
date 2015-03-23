@@ -1,6 +1,6 @@
 = field_set(:major => true) do
   = f.input :nature
-  = f.input :language, :collection => languages, :field => :select
+  = f.input :language, :collection => languages, :field => :select, :selected => Preference[:language]
   = f.input :last_name
   = f.input :first_name
   = f.input :active, :hide => :dead_at
@@ -12,7 +12,7 @@
   = f.custom_fields
 
 = field_set(:details) do # , :collapsed => true
-  = f.input :country, :collection => countries
+  = f.input :country, :collection => countries, :selected => Preference[:country]
   = f.input :siren
   = f.input :activity_code
   = f.input :vat_number
