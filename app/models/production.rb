@@ -209,10 +209,9 @@ class Production < Ekylibre::Record::Base
     quantity_indicator = options[:quantity_indicator] || :net_mass
     support_unity = options[:support_unit] || :hectare
     support_indicator = options[:support_indicator] || :net_surface_area
-    varieties = options[:variety] || :grain
+    variety = options[:variety] || :grain
 
-
-    #TODO refactorize to convert quantity_unity and support_unity into an existing unit like :quintal_per_hectare
+    # TODO refactorize to convert quantity_unity and support_unity into an existing unit like :quintal_per_hectare
     if quantity_unity == :quintal and support_unity == :hectare
       output_unit = :quintal_per_hectare
       output_item_unit = :quintal_per_hectare
@@ -224,7 +223,7 @@ class Production < Ekylibre::Record::Base
     o = Measure.new(0, output_unit)
 
     if self.revenues
-      product_budget_items = self.revenues.where(variant_id: ProductNatureVariant.of_variety(varieties).map(&:id))
+      product_budget_items = self.revenues.where(variant: ProductNatureVariant.of_variety(variety))
       for item in product_budget_items
         # build divider
         if item.computation_method == :per_working_unit

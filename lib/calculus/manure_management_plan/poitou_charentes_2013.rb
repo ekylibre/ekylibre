@@ -22,10 +22,11 @@ module Calculus
           # puts items.inspect.green
           expected_yield = items.first.expected_yield.in_quintal_per_hectare
         else
+          variety = nil
           if @support.production_usage == 'grain'
-            variety == :grain
+            variety = :grain
           elsif @support.production_usage == 'fodder'
-            variety == :grass
+            variety = :grass
           end
           expected_yield = @support.estimate_yield(variety: variety)
         end
