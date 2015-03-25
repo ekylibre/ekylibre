@@ -19,7 +19,7 @@ Exchanges.add_importer :synel_inventory do |file, w|
 
     r = OpenStruct.new(:work_number => row[0],
                        :identification_number => (row[0] ? cattling_root_number+row[0].to_s : nil),
-                       :name => (row[1].blank? ? Faker::Name.first_name+" (MN)" : row[1].capitalize),
+                       :name => (row[1].blank? ? FFaker::Name.first_name+" (MN)" : row[1].capitalize),
                        :mother_variety_code => (row[13].blank? ? nil : row[13]),
                        :father_variety_code => (row[14].blank? ? nil : row[14]),
                        :sex => (row[3].blank? ? nil : (row[3] == "F" ? :female : :male)),
@@ -30,10 +30,10 @@ Exchanges.add_importer :synel_inventory do |file, w|
                        incoming_at: (incoming_on ? incoming_on.to_datetime + 10.hours : nil),
                        :mother_identification_number => row[7],
                        :mother_work_number => (row[7] ? row[7][-4..-1] : nil),
-                       :mother_name => (row[8].blank? ? Faker::Name.first_name : row[8].capitalize),
+                       :mother_name => (row[8].blank? ? FFaker::Name.first_name : row[8].capitalize),
                        :father_identification_number => row[9],
                        :father_work_number => (row[9] ? row[9][-4..-1] : nil),
-                       :father_name => (row[10].blank? ? Faker::Name.first_name : row[10].capitalize),
+                       :father_name => (row[10].blank? ? FFaker::Name.first_name : row[10].capitalize),
                        :outgoing_cause => row[11],
                        :outgoing_on => outgoing_on,
                        outgoing_at: (outgoing_on ? outgoing_on.to_datetime + 10.hours : nil)

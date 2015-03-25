@@ -15,7 +15,7 @@ Ekylibre::FirstRun.add_loader :land_parcels do |first_run|
     mimefile = dir.join("#{name}.mimetype")
     File.write(mimefile, "application/vnd.ekylibre.georeading.#{nature}")
 
-    first_run.import_archive(:ekylibre_georeadings, "#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/georeadings", prevent: false)
+    first_run.import_archive(:ekylibre_georeadings, "#{name}.zip", "mimetype" => "#{name}.mimetype", "georeading.shp" => "#{name}.shp", "georeading.dbf" => "#{name}.dbf", "georeading.shx" => "#{name}.shx", in: "alamano/georeadings", prevent: false)
 
     FileUtils.rm_rf(mimefile)
   end

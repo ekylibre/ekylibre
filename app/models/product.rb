@@ -335,7 +335,7 @@ class Product < Ekylibre::Record::Base
       end
       if self.name.blank?
         # By default, choose a random name
-        self.name = ::Faker::Name.first_name
+        self.name = FFaker::Name.first_name
       end
     end
   end

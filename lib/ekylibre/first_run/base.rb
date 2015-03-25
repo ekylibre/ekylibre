@@ -7,7 +7,6 @@ module Ekylibre
       attr_reader :max
 
       def initialize(options = {})
-	      require 'ffaker' unless defined? Faker
 	      require 'colored' unless defined? Colored
 
         @verbose = !options[:verbose].is_a?(FalseClass)

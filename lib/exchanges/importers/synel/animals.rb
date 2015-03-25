@@ -1,5 +1,3 @@
-require 'ffaker'
-
 # Create or updates animals
 Exchanges.add_importer :synel_animals do |file, w|
 
@@ -17,7 +15,7 @@ Exchanges.add_importer :synel_animals do |file, w|
     r = OpenStruct.new(:country => row[0],
                        :identification_number => row[1],
                        :work_number => row[2],
-                       :name => (row[3].blank? ? ::Faker::Name.first_name + " (MN)" : row[3].capitalize),
+                       :name => (row[3].blank? ? FFaker::Name.first_name + " (MN)" : row[3].capitalize),
                        :born_on => born_on,
                        born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
                        age: (born_on ? (Date.today - born_on) : 0).to_f,
