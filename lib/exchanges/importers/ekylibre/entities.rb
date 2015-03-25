@@ -31,7 +31,7 @@ Exchanges.add_importer :ekylibre_entities do |file, w|
     }.to_struct
 
     klass = r.nature.camelcase.constantize
-    if person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name, r.last_name).first
+    if person = klass.where("first_name ILIKE ? AND last_name ILIKE ?", r.first_name.strip, r.last_name.strip).first
       person.update_attributes!(country: r.country) if person.country.blank?
     elsif
       person = klass.new(first_name: r.first_name,
