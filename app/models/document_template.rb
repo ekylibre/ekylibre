@@ -93,7 +93,7 @@ class DocumentTemplate < Ekylibre::Record::Base
         # Updates template
         if document.root and document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
           if template = document.root.xpath('xmlns:template').first
-            logger.info "NOTICE: Update <template> for document template #{self.nature}"
+            logger.info "Update <template> for document template #{self.nature}"
             template.children.remove
             style_file = Ekylibre::Tenant.private_directory.join("corporate_identity", "reporting_style.xml")
             unless style_file.exist?
@@ -102,7 +102,7 @@ class DocumentTemplate < Ekylibre::Record::Base
             end
             template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(self.source_path.dirname).to_s.inspect))
           else
-            logger.info "WARNING: Cannot find and update <template> in document template #{self.nature}"
+            logger.info "Cannot find and update <template> in document template #{self.nature}"
           end
         end
         # Writes source
@@ -248,9 +248,9 @@ class DocumentTemplate < Ekylibre::Record::Base
             template.name ||= template.nature.l
             template.save!
           end
-          Rails.logger.info "NOTICE: Load a default document template #{nature}"
+          Rails.logger.info "Load a default document template #{nature}"
         else
-          Rails.logger.warn "WARNING: Cannot load a default document template #{nature}: No file found at #{source}"
+          Rails.logger.warn "Cannot load a default document template #{nature}: No file found at #{source}"
         end
       end
       self.destroy(manageds.map(&:id))

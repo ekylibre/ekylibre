@@ -29,7 +29,9 @@ class CrumbSet
   def initialize(crumbs)
     @crumbs = crumbs
     @start = @crumbs.first
-    @procedure_nature = Nomen::ProcedureNatures[@start.metadata['procedure_nature']]
+    unless @procedure_nature = Nomen::ProcedureNatures[@start.metadata['procedure_nature']]
+      logger.warn "Unknown procedure nature: #{@start.metadata['procedure_nature'].inspect}"
+    end
     @started_at = @start.read_at
     @stopped_at = @crumbs.last.read_at
     @user = @start.user
@@ -38,7 +40,7 @@ class CrumbSet
   end
 
   def human_name
-    :intervention_at.tl(intervention: @procedure_nature.human_name, at: @start.read_at.l)
+    :intervention_at.tl(intervention: (@procedure_nature ? @procedure_nature.human_name : :unknown.tl), at: @start.read_at.l)
   end
 
   def id
