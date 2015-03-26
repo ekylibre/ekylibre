@@ -68,7 +68,7 @@ class Plant < Bioproduct
 
   has_shape
 
-  #return all Plant object who is alive in the considers campaigns
+  # Return all Plant object who is alive in the given campaigns
   scope :of_campaign, lambda { |campaign|
     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
@@ -78,8 +78,8 @@ class Plant < Bioproduct
   def status
     if self.dead_at?
       return :stop
-    elsif self.issues.count > 0
-      return (self.issues.where(status: :opened).count > 0 ? :caution : :go)
+    elsif self.issues.any?
+      return (self.issues.where(state: :opened).any? ? :caution : :go)
     else
       return :go
     end
