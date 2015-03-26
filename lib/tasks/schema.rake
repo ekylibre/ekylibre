@@ -22,9 +22,9 @@ namespace :clean do
 
     schema_hash = {}
     schema_yaml = "---\n"
-    Ekylibre::Record::Base.connection.tables.sort.delete_if do |table|
+    Ekylibre::Record::Base.connection.tables.delete_if do |table|
       %w(schema_migrations sessions).include?(table.to_s)
-    end.each do |table|
+    end.sort{|a,b| a.to_s <=> b.to_s}.each do |table|
       schema_hash[table] = {}
       schema_yaml << "\n#{table}:\n"
       columns = Ekylibre::Record::Base.connection.columns(table).sort{|a,b| a.name <=> b.name }
@@ -32,7 +32,7 @@ namespace :clean do
       model = table.classify.constantize rescue nil
       for column in columns
         next if column.name =~ /\A\_/
-        column_hash = {type: column.type.to_s}
+        column_hash = {:type => column.type.to_s}
         schema_yaml << "  #{column.name}: {type: #{column.type}"
 
         if column.type == :decimal

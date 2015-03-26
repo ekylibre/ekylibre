@@ -14,6 +14,10 @@
 /log/*.log
 /tmp
 
+# Ignore sprites compilations
+app/assets/images/themes/tekyla/common-s*.png
+app/assets/images/themes/tekyla/icons-s*.png
+
 # Ignore private files
 /private/**/*
 /config/database.yml
