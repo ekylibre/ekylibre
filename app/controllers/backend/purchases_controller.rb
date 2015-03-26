@@ -117,7 +117,7 @@ class Backend::PurchasesController < Backend::BaseController
                         :include => {:delivery_address => {:methods => [:mail_coordinate]},
                                      :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
                                      :affair => {:methods => [:balance], :include => [:outgoing_payments => {:include => :mode}]},
-                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant]}
+                                     :items => {:methods => [:taxes_amount, :tax_name, :tax_short_label], :include => [:variant]}
                                      }
                                      ) do |format|
       format.html do

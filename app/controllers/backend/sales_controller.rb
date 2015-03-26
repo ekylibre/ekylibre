@@ -144,7 +144,7 @@ class Backend::SalesController < Backend::BaseController
                                      :credits => {},
                                      :affair => {:methods => [:balance], :include => [:incoming_payments => {:include => :mode}]},
                                      :invoice_address => {:methods => [:mail_coordinate]},
-                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant]}
+                                     :items => {:methods => [:taxes_amount, :tax_name, :tax_short_label], :include => [:variant]}
                                      }
                                      ) do |format|
       format.html do

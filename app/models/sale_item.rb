@@ -67,7 +67,7 @@ class SaleItem < Ekylibre::Record::Base
   delegate :sold?, to: :sale
   delegate :invoiced_at, :number, to: :sale
   delegate :currency, to: :sale, prefix: true
-  delegate :name, to: :tax, prefix: true
+  delegate :name, :short_label, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
   delegate :unit_name, :name, to: :variant
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true

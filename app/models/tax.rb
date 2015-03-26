@@ -105,7 +105,7 @@ class Tax < Ekylibre::Record::Base
   def null_amount?
     self.amount.zero?
   end
-
+  
   # Returns the matching coefficient k of the percentage
   # where pretax_amount * k = amount_with_tax
   def coefficient
@@ -159,5 +159,17 @@ class Tax < Ekylibre::Record::Base
       import_from_nomenclature(tax.name)
     end
   end
-
+  
+  # find tax reference name with no stopped_at AKA currents reference taxes
+  # 
+  def self.currents
+    ids = []
+    for tax in Tax.all
+      unless Nomen::Taxes.find(tax.reference_name).stopped_on
+        ids << tax.id
+      end
+    end
+    return Tax.where(id: ids).order(:amount)
+  end
+  
 end
