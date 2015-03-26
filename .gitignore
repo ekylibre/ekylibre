@@ -27,3 +27,5 @@ installer/debian/*.changes
 installer/resources
 installer/releases
 installer/*.log
+
+.ruby-version
