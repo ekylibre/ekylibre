@@ -340,7 +340,7 @@ GEM
       rubyzip
       spreadsheet (> 0.6.4)
     ruby-ole (1.2.11.8)
-    ruby-progressbar (1.7.4)
+    ruby-progressbar (1.7.5)
     rubyntlm (0.3.4)
     rubyzip (1.1.7)
     sass (3.4.13)
