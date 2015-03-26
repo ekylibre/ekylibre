@@ -856,7 +856,7 @@ fra:
     local_count: "Population"
     local_credit: "Crédit"
     local_debit: "Débit"
-    localizations: "Localizations"
+    localizations: "Localisations"
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"

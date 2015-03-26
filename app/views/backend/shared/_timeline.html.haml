@@ -13,9 +13,12 @@
     :ruby
       side = step.side
       defaults = {type: h(side.model.model_name.human), author: (step.author ? link_to(step.author.full_name, backend_user_path(step.author)) : :unknown.tl), at: h(step.at.l), ago: content_tag(:span, time_ago_in_words(step.at), title: step.at.l(format: :long))}
-      begin
+
+      url = url_for({controller: side.controller_name, action: :show, id: step.record.id}) rescue nil
+
+      unless url.nil?
         defaults[:name] = link_to(step.name.to_s, {controller: side.controller_name, action: :show, id: step.record.id})
-      rescue ActionController::UrlGenerationError
+      else
         defaults[:name] = step.name.to_s
       end
 
