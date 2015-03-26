@@ -102,70 +102,79 @@ class Crumb < Ekylibre::Record::Base
     Crumb.where(user_id: self.user_id, device_uid: self.device_uid).order(read_at: :asc)
   end
 
-  # Returns all products whose shape contains the given crumbs or any crumb if no crumb is given
-  # options:  no_content: excludes contents. Default: false
-  # TODO: when refactoring, move this method to Product model, as Product#of_crumbs(*crumbs)
-  def self.products(*crumbs)
-    options = crumbs.extract_options!
-    crumbs.flatten!
-    raw_products = Product.distinct.joins(:readings)
-          .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation))")
-          .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
-    contents = []
-    contents = raw_products.map(&:contents) unless options[:no_contents]
-    raw_products.concat(contents).flatten.uniq
-  end
+  class << self
 
-  # returns all production supports whose storage shape contains the given crumbs
-  # ==== Parameters
-  #     - crumbs: an array of crumbs
-  # ==== Options
-  #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns.
-  #       Accepts the same parameters as ProductionSupport.of_campaign since it actually calls this method.
-  # TODO: when refactoring, move this method to ProductionSupport model, as ProductionSupport#of_crumbs(crumbs = [], options = {})
-  def self.production_supports(*crumbs)
-    options = crumbs.extract_options!
-    options[:campaigns] ||= Campaign.currents
-    ProductionSupport.of_campaign(options[:campaigns]).distinct
-      .joins(:storage)
-      .where("products.id IN (?)", Crumb.products(*crumbs, no_contents: true).map(&:id))
-  end
+    # Returns all products whose shape contains the given crumbs or any crumb if no crumb is given
+    # options:  no_content: excludes contents. Default: false
+    # TODO: when refactoring, move this method to Product model, as Product#of_crumbs(*crumbs)
+    def products(*crumbs)
+      options = crumbs.extract_options!
+      crumbs.flatten!
+      raw_products = Product.distinct.joins(:readings)
+                     .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation))")
+                     .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
+      contents = []
+      contents = raw_products.map(&:contents) unless options[:no_contents]
+      raw_products.concat(contents).flatten.uniq
+    end
 
-  # Returns all crumbs, grouped by interventions paths, for a given user.
-  # The result is an array of interventions paths.
-  # An intervention path is an array of crumbs, for a user, ordered by read_at,
-  # between a start crumb and a stop crumb.
-  # if data is inconsistent (e.g. no "stop" crumb corresponding to a "start" crumb)
-  # the buffer stores crumbs until the next "start" crumb in the chronological order,
-  # and the result receives what is found, whatever the crumbs table content, since the user may always
-  # requalify crumbs manually.
-  # TODO : put this into User model
-  def self.interventions_paths(user)
-    ActiveSupport::Deprecation.warn("Use User#interventions_paths instead")
-    return user.interventions_paths
-  end
+    # returns all production supports whose storage shape contains the given crumbs
+    # ==== Parameters
+    #     - crumbs: an array of crumbs
+    # ==== Options
+    #     - campaigns: one or several campaigns for which production supports are looked for. Default: current campaigns.
+    #       Accepts the same parameters as ProductionSupport.of_campaign since it actually calls this method.
+    # TODO: when refactoring, move this method to ProductionSupport model, as ProductionSupport#of_crumbs(crumbs = [], options = {})
+    def production_supports(*crumbs)
+      options = crumbs.extract_options!
+      options[:campaigns] ||= Campaign.currents
+      ProductionSupport.of_campaign(options[:campaigns]).distinct
+        .joins(:storage)
+        .where("products.id IN (?)", Crumb.products(*crumbs, no_contents: true).map(&:id))
+    end
 
-  # # returns all the dates for which a given user has pushed crumbs
-  # def self.interventions_dates(user)
-  #   Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
-  # end
+    # Returns all crumbs, grouped by interventions paths, for a given user.
+    # The result is an array of interventions paths.
+    # An intervention path is an array of crumbs, for a user, ordered by read_at,
+    # between a start crumb and a stop crumb.
+    # if data is inconsistent (e.g. no "stop" crumb corresponding to a "start" crumb)
+    # the buffer stores crumbs until the next "start" crumb in the chronological order,
+    # and the result receives what is found, whatever the crumbs table content, since the user may always
+    # requalify crumbs manually.
+    # TODO : put this into User model
+    def interventions_paths(user)
+      ActiveSupport::Deprecation.warn("Use User#interventions_paths instead")
+      return user.interventions_paths
+    end
+
+    # # returns all the dates for which a given user has pushed crumbs
+    # def interventions_dates(user)
+    #   Crumb.where(nature: 'start').where(user_id: user.id).pluck(:read_at).map(&:midnight).uniq
+    # end
+  end
 
   # returns all the crumbs corresponding to the same intervention as the current crumb, i.e. the nearest start crumb including itself,
   # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
     start_read_at = self.read_at.utc
     unless start?
-      start_read_at = self.siblings.where(nature: :start)
-        .where("read_at <= ?", start_read_at)
-        .order(read_at: :desc)
-        .first.read_at.utc
+      start = self.siblings.where(nature: :start)
+              .where("read_at <= ?", start_read_at)
+              .order(read_at: :desc)
+              .first
+      if start
+        start_read_at = start.read_at.utc
+      end
     end
     stop_read_at = self.read_at.utc
     unless stop?
-      stop_read_at  = self.siblings.where(nature: :stop)
-        .where("read_at >= ?", stop_read_at)
-        .order(nature: :desc, read_at: :asc)
-        .first.read_at.utc
+      stop = self.siblings.where(nature: :stop)
+             .where("read_at >= ?", stop_read_at)
+             .order(nature: :desc, read_at: :asc)
+             .first
+      if stop
+        stop_read_at  = stop.read_at.utc
+      end
     end
     return CrumbSet.new(self.siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
   end
