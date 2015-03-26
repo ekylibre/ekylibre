@@ -111,7 +111,7 @@ class Crumb < Ekylibre::Record::Base
       options = crumbs.extract_options!
       crumbs.flatten!
       raw_products = Product.distinct.joins(:readings)
-                     .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_CONTAINS(product_readings.geometry_value, crumbs.geolocation))")
+                     .joins("INNER JOIN crumbs ON (indicator_datatype = 'geometry' AND ST_Contains(ST_CollectionExtract(product_readings.geometry_value, 3), crumbs.geolocation))")
                      .where(crumbs.any? ? ["crumbs.id IN (?)", crumbs.map(&:id)] : "crumbs.id IS NOT NULL")
       contents = []
       contents = raw_products.map(&:contents) unless options[:no_contents]
