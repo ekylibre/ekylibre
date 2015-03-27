@@ -79,7 +79,12 @@ module Ekylibre
           self.import(nature, p, options)
         elsif @verbose
           text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
-          text << " " * (@term_width - text.join.length)
+          # FIXME #392
+          if text.join.length >= @term_width
+            text << " "
+          else
+            text << " " * (@term_width - text.join.length)
+          end
           text[1] = text[1].yellow
           text[3] = text[3].red
           puts text.join
