@@ -1564,6 +1564,7 @@ fra:
         galactea3_monthly_unitary_milk_analyses: "Analyses de lait par animal ‒ Galactea 3" #?
         isagri_isacompta_export: "Export isacompta ‒ Isagri"
         isagri_isaculture_csv_import: "Interventions isaculture (CSV/ZIP) ‒ Isagri"
+        la_graine_informatique_vinifera_entities: "Tiers vinifera - La graine informatique"
         legrain_epicea_accounts: "Plan de comptes Epicea ‒ Legrain"
         legrain_epicea_journals: "Journaux Epicea ‒ Legrain"
         lilco_milk_analyses: "Analyses de lait ‒ Lilco"
