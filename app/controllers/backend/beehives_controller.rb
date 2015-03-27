@@ -21,22 +21,24 @@ class Backend::BeehivesController < Backend::BaseController
 
   # Save beehive config in preferences
   def update
-    boxes = params["boxes"].sort do |a,b|
-      a[0] <=> b[0]
-    end.map do |box|
-      next unless box.second["cells"]
-      cells = box.second["cells"].symbolize_keys.sort do |a,b|
+    unless params["boxes"].nil?
+      boxes = params["boxes"].sort do |a,b|
         a[0] <=> b[0]
-      end.map do |cell|
-        cell.second.symbolize_keys
+      end.map do |box|
+        next unless box.second["cells"]
+        cells = box.second["cells"].symbolize_keys.sort do |a,b|
+          a[0] <=> b[0]
+        end.map do |cell|
+          cell.second.symbolize_keys
+        end.compact
+        cells.any? ? { cells: cells } : nil
       end.compact
-      cells.any? ? { cells: cells } : nil
-    end.compact
-    begin
-      current_user.prefer!("beehive.#{params[:id]}", {version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes}.deep_stringify_keys.to_yaml)
-      head :ok
-    rescue ActiveRecord::StaleObjectError
-      head :locked
+      begin
+        current_user.prefer!("beehive.#{params[:id]}", {version: Backend::BeehiveHelper::FORMAT_VERSION, boxes: boxes}.deep_stringify_keys.to_yaml)
+        head :ok
+      rescue ActiveRecord::StaleObjectError
+        head :locked
+      end
     end
   end
 
