@@ -41,7 +41,7 @@ module Ekylibre
       end
 
       def hard?
-        @mode == :hard
+        @mode == :hard or Rails.env.production?
       end
 
       def import_pictures(base, type, identifier, options = {})
@@ -78,15 +78,11 @@ module Ekylibre
         if p.exist?
           self.import(nature, p, options)
         elsif @verbose
-          text = ["[", @name, "] ", "#{nature.to_s.humanize} (#{p.basename})"]
-          # FIXME #392
-          if text.join.length >= @term_width
-            text << " "
-          else
+          text = ["#{nature.to_s.humanize} (#{p.basename})"]
+          if text.join.length < @term_width
             text << " " * (@term_width - text.join.length)
           end
-          text[1] = text[1].yellow
-          text[3] = text[3].red
+          text[0] = text[0].red
           puts text.join
         end
       end
@@ -169,12 +165,12 @@ module Ekylibre
         end
         if @verbose
           stop = Time.now
-          status = ["[", @name, "] ", basename]
+          status = [basename]
           status << " " + total.to_s
           status << " done in "
           status << "#{(stop - start).to_i}s"
           l = @term_width - status.join.length
-          n = 3
+          n = 0
           if l > 0
             status.insert(1 + n, " " * l)
             status[2 + n] = status[2 + n].blue
@@ -197,8 +193,8 @@ module Ekylibre
       # Launch the execution of the loaders
       def launch
         Rails.logger.info "Import first run of #{@name} from #{@folder_path.to_s} in #{@mode} mode " + (@max > 0 ? "with max of #{@max}" : 'without max') + "."
-        if hard? or Rails.env.production?
-          puts "No global transaction".red
+        puts "Import first run of #{@name.to_s.yellow} from #{@folder_path.relative_path_from(Rails.root).to_s.yellow} in #{@mode.to_s.yellow} mode " + (@max > 0 ? "with max of #{@max.to_s.red}" : 'without max') + ", " + (hard? ? "without".red : "with".green) + " global transaction."
+        if hard?
           execute
         else
           ActiveRecord::Base.transaction do
