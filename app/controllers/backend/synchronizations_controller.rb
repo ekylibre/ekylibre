@@ -86,8 +86,8 @@ class Backend::SynchronizationsController < Backend::BaseController
     end
 
     def exec(sql)
-      logger.debug "[#{@account}] #{sql}"
-      logger.debug "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))
+      Rails.logger.debug "[#{@account}] #{sql}"
+      Rails.logger.debug "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))
     end
   end
 
