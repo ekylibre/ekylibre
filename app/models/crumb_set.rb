@@ -30,7 +30,7 @@ class CrumbSet
     @crumbs = crumbs
     @start = @crumbs.first
     unless @procedure_nature = Nomen::ProcedureNatures[@start.metadata['procedure_nature']]
-      logger.warn "Unknown procedure nature: #{@start.metadata['procedure_nature'].inspect}"
+      Rails.logger.warn "Unknown procedure nature: #{@start.metadata['procedure_nature'].inspect}"
     end
     @started_at = @start.read_at
     @stopped_at = @crumbs.last.read_at

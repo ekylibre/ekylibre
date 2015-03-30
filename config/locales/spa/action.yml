@@ -1797,6 +1797,7 @@ spa:
       importation_finished: "La importación esta terminada."
       impossible_to_add_items: "No se puede añadir productos a su venta, el presupuesto esta en encargo"
       impossible_to_add_items_to_purchase: "No se puede añadir productos a su compra"
+      # incompatible_browser: "Incompatible browser"
       invalid_file_nature: "Tipo de fichero invalido" #?
       # invalid_reference_name: "Invalid reference name"
       journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente." #?

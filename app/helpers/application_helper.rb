@@ -500,10 +500,6 @@ module ApplicationHelper
   end
 
 
-  # def resizable?
-  #   return (session[:view_mode] == "resized" ? true : false)
-  # end
-
   def viewport_tag
     tag(:meta, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
   end
@@ -526,13 +522,6 @@ module ApplicationHelper
 
   def heading_tag
     return content_tag(:h1, controller.human_action_name, :id => :title)
-    # heading = "".html_safe
-    # unless (rm = reverse_menus).empty?
-    #   heading << link_to("labels.menus.#{rm[0]}".t, last_page(rm[0]), :class => :module)
-    #   heading << content_tag(:span, "/", :class => "separator")
-    # end
-    # heading << content_tag(:span, controller.human_action_name, :class => :leaf)
-    # content_tag(:h1, heading, :id => :title)
   end
 
   def subheading(i18n_key, options={})
@@ -552,14 +541,19 @@ module ApplicationHelper
   end
 
 
-  def notification_tag(mode)
-    code = ''
-    if flash[:notifications].is_a?(Hash) and flash[:notifications][mode.to_s].is_a?(Array)
-      flash[:notifications][mode.to_s].each do |message|
-        code << "<div class='flash #{mode}' data-alert=\"true\"><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div><a href=\"#\" class=\"close\">&times;</a></div>" # <div class='end'></div>
+  def notification_tag(mode, messages = nil)
+    unless messages
+      if flash[:notifications].is_a?(Hash) and flash[:notifications][mode.to_s].is_a?(Array)
+        messages = flash[:notifications][mode.to_s]
       end
     end
-    code.html_safe
+    messages = [messages] if messages.is_a?(String)
+    code = ''.html_safe
+    return code unless messages
+    messages.each do |message|
+      code << "<div class='flash #{mode}' data-alert=\"true\"><a href=\"#\" class=\"close\">&times;</a><div class='icon'></div><div class='message'><h3>#{mode.t(scope: 'notifications.levels')}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>".html_safe
+    end
+    return code
   end
 
   def notifications_tag

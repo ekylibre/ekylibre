@@ -1317,11 +1317,6 @@ fra:
     not_contains: "Ne contient pas" #?
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
-    notifications:  #?
-      error: "Erreur" #?
-      information: "Information" #?
-      success: "Opération réalisée avec succès" #?
-      warning: "Attention!" #?
     number: "Numéro"
     number_options: "Options de numérotations"
     numbers: "Numéros"
@@ -1880,10 +1875,10 @@ fra:
     zones: "Zones"
   notifications:
     levels:
-      error: "Erreur"
-      information: "Information"
-      success: "Opération réalisée avec succès"
-      warning: "Attention!"
+      error: "Erreur\_!"
+      information: "Information\_!"
+      success: "Bien joué\_!"
+      warning: "Attention\_!"
     messages:
       a_campaign_must_be_opened: "Une campagne doit être ouverte"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
@@ -1918,6 +1913,7 @@ fra:
       importation_finished: "L’importation est terminée."
       impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
       impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
+      incompatible_browser: "Votre navigateur ne semble pas compatible. Le navigateur Firefox est recommandé pour utiliser Ekylibre."
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."

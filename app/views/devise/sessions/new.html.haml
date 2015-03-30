@@ -1,14 +1,18 @@
-%h2= t('.sign_in', :default => "Sign in")
+%h2
+  = t('.sign_in', :default => "Sign in")
+  = link_to("#", data: {toggle_visibility: "#config"}, class: "config", alt: :configure.tl) do
+    %i
 
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
 
-  .field.secondary
-    = label_tag :time_zone.tl
-    = select_tag :time_zone, options_for_select(ActiveSupport::TimeZone.all.map{|z| [z.to_s, z.tzinfo.identifier] }), "data-auto-timezone" => true
+  #config
+    .field.secondary
+      = label_tag :time_zone.tl
+      = select_tag :time_zone, options_for_select(ActiveSupport::TimeZone.all.map{|z| [z.to_s, z.tzinfo.identifier] }), "data-auto-timezone" => true
 
-  .field.secondary
-    = label_tag :locale.tl
-    = locale_selector_tag
+    .field.secondary
+      = label_tag :locale.tl
+      = locale_selector_tag
 
   .field
     = f.label :email
@@ -23,6 +27,6 @@
       = f.check_box :remember_me
       = f.label :remember_me
 
-  .field= f.submit t('.sign_in', :default => "Sign in")
+  .field= f.submit t('.sign_in', default: "Sign in")
 
 = render "devise/shared/links"

@@ -48,7 +48,7 @@
 }
 
 
-@mixin is-icon($size: round(1.2 * $fs-normal)) {
+@mixin is-icon($size: round($fs-normal)) {
   font-family: Agric;
   font-weight: normal;
   font-style: normal;
@@ -154,7 +154,7 @@
 
 @mixin title($font-size) {
   font-size: $font-size;
-  line-height: round($font-size * 1.4);
+  line-height: round($font-size * $lh-ratio);
   font-weight: bold;
   color: $text-color;
 }
@@ -208,7 +208,7 @@
   }
   a {
     $vertical-padding: ($menu-height - $menu-text-height)/2;
-    $horizontal-padding: round(1.4 * $vertical-padding);
+    $horizontal-padding: round($default-ratio * $vertical-padding);
     display: block;
     padding: $vertical-padding $horizontal-padding;
     font-size: $fs-normal;
@@ -313,7 +313,7 @@
         color: mix($base-font-color, $active-color);
         @include text-shadow(1px 1px 0 white);
         font-size: $font-size;
-        line-height: round(1.4*$font-size);
+        line-height: round($lh-ratio * $font-size);
       }
       &:focus {
         @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
@@ -424,12 +424,12 @@
       }
       &, *, a, i, small {
         display: inline;
-        line-height: 1.4 * $fs-normal;
+        line-height: $lh-ratio * $fs-normal;
         vertical-align: middle;
       }
     }
     & > p, & > a > p {
-      line-height: 1.4em;
+      line-height: $lh-ratio * 1em;
       color: #777;
       text-align: justify;
     }

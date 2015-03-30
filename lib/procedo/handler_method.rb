@@ -88,7 +88,7 @@ module Procedo
             r4 = instantiate_node(SyntaxNode,input, index...(index + match_len))
             @index += match_len
           else
-            terminal_parse_failure(" ? ")
+            terminal_parse_failure('" ? "')
             r4 = nil
           end
           s0 << r4
@@ -116,7 +116,7 @@ module Procedo
                     r10 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                     @index += match_len
                   else
-                    terminal_parse_failure(" : ")
+                    terminal_parse_failure('" : "')
                     r10 = nil
                   end
                   s0 << r10
@@ -214,7 +214,7 @@ module Procedo
             r5 = true
             @index += match_len
           else
-            terminal_parse_failure("*")
+            terminal_parse_failure('"*"')
             r5 = nil
           end
           s1 << r5
@@ -260,7 +260,7 @@ module Procedo
               r13 = true
               @index += match_len
             else
-              terminal_parse_failure("/")
+              terminal_parse_failure('"/"')
               r13 = nil
             end
             s9 << r13
@@ -354,7 +354,7 @@ module Procedo
             r5 = true
             @index += match_len
           else
-            terminal_parse_failure("+")
+            terminal_parse_failure('"+"')
             r5 = nil
           end
           s1 << r5
@@ -400,7 +400,7 @@ module Procedo
               r13 = true
               @index += match_len
             else
-              terminal_parse_failure("-")
+              terminal_parse_failure('"-"')
               r13 = nil
             end
             s9 << r13
@@ -490,7 +490,7 @@ module Procedo
                 r6 = true
                 @index += match_len
               else
-                terminal_parse_failure("(")
+                terminal_parse_failure('"("')
                 r6 = nil
               end
               s5 << r6
@@ -518,7 +518,7 @@ module Procedo
                         r12 = true
                         @index += match_len
                       else
-                        terminal_parse_failure(")")
+                        terminal_parse_failure('")"')
                         r12 = nil
                       end
                       s5 << r12
@@ -629,7 +629,7 @@ module Procedo
           r2 = true
           @index += match_len
         else
-          terminal_parse_failure(":")
+          terminal_parse_failure('":"')
           r2 = nil
         end
         s0 << r2
@@ -723,7 +723,7 @@ module Procedo
           r2 = instantiate_node(SyntaxNode,input, index...(index + match_len))
           @index += match_len
         else
-          terminal_parse_failure("..")
+          terminal_parse_failure('".."')
           r2 = nil
         end
         s0 << r2
@@ -736,7 +736,7 @@ module Procedo
               r6 = true
               @index += match_len
             else
-              terminal_parse_failure("(")
+              terminal_parse_failure('"("')
               r6 = nil
             end
             s5 << r6
@@ -748,7 +748,7 @@ module Procedo
                   r8 = true
                   @index += match_len
                 else
-                  terminal_parse_failure(")")
+                  terminal_parse_failure('")"')
                   r8 = nil
                 end
                 s5 << r8
@@ -823,7 +823,7 @@ module Procedo
           r2 = true
           @index += match_len
         else
-          terminal_parse_failure(".")
+          terminal_parse_failure('"."')
           r2 = nil
         end
         s0 << r2
@@ -836,7 +836,7 @@ module Procedo
               r6 = true
               @index += match_len
             else
-              terminal_parse_failure("(")
+              terminal_parse_failure('"("')
               r6 = nil
             end
             s5 << r6
@@ -848,7 +848,7 @@ module Procedo
                   r8 = true
                   @index += match_len
                 else
-                  terminal_parse_failure(")")
+                  terminal_parse_failure('")"')
                   r8 = nil
                 end
                 s5 << r8
@@ -930,7 +930,7 @@ module Procedo
         r0 = instantiate_node(Accessor,input, index...(index + match_len))
         @index += match_len
       else
-        terminal_parse_failure("contents-count")
+        terminal_parse_failure('"contents-count"')
         r0 = nil
       end
 
@@ -991,7 +991,7 @@ module Procedo
               r6 = true
               @index += match_len
             else
-              terminal_parse_failure("_")
+              terminal_parse_failure('"_"')
               r6 = nil
             end
             s5 << r6
@@ -1101,7 +1101,7 @@ module Procedo
               r6 = true
               @index += match_len
             else
-              terminal_parse_failure("_")
+              terminal_parse_failure('"_"')
               r6 = nil
             end
             s5 << r6
@@ -1211,7 +1211,7 @@ module Procedo
               r6 = true
               @index += match_len
             else
-              terminal_parse_failure("_")
+              terminal_parse_failure('"_"')
               r6 = nil
             end
             s5 << r6
@@ -1334,7 +1334,7 @@ module Procedo
           r6 = true
           @index += match_len
         else
-          terminal_parse_failure("0")
+          terminal_parse_failure('"0"')
           r6 = nil
         end
         if r6
@@ -1352,7 +1352,7 @@ module Procedo
           r9 = true
           @index += match_len
         else
-          terminal_parse_failure(".")
+          terminal_parse_failure('"."')
           r9 = nil
         end
         s8 << r9
@@ -1509,7 +1509,7 @@ module Procedo
           r2 = true
           @index += match_len
         else
-          terminal_parse_failure("(")
+          terminal_parse_failure('"("')
           r2 = nil
         end
         s0 << r2
@@ -1541,7 +1541,7 @@ module Procedo
                     r12 = true
                     @index += match_len
                   else
-                    terminal_parse_failure(",")
+                    terminal_parse_failure('","')
                     r12 = nil
                   end
                   s9 << r12
@@ -1601,7 +1601,7 @@ module Procedo
                   r18 = true
                   @index += match_len
                 else
-                  terminal_parse_failure(")")
+                  terminal_parse_failure('")"')
                   r18 = nil
                 end
                 s0 << r18
@@ -1675,7 +1675,7 @@ module Procedo
               r6 = true
               @index += match_len
             else
-              terminal_parse_failure("_")
+              terminal_parse_failure('"_"')
               r6 = nil
             end
             s5 << r6
@@ -1781,7 +1781,7 @@ module Procedo
         r0 = instantiate_node(Self,input, index...(index + match_len))
         @index += match_len
       else
-        terminal_parse_failure("self")
+        terminal_parse_failure('"self"')
         r0 = nil
       end
 
@@ -1805,7 +1805,7 @@ module Procedo
         r0 = instantiate_node(Value,input, index...(index + match_len))
         @index += match_len
       else
-        terminal_parse_failure("value")
+        terminal_parse_failure('"value"')
         r0 = nil
       end
 
@@ -1894,7 +1894,7 @@ module Procedo
             r5 = true
             @index += match_len
           else
-            terminal_parse_failure("&")
+            terminal_parse_failure('"&"')
             r5 = nil
           end
           s1 << r5
@@ -1940,7 +1940,7 @@ module Procedo
               r13 = instantiate_node(SyntaxNode,input, index...(index + match_len))
               @index += match_len
             else
-              terminal_parse_failure("||")
+              terminal_parse_failure('"||"')
               r13 = nil
             end
             s9 << r13
@@ -2024,7 +2024,7 @@ module Procedo
             r5 = true
             @index += match_len
           else
-            terminal_parse_failure("|")
+            terminal_parse_failure('"|"')
             r5 = nil
           end
           s1 << r5
@@ -2113,7 +2113,7 @@ module Procedo
                 r6 = true
                 @index += match_len
               else
-                terminal_parse_failure("(")
+                terminal_parse_failure('"("')
                 r6 = nil
               end
               s5 << r6
@@ -2125,7 +2125,7 @@ module Procedo
                     r8 = true
                     @index += match_len
                   else
-                    terminal_parse_failure(")")
+                    terminal_parse_failure('")"')
                     r8 = nil
                   end
                   s5 << r8
@@ -2267,7 +2267,7 @@ module Procedo
             r5 = true
             @index += match_len
           else
-            terminal_parse_failure(">")
+            terminal_parse_failure('">"')
             r5 = nil
           end
           s1 << r5
@@ -2313,7 +2313,7 @@ module Procedo
               r13 = true
               @index += match_len
             else
-              terminal_parse_failure("<")
+              terminal_parse_failure('"<"')
               r13 = nil
             end
             s9 << r13
@@ -2359,7 +2359,7 @@ module Procedo
                 r21 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                 @index += match_len
               else
-                terminal_parse_failure(">=")
+                terminal_parse_failure('">="')
                 r21 = nil
               end
               s17 << r21
@@ -2405,7 +2405,7 @@ module Procedo
                   r29 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                   @index += match_len
                 else
-                  terminal_parse_failure("<=")
+                  terminal_parse_failure('"<="')
                   r29 = nil
                 end
                 s25 << r29
@@ -2451,7 +2451,7 @@ module Procedo
                     r37 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                     @index += match_len
                   else
-                    terminal_parse_failure("==")
+                    terminal_parse_failure('"=="')
                     r37 = nil
                   end
                   s33 << r37
@@ -2497,7 +2497,7 @@ module Procedo
                       r45 = instantiate_node(SyntaxNode,input, index...(index + match_len))
                       @index += match_len
                     else
-                      terminal_parse_failure("!=")
+                      terminal_parse_failure('"!="')
                       r45 = nil
                     end
                     s41 << r45
@@ -2567,7 +2567,7 @@ module Procedo
           r2 = true
           @index += match_len
         else
-          terminal_parse_failure("?")
+          terminal_parse_failure('"?"')
           r2 = nil
         end
         s0 << r2
@@ -2615,7 +2615,7 @@ module Procedo
           r2 = true
           @index += match_len
         else
-          terminal_parse_failure(".")
+          terminal_parse_failure('"."')
           r2 = nil
         end
         s0 << r2
@@ -2627,7 +2627,7 @@ module Procedo
               r4 = true
               @index += match_len
             else
-              terminal_parse_failure("?")
+              terminal_parse_failure('"?"')
               r4 = nil
             end
             s0 << r4
@@ -2669,7 +2669,7 @@ module Procedo
         r1 = true
         @index += match_len
       else
-        terminal_parse_failure("!")
+        terminal_parse_failure('"!"')
         r1 = nil
       end
       s0 << r1
@@ -2724,7 +2724,7 @@ module Procedo
             r4 = true
             @index += match_len
           else
-            terminal_parse_failure("(")
+            terminal_parse_failure('"("')
             r4 = nil
           end
           s3 << r4
@@ -2736,7 +2736,7 @@ module Procedo
                 r6 = true
                 @index += match_len
               else
-                terminal_parse_failure(")")
+                terminal_parse_failure('")"')
                 r6 = nil
               end
               s3 << r6

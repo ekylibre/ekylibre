@@ -2148,6 +2148,7 @@ arb:
       importation_finished: "انتهاء الاستيراد"
       impossible_to_add_items: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب"
       impossible_to_add_items_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك"
+      # incompatible_browser: "Incompatible browser"
       invalid_file_nature: "نوع الملف غير صحيح" #?
       # invalid_reference_name: "Invalid reference name"
       journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح." #?

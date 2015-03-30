@@ -1460,9 +1460,9 @@ jpn:
     # zones: "Zones"
   notifications:
     levels:
-      # error: "Error"
-      # information: "Information"
-      # success: "Success"
+      # error: "Error!"
+      # information: "Information!"
+      # success: "Success!"
       # warning: "Warning!"
     messages:
       # a_campaign_must_be_opened: "A campaign must be opened"
@@ -1492,6 +1492,7 @@ jpn:
       # importation_finished: "The import is complete."
       # impossible_to_add_items: "You cannot add more products to your sale, the estimate is passed in order"
       # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
+      # incompatible_browser: "Incompatible browser"
       # invalid_reference_name: "Invalid reference name"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       # journal_entry_already_validated: "The record has already been validated and can not be changed"

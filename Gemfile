@@ -15,8 +15,10 @@ gem 'apartment', '< 1.0.0'
 gem 'code_string'
 gem 'charlock_holmes'
 
+gem 'browser'
+
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '5.0.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

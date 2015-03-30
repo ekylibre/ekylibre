@@ -1,5 +1,5 @@
 !!! 5
-%html{xmlns: "http://www.w3.org/1999/xhtml", dir: t("i18n.dir"), lang: t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), class: :authentication, style: (Ekylibre::CorporateIdentity::Visual.file? ? "background-image: url(#{Ekylibre::CorporateIdentity::Visual.url}); background-size: 100%; background-position: center" : nil)}
+%html{xmlns: "http://www.w3.org/1999/xhtml", dir: t("i18n.dir"), lang: t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), class: :authentication, style: (Ekylibre::CorporateIdentity::Visual.file? ? "background-image: url(#{Ekylibre::CorporateIdentity::Visual.url});" : nil)}
   %head
     = title_tag
     = csrf_meta_tags
@@ -14,8 +14,8 @@
       #main
         #content
           .logo= image_tag("logo.svg")
-          = notice
-          = alert
+          = notification_tag(:information, flash[:notice])
+          = notification_tag(:error, flash[:alert])
           = notifications_tag
           = yield
     %footer#legals= legals_sentence

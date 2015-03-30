@@ -1,4 +1,5 @@
 @import "compass/css3/columns";
+@import "compass/css3/background-size";
 
 #top {
   margin-bottom: 0;
@@ -171,7 +172,7 @@ a.btn[data-toggle='help'] {
 
 $header-height: 40px;
 $side-width: 204px;
-$help-width: round(1.4 * $side-width);
+$help-width: round($default-ratio * $side-width);
 
 
 #side, #help {
@@ -330,7 +331,11 @@ html.backend {
 
 html.authentication, html.exception {
   background: #F7F7F7;
-  @include background(radial-gradient(top, #FFF, #F7F7F7, #C2C2C2));
+  @include background(radial-gradient(center, $desktop-background, $neutral-color));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  @include background-size(cover);
   height: 100%;
   body {
     background: transparent;
@@ -364,12 +369,23 @@ html.authentication, html.exception {
           }
           h2 {
             font-size: $fs-large;
-            line-height: round(1.6*$fs-large);
+            line-height: $lh-large;
             margin-bottom: round(0.4*$fs-large);
+            a.config {
+              i {
+                @include is-icon;
+                @include use-icon(wrench);
+                color: $active-color;
+              }
+            }
+          }
+          #config {
+            display: none;
           }
           label {
             display: block;
-            line-height: round(1.6*$fs-normal);
+            line-height: $lh-normal;
+            margin-bottom: round($default-gap * 0.5);
           }
           input[type="email"], input[type="password"], select {
             display: inline;
@@ -423,7 +439,7 @@ html.exception {
   @include toolbar();
   @include float(right);
   margin-top: round(($header-height - $button-height) / 2);
-  margin-bottom: round(($header-height - $button-height) / 2);
+  margin-bottom: 0; //round(($header-height - $button-height) / 2);
   @include margin-right($default-gap);
 }
 
@@ -511,7 +527,7 @@ div[data-deck] > div#default {
 #subtitle {
   padding: $default-gap;
   font-weight: bold;
-  line-height: 1.4 * $fs-large;
+  line-height: $lh-large;
   font-size: $fs-large;
   color: #777;
 }
@@ -537,7 +553,7 @@ div[data-deck] > div#default {
       font-weight: bold;
       font-size: $fs;
       padding: round($fs * 0.3) round($fs * 0.4);
-      line-height: 1.4*$fs;
+      line-height: $lh-ratio * $fs;
       @include ellipsis;
       i {
         @include is-icon;
@@ -756,7 +772,7 @@ form.search {
   @include ellipsis;
   &, & * {
     font-size: $fs-large;
-    line-height: round($fs-large * 1.4);
+    line-height: $lh-large;
     vertical-align: baseline;
   }
   span.title {
@@ -807,7 +823,7 @@ form.search {
     width: 100%;
     dt, dd {
       font-size: $fs-normal;
-      line-height: round(1.4*$fs-normal);
+      line-height: $lh-normal;
     }
     dt {
       @include item-label;
@@ -838,8 +854,8 @@ form.search {
   }
   &, * {
     font-size: $fs-small;
+    line-height: $lh-small;
     vertical-align: middle;
-    line-height: round(1.4*$fs-small);
     color: rgba(#000, 0.6);
     @include text-shadow(1px 1px 1px #FFF);
   }
@@ -869,7 +885,7 @@ form.search {
     height: $header-height;
   }
   .content {
-    padding: $default-gap round($default-gap * 1.4);
+    padding: $default-gap round($default-gap * $default-ratio);
   }
 }
 
@@ -930,12 +946,12 @@ form.search {
     &.notice {
       border-left: $default-gap solid #7A4;
       background: rgba(#7A4, 0.3); // #CE8
-      padding: $default-gap $default-gap*1.4;
+      padding: $default-gap $default-gap*$default-ratio;
     }
     &.warning {
       border-left: $default-gap solid #FA0;
       background: rgba(#FA0, 0.3); // #FD9
-      padding: $default-gap $default-gap*1.4;
+      padding: $default-gap $default-gap*$default-ratio;
     }
   }
   .text-end { height: 1px; }
@@ -955,65 +971,64 @@ form.search {
 
 
 .flash {
-  padding: round(0.6*$default-gap) $default-gap;
-  margin: 0 $default-gap $default-gap;
+  padding: $default-gap round($default-ratio*$default-gap);
+  margin: 0 0 $default-gap;
   vertical-align: middle;
   color: $text-color;
   @include border-radius($default-border-radius);
   @include incrust-shadow;
-  &, & * {
-    text-shadow: 1px 1px 0 rgba(#000, 0.3);
-  }
   .icon {
     @include is-icon($lh-normal);
-    display: inline;
+    display: none;
     vertical-align: middle;
     @include margin-right($default-gap);
   }
   .message {
-    display: inline;
     &, * {
-      vertical-align: middle;
-    }
-    h3 {
-      display: none;
+      display: inline;
+      vertical-align: baseline;
       font-size: $fs-normal;
       line-height: $lh-normal;
+    }
+    h3 {
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
-      padding: 0 0 $gap;
-      margin-right: $default-gap - $menu-border-width - $gap;
+      @include margin-right($default-gap);
     }
     p {
       display: inline;
-      font-size: $fs-normal;
-      line-height: $lh-normal;
-      font-weight: bold;
+      font-weight: normal;
     }
     ul {
       padding: round($fs-normal * 0.25);
-      @include padding-left(round(1.2*$fs-normal));
+      @include padding-left($lh-normal);
       li { list-style-type: square; }
     }
   }
+  $opacity: 0.2;
   @each $level in (error $invalid-color times-circle), (warning $caution-color exclamation-circle), (success $success-color check-circle), (information $active-color info-circle) {
                                                                                                                                              $level-name: nth($level, 1);
                                                                                                                                              $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
                                                                                                                                              &.#{$level-name} {
-                                                                                                                                               @include background(linear-gradient(top, lighten($level-color, $default-lightness-variation), $level-color, darken($level-color, $default-lightness-variation)));
-                                                                                                                                               &, & * { color: visible-color($level-color); }
+                                                                                                                                               border: 1px solid rgba($level-color, $opacity * 1.1);
+                                                                                                                                               // @include background(linear-gradient(top, rgba(lighten($level-color, $default-lightness-variation), $opacity), rgba($level-color, $opacity), rgba(darken($level-color, $default-lightness-variation), $opacity)));
+                                                                                                                                               background: rgba($level-color, $opacity);
+                                                                                                                                               &, & * { color: darken($level-color, $default-lightness-variation); }
                                                                                                                                                .icon { @include use-icon(nth($level, 3)); }
                                                                                                                                              }
                                                                                                                                            }
   .close {
-    opacity: 0.6;
+    opacity: 0.3;
     display: block;
     @include float(right);
-    font-size: 18px;
+    font-size: $lh-normal;
+    line-height: $lh-normal;
     font-weight: bold;
-    margin-right: -4px;
-    padding: 0 4px;
     vertical-align: middle;
+    &:hover,
+    &:active {
+      opacity: 0.7;
+    }
   }
 }
 
@@ -1111,7 +1126,7 @@ a.selector-dropdown {
   padding: $default-gap;
   background: $background-color; // mix(white, #CE0, 80%);
   @include clearfix;
-  $line-height: round(1.4*$fs-normal);
+  $line-height: $lh-normal;
   .crits {
     padding: 0;
     .crit {
@@ -1187,7 +1202,7 @@ a.selector-dropdown {
       margin: 4px;
       font-weight: bold;
       font-size: $fs-large;
-      $line-height: round($fs-large * 1.4);
+      $line-height: $lh-large;
       line-height: $line-height;
       height: $line-height;
       color: white;
@@ -1433,7 +1448,7 @@ a.selector-dropdown {
   $step-padding:round($default-gap);
   padding: round($fs-normal * 0.15) 0;
   margin: 0 0 $default-gap;
-  $height: round(1.4 * $fs-normal) + 2 * $step-padding;
+  $height: $lh-normal + 2 * $step-padding;
   .transition {
     width: 0px;
     height: 0px;
@@ -1448,8 +1463,8 @@ a.selector-dropdown {
     a {
       display: block;
       text-align: center;
-      line-height: round(1.4 * $fs-normal);
-      height: round(1.4 * $fs-normal);
+      line-height: $lh-normal;
+      height: $lh-normal;
       padding: round($step-padding * 0.3);
       background: $base-color;
       vertical-align: middle;
@@ -1571,7 +1586,7 @@ a[data-remove-closest], a[data-remove] {
       list-style-type: decimal;
       &, & * {
         font-size: $fs-normal;
-        line-height: round($fs-normal*1.4);
+        line-height: $lh-normal;
         vertical-align: middle;
       }
       .dealt-on { width: 16ex; }
@@ -2206,7 +2221,7 @@ svg.map {
   dl {
     @include clearfix;
     * {
-      line-height: 1.4em;
+      line-height: $default-ratio * 1em;
       @include margin-right($default-gap);
       @include float(left);
     }

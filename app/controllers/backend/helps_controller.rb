@@ -32,10 +32,13 @@ class Backend::HelpsController < Backend::BaseController
     if request.xhr?
       render partial: 'search', object: file
       return
-    else
-      @help = file
     end
-    t3e title: Ekylibre.helps[file][:title]
+    @help = file
+    unless Ekylibre.helps[@help]
+      redirect_to action: :index
+      return
+    end
+    t3e title: Ekylibre.helps[@help][:title]
   end
 
 

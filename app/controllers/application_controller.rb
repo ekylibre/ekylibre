@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_time_zone
   before_action :set_mailer_host
+  before_action :check_browser
 
   rescue_from PG::UndefinedTable, Apartment::SchemaNotFound, with: :configure_application
 
@@ -90,6 +91,37 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def notify(message, options = {}, nature = :information, mode = :next)
+    options[:default] ||= []
+    options[:default] = [options[:default]] unless options[:default].is_a?(Array)
+    options[:default] << message.to_s.humanize
+    options[:scope] = "notifications.messages"
+    nature = nature.to_s
+    notistore = (mode == :now ? flash.now : flash)
+    notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
+    notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
+    notistore[:notifications][nature] << (message.is_a?(String) ? message : message.to_s.t(options))
+  end
+  def notify_error(message, options={});   notify(message, options, :error); end
+  def notify_warning(message, options={}); notify(message, options, :warning); end
+  def notify_success(message, options={}); notify(message, options, :success); end
+  def notify_now(message, options={});         notify(message, options, :information, :now); end
+  def notify_error_now(message, options={});   notify(message, options, :error, :now); end
+  def notify_warning_now(message, options={}); notify(message, options, :warning, :now); end
+  def notify_success_now(message, options={}); notify(message, options, :success, :now); end
+
+  def has_notifications?(nature=nil)
+    return false unless flash[:notifications].is_a? Hash
+    if nature.nil?
+      for nature, messages in flash[:notifications]
+        return true if messages.any?
+      end
+    elsif flash[:notifications][nature].is_a?(Array)
+      return true if flash[:notifications][nature].any?
+    end
+    return false
+  end
+
   def set_theme
     @current_theme = 'tekyla'
   end
@@ -122,7 +154,14 @@ class ApplicationController < ActionController::Base
 
   # Sets mailer host on each request to ensure to get the valid domain
   def set_mailer_host
-    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
+    ActionMailer::Base.default_url_options = {host: request.host_with_port}
+  end
+
+  def check_browser
+    browser = Browser.new(ua: request.headers["HTTP_USER_AGENT"], accept_language: request.headers["HTTP_ACCEPT_LANGUAGE"])
+    if browser.ie?
+      notify_warning_now :incompatible_browser
+    end
   end
 
   def configure_application(exception)

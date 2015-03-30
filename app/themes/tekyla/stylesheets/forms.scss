@@ -1,5 +1,5 @@
-$spacing: 1.4*$default-gap;
-$vertical-spacing: round($spacing*0.7);
+$spacing: round($default-ratio * $default-gap);
+$vertical-spacing: round($spacing / $default-ratio);
 
 .fieldset {
   // @include border-radius($default-border-radius);
@@ -15,7 +15,7 @@ $vertical-spacing: round($spacing*0.7);
     *, label, span {
       color: $neutral-color;
       font-size: $size;
-      line-height: round(1.2*$size);
+      line-height: round($lh-ratio * $size);
     }
     font-weight: bold;
     vertical-align: middle;
@@ -59,6 +59,7 @@ $vertical-spacing: round($spacing*0.7);
     border-top: $menu-border-width dotted $menu-border-color;
     margin: 0;
     padding: $vertical-spacing $spacing;
+    overflow-x: auto;
 
     h3 {
       font-weight: bold;
@@ -72,7 +73,7 @@ $vertical-spacing: round($spacing*0.7);
       .control-label {
         width: 25%;
         @include float(left);
-        line-height: 1.4*$fs-normal;
+        line-height: $lh-normal;
         @include inline-block;
         @include margin-right(round($fs-normal/2));
         &.required {
@@ -152,7 +153,7 @@ $controls-margin-left: round($label-width * 1.1);
   .control-label {
     max-width: $label-width;
     @include float(left);
-    line-height: round(1.4*$fs-normal);
+    line-height: $lh-normal;
     margin: round($fs-normal/4) $spacing;
     @include display(block);
     @include ellipsis;
@@ -181,7 +182,7 @@ $controls-margin-left: round($label-width * 1.1);
       margin-top: round(0.3 * $spacing);
       font-size: $fs-small;
       font-style: italic;
-      line-height: 1.3em;
+      line-height: $lh-ratio * 1em;
       em {
         font-style: normal;
       }
