@@ -65,6 +65,7 @@
 #  work_number           :string
 #
 
+require 'ffaker'
 
 class Product < Ekylibre::Record::Base
   include Versionable, Indicateable
@@ -335,7 +336,7 @@ class Product < Ekylibre::Record::Base
       end
       if self.name.blank?
         # By default, choose a random name
-        self.name = FFaker::Name.first_name
+        self.name = ::FFaker::Name.first_name
       end
     end
   end

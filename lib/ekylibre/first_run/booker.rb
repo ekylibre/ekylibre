@@ -1,3 +1,5 @@
+require 'ffaker'
+
 module Ekylibre
   module FirstRun
 
@@ -23,8 +25,8 @@ module Ekylibre
               attributes[:default_storage] = find(BuildingDivision, default_storage: find(Building, default_storage: false))
             end
             if model == Worker
-              options[:first_name] ||= FFaker::Name.first_name
-              options[:last_name]  ||= FFaker::Name.last_name
+              options[:first_name] ||= ::FFaker::Name.first_name
+              options[:last_name]  ||= ::FFaker::Name.last_name
               options[:born_at]    ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
               unless person = Person.find_by(first_name: options[:first_name], last_name: options[:last_name])
                 person = Person.create!(first_name: options[:first_name], last_name: options[:last_name], born_at: options[:born_at])

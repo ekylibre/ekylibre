@@ -1,3 +1,5 @@
+require 'ffaker'
+
 # Create or updates Synel Inventories
 Exchanges.add_importer :synel_inventory do |file, w|
 

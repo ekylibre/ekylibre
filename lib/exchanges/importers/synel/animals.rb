@@ -1,3 +1,5 @@
+require 'ffaker'
+
 # Create or updates animals
 Exchanges.add_importer :synel_animals do |file, w|
 
