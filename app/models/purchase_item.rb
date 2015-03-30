@@ -107,7 +107,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if self.quantity and self.unit_pretax_amount and self.tax
       self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
       self.pretax_amount = (self.quantity * self.unit_pretax_amount).round(precision)
-      self.amount = (self.quantity * self.unit_amount).round(precision)
+      self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
     end
 
     if self.variant
@@ -121,15 +121,6 @@ class PurchaseItem < Ekylibre::Record::Base
       errors.add(:currency, :invalid) if self.currency != self.purchase_currency
     end
     errors.add(:quantity, :invalid) if self.quantity.zero?
-    # # Validate that tracking serial is not used for a different product
-    # producer = self.purchase.supplier
-    # unless self.tracking_serial.blank?
-    #   errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
-    # end
-    # if self.price and self.purchase
-    #   errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
-    # end
-    # errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
   def product_name

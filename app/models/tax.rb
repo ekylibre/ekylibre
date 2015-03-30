@@ -161,11 +161,13 @@ class Tax < Ekylibre::Record::Base
   end
 
   # find tax reference name with no stopped_at AKA currents reference taxes
-  #
+  # FIXME Invalid way to find current tax. Need to normalize tax use when no references
   def self.currents
     ids = []
-    for tax in Tax.all
-      unless Nomen::Taxes.find(tax.reference_name).stopped_on
+    Tax.find_each do |tax|
+      if item = Nomen::Taxes.find(tax.reference_name)
+        ids << tax.id unless item.stopped_on
+      else
         ids << tax.id
       end
     end

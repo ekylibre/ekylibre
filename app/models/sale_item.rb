@@ -119,14 +119,11 @@ class SaleItem < Ekylibre::Record::Base
 
     self.reduction_percentage ||= 0
     if self.quantity and self.unit_pretax_amount and self.tax
-      self.reduced_unit_pretax_amount = (self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0)
       self.unit_amount = self.tax.amount_of(self.unit_pretax_amount).round(precision)
+      self.pretax_amount = (self.quantity * self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0).round(precision)
+      self.amount = self.tax.amount_of(self.pretax_amount).round(precision)
+      self.reduced_unit_pretax_amount = (self.unit_pretax_amount * (100.0 - self.reduction_percentage) / 100.0)
       self.reduced_unit_amount = (self.unit_amount * (100.0 - self.reduction_percentage) / 100.0)
-      self.pretax_amount = (self.quantity * self.reduced_unit_pretax_amount).round(precision)
-      self.amount = (self.quantity * self.reduced_unit_amount).round(precision)
-      self.reduced_unit_pretax_amount = self.reduced_unit_pretax_amount.round(precision)
-      self.reduced_unit_amount = self.reduced_unit_amount.round(precision)
-      self.unit_pretax_amount = self.unit_pretax_amount.round(precision)
     end
 
     if self.variant
@@ -138,15 +135,6 @@ class SaleItem < Ekylibre::Record::Base
 
 
   validate do
-    # if self.building
-    #   errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name) unless self.building.can_receive?(self.product_id)
-    #   if self.tracking
-    #     stock = Stocks.where(:product_id => self.product_id, :building_id => self.building_id, :tracking_id => self.tracking_id).first
-    #     errors.add(:building_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
-    #   end
-    # end
-
-    # return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
     errors.add(:quantity, :invalid) if self.quantity.zero?
     # TODO validates responsible can make reduction and reduction percentage is convenient
   end

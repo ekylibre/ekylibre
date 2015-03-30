@@ -48,7 +48,7 @@
 }
 
 
-@mixin is-icon($size: round($fs-normal)) {
+@mixin is-icon($size: round(1.2 * $fs-normal)) {
   font-family: Agric;
   font-weight: normal;
   font-style: normal;

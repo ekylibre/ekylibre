@@ -1,4 +1,4 @@
-- if @campaigns and ProductionSupport.all.map(&:shape).count > 0
+- if @campaigns and ProductionSupport.all.map(&:shape).any?
   :ruby
     data = []
     ProductionSupport.of_campaign(@campaigns).includes(
@@ -61,10 +61,10 @@
         item = {
           name:       support.name,
           shape:      support.shape,
-          campaign:   support.production.campaign.name,
-          activity:   support.production.activity.name,
-          production: support.production.name,
-          variant:    support.production.variant.name,
+          campaign:   support.campaign_name,
+          activity:   support.activity_name,
+          production: support.production_name,
+          variant:    support.cultivation_variant_name,
           tool_cost:  support.tool_cost.to_s.to_f.round(2),
           input_cost: support.input_cost.to_s.to_f.round(2),
           time_cost:  support.time_cost.to_s.to_f.round(2),

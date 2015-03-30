@@ -193,7 +193,9 @@ module Ekylibre
       # Launch the execution of the loaders
       def launch
         Rails.logger.info "Import first run of #{@name} from #{@folder_path.to_s} in #{@mode} mode " + (@max > 0 ? "with max of #{@max}" : 'without max') + "."
-        puts "Import first run of #{@name.to_s.yellow} from #{@folder_path.relative_path_from(Rails.root).to_s.yellow} in #{@mode.to_s.yellow} mode " + (@max > 0 ? "with max of #{@max.to_s.red}" : 'without max') + ", " + (hard? ? "without".red : "with".green) + " global transaction."
+        if @verbose
+          puts "Import first run of #{@name.to_s.yellow} from #{@folder_path.relative_path_from(Rails.root).to_s.yellow} in #{@mode.to_s.yellow} mode " + (@max > 0 ? "with max of #{@max.to_s.red}" : 'without max') + ", " + (hard? ? "without".red : "with".green) + " global transaction."
+        end
         if hard?
           execute
         else

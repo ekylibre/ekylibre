@@ -46,6 +46,7 @@ class ProductionSupport < Ekylibre::Record::Base
   has_one :activity, through: :production
   has_one :campaign, through: :production
   has_one :selected_manure_management_plan_zone, -> { selecteds }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_one :cultivation_variant, through: :production
   has_one :variant, through: :production
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -56,13 +57,12 @@ class ProductionSupport < Ekylibre::Record::Base
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
   delegate :support_variant_unit, :support_variant_indicator, to: :production
-
-  # alias :net_surface_area :storage_net_surface_area
   delegate :name, :variant, to: :production, prefix: true
   delegate :name, :work_number, :shape, :shape_to_ewkt, :shape_svg, to: :storage
   delegate :name, to: :activity, prefix: true
   delegate :name, to: :campaign, prefix: true
   delegate :name, to: :variant,  prefix: true
+  delegate :name, to: :cultivation_variant, prefix: true
   delegate :irrigated, :nitrate_fixing, :started_at, :stopped_at, :support_variant_indicator, :support_variant_unit, to: :production
 
   scope :of_campaign, lambda { |*campaigns|
