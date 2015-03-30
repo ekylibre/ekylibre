@@ -151,3 +151,7 @@ spa:
       nature:
         # amount: "Amount"
         # percentage: "Percentage"
+  simple_form:
+    hints:
+      purchase:
+        # reference_number: "Supplier invoice number"

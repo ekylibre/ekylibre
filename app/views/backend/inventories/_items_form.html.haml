@@ -1,4 +1,13 @@
-- if @inventory.new_record?
-  = list(:items_create)
-- else
-  = list(:items_update)
+= f.simple_fields_for :items, items do |nested|
+  = nested.association :product, as: :hidden
+  = nested.input :expected_population, as: :hidden
+  .control-group
+    %label.control-label= nested.object.product.name
+    .controls
+      - if nested.object.population_counting_unitary?
+        %span= link_to(:details.tl, controller: "/backend/products", action: :show, id: nested.object.product_id)
+      - else
+        %span.input-append
+          = nested.input_field :actual_population
+          %span.add-on= nested.object.unit_name
+        %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l

@@ -43,7 +43,7 @@ Exchanges.add_importer :la_graine_informatique_vinifera_entities do |file, w|
       person.update_attributes!(country: r.country) if person.country.blank?
     elsif
       person = Entity.new(last_name: r.full_name.strip,
-                          first_name: r.full_name.strip,                    
+                          first_name: r.full_name.strip,
                           country: r.country
                          )
       person.save!

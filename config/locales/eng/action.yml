@@ -1425,6 +1425,7 @@ eng:
       shipped: "Shipped" #?!
       waiting: "Waiting" #?!
     treatment: "Treatment" #?
+    # undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     uninvoiced_amount: "Uninvoiced amount" #?
     unit: "Unit" #?

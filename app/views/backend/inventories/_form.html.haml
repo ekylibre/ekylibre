@@ -6,20 +6,13 @@
 
 :ruby
   f.object.build_missing_items
-  containers = f.object.items.collect(&:container).uniq.sort{|a,b| a.name <=> b.name }
+  containers = Product.where(id: f.object.items.collect(&:container)).order(:name)
 
-- for container in containers
-  = field_set(container ? container.name : :undefined_container) do
-    = f.simple_fields_for :items, f.object.items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name} do |nested|
-      = nested.association :product, as: :hidden
-      = nested.input :expected_population, as: :hidden
-      .control-group
-        %label.control-label= nested.object.product.name
-        .controls
-          - if nested.object.population_counting_unitary?
-            %span= link_to(:details.tl, controller: "/backend/products", action: :show, id: nested.object.product_id)
-          - else
-            %span.input-append
-              = nested.input_field :actual_population
-              %span.add-on= nested.object.unit_name
-            %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l
+- containers.each do |container|
+  = field_set(container.name) do
+    = render 'items_form', f: f, items: f.object.items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name}
+
+= field_set(:undefined_container) do
+  = render 'items_form', f: f, items: f.object.items.select{|i| i.container.nil? }.sort{|a,b| a.name <=> b.name}
+
+
