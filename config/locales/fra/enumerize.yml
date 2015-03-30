@@ -131,3 +131,7 @@ fra:
       nature:
         amount: "Montant"
         percentage: "Pourcentage"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Numéro de la facture du fournisseur"
