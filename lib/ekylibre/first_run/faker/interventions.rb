@@ -369,7 +369,7 @@ module Ekylibre::FirstRun::Faker
               i.add_cast(reference_name: 'tank',             actor: support.storage)
               i.add_cast(reference_name: 'wine',             actor: support.storage.contents.first)
               i.add_cast(reference_name: 'wine_man',         actor: i.find(Worker))
-              i.add_cast(reference_name: 'destination_tank', actor: i.find(Equipment, can: "store(wine)", can: "store_liquid"))
+              i.add_cast(reference_name: 'destination_tank', actor: i.find(Equipment, can: "store(wine), store_liquid"))
             end
           end
           w.check_point
