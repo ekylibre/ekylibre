@@ -1,6 +1,8 @@
 - if @intervention
-  - if @container.is_a?(CultivableZone)
-    = map(@container, box: {height: 240})
+  - targets = @intervention.casts.of_generic_role(:target)
+  - targets = @intervention.casts.of_generic_role(:input) unless targets.any?
+  - if target = targets.first and actor = target.actor
+    = map(actor, box: {height: 240})
   .info
     %span.title= Intervention.human_attribute_name(:name)
     %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)
@@ -13,7 +15,7 @@
       %span.value= @intervention.started_at.l
     .info
       %span.title= Intervention.human_attribute_name(:duration)
-      %span.value= @intervention.duration.in_second.convert(:hour).round(2).l
+      %span.value= human_duration(@intervention.duration)
     .info
       %span.title= Intervention.human_attribute_name(:state)
       %span.value= @intervention.state.l
