@@ -267,11 +267,9 @@ fra:
       analysis_item: "Élément d’analyse"
       animal: "Animal"
       animal_group: "Groupe d’animaux"
-      animal_medicine: "Produits vétérinaires" #?
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
-      budget_item: "élèment de budget" #?
-      building: "Lieu de stockage"
+      building: "Bâtiment"
       building_division: "Pièce"
       campaign: "Campagne"
       cash: "Trésorerie"
@@ -287,7 +285,6 @@ fra:
       deposit: "Remise en banque"
       district: "Zone administrative"
       document: "Document"
-      document_archive: "Archive de document" #?
       document_template: "Modèle de document"
       easement: "Zone primaire"
       entity: "Personne"
@@ -312,7 +309,6 @@ fra:
       import: "Import"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
-      incoming_delivery_mode: "Mode d’approvisionnement" #?
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
       intervention: "Intervention"
@@ -333,20 +329,15 @@ fra:
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
       matter: "Matière"
-      medicine: "Médicament" #?
-      mineral_matter: "Matière minérale" #?
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
-      organic_matter: "Matière organique" #?
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
-      outgoing_delivery_mode: "Mode de livraison" #?
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       person: "Personne"
       plant: "Plante"
-      plant_medicine: "Produit phytosanitaire" #?
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -382,7 +373,6 @@ fra:
       production_budget: "Budget"
       production_distribution: "Répartition entre production"
       production_support: "Support de production"
-      production_support_marker: "Repère de support de production" #?
       property_title: "Titre de propriété"
       purchase: "Achat"
       purchase_item: "Ligne d’achat"

@@ -17,7 +17,7 @@ $configuring-min-height: 400px;
 .beehive {
   padding: $spacing;
   background: $desktop-background;
-  // background: #F0f0f0;
+  overflow: auto;
 
   .beehive-tools {
     display: none;

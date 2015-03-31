@@ -1,19 +1,15 @@
-- if @variety and BuildingDivision.all.map(&:shape).count > 0
+- if @variety and BuildingDivision.any?
   :ruby
-    #data_pn = []
-    # find all ProductNature (PN) corresponding to variety
-    #product_natures = ProductNature.stockables.of_variety(@variety.to_s).reorder(:id)
-
-
     data = []
-    # get all BuildingDivision
+    # Get all BuildingDivision
+    # FIXME Find a better way to find storage
     BuildingDivision.includes(:nature).each do |building_division|
       if building_division.shape and building_division.containeds.any?
         popup_content = []
         ids = []
         ids = building_division.containeds.uniq.map(&:id)
         # if there something in building_division
-        if ids.count > 0
+        if ids.any?
           # limit to 10 the product list for visualization popup reason
           # TODO make a better method for this with a link_to list with parameter in product#index
           popup_content << {label: :products.tl}
@@ -23,7 +19,7 @@
           popup_content << render('popup', support: building_division)
           item = {
             name:       building_division.unroll_name,
-            building_division_nature_name: building_division.nature_name,
+            nature:     building_division.nature_name,
             shape:      building_division.shape,
             popup: {header: true, content: popup_content}
           }
@@ -31,14 +27,13 @@
         end
       end
     end
-  end
 
   = visualization do |v|
     - v.serie :main, data
     - v.background "OpenStreetMap.HOT"
     - v.background "OpenStreetMap.Mapnik"
     - v.background "Esri.WorldImagery"
-    - v.categories :building_division_nature_name, :main
+    - v.categories :nature, :main
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen
