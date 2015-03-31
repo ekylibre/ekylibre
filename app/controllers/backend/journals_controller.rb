@@ -156,7 +156,7 @@ class Backend::JournalsController < Backend::BaseController
     if request.post?
       if @journal.reopen(params[:closed_on].to_date)
         notify_success(:journal_reopened_on, closed_on: @journal.closed_on.l, journal: @journal.name)
-        redirect action: :index
+        redirect_to action: :index
       end
     end
     t3e @journal

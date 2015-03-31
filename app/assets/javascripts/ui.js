@@ -94,21 +94,27 @@
 
 
   // Update DOM with new system
-  $(document).behave("ajax:success", "*[data-update]", function (event, data, status, xhr) {
+  $(document).behave("ajax:success", "*[data-update]", function (event, data, status, request) {
     var element = $(this);
     var position = $.trim(element.data("update-at")).toLowerCase();
-    if (position === "top") {
-        $(this).closest(element.data("update")).prepend(data);
-    } else if (position === "bottom") {
-        $(this).closest(element.data("update")).append(data);
-    } else if (position === "before") {
-        $(this).closest(element.data("update")).before(data);
-    } else if (position === "after") {
-        $(this).closest(element.data("update")).after(data);
-    } else if (position === "replace") {
-        $(this).closest(element.data("update")).replaceWith(data);
+    var target, closest;
+    if (element.data("update-mode") === "closest") {
+      target = $(this).closest(element.data("update")).first();
     } else {
-        $(this).closest(element.data("update")).html(data);
+      target = $(element.data("update"));
+    }
+    if (position === "top") {
+        target.prepend(data);
+    } else if (position === "bottom") {
+        target.append(data);
+    } else if (position === "before") {
+        target.before(data);
+    } else if (position === "after") {
+        target.after(data);
+    } else if (position === "replace") {
+        target.replaceWith(data);
+    } else {
+        target.html(data);
     }
   });
 
