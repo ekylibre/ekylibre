@@ -91,6 +91,15 @@ $vertical-spacing: round($spacing / $default-ratio);
       max-width: 65%;
     }
 
+    tr.nested-fields {
+      input {
+        max-width: 100%;
+        &[type="number"] {
+          width: 5em;
+        }
+      }
+    }
+
     & > .fieldset {
       @include margin-left(0);
       @include margin-right(0);

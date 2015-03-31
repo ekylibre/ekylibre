@@ -141,7 +141,7 @@ Rails.application.routes.draw do
       resource :last_events_cell, only: :show, concerns: :list
       resource :last_incoming_deliveries_cell, only: :show, concerns: :list
       resource :last_issues_cell, only: :show, concerns: :list
-      resource :last_interventions_cell, only: :show, concerns: :list
+      resource :last_interventions_cell, only: :show
       resource :last_analyses_cell, only: :show, concerns: :list
       resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
@@ -641,7 +641,6 @@ Rails.application.routes.draw do
     resources :sale_natures, concerns: [:list, :unroll]
 
     resources :sales, concerns: [:list, :unroll] do
-      resources :items, only: [:new, :create], controller: :sale_items
       collection do
         get :contacts
       end

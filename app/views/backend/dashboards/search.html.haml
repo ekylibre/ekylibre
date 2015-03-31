@@ -8,4 +8,4 @@
         = " &mdash; ".html_safe
         = result["title"]
       %small= result["pertinence"]
-    %p= truncate(result["indexer"], :length => 300)
+    %p= highlight(truncate(result["indexer"], length: 300), @search[:words])
