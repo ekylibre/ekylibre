@@ -30,7 +30,8 @@ module Ekylibre
         unless @folder_path.exist?
           raise ArgumentError, "Need a valid folder path. #{@folder_path} doesn't exist."
         end
-        @term_width = %x{echo $-}.strip =~ /i/ ? %{stty size}.split[1].to_i : 80
+        @term_width = `/usr/bin/env tput cols`.to_i rescue 80
+        @term_width = 80 unless @term_width > 0
         ::I18n.locale = Preference[:language]
         @max = options[:max].to_i
       end

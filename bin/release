@@ -8,9 +8,7 @@ class Releaser
   def self.run!
     # TODO: Check cleaning
     desc "General cleaning"
-    exec "rake clean"
-    desc "Private cleaning"
-    exec "rake clean:private"
+    exec "rake clean clean:private"
 
     desc "Fixtures restoration"
     exec "rake db:fixtures:restore"
@@ -30,7 +28,7 @@ class Releaser
     # TODO: Check schema and table presences
 
     desc "Execute demo first run"
-    exec "RAILS_ENV=production rake first_run max=50 folder=demo"
+    exec "RAILS_ENV=production rake first_run max=50 name=release folder=demo"
 
     # TODO: Check schema and table presences
     # TODO: Check data presence
@@ -40,18 +38,25 @@ class Releaser
 
     # TODO: Kill console after 40 seconds ?
 
-    desc "Run server"
-    pid = fork { exec "RAILS_ENV=production ./bin/rails s -p 3456" }
-    sleep 30
+    desc "Remove release tenant"
+    exec "RAILS_ENV=production rake tenant:drop name=release"
 
-    desc "Get default page"
-    exec "wget demo.ekylibre.lan:3456 -O tmp/index.html"
-    # TODO: Navigate with mechanize
+    # desc "Run server"
+    # pid = fork { exec "RAILS_ENV=production ./bin/rails s -p 3456" }
+    # sleep 30
 
-    sleep 10
-    desc "Stop server"
-    Process.kill("SIGINT", pid)
-    Process.wait
+    # desc "Get default page"
+    # exec "wget demo.ekylibre.lan:3456 -O tmp/index.html"
+    # # TODO: Navigate with mechanize
+
+    # sleep 10
+    # desc "Stop server"
+    # Process.kill("SIGINT", pid)
+    # Process.wait
+
+    desc "General cleaning"
+    exec "rake clean:private"
+    exec "rm -fr public/assets"
   end
 
   def self.exec(command)
