@@ -2,6 +2,8 @@ module Exchanges
 
   class Exchange
 
+    attr_reader :color
+
     def initialize(&block)
       if block_given?
         unless (1..2).include?(block.arity)
@@ -11,6 +13,7 @@ module Exchanges
       end
       @max = ENV["max"].to_i
       @count = nil
+      @color = :green
       @cursor = 0
     end
 
@@ -42,8 +45,10 @@ module Exchanges
       end
     end
 
-    def reset!
+    def reset!(value = nil, color = :green)
+      self.count = value if value
       @cursor = 0
+      @color = color
     end
 
     def verbose?

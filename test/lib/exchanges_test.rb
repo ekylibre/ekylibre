@@ -12,12 +12,12 @@ class ExchangesTest < ActiveSupport::TestCase
   }
 
   setup do
-    Ekylibre::Tenant.create(:sekindovall)
+    # Ekylibre::Tenant.create(:sekindovall)
     Ekylibre::Tenant.switch(:sekindovall)
   end
 
   teardown do
-    Ekylibre::Tenant.drop(:sekindovall)
+    # Ekylibre::Tenant.drop(:sekindovall)
     Ekylibre::Tenant.switch(:test)
   end
 
@@ -34,6 +34,6 @@ class ExchangesTest < ActiveSupport::TestCase
   end
 
   test "import of a legrain_epicea_journals file" do
-    Exchanges.import(:legrain_epicea_accounts, FIRST_RUN.join("epicea","ExportationDesEcritures.Txt"))
+    Exchanges.import(:legrain_epicea_journals, FIRST_RUN.join("epicea","ExportationDesEcritures.Txt"))
   end
 end

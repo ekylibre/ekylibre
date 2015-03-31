@@ -59,7 +59,6 @@ $vertical-spacing: round($spacing / $default-ratio);
     border-top: $menu-border-width dotted $menu-border-color;
     margin: 0;
     padding: $vertical-spacing $spacing;
-    overflow-x: auto;
 
     h3 {
       font-weight: bold;

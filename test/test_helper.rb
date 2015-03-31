@@ -11,6 +11,7 @@ if ENV['LOCALE']
 end
 
 # Configure tenants.yml
+Ekylibre::Tenant.setup!("sekindovall")
 Ekylibre::Tenant.setup!("test", keep_files: true)
 
 class FixtureRetriever

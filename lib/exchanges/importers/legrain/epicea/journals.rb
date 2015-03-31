@@ -1,6 +1,5 @@
 Exchanges.add_importer :legrain_epicea_journals do |file, w|
   rows = CSV.read(file, headers: true, encoding: "cp1252", col_sep: ";", skip_blanks: true)
-  w.count = rows.count
   journal_nature_by_code = {
     AC: :purchases,
     B: :bank,
@@ -8,76 +7,43 @@ Exchanges.add_importer :legrain_epicea_journals do |file, w|
     VT: :sales
   }.with_indifferent_access
 
-  entry = nil
-  ActiveRecord::Base.transaction do
-    #First of all: identify and create the first financial year of the file
-    old, first_financial_year_beginning, current_financial_year = nil, nil, nil
-    rows.each do |row|
-      old ||= row[1].to_s.chars[2..3].join
-      current = row[1].to_s.chars[2..3].join
-      if current != old
-        first_financial_year_beginning = (Date.parse(row[2]) - 1.year).beginning_of_month
-      break
-      end
-    end
-    current_financial_year = FinancialYear.create! started_on: first_financial_year_beginning
+  Preference.set!(:currency, :EUR) unless Preference.find_by(name: :currency)
 
-    rows.each_with_index do |row, index|
-      begin
-        w.check_point
-        next
-      end unless row.fields.compact.present?
-      unless a = Account.find_by(number: row[3].to_s.upcase)
-        a = Account.create!(number: row[3].to_s.upcase, name: row[5].to_s)
+  entries = {}
+  w.reset!(rows.count, :yellow)
+  rows.each_with_index do |row, index|
+    number = row[1].to_s.strip
+    unless entries[number]
+      unless journal = Journal.find_by(code: row[0])
+        journal = Journal.create!(code: row[0], name: "Journal #{row[0]}", currency: "EUR", nature: journal_nature_by_code[row[0].sub(/[0-9]/,'')])
       end
-      r = {
-        debit: row[6].to_f,
-        credit: row[7].to_f,
-        account: a,
-        nature: journal_nature_by_code[row[0].sub(/[0-9]/,'')],
+      entries[number] = {
         printed_on: Date.parse(row[2]),
-        number: row[1],
-        code: row[0].to_s.upcase,
-        label: row[5]
-      }.to_struct
-
-      entry_item = {
-        real_debit: r.debit,
-        real_credit: r.credit,
-        account: r.account,
-        name: r.label
-      }
-
-      if entry.present? && r.number != entry[:number]
-        JournalEntry.create!(entry)
-        entry = nil
-      end
-
-      unless fy = FinancialYear.at(r.printed_on)
-        fy = current_financial_year.find_or_create_next!
-        current_financial_year = fy
-      end
-
-      unless j = Journal.find_by(code: r.code)
-        j = Journal.create!(name: "Journal #{r.code}", code: r.code, currency: "EUR", nature: r.nature)
-      end
-
-      entry ||= {
-        printed_on: r.printed_on,
-        journal: j,
-        number: r.number,
-        financial_year: fy,
-        currency: "EUR",
+        journal: journal,
+        number: number,
+        currency: journal.currency,
         items_attributes: {}
       }
-      entry[:items_attributes][index.to_s] = entry_item
-
-      # manage the last row
-      if index == rows.count - 1
-        JournalEntry.create!(entry)
-        entry = nil
-      end
-      w.check_point
     end
+    account_number = row[3].to_s.upcase
+    unless account = Account.find_by(number: account_number)
+      account = Account.create!(number: account_number, name: account_number)
+    end
+    id = (entries[number][:items_attributes].keys.max || 0) + 1
+    entries[number][:items_attributes][id] = {
+      real_debit: row[6].to_f,
+      real_credit: row[7].to_f,
+      account: account,
+      name: row[5]
+    }
+  end
+
+  started_on = entries.values.map{ |v| v[:printed_on] }.uniq.sort.first
+  FinancialYear.create!(started_on: started_on.beginning_of_month) unless FinancialYear.at(started_on)
+
+  w.reset!(entries.keys.size)
+  entries.values.each do |entry|
+    JournalEntry.create!(entry)
+    w.check_point
   end
 end

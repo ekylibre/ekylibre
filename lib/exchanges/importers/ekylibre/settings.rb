@@ -143,7 +143,6 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
     manifest[:users] = {"admin@ekylibre.org" => {first_name: "Admin", last_name: "EKYLIBRE"}}
   end
   for email, attributes in manifest[:users]
-    attributes[:email] = email.to_s
     attributes[:administrator] = true unless attributes.has_key?(:administrator)
     attributes[:language] ||= language
     for ref in [:role, :team, :establishment]
@@ -161,7 +160,9 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
       end
     end
     attributes[:password_confirmation] = attributes[:password]
-    User.create!(attributes)
+    user = User.find_or_initialize_by(email: email.to_s)
+    user.attributes = attributes
+    user.save!
   end
   w.check_point
 
