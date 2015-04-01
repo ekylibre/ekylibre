@@ -100,9 +100,15 @@
       <item name="short_cycle_cultivation_advances_seeds" fr_pcga="3412"/>
       <item name="short_cycle_cultivation_advances_plants_medicines" fr_pcga="3413"/>
       <item name="short_cycle_cultivation_advances_culturals_ways" fr_pcga="3415"/>
+      <item name="long_cycle_products_stock" fr_pcga="35"/>
+      <item name="long_cycle_products_wines_stock" fr_pcga="351"/>
+      <item name="long_cycle_products_liquors_stock" fr_pcga="352"/>
+      <item name="short_cycle_products_stock" fr_pcga="36"/>
       <item name="end_products_stock" fr_pcga="37"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="animal_derivative_stock" fr_pcga="375"/>
+      <item name="processing_products_stock" fr_pcga="376"/>
+      <item name="residual_products_stock" fr_pcga="377"/>
 
       <!--                      THIRD-PARTY               -->
       <item name="third_party" fr_pcg82="4"/>
@@ -231,10 +237,12 @@
       <item name="revenues" fr_pcg82="7"/>
       <item name="plant_derivatives_revenues" fr_pcga="701"/>
       <item name="animal_derivatives_revenues" fr_pcga="702"/>
+      <item name="processing_products_revenues" fr_pcga="703"/>
       <item name="animal_revenues" fr_pcga="704"/>
       <item name="adult_animal_revenues" fr_pcga="7041"/>
       <item name="young_animal_revenues" fr_pcga="7042"/>
       <item name="other_animal_revenues" fr_pcga="7045"/>
+      <item name="residual_products_revenues" fr_pcga="705"/>
       <item name="services_revenues" fr_pcg82="706"/>
       <item name="merchandising_revenues" fr_pcg82="707"/>
       <item name="making_services_revenues" fr_pcga="7084"/>
