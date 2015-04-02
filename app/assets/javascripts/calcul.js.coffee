@@ -52,12 +52,13 @@
 
   # Auto-calculation
   C.autoCalculate = ->
-    $("*[data-use][data-auto-calculate]").each C.calculate
+    $("*[data-use][data-auto-calculate]").each ()->
+      C.calculate.call($(this), false)
     return
 
   # Test change on value and trigger change event if value is really different
   C.changeNumericalValue = (element, result, force = false) ->
-    if element.numericalValue() isnt result or force
+    if element.numericalValue() != result or force
       element.numericalValue result
       element.trigger "change"
     return element
@@ -222,7 +223,7 @@
       equality = true
       $(selector).each ->
         value ?= $(this).numericalValue()
-        equality = false  if value != $(this).numericalValue()
+        equality = false if value != $(this).numericalValue()
       if element.hasClass("valid") and !equality
         element.removeClass "valid"
         element.addClass "invalid"
@@ -238,7 +239,6 @@
 
   $(document).on "change", "*[data-valid-if-equality-between]", ->
     element = $(this)
-    form = undefined
     if element.hasClass("valid") && element.data("submit-if-valid") == true
       form = element.closest("form")
       form.submit() if form

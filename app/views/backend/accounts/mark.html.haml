@@ -29,7 +29,7 @@
             %th= JournalEntryItem.human_attribute_name(:absolute_credit)
 
         %tfoot
-          %tr#total.valid.total{data: {valid_if_equality_between: "#total-debit, #total-credit", submit_if_valid: true}}
+          %tr#total.valid.total{data: {valid_if_equality_between: "#total-debit, #total-credit", submit_if_valid: "true"}}
             %th{colspan: 6}= :total.tl
             %td#total-debit{data:  {use: "tr.selected .debit", calculate_round: precision}}=  0
             %td#total-credit{data: {use: "tr.selected .credit", calculate_round: precision}}= 0
