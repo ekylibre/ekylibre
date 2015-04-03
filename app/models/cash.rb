@@ -77,13 +77,13 @@ class Cash < Ekylibre::Record::Base
   validates_numericality_of :last_number, allow_nil: true, only_integer: true
   validates_presence_of :account, :currency, :journal, :mode, :name, :nature
   #]VALIDATORS]
-  validates_length_of :country, allow_nil: true, maximum: 2
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :bank_identifier_code, allow_nil: true, maximum: 11
-  validates_length_of :nature, allow_nil: true, maximum: 20
-  validates_length_of :iban, allow_nil: true, maximum: 34
-  validates_length_of :spaced_iban, allow_nil: true, maximum: 42
-  validates_length_of :bank_name, allow_nil: true, maximum: 50
+  validates_length_of :country, allow_blank: true, maximum: 2
+  validates_length_of :currency, allow_blank: true, maximum: 3
+  validates_length_of :bank_identifier_code, allow_blank: true, maximum: 11
+  validates_length_of :nature, allow_blank: true, maximum: 20
+  validates_length_of :iban, allow_blank: true, maximum: 34
+  validates_length_of :spaced_iban, allow_blank: true, maximum: 42
+  validates_length_of :bank_name, allow_blank: true, maximum: 50
   validates_inclusion_of :mode, in: self.mode.values
   validates_inclusion_of :nature, in: self.nature.values
   validates_uniqueness_of :account_id
@@ -124,7 +124,9 @@ class Cash < Ekylibre::Record::Base
     end
     if self.bank_account?
       if self.mode_bban?
-        errors.add(:bank_account_key, :unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
+        unless self.country.blank?
+          errors.add(:bank_account_key, :unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
+        end
       end
       unless self.iban.blank?
         errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban)
