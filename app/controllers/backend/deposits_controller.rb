@@ -86,8 +86,10 @@ class Backend::DepositsController < Backend::BaseController
   def create
     return unless find_mode
     @deposit = Deposit.new(permitted_params)
-    return if save_and_redirect(@deposit)
-    t3e mode: @deposit.mode.name
+    unless @deposit.nil?
+      return if save_and_redirect(@deposit)
+      t3e mode: @deposit.mode.name
+    end
   end
 
   def edit
