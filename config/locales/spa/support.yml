@@ -55,16 +55,15 @@ spa:
       x_seconds:
         one: "1 segundo"
         other: "%{count} segundos"
-  form: #?
   number:
     currency:
       format:
         delimiter: ","
         format: "%u%n"
-        # negative_format: "-%u%n"
+        negative_format: "-%u%n"
         precision: 2
         separator: "."
-        unit: "€"
+        unit: "⁈"
     format:
       delimiter: " "
       precision: 3

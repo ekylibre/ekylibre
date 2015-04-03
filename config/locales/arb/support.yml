@@ -99,16 +99,15 @@ arb:
         other: "%{count} ثانية"
         two: "ثانيتان" #?
         zero: "صفر ثواني" #?
-  form: #?
   number:
     currency:
       format:
         delimiter: ","
         format: "%u%n"
-        # negative_format: "-%u%n"
+        negative_format: "-%u%n"
         precision: 2
         separator: "."
-        unit: "$"
+        unit: "⁈"
     format:
       delimiter: " "
       precision: 3

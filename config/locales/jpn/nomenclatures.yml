@@ -1,5 +1,4 @@
 jpn:
-  enumerize: #?
   nomenclatures:
     abilities:
       items:
@@ -1063,7 +1062,6 @@ jpn:
       property_natures:
         # varieties: "Varieties"
     currencies:
-      item_lists: #?
       items:
         AED: "UAE ディルハム"
         AFN: "アフガニ"
@@ -1232,14 +1230,14 @@ jpn:
         UYU: "ウルグアイ・ペソ"
         UZS: "ウズベキスタン・スム"
         VEB: "ボリバル" #?
-        # VEF: "Bolivar Fuerte"
+        VEF: "ボリバル・フエルテ"
         VND: "ドン"
         VUV: "バツ"
         WST: "サモア・タラ"
-        # XAF: "CFA Franc BEAC"
-        # XCD: "East Carribean Dollar"
-        # XOF: "CFA Franc BCEAO"
-        # XPF: "CFP Franc"
+        XAF: "CFAフラン"
+        XCD: "東カリブ・ドル"
+        XOF: "CFAフラン"
+        XPF: "CFPフラン"
         YER: "イエメン・リアル"
         ZAR: "ランド"
         ZMK: "ザンビア・クワチャ"
@@ -3995,8 +3993,8 @@ jpn:
         # insecta: "Insecta"
         # iridaceae: "Iridaceae"
         # item: "Item"
-        # juglandaceae: "Juglandaceae"
-        # juglans: "Juglans"
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
         # juglans_regia: "Common walnut"
         # juglans_regia_chandler: "Common walnut Chandler"
         # juglans_regia_fernor: "Common walnut Fernor"

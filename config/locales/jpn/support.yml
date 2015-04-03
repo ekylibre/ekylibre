@@ -55,7 +55,6 @@ jpn:
       x_seconds:
         one: "1秒"
         other: "%{count}秒"
-  form: #?
   number:
     currency:
       format:
@@ -64,7 +63,7 @@ jpn:
         negative_format: "-%u%n"
         precision: 2
         separator: "."
-        # unit: "⁈"
+        unit: "⁈"
     format:
       delimiter: " "
       precision: 3

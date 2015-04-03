@@ -57,8 +57,6 @@ fra:
       x_seconds:
         one: "1 seconde"
         other: "%{count} secondes"
-  form:  #?
-    new: "Nouveau…" #?
   number:
     currency:
       format:

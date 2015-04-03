@@ -8,13 +8,19 @@ jpn:
     analysis:
 
     animal:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     animal_group:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     attachment:
 
     building_division:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     cash_session:
       currency:
         AED: "UAE ディルハム"
@@ -173,9 +179,14 @@ jpn:
         UYU: "ウルグアイ・ペソ"
         UZS: "ウズベキスタン・スム"
         VEB: "ボリバル"
+        VEF: "ボリバル・フエルテ"
         VND: "ドン"
         VUV: "バツ"
         WST: "サモア・タラ"
+        XAF: "CFAフラン"
+        XCD: "東カリブ・ドル"
+        XOF: "CFAフラン"
+        XPF: "CFPフラン"
         YER: "イエメン・リアル"
         ZAR: "ランド"
         ZMK: "ザンビア・クワチャ"
@@ -338,21 +349,30 @@ jpn:
         UYU: "ウルグアイ・ペソ"
         UZS: "ウズベキスタン・スム"
         VEB: "ボリバル"
+        VEF: "ボリバル・フエルテ"
         VND: "ドン"
         VUV: "バツ"
         WST: "サモア・タラ"
+        XAF: "CFAフラン"
+        XCD: "東カリブ・ドル"
+        XOF: "CFAフラン"
+        XPF: "CFPフラン"
         YER: "イエメン・リアル"
         ZAR: "ランド"
         ZMK: "ザンビア・クワチャ"
         ZWD: "ジンバブエ・ドル"
     cultivable_zone:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     document:
 
     document_template:
 
     easement:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     entity:
       country:
         ad: "アンドラ"
@@ -604,7 +624,9 @@ jpn:
     entity_link:
 
     equipment:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     event:
 
     financial_asset:
@@ -765,9 +787,14 @@ jpn:
         UYU: "ウルグアイ・ペソ"
         UZS: "ウズベキスタン・スム"
         VEB: "ボリバル"
+        VEF: "ボリバル・フエルテ"
         VND: "ドン"
         VUV: "バツ"
         WST: "サモア・タラ"
+        XAF: "CFAフラン"
+        XCD: "東カリブ・ドル"
+        XOF: "CFAフラン"
+        XPF: "CFPフラン"
         YER: "イエメン・リアル"
         ZAR: "ランド"
         ZMK: "ザンビア・クワチャ"
@@ -777,7 +804,9 @@ jpn:
     identifier:
 
     immatter:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     import:
 
     incoming_delivery:
@@ -789,9 +818,13 @@ jpn:
     issue:
 
     land_parcel_cluster:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     land_parcel_group:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     legal_entity:
 
     listing:
@@ -799,9 +832,13 @@ jpn:
     manure_management_plan:
 
     manure_management_plan_zone:
-
+      cultivation_variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     matter:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     net_service:
 
     outgoing_delivery:
@@ -809,17 +846,36 @@ jpn:
     person:
 
     plant:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     product:
-
+      derivative_of:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     product_group:
-
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     product_nature:
-
+      derivative_of:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     product_nature_category:
 
     product_nature_variant:
-
+      derivative_of:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
+      variety:
+        juglandaceae: "クルミ目"
+        juglans: "クルミ属"
     product_nature_variant_reading:
 
     product_reading:
