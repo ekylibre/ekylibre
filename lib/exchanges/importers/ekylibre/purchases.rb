@@ -3,6 +3,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
 
   rows = CSV.read(file, headers: true).delete_if{|r| r[0].blank?}
   w.count = rows.size
+  purchase_ids = []
 
   rows.each do |row|
     next if row[1].blank?
@@ -49,6 +50,7 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
                                     nature: PurchaseNature.actives.first,
                                     description: description
                                     )
+         purchase_ids << purchase.id
       end
     end
 
@@ -67,10 +69,19 @@ Exchanges.add_importer :ekylibre_purchases do |file, w|
     # find or create a purchase line
     if purchase and variant and r.unit_pretax_amount and r.quantity and purchase_item_tax
       unless purchase_item = PurchaseItem.where(purchase_id: purchase.id, pretax_amount: r.pretax_amount, variant_id: variant.id).first
+        # TODO add depreciable purchase
         purchase.items.create!(quantity: r.quantity, tax: purchase_item_tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant)
       end
     end
 
     w.check_point
   end
+
+  # change status of all new added purchases
+  for added_purchase in Purchase.where(id: purchase_ids)
+    added_purchase.propose if added_purchase.draft?
+    added_purchase.confirm
+    added_purchase.invoice(invoiced_at = added_purchase.invoiced_at )
+  end
+
 end
