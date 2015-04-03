@@ -18,7 +18,7 @@ gem 'charlock_holmes'
 gem 'browser'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '5.0.1'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -147,7 +147,7 @@ group :development do
   # gem 'binding_of_caller'
 
   # Project management
-  gem 'rails_best_practices', '1.15.4'
+  gem 'rails_best_practices'
   # gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
