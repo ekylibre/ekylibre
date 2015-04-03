@@ -8,7 +8,7 @@ input.budget-unit-amount {
 
 form {
   .with-supports, .with-some-supports {
-    display: none,
+    display: none;
   }
   &.with-supports {
     .with-supports {
@@ -23,7 +23,7 @@ form {
 
   .production_supports_quantity {
     .input-append {
-      @include text-align(right)
+      @include text-align(right);
     }
   }
 }

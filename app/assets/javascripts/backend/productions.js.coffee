@@ -163,7 +163,7 @@
   E.coefficientValue = (form, name) ->
     coeff = 1
     if name is "per_production_support"
-      coeff = form.find("#supports .support:visible").length
+      coeff = form.find("#supports .support.nested-fields").length
     else if name is "per_working_unit"
       coeff = form.find("#supports-quantity").numericalValue()
     return coeff
