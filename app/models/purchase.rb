@@ -143,6 +143,13 @@ class Purchase < Ekylibre::Record::Base
     b.journal_entry(self.nature.journal, printed_on: self.invoiced_on, if: self.invoice?) do |entry|
       label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
+        # TODO 1.2 - add if statement for depreciable method during purchase
+        # if depreciable?
+        #   entry.add_debit(label, (item.variant.financial_asset_account), item.pretax_amount) unless item.pretax_amount.zero?
+        #   # create the financial_asset with duration ...
+        # else
+        #   entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
+        # end
         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
