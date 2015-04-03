@@ -1590,6 +1590,26 @@
             variable_indicators="population"
             frozen_indicators=""
             />
+
+      <item name="infirmity_and_death_insurance"
+            category="infirmity_and_death_insurance"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+      <item name="studies_and_research"
+            category="studies_and_research"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+
       <item name="fee"
             category="fee"
             variety="service"
@@ -1646,6 +1666,25 @@
             variable_indicators="population"
             frozen_indicators=""
             />
+
+      <item name="loan_interest"
+            category="loan_interest"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
+      <item name="various_loan_interest"
+            category="various_loan_interest"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+
       <item name="taxe"
             category="taxe"
             variety="service"

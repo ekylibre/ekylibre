@@ -33,6 +33,9 @@
 
       <!--                      FINANCIAL_ASSETS               -->
       <item name="financial_assets" fr_pcg82="2"/>
+      <item name="establishment_charge_assets" fr_pcga="201"/>
+      <item name="research_and_development_charge_assets" fr_pcga="203"/>
+      <item name="brands_and_patents_assets" fr_pcga="205"/>
       <item name="other_incorporeal_assets" fr_pcga="208"/>
       <item name="land_parcel_assets" fr_pcga="2111"/>
       <item name="land_parcel_construction_assets" fr_pcga="212"/>
@@ -188,6 +191,7 @@
       <item name="other_building_expenses" fr_pcga="6154"/>
       <item name="equipment_expenses" fr_pcga="6155"/>
       <item name="insurance_expenses" fr_pcg82="616"/>
+      <item name="infirmity_and_death_insurance_expenses" fr_pcga="6168"/>
       <item name="studies_and_research_expenses" fr_pcga="617"/>
       <item name="other_expenses" fr_pcga="618"/>
       <item name="congress_and_symposium_expenses" fr_pcga="6185"/>
@@ -221,7 +225,9 @@
       <item name="long_term_loans_interests" fr_pcg82="6612"/>
       <item name="short_term_loans_interests" fr_pcg82="6613"/>
       <item name="campaigns_interests" fr_pcg82="6614"/>
-      <item name="other_interests_expenses" fr_pcg82="6618"/>
+      <item name="interests_expenses" fr_pcga="661"/>
+      <item name="other_interests_expenses" fr_pcga="6618"/>
+      <item name="other_various_interests_expenses" fr_pcga="66188"/>
       <item name="financial_assets_values" fr_pcg82="675"/>
       <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>

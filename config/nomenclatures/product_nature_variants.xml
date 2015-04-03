@@ -2930,6 +2930,20 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+      <item name="infirmity_and_death_insurance"
+            nature="infirmity_and_death_insurance"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <item name="project_study"
+            nature="studies_and_research"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+
+
       <item name="fee"
             nature="fee"
             unit_name="unit"
@@ -3001,6 +3015,18 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+
+      <item name="loan_interest"
+            nature="loan_interest"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="various_loan_interest"
+            nature="various_loan_interest"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
       <item name="taxe"
             nature="taxe"
             unit_name="unit"

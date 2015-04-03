@@ -10,7 +10,7 @@
       <property-nature name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <property-nature name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <property-nature name="pictogram" type="choice" choices="cc,fax,truck,laptop,land_parcels,wrench,wheat,tasks,subscription,plane,tractor,truck,umbrella,drop,plane,phone,mushroom,medkit,matter,male,legal,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,bolt,pill,desktop,gift,road,fish,user,undefined,money,bank"/>
+      <property-nature name="pictogram" type="choice" choices="cc,fax,truck,laptop,land_parcels,wrench,wheat,tasks,subscription,plane,tractor,truck,umbrella,drop,plane,phone,mushroom,medkit,matter,male,legal,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,car,barn,bolt,pill,desktop,gift,road,fish,user,undefined,money,bank,book"/>
       <property-nature name="purchasable" type="boolean" required="true" default="false"/>
       <property-nature name="saleable"    type="boolean" required="true" default="false"/>
       <property-nature name="depreciable" type="boolean" required="true" default="false"/>
@@ -224,7 +224,8 @@
       <item name="grain"
             product_account="plant_derivatives_revenues"
             stock_account="plant_derivative_stock"
-            purchasable="false"
+            charge_account="raw_material_expenses"
+            purchasable="true"
             saleable="true"
             depreciable="false"
             storable="true"
@@ -636,6 +637,26 @@
             storable="false"
             pictogram="umbrella"
             />
+
+            <item name="infirmity_and_death_insurance"
+            charge_account="infirmity_and_death_insurance_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="umbrella"
+            />
+
+		  <item name="studies_and_research"
+            charge_account="studies_and_research_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="book"
+            />
+
+
           <item name="fee"
             charge_account="fees_expenses"
             purchasable="true"
@@ -677,6 +698,25 @@
             storable="false"
             pictogram="bank"
             />
+
+          <item name="loan_interest"
+            charge_account="interests_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="bank"
+            />
+
+           <item name="various_loan_interest"
+            charge_account="other_various_interests_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="bank"
+            />
+
           <item name="taxe"
             charge_account="taxes_expenses"
             purchasable="true"
