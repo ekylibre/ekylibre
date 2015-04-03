@@ -1,16 +1,17 @@
 - main_toolbar do |t|
-  - t.edit @bank_statement
-  - t.point @bank_statement
+  - t.edit resource
+  - t.point resource
 
-= attributes_list do |l|
-  - l.attribute(:number)
-  - l.attribute(:cash, url: true)
-  - l.attribute(:credit)
-  - l.attribute(:debit)
-  - l.attribute(:started_at)
-  - l.attribute(:stopped_at)
-  - if resource.custom_fields.any?
-    - l.custom_fields
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute(:number)
+      - l.attribute(:cash, url: true)
+      - l.attribute(:credit)
+      - l.attribute(:debit)
+      - l.attribute(:started_at)
+      - l.attribute(:stopped_at)
+      - l.custom_fields
 
-%h2=BankStatement.human_attribute_name("items")
-=list(:items)
+  - b.cell :items, label: BankStatement.human_attribute_name("items") do
+    = list(:items)
