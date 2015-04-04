@@ -972,23 +972,7 @@ jpn:
       accountancy_tasks: "用事" #?
       parameters: "パラメーター" #?
       tools: "道具" #?
-    menus:
-      # accountancy: "Accountancy"
-      # archives: "Archives"
-      # exchange: "Data exchanges"
-      # finances: "Finances"
-      # general: "General"
-      # home: "Home"
-      # index: "Ekylibre"
-      # mandates: "Responsibilities"
-      # production: "Production"
-      # purchases: "Purchases"
-      # relationship: "Relationship"
-      # sales: "Sales"
-      # settings: "Settings"
-      # stocks: "Stocks"
-      submenus: #?
-      # trade: "Trade"
+    menus: #?
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -1118,7 +1102,7 @@ jpn:
     # product_name: "Product name"
     # product_natures: "Product natures"
     product_tabbox: #?
-    # production: "Production management"
+    # production: "Production"
     # production_cost: "Production cost"
     # production_distribution: "Production distribution"
     # production_support: "Production support"
@@ -1159,7 +1143,7 @@ jpn:
     # reflections: "Reflections"
     # refresh: "Refresh"
     # related_people: "Related people"
-    # relationship: "Relationship management"
+    # relationship: "Relationship"
     # remove: "Remove"
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"
@@ -1250,7 +1234,7 @@ jpn:
     # supply: "Supply"
     # support: "Support"
     # supports: "Supports"
-    # synthesis: "Synthèse"
+    # synthesis: "Synthesis"
     # target: "Target"
     # taxations: "Taxations"
     # taxes: "Taxes"

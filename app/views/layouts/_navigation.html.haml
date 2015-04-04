@@ -1,4 +1,5 @@
 - current_part = Ekylibre::Parts.part_of(controller.controller_path, action_name)
+
 %nav#top
 
   = link_to("#side", id: "menu", "data-toggle" => "side") do
@@ -13,22 +14,22 @@
     = :home.tl
 
 
-  = link_to(Ekylibre::Parts.human_name(current_part), {controller: "/backend/dashboards", action: current_part}, id: "part") if current_part
+  = link_to(current_part.human_name, {controller: "/backend/dashboards", action: current_part.name}, id: "part") if current_part
 
   .collapse
 
     - if true # current_part
       %ul#parts
-        - for part in Ekylibre::Parts.hash.keys
+        - Ekylibre::Parts.parts.each do |part|
           - next unless part_authorized?(part)
           %li.separator
           :ruby
-            attrs = {:id => "#{part}-part"}
+            attrs = {:id => "#{part.name}-part"}
             attrs[:class] = :active if current_part == part
           %li{attrs}
-            = link_to(controller: "/backend/dashboards", action: part) do
+            = link_to(controller: "/backend/dashboards", action: part.name) do
               %i
-              = Ekylibre::Parts.human_name(part)
+              = part.human_name
 
     %ul#user
       %li.separator

@@ -1105,22 +1105,7 @@ eng:
     # mass: "Mass"
     maximal_temperature: "Maximal temperature"
     members: "Members"
-    menus:
-      accountancy: "Accountancy"
-      archives: "Archives"
-      exchange: "Data exchanges"
-      finances: "Finances"
-      general: "General"
-      home: "Home"
-      index: "Ekylibre"
-      mandates: "Responsibilities"
-      production: "Production"
-      purchases: "Purchases"
-      relationship: "Relationship"
-      sales: "Sales"
-      settings: "Settings"
-      stocks: "Stocks"
-      trade: "Trade"
+    # menus: "Menus"
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
@@ -1245,7 +1230,7 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product natures"
-    production: "Production management"
+    production: "Production"
     production_cost: "Production cost"
     production_distribution: "Production distribution" #?
     production_support: "Production support"
@@ -1287,7 +1272,7 @@ eng:
     reflections: "Reflections" #?
     refresh: "Refresh" #?
     related_people: "Related people"
-    relationship: "Relationship management"
+    relationship: "Relationship"
     remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
@@ -1381,7 +1366,7 @@ eng:
     support: "Support"
     supports: "Supports"
     # supports_chart: "Supports chart"
-    synthesis: "Synthèse"
+    synthesis: "Synthesis"
     target: "Target" #?
     taxations: "Taxations"
     taxes: "Taxes" #?

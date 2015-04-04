@@ -1220,24 +1220,6 @@ fra:
     meetings: "Évènements" #?
     members: "Membres"
     members_count: "Nombre de membres" #?
-    menus:
-      accountancy: "Comptabilité"
-      archives: "Archives"
-      decision_making: "Aide à la décision" #?
-      documents: "Documents" #?
-      exchange: "Échanges de données"
-      finances: "Finances"
-      general: "Général"
-      home: "Accueil"
-      index: "Ekylibre"
-      mandates: "Responsabilités"
-      production: "Production"
-      purchases: "Achats"
-      relationship: "Tiers"
-      sales: "Ventes"
-      settings: "Configuration"
-      stocks: "Stocks"
-      trade: "Achats/Ventes"
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?

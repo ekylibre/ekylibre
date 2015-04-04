@@ -1433,24 +1433,14 @@ arb:
       stock_transfers: "تحويلات الاسهم والضائع منها" #?
       stocks_tasks: "الاسهم" #?
       tools: "الادوات" #?
-    menus:
-      accountancy: "المحاسبة"
-      # archives: "Archives"
-      # exchange: "Data exchanges"
-      finances: "المالية"
-      general: "شركة"
-      home: "إستقبال"
-      # index: "Ekylibre"
-      # mandates: "Responsibilities"
-      production: "المنتج"
-      # purchases: "Purchases"
+    menus:  #?
+      accountancy: "المحاسبة" #?
+      finances: "المالية" #?
+      general: "شركة" #?
+      home: "إستقبال" #?
+      production: "المنتج" #?
       relations: "العلاقات" #?
-      # relationship: "Relationship"
-      # sales: "Sales"
-      # settings: "Settings"
-      # stocks: "Stocks"
-      submenus: #?
-      trade: "التجارة"
+      trade: "التجارة" #?
     merge: "دمج"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -1706,7 +1696,7 @@ arb:
     register: "تسجيل شركة جديدة" #?
     # related_people: "Related people"
     relations: "ادارة علاقات العملاء / والمموليين" #?
-    # relationship: "Relationship management"
+    # relationship: "Relationship"
     # remove: "Remove"
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"

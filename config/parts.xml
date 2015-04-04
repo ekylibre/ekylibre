@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <parts>
   <part name="relationship" icon="people">
+    <page to="backend/dashboards#relationship"/>
     <group name="people" icon="group">
       <item name="entities">
         <page to="backend/entities#index"/>
@@ -130,6 +131,7 @@
     </group>
   </part>
   <part name="accountancy" icon="money">
+    <page to="backend/dashboards#accountancy"/>
     <group name="journals" icon="book">
       <item name="journals">
         <page to="backend/journals#index"/>
@@ -235,6 +237,7 @@
     </group>
   </part>
   <part name="trade" icon="bar-chart">
+    <page to="backend/dashboards#trade"/>
     <group name="sales" icon="bar-chart">
       <item name="sales">
         <page to="backend/sales#index"/>
@@ -343,6 +346,7 @@
     </group>
   </part>
   <part name="stocks" icon="truck">
+    <page to="backend/dashboards#stocks"/>
     <group name="stocks" icon="matter">
       <item name="stocks">
         <page to="backend/matters#index"/>
@@ -530,6 +534,7 @@
     </group>
   </part>
   <part name="production" icon="cogs">
+    <page to="backend/dashboards#production"/>
     <group name="activity" icon="cogs">
       <item name="interventions">
         <page to="backend/interventions#index"/>
@@ -805,6 +810,7 @@
     </group>
   </part>
   <part name="tools" icon="magic">
+    <page to="backend/dashboards#tools"/>
     <group name="archives" icon="archive">
       <item name="documents">
         <page to="backend/documents#index"/>
@@ -921,6 +927,7 @@
 -->
   </part>
   <part name="settings" icon="wrench">
+    <page to="backend/dashboards#settings"/>
     <group name="parameters" icon="wrench">
       <item name="settings">
         <page to="backend/settings#edit"/>
@@ -1467,16 +1474,9 @@
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#home"/>
-        <page to="backend/dashboards#accountancy"/>
-        <page to="backend/dashboards#production"/>
-        <page to="backend/dashboards#relationship"/>
         <page to="backend/dashboards#sandbox"/>
         <page to="backend/dashboards#search"/>
-        <page to="backend/dashboards#settings"/>
-        <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#show"/>
-        <page to="backend/dashboards#tools"/>
-        <page to="backend/dashboards#trade"/>
       </item>
       <item name="beehives">
         <page to="backend/beehives#reset"/>

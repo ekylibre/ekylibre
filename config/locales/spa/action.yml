@@ -1188,23 +1188,7 @@ spa:
     # maximal_temperature: "Maximal temperature"
     # members: "Members"
     menu: #?
-    menus:
-      # accountancy: "Accountancy"
-      # archives: "Archives"
-      # exchange: "Data exchanges"
-      # finances: "Finances"
-      # general: "General"
-      # home: "Home"
-      # index: "Ekylibre"
-      # mandates: "Responsibilities"
-      # production: "Production"
-      # purchases: "Purchases"
-      # relationship: "Relationship"
-      # sales: "Sales"
-      # settings: "Settings"
-      # stocks: "Stocks"
-      submenus: #?
-      # trade: "Trade"
+    menus: #?
     # merge: "Merge"
     # method: "Method"
     # minimal_temperature: "Minimal temperature"
@@ -1406,7 +1390,7 @@ spa:
     register: "Crear una nueva compañía" #?
     # related_people: "Related people"
     relations: "Relaciones clientos/abastecedores" #?
-    # relationship: "Relationship management"
+    # relationship: "Relationship"
     # remove: "Remove"
     # remove_item: "Remove item"
     # remove_subscription: "Remove subscription"

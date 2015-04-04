@@ -58,10 +58,10 @@ module Backend::BaseHelper
     end
   end
 
-  def part_authorized?(mod)
-    for group, items in Ekylibre::Parts.groups_in(mod)
-      for item, paths in items
-        return true if authorized?(paths.first)
+  def part_authorized?(part)
+    part.children.each do |group|
+      group.children.each do |item|
+        return true if authorized?(item.default_page.to_hash)
       end
     end
     return false

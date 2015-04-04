@@ -182,6 +182,10 @@ module Ekylibre
       @routes = block
     end
 
+    def add_menus(&block)
+      Ekylibre::Parts.exec_dsl(&block)
+    end
+
 
     # TODO Add other callback for plugin integration
     # def add_cell
