@@ -49,3 +49,4 @@ require 'enumerize/xml'
 # ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
 
 Ekylibre::Plugin.load
+require 'ekylibre/plugin/routing'

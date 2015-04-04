@@ -1,4 +1,4 @@
-# Inspired from Redmine (and Discourse)
+# Inspired from Redmine and Discourse
 # http://www.redmine.org/projects/redmine/repository/entry/trunk/lib/redmine/plugin.rb
 module Ekylibre
 
@@ -46,30 +46,66 @@ module Ekylibre
         return stylesheets.join("\n")
       end
 
+
+      # Load all plugins
+      def load
+        Dir.glob(File.join(self.directory, '*')).sort.each do |directory|
+          if File.directory?(directory)
+            lib = File.join(directory, "lib")
+            if File.directory?(lib)
+              $:.unshift lib
+              ActiveSupport::Dependencies.autoload_paths += [lib]
+            end
+            initializer = File.join(directory, "Plugfile")
+            if File.file?(initializer)
+              plugin = new(initializer)
+              registered_plugins[plugin.name] = plugin
+              Rails.logger.info "Load #{plugin.name} plugin"
+            else
+              Rails.logger.warn "No Plugfile found in #{directory}"
+            end
+          end
+        end
+      end
+
+      def each(&block)
+        registered_plugins.each do |key, plugin|
+          yield plugin
+        end
+      end
+
     end
 
-    attr_reader :name, :path, :themes_assets
-    field_accessor :summary, :description, :url, :author, :author_url, :version
+    attr_reader :root, :themes_assets, :routes
+    field_accessor :name, :summary, :description, :url, :author, :author_url, :version
 
 
     # Links plugin into app
-    def initialize(path)
-      @path = Pathname.new(path)
-      @name = @path.basename.to_s
+    def initialize(plugfile_path)
+      @root = Pathname.new(plugfile_path).dirname
+
+      instance_eval(File.read(plugfile_path), plugfile_path, 1)
+
+      if @name
+        @name = @name.to_sym
+      else
+        raise "Need a name for plugin #{plugfile_path}"
+      end
+
       @themes_assets = {}.with_indifferent_access
 
       # Adds locales
-      Rails.application.config.i18n.load_path += Dir.glob(@path.join('config', 'locales', '*.yml'))
+      Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '*.yml'))
 
       # Adds view path
-      @view_path = @path.join('app', 'views')
+      @view_path = @root.join('app', 'views')
       if @view_path.directory?
         ActionController::Base.prepend_view_path(@view_path)
         ActionMailer::Base.prepend_view_path(@view_path)
       end
 
       # Adds the app/{controllers,helpers,models} directories of the plugin to the autoload path
-      Dir.glob File.expand_path(@path.join('app', '{controllers,helpers,models,jobs,mailers,inputs}')) do |dir|
+      Dir.glob File.expand_path(@root.join('app', '{controllers,helpers,models,jobs,mailers,inputs}')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
       end
 
@@ -87,31 +123,6 @@ module Ekylibre
             unless Rails.application.config.assets.paths.include?(type_dir.to_s)
               Rails.application.config.assets.paths << type_dir.to_s
             end
-          end
-        end
-      end
-    end
-
-
-    # # Special adapter for name to ensure name is a Symbol
-    # def name(value = nil)
-    #   value.nil? ? instance_variable_get("@name") : instance_variable_set("@name", value.to_sym)
-    # end
-
-    def self.load
-      Dir.glob(File.join(self.directory, '*')).sort.each do |directory|
-        if File.directory?(directory)
-          lib = File.join(directory, "lib")
-          if File.directory?(lib)
-            $:.unshift lib
-            ActiveSupport::Dependencies.autoload_paths += [lib]
-          end
-          initializer = File.join(directory, "Plugfile")
-          if File.file?(initializer)
-            plugin = new(File.dirname(initializer))
-            plugin.instance_eval(File.read(initializer), initializer, 1)
-            registered_plugins[plugin.name] = plugin
-            Rails.logger.warn "Load #{plugin.name} plugin"
           end
         end
       end
@@ -167,14 +178,16 @@ module Ekylibre
     end
 
 
+    def add_routes(&block)
+      @routes = block
+    end
+
+
     # TODO Add other callback for plugin integration
     # def add_cell
     # end
 
-    # def add_menu
-    # end
-
-    # def add_theme
+    # def add_theme(name)
     # end
 
     private
@@ -184,11 +197,11 @@ module Ekylibre
     end
 
     def assets_directory
-      @path.join("app", "assets")
+      @root.join("app", "assets")
     end
 
     def themes_directory
-      @path.join("app", "themes")
+      @root.join("app", "themes")
     end
 
     def add_theme_asset(theme, file, type)

@@ -2,9 +2,6 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # No namespace because authentication is for all sides
-  devise_for :users, path: "authentication", module: :authentication
-
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
     get :unroll, on: :collection
@@ -66,13 +63,16 @@ Rails.application.routes.draw do
     end
   end
 
+
+  # No namespace because authentication is for all sides
+  devise_for :users, path: "authentication", module: :authentication
+
   # namespace :pasteque do
   #   namespace :v5 do
   #     pasteque_v5
   #   end
   #   pasteque_v5
   # end
-
 
   namespace :api do
 
@@ -88,6 +88,8 @@ Rails.application.routes.draw do
     concerns :v1
   end
 
+  # Plugins can override backend routes but only complete API ones
+  plugins
 
   # Backend
   namespace :backend do
