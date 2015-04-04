@@ -21,8 +21,9 @@
           <cell name="invoiced_at" of="sale_item" type="datetime"/>
           <cell name="pretax_amount" of="sale_item" type="number"/>
           <cell name="amount" of="sale_item" type="number"/>
+          <cell name="payment_ratio" of="sale_item" type="number"/>
           <cell name="taxes_amount" of="sale_item" type="number"/>
-          <cell name="tax_name" of="sale_item" if="sale_item.tax"/>
+          <cell name="tax_short_label" of="sale_item" if="sale_item.tax"/>
           <cell name="currency" of="sale_item" level="api"/>
         </matrix>
         <!-- looking for all purchase_items in the current period (started_on, stopped_on) -->
@@ -32,8 +33,9 @@
           <cell name="invoiced_at" of="purchase_item" type="datetime"/>
           <cell name="pretax_amount" of="purchase_item" type="number"/>
           <cell name="amount" of="purchase_item" type="number"/>
+          <cell name="payment_ratio" of="purchase_item" type="number"/>
           <cell name="taxes_amount" of="purchase_item" type="number"/>
-          <cell name="tax_name" of="purchase_item" if="purchase_item.tax"/>
+          <cell name="tax_short_label" of="purchase_item" if="purchase_item.tax"/>
           <cell name="currency" of="purchase_item" level="api"/>
         </matrix>
       </sections>
