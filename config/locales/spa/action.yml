@@ -1212,7 +1212,6 @@ spa:
     # mobile: "Mobile"
     # mode: "Mode"
     # modes: "Modes"
-    modules: "Modulos"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
     # months: "Months"
@@ -1303,6 +1302,7 @@ spa:
     parameters: "Parametros"
     # participants: "Participants"
     # participations: "Participations"
+    parts: "Modulos"
     passive_balance_sheet: "Balance pasivo" #?
     passive_capital_sum: "Total capitales" #?
     passive_debt_sum: "Total deudas" #?
@@ -1429,7 +1429,7 @@ spa:
       zero: "Ningun resultado"
     # revenues: "Revenues"
     # reverse: "Reverse condition"
-    right_modules:  #?
+    right_parts:  #?
       accountancy: "Derechos modulo contabilidad" #?
       company: "Derechos modulo sociedad" #?
       management: "Derechos modulo comercio" #?

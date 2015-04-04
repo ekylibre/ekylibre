@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<modules>
-  <module name="relationship" icon="people">
+<parts>
+  <part name="relationship" icon="people">
     <group name="people" icon="group">
       <item name="entities">
         <page to="backend/entities#index"/>
@@ -128,8 +128,8 @@
         <page to="backend/subscriptions#update"/>
       </item>
     </group>
-  </module>
-  <module name="accountancy" icon="money">
+  </part>
+  <part name="accountancy" icon="money">
     <group name="journals" icon="book">
       <item name="journals">
         <page to="backend/journals#index"/>
@@ -233,8 +233,8 @@
         <page to="backend/bank_statements#update"/>
       </item>
     </group>
-  </module>
-  <module name="trade" icon="bar-chart">
+  </part>
+  <part name="trade" icon="bar-chart">
     <group name="sales" icon="bar-chart">
       <item name="sales">
         <page to="backend/sales#index"/>
@@ -341,8 +341,8 @@
         <page to="backend/gaps#show"/>
       </item>
     </group>
-  </module>
-  <module name="stocks" icon="truck">
+  </part>
+  <part name="stocks" icon="truck">
     <group name="stocks" icon="matter">
       <item name="stocks">
         <page to="backend/matters#index"/>
@@ -528,8 +528,8 @@
         <page to="backend/transports#update"/>
       </item>
     </group>
-  </module>
-  <module name="production" icon="cogs">
+  </part>
+  <part name="production" icon="cogs">
     <group name="activity" icon="cogs">
       <item name="interventions">
         <page to="backend/interventions#index"/>
@@ -803,8 +803,8 @@
         <page to="backend/workers#unroll"/>
       </item>
     </group>
-  </module>
-  <module name="tools" icon="magic">
+  </part>
+  <part name="tools" icon="magic">
     <group name="archives" icon="archive">
       <item name="documents">
         <page to="backend/documents#index"/>
@@ -919,8 +919,8 @@
       </item>
     </group>
 -->
-  </module>
-  <module name="settings" icon="wrench">
+  </part>
+  <part name="settings" icon="wrench">
     <group name="parameters" icon="wrench">
       <item name="settings">
         <page to="backend/settings#edit"/>
@@ -1447,7 +1447,7 @@
         <page to="backend/settlements#update"/>
       </item>
     </group>
-  </module>
+  </part>
   <inaccessible-actions>
     <group>
       <item name="guides">
@@ -1741,4 +1741,4 @@
   <untreated-actions>
     <group/>
   </untreated-actions>
-</modules>
+</parts>

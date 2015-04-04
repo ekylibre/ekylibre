@@ -80,7 +80,7 @@ ul.dropdown-menu {
     h1 { display: none; }
   }
 
-  #module {
+  #part {
     @include ellipsis;
     display: none;
     text-align: center;
@@ -113,9 +113,9 @@ ul.dropdown-menu {
     }
   }
 
-  #modules {
+  #parts {
     overflow: hidden;
-    li#settings-module {
+    li#settings-part {
       a {
         font-size: 0;
         i {
@@ -132,7 +132,7 @@ ul.dropdown-menu {
     .collapse {
       display: none;
     }
-    #home, #menu, #module {
+    #home, #menu, #part {
       display: block;
     }
 

@@ -1247,7 +1247,6 @@ fra:
     mobile: "Portable"
     mode: "Mode"
     modes: "Modes"
-    modules: "Modules"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     months: "Mois"
@@ -1344,6 +1343,7 @@ fra:
     parameters: "Paramètres"
     participants: "Participants"
     participations: "Participations"
+    parts: "Modules"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir"
     payable_taxes: "Taxes payables"
@@ -1491,7 +1491,7 @@ fra:
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit" #?
     reverse: "Appliquer la condition inverse"
-    right_modules:  #?
+    right_parts:  #?
       accountancy: "Droits module Comptabilité" #?
       company: "Droits module Société" #?
       finances: "Droits module Finances" #?

@@ -58,8 +58,8 @@ module Backend::BaseHelper
     end
   end
 
-  def module_authorized?(mod)
-    for group, items in Ekylibre::Modules.groups_in(mod)
+  def part_authorized?(mod)
+    for group, items in Ekylibre::Parts.groups_in(mod)
       for item, paths in items
         return true if authorized?(paths.first)
       end

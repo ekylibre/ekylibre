@@ -187,7 +187,7 @@ class SaleItem < Ekylibre::Record::Base
   def uncredited_quantity
     self.quantity + self.credited_quantity
   end
-  
+
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if self.sale.affair.balanced?

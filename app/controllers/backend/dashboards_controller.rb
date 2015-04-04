@@ -28,10 +28,10 @@ class Backend::DashboardsController < Backend::BaseController
     t.action :destroy
   end
 
-  for menu in Ekylibre::Modules.hash.keys
-    code  = "def #{menu}\n"
+  Ekylibre::Parts.hash.keys.each do |part|
+    code  = "def #{part}\n"
     # code << " notify_warning_now(:dashboard_is_being_developed)"
-    # code << "  render :file => 'backend/dashboards/#{menu}', :layout => dialog_or_not\n"
+    # code << "  render :file => 'backend/dashboards/#{part}', :layout => dialog_or_not\n"
     code << "end\n"
     class_eval code
   end

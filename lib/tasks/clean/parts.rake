@@ -1,9 +1,9 @@
 namespace :clean do
 
-  desc "Update and sort config/modules.xml"
-  task :modules => :environment do
-    print " - Modules: "
-    menu_file = Rails.root.join("config", "modules.xml")
+  desc "Update and sort config/parts.xml"
+  task :parts => :environment do
+    print " - Parts: "
+    menu_file = Rails.root.join("config", "parts.xml")
 
     # Read file
     doc = nil
@@ -15,7 +15,7 @@ namespace :clean do
       end
     else
       doc = Nokogiri::XML.new
-      doc.root = Nokogiri::XML::Node.new('modules', doc)
+      doc.root = Nokogiri::XML::Node.new('parts', doc)
     end
 
     # Removes undefined

@@ -1458,7 +1458,6 @@ arb:
     # mobile: "Mobile"
     # mode: "Mode"
     # modes: "Modes"
-    modules: "وحدات"
     moment: "" #?
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensuelle"
@@ -1581,6 +1580,7 @@ arb:
     parameters: "عامل متغير"
     # participants: "Participants"
     # participations: "Participations"
+    parts: "وحدات"
     passive_balance_sheet: "رصيد ثابت" #?
     passive_capital_sum: "مجموع رأس المال" #?
     passive_debt_sum: "مجموع الديون" #?
@@ -1729,7 +1729,7 @@ arb:
       zero: "ولا نتيجة"
     # revenues: "Revenues"
     reverse: "تطبيق الحالة العكسية"
-    right_modules:  #?
+    right_parts:  #?
       accountancy: "حقوق المحاسبة" #?
       company: "حقوق الشركة" #?
       management: "حقوق التجارة" #?

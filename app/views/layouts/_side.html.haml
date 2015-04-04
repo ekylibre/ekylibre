@@ -1,10 +1,10 @@
-- mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
-- current = Ekylibre::Modules.reverse(controller.controller_path, action_name) || []
-- for group, items in Ekylibre::Modules.groups_in(mod)
-  - side_menu(group, :title => Ekylibre::Modules.human_name(mod, group), :icon => Ekylibre::Modules.icon(mod, group), :active => !!(group == current[1])) do |m|
+- part = Ekylibre::Parts.part_of(controller.controller_path, action_name)
+- current = Ekylibre::Parts.reverse(controller.controller_path, action_name) || []
+- for group, items in Ekylibre::Parts.groups_in(part)
+  - side_menu(group, :title => Ekylibre::Parts.human_name(part, group), :icon => Ekylibre::Parts.icon(part, group), :active => !!(group == current[1])) do |m|
     - for item, pages in items
       - if current_user and current_user.can_access?(pages.first)
-        - attrs = {:title => Ekylibre::Modules.human_name(mod, group, item)}
+        - attrs = {:title => Ekylibre::Parts.human_name(part, group, item)}
         - attrs[:active] = true if item == current[2]
         - m.link(item, pages.first, attrs)
 

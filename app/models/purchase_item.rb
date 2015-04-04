@@ -141,7 +141,7 @@ class PurchaseItem < Ekylibre::Record::Base
   def undelivered_quantity
     return self.quantity - self.delivery_items.sum(:quantity)
   end
-  
+
   # know how many percentage of invoiced VAT to declare
   def payment_ratio
     if self.purchase.affair.balanced?

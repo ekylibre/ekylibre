@@ -2,12 +2,12 @@
 
 = beehive(:root) do |b|
   - b.hbox do
-    - b.cell :modules do
-      - Ekylibre::Modules.hash.keys.each do |mod|
-        - next unless module_authorized?(mod)
-        = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", title: Ekylibre::Modules.human_name(mod)) do
+    - b.cell :parts do
+      - Ekylibre::Parts.hash.keys.each do |mod|
+        - next unless part_authorized?(mod)
+        = link_to({action: mod}, class: "btn btn-big btn-#{Ekylibre::Parts.icon(mod)}", title: Ekylibre::Parts.human_name(mod)) do
           %i
-          = Ekylibre::Modules.human_name(mod)
+          = Ekylibre::Parts.human_name(mod)
   - b.hbox do
     - b.cell :calendar
     - b.cell :weather
