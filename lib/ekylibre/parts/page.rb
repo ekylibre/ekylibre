@@ -11,7 +11,7 @@ module Ekylibre
       end
 
       def to_hash
-        {controller: @controller, action: @action}
+        {controller: "/" + @controller, action: @action}
       end
 
       def ==(other)

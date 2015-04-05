@@ -68,6 +68,10 @@ module Ekylibre
         return nil
       end
 
+      def inspect
+        "<#{self.class.name} #{levels.inspect}>"
+      end
+
     end
 
   end

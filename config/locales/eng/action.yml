@@ -1102,7 +1102,6 @@ eng:
     map: "Map"
     margins: "Margins" #?!
     markers: "Markers" #?
-    # mass: "Mass"
     maximal_temperature: "Maximal temperature"
     members: "Members"
     # menus: "Menus"

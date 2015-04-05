@@ -3,6 +3,7 @@
   - part.children.each do |group|
     - side_menu(group, title: group.human_name, icon: group.icon, active: !!(current[:group] == group)) do |m|
       - group.children.each do |item|
+        - puts item.inspect.red
         - if current_user and current_user.can_access?(item.default_page.to_hash)
           - attrs = {title: item.human_name}
           - attrs[:active] = true if item == current[:item]

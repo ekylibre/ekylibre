@@ -76,10 +76,12 @@ module Ekylibre
       end
 
       def human_name
-
         "parts.#{@name}_#{@type}".t(default: ["parts.#{@name}".to_sym, "labels.#{@name}".to_sym, default_page.human_name])
       end
 
+      def inspect
+        "<#{self.class.name}/#{@type} #{@name}>"
+      end
 
     end
 
