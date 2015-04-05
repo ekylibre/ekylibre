@@ -95,7 +95,7 @@ module Ekylibre
       @themes_assets = {}.with_indifferent_access
 
       # Adds locales
-      Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '*.yml'))
+      Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '**', '*.{rb,yml}'))
 
       # Adds view path
       @view_path = @root.join('app', 'views')
