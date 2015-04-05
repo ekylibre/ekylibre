@@ -15,6 +15,7 @@ module Ekylibre
       def self.run!(tree, &block)
         dsl = new(tree)
         dsl.instance_exec(&block)
+        tree.rebuild_index!
       end
 
       def initialize(tree)
