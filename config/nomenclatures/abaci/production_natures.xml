@@ -201,6 +201,18 @@
             telepac_crop_code="CS"
             variant_support="rape_crop"
             />
+      <item name="flax"
+            production_code="2330"
+            activity="flax_crops"
+            telepac_crop_code="LN"
+            variant_support="flax_crop"
+            />
+      <item name="marketable_flax"
+            production_code="2330"
+            activity="flax_crops"
+            telepac_crop_code="LJ"
+            variant_support="flax_crop"
+            />
       <item name="sunflower"
             production_code="2380"
             activity="sunflower_crops"
@@ -471,6 +483,12 @@
             production_code="7500"
             activity="vegetal_crops"
             telepac_crop_code="BV"
+            variant_support="market_gardening_crop"
+            />
+      <item name="marketable_garden_center"
+            production_code="7500"
+            activity="vegetal_crops"
+            telepac_crop_code="BW"
             variant_support="market_gardening_crop"
             />
       <!-- 8 - BIG ANIMALS -->

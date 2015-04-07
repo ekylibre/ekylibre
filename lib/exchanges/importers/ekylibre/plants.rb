@@ -41,8 +41,7 @@ Exchanges.add_importer :ekylibre_plants do |file, w|
     end
 
     # Adds shape
-    if r.georeading_number.present?
-      georeading = Georeading.find_by(number: r.georeading_number)
+    if r.georeading_number.present? and georeading = Georeading.find_by(number: r.georeading_number)
       product.read!(:shape, georeading.content, at: r.born_at, force: true)
     elsif container and shape = container.shape(r.born_at)
       product.read!(:shape, shape, at: r.born_at, force: true)

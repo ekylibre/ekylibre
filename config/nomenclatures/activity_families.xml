@@ -9,8 +9,8 @@
     </property-natures>
     <items>
       <item name="exploitation" nature="auxiliary"/>
-      <item name="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="animal_farming" support_variety="animal_group" cultivation_variety="animal"/>
+      <item name="vegetal_crops"  support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <item name="animal_farming" support_variety="animal_group"    cultivation_variety="animal"/>
       <item name="processing"/>
       <!-- <item name="handicraft"/> -->
       <item name="service"/>

@@ -2497,6 +2497,7 @@ eng:
         chainsaw: "Chainsaw"
         chandler_walnut: "Chandler walnut"
         chemical_fertilizer_division: "Chemical fertilizer division"
+        cherry_laurel_crop: "Cherry laurel crop"
         chicken_egg: "Chicken egg"
         common_consumable: "Common consumable"
         common_package: "Common package"
@@ -2666,6 +2667,7 @@ eng:
         fiberglass_tank: "Fiberglass tank"
         fig_crop: "Fig crop"
         fig_seedling: "Fig seedling"
+        flax_crop: "Flax crop"
         food_equipment_division: "Food equipment division"
         food_show: "Food show"
         food_tank: "Food tank"
@@ -2804,6 +2806,7 @@ eng:
         mower: "Mower"
         mud: "Mud"
         muskmelon_crop: "Muskmelon crop"
+        myrobalan_plum_crop: "Myrobalan plum crop"
         natural_cork: "Natural cork"
         natural_water: "Natural water"
         negret_hazelnut: "Negret hazelnut"
@@ -2854,6 +2857,8 @@ eng:
         product_warranty: "Product warranty"
         project_study: "Project study"
         pruning_platform: "Pruning platform"
+        quince_crop: "Quince crop"
+        quinoa_crop: "Quinoa crop"
         rabbit_herd: "Rabbit herd"
         rabbit_manure: "Rabbit manure"
         rape_crop: "Rape crop"
@@ -3219,6 +3224,7 @@ eng:
         exploitation: "Exploitation"
         five_years_temporary_meadow: "Five years temporary meadow"
         fixed_frost_fallow_land: "Fixed frost fallow land"
+        flax: "Flax"
         forager_lupin: "Forager lupin"
         forager_soy: "Forager soy"
         fruit_processing: "Fruit processing"
@@ -3237,8 +3243,10 @@ eng:
         market_gardening: "Market gardening"
         market_gardening_under_greenhouse: "Market gardening under greenhouse"
         marketable_bean: "Marketable bean"
+        marketable_flax: "Marketable flax"
         marketable_forager_lupin: "Marketable forager lupin"
         marketable_forager_soy: "Marketable forager soy"
+        marketable_garden_center: "Marketable garden center"
         marketable_hazel: "Marketable hazel"
         marketable_lentil: "Marketable lentil"
         marketable_soy: "Marketable soy"
@@ -3760,6 +3768,7 @@ eng:
         cervidae: "Cervidae"                               #< mammalia
         chenopodium: "Chenopodium"                         #< amaranthaceae
         chenopodium_album: "Chenopodium album"             #< chenopodium
+        chenopodium_quinoa: "Chenopodium quinoa"           #< chenopodium
         cicer: "Cicer"                                     #< fabaceae
         cicer_arietinum: "Chickpea"                        #< cicer
         cichorium: "Cichorium"                             #< asteraceae
@@ -3862,6 +3871,8 @@ eng:
         cultivable_zone: "Cultivable zone"                 #< zone
         curculio_nucum: "Curculio nucum"                   #< insecta
         cydia_pomonella: "Cydia pomonella"                 #< insecta
+        cydonia: "Cydonia"                                 #< rosaceae
+        cydonia_oblonga: "Quince"                          #< cydonia
         cynara: "Artichoke"                                #< asteraceae
         dactylis: "Dactylis"                               #< poa
         dactylis_lazuly: "Dactylis Lazuly"                 #< dactylis
@@ -4128,11 +4139,13 @@ eng:
         property_title: "Property title"                   #< immatter
         pruner: "Pruner"                                   #< equipment
         prunus: "Prunus"                                   #< rosaceae
+        prunus_cerasifera: "Prunus cerasifera"             #< prunus
         prunus_domestica: "Prunus domestica"               #< prunus
         prunus_domestica_bernardina: "Prunus domestica Bernardina" #< prunus_domestica
         prunus_domestica_bluefre: "Prunus domestica Bluefre" #< prunus_domestica
         prunus_domestica_carpatin: "Prunus domestica Carpatin" #< prunus_domestica
         prunus_dulcis: "Almond"                            #< prunus
+        prunus_laurocerasus: "Prunus laurocerasus"         #< prunus
         prunus_persica: "Prunus persica"                   #< prunus
         prunus_persica_jh_hall: "Prunus persica JH Hall"   #< prunus_persica
         prunus_persica_madeleine: "Prunus persica Madeleine" #< prunus_persica

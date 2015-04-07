@@ -536,6 +536,18 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="flax_crop"
+            nature="crop"
+            variety="linum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="quinoa_crop"
+            nature="crop"
+            variety="chenopodium_quinoa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- MEADOW CROP -->
       <item name="permanent_meadow_crop"
             nature="crop"
@@ -641,20 +653,6 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-
-      <!-- FLOWER CROP -->
-      <item name="saffron_crop"
-            nature="flower_crop"
-            variety="crocus_sativus"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00square_meter"
-            />
-      <item name="rose_crop"
-            nature="fruit_crop"
-            variety="rosa"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
-            />
       <item name="raspberry_crop"
             nature="fruit_crop"
             variety="rubus"
@@ -679,6 +677,12 @@
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="quince_crop"
+            nature="fruit_crop"
+            variety="cydonia_oblonga"
+            unit_name="plant"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="pear_crop"
             nature="fruit_crop"
             variety="pyrus"
@@ -697,6 +701,33 @@
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+
+      <!-- FLOWER & DECORATIVE CROP -->
+      <item name="saffron_crop"
+            nature="flower_crop"
+            variety="crocus_sativus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00square_meter"
+            />
+      <item name="rose_crop"
+            nature="fruit_crop"
+            variety="rosa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="cherry_laurel_crop"
+            nature="fruit_crop"
+            variety="prunus_laurocerasus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="myrobalan_plum_crop"
+            nature="fruit_crop"
+            variety="prunus_cerasifera"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+
       <!-- VINE CROP -->
       <item name="vine_grape_crop"
             nature="wine_crop"

@@ -6,6 +6,8 @@
       <item name="prunus_salicina"  itis_tsn="506232"/>
       <item name="prunus_persica"   itis_tsn="24765"/>
       <item name="prunus_dulcis"    itis_tsn="24775"/>
+      <item name="prunus_laurocerasus"    itis_tsn="24786"/>
+      <item name="prunus_cerasifera"    itis_tsn="24772"/>
     </items>
   </nomenclature>
 
