@@ -545,7 +545,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   def access_control_list(name = :rights)
     prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join
     html = "".html_safe
-    reference = @object.send(name) || {}
+    reference = (@object.send(name) || {}).with_indifferent_access
     for resource, rights in Ekylibre::Access.resources.sort{|a,b| Ekylibre::Access.human_resource_name(a.first) <=> Ekylibre::Access.human_resource_name(b.first) }
       resource_reference = reference[resource] || []
       html << @template.content_tag(:div, class: "control-group booleans") do
@@ -554,7 +554,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         end +
           @template.content_tag(:div, class: "controls") do
           rights.collect do |interaction, right|
-            checked = resource_reference.include?(interaction)
+            checked = resource_reference.include?(interaction.to_s)
             attributes = {class: "chk-access chk-access-#{interaction}", data: {access: "#{interaction}-#{resource}"}}
             if right.dependencies
               attributes[:data][:need_accesses] = right.dependencies.join(" ")
