@@ -1498,7 +1498,7 @@ arb:
       # other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "قيمة جديدة"
     next: "التالي"
-    # nitrogen_concentration: "Nitrogen_concentration"
+    # nitrogen_concentration: "Nitrogen concentration"
     # nitrogen_concentration_per_hectare: "Nitrogen concentration per hectare"
     no_commercial: "-- دون تداول --" #?
     # no_crumbs_to_check: "No crumbs to check"
@@ -1596,6 +1596,7 @@ arb:
     permute: "مقايضة الملفات"
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
+    # phosphorus_concentration: "Phosphorus concentration"
     # phosphorus_concentration_per_hectare: "Phosphorus concentration per hectare"
     # picture: "Picture"
     # placeholder: "Placeholder"

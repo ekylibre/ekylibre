@@ -1343,7 +1343,7 @@ fra:
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
     phone: "Tél." #?
-    phosphorus_concentration: "Teneur en phosphore (P)" #?
+    phosphorus_concentration: "Teneur en phosphore (P)"
     phosphorus_concentration_per_hectare: "Teneur en phosphore par hectare"
     picture: "Photo"
     placeholder: "Espace réservé"
