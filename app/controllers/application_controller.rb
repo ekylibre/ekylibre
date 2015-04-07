@@ -39,11 +39,6 @@ class ApplicationController < ActionController::Base
   #   backend_root_url(:locale => params[:locale])
   # end
 
-  def self.human_name
-    raise "DEPRECATED"
-    ::I18n.translate("controllers." + self.controller_path)
-  end
-
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)
     root, action = "actions." + self.controller_path + ".", action.to_s
@@ -64,7 +59,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :human_action_name
   def human_action_name
-    return self.class.human_action_name(action_name, @title)
+    return self.class.human_action_name(action_name.to_s, @title)
   end
 
   def authorized?(url_options = {})

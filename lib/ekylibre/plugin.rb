@@ -97,6 +97,15 @@ module Ekylibre
 
       @themes_assets = {}.with_indifferent_access
 
+      # Adds lib
+      @lib_dir = @root.join("lib")
+      if @lib_dir.exist?
+        $:.unshift(@lib_dir.to_s)
+        unless @required.is_a?(FalseClass)
+          require @name.to_s
+        end
+      end
+
       # Adds rights
       @right_file = root.join("config", "rights.yml")
       if @right_file.exist?
@@ -162,7 +171,7 @@ module Ekylibre
         end
       end
 
-      unless Gem::Dependency.new('ekylibre-erp', *constraints).match?('ekylibre-erp', Ekylibre.version)
+      unless Gem::Dependency.new('ekylibre', *constraints).match?('ekylibre', Ekylibre.version)
         raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app"
       end
       return true

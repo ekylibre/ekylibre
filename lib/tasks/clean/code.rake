@@ -4,7 +4,7 @@ namespace :clean do
   task :code do
     print " - White spaces: "
     files  = []
-    dirs = "{app,bin,config,db,doc,lib,public,test}"
+    dirs = "{app,bin,config,db,doc,lib,plugins,public,test}"
     Dir.chdir(Rails.root) do
       files += Dir["Gemfile*"]
       files += Dir["Rakefile"]
