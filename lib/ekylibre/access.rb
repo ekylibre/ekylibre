@@ -64,6 +64,14 @@ module Ekylibre
         end.flatten.uniq.sort.map(&:to_sym)
       end
 
+      # Returns a hash for all known rights
+      def all_rights
+        return @resources.inject({}) do |hash, pair|
+          hash[pair.first.to_s] = pair.second.keys.map(&:to_s)
+          hash
+        end
+      end
+
     end
 
 

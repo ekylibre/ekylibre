@@ -132,7 +132,7 @@ Exchanges.add_importer :ekylibre_settings do |file, w|
   if manifest.can_load_default?(:roles)
     manifest[:roles] = {
       default: {name: Role.tc('default.public')},
-      administrator: {name: Role.tc('default.administrator'), rights: Ekylibre::Access.actions}
+      administrator: {name: Role.tc('default.administrator'), rights: Ekylibre::Access.all_rights}
     }
   end
   manifest.create_records(:roles)
