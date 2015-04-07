@@ -17,9 +17,4 @@
 
 = field_set(:access) do
   = f.referenced_association :role, input_html: {data: {refresh_access_control_list: backend_role_url("ID")}}
-  -# input :reduction_percent
-  -# input :free_price
-  -# input :credits
-  -# partial :rights, :depend_on => :role
-  -# #rights{"data-refresh" => url_for(action: :new, mode: :rights), "data-refresh-mode" => "update"}
   = f.access_control_list

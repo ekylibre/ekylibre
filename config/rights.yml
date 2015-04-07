@@ -168,7 +168,7 @@ accounts:
     - "backend/accounts#show"
     - "backend/accounts#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-accounts
     actions:
     - "backend/accounts#create"
@@ -191,7 +191,7 @@ activities:
     - "backend/activities#show"
     - "backend/activities#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-activities
     actions:
     - "backend/activities#create"
@@ -207,7 +207,7 @@ affairs:
     - "backend/affairs#list"
     - "backend/affairs#show"
   write:
-    depend-on:
+    dependencies:
     - read-affairs
     actions:
     - "backend/affairs#attach"
@@ -224,7 +224,7 @@ analyses:
     - "backend/analyses#show"
     - "backend/analyses#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-analyses
     actions:
     - "backend/analyses#create"
@@ -239,7 +239,7 @@ animal_foods:
     - "backend/animal_foods#index"
     - "backend/animal_foods#list"
   write:
-    depend-on:
+    dependencies:
     - read-animal_foods
 
 animal_groups:
@@ -252,7 +252,7 @@ animal_groups:
     - "backend/animal_groups#show"
     - "backend/animal_groups#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-animal_groups
     actions:
     - "backend/animal_groups#create"
@@ -273,7 +273,7 @@ animal_products:
     - "backend/animal_products#index"
     - "backend/animal_products#list"
   write:
-    depend-on:
+    dependencies:
     - read-animal_products
 
 animals:
@@ -296,7 +296,7 @@ animals:
     - "backend/animals#show"
     - "backend/animals#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-animals
     actions:
     - "backend/animals#add_to_group"
@@ -315,7 +315,7 @@ bank_statements:
     - "backend/bank_statements#show"
     - "backend/bank_statements#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-bank_statements
     actions:
     - "backend/bank_statements#create"
@@ -344,7 +344,7 @@ building_divisions:
     - "backend/building_divisions#show"
     - "backend/building_divisions#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-building_divisions
     actions:
     - "backend/building_divisions#create"
@@ -373,7 +373,7 @@ buildings:
     - "backend/buildings#show"
     - "backend/buildings#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-buildings
     actions:
     - "backend/buildings#create"
@@ -391,7 +391,7 @@ campaigns:
     - "backend/campaigns#show"
     - "backend/campaigns#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-campaigns
     actions:
     - "backend/campaigns#create"
@@ -408,7 +408,7 @@ cash_transfers:
     - "backend/cash_transfers#show"
     - "backend/cash_transfers#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-cash_transfers
     actions:
     - "backend/cash_transfers#create"
@@ -427,7 +427,7 @@ cashes:
     - "backend/cashes#show"
     - "backend/cashes#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-cashes
     actions:
     - "backend/cashes#create"
@@ -449,7 +449,7 @@ catalogs:
     - "backend/catalogs#show"
     - "backend/catalogs#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-catalogs
     actions:
     - "backend/catalog_items#create"
@@ -483,7 +483,7 @@ cultivable_zones:
     - "backend/cultivable_zones#show"
     - "backend/cultivable_zones#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-cultivable_zones
     actions:
     - "backend/cultivable_zones#create"
@@ -502,7 +502,7 @@ custom_fields:
     - "backend/custom_fields#show"
     - "backend/custom_fields#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-custom_fields
     actions:
     - "backend/custom_field_choices#create"
@@ -532,7 +532,7 @@ deposits:
     - "backend/deposits#show"
     - "backend/deposits#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-deposits
     actions:
     - "backend/deposits#create"
@@ -550,7 +550,7 @@ districts:
     - "backend/districts#show"
     - "backend/districts#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-districts
     actions:
     - "backend/districts#create"
@@ -567,7 +567,7 @@ document_templates:
     - "backend/document_templates#show"
     - "backend/document_templates#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-document_templates
     actions:
     - "backend/document_templates#create"
@@ -585,7 +585,7 @@ documents:
     - "backend/documents#show"
     - "backend/documents#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-documents
     actions:
     - "backend/documents#create"
@@ -617,7 +617,7 @@ entities:
     - "backend/entity_links#index"
     - "backend/entity_links#show"
   write:
-    depend-on:
+    dependencies:
     - read-entities
     actions:
     - "backend/entities#autocomplete_for_origin"
@@ -635,7 +635,7 @@ entities:
     - "backend/entity_addresses#new"
     - "backend/entity_addresses#update"
   link:
-    depend-on:
+    dependencies:
     - read-entities
     actions:
     - "backend/entity_links#create"
@@ -663,7 +663,7 @@ equipments:
     - "backend/equipments#show"
     - "backend/equipments#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-equipments
     actions:
     - "backend/equipments#create"
@@ -680,7 +680,7 @@ establishments:
     - "backend/establishments#show"
     - "backend/establishments#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-establishments
     actions:
     - "backend/establishments#create"
@@ -698,7 +698,7 @@ events:
     - "backend/events#show"
     - "backend/events#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-events
     actions:
     - "backend/event_participations#create"
@@ -732,7 +732,7 @@ financial_assets:
     - "backend/financial_assets#show"
     - "backend/financial_assets#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-financial_assets
     actions:
     - "backend/financial_assets#create"
@@ -751,7 +751,7 @@ financial_years:
     - "backend/financial_years#show"
     - "backend/financial_years#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-financial_years
     actions:
     - "backend/financial_years#create"
@@ -760,14 +760,14 @@ financial_years:
     - "backend/financial_years#new"
     - "backend/financial_years#update"
   close:
-    depend-on:
+    dependencies:
     - read-financial_years
     actions:
     - "backend/financial_years#close"
     - "backend/financial_years#compute_balances"
     - "backend/financial_years#generate_last_journal_entry"
   reopen:
-    depend-on:
+    dependencies:
     - read-financial_years
     actions:
     - "backend/financial_years#compute_balances"
@@ -797,7 +797,7 @@ fungi:
     - "backend/fungi#show"
     - "backend/fungi#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-fungi
     actions:
     - "backend/fungi#create"
@@ -814,7 +814,7 @@ gaps:
     - "backend/gaps#list_items"
     - "backend/gaps#show"
   write:
-    depend-on:
+    dependencies:
     - read-gaps
     actions:
     - "backend/gaps#destroy"
@@ -827,7 +827,7 @@ georeadings:
     - "backend/georeadings#show"
     - "backend/georeadings#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-georeadings
     actions:
     - "backend/georeadings#create"
@@ -851,7 +851,7 @@ guides:
     - "backend/guides#show"
     - "backend/guides#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-guides
     actions:
     - "backend/guides#create"
@@ -860,7 +860,7 @@ guides:
     - "backend/guides#new"
     - "backend/guides#update"
   execute:
-    depend-on:
+    dependencies:
     - read-guides
     actions:
     - "backend/guides#run"
@@ -872,7 +872,7 @@ identifiers:
     - "backend/identifiers#list"
     - "backend/identifiers#show"
   write:
-    depend-on:
+    dependencies:
     - read-identifiers
     actions:
     - "backend/identifiers#create"
@@ -888,7 +888,7 @@ imports:
     - "backend/imports#list"
     - "backend/imports#show"
   write:
-    depend-on:
+    dependencies:
     - read-imports
     actions:
     - "backend/imports#create"
@@ -897,7 +897,7 @@ imports:
     - "backend/imports#new"
     - "backend/imports#update"
   execute:
-    depend-on:
+    dependencies:
     - read-imports
     actions:
     - "backend/imports#run"
@@ -912,7 +912,7 @@ incoming_deliveries:
     - "backend/incoming_deliveries#unroll"
     - "backend/incoming_delivery_items#new"
   write:
-    depend-on:
+    dependencies:
     - read-incoming_deliveries
     actions:
     - "backend/incoming_deliveries#confirm"
@@ -930,7 +930,7 @@ incoming_payment_modes:
     - "backend/incoming_payment_modes#show"
     - "backend/incoming_payment_modes#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-incoming_payment_modes
     actions:
     - "backend/incoming_payment_modes#create"
@@ -950,7 +950,7 @@ incoming_payments:
     - "backend/incoming_payments#show"
     - "backend/incoming_payments#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-incoming_payments
     actions:
     - "backend/incoming_payments#create"
@@ -971,7 +971,7 @@ interventions:
     - "backend/operations#index"
     - "backend/operations#show"
   write:
-    depend-on:
+    dependencies:
     - read-interventions
     actions:
     - "backend/crumbs#convert"
@@ -985,7 +985,7 @@ interventions:
     - "backend/interventions#new"
     - "backend/interventions#update"
   execute:
-    depend-on:
+    dependencies:
     - read-interventions
     actions:
     - "backend/interventions#run"
@@ -1000,7 +1000,7 @@ inventories:
     - "backend/inventories#show"
     - "backend/inventories#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-inventories
     actions:
     - "backend/inventories#create"
@@ -1021,7 +1021,7 @@ issues:
     - "backend/issues#show"
     - "backend/issues#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-issues
     actions:
     - "backend/issues#abort"
@@ -1044,7 +1044,7 @@ journal_entries:
     - "backend/journal_entry_items#show"
     - "backend/journal_entry_items#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-journal_entries
     actions:
     - "backend/journal_entries#create"
@@ -1068,7 +1068,7 @@ journals:
     - "backend/journals#show"
     - "backend/journals#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-journals
     actions:
     - "backend/journals#balance"
@@ -1080,12 +1080,12 @@ journals:
     - "backend/journals#new"
     - "backend/journals#update"
   close:
-    depend-on:
+    dependencies:
     - read-journals
     actions:
     - "backend/journals#close"
   reopen:
-    depend-on:
+    dependencies:
     - read-journals
     actions:
     - "backend/journals#reopen"
@@ -1109,7 +1109,7 @@ land_parcel_clusters:
     - "backend/land_parcel_clusters#show"
     - "backend/land_parcel_clusters#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-land_parcel_clusters
     actions:
     - "backend/land_parcel_clusters#create"
@@ -1137,7 +1137,7 @@ land_parcel_groups:
     - "backend/land_parcel_groups#show"
     - "backend/land_parcel_groups#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-land_parcel_groups
     actions:
     - "backend/land_parcel_groups#create"
@@ -1165,7 +1165,7 @@ land_parcels:
     - "backend/land_parcels#show"
     - "backend/land_parcels#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-land_parcels
     actions:
     - "backend/land_parcels#create"
@@ -1192,7 +1192,7 @@ legal_entities:
     - "backend/legal_entities#show"
     - "backend/legal_entities#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-legal_entities
     actions:
     - "backend/legal_entities#autocomplete_for_origin"
@@ -1205,7 +1205,7 @@ legal_entities:
     - "backend/legal_entities#new"
     - "backend/legal_entities#update"
   link:
-    depend-on:
+    dependencies:
     - read-legal_entities
     actions:
     - "backend/legal_entities#autocomplete_for_origin"
@@ -1225,7 +1225,7 @@ listings:
     - "backend/listings#list"
     - "backend/listings#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-listings
     actions:
     - "backend/listing_nodes#create"
@@ -1240,7 +1240,7 @@ listings:
     - "backend/listings#new"
     - "backend/listings#update"
   execute:
-    depend-on:
+    dependencies:
     - read-listings
     actions:
     - "backend/listings#extract"
@@ -1255,7 +1255,7 @@ manure_management_plans:
     - "backend/manure_management_plans#show"
     - "backend/manure_management_plans#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-manure_management_plans
     actions:
     - "backend/manure_management_plans#create"
@@ -1283,7 +1283,7 @@ matters:
     - "backend/matters#show"
     - "backend/matters#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-matters
     actions:
     - "backend/matters#create"
@@ -1305,7 +1305,7 @@ net_services:
     - "backend/net_services#list_identifiers"
     - "backend/net_services#show"
   write:
-    depend-on:
+    dependencies:
     - read-net_services
     actions:
     - "backend/net_services#create"
@@ -1316,7 +1316,7 @@ net_services:
 
 observations:
   write:
-    depend-on:
+    dependencies:
     - read-observations
     actions:
     - "backend/observations#create"
@@ -1334,7 +1334,7 @@ outgoing_deliveries:
     - "backend/outgoing_deliveries#show"
     - "backend/outgoing_deliveries#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-outgoing_deliveries
     actions:
     - "backend/outgoing_deliveries#create"
@@ -1351,7 +1351,7 @@ outgoing_payment_modes:
     - "backend/outgoing_payment_modes#show"
     - "backend/outgoing_payment_modes#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-outgoing_payment_modes
     actions:
     - "backend/outgoing_payment_modes#create"
@@ -1370,7 +1370,7 @@ outgoing_payments:
     - "backend/outgoing_payments#show"
     - "backend/outgoing_payments#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-outgoing_payments
     actions:
     - "backend/outgoing_payments#create"
@@ -1397,7 +1397,7 @@ people:
     - "backend/people#show"
     - "backend/people#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-people
     actions:
     - "backend/people#autocomplete_for_origin"
@@ -1410,7 +1410,7 @@ people:
     - "backend/people#new"
     - "backend/people#update"
   link:
-    depend-on:
+    dependencies:
     - read-people
     actions:
     - "backend/people#autocomplete_for_origin"
@@ -1454,7 +1454,7 @@ plants:
     - "backend/plants#show"
     - "backend/plants#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-plants
     actions:
     - "backend/plants#create"
@@ -1471,7 +1471,7 @@ postal_zones:
     - "backend/postal_zones#show"
     - "backend/postal_zones#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-postal_zones
     actions:
     - "backend/postal_zones#autocomplete_for_name"
@@ -1490,7 +1490,7 @@ prescriptions:
     - "backend/prescriptions#show"
     - "backend/prescriptions#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-prescriptions
     actions:
     - "backend/prescriptions#create"
@@ -1518,7 +1518,7 @@ product_groups:
     - "backend/product_groups#show"
     - "backend/product_groups#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-product_groups
     actions:
     - "backend/product_groups#create"
@@ -1538,7 +1538,7 @@ product_nature_categories:
     - "backend/product_nature_categories#show"
     - "backend/product_nature_categories#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-product_nature_categories
     actions:
     - "backend/product_nature_categories#create"
@@ -1559,7 +1559,7 @@ product_nature_variants:
     - "backend/product_nature_variants#show"
     - "backend/product_nature_variants#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-product_nature_variants
     actions:
     - "backend/product_nature_variants#create"
@@ -1579,7 +1579,7 @@ product_natures:
     - "backend/product_natures#show"
     - "backend/product_natures#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-product_natures
     actions:
     - "backend/product_natures#create"
@@ -1604,7 +1604,7 @@ productions:
     - "backend/productions#show"
     - "backend/productions#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-productions
     actions:
     - "backend/productions#create"
@@ -1632,7 +1632,7 @@ products:
     - "backend/products#show"
     - "backend/products#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-products
     actions:
     - "backend/products#create"
@@ -1649,7 +1649,7 @@ purchase_natures:
     - "backend/purchase_natures#show"
     - "backend/purchase_natures#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-purchase_natures
     actions:
     - "backend/purchase_natures#create"
@@ -1668,7 +1668,7 @@ purchases:
     - "backend/purchases#show"
     - "backend/purchases#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-purchases
     actions:
     - "backend/incoming_deliveries#invoice"
@@ -1694,7 +1694,7 @@ roles:
     - "backend/roles#show"
     - "backend/roles#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-roles
     actions:
     - "backend/roles#create"
@@ -1713,7 +1713,7 @@ sale_natures:
     - "backend/sale_natures#show"
     - "backend/sale_natures#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-sale_natures
     actions:
     - "backend/sale_natures#create"
@@ -1736,7 +1736,7 @@ sales:
     - "backend/sales#show"
     - "backend/sales#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-sales
     actions:
     - "backend/outgoing_deliveries#invoice"
@@ -1764,7 +1764,7 @@ sequences:
     - "backend/sequences#show"
     - "backend/sequences#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-sequences
     actions:
     - "backend/sequences#create"
@@ -1780,7 +1780,7 @@ settings:
     - "backend/settings#about"
     - "backend/settings#edit"
   write:
-    depend-on:
+    dependencies:
     - read-settings
     actions:
     - "backend/settings#update"
@@ -1804,7 +1804,7 @@ settlements:
     - "backend/settlements#show"
     - "backend/settlements#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-settlements
     actions:
     - "backend/settlements#create"
@@ -1821,7 +1821,7 @@ subscription_natures:
     - "backend/subscription_natures#show"
     - "backend/subscription_natures#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-subscription_natures
     actions:
     - "backend/subscription_natures#create"
@@ -1840,7 +1840,7 @@ subscriptions:
     - "backend/subscriptions#show"
     - "backend/subscriptions#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-subscriptions
     actions:
     - "backend/subscriptions#create"
@@ -1857,7 +1857,7 @@ taxes:
     - "backend/taxes#show"
     - "backend/taxes#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-taxes
     actions:
     - "backend/taxes#create"
@@ -1874,7 +1874,7 @@ teams:
     - "backend/teams#show"
     - "backend/teams#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-teams
     actions:
     - "backend/teams#create"
@@ -1892,7 +1892,7 @@ trackings:
     - "backend/trackings#show"
     - "backend/trackings#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-trackings
     actions:
     - "backend/trackings#create"
@@ -1917,7 +1917,7 @@ transports:
     - "backend/transports#show"
     - "backend/transports#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-transports
     actions:
     - "backend/outgoing_deliveries#ship"
@@ -1935,7 +1935,7 @@ users:
     - "backend/users#show"
     - "backend/users#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-users
     actions:
     - "backend/users#create"
@@ -1944,7 +1944,7 @@ users:
     - "backend/users#new"
     - "backend/users#update"
   lock:
-    depend-on:
+    dependencies:
     - read-users
     actions:
     - "backend/users#lock"
@@ -1981,7 +1981,7 @@ workers:
     - "backend/workers#show"
     - "backend/workers#unroll"
   write:
-    depend-on:
+    dependencies:
     - read-workers
     actions:
     - "backend/workers#create"

@@ -91,8 +91,17 @@ module Ekylibre
       else
         raise "Need a name for plugin #{plugfile_path}"
       end
+      if [:ekylibre].include?(@name)
+        raise "Plugin name cannot be #{@name}."
+      end
 
       @themes_assets = {}.with_indifferent_access
+
+      # Adds rights
+      @right_file = root.join("config", "rights.yml")
+      if @right_file.exist?
+        Ekylibre::Access.load_file(@right_file)
+      end
 
       # Adds locales
       Rails.application.config.i18n.load_path += Dir.glob(@root.join('config', 'locales', '**', '*.{rb,yml}'))
@@ -177,15 +186,15 @@ module Ekylibre
       add_theme_asset(theme, file, :stylesheets)
     end
 
-
+    # Adds routes to access controllers
     def add_routes(&block)
       @routes = block
     end
 
+    # Adds menus with DSL in Ekylibre backend nav
     def add_menus(&block)
       Ekylibre::Parts.exec_dsl(&block)
     end
-
 
     # TODO Add other callback for plugin integration
     # def add_cell

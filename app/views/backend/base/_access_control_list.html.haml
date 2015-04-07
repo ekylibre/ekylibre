@@ -1,14 +1,14 @@
 :ruby
   list = rights.inject({}) do |hash, pair|
-    if resource = Nomen::EnterpriseResources[pair.first]
-      hash[resource] = pair.second
+    if Ekylibre::Access.resources[pair.first.to_sym]
+      hash[pair.first] = pair.second
     end
     hash
-  end.sort{|a,b| a.first.human_name <=> b.first.human_name}
+  end.sort{|a,b| Ekylibre::Access.human_resource_name(a.first) <=> Ekylibre::Access.human_resource_name(b.first) }
 .access-control-list
-  - list.each do |resource, actions|
+  - list.each do |resource, interactions|
     %span.access
-      %span.resource= resource.human_name
-      - actions.each do |action|
-        %span.chk-access{class: "chk-access-#{action} active"}
-          = Nomen::EnterpriseResourceActions[action].human_name.strip
+      %span.resource= Ekylibre::Access.human_resource_name(resource)
+      - interactions.each do |interaction|
+        %span.chk-access{class: "chk-access-#{interaction} active"}
+          = Ekylibre::Access.human_interaction_name(interaction).strip

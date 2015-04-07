@@ -546,23 +546,23 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join
     html = "".html_safe
     reference = @object.send(name) || {}
-    for resource, accesses in Ekylibre::Access.list.sort{|a,b| Nomen::EnterpriseResources[a.first].human_name <=> Nomen::EnterpriseResources[b.first].human_name }
+    for resource, rights in Ekylibre::Access.resources.sort{|a,b| Ekylibre::Access.human_resource_name(a.first) <=> Ekylibre::Access.human_resource_name(b.first) }
       resource_reference = reference[resource] || []
       html << @template.content_tag(:div, class: "control-group booleans") do
         @template.content_tag(:label, class: "control-label") do
-          Nomen::EnterpriseResources[resource].human_name
+          Ekylibre::Access.human_resource_name(resource)
         end +
           @template.content_tag(:div, class: "controls") do
-          accesses.collect do |access, details|
-            checked = resource_reference.include?(access)
-            attributes = {class: "chk-access chk-access-#{access}", data: {access: "#{access}-#{resource}"}}
-            if details["depend-on"]
-              attributes[:data][:need_accesses] = details["depend-on"].join(" ")
+          rights.collect do |interaction, right|
+            checked = resource_reference.include?(interaction)
+            attributes = {class: "chk-access chk-access-#{interaction}", data: {access: "#{interaction}-#{resource}"}}
+            if right.dependencies
+              attributes[:data][:need_accesses] = right.dependencies.join(" ")
             end
             attributes[:class] << " active" if checked
             @template.content_tag(:label, attributes) do
-              @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", access, checked) +
-                ERB::Util.h(Nomen::EnterpriseResourceActions[access].human_name.strip)
+              @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
+                ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
             end
           end.join.html_safe
         end

@@ -1,45 +1,73 @@
 module Ekylibre
   module Access
 
+    # autoload :Resource, 'ekylibre/access/resource'
+    autoload :Right,    'ekylibre/access/right'
+
     class << self
 
-      def reference_file
+      def config_file
         Rails.root.join("config", "rights.yml")
       end
 
-      def list
-        LIST
+      # Load a right definition file
+      def load_file(file, origin = :unknown)
+        YAML.load_file(file).each do |resource, interactions|
+          interactions.each do |interaction, options|
+            add_right(resource, interaction, options.symbolize_keys.merge(origin: origin))
+          end
+        end
       end
 
-      def reversed_list
-        REVERSED_LIST
+      def resources
+        @resources.deep_symbolize_keys
       end
 
-      def actions
-        ACTIONS
+      # Add an access right
+      def add_right(resource, interaction, options = {})
+        right = Right.new(resource, interaction, options)
+        # @rights << right unless @rights.include?(right)
+        @resources ||= {}.with_indifferent_access
+        @resources[right.resource] ||= {}.with_indifferent_access
+        @resources[right.resource][right.interaction] = right
+      end
+
+      # Remove an access right
+      def remove_right(resource, interaction)
+        right = find(resource, interaction)
+        # @rights.delete(right)
+        @resources[resource].delete(right)
+      end
+
+      # Find a given right by resource and interaction
+      def find(resource, interaction)
+        if @resources[resource]
+          return @resources[resource][interaction]
+        end
+        return nil
+      end
+
+      # Returns the translated name of a resource
+      def human_resource_name(resource)
+        "access.resources.#{resource}".t
+      end
+
+      # Returns the translated name of an interaction (with a resource)
+      def human_interaction_name(interaction)
+        "access.interactions.#{interaction}".t
+      end
+
+      # Returns list of interactions
+      def interactions
+        return @resources.collect do |name, interactions|
+          interactions.keys
+        end.flatten.uniq.sort.map(&:to_sym)
       end
 
     end
 
-    LIST = YAML.load_file(reference_file).with_indifferent_access.freeze
 
-    ACTIONS = LIST.inject({}) do |hash, pair|
-      for action in pair.second.keys
-        hash[pair.first] ||= []
-        hash[pair.first] << action
-      end
-      hash
-    end.with_indifferent_access.freeze
-
-    REVERSED_LIST = LIST.inject({}) do |hash, pair|
-      for action, details in pair.second
-        for controller_action in details["actions"] || []
-          hash[controller_action] ||= []
-          hash[controller_action] << "#{action}-#{pair.first}"
-        end
-      end
-      hash
-    end.with_indifferent_access.freeze
+    load_file(config_file, :ekylibre)
 
   end
 end

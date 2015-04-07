@@ -27,10 +27,55 @@ namespace :clean do
     log.write("Locale #{::I18n.locale_label}:\n")
 
 
-    untranslated = to_translate = translated = 0
-    warnings = []
     acount = atotal = 0
 
+
+    # Access
+    file = locale_dir.join("access.yml")
+    ref = Clean::Support.yaml_to_hash(file)[locale] rescue {}
+    to_translate = 0
+    untranslated = 0
+
+    translation  = "#{locale}:\n"
+    translation << "  access:\n"
+    translation << "    interactions:\n"
+    ref[:access] ||= {}
+    ref[:access][:interactions] ||= {}
+    Ekylibre::Access.interactions.each do |interaction|
+      to_translate += 1
+      if name = ref[:access][:interactions][interaction]
+        translation << "      #{interaction}: " + Clean::Support.yaml_value(name) + "\n"
+      else
+        translation << "      #{missing_prompt}#{interaction}: " + Clean::Support.yaml_value(interaction.to_s.humanize) + "\n"
+        untranslated += 1
+      end
+    end
+
+    translation << "    resources:\n"
+    ref[:access] ||= {}
+    ref[:access][:resources] ||= {}
+    Ekylibre::Access.resources.keys.each do |resource|
+      to_translate += 1
+      if name = ref[:access][:resources][resource]
+        translation << "      #{resource}: " + Clean::Support.yaml_value(name) + "\n"
+      else
+        translation << "      #{missing_prompt}#{resource}: " + Clean::Support.yaml_value(resource.to_s.humanize) + "\n"
+        untranslated += 1
+      end
+    end
+
+    total = to_translate
+    log.write "  - #{'access.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+    atotal += to_translate
+    acount += total-untranslated
+
+    File.open(file, "wb") do |file|
+      file.write(translation)
+    end
+
+
+    untranslated = to_translate = translated = 0
+    warnings = []
     translation  = "#{locale}:\n"
 
     # Actions

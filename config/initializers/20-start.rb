@@ -48,5 +48,7 @@ require 'enumerize/xml'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
 # ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
 
-Ekylibre::Plugin.load
+unless ENV["PLUGIN"] == "false"
+  Ekylibre::Plugin.load
+end
 require 'ekylibre/plugin/routing'
