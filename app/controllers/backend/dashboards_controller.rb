@@ -28,7 +28,7 @@ class Backend::DashboardsController < Backend::BaseController
     t.action :destroy
   end
 
-  Ekylibre::Parts.parts.each do |part|
+  Ekylibre::Navigation.parts.each do |part|
     code  = "def #{part.name}\n"
     # code << " notify_warning_now(:dashboard_is_being_developed)"
     # code << "  render :file => 'backend/dashboards/#{part}', :layout => dialog_or_not\n"

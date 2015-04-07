@@ -5,7 +5,7 @@ task :clean do
   end
   Rake::Task[:environment].invoke
   [:themes, :schema, :annotations, :tests, :rights,
-   :parts, :validations, :locales, :code].each do |cleaner|
+   :navigation, :validations, :locales, :code].each do |cleaner|
     Rake::Task["clean:#{cleaner}"].invoke
   end
 end

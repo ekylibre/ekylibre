@@ -3,7 +3,7 @@
 = beehive(:root) do |b|
   - b.hbox do
     - b.cell :parts do
-      - Ekylibre::Parts.parts.each do |part|
+      - Ekylibre::Navigation.parts.each do |part|
         - next unless part_authorized?(part)
         = link_to({action: part.name}, class: "btn btn-big btn-#{part.icon}", title: part.human_name) do
           %i

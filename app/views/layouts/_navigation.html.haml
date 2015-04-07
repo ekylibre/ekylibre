@@ -1,4 +1,4 @@
-- current_part = Ekylibre::Parts.part_of(controller.controller_path, action_name)
+- current_part = Ekylibre::Navigation.part_of(controller.controller_path, action_name)
 
 %nav#top
 
@@ -20,7 +20,7 @@
 
     - if true # current_part
       %ul#parts
-        - Ekylibre::Parts.parts.each do |part|
+        - Ekylibre::Navigation.parts.each do |part|
           - next unless part_authorized?(part)
           %li.separator
           :ruby

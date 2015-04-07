@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<parts>
+<navigation>
   <part name="relationship" icon="people">
     <page to="backend/dashboards#relationship"/>
     <group name="people" icon="group">
@@ -1741,4 +1741,4 @@
   <untreated-actions>
     <group/>
   </untreated-actions>
-</parts>
+</navigation>

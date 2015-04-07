@@ -1,5 +1,5 @@
 module Ekylibre
-  module Parts
+  module Navigation
 
     class Node
 
@@ -76,7 +76,7 @@ module Ekylibre
       end
 
       def human_name
-        "parts.#{@name}_#{@type}".t(default: ["parts.#{@name}".to_sym, "labels.#{@name}".to_sym, default_page.human_name])
+        "navigation.#{@name}_#{@type}".t(default: ["navigation.#{@name}".to_sym, "labels.#{@name}".to_sym, default_page.human_name])
       end
 
       def inspect

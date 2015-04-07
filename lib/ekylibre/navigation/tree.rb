@@ -1,5 +1,5 @@
 module Ekylibre
-  module Parts
+  module Navigation
 
     class Tree
 

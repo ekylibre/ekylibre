@@ -163,8 +163,8 @@ module Clean
             end
           end
         end
-        list += Ekylibre::Parts.parts.collect{|p| p.index.keys}.flatten.compact.map(&:to_s)
-        list += Ekylibre::Parts.parts.map(&:name).map(&:to_s)
+        list += Ekylibre::Navigation.parts.collect{|p| p.index.keys}.flatten.compact.map(&:to_s)
+        list += Ekylibre::Navigation.parts.map(&:name).map(&:to_s)
 
         # list += actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
         return list.delete_if{|l| l == "*" or l.underscore != l }.uniq.sort

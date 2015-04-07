@@ -192,8 +192,8 @@ module Ekylibre
     end
 
     # Adds menus with DSL in Ekylibre backend nav
-    def add_menus(&block)
-      Ekylibre::Parts.exec_dsl(&block)
+    def extend_navigation(&block)
+      Ekylibre::Navigation.exec_dsl(&block)
     end
 
     # TODO Add other callback for plugin integration
