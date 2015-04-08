@@ -41,7 +41,7 @@ Exchanges.add_importer :ekylibre_workers do |file, w|
       if person and r.email.present? and !person.user
         unless user = User.find_by(email: r.email)
           password = User.generate_password(100, :hard)
-          user = User.create!(first_name: r.first_name, last_name: r.last_name, email: email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)
+          user = User.create!(first_name: r.first_name, last_name: r.last_name, email: r.email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)
         end
         unless user.person
           user.person = person
