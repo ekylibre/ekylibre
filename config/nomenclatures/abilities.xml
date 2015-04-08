@@ -38,6 +38,7 @@
       <item name="pick"       parameters="variety"/>
       <item name="move"/>
       <item name="enclose"/> <!-- clôturer des champs  -->
+      <item name="tamp"/> <!-- tasser le sol  -->
       <!-- inplanting  -->
       <item name="wrap"       parameters="variety"/>
       <item name="seat"       parameters="variety"/>

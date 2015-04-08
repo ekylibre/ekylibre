@@ -1043,6 +1043,15 @@
             frozen_indicators="population"
             linkage_points="rear"
             />
+      <item name="forklift"
+            category="equipment"
+            variety="tractor"
+            population_counting="unitary"
+            abilities="move, tow(matter), consume(oil), consume(fuel)"
+            variable_indicators="net_surface_area, motor_power, geolocation"
+            frozen_indicators="population"
+            linkage_points="rear"
+            />
       <item name="truck"
             category="equipment"
             variety="tractor"
@@ -1209,6 +1218,14 @@
             variety="plower"
             population_counting="unitary"
             abilities="plow_superficially"
+            variable_indicators="application_width, geolocation"
+            frozen_indicators="population"
+            />
+      <item name="roll"
+            category="equipment"
+            variety="plower"
+            population_counting="unitary"
+            abilities="tamp"
             variable_indicators="application_width, geolocation"
             frozen_indicators="population"
             />

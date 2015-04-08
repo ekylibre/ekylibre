@@ -1940,6 +1940,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="forklift"
+            nature="forklift"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="car"
             nature="car"
             unit_name="equipment"
@@ -1955,7 +1960,7 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-      <!-- EQUIPMENT FOR VINE -->
+      <!-- EQUIPMENT FOR SOIL -->
       <item name="manual_implanter"
             nature="implanter"
             unit_name="equipment"
@@ -1998,6 +2003,11 @@
             />
       <item name="superficial_plow"
             nature="superficial_plow"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="roll"
+            nature="roll"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
