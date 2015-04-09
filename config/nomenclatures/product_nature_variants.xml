@@ -1755,8 +1755,13 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25kilogram, net_volume: 25.00liter"
             />
-      <!-- PACKAGING PRODUCT -->
+      <!-- PACKAGING & TRANSPORT PRODUCT -->
       <item name="common_package"
+            nature="common_package"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="pallet"
             nature="common_package"
             unit_name="unit"
             frozen_indicators_values=""

@@ -7,6 +7,7 @@
       <item name="gossypium" itis_tsn="21709"/>
       <item name="hibiscus"  itis_tsn="21611"/>
       <item name="theobroma" itis_tsn="21556"/>
+      <item name="tilia" itis_tsn="21535"/>
     </items>
   </nomenclature>
 
@@ -21,6 +22,13 @@
     <items>
       <item name="theobroma_cacao"        itis_tsn="505487"/>
       <item name="theobroma_grandiflorum" itis_tsn="506108"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-tilia" hierarchical="true">
+    <items>
+      <item name="tilia_americana"        itis_tsn="21536"/>
+      <item name="tilia_cordata"          itis_tsn="505507"/>
     </items>
   </nomenclature>
 

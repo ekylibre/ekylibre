@@ -3,6 +3,7 @@
   <nomenclature name="varieties-rosaceae" hierarchical="true">
     <items>
       <item name="cydonia" itis_tsn="25158"/>
+      <item name="crataegus" itis_tsn="24539"/>
       <item name="fragaria" itis_tsn="24624"/>
       <item name="rosa" itis_tsn="24807"/>
       <item name="rubus" itis_tsn="24848"/>

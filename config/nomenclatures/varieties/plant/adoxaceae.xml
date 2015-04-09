@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-adoxaceae" hierarchical="true">
+    <items>
+      <item name="adoxa" itis_tsn="35347"/>
+      <item name="sambucus" itis_tsn="35315"/>
+      <item name="viburnum" itis_tsn="35249"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-sambucus" hierarchical="true">
+    <items>
+      <item name="sambucus_nigra" itis_tsn="35324"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

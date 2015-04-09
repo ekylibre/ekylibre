@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-sapindaceae" hierarchical="true">
+    <items>
+      <item name="acer" itis_tsn="28727"/>
+      <item name="koelreuteria" itis_tsn="28685"/>
+
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-acer" hierarchical="true">
+    <items>
+      <item name="acer_buergerianum" itis_tsn="837859"/>
+      <item name="acer_ginnala" itis_tsn="28741"/>
+      <item name="acer_pseudoplatanus" itis_tsn="28756"/>
+      <item name="acer_saccharinum" itis_tsn="28757"/>
+      <item name="acer_saccharum" itis_tsn="28731"/>
+      <item name="acer_spicatum" itis_tsn="28758"/>
+      <item name="acer_tataricum" itis_tsn="182137"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-koelreuteria" hierarchical="true">
+    <items>
+      <item name="koelreuteria_bipinnata" itis_tsn="506080"/>
+      <item name="koelreuteria_elegans" itis_tsn="503285"/>
+      <item name="koelreuteria_paniculata" itis_tsn="503286"/>
+    </items>
+  </nomenclature>
+
+
+</nomenclatures>

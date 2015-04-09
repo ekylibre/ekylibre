@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-carpinus" hierarchical="true">
+    <items>
+      <item name="carpinus_betulus" itis_tsn="184204"/>
+      <item name="carpinus_caroliniana" itis_tsn="19504"/>
+    </items>
+  </nomenclature>
+
+
+</nomenclatures>

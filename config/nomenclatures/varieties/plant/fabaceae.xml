@@ -4,8 +4,11 @@
     <items>
       <item name="arachis"   itis_tsn="26462"/>
       <item name="ceratonia" itis_tsn="26530"/>
+      <item name="cercis" itis_tsn="25781"/>
       <item name="cicer"     itis_tsn="26536"/>
+      <item name="gleditsia"     itis_tsn="26711"/>
       <item name="glycine"   itis_tsn="26715"/>
+      <item name="laburnum"   itis_tsn="26760"/>
       <item name="lens"      itis_tsn="26762"/>
       <item name="lupinus"   itis_tsn="25916"/>
       <item name="phaseolus" itis_tsn="203844"/>
@@ -30,6 +33,12 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="varieties-cercis" hierarchical="true">
+    <items>
+      <item name="cercis_siliquastrum" itis_tsn="820422"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-cicer" hierarchical="true">
     <items>
       <item name="cicer_arietinum" itis_tsn="26537"/>
@@ -41,7 +50,13 @@
       <item name="glycine_max" itis_tsn="26716"/>
     </items>
   </nomenclature>
-  
+
+  <nomenclature name="varieties-laburnum" hierarchical="true">
+    <items>
+      <item name="laburnum_anagyroides" itis_tsn="26761"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="varieties-robinia" hierarchical="true">
     <items>
       <item name="robinia_hispida" itis_tsn="26191"/>

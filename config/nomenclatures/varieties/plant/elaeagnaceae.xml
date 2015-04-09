@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-elaeagnaceae" hierarchical="true">
+    <items>
+      <item name="elaeagnus" itis_tsn="27769"/>
+      <item name="hippophae" itis_tsn="500326"/>
+      <item name="shepherdia" itis_tsn="27777"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-hippophae" hierarchical="true">
+    <items>
+      <item name="hippophae_rhamnoides" itis_tsn="503044"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

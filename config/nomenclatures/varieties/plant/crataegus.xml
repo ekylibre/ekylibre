@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-moraceae" hierarchical="true">
+  <nomenclature name="varieties-crataegus" hierarchical="true">
     <items>
-      <item name="ficus" itis_tsn="19081"/>
-      <item name="morus" itis_tsn="19064"/>
+      <item name="crataegus_monogyna" itis_tsn="24586"/>
     </items>
   </nomenclature>
+
 
 </nomenclatures>
