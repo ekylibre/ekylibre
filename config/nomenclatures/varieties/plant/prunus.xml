@@ -2,12 +2,13 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-prunus" hierarchical="true">
     <items>
+      <item name="prunus_avium"     itis_tsn="24770"/>
       <item name="prunus_domestica" itis_tsn="24774"/>
       <item name="prunus_salicina"  itis_tsn="506232"/>
       <item name="prunus_persica"   itis_tsn="24765"/>
       <item name="prunus_dulcis"    itis_tsn="24775"/>
       <item name="prunus_laurocerasus"    itis_tsn="24786"/>
-      <item name="prunus_cerasifera"    itis_tsn="24772"/>
+      <item name="prunus_cerasifera"      itis_tsn="24772"/>
     </items>
   </nomenclature>
 

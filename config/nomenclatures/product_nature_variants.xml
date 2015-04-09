@@ -2861,7 +2861,9 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+
       <!-- OTHER PRODUCT -->
+
       <item name="small_equipment"
             nature="small_equipment"
             unit_name="unit"

@@ -11,6 +11,7 @@
       <item name="phaseolus" itis_tsn="203844"/>
       <item name="pisum"     itis_tsn="26866"/>
       <item name="medicago"  itis_tsn="183622"/>
+      <item name="robinia"   itis_tsn="26184"/>
       <item name="trifolium" itis_tsn="26204"/>
       <item name="vicia"     itis_tsn="26329"/>
     </items>
@@ -38,6 +39,15 @@
   <nomenclature name="varieties-glycine" hierarchical="true">
     <items>
       <item name="glycine_max" itis_tsn="26716"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-robinia" hierarchical="true">
+    <items>
+      <item name="robinia_hispida" itis_tsn="26191"/>
+      <item name="robinia_pseudoacacia" itis_tsn="504804"/>
+      <item name="robinia_viscosa" itis_tsn="26198"/>
+      <item name="robinia_neomexicana" itis_tsn="26196"/>
     </items>
   </nomenclature>
 
