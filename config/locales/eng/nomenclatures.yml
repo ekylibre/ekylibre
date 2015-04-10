@@ -338,9 +338,11 @@ eng:
       items:
         accountancy: "Accountancy"                         #< exploitation
         administrative: "Administrative"                   #< exploitation
-        almond_orchards: "Almond orchards"                 #< orchard_crops
+        agricultural_works: "Agricultural works"           #< works
+        almond_orchards: "Almond orchards"                 #< arboriculture
         animal_farming: "Animal farming"
-        apple_orchards: "Apple orchards"                   #< orchard_crops
+        animal_housing: "Animal housing"                   #< service
+        apple_orchards: "Apple orchards"                   #< arboriculture
         arboriculture: "Arboriculture"                     #< vegetal_crops
         aromatic_and_medicinal_plants: "Aromatic and medicinal plants" #< vegetal_crops
         asparagus_crops: "Asparagus crops"                 #< market_garden_crops
@@ -351,19 +353,21 @@ eng:
         bere_crops: "Bere crops"                           #< cereal_crops
         bison_farming: "Bison farming"                     #< animal_farming
         black_mustard_crops: "Black mustard crops"         #< market_garden_crops
-        blackcurrant_crops: "Blackcurrant crops"           #< fruits_crops
+        blackcurrant_crops: "Blackcurrant crops"           #< arboriculture
+        building_works: "Building works"                   #< works
         cabbage_crops: "Cabbage crops"                     #< market_garden_crops
         canary_grass_crops: "Canary grass crops"           #< cereal_crops
-        carob_orchards: "Carob orchards"                   #< orchard_crops
+        carob_orchards: "Carob orchards"                   #< arboriculture
         carrot_crops: "Carrot crops"                       #< market_garden_crops
+        catering: "Catering"                               #< service
         cattle_farming: "Cattle farming"                   #< animal_farming
         celery_crops: "Celery crops"                       #< market_garden_crops
         cereal_crops: "Cereal crops"                       #< field_crops
-        chestnut_orchards: "Chestnut orchards"             #< orchard_crops
+        chestnut_orchards: "Chestnut orchards"             #< arboriculture
         chickpea_crops: "Chickpea crops"                   #< protein_crops
         cichorium_crops: "Cichorium crops"                 #< market_garden_crops
-        citrus_orchards: "Citrus orchards"                 #< orchard_crops
-        cocoa_crops: "Cocoa crops"                         #< oilseed_crops
+        citrus_orchards: "Citrus orchards"                 #< arboriculture
+        cocoa_crops: "Cocoa crops"                         #< arboriculture
         common_wheat_crops: "Common wheat crops"           #< cereal_crops
         cotton_crops: "Cotton crops"                       #< oilseed_crops
         durum_wheat_crops: "Durum wheat crops"             #< cereal_crops
@@ -377,7 +381,7 @@ eng:
         garden_pea_crops: "Garden pea crops"               #< market_garden_crops
         garlic_crops: "Garlic crops"                       #< market_garden_crops
         goat_farming: "Goat farming"                       #< animal_farming
-        hazel_orchards: "Hazel orchards"                   #< orchard_crops
+        hazel_orchards: "Hazel orchards"                   #< arboriculture
         hemp_crops: "Hemp crops"                           #< field_crops
         hop_crops: "Hop crops"                             #< market_garden_crops
         horsebean_crops: "Horsebean crops"                 #< protein_crops
@@ -386,6 +390,7 @@ eng:
         leguminous_crops: "Leguminous crops"               #< protein_crops
         lentil_crops: "Lentil crops"                       #< protein_crops
         lettuce_crops: "Lettuce crops"                     #< market_garden_crops
+        lodging: "Lodging"                                 #< service
         lupin_crops: "Lupin crops"                         #< protein_crops
         maintenance: "Maintenance"
         maize_crops: "Corn crops"                          #< cereal_crops
@@ -395,21 +400,20 @@ eng:
         mussel_farming: "Mussel farming"                   #< animal_farming
         oat_crops: "Oat crops"                             #< cereal_crops
         oilseed_crops: "Oilseed crops"                     #< field_crops
-        olive_orchards: "Olive orchards"                   #< orchard_crops
+        olive_orchards: "Olive orchards"                   #< arboriculture
         onion_crops: "Onion crops"                         #< market_garden_crops
-        orchard_crops: "Orchard crops"                     #< arboriculture
         ostrich_farming: "Ostrich farming"                 #< animal_farming
         oyster_farming: "Oyster farming"                   #< animal_farming
         palmiped_farming: "Palmiped farming"               #< animal_farming
         parsley_crops: "Parsley crops"                     #< market_garden_crops
         pea_crops: "Pea crops"                             #< protein_crops
-        peach_orchards: "Peach orchards"                   #< orchard_crops
+        peach_orchards: "Peach orchards"                   #< arboriculture
         peanut_crops: "Peanut crops"                       #< oilseed_crops
-        pear_orchards: "Pear orchards"                     #< orchard_crops
+        pear_orchards: "Pear orchards"                     #< arboriculture
         pig_farming: "Pig farming"                         #< animal_farming
         pineapple_crops: "Pineapple crops"                 #< fruits_crops
-        pistachio_orchards: "Pistachio orchards"           #< orchard_crops
-        plum_orchards: "Plum orchards"                     #< orchard_crops
+        pistachio_orchards: "Pistachio orchards"           #< arboriculture
+        plum_orchards: "Plum orchards"                     #< arboriculture
         poaceae_crops: "Poaceae crops"                     #< cereal_crops
         potato_crops: "Potato crops"                       #< field_crops
         poultry_farming: "Poultry farming"                 #< animal_farming
@@ -418,8 +422,9 @@ eng:
         purchases: "Purchases"                             #< exploitation
         rabbit_farming: "Rabbit farming"                   #< animal_farming
         rapeseed_crops: "Rapeseed crops"                   #< oilseed_crops
-        raspberry_crops: "Raspberry crops"                 #< fruits_crops
-        redcurrant_crops: "Redcurrant crops"               #< fruits_crops
+        raspberry_crops: "Raspberry crops"                 #< arboriculture
+        redcurrant_crops: "Redcurrant crops"               #< arboriculture
+        renting: "Renting"                                 #< service
         rice_crops: "Rice crops"                           #< cereal_crops
         rye_crops: "Rye crops"                             #< cereal_crops
         saffron_crops: "Saffron crops"                     #< aromatic_and_medicinal_plants
@@ -435,17 +440,17 @@ eng:
         strawberry_crops: "Strawberry crops"               #< fruits_crops
         sturgeon_farming: "Sturgeon farming"               #< animal_farming
         sunflower_crops: "Sunflower crops"                 #< oilseed_crops
-        theobroma_crops: "Theobroma crops"                 #< oilseed_crops
-        tobacco_crops: "Tobacco crops"                     #< market_garden_crops
+        tobacco_crops: "Tobacco crops"                     #< field_crops
         tomato_crops: "Tomato crops"                       #< market_garden_crops
         triticale_crops: "Triticale crops"                 #< cereal_crops
         turnip_crops: "Turnip crops"                       #< market_garden_crops
         vegetal_crops: "Vegetal crops"
         vetch_crops: "Vetch crops"                         #< protein_crops
         vines: "Vines"                                     #< arboriculture
-        walnut_orchards: "Walnut orchards"                 #< orchard_crops
+        walnut_orchards: "Walnut orchards"                 #< arboriculture
         watermelon_crops: "Watermelon crops"               #< fruits_crops
         wine: "Wine"                                       #< processing
+        works: "Works"                                     #< service
     administrative_area_natures:
       name: "Administrative area natures"
       property_natures:

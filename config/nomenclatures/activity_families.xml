@@ -40,8 +40,26 @@
 
   <nomenclature name="activity_families-arboriculture">
     <items>
-      <item name="orchard_crops"                 support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <!-- <item name="orchard_crops"                 support_variety="cultivable_zone" cultivation_variety="plant"/> -->
+      <item name="citrus_orchards"           support_variety="cultivable_zone" cultivation_variety="citrus"/>
+      <item name="almond_orchards"           support_variety="cultivable_zone" cultivation_variety="prunus_dulcis"/>
+      <item name="carob_orchards"            support_variety="cultivable_zone" cultivation_variety="ceratonia"/>
+      <item name="chestnut_orchards"         support_variety="cultivable_zone" cultivation_variety="castanea"/>
+      <item name="hazel_orchards"            support_variety="cultivable_zone" cultivation_variety="corylus"/>
+      <item name="walnut_orchards"           support_variety="cultivable_zone" cultivation_variety="juglans"/>
+      <item name="olive_orchards"            support_variety="cultivable_zone" cultivation_variety="olea"/>
+      <item name="peach_orchards"            support_variety="cultivable_zone" cultivation_variety="prunus_persica"/>
+      <item name="pear_orchards"             support_variety="cultivable_zone" cultivation_variety="pyrus"/>
+      <item name="apple_orchards"            support_variety="cultivable_zone" cultivation_variety="malus"/>
+      <item name="plum_orchards"             support_variety="cultivable_zone" cultivation_variety="prunus_domestica"/>
+      <item name="pistachio_orchards"        support_variety="cultivable_zone" cultivation_variety="pistacia"/>
+      <item name="cocoa_crops"               support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/>
+      <!-- <item name="theobroma_crops"           support_variety="cultivable_zone" cultivation_variety="theobroma"/>-->
       <item name="vines"                         support_variety="cultivable_zone" cultivation_variety="vitis"/>
+
+      <item name="redcurrant_crops"          support_variety="cultivable_zone" cultivation_variety="ribes_rubrum"/>
+      <item name="blackcurrant_crops"        support_variety="cultivable_zone" cultivation_variety="ribes_nigrum"/>
+      <item name="raspberry_crops"           support_variety="cultivable_zone" cultivation_variety="rubus_idaeus"/>
     </items>
   </nomenclature>
 
@@ -56,6 +74,7 @@
       <item name="fallow_land"   support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="fodder_crops"  support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="meadow"        support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <item name="tobacco_crops" support_variety="cultivable_zone" cultivation_variety="nicotiana_tabacum"/>
     </items>
   </nomenclature>
 
@@ -83,11 +102,14 @@
       <item name="peanut_crops"              support_variety="cultivable_zone" cultivation_variety="arachis"/>
       <item name="rapeseed_crops"            support_variety="cultivable_zone" cultivation_variety="brassica_napus"/>
       <item name="sunflower_crops"           support_variety="cultivable_zone" cultivation_variety="helianthus"/>
-      <item name="theobroma_crops"           support_variety="cultivable_zone" cultivation_variety="theobroma"/>
-      <item name="cocoa_crops"               support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/>
     </items>
   </nomenclature>
 
+  <!-- <nomenclature name="activity_families-theobroma_crops"> -->
+  <!--   <items> -->
+  <!--     <item name="cocoa_crops"               support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/> -->
+  <!--   </items> -->
+  <!-- </nomenclature> -->
 
   <nomenclature name="activity_families-protein_crops">
     <items>
@@ -120,34 +142,32 @@
       <item name="parsley_crops"             support_variety="cultivable_zone" cultivation_variety="petroselinum"/>
       <item name="leek_crops"                support_variety="cultivable_zone" cultivation_variety="allium_porrum"/>
       <item name="lettuce_crops"             support_variety="cultivable_zone" cultivation_variety="lactuca"/>
-      <item name="tobacco_crops"             support_variety="cultivable_zone" cultivation_variety="nicotiana_tabacum"/>
       <item name="tomato_crops"              support_variety="cultivable_zone" cultivation_variety="solanum_lycopersicum"/>
     </items>
   </nomenclature>
 
 
-  <nomenclature name="activity_families-orchard_crops">
-    <items>
-      <item name="citrus_orchards"           support_variety="cultivable_zone" cultivation_variety="citrus"/>
-      <item name="almond_orchards"           support_variety="cultivable_zone" cultivation_variety="prunus_dulcis"/>
-      <item name="carob_orchards"            support_variety="cultivable_zone" cultivation_variety="ceratonia"/>
-      <item name="chestnut_orchards"         support_variety="cultivable_zone" cultivation_variety="castanea"/>
-      <item name="hazel_orchards"            support_variety="cultivable_zone" cultivation_variety="corylus"/>
-      <item name="walnut_orchards"           support_variety="cultivable_zone" cultivation_variety="juglans"/>
-      <item name="olive_orchards"            support_variety="cultivable_zone" cultivation_variety="olea"/>
-      <item name="peach_orchards"            support_variety="cultivable_zone" cultivation_variety="prunus_persica"/>
-      <item name="pear_orchards"             support_variety="cultivable_zone" cultivation_variety="pyrus"/>
-      <item name="apple_orchards"            support_variety="cultivable_zone" cultivation_variety="malus"/>
-      <item name="plum_orchards"             support_variety="cultivable_zone" cultivation_variety="prunus_domestica"/>
-      <item name="pistachio_orchards"        support_variety="cultivable_zone" cultivation_variety="pistacia"/>
-    </items>
-  </nomenclature>
+  <!-- <nomenclature name="activity_families-orchard_crops"> -->
+  <!--   <items> -->
+  <!--     <item name="citrus_orchards"           support_variety="cultivable_zone" cultivation_variety="citrus"/> -->
+  <!--     <item name="almond_orchards"           support_variety="cultivable_zone" cultivation_variety="prunus_dulcis"/> -->
+  <!--     <item name="carob_orchards"            support_variety="cultivable_zone" cultivation_variety="ceratonia"/> -->
+  <!--     <item name="chestnut_orchards"         support_variety="cultivable_zone" cultivation_variety="castanea"/> -->
+  <!--     <item name="hazel_orchards"            support_variety="cultivable_zone" cultivation_variety="corylus"/> -->
+  <!--     <item name="walnut_orchards"           support_variety="cultivable_zone" cultivation_variety="juglans"/> -->
+  <!--     <item name="olive_orchards"            support_variety="cultivable_zone" cultivation_variety="olea"/> -->
+  <!--     <item name="peach_orchards"            support_variety="cultivable_zone" cultivation_variety="prunus_persica"/> -->
+  <!--     <item name="pear_orchards"             support_variety="cultivable_zone" cultivation_variety="pyrus"/> -->
+  <!--     <item name="apple_orchards"            support_variety="cultivable_zone" cultivation_variety="malus"/> -->
+  <!--     <item name="plum_orchards"             support_variety="cultivable_zone" cultivation_variety="prunus_domestica"/> -->
+  <!--     <item name="pistachio_orchards"        support_variety="cultivable_zone" cultivation_variety="pistacia"/> -->
+  <!--     <item name="cocoa_crops"               support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/> -->
+  <!--     <removed-item name="theobroma_crops"           support_variety="cultivable_zone" cultivation_variety="theobroma"/> -->
+  <!--   </items> -->
+  <!-- </nomenclature> -->
 
   <nomenclature name="activity_families-fruits_crops">
     <items>
-      <item name="redcurrant_crops"          support_variety="cultivable_zone" cultivation_variety="ribes_rubrum"/>
-      <item name="blackcurrant_crops"        support_variety="cultivable_zone" cultivation_variety="ribes_nigrum"/>
-      <item name="raspberry_crops"           support_variety="cultivable_zone" cultivation_variety="rubus_idaeus"/>
       <item name="strawberry_crops"          support_variety="cultivable_zone" cultivation_variety="fragaria"/>
       <item name="muskmelon_crops"           support_variety="cultivable_zone" cultivation_variety="cucumis_melo"/>
       <item name="pineapple_crops"           support_variety="cultivable_zone" cultivation_variety="ananas"/>
@@ -186,6 +206,24 @@
   <nomenclature name="activity_families-processing">
     <items>
       <item name="wine"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-service">
+    <items>
+      <item name="catering"/>
+      <item name="lodging"/>
+      <item name="animal_housing"/>
+      <item name="renting"/>
+      <item name="works"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-works">
+    <items>
+      <item name="agricultural_works"/>
+      <item name="building_works"/>
+      <!-- <item name="cleaning_works"/> -->
     </items>
   </nomenclature>
 

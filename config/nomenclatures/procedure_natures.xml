@@ -64,18 +64,18 @@
 
   <nomenclature name="procedure_natures-harvest">
     <items>
-      <item name="grains_harvest"        roles="target, output, doer, tool"      activity_families="cereal_crops, maize_crops"/>
-      <item name="silage"               roles="target, output, doer, tool"       activity_families="maize_crops, fodder_crops, meadow, fallow_land"/>
-      <item name="grape_harvest"        roles="target, output, doer, tool"       activity_families="vines"/>
-      <item name="nuts_harvest"        roles="target, output, doer, tool"        activity_families="orchard_crops"/>
-      <item name="straw_processing"      roles="input, output, doer, tool"         activity_families="cereal_crops, fodder_crops, meadow, fallow_land"/>
+      <item name="grains_harvest"       roles="target, output, doer, tool"     activity_families="cereal_crops, maize_crops"/>
+      <item name="silage"               roles="target, output, doer, tool"     activity_families="maize_crops, fodder_crops, meadow, fallow_land"/>
+      <item name="grape_harvest"        roles="target, output, doer, tool"     activity_families="vines"/>
+      <item name="nuts_harvest"         roles="target, output, doer, tool"     activity_families="chestnut_orchards, hazel_orchards, walnut_orchards"/>
+      <item name="straw_processing"     roles="input, output, doer, tool"      activity_families="cereal_crops, fodder_crops, meadow, fallow_land"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-maintenance_task">
     <items>
-      <item name="consummables_addition" roles="target, doer, input"            activity_families="exploitation"/>
-      <item name="piece_replacement"    roles="target, doer, input"             activity_families="exploitation"/>
+      <item name="consummables_addition" roles="target, doer, input"           activity_families="exploitation"/>
+      <item name="piece_replacement"     roles="target, doer, input"           activity_families="exploitation"/>
     </items>
   </nomenclature>
 
@@ -83,7 +83,7 @@
     <items>
       <item name="grape_transport"      roles="doer, tool, target, container" activity_families="vines"/>
       <item name="grain_transport"      roles="doer, tool, target, container" activity_families="cereal_crops"/>
-      <item name="nuts_transport"        roles="doer, tool, target, container" activity_families="orchard_crops"/>
+      <item name="nuts_transport"       roles="doer, tool, target, container" activity_families="chestnut_orchards, hazel_orchards, walnut_orchards"/>
       <item name="straw_transport"      roles="doer, tool, target, container" activity_families="cereal_crops, fodder_crops, meadow"/>
     </items>
   </nomenclature>

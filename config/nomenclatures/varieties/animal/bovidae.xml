@@ -12,7 +12,7 @@
 
   <nomenclature name="varieties-bison" hierarchical="true">
     <items>
-      <item name="bison_bison" itis_tsn="183838"/>
+      <item name="bison_bison"   itis_tsn="180706"/>
       <item name="bison_bonasus" itis_tsn="183838"/>
     </items>
   </nomenclature>
