@@ -34,6 +34,16 @@ module Ekylibre
       Ekylibre::VERSION
     end
 
+    # Returns list of themes
+    def themes
+      unless @themes
+        Dir.chdir(root.join("app", "themes")) do
+          @themes = Dir.glob("*")
+        end
+      end
+      return @themes
+    end
+
     # Returns all helps files indexed by locale and controller-action
     @helps = nil
     def helps

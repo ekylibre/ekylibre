@@ -42,6 +42,7 @@
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require leaflet/heatmap
+//= require plugins
 //= require_tree .
 
 var visualization = {};

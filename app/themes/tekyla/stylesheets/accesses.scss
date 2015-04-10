@@ -11,12 +11,12 @@
   @include inline-block;
   min-width: 10ex;
   @include text-align(center);
-  $inactive-color: $neutral-color;
+  $inactive-color: lighten($neutral-color, 30%);
   $background-mix-percent: 80%;
   text-transform: uppercase;
   padding: $default-gap*0.4 $default-gap;
   border: $default-gap / 3 solid black;
-  @include access-color(lighten($inactive-color, 30%));
+  @include access-color($inactive-color);
   font-weight: bold;
   margin-left: $default-gap / 3;
   @include border-radius($default-border-radius);

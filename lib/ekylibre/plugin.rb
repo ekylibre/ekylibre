@@ -33,20 +33,6 @@ module Ekylibre
         end
       end
 
-      def import_stylesheets(theme)
-        stylesheets = []
-        @registered_plugins.each do |name, plugin|
-          if plugin.themes_assets[theme] and plugin.themes_assets[theme][:stylesheets]
-            plugin.themes_assets[theme][:stylesheets].each do |stylesheet|
-              stylesheets << "@import \"plugins/#{plugin.name}/#{stylesheet}\";"
-            end
-          end
-        end
-        return "" if stylesheets.empty?
-        return stylesheets.join("\n")
-      end
-
-
       # Load all plugins
       def load
         Dir.glob(File.join(self.directory, '*')).sort.each do |directory|
@@ -66,6 +52,10 @@ module Ekylibre
             end
           end
         end
+        # Generate themes files
+        generate_themes_stylesheets
+        # Generate JS file
+        generate_javascript_index
       end
 
       def each(&block)
@@ -74,15 +64,52 @@ module Ekylibre
         end
       end
 
+      # Generate a javascript for all plugins which refes by theme to add addons import.
+      # This way permit to use natural sprocket cache approach without ERB filtering
+      def generate_javascript_index
+        script = "# This files contains JS addons from plugins\n"
+        each do |plugin|
+          plugin.javascripts.each do |path|
+            script << "#= require plugins/#{plugin.name}/#{path}\n"
+          end
+        end
+        # tmp/plugins/assets/javascripts/plugins.js.coffee
+        file = Rails.root.join("tmp", "plugins", "assets", "javascripts", "plugins.js.coffee")
+        FileUtils.mkdir_p file.dirname
+        File.write(file, script)
+      end
+
+      # Generate a stylesheet by theme to add addons import.
+      # This way permit to use natural sprocket cache approach without ERB filtering
+      def generate_themes_stylesheets
+        Ekylibre.themes.each do |theme|
+          stylesheet = "// This files contains #{theme} theme addons from plugins\n\n"
+          each do |plugin|
+            plugin.themes_assets.each do |name, addons|
+              next unless name == theme or name == "*" or (name.respond_to?(:match) and theme.match(name))
+              stylesheet << "// #{plugin.name}\n"
+              addons[:stylesheets].each do |file|
+                stylesheet << "@import \"plugins/#{plugin.name}/#{file}\";"
+              end if addons[:stylesheets]
+            end
+          end
+          # tmp/plugins/assets/stylesheets/themes/<theme>/plugins.scss
+          file = Rails.root.join("tmp", "plugins", "assets", "stylesheets", "themes", theme.to_s, "plugins.scss")
+          FileUtils.mkdir_p file.dirname
+          File.write(file, stylesheet)
+        end
+      end
+
     end
 
-    attr_reader :root, :themes_assets, :routes
+    attr_reader :root, :themes_assets, :routes, :javascripts
     field_accessor :name, :summary, :description, :url, :author, :author_url, :version
 
 
     # Links plugin into app
     def initialize(plugfile_path)
       @root = Pathname.new(plugfile_path).dirname
+      @themes_assets = {}.with_indifferent_access
 
       instance_eval(File.read(plugfile_path), plugfile_path, 1)
 
@@ -94,8 +121,6 @@ module Ekylibre
       if [:ekylibre].include?(@name)
         raise "Plugin name cannot be #{@name}."
       end
-
-      @themes_assets = {}.with_indifferent_access
 
       # Adds lib
       @lib_dir = @root.join("lib")
@@ -134,7 +159,7 @@ module Ekylibre
         Dir.chdir(assets_directory) do
           Dir.glob("*") do |type|
             type_dir = self.class.type_assets_directory(type)
-            plugin_type_dir = type_dir.join("plugins", @name) # mirrored_assets_directory(type)
+            plugin_type_dir = type_dir.join("plugins", @name.to_s) # mirrored_assets_directory(type)
             FileUtils.rm_rf plugin_type_dir
             FileUtils.mkdir_p(plugin_type_dir.dirname) unless plugin_type_dir.dirname.exist?
             FileUtils.ln_sf(assets_directory.join(type).relative_path_from(plugin_type_dir.dirname), plugin_type_dir)
@@ -184,6 +209,12 @@ module Ekylibre
       Ekylibre::Snippet.add("#{@name}-#{name}", snippets_directory.join(name), options)
     end
 
+
+    # Require a JS file from application.js
+    def require_javascript(path)
+      @javascripts ||= []
+      @javascripts << path
+    end
 
     # Adds a snippet in app (for side or help places)
     def add_stylesheet(name)

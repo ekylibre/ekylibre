@@ -130,7 +130,7 @@ module Backend::HelpsHelper
     content = content.gsub(/\[\[>[^\|]+\|[^\]]*\]\]/) do |link|
       link = link[3..-3].split('|')
       url = link[0].split(/[\#\?\&]+/)
-      url = options[:url].merge(:controller => url[0], :action => (url[1]||:index))
+      url = options[:url].merge(:controller => "/#{url[0]}", :action => (url[1]||:index))
       # TODO clean authorization system
       surl = url_for(url) # Permit to test URL
       (options[:no_link] || !authorized?(url) ? link[1] : link_to(link[1].html_safe, surl))
