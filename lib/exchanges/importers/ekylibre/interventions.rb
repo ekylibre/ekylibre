@@ -45,7 +45,7 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
 
     r = OpenStruct.new(  intervention_number: row[0].to_i,
                          campaign_code: row[1].to_s,
-                         intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(row[2].to_s + " " + row[3].to_s, "%d/%m/%Y %H:%M")),
+                         intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + " " + row[3].to_s, "%d/%m/%Y %H:%M")),
                          intervention_duration_in_hour: (row[4].blank? ? nil : row[4].gsub(",",".").to_d),
                          procedure_name: (row[5].blank? ? nil : row[5].to_s.downcase.to_sym), # to transcode
                          procedure_description: row[6].to_s,
@@ -116,12 +116,12 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
       # find variant link to production
       plant_variant = support.production.variant if support
       # try to find the current plant on cultivable zone if exist
-      cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape)
-      if product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
+      cultivable_zone_shape = Charta::Geometry.new(cultivable_zone.shape) if cultivable_zone.shape
+      if cultivable_zone_shape and product_around = cultivable_zone_shape.actors_matching(nature: Plant).first
         plant = product_around
       end
 
-      duration = (duration_in_seconds * (cultivable_zone.shape_area.to_d / production_supports_area.to_d).to_d).round(2)
+      duration = (duration_in_seconds * (cultivable_zone.shape_area.to_d / production_supports_area.to_d).to_d).round(2) if cultivable_zone.shape
 
 
       w.info "----------- #{r.intervention_number} / #{support.name} -----------".blue
@@ -173,7 +173,7 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
       end
 
 
-      coeff = ((cultivable_zone.shape_area / 10000.0) / 6.0).to_d
+      coeff = ((cultivable_zone.shape_area / 10000.0) / 6.0).to_d if cultivable_zone.shape
 
       if r.procedure_name and support and (coeff.to_f > 0.0)
 
@@ -389,7 +389,7 @@ Exchanges.add_importer :ekylibre_interventions do |file, w|
       end
 
       # for the same intervention session
-      intervention_started_at += duration.seconds
+      intervention_started_at += duration.seconds if cultivable_zone.shape
 
     end
 
