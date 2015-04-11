@@ -6,17 +6,23 @@
       <item name="mix"/>
       <item name="yeast"/>
       <!-- <item name="medicine"/> -->
-      <item name="silage" derivative_of="plant"/>
+      <item name="silage" derivative_of="grass"/>
+      <!-- WINE -->
       <item name="concentrated_rectified_must" derivative_of="fruit"/>
       <item name="fermented_juice" derivative_of="fruit"/>
       <item name="juice" derivative_of="fruit"/>
       <item name="pomace" derivative_of="fruit"/>
+      <!-- ANIMALS -->
+      <item name="processed_meat" derivative_of="meat"/>
+      <item name="fermented_milk" derivative_of="milk"/>
+      <item name="cheese" derivative_of="milk"/>
     </items>
   </nomenclature>
 
   <nomenclature name="varieties-fermented_juice">
     <items>
       <item name="wine" derivative_of="fruit"/>
+      <item name="alcohol" derivative_of="fruit"/>
     </items>
   </nomenclature>
 

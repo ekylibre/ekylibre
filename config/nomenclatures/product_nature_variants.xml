@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="month,server,domain, 100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="month,server,domain, 100g_dose, dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, meal, night, square_meter, day, hour, kilogram, kilometer, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill, group, subject, herd, roll, stake, package" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL VIAL -->
@@ -195,25 +195,6 @@
             nature="piglet_band"
             unit_name="head"
             frozen_indicators_values="reproductor: false"
-            />
-      <!-- MILK -->
-      <item name="cow_milk"
-            nature="milk"
-            derivative_of="bos"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.03kilogram"
-            />
-      <item name="goat_milk"
-            nature="milk"
-            derivative_of="capra"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.031kilogram"
-            />
-      <item name="ewe_milk"
-            nature="milk"
-            derivative_of="ovis"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.037kilogram"
             />
       <!-- HEN -->
       <item name="hen_herd"
@@ -604,6 +585,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <item name="lettuce_crop"
+            nature="vegetable_crop"
+            variety="lactuca"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="leek_crop"
             nature="vegetable_crop"
             variety="allium_porrum"
@@ -735,72 +722,101 @@
             unit_name="plant"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- TRANSFORM PRODUCT -->
-      <!-- VINE BASED -->
-      <item name="bottle_75cl_wine"
-            nature="wine"
-            unit_name="75cl_bottle"
-            frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"
+
+      <!-- RAW PRODUCT -->
+      <!-- ANIMAL DERIVATIVE BASED -->
+      <!-- MILK -->
+      <item name="cow_milk"
+            nature="milk"
+            derivative_of="bos"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.03kilogram"
             />
-      <!-- FLOWER BASED -->
-      <item name="saffron_pollen"
-            nature="species"
-            variety="pollen"
-            derivative_of="crocus_sativus"
-            unit_name="gram"
-            frozen_indicators_values="net_mass: 1.00gram, net_volume: 1.00milliliter"
+      <item name="goat_milk"
+            nature="milk"
+            derivative_of="capra"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.031kilogram"
             />
-      <!-- FRUIT BASED -->
-      <item name="frozen_fruit"
-            nature="fruit"
-            derivative_of="plant"
+      <item name="ewe_milk"
+            nature="milk"
+            derivative_of="ovis"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.037kilogram"
+            />
+      <!-- BEEF MEAT -->
+      <item name="beef_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
             unit_name="kilogram"
-            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter, best_before_period: 180day"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="115g_jam"
-            nature="packaged_process_food"
-            derivative_of="fruit"
-            unit_name="unit"
-            frozen_indicators_values="net_mass: 115gram, net_volume: 115milliliter"
+      <item name="minced_beef_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="230g_jam"
-            nature="packaged_process_food"
-            derivative_of="fruit"
-            unit_name="unit"
-            frozen_indicators_values="net_mass: 230gram, net_volume: 230milliliter"
+      <item name="packed_beef_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="fruit_derivative_good"
-            nature="process_food"
-            derivative_of="fruit"
-            unit_name="unit"
-            frozen_indicators_values=""
+      <!-- VEAL MEAT -->
+      <item name="veal_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
+      <item name="shoulder_veal_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="escalope_veal_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="roast_veal_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="packed_veal_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <!-- OX MEAT -->
+      <item name="ox_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="minced_ox_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="packed_ox_meat"
+            nature="beef_meat"
+            derivative_of="bos_taurus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <!-- VEGETAL DERIVATIVE BASED -->
       <item name="vine_grape_berry"
             nature="grape"
             derivative_of="vitis_vinifera"
-            unit_name="kilogram"
-            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
-            />
-      <item name="vine_grape_juice"
-            nature="grape_juice"
-            derivative_of="grape"
-            unit_name="hectoliter"
-            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
-            />
-      <item name="vine_grape_must"
-            nature="fermented_grape_juice"
-            derivative_of="grape"
-            unit_name="hectoliter"
-            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
-            />
-      <item name="wine"
-            nature="wine"
-            unit_name="hectoliter"
-            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
-            />
-      <item name="vine_residu"
-            nature="fruit_residu"
-            variety="pomace"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
@@ -814,6 +830,12 @@
       <item name="corn_grain"
             nature="grain"
             derivative_of="zea"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="popcorn_grain"
+            nature="grain"
+            derivative_of="zea_mays_everta"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
@@ -1013,6 +1035,90 @@
             unit_name="small_rectangular_bale"
             frozen_indicators_values="net_mass: 12.50kilogram, net_volume: 0.16cubic_meter"
             />
+      <!-- TRANSFORM PRODUCT -->
+      <!-- ANIMAL BASED -->
+      <item name="pork_dried_sausage"
+            nature="processed_pork_meat"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
+      <item name="pork_sausage"
+            nature="processed_pork_meat"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
+      <item name="beef_dried_sausage"
+            nature="processed_beef_meat"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
+      <item name="beef_sausage"
+            nature="processed_beef_meat"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
+      <!-- VINE BASED -->
+      <item name="bottle_75cl_wine"
+            nature="wine"
+            unit_name="75cl_bottle"
+            frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"
+            />
+      <!-- FLOWER BASED -->
+      <item name="saffron_pollen"
+            nature="species"
+            variety="pollen"
+            derivative_of="crocus_sativus"
+            unit_name="gram"
+            frozen_indicators_values="net_mass: 1.00gram, net_volume: 1.00milliliter"
+            />
+      <!-- FRUIT BASED -->
+      <item name="frozen_fruit"
+            nature="fruit"
+            derivative_of="plant"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter, best_before_period: 180day"
+            />
+      <item name="115g_jam"
+            nature="packaged_process_food"
+            derivative_of="fruit"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 115gram, net_volume: 115milliliter"
+            />
+      <item name="230g_jam"
+            nature="packaged_process_food"
+            derivative_of="fruit"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 230gram, net_volume: 230milliliter"
+            />
+      <item name="fruit_derivative_good"
+            nature="process_food"
+            derivative_of="fruit"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="vine_grape_juice"
+            nature="grape_juice"
+            derivative_of="grape"
+            unit_name="hectoliter"
+            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
+            />
+      <item name="vine_grape_must"
+            nature="fermented_grape_juice"
+            derivative_of="grape"
+            unit_name="hectoliter"
+            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
+            />
+      <item name="wine"
+            nature="wine"
+            unit_name="hectoliter"
+            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
+            />
+      <item name="vine_residu"
+            nature="fruit_residu"
+            variety="pomace"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
+            />
       <item name="crop_residue"
             nature="crop_residue"
             unit_name="ton"
@@ -1059,6 +1165,12 @@
       <item name="bulk_hay"
             nature="grass"
             derivative_of="poaceae"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 10.00cubic_meter"
+            />
+      <item name="lucerne_bulk_hay"
+            nature="grass"
+            derivative_of="medicago"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 10.00cubic_meter"
             />
@@ -1572,6 +1684,7 @@
             />
       <item name="seedling"
             nature="seedling"
+            derivative_of="plant"
             unit_name="unit"
             frozen_indicators_values=""
             />
