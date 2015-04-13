@@ -6,6 +6,8 @@ require 'colored'
 class Releaser
 
   def self.run!
+    root = File.dirname(File.expand_path(__FILE__))
+
     # TODO: Check cleaning
     desc "General cleaning"
     exec "rake clean clean:private"
@@ -18,7 +20,7 @@ class Releaser
     # TODO: Check Travis results (or test locally ?)
 
     desc "Precompile assets"
-    exec "rm -fr #{File.dirname(File.expand_path(__FILE__))}/../public/assets"
+    exec "rm -fr #{root}/../public/assets"
     exec "RAILS_ENV=production rake assets:precompile"
 
     desc "Create and load schema"

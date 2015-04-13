@@ -554,7 +554,7 @@
       <item name="silage"
             category="grass"
             variety="silage"
-            derivative_of="grass"
+            derivative_of="poaceae"
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population, dry_matter_rate"

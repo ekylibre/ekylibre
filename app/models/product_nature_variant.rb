@@ -337,7 +337,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
           :variety => item.variety || nil,
           :derivative_of => item.derivative_of || nil
         }
-        variant = self.create!(attributes)
+        variant = self.new(attributes)
+        unless variant.save
+          raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(", ")}"
+        end
+
       end
 
       unless item.frozen_indicators_values.to_s.blank?
