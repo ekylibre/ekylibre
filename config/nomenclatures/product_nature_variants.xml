@@ -840,13 +840,13 @@
       <!-- PORK MEAT -->
       <item name="milked_pork_meat"
             nature="pork_meat"
-            derivative_of="ovis"
+            derivative_of="sus"
             unit_name="kilogram"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
       <item name="piglet_meat"
             nature="pork_meat"
-            derivative_of="ovis"
+            derivative_of="sus"
             unit_name="kilogram"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />

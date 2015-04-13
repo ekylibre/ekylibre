@@ -55,7 +55,7 @@ Exchanges.add_importer :ekylibre_variants do |file, w|
                 }.with_indifferent_access
 
                 unit = r.price_unity.first
-                puts unit.inspect.yellow
+
                 if unit.present? and !Nomen::Units[unit]
                   if u = Nomen::Units.find_by(symbol: unit)
                     unit = u.name.to_s
@@ -64,7 +64,7 @@ Exchanges.add_importer :ekylibre_variants do |file, w|
                     raise Exchanges::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{variant.name.inspect}."
                   end
                 end
-                puts measure_unit_price.inspect.yellow
+
                 unless indicator = (unit.blank? ? :population : r.price_unity.second)
                   dimension = Measure.dimension(unit)
                   indics = variant.indicators.select do |indicator|
