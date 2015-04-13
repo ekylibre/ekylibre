@@ -1502,7 +1502,7 @@
             />
 
       <!-- agricultural service -->
-
+      <!-- vegetal agricultural service -->
       <item name="vegetals_making_services"
             category="vegetals_making_services"
             variety="service"
@@ -1511,9 +1511,26 @@
             variable_indicators="population"
             frozen_indicators=""
             />
-
+      <!-- animal agricultural service -->
       <item name="animals_making_services"
             category="animals_making_services"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+	 <item name="animal_housing_services"
+            category="animal_housing_services"
+            variety="service"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators=""
+            />
+     <!-- farm agricultural service -->
+	 <item name="farm_teaching_services"
+            category="farm_teaching_services"
             variety="service"
             population_counting="decimal"
             abilities=""

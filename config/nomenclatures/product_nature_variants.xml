@@ -213,6 +213,11 @@
             unit_name="subject"
             frozen_indicators_values="sex: male, reproductor: false"
             />
+      <item name="chick_hen_band"
+            nature="hen_band"
+            unit_name="subject"
+            frozen_indicators_values="sex: undefined, reproductor: false"
+            />
       <item name="chicken_egg"
             nature="egg"
             derivative_of="gallus"
@@ -813,6 +818,45 @@
             unit_name="kilogram"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
+      <!-- LAMB MEAT -->
+      <item name="milked_lamb_meat"
+            nature="lamb_meat"
+            derivative_of="ovis"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="nibble_lamb_meat"
+            nature="lamb_meat"
+            derivative_of="ovis"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="lamb_meat"
+            nature="lamb_meat"
+            derivative_of="ovis"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <!-- PORK MEAT -->
+      <item name="milked_pork_meat"
+            nature="pork_meat"
+            derivative_of="ovis"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="piglet_meat"
+            nature="pork_meat"
+            derivative_of="ovis"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <!-- POULTRY MEAT -->
+      <item name="chicken_meat"
+            nature="poultry_meat"
+            derivative_of="gallus_gallus_domesticus"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
       <!-- VEGETAL DERIVATIVE BASED -->
       <item name="vine_grape_berry"
             nature="grape"
@@ -1054,6 +1098,16 @@
             />
       <item name="beef_sausage"
             nature="processed_beef_meat"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
+      <item name="lamb_sausage"
+            nature="processed_lamb_meat"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
+            />
+      <item name="poultry_sausage"
+            nature="processed_poultry_meat"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter"
             />
@@ -2864,7 +2918,7 @@
 
 	    <!-- AGRICULTURAL SERVICES -->
 
-
+        <!-- vegetal agricultural service -->
 	    <item name="drying_making_service"
             nature="vegetals_making_services"
             unit_name="unit"
@@ -2873,6 +2927,19 @@
 
       <item name="harvesting_making_service"
             nature="vegetals_making_services"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <!-- animal agricultural service -->
+      <item name="animal_housing_service"
+            nature="animal_housing_services"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+
+      <!-- farm agricultural service -->
+      <item name="farm_teaching_service"
+            nature="farm_teaching_services"
             unit_name="unit"
             frozen_indicators_values=""
             />

@@ -581,7 +581,27 @@
             saleable="true"
             depreciable="false"
             storable="false"
-            pictogram="tractor"
+            pictogram="barn"
+            />
+
+		  <item name="animal_housing_services"
+            charge_account="animals_making_expenses_expenses"
+            product_account="making_services_revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="barn"
+            />
+
+            <item name="farm_teaching_services"
+            charge_account="making_services_expenses"
+            product_account="making_services_revenues"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            pictogram="barn"
             />
 
 		  <item name="equipment_repair_services"
@@ -592,6 +612,7 @@
             storable="false"
             pictogram="wrench"
             />
+
 
           <!-- subsidies -->
          <item name="exploitation_subsidies"
