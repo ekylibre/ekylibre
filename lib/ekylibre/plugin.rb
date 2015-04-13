@@ -198,17 +198,15 @@ module Ekylibre
     # app '~> 1.0.0'
     # app '> 1.0.0'
     # app '>= 1.0.0', '< 2.0'
-    def app(*constraints)
-      options = constraints.extract_options!
-
-      constraints.each do |constraint|
-        unless constraint =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
-          raise PluginRequirementError, "Invalid version constraint expression: #{constraint}"
+    def app(*requirements)
+      options = requirements.extract_options!
+      requirements.each do |requirement|
+        unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
+          raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
         end
       end
-
-      unless Gem::Dependency.new('ekylibre', *constraints).match?('ekylibre', Ekylibre.version)
-        raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app"
+      unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(Ekylibre.version)
+        raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
       end
       return true
     end
