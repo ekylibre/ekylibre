@@ -57,7 +57,7 @@ GEM
       activerecord (>= 3.1.2, < 5.0)
       rack (>= 1.3.6)
     arel (6.0.0)
-    autoprefixer-rails (5.1.8)
+    autoprefixer-rails (5.1.8.1)
       execjs
       json
     awesome_nested_set (3.0.2)
@@ -102,7 +102,7 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     charlock_holmes (0.7.3)
-    childprocess (0.5.5)
+    childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.3.4)
     climate_control (0.0.3)
@@ -119,7 +119,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1)
+    coffee-script-source (1.9.1.1)
     colored (1.2)
     columnize (0.9.0)
     compass (1.0.3)
@@ -138,14 +138,14 @@ GEM
       compass (~> 1.0.0)
       sass-rails (<= 5.0.1)
       sprockets (< 2.13)
-    connection_pool (2.1.3)
+    connection_pool (2.2.0)
     coveralls (0.8.0)
       multi_json (~> 1.10)
       rest-client (>= 1.6.8, < 2)
       simplecov (~> 0.9.1)
       term-ansicolor (~> 1.3)
       thor (~> 0.19.1)
-    curb (0.8.7)
+    curb (0.8.8)
     daemons (1.2.2)
     database_cleaner (1.4.1)
     dbf (2.0.9)
@@ -169,7 +169,7 @@ GEM
     exception_notification (4.1.0)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
-    execjs (2.5.0)
+    execjs (2.5.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -186,7 +186,7 @@ GEM
       jquery-rails (>= 3)
       jquery-ui-rails (>= 5)
       rails (>= 3.2)
-    globalid (0.3.3)
+    globalid (0.3.5)
       activesupport (>= 4.1.0)
     gyoku (1.1.1)
       builder (>= 2.1.2)
@@ -204,7 +204,7 @@ GEM
     i18n (0.7.0)
     i18n-complements (0.0.14)
       i18n (>= 0.6)
-    jbuilder (2.2.12)
+    jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jc-validates_timeliness (3.1.1)
@@ -521,6 +521,7 @@ DEPENDENCIES
   simple_form (~> 3.1.0)
   spreadsheet
   spring
+  sprockets (< 3.0.0)
   state_machine
   therubyracer
   thin

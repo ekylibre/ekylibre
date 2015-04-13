@@ -17,6 +17,8 @@ gem 'charlock_holmes'
 
 gem 'browser'
 
+gem 'sprockets', '< 3.0.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets

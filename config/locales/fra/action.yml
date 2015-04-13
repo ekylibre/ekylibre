@@ -1445,7 +1445,7 @@ fra:
     reflections: "Réflections"
     refresh: "Rafraîchir"
     related_people: "En lien avec"
-    relationship: "Gestion des relations clients/fournisseurs"
+    relationship: "Tiers"
     remove: "Supprimer"
     remove_item: "Supprimer un élément"
     remove_reading: "Supprimer un relevé d’indicateur" #?
@@ -1640,7 +1640,7 @@ fra:
     total_unpaid_amount: "Montant total impayé"
     totals: "Totaux (pièces validées et brouillard)"
     tracking: "Lot"
-    trade: "Commerce"
+    trade: "Ventes/Achats"
     transfer: "Effectuer les transferts"
     transformations: "Transformations"
     transformed_products: "Produits transformés" #?
