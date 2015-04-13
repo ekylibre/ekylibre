@@ -373,8 +373,8 @@ fra:
         field_crops: "Cultures de plein champ"
         fish_farming: "Aquaculture" #?
         flax_crops: "Lin"
-        flower_crops: "Fleurs"
-        fodder_crops: "Culture fourragères"
+        flower_crops: "Floriculture"
+        fodder_crops: "Fourrages"
         fruits_crops: "Cultures fruitières"
         garden_pea_crops: "Petits pois"
         garlic_crops: "Ail"

@@ -35,6 +35,8 @@
       <item name="fruits_crops"                  support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="arboriculture"                 support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="aromatic_and_medicinal_plants" support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <item name="flower_crops"                  support_variety="cultivable_zone" cultivation_variety="plant"/>
+      <!-- <item name="algaculture"                   support_variety="pond" cultivation_variety=""/> -->
     </items>
   </nomenclature>
 
@@ -132,7 +134,6 @@
       <item name="celery_crops"              support_variety="cultivable_zone" cultivation_variety="apium_graveolens"/>
       <item name="cichorium_crops"           support_variety="cultivable_zone" cultivation_variety="cichorium"/>
       <item name="cabbage_crops"             support_variety="cultivable_zone" cultivation_variety="brassica_oleracea"/>
-      <item name="flower_crops"              support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="bean_crops"                support_variety="cultivable_zone" cultivation_variety="phaseolus"/>
       <item name="hop_crops"                 support_variety="cultivable_zone" cultivation_variety="humulus_lupulus"/>
       <item name="black_mustard_crops"       support_variety="cultivable_zone" cultivation_variety="brassica_nigra"/>

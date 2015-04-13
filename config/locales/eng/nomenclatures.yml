@@ -375,7 +375,7 @@ eng:
         fallow_land: "Fallow land"                         #< field_crops
         field_crops: "Field crops"                         #< vegetal_crops
         flax_crops: "Flax crops"                           #< oilseed_crops
-        flower_crops: "Flower crops"                       #< market_garden_crops
+        flower_crops: "Flower crops"                       #< vegetal_crops
         fodder_crops: "Fodder crops"                       #< field_crops
         fruits_crops: "Fruits crops"                       #< vegetal_crops
         garden_pea_crops: "Garden pea crops"               #< market_garden_crops
