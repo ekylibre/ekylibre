@@ -4,31 +4,18 @@ module Ekylibre
 
     class Base
 
-      attr_reader :max
+      attr_reader :max, :path, :verbose, :mode
 
-      def initialize(options = {})
+      def initialize(path, options = {})
 	      require 'colored' unless defined? Colored
 
         @verbose = !options[:verbose].is_a?(FalseClass)
         @mode = options[:mode].to_s.downcase
         @mode = "normal" if @mode.blank?
         @mode = @mode.to_sym
-        if options[:path] and options[:folder]
-          raise ArgumentError, ":path and :folder options are incompatible"
-        end
-        @name = options[:name] || options[:folder]
-        if options[:path]
-          @folder_path = Pathname.new(options[:path])
-          @folder = @folder_path.basename.to_s
-          @name ||= @folder
-        else
-          @name ||= "demo" if Ekylibre::FirstRun.path.join("demo").exist?
-          @name ||= "default" if Ekylibre::FirstRun.path.join("default").exist?
-          @folder = options[:folder] || @name
-          @folder_path = Ekylibre::FirstRun.path.join(@folder)
-        end
-        unless @folder_path.exist?
-          raise ArgumentError, "Need a valid folder path. #{@folder_path} doesn't exist."
+        @path = path
+        unless @path.exist?
+          raise ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
         end
         @term_width = `/usr/bin/env tput cols`.to_i rescue 80
         @term_width = 80 unless @term_width > 0
@@ -38,7 +25,7 @@ module Ekylibre
 
       # Compute a path for first run directory
       def path(*args)
-        return @folder_path.join(*args)
+        return @path.join(*args)
       end
 
       def hard?
@@ -98,7 +85,7 @@ module Ekylibre
       def check_archive(target, *files)
         files.flatten!
         options = files.extract_options!
-        working_path = @folder_path.join(options[:in] ? options.delete(:in) : ".")
+        working_path = @path.join(options[:in] ? options.delete(:in) : ".")
         prevent = options.delete(:prevent).is_a?(FalseClass)
         target_path = working_path.join(target)
         map = options
@@ -189,49 +176,6 @@ module Ekylibre
 
       def import(nature, file, options = {})
         import!(nature, file, options)
-      end
-
-      # Launch the execution of the loaders
-      def launch
-        Rails.logger.info "Import first run of #{@name} from #{@folder_path.to_s} in #{@mode} mode " + (@max > 0 ? "with max of #{@max}" : 'without max') + "."
-        if @verbose
-          puts "Import first run of #{@name.to_s.yellow} from #{@folder_path.relative_path_from(Rails.root).to_s.yellow} in #{@mode.to_s.yellow} mode " + (@max > 0 ? "with max of #{@max.to_s.red}" : 'without max') + ", " + (hard? ? "without".red : "with".green) + " global transaction."
-        end
-        if hard?
-          execute
-        else
-          ActiveRecord::Base.transaction do
-            execute
-          end
-        end
-      end
-
-      private
-
-      # Execute a suite of loaders in the given order
-      def execute(*loaders)
-        Ekylibre::Tenant.check!(@name)
-        unless Ekylibre::Tenant.exist?(@name)
-          Ekylibre::Tenant.create(@name)
-        end
-
-        loaders = Ekylibre::FirstRun.loaders if loaders.empty?
-
-        Ekylibre::Tenant.switch(@name)
-        loaders.each do |loader|
-          execute_loader(loader)
-        end
-      ensure
-        Ekylibre::Tenant.check!(@name)
-      end
-
-      # Execute a loader in transactional mode
-      def execute_loader(name)
-        ::I18n.locale = Preference[:language]
-        ActiveRecord::Base.transaction do
-          # puts "Load #{name.to_s.red}:"
-          Ekylibre::FirstRun.call_loader(name, self)
-        end
       end
 
       def self.ellipse(text, size = 32)

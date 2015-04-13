@@ -1,4 +1,3 @@
-# coding: utf-8
 Ekylibre::FirstRun.add_loader :analyses do |first_run|
 
   first_run.import_file(:agro_systemes_soil_analyses, "agro_systemes/analyses_sol.csv")
