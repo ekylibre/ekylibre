@@ -51,4 +51,4 @@ require 'enumerize/xml'
 unless ENV["PLUGIN"] == "false"
   Ekylibre::Plugin.load
 end
-require 'ekylibre/plugin/routing'
+Ekylibre::Plugin.plug

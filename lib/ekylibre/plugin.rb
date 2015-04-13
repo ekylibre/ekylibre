@@ -52,6 +52,13 @@ module Ekylibre
             end
           end
         end
+      end
+
+      # Adds hooks for plugins
+      # Must be done after load
+      def plug
+        # Adds helper 'plugins' for routes
+        require 'ekylibre/plugin/routing'
         # Generate themes files
         generate_themes_stylesheets
         # Generate JS file
@@ -67,14 +74,16 @@ module Ekylibre
       # Generate a javascript for all plugins which refes by theme to add addons import.
       # This way permit to use natural sprocket cache approach without ERB filtering
       def generate_javascript_index
+        base_dir = Rails.root.join("tmp", "plugins", "javascript-addons")
+        Rails.application.config.assets.paths << base_dir.to_s
         script = "# This files contains JS addons from plugins\n"
         each do |plugin|
           plugin.javascripts.each do |path|
             script << "#= require plugins/#{plugin.name}/#{path}\n"
           end
         end
-        # tmp/plugins/assets/javascripts/plugins.js.coffee
-        file = Rails.root.join("tmp", "plugins", "assets", "javascripts", "plugins.js.coffee")
+        # <base_dir>/plugins.js.coffee
+        file = base_dir.join("plugins.js.coffee")
         FileUtils.mkdir_p file.dirname
         File.write(file, script)
       end
@@ -82,6 +91,8 @@ module Ekylibre
       # Generate a stylesheet by theme to add addons import.
       # This way permit to use natural sprocket cache approach without ERB filtering
       def generate_themes_stylesheets
+        base_dir = Rails.root.join("tmp", "plugins", "theme-addons")
+        Rails.application.config.assets.paths << base_dir.to_s
         Ekylibre.themes.each do |theme|
           stylesheet = "// This files contains #{theme} theme addons from plugins\n\n"
           each do |plugin|
@@ -93,8 +104,8 @@ module Ekylibre
               end if addons[:stylesheets]
             end
           end
-          # tmp/plugins/assets/stylesheets/themes/<theme>/plugins.scss
-          file = Rails.root.join("tmp", "plugins", "assets", "stylesheets", "themes", theme.to_s, "plugins.scss")
+          # <base_dir>/themes/<theme>/plugins.scss
+          file = base_dir.join("themes", theme.to_s, "plugins.scss")
           FileUtils.mkdir_p file.dirname
           File.write(file, stylesheet)
         end
