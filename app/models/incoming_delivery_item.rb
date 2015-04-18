@@ -39,7 +39,7 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_readonly :purchase_item_id, :product_id
+  attr_readonly :product_id
   attr_accessor :product_nature_variant_id
   belongs_to :delivery, class_name: "IncomingDelivery", inverse_of: :items
   belongs_to :container, class_name: "Product"
