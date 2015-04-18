@@ -1973,15 +1973,15 @@ eng:
     nmp_poitou_charentes_abacus_two:
       name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
     opportunity_categories:
-      # name: "Opportunity categories"
+      name: "Opportunity categories"
       items:
-        # advertisement: "Advertisement"
-        # employee_referral: "Employee referral"
-        # external_referral: "External referral"
-        # partner: "Partner"
-        # public_relations: "Public relations"
-        # trade_show: "Trade show"
-        # web: "Web"
+        advertisement: "Advertisement"
+        employee_referral: "Employee referral"
+        external_referral: "External referral"
+        partner: "Partner"
+        public_relations: "Public relations"
+        trade_show: "Trade show"
+        web: "Web"
     phosphorus_analysis_methods:
       name: "Phosphorus analysis methods"
       items:

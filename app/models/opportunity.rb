@@ -71,30 +71,30 @@ class Opportunity < Ekylibre::Record::Base
     event :qualify do
       transition :prospecting => :qualification
     end
-    
+
     event :evaluate do
       transition :qualification => :value_proposition
     end
-    
+
     event :quote do
       transition :value_proposition => :price_quote
     end
-    
+
     event :negociation do
       transition :price_quote => :negociation
     end
-    
+
     event :win do
       transition :negociation => :won
     end
-    
+
     event :lose do
       transition :negociation => :lost
     end
-    
-    
+
+
   end
-  
+
   def status
     if self.state == :lost
       return  :stop

@@ -16018,7 +16018,14 @@ fra:
         synest: "Synel Est"
         telepac: "TelePAC"
     opportunity:
-
+      origin:
+        advertisement: "Publicité"
+        employee_referral: "Parrainage d'un employé"
+        external_referral: "Parrainage externe"
+        partner: "Partenaire"
+        public_relations: "Relations publiques"
+        trade_show: "Salon"
+        web: "Internet"
     outgoing_delivery:
       mode:
         delivered_at_place: "Transporté chez le destinataire et déchargé par le destinataire"

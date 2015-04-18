@@ -1986,7 +1986,15 @@ fra:
     nmp_poitou_charentes_abacus_two:
       name: "Abaque 2 de la méthode de calcul de bilan azoté Poitou-Charentes"
     opportunity_categories:
-      items: #?
+      items:
+        advertisement: "Publicité"
+        employee_referral: "Parrainage d'un employé"
+        external_referral: "Parrainage externe"
+        partner: "Partenaire"
+        public_relations: "Relations publiques"
+        trade_show: "Salon"
+        web: "Internet"
+      name: "Catégories d'opportunités"
     phosphorus_analysis_methods:
       items:
         dyer: "Dyer"

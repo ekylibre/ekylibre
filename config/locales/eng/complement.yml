@@ -15972,7 +15972,14 @@ eng:
         synest: "Synest"
         telepac: "Telepac"
     opportunity:
-
+      origin:
+        advertisement: "Advertisement"
+        employee_referral: "Employee referral"
+        external_referral: "External referral"
+        partner: "Partner"
+        public_relations: "Public relations"
+        trade_show: "Trade show"
+        web: "Web"
     outgoing_delivery:
       mode:
         delivered_at_place: "Delivered at place"
