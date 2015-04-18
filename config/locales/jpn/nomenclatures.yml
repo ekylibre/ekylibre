@@ -1993,6 +1993,8 @@ jpn:
       # name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_two:
       # name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
+    opportunity_categories:
+      items: #?
     phosphorus_analysis_methods:
       items:
         # dyer: "Dyer"

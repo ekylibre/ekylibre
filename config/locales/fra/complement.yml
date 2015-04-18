@@ -13165,6 +13165,7 @@ fra:
         net_service: "Service en ligne"
         observation: "Observation"
         operation: "Opération"
+        opportunity: "Opportunité"
         outgoing_delivery: "Livraison"
         outgoing_delivery_item: "Ligne de livraison"
         outgoing_payment: "Décaissement"
@@ -16016,6 +16017,8 @@ fra:
         synel: "Synel"
         synest: "Synel Est"
         telepac: "TelePAC"
+    opportunity:
+
     outgoing_delivery:
       mode:
         delivered_at_place: "Transporté chez le destinataire et déchargé par le destinataire"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319084703) do
+ActiveRecord::Schema.define(version: 20150418013301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1585,6 +1585,35 @@ ActiveRecord::Schema.define(version: 20150319084703) do
   add_index "operations", ["stopped_at"], name: "index_operations_on_stopped_at", using: :btree
   add_index "operations", ["updated_at"], name: "index_operations_on_updated_at", using: :btree
   add_index "operations", ["updater_id"], name: "index_operations_on_updater_id", using: :btree
+
+  create_table "opportunities", force: :cascade do |t|
+    t.integer  "responsible_id",                                        null: false
+    t.integer  "affair_id"
+    t.integer  "client_id",                                             null: false
+    t.string   "name"
+    t.string   "number"
+    t.text     "description"
+    t.decimal  "pretax_amount",  precision: 19, scale: 4, default: 0.0
+    t.datetime "dead_line_at"
+    t.string   "currency"
+    t.string   "origin"
+    t.string   "state"
+    t.decimal  "probability",    precision: 19, scale: 4, default: 0.0
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                            default: 0,   null: false
+  end
+
+  add_index "opportunities", ["affair_id"], name: "index_opportunities_on_affair_id", using: :btree
+  add_index "opportunities", ["client_id"], name: "index_opportunities_on_client_id", using: :btree
+  add_index "opportunities", ["created_at"], name: "index_opportunities_on_created_at", using: :btree
+  add_index "opportunities", ["creator_id"], name: "index_opportunities_on_creator_id", using: :btree
+  add_index "opportunities", ["name"], name: "index_opportunities_on_name", using: :btree
+  add_index "opportunities", ["responsible_id"], name: "index_opportunities_on_responsible_id", using: :btree
+  add_index "opportunities", ["updated_at"], name: "index_opportunities_on_updated_at", using: :btree
+  add_index "opportunities", ["updater_id"], name: "index_opportunities_on_updater_id", using: :btree
 
   create_table "outgoing_deliveries", force: :cascade do |t|
     t.string   "number",                                                    null: false

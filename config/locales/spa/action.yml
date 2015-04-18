@@ -423,6 +423,11 @@ spa:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
+    backend/opportunities:
+      # edit: "Edit opportunity: %{name}"
+      # index: "Opportunities"
+      # new: "New opportunity"
+      # show: "Opportunity: %{name}"
     backend/organic_matters: #?
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"

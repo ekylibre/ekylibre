@@ -408,6 +408,11 @@ fra:
       new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
+    backend/opportunities:
+      edit: "Modifier l'opportunité: %{name}"
+      index: "Opportunités"
+      new: "Nouvelle opportunité"
+      show: "Opportunité: %{name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"

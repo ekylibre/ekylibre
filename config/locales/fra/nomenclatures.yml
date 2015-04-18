@@ -1985,6 +1985,8 @@ fra:
       name: "Abaque 12 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_two:
       name: "Abaque 2 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    opportunity_categories:
+      items: #?
     phosphorus_analysis_methods:
       items:
         dyer: "Dyer"

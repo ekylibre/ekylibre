@@ -370,6 +370,11 @@ jpn:
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
+    backend/opportunities:
+      # edit: "Edit opportunity: %{name}"
+      # index: "Opportunities"
+      # new: "New opportunity"
+      # show: "Opportunity: %{name}"
     backend/outgoing_deliveries:
       # edit: "Edit outgoing delivery: %{number}"
       # index: "Outgoing deliveries"

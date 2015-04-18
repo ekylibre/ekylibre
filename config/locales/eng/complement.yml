@@ -13125,6 +13125,7 @@ eng:
         net_service: "Net service"
         observation: "Observation"
         operation: "Operation"
+        opportunity: "Opportunity"
         outgoing_delivery: "Outgoing delivery"
         outgoing_delivery_item: "Outgoing delivery item"
         outgoing_payment: "Disbursement"
@@ -15970,6 +15971,8 @@ eng:
         synel: "Synel"
         synest: "Synest"
         telepac: "Telepac"
+    opportunity:
+
     outgoing_delivery:
       mode:
         delivered_at_place: "Delivered at place"

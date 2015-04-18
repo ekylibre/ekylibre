@@ -531,6 +531,8 @@ Rails.application.routes.draw do
 
     resources :operations, concerns: [:list, :unroll]
 
+    resources :opportunities, concerns: [:list, :unroll]
+
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
         post :invoice

@@ -332,6 +332,7 @@ fra:
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
+      opportunity: "Opportunité"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_payment: "Décaissement"
@@ -595,6 +596,7 @@ fra:
     dashboards: "Tableaux de bord"
     data: "Données complémentaires" #?
     dead_at: "Date de décès"
+    dead_line_at: "Date butoir"
     deal_type: "Type de transaction" #?
     deals_count: "Nombre de transations"
     death: "Mort" #?
@@ -996,6 +998,7 @@ fra:
     printed_at: "Daté du"
     printed_on: "Daté du"
     priority: "Priorité"
+    probability: "Probabilité"
     procedures: "Procédures" #?
     process: "Process" #?
     producer: "Producteur"
@@ -1483,6 +1486,7 @@ fra:
         incoming_deliveries: "BR[year|4][number|4]"
         incoming_payments: "R[year|4][number|6]"
         interventions: "[number]"
+        opportunities: "OP[year|4][number|6]"
         outgoing_deliveries: "BL[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
         plants: "PLANT[year|4][number|4]"
