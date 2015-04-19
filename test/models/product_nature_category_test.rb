@@ -27,6 +27,7 @@
 #  created_at                                                    :datetime         not null
 #  creator_id                                                    :integer
 #  depreciable                                                   :boolean          default(FALSE), not null
+#  depreciation_rate                                             :decimal(19, 4)   default(0.0)
 #  description                                                   :text
 #  financial_asset_account_id                                    :integer
 #  financial_asset_depreciations_account_id                      :integer

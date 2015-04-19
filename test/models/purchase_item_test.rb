@@ -29,6 +29,7 @@
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string           not null
+#  depreciation       :boolean          default(FALSE), not null
 #  id                 :integer          not null, primary key
 #  label              :text
 #  lock_version       :integer          default(0), not null

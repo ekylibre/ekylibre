@@ -62,6 +62,7 @@ class Purchase < Ekylibre::Record::Base
   has_many :items, class_name: "PurchaseItem", dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, :as => :resource
   has_many :products, -> { uniq }, :through => :items
+  has_many :financial_assets, :through => :items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
@@ -144,12 +145,21 @@ class Purchase < Ekylibre::Record::Base
       label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
         # TODO 1.2 - add if statement for depreciable method during purchase
-        # if depreciable?
-        #   entry.add_debit(label, (item.variant.financial_asset_account), item.pretax_amount) unless item.pretax_amount.zero?
-        #   # create the financial_asset with duration ...
-        # else
-        #   entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
-        # end
+        if item.variant.depreciable? and item.depreciation?
+           entry.add_debit(label, (item.variant.financial_asset_account), item.pretax_amount) unless item.pretax_amount.zero?
+           # create the financial_asset
+           financial_asset = item.financial_assets.create!(name: item.name,
+                                                           depreciable_amount: item.pretax_amount,
+                                                           depreciation_method: :simplified_linear,
+                                                           started_on: item.purchase.invoiced_at.to_date,
+                                                           depreciation_percentage: item.variant.depreciation_rate,
+                                                           journal_id: Journal.where(nature: :various).first,
+                                                           allocation_account: item.variant.financial_asset_depreciations_account, #28
+                                                           charges_account: item.variant.financial_asset_depreciations_inputations_expenses_account #68
+                                                           )
+        else
+         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
+        end
         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end

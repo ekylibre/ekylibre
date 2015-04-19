@@ -3737,6 +3737,10 @@ product_nature_categories:
     type: boolean
     required: true
     default: false
+  depreciation_rate:
+    type: decimal
+    precision: 19
+    scale: 4
   description:
     type: text
   financial_asset_account_id:
@@ -4590,6 +4594,10 @@ purchase_items:
   currency:
     type: string
     required: true
+  depreciation:
+    type: boolean
+    required: true
+    default: false
   id:
     type: integer
     required: true

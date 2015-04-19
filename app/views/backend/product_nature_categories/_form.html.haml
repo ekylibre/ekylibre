@@ -25,6 +25,7 @@
   = f.referenced_association :financial_asset_account
   = f.referenced_association :financial_asset_depreciations_account, :source => :assets_depreciations
   = f.referenced_association :financial_asset_depreciations_inputations_expenses_account, :source => :asset_depreciations_inputations_expenses
+  = f.input :depreciation_rate
 
 = field_set(:sales) do
   = f.referenced_association :product_account

@@ -27,6 +27,7 @@
 #  created_at                                                    :datetime         not null
 #  creator_id                                                    :integer
 #  depreciable                                                   :boolean          default(FALSE), not null
+#  depreciation_rate                                             :decimal(19, 4)   default(0.0)
 #  description                                                   :text
 #  financial_asset_account_id                                    :integer
 #  financial_asset_depreciations_account_id                      :integer
@@ -69,6 +70,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   has_many :purchase_taxations, -> { where(usage: "purchase") }, class_name: "ProductNatureCategoryTaxation", inverse_of: :product_nature_category
   has_many :purchase_taxes, class_name: "Tax", through: :purchase_taxations, source: :tax
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :depreciation_rate, allow_nil: true
   validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
@@ -182,7 +184,8 @@ class ProductNatureCategory < Ekylibre::Record::Base
       :purchasable => item.purchasable,
       :reductible => item.reductible,
       :saleable => item.saleable,
-      :storable => item.storable
+      :storable => item.storable,
+      :depreciation_rate => (item.depreciation_rate? ? item.depreciation_rate : nil)
     }.with_indifferent_access
     for account in [:financial_asset, :financial_asset_depreciations, :financial_asset_depreciations_inputations_expenses, :charge, :product, :stock]
       name = item.send("#{account}_account")

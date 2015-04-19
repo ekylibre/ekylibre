@@ -9,5 +9,6 @@
   %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, class: "item-pta item-wta"})
   %td.decimal.pta{data: {use: ".item-pta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.purchase_currency].precision}"}}= item.pretax_amount
   %td.decimal.wta{data: {use: ".item-wta", use_closest: ".nested-fields", calculate: "mul", calculate_round: "#{Nomen::Currencies[f.object.purchase_currency].precision}"}}= item.amount
+  %td.boolean= f.input(:depreciation, input_html: {class: "depreciable"})
   %td.currency= f.object.purchase_currency
   %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')

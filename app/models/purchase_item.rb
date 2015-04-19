@@ -29,6 +29,7 @@
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string           not null
+#  depreciation       :boolean          default(FALSE), not null
 #  id                 :integer          not null, primary key
 #  label              :text
 #  lock_version       :integer          default(0), not null
@@ -53,9 +54,10 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :purchase_items
   belongs_to :tax
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
+  has_many :financial_assets, class_name: "FinancialAsset", foreign_key: :purchase_item_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_inclusion_of :all_taxes_included, in: [true, false]
+  validates_inclusion_of :all_taxes_included, :depreciation, in: [true, false]
   validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :tax, :unit_amount, :unit_pretax_amount, :variant
   #]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3

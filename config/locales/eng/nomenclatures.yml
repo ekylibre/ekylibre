@@ -2120,6 +2120,7 @@ eng:
       property_natures:
         charge_account: "Charge account"
         depreciable: "Depreciable"
+        # depreciation_rate: "Depreciation rate"
         financial_asset_account: "Financial asset account"
         financial_asset_depreciations_account: "Financial asset depreciations account"
         financial_asset_depreciations_inputations_expenses_account: "Financial asset depreciations inputations expenses account"

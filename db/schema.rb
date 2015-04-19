@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418013301) do
+ActiveRecord::Schema.define(version: 20150418225701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1973,31 +1973,32 @@ ActiveRecord::Schema.define(version: 20150418013301) do
   add_index "product_memberships", ["updater_id"], name: "index_product_memberships_on_updater_id", using: :btree
 
   create_table "product_nature_categories", force: :cascade do |t|
-    t.string   "name",                                                                          null: false
-    t.string   "number",                                                                        null: false
+    t.string   "name",                                                                                                   null: false
+    t.string   "number",                                                                                                 null: false
     t.text     "description"
     t.string   "reference_name"
     t.string   "pictogram"
-    t.boolean  "active",                                                        default: false, null: false
-    t.boolean  "depreciable",                                                   default: false, null: false
-    t.boolean  "saleable",                                                      default: false, null: false
-    t.boolean  "purchasable",                                                   default: false, null: false
-    t.boolean  "storable",                                                      default: false, null: false
-    t.boolean  "reductible",                                                    default: false, null: false
-    t.boolean  "subscribing",                                                   default: false, null: false
+    t.boolean  "active",                                                                                 default: false, null: false
+    t.boolean  "depreciable",                                                                            default: false, null: false
+    t.boolean  "saleable",                                                                               default: false, null: false
+    t.boolean  "purchasable",                                                                            default: false, null: false
+    t.boolean  "storable",                                                                               default: false, null: false
+    t.boolean  "reductible",                                                                             default: false, null: false
+    t.boolean  "subscribing",                                                                            default: false, null: false
     t.integer  "subscription_nature_id"
     t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "financial_asset_account_id"
     t.integer  "stock_account_id"
-    t.datetime "created_at",                                                                    null: false
-    t.datetime "updated_at",                                                                    null: false
+    t.datetime "created_at",                                                                                             null: false
+    t.datetime "updated_at",                                                                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                  default: 0,     null: false
+    t.integer  "lock_version",                                                                           default: 0,     null: false
     t.integer  "financial_asset_depreciations_account_id"
     t.integer  "financial_asset_depreciations_inputations_expenses_account_id"
+    t.decimal  "depreciation_rate",                                             precision: 19, scale: 4, default: 0.0
   end
 
   add_index "product_nature_categories", ["charge_account_id"], name: "index_product_nature_categories_on_charge_account_id", using: :btree
@@ -2439,6 +2440,7 @@ ActiveRecord::Schema.define(version: 20150418013301) do
     t.integer  "lock_version",                                default: 0,     null: false
     t.decimal  "unit_amount",        precision: 19, scale: 4, default: 0.0,   null: false
     t.boolean  "all_taxes_included",                          default: false, null: false
+    t.boolean  "depreciation",                                default: false, null: false
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree
